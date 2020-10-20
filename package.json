@@ -1,0 +1,49 @@
+{
+  "name": "lbh-social-care",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "test": "jest",
+    "lint": "eslint . --ext .js,.jsx && echo 'Lint complete.'",
+    "format": "prettier '**/*.{js,jsx,css,scss,md}' --write --list-different"
+  },
+  "dependencies": {
+    "govuk-frontend": "^3.6.0",
+    "next": "9.5.5",
+    "react": "16.14.0",
+    "react-dom": "16.14.0"
+  },
+  "devDependencies": {
+    "@testing-library/jest-dom": "^5.7.0",
+    "@testing-library/react": "^10.0.4",
+    "babel-eslint": "^10.1.0",
+    "babel-jest": "^25.5.1",
+    "eslint": "^6.6.0",
+    "eslint-config-prettier": "^6.5.0",
+    "eslint-plugin-jest": "^23.13.2",
+    "eslint-plugin-prettier": "^3.1.1",
+    "eslint-plugin-react": "^7.20.0",
+    "husky": ">=4",
+    "jest": "^25.5.4",
+    "lint-staged": ">=10",
+    "prettier": "^1.18.2",
+    "prop-types": "^15.7.2",
+    "sass": "^1.26.8"
+  },
+  "optionalDependencies": {
+    "@babel/core": "7.x",
+    "typescript": "^3.9.5"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged && yarn unit-test"
+    }
+  },
+  "lint-staged": {
+    "**/*.{js,jsx}": "eslint --fix",
+    "**/*.{js,jsx,css,scss,md}": "prettier --write --list-different"
+  }
+}
