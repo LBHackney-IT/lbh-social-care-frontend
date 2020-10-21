@@ -27,7 +27,7 @@ const Checkbox = ({ label, name, register, error }) => (
       </div>
     </div>
     {error && (
-      <ErrorMessage text={error.message} className="govuk-!-margin-top-3" />
+      <ErrorMessage label={error.message} className="govuk-!-margin-top-3" />
     )}
   </div>
 );

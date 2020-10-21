@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import cx from 'classnames';
 
-const Button = ({ onClick, children, type, isSecondary, ...otherProps }) => (
+const Button = ({ onClick, label, type, isSecondary, ...otherProps }) => (
   <div className="govuk-form-group">
     <button
       className={cx('govuk-button', { 'govuk-button--secondary': isSecondary })}
@@ -10,14 +10,14 @@ const Button = ({ onClick, children, type, isSecondary, ...otherProps }) => (
       type={type}
       {...otherProps}
     >
-      {children}
+      {label}
     </button>
   </div>
 );
 
 Button.propTypes = {
   onClick: PropTypes.func,
-  children: PropTypes.node.isRequired,
+  label: PropTypes.node.isRequired,
   type: PropTypes.string,
   isSecondary: PropTypes.bool
 };

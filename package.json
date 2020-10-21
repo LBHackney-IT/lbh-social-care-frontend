@@ -8,19 +8,27 @@
     "start": "next start",
     "test": "jest",
     "lint": "eslint . --ext .js,.jsx && echo 'Lint complete.'",
-    "format": "prettier '**/*.{js,jsx,css,scss,md}' --write --list-different"
+    "format": "prettier '**/*.{js,jsx,css,scss,md}' --write --list-different",
+    "storybook": "start-storybook -p 6006",
+    "build-storybook": "build-storybook"
   },
   "dependencies": {
     "govuk-frontend": "^3.6.0",
     "next": "9.5.5",
     "react": "16.14.0",
-    "react-dom": "16.14.0"
+    "react-dom": "16.14.0",
+    "react-hook-form": "^6.9.5"
   },
   "devDependencies": {
+    "@storybook/addon-actions": "^6.0.26",
+    "@storybook/addon-essentials": "^6.0.26",
+    "@storybook/addon-links": "^6.0.26",
+    "@storybook/react": "^6.0.26",
     "@testing-library/jest-dom": "^5.7.0",
     "@testing-library/react": "^10.0.4",
     "babel-eslint": "^10.1.0",
     "babel-jest": "^25.5.1",
+    "babel-loader": "^8.1.0",
     "eslint": "^6.6.0",
     "eslint-config-prettier": "^6.5.0",
     "eslint-plugin-jest": "^23.13.2",
@@ -31,10 +39,12 @@
     "lint-staged": ">=10",
     "prettier": "^1.18.2",
     "prop-types": "^15.7.2",
-    "sass": "^1.26.8"
+    "react-is": "^17.0.0",
+    "sass": "^1.26.8",
+    "sass-loader": "^10.0.3"
   },
   "optionalDependencies": {
-    "@babel/core": "7.x",
+    "@babel/core": "^7.12.3",
     "typescript": "^3.9.5"
   },
   "husky": {

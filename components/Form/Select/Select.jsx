@@ -30,7 +30,7 @@ const Select = ({
       </span>
     )}
     {children}
-    {error && <ErrorMessage text={error.message} />}
+    {error && <ErrorMessage label={error.message} />}
     <select
       className="govuk-select"
       id={name}
@@ -65,7 +65,7 @@ Select.propTypes = {
         text: PropTypes.string.isRequired
       })
     ])
-  ),
+  ).isRequired,
   selected: PropTypes.string,
   register: PropTypes.func,
   children: PropTypes.node,

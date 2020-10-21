@@ -30,7 +30,7 @@ const Radio = ({
       </span>
     )}
     {children}
-    {error && <ErrorMessage text={error.message} />}
+    {error && <ErrorMessage label={error.message} />}
     <div
       className={cx('govuk-radios', { 'govuk-radios--inline': isRadiosInline })}
     >

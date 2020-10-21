@@ -1,14 +1,14 @@
 import PropTypes from 'prop-types';
 import cx from 'classnames';
 
-const ErrorMessage = ({ children, className }) => (
+const ErrorMessage = ({ label, className }) => (
   <span className={cx('govuk-error-message', className)}>
-    <span className="govuk-visually-hidden">Error:</span> {children}
+    <span className="govuk-visually-hidden">Error:</span> {label}
   </span>
 );
 
 ErrorMessage.propTypes = {
-  children: PropTypes.node.isRequired,
+  label: PropTypes.node.isRequired,
   className: PropTypes.string
 };
 

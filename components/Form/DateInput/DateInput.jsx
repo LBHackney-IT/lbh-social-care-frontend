@@ -32,7 +32,7 @@ const DateInput = ({ label, inputRef, error, value, onChange }) => {
         <legend className="govuk-fieldset__legend govuk-fieldset__legend--m">
           <h1 className="govuk-fieldset__heading">{label}</h1>
         </legend>
-        {error && <ErrorMessage text={error.message} />}
+        {error && <ErrorMessage label={error.message} />}
         <div className="govuk-date-input" id={name}>
           <div className="govuk-date-input__item">
             <div className="govuk-form-group">

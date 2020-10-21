@@ -26,7 +26,7 @@ const TextInput = ({
         {hint}
       </span>
     )}
-    {error && <ErrorMessage text={error.message} />}
+    {error && <ErrorMessage label={error.message} />}
     <input
       className={cx('govuk-input', inputClassName, {
         'govuk-input--error': error
