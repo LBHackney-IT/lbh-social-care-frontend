@@ -1,14 +1,15 @@
-import Head from 'next/head';
+import PropTypes from 'prop-types';
 import { useRouter } from 'next/router';
+import { isAuthorised, redirectToLogin } from 'utils/auth';
+import { NextSeo } from 'next-seo';
+import AdminNavBar from 'components/AdminNavBar/AdminNavBar';
 
-const Home = () => {
+const Home = ({ userDetails }) => {
   const router = useRouter();
   return (
     <div>
-      <Head>
-        <title>Home</title>
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
+      <NextSeo title="Home" />
+      <AdminNavBar adminName={userDetails.name} />
       <div className="hero">
         <h1 className="title">Welcome!</h1>
         <button onClick={() => router.push('/adult-form')}>Adult Form</button>
@@ -16,6 +17,24 @@ const Home = () => {
       </div>
     </div>
   );
+};
+
+Home.propTypes = {
+  userDetails: PropTypes.object
+};
+
+export const getServerSideProps = async ctx => {
+  const user = isAuthorised(ctx);
+
+  if (!user || !user.isAuthorised) {
+    redirectToLogin(ctx);
+  }
+
+  return {
+    props: {
+      userDetails: user
+    }
+  };
 };
 
 export default Home;
