@@ -1,13 +1,13 @@
 import axios from 'axios';
 
-const { AWS_ENDPOINT, AWS_SECRET, API_RESIDENTS } = process.env;
+const { ENDPOINT_RESIDENTS, AWS_AUTHORIZATION } = process.env;
 
 const headers = {
-  Authorization: AWS_SECRET,
+  Authorization: AWS_AUTHORIZATION,
 };
 
 export const getResidents = async (params) => {
-  const { data } = await axios.get(`${AWS_ENDPOINT}${API_RESIDENTS}`, {
+  const { data } = await axios.get(ENDPOINT_RESIDENTS, {
     headers,
     params,
   });
@@ -15,7 +15,7 @@ export const getResidents = async (params) => {
 };
 
 export const getResident = async (id) => {
-  const { data } = await axios.get(`${AWS_ENDPOINT}${API_RESIDENTS}/${id}`, {
+  const { data } = await axios.get(`${ENDPOINT_RESIDENTS}/${id}`, {
     headers,
   });
   return data;
