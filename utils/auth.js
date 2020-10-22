@@ -72,7 +72,6 @@ export const isAuthorised = ctx => {
             email: payload.email,
             isAdmin: true
           };
-
         } else {
           redirectToAcessDenied(ctx);
         }

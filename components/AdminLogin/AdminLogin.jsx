@@ -1,4 +1,4 @@
-import PropTypes from "prop-types";
+import PropTypes from 'prop-types';
 
 const AdminLogin = ({ submitText, gssoUrl }) => {
   return (
@@ -12,7 +12,7 @@ const AdminLogin = ({ submitText, gssoUrl }) => {
 
 AdminLogin.propTypes = {
   gssoUrl: PropTypes.string.isRequired,
-  submitText: PropTypes.string.isRequired,
+  submitText: PropTypes.string.isRequired
 };
 
 export default AdminLogin;

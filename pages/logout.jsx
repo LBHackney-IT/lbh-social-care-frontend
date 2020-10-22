@@ -1,8 +1,8 @@
-import { deleteSession } from "utils/auth";
+import { deleteSession } from 'utils/auth';
 
 const Logout = () => null;
 
-export const getServerSideProps = async (ctx) => {
+export const getServerSideProps = async ctx => {
   deleteSession(ctx);
   return { props: {} };
 };

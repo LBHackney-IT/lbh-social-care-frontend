@@ -1,4 +1,4 @@
-import { NextSeo } from "next-seo";
+import { NextSeo } from 'next-seo';
 
 export default function AccessDenied() {
   return (
@@ -16,6 +16,6 @@ AccessDenied.propTypes = {};
 
 export const getServerSideProps = async () => {
   return {
-    props: {},
+    props: {}
   };
 };
