@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import { NextSeo } from 'next-seo';
 import { redirectToHome, isAuthorised } from 'utils/auth';
-import { getProtocol } from 'lib/urls';
+import { getProtocol } from 'utils/urls';
 import AdminLogin from 'components/AdminLogin/AdminLogin';
 
 export default function AdminLoginPage({ gssoUrl, returnUrl }) {
