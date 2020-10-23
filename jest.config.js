@@ -5,7 +5,8 @@ module.exports = {
     '!**/node_modules/**'
   ],
   clearMocks: true,
-  testMatch: ['<rootDir>/**/*.test.[jt]s?(x)'],
+  setupFiles: ['dotenv/config'],
+  testMatch: ['<rootDir>/**/*.spec.[jt]s?(x)'],
   testPathIgnorePatterns: ['/node_modules/', '/build/'],
   setupFilesAfterEnv: ['<rootDir>/setupTests.js'],
   transform: {
