@@ -2,18 +2,18 @@ import Button from './Button';
 
 export default {
   title: 'Form/Button',
-  component: Button
+  component: Button,
 };
 
-const Template = args => <Button {...args} />;
+const Template = (args) => <Button {...args} />;
 
 export const Primary = Template.bind({});
 Primary.args = {
-  label: 'Button'
+  label: 'Button',
 };
 
 export const Secondary = Template.bind({});
 Secondary.args = {
   label: 'Button',
-  isSecondary: 'true'
+  isSecondary: 'true',
 };

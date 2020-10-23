@@ -19,7 +19,7 @@ describe('Button', () => {
       getByText(buttonText),
       new MouseEvent('click', {
         bubbles: true,
-        cancelable: true
+        cancelable: true,
       })
     );
     expect(myAction).toHaveBeenCalled();

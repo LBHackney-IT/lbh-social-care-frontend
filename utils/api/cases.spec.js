@@ -14,10 +14,10 @@ describe('cases APIs', () => {
       expect(axios.get).toHaveBeenCalled();
       expect(axios.get.mock.calls[0][0]).toEqual(ENDPOINT_CASES);
       expect(axios.get.mock.calls[0][1].headers).toEqual({
-        'x-api-key': AWS_KEY
+        'x-api-key': AWS_KEY,
       });
       expect(axios.get.mock.calls[0][1].params).toEqual({
-        mosaic_id: 123
+        mosaic_id: 123,
       });
       expect(data).toEqual('bar');
     });

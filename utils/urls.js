@@ -10,7 +10,7 @@ export const absoluteUrl = (req, setLocalhost) => {
   return {
     protocol: protocol,
     host: host,
-    origin: protocol + '//' + host
+    origin: protocol + '//' + host,
   };
 };
 

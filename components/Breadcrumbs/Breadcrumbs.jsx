@@ -11,7 +11,7 @@ const Breadcrumbs = ({ label, link, state }) => (
 
 Breadcrumbs.propTypes = {
   label: PropTypes.string.isRequired,
-  link: PropTypes.string
+  link: PropTypes.string,
 };
 
 export default Breadcrumbs;

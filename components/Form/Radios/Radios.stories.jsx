@@ -2,36 +2,36 @@ import Radios from './Radios';
 
 export default {
   title: 'Form/Radios',
-  component: Radios
+  component: Radios,
 };
 
-const Template = args => <Radios {...args} />;
+const Template = (args) => <Radios {...args} />;
 
 export const Default = Template.bind({});
 Default.args = {
   label: 'Radios',
   hint: 'I am a hint text',
-  name: 'default'
+  name: 'default',
 };
 
 export const withOptions = Template.bind({});
 withOptions.args = {
   label: 'Radios',
-  name: 'withOptions'
+  name: 'withOptions',
 };
 
 export const withError = Template.bind({});
 withError.args = {
   label: 'Radios',
   name: 'withError',
-  error: { message: 'Ops! There was an error!' }
+  error: { message: 'Ops! There was an error!' },
 };
 
 export const withRadioInNewline = Template.bind({});
 withRadioInNewline.args = {
   label: 'Radios',
   name: 'withRadioInNewline',
-  isRadiosInline: false
+  isRadiosInline: false,
 };
 
 export const withChildren = Template.bind({});
@@ -49,5 +49,5 @@ withChildren.args = {
       </summary>
       <div className="govuk-details__text">Hello :)</div>
     </details>
-  )
+  ),
 };

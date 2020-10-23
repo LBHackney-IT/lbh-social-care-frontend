@@ -2,7 +2,7 @@ module.exports = {
   collectCoverageFrom: [
     '**/*.{js,jsx,ts,tsx}',
     '!**/*.d.ts',
-    '!**/node_modules/**'
+    '!**/node_modules/**',
   ],
   clearMocks: true,
   setupFiles: ['dotenv/config'],
@@ -10,14 +10,14 @@ module.exports = {
   testPathIgnorePatterns: ['/node_modules/', '/build/'],
   setupFilesAfterEnv: ['<rootDir>/setupTests.js'],
   transform: {
-    '^.+\\.(js|jsx|ts|tsx)$': '<rootDir>/node_modules/babel-jest'
+    '^.+\\.(js|jsx|ts|tsx)$': '<rootDir>/node_modules/babel-jest',
   },
   transformIgnorePatterns: [
     '/node_modules/',
-    '^.+\\.module\\.(css|sass|scss)$'
+    '^.+\\.module\\.(css|sass|scss)$',
   ],
   moduleNameMapper: {
-    '^.+\\.module\\.(css|sass|scss)$': 'identity-obj-proxy'
+    '^.+\\.module\\.(css|sass|scss)$': 'identity-obj-proxy',
   },
-  moduleDirectories: ['node_modules', '.']
+  moduleDirectories: ['node_modules', '.'],
 };

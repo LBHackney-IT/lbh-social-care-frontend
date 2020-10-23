@@ -7,7 +7,7 @@ import AdminLogin from 'components/AdminLogin/AdminLogin';
 export default function AdminLoginPage({ gssoUrl, returnUrl }) {
   return (
     <div>
-      <NextSeo title="Log In" noindex={true} />
+      <NextSeo title="Log In" noindex />
       <h1>Login</h1>
 
       <p className="govuk-body">
@@ -25,10 +25,10 @@ export default function AdminLoginPage({ gssoUrl, returnUrl }) {
 
 AdminLoginPage.propTypes = {
   gssoUrl: PropTypes.string.isRequired,
-  returnUrl: PropTypes.string.isRequired
+  returnUrl: PropTypes.string.isRequired,
 };
 
-export const getServerSideProps = async ctx => {
+export const getServerSideProps = async (ctx) => {
   const { GSSO_URL } = process.env;
   const protocol = getProtocol();
   const host = ctx.req.headers.host;
@@ -42,7 +42,7 @@ export const getServerSideProps = async ctx => {
   return {
     props: {
       gssoUrl: GSSO_URL,
-      returnUrl: `${protocol}://${host}`
-    }
+      returnUrl: `${protocol}://${host}`,
+    },
   };
 };

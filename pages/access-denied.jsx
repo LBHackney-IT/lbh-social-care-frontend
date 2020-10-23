@@ -16,6 +16,6 @@ AccessDenied.propTypes = {};
 
 export const getServerSideProps = async () => {
   return {
-    props: {}
+    props: {},
   };
 };

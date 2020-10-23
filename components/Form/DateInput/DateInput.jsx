@@ -17,7 +17,7 @@ const DateInput = ({
   value,
   rules,
   name,
-  onChange
+  onChange,
 }) => {
   const [date, setDate] = useState(getInitialDate(value));
   useEffect(() => {
@@ -30,7 +30,7 @@ const DateInput = ({
   return (
     <div
       className={cx('govuk-form-group', {
-        'govuk-form-group--error': error
+        'govuk-form-group--error': error,
       })}
     >
       <fieldset
@@ -63,7 +63,7 @@ const DateInput = ({
                 className={cx(
                   'govuk-input govuk-date-input__input govuk-input--width-2',
                   {
-                    'govuk-input--error': error
+                    'govuk-input--error': error,
                   }
                 )}
                 id={`${name}-day`}
@@ -91,7 +91,7 @@ const DateInput = ({
                 className={cx(
                   'govuk-input govuk-date-input__input govuk-input--width-2',
                   {
-                    'govuk-input--error': error
+                    'govuk-input--error': error,
                   }
                 )}
                 id={`${name}-month`}
@@ -118,7 +118,7 @@ const DateInput = ({
                 className={cx(
                   'govuk-input govuk-date-input__input govuk-input--width-4',
                   {
-                    'govuk-input--error': error
+                    'govuk-input--error': error,
                   }
                 )}
                 id={`${name}-year`}

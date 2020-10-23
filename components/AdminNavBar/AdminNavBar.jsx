@@ -25,7 +25,7 @@ const AdminNavBar = ({ adminName }) => {
 };
 
 AdminNavBar.propTypes = {
-  adminName: PropTypes.string
+  adminName: PropTypes.string,
 };
 
 export default AdminNavBar;

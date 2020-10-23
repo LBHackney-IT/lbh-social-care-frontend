@@ -5,11 +5,11 @@ module.exports = {
     config.module.rules.push({
       test: /\.scss$/,
       use: ['style-loader', 'css-loader', 'sass-loader'],
-      include: path.resolve(__dirname, '../')
+      include: path.resolve(__dirname, '../'),
     });
     config.resolve.modules.push(process.cwd() + '/');
     return config;
   },
   stories: ['../**/*.stories.mdx', '../**/*.stories.@(js|jsx|ts|tsx)'],
-  addons: ['@storybook/addon-links', '@storybook/addon-essentials']
+  addons: ['@storybook/addon-links', '@storybook/addon-essentials'],
 };
