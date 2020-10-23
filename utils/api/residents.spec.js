@@ -4,7 +4,12 @@ import * as residentsAPI from './residents';
 
 jest.mock('axios');
 
-const { ENDPOINT_RESIDENTS, AWS_AUTHORIZATION } = process.env;
+const {
+  ENDPOINT_API,
+  ENDPOINT_MOSAIC,
+  AWS_KEY,
+  AWS_AUTHORIZATION,
+} = process.env;
 
 describe('residents APIs', () => {
   describe('getResidents', () => {
@@ -14,9 +19,9 @@ describe('residents APIs', () => {
         foo: 'bar',
       });
       expect(axios.get).toHaveBeenCalled();
-      expect(axios.get.mock.calls[0][0]).toEqual(ENDPOINT_RESIDENTS);
+      expect(axios.get.mock.calls[0][0]).toEqual(`${ENDPOINT_API}/residents`);
       expect(axios.get.mock.calls[0][1].headers).toEqual({
-        Authorization: AWS_AUTHORIZATION,
+        'x-api-key': AWS_KEY,
       });
       expect(data).toEqual('bar');
     });
@@ -27,7 +32,9 @@ describe('residents APIs', () => {
       axios.get.mockResolvedValue({ data: 'foobar' });
       const data = await residentsAPI.getResident('foo');
       expect(axios.get).toHaveBeenCalled();
-      expect(axios.get.mock.calls[0][0]).toEqual(`${ENDPOINT_RESIDENTS}/foo`);
+      expect(axios.get.mock.calls[0][0]).toEqual(
+        `${ENDPOINT_MOSAIC}/residents/foo`
+      );
       expect(axios.get.mock.calls[0][1].headers).toEqual({
         Authorization: AWS_AUTHORIZATION,
       });
