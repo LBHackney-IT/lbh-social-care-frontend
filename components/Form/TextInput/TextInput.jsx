@@ -11,6 +11,8 @@ const TextInput = ({
   error,
   type = 'text',
   inputClassName,
+  required,
+  width,
   ...otherProps
 }) => (
   <div
@@ -19,7 +21,7 @@ const TextInput = ({
     })}
   >
     <label className="govuk-label govuk-label--m" htmlFor={name}>
-      {label}
+      {label} <span className="govuk-required">{required ? '*' : null}</span>
     </label>
     {hint && (
       <span id={`${name}-hint`} className="govuk-hint">
@@ -28,7 +30,7 @@ const TextInput = ({
     )}
     {error && <ErrorMessage label={error.message} />}
     <input
-      className={cx('govuk-input', inputClassName, {
+      className={cx(`govuk-input govuk-input--width-${width}`, inputClassName, {
         'govuk-input--error': error
       })}
       id={name}
@@ -51,7 +53,9 @@ TextInput.propTypes = {
   }),
   inputClassName: PropTypes.string,
   type: PropTypes.string,
-  register: PropTypes.func
+  register: PropTypes.func,
+  required: PropTypes.bool,
+  width: PropTypes.string
 };
 
 export default TextInput;

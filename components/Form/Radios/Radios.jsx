@@ -13,7 +13,8 @@ const Radio = ({
   register,
   error,
   children,
-  isRadiosInline = true,
+  required,
+  isRadiosInline = false,
   ...otherProps
 }) => (
   <div
@@ -22,7 +23,7 @@ const Radio = ({
     })}
   >
     <label className="govuk-label govuk-label--m" htmlFor={name}>
-      {label}
+      {label} <span className="govuk-required">{required ? '*' : null}</span>
     </label>
     {hint && (
       <span id={`${name}-hint`} className="govuk-hint">

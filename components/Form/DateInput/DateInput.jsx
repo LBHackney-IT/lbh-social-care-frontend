@@ -9,7 +9,16 @@ const getInitialDate = (value = '') => {
   return { day, month, year };
 };
 
-const DateInput = ({ label, inputRef, error, value, onChange }) => {
+const DateInput = ({
+  label,
+  inputRef,
+  error,
+  hint,
+  value,
+  rules,
+  name,
+  onChange
+}) => {
   const [date, setDate] = useState(getInitialDate(value));
   useEffect(() => {
     const { day, month, year } = date;
@@ -30,8 +39,16 @@ const DateInput = ({ label, inputRef, error, value, onChange }) => {
         aria-describedby={`${name}-hint`}
       >
         <legend className="govuk-fieldset__legend govuk-fieldset__legend--m">
-          <h1 className="govuk-fieldset__heading">{label}</h1>
+          <h1 className="govuk-fieldset__heading">
+            {label}
+            <span className="govuk-required">
+              {rules.required ? ' *' : null}
+            </span>
+          </h1>
         </legend>
+        <span id={`${name}-hint`} className="govuk-hint">
+          {hint}
+        </span>
         {error && <ErrorMessage label={error.message} />}
         <div className="govuk-date-input" id={name}>
           <div className="govuk-date-input__item">
@@ -122,11 +139,27 @@ const DateInput = ({ label, inputRef, error, value, onChange }) => {
   );
 };
 
-const ControlledDateInput = ({ control, name, rules, ...otherProps }) => {
+const ControlledDateInput = ({
+  control,
+  name,
+  rules,
+  label,
+  hint,
+  ...otherProps
+}) => {
   const inputRef = useRef();
   return (
     <Controller
-      as={<DateInput inputRef={inputRef} {...otherProps} />}
+      as={
+        <DateInput
+          inputRef={inputRef}
+          hint={hint}
+          label={label}
+          rules={rules}
+          name={name}
+          {...otherProps}
+        />
+      }
       onChange={([value]) => value}
       name={name}
       rules={rules}

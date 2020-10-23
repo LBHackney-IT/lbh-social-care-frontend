@@ -1,16 +1,13 @@
-
 .AdminNavBar {
-    text-align: right;
+  text-align: right;
 
+  .navList {
+    list-style-type: none;
+    display: flex;
+    justify-content: flex-end;
+  }
 
-    .navList {
-        list-style-type: none;
-        display: flex;
-        justify-content: flex-end;
-    }
-
-    .navListItem {
-        margin-left: 20px
-
-    }
+  .navListItem {
+    margin-left: 20px;
+  }
 }
