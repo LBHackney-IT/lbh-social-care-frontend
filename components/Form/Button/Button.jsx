@@ -19,7 +19,7 @@ Button.propTypes = {
   onClick: PropTypes.func,
   label: PropTypes.node.isRequired,
   type: PropTypes.string,
-  isSecondary: PropTypes.bool
+  isSecondary: PropTypes.bool,
 };
 
 export default Button;

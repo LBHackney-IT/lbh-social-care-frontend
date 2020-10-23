@@ -2,10 +2,10 @@ import ErrorSummary from './ErrorSummary';
 
 export default {
   title: 'ErrorSummary',
-  component: ErrorSummary
+  component: ErrorSummary,
 };
 
-const Template = args => <ErrorSummary {...args} />;
+const Template = (args) => <ErrorSummary {...args} />;
 
 export const Default = Template.bind({});
 Default.args = {
@@ -13,6 +13,6 @@ Default.args = {
   body: 'i am an error summary box',
   links: [
     { href: 'foo', text: 'foo' },
-    { href: 'bar', text: 'bar' }
-  ]
+    { href: 'bar', text: 'bar' },
+  ],
 };

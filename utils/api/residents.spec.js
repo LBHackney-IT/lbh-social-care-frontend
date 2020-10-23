@@ -11,12 +11,12 @@ describe('residents APIs', () => {
     it('should work properly', async () => {
       axios.get.mockResolvedValue({ data: { foo: 123, residents: 'bar' } });
       const data = await residentsAPI.getResidents({
-        foo: 'bar'
+        foo: 'bar',
       });
       expect(axios.get).toHaveBeenCalled();
       expect(axios.get.mock.calls[0][0]).toEqual(ENDPOINT_RESIDENTS);
       expect(axios.get.mock.calls[0][1].headers).toEqual({
-        Authorization: AWS_AUTHORIZATION
+        Authorization: AWS_AUTHORIZATION,
       });
       expect(data).toEqual('bar');
     });
@@ -29,7 +29,7 @@ describe('residents APIs', () => {
       expect(axios.get).toHaveBeenCalled();
       expect(axios.get.mock.calls[0][0]).toEqual(`${ENDPOINT_RESIDENTS}/foo`);
       expect(axios.get.mock.calls[0][1].headers).toEqual({
-        Authorization: AWS_AUTHORIZATION
+        Authorization: AWS_AUTHORIZATION,
       });
       expect(data).toEqual('foobar');
     });

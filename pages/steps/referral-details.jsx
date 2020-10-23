@@ -97,7 +97,7 @@ const ReferralDetails = () => {
               'Self-referral',
               'Professional referral',
               'Third party referral',
-              'Other'
+              'Other',
             ]}
           />
           <TextInput
@@ -115,7 +115,7 @@ const ReferralDetails = () => {
               'Diversion from Hospital Services',
               'Self-funder with depleted funds',
               'Self-funder with depleted funds (of which previously provided with 12-week disregard or deferred payment)',
-              'Community/Other route'
+              'Community/Other route',
             ]}
             register={register()}
           />
@@ -134,7 +134,7 @@ const ReferralDetails = () => {
               'Temporary illness',
               'Simple services',
               'Assessment',
-              'Test/Investigations'
+              'Test/Investigations',
             ]}
             register={register()}
           />

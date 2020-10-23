@@ -17,7 +17,7 @@ const TextInput = ({
 }) => (
   <div
     className={cx('govuk-form-group', {
-      'govuk-form-group--error': error
+      'govuk-form-group--error': error,
     })}
   >
     <label className="govuk-label govuk-label--m" htmlFor={name}>
@@ -31,7 +31,7 @@ const TextInput = ({
     {error && <ErrorMessage label={error.message} />}
     <input
       className={cx(`govuk-input govuk-input--width-${width}`, inputClassName, {
-        'govuk-input--error': error
+        'govuk-input--error': error,
       })}
       id={name}
       data-testid={name}
@@ -49,13 +49,13 @@ TextInput.propTypes = {
   hint: PropTypes.string,
   name: PropTypes.string.isRequired,
   error: PropTypes.shape({
-    message: PropTypes.string.isRequired
+    message: PropTypes.string.isRequired,
   }),
   inputClassName: PropTypes.string,
   type: PropTypes.string,
   register: PropTypes.func,
   required: PropTypes.bool,
-  width: PropTypes.string
+  width: PropTypes.string,
 };
 
 export default TextInput;

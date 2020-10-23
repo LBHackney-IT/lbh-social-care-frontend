@@ -4,7 +4,7 @@ import cx from 'classnames';
 const TextArea = ({ label, hint, name, error, register, ...otherProps }) => (
   <div
     className={cx('govuk-form-group', {
-      'govuk-form-group--error': Boolean(error)
+      'govuk-form-group--error': Boolean(error),
     })}
   >
     {label && (
@@ -24,7 +24,7 @@ const TextArea = ({ label, hint, name, error, register, ...otherProps }) => (
     )}
     <textarea
       className={cx('govuk-textarea', {
-        'govuk-textarea--error': Boolean(error)
+        'govuk-textarea--error': Boolean(error),
       })}
       id={name}
       name={name}
@@ -41,8 +41,8 @@ TextArea.propTypes = {
   hint: PropTypes.string,
   name: PropTypes.string.isRequired,
   error: PropTypes.shape({
-    message: PropTypes.string.isRequired
-  })
+    message: PropTypes.string.isRequired,
+  }),
 };
 
 export default TextArea;

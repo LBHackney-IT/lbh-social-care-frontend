@@ -109,7 +109,7 @@ const CaseNotes = () => {
             options={[
               'Community Care Assessment - Occupational Therapy',
               'No Further Action',
-              'Close Case'
+              'Close Case',
             ]}
             register={register({ required: true })}
             error={errors && errors.nextAction}
@@ -121,7 +121,7 @@ const CaseNotes = () => {
             options={[
               'Universal Services/ Signposted to other services',
               'No Services Provided - Deceased',
-              'No Services Provided - other reason'
+              'No Services Provided - other reason',
             ]}
             register={register()}
           />

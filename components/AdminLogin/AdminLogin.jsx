@@ -12,7 +12,7 @@ const AdminLogin = ({ submitText, gssoUrl }) => {
 
 AdminLogin.propTypes = {
   gssoUrl: PropTypes.string.isRequired,
-  submitText: PropTypes.string.isRequired
+  submitText: PropTypes.string.isRequired,
 };
 
 export default AdminLogin;

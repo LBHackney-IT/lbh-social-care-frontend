@@ -14,11 +14,11 @@ const Select = ({
   children,
   isUnselectable = true,
   ignoreValue,
-  value
+  value,
 }) => (
   <div
     className={cx('govuk-form-group', {
-      'govuk-form-group--error': error
+      'govuk-form-group--error': error,
     })}
   >
     <label className="govuk-label govuk-label--m" htmlFor={name}>
@@ -37,11 +37,11 @@ const Select = ({
       name={name}
       ref={register}
       aria-describedby={hint && `${name}-hint`}
-      onChange={e => onChange && onChange(e.target.value)}
+      onChange={(e) => onChange && onChange(e.target.value)}
       value={ignoreValue ? undefined : value}
     >
       {isUnselectable && <option key="empty" value=""></option>}
-      {options.map(option => {
+      {options.map((option) => {
         const { value, text } =
           typeof option === 'string' ? { value: option, text: option } : option;
         return (
@@ -62,14 +62,14 @@ Select.propTypes = {
       PropTypes.string,
       PropTypes.shape({
         value: PropTypes.string.isRequired,
-        text: PropTypes.string.isRequired
-      })
+        text: PropTypes.string.isRequired,
+      }),
     ])
   ).isRequired,
   selected: PropTypes.string,
   register: PropTypes.func,
   children: PropTypes.node,
-  error: PropTypes.shape({ message: PropTypes.string.isRequired })
+  error: PropTypes.shape({ message: PropTypes.string.isRequired }),
 };
 
 export default Select;

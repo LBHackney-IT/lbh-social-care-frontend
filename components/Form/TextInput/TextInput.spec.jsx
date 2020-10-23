@@ -19,13 +19,13 @@ describe('TextInput', () => {
 
   it('performs an action onChange', () => {
     let newValue = '';
-    const myAction = jest.fn(e => (newValue = e.target.value));
+    const myAction = jest.fn((e) => (newValue = e.target.value));
     const { getByLabelText } = render(
       <TextInput name={'my-input'} label={'My Input'} onChange={myAction} />
     );
 
     fireEvent.change(getByLabelText(/\s*My Input\s*/), {
-      target: { value: 'hello' }
+      target: { value: 'hello' },
     });
 
     expect(newValue).toEqual('hello');

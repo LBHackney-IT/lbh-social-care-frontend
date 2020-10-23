@@ -23,10 +23,10 @@ const Home = ({ userDetails }) => {
 };
 
 Home.propTypes = {
-  userDetails: PropTypes.object
+  userDetails: PropTypes.object,
 };
 
-export const getServerSideProps = async ctx => {
+export const getServerSideProps = async (ctx) => {
   const user = isAuthorised(ctx);
 
   if (!user || !user.isAuthorised) {
@@ -35,8 +35,8 @@ export const getServerSideProps = async ctx => {
 
   return {
     props: {
-      userDetails: user
-    }
+      userDetails: user,
+    },
   };
 };
 
