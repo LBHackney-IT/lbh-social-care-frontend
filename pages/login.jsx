@@ -7,7 +7,7 @@ import AdminLogin from 'components/AdminLogin/AdminLogin';
 export default function AdminLoginPage({ gssoUrl, returnUrl }) {
   return (
     <div>
-      <NextSeo title="Log In" noindex={true} />
+      <NextSeo title="Log In" noindex />
       <h1>Login</h1>
 
       <p className="govuk-body">
