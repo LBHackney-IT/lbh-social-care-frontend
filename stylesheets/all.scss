@@ -32,3 +32,16 @@ html.lbh-template > body.lbh-template__body * {
   cursor: pointer;
   background-color: rgb(233, 246, 252);
 }
+
+.govuk-required {
+  color: #d21b1b;
+}
+
+.govuk-breadcrumbs__link.current,
+.govuk-breadcrumbs__link.completed {
+  color: #1b74d2;
+}
+
+.govuk-breadcrumbs__link.current {
+  font-weight: 600;
+}

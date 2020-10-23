@@ -1,20 +1,23 @@
 import PropTypes from 'prop-types';
-import { useRouter } from 'next/router';
+import Router from 'next/router';
 import { isAuthorised, redirectToLogin } from 'utils/auth';
 import { NextSeo } from 'next-seo';
 import AdminNavBar from 'components/AdminNavBar/AdminNavBar';
 
 const Home = ({ userDetails }) => {
-  const router = useRouter();
   return (
     <div>
       <NextSeo title="Home" />
       <AdminNavBar adminName={userDetails.name} />
-      <div className="hero">
-        <h1 className="title">Welcome!</h1>
-        <button onClick={() => router.push('/adult-form')}>Adult Form</button>
-        <button onClick={() => router.push('/child-form')}>Child Form</button>
-      </div>
+      <legend className="govuk-fieldset__legend govuk-fieldset__legend--l">
+        <h1 className="govuk-fieldset__heading">Adult Referral From</h1>
+      </legend>
+      <button
+        className="govuk-button"
+        onClick={() => Router.push('/steps/client-details')}
+      >
+        Start
+      </button>
     </div>
   );
 };
