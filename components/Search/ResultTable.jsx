@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import PropTypes from 'prop-types';
 
 const ResultEntry = ({
@@ -8,18 +9,20 @@ const ResultEntry = ({
   addressList,
   dateOfBirth,
 }) => (
-  <tr className="govuk-table__row">
-    <td className="govuk-table__cell">{personId || mosaicId}</td>
-    <td className="govuk-table__cell">
-      {firstName} {lastName}
-    </td>
-    <td className="govuk-table__cell">
-      {addressList && Object.values(addressList[0]).join(' ')}
-    </td>
-    <td className="govuk-table__cell">
-      {new Date(dateOfBirth).toLocaleDateString('en-GB')}
-    </td>
-  </tr>
+  <Link href={`/people/${personId || mosaicId}/cases`}>
+    <tr className="govuk-table__row govuk-table__row--clickable">
+      <td className="govuk-table__cell">{personId || mosaicId}</td>
+      <td className="govuk-table__cell">
+        {firstName} {lastName}
+      </td>
+      <td className="govuk-table__cell">
+        {addressList && Object.values(addressList[0]).join(' ')}
+      </td>
+      <td className="govuk-table__cell">
+        {new Date(dateOfBirth).toLocaleDateString('en-GB')}
+      </td>
+    </tr>
+  </Link>
 );
 
 const ResultTable = ({ results }) => (

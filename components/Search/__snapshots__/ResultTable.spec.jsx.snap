@@ -46,7 +46,7 @@ exports[`ResultTable component should render properly 1`] = `
       class="govuk-table__body"
     >
       <tr
-        class="govuk-table__row"
+        class="govuk-table__row govuk-table__row--clickable"
       >
         <td
           class="govuk-table__cell"
