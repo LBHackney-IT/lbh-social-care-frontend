@@ -1,0 +1,46 @@
+import { useState, useCallback, useEffect } from 'react';
+import PropTypes from 'prop-types';
+
+import CasesTable from './CasesTable';
+import ErrorMessage from 'components/ErrorMessage/ErrorMessage';
+import { getCases } from 'utils/api/cases';
+
+const Cases = ({ id }) => {
+  const [error, setError] = useState();
+  const [loading, setLoading] = useState();
+  const [cases, setCases] = useState();
+  const getPersonCases = useCallback(async (id) => {
+    try {
+      const data = await getCases(id);
+      setLoading(false);
+      setError(null);
+      setCases(Array.isArray(data) ? data : [data]);
+    } catch (e) {
+      setLoading(false);
+      setError(e.response.data);
+      setCases(null);
+    }
+  });
+  useEffect(() => {
+    setLoading(true);
+    getPersonCases(id);
+  }, [id]);
+  return (
+    <>
+      {loading ? (
+        <div>Loading...</div>
+      ) : (
+        <>
+          {cases && <CasesTable cases={cases} />}
+          {error && <ErrorMessage label={error} />}
+        </>
+      )}
+    </>
+  );
+};
+
+Cases.propTypes = {
+  id: PropTypes.string.isRequired,
+};
+
+export default Cases;
