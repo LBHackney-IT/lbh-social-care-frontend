@@ -1,27 +1,13 @@
 import axios from 'axios';
 
-const {
-  ENDPOINT_API,
-  ENDPOINT_MOSAIC,
-  AWS_KEY,
-  AWS_AUTHORIZATION,
-} = process.env;
-
 export const getResidents = async (params) => {
-  const { data } = await axios.get(`${ENDPOINT_API}/residents`, {
-    headers: {
-      'x-api-key': AWS_KEY,
-    },
+  const { data } = await axios.get('/api/residents', {
     params,
   });
-  return data.residents;
+  return data;
 };
 
 export const getResident = async (id) => {
-  const { data } = await axios.get(`${ENDPOINT_MOSAIC}/residents/${id}`, {
-    headers: {
-      Authorization: AWS_AUTHORIZATION,
-    },
-  });
+  const { data } = await axios.get(`/api/residents/${id}`);
   return data;
 };
