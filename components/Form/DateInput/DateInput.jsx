@@ -5,8 +5,8 @@ import { Controller } from 'react-hook-form';
 
 import ErrorMessage from 'components/ErrorMessage/ErrorMessage';
 
-const getInitialDate = (value = '') => {
-  const [year = '', month = '', day = ''] = value.split('-');
+const getInitialDate = (value) => {
+  const [year = '', month = '', day = ''] = value?.split('-') || [];
   return { day, month, year };
 };
 
@@ -28,6 +28,7 @@ const DateInput = ({
       month !== '' &&
       year !== '' &&
       onChange(`${year}-${month}-${day}`);
+    day === '' && month === '' && year === '' && onChange();
   }, [date]);
   return (
     <div
