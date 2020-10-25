@@ -11,6 +11,7 @@ const TextInput = ({
   error,
   type = 'text',
   inputClassName,
+  labelSize = 'm',
   required,
   width,
   ...otherProps
@@ -20,7 +21,7 @@ const TextInput = ({
       'govuk-form-group--error': error,
     })}
   >
-    <label className="govuk-label govuk-label--m" htmlFor={name}>
+    <label className={`govuk-label govuk-label--${labelSize}`} htmlFor={name}>
       {label} <span className="govuk-required">{required ? '*' : null}</span>
     </label>
     {hint && (
@@ -46,6 +47,7 @@ const TextInput = ({
 
 TextInput.propTypes = {
   label: PropTypes.string,
+  labelSize: PropTypes.oneOf(['s', 'm', 'l', 'xl']),
   hint: PropTypes.string,
   name: PropTypes.string.isRequired,
   error: PropTypes.shape({
