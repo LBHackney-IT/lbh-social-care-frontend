@@ -7,7 +7,7 @@ import { getCases } from 'utils/api/cases';
 
 const Cases = ({ id }) => {
   const [error, setError] = useState();
-  const [loading, setLoading] = useState();
+  const [loading, setLoading] = useState(false);
   const [cases, setCases] = useState();
   const getPersonCases = useCallback(async (id) => {
     try {
