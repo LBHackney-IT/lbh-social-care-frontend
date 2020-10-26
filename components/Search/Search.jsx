@@ -7,7 +7,7 @@ import ErrorMessage from 'components/ErrorMessage/ErrorMessage';
 
 const Search = () => {
   const [error, setError] = useState();
-  const [loading, setLoading] = useState();
+  const [loading, setLoading] = useState(false);
   const [results, setResults] = useState();
   const onResult = useCallback(async (results) => {
     try {
