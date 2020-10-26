@@ -7,7 +7,7 @@ const { GSSO_TOKEN_NAME } = process.env;
 export const redirectToHome = ({ res } = {}) => {
   if (res) {
     res.writeHead(302, {
-      Location: '/'
+      Location: '/',
     });
     res.end();
   } else {
@@ -18,7 +18,7 @@ export const redirectToHome = ({ res } = {}) => {
 export const redirectToLogin = ({ res } = {}) => {
   if (res) {
     res.writeHead(302, {
-      Location: '/login'
+      Location: '/login',
     });
     res.end();
   } else {
@@ -29,7 +29,7 @@ export const redirectToLogin = ({ res } = {}) => {
 export const redirectToAcessDenied = ({ res } = {}) => {
   if (res) {
     res.writeHead(302, {
-      Location: '/access-denied'
+      Location: '/access-denied',
     });
     res.end();
   } else {
@@ -37,21 +37,21 @@ export const redirectToAcessDenied = ({ res } = {}) => {
   }
 };
 
-export const deleteSession = ctx => {
+export const deleteSession = (ctx) => {
   removeCookies(ctx, GSSO_TOKEN_NAME, {
     path: '/',
-    domain: '.hackney.gov.uk'
+    domain: '.hackney.gov.uk',
   });
 
   redirectToLogin(ctx);
 };
 
-export const isAuthorised = ctx => {
+export const isAuthorised = (ctx) => {
   const {
     HACKNEY_JWT_SECRET,
     AUTHORISED_ADMIN_GROUP,
     AUTHORISED_ADULT_GROUP,
-    AUTHORISED_CHILD_GROUP
+    AUTHORISED_CHILD_GROUP,
   } = process.env;
 
   let gssoUserObj = {
@@ -60,7 +60,7 @@ export const isAuthorised = ctx => {
     email: '',
     hasAdminPermissions: false,
     hasAdultPermissions: false,
-    hasChildrenPermissions: false
+    hasChildrenPermissions: false,
   };
 
   let payload = {};
