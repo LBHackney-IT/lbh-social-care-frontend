@@ -5,7 +5,8 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start",
+    "heroku-postbuild": "npm run build",
+    "start": "next start -p $PORT",
     "test": "jest",
     "lint": "eslint . --ext .js,.jsx && echo 'Lint complete.'",
     "format": "prettier '**/*.{js,jsx,css,scss,md}' --write --list-different",
