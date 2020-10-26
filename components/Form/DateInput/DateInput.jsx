@@ -1,16 +1,18 @@
 import { useState, useEffect, useRef } from 'react';
+import PropTypes from 'prop-types';
 import cx from 'classnames';
 import { Controller } from 'react-hook-form';
 
 import ErrorMessage from 'components/ErrorMessage/ErrorMessage';
 
-const getInitialDate = (value = '') => {
-  const [year = '', month = '', day = ''] = value.split('-');
+const getInitialDate = (value) => {
+  const [year = '', month = '', day = ''] = value?.split('-') || [];
   return { day, month, year };
 };
 
 const DateInput = ({
   label,
+  labelSize = 'm',
   inputRef,
   error,
   hint,
@@ -26,6 +28,7 @@ const DateInput = ({
       month !== '' &&
       year !== '' &&
       onChange(`${year}-${month}-${day}`);
+    day === '' && month === '' && year === '' && onChange();
   }, [date]);
   return (
     <div
@@ -38,13 +41,11 @@ const DateInput = ({
         role="group"
         aria-describedby={`${name}-hint`}
       >
-        <legend className="govuk-fieldset__legend govuk-fieldset__legend--m">
-          <h1 className="govuk-fieldset__heading">
-            {label}
-            <span className="govuk-required">
-              {rules.required ? ' *' : null}
-            </span>
-          </h1>
+        <legend
+          className={`govuk-fieldset__legend govuk-fieldset__legend--${labelSize}`}
+        >
+          {label}
+          <span className="govuk-required">{rules.required ? ' *' : null}</span>
         </legend>
         <span id={`${name}-hint`} className="govuk-hint">
           {hint}
@@ -167,6 +168,15 @@ const ControlledDateInput = ({
       control={control}
     ></Controller>
   );
+};
+
+ControlledDateInput.propTypes = {
+  label: PropTypes.string,
+  labelSize: PropTypes.oneOf(['s', 'm', 'l', 'xl']),
+  name: PropTypes.string.isRequired,
+  hint: PropTypes.string,
+  rules: PropTypes.shape({}),
+  control: PropTypes.object.isRequired,
 };
 
 export default ControlledDateInput;

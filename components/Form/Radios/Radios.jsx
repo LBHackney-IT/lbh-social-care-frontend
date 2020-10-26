@@ -7,6 +7,7 @@ const defaultOptions = ['Yes', 'No'];
 
 const Radio = ({
   label,
+  labelSize = 'm',
   hint,
   name,
   options = defaultOptions,
@@ -22,7 +23,7 @@ const Radio = ({
       'govuk-form-group--error': error,
     })}
   >
-    <label className="govuk-label govuk-label--m" htmlFor={name}>
+    <label className={`govuk-label govuk-label--${labelSize}`} htmlFor={name}>
       {label} <span className="govuk-required">{required ? '*' : null}</span>
     </label>
     {hint && (
@@ -63,6 +64,7 @@ const Radio = ({
 
 Radio.propTypes = {
   label: PropTypes.string.isRequired,
+  labelSize: PropTypes.oneOf(['s', 'm', 'l', 'xl']),
   name: PropTypes.string.isRequired,
   register: PropTypes.func.isRequired,
   options: PropTypes.array,

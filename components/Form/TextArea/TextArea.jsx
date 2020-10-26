@@ -1,14 +1,22 @@
 import PropTypes from 'prop-types';
 import cx from 'classnames';
 
-const TextArea = ({ label, hint, name, error, register, ...otherProps }) => (
+const TextArea = ({
+  label,
+  labelSize = 'm',
+  hint,
+  name,
+  error,
+  register,
+  ...otherProps
+}) => (
   <div
     className={cx('govuk-form-group', {
       'govuk-form-group--error': Boolean(error),
     })}
   >
     {label && (
-      <label className="govuk-label govuk-label--l" for={name}>
+      <label className={`govuk-label govuk-label--${labelSize}`} for={name}>
         {label}
       </label>
     )}
@@ -38,6 +46,7 @@ const TextArea = ({ label, hint, name, error, register, ...otherProps }) => (
 
 TextArea.propTypes = {
   label: PropTypes.string,
+  labelSize: PropTypes.oneOf(['s', 'm', 'l', 'xl']),
   hint: PropTypes.string,
   name: PropTypes.string.isRequired,
   error: PropTypes.shape({

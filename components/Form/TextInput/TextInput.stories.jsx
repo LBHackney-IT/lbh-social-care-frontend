@@ -36,3 +36,10 @@ withError.args = {
   name: 'textInput',
   error: { message: 'Ops! There was an error!' },
 };
+
+export const withLabelSizeSmall = Template.bind({});
+withError.args = {
+  label: 'TextInput',
+  labelSize: 's',
+  name: 'textInput',
+};
