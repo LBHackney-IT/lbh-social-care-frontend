@@ -1,15 +1,10 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`ResultTable component should render properly 1`] = `
+exports[`CasesTable component should render properly 1`] = `
 <DocumentFragment>
   <table
     class="govuk-table"
   >
-    <caption
-      class="govuk-table__caption"
-    >
-      People search result
-    </caption>
     <thead
       class="govuk-table__head"
     >
@@ -32,7 +27,7 @@ exports[`ResultTable component should render properly 1`] = `
           class="govuk-table__header"
           scope="col"
         >
-          Address
+          Form Name
         </th>
         <th
           class="govuk-table__header"
@@ -61,7 +56,7 @@ exports[`ResultTable component should render properly 1`] = `
         <td
           class="govuk-table__cell"
         >
-          foo_address foo_postcode
+          foorm
         </td>
         <td
           class="govuk-table__cell"

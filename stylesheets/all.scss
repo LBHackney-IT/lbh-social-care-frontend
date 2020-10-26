@@ -45,3 +45,8 @@ html.lbh-template > body.lbh-template__body * {
 .govuk-breadcrumbs__link.current {
   font-weight: 600;
 }
+
+.govuk-table__row--clickable:hover {
+  background: govuk-colour('light-grey');
+  cursor: pointer;
+}

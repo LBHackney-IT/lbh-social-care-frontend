@@ -3,26 +3,22 @@ import { NextSeo } from 'next-seo';
 
 import { isAuthorised, redirectToLogin } from 'utils/auth';
 import AdminNavBar from 'components/AdminNavBar/AdminNavBar';
+import Cases from 'components/Cases/Cases';
 import BackButton from 'components/Layout/BackButton/BackButton';
-import Search from 'components/Search/Search';
 
-const SearchPage = ({ user, query }) => {
+const CasesPage = ({ user, query }) => {
   return (
     <div>
-      <NextSeo title="Search" noindex />
+      <NextSeo title={`#${query.id} Cases`} noindex />
       <AdminNavBar adminName={user.name} />
       <BackButton />
-      <h1>Person lookup</h1>
-      <p className="govuk-body govuk-!-margin-bottom-7">
-        Search for resident by Mosaic Id <strong>or</strong> Person Details to
-        see if we have a record for them.
-      </p>
-      <Search {...query} />
+      <h1>Cases for #{query.id}</h1>
+      <Cases {...query} />
     </div>
   );
 };
 
-SearchPage.propTypes = {
+CasesPage.propTypes = {
   userDetails: PropTypes.object,
 };
 
@@ -40,4 +36,4 @@ export const getServerSideProps = async (ctx) => {
   };
 };
 
-export default SearchPage;
+export default CasesPage;
