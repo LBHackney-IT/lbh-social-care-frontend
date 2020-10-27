@@ -1,13 +1,12 @@
 import Router from 'next/router';
 import { useForm } from 'react-hook-form';
-import Breadcrumbs from '../../components/Breadcrumbs/Breadcrumbs';
 import { Button, DateInput, TextInput, Select } from 'components/Form';
 
 const CaseNotesRecording = () => {
   const { register, errors, handleSubmit, control } = useForm();
   const onSubmit = () => {
     window.scrollTo(0, 0);
-    Router.push('/steps/');
+    Router.push('/');
   };
 
   return (
@@ -23,24 +22,6 @@ const CaseNotesRecording = () => {
               ASC Case Notes Recording
             </h1>
           </legend>
-          <div className="govuk-breadcrumbs">
-            <ol className="govuk-breadcrumbs__list">
-              <Breadcrumbs
-                label="Case Notes Recording"
-                link="/steps/case-notes-recording"
-                state="current"
-              />
-              <Breadcrumbs
-                label="Referral Details"
-                link="/steps/referral-details"
-              />
-              <Breadcrumbs label=" Case Notes" link="/steps/case-notes" />
-              <Breadcrumbs
-                label="Client Details"
-                link="/steps/client-details"
-              ></Breadcrumbs>
-            </ol>
-          </div>
           <TextInput
             name="firstName"
             width="30"

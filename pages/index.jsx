@@ -39,6 +39,15 @@ const Home = ({ userDetails }) => {
       >
         Start
       </button>
+      <legend className="govuk-fieldset__legend govuk-fieldset__legend--l">
+        <h1 className="govuk-fieldset__heading">ASC Case Notes Recording</h1>
+      </legend>
+      <button
+        className="govuk-button"
+        onClick={() => Router.push('/steps/case-notes-recording')}
+      >
+        Start
+      </button>
     </div>
   );
 };

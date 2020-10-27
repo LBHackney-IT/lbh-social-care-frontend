@@ -37,10 +37,6 @@ const CaseNotes = () => {
                 link="/steps/case-notes"
                 state="current"
               />
-              <Breadcrumbs
-                label="Case Note Recording"
-                link="/steps/case-notes-recording"
-              ></Breadcrumbs>
             </ol>
           </div>
           <legend className="govuk-fieldset__legend govuk-fieldset__legend--m">

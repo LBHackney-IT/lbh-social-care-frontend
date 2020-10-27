@@ -33,10 +33,6 @@ const ClientDetails = () => {
                 link="/steps/referral-details"
               />
               <Breadcrumbs label=" Case Notes" link="/steps/case-notes" />
-              <Breadcrumbs
-                label="Case Note Recording"
-                link="/steps/case-notes-recording"
-              ></Breadcrumbs>
             </ol>
           </div>
           <legend className="govuk-fieldset__legend govuk-fieldset__legend--m">
