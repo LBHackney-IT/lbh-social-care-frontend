@@ -12871,6 +12871,11 @@ typescript@^4.0.3:
   resolved "https://registry.yarnpkg.com/typescript/-/typescript-4.0.3.tgz#153bbd468ef07725c1df9c77e8b453f8d36abba5"
   integrity sha512-tEu6DGxGgRJPb/mVPIZ48e69xCn2yRmCgYmDugAVwmJ6o+0u1RI18eO7E7WBTLYLaEVVOhwQmcdhQHweux/WPg==
 
+uk-postcode-validator@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/uk-postcode-validator/-/uk-postcode-validator-1.1.0.tgz#a5db4520735773829a9703ac27747c3aef3099de"
+  integrity sha512-iZCfOKXOW0NfqCnulHE1DqNeq7/T5CBCX9c7O6V1M19NlPcHcxRpOQoovG72X/Llhb6dfwpmDJkyHTihe0FuTg==
+
 unfetch@^4.1.0:
   version "4.2.0"
   resolved "https://registry.yarnpkg.com/unfetch/-/unfetch-4.2.0.tgz#7e21b0ef7d363d8d9af0fb929a5555f6ef97a3be"
