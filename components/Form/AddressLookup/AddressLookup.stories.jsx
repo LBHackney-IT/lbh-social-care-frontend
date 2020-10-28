@@ -1,11 +1,17 @@
+import AddressLookup from './AddressLookup';
+
 import { useForm } from 'react-hook-form';
 import { Button } from 'components/Form';
-import AddressLookup from 'components/AddressLookup/AddressLookup';
 
-const TestForm = () => {
+export default {
+  title: 'Form/AddressLookup',
+  component: AddressLookup,
+};
+
+export const Default = () => {
   const { register, errors, handleSubmit, control } = useForm();
   const onSubmit = (data) => {
-    console.log(data);
+    alert(JSON.stringify(data));
   };
 
   return (
@@ -21,5 +27,3 @@ const TestForm = () => {
     </form>
   );
 };
-
-export default TestForm;
