@@ -4,6 +4,7 @@ import { DefaultSeo } from 'next-seo';
 import { isAuthorised, AUTH_WHITELIST } from 'utils/auth';
 import Layout from 'components/Layout';
 import SEO from '../next-seo.config';
+import UserContext from 'components/UserContext/UserContext';
 
 import 'stylesheets/all.scss';
 
@@ -16,10 +17,16 @@ class MyApp extends App {
     const { Component, pageProps } = this.props;
     return (
       <>
-        <Layout>
-          <DefaultSeo {...SEO} />
-          <Component {...pageProps} userDetails={this.props.userDetails} />
-        </Layout>
+        <UserContext.Provider
+          value={{
+            user: this.props.userDetails,
+          }}
+        >
+          <Layout>
+            <DefaultSeo {...SEO} />
+            <Component {...pageProps} userDetails={this.props.userDetails} />
+          </Layout>
+        </UserContext.Provider>
         <script src="/js/govuk.js"></script>
       </>
     );
