@@ -1,16 +1,15 @@
 import PropTypes from 'prop-types';
 import { NextSeo } from 'next-seo';
 
-import { isAuthorised, redirectToLogin } from 'utils/auth';
 import AdminNavBar from 'components/AdminNavBar/AdminNavBar';
 import Cases from 'components/Cases/Cases';
 import BackButton from 'components/Layout/BackButton/BackButton';
 
-const CasesPage = ({ user, query }) => {
+const CasesPage = ({ userDetails, query }) => {
   return (
     <div>
       <NextSeo title={`#${query.id} Cases`} noindex />
-      <AdminNavBar adminName={user.name} />
+      <AdminNavBar adminName={userDetails.name} />
       <BackButton />
       <h1>Cases for #{query.id}</h1>
       <Cases {...query} />
@@ -24,13 +23,8 @@ CasesPage.propTypes = {
 
 export const getServerSideProps = async (ctx) => {
   const { query } = ctx;
-  const user = isAuthorised(ctx);
-  if (!user || !user.isAuthorised) {
-    redirectToLogin(ctx);
-  }
   return {
     props: {
-      user,
       query,
     },
   };

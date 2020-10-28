@@ -1,14 +1,13 @@
 import PropTypes from 'prop-types';
-import { isAuthorised, redirectToLogin } from 'utils/auth';
 import { NextSeo } from 'next-seo';
 import AdminNavBar from 'components/AdminNavBar/AdminNavBar';
 import LinkButton from 'components/LinkButton/LinkButton';
 
-const Home = ({ userDetails }) => {
+const Home = (props) => {
   return (
     <div>
       <NextSeo title="Home" />
-      <AdminNavBar adminName={userDetails.name} />
+      <AdminNavBar adminName={props?.userDetails?.name} />
       <legend className="govuk-fieldset__legend govuk-fieldset__legend--l">
         <h1 className="govuk-fieldset__heading">Form Dashboard</h1>
       </legend>
@@ -24,20 +23,6 @@ const Home = ({ userDetails }) => {
 
 Home.propTypes = {
   userDetails: PropTypes.object,
-};
-
-export const getServerSideProps = async (ctx) => {
-  const user = isAuthorised(ctx);
-
-  if (!user || !user.isAuthorised) {
-    redirectToLogin(ctx);
-  }
-
-  return {
-    props: {
-      userDetails: user,
-    },
-  };
 };
 
 export default Home;

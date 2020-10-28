@@ -1,114 +1,86 @@
-import { getCookies, removeCookies } from 'cookies-next';
+import cookie from 'cookie';
 import jsonwebtoken from 'jsonwebtoken';
-import Router from 'next/router';
 
 const { GSSO_TOKEN_NAME } = process.env;
 
-export const redirectToHome = ({ res } = {}) => {
-  if (res) {
-    res.writeHead(302, {
-      Location: '/',
-    });
-    res.end();
-  } else {
-    Router.push('/');
-  }
-};
+export const AUTH_WHITELIST = ['/login', '/access-denied'];
 
-export const redirectToLogin = ({ res } = {}) => {
-  if (res) {
-    res.writeHead(302, {
-      Location: '/login',
-    });
-    res.end();
-  } else {
-    Router.push('/login');
-  }
-};
-
-export const redirectToAcessDenied = ({ res } = {}) => {
-  if (res) {
-    res.writeHead(302, {
-      Location: '/access-denied',
-    });
-    res.end();
-  } else {
-    Router.push('/access-denied');
-  }
-};
-
-export const deleteSession = (ctx) => {
-  removeCookies(ctx, GSSO_TOKEN_NAME, {
-    path: '/',
-    domain: '.hackney.gov.uk',
+export const redirectToHome = (res) => {
+  res.writeHead(302, {
+    Location: '/',
   });
-
-  redirectToLogin(ctx);
+  res.end();
 };
 
-export const isAuthorised = (ctx) => {
+export const redirectToLogin = (res) => {
+  res.writeHead(302, {
+    Location: '/login',
+  });
+  res.end();
+};
+
+export const redirectToAcessDenied = (res) => {
+  res.writeHead(302, {
+    Location: '/access-denied',
+  });
+  res.end();
+};
+
+export const deleteSession = (res) => {
+  res.setHeader(
+    'Set-Cookie',
+    cookie.serialize(GSSO_TOKEN_NAME, null, {
+      maxAge: -1,
+      domain: '.hackney.gov.uk',
+    })
+  );
+  redirectToLogin(res);
+};
+
+export const isAuthorised = ({ req, res }, withRedirect = false) => {
   const {
     HACKNEY_JWT_SECRET,
     AUTHORISED_ADMIN_GROUP,
     AUTHORISED_ADULT_GROUP,
     AUTHORISED_CHILD_GROUP,
   } = process.env;
-
-  let gssoUserObj = {
-    isAuthorised: false,
-    name: '',
-    email: '',
-    hasAdminPermissions: false,
-    hasAdultPermissions: false,
-    hasChildrenPermissions: false,
-  };
-
-  let payload = {};
-
-  const token = getCookies(ctx, GSSO_TOKEN_NAME);
-
   try {
-    if (token) {
-      try {
-        payload = jsonwebtoken.verify(token, HACKNEY_JWT_SECRET);
-        const groups = payload.groups;
+    const cookies = cookie.parse(req.headers.cookie ?? '');
+    const token = cookies[GSSO_TOKEN_NAME];
 
-        // User is authorised if in the Admin group
-        if (groups && groups.includes(AUTHORISED_ADMIN_GROUP)) {
-          gssoUserObj.isAuthorised = true;
-          gssoUserObj.hasAdminPermissions = true;
-        }
-
-        // User is authorised if in the Adult group
-        if (groups && groups.includes(AUTHORISED_ADULT_GROUP)) {
-          gssoUserObj.isAuthorised = true;
-          gssoUserObj.hasAdultPermissions = true;
-        }
-
-        // User is authorised if in the Children group
-        if (groups && groups.includes(AUTHORISED_CHILD_GROUP)) {
-          gssoUserObj.isAuthorised = true;
-          gssoUserObj.hasChildrenPermissions = true;
-        }
-
-        if (gssoUserObj.isAuthorised) {
-          gssoUserObj.name = payload.name;
-          gssoUserObj.email = payload.email;
-        } else {
-          redirectToAcessDenied(ctx);
-        }
-      } catch (err) {
-        if (err instanceof jsonwebtoken.JsonWebTokenError) {
-          redirectToLogin(ctx);
-        } else {
-          console.log(err.message);
-        }
-      }
+    if (!token) {
+      return withRedirect && redirectToLogin(res);
     }
 
-    return gssoUserObj;
-  } catch (e) {
-    console.error(e.message);
-    redirectToLogin(ctx);
+    const { groups = [], name, email } = jsonwebtoken.verify(
+      token,
+      HACKNEY_JWT_SECRET
+    );
+
+    const gssUser = {
+      hasAdminPermissions: groups.includes(AUTHORISED_ADMIN_GROUP),
+      hasAdultPermissions: groups.includes(AUTHORISED_ADULT_GROUP),
+      hasChildrenPermissions: groups.includes(AUTHORISED_CHILD_GROUP),
+    };
+
+    if (
+      !gssUser.hasAdminPermissions &&
+      !gssUser.hasAdultPermissions &&
+      !gssUser.hasChildrenPermissions
+    ) {
+      return withRedirect && redirectToAcessDenied(res);
+    }
+    return {
+      ...gssUser,
+      isAuthorised: true,
+      name,
+      email,
+    };
+  } catch (err) {
+    if (err instanceof jsonwebtoken.JsonWebTokenError) {
+      return withRedirect && redirectToLogin(res);
+    } else {
+      console.log(err.message);
+    }
   }
 };
