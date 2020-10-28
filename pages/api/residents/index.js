@@ -1,6 +1,10 @@
 import { getResidents } from 'utils/server/residents';
+import { isAuthorised } from 'utils/auth';
 
 export default async (req, res) => {
+  if (!isAuthorised({ req })) {
+    return res.status(401).send('Auth cookie missing.');
+  }
   switch (req.method) {
     case 'GET':
       try {

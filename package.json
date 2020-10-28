@@ -11,11 +11,11 @@
     "lint": "eslint . --ext .js,.jsx && echo 'Lint complete.'",
     "format": "prettier '**/*.{js,jsx,css,scss,md}' --write --list-different",
     "storybook": "start-storybook -p 6006",
-    "build-storybook": "build-storybook"
+    "prestorybook": "cpx \"node_modules/govuk-frontend/govuk/assets/**/*\" assets"
   },
   "dependencies": {
     "axios": "^0.21.0",
-    "cookies-next": "^1.1.3",
+    "cookie": "^0.4.1",
     "date-fns": "^2.16.1",
     "govuk-frontend": "^3.9.1",
     "jsonwebtoken": "^8.5.1",
@@ -36,6 +36,8 @@
     "babel-eslint": "^10.1.0",
     "babel-jest": "^26.6.1",
     "babel-loader": "^8.1.0",
+    "cpx": "^1.5.0",
+    "css-loader": "^5.0.0",
     "eslint": "^7.11.0",
     "eslint-config-prettier": "^6.14.0",
     "eslint-plugin-jest": "^24.1.0",
@@ -48,7 +50,8 @@
     "prop-types": "^15.7.2",
     "react-is": "^16.13.0",
     "sass": "^1.27.0",
-    "sass-loader": "^10.0.4"
+    "sass-loader": "^10.0.4",
+    "style-loader": "^2.0.0"
   },
   "optionalDependencies": {
     "@babel/core": "^7.12.3",

@@ -2,8 +2,8 @@ import { deleteSession } from 'utils/auth';
 
 const Logout = () => null;
 
-export const getServerSideProps = async (ctx) => {
-  deleteSession(ctx);
+export const getServerSideProps = async ({ res }) => {
+  deleteSession(res);
   return { props: {} };
 };
 

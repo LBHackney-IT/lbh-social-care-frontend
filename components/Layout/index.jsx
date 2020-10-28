@@ -1,3 +1,5 @@
+import AdminNavBar from 'components/AdminNavBar/AdminNavBar';
+
 import Footer from './Footer/Footer';
 import Header from './Header/Header';
 import SkipLink from './SkipLink/SkipLink';
@@ -14,6 +16,7 @@ const Layout = ({ children }) => (
         id="content"
         role="main"
       >
+        <AdminNavBar />
         {children}
       </main>
     </div>

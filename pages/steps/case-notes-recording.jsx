@@ -5,7 +5,6 @@ import { Button, DateInput, TextInput, Select } from 'components/Form';
 const CaseNotesRecording = () => {
   const { register, errors, handleSubmit, control } = useForm();
   const onSubmit = () => {
-    window.scrollTo(0, 0);
     Router.push('/');
   };
 
@@ -35,9 +34,8 @@ const CaseNotesRecording = () => {
             width="30"
             name="last_name"
             required={true}
-            error={errors && errors.last_name}
             register={register({ required: true })}
-            register={register}
+            error={errors && errors.last_name}
           />
           <DateInput
             control={control}
@@ -51,15 +49,13 @@ const CaseNotesRecording = () => {
             name="address"
             width="30"
             label="Primary Address"
-            register={register({ required: false })}
-            error={errors && errors.address}
+            register={register()}
           />
           <TextInput
             name="postcode"
             width="30"
             label="Post Code"
-            register={register({ required: false })}
-            error={errors && errors.postcode}
+            register={register()}
           />
           <TextInput
             name="contactNumber"
@@ -71,9 +67,8 @@ const CaseNotesRecording = () => {
             name="mosaicId"
             label="Mosaic Person Reference"
             hint="For example 0123456789"
-            register={register({ required: false })}
-            error={errors && errors.mosaicId}
-            control={control}
+            width="30"
+            register={register()}
           />
           <TextInput
             name="emergencyIDNumber"
@@ -123,9 +118,8 @@ const CaseNotesRecording = () => {
             control={control}
             name="dateOfEvent"
             label="Date of Event"
-            rules={{ required: false }}
             hint="For example, 31 03 1980"
-            error={errors && errors.dateOfContact}
+            rules={{ required: false }}
           />
           <TextInput
             name="caseNoteDescription"
