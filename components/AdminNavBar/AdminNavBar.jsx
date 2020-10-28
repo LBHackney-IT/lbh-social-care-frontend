@@ -1,12 +1,19 @@
-import PropTypes from 'prop-types';
+import { useContext } from 'react';
+
+import UserContext from 'components/UserContext/UserContext';
+
 import styles from './AdminNavBar.module.scss';
 
-const AdminNavBar = ({ adminName }) => {
+const AdminNavBar = () => {
+  const { user } = useContext(UserContext);
+  if (!user) {
+    return null;
+  }
   return (
     <div className={styles.AdminNavBar}>
       <p className="govuk-body">
         <span className="govuk-!-font-weight-bold">Logged in as:</span>{' '}
-        {adminName}
+        {user.name}
       </p>
       <ul className={styles.navList}>
         <li className={styles.navListItem}>
@@ -22,10 +29,6 @@ const AdminNavBar = ({ adminName }) => {
       </ul>
     </div>
   );
-};
-
-AdminNavBar.propTypes = {
-  adminName: PropTypes.string,
 };
 
 export default AdminNavBar;
