@@ -20,6 +20,7 @@ const DateInput = ({
   rules,
   name,
   onChange,
+  ...otherProps
 }) => {
   const [date, setDate] = useState(getInitialDate(value));
   useEffect(() => {
@@ -77,6 +78,7 @@ const DateInput = ({
                   setDate({ ...date, day: value })
                 }
                 ref={inputRef}
+                {...otherProps}
               />
             </div>
           </div>
@@ -104,6 +106,7 @@ const DateInput = ({
                 onChange={({ target: { value } }) =>
                   setDate({ ...date, month: value })
                 }
+                {...otherProps}
               />
             </div>
           </div>
@@ -131,6 +134,7 @@ const DateInput = ({
                 onChange={({ target: { value } }) =>
                   setDate({ ...date, year: value })
                 }
+                {...otherProps}
               />
             </div>
           </div>
