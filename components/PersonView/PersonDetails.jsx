@@ -45,7 +45,7 @@ const PersonDetails = ({
       </div>
       <div className="govuk-summary-list__row">
         <dt className="govuk-summary-list__key">Address</dt>
-        <dd class="govuk-summary-list__value">
+        <dd className="govuk-summary-list__value">
           {addressList &&
             Object.values(addressList[0]).map((addressLine) => (
               <p>{addressLine}</p>
@@ -68,13 +68,13 @@ const PersonDetails = ({
 PersonDetails.propTypes = {
   firstName: PropTypes.string.isRequired,
   lastName: PropTypes.string.isRequired,
-  mosaicId: PropTypes.number,
+  mosaicId: PropTypes.string,
   dateOfBirth: PropTypes.string,
   nhsNumber: PropTypes.string,
   nationality: PropTypes.string,
   gender: PropTypes.string,
   addressList: PropTypes.arrayOf(PropTypes.shape({})),
-  phoneNumber: PropTypes.string,
+  phoneNumber: PropTypes.arrayOf(PropTypes.shape({})),
 };
 
 export default PersonDetails;
