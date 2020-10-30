@@ -1,4 +1,4 @@
-import { getCases } from 'utils/server/cases';
+import { getResidentCases } from 'utils/server/residents';
 import { isAuthorised } from 'utils/auth';
 
 export default async (req, res) => {
@@ -8,7 +8,7 @@ export default async (req, res) => {
   switch (req.method) {
     case 'GET':
       try {
-        const data = await getCases(req.query.id);
+        const data = await getResidentCases(req.query.id);
         if (data?.length > 0) {
           res.status(200).json(data);
         } else {
