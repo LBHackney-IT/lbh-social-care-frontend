@@ -12,8 +12,10 @@ const headersWithKey = {
 };
 
 export const getResidents = async (params) => {
-  const { data } = await axios.get(`${ENDPOINT_API}/residents`, {
-    headers: headersWithKey,
+  const { data } = await axios.get(`${ENDPOINT_MOSAIC}/residents`, {
+    headers: {
+      Authorization: AWS_AUTHORIZATION,
+    },
     params,
   });
   return data.residents;
