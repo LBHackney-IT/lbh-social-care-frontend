@@ -1,4 +1,5 @@
 import cx from 'classnames';
+import PropTypes from 'prop-types';
 
 const DatePicker = ({
   name,
@@ -8,6 +9,7 @@ const DatePicker = ({
   hint,
   label,
   labelSize = 'm',
+  ...otherProps
 }) => {
   return (
     <div
@@ -32,8 +34,23 @@ const DatePicker = ({
         type="date"
         ref={register}
         name={name}
+        {...otherProps}
       />
     </div>
   );
+};
+
+DatePicker.propTypes = {
+  label: PropTypes.string,
+  labelSize: PropTypes.oneOf(['s', 'm', 'l', 'xl']),
+  hint: PropTypes.string,
+  name: PropTypes.string.isRequired,
+  error: PropTypes.shape({
+    message: PropTypes.string.isRequired,
+  }),
+
+  type: PropTypes.string,
+  register: PropTypes.func.isRequired,
+  required: PropTypes.bool,
 };
 export default DatePicker;
