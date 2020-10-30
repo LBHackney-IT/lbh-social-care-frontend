@@ -46,7 +46,7 @@ exports[`CasesTable component should render properly 1`] = `
         <td
           class="govuk-table__cell"
         >
-          foo
+          123
         </td>
         <td
           class="govuk-table__cell"
