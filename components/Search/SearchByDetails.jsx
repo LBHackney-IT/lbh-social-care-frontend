@@ -4,7 +4,6 @@ import cx from 'classnames';
 import { useForm } from 'react-hook-form';
 import isValid from 'date-fns/isValid';
 import isPast from 'date-fns/isPast';
-
 import { Button, TextInput, DateInput } from 'components/Form';
 import ErrorMessage from 'components/ErrorMessage/ErrorMessage';
 import { getResidents } from 'utils/api/residents';

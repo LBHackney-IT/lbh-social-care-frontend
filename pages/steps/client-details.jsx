@@ -9,7 +9,7 @@ const ClientDetails = () => {
   const [{ data }, dispatch] = useStateValue();
 
   const onSubmit = (formData) => {
-    dispatch({ type: 'updateData', update: { ...data, ...formData } });
+    dispatch({ type: 'updateData', updateData: { ...data, ...formData } });
     window.scrollTo(0, 0);
     Router.push('/steps/referral-details');
   };

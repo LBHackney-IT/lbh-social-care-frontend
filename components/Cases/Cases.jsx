@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import CasesTable from './CasesTable';
 import ErrorMessage from 'components/ErrorMessage/ErrorMessage';
-import { getCases } from 'utils/api/cases';
+import { getResidentCases } from 'utils/api/residents';
 
 const Cases = ({ id }) => {
   const [error, setError] = useState();
@@ -11,7 +11,7 @@ const Cases = ({ id }) => {
   const [cases, setCases] = useState();
   const getPersonCases = useCallback(async (id) => {
     try {
-      const data = await getCases(id);
+      const data = await getResidentCases(id);
       setLoading(false);
       setError(null);
       setCases(Array.isArray(data) ? data : [data]);

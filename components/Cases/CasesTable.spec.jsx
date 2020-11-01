@@ -6,7 +6,7 @@ describe('CasesTable component', () => {
   const props = {
     cases: [
       {
-        personId: 'foo',
+        personId: 123,
         firstName: 'Fname',
         lastName: 'Lname',
         formName: 'foorm',

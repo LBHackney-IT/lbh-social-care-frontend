@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import Router from 'next/router';
 import moment from 'moment';
 import { useStateValue } from '../../utils/store';
-import { postCase } from '../../utils/api/cases';
+import { postResidentCase } from '../../utils/api/residents';
 import ErrorSummary from '../../components/ErrorSummary/ErrorSummary';
 import Breadcrumbs from '../../components/Breadcrumbs/Breadcrumbs';
 import { Button, DateInput, Radios, TextInput } from 'components/Form';
@@ -28,45 +28,20 @@ const CaseNotes = () => {
       });
       dispatch({
         type: 'updateData',
-        update: { caseFormData: `${stringData}` },
+        updateData: { caseFormData: `${stringData}` },
       });
-      console.log(data);
-      console.log('before submit');
-      const recordID = await postCase(data);
-      console.log('submitted');
+
+      const recordID = await postResidentCase(data.mosaicId, data);
 
       return Router.push({
         pathname: '/steps/confirmation',
         query: { recordID },
       });
     } catch (e) {
-      console.log(e.message);
-      console.log('errors');
       setSubmitting(false);
       setError(e.message);
     }
   };
-
-  // const onSubmit = async (formData) => {
-  //   console.log(data);
-  //   console.log('sent');
-  //   postCase(data);
-  //   console.log(data);
-  // };
-
-  // const onSubmit = async (formData) => {
-  //   const timestamp = moment(new Date()).format('DD/MM/YYYY hh:mm:ss');
-  //   const stringData = JSON.stringify({
-  //     timestamp: timestamp,
-  //     ...data,
-  //     ...formData,
-  //   });
-  //   dispatch({ type: 'updateData', update: { caseFormData: `${stringData}` } });
-  //   console.log(data);
-  //   console.log('sent');
-  //   postCase(data);
-  //   console.log(data);
-  // };
 
   return (
     <>

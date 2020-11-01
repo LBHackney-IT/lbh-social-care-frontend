@@ -7,9 +7,8 @@ import { Button, DateInput, Radios, Select, TextInput } from 'components/Form';
 const ReferralDetails = () => {
   const { register, handleSubmit, control } = useForm();
   const [{ data }, dispatch] = useStateValue();
-  console.log(data);
   const onSubmit = (formData) => {
-    dispatch({ type: 'updateData', update: { ...data, ...formData } });
+    dispatch({ type: 'updateData', updateData: { ...data, ...formData } });
     window.scrollTo(0, 0);
     Router.push('/steps/case-notes');
   };

@@ -9,7 +9,7 @@ const ResultEntry = ({
   addressList,
   dateOfBirth,
 }) => (
-  <Link href={`/people/${personId || mosaicId}/cases`}>
+  <Link href={`/people/${personId || mosaicId}`}>
     <tr className="govuk-table__row govuk-table__row--clickable">
       <td className="govuk-table__cell">{personId || mosaicId}</td>
       <td className="govuk-table__cell">
