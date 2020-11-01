@@ -1,5 +1,4 @@
 import { useState, useCallback } from 'react';
-
 import SearchByMosaicId from './SearchByMosaicId';
 import SearchByDetails from './SearchByDetails';
 import ResultTable from './ResultTable';

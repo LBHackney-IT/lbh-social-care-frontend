@@ -1,11 +1,15 @@
 import Router from 'next/router';
 import { useForm } from 'react-hook-form';
+import { useStateValue } from '../../utils/store';
 import Breadcrumbs from '../../components/Breadcrumbs/Breadcrumbs';
 import { Button, DateInput, Radios, Select, TextInput } from 'components/Form';
 
 const ReferralDetails = () => {
   const { register, handleSubmit, control } = useForm();
-  const onSubmit = () => {
+  const [{ data }, dispatch] = useStateValue();
+  console.log(data);
+  const onSubmit = (formData) => {
+    dispatch({ type: 'updateData', update: { ...data, ...formData } });
     window.scrollTo(0, 0);
     Router.push('/steps/case-notes');
   };
