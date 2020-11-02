@@ -11,6 +11,11 @@ const headersWithKey = {
   'x-api-key': AWS_KEY,
 };
 
+const headersWithKeyAndContent = {
+  'x-api-key': AWS_KEY,
+  'Content-Type': 'application/json',
+};
+
 export const getResidents = async (params) => {
   const { data } = await axios.get(`${ENDPOINT_API}/residents`, {
     headers: headersWithKey,
@@ -37,10 +42,12 @@ export const getResidentCases = async (mosaic_id) => {
 };
 
 export const postResidentCase = async (mosaic_id, formData) => {
-  const { data } = await axios.post(`${ENDPOINT_API}/residents/cases`, {
-    headers: headersWithKey,
-    params: { mosaic_id },
-    body: formData,
-  });
+  const { data } = axios.post(
+    `${ENDPOINT_API}/residents/cases?mosaic_id=${mosaic_id}`,
+    {
+      headers: headersWithKeyAndContent,
+      body: formData,
+    }
+  );
   return data._id;
 };

@@ -1,7 +1,6 @@
 import { useForm } from 'react-hook-form';
 import { useState, useEffect } from 'react';
 import Router from 'next/router';
-import moment from 'moment';
 import { useStateValue } from '../../utils/store';
 import { postResidentCase } from '../../utils/api/residents';
 import ErrorSummary from '../../components/ErrorSummary/ErrorSummary';
@@ -10,32 +9,25 @@ import { Button, DateInput, Radios, TextInput } from 'components/Form';
 
 const CaseNotes = () => {
   const { register, errors, handleSubmit, control } = useForm();
-  const [{ data }, dispatch] = useStateValue();
+  const [{ data }] = useStateValue();
   const [error, setError] = useState(false);
   const [submitting, setSubmitting] = useState(false);
 
   useEffect(() => {
     Router.prefetch('/steps/confirmation');
   }, []);
-  const onSubmit = async (formData) => {
+  const onSubmit = (formData) => {
+    const stringData = JSON.stringify({
+      ...data,
+      ...formData,
+    });
+
     try {
       setSubmitting(true);
-      const timestamp = moment(new Date()).format('DD/MM/YYYY hh:mm:ss');
-      const stringData = JSON.stringify({
-        timestamp: timestamp,
-        ...data,
-        ...formData,
-      });
-      dispatch({
-        type: 'updateData',
-        updateData: { caseFormData: `${stringData}` },
-      });
-
-      const recordID = await postResidentCase(data.mosaicId, data);
+      postResidentCase(data.mosaicId, { caseFormData: `${stringData}` });
 
       return Router.push({
         pathname: '/steps/confirmation',
-        query: { recordID },
       });
     } catch (e) {
       setSubmitting(false);

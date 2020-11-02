@@ -24,7 +24,7 @@ export default async (req, res) => {
       try {
         const data = await postResidentCase(req.query.id, req.body);
         if (data?.length > 0) {
-          res.status(200).json(data);
+          res.status(201).json(data);
         } else {
           res.status(404).json('Endpoint not found');
         }

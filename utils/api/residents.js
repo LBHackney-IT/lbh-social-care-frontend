@@ -18,6 +18,9 @@ export const getResidentCases = async (id) => {
 };
 
 export const postResidentCase = async (id, formData) => {
-  const { data } = await axios.post(`/api/residents/${id}/cases`, formData);
+  const { data } = await axios.post(
+    `/api/residents/cases?mosaic_id=${id}`,
+    formData
+  );
   return data;
 };
