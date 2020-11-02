@@ -19,9 +19,11 @@ describe('residents APIs', () => {
         foo: 'bar',
       });
       expect(axios.get).toHaveBeenCalled();
-      expect(axios.get.mock.calls[0][0]).toEqual(`${ENDPOINT_API}/residents`);
+      expect(axios.get.mock.calls[0][0]).toEqual(
+        `${ENDPOINT_MOSAIC}/residents`
+      );
       expect(axios.get.mock.calls[0][1].headers).toEqual({
-        'x-api-key': AWS_KEY,
+        Authorization: AWS_AUTHORIZATION,
       });
       expect(data).toEqual('bar');
     });
