@@ -1,17 +1,21 @@
 import { useState, useCallback } from 'react';
 
-import SearchByMosaicId from './SearchByMosaicId';
-import SearchByDetails from './SearchByDetails';
+import SearchForm from './SearchForm';
 import ResultTable from './ResultTable';
 import ErrorMessage from 'components/ErrorMessage/ErrorMessage';
+import { getResident, getResidents } from 'utils/api/residents';
 
 const Search = () => {
   const [error, setError] = useState();
   const [loading, setLoading] = useState(false);
   const [results, setResults] = useState();
-  const onResult = useCallback(async (results) => {
+  const onFormSubmit = useCallback(async (formData) => {
+    setLoading(true);
     try {
-      const data = await results;
+      const { mosaicId, ...personDetails } = formData;
+      const data = mosaicId
+        ? await getResident(mosaicId)
+        : await getResidents(personDetails);
       setLoading(false);
       setError(null);
       setResults(Array.isArray(data) ? data : [data]);
@@ -23,9 +27,7 @@ const Search = () => {
   });
   return (
     <>
-      <SearchByMosaicId onResult={onResult} setLoading={setLoading} />
-      <hr className="govuk-section-break govuk-section-break--l govuk-section-break--visible" />
-      <SearchByDetails onResult={onResult} setLoading={setLoading} />
+      <SearchForm onFormSubmit={onFormSubmit} />
       {loading ? (
         <div>Searching...</div>
       ) : (
