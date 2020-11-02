@@ -42,7 +42,7 @@ export const getResidentCases = async (mosaic_id) => {
 };
 
 export const postResidentCase = async (mosaic_id, formData) => {
-  const { data } = axios.post(
+  const { data } = await axios.post(
     `${ENDPOINT_API}/residents/cases?mosaic_id=${mosaic_id}`,
     {
       body: formData,
@@ -51,5 +51,5 @@ export const postResidentCase = async (mosaic_id, formData) => {
       headers: headersWithKeyAndContent,
     }
   );
-  return data._id;
+  return data?.id;
 };

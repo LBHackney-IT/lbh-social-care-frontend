@@ -25,10 +25,12 @@ const CaseNotes = () => {
     try {
       setSubmitting(true);
       postResidentCase(data.mosaicId, { caseFormData: `${stringData}` });
-
-      return Router.push({
-        pathname: '/steps/confirmation',
-      });
+      console.log(
+        postResidentCase(data.mosaicId, { caseFormData: `${stringData}` })
+      );
+      // return Router.push({
+      //   pathname: '/steps/confirmation',
+      // });
     } catch (e) {
       setSubmitting(false);
       setError(e.message);
