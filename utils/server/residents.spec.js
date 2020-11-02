@@ -49,9 +49,7 @@ describe('residents APIs', () => {
       axios.get.mockResolvedValue({ data: { foo: 123, cases: 'bar' } });
       const data = await residentsAPI.getResidentCases(123);
       expect(axios.get).toHaveBeenCalled();
-      expect(axios.get.mock.calls[0][0]).toEqual(
-        `${ENDPOINT_API}/residents/cases`
-      );
+      expect(axios.get.mock.calls[0][0]).toEqual(`${ENDPOINT_API}/cases`);
       expect(axios.get.mock.calls[0][1].headers).toEqual({
         'x-api-key': AWS_KEY,
       });

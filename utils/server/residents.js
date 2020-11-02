@@ -31,7 +31,7 @@ export const getResident = async (id) => {
 };
 
 export const getResidentCases = async (mosaic_id) => {
-  const { data } = await axios.get(`${ENDPOINT_API}/residents/cases`, {
+  const { data } = await axios.get(`${ENDPOINT_API}/cases`, {
     headers: headersWithKey,
     params: { mosaic_id },
   });
