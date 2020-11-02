@@ -50,3 +50,7 @@ html.lbh-template > body.lbh-template__body * {
   background: govuk-colour('light-grey');
   cursor: pointer;
 }
+
+.govuk-input:disabled {
+  background: govuk-colour('light-grey');
+}

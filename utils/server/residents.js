@@ -17,8 +17,10 @@ const headersWithKeyAndContent = {
 };
 
 export const getResidents = async (params) => {
-  const { data } = await axios.get(`${ENDPOINT_API}/residents`, {
-    headers: headersWithKey,
+  const { data } = await axios.get(`${ENDPOINT_MOSAIC}/residents`, {
+    headers: {
+      Authorization: AWS_AUTHORIZATION,
+    },
     params,
   });
   return data.residents;
@@ -34,7 +36,7 @@ export const getResident = async (id) => {
 };
 
 export const getResidentCases = async (mosaic_id) => {
-  const { data } = await axios.get(`${ENDPOINT_API}/residents/cases`, {
+  const { data } = await axios.get(`${ENDPOINT_API}/cases`, {
     headers: headersWithKey,
     params: { mosaic_id },
   });
