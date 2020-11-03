@@ -18,7 +18,7 @@ export const getResidents = async (params) => {
     },
     params,
   });
-  return data.residents;
+  return data;
 };
 
 export const getResident = async (id) => {

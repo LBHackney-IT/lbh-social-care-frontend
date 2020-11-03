@@ -9,7 +9,7 @@ export default async (req, res) => {
     case 'GET':
       try {
         const data = await getResidents(req.query);
-        if (data?.length > 0) {
+        if (data?.residents?.length > 0) {
           res.status(200).json(data);
         } else {
           res.status(404).json('Residents Not Found');

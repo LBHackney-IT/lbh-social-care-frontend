@@ -25,7 +25,7 @@ describe('residents APIs', () => {
       expect(axios.get.mock.calls[0][1].headers).toEqual({
         Authorization: AWS_AUTHORIZATION,
       });
-      expect(data).toEqual('bar');
+      expect(data).toEqual({ foo: 123, residents: 'bar' });
     });
   });
 
