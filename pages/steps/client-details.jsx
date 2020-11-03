@@ -1,6 +1,7 @@
 import Router from 'next/router';
 import { useForm } from 'react-hook-form';
 import Breadcrumbs from '../../components/Breadcrumbs/Breadcrumbs';
+import { useStateValue } from '../../utils/store';
 import {
   Button,
   DateInput,
@@ -11,7 +12,10 @@ import {
 
 const ClientDetails = () => {
   const { register, errors, handleSubmit, control } = useForm();
-  const onSubmit = () => {
+  const [{ data }, dispatch] = useStateValue();
+
+  const onSubmit = (formData) => {
+    dispatch({ type: 'updateData', updateData: { ...data, ...formData } });
     window.scrollTo(0, 0);
     Router.push('/steps/referral-details');
   };
@@ -77,11 +81,10 @@ const ClientDetails = () => {
             register={register()}
           />
           <TextInput
-            name="surname"
+            name="lastName"
             width="30"
             label="Surname"
             required={true}
-            control={control}
             register={register({ required: true })}
             error={errors && errors.surname}
           />
@@ -122,7 +125,7 @@ const ClientDetails = () => {
             required={true}
           />
           <TextInput
-            name="address"
+            name="addressLine1"
             width="30"
             label="Primary Address"
             required={true}
@@ -130,7 +133,7 @@ const ClientDetails = () => {
             error={errors && errors.address}
           />
           <TextInput
-            name="postcode"
+            name="postCode"
             width="30"
             label="Post Code"
             required={true}
