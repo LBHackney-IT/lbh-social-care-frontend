@@ -32,7 +32,7 @@ describe('residents APIs', () => {
   describe('getResident', () => {
     it('should work properly', async () => {
       axios.get.mockResolvedValue({ data: 'foobar' });
-      const data = await residentsAPI.getResident('foo');
+      const data = await residentsAPI.getResident('foo', { bar: 'foobar' });
       expect(axios.get).toHaveBeenCalled();
       expect(axios.get.mock.calls[0][0]).toEqual(
         `${ENDPOINT_MOSAIC}/residents/foo`
@@ -40,6 +40,7 @@ describe('residents APIs', () => {
       expect(axios.get.mock.calls[0][1].headers).toEqual({
         Authorization: AWS_AUTHORIZATION,
       });
+      expect(axios.get.mock.calls[0][1].params).toEqual({ bar: 'foobar' });
       expect(data).toEqual('foobar');
     });
   });

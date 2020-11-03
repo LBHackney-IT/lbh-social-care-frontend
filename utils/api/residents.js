@@ -7,8 +7,10 @@ export const getResidents = async (params) => {
   return data;
 };
 
-export const getResident = async (id) => {
-  const { data } = await axios.get(`/api/residents/${id}`);
+export const getResident = async (id, params) => {
+  const { data } = await axios.get(`/api/residents/${id}`, {
+    params,
+  });
   return data;
 };
 

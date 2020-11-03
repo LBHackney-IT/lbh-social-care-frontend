@@ -20,9 +20,10 @@ describe('residents APIs', () => {
   describe('getResident', () => {
     it('should work properly', async () => {
       axios.get.mockResolvedValue({ data: 'foobar' });
-      const data = await residentsAPI.getResident('foo');
+      const data = await residentsAPI.getResident('foo', { bar: 'foobar' });
       expect(axios.get).toHaveBeenCalled();
       expect(axios.get.mock.calls[0][0]).toEqual('/api/residents/foo');
+      expect(axios.get.mock.calls[0][1]).toEqual({ params: { bar: 'foobar' } });
       expect(data).toEqual('foobar');
     });
   });
