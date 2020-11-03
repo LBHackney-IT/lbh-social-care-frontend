@@ -20,6 +20,7 @@ export default async (req, res) => {
         res.status(500).json('Unable to get the Cases');
       }
       break;
+
     default:
       res.status(400).json('Invalid request method');
   }

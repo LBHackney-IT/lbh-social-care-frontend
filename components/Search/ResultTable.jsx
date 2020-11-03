@@ -45,7 +45,6 @@ const ResultTable = ({ results }) => (
       </tr>
     </thead>
     <tbody className="govuk-table__body">
-      {console.log(results)}
       {results.map((result) => (
         <ResultEntry key={result.personId} {...result} />
       ))}
