@@ -1,8 +1,14 @@
 import Router from 'next/router';
 import { useForm } from 'react-hook-form';
 import Breadcrumbs from '../../components/Breadcrumbs/Breadcrumbs';
-import { Button, DateInput, Radios, TextInput } from 'components/Form';
 import { useStateValue } from '../../utils/store';
+import {
+  Button,
+  DateInput,
+  Radios,
+  TextInput,
+  NationalityList,
+} from 'components/Form';
 
 const ClientDetails = () => {
   const { register, errors, handleSubmit, control } = useForm();
@@ -50,6 +56,7 @@ const ClientDetails = () => {
             hint="For example, 31 03 1980"
             error={errors && errors.dateOfContact}
           />
+
           <TextInput
             name="mosaicId"
             width="30"
@@ -102,6 +109,12 @@ const ClientDetails = () => {
             rules={{ required: true }}
             hint="For example, 31 03 1980"
             error={errors && errors.dateOfBirth}
+          />
+          <NationalityList
+            name="nationality"
+            label="Nationality"
+            required={true}
+            register={register()}
           />
           <Radios
             name="gender"
