@@ -16,25 +16,23 @@ const CaseNotes = () => {
   useEffect(() => {
     Router.prefetch('/steps/confirmation');
   }, []);
-  const onSubmit = (formData) => {
-    const stringData = JSON.stringify({
-      ...data,
-      ...formData,
-    });
 
+  const sendData = async (formData) => {
+    const stringData = JSON.stringify({ ...data, ...formData });
+    const formattedData = { caseFormData: stringData };
     try {
       setSubmitting(true);
-      postResidentCase(data.mosaicId, { caseFormData: `${stringData}` });
-      console.log(
-        postResidentCase(data.mosaicId, { caseFormData: `${stringData}` })
-      );
-      // return Router.push({
-      //   pathname: '/steps/confirmation',
-      // });
+      await postResidentCase(data.mosaicId, formattedData);
     } catch (e) {
       setSubmitting(false);
       setError(e.message);
     }
+  };
+  const onSubmit = (formData) => {
+    sendData(formData);
+    return Router.push({
+      pathname: '/steps/confirmation',
+    });
   };
 
   return (

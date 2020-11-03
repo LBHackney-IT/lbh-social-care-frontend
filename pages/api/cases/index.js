@@ -8,8 +8,9 @@ export default async (req, res) => {
   switch (req.method) {
     case 'POST':
       try {
-        await postResidentCase(req.query.id, req.body);
+        const { data } = await postResidentCase(req.query.id, req.body);
         res.setHeader('Content-Type', 'application/json');
+        res.end(JSON.stringify(data));
       } catch (error) {
         console.log(error.status);
         console.log('Cast post error:', error);

@@ -78,7 +78,6 @@ const ClientDetails = () => {
             width="30"
             label="Surname"
             required={true}
-            control={control}
             register={register({ required: true })}
             error={errors && errors.surname}
           />
