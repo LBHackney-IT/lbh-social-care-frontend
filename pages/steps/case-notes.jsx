@@ -72,36 +72,36 @@ const CaseNotes = () => {
             <TextInput
               name="summariseInfo"
               width="30"
-              register={register()}
+              register={register}
               label="Please summarise the information provided by the contact"
             />
             <Radios
               name="subjectAware"
               label="Is the subject aware of the contact?"
               options={['Yes', 'No', 'Not Known']}
-              register={register()}
+              register={register}
             />
             <Radios
               name="adviceOffered"
               label="Was information and advice offered?"
-              register={register()}
+              register={register}
             />
             <TextInput
               name="categoryInfo"
               width="30"
-              register={register()}
+              register={register}
               label="a. Information and advice offered (Category)"
             />
             <TextInput
               name="detailInfo"
               width="30"
-              register={register()}
+              register={register}
               label="b. Information and advice offered (Details)"
             />
             <TextInput
               name="referredAgencies"
               width="30"
-              register={register()}
+              register={register}
               label="Please identify any other agencies that the person making contact has been referred to."
             />
             <h3>
@@ -114,12 +114,12 @@ const CaseNotes = () => {
               name="infoShared"
               label="If client has not agreed consent, has information still to be shared?"
               options={['Yes, under duty of care', 'No']}
-              register={register()}
+              register={register}
             />
             <TextInput
               name="justification"
               width="30"
-              register={register()}
+              register={register}
               label="Justification for information to be shared outside of client consent"
             />
             <DateInput
@@ -128,7 +128,6 @@ const CaseNotes = () => {
               label="Date Agreed"
               rules={{ required: false }}
               hint="For example, 31 03 1980"
-              register={register()}
             />
             <Radios
               name="nextAction"
@@ -150,7 +149,7 @@ const CaseNotes = () => {
                 'No Services Provided - Deceased',
                 'No Services Provided - other reason',
               ]}
-              register={register()}
+              register={register}
             />
           </fieldset>
         </div>

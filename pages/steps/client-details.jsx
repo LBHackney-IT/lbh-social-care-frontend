@@ -72,13 +72,13 @@ const ClientDetails = () => {
             width="30"
             label="NHS Number"
             hint="For example 0123456789"
-            register={register()}
+            register={register}
           />
           <TextInput
             name="title"
             width="30"
             label="Title"
-            register={register()}
+            register={register}
           />
           <TextInput
             name="lastName"
@@ -100,7 +100,7 @@ const ClientDetails = () => {
             name="otherNames"
             width="30"
             label="Other Names"
-            register={register()}
+            register={register}
           />
           <DateInput
             control={control}
@@ -144,7 +144,7 @@ const ClientDetails = () => {
             name="phone"
             width="30"
             label="Phone Number"
-            register={register()}
+            register={register}
           />
         </fieldset>
       </div>

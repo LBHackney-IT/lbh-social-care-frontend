@@ -46,37 +46,37 @@ const ReferralDetails = () => {
             name="referrerName"
             width="30"
             label="Referrer Name"
-            register={register()}
+            register={register}
           />
           <TextInput
             name="referrerRelationship"
             width="30"
             label="Referrer relationship"
-            register={register()}
+            register={register}
           />
           <TextInput
             name="referrerOrganisation"
             width="30"
             label="Referrer Organisation"
-            register={register()}
+            register={register}
           />
           <TextInput
             name="referrerEmail"
             width="30"
             label="Referrer Email"
-            register={register()}
+            register={register}
           />
           <TextInput
             name="referrerTelephone"
             width="30"
             label="Referrer Telephone"
-            register={register()}
+            register={register}
           />
           <TextInput
             name="referrerRole"
             width="30"
             label="Referrer Role"
-            register={register()}
+            register={register}
           />
           <DateInput
             control={control}
@@ -84,18 +84,17 @@ const ReferralDetails = () => {
             label="Contact Date"
             rules={{ required: false }}
             hint="For example, 31 03 1980"
-            register={register()}
           />
           <Select
             name="contactMethod"
             label="Contact Method"
-            register={register()}
+            register={register}
             options={['Email', 'Phone', 'Mail', 'Face to Face']}
           />
           <Select
             name="contactType"
             label="Contact Type"
-            register={register()}
+            register={register}
             options={[
               'Self-referral',
               'Professional referral',
@@ -107,7 +106,7 @@ const ReferralDetails = () => {
             name="otherContact"
             width="30"
             label="Detail if Other"
-            register={register()}
+            register={register}
           />
           <Radios
             name="routeAccess"
@@ -120,13 +119,13 @@ const ReferralDetails = () => {
               'Self-funder with depleted funds (of which previously provided with 12-week disregard or deferred payment)',
               'Community/Other route',
             ]}
-            register={register()}
+            register={register}
           />
           <Radios
             name="presentingIssue"
             label="Presenting Issue"
             options={['Female', 'Male', 'Unknown', 'Other']}
-            register={register()}
+            register={register}
           />
           <Radios
             name="presentingIssue"
@@ -139,7 +138,7 @@ const ReferralDetails = () => {
               'Assessment',
               'Test/Investigations',
             ]}
-            register={register()}
+            register={register}
           />
         </fieldset>
       </div>

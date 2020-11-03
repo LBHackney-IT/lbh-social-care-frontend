@@ -49,38 +49,38 @@ const CaseNotesRecording = () => {
             name="address"
             width="30"
             label="Primary Address"
-            register={register()}
+            register={register}
           />
           <TextInput
             name="postcode"
             width="30"
             label="Post Code"
-            register={register()}
+            register={register}
           />
           <TextInput
             name="contactNumber"
             width="30"
             label="Contact Number"
-            register={register()}
+            register={register}
           />
           <TextInput
             name="mosaicId"
             label="Mosaic Person Reference"
             hint="For example 0123456789"
             width="30"
-            register={register()}
+            register={register}
           />
           <TextInput
             name="emergencyIDNumber"
             width="30"
             label="Emergency ID Number"
             hint="For example 0123456789"
-            register={register()}
+            register={register}
           />
           <Select
             name="caseNoteType"
             label="Case Note Type"
-            register={register()}
+            register={register}
             options={[
               'Care Charges',
               'Case Audit',
@@ -112,7 +112,7 @@ const CaseNotesRecording = () => {
             name="otherNoteType"
             width="30"
             label="if 'Other', please provide case note type"
-            register={register()}
+            register={register}
           />
           <DateInput
             control={control}
@@ -124,7 +124,7 @@ const CaseNotesRecording = () => {
           <TextInput
             name="caseNoteDescription"
             width="30"
-            register={register()}
+            register={register}
             label="Case Note Description (please write case notes here)"
           />
         </fieldset>
