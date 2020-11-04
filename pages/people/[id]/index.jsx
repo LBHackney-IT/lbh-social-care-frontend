@@ -10,7 +10,8 @@ const CasesPage = ({ query }) => {
       <NextSeo title={`#${query.id} Cases`} noindex />
       <BackButton />
       <PersonView personId={query.id} />
-      <h1>Cases for #{query.id}</h1>
+      <h3>NOTES HISTORY #{query.id}</h3>
+      <p>Linked files are read only</p>
       <Cases {...query} />
     </div>
   );

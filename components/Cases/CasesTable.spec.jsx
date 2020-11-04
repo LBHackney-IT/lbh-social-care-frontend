@@ -12,6 +12,8 @@ describe('CasesTable component', () => {
         formName: 'foorm',
         dateOfBirth: '1978-02-23T00:00:00.0000000',
         caseFormUrl: 'https://foo.bar',
+        officerEmail: 'Fname.Lname@hackney.gov.uk',
+        caseFormTimestamp: '1978-02-23T00:00:00.0000000',
       },
     ],
   };
