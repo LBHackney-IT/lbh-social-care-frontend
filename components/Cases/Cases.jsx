@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import CasesTable from './CasesTable';
 import ErrorMessage from 'components/ErrorMessage/ErrorMessage';
 import { getResidentCases } from 'utils/api/residents';
+import Spinner from 'components/Spinner/Spinner';
 
 const Cases = ({ id }) => {
   const [error, setError] = useState();
@@ -28,7 +29,9 @@ const Cases = ({ id }) => {
   return (
     <>
       {loading ? (
-        <div>Loading...</div>
+        <div>
+          <Spinner />
+        </div>
       ) : (
         <>
           {cases && <CasesTable cases={cases} />}
