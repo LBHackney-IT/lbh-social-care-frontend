@@ -6,6 +6,7 @@ describe('CasesTable component', () => {
   const props = {
     cases: [
       {
+        personId: 123,
         caseFormTimestamp: '1978-02-23T00:00:00.0000000',
         formName: 'foorm',
         caseFormUrl: 'https://foo.bar',
