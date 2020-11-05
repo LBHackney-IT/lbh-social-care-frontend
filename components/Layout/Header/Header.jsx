@@ -4,9 +4,18 @@ import UserContext from 'components/UserContext/UserContext';
 
 const HeaderComponent = ({ serviceName }) => {
   const { user } = useContext(UserContext);
-  if (!user) {
-    return null;
-  }
+
+  const userDetails = (
+    <div className="govuk-custom-header__links">
+      <p>
+        <span className="govuk-!-font-weight-bold">Logged in as:</span>{' '}
+        {user && user.name}
+      </p>
+      <a className="govuk-!-font-weight-bold" href="/logout">
+        Logout
+      </a>
+    </div>
+  );
   return (
     <header className="govuk-body govuk-custom-header">
       <div className="govuk-custom-header__main">
@@ -42,15 +51,7 @@ const HeaderComponent = ({ serviceName }) => {
               </span>
             </a>
           </Link>
-          <div className="govuk-custom-header__links">
-            <p>
-              <span className="govuk-!-font-weight-bold">Logged in as:</span>{' '}
-              {user.name}
-            </p>
-            <a className="govuk-!-font-weight-bold" href="/logout">
-              Logout
-            </a>
-          </div>
+          {user ? userDetails : null}
         </div>
       </div>
     </header>

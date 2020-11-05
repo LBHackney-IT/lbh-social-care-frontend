@@ -138,8 +138,8 @@ html.govuk-custom-template > body.govuk-custom-template__body * {
   }
 
   .govuk-custom-container {
-    margin-right: max(30px, calc(15px + env(safe-area-inset-right)));
-    margin-left: max(30px, calc(15px + env(safe-area-inset-left)));
+    margin-right: max(30px);
+    margin-left: max(30px);
   }
   .govuk-custom-header__service-name {
     display: block;
@@ -159,8 +159,8 @@ html.govuk-custom-template > body.govuk-custom-template__body * {
   }
 
   .govuk-custom-container {
-    margin-right: max(10px, calc(5px + env(safe-area-inset-right)));
-    margin-left: max(10px, calc(5px + env(safe-area-inset-left)));
+    margin-right: max(10px);
+    margin-left: max(10px);
   }
 
   .govuk-custom-header__links a {
