@@ -5,38 +5,6 @@ exports[`CasesTable component should render properly 1`] = `
   <table
     class="govuk-table"
   >
-    <thead
-      class="govuk-table__head"
-    >
-      <tr
-        class="govuk-table__row"
-      >
-        <th
-          class="govuk-table__header"
-          scope="col"
-        >
-          Person ID
-        </th>
-        <th
-          class="govuk-table__header"
-          scope="col"
-        >
-          Name
-        </th>
-        <th
-          class="govuk-table__header"
-          scope="col"
-        >
-          Form Name
-        </th>
-        <th
-          class="govuk-table__header"
-          scope="col"
-        >
-          DOB
-        </th>
-      </tr>
-    </thead>
     <tbody
       class="govuk-table__body"
     >
@@ -46,12 +14,7 @@ exports[`CasesTable component should render properly 1`] = `
         <td
           class="govuk-table__cell"
         >
-          123
-        </td>
-        <td
-          class="govuk-table__cell"
-        >
-          Fname Lname
+          1978-02-23T00:00:00.0000000
         </td>
         <td
           class="govuk-table__cell"
@@ -61,7 +24,12 @@ exports[`CasesTable component should render properly 1`] = `
         <td
           class="govuk-table__cell"
         >
-          2/23/1978
+          - created by Fname.Lname@hackney.gov.uk
+        </td>
+        <td
+          class="govuk-table__cell govuk-button--secondary'"
+        >
+          View
         </td>
       </tr>
     </tbody>
