@@ -1,4 +1,3 @@
-import AdminNavBar from 'components/AdminNavBar/AdminNavBar';
 import Footer from './Footer/Footer';
 import Header from './Header/Header';
 import SkipLink from './SkipLink/SkipLink';
@@ -25,7 +24,7 @@ const Layout = ({ children }) => {
     <>
       <StateProvider initialState={initialState} reducer={reducer}>
         <SkipLink />
-        <Header serviceName="Social Care Service" />
+        <Header serviceName="Interim Social Care Admin" />
         <div className="govuk-width-container app-width-container">
           <PhaseBanner phase="beta" />
           <main
@@ -33,7 +32,6 @@ const Layout = ({ children }) => {
             id="content"
             role="main"
           >
-            <AdminNavBar />
             {children}
           </main>
         </div>
