@@ -5,25 +5,30 @@ import Router, { useRouter } from 'next/router';
 import ClientDetails from 'components/Steps/client-details';
 import ReferralDetails from 'components/Steps/referral-details';
 import CaseNotes from 'components/Steps/case-notes';
+import Breadcrumbs from 'components/Breadcrumbs/Breadcrumbs';
 
 const FORM_PATH = '/form/adult-referral/';
-const FORM_STEPS = {
-  'client-details': ClientDetails,
-  'referral-details': ReferralDetails,
-  'case-notes': CaseNotes,
-};
+const FORM_STEPS = [
+  { id: 'client-details', component: ClientDetails, title: 'Client Details' },
+  {
+    id: 'referral-details',
+    component: ReferralDetails,
+    title: 'Referral Details',
+  },
+  { id: 'case-notes', component: CaseNotes, title: 'Case Notes' },
+];
 
-const stepKeys = Object.keys(FORM_STEPS);
 const stepPath = `${FORM_PATH}[step]`;
 
-const getAdjacentSteps = (step) => {
-  const currentStep = stepKeys.findIndex((s) => s === step);
+const getAdjacentSteps = (currentStepIndex) => {
   return {
     previousStep:
-      currentStep > 0 ? `${FORM_PATH}${stepKeys[currentStep - 1]}` : null,
+      currentStepIndex > 0
+        ? `${FORM_PATH}${FORM_STEPS[currentStepIndex - 1].id}`
+        : null,
     nextStep:
-      currentStep < stepKeys.length
-        ? `${FORM_PATH}${stepKeys[currentStep + 1]}`
+      currentStepIndex < FORM_STEPS.length - 1
+        ? `${FORM_PATH}${FORM_STEPS[currentStepIndex + 1].id}`
         : null,
   };
 };
@@ -35,16 +40,18 @@ const AdultReferral = () => {
   const [formData, setFormData] = useState({});
   const router = useRouter();
   const { stepId } = router.query;
-  const firstStep = stepKeys[0];
+  const firstStep = FORM_STEPS[0].id;
   if (stepId && !formData.mosaic_id && stepId !== firstStep) {
     Router.replace(`${FORM_PATH}${firstStep}`);
     return null;
   }
-  const Step = FORM_STEPS[stepId];
-  if (!Step) {
+  const step = FORM_STEPS.find(({ id }) => id === stepId);
+  if (!step) {
     return null;
   }
-  const { previousStep, nextStep } = getAdjacentSteps(stepId);
+  const StepComponent = step.component;
+  const currentStepIndex = FORM_STEPS.findIndex(({ id }) => id === step.id);
+  const { previousStep, nextStep } = getAdjacentSteps(currentStepIndex);
   return (
     <div className="govuk-width-container">
       {previousStep && (
@@ -52,14 +59,43 @@ const AdultReferral = () => {
           <a className="govuk-back-link">Back</a>
         </Link>
       )}
-      <main className="govuk-main-wrapper">
-        <Step
+      <fieldset
+        className="govuk-fieldset"
+        role="group"
+        aria-describedby="step-hint"
+      >
+        <legend className="govuk-fieldset__legend govuk-fieldset__legend--l">
+          <h1 className="govuk-fieldset__heading">Create new record</h1>
+        </legend>
+        <div className="govuk-breadcrumbs">
+          <ol className="govuk-breadcrumbs__list">
+            {FORM_STEPS.map(
+              (step, index) =>
+                console.log(currentStepIndex, index) || (
+                  <Breadcrumbs
+                    key={step.id}
+                    label={step.title}
+                    link={`/form/adult-referral/${step.id}`}
+                    state={
+                      currentStepIndex === index
+                        ? 'current'
+                        : currentStepIndex < index && 'completed'
+                    }
+                  />
+                )
+            )}
+          </ol>
+        </div>
+        <legend className="govuk-fieldset__legend govuk-fieldset__legend--m">
+          <h1 className="govuk-fieldset__heading">{step.title}</h1>
+        </legend>
+        <StepComponent
           formData={formData}
           saveData={(data) => setFormData({ ...formData, ...data })}
           nextStep={nextStep}
           stepPath={stepPath}
         />
-      </main>
+      </fieldset>
     </div>
   );
 };
