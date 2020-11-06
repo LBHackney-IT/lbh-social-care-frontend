@@ -14,7 +14,7 @@ const CaseNotes = (props) => {
   });
 
   useEffect(() => {
-    Router.prefetch('/steps/confirmation');
+    Router.prefetch('/form/adult-referral/confirmation');
   }, []);
 
   const sendData = async (formData) => {
@@ -31,7 +31,7 @@ const CaseNotes = (props) => {
   const onSubmit = async (formData) => {
     try {
       await sendData(formData);
-      return Router.push({
+      Router.replace({
         pathname: '/form/adult-referral/confirmation',
       });
     } catch {
