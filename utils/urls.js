@@ -17,3 +17,14 @@ export const absoluteUrl = (req, setLocalhost) => {
 export const getProtocol = () => {
   return process.env.NODE_ENV === 'production' ? 'https' : 'http';
 };
+
+export const getQueryString = (obj) =>
+  Object.entries(obj).reduce(
+    (acc, [key, value]) =>
+      value
+        ? acc.length > 0
+          ? `${acc}&${key}=${value}`
+          : `${key}=${value}`
+        : acc,
+    ''
+  );

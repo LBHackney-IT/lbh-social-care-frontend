@@ -2,13 +2,13 @@ import { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import cx from 'classnames';
 import Router from 'next/router';
-import querystring from 'querystring/encode';
 import { useForm } from 'react-hook-form';
 import isValid from 'date-fns/isValid';
 import isPast from 'date-fns/isPast';
 
 import { Button, TextInput, DateInput } from 'components/Form';
 import ErrorMessage from 'components/ErrorMessage/ErrorMessage';
+import { getQueryString } from 'utils/urls';
 
 const isDetailsFormEmpty = ({ first_name, last_name, date_of_birth }) =>
   first_name === '' && last_name === '' && !date_of_birth;
@@ -28,7 +28,7 @@ const SearchForm = ({ onFormSubmit, query }) => {
       return setFormError('You need to enter name or date of birth');
     }
     onFormSubmit(formData);
-    const qs = querystring(formData);
+    const qs = getQueryString(formData);
     Router.replace(`/people/search?${qs}`, `/people/search?${qs}`, {
       shallow: true,
     });
