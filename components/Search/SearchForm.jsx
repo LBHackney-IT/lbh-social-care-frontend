@@ -29,7 +29,7 @@ const SearchForm = ({ onFormSubmit, query }) => {
     }
     onFormSubmit(formData);
     const qs = querystring(formData);
-    Router.push(`/people/search?${qs}`, `/people/search?${qs}`, {
+    Router.replace(`/people/search?${qs}`, `/people/search?${qs}`, {
       shallow: true,
     });
   };

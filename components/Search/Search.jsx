@@ -3,6 +3,7 @@ import { useState, useContext, useMemo, useCallback } from 'react';
 import SearchForm from './SearchForm';
 import ResultTable from './ResultTable';
 import { Button } from 'components/Form';
+import Spinner from 'components/Spinner/Spinner';
 import ErrorMessage from 'components/ErrorMessage/ErrorMessage';
 import UserContext from 'components/UserContext/UserContext';
 import { getResident, getResidents } from 'utils/api/residents';
@@ -42,7 +43,7 @@ const Search = ({ query }) => {
       {results && <ResultTable results={results.residents} />}
       <div style={{ height: '50px', textAlign: 'center' }}>
         {loading ? (
-          <div>Searching...</div>
+          <Spinner />
         ) : (
           results?.nextCursor && (
             <Button
