@@ -4,12 +4,18 @@ import cx from 'classnames';
 import { useForm } from 'react-hook-form';
 import isValid from 'date-fns/isValid';
 import isPast from 'date-fns/isPast';
+import isPostcodeValid from 'uk-postcode-validator';
 
 import { Button, TextInput, DateInput } from 'components/Form';
 import ErrorMessage from 'components/ErrorMessage/ErrorMessage';
 
-const isDetailsFormEmpty = ({ first_name, last_name, date_of_birth }) =>
-  first_name === '' && last_name === '' && !date_of_birth;
+const isDetailsFormEmpty = ({
+  first_name,
+  last_name,
+  date_of_birth,
+  postcode,
+}) =>
+  first_name === '' && last_name === '' && !date_of_birth && postcode === '';
 
 const isMosaicFormEmpty = ({ mosaicId }) => mosaicId === '';
 
@@ -66,24 +72,6 @@ const SearchForm = ({ onFormSubmit }) => {
         </div>
         <div className="govuk-grid-row">
           <div className="govuk-grid-column-one-half">
-            <TextInput
-              label="Mosaic ID:"
-              labelSize="s"
-              name="mosaicId"
-              hint="e.g. 1234567890"
-              inputClassName="govuk-input--width-10"
-              inputMode="numeric"
-              error={errors.mosaicId}
-              register={register({
-                pattern: {
-                  value: /^[0-9]+$/,
-                  message: 'Mosaic ID must be a number',
-                },
-              })}
-              disabled={mosaicSearchDisabled}
-            />
-          </div>
-          <div className="govuk-grid-column-one-half">
             <DateInput
               label="Date of Birth:"
               labelSize="s"
@@ -100,6 +88,44 @@ const SearchForm = ({ onFormSubmit }) => {
                 },
               }}
               disabled={detailsSearchDisabled}
+            />
+          </div>
+          <div className="govuk-grid-column-one-half">
+            <TextInput
+              label="Postcode:"
+              labelSize="s"
+              name="postcode"
+              hint="i.e. E8 3AS"
+              inputClassName="govuk-input--width-10"
+              error={errors.postcode}
+              register={register({
+                validate: {
+                  valid: (value) =>
+                    (value && isPostcodeValid(value)) ||
+                    'You entered an invalid postcode',
+                },
+              })}
+              disabled={detailsSearchDisabled}
+            />
+          </div>
+        </div>
+        <div className="govuk-grid-row">
+          <div className="govuk-grid-column-one-half">
+            <TextInput
+              label="Mosaic ID:"
+              labelSize="s"
+              name="mosaicId"
+              hint="e.g. 1234567890"
+              inputClassName="govuk-input--width-10"
+              inputMode="numeric"
+              error={errors.mosaicId}
+              register={register({
+                pattern: {
+                  value: /^[0-9]+$/,
+                  message: 'Mosaic ID must be a number',
+                },
+              })}
+              disabled={mosaicSearchDisabled}
             />
           </div>
         </div>
