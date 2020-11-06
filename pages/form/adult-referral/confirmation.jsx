@@ -12,9 +12,4 @@ const Confirmation = () => (
   </div>
 );
 
-export const getServerSideProps = async () => {
-  return {
-    props: {},
-  };
-};
 export default Confirmation;
