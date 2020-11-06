@@ -20,33 +20,31 @@ exports[`ResultTable component should render properly 1`] = `
           class="govuk-table__header"
           scope="col"
         >
-          Person ID
+          Mosaic ID
         </th>
         <th
           class="govuk-table__header"
           scope="col"
         >
-          Name
+          Client Name
         </th>
         <th
           class="govuk-table__header"
           scope="col"
         >
-          Address
+          Date of birth
         </th>
         <th
           class="govuk-table__header"
           scope="col"
-        >
-          DOB
-        </th>
+        />
       </tr>
     </thead>
     <tbody
       class="govuk-table__body"
     >
       <tr
-        class="govuk-table__row govuk-table__row--clickable"
+        class="govuk-table__row"
       >
         <td
           class="govuk-table__cell"
@@ -61,12 +59,17 @@ exports[`ResultTable component should render properly 1`] = `
         <td
           class="govuk-table__cell"
         >
-          foo_address foo_postcode
+          2/23/1978
         </td>
         <td
           class="govuk-table__cell"
         >
-          2/23/1978
+          <a
+            class="govuk-link"
+            href="/people/foo"
+          >
+            View
+          </a>
         </td>
       </tr>
     </tbody>
