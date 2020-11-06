@@ -23,7 +23,7 @@ const CaseNotes = (props) => {
     const formattedData = { caseFormData: stringData };
     try {
       setSubmitting(true);
-      await postResidentCase(props.formData.mosaicId, formattedData);
+      await postResidentCase(props.formData.mosaic_id, formattedData);
     } catch (e) {
       setSubmitting(false);
       setError(e.message);

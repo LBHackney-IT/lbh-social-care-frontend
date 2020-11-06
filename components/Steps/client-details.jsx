@@ -64,7 +64,7 @@ const ClientDetails = (props) => {
             label="Mosaic ID Number"
             hint="For example 0123456789"
             register={register({ required: true })}
-            error={errors && errors.mosaicId}
+            error={errors && errors.mosaic_id}
             required={true}
           />
           <TextInput
