@@ -29,11 +29,16 @@ const CaseNotes = (props) => {
       setError(e.message);
     }
   };
-  const onSubmit = (formData) => {
-    sendData(formData);
-    return Router.push({
-      pathname: '/form/adult-referral/confirmation',
-    });
+  const onSubmit = async (formData) => {
+    try {
+      await sendData(formData);
+      return Router.push({
+        pathname: '/form/adult-referral/confirmation',
+      });
+    } catch {
+      setSubmitting(false);
+      setError(true);
+    }
   };
 
   return (
