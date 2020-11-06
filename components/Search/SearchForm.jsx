@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import cx from 'classnames';
+import Router from 'next/router';
+import querystring from 'querystring/encode';
 import { useForm } from 'react-hook-form';
 import isValid from 'date-fns/isValid';
 import isPast from 'date-fns/isPast';
@@ -13,16 +15,23 @@ const isDetailsFormEmpty = ({ first_name, last_name, date_of_birth }) =>
 
 const isMosaicFormEmpty = ({ mosaicId }) => mosaicId === '';
 
-const SearchForm = ({ onFormSubmit }) => {
+const SearchForm = ({ onFormSubmit, query }) => {
   const [formError, setFormError] = useState();
   const [mosaicSearchDisabled, setMosaicSearchDisabled] = useState(false);
   const [detailsSearchDisabled, setDetailsSearchDisabled] = useState(false);
-  const { register, errors, control, watch, handleSubmit } = useForm();
+  const { register, errors, control, watch, handleSubmit } = useForm({
+    defaultValues: query,
+  });
   const onSubmit = async (formData) => {
     setFormError(null);
-    isDetailsFormEmpty(formData) && isMosaicFormEmpty(formData)
-      ? setFormError('You need to enter name or date of birth')
-      : onFormSubmit(formData);
+    if (isDetailsFormEmpty(formData) && isMosaicFormEmpty(formData)) {
+      return setFormError('You need to enter name or date of birth');
+    }
+    onFormSubmit(formData);
+    const qs = querystring(formData);
+    Router.push(`/people/search?${qs}`, `/people/search?${qs}`, {
+      shallow: true,
+    });
   };
   const formWatcher = watch();
   useEffect(() => {
@@ -39,6 +48,9 @@ const SearchForm = ({ onFormSubmit }) => {
       !isMosaicFormEmpty(formWatcher) &&
       setDetailsSearchDisabled(true);
   }, [formWatcher]);
+  useEffect(() => {
+    Object.keys(query).length && onSubmit(query);
+  }, []);
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <div className={cx({ 'govuk-form-group--error': Boolean(formError) })}>
