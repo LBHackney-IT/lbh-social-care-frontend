@@ -13,7 +13,7 @@ const SearchPage = ({ query }) => {
         Search for resident by Mosaic Id <strong>or</strong> Person Details to
         see if we have a record for them.
       </p>
-      <Search {...query} />
+      <Search query={query} />
     </div>
   );
 };
