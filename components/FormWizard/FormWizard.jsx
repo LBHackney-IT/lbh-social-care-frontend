@@ -1,6 +1,7 @@
 import { useState, useCallback } from 'react';
 import Link from 'next/link';
 import Router, { useRouter } from 'next/router';
+import { useBeforeunload } from 'react-beforeunload';
 
 import Breadcrumbs from 'components/Breadcrumbs/Breadcrumbs';
 
@@ -10,6 +11,7 @@ const FormWizard = ({ formPath, formSteps, title }) => {
   });
   const [formData, setFormData] = useState({});
   const router = useRouter();
+  useBeforeunload(() => "You'll lose your data!");
   const { stepId } = router.query;
   const stepPath = `${formPath}[step]`;
   const step = formSteps.find(({ id }) => id === stepId);
