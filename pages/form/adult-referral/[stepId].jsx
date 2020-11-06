@@ -36,7 +36,7 @@ const AdultReferral = () => {
   const router = useRouter();
   const { stepId } = router.query;
   const firstStep = stepKeys[0];
-  if (stepId && !formData.mosaicId && stepId !== firstStep) {
+  if (stepId && !formData.mosaic_id && stepId !== firstStep) {
     Router.replace(`${FORM_PATH}${firstStep}`);
     return null;
   }

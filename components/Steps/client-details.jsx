@@ -59,7 +59,7 @@ const ClientDetails = (props) => {
           />
 
           <TextInput
-            name="mosaicId"
+            name="mosaic_id"
             width="30"
             label="Mosaic ID Number"
             hint="For example 0123456789"
