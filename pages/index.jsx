@@ -10,10 +10,13 @@ const Home = () => {
         <h1 className="govuk-fieldset__heading">Form Dashboard</h1>
       </legend>
       <LinkButton label="Search for People" route="/people/search" />
-      <LinkButton label="Adult Referral From" route="/steps/client-details" />
+      <LinkButton
+        label="Adult Referral From"
+        route="/form/adult-referral/client-details"
+      />
       <LinkButton
         label="Case Notes Recording"
-        route="/steps/case-notes-recording"
+        route="/form/case-notes-recording"
       />
     </div>
   );

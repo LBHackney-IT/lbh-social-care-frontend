@@ -1,4 +1,4 @@
-import LinkButton from '../../components/LinkButton/LinkButton';
+import LinkButton from 'components/LinkButton/LinkButton';
 import { NextSeo } from 'next-seo';
 
 const Confirmation = () => (
@@ -12,9 +12,4 @@ const Confirmation = () => (
   </div>
 );
 
-export const getServerSideProps = async () => {
-  return {
-    props: {},
-  };
-};
 export default Confirmation;

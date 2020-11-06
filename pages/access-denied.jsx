@@ -1,6 +1,6 @@
 import { NextSeo } from 'next-seo';
 
-export default function AccessDenied() {
+const AccessDenied = () => {
   return (
     <div>
       <NextSeo title="Access Denied" noindex={true} />
@@ -10,12 +10,6 @@ export default function AccessDenied() {
       </p>
     </div>
   );
-}
-
-AccessDenied.propTypes = {};
-
-export const getServerSideProps = async () => {
-  return {
-    props: {},
-  };
 };
+
+export default AccessDenied;
