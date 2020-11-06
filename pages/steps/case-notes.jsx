@@ -1,6 +1,8 @@
 import { useForm } from 'react-hook-form';
 import { useState, useEffect } from 'react';
 import Router from 'next/router';
+import { NextSeo } from 'next-seo';
+
 import { useStateValue } from '../../utils/store';
 import { postResidentCase } from '../../utils/api/residents';
 import ErrorSummary from '../../components/ErrorSummary/ErrorSummary';
@@ -37,6 +39,7 @@ const CaseNotes = () => {
 
   return (
     <>
+      <NextSeo title="Case-notes" />
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="govuk-form-group">
           <fieldset
@@ -169,6 +172,12 @@ const CaseNotes = () => {
       )}
     </>
   );
+};
+
+export const getServerSideProps = async () => {
+  return {
+    props: {},
+  };
 };
 
 export default CaseNotes;

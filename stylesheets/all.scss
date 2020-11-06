@@ -3,34 +3,12 @@
 
 $screen-sm-min: 576px;
 
-html.lbh-template > body.lbh-template__body * {
-  font-family: 'Montserrat', sans-serif;
-}
-
 .govuk-header__container {
   border-bottom-color: #00513f;
 }
 
 .govuk-tag:not([class*='govuk-tag--']) {
   background-color: #00513f;
-}
-
-.lbh-header__container {
-  display: flex;
-  align-items: center;
-}
-
-.lbh-header__logotype {
-  svg {
-    width: 100%;
-    max-width: 12rem;
-    padding-top: 0.25rem;
-  }
-}
-
-.lbh-table__row--data:hover {
-  cursor: pointer;
-  background-color: rgb(233, 246, 252);
 }
 
 .govuk-required {

@@ -7,6 +7,7 @@ import SEO from '../next-seo.config';
 import UserContext from 'components/UserContext/UserContext';
 
 import 'stylesheets/all.scss';
+import 'stylesheets/header.scss';
 
 class MyApp extends App {
   componentDidMount = () => {
