@@ -1,7 +1,6 @@
 import Router from 'next/router';
 import { useForm } from 'react-hook-form';
-import Breadcrumbs from '../../components/Breadcrumbs/Breadcrumbs';
-import { useStateValue } from '../../utils/store';
+import Breadcrumbs from 'components/Breadcrumbs/Breadcrumbs';
 import {
   Button,
   DateInput,
@@ -10,14 +9,13 @@ import {
   NationalityList,
 } from 'components/Form';
 
-const ClientDetails = () => {
-  const { register, errors, handleSubmit, control } = useForm();
-  const [{ data }, dispatch] = useStateValue();
-
-  const onSubmit = (formData) => {
-    dispatch({ type: 'updateData', updateData: { ...data, ...formData } });
-    window.scrollTo(0, 0);
-    Router.push('/steps/referral-details');
+const ClientDetails = (props) => {
+  const { register, errors, handleSubmit, control } = useForm({
+    defaultValues: props.formData,
+  });
+  const onSubmit = (data) => {
+    props.saveData(data);
+    Router.push(props.stepPath, props.nextStep);
   };
 
   return (
@@ -35,14 +33,17 @@ const ClientDetails = () => {
             <ol className="govuk-breadcrumbs__list">
               <Breadcrumbs
                 label="Client Details"
-                link="/steps/client-details"
+                link="/form/adult-referral/client-details"
                 state="current"
               />
               <Breadcrumbs
                 label="Referral Details"
-                link="/steps/referral-details"
+                link="/form/adult-referral/referral-details"
               />
-              <Breadcrumbs label=" Case Notes" link="/steps/case-notes" />
+              <Breadcrumbs
+                label=" Case Notes"
+                link="/form/adult-referral/case-notes"
+              />
             </ol>
           </div>
           <legend className="govuk-fieldset__legend govuk-fieldset__legend--m">
@@ -64,7 +65,6 @@ const ClientDetails = () => {
             hint="For example 0123456789"
             register={register({ required: true })}
             error={errors && errors.mosaicId}
-            control={control}
             required={true}
           />
           <TextInput

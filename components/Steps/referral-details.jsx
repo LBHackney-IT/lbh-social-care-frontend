@@ -1,16 +1,16 @@
 import Router from 'next/router';
 import { useForm } from 'react-hook-form';
-import { useStateValue } from '../../utils/store';
-import Breadcrumbs from '../../components/Breadcrumbs/Breadcrumbs';
+
+import Breadcrumbs from 'components/Breadcrumbs/Breadcrumbs';
 import { Button, DateInput, Radios, Select, TextInput } from 'components/Form';
 
-const ReferralDetails = () => {
-  const { register, handleSubmit, control } = useForm();
-  const [{ data }, dispatch] = useStateValue();
-  const onSubmit = (formData) => {
-    dispatch({ type: 'updateData', updateData: { ...data, ...formData } });
-    window.scrollTo(0, 0);
-    Router.push('/steps/case-notes');
+const ReferralDetails = (props) => {
+  const { register, handleSubmit, control } = useForm({
+    defaultValues: props.formData,
+  });
+  const onSubmit = (data) => {
+    props.saveData(data);
+    Router.push(props.stepPath, props.nextStep);
   };
 
   return (
@@ -28,15 +28,18 @@ const ReferralDetails = () => {
             <ol className="govuk-breadcrumbs__list">
               <Breadcrumbs
                 label="Client Details"
-                link="/steps/client-details"
+                link="/form/adult-referral/client-details"
                 state="completed"
               />
               <Breadcrumbs
                 label="Referral Details"
-                link="/steps/referral-details"
+                link="/form/adult-referral/referral-details"
                 state="current"
               />
-              <Breadcrumbs label=" Case Notes" link="/steps/case-notes" />
+              <Breadcrumbs
+                label=" Case Notes"
+                link="/form/adult-referral/case-notes"
+              />
             </ol>
           </div>
           <legend className="govuk-fieldset__legend govuk-fieldset__legend--m">

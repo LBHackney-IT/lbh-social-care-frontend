@@ -1,28 +1,29 @@
 import { useForm } from 'react-hook-form';
 import { useState, useEffect } from 'react';
 import Router from 'next/router';
-import { useStateValue } from '../../utils/store';
-import { postResidentCase } from '../../utils/api/residents';
-import ErrorSummary from '../../components/ErrorSummary/ErrorSummary';
-import Breadcrumbs from '../../components/Breadcrumbs/Breadcrumbs';
-import { Button, DateInput, Radios, TextInput } from 'components/Form';
 
-const CaseNotes = () => {
-  const { register, errors, handleSubmit, control } = useForm();
-  const [{ data }] = useStateValue();
+import ErrorSummary from 'components/ErrorSummary/ErrorSummary';
+import Breadcrumbs from 'components/Breadcrumbs/Breadcrumbs';
+import { Button, DateInput, Radios, TextInput } from 'components/Form';
+import { postResidentCase } from 'utils/api/residents';
+
+const CaseNotes = (props) => {
   const [error, setError] = useState(false);
   const [submitting, setSubmitting] = useState(false);
+  const { register, errors, handleSubmit, control } = useForm({
+    defaultValues: props.formData,
+  });
 
   useEffect(() => {
     Router.prefetch('/steps/confirmation');
   }, []);
 
   const sendData = async (formData) => {
-    const stringData = JSON.stringify({ ...data, ...formData });
+    const stringData = JSON.stringify({ ...props.formData, ...formData });
     const formattedData = { caseFormData: stringData };
     try {
       setSubmitting(true);
-      await postResidentCase(data.mosaicId, formattedData);
+      await postResidentCase(props.formData.mosaicId, formattedData);
     } catch (e) {
       setSubmitting(false);
       setError(e.message);
@@ -31,7 +32,7 @@ const CaseNotes = () => {
   const onSubmit = (formData) => {
     sendData(formData);
     return Router.push({
-      pathname: '/steps/confirmation',
+      pathname: '/form/adult-referral/confirmation',
     });
   };
 
@@ -51,17 +52,17 @@ const CaseNotes = () => {
               <ol className="govuk-breadcrumbs__list">
                 <Breadcrumbs
                   label="Client Details"
-                  link="/steps/client-details"
+                  link="/form/adult-referral/client-details"
                   state="completed"
                 />
                 <Breadcrumbs
                   label="Referral Details"
-                  link="/steps/referral-details"
+                  link="/form/adult-referral/referral-details"
                   state="completed"
                 />
                 <Breadcrumbs
                   label=" Case Notes"
-                  link="/steps/case-notes"
+                  link="/form/adult-referral/case-notes"
                   state="current"
                 />
               </ol>
