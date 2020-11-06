@@ -2,6 +2,7 @@ import { useState, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import Link from 'next/link';
 import Router, { useRouter } from 'next/router';
+import { NextSeo } from 'next-seo';
 import { useBeforeunload } from 'react-beforeunload';
 
 import Breadcrumbs from 'components/Breadcrumbs/Breadcrumbs';
@@ -36,6 +37,7 @@ const FormWizard = ({ formPath, formSteps, title }) => {
   const { previousStep, nextStep } = getAdjacentSteps(currentStepIndex);
   return (
     <div className="govuk-width-container">
+      <NextSeo title={`${step.title} - ${title}`} noindex={true} />
       {previousStep && (
         <Link href={stepPath} as={previousStep}>
           <a className="govuk-back-link">Back</a>
