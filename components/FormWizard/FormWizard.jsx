@@ -1,4 +1,5 @@
 import { useState, useCallback } from 'react';
+import PropTypes from 'prop-types';
 import Link from 'next/link';
 import Router, { useRouter } from 'next/router';
 import { useBeforeunload } from 'react-beforeunload';
@@ -76,6 +77,18 @@ const FormWizard = ({ formPath, formSteps, title }) => {
       </fieldset>
     </div>
   );
+};
+
+FormWizard.propTypes = {
+  formPath: PropTypes.string.isRequired,
+  formSteps: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.string.isRequired,
+      component: PropTypes.func.isRequired,
+      title: PropTypes.string.isRequired,
+    }).isRequired
+  ).isRequired,
+  title: PropTypes.string.isRequired,
 };
 
 export default FormWizard;
