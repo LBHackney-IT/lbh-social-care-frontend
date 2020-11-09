@@ -32,3 +32,7 @@ $screen-sm-min: 576px;
 .govuk-input:disabled {
   background: govuk-colour('light-grey');
 }
+
+.govuk-table__cell.timestamp {
+  font-weight: 600;
+}

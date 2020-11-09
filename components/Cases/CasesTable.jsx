@@ -2,6 +2,20 @@ import PropTypes from 'prop-types';
 
 const onClick = (url) => window.open(url, '_blank');
 
+const formatTime = (time) => {
+  const split = time.split('/');
+  const requiredFormat = [split[1], split[0], split[2]].join('/');
+  const formatTime = new Date(requiredFormat).toLocaleString('en-GB', {
+    hour: 'numeric',
+    minute: 'numeric',
+    second: 'numeric',
+    day: 'numeric',
+    month: 'short',
+    year: 'numeric',
+  });
+  return formatTime.split(',').reverse().join(', ');
+};
+
 const CasesEntry = ({
   formName,
   caseFormUrl,
@@ -12,7 +26,9 @@ const CasesEntry = ({
     className="govuk-table__row govuk-table__row--clickable"
     onClick={() => onClick(caseFormUrl)}
   >
-    <td className="govuk-table__cell">{caseFormTimestamp}</td>
+    <td className="govuk-table__cell timestamp">
+      {formatTime(caseFormTimestamp)}{' '}
+    </td>
     <td className="govuk-table__cell">{formName}</td>
     <td className="govuk-table__cell">
       {officerEmail && `- created by ${officerEmail}`}
@@ -21,15 +37,18 @@ const CasesEntry = ({
   </tr>
 );
 
-const CasesTable = ({ cases }) => (
-  <table className="govuk-table">
-    <tbody className="govuk-table__body">
-      {cases.map((result) => (
-        <CasesEntry key={result.personId} {...result} />
-      ))}
-    </tbody>
-  </table>
-);
+const CasesTable = ({ cases }) => {
+  const filterCases = cases.filter((nom) => nom.formName !== null);
+  return (
+    <table className="govuk-table">
+      <tbody className="govuk-table__body">
+        {filterCases.map((result) => (
+          <CasesEntry key={result.caseFormTimestamp} {...result} />
+        ))}
+      </tbody>
+    </table>
+  );
+};
 
 CasesTable.propTypes = {
   cases: PropTypes.arrayOf(
