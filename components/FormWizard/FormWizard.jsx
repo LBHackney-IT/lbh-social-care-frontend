@@ -5,6 +5,7 @@ import Router, { useRouter } from 'next/router';
 import { NextSeo } from 'next-seo';
 import { useBeforeunload } from 'react-beforeunload';
 
+import DynamicStep from 'components/DynamicStep/DynamicStep';
 import Breadcrumbs from 'components/Breadcrumbs/Breadcrumbs';
 
 const FormWizard = ({ formPath, formSteps, title }) => {
@@ -32,7 +33,7 @@ const FormWizard = ({ formPath, formSteps, title }) => {
           : null,
     };
   });
-  const StepComponent = step.component;
+  const StepComponent = step.component ? step.component : DynamicStep;
   const currentStepIndex = formSteps.findIndex(({ id }) => id === step.id);
   const { previousStep, nextStep } = getAdjacentSteps(currentStepIndex);
   return (
@@ -71,6 +72,7 @@ const FormWizard = ({ formPath, formSteps, title }) => {
           <h1 className="govuk-fieldset__heading">{step.title}</h1>
         </legend>
         <StepComponent
+          components={step.components}
           formData={formData}
           onStepSubmit={(data) => {
             setFormData({ ...formData, ...data });

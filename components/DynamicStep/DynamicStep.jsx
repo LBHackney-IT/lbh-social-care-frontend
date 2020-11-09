@@ -4,7 +4,7 @@ import { useForm } from 'react-hook-form';
 import { Button } from 'components/Form';
 import DynamicInput from 'components/DynamicInput/DynamicInput';
 
-const DynamicStep = ({ steps, formData, onStepSubmit }) => {
+const DynamicStep = ({ components, formData, onStepSubmit }) => {
   const { handleSubmit, register, control, errors } = useForm({
     defaultValues: formData,
   });
@@ -12,7 +12,7 @@ const DynamicStep = ({ steps, formData, onStepSubmit }) => {
   return (
     <form onSubmit={handleSubmit(onStepSubmit)}>
       <div className="govuk-form-group">
-        {steps?.map((componentProps) => (
+        {components?.map((componentProps) => (
           <DynamicInput
             key={componentProps.name}
             register={register}
@@ -28,7 +28,7 @@ const DynamicStep = ({ steps, formData, onStepSubmit }) => {
 };
 
 DynamicStep.propTypes = {
-  steps: PropTypes.array.isRequired,
+  components: PropTypes.array.isRequired,
   onStepSubmit: PropTypes.func.isRequired,
   formData: PropTypes.object.isRequired,
 };
