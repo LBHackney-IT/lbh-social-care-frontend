@@ -284,30 +284,33 @@ const FORM_STEPS = [
         ],
       },
     ],
-    onStepSubmit: async (formData, { setIsSubmitting, setHasError }) => {
-      try {
-        setIsSubmitting(true);
-        setHasError(false);
-        await postResidentCase(formData.mosaic_id, {
-          caseFormData: JSON.stringify({ formData }),
-        });
-        Router.replace({
-          pathname: '/form/adult-referral/confirmation',
-        });
-      } catch {
-        setIsSubmitting(false);
-        setHasError(true);
-      }
-    },
   },
 ];
 
-const AdultReferral = () => (
-  <FormWizard
-    formPath={FORM_PATH}
-    formSteps={FORM_STEPS}
-    title="Create New Record"
-  />
-);
+const AdultReferral = () => {
+  const onFormSubmit = async (formData, { setIsSubmitting, setHasError }) => {
+    try {
+      setIsSubmitting(true);
+      setHasError(false);
+      await postResidentCase(formData.mosaic_id, {
+        caseFormData: JSON.stringify({ formData }),
+      });
+      Router.replace({
+        pathname: '/form/adult-referral/confirmation',
+      });
+    } catch {
+      setIsSubmitting(false);
+      setHasError(true);
+    }
+  };
+  return (
+    <FormWizard
+      formPath={FORM_PATH}
+      formSteps={FORM_STEPS}
+      title="Create New Record"
+      onFormSubmit={onFormSubmit}
+    />
+  );
+};
 
 export default AdultReferral;

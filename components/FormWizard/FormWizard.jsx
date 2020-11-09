@@ -8,7 +8,7 @@ import { useBeforeunload } from 'react-beforeunload';
 import DynamicStep from 'components/DynamicStep/DynamicStep';
 import Breadcrumbs from 'components/Breadcrumbs/Breadcrumbs';
 
-const FormWizard = ({ formPath, formSteps, title }) => {
+const FormWizard = ({ formPath, formSteps, onFormSubmit, title }) => {
   Router.events.on('routeChangeComplete', () => {
     window.scrollTo(0, 0);
   });
@@ -87,7 +87,9 @@ const FormWizard = ({ formPath, formSteps, title }) => {
             const updatedData = { ...formData, ...data };
             setFormData(updatedData);
             step.onStepSubmit && step.onStepSubmit(updatedData, formState);
-            nextStep && Router.push(stepPath, nextStep);
+            nextStep
+              ? Router.push(stepPath, nextStep)
+              : onFormSubmit && onFormSubmit(updatedData, formState);
           }}
         />
       </fieldset>
@@ -105,6 +107,7 @@ FormWizard.propTypes = {
     })
   ).isRequired,
   title: PropTypes.string.isRequired,
+  onFormSubmit: PropTypes.func,
 };
 
 export default FormWizard;
