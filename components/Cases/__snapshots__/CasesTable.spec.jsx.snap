@@ -9,7 +9,7 @@ exports[`CasesTable component should render properly 1`] = `
       class="govuk-table__body"
     >
       <tr
-        class="govuk-table__row govuk-table__row--clickable"
+        class="govuk-table__row"
       >
         <td
           class="govuk-table__cell"
@@ -29,7 +29,12 @@ exports[`CasesTable component should render properly 1`] = `
         <td
           class="govuk-table__cell govuk-button--secondary'"
         >
-          View
+          <a
+            class="govuk-link"
+            href="#"
+          >
+            View
+          </a>
         </td>
       </tr>
     </tbody>
