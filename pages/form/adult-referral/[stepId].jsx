@@ -1,6 +1,5 @@
 import FormWizard from 'components/FormWizard/FormWizard';
 
-import ReferralDetails from 'components/Steps/referral-details';
 import CaseNotes from 'components/Steps/case-notes';
 
 const FORM_PATH = '/form/adult-referral/';
@@ -96,8 +95,106 @@ const FORM_STEPS = [
   },
   {
     id: 'referral-details',
-    component: ReferralDetails,
     title: 'Referral Details',
+    components: [
+      {
+        component: 'TextInput',
+        name: 'referrerName',
+        width: '30',
+        label: 'Referrer Name',
+      },
+      {
+        component: 'TextInput',
+        name: 'referrerRelationship',
+        width: '30',
+        label: 'Referrer relationship',
+      },
+      {
+        component: 'TextInput',
+        name: 'referrerOrganisation',
+        width: '30',
+        label: 'Referrer Organisation',
+      },
+      {
+        component: 'TextInput',
+        name: 'referrerEmail',
+        width: '30',
+        label: 'Referrer Email',
+      },
+      {
+        component: 'TextInput',
+        name: 'referrerTelephone',
+        width: '30',
+        label: 'Referrer Telephone',
+      },
+      {
+        component: 'TextInput',
+        name: 'referrerRole',
+        width: '30',
+        label: 'Referrer Role',
+      },
+      {
+        component: 'DateInput',
+        name: 'contactDate',
+        label: 'Contact Date',
+        hint: 'For example, 31 03 1980',
+      },
+      {
+        component: 'Select',
+        name: 'contactMethod',
+        label: 'Contact Method',
+        options: ['Email', 'Phone', 'Mail', 'Face to Face'],
+      },
+      {
+        component: 'Select',
+        name: 'contactType',
+        label: 'Contact Type',
+        options: [
+          'Self-referral',
+          'Professional referral',
+          'Third party referral',
+          'Other',
+        ],
+      },
+      {
+        component: 'TextInput',
+        name: 'otherContact',
+        width: '30',
+        label: 'Detail if Other',
+      },
+      {
+        component: 'Radios',
+        name: 'routeAccess',
+        label: 'Route of Access',
+        options: [
+          'Planned Entry (Transition)',
+          'Discharge from Hospital',
+          'Diversion from Hospital Services',
+          'Self-funder with depleted funds',
+          'Self-funder with depleted funds (of which previously provided with 12-week disregard or deferred payment)',
+          'Community/Other route',
+        ],
+      },
+      {
+        component: 'Radios',
+        name: 'presentingIssue',
+        label: 'Presenting Issue',
+        options: ['Female', 'Male', 'Unknown', 'Other'],
+      },
+      {
+        component: 'Radios',
+        name: 'presentingIssue',
+        label: 'Presenting Issue',
+        options: [
+          'Information and advice',
+          'Hospital discharge',
+          'Temporary illness',
+          'Simple services',
+          'Assessment',
+          'Test/Investigations',
+        ],
+      },
+    ],
   },
   { id: 'case-notes', component: CaseNotes, title: 'Case Notes' },
 ];
