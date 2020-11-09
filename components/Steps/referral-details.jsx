@@ -1,4 +1,3 @@
-import Router from 'next/router';
 import { useForm } from 'react-hook-form';
 
 import { Button, DateInput, Radios, Select, TextInput } from 'components/Form';
@@ -8,8 +7,7 @@ const ReferralDetails = (props) => {
     defaultValues: props.formData,
   });
   const onSubmit = (data) => {
-    props.saveData(data);
-    Router.push(props.stepPath, props.nextStep);
+    props.onStepSubmit(data);
   };
 
   return (
