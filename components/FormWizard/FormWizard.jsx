@@ -13,6 +13,14 @@ const FormWizard = ({ formPath, formSteps, title }) => {
     window.scrollTo(0, 0);
   });
   const [formData, setFormData] = useState({});
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [hasError, setHasError] = useState(false);
+  const formState = {
+    isSubmitting,
+    setIsSubmitting,
+    hasError,
+    setHasError,
+  };
   const router = useRouter();
   useBeforeunload(() => "You'll lose your data!");
   const { stepId } = router.query;
@@ -74,9 +82,12 @@ const FormWizard = ({ formPath, formSteps, title }) => {
         <StepComponent
           components={step.components}
           formData={formData}
+          formState={formState}
           onStepSubmit={(data) => {
-            setFormData({ ...formData, ...data });
-            Router.push(stepPath, nextStep);
+            const updatedData = { ...formData, ...data };
+            setFormData(updatedData);
+            step.onStepSubmit && step.onStepSubmit(updatedData, formState);
+            nextStep && Router.push(stepPath, nextStep);
           }}
         />
       </fieldset>
@@ -89,9 +100,9 @@ FormWizard.propTypes = {
   formSteps: PropTypes.arrayOf(
     PropTypes.shape({
       id: PropTypes.string.isRequired,
-      component: PropTypes.func.isRequired,
+      component: PropTypes.func,
       title: PropTypes.string.isRequired,
-    }).isRequired
+    })
   ).isRequired,
   title: PropTypes.string.isRequired,
 };

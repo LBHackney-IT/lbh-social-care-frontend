@@ -1,6 +1,7 @@
-import FormWizard from 'components/FormWizard/FormWizard';
+import Router from 'next/router';
 
-import CaseNotes from 'components/Steps/case-notes';
+import FormWizard from 'components/FormWizard/FormWizard';
+import { postResidentCase } from 'utils/api/residents';
 
 const FORM_PATH = '/form/adult-referral/';
 const FORM_STEPS = [
@@ -196,7 +197,109 @@ const FORM_STEPS = [
       },
     ],
   },
-  { id: 'case-notes', component: CaseNotes, title: 'Case Notes' },
+  {
+    id: 'case-notes',
+    title: 'Case Notes',
+    components: [
+      {
+        component: 'TextInput',
+        name: 'summariseInfo',
+        width: '30',
+        label: 'Please summarise the information provided by the contact',
+      },
+      {
+        component: 'Radios',
+        name: 'subjectAware',
+        label: 'Is the subject aware of the contact?',
+        options: ['Yes', 'No', 'Not Known'],
+      },
+      {
+        component: 'Radios',
+        name: 'adviceOffered',
+        label: 'Was information and advice offered?',
+      },
+      {
+        component: 'TextInput',
+        name: 'categoryInfo',
+        width: '30',
+        label: 'a. Information and advice offered (Category)',
+      },
+      {
+        component: 'TextInput',
+        name: 'detailInfo',
+        width: '30',
+        label: 'b. Information and advice offered (Details)',
+      },
+      {
+        component: 'TextInput',
+        name: 'referredAgencies',
+        width: '30',
+        label:
+          'Please identify any other agencies that the person making contact has been referred to.',
+      },
+      <h3 key="text">
+        Please note information from this assessment may be shared regardless of
+        your consent where there is a 'Vital Interest' i.e. where it is critical
+        to prevent serious harm, distress or in life threatening situations
+      </h3>,
+      {
+        component: 'Radios',
+        name: 'infoShared',
+        label:
+          'If client has not agreed consent, has information still to be shared?',
+        options: ['Yes, under duty of care', 'No'],
+      },
+      {
+        component: 'TextInput',
+        name: 'justification',
+        width: '30',
+        label:
+          'Justification for information to be shared outside of client consent',
+      },
+      {
+        component: 'DateInput',
+        name: 'dateAgreed',
+        label: 'Date Agreed',
+        hint: 'For example, 31 03 1980',
+      },
+      {
+        component: 'Radios',
+        name: 'nextAction',
+        label: 'Next Actions',
+        options: [
+          'Community Care Assessment - Occupational Therapy',
+          'No Further Action',
+          'Close Case',
+        ],
+        rules: { required: true },
+      },
+      {
+        component: 'Radios',
+        name: 'infoService',
+        label: `If 'No Further Action' please pick one of the following`,
+        options: [
+          'Universal Services/ Signposted to other services',
+          'No Services Provided - Deceased',
+          'No Services Provided - other reason',
+        ],
+      },
+    ],
+    onStepSubmit: async (formData, { setIsSubmitting, setHasError }) => {
+      try {
+        setIsSubmitting(true);
+        setHasError(false);
+        await postResidentCase(formData.mosaic_id, {
+          caseFormData: JSON.stringify({ formData }),
+        });
+        Router.replace({
+          pathname: '/form/adult-referral/confirmation',
+        });
+      } catch {
+        setIsSubmitting(false);
+        setHasError(true);
+      }
+    },
+  },
 ];
 
 const AdultReferral = () => (
