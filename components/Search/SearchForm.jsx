@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import cx from 'classnames';
 import Router from 'next/router';
 import { useForm } from 'react-hook-form';
-import isValid from 'date-fns/isValid';
 import isPast from 'date-fns/isPast';
 import isPostcodeValid from 'uk-postcode-validator';
 
@@ -92,9 +91,6 @@ const SearchForm = ({ onFormSubmit, query }) => {
               control={control}
               rules={{
                 validate: {
-                  valid: (value) =>
-                    value &&
-                    (isValid(new Date(value)) || 'Must be a is valid Date'),
                   past: (value) =>
                     value && (isPast(new Date(value)) || 'Must be a past Date'),
                 },
