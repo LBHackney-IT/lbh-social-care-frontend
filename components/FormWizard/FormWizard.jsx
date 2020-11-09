@@ -72,9 +72,10 @@ const FormWizard = ({ formPath, formSteps, title }) => {
         </legend>
         <StepComponent
           formData={formData}
-          saveData={(data) => setFormData({ ...formData, ...data })}
-          nextStep={nextStep}
-          stepPath={stepPath}
+          onStepSubmit={(data) => {
+            setFormData({ ...formData, ...data });
+            Router.push(stepPath, nextStep);
+          }}
         />
       </fieldset>
     </div>
