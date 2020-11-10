@@ -1,5 +1,5 @@
 import { useForm } from 'react-hook-form';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import Router from 'next/router';
 
 import ErrorSummary from 'components/ErrorSummary/ErrorSummary';
@@ -12,10 +12,6 @@ const CaseNotes = (props) => {
   const { register, errors, handleSubmit, control } = useForm({
     defaultValues: props.formData,
   });
-
-  useEffect(() => {
-    Router.prefetch('/form/adult-referral/confirmation');
-  }, []);
 
   const sendData = async (formData) => {
     const stringData = JSON.stringify({ ...props.formData, ...formData });

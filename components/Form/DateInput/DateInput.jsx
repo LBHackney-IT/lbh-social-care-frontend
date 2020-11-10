@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import cx from 'classnames';
 import { Controller } from 'react-hook-form';
+import isValid from 'date-fns/isValid';
 
 import ErrorMessage from 'components/ErrorMessage/ErrorMessage';
 
@@ -17,9 +18,9 @@ const DateInput = ({
   error,
   hint,
   value,
-  rules,
   name,
   onChange,
+  required,
   ...otherProps
 }) => {
   const [date, setDate] = useState(getInitialDate(value));
@@ -45,8 +46,7 @@ const DateInput = ({
         <legend
           className={`govuk-fieldset__legend govuk-fieldset__legend--${labelSize}`}
         >
-          {label}
-          <span className="govuk-required">{rules.required ? ' *' : null}</span>
+          {label} {required && <span className="govuk-required">*</span>}
         </legend>
         <span id={`${name}-hint`} className="govuk-hint">
           {hint}
@@ -167,7 +167,14 @@ const ControlledDateInput = ({
       }
       onChange={([value]) => value}
       name={name}
-      rules={rules}
+      rules={{
+        ...rules,
+        validate: {
+          ...rules.validate,
+          valid: (value) =>
+            value && (isValid(new Date(value)) || 'Must be a is valid Date'),
+        },
+      }}
       onFocus={() => inputRef.current.focus()}
       control={control}
     ></Controller>

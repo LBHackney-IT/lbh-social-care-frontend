@@ -3,15 +3,20 @@ import PropTypes from 'prop-types';
 import cx from 'classnames';
 import Router from 'next/router';
 import { useForm } from 'react-hook-form';
-import isValid from 'date-fns/isValid';
 import isPast from 'date-fns/isPast';
+import isPostcodeValid from 'uk-postcode-validator';
 
 import { Button, TextInput, DateInput } from 'components/Form';
 import ErrorMessage from 'components/ErrorMessage/ErrorMessage';
 import { getQueryString } from 'utils/urls';
 
-const isDetailsFormEmpty = ({ first_name, last_name, date_of_birth }) =>
-  first_name === '' && last_name === '' && !date_of_birth;
+const isDetailsFormEmpty = ({
+  first_name,
+  last_name,
+  date_of_birth,
+  postcode,
+}) =>
+  first_name === '' && last_name === '' && !date_of_birth && postcode === '';
 
 const isMosaicFormEmpty = ({ mosaicId }) => mosaicId === '';
 
@@ -78,6 +83,42 @@ const SearchForm = ({ onFormSubmit, query }) => {
         </div>
         <div className="govuk-grid-row">
           <div className="govuk-grid-column-one-half">
+            <DateInput
+              label="Date of Birth:"
+              labelSize="s"
+              name="date_of_birth"
+              error={errors.date_of_birth}
+              control={control}
+              rules={{
+                validate: {
+                  past: (value) =>
+                    value && (isPast(new Date(value)) || 'Must be a past Date'),
+                },
+              }}
+              disabled={detailsSearchDisabled}
+            />
+          </div>
+          <div className="govuk-grid-column-one-half">
+            <TextInput
+              label="Postcode:"
+              labelSize="s"
+              name="postcode"
+              hint="i.e. E8 3AS"
+              inputClassName="govuk-input--width-10"
+              error={errors.postcode}
+              register={register({
+                validate: {
+                  valid: (value) =>
+                    (value && isPostcodeValid(value)) ||
+                    'You entered an invalid postcode',
+                },
+              })}
+              disabled={detailsSearchDisabled}
+            />
+          </div>
+        </div>
+        <div className="govuk-grid-row">
+          <div className="govuk-grid-column-one-half">
             <TextInput
               label="Mosaic ID:"
               labelSize="s"
@@ -93,25 +134,6 @@ const SearchForm = ({ onFormSubmit, query }) => {
                 },
               })}
               disabled={mosaicSearchDisabled}
-            />
-          </div>
-          <div className="govuk-grid-column-one-half">
-            <DateInput
-              label="Date of Birth:"
-              labelSize="s"
-              name="date_of_birth"
-              error={errors.date_of_birth}
-              control={control}
-              rules={{
-                validate: {
-                  valid: (value) =>
-                    value &&
-                    (isValid(new Date(value)) || 'Must be a is valid Date'),
-                  past: (value) =>
-                    value && (isPast(new Date(value)) || 'Must be a past Date'),
-                },
-              }}
-              disabled={detailsSearchDisabled}
             />
           </div>
         </div>

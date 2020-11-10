@@ -22,10 +22,7 @@ const CasesEntry = ({
   officerEmail,
   caseFormTimestamp,
 }) => (
-  <tr
-    className="govuk-table__row govuk-table__row--clickable"
-    onClick={() => onClick(caseFormUrl)}
-  >
+  <tr className="govuk-table__row">
     <td className="govuk-table__cell timestamp">
       {formatTime(caseFormTimestamp)}{' '}
     </td>
@@ -33,7 +30,11 @@ const CasesEntry = ({
     <td className="govuk-table__cell">
       {officerEmail && `- created by ${officerEmail}`}
     </td>
-    <td className="govuk-table__cell govuk-button--secondary'">View</td>
+    <td className="govuk-table__cell govuk-button--secondary'">
+      <a href="#" className="govuk-link" onClick={() => onClick(caseFormUrl)}>
+        View
+      </a>
+    </td>
   </tr>
 );
 

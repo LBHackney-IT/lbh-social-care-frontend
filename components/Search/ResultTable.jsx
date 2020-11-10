@@ -6,23 +6,22 @@ const ResultEntry = ({
   mosaicId,
   firstName,
   lastName,
-  addressList,
   dateOfBirth,
 }) => (
-  <Link href={`/people/${personId || mosaicId}`}>
-    <tr className="govuk-table__row govuk-table__row--clickable">
-      <td className="govuk-table__cell">{personId || mosaicId}</td>
-      <td className="govuk-table__cell">
-        {firstName} {lastName}
-      </td>
-      <td className="govuk-table__cell">
-        {addressList && Object.values(addressList[0]).join(' ')}
-      </td>
-      <td className="govuk-table__cell">
-        {new Date(dateOfBirth).toLocaleDateString('en-GB')}
-      </td>
-    </tr>
-  </Link>
+  <tr className="govuk-table__row">
+    <td className="govuk-table__cell">{personId || mosaicId}</td>
+    <td className="govuk-table__cell">
+      {firstName} {lastName}
+    </td>
+    <td className="govuk-table__cell">
+      {new Date(dateOfBirth).toLocaleDateString('en-GB')}
+    </td>
+    <td className="govuk-table__cell">
+      <Link href={`/people/${personId || mosaicId}`}>
+        <a className="govuk-link">View</a>
+      </Link>
+    </td>
+  </tr>
 );
 
 const ResultTable = ({ results }) => (
@@ -31,17 +30,15 @@ const ResultTable = ({ results }) => (
     <thead className="govuk-table__head">
       <tr className="govuk-table__row">
         <th scope="col" className="govuk-table__header">
-          Person ID
+          Mosaic ID
         </th>
         <th scope="col" className="govuk-table__header">
-          Name
+          Client Name
         </th>
         <th scope="col" className="govuk-table__header">
-          Address
+          Date of birth
         </th>
-        <th scope="col" className="govuk-table__header">
-          DOB
-        </th>
+        <th scope="col" className="govuk-table__header"></th>
       </tr>
     </thead>
     <tbody className="govuk-table__body">
