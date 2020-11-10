@@ -170,7 +170,7 @@ const ControlledDateInput = ({
       rules={{
         ...rules,
         validate: {
-          ...rules.validate,
+          ...rules?.validate,
           valid: (value) =>
             value && (isValid(new Date(value)) || 'Must be a is valid Date'),
         },
