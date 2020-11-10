@@ -2,6 +2,7 @@ import AddressLookup from './AddressLookup/AddressLookup';
 import Button from './Button/Button';
 import Checkbox from './Checkbox/Checkbox';
 import DateInput from './DateInput/DateInput';
+import DatePicker from './DatePicker/DatePicker';
 import NationalityList from './Select/Nationality';
 import Radios from './Radios/Radios';
 import Select from './Select/Select';
@@ -13,6 +14,7 @@ export {
   Button,
   Checkbox,
   DateInput,
+  DatePicker,
   NationalityList,
   Radios,
   Select,
