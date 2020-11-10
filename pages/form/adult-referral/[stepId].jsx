@@ -10,7 +10,7 @@ const AdultReferral = () => {
       setIsSubmitting(true);
       setHasError(false);
       await postResidentCase(formData.mosaic_id, {
-        caseFormData: JSON.stringify({ formData }),
+        caseFormData: JSON.stringify(formData),
       });
       Router.replace({
         pathname: '/form/adult-referral/confirmation',

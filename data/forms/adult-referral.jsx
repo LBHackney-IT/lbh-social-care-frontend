@@ -8,7 +8,7 @@ export default {
       components: [
         {
           component: 'DateInput',
-          name: 'dateOfContact',
+          name: 'timestamp',
           label: 'Date of contact',
           rules: { required: true },
           hint: 'For example, 31 03 1980',
@@ -115,7 +115,7 @@ export default {
         },
         {
           component: 'TextInput',
-          name: 'referrerEmail',
+          name: 'worker_email',
           width: '30',
           label: 'Referrer Email',
         },
