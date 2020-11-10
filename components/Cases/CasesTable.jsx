@@ -3,17 +3,18 @@ import PropTypes from 'prop-types';
 const onClick = (url) => window.open(url, '_blank');
 
 const formatTime = (time) => {
-  const split = time.split('/');
-  const requiredFormat = [split[1], split[0], split[2]].join('/');
-  const formatTime = new Date(requiredFormat).toLocaleString('en-GB', {
-    hour: 'numeric',
-    minute: 'numeric',
-    second: 'numeric',
-    day: 'numeric',
-    month: 'short',
-    year: 'numeric',
-  });
-  return formatTime.split(',').reverse().join(', ');
+  console.log(time);
+  // const split = time.split('/');
+  // const requiredFormat = [split[1], split[0], split[2]].join('/');
+  // const formatTime = new Date(requiredFormat).toLocaleString('en-GB', {
+  //   hour: 'numeric',
+  //   minute: 'numeric',
+  //   second: 'numeric',
+  //   day: 'numeric',
+  //   month: 'short',
+  //   year: 'numeric',
+  // });
+  // return formatTime.split(',').reverse().join(', ');
 };
 
 const CasesEntry = ({
@@ -39,6 +40,7 @@ const CasesEntry = ({
 );
 
 const CasesTable = ({ cases }) => {
+  console.log(cases);
   const filterCases = cases.filter((nom) => nom.formName !== null);
   return (
     <table className="govuk-table">
