@@ -43,7 +43,7 @@ const CasesTable = ({ cases }) => (
   <table className="govuk-table">
     <tbody className="govuk-table__body">
       {cases.map((result) => (
-        <CasesEntry key={result.caseFormTimestamp} {...result} />
+        <CasesEntry key={result.personId} {...result} />
       ))}
     </tbody>
   </table>
