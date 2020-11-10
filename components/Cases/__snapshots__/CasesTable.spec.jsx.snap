@@ -30,7 +30,7 @@ exports[`CasesTable component should render properly 1`] = `
           class="govuk-table__cell govuk-button--secondary'"
         >
           <a
-            class="govuk-link"
+            class="govuk-link custom"
             href="#"
           >
             View

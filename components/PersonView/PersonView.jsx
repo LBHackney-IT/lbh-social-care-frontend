@@ -24,7 +24,6 @@ const PersonView = ({ personId }) => {
     setLoading(true);
     getPerson(personId);
   }, [personId]);
-
   return (
     <>
       {loading ? (
