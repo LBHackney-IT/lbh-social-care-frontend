@@ -1,4 +1,4 @@
-import { getResidentCases } from 'utils/server/residents';
+import { getResidentCases, postResidentCase } from 'utils/server/residents';
 import { isAuthorised } from 'utils/auth';
 
 export default async (req, res) => {
@@ -18,6 +18,17 @@ export default async (req, res) => {
         console.log(error.status);
         console.log('Cases get error:', error);
         res.status(500).json('Unable to get the Cases');
+      }
+      break;
+
+    case 'POST':
+      try {
+        const { data } = await postResidentCase(req.query.id, req.body);
+        res.end(JSON.stringify(data));
+      } catch (error) {
+        console.log(error.status);
+        console.log('Cast post error:', error);
+        res.status(500).json('Unable to post cast');
       }
       break;
 
