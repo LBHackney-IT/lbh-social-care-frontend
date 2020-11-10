@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import cx from 'classnames';
 import Router from 'next/router';
 import { useForm } from 'react-hook-form';
 import isPast from 'date-fns/isPast';
@@ -110,6 +109,7 @@ const SearchForm = ({ onFormSubmit, query }) => {
               required: false,
               validate: {
                 valid: (value) =>
+                  value === '' ||
                   (value && isPostcodeValid(value)) ||
                   'You entered an invalid postcode',
               },
