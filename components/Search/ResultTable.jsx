@@ -19,7 +19,7 @@ const ResultEntry = ({
     <td className="govuk-table__cell">
       <Link href={`/people/${personId || mosaicId}`}>
         <a
-          className="govuk-link custom
+          className="govuk-link govuk-custom-text-color
         "
         >
           View

@@ -12,7 +12,7 @@ exports[`CasesTable component should render properly 1`] = `
         class="govuk-table__row"
       >
         <td
-          class="govuk-table__cell timestamp"
+          class="govuk-table__cell govuk--timestamp"
         >
           Oct 25, 2020 
         </td>
@@ -30,7 +30,7 @@ exports[`CasesTable component should render properly 1`] = `
           class="govuk-table__cell govuk-button--secondary'"
         >
           <a
-            class="govuk-link custom"
+            class="govuk-link govuk-custom-text-color"
             href="#"
           >
             View

@@ -33,15 +33,15 @@ $screen-sm-min: 576px;
   background: govuk-colour('light-grey');
 }
 
-.govuk-table__cell.timestamp {
+.govuk--timestamp {
   font-weight: 600;
 }
 
-.govuk-fieldset__legend--l.custom {
+.gov-weight-lighter {
   font-weight: 100;
 }
-.govuk-fieldset__legend--m.green,
-.govuk-link.custom {
+
+.govuk-custom-text-color {
   color: #01674e;
 }
 

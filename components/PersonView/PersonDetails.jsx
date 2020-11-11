@@ -12,10 +12,12 @@ const PersonDetails = ({
   phoneNumber,
 }) => (
   <>
-    <h1 className="govuk-fieldset__legend--l custom">
+    <h1 className="govuk-fieldset__legend--l gov-weight-lighter">
       {firstName} {lastName}
     </h1>
-    <h2 className="govuk-fieldset__legend--m green">PERSON DETAILS</h2>
+    <h2 className="govuk-fieldset__legend--m govuk-custom-text-color">
+      PERSON DETAILS
+    </h2>
     <hr className="govuk-divider" />
     <dl className="govuk-summary-list">
       <div className="govuk-summary-list__row">

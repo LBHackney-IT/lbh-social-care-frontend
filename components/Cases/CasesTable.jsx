@@ -1,17 +1,6 @@
 import PropTypes from 'prop-types';
-
+import { formatTime } from '../../utils/utils';
 const onClick = (url) => window.open(url, '_blank');
-
-const formatTime = (time) => {
-  const split = time.split('/');
-  const requiredFormat = [split[1], split[0], split[2]].join('/');
-
-  return new Date(requiredFormat).toLocaleString('en-GB', {
-    day: 'numeric',
-    month: 'short',
-    year: 'numeric',
-  });
-};
 
 const CasesEntry = ({
   formName,
@@ -20,8 +9,8 @@ const CasesEntry = ({
   caseFormTimestamp,
 }) => (
   <tr className="govuk-table__row">
-    <td className="govuk-table__cell timestamp">
-      {formName && caseFormTimestamp && formatTime(caseFormTimestamp)}{' '}
+    <td className="govuk-table__cell govuk--timestamp">
+      {caseFormTimestamp && formatTime(caseFormTimestamp)}{' '}
     </td>
     <td className="govuk-table__cell">{formName}</td>
     <td className="govuk-table__cell">
@@ -30,7 +19,7 @@ const CasesEntry = ({
     <td className="govuk-table__cell govuk-button--secondary'">
       <a
         href="#"
-        className="govuk-link custom"
+        className="govuk-link govuk-custom-text-color"
         onClick={() => onClick(caseFormUrl)}
       >
         View
