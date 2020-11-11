@@ -21,3 +21,7 @@ jobs:
       - run:
           name: Run tests
           command: yarn test
+
+      - run:
+          name: Run E2E
+          command: yarn e2e
