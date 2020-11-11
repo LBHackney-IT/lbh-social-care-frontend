@@ -32,3 +32,19 @@ $screen-sm-min: 576px;
 .govuk-input:disabled {
   background: govuk-colour('light-grey');
 }
+
+.govuk--timestamp {
+  font-weight: 600;
+}
+
+.gov-weight-lighter {
+  font-weight: 100;
+}
+
+.govuk-custom-text-color {
+  color: #01674e;
+}
+
+.govuk-divider {
+  border: solid 2px #01674e;
+}

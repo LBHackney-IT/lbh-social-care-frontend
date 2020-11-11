@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-
+import { formatTime } from 'utils/date';
 const onClick = (url) => window.open(url, '_blank');
 
 const CasesEntry = ({
@@ -9,13 +9,19 @@ const CasesEntry = ({
   caseFormTimestamp,
 }) => (
   <tr className="govuk-table__row">
-    <td className="govuk-table__cell">{caseFormTimestamp}</td>
+    <td className="govuk-table__cell govuk--timestamp">
+      {caseFormTimestamp && formatTime(caseFormTimestamp)}{' '}
+    </td>
     <td className="govuk-table__cell">{formName}</td>
     <td className="govuk-table__cell">
       {officerEmail && `- created by ${officerEmail}`}
     </td>
     <td className="govuk-table__cell govuk-button--secondary'">
-      <a href="#" className="govuk-link" onClick={() => onClick(caseFormUrl)}>
+      <a
+        href="#"
+        className="govuk-link govuk-custom-text-color"
+        onClick={() => onClick(caseFormUrl)}
+      >
         View
       </a>
     </td>

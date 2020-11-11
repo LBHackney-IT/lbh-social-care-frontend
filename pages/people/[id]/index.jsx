@@ -10,8 +10,11 @@ const CasesPage = ({ query }) => {
       <NextSeo title={`#${query.id} Cases`} noindex />
       <BackButton />
       <PersonView personId={query.id} />
-      <h3>NOTES HISTORY #{query.id}</h3>
-      <p>Linked files are read only</p>
+      <h3 className="govuk-fieldset__legend--m govuk-custom-text-color">
+        NOTES HISTORY
+      </h3>
+      <p className="govuk-label">Linked files are read only</p>
+      <hr className="govuk-divider" />
       <Cases {...query} />
     </div>
   );
