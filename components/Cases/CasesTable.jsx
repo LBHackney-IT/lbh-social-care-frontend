@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import { formatTime } from 'utils/utils';
+import { formatTime } from 'utils/date';
 const onClick = (url) => window.open(url, '_blank');
 
 const CasesEntry = ({
