@@ -65,7 +65,7 @@ exports[`ResultTable component should render properly 1`] = `
           class="govuk-table__cell"
         >
           <a
-            class="govuk-link"
+            class="govuk-link custom "
             href="/people/foo"
           >
             View
