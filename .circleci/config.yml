@@ -5,14 +5,12 @@ references:
   attach_workspace: &attach_workspace
     attach_workspace:
       at: *workspace_root
-  # environment:
-  #   CYPRESS_CACHE_FOLDER: '~/working_directory/.cache/Cypress'
 
 jobs:
   build:
     working_directory: ~/repo
     docker:
-      - image: circleci/node:12.9.1-browsers
+      - image: circleci/node:12.16.2-browsers
     steps:
       - *attach_workspace
       - checkout
