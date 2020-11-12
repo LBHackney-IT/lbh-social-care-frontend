@@ -1,18 +1,10 @@
 version: 2.1
 
-references:
-  workspace_root: &workspace_root '~'
-  attach_workspace: &attach_workspace
-    attach_workspace:
-      at: *workspace_root
-
 jobs:
   build:
-    working_directory: ~/repo
     docker:
       - image: circleci/node:12.16.2-browsers
     steps:
-      - *attach_workspace
       - checkout
       - restore_cache:
           key: dependency-cache-{{ checksum "yarn.lock" }}
@@ -23,6 +15,8 @@ jobs:
           key: dependency-cache-{{ checksum "yarn.lock" }}
           paths:
             - ./node_modules
+            - ./.next/cache
+            - /home/circleci/.cache/Cypress
       - run:
           name: Run linter
           command: yarn lint
@@ -36,6 +30,3 @@ jobs:
           path: ~/repo/cypress/screenshots
       - store_artifacts:
           path: ~/repo/cypress/videos
-      - persist_to_workspace:
-          root: ~/working_directory
-          paths: ./**
