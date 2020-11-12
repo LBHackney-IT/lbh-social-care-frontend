@@ -5,6 +5,8 @@ references:
   attach_workspace: &attach_workspace
     attach_workspace:
       at: *workspace_root
+  # environment:
+  #   CYPRESS_CACHE_FOLDER: '~/working_directory/.cache/Cypress'
 
 jobs:
   build:
@@ -36,3 +38,6 @@ jobs:
           path: ~/repo/cypress/screenshots
       - store_artifacts:
           path: ~/repo/cypress/videos
+      - persist_to_workspace:
+          root: ~/working_directory
+          paths: ./**
