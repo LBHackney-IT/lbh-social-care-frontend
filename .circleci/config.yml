@@ -1,10 +1,18 @@
 version: 2.1
+
+references:
+  workspace_root: &workspace_root '~'
+  attach_workspace: &attach_workspace
+    attach_workspace:
+      at: *workspace_root
+
 jobs:
   build:
     working_directory: ~/repo
     docker:
-      - image: circleci/node:12.16.2
+      - image: circleci/node:12.9.1-browsers
     steps:
+      - *attach_workspace
       - checkout
       - restore_cache:
           key: dependency-cache-{{ checksum "yarn.lock" }}
@@ -21,7 +29,10 @@ jobs:
       - run:
           name: Run tests
           command: yarn test
-
       - run:
           name: Run E2E
           command: yarn e2e
+      - store_artifacts:
+          path: ~/repo/cypress/screenshots
+      - store_artifacts:
+          path: ~/repo/cypress/videos
