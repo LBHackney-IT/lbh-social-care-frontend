@@ -19,6 +19,7 @@
 .DS_Store
 .env
 .vscode
+debug.log
 
 # debug
 npm-debug.log*
@@ -27,3 +28,9 @@ yarn-error.log*
 
 # needed by govuk-frontend
 assets/
+
+# cypress
+cypress/fixtures
+cypress/screenshots
+cypress/support
+cypress/videos
