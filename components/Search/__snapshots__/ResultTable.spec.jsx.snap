@@ -8,7 +8,14 @@ exports[`ResultTable component should render properly 1`] = `
     <caption
       class="govuk-table__caption"
     >
-      People search result
+      <h2
+        class="govuk-fieldset__legend--m govuk-custom-text-color"
+      >
+        PEOPLE SEARCH RESULT
+      </h2>
+      <hr
+        class="govuk-divider"
+      />
     </caption>
     <thead
       class="govuk-table__head"
