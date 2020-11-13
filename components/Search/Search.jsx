@@ -18,6 +18,8 @@ const Search = ({ query }) => {
   const permission = useMemo(() => getPermissionFilter(user), []);
   const onFormSubmit = useCallback(async (formData, residents = []) => {
     setLoading(true);
+    !formData.cursor && setResults(null);
+    setError(null);
     try {
       setFormData(formData);
       const { mosaicId, ...personDetails } = formData;
@@ -25,7 +27,6 @@ const Search = ({ query }) => {
         ? await getResident(mosaicId, { context_flag: permission })
         : await getResidents({ ...personDetails, context_flag: permission });
       setLoading(false);
-      setError(null);
       setResults(
         mosaicId
           ? { residents: [...residents, data] }
@@ -34,7 +35,6 @@ const Search = ({ query }) => {
     } catch (e) {
       setLoading(false);
       setError(e.response?.data || 'Oops an error occurred');
-      setResults(null);
     }
   });
   return (
