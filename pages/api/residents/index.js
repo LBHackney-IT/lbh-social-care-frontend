@@ -1,28 +1,32 @@
+import * as HttpStatus from 'http-status-codes';
+
 import { getResidents } from 'utils/server/residents';
 import { isAuthorised } from 'utils/auth';
 
 export default async (req, res) => {
   if (!isAuthorised({ req })) {
-    return res.status(401).send('Auth cookie missing.');
+    return res.status(HttpStatus.UNAUTHORIZED).send('Auth cookie missing.');
   }
   switch (req.method) {
     case 'GET':
       try {
         const data = await getResidents(req.query);
         if (data?.residents?.length > 0) {
-          res.status(200).json(data);
+          res.status(HttpStatus.OK).json(data);
         } else {
-          res.status(404).json('Residents Not Found');
+          res.status(HttpStatus.NOT_FOUND).json('Residents Not Found');
         }
       } catch (error) {
         console.log('Residents get error:', error);
-        error?.response?.status === 404
-          ? res.status(404).json('Residents Not Found')
-          : res.status(500).json('Unable to get the Residents');
+        error?.response?.status === HttpStatus.NOT_FOUND
+          ? res.status(HttpStatus.NOT_FOUND).json('Residents Not Found')
+          : res
+              .status(HttpStatus.INTERNAL_SERVER_ERROR)
+              .json('Unable to get the Residents');
       }
       break;
 
     default:
-      res.status(400).json('Invalid request method');
+      res.status(HttpStatus.BAD_REQUEST).json('Invalid request method');
   }
 };
