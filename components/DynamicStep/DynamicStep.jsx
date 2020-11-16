@@ -34,7 +34,7 @@ const DynamicStep = ({
         </div>
         <Button
           className="govuk-button"
-          label="Next"
+          label="Save and Continue"
           type="submit"
           disabled={isSubmitting}
         />

@@ -7,12 +7,13 @@ import { useBeforeunload } from 'react-beforeunload';
 
 import DynamicStep from 'components/DynamicStep/DynamicStep';
 import Breadcrumbs from 'components/Breadcrumbs/Breadcrumbs';
+import { getData, saveData, deleteData } from 'utils/saveData';
 
 const FormWizard = ({ formPath, formSteps, onFormSubmit, title }) => {
   Router.events.on('routeChangeComplete', () => {
     window.scrollTo(0, 0);
   });
-  const [formData, setFormData] = useState({});
+
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [hasError, setHasError] = useState(false);
   const formState = {
@@ -21,6 +22,7 @@ const FormWizard = ({ formPath, formSteps, onFormSubmit, title }) => {
     hasError,
     setHasError,
   };
+
   const router = useRouter();
   useBeforeunload(() => "You'll lose your data!");
   const { stepId } = router.query;
@@ -29,6 +31,7 @@ const FormWizard = ({ formPath, formSteps, onFormSubmit, title }) => {
   if (!step) {
     return null;
   }
+
   const getAdjacentSteps = useCallback((currentStepIndex) => {
     return {
       previousStep:
@@ -41,9 +44,11 @@ const FormWizard = ({ formPath, formSteps, onFormSubmit, title }) => {
           : null,
     };
   });
+
   const StepComponent = step.component ? step.component : DynamicStep;
   const currentStepIndex = formSteps.findIndex(({ id }) => id === step.id);
   const { previousStep, nextStep } = getAdjacentSteps(currentStepIndex);
+  const saveInfo = getData(formPath) || {};
   return (
     <div className="govuk-width-container">
       <NextSeo title={`${step.title} - ${title}`} noindex={true} />
@@ -66,7 +71,7 @@ const FormWizard = ({ formPath, formSteps, onFormSubmit, title }) => {
               <Breadcrumbs
                 key={step.id}
                 label={step.title}
-                link={`/form/adult-referral/${step.id}`}
+                link={`${formPath}${step.id}`}
                 state={
                   currentStepIndex === index
                     ? 'current'
@@ -81,15 +86,19 @@ const FormWizard = ({ formPath, formSteps, onFormSubmit, title }) => {
         </legend>
         <StepComponent
           components={step.components}
-          formData={formData}
+          formData={saveInfo.formData || {}}
           formState={formState}
           onStepSubmit={(data) => {
-            const updatedData = { ...formData, ...data };
-            setFormData(updatedData);
-            step.onStepSubmit && step.onStepSubmit(updatedData, formState);
+            const updatedData = { ...saveInfo.formData, ...data };
+            saveData(formPath, updatedData, step.id);
+
+            step.onStepSubmit &&
+              step.onStepSubmit(saveInfo.formData, formState);
             nextStep
               ? Router.push(stepPath, nextStep)
-              : onFormSubmit && onFormSubmit(updatedData, formState);
+              : onFormSubmit &&
+                onFormSubmit(saveInfo.formData, formState) &&
+                deleteData(formPath);
           }}
         />
       </fieldset>
