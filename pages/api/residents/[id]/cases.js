@@ -27,7 +27,7 @@ export default async (req, res) => {
 
     case 'POST':
       try {
-        const { data } = await postResidentCase(req.query.id, req.body);
+        const data = await postResidentCase(req.query.id, req.body);
         res.json(data);
       } catch (error) {
         console.log(error.status);
