@@ -44,7 +44,10 @@ export const SummarySection = ({
       <h3 className="govuk-heading-m">{title}</h3>
       {Summary}
 
-      <Link href={id} as={`${formPath}${id}`}>
+      <Link
+        href={`${formPath}${id}?fromSummary=true`}
+        as={`${formPath}${id}?fromSummary=true`}
+      >
         <a className="govuk-link">Change</a>
       </Link>
     </div>
