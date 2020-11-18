@@ -28,7 +28,7 @@ const FormWizard = ({
   ];
   const router = useRouter();
   useBeforeunload(() => "You'll lose your data!");
-  const { stepId } = router.query;
+  const { stepId, fromSummary } = router.query;
   const stepPath = `${formPath}[step]`;
   const step = steps.find(({ id }) => id === stepId);
   if (!step) {
@@ -99,7 +99,9 @@ const FormWizard = ({
             const updatedData = { ...formData, ...data };
             setFormData(updatedData);
             step.onStepSubmit && step.onStepSubmit(updatedData);
-            Router.push(stepPath, nextStep);
+            fromSummary
+              ? Router.push(stepPath, `${formPath}summary`)
+              : Router.push(stepPath, nextStep);
           }}
           onFormSubmit={onFormSubmit}
         />
