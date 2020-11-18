@@ -6,7 +6,7 @@ import { Button } from 'components/Form';
 import Spinner from 'components/Spinner/Spinner';
 import ErrorMessage from 'components/ErrorMessage/ErrorMessage';
 import UserContext from 'components/UserContext/UserContext';
-import { getResident, getResidents } from 'utils/api/residents';
+import { getResidents } from 'utils/api/residents';
 import { getPermissionFilter } from 'utils/user';
 
 const Search = ({ query }) => {
@@ -22,16 +22,12 @@ const Search = ({ query }) => {
     setError(null);
     try {
       setFormData(formData);
-      const { mosaicId, ...personDetails } = formData;
-      const data = mosaicId
-        ? await getResident(mosaicId, { context_flag: permission })
-        : await getResidents({ ...personDetails, context_flag: permission });
+      const data = await getResidents({
+        ...formData,
+        context_flag: permission,
+      });
       setLoading(false);
-      setResults(
-        mosaicId
-          ? { residents: [...residents, data] }
-          : { ...data, residents: [...residents, ...data.residents] }
-      );
+      setResults({ ...data, residents: [...residents, ...data.residents] });
     } catch (e) {
       setLoading(false);
       setError(e.response?.data || 'Oops an error occurred');
