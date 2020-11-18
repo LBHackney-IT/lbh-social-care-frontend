@@ -41,7 +41,7 @@ export const SummarySection = ({
   );
   return (
     <div className="govuk-!-margin-bottom-7">
-      <h2>{title}</h2>
+      <h3 className="govuk-heading-m">{title}</h3>
       {Summary}
 
       <Link href={id} as={`${formPath}${id}`}>
