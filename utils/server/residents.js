@@ -52,5 +52,5 @@ export const postResidentCase = async (mosaic_id, formData) => {
       headers: headersWithKeyAndContent,
     }
   );
-  return data;
+  return { ref: data?.['_id'] };
 };

@@ -7,7 +7,8 @@ import { useBeforeunload } from 'react-beforeunload';
 
 import DynamicStep from 'components/DynamicStep/DynamicStep';
 import Breadcrumbs from 'components/Breadcrumbs/Breadcrumbs';
-import Summary from 'components/Summary/Summary';
+import Summary from 'components/Steps/Summary';
+import Confirmation from 'components/Steps/Confirmation';
 
 const FormWizard = ({
   formPath,
@@ -23,6 +24,7 @@ const FormWizard = ({
   const steps = [
     ...formSteps,
     { id: 'summary', title: 'Summary', component: Summary },
+    { id: 'confirmation', title: 'Confirmation', component: Confirmation },
   ];
   const router = useRouter();
   useBeforeunload(() => "You'll lose your data!");
@@ -50,7 +52,7 @@ const FormWizard = ({
   return (
     <div className="govuk-width-container">
       <NextSeo title={`${step.title} - ${title}`} noindex={true} />
-      {previousStep && (
+      {previousStep && step.id !== 'confirmation' && (
         <Link href={stepPath} as={previousStep}>
           <a className="govuk-back-link">Back</a>
         </Link>
@@ -60,28 +62,34 @@ const FormWizard = ({
         role="group"
         aria-describedby="step-hint"
       >
-        <legend className="govuk-fieldset__legend govuk-fieldset__legend--l">
-          <h1 className="govuk-fieldset__heading">{title}</h1>
-        </legend>
-        <div className="govuk-breadcrumbs">
-          <ol className="govuk-breadcrumbs__list">
-            {formSteps.map((step, index) => (
-              <Breadcrumbs
-                key={step.id}
-                label={step.title}
-                link={`/form/adult-referral/${step.id}`}
-                state={
-                  currentStepIndex === index
-                    ? 'current'
-                    : currentStepIndex < index && 'completed'
-                }
-              />
-            ))}
-          </ol>
-        </div>
-        <legend className="govuk-fieldset__legend govuk-fieldset__legend--m">
-          <h1 className="govuk-fieldset__heading">{step.title}</h1>
-        </legend>
+        {step.id !== 'confirmation' && (
+          <legend className="govuk-fieldset__legend govuk-fieldset__legend--l">
+            <h1 className="govuk-fieldset__heading">{title}</h1>
+          </legend>
+        )}
+        {step.id !== 'summary' && step.id !== 'confirmation' && (
+          <>
+            <div className="govuk-breadcrumbs">
+              <ol className="govuk-breadcrumbs__list">
+                {formSteps.map((step, index) => (
+                  <Breadcrumbs
+                    key={step.id}
+                    label={step.title}
+                    link={`/form/adult-referral/${step.id}`}
+                    state={
+                      currentStepIndex === index
+                        ? 'current'
+                        : currentStepIndex < index && 'completed'
+                    }
+                  />
+                ))}
+              </ol>
+            </div>
+            <legend className="govuk-fieldset__legend govuk-fieldset__legend--m">
+              <h1 className="govuk-fieldset__heading">{step.title}</h1>
+            </legend>
+          </>
+        )}
         <StepComponent
           components={step.components}
           formData={formData}

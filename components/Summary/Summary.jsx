@@ -19,6 +19,7 @@ export const SummarySection = ({
   title,
   components,
   formPath,
+  canEdit,
 }) => {
   const Summary = (
     <SummaryList
@@ -41,20 +42,28 @@ export const SummarySection = ({
   );
   return (
     <div className="govuk-!-margin-bottom-7">
+      <h2>{title}</h2>
+      {Summary}
+      {canEdit && (
+        <Link href={id} as={`${formPath}${id}`}>
+          <a className="govuk-link">Change</a>
+        </Link>
+      )}
       <h3 className="govuk-heading-m">{title}</h3>
       {Summary}
-
-      <Link
-        href={`${formPath}${id}?fromSummary=true`}
-        as={`${formPath}${id}?fromSummary=true`}
-      >
-        <a className="govuk-link">Change</a>
-      </Link>
+      {canEdit && (
+        <Link
+          href={`${formPath}${id}?fromSummary=true`}
+          as={`${formPath}${id}?fromSummary=true`}
+        >
+          <a className="govuk-link">Change</a>
+        </Link>
+      )}
     </div>
   );
 };
 
-const Summary = ({ formData, formSteps, formPath, onFormSubmit }) => {
+const Summary = ({ formData, formSteps, formPath, onFormSubmit, canEdit }) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [hasError, setHasError] = useState(false);
   const onSubmit = async () => {
@@ -75,6 +84,7 @@ const Summary = ({ formData, formSteps, formPath, onFormSubmit }) => {
           key={section.id}
           formData={formData}
           formPath={formPath}
+          canEdit={canEdit}
           {...section}
         />
       ))}
@@ -98,6 +108,7 @@ Summary.propTypes = {
   formData: PropTypes.shape({}).isRequired,
   formSteps: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
   formPath: PropTypes.string.isRequired,
+  canEdit: PropTypes.bool,
   onFormSubmit: PropTypes.func.isRequired,
 };
 
