@@ -1,10 +1,7 @@
-import { useState } from 'react';
 import PropTypes from 'prop-types';
 import Link from 'next/link';
 
-import { Button } from 'components/Form';
 import SummaryList from 'components/Summary/SummaryList';
-import ErrorSummary from 'components/ErrorSummary/ErrorSummary';
 
 const MultiValue = (value) => (
   <div key={value}>
@@ -42,13 +39,6 @@ export const SummarySection = ({
   );
   return (
     <div className="govuk-!-margin-bottom-7">
-      <h2>{title}</h2>
-      {Summary}
-      {canEdit && (
-        <Link href={id} as={`${formPath}${id}`}>
-          <a className="govuk-link">Change</a>
-        </Link>
-      )}
       <h3 className="govuk-heading-m">{title}</h3>
       {Summary}
       {canEdit && (
@@ -63,53 +53,22 @@ export const SummarySection = ({
   );
 };
 
-const Summary = ({ formData, formSteps, formPath, onFormSubmit, canEdit }) => {
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [hasError, setHasError] = useState(false);
-  const onSubmit = async () => {
-    setIsSubmitting(true);
-    setHasError(false);
-    try {
-      await onFormSubmit(formData);
-    } catch {
-      setHasError(true);
-    }
-    setIsSubmitting(false);
-  };
-  if (!formSteps) return null;
-  return (
-    <div>
-      {formSteps.map((section) => (
-        <SummarySection
-          key={section.id}
-          formData={formData}
-          formPath={formPath}
-          canEdit={canEdit}
-          {...section}
-        />
-      ))}
-      <Button
-        className="govuk-button"
-        label="Submit"
-        onClick={onSubmit}
-        disabled={isSubmitting}
-      />
-      {hasError && (
-        <ErrorSummary
-          title="Unfortunately there was a problem with your submission."
-          body="Please try again."
-        />
-      )}
-    </div>
-  );
-};
+const Summary = ({ formData, formSteps, formPath, canEdit }) =>
+  formSteps.map((section) => (
+    <SummarySection
+      key={section.id}
+      formData={formData}
+      formPath={formPath}
+      canEdit={canEdit}
+      {...section}
+    />
+  ));
 
 Summary.propTypes = {
   formData: PropTypes.shape({}).isRequired,
   formSteps: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
   formPath: PropTypes.string.isRequired,
   canEdit: PropTypes.bool,
-  onFormSubmit: PropTypes.func.isRequired,
 };
 
 export default Summary;
