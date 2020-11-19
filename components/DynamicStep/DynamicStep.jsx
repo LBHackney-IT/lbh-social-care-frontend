@@ -3,20 +3,14 @@ import { useForm } from 'react-hook-form';
 
 import { Button } from 'components/Form';
 import DynamicInput from 'components/DynamicInput/DynamicInput';
-import ErrorSummary from 'components/ErrorSummary/ErrorSummary';
 
-const DynamicStep = ({
-  components,
-  formData,
-  onStepSubmit,
-  formState: { isSubmitting, hasError },
-}) => {
+const DynamicStep = ({ components, formData, onStepSubmit, onSaveAndExit }) => {
   const { handleSubmit, register, control, errors } = useForm({
     defaultValues: formData,
   });
   return (
     <>
-      <form onSubmit={handleSubmit(onStepSubmit)}>
+      <form>
         <div className="govuk-form-group">
           {components?.map((componentProps) =>
             componentProps.name ? (
@@ -34,17 +28,17 @@ const DynamicStep = ({
         </div>
         <Button
           className="govuk-button"
-          label="Save and Continue"
+          label="Next"
           type="submit"
-          disabled={isSubmitting}
+          onClick={handleSubmit(onStepSubmit)}
+        />
+        <Button
+          className="govuk-button"
+          label="Save and Exit"
+          type="submit"
+          onClick={handleSubmit(onSaveAndExit)}
         />
       </form>
-      {hasError && (
-        <ErrorSummary
-          title="Unfortunately there was a problem with your submission."
-          body="Please try again."
-        />
-      )}
     </>
   );
 };

@@ -5,19 +5,23 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "heroku-postbuild": "npm run build",
+    "prestart": "next build",
     "start": "next start -p $PORT",
     "test": "jest",
     "lint": "eslint . --ext .js,.jsx && echo 'Lint complete.'",
     "format": "prettier '**/*.{js,jsx,css,scss,md}' --write --list-different",
     "storybook": "start-storybook -p 6006",
-    "prestorybook": "cpx \"node_modules/govuk-frontend/govuk/assets/**/*\" assets"
+    "prestorybook": "cpx \"node_modules/govuk-frontend/govuk/assets/**/*\" assets",
+    "e2e": "PORT=3000 start-server-and-test start http://localhost:3000 cy:run",
+    "cy:run": "cypress run",
+    "cy:open": "cypress open"
   },
   "dependencies": {
     "axios": "^0.21.0",
     "cookie": "^0.4.1",
     "date-fns": "^2.16.1",
     "govuk-frontend": "^3.9.1",
+    "http-status-codes": "^2.1.4",
     "jsonwebtoken": "^8.5.1",
     "next": "9.5.5",
     "next-seo": "^4.14.0",
@@ -57,6 +61,7 @@
     "react-is": "^16.13.0",
     "sass": "^1.27.0",
     "sass-loader": "^10.0.4",
+    "start-server-and-test": "^1.11.5",
     "style-loader": "^2.0.0"
   },
   "optionalDependencies": {

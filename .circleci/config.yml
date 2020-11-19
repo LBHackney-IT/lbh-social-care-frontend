@@ -1,9 +1,9 @@
 version: 2.1
+
 jobs:
   build:
-    working_directory: ~/repo
     docker:
-      - image: circleci/node:12.16.2
+      - image: circleci/node:12.16.2-browsers
     steps:
       - checkout
       - restore_cache:
@@ -15,9 +15,18 @@ jobs:
           key: dependency-cache-{{ checksum "yarn.lock" }}
           paths:
             - ./node_modules
+            - ./.next/cache
+            - /home/circleci/.cache/Cypress
       - run:
           name: Run linter
           command: yarn lint
       - run:
           name: Run tests
           command: yarn test
+      - run:
+          name: Run E2E
+          command: yarn e2e
+      - store_artifacts:
+          path: ~/repo/cypress/screenshots
+      - store_artifacts:
+          path: ~/repo/cypress/videos
