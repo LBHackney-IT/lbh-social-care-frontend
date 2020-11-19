@@ -75,7 +75,7 @@ const FormWizard = ({
                   <Breadcrumbs
                     key={step.id}
                     label={step.title}
-                    link={`/form/adult-referral/${step.id}`}
+                    link={`${formPath}${step.id}`}
                     state={
                       currentStepIndex === index
                         ? 'current'

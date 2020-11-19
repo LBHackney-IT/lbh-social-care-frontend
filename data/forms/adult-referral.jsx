@@ -234,7 +234,7 @@ export default {
           label:
             'Please identify any other agencies that the person making contact has been referred to.',
         },
-        <h3 key="text">
+        <h3 key="text" className="govuk-body">
           Please note information from this assessment may be shared regardless
           of your consent where there is a 'Vital Interest' i.e. where it is
           critical to prevent serious harm, distress or in life threatening
