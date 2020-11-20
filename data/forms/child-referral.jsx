@@ -1,3 +1,5 @@
+import Link from 'next/link';
+
 export default {
   title: 'FAST referral form',
   path: '/form/child-referral/',
@@ -7,7 +9,7 @@ export default {
       title: 'Client Details',
       components: [
         {
-          component: 'TextInput',
+          component: 'EmailInput',
           name: 'worker_email',
           width: '30',
           label: 'Email address',
@@ -62,7 +64,7 @@ export default {
           label: 'Position / agency (if relevant): ',
         },
         {
-          component: 'TextInput',
+          component: 'NumberInput',
           name: 'referrer_telephone',
           width: '30',
           label: 'Telephone Number',
@@ -180,13 +182,13 @@ export default {
           hint: 'For example, 31 03 1980',
         },
         {
-          component: 'TextInput',
+          component: 'NumberInput',
           name: 'mother_telephone',
           width: '30',
           label: "Mother's telephone number:",
         },
         {
-          component: 'TextInput',
+          component: 'EmailInput',
           name: 'mother_email',
           width: '30',
           label: "Mother's email",
@@ -235,13 +237,13 @@ export default {
           hint: 'For example, 31 03 1980',
         },
         {
-          component: 'TextInput',
+          component: 'NumberInput',
           name: 'father_telephone',
           width: '30',
           label: "Father's telephone number:",
         },
         {
-          component: 'TextInput',
+          component: 'EmailInput',
           name: 'father_email',
           width: '30',
           label: "Father's email",
@@ -282,7 +284,7 @@ export default {
           label: "Do you have the details of any additional family member's ?",
           options: ['Yes', 'No'],
         },
-        <h3 key="text" className="govuk-body">
+        <h3 key="text1" className="govuk-body">
           Details of wider family network
         </h3>,
         {
@@ -306,13 +308,13 @@ export default {
             'Role/relationship (specify which child or family member) - individual (1) ',
         },
         {
-          component: 'TextInput',
+          component: 'NumberInput',
           name: 'wider_family_telephone_1',
           width: '30',
           label: 'Telephone number - individual (1)',
         },
         {
-          component: 'TextInput',
+          component: 'EmailInput',
           name: 'wider_family_email_1',
           width: '30',
           label: 'Email address - individual (1)',
@@ -361,11 +363,11 @@ export default {
             'Do you have any details of any other professionals or agencies working with the family: ?',
           options: ['Yes', 'No'],
         },
-        <h3 key="text" className="govuk-body">
+        <h3 key="text2" className="govuk-body">
           Details of any other professionals or agencies working with the
           family:
         </h3>,
-        <p key="text" className="govuk-body">
+        <p key="text3" className="govuk-body">
           (eg GP, health visitor, other professionals working with the
           household)
         </p>,
@@ -385,13 +387,13 @@ export default {
         },
 
         {
-          component: 'TextInput',
+          component: 'NumberInput',
           name: 'professional_telephone_1',
           width: '30',
           label: 'Telephone number - professional (1)',
         },
         {
-          component: 'TextInput',
+          component: 'EmailInput',
           name: 'professional_email_1',
           width: '30',
           label: 'Email address - professional (1)',
@@ -441,18 +443,24 @@ export default {
       id: 'requestForSupport',
       title: 'Request For Support',
       components: [
-        <h3 key="text" className="govuk-body">
-          Hackney Child Wellbeing Framework
-        </h3>,
-        <p key="text" className="govuk-body">
-          Please consult the Hackney Child Wellbeing Framework
-          https://tinyurl.com/yxzq446e for guidance around levels of
-          intervention. The Council Family Support Services in Hackney are
-          either delivered via multi-agency teams (MAT) at local Children’s
-          Centres (primarily for under 5s) or through the Family Support Service
-          within Children and Families Services. Young Hackney delivers a range
-          of universal and targeted support services for children aged 6+.{' '}
-        </p>,
+        <>
+          <h3 key="text4" className="govuk-body">
+            Hackney Child Wellbeing Framework
+          </h3>
+          <p key="text5" className="govuk-body">
+            Please consult the
+            <Link href={`https://tinyurl.com/yxzq446e`}>
+              <a> Hackney Child Wellbeing Framework </a>
+            </Link>
+            &nbsp; for guidance around levels of intervention. The Council
+            Family Support Services in Hackney are either delivered via
+            multi-agency teams (MAT) at local Children’s Centres (primarily for
+            under 5s) or through the Family Support Service within Children and
+            Families Services. Young Hackney delivers a range of universal and
+            targeted support services for children aged 6+.
+          </p>
+          ,
+        </>,
         {
           component: 'Radios',
           name: 'childSupport',
@@ -479,7 +487,7 @@ export default {
           options: ['Yes', 'No'],
           rules: { required: true },
         },
-        <p key="text" className="govuk-body">
+        <p key="text6" className="govuk-body">
           Please note, parental consent is always required for families to be
           referred to an early help intervention.{' '}
         </p>,
@@ -489,7 +497,7 @@ export default {
           label: 'Are the parents/carers open to additional support?',
           options: ['Yes', 'No'],
         },
-        <p key="text" className="govuk-body">
+        <p key="text7" className="govuk-body">
           Please note, referrers are always expected to discuss their requests
           for support from Children and Families Services with parents/carers
           prior to making contact with FAST, unless the referrer is concerned
@@ -515,7 +523,7 @@ export default {
           label:
             'Why is a referral being made?  Please include what you know and may be worried about in terms of the child(ren)’s day to day experiences. ',
         },
-        <p key="text" className="govuk-body">
+        <p key="text8" className="govuk-body">
           If you are concerned about a location or peer group, please detail
           concerns for all children and be specific about dates, times and
           locations. If the concerns require a discussion at the Extra- Familial
@@ -529,7 +537,7 @@ export default {
           label:
             'Please outline your involvement with the child/family/peer group and any support you have offered them. ',
         },
-        <p key="text" className="govuk-body">
+        <p key="text9" className="govuk-body">
           If a Child & Family Assessment or other assessment document has been
           completed by your agency, please attach a copy alongside this referral
         </p>,
@@ -540,7 +548,7 @@ export default {
           label:
             'What additional support do you think the child(ren) and family would benefit from, at either an early help or a statutory level? ',
         },
-        <p key="text" className="govuk-body">
+        <p key="text10" className="govuk-body">
           Please be as clear as possible about what you feel needs to change for
           you to be less concerned about the children.
         </p>,
@@ -550,7 +558,7 @@ export default {
       id: 'thank_you',
       title: 'Thank you',
       components: [
-        <p key="text" className="govuk-body">
+        <p key="text11" className="govuk-body">
           You will be informed about the outcome of your referral when a
           decision has been made about the most appropriate next steps for a
           child and family. We aim - wherever possible - to make decisions about

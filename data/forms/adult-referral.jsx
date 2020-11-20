@@ -14,7 +14,7 @@ export default {
           hint: 'For example, 31 03 1980',
         },
         {
-          component: 'TextInput',
+          component: 'NumberInput',
           name: 'mosaic_id',
           width: '30',
           label: 'Mosaic ID Number',
@@ -22,7 +22,7 @@ export default {
           rules: { required: true },
         },
         {
-          component: 'TextInput',
+          component: 'NumberInput',
           name: 'nhsNumber',
           width: '30',
           label: 'NHS Number',
@@ -84,7 +84,7 @@ export default {
           rules: { required: true },
         },
         {
-          component: 'TextInput',
+          component: 'NumberInput',
           name: 'phone',
           width: '30',
           label: 'Phone Number',
@@ -114,7 +114,7 @@ export default {
           label: 'Referrer Organisation',
         },
         {
-          component: 'TextInput',
+          component: 'EmailInput',
           name: 'worker_email',
           width: '30',
           label: 'Referrer Email',
