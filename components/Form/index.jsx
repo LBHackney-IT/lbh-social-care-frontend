@@ -8,6 +8,8 @@ import Radios from './Radios/Radios';
 import Select from './Select/Select';
 import TextInput from './TextInput/TextInput';
 import TextArea from './TextArea/TextArea';
+import EmailInput from './EmailInput/EmailInput';
+import NumberInput from './NumberInput/NumberInput';
 
 export {
   AddressLookup,
@@ -20,4 +22,6 @@ export {
   Select,
   TextInput,
   TextArea,
+  EmailInput,
+  NumberInput,
 };
