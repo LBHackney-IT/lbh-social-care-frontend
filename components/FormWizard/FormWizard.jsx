@@ -71,8 +71,9 @@ const FormWizard = ({
         {step.id !== 'summary' && step.id !== 'confirmation' && (
           <>
             <Breadcrumbs
-              formData={formData}
-              formSteps={formSteps}
+              data={formData}
+              path={formPath}
+              steps={formSteps}
               currentStepIndex={currentStepIndex}
             />
             <legend className="govuk-fieldset__legend govuk-fieldset__legend--m">

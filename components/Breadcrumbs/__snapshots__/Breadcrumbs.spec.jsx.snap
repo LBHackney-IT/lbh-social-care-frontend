@@ -1,0 +1,42 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Breadcrumbs component should render properly 1`] = `
+<DocumentFragment>
+  <div
+    class="govuk-breadcrumbs"
+  >
+    <ol
+      class="govuk-breadcrumbs__list"
+    >
+      <li
+        class="govuk-breadcrumbs__list-item"
+      >
+        <a
+          class="govuk-breadcrumbs__link"
+          href="/foo/first-step"
+        >
+          First Step
+        </a>
+      </li>
+      <li
+        class="govuk-breadcrumbs__list-item"
+      >
+        <span
+          class="govuk-!-font-weight-bold"
+        >
+          Third Step
+        </span>
+      </li>
+      <li
+        class="govuk-breadcrumbs__list-item"
+      >
+        <span
+          class=""
+        >
+          Fourt Step
+        </span>
+      </li>
+    </ol>
+  </div>
+</DocumentFragment>
+`;

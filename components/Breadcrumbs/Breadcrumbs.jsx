@@ -2,33 +2,36 @@ import PropTypes from 'prop-types';
 import Link from 'next/link';
 import cx from 'classnames';
 
-const Breadcrumb = ({ label, link, state }) => (
-  <li className={cx('govuk-breadcrumbs__list-item')}>
-    <Link href={link}>
-      <a className={`govuk-breadcrumbs__link ${state}`}>{label}</a>
-    </Link>
+const Breadcrumb = ({ label, link, isCurrentStep }) => (
+  <li className="govuk-breadcrumbs__list-item">
+    {link ? (
+      <Link href={link}>
+        <a className="govuk-breadcrumbs__link">{label}</a>
+      </Link>
+    ) : (
+      <span className={cx({ 'govuk-!-font-weight-bold': isCurrentStep })}>
+        {label}
+      </span>
+    )}
   </li>
 );
 
 Breadcrumb.propTypes = {
   label: PropTypes.string.isRequired,
-  link: PropTypes.string.isRequired,
+  link: PropTypes.string,
+  isCurrentStep: PropTypes.bool,
 };
 
-const Breadcrumbs = ({ formSteps, formData, formPath, currentStepIndex }) => (
+const Breadcrumbs = ({ steps, data, path, currentStepIndex }) => (
   <div className="govuk-breadcrumbs">
     <ol className="govuk-breadcrumbs__list">
-      {formSteps.map((step, index) =>
-        step.conditionalRender && !step.conditionalRender(formData) ? null : (
+      {steps.map((step, index) =>
+        step.conditionalRender && !step.conditionalRender(data) ? null : (
           <Breadcrumb
             key={step.id}
             label={step.title}
-            link={`${formPath}${step.id}`}
-            state={
-              currentStepIndex === index
-                ? 'current'
-                : currentStepIndex < index && 'completed'
-            }
+            link={currentStepIndex > index ? `${path}${step.id}` : null}
+            isCurrentStep={currentStepIndex === index}
           />
         )
       )}
@@ -37,15 +40,15 @@ const Breadcrumbs = ({ formSteps, formData, formPath, currentStepIndex }) => (
 );
 
 Breadcrumbs.propTypes = {
-  formSteps: PropTypes.arrayOf(
+  steps: PropTypes.arrayOf(
     PropTypes.shape({
       id: PropTypes.string.isRequired,
       title: PropTypes.string.isRequired,
       conditionalRender: PropTypes.func,
     }).isRequired
   ).isRequired,
-  formData: PropTypes.shape({}).isRequired,
-  formPath: PropTypes.string.isRequired,
+  data: PropTypes.shape({}).isRequired,
+  path: PropTypes.string.isRequired,
   currentStepIndex: PropTypes.number.isRequired,
 };
 
