@@ -2,6 +2,8 @@ import PropTypes from 'prop-types';
 import Link from 'next/link';
 import cx from 'classnames';
 
+import { renderOnCondition } from 'utils/steps';
+
 const Breadcrumb = ({ label, link, isCurrentStep }) => (
   <li className="govuk-breadcrumbs__list-item">
     {link ? (
@@ -26,7 +28,9 @@ const Breadcrumbs = ({ steps, data, path, currentStepIndex }) => (
   <div className="govuk-breadcrumbs">
     <ol className="govuk-breadcrumbs__list">
       {steps.map((step, index) =>
-        step.conditionalRender && !step.conditionalRender(data) ? null : (
+        renderOnCondition(
+          step,
+          data,
           <Breadcrumb
             key={step.id}
             label={step.title}

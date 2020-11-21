@@ -1,4 +1,4 @@
-import { createSteps, getNextStepPath } from './FormWizard';
+import { createSteps, getNextStepPath, renderOnCondition } from './steps';
 
 import Summary from 'components/Steps/Summary';
 import Confirmation from 'components/Steps/Confirmation';
@@ -27,6 +27,32 @@ describe('FormWizard', () => {
   describe('getNextStepPath', () => {
     it('should return the correct step', () => {
       expect(getNextStepPath(1, steps, '/form/')).toEqual('/form/third-step');
+    });
+  });
+
+  describe('renderOnCondition', () => {
+    it('should return the component if no render condition', () => {
+      expect(renderOnCondition({}, {}, FakeComponentStep)).toEqual(
+        FakeComponentStep
+      );
+    });
+    it('should return the component if render condition "true"', () => {
+      expect(
+        renderOnCondition(
+          { conditionalRender: ({ hide }) => hide !== true },
+          { hide: false },
+          FakeComponentStep
+        )
+      ).toEqual(FakeComponentStep);
+    });
+    it('should NOT return the component if render condition "false"', () => {
+      expect(
+        renderOnCondition(
+          { conditionalRender: ({ hide }) => hide !== true },
+          { hide: true },
+          FakeComponentStep
+        )
+      ).toEqual(null);
     });
   });
 });

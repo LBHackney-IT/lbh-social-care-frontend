@@ -2,6 +2,7 @@ import PropTypes from 'prop-types';
 import Link from 'next/link';
 
 import SummaryList from 'components/Summary/SummaryList';
+import { renderOnCondition } from 'utils/steps';
 
 const MultiValue = (value) => (
   <div key={value}>
@@ -54,15 +55,19 @@ export const SummarySection = ({
 };
 
 const Summary = ({ formData, formSteps, formPath, canEdit }) =>
-  formSteps.map((section) => (
-    <SummarySection
-      key={section.id}
-      formData={formData}
-      formPath={formPath}
-      canEdit={canEdit}
-      {...section}
-    />
-  ));
+  formSteps.map((section) =>
+    renderOnCondition(
+      section,
+      formData,
+      <SummarySection
+        key={section.id}
+        formData={formData}
+        formPath={formPath}
+        canEdit={canEdit}
+        {...section}
+      />
+    )
+  );
 
 Summary.propTypes = {
   formData: PropTypes.shape({}).isRequired,
