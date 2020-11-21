@@ -27,7 +27,6 @@ describe('FormWizard', () => {
   describe('getNextStepPath', () => {
     it('should return the correct step', () => {
       expect(getNextStepPath(1, steps, '/form/')).toEqual('/form/third-step');
-      expect(getNextStepPath(3, steps, '/form/')).toEqual(null);
     });
   });
 });

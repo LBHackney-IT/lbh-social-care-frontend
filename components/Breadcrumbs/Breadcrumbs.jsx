@@ -37,11 +37,16 @@ const Breadcrumbs = ({ formSteps, formData, formPath, currentStepIndex }) => (
 );
 
 Breadcrumbs.propTypes = {
-  formSteps: PropTypes.shape({
-    id: PropTypes.string.isRequired,
-    title: PropTypes.string.isRequired,
-    conditionalRender: PropTypes.func,
-  }).isRequired,
+  formSteps: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.string.isRequired,
+      title: PropTypes.string.isRequired,
+      conditionalRender: PropTypes.func,
+    }).isRequired
+  ).isRequired,
+  formData: PropTypes.shape({}).isRequired,
+  formPath: PropTypes.string.isRequired,
+  currentStepIndex: PropTypes.number.isRequired,
 };
 
 export default Breadcrumbs;

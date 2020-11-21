@@ -14,6 +14,19 @@ export const createSteps = (formSteps) => [
   { id: 'summary', title: 'Summary', component: Summary },
   { id: 'confirmation', title: 'Confirmation', component: Confirmation },
 ];
+export const getNextStepPath = (
+  currentStepIndex,
+  steps,
+  formPath,
+  formData
+) => {
+  const nextStep = steps
+    .slice(currentStepIndex + 1)
+    .find((step) =>
+      step.conditionalRender ? step.conditionalRender(formData) : true
+    );
+  return `${formPath}${nextStep.id}`;
+};
 
 const FormWizard = ({
   formPath,
@@ -78,7 +91,15 @@ const FormWizard = ({
             step.onStepSubmit && step.onStepSubmit(updatedData);
             fromSummary
               ? Router.push(stepPath, `${formPath}summary`)
-              : Router.push(stepPath, nextStep);
+              : Router.push(
+                  stepPath,
+                  getNextStepPath(
+                    currentStepIndex,
+                    steps,
+                    formPath,
+                    updatedData
+                  )
+                );
           }}
           onFormSubmit={onFormSubmit}
         />
