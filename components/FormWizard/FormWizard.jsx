@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import PropTypes from 'prop-types';
-import Link from 'next/link';
 import Router, { useRouter } from 'next/router';
 import { NextSeo } from 'next-seo';
 import { useBeforeunload } from 'react-beforeunload';
@@ -15,14 +14,6 @@ export const createSteps = (formSteps) => [
   { id: 'summary', title: 'Summary', component: Summary },
   { id: 'confirmation', title: 'Confirmation', component: Confirmation },
 ];
-
-export const getPreviousStepPath = (currentStepIndex, steps, formPath) =>
-  currentStepIndex > 0 ? `${formPath}${steps[currentStepIndex - 1].id}` : null;
-
-export const getNextStepPath = (currentStepIndex, steps, formPath) =>
-  currentStepIndex < steps.length - 1
-    ? `${formPath}${steps[currentStepIndex + 1].id}`
-    : null;
 
 const FormWizard = ({
   formPath,
@@ -45,16 +36,14 @@ const FormWizard = ({
     return null;
   }
   const currentStepIndex = steps.findIndex(({ id }) => id === step.id);
-  const previousStep = getPreviousStepPath(currentStepIndex, steps, formPath);
-  const nextStep = getNextStepPath(currentStepIndex, steps, formPath);
   const StepComponent = step.component ? step.component : DynamicStep;
   return (
     <div className="govuk-width-container">
       <NextSeo title={`${step.title} - ${title}`} noindex={true} />
-      {previousStep && step.id !== 'confirmation' && (
-        <Link href={stepPath} as={previousStep}>
-          <a className="govuk-back-link">Back</a>
-        </Link>
+      {currentStepIndex !== 0 && step.id !== 'confirmation' && (
+        <a className="govuk-back-link" href="#" onClick={() => Router.back()}>
+          Back
+        </a>
       )}
       <fieldset
         className="govuk-fieldset"

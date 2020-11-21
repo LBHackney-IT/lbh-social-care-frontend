@@ -1,8 +1,4 @@
-import {
-  createSteps,
-  getPreviousStepPath,
-  getNextStepPath,
-} from './FormWizard';
+import { createSteps, getNextStepPath } from './FormWizard';
 
 import Summary from 'components/Steps/Summary';
 import Confirmation from 'components/Steps/Confirmation';
@@ -25,15 +21,6 @@ describe('FormWizard', () => {
         { id: 'summary', title: 'Summary', component: Summary },
         { id: 'confirmation', title: 'Confirmation', component: Confirmation },
       ]);
-    });
-  });
-
-  describe('getPreviousStepPath', () => {
-    it('should return the correct step', () => {
-      expect(getPreviousStepPath(1, steps, '/form/')).toEqual(
-        '/form/first-step'
-      );
-      expect(getPreviousStepPath(0, steps, '/form/')).toEqual(null);
     });
   });
 
