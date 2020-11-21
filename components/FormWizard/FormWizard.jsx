@@ -24,7 +24,9 @@ const FormWizard = ({
   useBeforeunload(() => "You'll lose your data!");
   const { stepId, fromSummary } = router.query;
   const stepPath = `${formPath}[step]`;
-  const step = steps.find(({ id }) => id === stepId);
+  const step = steps.find(
+    ({ id }) => id === (Array.isArray(stepId) ? stepId[0] : stepId)
+  );
   if (!step) {
     return null;
   }
@@ -62,11 +64,13 @@ const FormWizard = ({
           </>
         )}
         <StepComponent
-          components={step.components}
+          {...step}
+          key={stepId.join('-')}
+          stepId={stepId}
           formData={formData}
           formSteps={formSteps}
           formPath={formPath}
-          onStepSubmit={(data) => {
+          onStepSubmit={(data, addAnother) => {
             const updatedData = { ...formData, ...data };
             setFormData(updatedData);
             step.onStepSubmit && step.onStepSubmit(updatedData);
@@ -74,12 +78,16 @@ const FormWizard = ({
               ? Router.push(stepPath, `${formPath}summary`)
               : Router.push(
                   stepPath,
-                  getNextStepPath(
-                    currentStepIndex,
-                    steps,
-                    formPath,
-                    updatedData
-                  )
+                  addAnother
+                    ? `${formPath}${stepId[0]}/${
+                        (parseInt(stepId[1]) || 0) + 1
+                      }`
+                    : getNextStepPath(
+                        currentStepIndex,
+                        steps,
+                        formPath,
+                        updatedData
+                      )
                 );
           }}
           onFormSubmit={onFormSubmit}

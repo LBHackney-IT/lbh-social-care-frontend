@@ -4,13 +4,19 @@ import { useForm } from 'react-hook-form';
 import { Button } from 'components/Form';
 import DynamicInput from 'components/DynamicInput/DynamicInput';
 
-const DynamicStep = ({ components, formData, onStepSubmit }) => {
+const DynamicStep = ({
+  isMulti,
+  stepId,
+  components,
+  formData,
+  onStepSubmit,
+}) => {
   const { handleSubmit, register, control, errors } = useForm({
     defaultValues: formData,
   });
   return (
     <>
-      <form onSubmit={handleSubmit(onStepSubmit)}>
+      <form onSubmit={handleSubmit((data) => onStepSubmit(data))}>
         <div className="govuk-form-group">
           {components?.map((componentProps) =>
             componentProps.name ? (
@@ -19,6 +25,7 @@ const DynamicStep = ({ components, formData, onStepSubmit }) => {
                 register={register}
                 control={control}
                 errors={errors}
+                multiStepIndex={isMulti && (parseInt(stepId[1]) || 0)}
                 {...componentProps}
               />
             ) : (
@@ -26,6 +33,14 @@ const DynamicStep = ({ components, formData, onStepSubmit }) => {
             )
           )}
         </div>
+        {isMulti && (
+          <Button
+            className="govuk-button govuk-button--secondary"
+            label="Add Another"
+            type="click"
+            onClick={() => handleSubmit((data) => onStepSubmit(data, true))()}
+          />
+        )}
         <Button className="govuk-button" label="Next" type="submit" />
       </form>
     </>
@@ -36,8 +51,7 @@ DynamicStep.propTypes = {
   components: PropTypes.array,
   onStepSubmit: PropTypes.func.isRequired,
   formData: PropTypes.object.isRequired,
-  isLoading: PropTypes.bool,
-  hasError: PropTypes.bool,
+  isMulti: PropTypes.bool,
 };
 
 export default DynamicStep;
