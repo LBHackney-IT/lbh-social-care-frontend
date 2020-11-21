@@ -11,6 +11,17 @@ const MultiValue = (value) => (
   </div>
 );
 
+const SummaryMultiSection = ({ formData, id, title, ...props }) =>
+  formData[id].map((data, key) => (
+    <SummarySection
+      {...props}
+      formData={data}
+      title={`${title} - ${key + 1}`}
+      key={`${id}/${key}`}
+      id={`${id}/${key}`}
+    />
+  ));
+
 export const SummarySection = ({
   formData,
   id,
@@ -55,19 +66,24 @@ export const SummarySection = ({
 };
 
 const Summary = ({ formData, formSteps, formPath, canEdit }) =>
-  formSteps.map((section) =>
-    renderOnCondition(
+  formSteps.map((section) => {
+    const props = {
+      key: section.id,
+      formData: formData,
+      formPath: formPath,
+      canEdit: canEdit,
+      ...section,
+    };
+    return renderOnCondition(
       section,
       formData,
-      <SummarySection
-        key={section.id}
-        formData={formData}
-        formPath={formPath}
-        canEdit={canEdit}
-        {...section}
-      />
-    )
-  );
+      section.isMulti ? (
+        <SummaryMultiSection {...props} />
+      ) : (
+        <SummarySection {...props} />
+      )
+    );
+  });
 
 Summary.propTypes = {
   formData: PropTypes.shape({}).isRequired,

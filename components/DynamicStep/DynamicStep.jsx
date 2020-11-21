@@ -22,6 +22,7 @@ const DynamicStep = ({
             componentProps.name ? (
               <DynamicInput
                 key={componentProps.name}
+                id={stepId[0]}
                 register={register}
                 control={control}
                 errors={errors}

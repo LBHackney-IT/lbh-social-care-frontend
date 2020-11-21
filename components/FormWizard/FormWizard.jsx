@@ -7,6 +7,7 @@ import { useBeforeunload } from 'react-beforeunload';
 import DynamicStep from 'components/DynamicStep/DynamicStep';
 import Breadcrumbs from 'components/Breadcrumbs/Breadcrumbs';
 import { createSteps, getNextStepPath } from 'utils/steps';
+import { deepmerge } from 'utils/objects';
 
 const FormWizard = ({
   formPath,
@@ -71,7 +72,7 @@ const FormWizard = ({
           formSteps={formSteps}
           formPath={formPath}
           onStepSubmit={(data, addAnother) => {
-            const updatedData = { ...formData, ...data };
+            const updatedData = deepmerge(formData, data);
             setFormData(updatedData);
             step.onStepSubmit && step.onStepSubmit(updatedData);
             fromSummary
