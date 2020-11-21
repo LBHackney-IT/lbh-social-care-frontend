@@ -57,22 +57,11 @@ const FormWizard = ({
         )}
         {step.id !== 'summary' && step.id !== 'confirmation' && (
           <>
-            <div className="govuk-breadcrumbs">
-              <ol className="govuk-breadcrumbs__list">
-                {formSteps.map((step, index) => (
-                  <Breadcrumbs
-                    key={step.id}
-                    label={step.title}
-                    link={`/form/adult-referral/${step.id}`}
-                    state={
-                      currentStepIndex === index
-                        ? 'current'
-                        : currentStepIndex < index && 'completed'
-                    }
-                  />
-                ))}
-              </ol>
-            </div>
+            <Breadcrumbs
+              formData={formData}
+              formSteps={formSteps}
+              currentStepIndex={currentStepIndex}
+            />
             <legend className="govuk-fieldset__legend govuk-fieldset__legend--m">
               <h1 className="govuk-fieldset__heading">{step.title}</h1>
             </legend>
