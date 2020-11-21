@@ -1,4 +1,4 @@
-import { useState, useCallback } from 'react';
+import { useState } from 'react';
 import PropTypes from 'prop-types';
 import Link from 'next/link';
 import Router, { useRouter } from 'next/router';
@@ -9,6 +9,20 @@ import DynamicStep from 'components/DynamicStep/DynamicStep';
 import Breadcrumbs from 'components/Breadcrumbs/Breadcrumbs';
 import Summary from 'components/Steps/Summary';
 import Confirmation from 'components/Steps/Confirmation';
+
+export const createSteps = (formSteps) => [
+  ...formSteps,
+  { id: 'summary', title: 'Summary', component: Summary },
+  { id: 'confirmation', title: 'Confirmation', component: Confirmation },
+];
+
+export const getPreviousStepPath = (currentStepIndex, steps, formPath) =>
+  currentStepIndex > 0 ? `${formPath}${steps[currentStepIndex - 1].id}` : null;
+
+export const getNextStepPath = (currentStepIndex, steps, formPath) =>
+  currentStepIndex < steps.length - 1
+    ? `${formPath}${steps[currentStepIndex + 1].id}`
+    : null;
 
 const FormWizard = ({
   formPath,
@@ -21,11 +35,7 @@ const FormWizard = ({
     window.scrollTo(0, 0);
   });
   const [formData, setFormData] = useState(defaultValues);
-  const steps = [
-    ...formSteps,
-    { id: 'summary', title: 'Summary', component: Summary },
-    { id: 'confirmation', title: 'Confirmation', component: Confirmation },
-  ];
+  const steps = createSteps(formSteps);
   const router = useRouter();
   useBeforeunload(() => "You'll lose your data!");
   const { stepId, fromSummary } = router.query;
@@ -34,21 +44,10 @@ const FormWizard = ({
   if (!step) {
     return null;
   }
-  const getAdjacentSteps = useCallback((currentStepIndex) => {
-    return {
-      previousStep:
-        currentStepIndex > 0
-          ? `${formPath}${steps[currentStepIndex - 1].id}`
-          : null,
-      nextStep:
-        currentStepIndex < steps.length - 1
-          ? `${formPath}${steps[currentStepIndex + 1].id}`
-          : null,
-    };
-  });
-  const StepComponent = step.component ? step.component : DynamicStep;
   const currentStepIndex = steps.findIndex(({ id }) => id === step.id);
-  const { previousStep, nextStep } = getAdjacentSteps(currentStepIndex);
+  const previousStep = getPreviousStepPath(currentStepIndex, steps, formPath);
+  const nextStep = getNextStepPath(currentStepIndex, steps, formPath);
+  const StepComponent = step.component ? step.component : DynamicStep;
   return (
     <div className="govuk-width-container">
       <NextSeo title={`${step.title} - ${title}`} noindex={true} />
