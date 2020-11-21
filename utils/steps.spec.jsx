@@ -1,4 +1,9 @@
-import { createSteps, getNextStepPath, renderOnCondition } from './steps';
+import {
+  createSteps,
+  getNextStepPath,
+  renderOnCondition,
+  filterDataOnCondition,
+} from './steps';
 
 import Summary from 'components/Steps/Summary';
 import Confirmation from 'components/Steps/Confirmation';
@@ -53,6 +58,56 @@ describe('FormWizard', () => {
           FakeComponentStep
         )
       ).toEqual(null);
+    });
+  });
+
+  describe('filterDataOnCondition', () => {
+    const steps = [
+      {
+        id: 'step-a',
+        title: 'Step A',
+        components: [
+          {
+            component: 'Radios',
+            name: 'conditional_trigger',
+            label: 'Show next step?',
+            rules: { required: true },
+          },
+        ],
+      },
+      {
+        id: 'step-b',
+        title: 'Step B',
+        conditionalRender: ({ conditional_trigger }) =>
+          conditional_trigger === 'Yes',
+        components: [
+          {
+            component: 'TextInput',
+            name: 'foo',
+            rules: { required: true },
+          },
+        ],
+      },
+      {
+        id: 'step-c',
+        title: 'Step C',
+        components: [
+          {
+            component: 'TextInput',
+            name: 'bar',
+            rules: { required: true },
+          },
+        ],
+      },
+    ];
+    const data = {
+      conditional_trigger: 'No',
+      bar: 'asd',
+      foo: 'asd',
+    };
+    expect(filterDataOnCondition(steps, data)).toEqual({
+      conditional_trigger: 'No',
+      bar: 'asd',
     });
   });
 });

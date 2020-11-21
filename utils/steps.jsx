@@ -23,3 +23,18 @@ export const getNextStepPath = (
 
 export const renderOnCondition = (step, data, component) =>
   step.conditionalRender && !step.conditionalRender(data) ? null : component;
+
+export const filterDataOnCondition = (steps, data) => {
+  const toFilterOut = steps
+    .filter((step) => step.conditionalRender && !step.conditionalRender(data))
+    .reduce(
+      (acc, step) => [
+        ...acc,
+        ...step.components.map((component) => component.name),
+      ],
+      []
+    );
+  return Object.fromEntries(
+    Object.entries(data).filter(([key]) => !toFilterOut.includes(key))
+  );
+};
