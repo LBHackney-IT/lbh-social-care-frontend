@@ -26,20 +26,20 @@ const DynamicStep = ({ components, formData, onStepSubmit, onSaveAndExit }) => {
             )
           )}
         </div>
-        <Button
-          qty="multiple"
-          className="govuk-button"
-          label="Next"
-          type="submit"
-          onClick={handleSubmit(onStepSubmit)}
-        />
-        <Button
-          qty="multiple"
-          className="govuk-button"
-          label="Save and Exit"
-          type="submit"
-          onClick={handleSubmit(onSaveAndExit)}
-        />
+        <div className="govuk-form-group">
+          <Button
+            className="govuk-!-margin-right-1"
+            label="Next"
+            type="submit"
+            onClick={handleSubmit(onStepSubmit)}
+          />
+          <Button
+            isSecondary
+            label="Save and Exit"
+            type="click"
+            onClick={handleSubmit(onSaveAndExit)}
+          />
+        </div>
       </form>
     </>
   );
