@@ -10,8 +10,7 @@ const SearchPage = ({ query }) => {
       <BackButton />
       <h1 className="govuk-fieldset__legend--l">Person lookup</h1>
       <p className="govuk-body govuk-!-margin-bottom-7">
-        Search for resident by Mosaic Id <strong>or</strong> Person Details to
-        see if we have a record for them.
+        Search for resident to see if we have a record for them.
       </p>
       <Search query={query} />
     </div>
