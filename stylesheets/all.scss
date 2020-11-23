@@ -48,10 +48,16 @@ $screen-sm-min: 576px;
 .govuk-divider {
   border: solid 2px #01674e;
 }
-li {
+.govuk-save-link-list {
   display: block;
+  text-transform: capitalize;
 }
 
 .govuk-warning {
   color: #da3711;
+}
+
+.govuk-button-qty-multiple {
+  display: inline-block;
+  margin-right: 30px;
 }

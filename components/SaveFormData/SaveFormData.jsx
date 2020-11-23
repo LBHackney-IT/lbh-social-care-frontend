@@ -3,21 +3,20 @@ import { getData } from 'utils/saveData';
 
 export const SavedForms = () => {
   const windowGlobal = typeof window !== 'undefined' && window;
-  const data = Object.fromEntries(
+
+  const allSavedData = Object.fromEntries(
     Object.entries({ ...windowGlobal.localStorage }).filter(([key]) =>
       key.includes('form')
     )
   );
-
-  return (
+  const list = (
     <>
-      <h3 className="govuk-fieldset__legend--m govuk-warning">
-        {' '}
-        {Object.keys(data).length ? 'Incomplete forms' : null}{' '}
-      </h3>
-      <li>
-        {Object.entries(data).map(([key]) => (
-          <Link key={key} href={`${key}${getData(key).step}`}>
+      <h2 className="govuk-fieldset__legend--m govuk-warning">
+        Incomplete forms
+      </h2>
+      <li className="govuk-save-link-list">
+        {Object.entries(allSavedData).map(([key]) => (
+          <Link key={key} href={`${key}${getData(key).step}?continueForm=true`}>
             <a className="govuk-breadcrumbs__link current">
               {key.replace(/(form)|(\/)/g, '')}
             </a>
@@ -26,4 +25,6 @@ export const SavedForms = () => {
       </li>
     </>
   );
+
+  return <div>{Object.keys(allSavedData).length ? list : null}</div>;
 };

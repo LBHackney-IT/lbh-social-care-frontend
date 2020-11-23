@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import { useForm } from 'react-hook-form';
 
 import { Button } from 'components/Form';
-import DynamicInput from 'components/DynamicInput/DynamicInput';
+import DynamicInput from 'components/DynamicStep/DynamicInput';
 
 const DynamicStep = ({ components, formData, onStepSubmit, onSaveAndExit }) => {
   const { handleSubmit, register, control, errors } = useForm({
@@ -27,12 +27,14 @@ const DynamicStep = ({ components, formData, onStepSubmit, onSaveAndExit }) => {
           )}
         </div>
         <Button
+          qty="multiple"
           className="govuk-button"
           label="Next"
           type="submit"
           onClick={handleSubmit(onStepSubmit)}
         />
         <Button
+          qty="multiple"
           className="govuk-button"
           label="Save and Exit"
           type="submit"

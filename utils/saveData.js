@@ -1,15 +1,26 @@
-const windowGlobal = typeof window !== 'undefined' && window;
+export const windowGlobal = typeof window !== 'undefined' && window;
 
-export const saveData = (formPath, formData, step) => {
-  const data = {
+export const saveData = (formPath, data, step) => {
+  const savedData = {
     step: step,
-    formData: formData,
+    data: data,
   };
-  windowGlobal.localStorage.setItem(formPath, JSON.stringify(data));
+  try {
+    windowGlobal.localStorage.setItem(formPath, JSON.stringify(savedData));
+  } catch {
+    deleteData(formPath);
+  }
 };
 
-export const getData = (path) => {
-  return JSON.parse(windowGlobal.localStorage.getItem(path));
+export const getData = (formPath) => {
+  let savedData = {};
+
+  try {
+    savedData = JSON.parse(windowGlobal.localStorage.getItem(formPath));
+  } catch {
+    deleteData(formPath);
+  }
+  return savedData;
 };
 
 export const deleteData = (formPath) => {

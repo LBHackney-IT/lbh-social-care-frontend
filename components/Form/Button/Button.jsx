@@ -1,8 +1,8 @@
 import PropTypes from 'prop-types';
 import cx from 'classnames';
 
-const Button = ({ onClick, label, type, isSecondary, ...otherProps }) => (
-  <div className="govuk-form-group">
+const Button = ({ onClick, label, type, isSecondary, qty, ...otherProps }) => (
+  <div className={`govuk-form-group govuk-button-qty-${qty}`}>
     <button
       className={cx('govuk-button', { 'govuk-button--secondary': isSecondary })}
       data-module="govuk-button"

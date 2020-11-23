@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import Router from 'next/router';
 
 import { Button } from 'components/Form';
+import { deleteData } from 'utils/saveData';
 import Summary from 'components/Summary/Summary';
 import ErrorSummary from 'components/ErrorSummary/ErrorSummary';
 
@@ -14,6 +15,7 @@ const SummaryStep = ({ formData, formSteps, formPath, onFormSubmit }) => {
     setHasError(false);
     try {
       const data = await onFormSubmit(formData);
+      deleteData(formPath);
       Router.replace(
         `${formPath}confirmation${data?.ref ? `?ref=${data.ref}` : ''}`
       );
