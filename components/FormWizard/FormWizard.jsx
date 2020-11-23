@@ -7,6 +7,7 @@ import { useBeforeunload } from 'react-beforeunload';
 
 import DynamicStep from 'components/DynamicStep/DynamicStep';
 import Breadcrumbs from 'components/Breadcrumbs/Breadcrumbs';
+import { getData, saveData } from 'utils/saveData';
 import Summary from 'components/Steps/Summary';
 import Confirmation from 'components/Steps/Confirmation';
 
@@ -20,15 +21,19 @@ const FormWizard = ({
   Router.events.on('routeChangeComplete', () => {
     window.scrollTo(0, 0);
   });
-  const [formData, setFormData] = useState(defaultValues);
+  useBeforeunload(() => "You'll lose your data!");
+  const {
+    query: { stepId, fromSummary, continueForm },
+  } = useRouter();
+  const [formData, setFormData] = useState({
+    ...defaultValues,
+    ...(continueForm ? getData(formPath)?.data : {}),
+  });
   const steps = [
     ...formSteps,
     { id: 'summary', title: 'Summary', component: Summary },
     { id: 'confirmation', title: 'Confirmation', component: Confirmation },
   ];
-  const router = useRouter();
-  useBeforeunload(() => "You'll lose your data!");
-  const { stepId, fromSummary } = router.query;
   const stepPath = `${formPath}[step]`;
   const step = steps.find(({ id }) => id === stepId);
   if (!step) {
@@ -75,7 +80,7 @@ const FormWizard = ({
                   <Breadcrumbs
                     key={step.id}
                     label={step.title}
-                    link={`/form/adult-referral/${step.id}`}
+                    link={`${formPath}${step.id}`}
                     state={
                       currentStepIndex === index
                         ? 'current'
@@ -102,6 +107,14 @@ const FormWizard = ({
             fromSummary
               ? Router.push(stepPath, `${formPath}summary`)
               : Router.push(stepPath, nextStep);
+          }}
+          onSaveAndExit={(data) => {
+            const updateSavedData = {
+              ...formData,
+              ...data,
+            };
+            saveData(formPath, updateSavedData, step.id);
+            Router.push('/');
           }}
           onFormSubmit={onFormSubmit}
         />
