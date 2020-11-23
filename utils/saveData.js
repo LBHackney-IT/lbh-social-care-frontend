@@ -13,14 +13,11 @@ export const saveData = (formPath, data, step) => {
 };
 
 export const getData = (formPath) => {
-  let savedData = {};
-
   try {
-    savedData = JSON.parse(windowGlobal.localStorage.getItem(formPath));
+    return JSON.parse(windowGlobal.localStorage.getItem(formPath));
   } catch {
     deleteData(formPath);
   }
-  return savedData;
 };
 
 export const deleteData = (formPath) => {

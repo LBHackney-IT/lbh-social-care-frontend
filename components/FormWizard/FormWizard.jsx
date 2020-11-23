@@ -21,24 +21,24 @@ const FormWizard = ({
   Router.events.on('routeChangeComplete', () => {
     window.scrollTo(0, 0);
   });
-
-  const [formData, setFormData] = useState(defaultValues);
-
+  useBeforeunload(() => "You'll lose your data!");
+  const {
+    query: { stepId, fromSummary, continueForm },
+  } = useRouter();
+  const [formData, setFormData] = useState({
+    ...defaultValues,
+    ...(continueForm ? getData(formPath)?.data : {}),
+  });
   const steps = [
     ...formSteps,
     { id: 'summary', title: 'Summary', component: Summary },
     { id: 'confirmation', title: 'Confirmation', component: Confirmation },
   ];
-
-  const router = useRouter();
-  useBeforeunload(() => "You'll lose your data!");
-  const { stepId, fromSummary, continueForm } = router.query;
   const stepPath = `${formPath}[step]`;
   const step = steps.find(({ id }) => id === stepId);
   if (!step) {
     return null;
   }
-
   const getAdjacentSteps = useCallback((currentStepIndex) => {
     return {
       previousStep:
@@ -51,12 +51,9 @@ const FormWizard = ({
           : null,
     };
   });
-
   const StepComponent = step.component ? step.component : DynamicStep;
   const currentStepIndex = steps.findIndex(({ id }) => id === step.id);
   const { previousStep, nextStep } = getAdjacentSteps(currentStepIndex);
-  const savedData = getData(formPath) || {};
-
   return (
     <div className="govuk-width-container">
       <NextSeo title={`${step.title} - ${title}`} noindex={true} />
@@ -100,13 +97,11 @@ const FormWizard = ({
         )}
         <StepComponent
           components={step.components}
-          formData={continueForm ? savedData && savedData.data : formData}
+          formData={formData}
           formSteps={formSteps}
           formPath={formPath}
           onStepSubmit={(data) => {
-            const updatedData = continueForm
-              ? { ...formData, ...data, ...savedData.data }
-              : { ...formData, ...data };
+            const updatedData = { ...formData, ...data };
             setFormData(updatedData);
             step.onStepSubmit && step.onStepSubmit(updatedData);
             fromSummary
@@ -115,11 +110,9 @@ const FormWizard = ({
           }}
           onSaveAndExit={(data) => {
             const updateSavedData = {
-              ...data,
               ...formData,
-              ...savedData.data,
+              ...data,
             };
-
             saveData(formPath, updateSavedData, step.id);
             Router.push('/');
           }}
