@@ -13,6 +13,7 @@ export default {
           label: 'Email address',
           hint: 'Valid email address',
           rules: { required: true },
+          type: 'tel',
         },
         {
           component: 'Radios',
@@ -445,13 +446,17 @@ export default {
           Hackney Child Wellbeing Framework
         </h3>,
         <p key="text" className="govuk-body">
-          Please consult the Hackney Child Wellbeing Framework
-          https://tinyurl.com/yxzq446e for guidance around levels of
-          intervention. The Council Family Support Services in Hackney are
-          either delivered via multi-agency teams (MAT) at local Children’s
-          Centres (primarily for under 5s) or through the Family Support Service
-          within Children and Families Services. Young Hackney delivers a range
-          of universal and targeted support services for children aged 6+.{' '}
+          Please consult the
+          <a href="https://tinyurl.com/yxzq446e" target="_blank">
+            {' '}
+            Hackney Child Wellbeing Framework{' '}
+          </a>
+          (opens in new tab) for guidance around levels of intervention. The
+          Council Family Support Services in Hackney are either delivered via
+          multi-agency teams (MAT) at local Children’s Centres (primarily for
+          under 5s) or through the Family Support Service within Children and
+          Families Services. Young Hackney delivers a range of universal and
+          targeted support services for children aged 6+.
         </p>,
         {
           component: 'Radios',
