@@ -442,10 +442,10 @@ export default {
       id: 'requestForSupport',
       title: 'Request For Support',
       components: [
-        <h3 key="text" className="govuk-body">
+        <h3 key="text4" className="govuk-body">
           Hackney Child Wellbeing Framework
         </h3>,
-        <p key="text" className="govuk-body">
+        <p key="text5" className="govuk-body">
           Please consult the
           <a href="https://tinyurl.com/yxzq446e" target="_blank">
             {' '}
