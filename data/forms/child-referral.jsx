@@ -1,5 +1,3 @@
-import Link from 'next/link';
-
 export default {
   title: 'FAST referral form',
   path: '/form/child-referral/',
@@ -15,6 +13,7 @@ export default {
           label: 'Email address',
           hint: 'Valid email address',
           rules: { required: true },
+          type: 'tel',
         },
         {
           component: 'Radios',
@@ -443,24 +442,22 @@ export default {
       id: 'requestForSupport',
       title: 'Request For Support',
       components: [
-        <>
-          <h3 key="text4" className="govuk-body">
-            Hackney Child Wellbeing Framework
-          </h3>
-          <p key="text5" className="govuk-body">
-            Please consult the
-            <Link href={`https://tinyurl.com/yxzq446e`}>
-              <a> Hackney Child Wellbeing Framework </a>
-            </Link>
-            &nbsp; for guidance around levels of intervention. The Council
-            Family Support Services in Hackney are either delivered via
-            multi-agency teams (MAT) at local Children’s Centres (primarily for
-            under 5s) or through the Family Support Service within Children and
-            Families Services. Young Hackney delivers a range of universal and
-            targeted support services for children aged 6+.
-          </p>
-          ,
-        </>,
+        <h3 key="text" className="govuk-body">
+          Hackney Child Wellbeing Framework
+        </h3>,
+        <p key="text" className="govuk-body">
+          Please consult the
+          <a href="https://tinyurl.com/yxzq446e" target="_blank">
+            {' '}
+            Hackney Child Wellbeing Framework{' '}
+          </a>
+          (opens in new tab) for guidance around levels of intervention. The
+          Council Family Support Services in Hackney are either delivered via
+          multi-agency teams (MAT) at local Children’s Centres (primarily for
+          under 5s) or through the Family Support Service within Children and
+          Families Services. Young Hackney delivers a range of universal and
+          targeted support services for children aged 6+.
+        </p>,
         {
           component: 'Radios',
           name: 'childSupport',
