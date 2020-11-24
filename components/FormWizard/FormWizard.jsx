@@ -7,6 +7,7 @@ import { useBeforeunload } from 'react-beforeunload';
 import DynamicStep from 'components/DynamicStep/DynamicStep';
 import Breadcrumbs from 'components/Breadcrumbs/Breadcrumbs';
 import { createSteps, getNextStepPath } from 'utils/steps';
+import { getData, saveData } from 'utils/saveData';
 
 const FormWizard = ({
   formPath,
@@ -18,11 +19,15 @@ const FormWizard = ({
   Router.events.on('routeChangeComplete', () => {
     window.scrollTo(0, 0);
   });
-  const [formData, setFormData] = useState(defaultValues);
-  const steps = createSteps(formSteps);
-  const router = useRouter();
   useBeforeunload(() => "You'll lose your data!");
-  const { stepId, fromSummary } = router.query;
+  const {
+    query: { stepId, fromSummary, continueForm },
+  } = useRouter();
+  const [formData, setFormData] = useState({
+    ...defaultValues,
+    ...(continueForm ? getData(formPath)?.data : {}),
+  });
+  const steps = createSteps(formSteps);
   const stepPath = `${formPath}[step]`;
   const step = steps.find(({ id }) => id === stepId);
   if (!step) {
@@ -81,6 +86,14 @@ const FormWizard = ({
                     updatedData
                   )
                 );
+          }}
+          onSaveAndExit={(data) => {
+            const updateSavedData = {
+              ...formData,
+              ...data,
+            };
+            saveData(formPath, updateSavedData, step.id);
+            Router.push('/');
           }}
           onFormSubmit={onFormSubmit}
         />

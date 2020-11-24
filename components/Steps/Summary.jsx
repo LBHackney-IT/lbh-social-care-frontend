@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import Router from 'next/router';
 
 import { Button } from 'components/Form';
+import { deleteData } from 'utils/saveData';
 import Summary from 'components/Summary/Summary';
 import ErrorSummary from 'components/ErrorSummary/ErrorSummary';
 import { filterDataOnCondition } from 'utils/steps';
@@ -17,6 +18,7 @@ const SummaryStep = ({ formData, formSteps, formPath, onFormSubmit }) => {
       const data = await onFormSubmit(
         filterDataOnCondition(formSteps, formData)
       );
+      deleteData(formPath);
       Router.replace(
         `${formPath}confirmation${data?.ref ? `?ref=${data.ref}` : ''}`
       );
