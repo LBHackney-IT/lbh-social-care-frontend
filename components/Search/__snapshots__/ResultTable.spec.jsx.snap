@@ -66,7 +66,7 @@ exports[`ResultTable component should render properly 1`] = `
         <td
           class="govuk-table__cell"
         >
-          23/02/1978
+          2/23/1978
         </td>
         <td
           class="govuk-table__cell"
