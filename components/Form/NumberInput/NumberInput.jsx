@@ -3,34 +3,9 @@ import cx from 'classnames';
 
 import { TextInput } from '..';
 
-const NumberInput = ({
-  label,
-  hint,
-  name,
-  register,
-  error,
-  inputClassName,
-  required,
-  width,
-  ...otherProps
-}) => (
-  <div
-    className={cx('govuk-form-group', {
-      'govuk-form-group--error': error,
-    })}
-  >
-    <TextInput
-      label={label}
-      name={name}
-      hint={hint}
-      register={register}
-      error={error}
-      inputClassName={inputClassName}
-      required={required}
-      width={width}
-      type="number"
-      otherProps={otherProps}
-    ></TextInput>
+const NumberInput = (props) => (
+  <div className={cx('govuk-form-group')}>
+    <TextInput {...props} type="number"></TextInput>
   </div>
 );
 

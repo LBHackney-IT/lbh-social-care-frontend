@@ -84,7 +84,7 @@ export default {
           rules: { required: true },
         },
         {
-          component: 'NumberInput',
+          component: 'PhoneInput',
           name: 'phone',
           width: '30',
           label: 'Phone Number',

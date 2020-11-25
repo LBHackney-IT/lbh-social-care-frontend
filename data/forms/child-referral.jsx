@@ -63,7 +63,7 @@ export default {
           label: 'Position / agency (if relevant): ',
         },
         {
-          component: 'NumberInput',
+          component: 'PhoneInput',
           name: 'referrer_telephone',
           width: '30',
           label: 'Telephone Number',
@@ -181,7 +181,7 @@ export default {
           hint: 'For example, 31 03 1980',
         },
         {
-          component: 'NumberInput',
+          component: 'PhoneInput',
           name: 'mother_telephone',
           width: '30',
           label: "Mother's telephone number:",
@@ -236,7 +236,7 @@ export default {
           hint: 'For example, 31 03 1980',
         },
         {
-          component: 'NumberInput',
+          component: 'PhoneInput',
           name: 'father_telephone',
           width: '30',
           label: "Father's telephone number:",
@@ -307,7 +307,7 @@ export default {
             'Role/relationship (specify which child or family member) - individual (1) ',
         },
         {
-          component: 'NumberInput',
+          component: 'PhoneInput',
           name: 'wider_family_telephone_1',
           width: '30',
           label: 'Telephone number - individual (1)',
@@ -386,7 +386,7 @@ export default {
         },
 
         {
-          component: 'NumberInput',
+          component: 'PhoneInput',
           name: 'professional_telephone_1',
           width: '30',
           label: 'Telephone number - professional (1)',
