@@ -28,6 +28,8 @@ export default {
     {
       id: 'aboutFASTBuisnessSupport',
       title: 'About FAST Business Support team member',
+      conditionalRender: ({ conditional_trigger }) =>
+        conditional_trigger === 'Yes',
       components: [
         {
           component: 'TextInput',
@@ -157,8 +159,8 @@ export default {
       ],
     },
     {
-      id: 'parentDetails',
-      title: 'Parent details',
+      id: 'motherQuestion',
+      title: "Mother's details",
       components: [
         {
           component: 'Radios',
@@ -167,7 +169,14 @@ export default {
           options: ['Yes', 'No'],
           rules: { required: true },
         },
-
+      ],
+    },
+    {
+      id: 'motherDetails',
+      title: "Mother's full details",
+      conditionalRender: ({ conditional_trigger }) =>
+        conditional_trigger === 'Yes',
+      components: [
         {
           component: 'TextInput',
           name: 'mother_fullname',
@@ -216,6 +225,12 @@ export default {
           width: '30',
           label: "Mother's postcode",
         },
+      ],
+    },
+    {
+      id: 'fatherQuestion',
+      title: "Father's details",
+      components: [
         {
           component: 'Radios',
           name: 'father_details',
@@ -223,6 +238,14 @@ export default {
           options: ['Yes', 'No'],
           rules: { required: true },
         },
+      ],
+    },
+    {
+      id: 'fatherDetails',
+      title: "Father's full details",
+      conditionalRender: ({ conditional_trigger }) =>
+        conditional_trigger === 'Yes',
+      components: [
         {
           component: 'TextInput',
           name: 'father_fullname',
