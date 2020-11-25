@@ -175,12 +175,6 @@ export default {
         },
         {
           component: 'Radios',
-          name: 'presentingIssueGen',
-          label: 'Presenting Issue',
-          options: ['Female', 'Male', 'Unknown', 'Other'],
-        },
-        {
-          component: 'Radios',
           name: 'presentingIssue',
           label: 'Presenting Issue',
           options: [
