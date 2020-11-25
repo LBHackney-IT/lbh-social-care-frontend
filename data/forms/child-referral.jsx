@@ -164,7 +164,7 @@ export default {
         {
           component: 'Radios',
           name: 'mother_details',
-          label: "Do you have the details of the child(ren)'s mother(s)?",
+          label: "Do you have the details of the child(ren)'s mother?",
           options: ['Yes', 'No'],
           rules: { required: true },
         },
@@ -232,7 +232,7 @@ export default {
         {
           component: 'Radios',
           name: 'father_details',
-          label: "Do you have the details of the child(ren)'s father(s)?",
+          label: "Do you have the details of the child(ren)'s father?",
           options: ['Yes', 'No'],
           rules: { required: true },
         },
@@ -568,7 +568,7 @@ export default {
           your behalf.{' '}
         </p>,
         {
-          component: 'yourInvolvement',
+          component: 'TextInput',
           name: 'Your Involvemnt',
           width: '30',
           label:
@@ -579,7 +579,7 @@ export default {
           completed by your agency, please attach a copy alongside this referral
         </p>,
         {
-          component: 'earlySupport',
+          component: 'TextInput',
           name: 'Early Support',
           width: '30',
           label:
