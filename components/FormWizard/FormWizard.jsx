@@ -6,7 +6,7 @@ import { useBeforeunload } from 'react-beforeunload';
 
 import DynamicStep from 'components/DynamicStep/DynamicStep';
 import Breadcrumbs from 'components/Breadcrumbs/Breadcrumbs';
-import { createSteps, getNextStepPath } from 'utils/steps';
+import { createSteps, getNextStepPath, haveStepsChanged } from 'utils/steps';
 import { getData, saveData } from 'utils/saveData';
 
 const FormWizard = ({
@@ -75,7 +75,7 @@ const FormWizard = ({
             const updatedData = { ...formData, ...data };
             setFormData(updatedData);
             step.onStepSubmit && step.onStepSubmit(updatedData);
-            fromSummary
+            fromSummary && !haveStepsChanged(formSteps, formData, updatedData)
               ? Router.push(stepPath, `${formPath}summary`)
               : Router.push(
                   stepPath,
