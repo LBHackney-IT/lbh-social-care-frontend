@@ -6,6 +6,7 @@ import { Button } from 'components/Form';
 import { deleteData } from 'utils/saveData';
 import Summary from 'components/Summary/Summary';
 import ErrorSummary from 'components/ErrorSummary/ErrorSummary';
+import { filterDataOnCondition } from 'utils/steps';
 
 const SummaryStep = ({ formData, formSteps, formPath, onFormSubmit }) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -14,7 +15,9 @@ const SummaryStep = ({ formData, formSteps, formPath, onFormSubmit }) => {
     setIsSubmitting(true);
     setHasError(false);
     try {
-      const data = await onFormSubmit(formData);
+      const data = await onFormSubmit(
+        filterDataOnCondition(formSteps, formData)
+      );
       deleteData(formPath);
       Router.replace(
         `${formPath}confirmation${data?.ref ? `?ref=${data.ref}` : ''}`
