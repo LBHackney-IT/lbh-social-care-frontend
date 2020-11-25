@@ -9,6 +9,9 @@ import Radios from './Radios/Radios';
 import Select from './Select/Select';
 import TextInput from './TextInput/TextInput';
 import TextArea from './TextArea/TextArea';
+import EmailInput from './EmailInput/EmailInput';
+import NumberInput from './NumberInput/NumberInput';
+import PhoneInput from './PhoneInput/PhoneInput';
 
 export {
   AddressLookup,
@@ -22,4 +25,7 @@ export {
   Select,
   TextInput,
   TextArea,
+  EmailInput,
+  NumberInput,
+  PhoneInput,
 };
