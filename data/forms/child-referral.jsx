@@ -318,22 +318,22 @@ export default {
         },
         {
           component: 'DateInput',
-          name: 'wider_family__DOB_1',
+          name: 'wider_family__DOB',
           label: 'Individual date of birth',
           hint: 'For example, 31 03 1980',
         },
         {
           component: 'TextInput',
-          name: 'wider_family_relationship_1',
+          name: 'wider_family_relationship',
           width: '30',
           label:
             'Role/relationship (specify which child or family member) - individual ',
         },
         {
           component: 'PhoneInput',
-          name: 'wider_family_telephone_1',
+          name: 'wider_family_telephone',
           width: '30',
-          label: 'Telephone number - individual',
+          label: 'Telephone number',
         },
         {
           component: 'EmailInput',
@@ -451,7 +451,7 @@ export default {
           component: 'Radios',
           name: 'professional_consent',
           label:
-            'Professional (1): Has the person with parental responsibility consented for Hackney to make contact with this person or agency?',
+            'Professional: Has the person with parental responsibility consented for Hackney to make contact with this person or agency?',
           options: ['Yes', 'No'],
           rules: { required: true },
         },
