@@ -6,14 +6,20 @@ const DynamicInput = ({
   component,
   register,
   control,
+  id,
   name,
   errors,
+  multiStepIndex,
   ...otherProps
 }) => {
+  const inputName =
+    typeof multiStepIndex === 'number'
+      ? `${id}[${multiStepIndex}].${name}`
+      : name;
   const Component = Inputs[component];
   const sharedProps = {
-    name: name,
-    error: errors[name],
+    name: inputName,
+    error: errors[inputName],
     required: otherProps?.rules?.required,
     ...otherProps,
   };
@@ -35,11 +41,13 @@ DynamicInput.propTypes = {
   component: PropTypes.string.isRequired,
   register: PropTypes.func.isRequired,
   control: PropTypes.object.isRequired,
+  id: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
   errors: PropTypes.object.isRequired,
   rules: PropTypes.shape({
     required: PropTypes.bool,
   }),
+  multiStepIndex: PropTypes.number,
 };
 
 export default DynamicInput;

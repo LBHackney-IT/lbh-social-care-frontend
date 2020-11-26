@@ -1,0 +1,74 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Summary component should render properly 1`] = `
+<DocumentFragment>
+  <div
+    class="govuk-!-margin-bottom-7"
+  >
+    <h3
+      class="govuk-heading-m"
+    >
+      First Step
+    </h3>
+    <dl
+      class="govuk-summary-list"
+    >
+      <div
+        class="govuk-summary-list__row"
+      >
+        <dt
+          class="govuk-summary-list__key"
+        >
+          I am foo component
+        </dt>
+        <dd
+          class="govuk-summary-list__value"
+        >
+          123
+        </dd>
+      </div>
+      <div
+        class="govuk-summary-list__row"
+      >
+        <dt
+          class="govuk-summary-list__key"
+        >
+          I am bar component
+        </dt>
+        <dd
+          class="govuk-summary-list__value"
+        >
+          asd
+        </dd>
+      </div>
+    </dl>
+  </div>
+  <div
+    class="govuk-!-margin-bottom-7"
+  >
+    <h3
+      class="govuk-heading-m"
+    >
+      Second Step
+    </h3>
+    <dl
+      class="govuk-summary-list"
+    >
+      <div
+        class="govuk-summary-list__row"
+      >
+        <dt
+          class="govuk-summary-list__key"
+        >
+          I am foobar component
+        </dt>
+        <dd
+          class="govuk-summary-list__value"
+        >
+          asd
+        </dd>
+      </div>
+    </dl>
+  </div>
+</DocumentFragment>
+`;
