@@ -15,15 +15,6 @@ $screen-sm-min: 576px;
   color: #d21b1b;
 }
 
-.govuk-breadcrumbs__link.current,
-.govuk-breadcrumbs__link.completed {
-  color: #1b74d2;
-}
-
-.govuk-breadcrumbs__link.current {
-  font-weight: 600;
-}
-
 .govuk-table__row--clickable:hover {
   background: govuk-colour('light-grey');
   cursor: pointer;
@@ -47,4 +38,12 @@ $screen-sm-min: 576px;
 
 .govuk-divider {
   border: solid 2px #01674e;
+}
+.govuk-save-link-list {
+  display: block;
+  text-transform: capitalize;
+}
+
+.govuk-warning {
+  color: #da3711;
 }

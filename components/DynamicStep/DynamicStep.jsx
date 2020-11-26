@@ -2,23 +2,32 @@ import PropTypes from 'prop-types';
 import { useForm } from 'react-hook-form';
 
 import { Button } from 'components/Form';
-import DynamicInput from 'components/DynamicInput/DynamicInput';
+import DynamicInput from 'components/DynamicStep/DynamicInput';
 
-const DynamicStep = ({ components, formData, onStepSubmit }) => {
+const DynamicStep = ({
+  isMulti,
+  stepId,
+  components,
+  formData,
+  onStepSubmit,
+  onSaveAndExit,
+}) => {
   const { handleSubmit, register, control, errors } = useForm({
     defaultValues: formData,
   });
   return (
     <>
-      <form onSubmit={handleSubmit(onStepSubmit)}>
+      <form onSubmit={handleSubmit((data) => onStepSubmit(data))}>
         <div className="govuk-form-group">
           {components?.map((componentProps) =>
             componentProps.name ? (
               <DynamicInput
                 key={componentProps.name}
+                id={stepId[0]}
                 register={register}
                 control={control}
                 errors={errors}
+                multiStepIndex={isMulti && (parseInt(stepId[1]) - 1 || 0)}
                 {...componentProps}
               />
             ) : (
@@ -26,7 +35,27 @@ const DynamicStep = ({ components, formData, onStepSubmit }) => {
             )
           )}
         </div>
-        <Button className="govuk-button" label="Next" type="submit" />
+        {isMulti && (
+          <Button
+            isSecondary
+            label="Add Another"
+            type="button"
+            onClick={() => handleSubmit((data) => onStepSubmit(data, true))()}
+          />
+        )}
+        <div className="govuk-form-group">
+          <Button
+            className="govuk-!-margin-right-1"
+            label="Next"
+            type="submit"
+          />
+          <Button
+            isSecondary
+            label="Save and Exit"
+            type="button"
+            onClick={handleSubmit(onSaveAndExit)}
+          />
+        </div>
       </form>
     </>
   );
@@ -36,8 +65,7 @@ DynamicStep.propTypes = {
   components: PropTypes.array,
   onStepSubmit: PropTypes.func.isRequired,
   formData: PropTypes.object.isRequired,
-  isLoading: PropTypes.bool,
-  hasError: PropTypes.bool,
+  isMulti: PropTypes.bool,
 };
 
 export default DynamicStep;

@@ -14,7 +14,7 @@ export default {
           hint: 'For example, 31 03 1980',
         },
         {
-          component: 'TextInput',
+          component: 'NumberInput',
           name: 'mosaic_id',
           width: '30',
           label: 'Mosaic ID Number',
@@ -22,7 +22,7 @@ export default {
           rules: { required: true },
         },
         {
-          component: 'TextInput',
+          component: 'NumberInput',
           name: 'nhsNumber',
           width: '30',
           label: 'NHS Number',
@@ -84,7 +84,7 @@ export default {
           rules: { required: true },
         },
         {
-          component: 'TextInput',
+          component: 'PhoneInput',
           name: 'phone',
           width: '30',
           label: 'Phone Number',
@@ -114,7 +114,7 @@ export default {
           label: 'Referrer Organisation',
         },
         {
-          component: 'TextInput',
+          component: 'EmailInput',
           name: 'worker_email',
           width: '30',
           label: 'Referrer Email',
@@ -175,12 +175,6 @@ export default {
         },
         {
           component: 'Radios',
-          name: 'presentingIssueGen',
-          label: 'Presenting Issue',
-          options: ['Female', 'Male', 'Unknown', 'Other'],
-        },
-        {
-          component: 'Radios',
           name: 'presentingIssue',
           label: 'Presenting Issue',
           options: [
@@ -234,7 +228,7 @@ export default {
           label:
             'Please identify any other agencies that the person making contact has been referred to.',
         },
-        <h3 key="text">
+        <h3 key="text" className="govuk-body">
           Please note information from this assessment may be shared regardless
           of your consent where there is a 'Vital Interest' i.e. where it is
           critical to prevent serious harm, distress or in life threatening

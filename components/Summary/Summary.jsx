@@ -2,12 +2,46 @@ import PropTypes from 'prop-types';
 import Link from 'next/link';
 
 import SummaryList from 'components/Summary/SummaryList';
+import { renderOnCondition } from 'utils/steps';
 
 const MultiValue = (value) => (
   <div key={value}>
     <span>{value}</span>
     <br />
   </div>
+);
+
+const SummaryMultiSection = ({
+  formData,
+  id,
+  title,
+  canEdit,
+  formPath,
+  ...props
+}) => (
+  <>
+    {formData[id].map((data, key) => (
+      <SummarySection
+        {...props}
+        canEdit={canEdit}
+        formData={data}
+        formPath={formPath}
+        title={`${title} - ${key + 1}`}
+        key={`${id}/${key}`}
+        id={`${id}/${key + 1}`}
+      />
+    ))}
+    {canEdit && (
+      <p className="govuk-!-margin-bottom-7">
+        <Link
+          href={`${formPath}${id}/${formData[id].length + 1}?fromSummary=true`}
+          as={`${formPath}${id}/${formData[id].length + 1}?fromSummary=true`}
+        >
+          <a className="govuk-link">Add Another {title}</a>
+        </Link>
+      </p>
+    )}
+  </>
 );
 
 export const SummarySection = ({
@@ -54,15 +88,24 @@ export const SummarySection = ({
 };
 
 const Summary = ({ formData, formSteps, formPath, canEdit }) =>
-  formSteps.map((section) => (
-    <SummarySection
-      key={section.id}
-      formData={formData}
-      formPath={formPath}
-      canEdit={canEdit}
-      {...section}
-    />
-  ));
+  formSteps.map((section) => {
+    const props = {
+      key: section.id,
+      formData: formData,
+      formPath: formPath,
+      canEdit: canEdit,
+      ...section,
+    };
+    return renderOnCondition(
+      section,
+      formData,
+      section.isMulti ? (
+        <SummaryMultiSection {...props} />
+      ) : (
+        <SummarySection {...props} />
+      )
+    );
+  });
 
 Summary.propTypes = {
   formData: PropTypes.shape({}).isRequired,

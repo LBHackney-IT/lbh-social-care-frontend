@@ -1,4 +1,5 @@
 import { NextSeo } from 'next-seo';
+import { SavedForms } from 'components/SaveFormData/SaveFormData';
 
 import LinkButton from 'components/LinkButton/LinkButton';
 
@@ -16,9 +17,14 @@ const Home = () => {
         route="/form/adult-referral/client-details"
       />
       <LinkButton
+        label="Child Referral From"
+        route="/form/child-referral/client-details"
+      />
+      <LinkButton
         label="Case Notes Recording"
         route="/form/case-notes-recording"
       />
+      <SavedForms />
     </div>
   );
 };
