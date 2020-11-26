@@ -80,13 +80,13 @@ const FormWizard = ({
             const updatedData = deepmerge(formData, data);
             setFormData(updatedData);
             step.onStepSubmit && step.onStepSubmit(updatedData);
-            fromSummary
+            fromSummary && !addAnother
               ? Router.push(stepPath, `${formPath}summary`)
               : Router.push(
                   stepPath,
                   addAnother
                     ? `${formPath}${stepId[0]}/${
-                        (parseInt(stepId[1]) || 0) + 1
+                        updatedData[Object.keys(data)[0]]?.length + 1 || 2
                       }`
                     : getNextStepPath(
                         currentStepIndex,

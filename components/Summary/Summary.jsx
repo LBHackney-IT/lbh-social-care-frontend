@@ -11,16 +11,38 @@ const MultiValue = (value) => (
   </div>
 );
 
-const SummaryMultiSection = ({ formData, id, title, ...props }) =>
-  formData[id].map((data, key) => (
-    <SummarySection
-      {...props}
-      formData={data}
-      title={`${title} - ${key + 1}`}
-      key={`${id}/${key}`}
-      id={`${id}/${key}`}
-    />
-  ));
+const SummaryMultiSection = ({
+  formData,
+  id,
+  title,
+  canEdit,
+  formPath,
+  ...props
+}) => (
+  <>
+    {formData[id].map((data, key) => (
+      <SummarySection
+        {...props}
+        canEdit={canEdit}
+        formData={data}
+        formPath={formPath}
+        title={`${title} - ${key + 1}`}
+        key={`${id}/${key}`}
+        id={`${id}/${key + 1}`}
+      />
+    ))}
+    {canEdit && (
+      <p className="govuk-!-margin-bottom-7">
+        <Link
+          href={`${formPath}${id}/${formData[id].length + 1}?fromSummary=true`}
+          as={`${formPath}${id}/${formData[id].length + 1}?fromSummary=true`}
+        >
+          <a className="govuk-link">Add Another {title}</a>
+        </Link>
+      </p>
+    )}
+  </>
+);
 
 export const SummarySection = ({
   formData,

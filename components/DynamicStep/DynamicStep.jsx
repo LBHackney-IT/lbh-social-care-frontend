@@ -27,7 +27,7 @@ const DynamicStep = ({
                 register={register}
                 control={control}
                 errors={errors}
-                multiStepIndex={isMulti && (parseInt(stepId[1]) || 0)}
+                multiStepIndex={isMulti && (parseInt(stepId[1]) - 1 || 0)}
                 {...componentProps}
               />
             ) : (
