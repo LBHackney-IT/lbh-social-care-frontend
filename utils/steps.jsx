@@ -30,10 +30,22 @@ export const filterConditionalSteps = (steps, data) =>
   );
 
 export const filterDataOnCondition = (steps, data) => {
-  const toFilterOut = filterConditionalSteps(steps, data).reduce(
+  const components = steps.map((list) => list.components);
+  const checkData = (conditionalCheck, data) => {
+    for (const element of Object.values(data)) {
+      return conditionalCheck(element) ? false : true;
+    }
+  };
+
+  const toFilterOut = components.reduce(
     (acc, step) => [
       ...acc,
-      ...step.components.map((component) => component.name),
+      ...step
+        .filter(
+          (component) =>
+            component.conditionalName && checkData(component.conditional, data)
+        )
+        .map((component) => component.name),
     ],
     []
   );

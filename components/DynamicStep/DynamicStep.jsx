@@ -20,6 +20,8 @@ const DynamicStep = ({
       <form onSubmit={handleSubmit((data) => onStepSubmit(data))}>
         <div className="govuk-form-group">
           {components?.map((componentProps) =>
+<<<<<<< HEAD
+<<<<<<< HEAD
             componentProps.name ? (
               <DynamicInput
                 key={componentProps.name}
@@ -34,6 +36,32 @@ const DynamicStep = ({
             ) : (
                 componentProps
               )
+=======
+            !componentProps.conditionalRender ||
+            (componentProps.conditionalRender &&
+              componentProps.conditionalRender(
+=======
+            !componentProps.conditional ||
+            (componentProps.conditional &&
+              componentProps.conditional(
+>>>>>>> 07e58cd... update
+                watch(componentProps.conditionalName)
+              )) ? (
+              componentProps.name ? (
+                <DynamicInput
+                  key={componentProps.name}
+                  id={stepId[0]}
+                  register={register}
+                  control={control}
+                  errors={errors}
+                  multiStepIndex={isMulti && (parseInt(stepId[1]) - 1 || 0)}
+                  {...componentProps}
+                />
+              ) : (
+                componentProps
+              )
+            ) : null
+>>>>>>> f6a973b... saving
           )}
         </div>
         {isMulti && (

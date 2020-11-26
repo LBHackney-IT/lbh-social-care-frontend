@@ -31,7 +31,7 @@ const SummaryStep = ({ formData, formSteps, formPath, onFormSubmit }) => {
   return (
     <div>
       <Summary
-        formData={formData}
+        formData={filterDataOnCondition(formSteps, formData)}
         formPath={formPath}
         formSteps={formSteps}
         canEdit

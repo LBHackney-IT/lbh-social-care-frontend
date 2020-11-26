@@ -70,7 +70,6 @@ ConditionalComponent.propTypes = {
   register: PropTypes.func.isRequired,
   options: PropTypes.array,
   hint: PropTypes.string,
-  children: PropTypes.node,
   error: PropTypes.shape({ message: PropTypes.string.isRequired }),
 };
 

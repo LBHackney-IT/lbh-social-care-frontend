@@ -135,46 +135,46 @@ describe('FormWizard', () => {
         title: 'Step A',
         components: [
           {
-            component: 'Radios',
-            name: 'conditional_trigger',
-            label: 'Show next step?',
-            rules: { required: true },
+            component: 'ConditionalComponent',
+            name: 'test',
+            label: 'Flavours of ice cream?',
+            options: ['Vanilla', 'Strawberry', 'Chocolate', 'Car', 'Boat'],
+          },
+          {
+            component: 'TextInput',
+            conditional: (test) =>
+              ['Vanilla', 'Strawberry', 'Chocolate'].includes(test),
+            conditionalName: 'test',
+            name: 'food',
+            width: '30',
+            label: 'Best dessert?',
+            hint: 'For example apple pie',
           },
         ],
       },
       {
         id: 'step-b',
         title: 'Step B',
-        conditionalRender: ({ conditional_trigger }) =>
-          conditional_trigger === 'Yes',
         components: [
           {
             component: 'TextInput',
-            name: 'foo',
-            rules: { required: true },
-          },
-        ],
-      },
-      {
-        id: 'step-c',
-        title: 'Step C',
-        components: [
-          {
-            component: 'TextInput',
-            name: 'bar',
+            name: 'fish',
+            width: '30',
+            label: 'Types of fish',
+            hint: 'For example Salmon',
             rules: { required: true },
           },
         ],
       },
     ];
     const data = {
-      conditional_trigger: 'No',
-      bar: 'asd',
-      foo: 'asd',
+      test: 'Car',
+      food: 'Cake',
+      fish: 'Salmon',
     };
     expect(filterDataOnCondition(steps, data)).toEqual({
-      conditional_trigger: 'No',
-      bar: 'asd',
+      test: 'Car',
+      fish: 'Salmon',
     });
   });
 
