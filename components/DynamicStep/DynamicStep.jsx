@@ -39,7 +39,7 @@ const DynamicStep = ({
           <Button
             isSecondary
             label="Add Another"
-            type="click"
+            type="button"
             onClick={() => handleSubmit((data) => onStepSubmit(data, true))()}
           />
         )}
@@ -52,7 +52,7 @@ const DynamicStep = ({
           <Button
             isSecondary
             label="Save and Exit"
-            type="click"
+            type="button"
             onClick={handleSubmit(onSaveAndExit)}
           />
         </div>
