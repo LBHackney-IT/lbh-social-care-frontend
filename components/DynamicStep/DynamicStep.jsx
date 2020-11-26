@@ -5,9 +5,10 @@ import { Button } from 'components/Form';
 import DynamicInput from 'components/DynamicStep/DynamicInput';
 
 const DynamicStep = ({ components, formData, onStepSubmit, onSaveAndExit }) => {
-  const { handleSubmit, register, control, errors } = useForm({
+  const { handleSubmit, register, control, errors, watch } = useForm({
     defaultValues: formData,
   });
+
   return (
     <>
       <form>
@@ -19,6 +20,7 @@ const DynamicStep = ({ components, formData, onStepSubmit, onSaveAndExit }) => {
                 register={register}
                 control={control}
                 errors={errors}
+                watch={watch}
                 {...componentProps}
               />
             ) : (

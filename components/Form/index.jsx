@@ -1,6 +1,7 @@
 import AddressLookup from './AddressLookup/AddressLookup';
 import Button from './Button/Button';
 import Checkbox from './Checkbox/Checkbox';
+import ConditionalComponent from './ConditionalComponent/ConditionalComponent';
 import DateInput from './DateInput/DateInput';
 import DatePicker from './DatePicker/DatePicker';
 import NationalityList from './Select/Nationality';
@@ -13,6 +14,7 @@ export {
   AddressLookup,
   Button,
   Checkbox,
+  ConditionalComponent,
   DateInput,
   DatePicker,
   NationalityList,
