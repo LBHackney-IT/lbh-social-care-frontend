@@ -8,7 +8,6 @@ const DynamicStep = ({ components, formData, onStepSubmit, onSaveAndExit }) => {
   const { handleSubmit, register, control, errors, watch } = useForm({
     defaultValues: formData,
   });
-
   return (
     <>
       <form>

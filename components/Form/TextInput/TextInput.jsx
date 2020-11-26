@@ -68,6 +68,8 @@ const TextInput = ({
 };
 
 TextInput.propTypes = {
+  conditional: PropTypes.func,
+  conditionalName: PropTypes.string,
   label: PropTypes.string,
   labelSize: PropTypes.oneOf(['s', 'm', 'l', 'xl']),
   hint: PropTypes.string,
@@ -79,6 +81,7 @@ TextInput.propTypes = {
   type: PropTypes.string,
   register: PropTypes.func,
   required: PropTypes.bool,
+  watch: PropTypes.func,
   width: PropTypes.string,
 };
 
