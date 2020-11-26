@@ -2,7 +2,9 @@ import {
   createSteps,
   getNextStepPath,
   renderOnCondition,
+  filterConditionalSteps,
   filterDataOnCondition,
+  haveStepsChanged,
 } from './steps';
 
 import Summary from 'components/Steps/Summary';
@@ -61,6 +63,71 @@ describe('FormWizard', () => {
     });
   });
 
+  describe('filterConditionalSteps', () => {
+    const steps = [
+      {
+        id: 'step-a',
+        title: 'Step A',
+        components: [
+          {
+            component: 'Radios',
+            name: 'conditional_trigger',
+            label: 'Show next step?',
+            rules: { required: true },
+          },
+        ],
+      },
+      {
+        id: 'step-b',
+        title: 'Step B',
+        conditionalRender: ({ conditional_trigger }) =>
+          conditional_trigger === 'Yes',
+        components: [
+          {
+            component: 'TextInput',
+            name: 'foo',
+            rules: { required: true },
+          },
+        ],
+      },
+      {
+        id: 'step-c',
+        title: 'Step C',
+        conditionalRender: ({ conditional_trigger }) =>
+          conditional_trigger === 'No',
+        components: [
+          {
+            component: 'TextInput',
+            name: 'bar',
+            rules: { required: true },
+          },
+        ],
+      },
+    ];
+    const data = {
+      conditional_trigger: 'No',
+      bar: 'asd',
+      foo: 'asd',
+    };
+    expect(JSON.stringify(filterConditionalSteps(steps, data))).toEqual(
+      JSON.stringify([
+        {
+          id: 'step-b',
+          title: 'Step B',
+          conditionalRender: ({ conditional_trigger }) =>
+            conditional_trigger === 'Yes',
+          components: [
+            {
+              component: 'TextInput',
+              name: 'foo',
+              rules: { required: true },
+            },
+          ],
+        },
+      ])
+    );
+  });
+
   describe('filterDataOnCondition', () => {
     const steps = [
       {
@@ -109,5 +176,67 @@ describe('FormWizard', () => {
       conditional_trigger: 'No',
       bar: 'asd',
     });
+  });
+
+  describe('haveStepsChanged', () => {
+    const steps = [
+      {
+        id: 'step-a',
+        title: 'Step A',
+        components: [
+          {
+            component: 'Radios',
+            name: 'conditional_trigger',
+            label: 'Show next step?',
+            rules: { required: true },
+          },
+        ],
+      },
+      {
+        id: 'step-b',
+        title: 'Step B',
+        conditionalRender: ({ conditional_trigger }) =>
+          conditional_trigger === 'Yes',
+        components: [
+          {
+            component: 'TextInput',
+            name: 'foo',
+            rules: { required: true },
+          },
+        ],
+      },
+      {
+        id: 'step-c',
+        title: 'Step C',
+        conditionalRender: ({ conditional_trigger }) =>
+          conditional_trigger === 'No',
+        components: [
+          {
+            component: 'TextInput',
+            name: 'bar',
+            rules: { required: true },
+          },
+        ],
+      },
+    ];
+    const beforeData = {
+      conditional_trigger: 'No',
+      bar: 'asd',
+      foo: 'asd',
+    };
+    expect(
+      haveStepsChanged(steps, beforeData, {
+        conditional_trigger: 'Yes',
+        bar: 'asd',
+        foo: 'asd',
+      })
+    ).toEqual(true);
+    expect(
+      haveStepsChanged(steps, beforeData, {
+        conditional_trigger: 'No',
+        bar: 'qwe',
+        foo: 'asd',
+      })
+    ).toEqual(false);
   });
 });
