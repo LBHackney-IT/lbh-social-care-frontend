@@ -80,7 +80,9 @@ const FormWizard = ({
             const updatedData = deepmerge(formData, data);
             setFormData(updatedData);
             step.onStepSubmit && step.onStepSubmit(updatedData);
-            fromSummary && !haveStepsChanged(formSteps, formData, updatedData) && !addAnother
+            fromSummary &&
+            !haveStepsChanged(formSteps, formData, updatedData) &&
+            !addAnother
               ? Router.push(stepPath, `${formPath}summary`)
               : Router.push(
                   stepPath,
