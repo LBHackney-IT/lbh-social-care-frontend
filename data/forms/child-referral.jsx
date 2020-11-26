@@ -28,6 +28,7 @@ export default {
     {
       id: 'aboutFASTBuisnessSupport',
       title: 'About FAST Business Support team member',
+      conditionalRender: ({ businessSupport }) => businessSupport === 'Yes',
       components: [
         {
           component: 'TextInput',
@@ -157,17 +158,23 @@ export default {
       ],
     },
     {
-      id: 'parentDetails',
-      title: 'Parent details',
+      id: 'motherQuestion',
+      title: "Mother's details",
       components: [
         {
           component: 'Radios',
           name: 'mother_details',
-          label: "Do you have the details of the child(ren)'s mother(s)?",
+          label: "Do you have the details of the child(ren)'s mother?",
           options: ['Yes', 'No'],
           rules: { required: true },
         },
-
+      ],
+    },
+    {
+      id: 'motherDetails',
+      title: "Mother's full details",
+      conditionalRender: ({ mother_details }) => mother_details === 'Yes',
+      components: [
         {
           component: 'TextInput',
           name: 'mother_fullname',
@@ -216,13 +223,26 @@ export default {
           width: '30',
           label: "Mother's postcode",
         },
+      ],
+    },
+    {
+      id: 'fatherQuestion',
+      title: "Father's details",
+      components: [
         {
           component: 'Radios',
           name: 'father_details',
-          label: "Do you have the details of the child(ren)'s father(s)?",
+          label: "Do you have the details of the child(ren)'s father?",
           options: ['Yes', 'No'],
           rules: { required: true },
         },
+      ],
+    },
+    {
+      id: 'fatherDetails',
+      title: "Father's full details",
+      conditionalRender: ({ father_details }) => father_details === 'Yes',
+      components: [
         {
           component: 'TextInput',
           name: 'father_fullname',
@@ -274,15 +294,23 @@ export default {
       ],
     },
     {
-      id: 'additionalFamilyMembers',
-      title: 'Additional Family Members',
+      id: 'additionalFamilyMembersQuestion',
+      title: 'Additional Family Members Details',
       components: [
         {
           component: 'Radios',
-          name: 'mother_details',
+          name: 'family_details',
           label: "Do you have the details of any additional family member's ?",
           options: ['Yes', 'No'],
+          rules: { required: true },
         },
+      ],
+    },
+    {
+      id: 'additionalFamilyMembersDetails',
+      title: 'Additional Family Members Full Details',
+      conditionalRender: ({ family_details }) => family_details === 'Yes',
+      components: [
         <h3 key="text1" className="govuk-body">
           Details of wider family network
         </h3>,
@@ -352,7 +380,7 @@ export default {
       ],
     },
     {
-      id: 'professionalsOrAgencies',
+      id: 'professionalsOrAgenciesQuestion',
       title: 'Professionals or agencies',
       components: [
         {
@@ -361,7 +389,16 @@ export default {
           label:
             'Do you have any details of any other professionals or agencies working with the family: ?',
           options: ['Yes', 'No'],
+          rules: { required: true },
         },
+      ],
+    },
+    {
+      id: 'professionalsOrAgenciesDetails',
+      title: 'Professionals or agencies details',
+      conditionalRender: ({ professionals_details }) =>
+        professionals_details === 'Yes',
+      components: [
         <h3 key="text2" className="govuk-body">
           Details of any other professionals or agencies working with the
           family:
@@ -427,6 +464,7 @@ export default {
           label:
             'Professional (1): Has the person with parental responsibility consented for Hackney to make contact with this person or agency?',
           options: ['Yes', 'No'],
+          rules: { required: true },
         },
         {
           component: 'Radios',
@@ -488,11 +526,13 @@ export default {
           Please note, parental consent is always required for families to be
           referred to an early help intervention.{' '}
         </p>,
+
         {
           component: 'Radios',
           name: 'additionalSupport',
           label: 'Are the parents/carers open to additional support?',
           options: ['Yes', 'No'],
+          rules: { required: true },
         },
         <p key="text7" className="govuk-body">
           Please note, referrers are always expected to discuss their requests
@@ -528,7 +568,7 @@ export default {
           your behalf.{' '}
         </p>,
         {
-          component: 'yourInvolvement',
+          component: 'TextInput',
           name: 'Your Involvemnt',
           width: '30',
           label:
@@ -539,7 +579,7 @@ export default {
           completed by your agency, please attach a copy alongside this referral
         </p>,
         {
-          component: 'earlySupport',
+          component: 'TextInput',
           name: 'Early Support',
           width: '30',
           label:
