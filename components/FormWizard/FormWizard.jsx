@@ -97,11 +97,8 @@ const FormWizard = ({
                 );
           }}
           onSaveAndExit={(data) => {
-            const updateSavedData = {
-              ...formData,
-              ...data,
-            };
-            saveData(formPath, updateSavedData, step.id);
+            const updatedData = deepmerge(formData, data);
+            saveData(formPath, updatedData, stepId.join('/'));
             Router.push('/');
           }}
           onFormSubmit={onFormSubmit}
