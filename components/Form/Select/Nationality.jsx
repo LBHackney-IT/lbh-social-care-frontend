@@ -1,7 +1,7 @@
 import cx from 'classnames';
 import PropTypes from 'prop-types';
 import ErrorMessage from 'components/ErrorMessage/ErrorMessage';
-import { nationalities } from 'data/formData';
+import NATIONALITIS from 'data/nationalities';
 
 const NationalityList = ({
   label,
@@ -38,7 +38,7 @@ const NationalityList = ({
       <option value="british" key="british">
         British
       </option>
-      {nationalities.map((data) => (
+      {NATIONALITIS.map((data) => (
         <option key={data} value={data}>
           {data}
         </option>

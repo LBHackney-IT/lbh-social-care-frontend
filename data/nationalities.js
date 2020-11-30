@@ -1,4 +1,4 @@
-export const nationalities = [
+export default [
   'Afghan',
   'Albanian',
   'Algerian',
