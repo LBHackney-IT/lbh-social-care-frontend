@@ -1,8 +1,8 @@
 import { render } from '@testing-library/react';
 
-import ResultTable from './ResultTable';
+import ResidenTable from './ResidentsTable';
 
-describe('ResultTable component', () => {
+describe('ResidenTable component', () => {
   const props = {
     results: [
       {
@@ -18,7 +18,7 @@ describe('ResultTable component', () => {
     ],
   };
   it('should render properly', () => {
-    const { asFragment } = render(<ResultTable {...props} />);
+    const { asFragment } = render(<ResidenTable {...props} />);
     expect(asFragment()).toMatchSnapshot();
   });
 });

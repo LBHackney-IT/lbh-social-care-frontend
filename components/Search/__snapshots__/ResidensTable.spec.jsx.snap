@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`ResultTable component should render properly 1`] = `
+exports[`ResidenTable component should render properly 1`] = `
 <DocumentFragment>
   <table
     class="govuk-table"

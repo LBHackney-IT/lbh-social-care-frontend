@@ -8,7 +8,7 @@ import isPostcodeValid from 'uk-postcode-validator';
 import { Button, TextInput, DateInput } from 'components/Form';
 import { getQueryString } from 'utils/urls';
 
-const SearchForm = ({ onFormSubmit, query }) => {
+const SearchResidentsForm = ({ onFormSubmit, query }) => {
   const {
     register,
     errors,
@@ -110,9 +110,9 @@ const SearchForm = ({ onFormSubmit, query }) => {
   );
 };
 
-SearchForm.propTypes = {
+SearchResidentsForm.propTypes = {
   onFormSubmit: PropTypes.func.isRequired,
   query: PropTypes.shape({}),
 };
 
-export default SearchForm;
+export default SearchResidentsForm;

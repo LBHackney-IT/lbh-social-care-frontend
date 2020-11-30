@@ -1,7 +1,7 @@
 import { useState, useContext, useMemo, useCallback } from 'react';
 
-import SearchForm from './SearchForm';
-import ResultTable from './ResultTable';
+import SearchResidentsForm from './SearchResidentsForm';
+import ResidentsTable from './ResidentsTable';
 import { Button } from 'components/Form';
 import Spinner from 'components/Spinner/Spinner';
 import ErrorMessage from 'components/ErrorMessage/ErrorMessage';
@@ -35,8 +35,8 @@ const Search = ({ query }) => {
   });
   return (
     <>
-      <SearchForm onFormSubmit={onFormSubmit} query={query} />
-      {results && <ResultTable results={results.residents} />}
+      <SearchResidentsForm onFormSubmit={onFormSubmit} query={query} />
+      {results && <ResidentsTable results={results.residents} />}
       <div style={{ height: '50px', textAlign: 'center' }}>
         {loading ? (
           <Spinner />
