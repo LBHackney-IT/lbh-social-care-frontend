@@ -4,7 +4,7 @@ import CasesTable from './CasesTable';
 
 describe('CasesTable component', () => {
   const props = {
-    results: [
+    records: [
       {
         personId: 123,
         caseFormTimestamp: '25 Oct 2020',

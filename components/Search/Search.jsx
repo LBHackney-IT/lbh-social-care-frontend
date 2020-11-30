@@ -1,9 +1,10 @@
 import { useState, useContext, useMemo, useCallback } from 'react';
+import PropTypes from 'prop-types';
 
 import SearchResidentsForm from './forms/SearchResidentsForm';
 import SearchCasesForm from './forms/SearchCasesForm';
-import ResidentsTable from './results/ResidentsTable';
-import CasesTable from './results/CasesTable';
+import ResidentsTable from 'components/Tables/ResidentsTable';
+import CasesTable from 'components/Tables/CasesTable';
 
 import { Button } from 'components/Form';
 import Spinner from 'components/Spinner/Spinner';
@@ -64,7 +65,7 @@ const Search = ({ query, type }) => {
   return (
     <>
       <SearchForm onFormSubmit={onFormSubmit} query={query} user={user} />
-      {results && <SearchResults results={results.records} />}
+      {results && <SearchResults records={results.records} />}
       <div style={{ height: '50px', textAlign: 'center' }}>
         {loading ? (
           <Spinner />
@@ -85,6 +86,11 @@ const Search = ({ query, type }) => {
       {error && <ErrorMessage label={error} />}
     </>
   );
+};
+
+Search.propTypes = {
+  type: PropTypes.oneOf(['residents', 'cases']).isRequired,
+  query: PropTypes.shape({}),
 };
 
 export default Search;

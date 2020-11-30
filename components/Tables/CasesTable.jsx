@@ -28,10 +28,10 @@ const CasesEntry = ({
   </tr>
 );
 
-const CasesTable = ({ results }) => (
+const CasesTable = ({ records }) => (
   <table className="govuk-table">
     <tbody className="govuk-table__body">
-      {results.map((result) => (
+      {records.map((result) => (
         <CasesEntry key={result.personId} {...result} />
       ))}
     </tbody>
@@ -39,9 +39,9 @@ const CasesTable = ({ results }) => (
 );
 
 CasesTable.propTypes = {
-  results: PropTypes.arrayOf(
+  records: PropTypes.arrayOf(
     PropTypes.shape({
-      personId: PropTypes.number.isRequired,
+      personId: PropTypes.string.isRequired,
       formName: PropTypes.string.isRequired,
       caseFormUrl: PropTypes.string.isRequired,
       officerEmail: PropTypes.string.isRequired,

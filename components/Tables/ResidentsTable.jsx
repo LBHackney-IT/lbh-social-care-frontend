@@ -29,7 +29,7 @@ const ResultEntry = ({
   </tr>
 );
 
-const ResultTable = ({ results }) => (
+const ResultTable = ({ records }) => (
   <table className="govuk-table">
     <caption className="govuk-table__caption">
       <h2 className="govuk-fieldset__legend--m govuk-custom-text-color">
@@ -52,7 +52,7 @@ const ResultTable = ({ results }) => (
       </tr>
     </thead>
     <tbody className="govuk-table__body">
-      {results.map((result) => (
+      {records.map((result) => (
         <ResultEntry key={result.personId || result.mosaicId} {...result} />
       ))}
     </tbody>
@@ -60,7 +60,7 @@ const ResultTable = ({ results }) => (
 );
 
 ResultTable.propTypes = {
-  results: PropTypes.arrayOf(
+  records: PropTypes.arrayOf(
     PropTypes.shape({
       personId: PropTypes.string,
       mosaicId: PropTypes.string,

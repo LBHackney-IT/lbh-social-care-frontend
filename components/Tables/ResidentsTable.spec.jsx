@@ -4,7 +4,7 @@ import ResidenTable from './ResidentsTable';
 
 describe('ResidenTable component', () => {
   const props = {
-    results: [
+    records: [
       {
         personId: 'foo',
         firstName: 'Fname',
