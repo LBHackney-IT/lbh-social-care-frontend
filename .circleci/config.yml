@@ -22,6 +22,7 @@ jobs:
   install-dependencies-and-test:
     executor: node-executor
     steps:
+      - *attach_workspace
       - checkout
       - restore_cache:
           key: dependency-cache-{{ checksum "yarn.lock" }}
