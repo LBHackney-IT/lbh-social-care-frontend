@@ -31,12 +31,6 @@ const ResultEntry = ({
 
 const ResultTable = ({ records }) => (
   <table className="govuk-table">
-    <caption className="govuk-table__caption">
-      <h2 className="govuk-fieldset__legend--m govuk-custom-text-color">
-        PEOPLE SEARCH RESULT
-      </h2>
-      <hr className="govuk-divider" />
-    </caption>
     <thead className="govuk-table__head">
       <tr className="govuk-table__row">
         <th scope="col" className="govuk-table__header">

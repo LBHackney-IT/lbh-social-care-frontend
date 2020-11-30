@@ -12,7 +12,7 @@ const SearchResidentPage = ({ query }) => {
       <p className="govuk-body govuk-!-margin-bottom-7">
         Search for resident to see if we have a record for them.
       </p>
-      <Search query={query} type="residents" />
+      <Search query={query} type="people" />
     </div>
   );
 };

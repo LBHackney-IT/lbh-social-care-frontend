@@ -29,7 +29,7 @@ const Search = ({ query, type }) => {
   const permission = useMemo(() => getPermissionFilter(user), []);
   const { SearchForm, SearchResults, searchFunction } = useMemo(
     () =>
-      type === 'residents'
+      type === 'people'
         ? {
             SearchForm: SearchResidentsForm,
             SearchResults: ResidentsTable,
@@ -65,7 +65,15 @@ const Search = ({ query, type }) => {
   return (
     <>
       <SearchForm onFormSubmit={onFormSubmit} query={query} user={user} />
-      {results && <SearchResults records={results.records} />}
+      {results && (
+        <>
+          <h2 className="govuk-fieldset__legend--m govuk-custom-text-color">
+            {type.toUpperCase()} SEARCH RESULT
+          </h2>
+          <hr className="govuk-divider" />
+          <SearchResults records={results.records} />
+        </>
+      )}
       <div style={{ height: '50px', textAlign: 'center' }}>
         {loading ? (
           <Spinner />
@@ -89,7 +97,7 @@ const Search = ({ query, type }) => {
 };
 
 Search.propTypes = {
-  type: PropTypes.oneOf(['residents', 'cases']).isRequired,
+  type: PropTypes.oneOf(['people', 'cases']).isRequired,
   query: PropTypes.shape({}),
 };
 
