@@ -1,9 +1,6 @@
 import axios from 'axios';
 
-const {
-  ENDPOINT_API,
-  AWS_KEY,
-} = process.env;
+const { ENDPOINT_API, AWS_KEY } = process.env;
 
 const headersWithKey = {
   'x-api-key': AWS_KEY,

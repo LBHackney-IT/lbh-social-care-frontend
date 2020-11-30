@@ -53,7 +53,7 @@ const ResultTable = ({ results }) => (
     </thead>
     <tbody className="govuk-table__body">
       {results.map((result) => (
-        <ResultEntry key={result.personId} {...result} />
+        <ResultEntry key={result.personId || result.mosaicId} {...result} />
       ))}
     </tbody>
   </table>

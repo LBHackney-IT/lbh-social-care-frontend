@@ -3,7 +3,7 @@ import { NextSeo } from 'next-seo';
 import BackButton from 'components/Layout/BackButton/BackButton';
 import Search from 'components/Search/Search';
 
-const SearchPage = ({ query }) => {
+const SearchResidentPage = ({ query }) => {
   return (
     <div>
       <NextSeo title="Search" noindex />
@@ -12,7 +12,7 @@ const SearchPage = ({ query }) => {
       <p className="govuk-body govuk-!-margin-bottom-7">
         Search for resident to see if we have a record for them.
       </p>
-      <Search query={query} />
+      <Search query={query} type="residents" />
     </div>
   );
 };
@@ -26,4 +26,4 @@ export const getServerSideProps = async (ctx) => {
   };
 };
 
-export default SearchPage;
+export default SearchResidentPage;

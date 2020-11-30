@@ -1,7 +1,7 @@
 import { useState, useCallback, useEffect } from 'react';
 import PropTypes from 'prop-types';
 
-import CasesTable from './CasesTable';
+import CasesTable from '../Search/results/CasesTable';
 import ErrorMessage from 'components/ErrorMessage/ErrorMessage';
 import { getResidentCases } from 'utils/api/residents';
 import Spinner from 'components/Spinner/Spinner';

@@ -1,7 +1,7 @@
 import { NextSeo } from 'next-seo';
 
 import BackButton from 'components/Layout/BackButton/BackButton';
-import SearchCases from 'components/Search/SearchCases';
+import Search from 'components/Search/Search';
 
 const SearchCasesPage = ({ query }) => {
   return (
@@ -13,7 +13,7 @@ const SearchCasesPage = ({ query }) => {
         Use this search to locate unlinked case notes. Unlinked case notes are
         records not linked to the person view.
       </p>
-      <SearchCases query={query} />
+      <Search query={query} type="cases" />
     </div>
   );
 };

@@ -1,11 +1,8 @@
 import { useEffect } from 'react';
-import { useContext } from 'react';
-import UserContext from 'components/UserContext/UserContext';
 import PropTypes from 'prop-types';
 import Router from 'next/router';
 import { useForm } from 'react-hook-form';
 import isPast from 'date-fns/isPast';
-import { getQueryString } from 'utils/urls';
 
 import {
   Button,
@@ -14,8 +11,10 @@ import {
   DateInput,
   Select,
 } from 'components/Form';
+import { getQueryString } from 'utils/urls';
+import CASE_NOTE_TYPES from 'data/caseNoteTypes';
 
-const SearchCasesForm = ({ onFormSubmit, query }) => {
+const SearchCasesForm = ({ onFormSubmit, query, user }) => {
   const {
     register,
     errors,
@@ -25,27 +24,21 @@ const SearchCasesForm = ({ onFormSubmit, query }) => {
   } = useForm({
     defaultValues: query,
   });
-
-  const { user } = useContext(UserContext);
-
-  const onSubmit = async (formData) => {
-    let data = formData;
-
-    data.worker_email = formData.myNotesOnly ? user.email : '';
-
-    onFormSubmit(data);
-    const qs = getQueryString(data);
+  const onSubmit = async ({ myNotesOnly, ...formData }) => {
+    onFormSubmit(formData);
+    const qs = getQueryString({
+      ...formData,
+      worker_email: myNotesOnly ? user.email : '',
+    });
     Router.replace(`/cases/search?${qs}`, `/cases/search?${qs}`, {
       shallow: true,
     });
   };
-
   useEffect(() => {
     Object.keys(query).length && onSubmit(query);
   }, []);
-
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
+    <form role="form" onSubmit={handleSubmit(onSubmit)}>
       <div className="govuk-grid-row">
         <div className="govuk-grid-column-one-half">
           <TextInput
@@ -115,32 +108,7 @@ const SearchCasesForm = ({ onFormSubmit, query }) => {
             name="case_note_type"
             label="Filter by form type"
             register={register}
-            options={[
-              'Care Charges',
-              'Case Audit',
-              'Case Summary',
-              'Contact with Health Professional',
-              'Correspondence',
-              'Death Notification',
-              'Discharge Planning - HSWT',
-              'Duty Avtion',
-              'Home Visit',
-              'ILDS Duty Action',
-              'Integrated Independence Team Progress',
-              'Legacy Adult Assessment',
-              "Manager's Decision",
-              'No Reply To Home Visit',
-              'Office Visit',
-              'Record of Meeting',
-              'Record of Supervision Discussion',
-              'Safeguarding',
-              'Telephone Contact',
-              'Case Transfer',
-              'Additional Hours Requested',
-              'Contact Adults',
-              'Significant Information on an Open Case',
-              'Other',
-            ]}
+            options={CASE_NOTE_TYPES}
           />
         </div>
       </div>
@@ -148,9 +116,7 @@ const SearchCasesForm = ({ onFormSubmit, query }) => {
         <div className="govuk-grid-column-one-half">
           <Checkbox
             label="Only include notes I've created"
-            labelSize=""
             name="myNotesOnly"
-            hint=""
             register={register}
           />
         </div>
