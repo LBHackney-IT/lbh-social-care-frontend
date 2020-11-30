@@ -32,7 +32,7 @@ describe(`SearchCasesForm`, () => {
       first_name: 'foo',
       last_name: '',
       case_note_type: '',
-      exact_match: false,
+      exact_name_match: false,
       worker_email: '',
     });
   });
@@ -52,7 +52,7 @@ describe(`SearchCasesForm`, () => {
       first_name: '',
       last_name: '',
       case_note_type: '',
-      exact_match: false,
+      exact_name_match: false,
       worker_email: 'foo@bar.com',
     });
   });
@@ -68,7 +68,7 @@ describe(`SearchCasesForm`, () => {
       first_name: 'bar',
       last_name: '',
       case_note_type: '',
-      exact_match: false,
+      exact_name_match: false,
       worker_email: '',
     });
   });

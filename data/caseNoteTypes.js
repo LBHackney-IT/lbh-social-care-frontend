@@ -1,7 +1,10 @@
 export default [
+  'Additional Hours Requested',
   'Care Charges',
   'Case Audit',
   'Case Summary',
+  'Case Transfer',
+  'Contact Adults',
   'Contact with Health Professional',
   'Correspondence',
   'Death Notification',
@@ -17,10 +20,7 @@ export default [
   'Record of Meeting',
   'Record of Supervision Discussion',
   'Safeguarding',
-  'Telephone Contact',
-  'Case Transfer',
-  'Additional Hours Requested',
-  'Contact Adults',
   'Significant Information on an Open Case',
+  'Telephone Contact',
   'Other',
 ];
