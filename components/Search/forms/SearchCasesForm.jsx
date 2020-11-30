@@ -24,12 +24,12 @@ const SearchCasesForm = ({ onFormSubmit, query, user }) => {
   } = useForm({
     defaultValues: query,
   });
-  const onSubmit = async ({ myNotesOnly, ...formData }) => {
-    onFormSubmit(formData);
-    const qs = getQueryString({
+  const onSubmit = async ({ my_notes_only, ...formData }) => {
+    onFormSubmit({
       ...formData,
-      worker_email: myNotesOnly ? user.email : '',
+      worker_email: my_notes_only ? user.email : '',
     });
+    const qs = getQueryString({ my_notes_only, ...formData });
     Router.replace(`/cases/search?${qs}`, `/cases/search?${qs}`, {
       shallow: true,
     });
@@ -64,7 +64,7 @@ const SearchCasesForm = ({ onFormSubmit, query, user }) => {
           <Checkbox
             label="Search by exact match"
             labelSize="s"
-            name="exact_match"
+            name="exact_name_match"
             register={register}
           />
         </div>
@@ -116,7 +116,7 @@ const SearchCasesForm = ({ onFormSubmit, query, user }) => {
         <div className="govuk-grid-column-one-half">
           <Checkbox
             label="Only include notes I've created"
-            name="myNotesOnly"
+            name="my_notes_only"
             register={register}
           />
         </div>
