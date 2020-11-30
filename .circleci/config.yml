@@ -5,12 +5,12 @@ orbs:
   aws_assume_role: lbh-hackit/aws_assume_role@0.1.0
 
 executor:
-    node-executor:
-        docker:
-          - image: circleci/node:12.16.2-browsers
-    docker-python:
-          docker:
-            - image: circleci/python:3.7
+  node-executor:
+    docker:
+      - image: circleci/node:12.16.2-browsers
+  docker-python:
+    docker:
+      - image: circleci/python:3.7
 
 references:
   workspace_root: &workspace_root "~"
