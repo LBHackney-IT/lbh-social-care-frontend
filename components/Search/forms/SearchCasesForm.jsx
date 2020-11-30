@@ -65,7 +65,6 @@ const SearchCasesForm = ({ onFormSubmit, query, user }) => {
             label="Search by exact match"
             labelSize="s"
             name="exact_match"
-            hint=""
             register={register}
           />
         </div>
@@ -106,7 +105,8 @@ const SearchCasesForm = ({ onFormSubmit, query, user }) => {
         <div className="govuk-grid-column-full">
           <Select
             name="case_note_type"
-            label="Filter by form type"
+            label="Filter by form type:"
+            labelSize="s"
             register={register}
             options={CASE_NOTE_TYPES}
           />
