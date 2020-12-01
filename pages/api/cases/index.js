@@ -9,8 +9,6 @@ export default async (req, res) => {
   switch (req.method) {
     case 'GET':
       try {
-        console.log(req.query);
-
         const data = await getCases(req.query);
         if (data?.cases?.length > 0) {
           res.status(200).json(data);

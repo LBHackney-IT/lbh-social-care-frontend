@@ -74,8 +74,8 @@ const SearchCasesForm = ({ onFormSubmit, query, user }) => {
           <DateInput
             label="Date created from:"
             labelSize="s"
-            name="date_created_from"
-            error={errors.date_created_from}
+            name="start_date"
+            error={errors.start_date}
             control={control}
             rules={{
               validate: {
@@ -89,8 +89,8 @@ const SearchCasesForm = ({ onFormSubmit, query, user }) => {
           <DateInput
             label="Date created to:"
             labelSize="s"
-            name="date_created_to"
-            error={errors.date_created_to}
+            name="end_date"
+            error={errors.end_date}
             control={control}
             rules={{
               validate: {
