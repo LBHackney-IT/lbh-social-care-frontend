@@ -60,7 +60,7 @@ exports[`ResidenTable component should render properly 1`] = `
           class="govuk-table__cell"
         >
           <a
-            class="govuk-link govuk-custom-text-color "
+            class="govuk-link govuk-custom-text-color"
             href="/people/foo"
           >
             View

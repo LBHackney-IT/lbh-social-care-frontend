@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 
 import SearchResidentsForm from './forms/SearchResidentsForm';
 import SearchCasesForm from './forms/SearchCasesForm';
-import ResidentsTable from 'components/Tables/ResidentsTable';
-import CasesTable from 'components/Tables/CasesTable';
+import ResidentsTable from './results/ResidentsTable';
+import CasesTable from './results/CasesTable';
 
 import { Button } from 'components/Form';
 import Spinner from 'components/Spinner/Spinner';

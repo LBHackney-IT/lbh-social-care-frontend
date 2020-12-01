@@ -41,7 +41,7 @@ const CasesTable = ({ records }) => (
 CasesTable.propTypes = {
   records: PropTypes.arrayOf(
     PropTypes.shape({
-      personId: PropTypes.string.isRequired,
+      personId: PropTypes.number.isRequired,
       formName: PropTypes.string.isRequired,
       caseFormUrl: PropTypes.string.isRequired,
       officerEmail: PropTypes.string.isRequired,

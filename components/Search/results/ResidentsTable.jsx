@@ -18,12 +18,7 @@ const ResultEntry = ({
     </td>
     <td className="govuk-table__cell">
       <Link href={`/people/${personId || mosaicId}`}>
-        <a
-          className="govuk-link govuk-custom-text-color
-        "
-        >
-          View
-        </a>
+        <a className="govuk-link govuk-custom-text-color">View</a>
       </Link>
     </td>
   </tr>
