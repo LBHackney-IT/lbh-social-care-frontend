@@ -11,6 +11,7 @@ const Home = () => {
         <h1 className="govuk-fieldset__heading">Form Dashboard</h1>
       </legend>
       <LinkButton label="Search for People" route="/people/search" />
+      <LinkButton label="Find unlinked case notes" route="/cases/search" />
       <LinkButton
         label="Adult Referral From"
         route="/form/adult-referral/client-details"

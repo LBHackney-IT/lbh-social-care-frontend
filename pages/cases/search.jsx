@@ -3,16 +3,17 @@ import { NextSeo } from 'next-seo';
 import BackButton from 'components/Layout/BackButton/BackButton';
 import Search from 'components/Search/Search';
 
-const SearchResidentPage = ({ query }) => {
+const SearchCasesPage = ({ query }) => {
   return (
     <div>
-      <NextSeo title="Search" noindex />
+      <NextSeo title="Find unlinked case notes" noindex />
       <BackButton />
-      <h1 className="govuk-fieldset__legend--l">Person lookup</h1>
+      <h1 className="govuk-fieldset__legend--l">Find unlinked case notes</h1>
       <p className="govuk-body govuk-!-margin-bottom-7">
-        Search for resident to see if we have a record for them.
+        Use this search to locate unlinked case notes. Unlinked case notes are
+        records not linked to the person view.
       </p>
-      <Search query={query} type="people" />
+      <Search query={query} type="cases" />
     </div>
   );
 };
@@ -26,4 +27,4 @@ export const getServerSideProps = async (ctx) => {
   };
 };
 
-export default SearchResidentPage;
+export default SearchCasesPage;

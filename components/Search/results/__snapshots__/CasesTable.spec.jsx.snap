@@ -1,0 +1,82 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CasesTable component should render properly 1`] = `
+<DocumentFragment>
+  <table
+    class="govuk-table"
+  >
+    <thead
+      class="govuk-table__head"
+    >
+      <tr
+        class="govuk-table__row"
+      >
+        <th
+          class="govuk-table__header"
+          scope="col"
+        >
+          Client Name
+        </th>
+        <th
+          class="govuk-table__header"
+          scope="col"
+        >
+          Date of birth
+        </th>
+        <th
+          class="govuk-table__header"
+          scope="col"
+        >
+          Uploaded by
+        </th>
+        <th
+          class="govuk-table__header"
+          scope="col"
+        >
+          Last upload
+        </th>
+        <th
+          class="govuk-table__header"
+          scope="col"
+        />
+      </tr>
+    </thead>
+    <tbody
+      class="govuk-table__body"
+    >
+      <tr
+        class="govuk-table__row"
+      >
+        <td
+          class="govuk-table__cell"
+        >
+          foo bar
+        </td>
+        <td
+          class="govuk-table__cell"
+        />
+        <td
+          class="govuk-table__cell"
+        >
+          Fname.Lname@hackney.gov.uk
+        </td>
+        <td
+          class="govuk-table__cell"
+        >
+          Oct 25, 2020
+        </td>
+        <td
+          class="govuk-table__cell govuk-button--secondary'"
+        >
+          <a
+            class="govuk-link govuk-custom-text-color"
+            href="#"
+          >
+            View
+          </a>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</DocumentFragment>
+`;

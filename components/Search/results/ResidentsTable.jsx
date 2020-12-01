@@ -18,25 +18,14 @@ const ResultEntry = ({
     </td>
     <td className="govuk-table__cell">
       <Link href={`/people/${personId || mosaicId}`}>
-        <a
-          className="govuk-link govuk-custom-text-color
-        "
-        >
-          View
-        </a>
+        <a className="govuk-link govuk-custom-text-color">View</a>
       </Link>
     </td>
   </tr>
 );
 
-const ResultTable = ({ results }) => (
+const ResultTable = ({ records }) => (
   <table className="govuk-table">
-    <caption className="govuk-table__caption">
-      <h2 className="govuk-fieldset__legend--m govuk-custom-text-color">
-        PEOPLE SEARCH RESULT
-      </h2>
-      <hr className="govuk-divider" />
-    </caption>
     <thead className="govuk-table__head">
       <tr className="govuk-table__row">
         <th scope="col" className="govuk-table__header">
@@ -52,15 +41,15 @@ const ResultTable = ({ results }) => (
       </tr>
     </thead>
     <tbody className="govuk-table__body">
-      {results.map((result) => (
-        <ResultEntry key={result.personId} {...result} />
+      {records.map((result) => (
+        <ResultEntry key={result.personId || result.mosaicId} {...result} />
       ))}
     </tbody>
   </table>
 );
 
 ResultTable.propTypes = {
-  results: PropTypes.arrayOf(
+  records: PropTypes.arrayOf(
     PropTypes.shape({
       personId: PropTypes.string,
       mosaicId: PropTypes.string,

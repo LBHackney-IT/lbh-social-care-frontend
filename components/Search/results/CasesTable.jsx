@@ -3,19 +3,20 @@ import { formatTime } from 'utils/date';
 const onClick = (url) => window.open(url, '_blank');
 
 const CasesEntry = ({
-  formName,
+  firstName,
+  lastName,
   caseFormUrl,
+  dateOfBirth,
   officerEmail,
   caseFormTimestamp,
 }) => (
   <tr className="govuk-table__row">
-    <td className="govuk-table__cell govuk--timestamp">
-      {caseFormTimestamp && formatTime(caseFormTimestamp)}{' '}
-    </td>
-    <td className="govuk-table__cell">{formName}</td>
     <td className="govuk-table__cell">
-      {officerEmail && `- created by ${officerEmail}`}
+      {firstName} {lastName}
     </td>
+    <td className="govuk-table__cell">{dateOfBirth}</td>
+    <td className="govuk-table__cell">{officerEmail}</td>
+    <td className="govuk-table__cell">{formatTime(caseFormTimestamp)}</td>
     <td className="govuk-table__cell govuk-button--secondary'">
       <a
         href="#"
@@ -30,6 +31,23 @@ const CasesEntry = ({
 
 const CasesTable = ({ records }) => (
   <table className="govuk-table">
+    <thead className="govuk-table__head">
+      <tr className="govuk-table__row">
+        <th scope="col" className="govuk-table__header">
+          Client Name
+        </th>
+        <th scope="col" className="govuk-table__header">
+          Date of birth
+        </th>
+        <th scope="col" className="govuk-table__header">
+          Uploaded by
+        </th>
+        <th scope="col" className="govuk-table__header">
+          Last upload
+        </th>
+        <th scope="col" className="govuk-table__header"></th>
+      </tr>
+    </thead>
     <tbody className="govuk-table__body">
       {records.map((result) => (
         <CasesEntry key={result.personId} {...result} />

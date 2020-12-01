@@ -8,7 +8,8 @@ describe('CasesTable component', () => {
       {
         personId: 123,
         caseFormTimestamp: '25 Oct 2020',
-        formName: 'foorm',
+        firstName: 'foo',
+        lastName: 'bar',
         caseFormUrl: 'https://foo.bar',
         officerEmail: 'Fname.Lname@hackney.gov.uk',
       },

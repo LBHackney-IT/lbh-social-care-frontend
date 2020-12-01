@@ -1,22 +1,10 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`ResultTable component should render properly 1`] = `
+exports[`ResidenTable component should render properly 1`] = `
 <DocumentFragment>
   <table
     class="govuk-table"
   >
-    <caption
-      class="govuk-table__caption"
-    >
-      <h2
-        class="govuk-fieldset__legend--m govuk-custom-text-color"
-      >
-        PEOPLE SEARCH RESULT
-      </h2>
-      <hr
-        class="govuk-divider"
-      />
-    </caption>
     <thead
       class="govuk-table__head"
     >
@@ -72,7 +60,7 @@ exports[`ResultTable component should render properly 1`] = `
           class="govuk-table__cell"
         >
           <a
-            class="govuk-link govuk-custom-text-color "
+            class="govuk-link govuk-custom-text-color"
             href="/people/foo"
           >
             View
