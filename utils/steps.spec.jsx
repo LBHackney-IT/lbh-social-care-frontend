@@ -2,7 +2,7 @@ import {
   createSteps,
   getNextStepPath,
   renderOnCondition,
-  filterConditionalSteps,
+  filterStepsOnCondition,
   filterDataOnCondition,
   haveStepsChanged,
 } from './steps';
@@ -63,7 +63,7 @@ describe('FormWizard', () => {
     });
   });
 
-  describe('filterConditionalSteps', () => {
+  describe('filterStepsOnCondition', () => {
     const steps = [
       {
         id: 'step-a',
@@ -109,17 +109,29 @@ describe('FormWizard', () => {
       bar: 'asd',
       foo: 'asd',
     };
-    expect(JSON.stringify(filterConditionalSteps(steps, data))).toEqual(
+    expect(JSON.stringify(filterStepsOnCondition(steps, data))).toEqual(
       JSON.stringify([
         {
-          id: 'step-b',
-          title: 'Step B',
+          id: 'step-a',
+          title: 'Step A',
+          components: [
+            {
+              component: 'Radios',
+              name: 'conditional_trigger',
+              label: 'Show next step?',
+              rules: { required: true },
+            },
+          ],
+        },
+        {
+          id: 'step-c',
+          title: 'Step C',
           conditionalRender: ({ conditional_trigger }) =>
-            conditional_trigger === 'Yes',
+            conditional_trigger === 'No',
           components: [
             {
               component: 'TextInput',
-              name: 'foo',
+              name: 'bar',
               rules: { required: true },
             },
           ],

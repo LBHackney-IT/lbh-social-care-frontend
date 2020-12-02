@@ -24,29 +24,30 @@ export const getNextStepPath = (
 export const renderOnCondition = (step, data, component) =>
   step.conditionalRender && !step.conditionalRender(data) ? null : component;
 
-export const filterConditionalSteps = (steps, data) =>
+export const filterStepsOnCondition = (steps, data) =>
   steps.filter(
-    (step) => step.conditionalRender && !step.conditionalRender(data)
+    (step) => !step.conditionalRender || step.conditionalRender(data)
   );
 
 export const filterDataOnCondition = (steps, data) => {
-  const toFilterOut = filterConditionalSteps(steps, data).reduce(
+  const isValidValue = filterStepsOnCondition(steps, data).reduce(
     (acc, step) => [
       ...acc,
-      ...step.components.map((component) => component.name),
+      ...step.components
+        .map((component) => component.name),
     ],
     []
   );
   return Object.fromEntries(
-    Object.entries(data).filter(([key]) => !toFilterOut.includes(key))
+    Object.entries(data).filter(([key]) => isValidValue.includes(key))
   );
 };
 
 export const haveStepsChanged = (steps, beforeData, afterData) => {
-  const stepsBefore = filterConditionalSteps(steps, beforeData).map(
+  const stepsBefore = filterStepsOnCondition(steps, beforeData).map(
     (step) => step.id
   );
-  const stepsAfter = filterConditionalSteps(steps, afterData).map(
+  const stepsAfter = filterStepsOnCondition(steps, afterData).map(
     (step) => step.id
   );
   return JSON.stringify(stepsBefore) !== JSON.stringify(stepsAfter);
