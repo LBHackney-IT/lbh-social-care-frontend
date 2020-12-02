@@ -12,24 +12,31 @@ const DynamicStep = ({
   onStepSubmit,
   onSaveAndExit,
 }) => {
-  const { handleSubmit, register, control, errors } = useForm({
+  const { handleSubmit, register, control, errors, watch } = useForm({
     defaultValues: formData,
   });
+  const stepValues = watch();
   return (
     <>
       <form onSubmit={handleSubmit((data) => onStepSubmit(data))}>
         <div className="govuk-form-group">
-          {components?.map((componentProps) =>
+          {components?.map(({ conditionalRender, ...componentProps }) =>
             componentProps.name ? (
-              <DynamicInput
-                key={componentProps.name}
-                id={stepId[0]}
-                register={register}
-                control={control}
-                errors={errors}
-                multiStepIndex={isMulti && (parseInt(stepId[1]) - 1 || 0)}
-                {...componentProps}
-              />
+              conditionalRender &&
+              !conditionalRender({
+                ...formData,
+                ...stepValues,
+              }) ? null : (
+                <DynamicInput
+                  key={componentProps.name}
+                  id={stepId[0]}
+                  register={register}
+                  control={control}
+                  errors={errors}
+                  multiStepIndex={isMulti && (parseInt(stepId[1]) - 1 || 0)}
+                  {...componentProps}
+                />
+              )
             ) : (
               componentProps
             )
