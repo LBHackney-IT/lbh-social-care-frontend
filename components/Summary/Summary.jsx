@@ -88,7 +88,7 @@ export const SummarySection = ({
 };
 
 const Summary = ({ formData, formSteps, formPath, canEdit }) =>
-  filterStepsOnCondition(formSteps).map((section) => {
+  filterStepsOnCondition(formSteps, formData).map((section) => {
     const props = {
       key: section.id,
       formData: filterDataOnCondition(formSteps, formData),

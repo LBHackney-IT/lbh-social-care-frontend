@@ -34,6 +34,10 @@ export const filterDataOnCondition = (steps, data) => {
     (acc, step) => [
       ...acc,
       ...step.components
+        .filter(
+          (component) =>
+            !component.conditionalRender || component.conditionalRender(data)
+        )
         .map((component) => component.name),
     ],
     []

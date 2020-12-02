@@ -88,6 +88,22 @@ describe('FormWizard', () => {
             name: 'foo',
             rules: { required: true },
           },
+          {
+            component: 'TextInput',
+            conditionalRender: ({ conditional_trigger }) =>
+              conditional_trigger === 'No',
+            name: 'conditional_input',
+            label: 'Please filter me',
+            rules: { required: true },
+          },
+          {
+            component: 'TextInput',
+            conditionalRender: ({ conditional_trigger }) =>
+              conditional_trigger === 'Yes',
+            name: 'conditional_input',
+            label: 'Please hide me',
+            rules: { required: true },
+          },
         ],
       },
       {
