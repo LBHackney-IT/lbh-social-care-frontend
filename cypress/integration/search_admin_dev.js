@@ -10,7 +10,6 @@ describe('Admin Dev Group', () => {
       Cypress.env('TEST_KEY_ADMIN_DEV')
     );
     cy.visit(Cypress.env('HOST'));
-    cy.contains('Search for People').click();
     cy.get('[data-testid="mosaic_id"]').type(Cypress.env('MOSAIC_ID_TEST'));
     cy.get('[type="submit"]').click();
     cy.contains('View').click();
@@ -28,7 +27,6 @@ describe('Admin Dev Group', () => {
       Cypress.env('TEST_KEY_ADMIN_DEV')
     );
     cy.visit(Cypress.env('HOST'));
-    cy.contains('Search for People').click();
     cy.get('[data-testid="first_name"]').type(
       Cypress.env('ADULT_RECORD_FIRST_NAME')
     );
@@ -50,7 +48,6 @@ describe('Admin Dev Group', () => {
       Cypress.env('TEST_KEY_ADMIN_DEV')
     );
     cy.visit(Cypress.env('HOST'));
-    cy.contains('Search for People').click();
     cy.get('[data-testid="first_name"]').type(
       Cypress.env('CHILDREN_RECORD_FIRST_NAME')
     );
