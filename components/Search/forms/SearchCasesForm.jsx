@@ -46,7 +46,12 @@ const SearchCasesForm = ({ onFormSubmit, query, user }) => {
             labelSize="s"
             name="first_name"
             error={errors.first_name}
-            register={register}
+            register={register({
+              minLength: {
+                value: 2,
+                message: 'Requires at least a minimum of 2 letters.',
+              },
+            })}
           />
         </div>
         <div className="govuk-grid-column-one-half">
@@ -55,7 +60,12 @@ const SearchCasesForm = ({ onFormSubmit, query, user }) => {
             labelSize="s"
             name="last_name"
             error={errors.last_name}
-            register={register}
+            register={register({
+              minLength: {
+                value: 2,
+                message: 'Requires at least a minimum of 2 letters.',
+              },
+            })}
           />
         </div>
       </div>

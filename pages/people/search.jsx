@@ -8,10 +8,6 @@ const SearchResidentPage = ({ query }) => {
     <div>
       <NextSeo title="Search" noindex />
       <BackButton />
-      <h1 className="govuk-fieldset__legend--l">Person lookup</h1>
-      <p className="govuk-body govuk-!-margin-bottom-7">
-        Search for resident to see if we have a record for them.
-      </p>
       <Search query={query} type="people" />
     </div>
   );

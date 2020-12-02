@@ -1,5 +1,7 @@
 import { useState, useContext, useMemo, useCallback } from 'react';
 import PropTypes from 'prop-types';
+import cx from 'classnames';
+import Link from 'next/link';
 
 import SearchResidentsForm from './forms/SearchResidentsForm';
 import SearchCasesForm from './forms/SearchCasesForm';
@@ -29,16 +31,16 @@ const Search = ({ query, type }) => {
   const permission = useMemo(() => getPermissionFilter(user), []);
   const { SearchForm, SearchResults, searchFunction } = useMemo(
     () =>
-      type === 'people'
+      type === 'cases'
         ? {
-            SearchForm: SearchResidentsForm,
-            SearchResults: ResidentsTable,
-            searchFunction: getResidents,
-          }
-        : {
             SearchForm: SearchCasesForm,
             SearchResults: CasesTable,
             searchFunction: getCases,
+          }
+        : {
+            SearchForm: SearchResidentsForm,
+            SearchResults: ResidentsTable,
+            searchFunction: getResidents,
           },
     []
   );
@@ -64,34 +66,69 @@ const Search = ({ query, type }) => {
   });
   return (
     <>
-      <SearchForm onFormSubmit={onFormSubmit} query={query} user={user} />
-      {results && (
-        <>
-          <h2 className="govuk-fieldset__legend--m govuk-custom-text-color">
-            {type.toUpperCase()} SEARCH RESULT
-          </h2>
-          <hr className="govuk-divider" />
-          <SearchResults records={results.records} />
-        </>
-      )}
-      <div style={{ height: '50px', textAlign: 'center' }}>
-        {loading ? (
-          <Spinner />
-        ) : (
-          results?.nextCursor && (
-            <Button
-              label="load more"
-              onClick={() =>
-                onFormSubmit(
-                  { ...formData, cursor: results.nextCursor },
-                  results.records
-                )
-              }
-            />
-          )
-        )}
+      <h1 className="govuk-heading-l">Search</h1>
+      <p className="govuk-body govuk-!-margin-bottom-5">
+        Use search to find a person before adding a new person or record.
+        Records will need to be linked to person.
+      </p>
+      <div className="govuk-tabs">
+        <h2 className="govuk-tabs__title">Contents</h2>
+        <ul className="govuk-tabs__list">
+          <li
+            className={cx('govuk-tabs__list-item', {
+              'govuk-tabs__list-item--selected': type !== 'cases',
+            })}
+          >
+            <Link href="/people/search">
+              <a className="govuk-tabs__tab">Search for a person</a>
+            </Link>
+          </li>
+          <li
+            className={cx('govuk-tabs__list-item', {
+              'govuk-tabs__list-item--selected': type === 'cases',
+            })}
+          >
+            <Link href="/cases/search">
+              <a className="govuk-tabs__tab">Search for records by person</a>
+            </Link>
+          </li>
+        </ul>
+        <div className="govuk-tabs__panel">
+          <p className="govuk-body govuk-!-margin-bottom-5">
+            {type === 'cases'
+              ? 'Search and filter by any combination of fields'
+              : 'Search for a person by any combination of fields below'}
+          </p>
+          <SearchForm onFormSubmit={onFormSubmit} query={query} user={user} />
+          {results && (
+            <>
+              <h2 className="govuk-fieldset__legend--m govuk-custom-text-color">
+                {type.toUpperCase()} SEARCH RESULT
+              </h2>
+              <hr className="govuk-divider" />
+              <SearchResults records={results.records} />
+            </>
+          )}
+          <div style={{ height: '50px', textAlign: 'center' }}>
+            {loading ? (
+              <Spinner />
+            ) : (
+              results?.nextCursor && (
+                <Button
+                  label="load more"
+                  onClick={() =>
+                    onFormSubmit(
+                      { ...formData, cursor: results.nextCursor },
+                      results.records
+                    )
+                  }
+                />
+              )
+            )}
+          </div>
+          {error && <ErrorMessage label={error} />}
+        </div>
       </div>
-      {error && <ErrorMessage label={error} />}
     </>
   );
 };
