@@ -20,6 +20,20 @@ export const getData = (formPath) => {
   }
 };
 
+export const getDataIncludes = (includes) => {
+  try {
+    const data = Object.fromEntries(
+      Object.entries(windowGlobal.localStorage)
+        .filter(([key]) => key.includes(includes))
+        .map(([key, value]) => [key, JSON.parse(value)])
+    );
+    return Object.keys(data).length > 0 ? data : null;
+  } catch {
+    windowGlobal.localStorage.clear();
+    return null;
+  }
+};
+
 export const deleteData = (formPath) => {
   windowGlobal.localStorage.removeItem(formPath);
 };
