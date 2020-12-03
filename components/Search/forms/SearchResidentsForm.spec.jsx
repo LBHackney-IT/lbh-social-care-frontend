@@ -1,7 +1,9 @@
 import { act, fireEvent, render } from '@testing-library/react';
 
 jest.mock('next/router', () => ({
-  replace: jest.fn(),
+  useRouter: () => ({
+    replace: jest.fn(),
+  }),
 }));
 
 import SearchResidentsForm from './SearchResidentsForm';

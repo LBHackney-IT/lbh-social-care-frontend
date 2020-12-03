@@ -1,10 +1,10 @@
 @import 'node_modules/govuk-frontend/govuk/all';
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&amp;display=swap');
 
 $screen-sm-min: 576px;
 
-.govuk-header__container {
-  border-bottom-color: #00513f;
+* {
+  font-family: Open Sans, Arial, sans-serif !important;
 }
 
 .govuk-tag:not([class*='govuk-tag--']) {
@@ -38,10 +38,6 @@ $screen-sm-min: 576px;
 
 .govuk-divider {
   border: solid 2px #01674e;
-}
-.govuk-save-link-list {
-  display: block;
-  text-transform: capitalize;
 }
 
 .govuk-warning {

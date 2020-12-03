@@ -10,6 +10,10 @@ import 'stylesheets/all.scss';
 import 'stylesheets/header.scss';
 
 class MyApp extends App {
+  constructor(props) {
+    super(props);
+    this.state = { user: props.user };
+  }
   componentDidMount = () => {
     window.GOVUKFrontend.initAll();
   };
@@ -20,12 +24,12 @@ class MyApp extends App {
       <>
         <UserContext.Provider
           value={{
-            user: this.props.userDetails,
+            user: this.state.user,
           }}
         >
           <Layout>
             <DefaultSeo {...SEO} />
-            <Component {...pageProps} userDetails={this.props.userDetails} />
+            <Component {...pageProps} />
           </Layout>
         </UserContext.Provider>
         <script src="/js/govuk.js"></script>
@@ -39,8 +43,10 @@ MyApp.getInitialProps = async ({ ctx }) => {
   if (AUTH_WHITELIST.includes(ctx.pathname)) {
     return {};
   }
-  const userDetails = isAuthorised(ctx, WITH_REDIRECT);
-  return { userDetails };
+  const user = isAuthorised(ctx, WITH_REDIRECT);
+  return {
+    user,
+  };
 };
 
 export default MyApp;

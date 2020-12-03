@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import PropTypes from 'prop-types';
-import Router from 'next/router';
+import { useRouter } from 'next/router';
 import { useForm } from 'react-hook-form';
 import isPast from 'date-fns/isPast';
 import isPostcodeValid from 'uk-postcode-validator';
@@ -18,10 +18,11 @@ const SearchResidentsForm = ({ onFormSubmit, query }) => {
   } = useForm({
     defaultValues: query,
   });
+  const { pathname, replace } = useRouter();
   const onSubmit = async (formData) => {
     onFormSubmit(formData);
     const qs = getQueryString(formData);
-    Router.replace(`/people/search?${qs}`, `/people/search?${qs}`, {
+    replace(`${pathname}?${qs}`, `${pathname}?${qs}`, {
       shallow: true,
     });
   };

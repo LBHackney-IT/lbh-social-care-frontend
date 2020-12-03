@@ -1,30 +1,25 @@
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { getData } from 'utils/saveData';
+
+import { getDataIncludes } from 'utils/saveData';
 
 export const SavedForms = () => {
-  const windowGlobal = typeof window !== 'undefined' && window;
-
-  const allSavedData = Object.fromEntries(
-    Object.entries({ ...windowGlobal.localStorage }).filter(([key]) =>
-      key.includes('form')
-    )
-  );
-  const list = (
-    <>
-      <h2 className="govuk-fieldset__legend--m govuk-warning">
-        Incomplete forms
-      </h2>
-      <li className="govuk-save-link-list">
-        {Object.entries(allSavedData).map(([key]) => (
-          <Link key={key} href={`${key}${getData(key).step}?continueForm=true`}>
-            <a className="govuk-breadcrumbs__link current">
-              {key.replace(/(form)|(\/)/g, '')}
-            </a>
+  const [savedForms, setSavedForms] = useState();
+  useEffect(() => {
+    setSavedForms(getDataIncludes('/form'));
+  }, []);
+  if (!savedForms) {
+    return <div>You don't have any incomplete form, well done!</div>;
+  }
+  return (
+    <ul className="govuk-list">
+      {Object.entries(savedForms).map(([key, value]) => (
+        <li>
+          <Link key={key} href={`${key}${value.step}?continueForm=true`}>
+            <a className="govuk-link">{key.replace(/(form)|(\/)/g, '')}</a>
           </Link>
-        ))}
-      </li>
-    </>
+        </li>
+      ))}
+    </ul>
   );
-
-  return <div>{Object.keys(allSavedData).length ? list : null}</div>;
 };

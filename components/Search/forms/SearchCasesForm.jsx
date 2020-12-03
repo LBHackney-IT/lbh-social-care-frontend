@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import PropTypes from 'prop-types';
-import Router from 'next/router';
+import { useRouter } from 'next/router';
 import { useForm } from 'react-hook-form';
 import isPast from 'date-fns/isPast';
 
@@ -24,13 +24,14 @@ const SearchCasesForm = ({ onFormSubmit, query, user }) => {
   } = useForm({
     defaultValues: query,
   });
+  const { pathname, replace } = useRouter();
   const onSubmit = async ({ my_notes_only, ...formData }) => {
     onFormSubmit({
       ...formData,
       worker_email: my_notes_only ? user.email : '',
     });
     const qs = getQueryString({ my_notes_only, ...formData });
-    Router.replace(`/cases/search?${qs}`, `/cases/search?${qs}`, {
+    replace(`${pathname}?${qs}`, `${pathname}?${qs}`, {
       shallow: true,
     });
   };
@@ -46,7 +47,12 @@ const SearchCasesForm = ({ onFormSubmit, query, user }) => {
             labelSize="s"
             name="first_name"
             error={errors.first_name}
-            register={register}
+            register={register({
+              minLength: {
+                value: 2,
+                message: 'Requires at least a minimum of 2 letters.',
+              },
+            })}
           />
         </div>
         <div className="govuk-grid-column-one-half">
@@ -55,7 +61,12 @@ const SearchCasesForm = ({ onFormSubmit, query, user }) => {
             labelSize="s"
             name="last_name"
             error={errors.last_name}
-            register={register}
+            register={register({
+              minLength: {
+                value: 2,
+                message: 'Requires at least a minimum of 2 letters.',
+              },
+            })}
           />
         </div>
       </div>
