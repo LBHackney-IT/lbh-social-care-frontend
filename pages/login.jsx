@@ -31,7 +31,8 @@ AdminLoginPage.propTypes = {
 export const getServerSideProps = async (ctx) => {
   const { GSSO_URL } = process.env;
   const protocol = getProtocol();
-  const host = ctx.req.headers.host;
+  const { REDIRECT_URL } = process.env;
+  const host = REDIRECT_URL;
 
   const user = isAuthorised(ctx);
 
