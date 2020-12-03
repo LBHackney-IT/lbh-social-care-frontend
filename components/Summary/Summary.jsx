@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import Link from 'next/link';
 
 import SummaryList from 'components/Summary/SummaryList';
-import { renderOnCondition } from 'utils/steps';
+import { filterStepsOnCondition, filterDataOnCondition } from 'utils/steps';
 
 const MultiValue = (value) => (
   <div key={value}>
@@ -88,22 +88,18 @@ export const SummarySection = ({
 };
 
 const Summary = ({ formData, formSteps, formPath, canEdit }) =>
-  formSteps.map((section) => {
+  filterStepsOnCondition(formSteps, formData).map((section) => {
     const props = {
       key: section.id,
-      formData: formData,
+      formData: filterDataOnCondition(formSteps, formData),
       formPath: formPath,
       canEdit: canEdit,
       ...section,
     };
-    return renderOnCondition(
-      section,
-      formData,
-      section.isMulti ? (
-        <SummaryMultiSection {...props} />
-      ) : (
-        <SummarySection {...props} />
-      )
+    return section.isMulti ? (
+      <SummaryMultiSection {...props} />
+    ) : (
+      <SummarySection {...props} />
     );
   });
 
