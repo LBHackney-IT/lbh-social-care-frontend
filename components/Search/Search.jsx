@@ -105,6 +105,20 @@ const Search = ({ query, type }) => {
               <h2 className="govuk-fieldset__legend--m govuk-custom-text-color">
                 {type.toUpperCase()} SEARCH RESULT
               </h2>
+
+              <Link href="/form/adult-referral/client-details">
+                <h3 style={{ textAlign: 'right' }}>
+                  Results don't match{' '}
+                  <a
+                    style={{ textDecoration: 'underline' }}
+                    className="govuk-link"
+                  >
+                    {' '}
+                    Add New Person
+                  </a>
+                </h3>
+              </Link>
+
               <hr className="govuk-divider" />
               <SearchResults records={results.records} />
             </>
