@@ -64,6 +64,17 @@ const Search = ({ query, type }) => {
       setError(e.response?.data || 'Oops an error occurred');
     }
   });
+  const addNewPerson = (
+    <>
+      Results don't match{' '}
+      <Link href="/form/adult-referral/client-details">
+        <a style={{ textDecoration: 'underline' }} className="govuk-link">
+          {' '}
+          Add New Person
+        </a>
+      </Link>
+    </>
+  );
   return (
     <>
       <h1 className="govuk-heading-l">Search</h1>
@@ -105,20 +116,7 @@ const Search = ({ query, type }) => {
               <h2 className="govuk-fieldset__legend--m govuk-custom-text-color">
                 {type.toUpperCase()} SEARCH RESULT
               </h2>
-
-              <Link href="/form/adult-referral/client-details">
-                <h3 style={{ textAlign: 'right' }}>
-                  Results don't match{' '}
-                  <a
-                    style={{ textDecoration: 'underline' }}
-                    className="govuk-link"
-                  >
-                    {' '}
-                    Add New Person
-                  </a>
-                </h3>
-              </Link>
-
+              <div style={{ textAlign: 'right' }}>{addNewPerson}</div>
               <hr className="govuk-divider" />
               <SearchResults records={results.records} />
             </>
@@ -140,7 +138,14 @@ const Search = ({ query, type }) => {
               )
             )}
           </div>
-          {error && <ErrorMessage label={error} />}
+
+          {error && (
+            <>
+              {' '}
+              <ErrorMessage label={error} />
+              {addNewPerson}
+            </>
+          )}
         </div>
       </div>
     </>
