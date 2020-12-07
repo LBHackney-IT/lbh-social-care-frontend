@@ -64,7 +64,8 @@ const Search = ({ query, type }) => {
       setError(e.response?.data || 'Oops an error occurred');
     }
   });
-  const addNewPerson = (
+
+  const addNewPerson = type === 'people' && (
     <>
       Results don't match{' '}
       <Link href="/form/adult-referral/client-details">

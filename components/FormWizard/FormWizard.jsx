@@ -56,19 +56,21 @@ const FormWizard = ({
             <h1 className="govuk-fieldset__heading">{title}</h1>
           </legend>
         )}
-        {step.id !== 'summary' && step.id !== 'confirmation' && (
-          <>
-            <Breadcrumbs
-              data={formData}
-              path={formPath}
-              steps={formSteps}
-              currentStepIndex={currentStepIndex}
-            />
-            <legend className="govuk-fieldset__legend govuk-fieldset__legend--m">
-              <h1 className="govuk-fieldset__heading">{step.title}</h1>
-            </legend>
-          </>
-        )}
+        {steps.length > 3 &&
+          step.id !== 'summary' &&
+          step.id !== 'confirmation' && (
+            <>
+              <Breadcrumbs
+                data={formData}
+                path={formPath}
+                steps={formSteps}
+                currentStepIndex={currentStepIndex}
+              />
+              <legend className="govuk-fieldset__legend govuk-fieldset__legend--m">
+                <h1 className="govuk-fieldset__heading">{step.title}</h1>
+              </legend>
+            </>
+          )}
         <StepComponent
           {...step}
           key={stepId.join('-')}
