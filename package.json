@@ -30,10 +30,10 @@
     "react-beforeunload": "^2.3.0",
     "react-dom": "16.14.0",
     "react-hook-form": "^6.9.5",
-    "uk-postcode-validator": "^1.1.0",
     "restana": "^4.3.4",
     "serve-static": "^1.14.1",
-    "serverless-http": "^2.4.1"
+    "serverless-http": "^2.4.1",
+    "uk-postcode-validator": "^1.1.0"
   },
   "devDependencies": {
     "@storybook/addon-actions": "^6.0.27",
