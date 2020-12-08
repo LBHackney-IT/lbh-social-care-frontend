@@ -4,7 +4,7 @@ import { getResident } from 'utils/api/residents';
 import ErrorMessage from 'components/ErrorMessage/ErrorMessage';
 import PersonDetails from './PersonDetails';
 
-const PersonView = ({ personId }) => {
+const PersonView = ({ personId, expandView, nameSize }) => {
   const [person, setPerson] = useState();
   const [error, setError] = useState();
   const [loading, setLoading] = useState(false);
@@ -32,7 +32,13 @@ const PersonView = ({ personId }) => {
       ) : (
         <>
           {error && <ErrorMessage label={error} />}
-          {person && <PersonDetails {...person} />}
+          {person && (
+            <PersonDetails
+              {...person}
+              expandView={expandView}
+              nameSize={nameSize}
+            />
+          )}
         </>
       )}
     </>
@@ -40,6 +46,8 @@ const PersonView = ({ personId }) => {
 };
 
 PersonView.propTypes = {
+  expandView: PropTypes.bool,
+  nameSize: PropTypes.string,
   personId: PropTypes.string.isRequired,
 };
 
