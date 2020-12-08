@@ -1,6 +1,5 @@
 import { useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { useRouter } from 'next/router';
 import { useForm } from 'react-hook-form';
 import isPast from 'date-fns/isPast';
 
@@ -11,10 +10,9 @@ import {
   DateInput,
   Select,
 } from 'components/Form';
-import { getQueryString } from 'utils/urls';
 import CASE_NOTE_TYPES from 'data/caseNoteTypes';
 
-const SearchCasesForm = ({ onFormSubmit, query, user }) => {
+const SearchCasesForm = ({ onFormSubmit, query }) => {
   const {
     register,
     errors,
@@ -24,22 +22,11 @@ const SearchCasesForm = ({ onFormSubmit, query, user }) => {
   } = useForm({
     defaultValues: query,
   });
-  const { pathname, replace } = useRouter();
-  const onSubmit = async ({ my_notes_only, ...formData }) => {
-    onFormSubmit({
-      ...formData,
-      worker_email: my_notes_only ? user.email : '',
-    });
-    const qs = getQueryString({ my_notes_only, ...formData });
-    replace(`${pathname}?${qs}`, `${pathname}?${qs}`, {
-      shallow: true,
-    });
-  };
   useEffect(() => {
-    Object.keys(query).length && onSubmit(query);
+    Object.keys(query).length && onFormSubmit(query);
   }, []);
   return (
-    <form role="form" onSubmit={handleSubmit(onSubmit)}>
+    <form role="form" onSubmit={handleSubmit(onFormSubmit)}>
       <div className="govuk-grid-row">
         <div className="govuk-grid-column-one-half">
           <TextInput

@@ -1,7 +1,8 @@
-import { useState, useContext, useMemo, useCallback } from 'react';
+import { useState, useEffect, useContext, useMemo, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import cx from 'classnames';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 
 import SearchResidentsForm from './forms/SearchResidentsForm';
 import SearchCasesForm from './forms/SearchCasesForm';
@@ -16,6 +17,7 @@ import UserContext from 'components/UserContext/UserContext';
 import { getResidents } from 'utils/api/residents';
 import { getCases } from 'utils/api/cases';
 import { getPermissionFilter } from 'utils/user';
+import { getQueryString } from 'utils/urls';
 
 const getRecords = (data) => [
   ...(data.residents || []),
@@ -28,12 +30,17 @@ const Search = ({ query, type }) => {
   const [results, setResults] = useState();
   const [formData, setFormData] = useState();
   const { user } = useContext(UserContext);
+  const { pathname, replace } = useRouter();
   const permission = useMemo(() => getPermissionFilter(user), []);
   const { SearchForm, SearchResults, searchFunction } = useMemo(
     () =>
       type === 'cases'
         ? {
-            SearchForm: SearchCasesForm,
+            SearchForm: ({ my_notes_only, ...formData }) =>
+              SearchCasesForm({
+                ...formData,
+                worker_email: my_notes_only ? user.email : '',
+              }),
             SearchResults: CasesTable,
             searchFunction: getCases,
           }
@@ -58,6 +65,10 @@ const Search = ({ query, type }) => {
       setResults({
         ...data,
         records: [...records, ...getRecords(data)],
+      });
+      const qs = getQueryString(formData);
+      replace(`${pathname}?${qs}`, `${pathname}?${qs}`, {
+        shallow: true,
       });
     } catch (e) {
       setLoading(false);
