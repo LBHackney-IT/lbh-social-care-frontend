@@ -24,11 +24,20 @@ const getRecords = (data) => [
   ...(data?.cases || []),
 ];
 
+const initialiseSort = ({ sort }) =>
+  sort
+    ? {
+        sense: sort[0] === '-' ? '-' : '+',
+        name: sort.substring(1),
+      }
+    : {};
+
 const Search = ({ query, type }) => {
   const [error, setError] = useState();
   const [loading, setLoading] = useState(false);
   const [results, setResults] = useState();
   const [formData, setFormData] = useState();
+  const [sort, setSort] = useState(initialiseSort(query));
   const { user } = useContext(UserContext);
   const { pathname, replace } = useRouter();
   const permission = useMemo(() => getPermissionFilter(user), []);
@@ -75,6 +84,21 @@ const Search = ({ query, type }) => {
       setError(e.response?.data || 'Oops an error occurred');
     }
   });
+  const onSort = useCallback((value) => {
+    const { sense, name } = sort || {};
+    setSort(
+      name === value
+        ? sense === '+'
+          ? { sense: '-', name }
+          : {}
+        : { sense: '+', name: value }
+    );
+  });
+  useEffect(() => {
+    results &&
+      sort.name &&
+      onFormSubmit({ ...formData, sort: `${sort.sense}${sort.name}` });
+  }, [sort]);
   return (
     <>
       <h1 className="govuk-heading-l">Search</h1>
@@ -117,7 +141,11 @@ const Search = ({ query, type }) => {
                 {type.toUpperCase()} SEARCH RESULT
               </h2>
               <hr className="govuk-divider" />
-              <SearchResults records={results.records} />
+              <SearchResults
+                records={results.records}
+                sort={sort}
+                onSort={onSort}
+              />
             </>
           )}
           <div style={{ height: '50px', textAlign: 'center' }}>

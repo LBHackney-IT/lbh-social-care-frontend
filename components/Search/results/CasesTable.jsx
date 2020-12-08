@@ -29,34 +29,48 @@ const CasesEntry = ({
   </tr>
 );
 
-const CasesTable = ({ records }) => (
-  <table className="govuk-table">
-    <thead className="govuk-table__head">
-      <tr className="govuk-table__row">
-        <th scope="col" className="govuk-table__header">
-          Client Name
-        </th>
-        <th scope="col" className="govuk-table__header">
-          Date of birth
-        </th>
-        <th scope="col" className="govuk-table__header">
-          Uploaded by
-        </th>
-        <th scope="col" className="govuk-table__header">
-          Last upload
-        </th>
-        <th scope="col" className="govuk-table__header"></th>
-      </tr>
-    </thead>
-    <tbody className="govuk-table__body">
-      {records.map((result) => (
-        <CasesEntry key={result.personId} {...result} />
-      ))}
-    </tbody>
-  </table>
-);
+const tableHeader = [
+  { id: 'client_name', text: 'Client Name' },
+  { id: 'date_of_birth', text: 'Date of birth' },
+  { id: 'uploaded_by', text: 'Uploaded by' },
+  { id: 'last_upload', text: 'Last upload' },
+];
+
+const CasesTable = ({ records, sort = {}, onSort }) => {
+  return (
+    <table className="govuk-table">
+      <thead className="govuk-table__head">
+        <tr className="govuk-table__row">
+          {tableHeader.map(({ id, text }) => (
+            <th
+              key={id}
+              scope="col"
+              className="govuk-table__header"
+              role="button"
+              onClick={() => onSort(id)}
+            >
+              {text}{' '}
+              {id === sort.name && <>{sort.sense === '+' ? '🔽' : '🔼'}</>}
+            </th>
+          ))}
+          <th scope="col" className="govuk-table__header"></th>
+        </tr>
+      </thead>
+      <tbody className="govuk-table__body">
+        {records.map((result) => (
+          <CasesEntry key={result.personId} {...result} />
+        ))}
+      </tbody>
+    </table>
+  );
+};
 
 CasesTable.propTypes = {
+  sort: PropTypes.shape({
+    sense: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
+  }),
+  onSort: PropTypes.func.isRequired,
   records: PropTypes.arrayOf(
     PropTypes.shape({
       personId: PropTypes.number.isRequired,
