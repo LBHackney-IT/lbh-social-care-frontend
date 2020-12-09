@@ -43,3 +43,18 @@ $screen-sm-min: 576px;
 .govuk-warning {
   color: #da3711;
 }
+
+.govuk-link-button {
+  min-width: 210px;
+  padding: 10px 0;
+}
+
+.govuk-button {
+  border-radius: 4px;
+}
+
+.lbh-table-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+}

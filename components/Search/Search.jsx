@@ -68,7 +68,7 @@ const Search = ({ query, type }) => {
   const addNewPerson = type === 'people' && (
     <>
       Results don't match{' '}
-      <Link href="/form/adult-referral/client-details">
+      <Link href="/form/create-new-person/client-details">
         <a style={{ textDecoration: 'underline' }} className="govuk-link">
           {' '}
           Add New Person
