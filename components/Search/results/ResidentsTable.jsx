@@ -55,7 +55,6 @@ ResultTable.propTypes = {
       mosaicId: PropTypes.string,
       firstName: PropTypes.string.isRequired,
       lastName: PropTypes.string.isRequired,
-      addressList: PropTypes.array.isRequired,
       dateOfBirth: PropTypes.string.isRequired,
     })
   ).isRequired,
