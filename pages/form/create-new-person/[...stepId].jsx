@@ -1,8 +1,8 @@
 import FormWizard from 'components/FormWizard/FormWizard';
 import { postResidentCase } from 'utils/api/residents';
-import form from 'data/forms/adult-referral';
+import form from 'data/forms/create-new-person';
 
-const AdultReferral = () => {
+const CreateNewPerson = () => {
   const onFormSubmit = async (formData) => {
     const ref = await postResidentCase(formData.mosaic_id, {
       caseFormData: JSON.stringify(formData),
@@ -20,4 +20,4 @@ const AdultReferral = () => {
   );
 };
 
-export default AdultReferral;
+export default CreateNewPerson;
