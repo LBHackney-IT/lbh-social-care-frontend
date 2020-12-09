@@ -1,5 +1,5 @@
 export default [
-  { text: 'Adult Referral', value: '/form/adult-referral/client-details' },
+  { text: 'Create New Person', value: '/form/adult-referral/client-details' },
   { text: 'Case Note Recording', value: '/form/case-notes-recording' },
   {
     text: 'Rapid Support Referral Form',

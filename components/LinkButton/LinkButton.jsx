@@ -3,7 +3,7 @@ import Router from 'next/router';
 
 const LinkButton = ({ label, route }) => {
   const handleLink = (url) => window.open(url, '_blank');
-  const isExternal = route && route.includes('google');
+  const isExternal = route && route.includes('https://');
   return (
     <button
       href="#"
