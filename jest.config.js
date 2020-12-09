@@ -4,6 +4,7 @@ module.exports = {
     'utils/**/*.{js,jsx,ts,tsx}',
     '!**/*.d.ts',
     '!**/node_modules/**',
+    '!components/**/*.stories.{js,jsx,ts,tsx}',
   ],
   clearMocks: true,
   setupFiles: ['dotenv/config'],
