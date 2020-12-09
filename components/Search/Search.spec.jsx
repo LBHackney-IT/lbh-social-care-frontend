@@ -34,7 +34,7 @@ describe(`Search`, () => {
         ],
       })
     );
-    const { getByRole, getByLabelText, queryByText, asFragment } = render(
+    const { getByRole, getByLabelText, queryByText } = render(
       <UserContext.Provider
         value={{
           user: { name: 'foo' },
@@ -52,7 +52,6 @@ describe(`Search`, () => {
     expect(queryByText('Add New Person')).toBeInTheDocument();
     expect(queryByText('PEOPLE SEARCH RESULT')).toBeInTheDocument();
     expect(queryByText('load more')).not.toBeInTheDocument();
-    expect(asFragment()).toMatchSnapshot();
     getResidents.mockImplementation(() =>
       Promise.resolve({
         residents: [
