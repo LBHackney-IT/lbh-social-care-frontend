@@ -3,7 +3,7 @@ import Router from 'next/router';
 
 const LinkButton = ({ label, route }) => {
   const handleLink = (url) => window.open(url, '_blank');
-  const isGoogleForm = route && route.includes('google');
+  const isExternal = route && route.includes('google');
   return (
     <button
       href="#"
@@ -11,9 +11,7 @@ const LinkButton = ({ label, route }) => {
       draggable="false"
       className={`govuk-button govuk-link-button govuk-!-margin-bottom-3`}
       data-module="govuk-button"
-      onClick={() =>
-        isGoogleForm ? handleLink(route) : Router.push(`${route}`)
-      }
+      onClick={() => (isExternal ? handleLink(route) : Router.push(`${route}`))}
     >
       {label}
     </button>

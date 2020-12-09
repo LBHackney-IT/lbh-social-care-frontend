@@ -49,28 +49,12 @@ $screen-sm-min: 576px;
   padding: 10px 0;
 }
 
-.govuk-record-header {
-  display: flex;
-  justify-content: space-between;
-}
-
-.govuk-expand-details {
-  display: flex;
-  justify-content: space-between;
-  border-bottom: 1px solid #b1b4b6;
-}
-
-.govuk-expand-toggle {
-  top: 38px;
-  color: #0864ab;
-  text-decoration: underline;
-  position: relative;
-}
-
-.govuk-record-title {
-  margin: 0;
-}
-
 .govuk-button {
   border-radius: 4px;
+}
+
+.lbh-table-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
 }
