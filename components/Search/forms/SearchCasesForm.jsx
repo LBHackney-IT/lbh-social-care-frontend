@@ -26,7 +26,7 @@ const SearchCasesForm = ({ onFormSubmit, query }) => {
     Object.keys(query).length && onFormSubmit(query);
   }, []);
   return (
-    <form role="form" onSubmit={handleSubmit(onFormSubmit)}>
+    <form role="form" onSubmit={handleSubmit((data) => onFormSubmit(data))}>
       <div className="govuk-grid-row">
         <div className="govuk-grid-column-one-half">
           <TextInput

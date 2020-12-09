@@ -45,13 +45,14 @@ const Search = ({ query, type }) => {
     () =>
       type === 'cases'
         ? {
-            SearchForm: ({ my_notes_only, ...formData }) =>
-              SearchCasesForm({
+            SearchForm: SearchCasesForm,
+            SearchResults: CasesTable,
+            searchFunction: ({ my_notes_only, ...formData }) =>
+              console.table({ my_notes_only, ...formData }) ||
+              getCases({
                 ...formData,
                 worker_email: my_notes_only ? user.email : '',
               }),
-            SearchResults: CasesTable,
-            searchFunction: getCases,
           }
         : {
             SearchForm: SearchResidentsForm,

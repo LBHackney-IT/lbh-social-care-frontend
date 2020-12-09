@@ -25,15 +25,12 @@ describe(`SearchResidentsForm`, () => {
     await act(async () => {
       fireEvent.submit(getByRole('form'));
     });
-    expect(props.onFormSubmit).toHaveBeenCalledWith(
-      {
-        first_name: 'foo',
-        last_name: '',
-        mosaic_id: '',
-        postcode: '',
-      },
-      expect.anything()
-    );
+    expect(props.onFormSubmit).toHaveBeenCalledWith({
+      first_name: 'foo',
+      last_name: '',
+      mosaic_id: '',
+      postcode: '',
+    });
   });
 
   it('should initialise the form with the passed query', async () => {
@@ -43,14 +40,11 @@ describe(`SearchResidentsForm`, () => {
     await act(async () => {
       fireEvent.submit(getByRole('form'));
     });
-    expect(props.onFormSubmit).toHaveBeenCalledWith(
-      {
-        first_name: 'bar',
-        last_name: '',
-        mosaic_id: '',
-        postcode: '',
-      },
-      expect.anything()
-    );
+    expect(props.onFormSubmit).toHaveBeenCalledWith({
+      first_name: 'bar',
+      last_name: '',
+      mosaic_id: '',
+      postcode: '',
+    });
   });
 });

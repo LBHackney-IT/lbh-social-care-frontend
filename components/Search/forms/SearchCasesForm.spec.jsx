@@ -30,16 +30,13 @@ describe(`SearchCasesForm`, () => {
     await act(async () => {
       fireEvent.submit(getByRole('form'));
     });
-    expect(props.onFormSubmit).toHaveBeenCalledWith(
-      {
-        first_name: 'foo',
-        last_name: '',
-        case_note_type: '',
-        exact_name_match: false,
-        my_notes_only: false,
-      },
-      expect.anything()
-    );
+    expect(props.onFormSubmit).toHaveBeenCalledWith({
+      first_name: 'foo',
+      last_name: '',
+      case_note_type: '',
+      exact_name_match: false,
+      my_notes_only: false,
+    });
   });
 
   it('should initialise the form with the passed query', async () => {
@@ -49,15 +46,12 @@ describe(`SearchCasesForm`, () => {
     await act(async () => {
       fireEvent.submit(getByRole('form'));
     });
-    expect(props.onFormSubmit).toHaveBeenCalledWith(
-      {
-        first_name: 'bar',
-        last_name: '',
-        case_note_type: '',
-        exact_name_match: false,
-        my_notes_only: false,
-      },
-      expect.anything()
-    );
+    expect(props.onFormSubmit).toHaveBeenCalledWith({
+      first_name: 'bar',
+      last_name: '',
+      case_note_type: '',
+      exact_name_match: false,
+      my_notes_only: false,
+    });
   });
 });
