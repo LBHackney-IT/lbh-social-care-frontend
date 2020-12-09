@@ -1,3 +1,6 @@
+import { useContext } from 'react';
+
+import UserContext from 'components/UserContext/UserContext';
 import FormWizard from 'components/FormWizard/FormWizard';
 // import { postResidentCase } from 'utils/api/residents';
 import form from 'data/forms/adult-referral';
@@ -9,8 +12,9 @@ const AdultReferral = () => {
   //   });
   //   return ref;
   // };
+  const { user } = useContext(UserContext);
   const onFormSubmit = (formData) => {
-    console.log(formData);
+    console.log({ ...formData, worker_email: user.email });
   };
   return (
     <FormWizard
