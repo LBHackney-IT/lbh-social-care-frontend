@@ -1,7 +1,7 @@
-import axios from 'axios';
 import * as HttpStatus from 'http-status-codes';
 
 import { isAuthorised } from 'utils/auth';
+import { getAddresses } from 'utils/server/postcode';
 
 export default async (req, res) => {
   if (!isAuthorised({ req })) {
@@ -10,15 +10,8 @@ export default async (req, res) => {
   switch (req.method) {
     case 'GET':
       try {
-        const { data } = await axios.get(
-          `${process.env.POSTCODE_LOOKUP_URL}${req.query.postcode}`,
-          {
-            headers: {
-              'x-api-key': process.env.POSTCODE_LOOKUP_APIKEY,
-            },
-          }
-        );
-        res.status(data.statusCode).json(data.data);
+        const data = await getAddresses(req.query.postcode);
+        res.status(HttpStatus.OK).json(data);
       } catch (e) {
         res.status(HttpStatus.INTERNAL_SERVER_ERROR).end(e.message);
       }
