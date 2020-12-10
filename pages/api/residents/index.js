@@ -1,6 +1,6 @@
 import * as HttpStatus from 'http-status-codes';
 
-import { getResidents } from 'utils/server/residents';
+import { getResidents, addResident } from 'utils/server/residents';
 import { isAuthorised } from 'utils/auth';
 
 export default async (req, res) => {
@@ -23,6 +23,19 @@ export default async (req, res) => {
           : res
               .status(HttpStatus.INTERNAL_SERVER_ERROR)
               .json('Unable to get the Residents');
+      }
+      break;
+
+    case 'POST':
+      try {
+        const data = await addResident(req.query.id, req.body);
+        res.status(HttpStatus.OK).json(data);
+      } catch (error) {
+        console.log(error.status);
+        console.log('Resident post error:', error);
+        res
+          .status(HttpStatus.INTERNAL_SERVER_ERROR)
+          .json('Unable to add resident');
       }
       break;
 

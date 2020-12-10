@@ -4,7 +4,12 @@ import * as residentsAPI from './residents';
 
 jest.mock('axios');
 
-const { ENDPOINT_MOSAIC, AWS_AUTHORIZATION } = process.env;
+const {
+  ENDPOINT_MOSAIC,
+  ENDPOINT_API,
+  AWS_AUTHORIZATION,
+  AWS_KEY,
+} = process.env;
 
 describe('residents APIs', () => {
   describe('getResidents', () => {
@@ -37,6 +42,21 @@ describe('residents APIs', () => {
       });
       expect(axios.get.mock.calls[0][1].params).toEqual({ bar: 'foobar' });
       expect(data).toEqual('foobar');
+    });
+  });
+
+  describe('addResident', () => {
+    it('should work properly', async () => {
+      axios.post.mockResolvedValue({ data: { _id: 'foobar' } });
+      const data = await residentsAPI.addResident({ foo: 'bar' });
+      expect(axios.post).toHaveBeenCalled();
+      expect(axios.post.mock.calls[0][0]).toEqual(`${ENDPOINT_API}/residents`);
+      expect(axios.post.mock.calls[0][1]).toEqual({ foo: 'bar' });
+      expect(axios.post.mock.calls[0][2].headers).toEqual({
+        'Content-Type': 'application/json',
+        'x-api-key': AWS_KEY,
+      });
+      expect(data).toEqual({ ref: 'foobar' });
     });
   });
 });
