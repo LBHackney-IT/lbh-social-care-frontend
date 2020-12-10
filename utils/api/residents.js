@@ -18,8 +18,3 @@ export const getResidentCases = async (id) => {
   const { data } = await axios.get(`/api/residents/${id}/cases`);
   return data;
 };
-
-export const postResidentCase = async (id, formData) => {
-  const { data } = await axios.post(`/api/residents/${id}/cases`, formData);
-  return data;
-};

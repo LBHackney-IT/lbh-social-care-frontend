@@ -1,6 +1,6 @@
 import * as HttpStatus from 'http-status-codes';
 
-import { getResidentCases, postResidentCase } from 'utils/server/residents';
+import { getResidentCases } from 'utils/server/cases';
 import { isAuthorised } from 'utils/auth';
 
 export default async (req, res) => {
@@ -22,19 +22,6 @@ export default async (req, res) => {
         res
           .status(HttpStatus.INTERNAL_SERVER_ERROR)
           .json('Unable to get the Cases');
-      }
-      break;
-
-    case 'POST':
-      try {
-        const data = await postResidentCase(req.query.id, req.body);
-        res.json(data);
-      } catch (error) {
-        console.log(error.status);
-        console.log('Cast post error:', error);
-        res
-          .status(HttpStatus.INTERNAL_SERVER_ERROR)
-          .json('Unable to post cast');
       }
       break;
 
