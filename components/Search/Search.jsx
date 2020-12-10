@@ -114,10 +114,12 @@ const Search = ({ query, type }) => {
           <SearchForm onFormSubmit={onFormSubmit} query={query} user={user} />
           {results && (
             <>
-              <h2 className="govuk-fieldset__legend--m govuk-custom-text-color">
-                {type.toUpperCase()} SEARCH RESULT
-              </h2>
-              <div style={{ textAlign: 'right' }}>{addNewPerson}</div>
+              <div className="lbh-table-header">
+                <h2 className="govuk-fieldset__legend--m govuk-custom-text-color">
+                  {type.toUpperCase()} SEARCH RESULT
+                </h2>
+                <div style={{ textAlign: 'right' }}>{addNewPerson}</div>
+              </div>
               <hr className="govuk-divider" />
               <SearchResults records={results.records} />
             </>
