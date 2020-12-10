@@ -54,7 +54,9 @@ exports[`CasesTable component should render properly 1`] = `
         </td>
         <td
           class="govuk-table__cell"
-        />
+        >
+          25/10/2000
+        </td>
         <td
           class="govuk-table__cell"
         >
