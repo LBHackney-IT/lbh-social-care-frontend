@@ -28,7 +28,7 @@ export default async (req, res) => {
 
     case 'POST':
       try {
-        const data = await addResident(req.query.id, req.body);
+        const data = await addResident(req.body);
         res.status(HttpStatus.OK).json(data);
       } catch (error) {
         console.log('Resident post error:', error.response.data);

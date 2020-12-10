@@ -31,5 +31,5 @@ export const addResident = async (formData) => {
   const { data } = await axios.post(`${ENDPOINT_API}/residents`, formData, {
     headers: { 'Content-Type': 'application/json', 'x-api-key': AWS_KEY },
   });
-  return { ref: data?.['_id'] };
+  return data;
 };
