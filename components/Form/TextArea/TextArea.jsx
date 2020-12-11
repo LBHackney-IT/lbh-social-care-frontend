@@ -16,7 +16,7 @@ const TextArea = ({
     })}
   >
     {label && (
-      <label className={`govuk-label govuk-label--${labelSize}`} for={name}>
+      <label className={`govuk-label govuk-label--${labelSize}`} htmlFor={name}>
         {label}
       </label>
     )}
@@ -37,6 +37,7 @@ const TextArea = ({
       id={name}
       name={name}
       rows="5"
+      width="30"
       aria-describedby={`${name}-hint ${name}-error`}
       ref={register}
       {...otherProps}
@@ -49,6 +50,7 @@ TextArea.propTypes = {
   labelSize: PropTypes.oneOf(['s', 'm', 'l', 'xl']),
   hint: PropTypes.string,
   name: PropTypes.string.isRequired,
+  width: PropTypes.string,
   error: PropTypes.shape({
     message: PropTypes.string.isRequired,
   }),
