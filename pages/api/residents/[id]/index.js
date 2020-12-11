@@ -13,7 +13,7 @@ export default async (req, res) => {
         const data = await getResident(req.query.id);
         res.status(HttpStatus.OK).json(data);
       } catch (error) {
-        console.log('Resident get error:', error);
+        console.log('Resident get error:', error.response.data);
         error?.response?.status === HttpStatus.NOT_FOUND
           ? res.status(HttpStatus.NOT_FOUND).json('Resident Not Found')
           : res

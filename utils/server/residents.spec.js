@@ -5,10 +5,10 @@ import * as residentsAPI from './residents';
 jest.mock('axios');
 
 const {
-  ENDPOINT_API,
   ENDPOINT_MOSAIC,
-  AWS_KEY,
+  ENDPOINT_API,
   AWS_AUTHORIZATION,
+  AWS_KEY,
 } = process.env;
 
 describe('residents APIs', () => {
@@ -45,19 +45,18 @@ describe('residents APIs', () => {
     });
   });
 
-  describe('getResidentCases', () => {
+  describe('addResident', () => {
     it('should work properly', async () => {
-      axios.get.mockResolvedValue({ data: { foo: 123, cases: 'bar' } });
-      const data = await residentsAPI.getResidentCases(123);
-      expect(axios.get).toHaveBeenCalled();
-      expect(axios.get.mock.calls[0][0]).toEqual(`${ENDPOINT_API}/cases`);
-      expect(axios.get.mock.calls[0][1].headers).toEqual({
+      axios.post.mockResolvedValue({ data: { _id: 'foobar' } });
+      const data = await residentsAPI.addResident({ foo: 'bar' });
+      expect(axios.post).toHaveBeenCalled();
+      expect(axios.post.mock.calls[0][0]).toEqual(`${ENDPOINT_API}/residents`);
+      expect(axios.post.mock.calls[0][1]).toEqual({ foo: 'bar' });
+      expect(axios.post.mock.calls[0][2].headers).toEqual({
+        'Content-Type': 'application/json',
         'x-api-key': AWS_KEY,
       });
-      expect(axios.get.mock.calls[0][1].params).toEqual({
-        mosaic_id: 123,
-      });
-      expect(data).toEqual('bar');
+      expect(data).toEqual({ _id: 'foobar' });
     });
   });
 });
