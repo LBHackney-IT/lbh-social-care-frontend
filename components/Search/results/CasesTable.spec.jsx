@@ -25,11 +25,17 @@ describe('CasesTable component', () => {
 
   it('should render the sort', () => {
     const { asFragment, rerender } = render(
-      <CasesTable {...props} sort={{ sense: '+', name: 'client_name' }} />
+      <CasesTable
+        {...props}
+        sort={{ order_by: 'desc', sort_by: 'client_name' }}
+      />
     );
     expect(asFragment()).toMatchSnapshot();
     rerender(
-      <CasesTable {...props} sort={{ sense: '-', name: 'client_name' }} />
+      <CasesTable
+        {...props}
+        sort={{ order_by: 'asc', sort_by: 'client_name' }}
+      />
     );
     expect(asFragment()).toMatchSnapshot();
   });

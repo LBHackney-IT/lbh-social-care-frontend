@@ -24,20 +24,15 @@ const getRecords = (data) => [
   ...(data?.cases || []),
 ];
 
-const initialiseSort = ({ sort }) =>
-  sort
-    ? {
-        sense: sort[0] === '-' ? '-' : '+',
-        name: sort.substring(1),
-      }
-    : {};
-
 const Search = ({ query, type }) => {
   const [error, setError] = useState();
   const [loading, setLoading] = useState(false);
   const [results, setResults] = useState();
   const [formData, setFormData] = useState();
-  const [sort, setSort] = useState(initialiseSort(query));
+  const [sort, setSort] = useState({
+    sort_by: query.sort_by,
+    order_by: query.order_by,
+  });
   const { user } = useContext(UserContext);
   const { pathname, replace } = useRouter();
   const permission = useMemo(() => getPermissionFilter(user), []);
@@ -85,20 +80,18 @@ const Search = ({ query, type }) => {
       setError(e.response?.data || 'Oops an error occurred');
     }
   });
+  // commented out as the feature is not ready in the BE
+  // eslint-disable-next-line no-unused-vars
   const onSort = useCallback((value) => {
-    const { sense, name } = sort || {};
+    const { order_by, sort_by } = sort;
     setSort(
-      name === value
-        ? sense === '+'
-          ? { sense: '-', name }
-          : {}
-        : { sense: '+', name: value }
+      sort_by === value && order_by === 'desc'
+        ? { order_by: 'asc', sort_by }
+        : { order_by: 'desc', sort_by: value }
     );
   });
   useEffect(() => {
-    results &&
-      sort.name &&
-      onFormSubmit({ ...formData, sort: `${sort.sense}${sort.name}` });
+    results && sort.sort_by && onFormSubmit({ ...formData, ...sort });
   }, [sort]);
   return (
     <>
@@ -145,7 +138,7 @@ const Search = ({ query, type }) => {
               <SearchResults
                 records={results.records}
                 sort={sort}
-                onSort={onSort}
+                // onSort={onSort} commented out as the feature is not ready in the BE
               />
             </>
           )}

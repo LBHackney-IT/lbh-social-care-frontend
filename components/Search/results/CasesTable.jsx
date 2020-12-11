@@ -50,7 +50,9 @@ const CasesTable = ({ records, sort = {}, onSort }) => {
               onClick={() => onSort(id)}
             >
               {text}{' '}
-              {id === sort.name && <>{sort.sense === '+' ? '🔽' : '🔼'}</>}
+              {id === sort.sort_by && (
+                <>{sort.order_by === 'desc' ? '🔽' : '🔼'}</>
+              )}
             </th>
           ))}
           <th scope="col" className="govuk-table__header"></th>
@@ -67,8 +69,8 @@ const CasesTable = ({ records, sort = {}, onSort }) => {
 
 CasesTable.propTypes = {
   sort: PropTypes.shape({
-    sense: PropTypes.string.isRequired,
-    name: PropTypes.string.isRequired,
+    sort_by: PropTypes.string.isRequired,
+    order_by: PropTypes.string.isRequired,
   }),
   onSort: PropTypes.func.isRequired,
   records: PropTypes.arrayOf(
