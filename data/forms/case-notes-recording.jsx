@@ -1,4 +1,3 @@
-// import CASE_NOTE_TYPES from 'data/caseNoteTypes';
 export default {
   title: 'Add a new case note for',
   path: '/form/case-notes-recording/',
@@ -7,12 +6,12 @@ export default {
       id: 'case-notes-recording',
       title: 'case-notes-recording',
       components: [
-        {
-          component: 'Select',
-          name: 'caseNoteType',
-          label: 'Case Note Type',
-          // options: { CASE_NOTE_TYPES },
-        },
+        // {
+        //   component: 'Select',
+        //   name: 'caseNoteType',
+        //   label: 'Case Note Type',
+        //   // options: { CASE_NOTE_TYPES },
+        // },
         {
           component: 'TextInput',
           name: 'otherNoteType',
