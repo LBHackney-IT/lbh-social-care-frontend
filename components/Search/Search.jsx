@@ -43,7 +43,6 @@ const Search = ({ query, type }) => {
             SearchForm: SearchCasesForm,
             SearchResults: CasesTable,
             searchFunction: ({ my_notes_only, ...formData }) =>
-              console.table({ my_notes_only, ...formData }) ||
               getCases({
                 ...formData,
                 worker_email: my_notes_only ? user.email : '',
@@ -80,6 +79,7 @@ const Search = ({ query, type }) => {
       setError(e.response?.data || 'Oops an error occurred');
     }
   });
+
   // commented out as the feature is not ready in the BE
   // eslint-disable-next-line no-unused-vars
   const onSort = useCallback((value) => {
@@ -93,6 +93,20 @@ const Search = ({ query, type }) => {
   useEffect(() => {
     results && sort.sort_by && onFormSubmit({ ...formData, ...sort });
   }, [sort]);
+
+  // commented out as the feature is not ready to be in prod
+  // const addNewPerson = type === 'people' && (
+  //   <>
+  //     Results don't match{' '}
+  //     <Link href="/form/create-new-person/client-details">
+  //       <a style={{ textDecoration: 'underline' }} className="govuk-link">
+  //         {' '}
+  //         Add New Person
+  //       </a>
+  //     </Link>
+  //   </>
+  // );
+  const addNewPerson = '';
   return (
     <>
       <h1 className="govuk-heading-l">Search</h1>
@@ -134,6 +148,7 @@ const Search = ({ query, type }) => {
               <h2 className="govuk-fieldset__legend--m govuk-custom-text-color">
                 {type.toUpperCase()} SEARCH RESULT
               </h2>
+              <div style={{ textAlign: 'right' }}>{addNewPerson}</div>
               <hr className="govuk-divider" />
               <SearchResults
                 records={results.records}
@@ -159,7 +174,14 @@ const Search = ({ query, type }) => {
               )
             )}
           </div>
-          {error && <ErrorMessage label={error} />}
+
+          {error && (
+            <>
+              {' '}
+              <ErrorMessage label={error} />
+              {addNewPerson}
+            </>
+          )}
         </div>
       </div>
     </>

@@ -1,5 +1,7 @@
 import PropTypes from 'prop-types';
-import { formatTime } from 'utils/date';
+
+import { formatDate, isDateValid } from 'utils/date';
+
 const onClick = (url) => window.open(url, '_blank');
 
 const CasesEntry = ({
@@ -14,9 +16,11 @@ const CasesEntry = ({
     <td className="govuk-table__cell">
       {firstName} {lastName}
     </td>
-    <td className="govuk-table__cell">{dateOfBirth}</td>
+    <td className="govuk-table__cell">
+      {isDateValid(dateOfBirth) && dateOfBirth}
+    </td>
     <td className="govuk-table__cell">{officerEmail}</td>
-    <td className="govuk-table__cell">{formatTime(caseFormTimestamp)}</td>
+    <td className="govuk-table__cell">{formatDate(caseFormTimestamp)}</td>
     <td className="govuk-table__cell govuk-button--secondary'">
       <a
         href="#"

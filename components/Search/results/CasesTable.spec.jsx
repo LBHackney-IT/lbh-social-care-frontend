@@ -8,7 +8,8 @@ describe('CasesTable component', () => {
     records: [
       {
         personId: 123,
-        caseFormTimestamp: '25 Oct 2020',
+        dateOfBirth: '25/10/2000',
+        caseFormTimestamp: '25/10/2020 13:49:43',
         firstName: 'foo',
         lastName: 'bar',
         formName: 'i am a form',
