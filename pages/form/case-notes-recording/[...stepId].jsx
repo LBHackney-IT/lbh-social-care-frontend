@@ -1,15 +1,18 @@
+import { useContext } from 'react';
 import { NextSeo } from 'next-seo';
 
+import UserContext from 'components/UserContext/UserContext';
 import BackButton from 'components/Layout/BackButton/BackButton';
 import FormWizard from 'components/FormWizard/FormWizard';
+import PersonView from 'components/PersonView/PersonView';
 import { addCase } from 'utils/api/cases';
 import form from 'data/forms/case-notes-recording';
-import PersonView from 'components/PersonView/PersonView';
 
 const CaseNotesRecording = ({ query }) => {
+  const { user } = useContext(UserContext);
   const onFormSubmit = async (formData) => {
-    const ref = await addCase(formData.mosaic_id, {
-      caseFormData: JSON.stringify(formData),
+    const ref = await addCase({
+      caseFormData: JSON.stringify({ ...formData, worker_email: user.email }),
     });
     return ref;
   };
@@ -32,6 +35,7 @@ const CaseNotesRecording = ({ query }) => {
     </>
   );
 };
+
 export const getServerSideProps = async (ctx) => {
   const { query } = ctx;
   return {

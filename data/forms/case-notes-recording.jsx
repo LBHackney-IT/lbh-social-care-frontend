@@ -5,8 +5,7 @@ export default {
   steps: [
     {
       id: 'case-notes-recording',
-      title: 'case-notes-recording',
-
+      title: 'Case notes recording',
       components: [
         {
           component: 'Select',
