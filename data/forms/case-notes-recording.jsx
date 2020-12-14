@@ -6,6 +6,7 @@ export default {
     {
       id: 'case-notes-recording',
       title: 'case-notes-recording',
+
       components: [
         {
           component: 'Select',
@@ -18,6 +19,7 @@ export default {
           name: 'otherNoteType',
           width: '30',
           label: "if 'Other', please provide case note type",
+          conditionalRender: ({ caseNoteType }) => caseNoteType === 'Other',
         },
         {
           component: 'DateInput',
