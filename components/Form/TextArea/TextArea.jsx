@@ -8,6 +8,7 @@ const TextArea = ({
   name,
   error,
   register,
+  width,
   ...otherProps
 }) => (
   <div
@@ -33,11 +34,11 @@ const TextArea = ({
     <textarea
       className={cx('govuk-textarea', {
         'govuk-textarea--error': Boolean(error),
+        [`govuk-input--width-${width}`]: width,
       })}
       id={name}
       name={name}
       rows="5"
-      width="30"
       aria-describedby={`${name}-hint ${name}-error`}
       ref={register}
       {...otherProps}

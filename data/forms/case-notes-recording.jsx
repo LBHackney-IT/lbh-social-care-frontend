@@ -36,8 +36,7 @@ export default {
         {
           component: 'TextArea',
           name: 'caseNoteDescription',
-          width: 80,
-          labelSize: 'm',
+          width: '30',
           label: 'Case Note Description',
         },
       ],
