@@ -21,7 +21,7 @@ const Home = () => {
       />
       <LinkButton
         label="Case Notes Recording"
-        route="/form/case-notes-recording"
+        route="/form/case-notes-recording/case-notes-recording"
       />
     </div>
   );

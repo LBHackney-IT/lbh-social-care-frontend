@@ -3,7 +3,10 @@ export default [
     text: 'Create New Person',
     value: '/form/create-new-person/client-details',
   },
-  { text: 'Case Note Recording', value: '/form/case-notes-recording' },
+  {
+    text: 'Case Note Recording',
+    value: '/form/case-notes-recording/case-notes-recording',
+  },
   {
     text: 'Rapid Support Referral Form',
     value:
