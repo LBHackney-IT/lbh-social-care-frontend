@@ -1,19 +1,16 @@
-// import { useState } from 'react';
 import { NextSeo } from 'next-seo';
 
 import BackButton from 'components/Layout/BackButton/BackButton';
 import FormWizard from 'components/FormWizard/FormWizard';
-import { postResidentCase } from 'utils/api/residents';
+import { addCase } from 'utils/api/cases';
 import form from 'data/forms/case-notes-recording';
 import PersonView from 'components/PersonView/PersonView';
 
 const CaseNotesRecording = ({ query }) => {
-  // const [url, setUrl] = useState();
   const onFormSubmit = async (formData) => {
-    const ref = await postResidentCase(formData.mosaic_id, {
+    const ref = await addCase(formData.mosaic_id, {
       caseFormData: JSON.stringify(formData),
     });
-
     return ref;
   };
 
