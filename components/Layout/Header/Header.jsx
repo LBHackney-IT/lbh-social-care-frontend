@@ -14,7 +14,7 @@ const loggedNavLinks = [
     path: '/',
   },
   {
-    name: 'My cases',
+    name: 'My records',
     path: '/cases?my_notes_only=true',
   },
   {
