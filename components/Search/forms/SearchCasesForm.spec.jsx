@@ -44,7 +44,7 @@ describe(`SearchCasesForm`, () => {
       <SearchCasesForm {...props} user={{ email: 'foo@bar.com' }} />
     );
     const my_notes_onlyCheckbox = getByLabelText(
-      "Only include notes I've created"
+      "Only include records I've created"
     );
     fireEvent.click(my_notes_onlyCheckbox);
     await act(async () => {

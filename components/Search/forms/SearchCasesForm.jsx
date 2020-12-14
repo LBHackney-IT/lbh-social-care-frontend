@@ -126,7 +126,7 @@ const SearchCasesForm = ({ onFormSubmit, query, user }) => {
       <div className="govuk-grid-row">
         <div className="govuk-grid-column-one-half">
           <Checkbox
-            label="Only include notes I've created"
+            label="Only include records I've created"
             name="my_notes_only"
             register={register}
           />
