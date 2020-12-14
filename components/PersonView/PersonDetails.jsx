@@ -65,12 +65,7 @@ const PersonDetails = ({
               <div className="govuk-summary-list__row">
                 <dt className="govuk-summary-list__key">Address</dt>
                 <dd className="govuk-summary-list__value">
-                  {address && (
-                    <>
-                      <p>{address.addressLine1}</p>
-                      <p>{address.postCode}</p>
-                    </>
-                  )}
+                  {address && <p>{address.addressLine1}</p>}
                 </dd>
               </div>
               <div className="govuk-summary-list__row">
