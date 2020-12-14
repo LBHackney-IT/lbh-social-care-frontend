@@ -63,9 +63,9 @@ const PersonDetails = ({
                 <dt className="govuk-summary-list__key">Address</dt>
                 <dd className="govuk-summary-list__value">
                   {addressList &&
-                    Object.values(addressList[0]).map((addressLine) => (
-                      <p>{addressLine}</p>
-                    ))}
+                    Object.values(addressList[0])
+                      .filter((address) => address !== 'N' && address !== 'Y')
+                      .map((addressLine) => <p>{addressLine}</p>)}
                 </dd>
               </div>
               <div className="govuk-summary-list__row">
