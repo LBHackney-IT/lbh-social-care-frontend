@@ -10,6 +10,7 @@ const Select = ({
   name,
   options,
   onChange,
+  placeHolder = '',
   register,
   error,
   children,
@@ -41,7 +42,11 @@ const Select = ({
       onChange={(e) => onChange && onChange(e.target.value)}
       value={ignoreValue ? undefined : value}
     >
-      {isUnselectable && <option key="empty" value=""></option>}
+      {isUnselectable && (
+        <option key="empty" value="">
+          {placeHolder}
+        </option>
+      )}
       {options.map((option) => {
         const { value, text } =
           typeof option === 'string' ? { value: option, text: option } : option;
@@ -68,6 +73,7 @@ Select.propTypes = {
       }),
     ])
   ).isRequired,
+  placeHolder: PropTypes.string,
   selected: PropTypes.string,
   register: PropTypes.func,
   children: PropTypes.node,

@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import { formatTime } from 'utils/date';
+import { formatDate } from 'utils/date';
 const onClick = (url) => window.open(url, '_blank');
 
 const CasesEntry = ({
@@ -10,7 +10,7 @@ const CasesEntry = ({
 }) => (
   <tr className="govuk-table__row">
     <td className="govuk-table__cell govuk--timestamp">
-      {caseFormTimestamp && formatTime(caseFormTimestamp)}{' '}
+      {caseFormTimestamp && formatDate(caseFormTimestamp)}{' '}
     </td>
     <td className="govuk-table__cell">{formName}</td>
     <td className="govuk-table__cell">

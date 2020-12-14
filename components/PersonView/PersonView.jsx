@@ -4,7 +4,7 @@ import { getResident } from 'utils/api/residents';
 import ErrorMessage from 'components/ErrorMessage/ErrorMessage';
 import PersonDetails from './PersonDetails';
 
-const PersonView = ({ personId }) => {
+const PersonView = ({ personId, expandView }) => {
   const [person, setPerson] = useState();
   const [error, setError] = useState();
   const [loading, setLoading] = useState(false);
@@ -32,7 +32,16 @@ const PersonView = ({ personId }) => {
       ) : (
         <>
           {error && <ErrorMessage label={error} />}
-          {person && <PersonDetails {...person} />}
+          {person && (
+            <>
+              {!expandView && (
+                <h1 className="govuk-fieldset__legend--l gov-weight-lighter govuk-expand-title">
+                  {person.firstName} {person.lastName}
+                </h1>
+              )}
+              <PersonDetails {...person} expandView={expandView} />
+            </>
+          )}
         </>
       )}
     </>
@@ -40,6 +49,7 @@ const PersonView = ({ personId }) => {
 };
 
 PersonView.propTypes = {
+  expandView: PropTypes.bool,
   personId: PropTypes.string.isRequired,
 };
 

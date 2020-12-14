@@ -3,8 +3,8 @@ export default {
   path: '/form/child-referral/',
   steps: [
     {
-      id: 'client-details',
-      title: 'Client Details',
+      id: 'email-details',
+      title: 'FAST details',
       components: [
         {
           component: 'EmailInput',
@@ -13,7 +13,7 @@ export default {
           label: 'Email address',
           hint: 'Valid email address',
           rules: { required: true },
-          type: 'tel',
+          type: 'email',
         },
         {
           component: 'Radios',
@@ -81,20 +81,20 @@ export default {
           component: 'TextInput',
           name: 'first_name',
           width: '30',
-          label: "Child's first name ",
+          label: "Child's first name",
           rules: { required: true },
         },
         {
           component: 'TextInput',
           name: 'last_name',
           width: '30',
-          label: "Child's last name ",
+          label: "Child's last name",
           rules: { required: true },
         },
         {
           component: 'DateInput',
           name: 'date_of_birth',
-          label: "Child's date of birth or EDD for unborns ",
+          label: "Child's date of birth or EDD for unborns",
           hint: 'For example, 31 03 1980',
           rules: { required: true },
         },
@@ -110,19 +110,19 @@ export default {
           component: 'TextInput',
           name: 'ethnicity',
           width: '30',
-          label: 'Ethnicity ',
+          label: 'Ethnicity',
         },
         {
           component: 'TextInput',
           name: 'language',
           width: '30',
-          label: 'Language ',
+          label: 'Language',
         },
         {
           component: 'TextInput',
           name: 'school',
           width: '30',
-          label: 'School ',
+          label: 'School',
         },
         {
           component: 'TextInput',
@@ -195,21 +195,21 @@ export default {
         },
         {
           component: 'TextInput',
-          name: 'mother_address_1',
+          name: 'mother_address',
           width: '30',
-          label: "Mother's address line 1",
+          label: "Mother's address line",
         },
         {
           component: 'TextInput',
-          name: 'mother_address_2',
+          name: 'mother_address',
           width: '30',
-          label: "Mother's address line 2",
+          label: "Mother's address line",
         },
         {
           component: 'TextInput',
-          name: 'mother_address_3',
+          name: 'mother_address',
           width: '30',
-          label: "Mother's address line  3",
+          label: "Mother's address line",
         },
         {
           component: 'TextInput',
@@ -241,7 +241,7 @@ export default {
           component: 'TextInput',
           name: 'father_fullname',
           width: '30',
-          label: "Father's full name ",
+          label: "Father's full name",
         },
         {
           component: 'DateInput',
@@ -253,7 +253,7 @@ export default {
           component: 'PhoneInput',
           name: 'father_telephone',
           width: '30',
-          label: "Father's telephone number:",
+          label: "Father's telephone number",
         },
         {
           component: 'EmailInput',
@@ -263,19 +263,19 @@ export default {
         },
         {
           component: 'TextInput',
-          name: 'father_address_1',
+          name: 'father_address',
           width: '30',
           label: "Father's address line",
         },
         {
           component: 'TextInput',
-          name: 'father_address_2',
+          name: 'father_address',
           width: '30',
           label: "Father's address line",
         },
         {
           component: 'TextInput',
-          name: 'father_address_3',
+          name: 'father_address',
           width: '30',
           label: "Father's address line",
         },
@@ -313,7 +313,7 @@ export default {
           component: 'TextInput',
           name: 'wider_family_fullname',
           width: '30',
-          label: 'Name of individual ',
+          label: 'Name of individual',
           rules: { required: true },
         },
         {
@@ -326,8 +326,7 @@ export default {
           component: 'TextInput',
           name: 'wider_family_relationship',
           width: '30',
-          label:
-            'Role/relationship (specify which child or family member) - individual ',
+          label: 'Role/relationship (specify which child or family member)',
         },
         {
           component: 'PhoneInput',
@@ -343,7 +342,7 @@ export default {
         },
         {
           component: 'TextInput',
-          name: 'wider_family_address_1',
+          name: 'wider_family_address',
           width: '30',
           label: 'Address line 1',
         },
@@ -407,15 +406,14 @@ export default {
           component: 'TextInput',
           name: 'professional_relationship',
           width: '30',
-          label:
-            'Relationship of the professional to the child and family - professional',
+          label: 'Relationship of the professional to the child and family',
         },
 
         {
           component: 'PhoneInput',
           name: 'professional_telephone',
           width: '30',
-          label: 'Telephone number ',
+          label: 'Telephone number',
         },
         {
           component: 'EmailInput',
@@ -431,19 +429,19 @@ export default {
         },
         {
           component: 'TextInput',
-          name: 'professional_address_2',
+          name: 'professional_address',
           width: '30',
           label: 'Address line 2',
         },
         {
           component: 'TextInput',
-          name: 'professional_address_3',
+          name: 'professional_address',
           width: '30',
           label: 'Address line 3',
         },
         {
           component: 'TextInput',
-          name: 'professional_postcode_1',
+          name: 'professional_postcode',
           width: '30',
           label: 'Postcode',
         },
@@ -507,7 +505,6 @@ export default {
           Please note, parental consent is always required for families to be
           referred to an early help intervention.{' '}
         </p>,
-
         {
           component: 'Radios',
           name: 'additionalSupport',

@@ -1,10 +1,10 @@
 import FormWizard from 'components/FormWizard/FormWizard';
-import { postResidentCase } from 'utils/api/residents';
+import { addCase } from 'utils/api/cases';
 import form from 'data/forms/child-referral';
 
 const ChildReferral = () => {
   const onFormSubmit = async (formData) => {
-    const ref = await postResidentCase(formData.mosaic_id, {
+    const ref = await addCase(formData.mosaic_id, {
       caseFormData: JSON.stringify(formData),
     });
     return ref;

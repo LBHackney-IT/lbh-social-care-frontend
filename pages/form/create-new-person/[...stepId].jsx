@@ -2,16 +2,10 @@ import { useContext } from 'react';
 
 import UserContext from 'components/UserContext/UserContext';
 import FormWizard from 'components/FormWizard/FormWizard';
-// import { postResidentCase } from 'utils/api/residents';
-import form from 'data/forms/adult-referral';
 
-const AdultReferral = () => {
-  // const onFormSubmit = async (formData) => {
-  //   const ref = await postResidentCase(formData.mosaic_id, {
-  //     caseFormData: JSON.stringify(formData),
-  //   });
-  //   return ref;
-  // };
+import form from 'data/forms/create-new-person';
+
+const CreateNewPerson = () => {
   const { user } = useContext(UserContext);
   const onFormSubmit = (formData) => {
     console.log({ ...formData, worker_email: user.email });
@@ -27,4 +21,4 @@ const AdultReferral = () => {
   );
 };
 
-export default AdultReferral;
+export default CreateNewPerson;

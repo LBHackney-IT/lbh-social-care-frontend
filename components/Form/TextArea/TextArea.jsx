@@ -8,6 +8,7 @@ const TextArea = ({
   name,
   error,
   register,
+  width,
   ...otherProps
 }) => (
   <div
@@ -16,7 +17,7 @@ const TextArea = ({
     })}
   >
     {label && (
-      <label className={`govuk-label govuk-label--${labelSize}`} for={name}>
+      <label className={`govuk-label govuk-label--${labelSize}`} htmlFor={name}>
         {label}
       </label>
     )}
@@ -33,6 +34,7 @@ const TextArea = ({
     <textarea
       className={cx('govuk-textarea', {
         'govuk-textarea--error': Boolean(error),
+        [`govuk-input--width-${width}`]: width,
       })}
       id={name}
       name={name}
@@ -49,6 +51,7 @@ TextArea.propTypes = {
   labelSize: PropTypes.oneOf(['s', 'm', 'l', 'xl']),
   hint: PropTypes.string,
   name: PropTypes.string.isRequired,
+  width: PropTypes.number,
   error: PropTypes.shape({
     message: PropTypes.string.isRequired,
   }),

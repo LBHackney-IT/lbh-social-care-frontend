@@ -12,8 +12,8 @@ const Home = () => {
       <LinkButton label="Search for People" route="/people/search" />
       <LinkButton label="Find unlinked case notes" route="/cases/search" />
       <LinkButton
-        label="Adult Referral From"
-        route="/form/adult-referral/client-details"
+        label="Create New Person From"
+        route="/form/create-new-person/client-details"
       />
       <LinkButton
         label="Child Referral From"
@@ -21,7 +21,7 @@ const Home = () => {
       />
       <LinkButton
         label="Case Notes Recording"
-        route="/form/case-notes-recording"
+        route="/form/case-notes-recording/case-notes-recording"
       />
     </div>
   );

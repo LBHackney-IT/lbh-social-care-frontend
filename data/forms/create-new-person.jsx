@@ -1,6 +1,6 @@
 export default {
-  title: 'Create New Record',
-  path: '/form/adult-referral/',
+  title: 'Create New Person',
+  path: '/form/create-new-person/',
   steps: [
     {
       id: 'client-details',
@@ -23,7 +23,7 @@ export default {
         },
         {
           component: 'NumberInput',
-          name: 'nhsNumber',
+          name: 'nhs_number',
           width: '30',
           label: 'NHS Number',
           hint: 'For example 0123456789',
@@ -31,27 +31,27 @@ export default {
         { component: 'TextInput', name: 'title', width: '30', label: 'Title' },
         {
           component: 'TextInput',
-          name: 'lastName',
+          name: 'last_name',
           width: '30',
           label: 'Surname',
           rules: { required: true },
         },
         {
           component: 'TextInput',
-          name: 'firstName',
+          name: 'first_name',
           width: '30',
           label: 'First Name',
           rules: { required: true },
         },
         {
           component: 'TextInput',
-          name: 'otherNames',
+          name: 'other_names',
           width: '30',
           label: 'Other Names',
         },
         {
           component: 'DateInput',
-          name: 'dateOfBirth',
+          name: 'date_of_birth',
           label: 'Date of Birth',
           hint: 'For example, 31 03 1980',
           rules: { required: true },
@@ -71,21 +71,21 @@ export default {
         },
         {
           component: 'TextInput',
-          name: 'addressLine1',
+          name: 'address',
           width: '30',
           label: 'Primary Address',
           rules: { required: true },
         },
         {
           component: 'TextInput',
-          name: 'postCode',
+          name: 'postcode',
           width: '30',
           label: 'Post Code',
           rules: { required: true },
         },
         {
           component: 'PhoneInput',
-          name: 'phone',
+          name: 'contact_number',
           width: '30',
           label: 'Phone Number',
         },

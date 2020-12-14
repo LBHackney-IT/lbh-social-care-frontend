@@ -1,31 +1,22 @@
 import PropTypes from 'prop-types';
 import Router from 'next/router';
 
-const LinkButton = ({ label, route }) => (
-  <div>
+const LinkButton = ({ label, route }) => {
+  const handleLink = (url) => window.open(url, '_blank');
+  const isExternal = route && route.includes('https://');
+  return (
     <button
       href="#"
       role="button"
       draggable="false"
-      className="govuk-button govuk-button--start govuk-!-margin-top-3"
+      className={`govuk-button govuk-link-button govuk-!-margin-bottom-3`}
       data-module="govuk-button"
-      onClick={() => Router.push(`${route}`)}
+      onClick={() => (isExternal ? handleLink(route) : Router.push(`${route}`))}
     >
       {label}
-      <svg
-        className="govuk-button__start-icon"
-        xmlns="http://www.w3.org/2000/svg"
-        width="17.5"
-        height="19"
-        viewBox="0 0 33 40"
-        aria-hidden="true"
-        focusable="false"
-      >
-        <path fill="currentColor" d="M0 0h13l20 20-20 20H0l20-20z" />
-      </svg>
     </button>
-  </div>
-);
+  );
+};
 
 LinkButton.propTypes = {
   label: PropTypes.string.isRequired,

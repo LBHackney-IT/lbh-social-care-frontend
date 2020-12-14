@@ -65,17 +65,19 @@ const Search = ({ query, type }) => {
     }
   });
 
-  const addNewPerson = type === 'people' && (
-    <>
-      Results don't match{' '}
-      <Link href="/form/adult-referral/client-details">
-        <a style={{ textDecoration: 'underline' }} className="govuk-link">
-          {' '}
-          Add New Person
-        </a>
-      </Link>
-    </>
-  );
+  // commented out as the feature is not ready to be in prod
+  // const addNewPerson = type === 'people' && (
+  //   <>
+  //     Results don't match{' '}
+  //     <Link href="/form/create-new-person/client-details">
+  //       <a style={{ textDecoration: 'underline' }} className="govuk-link">
+  //         {' '}
+  //         Add New Person
+  //       </a>
+  //     </Link>
+  //   </>
+  // );
+  const addNewPerson = '';
   return (
     <>
       <h1 className="govuk-heading-l">Search</h1>
@@ -114,10 +116,12 @@ const Search = ({ query, type }) => {
           <SearchForm onFormSubmit={onFormSubmit} query={query} user={user} />
           {results && (
             <>
-              <h2 className="govuk-fieldset__legend--m govuk-custom-text-color">
-                {type.toUpperCase()} SEARCH RESULT
-              </h2>
-              <div style={{ textAlign: 'right' }}>{addNewPerson}</div>
+              <div className="lbh-table-header">
+                <h2 className="govuk-fieldset__legend--m govuk-custom-text-color">
+                  {type.toUpperCase()} SEARCH RESULT
+                </h2>
+                <div style={{ textAlign: 'right' }}>{addNewPerson}</div>
+              </div>
               <hr className="govuk-divider" />
               <SearchResults records={results.records} />
             </>
