@@ -50,7 +50,7 @@ TextArea.propTypes = {
   labelSize: PropTypes.oneOf(['s', 'm', 'l', 'xl']),
   hint: PropTypes.string,
   name: PropTypes.string.isRequired,
-  width: PropTypes.string,
+  width: PropTypes.number,
   error: PropTypes.shape({
     message: PropTypes.string.isRequired,
   }),
