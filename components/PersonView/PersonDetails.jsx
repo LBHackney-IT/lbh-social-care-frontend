@@ -62,10 +62,12 @@ const PersonDetails = ({
               <div className="govuk-summary-list__row">
                 <dt className="govuk-summary-list__key">Address</dt>
                 <dd className="govuk-summary-list__value">
-                  {addressList &&
-                    Object.values(addressList[0])
-                      .filter((address) => address !== 'N' && address !== 'Y')
-                      .map((addressLine) => <p>{addressLine}</p>)}
+                  <p>
+                    {addressList &&
+                      addressList.filter(
+                        (address) => address.contactAddressFlag === 'Y'
+                      )[0].addressLine1}
+                  </p>
                 </dd>
               </div>
               <div className="govuk-summary-list__row">
