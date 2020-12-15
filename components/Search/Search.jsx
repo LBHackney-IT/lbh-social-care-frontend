@@ -123,7 +123,15 @@ const Search = ({ query, type }) => {
                 <div style={{ textAlign: 'right' }}>{addNewPerson}</div>
               </div>
               <hr className="govuk-divider" />
-              <SearchResults records={results.records} />
+              {results.records?.length > 0 ? (
+                <SearchResults records={results.records} />
+              ) : (
+                <>
+                  <p className="govuk-body govuk-!-margin-top-5">
+                    {type.charAt(0).toUpperCase() + type.slice(1)} not found
+                  </p>
+                </>
+              )}
             </>
           )}
           <div style={{ height: '50px', textAlign: 'center' }}>
@@ -144,13 +152,7 @@ const Search = ({ query, type }) => {
             )}
           </div>
 
-          {error && (
-            <>
-              {' '}
-              <ErrorMessage label={error} />
-              {addNewPerson}
-            </>
-          )}
+          {error && <ErrorMessage label={error} />}
         </div>
       </div>
     </>
