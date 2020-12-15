@@ -174,6 +174,10 @@ const AddressLookup = ({
 AddressLookup.propTypes = {
   name: PropTypes.string.isRequired,
   label: PropTypes.string.isRequired,
+  hint: PropTypes.string,
+  rules: PropTypes.shape({}),
+  control: PropTypes.object.isRequired,
+  supportManualEntry: PropTypes.bool,
 };
 
 export default AddressLookup;
