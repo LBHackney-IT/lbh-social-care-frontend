@@ -5,7 +5,7 @@ export const normalizeAddress = (address) => {
   const { UPRN, postcode, town, ...addressLine } = address;
   return {
     address: Object.values(addressLine)
-      .filter((line) => line !== '')
+      .filter((line) => line !== '' && line !== postcode)
       .join(', '),
     postcode,
     uprn: UPRN,

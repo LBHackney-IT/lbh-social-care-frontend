@@ -59,19 +59,18 @@ export const SummarySection = ({
         .map(({ component, name, label }) => {
           if (component === 'AddressLookup') {
             const { address, postcode } = formData[name];
-            const formattedAddress = address.split(', ').map((value) => (
-              <div key={value}>
-                <span>{value}</span>
-                <br />
-              </div>
-            ));
             return {
               key: name,
               title: label,
               value: (
                 <>
-                  {formattedAddress}
-                  {!address.includes(postcode) && <span>{postcode}</span>}
+                  {address.split(', ').map((value) => (
+                    <div key={value}>
+                      <span>{value}</span>
+                      <br />
+                    </div>
+                  ))}
+                  <div>{postcode}</div>
                 </>
               ),
             };
