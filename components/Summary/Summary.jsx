@@ -4,8 +4,8 @@ import Link from 'next/link';
 import SummaryList from 'components/Summary/SummaryList';
 import { filterStepsOnCondition, filterDataOnCondition } from 'utils/steps';
 
-const MultiValue = (value) => (
-  <div key={value}>
+const MultiValue = ([key, value]) => (
+  <div key={key}>
     <span>{value}</span>
     <br />
   </div>
@@ -56,19 +56,29 @@ export const SummarySection = ({
     <SummaryList
       list={components
         .filter(({ name }) => formData[name])
-        .map(({ name, label }) => ({
-          key: name,
-          title: label,
-          value: Array.isArray(formData[name])
-            ? formData[name]
-                .filter(Boolean)
-                .map((v) => MultiValue(v.split('/').pop()))
-            : typeof formData[name] === 'object'
-            ? Object.values(formData[name]).filter(Boolean).map(MultiValue)
-            : typeof formData[name] === 'boolean'
-            ? JSON.stringify(formData[name])
-            : formData[name],
-        }))}
+        .map(
+          ({ component, name, label }) =>
+            console.log(component) || {
+              key: name,
+              title: label,
+              value: Array.isArray(formData[name])
+                ? formData[name]
+                    .filter(Boolean)
+                    .map((v) => MultiValue(v.split('/').pop()))
+                : typeof formData[name] === 'object'
+                ? Object.entries(formData[name])
+                    // eslint-disable-next-line no-unused-vars
+                    .filter(([key, value]) => Boolean(value))
+                    .filter(
+                      ([key]) =>
+                        !(component === 'AddressLookup' && key === 'uprn')
+                    )
+                    .map(MultiValue)
+                : typeof formData[name] === 'boolean'
+                ? JSON.stringify(formData[name])
+                : formData[name],
+            }
+        )}
     />
   );
   return (
