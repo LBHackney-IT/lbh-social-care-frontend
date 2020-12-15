@@ -8,5 +8,5 @@ export const getAddresses = async (postcode) => {
       Authorization: POSTCODE_LOOKUP_APIKEY,
     },
   });
-  return data;
+  return data.data;
 };

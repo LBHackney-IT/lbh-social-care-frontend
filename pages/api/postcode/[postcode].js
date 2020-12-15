@@ -12,8 +12,11 @@ export default async (req, res) => {
       try {
         const data = await getAddresses(req.query.postcode);
         res.status(HttpStatus.OK).json(data);
-      } catch (e) {
-        res.status(HttpStatus.INTERNAL_SERVER_ERROR).end(e.message);
+      } catch (error) {
+        console.log('Postcode get error', error.response.data);
+        res
+          .status(HttpStatus.INTERNAL_SERVER_ERROR)
+          .end('Unable to get the Addresses');
       }
       break;
 
