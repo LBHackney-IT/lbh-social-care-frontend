@@ -11,11 +11,7 @@ export default async (req, res) => {
     case 'GET':
       try {
         const data = await getResidentCases(req.query.id);
-        if (data?.length > 0) {
-          res.status(HttpStatus.OK).json(data);
-        } else {
-          res.status(HttpStatus.NOT_FOUND).json('Cases Not Found');
-        }
+        res.status(HttpStatus.OK).json(data);
       } catch (error) {
         console.log(error.status);
         console.log('Cases get error:', error.response.data);
