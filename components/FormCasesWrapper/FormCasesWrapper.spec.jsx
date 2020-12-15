@@ -57,11 +57,11 @@ describe(`FormCasesWrapper`, () => {
     await findByText('i am the user');
     mockOnFormSubmit({ foo: 'bar' });
     expect(addCase).toHaveBeenCalledWith({
-      mosaic_id: '123',
-      first_name: 'i am the user',
-      last_name: '',
-      context_flag: 'A',
-      worker_email: 'i am the email',
+      mosaicId: '123',
+      firstName: 'i am the user',
+      lastName: '',
+      ageContext: 'A',
+      workerEmail: 'i am the email',
       caseFormData: '{"foo":"bar"}',
     });
   });

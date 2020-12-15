@@ -9,32 +9,32 @@ export default {
       components: [
         {
           component: 'Select',
-          name: 'caseNoteType',
+          name: 'form_name',
           label: 'Case Note Type',
           options: CASE_NOTE_TYPES,
         },
         {
           component: 'TextInput',
-          name: 'otherNoteType',
+          name: 'other_form_name',
           width: '30',
           label: "if 'Other', please provide case note type",
-          conditionalRender: ({ caseNoteType }) => caseNoteType === 'Other',
+          conditionalRender: ({ form_name }) => form_name === 'Other',
         },
         {
           component: 'DateInput',
-          name: 'dateOfEvent',
+          name: 'date_of_event',
           label: 'Date of Event',
           hint: 'For example, 31 03 1980',
         },
         {
           component: 'TextInput',
-          name: 'caseNoteTitle',
+          name: 'case_note_title',
           width: '30',
           label: 'Case Note Title',
         },
         {
           component: 'TextArea',
-          name: 'caseNoteDescription',
+          name: 'case_note_description',
           width: '30',
           label: 'Case Note Description',
         },

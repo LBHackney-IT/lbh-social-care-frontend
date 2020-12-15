@@ -30,11 +30,11 @@ const FormCasesWrapper = ({ form, title, personId }) => {
   const { user } = useContext(UserContext);
   const onFormSubmit = async (formData) => {
     const ref = await addCase({
-      mosaic_id: person.mosaicId,
-      first_name: person.firstName,
-      last_name: person.lastName,
-      context_flag: person.ageContext,
-      worker_email: user.email,
+      mosaicId: person.mosaicId,
+      firstName: person.firstName,
+      lastName: person.lastName,
+      ageContext: person.ageContext,
+      workerEmail: user.email,
       caseFormData: JSON.stringify(formData),
     });
     return ref;
