@@ -24,14 +24,16 @@ const AddressBox = ({ name, disabled, value, onChange }) => {
         onChange={setNewAddress('address')}
         disabled={disabled}
       />
-      <TextInput
-        label="Postcode"
-        name={`${name}.postcode`}
-        width="10"
-        defaultValue={address.postcode}
-        onChange={setNewAddress('postcode')}
-        disabled={disabled}
-      />
+      {!disabled && (
+        <TextInput
+          label="Postcode"
+          name={`${name}.postcode`}
+          width="10"
+          defaultValue={address.postcode}
+          onChange={setNewAddress('postcode')}
+          disabled={disabled}
+        />
+      )}
     </div>
   );
 };
@@ -109,10 +111,7 @@ const AddressLookup = ({
           {supportManualEntry && (
             <Button
               className="govuk-!-margin-bottom-0"
-              onClick={() => {
-                setIsManually(true);
-                control.setValue(`address`, null);
-              }}
+              onClick={() => setIsManually(true)}
               isSecondary
               type="button"
               label="or enter it manually"

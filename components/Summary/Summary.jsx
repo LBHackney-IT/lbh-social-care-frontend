@@ -56,29 +56,42 @@ export const SummarySection = ({
     <SummaryList
       list={components
         .filter(({ name }) => formData[name])
-        .map(
-          ({ component, name, label }) =>
-            console.log(component) || {
+        .map(({ component, name, label }) => {
+          if (component === 'AddressLookup') {
+            const { address, postcode } = formData[name];
+            const formattedAddress = address.split(', ').map((value) => (
+              <div key={value}>
+                <span>{value}</span>
+                <br />
+              </div>
+            ));
+            return {
               key: name,
               title: label,
-              value: Array.isArray(formData[name])
-                ? formData[name]
-                    .filter(Boolean)
-                    .map((v) => MultiValue(v.split('/').pop()))
-                : typeof formData[name] === 'object'
-                ? Object.entries(formData[name])
-                    // eslint-disable-next-line no-unused-vars
-                    .filter(([key, value]) => Boolean(value))
-                    .filter(
-                      ([key]) =>
-                        !(component === 'AddressLookup' && key === 'uprn')
-                    )
-                    .map(MultiValue)
-                : typeof formData[name] === 'boolean'
-                ? JSON.stringify(formData[name])
-                : formData[name],
-            }
-        )}
+              value: (
+                <>
+                  {formattedAddress}
+                  {!address.includes(postcode) && <span>{postcode}</span>}
+                </>
+              ),
+            };
+          }
+          return {
+            key: name,
+            title: label,
+            value: Array.isArray(formData[name])
+              ? formData[name]
+                  .filter(Boolean)
+                  .map((v) => MultiValue(v.split('/').pop()))
+              : typeof formData[name] === 'object'
+              ? Object.entries(formData[name])
+                  .filter(([, value]) => Boolean(value))
+                  .map(MultiValue)
+              : typeof formData[name] === 'boolean'
+              ? JSON.stringify(formData[name])
+              : formData[name],
+          };
+        })}
     />
   );
   return (
