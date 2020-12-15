@@ -2,7 +2,6 @@ import PropTypes from 'prop-types';
 import { useRouter } from 'next/router';
 
 import Summary from 'components/Summary/Summary';
-import LinkButton from 'components/LinkButton/LinkButton';
 
 const ConfirmationStep = ({ formData, formSteps, formPath }) => {
   const router = useRouter();
@@ -20,7 +19,6 @@ const ConfirmationStep = ({ formData, formSteps, formPath }) => {
           </div>
         )}
       </div>
-      <LinkButton label="Home" route="/" />
       <Summary formData={formData} formPath={formPath} formSteps={formSteps} />
     </div>
   );
