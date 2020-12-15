@@ -25,9 +25,6 @@ const DynamicInput = ({
   };
   switch (component) {
     case 'AddressLookup':
-      return (
-        <Component register={register} control={control} {...sharedProps} />
-      );
     case 'DateInput':
       return <Component control={control} {...sharedProps} />;
     default:
