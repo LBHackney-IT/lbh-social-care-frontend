@@ -45,7 +45,7 @@ DynamicInput.propTypes = {
   name: PropTypes.string.isRequired,
   errors: PropTypes.object.isRequired,
   rules: PropTypes.shape({
-    required: PropTypes.bool,
+    required: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
   }),
   multiStepIndex: PropTypes.number,
 };
