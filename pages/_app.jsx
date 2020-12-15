@@ -5,6 +5,7 @@ import { isAuthorised, AUTH_WHITELIST } from 'utils/auth';
 import Layout from 'components/Layout';
 import SEO from '../next-seo.config';
 import UserContext from 'components/UserContext/UserContext';
+import { getDataIncludes } from 'utils/saveData';
 
 import 'stylesheets/all.scss';
 import 'stylesheets/header.scss';
@@ -20,11 +21,13 @@ class MyApp extends App {
 
   render() {
     const { Component, pageProps } = this.props;
+    const savedForms = getDataIncludes('/form');
     return (
       <>
         <UserContext.Provider
           value={{
             user: this.state.user,
+            savedForms: savedForms,
           }}
         >
           <Layout>

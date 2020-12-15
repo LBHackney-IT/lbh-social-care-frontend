@@ -118,7 +118,8 @@ const Search = ({ query, type }) => {
             <>
               <div className="lbh-table-header">
                 <h2 className="govuk-fieldset__legend--m govuk-custom-text-color">
-                  {type.toUpperCase()} SEARCH RESULT
+                  {type === 'cases' ? 'RECORDS' : type.toUpperCase()} SEARCH
+                  RESULT
                 </h2>
                 <div style={{ textAlign: 'right' }}>{addNewPerson}</div>
               </div>
