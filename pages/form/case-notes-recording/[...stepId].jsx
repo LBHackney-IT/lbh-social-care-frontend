@@ -6,6 +6,7 @@ const CaseNotesRecording = ({ query }) => (
     personId={query.id}
     title="Add a new case note"
     form={form}
+    formNameOverall="ASC_case_note"
   />
 );
 

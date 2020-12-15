@@ -30,9 +30,10 @@ jest.mock('components/FormWizard/FormWizard', () => ({ onFormSubmit }) => {
 
 describe(`FormCasesWrapper`, () => {
   const props = {
-    personId: 123,
+    personId: '123',
     title: 'I am a title',
     form: { title: '', path: '', steps: [] },
+    formNameOverall: 'i am the form_name_overall',
   };
 
   it('should work properly if the user exist', async () => {
@@ -62,7 +63,8 @@ describe(`FormCasesWrapper`, () => {
       lastName: '',
       ageContext: 'A',
       workerEmail: 'i am the email',
-      caseFormData: '{"foo":"bar"}',
+      caseFormData:
+        '{"form_name_overall":"i am the form_name_overall","foo":"bar"}',
     });
   });
 });

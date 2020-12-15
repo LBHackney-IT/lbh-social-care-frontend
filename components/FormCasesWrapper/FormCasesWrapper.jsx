@@ -11,7 +11,7 @@ import Spinner from 'components/Spinner/Spinner';
 import { addCase } from 'utils/api/cases';
 import { getResident } from 'utils/api/residents';
 
-const FormCasesWrapper = ({ form, title, personId }) => {
+const FormCasesWrapper = ({ form, title, personId, formNameOverall }) => {
   const [person, setPerson] = useState();
   const [loading, setLoading] = useState(true);
   const { replace } = useRouter();
@@ -35,7 +35,10 @@ const FormCasesWrapper = ({ form, title, personId }) => {
       lastName: person.lastName,
       ageContext: person.ageContext,
       workerEmail: user.email,
-      caseFormData: JSON.stringify(formData),
+      caseFormData: JSON.stringify({
+        form_name_overall: formNameOverall,
+        ...formData,
+      }),
     });
     return ref;
   };
@@ -72,6 +75,8 @@ FormCasesWrapper.propTypes = {
     steps: PropTypes.array.isRequired,
     degaultValues: PropTypes.shape({}),
   }).isRequired,
+  personId: PropTypes.string.isRequired,
+  formNameOverall: PropTypes.string,
 };
 
 export const getServerSideProps = async (ctx) => {
