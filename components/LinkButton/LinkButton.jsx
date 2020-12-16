@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import Router from 'next/router';
 
-const LinkButton = ({ label, route, id }) => {
+const LinkButton = ({ label, route, internalQuery }) => {
   const handleLink = (url) => window.open(url, '_blank');
   const isExternal = route && route.includes('https://');
   return (
@@ -14,7 +14,7 @@ const LinkButton = ({ label, route, id }) => {
       onClick={() =>
         isExternal
           ? handleLink(route)
-          : Router.push(id ? `${route}?id=${id}` : `${route}`)
+          : Router.push(internalQuery ? `${route}${internalQuery}` : `${route}`)
       }
     >
       {label}
@@ -23,7 +23,7 @@ const LinkButton = ({ label, route, id }) => {
 };
 
 LinkButton.propTypes = {
-  id: PropTypes.string,
+  internalQuery: PropTypes.string,
   label: PropTypes.string.isRequired,
   route: PropTypes.string.isRequired,
 };
