@@ -3,7 +3,7 @@ import axios from 'axios';
 const { ENDPOINT_API, AWS_KEY } = process.env;
 
 // eslint-disable-next-line no-unused-vars
-export const getResidentsAllocatedWorkers = async (mosaic_id) => {
+export const getResidentAllocatedWorkers = async (mosaic_id) => {
   // const { data } = await axios.get(`${ENDPOINT_API}/asc-allocations`, {
   //   headers: { 'x-api-key': AWS_KEY },
   //   params: { mosaic_id },
