@@ -4,6 +4,8 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 
 import { useContext } from 'react';
+import { getDataIncludes } from 'utils/saveData';
+
 import UserContext from 'components/UserContext/UserContext';
 import Logo from './Logo.jsx';
 
@@ -27,20 +29,20 @@ const loggedNavLinks = [
 ];
 
 const HeaderComponent = ({ serviceName }) => {
-  const { user, savedForms } = useContext(UserContext);
+  const { user } = useContext(UserContext);
   const { asPath } = useRouter();
   const [navLinks, setNavLinks] = useState(loggedNavLinks);
   useEffect(() => {
     if (!user) {
       setNavLinks();
-    } else if (savedForms) {
+    } else if (getDataIncludes('/form')) {
       setNavLinks(loggedNavLinks);
-    } else if (!savedForms) {
+    } else if (!getDataIncludes('/form')) {
       setNavLinks(
         loggedNavLinks.filter(({ name }) => name !== 'Forms in progress')
       );
     }
-  }, [user, asPath, savedForms]);
+  }, [user, asPath]);
   return (
     <header className="govuk-header" role="banner" data-module="govuk-header">
       <div className="govuk-header__container">
