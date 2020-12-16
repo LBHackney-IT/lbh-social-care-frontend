@@ -131,7 +131,6 @@ FormWizard.propTypes = {
   title: PropTypes.string.isRequired,
   onFormSubmit: PropTypes.func,
   defaultValues: PropTypes.shape({}),
-  personId: PropTypes.string,
 };
 
 export default FormWizard;
