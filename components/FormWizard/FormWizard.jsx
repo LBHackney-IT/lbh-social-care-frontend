@@ -22,10 +22,11 @@ const FormWizard = ({
   });
   useBeforeunload(() => "You'll lose your data!");
   const {
-    query: { stepId, fromSummary, continueForm },
+    query: { stepId, fromSummary, continueForm, ...otherQS },
   } = useRouter();
   const [formData, setFormData] = useState({
     ...defaultValues,
+    ...otherQS,
     ...(continueForm ? getData(formPath)?.data : {}),
   });
   const steps = createSteps(formSteps);

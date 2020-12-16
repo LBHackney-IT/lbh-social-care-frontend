@@ -1,13 +1,14 @@
+import { useContext } from 'react';
+
+import UserContext from 'components/UserContext/UserContext';
 import FormWizard from 'components/FormWizard/FormWizard';
-import { addCase } from 'utils/api/cases';
+
 import form from 'data/forms/create-new-person';
 
 const CreateNewPerson = () => {
-  const onFormSubmit = async (formData) => {
-    const ref = await addCase(formData.mosaic_id, {
-      caseFormData: JSON.stringify(formData),
-    });
-    return ref;
+  const { user } = useContext(UserContext);
+  const onFormSubmit = (formData) => {
+    console.log({ ...formData, worker_email: user.email });
   };
   return (
     <FormWizard
