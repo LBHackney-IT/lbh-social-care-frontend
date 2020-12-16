@@ -1,12 +1,10 @@
 import { useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { useRouter } from 'next/router';
 import { useForm } from 'react-hook-form';
 import isPast from 'date-fns/isPast';
 import isPostcodeValid from 'uk-postcode-validator';
 
 import { Button, TextInput, DateInput } from 'components/Form';
-import { getQueryString } from 'utils/urls';
 
 const SearchResidentsForm = ({ onFormSubmit, query }) => {
   const {
@@ -18,19 +16,11 @@ const SearchResidentsForm = ({ onFormSubmit, query }) => {
   } = useForm({
     defaultValues: query,
   });
-  const { pathname, replace } = useRouter();
-  const onSubmit = async (formData) => {
-    onFormSubmit(formData);
-    const qs = getQueryString(formData);
-    replace(`${pathname}?${qs}`, `${pathname}?${qs}`, {
-      shallow: true,
-    });
-  };
   useEffect(() => {
-    Object.keys(query).length && onSubmit(query);
+    Object.keys(query).length && onFormSubmit(query);
   }, []);
   return (
-    <form role="form" onSubmit={handleSubmit(onSubmit)}>
+    <form role="form" onSubmit={handleSubmit((data) => onFormSubmit(data))}>
       <div className="govuk-grid-row">
         <div className="govuk-grid-column-one-half">
           <TextInput

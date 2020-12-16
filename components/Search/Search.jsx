@@ -1,7 +1,8 @@
-import { useState, useContext, useMemo, useCallback } from 'react';
+import { useState, useEffect, useContext, useMemo, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import cx from 'classnames';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 
 import SearchResidentsForm from './forms/SearchResidentsForm';
 import SearchCasesForm from './forms/SearchCasesForm';
@@ -16,6 +17,7 @@ import UserContext from 'components/UserContext/UserContext';
 import { getResidents } from 'utils/api/residents';
 import { getCases } from 'utils/api/cases';
 import { getPermissionFilter } from 'utils/user';
+import { getQueryString } from 'utils/urls';
 
 const getRecords = (data) => [
   ...(data.residents || []),
@@ -27,7 +29,12 @@ const Search = ({ query, type }) => {
   const [loading, setLoading] = useState(false);
   const [results, setResults] = useState();
   const [formData, setFormData] = useState();
+  const [sort, setSort] = useState({
+    sort_by: query.sort_by,
+    order_by: query.order_by,
+  });
   const { user } = useContext(UserContext);
+  const { pathname, replace } = useRouter();
   const permission = useMemo(() => getPermissionFilter(user), []);
   const { SearchForm, SearchResults, searchFunction } = useMemo(
     () =>
@@ -35,7 +42,11 @@ const Search = ({ query, type }) => {
         ? {
             SearchForm: SearchCasesForm,
             SearchResults: CasesTable,
-            searchFunction: getCases,
+            searchFunction: ({ my_notes_only, ...formData }) =>
+              getCases({
+                ...formData,
+                worker_email: my_notes_only ? user.email : '',
+              }),
           }
         : {
             SearchForm: SearchResidentsForm,
@@ -59,11 +70,29 @@ const Search = ({ query, type }) => {
         ...data,
         records: [...records, ...getRecords(data)],
       });
+      const qs = getQueryString(formData);
+      replace(`${pathname}?${qs}`, `${pathname}?${qs}`, {
+        shallow: true,
+      });
     } catch (e) {
       setLoading(false);
       setError(e.response?.data || 'Oops an error occurred');
     }
   });
+
+  // commented out as the feature is not ready in the BE
+  // eslint-disable-next-line no-unused-vars
+  const onSort = useCallback((value) => {
+    const { order_by, sort_by } = sort;
+    setSort(
+      sort_by === value && order_by === 'desc'
+        ? { order_by: 'asc', sort_by }
+        : { order_by: 'desc', sort_by: value }
+    );
+  });
+  useEffect(() => {
+    results && sort.sort_by && onFormSubmit({ ...formData, ...sort });
+  }, [sort]);
 
   // commented out as the feature is not ready to be in prod
   // const addNewPerson = type === 'people' && (
@@ -124,7 +153,11 @@ const Search = ({ query, type }) => {
               </div>
               <hr className="govuk-divider" />
               {results.records?.length > 0 ? (
-                <SearchResults records={results.records} />
+                <SearchResults
+                  records={results.records}
+                  sort={sort}
+                  // onSort={onSort} commented out as the feature is not ready in the BE
+                />
               ) : (
                 <>
                   <p className="govuk-body govuk-!-margin-top-5">

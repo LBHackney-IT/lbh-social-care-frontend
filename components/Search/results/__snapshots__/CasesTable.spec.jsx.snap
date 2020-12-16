@@ -13,27 +13,205 @@ exports[`CasesTable component should render properly 1`] = `
       >
         <th
           class="govuk-table__header"
+          role="button"
           scope="col"
         >
-          Client Name
+          Client Name 
+        </th>
+        <th
+          class="govuk-table__header"
+          role="button"
+          scope="col"
+        >
+          Date of birth 
+        </th>
+        <th
+          class="govuk-table__header"
+          role="button"
+          scope="col"
+        >
+          Uploaded by 
+        </th>
+        <th
+          class="govuk-table__header"
+          role="button"
+          scope="col"
+        >
+          Last upload 
         </th>
         <th
           class="govuk-table__header"
           scope="col"
+        />
+      </tr>
+    </thead>
+    <tbody
+      class="govuk-table__body"
+    >
+      <tr
+        class="govuk-table__row"
+      >
+        <td
+          class="govuk-table__cell"
         >
-          Date of birth
+          foo bar
+        </td>
+        <td
+          class="govuk-table__cell"
+        >
+          25/10/2000
+        </td>
+        <td
+          class="govuk-table__cell"
+        >
+          Fname.Lname@hackney.gov.uk
+        </td>
+        <td
+          class="govuk-table__cell"
+        >
+          Oct 25, 2020
+        </td>
+        <td
+          class="govuk-table__cell govuk-button--secondary'"
+        >
+          <a
+            class="govuk-link govuk-custom-text-color"
+            href="#"
+          >
+            View
+          </a>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</DocumentFragment>
+`;
+
+exports[`CasesTable component should render the sort 1`] = `
+<DocumentFragment>
+  <table
+    class="govuk-table"
+  >
+    <thead
+      class="govuk-table__head"
+    >
+      <tr
+        class="govuk-table__row"
+      >
+        <th
+          class="govuk-table__header"
+          role="button"
+          scope="col"
+        >
+          Client Name 🔽
+        </th>
+        <th
+          class="govuk-table__header"
+          role="button"
+          scope="col"
+        >
+          Date of birth 
+        </th>
+        <th
+          class="govuk-table__header"
+          role="button"
+          scope="col"
+        >
+          Uploaded by 
+        </th>
+        <th
+          class="govuk-table__header"
+          role="button"
+          scope="col"
+        >
+          Last upload 
         </th>
         <th
           class="govuk-table__header"
           scope="col"
+        />
+      </tr>
+    </thead>
+    <tbody
+      class="govuk-table__body"
+    >
+      <tr
+        class="govuk-table__row"
+      >
+        <td
+          class="govuk-table__cell"
         >
-          Uploaded by
+          foo bar
+        </td>
+        <td
+          class="govuk-table__cell"
+        >
+          25/10/2000
+        </td>
+        <td
+          class="govuk-table__cell"
+        >
+          Fname.Lname@hackney.gov.uk
+        </td>
+        <td
+          class="govuk-table__cell"
+        >
+          Oct 25, 2020
+        </td>
+        <td
+          class="govuk-table__cell govuk-button--secondary'"
+        >
+          <a
+            class="govuk-link govuk-custom-text-color"
+            href="#"
+          >
+            View
+          </a>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</DocumentFragment>
+`;
+
+exports[`CasesTable component should render the sort 2`] = `
+<DocumentFragment>
+  <table
+    class="govuk-table"
+  >
+    <thead
+      class="govuk-table__head"
+    >
+      <tr
+        class="govuk-table__row"
+      >
+        <th
+          class="govuk-table__header"
+          role="button"
+          scope="col"
+        >
+          Client Name 🔼
         </th>
         <th
           class="govuk-table__header"
+          role="button"
           scope="col"
         >
-          Last upload
+          Date of birth 
+        </th>
+        <th
+          class="govuk-table__header"
+          role="button"
+          scope="col"
+        >
+          Uploaded by 
+        </th>
+        <th
+          class="govuk-table__header"
+          role="button"
+          scope="col"
+        >
+          Last upload 
         </th>
         <th
           class="govuk-table__header"
