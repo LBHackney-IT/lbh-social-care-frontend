@@ -4,9 +4,8 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 
 import { useContext } from 'react';
-import { getDataIncludes } from 'utils/saveData';
-
 import UserContext from 'components/UserContext/UserContext';
+import { getDataIncludes } from 'utils/saveData';
 import Logo from './Logo.jsx';
 
 const loggedNavLinks = [

@@ -102,7 +102,7 @@ const Search = ({ query, type }) => {
               'govuk-tabs__list-item--selected': type === 'records',
             })}
           >
-            <Link href="/records" scroll={false}>
+            <Link href="/cases" scroll={false}>
               <a className="govuk-tabs__tab">Search for records by person</a>
             </Link>
           </li>

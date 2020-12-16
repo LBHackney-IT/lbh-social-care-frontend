@@ -22,7 +22,11 @@ class MyApp extends App {
     const { Component, pageProps } = this.props;
     return (
       <>
-        <UserContext.Provider value={{ user: this.state.user }}>
+        <UserContext.Provider
+          value={{
+            user: this.state.user,
+          }}
+        >
           <Layout>
             <DefaultSeo {...SEO} />
             <Component {...pageProps} />
