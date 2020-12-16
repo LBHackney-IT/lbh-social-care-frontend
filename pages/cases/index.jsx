@@ -6,7 +6,7 @@ const SearchCasesPage = ({ query }) => {
   return (
     <div>
       <NextSeo title="Find unlinked case notes" noindex />
-      <Search query={query} type="cases" />
+      <Search query={query} type="records" />
     </div>
   );
 };

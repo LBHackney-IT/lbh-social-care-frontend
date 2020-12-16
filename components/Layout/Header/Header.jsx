@@ -34,8 +34,12 @@ const HeaderComponent = ({ serviceName }) => {
   useEffect(() => {
     if (!user) {
       setNavLinks();
+    } else if (getDataIncludes('/form')) {
+      setNavLinks(loggedNavLinks);
     } else if (!getDataIncludes('/form')) {
-      setNavLinks(navLinks.filter(({ name }) => name !== 'Forms in progress'));
+      setNavLinks(
+        loggedNavLinks.filter(({ name }) => name !== 'Forms in progress')
+      );
     }
   }, [user, asPath]);
   return (
