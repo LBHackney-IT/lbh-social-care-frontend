@@ -50,8 +50,8 @@ const CasesTable = ({ records, sort = {}, onSort }) => {
               key={id}
               scope="col"
               className="govuk-table__header"
-              role="button"
-              onClick={() => onSort(id)}
+              role={onSort && 'button'}
+              onClick={() => onSort && onSort(id)}
             >
               {text}{' '}
               {id === sort.sort_by && (
