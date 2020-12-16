@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { getResident } from 'utils/api/residents';
 import ErrorMessage from 'components/ErrorMessage/ErrorMessage';
 import PersonDetails from './PersonDetails';
+import ASCAllocatedWorkers from '../AllocatedWorkers/ASCAllocatedWorkers';
 
 const PersonView = ({ personId, expandView }) => {
   const [person, setPerson] = useState();
@@ -40,6 +41,7 @@ const PersonView = ({ personId, expandView }) => {
                 </h1>
               )}
               <PersonDetails {...person} expandView={expandView} />
+              <ASCAllocatedWorkers />
             </>
           )}
         </>
