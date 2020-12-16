@@ -16,6 +16,7 @@ const FormWizard = ({
   onFormSubmit,
   defaultValues = {},
   title,
+  personId,
 }) => {
   Router.events.on('routeChangeComplete', () => {
     window.scrollTo(0, 0);
@@ -103,7 +104,11 @@ const FormWizard = ({
           }}
           onSaveAndExit={(data) => {
             const updatedData = deepmerge(formData, data);
-            saveData(formPath, updatedData, stepId.join('/'));
+            saveData(
+              formPath,
+              updatedData,
+              `${stepId.join('/')}?id=${personId}`
+            );
             Router.push('/');
           }}
           onFormSubmit={onFormSubmit}
@@ -125,6 +130,7 @@ FormWizard.propTypes = {
   title: PropTypes.string.isRequired,
   onFormSubmit: PropTypes.func,
   defaultValues: PropTypes.shape({}),
+  personId: PropTypes.string,
 };
 
 export default FormWizard;
