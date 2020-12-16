@@ -14,6 +14,9 @@ const PersonDetails = ({
   expandView = false,
 }) => {
   const [expandDetails, setExpandDetails] = useState(false);
+  const address = addressList?.find(
+    ({ displayAddressFlag }) => displayAddressFlag === 'Y'
+  );
   return (
     <>
       <div>
@@ -59,15 +62,14 @@ const PersonDetails = ({
                 <dt className="govuk-summary-list__key">Gender</dt>
                 <dd className="govuk-summary-list__value">{gender}</dd>
               </div>
-              <div className="govuk-summary-list__row">
-                <dt className="govuk-summary-list__key">Address</dt>
-                <dd className="govuk-summary-list__value">
-                  {addressList &&
-                    Object.values(addressList[0]).map((addressLine) => (
-                      <p>{addressLine}</p>
-                    ))}
-                </dd>
-              </div>
+              {address?.addressLine1 && (
+                <div className="govuk-summary-list__row">
+                  <dt className="govuk-summary-list__key">Address</dt>
+                  <dd className="govuk-summary-list__value">
+                    <p>{address.addressLine1}</p>
+                  </dd>
+                </div>
+              )}
               <div className="govuk-summary-list__row">
                 <dt className="govuk-summary-list__key">PhoneNumber</dt>
                 <dd className="govuk-summary-list__value">

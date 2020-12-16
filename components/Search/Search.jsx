@@ -145,16 +145,26 @@ const Search = ({ query, type }) => {
           <SearchForm onFormSubmit={onFormSubmit} query={query} user={user} />
           {results && (
             <>
-              <h2 className="govuk-fieldset__legend--m govuk-custom-text-color">
-                {type.toUpperCase()} SEARCH RESULT
-              </h2>
-              <div style={{ textAlign: 'right' }}>{addNewPerson}</div>
+              <div className="lbh-table-header">
+                <h2 className="govuk-fieldset__legend--m govuk-custom-text-color">
+                  {type.toUpperCase()} SEARCH RESULT
+                </h2>
+                <div style={{ textAlign: 'right' }}>{addNewPerson}</div>
+              </div>
               <hr className="govuk-divider" />
-              <SearchResults
-                records={results.records}
-                sort={sort}
-                // onSort={onSort} commented out as the feature is not ready in the BE
-              />
+              {results.records?.length > 0 ? (
+                <SearchResults
+                  records={results.records}
+                  sort={sort}
+                  // onSort={onSort} commented out as the feature is not ready in the BE
+                />
+              ) : (
+                <>
+                  <p className="govuk-body govuk-!-margin-top-5">
+                    {type.charAt(0).toUpperCase() + type.slice(1)} not found
+                  </p>
+                </>
+              )}
             </>
           )}
           <div style={{ height: '50px', textAlign: 'center' }}>
@@ -175,13 +185,7 @@ const Search = ({ query, type }) => {
             )}
           </div>
 
-          {error && (
-            <>
-              {' '}
-              <ErrorMessage label={error} />
-              {addNewPerson}
-            </>
-          )}
+          {error && <ErrorMessage label={error} />}
         </div>
       </div>
     </>

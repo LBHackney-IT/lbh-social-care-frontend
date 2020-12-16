@@ -28,7 +28,7 @@ const CasesPage = ({ query }) => {
         placeHolder="Choose one"
         onChange={(value) => setUrl(value)}
       />
-      <LinkButton label="Load form" route={url} />
+      <LinkButton label="Load form" route={`${url}?id=${query.id}`} />
     </div>
   );
 };

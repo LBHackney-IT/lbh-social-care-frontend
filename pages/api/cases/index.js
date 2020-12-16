@@ -1,42 +1,41 @@
-import { postResidentCase } from 'utils/server/residents';
-import { getCases } from 'utils/server/cases';
+import * as HttpStatus from 'http-status-codes';
+
+import { getCases, addCase } from 'utils/server/cases';
 import { isAuthorised } from 'utils/auth';
 
 export default async (req, res) => {
   if (!isAuthorised({ req })) {
-    return res.status(401).send('Auth cookie missing.');
+    return res.status(HttpStatus.UNAUTHORIZED).send('Auth cookie missing.');
   }
   switch (req.method) {
     case 'GET':
       try {
         const data = await getCases(req.query);
-        if (data?.cases?.length > 0) {
-          res.status(200).json(data);
-        } else {
-          res.status(404).json('Cases Not Found');
-        }
+        res.status(HttpStatus.OK).json(data);
       } catch (error) {
-        console.log('Cases get error:', error);
-        error?.response?.status === 404
-          ? res.status(404).json('Cases Not Found')
-          : res.status(500).json('Unable to get the Cases');
+        console.log('Cases get error:', error.response.data);
+        error?.response?.status === HttpStatus.NOT_FOUND
+          ? res.status(HttpStatus.NOT_FOUND).json('Cases Not Found')
+          : res
+              .status(HttpStatus.INTERNAL_SERVER_ERROR)
+              .json('Unable to get the Cases');
       }
       break;
 
     case 'POST':
       try {
-        const { data } = await postResidentCase(req.query.id, req.body);
-        res.setHeader('Content-Type', 'application/json');
-        res.end(JSON.stringify(data));
+        const data = await addCase(req.query.id, req.body);
+        res.status(HttpStatus.OK).json(data);
       } catch (error) {
-        console.log(error.status);
-        console.log('Cast post error:', error);
-        res.status(500).json('Unable to post cast');
+        console.log('Case post error:', error.response.data);
+        res
+          .status(HttpStatus.INTERNAL_SERVER_ERROR)
+          .json('Unable to post case');
       }
       break;
 
     default:
-      res.status(400).json('Invalid request method');
+      res.status(HttpStatus.BAD_REQUEST).json('Invalid request method');
       console.log(res.status);
   }
 };

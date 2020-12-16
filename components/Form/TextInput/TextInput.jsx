@@ -31,7 +31,8 @@ const TextInput = ({
     )}
     {error && <ErrorMessage label={error.message} />}
     <input
-      className={cx(`govuk-input govuk-input--width-${width}`, inputClassName, {
+      className={cx(`govuk-input`, inputClassName, {
+        [`govuk-input--width-${width}`]: width,
         'govuk-input--error': error,
       })}
       id={name}
