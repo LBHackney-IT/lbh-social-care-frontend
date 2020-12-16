@@ -8,6 +8,7 @@ import DynamicStep from 'components/DynamicStep/DynamicStep';
 import Breadcrumbs from 'components/Breadcrumbs/Breadcrumbs';
 import { createSteps, getNextStepPath, haveStepsChanged } from 'utils/steps';
 import { deepmerge } from 'utils/objects';
+import { getQueryString } from 'utils/urls';
 import { getData, saveData } from 'utils/saveData';
 
 const FormWizard = ({
@@ -29,6 +30,7 @@ const FormWizard = ({
     ...otherQS,
     ...(continueForm ? getData(formPath)?.data : {}),
   });
+  const [queryString] = useState(otherQS);
   const steps = createSteps(formSteps);
   const stepPath = `${formPath}[step]`;
   const step = steps.find(
@@ -103,7 +105,11 @@ const FormWizard = ({
           }}
           onSaveAndExit={(data) => {
             const updatedData = deepmerge(formData, data);
-            saveData(formPath, updatedData, stepId.join('/'));
+            saveData(
+              formPath,
+              updatedData,
+              `${stepId.join('/')}?${getQueryString(queryString)}`
+            );
             Router.push('/');
           }}
           onFormSubmit={onFormSubmit}

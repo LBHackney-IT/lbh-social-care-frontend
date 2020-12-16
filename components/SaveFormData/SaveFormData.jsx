@@ -14,8 +14,8 @@ export const SavedForms = () => {
   return (
     <ul className="govuk-list">
       {Object.entries(savedForms).map(([key, value]) => (
-        <li>
-          <Link key={key} href={`${key}${value.step}?continueForm=true`}>
+        <li key={key}>
+          <Link key={key} href={`${key}${value.step}&continueForm=true`}>
             <a className="govuk-link">{key.replace(/(form)|(\/)/g, '')}</a>
           </Link>
         </li>
