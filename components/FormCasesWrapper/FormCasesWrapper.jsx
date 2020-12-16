@@ -60,7 +60,6 @@ const FormCasesWrapper = ({ form, title, personId, formNameOverall }) => {
             title={form.title}
             defaultValues={form.defaultValues}
             onFormSubmit={onFormSubmit}
-            personId={personId}
           />
         </>
       )}
