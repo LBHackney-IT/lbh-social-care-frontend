@@ -11,12 +11,12 @@ const AllocatedWorkers = ({ id }) => {
   const [error, setError] = useState();
   const [loading, setLoading] = useState();
   const [allocWorkers, setAllocWorkers] = useState();
-  const getAllocatedWorkers = useCallback(async (id) => {
+  const getWorkers = useCallback(async (id) => {
     try {
       const data = await getAllocatedWorkers(id);
       setLoading(false);
       setError(null);
-      setAllocWorkers(Array.isArray(data) ? data : [data]);
+      setAllocWorkers(data.allocations);
     } catch (e) {
       setLoading(false);
       setError(e.response.data);
@@ -25,7 +25,7 @@ const AllocatedWorkers = ({ id }) => {
   });
   useEffect(() => {
     setLoading(true);
-    getAllocatedWorkers(id);
+    getWorkers(id);
   }, [id]);
   return (
     <>
