@@ -8,7 +8,7 @@ export const getResidentsAllocatedWorkers = async (mosaic_id) => {
   //   headers: { 'x-api-key': AWS_KEY },
   //   params: { mosaic_id },
   // });
-  return {
+  return Promise.resolve({
     allocations: [
       {
         allocatedTeam: 'Integrated Learning Disabilities',
@@ -25,7 +25,7 @@ export const getResidentsAllocatedWorkers = async (mosaic_id) => {
         role: 'social worker 2',
       },
     ],
-  }; //not sure what this should be
+  }); //not sure what this should be
 };
 
 export const addAllocatedWorkers = async (formData) => {
