@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { getResident } from 'utils/api/residents';
 import ErrorMessage from 'components/ErrorMessage/ErrorMessage';
 import PersonDetails from './PersonDetails';
-import ASCAllocatedWorkers from '../AllocatedWorkers/ASCAllocatedWorkers';
+import ASCAllocatedWorkers from '../AllocatedWorkers/AllocatedWorkers';
 
 const PersonView = ({ personId, expandView }) => {
   const [person, setPerson] = useState();

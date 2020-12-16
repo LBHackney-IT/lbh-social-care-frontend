@@ -1,13 +1,13 @@
 import axios from 'axios';
 
-export const getASCAllocatedWorkers = async (params) => {
-  const { data } = await axios.get('/api/asc-allocations', {
+export const getAllocatedWorkers = async (params) => {
+  const { data } = await axios.get('/api/allocated-workers', {
     params,
   });
   return data;
 };
 
-export const addAscAllocatedWorker = async (formData) => {
-  const { data } = await axios.post(`/api/asc-allocations`, formData);
+export const addAllocatedWorkers = async (formData) => {
+  const { data } = await axios.post(`/api/allocated-workers`, formData);
   return data;
 };
