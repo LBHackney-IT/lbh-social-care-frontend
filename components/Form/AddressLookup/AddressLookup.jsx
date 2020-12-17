@@ -153,7 +153,7 @@ const AddressLookup = ({
               value?.address.length > 0 ||
               'You must enter an address',
             postcode: (value) =>
-              !rules?.required ||
+              (!rules?.required && value?.postcode === '') ||
               (value?.postcode && isPostcodeValid(value.postcode)) ||
               'You must enter a valid postcode',
             ...rules?.validate,
