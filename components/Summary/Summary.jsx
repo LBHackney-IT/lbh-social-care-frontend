@@ -86,6 +86,14 @@ export const SummarySection = ({
                       ?.text,
             };
           }
+          if (component === 'DateInput') {
+            const date = formData[name].split('-');
+            return {
+              key: name,
+              title: label,
+              value: `${date[2]}-${date[1]}-${date[0]}`,
+            };
+          }
           return {
             key: name,
             title: label,
