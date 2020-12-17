@@ -56,7 +56,7 @@ export const SummarySection = ({
     <SummaryList
       list={components
         .filter(({ name }) => formData[name])
-        .map(({ component, name, label }) => {
+        .map(({ component, options, name, label }) => {
           if (component === 'AddressLookup') {
             const { address, postcode } = formData[name];
             return {
@@ -73,6 +73,17 @@ export const SummarySection = ({
                   <div>{postcode}</div>
                 </>
               ),
+            };
+          }
+          if (component === 'Radios' || component === 'Select') {
+            return {
+              key: name,
+              title: label,
+              value:
+                typeof options[0] === 'string'
+                  ? formData[name]
+                  : options.find((option) => option.value === formData[name])
+                      ?.text,
             };
           }
           return {
