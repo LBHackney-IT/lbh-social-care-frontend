@@ -24,7 +24,7 @@ const Radio = ({
     })}
   >
     <label className={`govuk-label govuk-label--${labelSize}`} htmlFor={name}>
-      {label} <span className="govuk-required">{required ? '*' : null}</span>
+      {label} {required && <span className="govuk-required">*</span>}
     </label>
     {hint && (
       <span id={`${name}-hint`} className="govuk-hint">
@@ -36,28 +36,32 @@ const Radio = ({
     <div
       className={cx('govuk-radios', { 'govuk-radios--inline': isRadiosInline })}
     >
-      {options.map((option) => (
-        <div className="govuk-radios__item" key={option}>
-          <input
-            className={cx('govuk-radios__input', {
-              'govuk-input--error': error,
-            })}
-            id={`${name}_${option}`}
-            name={name}
-            type="radio"
-            value={option}
-            ref={register}
-            aria-describedby={hint && `${name}-hint`}
-            {...otherProps}
-          />
-          <label
-            className="govuk-label govuk-radios__label"
-            htmlFor={`${name}_${option}`}
-          >
-            {option}
-          </label>
-        </div>
-      ))}
+      {options.map((option) => {
+        const { value, text } =
+          typeof option === 'string' ? { value: option, text: option } : option;
+        return (
+          <div className="govuk-radios__item" key={text}>
+            <input
+              className={cx('govuk-radios__input', {
+                'govuk-input--error': error,
+              })}
+              id={`${name}_${value}`}
+              name={name}
+              type="radio"
+              value={value}
+              ref={register}
+              aria-describedby={hint && `${name}-hint`}
+              {...otherProps}
+            />
+            <label
+              className="govuk-label govuk-radios__label"
+              htmlFor={`${name}_${value}`}
+            >
+              {text}
+            </label>
+          </div>
+        );
+      })}
     </div>
   </div>
 );
