@@ -71,7 +71,7 @@ const PersonDetails = ({
                 </div>
               )}
               <div className="govuk-summary-list__row">
-                <dt className="govuk-summary-list__key">PhoneNumber</dt>
+                <dt className="govuk-summary-list__key">Phone Number</dt>
                 <dd className="govuk-summary-list__value">
                   {phoneNumber &&
                     Object.values(phoneNumber[0]).map((number) => (
