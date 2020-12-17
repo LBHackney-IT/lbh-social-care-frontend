@@ -45,6 +45,7 @@ const AddressLookup = ({
   control,
   error: { message: errorMessage } = {},
   supportManualEntry = true,
+  required,
   rules,
 }) => {
   const inputRef = useRef();
@@ -80,7 +81,7 @@ const AddressLookup = ({
       })}
     >
       <label className="govuk-label govuk-label--m" htmlFor="postcode">
-        {label}
+        {label} {required && <span className="govuk-required">*</span>}
       </label>
       {hint && (
         <span id={`${name}-hint`} className="govuk-hint">
@@ -176,6 +177,7 @@ AddressLookup.propTypes = {
   label: PropTypes.string.isRequired,
   hint: PropTypes.string,
   rules: PropTypes.shape({}),
+  required: PropTypes.bool,
   control: PropTypes.object.isRequired,
   supportManualEntry: PropTypes.bool,
 };
