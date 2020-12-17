@@ -8,6 +8,10 @@ export default [
     value: '/form/case-notes-recording/case-notes-recording',
   },
   {
+    text: 'CSC Case Note Recording',
+    value: '/form/csc-case-notes-recording/csc-case-notes-recording',
+  },
+  {
     text: 'Rapid Support Referral Form',
     value:
       'https://docs.google.com/forms/d/e/1FAIpQLSeleBiPSDXX1O-VpjI6Ky0lW0N-YHOTr0PQWu7d0m0RZSE2Tg/viewform',
