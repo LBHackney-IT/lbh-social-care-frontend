@@ -55,7 +55,7 @@ export const SavedForms = () => {
                 }
               </td>
               <td className="govuk-table__cell" onClick={() => deleteForm(key)}>
-                <DeleteIcon update={setSavedForms} value={key} />
+                <DeleteIcon />
               </td>
             </tr>
           ))}
