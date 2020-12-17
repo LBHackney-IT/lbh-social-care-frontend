@@ -14,6 +14,7 @@ import { getData, saveData } from 'utils/saveData';
 const FormWizard = ({
   formPath,
   formSteps,
+  successMessage,
   onFormSubmit,
   defaultValues = {},
   title,
@@ -113,6 +114,7 @@ const FormWizard = ({
             Router.push('/');
           }}
           onFormSubmit={onFormSubmit}
+          successMessage={successMessage}
         />
       </fieldset>
     </div>

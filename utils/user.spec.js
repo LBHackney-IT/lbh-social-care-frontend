@@ -1,10 +1,10 @@
-import { getPermissionFilter } from './user';
+import { getPermissionFlag } from './user';
 
 describe('user', () => {
-  describe('getPermissionFilter', () => {
+  describe('getPermissionFlag', () => {
     it('should be undefined if admin', () => {
       expect(
-        getPermissionFilter({
+        getPermissionFlag({
           hasAdminPermissions: true,
           hasAdultPermissions: true,
           hasChildrenPermissions: false,
@@ -14,7 +14,7 @@ describe('user', () => {
 
     it('should be undefined if both adult and child', () => {
       expect(
-        getPermissionFilter({
+        getPermissionFlag({
           hasAdminPermissions: false,
           hasAdultPermissions: true,
           hasChildrenPermissions: true,
@@ -22,24 +22,24 @@ describe('user', () => {
       ).toEqual(undefined);
     });
 
-    it('should be "a" if only adult is true', () => {
+    it('should be "A" if only adult is true', () => {
       expect(
-        getPermissionFilter({
+        getPermissionFlag({
           hasAdminPermissions: false,
           hasAdultPermissions: true,
           hasChildrenPermissions: false,
         })
-      ).toEqual('a');
+      ).toEqual('A');
     });
 
-    it('should be "c" if only child is true', () => {
+    it('should be "C" if only child is true', () => {
       expect(
-        getPermissionFilter({
+        getPermissionFlag({
           hasAdminPermissions: false,
           hasAdultPermissions: false,
           hasChildrenPermissions: true,
         })
-      ).toEqual('c');
+      ).toEqual('C');
     });
   });
 });
