@@ -15,10 +15,10 @@ export const getCases = async (params) => {
   return data;
 };
 
-export const getCasesByResident = async (mosaic_id) => {
+export const getCasesByResident = async (mosaic_id, params) => {
   const { data } = await axios.get(`${ENDPOINT_API}/cases`, {
     headers: { 'x-api-key': AWS_KEY },
-    params: { mosaic_id },
+    params: { mosaic_id, ...params },
   });
   return data;
 };

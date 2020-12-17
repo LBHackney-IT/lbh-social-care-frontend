@@ -7,8 +7,10 @@ export const getCases = async (params) => {
   return data;
 };
 
-export const getCasesByResident = async (id) => {
-  const { data } = await axios.get(`/api/residents/${id}/cases`);
+export const getCasesByResident = async (id, params) => {
+  const { data } = await axios.get(`/api/residents/${id}/cases`, {
+    params,
+  });
   return data;
 };
 

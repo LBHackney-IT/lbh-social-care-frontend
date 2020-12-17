@@ -3,29 +3,32 @@ import PropTypes from 'prop-types';
 
 import CasesTable from 'components/Cases/CasesTable';
 import ErrorMessage from 'components/ErrorMessage/ErrorMessage';
-import { getCasesByResident } from 'utils/api/cases';
+import Button from 'components/Form/Button/Button';
 import Spinner from 'components/Spinner/Spinner';
+import { getCasesByResident } from 'utils/api/cases';
 
 const Cases = ({ id }) => {
   const [error, setError] = useState();
   const [loading, setLoading] = useState(false);
   const [results, setResults] = useState();
-  const getPersonCases = useCallback(async (id) => {
+  const getPersonCases = useCallback(async (cursor) => {
     try {
-      const data = await getCasesByResident(id);
+      const data = await getCasesByResident(id, { cursor });
       setLoading(false);
       setError(null);
-      setResults(data);
+      setResults({
+        ...data,
+        cases: [...(results?.cases || []), ...data.cases],
+      });
     } catch (e) {
       setLoading(false);
       setError(e.response.data);
-      setResults(null);
     }
   });
   useEffect(() => {
     setLoading(true);
-    getPersonCases(id);
-  }, [id]);
+    getPersonCases();
+  }, []);
   return (
     <>
       {loading ? (
@@ -58,6 +61,18 @@ const Cases = ({ id }) => {
               )}
             </>
           )}
+          <div style={{ height: '50px', textAlign: 'center' }}>
+            {loading ? (
+              <Spinner />
+            ) : (
+              results?.nextCursor && (
+                <Button
+                  label="load more"
+                  onClick={() => getPersonCases(results.nextCursor)}
+                />
+              )
+            )}
+          </div>
           {error && <ErrorMessage label={error} />}
         </>
       )}
