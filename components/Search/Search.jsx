@@ -16,7 +16,6 @@ import UserContext from 'components/UserContext/UserContext';
 
 import { getResidents } from 'utils/api/residents';
 import { getCases } from 'utils/api/cases';
-import { getPermissionFilter } from 'utils/user';
 import { getQueryString } from 'utils/urls';
 
 const getRecords = (data) => [
@@ -35,7 +34,6 @@ const Search = ({ query, type }) => {
   });
   const { user } = useContext(UserContext);
   const { pathname, replace } = useRouter();
-  const permission = useMemo(() => getPermissionFilter(user), []);
   const { SearchForm, SearchResults, searchFunction } = useMemo(
     () =>
       type === 'records'
@@ -63,7 +61,7 @@ const Search = ({ query, type }) => {
       setFormData(formData);
       const data = await searchFunction({
         ...formData,
-        context_flag: permission,
+        context_flag: user.permissionFlag,
       });
       setLoading(false);
       setResults({
