@@ -92,17 +92,19 @@ const Search = ({ query, type }) => {
     results && sort.sort_by && onFormSubmit({ ...formData, ...sort });
   }, [sort]);
 
-  const addNewPerson = type === 'people' && (
-    <>
-      Results don't match{' '}
-      <Link href="/form/create-new-person/client-details">
-        <a style={{ textDecoration: 'underline' }} className="govuk-link">
-          {' '}
-          Add New Person
-        </a>
-      </Link>
-    </>
-  );
+  // commented out as the feature is not ready to be in prod
+  // const addNewPerson = type === 'people' && (
+  //   <>
+  //     Results don't match{' '}
+  //     <Link href="/form/create-new-person/client-details">
+  //       <a style={{ textDecoration: 'underline' }} className="govuk-link">
+  //         {' '}
+  //         Add New Person
+  //       </a>
+  //     </Link>
+  //   </>
+  // );
+  const addNewPerson = '';
   return (
     <>
       <h1 className="govuk-heading-l">Search</h1>
