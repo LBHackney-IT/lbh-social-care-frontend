@@ -23,7 +23,8 @@ export const SavedForms = () => {
   const tableHeader = [
     { id: 'form_type', text: 'Form type' },
     { id: 'last_saved', text: 'Last saved' },
-    { id: 'action', text: 'Action' },
+    { id: 'action', text: 'Actions' },
+    { id: 'delete', text: '' },
   ];
   const formQty = Object.entries(savedForms).length;
   return (
@@ -39,7 +40,6 @@ export const SavedForms = () => {
                 {text}
               </th>
             ))}
-            <th scope="col" className="govuk-table__header"></th>
           </tr>
         </thead>
         <tbody className="govuk-table__body">
@@ -49,9 +49,7 @@ export const SavedForms = () => {
               <td className="govuk-table__cell"> {value.timeStamp}</td>
               <td className="govuk-table__cell">
                 {
-                  <Link
-                    href={`${value.formPath}${value.step}&continueForm=true`}
-                  >
+                  <Link href={`${key}${value.step}&continueForm=true`}>
                     <a className="govuk-link">Complete</a>
                   </Link>
                 }
