@@ -54,11 +54,6 @@ const FormWizard = ({
         role="group"
         aria-describedby="step-hint"
       >
-        {step.id !== 'confirmation' && (
-          <legend className="govuk-fieldset__legend govuk-fieldset__legend--l">
-            <h1 className="govuk-fieldset__heading">{title}</h1>
-          </legend>
-        )}
         {steps.length > 3 &&
           step.id !== 'summary' &&
           step.id !== 'confirmation' && (
