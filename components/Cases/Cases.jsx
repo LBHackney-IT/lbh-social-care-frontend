@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import CasesTable from 'components/Cases/CasesTable';
 import ErrorMessage from 'components/ErrorMessage/ErrorMessage';
-import { getResidentCases } from 'utils/api/residents';
+import { getCasesByResident } from 'utils/api/cases';
 import Spinner from 'components/Spinner/Spinner';
 
 const Cases = ({ id }) => {
@@ -12,7 +12,7 @@ const Cases = ({ id }) => {
   const [cases, setCases] = useState();
   const getPersonCases = useCallback(async (id) => {
     try {
-      const data = await getResidentCases(id);
+      const data = await getCasesByResident(id);
       setLoading(false);
       setError(null);
       setCases(Array.isArray(data) ? data : [data]);

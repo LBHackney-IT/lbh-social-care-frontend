@@ -62,3 +62,16 @@ $screen-sm-min: 576px;
   justify-content: space-between;
   align-items: flex-end;
 }
+
+.cancelIcon {
+  width: 20px;
+  height: 20px;
+  top: 5px;
+  position: relative;
+  cursor: pointer;
+}
+
+.loading-spinner {
+  display: block;
+  margin: 0 auto;
+}

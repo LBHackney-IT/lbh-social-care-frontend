@@ -2,12 +2,17 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 
 import { getDataIncludes, deleteData } from 'utils/saveData';
+import DeleteIcon from './DeleteIcon';
 
 export const SavedForms = () => {
   const [savedForms, setSavedForms] = useState();
   useEffect(() => {
     setSavedForms(getDataIncludes('/form'));
   }, []);
+  const deleteForm = (path) => {
+    deleteData(path);
+    setSavedForms(getDataIncludes('/form'));
+  };
   if (!savedForms) {
     return (
       <p className="govuk-fieldset__legend--m gov-weight-lighter">
@@ -15,21 +20,11 @@ export const SavedForms = () => {
       </p>
     );
   }
-
   const tableHeader = [
-    { id: 'person_id', text: 'Person ID' },
-    { id: 'client_name', text: 'Client Name' },
-    { id: 'date_of_birth', text: 'Date of birth' },
     { id: 'form_type', text: 'Form type' },
     { id: 'last_saved', text: 'Last saved' },
-    { id: 'complete', text: 'Complete' },
-    { id: 'delete', text: 'Delete' },
+    { id: 'action', text: 'Action' },
   ];
-  console.log(Object.keys(savedForms));
-
-  const handleDeleteData = (formPath) => {
-    deleteData(formPath);
-  };
   const formQty = Object.entries(savedForms).length;
   return (
     <>
@@ -48,21 +43,26 @@ export const SavedForms = () => {
           </tr>
         </thead>
         <tbody className="govuk-table__body">
-          {/* {records.map((result) => (
-            <CasesEntry key={result.personId} {...result} />
-          ))} */}
+          {Object.entries(savedForms).map(([key, value]) => (
+            <tr key={key} className="govuk-table__row">
+              <td className="govuk-table__cell">{value.title} </td>
+              <td className="govuk-table__cell"> {value.timeStamp}</td>
+              <td className="govuk-table__cell">
+                {
+                  <Link
+                    href={`${value.formPath}${value.step}&continueForm=true`}
+                  >
+                    <a className="govuk-link">Complete</a>
+                  </Link>
+                }
+              </td>
+              <td className="govuk-table__cell" onClick={() => deleteForm(key)}>
+                <DeleteIcon update={setSavedForms} value={key} />
+              </td>
+            </tr>
+          ))}
         </tbody>
       </table>
-      <ul className="govuk-list">
-        {Object.entries(savedForms).map(([key, value]) => (
-          <li>
-            <Link key={key} href={`${key}${value.step}?continueForm=true`}>
-              <a className="govuk-link">{key.replace(/(form)|(\/)/g, '')}</a>
-            </Link>
-            <button onClick={handleDeleteData}>delete</button>
-          </li>
-        ))}
-      </ul>
     </>
   );
 };

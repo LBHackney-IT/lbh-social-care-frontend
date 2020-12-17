@@ -28,16 +28,6 @@ describe('residents APIs', () => {
     });
   });
 
-  describe('getResidentCases', () => {
-    it('should work properly', async () => {
-      axios.get.mockResolvedValue({ data: 'foobar' });
-      const data = await residentsAPI.getResidentCases('foo');
-      expect(axios.get).toHaveBeenCalled();
-      expect(axios.get.mock.calls[0][0]).toEqual('/api/residents/foo/cases');
-      expect(data).toEqual('foobar');
-    });
-  });
-
   describe('addResident', () => {
     it('should work properly', async () => {
       axios.post.mockResolvedValue({ data: 'foobar' });

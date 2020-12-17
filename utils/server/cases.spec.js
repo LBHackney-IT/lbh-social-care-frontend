@@ -22,10 +22,10 @@ describe('cases APIs', () => {
     });
   });
 
-  describe('getResidentCases', () => {
+  describe('getCasesByResident', () => {
     it('should work properly', async () => {
       axios.get.mockResolvedValue({ data: { foo: 123, cases: 'bar' } });
-      const data = await casesAPI.getResidentCases(123);
+      const data = await casesAPI.getCasesByResident(123);
       expect(axios.get).toHaveBeenCalled();
       expect(axios.get.mock.calls[0][0]).toEqual(`${ENDPOINT_API}/cases`);
       expect(axios.get.mock.calls[0][1].headers).toEqual({
