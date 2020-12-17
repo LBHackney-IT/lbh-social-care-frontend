@@ -49,7 +49,7 @@ describe(`Search`, () => {
     await act(async () => {
       fireEvent.submit(getByRole('form'));
     });
-    // expect(queryByText('Add New Person')).toBeInTheDocument();
+    expect(queryByText('Add New Person')).toBeInTheDocument();
     expect(queryByText('PEOPLE SEARCH RESULT')).toBeInTheDocument();
     expect(queryByText('load more')).not.toBeInTheDocument();
     getResidents.mockImplementation(() =>
@@ -89,7 +89,6 @@ describe(`Search`, () => {
     await act(async () => {
       fireEvent.submit(getByRole('form'));
     });
-    // expect(queryByText('Add New Person')).toBeInTheDocument();
     expect(queryByText('I am an ERROR')).toBeInTheDocument();
   });
 });
