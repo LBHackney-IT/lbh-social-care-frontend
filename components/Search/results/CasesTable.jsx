@@ -10,7 +10,7 @@ const CasesEntry = ({
   caseFormUrl,
   dateOfBirth,
   officerEmail,
-  caseFormTimestamp,
+  dateOfEvent,
 }) => (
   <tr className="govuk-table__row">
     <td className="govuk-table__cell">
@@ -20,7 +20,7 @@ const CasesEntry = ({
       {isDateValid(dateOfBirth) && dateOfBirth}
     </td>
     <td className="govuk-table__cell">{officerEmail}</td>
-    <td className="govuk-table__cell">{formatDate(caseFormTimestamp)}</td>
+    <td className="govuk-table__cell">{formatDate(dateOfEvent)}</td>
     <td className="govuk-table__cell govuk-button--secondary'">
       <a
         href="#"
@@ -34,10 +34,10 @@ const CasesEntry = ({
 );
 
 const tableHeader = [
-  { id: 'client_name', text: 'Client Name' },
+  { id: 'first_name', text: 'Client Name' },
   { id: 'date_of_birth', text: 'Date of birth' },
-  { id: 'uploaded_by', text: 'Uploaded by' },
-  { id: 'last_upload', text: 'Last upload' },
+  { id: 'officer_email', text: 'Uploaded by' },
+  { id: 'date_of_event', text: 'Last upload' },
 ];
 
 const CasesTable = ({ records, sort = {}, onSort }) => {
@@ -64,7 +64,7 @@ const CasesTable = ({ records, sort = {}, onSort }) => {
       </thead>
       <tbody className="govuk-table__body">
         {records.map((result) => (
-          <CasesEntry key={result.personId} {...result} />
+          <CasesEntry key={result.recordId} {...result} />
         ))}
       </tbody>
     </table>
@@ -79,11 +79,11 @@ CasesTable.propTypes = {
   onSort: PropTypes.func.isRequired,
   records: PropTypes.arrayOf(
     PropTypes.shape({
-      personId: PropTypes.number.isRequired,
+      recordId: PropTypes.string.isRequired,
       formName: PropTypes.string.isRequired,
       caseFormUrl: PropTypes.string.isRequired,
       officerEmail: PropTypes.string.isRequired,
-      caseFormTimestamp: PropTypes.string.isRequired,
+      dateOfEvent: PropTypes.string.isRequired,
     })
   ).isRequired,
 };
