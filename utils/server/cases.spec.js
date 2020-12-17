@@ -34,7 +34,7 @@ describe('cases APIs', () => {
       expect(axios.get.mock.calls[0][1].params).toEqual({
         mosaic_id: 123,
       });
-      expect(data).toEqual('bar');
+      expect(data).toEqual({ foo: 123, cases: 'bar' });
     });
   });
 

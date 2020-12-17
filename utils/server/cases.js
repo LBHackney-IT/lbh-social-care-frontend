@@ -20,7 +20,7 @@ export const getCasesByResident = async (mosaic_id) => {
     headers: { 'x-api-key': AWS_KEY },
     params: { mosaic_id },
   });
-  return data.cases;
+  return data;
 };
 
 export const addCase = async (formData) => {
