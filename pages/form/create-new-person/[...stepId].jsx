@@ -23,6 +23,7 @@ const CreateNewPerson = () => {
       title={form.title}
       defaultValues={{ user, ...form.defaultValues }}
       onFormSubmit={onFormSubmit}
+      successMessage={form.successMessage}
     />
   );
 };

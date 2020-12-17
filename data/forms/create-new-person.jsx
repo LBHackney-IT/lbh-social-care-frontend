@@ -1,6 +1,7 @@
 export default {
   title: 'Create New Person',
   path: '/form/create-new-person/',
+  successMessage: 'New person created',
   steps: [
     {
       id: 'client-details',
@@ -69,6 +70,7 @@ export default {
           component: 'AddressLookup',
           name: 'address',
           label: 'Address',
+          rules: { required: true },
         },
       ],
     },
