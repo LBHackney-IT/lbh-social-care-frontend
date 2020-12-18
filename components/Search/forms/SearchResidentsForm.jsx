@@ -87,12 +87,7 @@ const SearchResidentsForm = ({ onFormSubmit, query }) => {
             inputClassName="govuk-input--width-10"
             inputMode="numeric"
             error={errors.mosaicId}
-            register={register({
-              pattern: {
-                value: /^[0-9]+$/,
-                message: 'Mosaic ID must be a number',
-              },
-            })}
+            register={register}
           />
         </div>
       </div>
