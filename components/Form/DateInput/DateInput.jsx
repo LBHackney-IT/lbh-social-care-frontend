@@ -74,7 +74,7 @@ const DateInput = forwardRef(
                   id={`${name}-day`}
                   name={`${name}-day`}
                   type="text"
-                  pattern="[0-9]*"
+                  pattern="^\d{1,2}$"
                   inputMode="numeric"
                   value={date.day}
                   onChange={({ target: { value } }) =>
@@ -103,7 +103,7 @@ const DateInput = forwardRef(
                   id={`${name}-month`}
                   name={`${name}-month`}
                   type="text"
-                  pattern="[0-9]*"
+                  pattern="^\d{1,2}$"
                   inputMode="numeric"
                   value={date.month}
                   onChange={({ target: { value } }) =>
@@ -131,7 +131,7 @@ const DateInput = forwardRef(
                   id={`${name}-year`}
                   name={`${name}-year`}
                   type="text"
-                  pattern="[0-9]*"
+                  pattern="^\d{4}$"
                   inputMode="numeric"
                   value={date.year}
                   onChange={({ target: { value } }) =>
