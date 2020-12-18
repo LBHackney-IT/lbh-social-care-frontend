@@ -4,12 +4,12 @@ export default [
     value: '/form/create-new-person/client-details',
   },
   {
-    text: 'Case Note Recording',
+    text: 'Adult Case Note Recording',
     value: '/form/case-notes-recording/case-notes-recording',
   },
   {
-    text: 'CSC Case Note Recording',
-    value: '/form/csc-case-notes-recording/csc-case-notes-recording',
+    text: 'CFS Case Note Recording',
+    value: '/form/cfs-case-notes-recording/cfs-case-notes-recording',
   },
   {
     text: 'Rapid Support Referral Form',
