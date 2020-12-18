@@ -16,7 +16,6 @@ import UserContext from 'components/UserContext/UserContext';
 
 import { getResidents } from 'utils/api/residents';
 import { getCases } from 'utils/api/cases';
-import { getPermissionFilter } from 'utils/user';
 import { getQueryString } from 'utils/urls';
 
 const getRecords = (data) => [
@@ -35,10 +34,9 @@ const Search = ({ query, type }) => {
   });
   const { user } = useContext(UserContext);
   const { pathname, replace } = useRouter();
-  const permission = useMemo(() => getPermissionFilter(user), []);
   const { SearchForm, SearchResults, searchFunction } = useMemo(
     () =>
-      type === 'cases'
+      type === 'records'
         ? {
             SearchForm: SearchCasesForm,
             SearchResults: CasesTable,
@@ -63,7 +61,7 @@ const Search = ({ query, type }) => {
       setFormData(formData);
       const data = await searchFunction({
         ...formData,
-        context_flag: permission,
+        context_flag: user.permissionFlag,
       });
       setLoading(false);
       setResults({
@@ -119,7 +117,7 @@ const Search = ({ query, type }) => {
         <ul className="govuk-tabs__list">
           <li
             className={cx('govuk-tabs__list-item', {
-              'govuk-tabs__list-item--selected': type !== 'cases',
+              'govuk-tabs__list-item--selected': type !== 'records',
             })}
           >
             <Link href="/" scroll={false}>
@@ -128,7 +126,7 @@ const Search = ({ query, type }) => {
           </li>
           <li
             className={cx('govuk-tabs__list-item', {
-              'govuk-tabs__list-item--selected': type === 'cases',
+              'govuk-tabs__list-item--selected': type === 'records',
             })}
           >
             <Link href="/cases" scroll={false}>
@@ -138,7 +136,7 @@ const Search = ({ query, type }) => {
         </ul>
         <div className="govuk-tabs__panel">
           <p className="govuk-body govuk-!-margin-bottom-5">
-            {type === 'cases'
+            {type === 'records'
               ? 'Search and filter by any combination of fields'
               : 'Search for a person by any combination of fields below'}
           </p>
@@ -193,7 +191,7 @@ const Search = ({ query, type }) => {
 };
 
 Search.propTypes = {
-  type: PropTypes.oneOf(['people', 'cases']).isRequired,
+  type: PropTypes.oneOf(['people', 'records']).isRequired,
   query: PropTypes.shape({}),
 };
 

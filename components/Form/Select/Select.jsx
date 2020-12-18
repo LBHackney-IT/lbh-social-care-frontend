@@ -12,6 +12,7 @@ const Select = ({
   onChange,
   placeHolder = '',
   register,
+  required,
   error,
   children,
   isUnselectable = true,
@@ -24,7 +25,7 @@ const Select = ({
     })}
   >
     <label className={`govuk-label govuk-label--${labelSize}`} htmlFor={name}>
-      {label}
+      {label} {required && <span className="govuk-required">*</span>}
     </label>
     {hint && (
       <span id={`${name}-hint`} className="govuk-hint">
@@ -61,7 +62,7 @@ const Select = ({
 );
 
 Select.propTypes = {
-  label: PropTypes.string.isRequired,
+  label: PropTypes.string,
   labelSize: PropTypes.oneOf(['s', 'm', 'l', 'xl']),
   name: PropTypes.string.isRequired,
   options: PropTypes.arrayOf(
@@ -73,6 +74,7 @@ Select.propTypes = {
       }),
     ])
   ).isRequired,
+  required: PropTypes.bool,
   placeHolder: PropTypes.string,
   selected: PropTypes.string,
   register: PropTypes.func,

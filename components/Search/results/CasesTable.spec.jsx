@@ -7,9 +7,9 @@ describe('CasesTable component', () => {
     onSort: jest.fn(),
     records: [
       {
-        personId: 123,
+        recordId: '123',
         dateOfBirth: '25/10/2000',
-        caseFormTimestamp: '25/10/2020 13:49:43',
+        dateOfEvent: '25/10/2020 13:49:43',
         firstName: 'foo',
         lastName: 'bar',
         formName: 'i am a form',
@@ -28,14 +28,14 @@ describe('CasesTable component', () => {
     const { asFragment, rerender } = render(
       <CasesTable
         {...props}
-        sort={{ order_by: 'desc', sort_by: 'client_name' }}
+        sort={{ order_by: 'desc', sort_by: 'first_name' }}
       />
     );
     expect(asFragment()).toMatchSnapshot();
     rerender(
       <CasesTable
         {...props}
-        sort={{ order_by: 'asc', sort_by: 'client_name' }}
+        sort={{ order_by: 'asc', sort_by: 'first_name' }}
       />
     );
     expect(asFragment()).toMatchSnapshot();
@@ -46,6 +46,6 @@ describe('CasesTable component', () => {
     expect(props.onSort).not.toHaveBeenCalled();
     fireEvent.click(getByText('Client Name'));
     expect(props.onSort).toHaveBeenCalled();
-    expect(props.onSort).toHaveBeenCalledWith('client_name');
+    expect(props.onSort).toHaveBeenCalledWith('first_name');
   });
 });

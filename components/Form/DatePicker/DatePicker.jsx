@@ -18,7 +18,7 @@ const DatePicker = ({
       })}
     >
       <label className={`govuk-label govuk-label--${labelSize}`} htmlFor={name}>
-        {label} <span className="govuk-required">{required ? '*' : null}</span>
+        {label} {required && <span className="govuk-required">*</span>}
       </label>
       {hint && (
         <span id={`${name}-hint`} className="govuk-hint">

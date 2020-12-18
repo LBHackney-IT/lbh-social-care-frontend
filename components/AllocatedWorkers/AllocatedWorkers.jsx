@@ -1,30 +1,31 @@
 import { useState, useCallback, useEffect } from 'react';
 import PropTypes from 'prop-types';
 
-import CasesTable from 'components/Cases/CasesTable';
+import AllocatedWorkersTable from 'components/AllocatedWorkers/AllocatedWorkersTable';
 import ErrorMessage from 'components/ErrorMessage/ErrorMessage';
-import { getCasesByResident } from 'utils/api/cases';
+// eslint-disable-next-line no-unused-vars
+import { getAllocatedWorkers } from 'utils/api/allocatedWorkers';
 import Spinner from 'components/Spinner/Spinner';
 
-const Cases = ({ id }) => {
+const AllocatedWorkers = ({ id }) => {
   const [error, setError] = useState();
-  const [loading, setLoading] = useState(false);
-  const [cases, setCases] = useState();
-  const getPersonCases = useCallback(async (id) => {
+  const [loading, setLoading] = useState();
+  const [allocWorkers, setAllocWorkers] = useState();
+  const getWorkers = useCallback(async (id) => {
     try {
-      const data = await getCasesByResident(id);
+      const data = await getAllocatedWorkers(id);
       setLoading(false);
       setError(null);
-      setCases(Array.isArray(data) ? data : [data]);
+      setAllocWorkers(data.allocations);
     } catch (e) {
       setLoading(false);
       setError(e.response.data);
-      setCases(null);
+      setAllocWorkers(null);
     }
   });
   useEffect(() => {
     setLoading(true);
-    getPersonCases(id);
+    getWorkers(id);
   }, [id]);
   return (
     <>
@@ -34,7 +35,7 @@ const Cases = ({ id }) => {
         </div>
       ) : (
         <>
-          {cases && <CasesTable records={cases} />}
+          {allocWorkers && <AllocatedWorkersTable records={allocWorkers} />}
           {error && <ErrorMessage label={error} />}
         </>
       )}
@@ -42,8 +43,8 @@ const Cases = ({ id }) => {
   );
 };
 
-Cases.propTypes = {
+AllocatedWorkers.propTypes = {
   id: PropTypes.string.isRequired,
 };
 
-export default Cases;
+export default AllocatedWorkers;

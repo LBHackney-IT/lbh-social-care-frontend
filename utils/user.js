@@ -1,10 +1,10 @@
-export const getPermissionFilter = ({
+export const getPermissionFlag = ({
   hasAdminPermissions,
   hasAdultPermissions,
   hasChildrenPermissions,
 }) => {
   if (!hasAdminPermissions && hasAdultPermissions && !hasChildrenPermissions)
-    return 'a';
+    return 'A';
   if (!hasAdminPermissions && !hasAdultPermissions && hasChildrenPermissions)
-    return 'c';
+    return 'C';
 };

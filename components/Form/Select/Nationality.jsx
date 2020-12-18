@@ -22,7 +22,7 @@ const NationalityList = ({
       className={`govuk-label govuk-label--${labelSize}`}
       htmlFor="nationality"
     >
-      {label} <span className="govuk-required">{required ? '*' : null}</span>
+      {label} {required && <span className="govuk-required">*</span>}
     </label>
 
     {error && <ErrorMessage label={error.message} />}

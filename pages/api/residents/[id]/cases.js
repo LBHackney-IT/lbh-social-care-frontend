@@ -1,6 +1,6 @@
 import * as HttpStatus from 'http-status-codes';
 
-import { getResidentCases } from 'utils/server/cases';
+import { getCasesByResident } from 'utils/server/cases';
 import { isAuthorised } from 'utils/auth';
 
 export default async (req, res) => {
@@ -10,7 +10,7 @@ export default async (req, res) => {
   switch (req.method) {
     case 'GET':
       try {
-        const data = await getResidentCases(req.query.id);
+        const data = await getCasesByResident(req.query.id);
         res.status(HttpStatus.OK).json(data);
       } catch (error) {
         console.log(error.status);
