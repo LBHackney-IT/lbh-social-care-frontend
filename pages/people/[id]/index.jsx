@@ -1,5 +1,4 @@
 import { NextSeo } from 'next-seo';
-import LinkButton from 'components/LinkButton/LinkButton';
 
 import Cases from 'components/Cases/Cases';
 import BackButton from 'components/Layout/BackButton/BackButton';
@@ -21,7 +20,7 @@ const CasesPage = ({ query }) => {
           </p>
         </div>
         {/* commented out as the feature is not ready to be in prod */}
-        <LinkButton label="Add a new record" route={`${query.id}/record`} />
+        {/* <LinkButton label="Add a new record" route={`${query.id}/record`} /> */}
       </div>
       <hr className="govuk-divider" />
       <Cases {...query} />

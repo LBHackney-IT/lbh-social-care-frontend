@@ -4,7 +4,7 @@ import FormCasesWrapper from 'components/FormCasesWrapper/FormCasesWrapper';
 const CaseNotesRecording = ({ query }) => (
   <FormCasesWrapper
     personId={query.id}
-    title="Add a new case note"
+    title="Case note"
     form={form}
     formNameOverall="ASC_case_note"
   />
