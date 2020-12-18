@@ -1,4 +1,4 @@
-import { useState, useEffect, forwardRef, useRef } from 'react';
+import { useState, useEffect, forwardRef } from 'react';
 import PropTypes from 'prop-types';
 import cx from 'classnames';
 import { Controller } from 'react-hook-form';
