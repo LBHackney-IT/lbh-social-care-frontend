@@ -18,6 +18,7 @@ describe('date util', () => {
     it('should work properly', () => {
       expect(isDateValid('22/09/1941')).toBe(true);
       expect(isDateValid('foo')).toBe(false);
+      expect(isDateValid(null)).toBe(false);
     });
   });
 });

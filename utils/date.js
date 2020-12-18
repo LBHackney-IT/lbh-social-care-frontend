@@ -12,4 +12,4 @@ export const formatDate = (date) =>
     year: 'numeric',
   });
 
-export const isDateValid = (date) => isValid(parseDate(date));
+export const isDateValid = (date) => Boolean(date) && isValid(parseDate(date));
