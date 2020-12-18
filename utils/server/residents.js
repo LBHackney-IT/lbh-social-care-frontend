@@ -13,11 +13,11 @@ export const getResidents = async (params) => {
 };
 
 export const getResident = async (id, params) => {
-  const { data } = await axios.get(`${ENDPOINT_API}/residents/${id}`, {
+  const { data } = await axios.get(`${ENDPOINT_API}/residents`, {
     headers,
-    params,
+    params: { mosaic_id: id, ...params },
   });
-  return data;
+  return data?.residents?.[0];
 };
 
 export const addResident = async (formData) => {
