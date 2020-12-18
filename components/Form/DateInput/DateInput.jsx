@@ -148,6 +148,11 @@ const DateInput = forwardRef(
   }
 );
 
+DateInput.propTypes = {
+  label: PropTypes.string,
+  labelSize: PropTypes.oneOf(['s', 'm', 'l', 'xl']),
+  hint: PropTypes.string,
+  rules: PropTypes.shape({}),
 };
 
 const ControlledDateInput = ({ control, name, rules, ...otherProps }) => (
@@ -169,10 +174,7 @@ const ControlledDateInput = ({ control, name, rules, ...otherProps }) => (
 );
 
 ControlledDateInput.propTypes = {
-  label: PropTypes.string,
-  labelSize: PropTypes.oneOf(['s', 'm', 'l', 'xl']),
   name: PropTypes.string.isRequired,
-  hint: PropTypes.string,
   rules: PropTypes.shape({}),
   control: PropTypes.object.isRequired,
 };
