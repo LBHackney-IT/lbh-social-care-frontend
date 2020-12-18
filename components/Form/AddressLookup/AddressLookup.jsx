@@ -160,6 +160,7 @@ const AddressLookup = ({
             ...rules?.validate,
           },
         }}
+        defaultValue={control.defaultValuesRef.current[name] || null}
         onFocus={() => inputRef.current.focus()}
       />
       {(error || errorMessage) && (

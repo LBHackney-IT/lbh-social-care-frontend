@@ -181,6 +181,7 @@ const ControlledDateInput = ({
   );
 };
 
+    defaultValue={control.defaultValuesRef.current[name] || null}
 ControlledDateInput.propTypes = {
   label: PropTypes.string,
   labelSize: PropTypes.oneOf(['s', 'm', 'l', 'xl']),
