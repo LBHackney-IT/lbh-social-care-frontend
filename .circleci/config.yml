@@ -13,7 +13,7 @@ executors:
       - image: circleci/python:3.7
 
 references:
-  workspace_root: &workspace_root "~"
+  workspace_root: &workspace_root '~'
   attach_workspace: &attach_workspace
     attach_workspace:
       at: *workspace_root
@@ -45,9 +45,9 @@ jobs:
           name: Run E2E
           command: yarn e2e
       - store_artifacts:
-          path: ~/repo/cypress/screenshots
+          path: ~/project/cypress/screenshots
       - store_artifacts:
-          path: ~/repo/cypress/videos
+          path: ~/project/cypress/videos
       - persist_to_workspace:
           root: *workspace_root
           paths: .
@@ -75,7 +75,7 @@ jobs:
       - aws_assume_role/assume_role:
           account: $AWS_ACCOUNT_STAGING
           profile_name: default
-          role: "LBH_Circle_CI_Deployment_Role"
+          role: 'LBH_Circle_CI_Deployment_Role'
       - persist_to_workspace:
           root: *workspace_root
           paths:
@@ -88,7 +88,7 @@ jobs:
       - aws_assume_role/assume_role:
           account: $AWS_ACCOUNT_PRODUCTION
           profile_name: default
-          role: "LBH_Circle_CI_Deployment_Role"
+          role: 'LBH_Circle_CI_Deployment_Role'
       - persist_to_workspace:
           root: *workspace_root
           paths:
