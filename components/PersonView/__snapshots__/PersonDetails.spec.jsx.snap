@@ -146,10 +146,10 @@ exports[`PersonDetails component should render properly - expanded 2`] = `
         <dd
           class="govuk-summary-list__value"
         >
-          <ul>
-            <li
-              class="govuk-list"
-            >
+          <ul
+            class="govuk-list"
+          >
+            <li>
               02123 - Home
             </li>
           </ul>
@@ -275,10 +275,10 @@ exports[`PersonDetails component should render properly 1`] = `
         <dd
           class="govuk-summary-list__value"
         >
-          <ul>
-            <li
-              class="govuk-list"
-            >
+          <ul
+            class="govuk-list"
+          >
+            <li>
               02123 - Home
             </li>
           </ul>
