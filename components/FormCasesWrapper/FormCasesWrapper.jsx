@@ -61,7 +61,7 @@ const FormCasesWrapper = ({ form, title, personId, formNameOverall }) => {
             defaultValues={form.defaultValues}
             onFormSubmit={onFormSubmit}
             personDetails={{ ...person }}
-            includesDetails={form.includeDetails}
+            includesDetails={true}
           />
         </>
       )}
@@ -76,9 +76,9 @@ FormCasesWrapper.propTypes = {
     path: PropTypes.string.isRequired,
     steps: PropTypes.array.isRequired,
     defaultValues: PropTypes.shape({}),
-    includeDetails: PropTypes.bool,
   }).isRequired,
   personId: PropTypes.string.isRequired,
+  includeDetails: PropTypes.bool,
   formNameOverall: PropTypes.string,
 };
 

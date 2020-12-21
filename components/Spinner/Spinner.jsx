@@ -1,6 +1,6 @@
 const Spinner = () => (
   <svg
-    className="loading-spinner"
+    id="loading-spinner"
     width="50"
     height="50"
     viewBox="0 0 42 42"

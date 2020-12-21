@@ -56,7 +56,7 @@ export const StandardTable = ({ tableHeader, data, deleteForm }) => (
     </thead>
     <tbody className="govuk-table__body">
       {data.map((cell) => (
-        <tr key={'key'} className="govuk-table__row">
+        <tr key={cell.formPath} className="govuk-table__row">
           <td className="govuk-table__cell">{cell.title} </td>
           <td className="govuk-table__cell"> {cell.timeStamp}</td>
           <td className="govuk-table__cell">

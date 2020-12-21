@@ -1,7 +1,6 @@
 export default {
   title: 'Create New Person',
   path: '/form/create-new-person/',
-  includeDetails: false,
   successMessage: 'New person created',
   steps: [
     {
