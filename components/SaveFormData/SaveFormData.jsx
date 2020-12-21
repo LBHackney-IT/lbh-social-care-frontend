@@ -33,6 +33,9 @@ export const SavedForms = () => {
   const formQty = sortData.length;
   const detailData = sortData.filter((item) => item.includesDetails);
   const standardData = sortData.filter((item) => !item.includesDetails);
+  console.log(savedForms);
+  console.log(sortData);
+
   return (
     <>
       <p className="govuk-fieldset__legend--s gov-weight-lighter">

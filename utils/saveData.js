@@ -1,13 +1,13 @@
 export const windowGlobal = typeof window !== 'undefined' && window;
 
-export const saveData = ({
+export const saveData = (
   formPath,
   data,
   title,
   step,
   includesDetails,
-  personDetails,
-}) => {
+  personDetails
+) => {
   const timeStamp = new Date(Date.now()).toLocaleString().split(',')[0];
   const savedData = {
     step,
