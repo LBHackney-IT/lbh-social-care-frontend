@@ -1,17 +1,18 @@
 import { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { getResident } from 'utils/api/residents';
+
 import ErrorMessage from 'components/ErrorMessage/ErrorMessage';
+import Spinner from 'components/Spinner/Spinner';
+import { getResident } from 'utils/api/residents';
 import PersonDetails from './PersonDetails';
 // import AllocatedWorkers from '../AllocatedWorkers/AllocatedWorkers';
 
 const PersonView = ({ personId, expandView }) => {
   const [person, setPerson] = useState();
   const [error, setError] = useState();
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
 
-  const getPerson = async (personId) => {
-    setLoading(false);
+  const getPerson = async () => {
     try {
       const data = await getResident(personId);
       setPerson(data);
@@ -20,16 +21,15 @@ const PersonView = ({ personId, expandView }) => {
       setPerson(null);
       setError(e.response.data);
     }
+    setLoading(false);
   };
   useEffect(() => {
-    setLoading(true);
-    getPerson(personId);
-  }, [personId]);
-
+    getPerson();
+  }, []);
   return (
     <>
       {loading ? (
-        <div>Loading...</div>
+        <Spinner />
       ) : (
         <>
           {error && <ErrorMessage label={error} />}

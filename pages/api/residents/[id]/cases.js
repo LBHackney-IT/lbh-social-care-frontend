@@ -7,10 +7,11 @@ export default async (req, res) => {
   if (!isAuthorised({ req })) {
     return res.status(HttpStatus.UNAUTHORIZED).send('Auth cookie missing.');
   }
+  const { id, ...params } = req.query;
   switch (req.method) {
     case 'GET':
       try {
-        const data = await getCasesByResident(req.query.id);
+        const data = await getCasesByResident(id, params);
         res.status(HttpStatus.OK).json(data);
       } catch (error) {
         console.log(error.status);
