@@ -13,14 +13,13 @@ executors:
       - image: circleci/python:3.7
 
 references:
-  workspace_root: &workspace_root '~'
+  workspace_root: &workspace_root "~"
   attach_workspace: &attach_workspace
     attach_workspace:
       at: *workspace_root
 
 jobs:
   install-dependencies-and-test:
-    working_directory: ~/repo
     executor: node-executor
     steps:
       - *attach_workspace
@@ -49,6 +48,9 @@ jobs:
           path: ~/repo/cypress/screenshots
       - store_artifacts:
           path: ~/repo/cypress/videos
+      - persist_to_workspace:
+          root: *workspace_root
+          paths: .
 
   build-deploy-staging:
     executor: aws-cli/default
@@ -73,7 +75,7 @@ jobs:
       - aws_assume_role/assume_role:
           account: $AWS_ACCOUNT_STAGING
           profile_name: default
-          role: 'LBH_Circle_CI_Deployment_Role'
+          role: "LBH_Circle_CI_Deployment_Role"
       - persist_to_workspace:
           root: *workspace_root
           paths:
@@ -86,7 +88,7 @@ jobs:
       - aws_assume_role/assume_role:
           account: $AWS_ACCOUNT_PRODUCTION
           profile_name: default
-          role: 'LBH_Circle_CI_Deployment_Role'
+          role: "LBH_Circle_CI_Deployment_Role"
       - persist_to_workspace:
           root: *workspace_root
           paths:
