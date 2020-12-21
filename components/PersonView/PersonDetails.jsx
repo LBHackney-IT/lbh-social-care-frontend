@@ -82,8 +82,8 @@ const PersonDetails = ({
                   <dd className="govuk-summary-list__value">
                     <ul>
                       {phoneNumber.map(({ phoneNumber, phoneType }) => (
-                        <li>
-                          {phoneNumber} <span>- {phoneType}</span>
+                        <li className="govuk-list" key={phoneNumber}>
+                          {phoneNumber} - {phoneType}
                         </li>
                       ))}
                     </ul>

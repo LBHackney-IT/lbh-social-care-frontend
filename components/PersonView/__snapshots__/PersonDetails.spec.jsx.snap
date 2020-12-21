@@ -146,12 +146,13 @@ exports[`PersonDetails component should render properly - expanded 2`] = `
         <dd
           class="govuk-summary-list__value"
         >
-          <p>
-            02123
-          </p>
-          <p>
-            Home
-          </p>
+          <ul>
+            <li
+              class="govuk-list"
+            >
+              02123 - Home
+            </li>
+          </ul>
         </dd>
       </div>
     </dl>
@@ -274,12 +275,13 @@ exports[`PersonDetails component should render properly 1`] = `
         <dd
           class="govuk-summary-list__value"
         >
-          <p>
-            02123
-          </p>
-          <p>
-            Home
-          </p>
+          <ul>
+            <li
+              class="govuk-list"
+            >
+              02123 - Home
+            </li>
+          </ul>
         </dd>
       </div>
     </dl>
