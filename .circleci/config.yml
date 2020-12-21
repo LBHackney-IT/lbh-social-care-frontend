@@ -59,9 +59,6 @@ jobs:
           path: ~/project/cypress/screenshots
       - store_artifacts:
           path: ~/project/cypress/videos
-      - persist_to_workspace:
-          root: *workspace_root
-          paths: .
 
   build-deploy-staging:
     executor: aws-cli/default
