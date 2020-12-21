@@ -80,9 +80,13 @@ const PersonDetails = ({
                 <div className="govuk-summary-list__row">
                   <dt className="govuk-summary-list__key">Phone Number</dt>
                   <dd className="govuk-summary-list__value">
-                    {Object.values(phoneNumber[0]).map((number) => (
-                      <p key={number}>{number}</p>
-                    ))}
+                    <ul>
+                      {phoneNumber.map(({ phoneNumber, phoneType }) => (
+                        <li>
+                          {phoneNumber} <span>- {phoneType}</span>
+                        </li>
+                      ))}
+                    </ul>
                   </dd>
                 </div>
               )}
