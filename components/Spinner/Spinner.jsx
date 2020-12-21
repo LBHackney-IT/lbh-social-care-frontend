@@ -3,8 +3,6 @@ const Spinner = () => (
     width="50"
     height="50"
     margin="0 auto"
-    display="block"
-    viewBox="0 0 42 42"
     xmlns="http://www.w3.org/2000/svg"
     stroke="#00703c"
     style={{ display: 'block', margin: 'auto' }}
