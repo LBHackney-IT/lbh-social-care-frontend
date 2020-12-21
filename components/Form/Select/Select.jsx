@@ -62,7 +62,7 @@ const Select = ({
 );
 
 Select.propTypes = {
-  label: PropTypes.string.isRequired,
+  label: PropTypes.string,
   labelSize: PropTypes.oneOf(['s', 'm', 'l', 'xl']),
   name: PropTypes.string.isRequired,
   options: PropTypes.arrayOf(

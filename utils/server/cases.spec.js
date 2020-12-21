@@ -25,7 +25,7 @@ describe('cases APIs', () => {
   describe('getCasesByResident', () => {
     it('should work properly', async () => {
       axios.get.mockResolvedValue({ data: { foo: 123, cases: 'bar' } });
-      const data = await casesAPI.getCasesByResident(123);
+      const data = await casesAPI.getCasesByResident(123, { cursor: 321 });
       expect(axios.get).toHaveBeenCalled();
       expect(axios.get.mock.calls[0][0]).toEqual(`${ENDPOINT_API}/cases`);
       expect(axios.get.mock.calls[0][1].headers).toEqual({
@@ -33,8 +33,9 @@ describe('cases APIs', () => {
       });
       expect(axios.get.mock.calls[0][1].params).toEqual({
         mosaic_id: 123,
+        cursor: 321,
       });
-      expect(data).toEqual('bar');
+      expect(data).toEqual({ foo: 123, cases: 'bar' });
     });
   });
 

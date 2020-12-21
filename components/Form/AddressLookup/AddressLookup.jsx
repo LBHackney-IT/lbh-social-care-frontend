@@ -45,6 +45,7 @@ const AddressLookup = ({
   control,
   error: { message: errorMessage } = {},
   supportManualEntry = true,
+  required,
   rules,
 }) => {
   const inputRef = useRef();
@@ -80,7 +81,7 @@ const AddressLookup = ({
       })}
     >
       <label className="govuk-label govuk-label--m" htmlFor="postcode">
-        {label}
+        {label} {required && <span className="govuk-required">*</span>}
       </label>
       {hint && (
         <span id={`${name}-hint`} className="govuk-hint">
@@ -153,12 +154,13 @@ const AddressLookup = ({
               value?.address.length > 0 ||
               'You must enter an address',
             postcode: (value) =>
-              !rules?.required ||
+              (!rules?.required && value?.postcode === '') ||
               (value?.postcode && isPostcodeValid(value.postcode)) ||
               'You must enter a valid postcode',
             ...rules?.validate,
           },
         }}
+        defaultValue={control.defaultValuesRef.current[name] || null}
         onFocus={() => inputRef.current.focus()}
       />
       {(error || errorMessage) && (
@@ -176,6 +178,7 @@ AddressLookup.propTypes = {
   label: PropTypes.string.isRequired,
   hint: PropTypes.string,
   rules: PropTypes.shape({}),
+  required: PropTypes.bool,
   control: PropTypes.object.isRequired,
   supportManualEntry: PropTypes.bool,
 };

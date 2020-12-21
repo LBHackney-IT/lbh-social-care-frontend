@@ -6,6 +6,7 @@ const Spinner = () => (
     viewBox="0 0 42 42"
     xmlns="http://www.w3.org/2000/svg"
     stroke="#00703c"
+    style={{ display: 'block', margin: 'auto' }}
   >
     <g fill="none" fillRule="evenodd">
       <g transform="translate(3 3)" strokeWidth="5">

@@ -20,7 +20,9 @@ const CasesEntry = ({
       {isDateValid(dateOfBirth) && dateOfBirth}
     </td>
     <td className="govuk-table__cell">{officerEmail}</td>
-    <td className="govuk-table__cell">{formatDate(dateOfEvent)}</td>
+    <td className="govuk-table__cell">
+      {isDateValid(dateOfEvent) && formatDate(dateOfEvent)}
+    </td>
     <td className="govuk-table__cell govuk-button--secondary'">
       <a
         href="#"

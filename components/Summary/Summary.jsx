@@ -59,21 +59,23 @@ export const SummarySection = ({
         .map(({ component, options, name, label }) => {
           if (component === 'AddressLookup') {
             const { address, postcode } = formData[name];
-            return {
-              key: name,
-              title: label,
-              value: (
-                <>
-                  {address.split(', ').map((value) => (
-                    <div key={value}>
-                      <span>{value}</span>
-                      <br />
-                    </div>
-                  ))}
-                  <div>{postcode}</div>
-                </>
-              ),
-            };
+            return (
+              address && {
+                key: name,
+                title: label,
+                value: (
+                  <>
+                    {address.split(', ').map((value) => (
+                      <div key={value}>
+                        <span>{value}</span>
+                        <br />
+                      </div>
+                    ))}
+                    <div>{postcode}</div>
+                  </>
+                ),
+              }
+            );
           }
           if (component === 'Radios' || component === 'Select') {
             return {

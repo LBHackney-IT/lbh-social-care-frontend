@@ -1,6 +1,8 @@
 import cookie from 'cookie';
 import jsonwebtoken from 'jsonwebtoken';
 
+import { getPermissionFlag } from 'utils/user';
+
 const { GSSO_TOKEN_NAME } = process.env;
 
 export const AUTH_WHITELIST = ['/login', '/access-denied'];
@@ -72,6 +74,7 @@ export const isAuthorised = ({ req, res }, withRedirect = false) => {
     }
     return {
       ...gssUser,
+      permissionFlag: getPermissionFlag(gssUser),
       isAuthorised: true,
       name,
       email,
