@@ -52,7 +52,7 @@ const Cases = ({ id }) => {
           <hr className="govuk-divider" />
           {results && (
             <>
-              {results.cases.lenght > 0 ? (
+              {results?.cases.length > 0 ? (
                 <CasesTable records={results.cases} />
               ) : (
                 <p className="govuk-body govuk-!-margin-top-5">
