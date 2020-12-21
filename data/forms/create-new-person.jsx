@@ -1,6 +1,7 @@
 export default {
   title: 'Create New Person',
   path: '/form/create-new-person/',
+  includeDetails: false,
   steps: [
     {
       id: 'client-details',

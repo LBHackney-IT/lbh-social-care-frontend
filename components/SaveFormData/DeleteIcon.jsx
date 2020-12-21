@@ -1,6 +1,6 @@
 const DeleteIcon = () => (
   <svg
-    className="cancelIcon"
+    className="cancel-icon"
     height="512pt"
     viewBox="0 0 512 512"
     width="512pt"

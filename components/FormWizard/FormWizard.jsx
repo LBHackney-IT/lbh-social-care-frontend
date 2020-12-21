@@ -17,6 +17,8 @@ const FormWizard = ({
   onFormSubmit,
   defaultValues = {},
   title,
+  personDetails,
+  includesDetails,
 }) => {
   Router.events.on('routeChangeComplete', () => {
     window.scrollTo(0, 0);
@@ -104,7 +106,11 @@ const FormWizard = ({
               formPath,
               updatedData,
               title,
-              `${stepId.join('/')}?${getQueryString(queryString)}`
+              includesDetails
+                ? `${stepId.join('/')}?${getQueryString(queryString)}`
+                : stepId.join('/'),
+              includesDetails,
+              personDetails
             );
             Router.push('/');
           }}

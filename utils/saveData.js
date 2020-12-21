@@ -1,12 +1,23 @@
 export const windowGlobal = typeof window !== 'undefined' && window;
 
-export const saveData = (formPath, data, title, step) => {
+export const saveData = (
+  formPath,
+  data,
+  title,
+  step,
+  includesDetails,
+  personDetails
+) => {
   const timeStamp = new Date(Date.now()).toLocaleString().split(',')[0];
+  console.log(step);
   const savedData = {
     step,
     data,
     title,
     timeStamp,
+    formPath,
+    includesDetails,
+    ...personDetails,
   };
   try {
     windowGlobal.localStorage.setItem(formPath, JSON.stringify(savedData));

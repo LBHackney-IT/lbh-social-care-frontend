@@ -1,8 +1,7 @@
 import { useState, useEffect } from 'react';
-import Link from 'next/link';
 
 import { getDataIncludes, deleteData } from 'utils/saveData';
-import DeleteIcon from './DeleteIcon';
+import { DetailedTable, StandardTable } from './Tables';
 
 export const SavedForms = () => {
   const [savedForms, setSavedForms] = useState();
@@ -20,47 +19,40 @@ export const SavedForms = () => {
       </p>
     );
   }
-  const tableHeader = [
-    { id: 'form_type', text: 'Form type' },
-    { id: 'last_saved', text: 'Last saved' },
-    { id: 'action', text: 'Actions' },
-    { id: 'delete', text: '' },
+  const detailHeader = [
+    'Person ID',
+    'Client Name',
+    'Date of birth',
+    'Form type',
+    'Last saved',
+    'Actions',
+    '',
   ];
-  const formQty = Object.entries(savedForms).length;
+  const standardHeader = ['Form type', 'Last saved', 'Actions', ''];
+  const sortData = Object.values(savedForms);
+  const formQty = sortData.length;
+  const detailData = sortData.filter((item) => item.includesDetails);
+  const standardData = sortData.filter((item) => !item.includesDetails);
+  console.log(sortData);
   return (
     <>
       <p className="govuk-fieldset__legend--s gov-weight-lighter">
         {`Displaying ${formQty} unfinished ${formQty > 1 ? 'forms' : 'form'}`}{' '}
       </p>
-      <table className="govuk-table">
-        <thead className="govuk-table__head">
-          <tr className="govuk-table__row">
-            {tableHeader.map(({ id, text }) => (
-              <th key={id} className="govuk-table__header">
-                {text}
-              </th>
-            ))}
-          </tr>
-        </thead>
-        <tbody className="govuk-table__body">
-          {Object.entries(savedForms).map(([key, value]) => (
-            <tr key={key} className="govuk-table__row">
-              <td className="govuk-table__cell">{value.title} </td>
-              <td className="govuk-table__cell"> {value.timeStamp}</td>
-              <td className="govuk-table__cell">
-                {
-                  <Link href={`${key}${value.step}&continueForm=true`}>
-                    <a className="govuk-link">Complete</a>
-                  </Link>
-                }
-              </td>
-              <td className="govuk-table__cell" onClick={() => deleteForm(key)}>
-                <DeleteIcon />
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+      {standardData.length ? (
+        <StandardTable
+          tableHeader={standardHeader}
+          data={standardData}
+          deleteForm={deleteForm}
+        />
+      ) : null}
+      {detailData.length ? (
+        <DetailedTable
+          tableHeader={detailHeader}
+          data={detailData}
+          deleteForm={deleteForm}
+        />
+      ) : null}
     </>
   );
 };
