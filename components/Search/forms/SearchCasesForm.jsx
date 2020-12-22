@@ -12,7 +12,7 @@ import {
   DateInput,
   Select,
 } from 'components/Form';
-import CASE_NOTE_TYPES from 'data/caseNoteTypes';
+import FORM_NAMES from 'data/formNames';
 
 const SearchCasesForm = ({ onFormSubmit, query }) => {
   const {
@@ -110,11 +110,11 @@ const SearchCasesForm = ({ onFormSubmit, query }) => {
       <div className="govuk-grid-row">
         <div className="govuk-grid-column-full">
           <Select
-            name="case_note_type"
+            name="form_name"
             label="Filter by form type:"
             labelSize="s"
             register={register}
-            options={CASE_NOTE_TYPES}
+            options={FORM_NAMES}
           />
         </div>
       </div>

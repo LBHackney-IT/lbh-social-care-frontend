@@ -33,7 +33,7 @@ describe(`SearchCasesForm`, () => {
     expect(props.onFormSubmit).toHaveBeenCalledWith({
       first_name: 'foo',
       last_name: '',
-      case_note_type: '',
+      form_name: '',
       exact_name_match: false,
       my_notes_only: false,
     });
@@ -53,7 +53,7 @@ describe(`SearchCasesForm`, () => {
     expect(props.onFormSubmit).toHaveBeenCalledWith({
       first_name: '',
       last_name: '',
-      case_note_type: '',
+      form_name: '',
       exact_name_match: false,
       my_notes_only: true,
     });
@@ -69,7 +69,7 @@ describe(`SearchCasesForm`, () => {
     expect(props.onFormSubmit).toHaveBeenCalledWith({
       first_name: 'bar',
       last_name: '',
-      case_note_type: '',
+      form_name: '',
       exact_name_match: false,
       my_notes_only: false,
     });

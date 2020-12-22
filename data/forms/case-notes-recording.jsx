@@ -1,4 +1,5 @@
-import CASE_NOTE_TYPES from 'data/caseNoteTypes';
+import FORM_NAMES from 'data/formNames';
+
 export default {
   title: 'Case Notes Recording',
   path: '/form/case-notes-recording/',
@@ -11,7 +12,7 @@ export default {
           component: 'Select',
           name: 'form_name',
           label: 'Case Note Type',
-          options: CASE_NOTE_TYPES,
+          options: FORM_NAMES,
         },
         {
           component: 'TextInput',
