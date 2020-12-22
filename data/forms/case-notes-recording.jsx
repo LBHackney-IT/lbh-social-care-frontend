@@ -1,6 +1,6 @@
 import CASE_NOTE_TYPES from 'data/caseNoteTypes';
 export default {
-  title: '',
+  title: 'Case Notes Recording',
   path: '/form/case-notes-recording/',
   steps: [
     {

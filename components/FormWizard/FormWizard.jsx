@@ -18,6 +18,8 @@ const FormWizard = ({
   onFormSubmit,
   defaultValues = {},
   title,
+  personDetails,
+  includesDetails,
 }) => {
   Router.events.on('routeChangeComplete', () => {
     window.scrollTo(0, 0);
@@ -55,11 +57,6 @@ const FormWizard = ({
         role="group"
         aria-describedby="step-hint"
       >
-        {step.id !== 'confirmation' && (
-          <legend className="govuk-fieldset__legend govuk-fieldset__legend--l">
-            <h1 className="govuk-fieldset__heading">{title}</h1>
-          </legend>
-        )}
         {steps.length > 3 &&
           step.id !== 'summary' &&
           step.id !== 'confirmation' && (
@@ -109,7 +106,12 @@ const FormWizard = ({
             saveData(
               formPath,
               updatedData,
-              `${stepId.join('/')}?${getQueryString(queryString)}`
+              title,
+              includesDetails
+                ? `${stepId.join('/')}?${getQueryString(queryString)}`
+                : stepId.join('/'),
+              includesDetails,
+              personDetails
             );
             Router.push('/');
           }}
