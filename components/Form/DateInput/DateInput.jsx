@@ -6,9 +6,11 @@ import isValid from 'date-fns/isValid';
 
 import ErrorMessage from 'components/ErrorMessage/ErrorMessage';
 
-const getInitialDate = (value) => {
-  const [year = '', month = '', day = ''] = value?.split('-') || [];
-  return { day, month, year };
+const getInitialDate = (value, format) => {
+  const date = value?.split('-') || ['', '', ''];
+  return format === 'US'
+    ? { day: date[2], month: date[1], year: date[0] }
+    : { day: date[0], month: date[1], year: date[2] };
 };
 
 const DateInput = forwardRef(
@@ -22,17 +24,22 @@ const DateInput = forwardRef(
       name,
       onChange,
       required,
+      format = 'US',
       ...otherProps
     },
     ref
   ) => {
-    const [date, setDate] = useState(getInitialDate(value));
+    const [date, setDate] = useState(getInitialDate(value, format));
     useEffect(() => {
       const { day, month, year } = date;
       day !== '' &&
         month !== '' &&
         year !== '' &&
-        onChange(`${year}-${month}-${day}`);
+        onChange(
+          format === 'US'
+            ? `${year}-${month}-${day}`
+            : `${day}-${month}-${year}`
+        );
       day === '' && month === '' && year === '' && onChange();
     }, [date]);
     return (
@@ -153,6 +160,7 @@ DateInput.propTypes = {
   labelSize: PropTypes.oneOf(['s', 'm', 'l', 'xl']),
   hint: PropTypes.string,
   rules: PropTypes.shape({}),
+  format: PropTypes.oneOf(['EU', 'US']),
 };
 
 const ControlledDateInput = ({ control, name, rules, ...otherProps }) => (
