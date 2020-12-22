@@ -463,11 +463,10 @@ export default {
           Hackney Child Wellbeing Framework
         </h3>,
         <p key="text5" className="govuk-body">
-          Please consult the
-          <a href="https://tinyurl.com/yxzq446e" target="_blank">
-            {' '}
-            Hackney Child Wellbeing Framework{' '}
-          </a>
+          Please consult the{' '}
+          <a href="https://tinyurl.com/yxzq446e" target="_blank" rel="noopener">
+            Hackney Child Wellbeing Framework
+          </a>{' '}
           (opens in new tab) for guidance around levels of intervention. The
           Council Family Support Services in Hackney are either delivered via
           multi-agency teams (MAT) at local Children’s Centres (primarily for
