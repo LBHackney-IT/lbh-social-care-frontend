@@ -14,7 +14,7 @@ const ResultEntry = ({
       {firstName} {lastName}
     </td>
     <td className="govuk-table__cell">
-      {new Date(dateOfBirth).toLocaleDateString('en-GB')}
+      {dateOfBirth && new Date(dateOfBirth).toLocaleDateString('en-GB')}
     </td>
     <td className="govuk-table__cell">
       <Link href={`/people/${personId || mosaicId}`}>

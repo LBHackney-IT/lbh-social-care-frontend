@@ -20,7 +20,8 @@ export const DetailedTable = ({ tableHeader, data, deleteForm }) => (
             {`${cell.firstName} ${cell.lastName}`}{' '}
           </td>
           <td className="govuk-table__cell">
-            {new Date(cell.dateOfBirth).toLocaleDateString('en-GB')}{' '}
+            {cell.dateOfBirth &&
+              new Date(cell.dateOfBirth).toLocaleDateString('en-GB')}{' '}
           </td>
           <td className="govuk-table__cell">{cell.title} </td>
           <td className="govuk-table__cell"> {cell.timeStamp}</td>
