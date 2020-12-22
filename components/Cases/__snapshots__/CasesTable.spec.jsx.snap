@@ -29,12 +29,14 @@ exports[`CasesTable component should render properly 1`] = `
         <td
           class="govuk-table__cell govuk-button--secondary'"
         >
-          <span
-            class="govuk-link govuk-custom-text-color"
-            role="button"
+          <a
+            class="govuk-link"
+            href="https://foo.bar"
+            rel="noopener"
+            target="_blank"
           >
             View
-          </span>
+          </a>
         </td>
       </tr>
     </tbody>

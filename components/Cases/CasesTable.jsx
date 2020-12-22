@@ -1,6 +1,5 @@
 import PropTypes from 'prop-types';
 import { formatDate } from 'utils/date';
-const onClick = (url) => window.open(url, '_blank');
 
 const CasesEntry = ({ formName, caseFormUrl, officerEmail, dateOfEvent }) => (
   <tr className="govuk-table__row">
@@ -13,13 +12,14 @@ const CasesEntry = ({ formName, caseFormUrl, officerEmail, dateOfEvent }) => (
     </td>
     <td className="govuk-table__cell govuk-button--secondary'">
       {caseFormUrl && (
-        <span
-          role="button"
-          className="govuk-link govuk-custom-text-color"
-          onClick={() => onClick(caseFormUrl)}
+        <a
+          href={caseFormUrl}
+          target="_blank"
+          rel="noopener"
+          className="govuk-link"
         >
           View
-        </span>
+        </a>
       )}
     </td>
   </tr>
