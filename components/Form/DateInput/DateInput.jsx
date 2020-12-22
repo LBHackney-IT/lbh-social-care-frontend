@@ -25,7 +25,7 @@ const DateInput = forwardRef(
       name,
       onChange,
       required,
-      format = 'US',
+      format,
       ...otherProps
     },
     ref
@@ -168,7 +168,7 @@ const ControlledDateInput = ({
   control,
   name,
   rules,
-  format,
+  format = 'US',
   ...otherProps
 }) => (
   <Controller
@@ -178,11 +178,11 @@ const ControlledDateInput = ({
     rules={{
       ...rules,
       validate: {
-        ...rules?.validate,
         valid: (value) =>
           value &&
           (isValid(new Date(format === 'US' ? value : convertFormat(value))) ||
             'Must be a is valid Date'),
+        ...rules?.validate,
       },
     }}
     control={control}

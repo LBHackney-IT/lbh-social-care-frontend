@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import { useForm } from 'react-hook-form';
 import isPast from 'date-fns/isPast';
 
+import { convertFormat } from 'utils/date';
+
 import {
   Button,
   TextInput,
@@ -79,7 +81,9 @@ const SearchCasesForm = ({ onFormSubmit, query }) => {
             rules={{
               validate: {
                 past: (value) =>
-                  value && (isPast(new Date(value)) || 'Must be a past Date'),
+                  value &&
+                  (isPast(new Date(convertFormat(value))) ||
+                    'Must be a past Date'),
               },
             }}
           />
@@ -95,7 +99,9 @@ const SearchCasesForm = ({ onFormSubmit, query }) => {
             rules={{
               validate: {
                 past: (value) =>
-                  value && (isPast(new Date(value)) || 'Must be a past Date'),
+                  value &&
+                  (isPast(new Date(convertFormat(value))) ||
+                    'Must be a past Date'),
               },
             }}
           />
