@@ -13,7 +13,7 @@ export default async (req, res) => {
         const data = await getResidents(req.query);
         res.status(HttpStatus.OK).json(data);
       } catch (error) {
-        console.log('Residents get error:', error.response.data);
+        console.log('Residents get error:', error?.response?.data);
         error?.response?.status === HttpStatus.NOT_FOUND
           ? res.status(HttpStatus.NOT_FOUND).json('Residents Not Found')
           : res
@@ -27,7 +27,7 @@ export default async (req, res) => {
         const data = await addResident(req.body);
         res.status(HttpStatus.OK).json(data);
       } catch (error) {
-        console.log('Resident post error:', error.response.data);
+        console.log('Resident post error:', error?.response?.data);
         res
           .status(HttpStatus.INTERNAL_SERVER_ERROR)
           .json('Unable to add resident');

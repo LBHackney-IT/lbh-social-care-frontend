@@ -13,7 +13,7 @@ export default async (req, res) => {
         const data = await getCases(req.query);
         res.status(HttpStatus.OK).json(data);
       } catch (error) {
-        console.log('Cases get error:', error.response.data);
+        console.log('Cases get error:', error?.response?.data);
         error?.response?.status === HttpStatus.NOT_FOUND
           ? res.status(HttpStatus.NOT_FOUND).json('Cases Not Found')
           : res
@@ -27,7 +27,7 @@ export default async (req, res) => {
         const data = await addCase(req.query.id, req.body);
         res.status(HttpStatus.OK).json(data);
       } catch (error) {
-        console.log('Case post error:', error.response.data);
+        console.log('Case post error:', error?.response?.data);
         res
           .status(HttpStatus.INTERNAL_SERVER_ERROR)
           .json('Unable to post case');
@@ -36,6 +36,5 @@ export default async (req, res) => {
 
     default:
       res.status(HttpStatus.BAD_REQUEST).json('Invalid request method');
-      console.log(res.status);
   }
 };

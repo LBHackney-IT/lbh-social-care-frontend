@@ -14,8 +14,7 @@ export default async (req, res) => {
         const data = await getCasesByResident(id, params);
         res.status(HttpStatus.OK).json(data);
       } catch (error) {
-        console.log(error.status);
-        console.log('Cases get error:', error.response.data);
+        console.log('Cases get error:', error?.response?.data);
         res
           .status(HttpStatus.INTERNAL_SERVER_ERROR)
           .json('Unable to get the Cases');

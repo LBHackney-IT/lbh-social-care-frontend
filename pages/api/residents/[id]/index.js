@@ -15,7 +15,7 @@ export default async (req, res) => {
           ? res.status(HttpStatus.OK).json(data)
           : res.status(HttpStatus.NOT_FOUND).json('Resident Not Found');
       } catch (error) {
-        console.log('Resident get error:', error.response.data);
+        console.log('Resident get error:', error?.response?.data);
         error?.response?.status === HttpStatus.NOT_FOUND
           ? res.status(HttpStatus.NOT_FOUND).json('Resident Not Found')
           : res
