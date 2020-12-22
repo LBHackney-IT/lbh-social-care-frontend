@@ -73,6 +73,7 @@ const SearchCasesForm = ({ onFormSubmit, query }) => {
             label="Date created from:"
             labelSize="s"
             name="start_date"
+            format="EU"
             error={errors.start_date}
             control={control}
             rules={{
@@ -88,6 +89,7 @@ const SearchCasesForm = ({ onFormSubmit, query }) => {
             label="Date created to:"
             labelSize="s"
             name="end_date"
+            format="EU"
             error={errors.end_date}
             control={control}
             rules={{
