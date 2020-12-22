@@ -74,12 +74,12 @@ exports[`CasesTable component should render properly 1`] = `
         <td
           class="govuk-table__cell govuk-button--secondary'"
         >
-          <a
+          <span
             class="govuk-link govuk-custom-text-color"
-            href="#"
+            role="button"
           >
             View
-          </a>
+          </span>
         </td>
       </tr>
     </tbody>
@@ -161,12 +161,12 @@ exports[`CasesTable component should render the sort 1`] = `
         <td
           class="govuk-table__cell govuk-button--secondary'"
         >
-          <a
+          <span
             class="govuk-link govuk-custom-text-color"
-            href="#"
+            role="button"
           >
             View
-          </a>
+          </span>
         </td>
       </tr>
     </tbody>
@@ -248,12 +248,12 @@ exports[`CasesTable component should render the sort 2`] = `
         <td
           class="govuk-table__cell govuk-button--secondary'"
         >
-          <a
+          <span
             class="govuk-link govuk-custom-text-color"
-            href="#"
+            role="button"
           >
             View
-          </a>
+          </span>
         </td>
       </tr>
     </tbody>
