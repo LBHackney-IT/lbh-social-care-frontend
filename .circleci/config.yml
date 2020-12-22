@@ -13,13 +13,13 @@ executors:
       - image: circleci/python:3.7
 
 references:
-  workspace_root: &workspace_root "~"
+  workspace_root: &workspace_root '~'
   attach_workspace: &attach_workspace
     attach_workspace:
       at: *workspace_root
 
 jobs:
-  install-dependencies-and-test:
+  install-dependencies:
     executor: node-executor
     steps:
       - *attach_workspace
@@ -33,24 +33,32 @@ jobs:
           key: dependency-cache-{{ checksum "yarn.lock" }}
           paths:
             - ./node_modules
-            - ./.next/cache
-            - /home/circleci/.cache/Cypress
+      - persist_to_workspace:
+          root: *workspace_root
+          paths: .
+
+  tests:
+    executor: node-executor
+    steps:
+      - *attach_workspace
       - run:
           name: Run linter
           command: yarn lint
       - run:
           name: Run tests
           command: yarn test
+
+  e2e:
+    executor: node-executor
+    steps:
+      - *attach_workspace
       - run:
           name: Run E2E
           command: yarn e2e
       - store_artifacts:
-          path: ~/repo/cypress/screenshots
+          path: ~/project/cypress/screenshots
       - store_artifacts:
-          path: ~/repo/cypress/videos
-      - persist_to_workspace:
-          root: *workspace_root
-          paths: .
+          path: ~/project/cypress/videos
 
   build-deploy-staging:
     executor: aws-cli/default
@@ -75,7 +83,7 @@ jobs:
       - aws_assume_role/assume_role:
           account: $AWS_ACCOUNT_STAGING
           profile_name: default
-          role: "LBH_Circle_CI_Deployment_Role"
+          role: 'LBH_Circle_CI_Deployment_Role'
       - persist_to_workspace:
           root: *workspace_root
           paths:
@@ -88,7 +96,7 @@ jobs:
       - aws_assume_role/assume_role:
           account: $AWS_ACCOUNT_PRODUCTION
           profile_name: default
-          role: "LBH_Circle_CI_Deployment_Role"
+          role: 'LBH_Circle_CI_Deployment_Role'
       - persist_to_workspace:
           root: *workspace_root
           paths:
@@ -98,17 +106,23 @@ workflows:
   version: 2
   continuous-delivery:
     jobs:
-      - install-dependencies-and-test
+      - install-dependencies
+      - tests:
+          requires:
+            - install-dependencies
+      - e2e:
+          requires:
+            - install-dependencies
       - assume-role-staging:
           context: api-assume-role-staging-context
           requires:
-            - install-dependencies-and-test
+            - tests
+            - e2e
           filters:
             branches:
               only: main
       - build-deploy-staging:
           requires:
-            - install-dependencies-and-test
             - assume-role-staging
           filters:
             branches:
@@ -123,12 +137,10 @@ workflows:
       - assume-role-production:
           context: api-assume-role-production-context
           requires:
-            - install-dependencies-and-test
             - permit-deploy-production
           filters:
             branches:
               only: main
       - build-deploy-production:
           requires:
-            - permit-deploy-production
             - assume-role-production

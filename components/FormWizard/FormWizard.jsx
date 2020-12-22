@@ -8,26 +8,32 @@ import DynamicStep from 'components/DynamicStep/DynamicStep';
 import Breadcrumbs from 'components/Breadcrumbs/Breadcrumbs';
 import { createSteps, getNextStepPath, haveStepsChanged } from 'utils/steps';
 import { deepmerge } from 'utils/objects';
+import { getQueryString } from 'utils/urls';
 import { getData, saveData } from 'utils/saveData';
 
 const FormWizard = ({
   formPath,
   formSteps,
+  successMessage,
   onFormSubmit,
   defaultValues = {},
   title,
+  personDetails,
+  includesDetails,
 }) => {
   Router.events.on('routeChangeComplete', () => {
     window.scrollTo(0, 0);
   });
   useBeforeunload(() => "You'll lose your data!");
   const {
-    query: { stepId, fromSummary, continueForm },
+    query: { stepId, fromSummary, continueForm, ...otherQS },
   } = useRouter();
   const [formData, setFormData] = useState({
     ...defaultValues,
+    ...otherQS,
     ...(continueForm ? getData(formPath)?.data : {}),
   });
+  const [queryString] = useState(otherQS);
   const steps = createSteps(formSteps);
   const stepPath = `${formPath}[step]`;
   const step = steps.find(
@@ -51,11 +57,6 @@ const FormWizard = ({
         role="group"
         aria-describedby="step-hint"
       >
-        {step.id !== 'confirmation' && (
-          <legend className="govuk-fieldset__legend govuk-fieldset__legend--l">
-            <h1 className="govuk-fieldset__heading">{title}</h1>
-          </legend>
-        )}
         {steps.length > 3 &&
           step.id !== 'summary' &&
           step.id !== 'confirmation' && (
@@ -102,10 +103,20 @@ const FormWizard = ({
           }}
           onSaveAndExit={(data) => {
             const updatedData = deepmerge(formData, data);
-            saveData(formPath, updatedData, stepId.join('/'));
+            saveData(
+              formPath,
+              updatedData,
+              title,
+              includesDetails
+                ? `${stepId.join('/')}?${getQueryString(queryString)}`
+                : stepId.join('/'),
+              includesDetails,
+              personDetails
+            );
             Router.push('/');
           }}
           onFormSubmit={onFormSubmit}
+          successMessage={successMessage}
         />
       </fieldset>
     </div>

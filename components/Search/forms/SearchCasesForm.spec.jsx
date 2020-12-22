@@ -35,7 +35,7 @@ describe(`SearchCasesForm`, () => {
       last_name: '',
       case_note_type: '',
       exact_name_match: false,
-      worker_email: '',
+      my_notes_only: false,
     });
   });
 
@@ -55,7 +55,7 @@ describe(`SearchCasesForm`, () => {
       last_name: '',
       case_note_type: '',
       exact_name_match: false,
-      worker_email: 'foo@bar.com',
+      my_notes_only: true,
     });
   });
 
@@ -71,7 +71,7 @@ describe(`SearchCasesForm`, () => {
       last_name: '',
       case_note_type: '',
       exact_name_match: false,
-      worker_email: '',
+      my_notes_only: false,
     });
   });
 });

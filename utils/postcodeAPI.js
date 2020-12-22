@@ -2,22 +2,13 @@ import axios from 'axios';
 
 export const normalizeAddress = (address) => {
   // eslint-disable-next-line no-unused-vars
-  const { uprn, postcode, line1, line2, line3, town } = address;
-  const addr = {
-    firstLine: line1,
-    secondLine: line2,
-    thirdLine: line3,
-    ward: town,
-  };
+  const { UPRN, postcode, town, ...addressLine } = address;
   return {
-    addressText: Object.values(addr)
-      .filter((a) => a !== '')
+    address: Object.values(addressLine)
+      .filter((line) => line !== '' && line !== postcode)
       .join(', '),
-    address: {
-      ...addr,
-      uprn,
-      postcode,
-    },
+    postcode,
+    uprn: UPRN,
   };
 };
 

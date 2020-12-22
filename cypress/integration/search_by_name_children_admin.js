@@ -38,6 +38,6 @@ describe('Children Group', () => {
       Cypress.env('ADULT_RECORD_LAST_NAME')
     );
     cy.get('[type="submit"]').click();
-    cy.get('.govuk-error-message').should('be.visible');
+    cy.contains('People not found').should('be.visible');
   });
 });

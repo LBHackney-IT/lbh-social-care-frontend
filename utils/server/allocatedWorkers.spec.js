@@ -21,7 +21,7 @@ describe('allocatedWorkersAPI', () => {
       expect(axios.get.mock.calls[0][1].params).toEqual({
         mosaic_id: 123,
       });
-      expect(data).toEqual('hello');
+      expect(data).toEqual({ allocations: 'hello' });
     });
   });
 });

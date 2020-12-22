@@ -4,8 +4,8 @@ import Link from 'next/link';
 import SummaryList from 'components/Summary/SummaryList';
 import { filterStepsOnCondition, filterDataOnCondition } from 'utils/steps';
 
-const MultiValue = (value) => (
-  <div key={value}>
+const MultiValue = ([key, value]) => (
+  <div key={key}>
     <span>{value}</span>
     <br />
   </div>
@@ -56,19 +56,62 @@ export const SummarySection = ({
     <SummaryList
       list={components
         .filter(({ name }) => formData[name])
-        .map(({ name, label }) => ({
-          key: name,
-          title: label,
-          value: Array.isArray(formData[name])
-            ? formData[name]
-                .filter(Boolean)
-                .map((v) => MultiValue(v.split('/').pop()))
-            : typeof formData[name] === 'object'
-            ? Object.values(formData[name]).filter(Boolean).map(MultiValue)
-            : typeof formData[name] === 'boolean'
-            ? JSON.stringify(formData[name])
-            : formData[name],
-        }))}
+        .map(({ component, options, name, label }) => {
+          if (component === 'AddressLookup') {
+            const { address, postcode } = formData[name];
+            return (
+              address && {
+                key: name,
+                title: label,
+                value: (
+                  <>
+                    {address.split(', ').map((value) => (
+                      <div key={value}>
+                        <span>{value}</span>
+                        <br />
+                      </div>
+                    ))}
+                    <div>{postcode}</div>
+                  </>
+                ),
+              }
+            );
+          }
+          if (component === 'Radios' || component === 'Select') {
+            return {
+              key: name,
+              title: label,
+              value:
+                typeof options[0] === 'string'
+                  ? formData[name]
+                  : options.find((option) => option.value === formData[name])
+                      ?.text,
+            };
+          }
+          if (component === 'DateInput') {
+            const date = formData[name].split('-');
+            return {
+              key: name,
+              title: label,
+              value: `${date[2]}-${date[1]}-${date[0]}`,
+            };
+          }
+          return {
+            key: name,
+            title: label,
+            value: Array.isArray(formData[name])
+              ? formData[name]
+                  .filter(Boolean)
+                  .map((v) => MultiValue(v.split('/').pop()))
+              : typeof formData[name] === 'object'
+              ? Object.entries(formData[name])
+                  .filter(([, value]) => Boolean(value))
+                  .map(MultiValue)
+              : typeof formData[name] === 'boolean'
+              ? JSON.stringify(formData[name])
+              : formData[name],
+          };
+        })}
     />
   );
   return (

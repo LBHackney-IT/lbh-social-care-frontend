@@ -1,7 +1,8 @@
-import { useState, useContext, useMemo, useCallback } from 'react';
+import { useState, useEffect, useContext, useMemo, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import cx from 'classnames';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 
 import SearchResidentsForm from './forms/SearchResidentsForm';
 import SearchCasesForm from './forms/SearchCasesForm';
@@ -15,7 +16,7 @@ import UserContext from 'components/UserContext/UserContext';
 
 import { getResidents } from 'utils/api/residents';
 import { getCases } from 'utils/api/cases';
-import { getPermissionFilter } from 'utils/user';
+import { getQueryString } from 'utils/urls';
 
 const getRecords = (data) => [
   ...(data.residents || []),
@@ -27,15 +28,23 @@ const Search = ({ query, type }) => {
   const [loading, setLoading] = useState(false);
   const [results, setResults] = useState();
   const [formData, setFormData] = useState();
+  const [sort, setSort] = useState({
+    sort_by: query.sort_by,
+    order_by: query.order_by,
+  });
   const { user } = useContext(UserContext);
-  const permission = useMemo(() => getPermissionFilter(user), []);
+  const { pathname, replace } = useRouter();
   const { SearchForm, SearchResults, searchFunction } = useMemo(
     () =>
-      type === 'cases'
+      type === 'records'
         ? {
             SearchForm: SearchCasesForm,
             SearchResults: CasesTable,
-            searchFunction: getCases,
+            searchFunction: ({ my_notes_only, ...formData }) =>
+              getCases({
+                ...formData,
+                worker_email: my_notes_only ? user.email : '',
+              }),
           }
         : {
             SearchForm: SearchResidentsForm,
@@ -52,18 +61,36 @@ const Search = ({ query, type }) => {
       setFormData(formData);
       const data = await searchFunction({
         ...formData,
-        context_flag: permission,
+        context_flag: user.permissionFlag,
       });
       setLoading(false);
       setResults({
         ...data,
         records: [...records, ...getRecords(data)],
       });
+      const qs = getQueryString(formData);
+      replace(`${pathname}?${qs}`, `${pathname}?${qs}`, {
+        shallow: true,
+      });
     } catch (e) {
       setLoading(false);
       setError(e.response?.data || 'Oops an error occurred');
     }
   });
+
+  // commented out as the feature is not ready in the BE
+  // eslint-disable-next-line no-unused-vars
+  const onSort = useCallback((value) => {
+    const { order_by, sort_by } = sort;
+    setSort(
+      sort_by === value && order_by === 'desc'
+        ? { order_by: 'asc', sort_by }
+        : { order_by: 'desc', sort_by: value }
+    );
+  });
+  useEffect(() => {
+    results && sort.sort_by && onFormSubmit({ ...formData, ...sort });
+  }, [sort]);
 
   // commented out as the feature is not ready to be in prod
   // const addNewPerson = type === 'people' && (
@@ -90,7 +117,7 @@ const Search = ({ query, type }) => {
         <ul className="govuk-tabs__list">
           <li
             className={cx('govuk-tabs__list-item', {
-              'govuk-tabs__list-item--selected': type !== 'cases',
+              'govuk-tabs__list-item--selected': type !== 'records',
             })}
           >
             <Link href="/" scroll={false}>
@@ -99,7 +126,7 @@ const Search = ({ query, type }) => {
           </li>
           <li
             className={cx('govuk-tabs__list-item', {
-              'govuk-tabs__list-item--selected': type === 'cases',
+              'govuk-tabs__list-item--selected': type === 'records',
             })}
           >
             <Link href="/cases" scroll={false}>
@@ -109,7 +136,7 @@ const Search = ({ query, type }) => {
         </ul>
         <div className="govuk-tabs__panel">
           <p className="govuk-body govuk-!-margin-bottom-5">
-            {type === 'cases'
+            {type === 'records'
               ? 'Search and filter by any combination of fields'
               : 'Search for a person by any combination of fields below'}
           </p>
@@ -123,7 +150,19 @@ const Search = ({ query, type }) => {
                 <div style={{ textAlign: 'right' }}>{addNewPerson}</div>
               </div>
               <hr className="govuk-divider" />
-              <SearchResults records={results.records} />
+              {results.records?.length > 0 ? (
+                <SearchResults
+                  records={results.records}
+                  sort={sort}
+                  // onSort={onSort} commented out as the feature is not ready in the BE
+                />
+              ) : (
+                <>
+                  <p className="govuk-body govuk-!-margin-top-5">
+                    {type.charAt(0).toUpperCase() + type.slice(1)} not found
+                  </p>
+                </>
+              )}
             </>
           )}
           <div style={{ height: '50px', textAlign: 'center' }}>
@@ -144,13 +183,7 @@ const Search = ({ query, type }) => {
             )}
           </div>
 
-          {error && (
-            <>
-              {' '}
-              <ErrorMessage label={error} />
-              {addNewPerson}
-            </>
-          )}
+          {error && <ErrorMessage label={error} />}
         </div>
       </div>
     </>
@@ -158,7 +191,7 @@ const Search = ({ query, type }) => {
 };
 
 Search.propTypes = {
-  type: PropTypes.oneOf(['people', 'cases']).isRequired,
+  type: PropTypes.oneOf(['people', 'records']).isRequired,
   query: PropTypes.shape({}),
 };
 

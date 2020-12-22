@@ -11,11 +11,7 @@ export default async (req, res) => {
     case 'GET':
       try {
         const data = await getResidents(req.query);
-        if (data?.residents?.length > 0) {
-          res.status(HttpStatus.OK).json(data);
-        } else {
-          res.status(HttpStatus.NOT_FOUND).json('Residents Not Found');
-        }
+        res.status(HttpStatus.OK).json(data);
       } catch (error) {
         console.log('Residents get error:', error.response.data);
         error?.response?.status === HttpStatus.NOT_FOUND

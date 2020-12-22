@@ -10,7 +10,7 @@ const CasesEntry = ({
   caseFormUrl,
   dateOfBirth,
   officerEmail,
-  caseFormTimestamp,
+  dateOfEvent,
 }) => (
   <tr className="govuk-table__row">
     <td className="govuk-table__cell">
@@ -20,7 +20,9 @@ const CasesEntry = ({
       {isDateValid(dateOfBirth) && dateOfBirth}
     </td>
     <td className="govuk-table__cell">{officerEmail}</td>
-    <td className="govuk-table__cell">{formatDate(caseFormTimestamp)}</td>
+    <td className="govuk-table__cell">
+      {isDateValid(dateOfEvent) && formatDate(dateOfEvent)}
+    </td>
     <td className="govuk-table__cell govuk-button--secondary'">
       <a
         href="#"
@@ -33,41 +35,57 @@ const CasesEntry = ({
   </tr>
 );
 
-const CasesTable = ({ records }) => (
-  <table className="govuk-table">
-    <thead className="govuk-table__head">
-      <tr className="govuk-table__row">
-        <th scope="col" className="govuk-table__header">
-          Client Name
-        </th>
-        <th scope="col" className="govuk-table__header">
-          Date of birth
-        </th>
-        <th scope="col" className="govuk-table__header">
-          Uploaded by
-        </th>
-        <th scope="col" className="govuk-table__header">
-          Last upload
-        </th>
-        <th scope="col" className="govuk-table__header"></th>
-      </tr>
-    </thead>
-    <tbody className="govuk-table__body">
-      {records.map((result) => (
-        <CasesEntry key={result.personId} {...result} />
-      ))}
-    </tbody>
-  </table>
-);
+const tableHeader = [
+  { id: 'first_name', text: 'Client Name' },
+  { id: 'date_of_birth', text: 'Date of birth' },
+  { id: 'officer_email', text: 'Uploaded by' },
+  { id: 'date_of_event', text: 'Last upload' },
+];
+
+const CasesTable = ({ records, sort = {}, onSort }) => {
+  return (
+    <table className="govuk-table">
+      <thead className="govuk-table__head">
+        <tr className="govuk-table__row">
+          {tableHeader.map(({ id, text }) => (
+            <th
+              key={id}
+              scope="col"
+              className="govuk-table__header"
+              role={onSort && 'button'}
+              onClick={() => onSort && onSort(id)}
+            >
+              {text}{' '}
+              {id === sort.sort_by && (
+                <>{sort.order_by === 'desc' ? '🔽' : '🔼'}</>
+              )}
+            </th>
+          ))}
+          <th scope="col" className="govuk-table__header"></th>
+        </tr>
+      </thead>
+      <tbody className="govuk-table__body">
+        {records.map((result) => (
+          <CasesEntry key={result.recordId} {...result} />
+        ))}
+      </tbody>
+    </table>
+  );
+};
 
 CasesTable.propTypes = {
+  sort: PropTypes.shape({
+    sort_by: PropTypes.string.isRequired,
+    order_by: PropTypes.string.isRequired,
+  }),
+  onSort: PropTypes.func.isRequired,
   records: PropTypes.arrayOf(
     PropTypes.shape({
-      personId: PropTypes.number.isRequired,
+      recordId: PropTypes.string.isRequired,
       formName: PropTypes.string.isRequired,
       caseFormUrl: PropTypes.string.isRequired,
       officerEmail: PropTypes.string.isRequired,
-      caseFormTimestamp: PropTypes.string.isRequired,
+      dateOfEvent: PropTypes.string.isRequired,
     })
   ).isRequired,
 };

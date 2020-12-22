@@ -14,9 +14,9 @@ const PersonDetails = ({
   expandView = false,
 }) => {
   const [expandDetails, setExpandDetails] = useState(false);
-  const address =
-    addressList &&
-    addressList.find((address) => address.contactAddressFlag === 'Y');
+  const address = addressList?.find(
+    ({ displayAddressFlag }) => displayAddressFlag === 'Y'
+  );
   return (
     <>
       <div>
@@ -42,41 +42,54 @@ const PersonDetails = ({
                 <dt className="govuk-summary-list__key">Mosaic ID:</dt>
                 <dd className="govuk-summary-list__value">#{mosaicId}</dd>
               </div>
-              <div className="govuk-summary-list__row">
-                <dt className="govuk-summary-list__key">Date of birth</dt>
-                <dd className="govuk-summary-list__value">
-                  {new Date(dateOfBirth).toLocaleDateString('en-GB')}
-                </dd>
-              </div>
-              <div className="govuk-summary-list__row">
-                <dt className="govuk-summary-list__key">NHS number</dt>
-                <dd className="govuk-summary-list__value">{nhsNumber}</dd>
-              </div>
+              {dateOfBirth && (
+                <div className="govuk-summary-list__row">
+                  <dt className="govuk-summary-list__key">Date of birth</dt>
+                  <dd className="govuk-summary-list__value">
+                    {new Date(dateOfBirth).toLocaleDateString('en-GB')}
+                  </dd>
+                </div>
+              )}
+              {nhsNumber && (
+                <div className="govuk-summary-list__row">
+                  <dt className="govuk-summary-list__key">NHS number</dt>
+                  <dd className="govuk-summary-list__value">{nhsNumber}</dd>
+                </div>
+              )}
               {nationality && (
                 <div className="govuk-summary-list__row">
                   <dt className="govuk-summary-list__key">Nationality</dt>
                   <dd className="govuk-summary-list__value">{nationality}</dd>
                 </div>
               )}
-              <div className="govuk-summary-list__row">
-                <dt className="govuk-summary-list__key">Gender</dt>
-                <dd className="govuk-summary-list__value">{gender}</dd>
-              </div>
-              <div className="govuk-summary-list__row">
-                <dt className="govuk-summary-list__key">Address</dt>
-                <dd className="govuk-summary-list__value">
-                  {address && <p>{address.addressLine1}</p>}
-                </dd>
-              </div>
-              <div className="govuk-summary-list__row">
-                <dt className="govuk-summary-list__key">Phone Number</dt>
-                <dd className="govuk-summary-list__value">
-                  {phoneNumber &&
-                    Object.values(phoneNumber[0]).map((number) => (
-                      <p key={number}>{number}</p>
-                    ))}
-                </dd>
-              </div>
+              {gender && (
+                <div className="govuk-summary-list__row">
+                  <dt className="govuk-summary-list__key">Gender</dt>
+                  <dd className="govuk-summary-list__value">{gender}</dd>
+                </div>
+              )}
+              {address?.addressLine1 && (
+                <div className="govuk-summary-list__row">
+                  <dt className="govuk-summary-list__key">Address</dt>
+                  <dd className="govuk-summary-list__value">
+                    <p>{address.addressLine1}</p>
+                  </dd>
+                </div>
+              )}
+              {phoneNumber?.length > 0 && (
+                <div className="govuk-summary-list__row">
+                  <dt className="govuk-summary-list__key">Phone Number</dt>
+                  <dd className="govuk-summary-list__value">
+                    <ul className="govuk-list">
+                      {phoneNumber.map(({ phoneNumber, phoneType }) => (
+                        <li key={phoneNumber}>
+                          {phoneNumber} - {phoneType}
+                        </li>
+                      ))}
+                    </ul>
+                  </dd>
+                </div>
+              )}
             </dl>
           </>
         )}

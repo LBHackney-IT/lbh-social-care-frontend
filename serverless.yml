@@ -33,9 +33,7 @@ functions:
       securityGroupIds: ${self:custom.securityGroups.${self:provider.stage}}
       subnetIds: ${self:custom.subnets.${self:provider.stage}}
     environment:
-      AWS_AUTHORIZATION: ${ssm:/lbh-social-care/${self:provider.stage}/aws-authorization}
       AWS_KEY: ${ssm:/lbh-social-care/${self:provider.stage}/aws-key}
-      ENDPOINT_MOSAIC: ${ssm:/lbh-social-care/${self:provider.stage}/endpoint-mosaic}
       ENDPOINT_API: ${ssm:/lbh-social-care/${self:provider.stage}/endpoint-case-viewer}
       GSSO_URL: ${ssm:/lbh-social-care/${self:provider.stage}/gsso-url}
       GSSO_TOKEN_NAME: ${ssm:/lbh-social-care/${self:provider.stage}/gsso-token-name}
@@ -62,7 +60,7 @@ resources:
             SslSupportMethod: sni-only
           DefaultCacheBehavior:
             TargetOriginId: ${self:service}-${self:provider.stage}-custom-origin
-            ViewerProtocolPolicy: "redirect-to-https"
+            ViewerProtocolPolicy: 'redirect-to-https'
             AllowedMethods:
               - GET
               - HEAD
@@ -91,7 +89,7 @@ resources:
 custom:
   domain-name:
     Fn::Join:
-      - "."
+      - '.'
       - - Ref: ApiGatewayRestApi
         - execute-api
         - eu-west-2
