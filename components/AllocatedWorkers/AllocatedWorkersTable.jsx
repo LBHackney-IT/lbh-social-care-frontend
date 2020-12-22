@@ -44,17 +44,11 @@ const AllocatedWorkersEntry = ({
 );
 
 const AllocatedWorkersTable = ({ records }) => (
-  <table className="govuk-table">
-    <tbody className="govuk-table__body">
-      {records.map((result, index) => (
-        <AllocatedWorkersEntry
-          key={result.personId}
-          index={index}
-          {...result}
-        />
-      ))}
-    </tbody>
-  </table>
+  <div>
+    {records.map((result, index) => (
+      <AllocatedWorkersEntry key={index} index={index} {...result} />
+    ))}
+  </div>
 );
 
 AllocatedWorkersTable.propTypes = {
