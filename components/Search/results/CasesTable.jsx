@@ -24,13 +24,15 @@ const CasesEntry = ({
       {isDateValid(dateOfEvent) && formatDate(dateOfEvent)}
     </td>
     <td className="govuk-table__cell govuk-button--secondary'">
-      <a
-        href="#"
-        className="govuk-link govuk-custom-text-color"
-        onClick={() => onClick(caseFormUrl)}
-      >
-        View
-      </a>
+      {caseFormUrl && (
+        <span
+          role="button"
+          className="govuk-link govuk-custom-text-color"
+          onClick={() => onClick(caseFormUrl)}
+        >
+          View
+        </span>
+      )}
     </td>
   </tr>
 );
