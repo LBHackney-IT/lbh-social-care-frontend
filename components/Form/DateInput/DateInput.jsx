@@ -5,6 +5,7 @@ import { Controller } from 'react-hook-form';
 import isValid from 'date-fns/isValid';
 
 import ErrorMessage from 'components/ErrorMessage/ErrorMessage';
+import { convertFormat } from 'utils/date';
 
 const getInitialDate = (value, format) => {
   const date = value?.split('-') || ['', '', ''];
@@ -24,7 +25,7 @@ const DateInput = forwardRef(
       name,
       onChange,
       required,
-      format = 'US',
+      format,
       ...otherProps
     },
     ref
@@ -163,17 +164,25 @@ DateInput.propTypes = {
   format: PropTypes.oneOf(['EU', 'US']),
 };
 
-const ControlledDateInput = ({ control, name, rules, ...otherProps }) => (
+const ControlledDateInput = ({
+  control,
+  name,
+  rules,
+  format = 'US',
+  ...otherProps
+}) => (
   <Controller
-    as={<DateInput {...otherProps} />}
+    as={<DateInput format={format} {...otherProps} />}
     onChange={([value]) => value}
     name={name}
     rules={{
       ...rules,
       validate: {
-        ...rules?.validate,
         valid: (value) =>
-          value && (isValid(new Date(value)) || 'Must be a is valid Date'),
+          value &&
+          (isValid(new Date(format === 'US' ? value : convertFormat(value))) ||
+            'Must be a is valid Date'),
+        ...rules?.validate,
       },
     }}
     control={control}
@@ -185,6 +194,7 @@ ControlledDateInput.propTypes = {
   name: PropTypes.string.isRequired,
   rules: PropTypes.shape({}),
   control: PropTypes.object.isRequired,
+  format: PropTypes.oneOf(['EU', 'US']),
 };
 
 export default ControlledDateInput;

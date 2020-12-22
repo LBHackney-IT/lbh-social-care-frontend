@@ -1,4 +1,4 @@
-import { parseDate, formatDate, isDateValid } from './date';
+import { parseDate, formatDate, isDateValid, convertFormat } from './date';
 
 describe('date util', () => {
   describe('parseDate', () => {
@@ -19,6 +19,12 @@ describe('date util', () => {
       expect(isDateValid('22/09/1941')).toBe(true);
       expect(isDateValid('foo')).toBe(false);
       expect(isDateValid(null)).toBe(false);
+    });
+  });
+
+  describe('convertFormat', () => {
+    it('should work properly', () => {
+      expect(convertFormat('2000-12-01')).toBe('01-12-2000');
     });
   });
 });

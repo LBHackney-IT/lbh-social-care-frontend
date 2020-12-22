@@ -13,3 +13,8 @@ export const formatDate = (date) =>
   });
 
 export const isDateValid = (date) => Boolean(date) && isValid(parseDate(date));
+
+export const convertFormat = (date) => {
+  const values = date.split('-');
+  return `${values[2]}-${values[1]}-${values[0]}`;
+};
