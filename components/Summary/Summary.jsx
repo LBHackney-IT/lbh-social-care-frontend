@@ -3,6 +3,7 @@ import Link from 'next/link';
 
 import SummaryList from 'components/Summary/SummaryList';
 import { filterStepsOnCondition, filterDataOnCondition } from 'utils/steps';
+import { coverFormat } from 'utils/date';
 
 const MultiValue = ([key, value]) => (
   <div key={key}>
@@ -89,11 +90,10 @@ export const SummarySection = ({
             };
           }
           if (component === 'DateInput') {
-            const date = formData[name].split('-');
             return {
               key: name,
               title: label,
-              value: `${date[2]}-${date[1]}-${date[0]}`,
+              value: coverFormat(formData[name]),
             };
           }
           return {
