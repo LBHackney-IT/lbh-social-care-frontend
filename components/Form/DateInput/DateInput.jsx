@@ -5,7 +5,7 @@ import { Controller } from 'react-hook-form';
 import isValid from 'date-fns/isValid';
 
 import ErrorMessage from 'components/ErrorMessage/ErrorMessage';
-import { coverFormat } from 'utils/date';
+import { convertFormat } from 'utils/date';
 
 const getInitialDate = (value, format) => {
   const date = value?.split('-') || ['', '', ''];
@@ -181,7 +181,7 @@ const ControlledDateInput = ({
         ...rules?.validate,
         valid: (value) =>
           value &&
-          (isValid(new Date(format === 'US' ? value : coverFormat(value))) ||
+          (isValid(new Date(format === 'US' ? value : convertFormat(value))) ||
             'Must be a is valid Date'),
       },
     }}

@@ -3,7 +3,7 @@ import Link from 'next/link';
 
 import SummaryList from 'components/Summary/SummaryList';
 import { filterStepsOnCondition, filterDataOnCondition } from 'utils/steps';
-import { coverFormat } from 'utils/date';
+import { convertFormat } from 'utils/date';
 
 const MultiValue = ([key, value]) => (
   <div key={key}>
@@ -93,7 +93,7 @@ export const SummarySection = ({
             return {
               key: name,
               title: label,
-              value: coverFormat(formData[name]),
+              value: convertFormat(formData[name]),
             };
           }
           return {
