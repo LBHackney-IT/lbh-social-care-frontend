@@ -5,7 +5,7 @@ import ErrorMessage from 'components/ErrorMessage/ErrorMessage';
 import Spinner from 'components/Spinner/Spinner';
 import { getResident } from 'utils/api/residents';
 import PersonDetails from './PersonDetails';
-// import AllocatedWorkers from '../AllocatedWorkers/AllocatedWorkers';
+import AllocatedWorkers from '../AllocatedWorkers/AllocatedWorkers';
 
 const PersonView = ({ personId, expandView }) => {
   const [person, setPerson] = useState();
@@ -41,7 +41,7 @@ const PersonView = ({ personId, expandView }) => {
                 </h1>
               )}
               <PersonDetails {...person} expandView={expandView} />
-              {/* <AllocatedWorkers /> */}
+              <AllocatedWorkers id={personId} />
             </>
           )}
         </>

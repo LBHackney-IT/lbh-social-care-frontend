@@ -1,0 +1,76 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AllocatedWorkers component should render properly 1`] = `
+<DocumentFragment>
+  <div>
+    <h3
+      class="govuk-fieldset__legend--m govuk-custom-text-color govuk-!-margin-top-0"
+    >
+      Allocated Worker 1
+    </h3>
+    <hr
+      class="govuk-divider"
+    />
+    <dl
+      class="govuk-summary-list"
+    >
+      <div
+        class="govuk-summary-list__row"
+      >
+        <dt
+          class="govuk-summary-list__key"
+        >
+          Allocated Worker:
+        </dt>
+        <dd
+          class="govuk-summary-list__value"
+        >
+          Officer Name
+        </dd>
+      </div>
+      <div
+        class="govuk-summary-list__row"
+      >
+        <dt
+          class="govuk-summary-list__key"
+        >
+          Allocated Team
+        </dt>
+        <dd
+          class="govuk-summary-list__value"
+        >
+          Safeguarding and Reviewing Team
+        </dd>
+      </div>
+      <div
+        class="govuk-summary-list__row"
+      >
+        <dt
+          class="govuk-summary-list__key"
+        >
+          Role
+        </dt>
+        <dd
+          class="govuk-summary-list__value"
+        >
+          Consultant Social Worker
+        </dd>
+      </div>
+      <div
+        class="govuk-summary-list__row"
+      >
+        <dt
+          class="govuk-summary-list__key"
+        >
+          Start Date
+        </dt>
+        <dd
+          class="govuk-summary-list__value"
+        >
+          3/28/2019
+        </dd>
+      </div>
+    </dl>
+  </div>
+</DocumentFragment>
+`;

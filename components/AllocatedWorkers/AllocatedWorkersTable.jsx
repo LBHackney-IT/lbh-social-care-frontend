@@ -1,11 +1,10 @@
 import PropTypes from 'prop-types';
 
 const AllocatedWorkersEntry = ({
-  allocatedTeam,
+  allocatedWorkerTeam,
   allocatedWorker,
-  startDate,
-  endDate,
-  role,
+  allocationStartDate,
+  workerType,
   index,
 }) => (
   <>
@@ -20,28 +19,24 @@ const AllocatedWorkersEntry = ({
           <dd className="govuk-summary-list__value">{allocatedWorker}</dd>
         </div>
       )}
-      {allocatedTeam && (
+      {allocatedWorkerTeam && (
         <div className="govuk-summary-list__row">
           <dt className="govuk-summary-list__key">Allocated Team</dt>
-          <dd className="govuk-summary-list__value">{allocatedTeam}</dd>
+          <dd className="govuk-summary-list__value">{allocatedWorkerTeam}</dd>
         </div>
       )}
-      {role && (
+      {workerType && (
         <div className="govuk-summary-list__row">
           <dt className="govuk-summary-list__key">Role</dt>
-          <dd className="govuk-summary-list__value">{role}</dd>
+          <dd className="govuk-summary-list__value">{workerType}</dd>
         </div>
       )}
-      {startDate && (
+      {allocationStartDate && (
         <div className="govuk-summary-list__row">
           <dt className="govuk-summary-list__key">Start Date</dt>
-          <dd className="govuk-summary-list__value">{startDate}</dd>
-        </div>
-      )}
-      {endDate && (
-        <div className="govuk-summary-list__row">
-          <dt className="govuk-summary-list__key">End Date</dt>
-          <dd className="govuk-summary-list__value">{endDate}</dd>
+          <dd className="govuk-summary-list__value">
+            {new Date(allocationStartDate).toLocaleDateString('en-GB')}
+          </dd>
         </div>
       )}
     </dl>
@@ -49,17 +44,11 @@ const AllocatedWorkersEntry = ({
 );
 
 const AllocatedWorkersTable = ({ records }) => (
-  <table className="govuk-table">
-    <tbody className="govuk-table__body">
-      {records.map((result, index) => (
-        <AllocatedWorkersEntry
-          key={result.personId}
-          index={index}
-          {...result}
-        />
-      ))}
-    </tbody>
-  </table>
+  <div>
+    {records.map((result, index) => (
+      <AllocatedWorkersEntry key={index} index={index} {...result} />
+    ))}
+  </div>
 );
 
 AllocatedWorkersTable.propTypes = {
@@ -69,7 +58,6 @@ AllocatedWorkersTable.propTypes = {
       role: PropTypes.string,
       allocatedTeam: PropTypes.string,
       startDate: PropTypes.number,
-      endDate: PropTypes.number,
     })
   ).isRequired,
 };
