@@ -1,11 +1,11 @@
 import PropTypes from 'prop-types';
 
 const AllocatedWorkersEntry = ({
-  allocatedTeam,
+  allocatedWorkerTeam,
   allocatedWorker,
-  startDate,
-  endDate,
-  role,
+  allocationEndDate,
+  allocationStartDate,
+  workerType,
   index,
 }) => (
   <>
@@ -20,28 +20,32 @@ const AllocatedWorkersEntry = ({
           <dd className="govuk-summary-list__value">{allocatedWorker}</dd>
         </div>
       )}
-      {allocatedTeam && (
+      {allocatedWorkerTeam && (
         <div className="govuk-summary-list__row">
           <dt className="govuk-summary-list__key">Allocated Team</dt>
-          <dd className="govuk-summary-list__value">{allocatedTeam}</dd>
+          <dd className="govuk-summary-list__value">{allocatedWorkerTeam}</dd>
         </div>
       )}
-      {role && (
+      {workerType && (
         <div className="govuk-summary-list__row">
           <dt className="govuk-summary-list__key">Role</dt>
-          <dd className="govuk-summary-list__value">{role}</dd>
+          <dd className="govuk-summary-list__value">{workerType}</dd>
         </div>
       )}
-      {startDate && (
+      {allocationStartDate && (
         <div className="govuk-summary-list__row">
           <dt className="govuk-summary-list__key">Start Date</dt>
-          <dd className="govuk-summary-list__value">{startDate}</dd>
+          <dd className="govuk-summary-list__value">
+            {new Date(allocationStartDate).toLocaleDateString('en-GB')}
+          </dd>
         </div>
       )}
-      {endDate && (
+      {allocationEndDate && (
         <div className="govuk-summary-list__row">
           <dt className="govuk-summary-list__key">End Date</dt>
-          <dd className="govuk-summary-list__value">{endDate}</dd>
+          <dd className="govuk-summary-list__value">
+            {new Date(allocationEndDate).toLocaleDateString('en-GB')}
+          </dd>
         </div>
       )}
     </dl>
