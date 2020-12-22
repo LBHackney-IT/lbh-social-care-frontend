@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 const AllocatedWorkersEntry = ({
   allocatedWorkerTeam,
   allocatedWorker,
-  allocationEndDate,
   allocationStartDate,
   workerType,
   index,
@@ -40,14 +39,6 @@ const AllocatedWorkersEntry = ({
           </dd>
         </div>
       )}
-      {allocationEndDate && (
-        <div className="govuk-summary-list__row">
-          <dt className="govuk-summary-list__key">End Date</dt>
-          <dd className="govuk-summary-list__value">
-            {new Date(allocationEndDate).toLocaleDateString('en-GB')}
-          </dd>
-        </div>
-      )}
     </dl>
   </>
 );
@@ -73,7 +64,6 @@ AllocatedWorkersTable.propTypes = {
       role: PropTypes.string,
       allocatedTeam: PropTypes.string,
       startDate: PropTypes.number,
-      endDate: PropTypes.number,
     })
   ).isRequired,
 };

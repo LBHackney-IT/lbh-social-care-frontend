@@ -69,20 +69,6 @@ exports[`AllocatedWorkers component should render properly 1`] = `
         3/28/2019
       </dd>
     </div>
-    <div
-      class="govuk-summary-list__row"
-    >
-      <dt
-        class="govuk-summary-list__key"
-      >
-        End Date
-      </dt>
-      <dd
-        class="govuk-summary-list__value"
-      >
-        3/28/2019
-      </dd>
-    </div>
   </dl>
   <table
     class="govuk-table"
