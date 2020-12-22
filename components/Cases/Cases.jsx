@@ -22,7 +22,7 @@ const Cases = ({ id }) => {
       });
     } catch (e) {
       setLoading(false);
-      setError(e.response.data);
+      setError(e.response?.data || 'Oops an error occurred');
     }
   });
   useEffect(() => {

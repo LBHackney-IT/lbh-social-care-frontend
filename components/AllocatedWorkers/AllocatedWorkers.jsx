@@ -15,7 +15,7 @@ const AllocatedWorkers = ({ id }) => {
       const data = await getAllocatedWorkers(id);
       setAllocWorkers(data.allocations);
     } catch (e) {
-      setError(e.response.data);
+      setError(e.response?.data || 'Oops an error occurred');
     }
     setLoading(false);
   });

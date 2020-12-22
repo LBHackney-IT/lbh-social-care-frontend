@@ -19,7 +19,7 @@ const PersonView = ({ personId, expandView }) => {
       setError(null);
     } catch (e) {
       setPerson(null);
-      setError(e.response.data);
+      setError(e.response?.data || 'Oops an error occurred');
     }
     setLoading(false);
   };
