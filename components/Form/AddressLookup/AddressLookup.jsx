@@ -63,7 +63,7 @@ const AddressLookup = ({
       return;
     }
     setIsManually(false);
-    setError(null);
+    setError(false);
     setResults([]);
     try {
       const res = await lookupPostcode(postcode);

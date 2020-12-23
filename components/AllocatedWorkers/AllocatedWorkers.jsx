@@ -15,7 +15,7 @@ const AllocatedWorkers = ({ id }) => {
       const data = await getAllocatedWorkers(id);
       setAllocWorkers(data.allocations);
     } catch (e) {
-      setError(e.response?.data?.message || 'Oops an error occurred');
+      setError(true);
     }
     setLoading(false);
   });
@@ -31,7 +31,7 @@ const AllocatedWorkers = ({ id }) => {
       ) : (
         <>
           {allocWorkers && <AllocatedWorkersTable records={allocWorkers} />}
-          {error && <ErrorMessage label={error} />}
+          {error && <ErrorMessage />}
         </>
       )}
     </>
