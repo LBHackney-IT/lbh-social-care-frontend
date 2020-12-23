@@ -5,7 +5,9 @@ import { isAuthorised } from 'utils/auth';
 
 export default async (req, res) => {
   if (!isAuthorised({ req })) {
-    return res.status(HttpStatus.UNAUTHORIZED).send('Auth cookie missing.');
+    return res
+      .status(HttpStatus.UNAUTHORIZED)
+      .json({ message: 'Auth cookie missing.' });
   }
   switch (req.method) {
     case 'GET':
@@ -15,10 +17,12 @@ export default async (req, res) => {
       } catch (error) {
         console.log('Residents get error:', error?.response?.data);
         error?.response?.status === HttpStatus.NOT_FOUND
-          ? res.status(HttpStatus.NOT_FOUND).json('Residents Not Found')
+          ? res
+              .status(HttpStatus.NOT_FOUND)
+              .json({ message: 'Residents Not Found' })
           : res
               .status(HttpStatus.INTERNAL_SERVER_ERROR)
-              .json('Unable to get the Residents');
+              .json({ message: 'Unable to get the Residents' });
       }
       break;
 
@@ -30,11 +34,13 @@ export default async (req, res) => {
         console.log('Resident post error:', error?.response?.data);
         res
           .status(HttpStatus.INTERNAL_SERVER_ERROR)
-          .json('Unable to add resident');
+          .json({ message: 'Unable to add resident' });
       }
       break;
 
     default:
-      res.status(HttpStatus.BAD_REQUEST).json('Invalid request method');
+      res
+        .status(HttpStatus.BAD_REQUEST)
+        .json({ message: 'Invalid request method' });
   }
 };

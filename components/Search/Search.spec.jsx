@@ -72,9 +72,7 @@ describe(`Search`, () => {
   });
 
   it('should work properly on search fails', async () => {
-    getResidents.mockImplementation(() =>
-      Promise.reject({ response: { data: 'I am an ERROR' } })
-    );
+    getResidents.mockImplementation(() => Promise.reject());
     const { getByRole, getByLabelText, queryByText } = render(
       <UserContext.Provider
         value={{
@@ -90,6 +88,6 @@ describe(`Search`, () => {
       fireEvent.submit(getByRole('form'));
     });
     // expect(queryByText('Add New Person')).toBeInTheDocument();
-    expect(queryByText('I am an ERROR')).toBeInTheDocument();
+    expect(queryByText('Oops an error occurred')).toBeInTheDocument();
   });
 });

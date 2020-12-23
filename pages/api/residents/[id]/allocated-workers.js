@@ -5,7 +5,9 @@ import { isAuthorised } from 'utils/auth';
 
 export default async (req, res) => {
   if (!isAuthorised({ req })) {
-    return res.status(HttpStatus.UNAUTHORIZED).send('Auth cookie missing.');
+    return res
+      .status(HttpStatus.UNAUTHORIZED)
+      .json({ message: 'Auth cookie missing.' });
   }
   switch (req.method) {
     case 'GET':
@@ -16,10 +18,12 @@ export default async (req, res) => {
       } catch (error) {
         console.log('Allocated Workers get error:', error?.response?.data);
         error?.response?.status === HttpStatus.NOT_FOUND
-          ? res.status(HttpStatus.NOT_FOUND).json('Allocated Workers Not Found')
+          ? res
+              .status(HttpStatus.NOT_FOUND)
+              .json({ message: 'Allocated Workers Not Found' })
           : res
               .status(HttpStatus.INTERNAL_SERVER_ERROR)
-              .json('Unable to get the Allocated Workers');
+              .json({ message: 'Unable to get the Allocated Workers' });
       }
       break;
 
@@ -31,12 +35,14 @@ export default async (req, res) => {
     //     console.log('Allocated Workers post error:', error?.response?.data);
     //     res
     //       .status(HttpStatus.INTERNAL_SERVER_ERROR)
-    //       .json('Unable to post Allocated Workers');
+    //       .json({ message: 'Unable to post Allocated Workers'});
     //   }
     //   break;
 
     default:
-      res.status(HttpStatus.BAD_REQUEST).json('Invalid request method');
+      res
+        .status(HttpStatus.BAD_REQUEST)
+        .json({ message: 'Invalid request method' });
       console.log(res.status);
   }
 };

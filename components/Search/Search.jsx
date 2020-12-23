@@ -56,14 +56,13 @@ const Search = ({ query, type }) => {
   const onFormSubmit = useCallback(async (formData, records = []) => {
     setLoading(true);
     !formData.cursor && setResults(null);
-    setError(null);
+    setError(false);
     try {
       setFormData(formData);
       const data = await searchFunction({
         ...formData,
         context_flag: user.permissionFlag,
       });
-      setLoading(false);
       setResults({
         ...data,
         records: [...records, ...getRecords(data)],
@@ -73,9 +72,9 @@ const Search = ({ query, type }) => {
         shallow: true,
       });
     } catch (e) {
-      setLoading(false);
-      setError(e.response?.data || 'Oops an error occurred');
+      setError(true);
     }
+    setLoading(false);
   });
 
   // commented out as the feature is not ready in the BE
@@ -182,8 +181,7 @@ const Search = ({ query, type }) => {
               )
             )}
           </div>
-
-          {error && <ErrorMessage label={error} />}
+          {error && <ErrorMessage />}
         </div>
       </div>
     </>

@@ -16,10 +16,10 @@ const PersonView = ({ personId, expandView }) => {
     try {
       const data = await getResident(personId);
       setPerson(data);
-      setError(null);
+      setError(false);
     } catch (e) {
       setPerson(null);
-      setError(e.response?.data || 'Oops an error occurred');
+      setError(true);
     }
     setLoading(false);
   };
@@ -32,7 +32,7 @@ const PersonView = ({ personId, expandView }) => {
         <Spinner />
       ) : (
         <>
-          {error && <ErrorMessage label={error} />}
+          {error && <ErrorMessage />}
           {person && (
             <>
               {!expandView && (

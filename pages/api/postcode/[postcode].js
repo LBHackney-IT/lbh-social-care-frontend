@@ -5,7 +5,9 @@ import { getAddresses } from 'utils/server/postcode';
 
 export default async (req, res) => {
   if (!isAuthorised({ req })) {
-    return res.status(HttpStatus.UNAUTHORIZED).send('Auth cookie missing.');
+    return res
+      .status(HttpStatus.UNAUTHORIZED)
+      .json({ message: 'Auth cookie missing.' });
   }
   switch (req.method) {
     case 'GET':
@@ -16,11 +18,13 @@ export default async (req, res) => {
         console.log('Postcode get error', error?.response?.data);
         res
           .status(HttpStatus.INTERNAL_SERVER_ERROR)
-          .end('Unable to get the Addresses');
+          .json({ message: 'Unable to get the Addresses' });
       }
       break;
 
     default:
-      res.status(HttpStatus.BAD_REQUEST).json('Invalid request method');
+      res
+        .status(HttpStatus.BAD_REQUEST)
+        .json({ message: 'Invalid request method' });
   }
 };

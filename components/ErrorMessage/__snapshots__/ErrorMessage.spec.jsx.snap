@@ -1,0 +1,31 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ErrorMessage component should render properly 1`] = `
+<DocumentFragment>
+  <span
+    class="govuk-error-message"
+  >
+    <span
+      class="govuk-visually-hidden"
+    >
+      Error:
+    </span>
+     I am an error
+  </span>
+</DocumentFragment>
+`;
+
+exports[`ErrorMessage component should render properly with the default message 1`] = `
+<DocumentFragment>
+  <span
+    class="govuk-error-message"
+  >
+    <span
+      class="govuk-visually-hidden"
+    >
+      Error:
+    </span>
+     Oops an error occurred
+  </span>
+</DocumentFragment>
+`;

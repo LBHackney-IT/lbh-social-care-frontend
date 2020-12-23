@@ -15,14 +15,14 @@ const Cases = ({ id }) => {
     try {
       const data = await getCasesByResident(id, { cursor });
       setLoading(false);
-      setError(null);
+      setError(false);
       setResults({
         ...data,
         cases: [...(results?.cases || []), ...data.cases],
       });
     } catch (e) {
       setLoading(false);
-      setError(e.response?.data || 'Oops an error occurred');
+      setError(true);
     }
   });
   useEffect(() => {
@@ -73,7 +73,7 @@ const Cases = ({ id }) => {
               )
             )}
           </div>
-          {error && <ErrorMessage label={error} />}
+          {error && <ErrorMessage />}
         </>
       )}
     </>
