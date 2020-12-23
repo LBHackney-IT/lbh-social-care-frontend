@@ -9,7 +9,7 @@ export default [
   'Correspondence',
   'Death Notification',
   'Discharge Planning - HSWT',
-  'Duty Avtion',
+  'Duty Action',
   'Home Visit',
   'ILDS Duty Action',
   'Integrated Independence Team Progress',
