@@ -74,7 +74,7 @@ const Search = ({ query, type }) => {
       });
     } catch (e) {
       setLoading(false);
-      setError(e.response?.data || 'Oops an error occurred');
+      setError(e.response?.data?.message || 'Oops an error occurred');
     }
   });
 
