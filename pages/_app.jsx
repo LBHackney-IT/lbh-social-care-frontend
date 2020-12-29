@@ -43,7 +43,7 @@ MyApp.getInitialProps = async ({ ctx }) => {
   if (AUTH_WHITELIST.includes(ctx.pathname)) {
     return {};
   }
-  const user = isAuthorised(ctx, WITH_REDIRECT);
+  const user = isAuthorised(ctx.req, WITH_REDIRECT);
   return {
     user,
   };

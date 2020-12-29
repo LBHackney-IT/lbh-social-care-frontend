@@ -4,7 +4,7 @@ import { isAuthorised } from 'utils/auth';
 import { getAddresses } from 'utils/server/postcode';
 
 export default async (req, res) => {
-  if (!isAuthorised({ req })) {
+  if (!isAuthorised(req)) {
     return res
       .status(HttpStatus.UNAUTHORIZED)
       .json({ message: 'Auth cookie missing.' });

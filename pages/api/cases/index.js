@@ -4,7 +4,7 @@ import { getCases, addCase } from 'utils/server/cases';
 import { isAuthorised } from 'utils/auth';
 
 export default async (req, res) => {
-  if (!isAuthorised({ req })) {
+  if (!isAuthorised(req)) {
     return res
       .status(HttpStatus.UNAUTHORIZED)
       .json({ message: 'Auth cookie missing.' });
