@@ -14,7 +14,8 @@
     "prestorybook": "cpx \"node_modules/govuk-frontend/govuk/assets/**/*\" assets",
     "e2e": "PORT=3000 start-server-and-test start http://localhost:3000 cy:run",
     "cy:run": "cypress run",
-    "cy:open": "cypress open"
+    "cy:open": "cypress open",
+    "build-storybook": "build-storybook"
   },
   "dependencies": {
     "axios": "^0.21.0",
@@ -36,10 +37,11 @@
     "uk-postcode-validator": "^1.1.0"
   },
   "devDependencies": {
-    "@storybook/addon-actions": "^6.0.27",
-    "@storybook/addon-essentials": "^6.0.27",
-    "@storybook/addon-links": "^6.0.27",
-    "@storybook/react": "^6.0.27",
+    "@babel/core": "^7.12.10",
+    "@storybook/addon-actions": "^6.1.11",
+    "@storybook/addon-essentials": "^6.1.11",
+    "@storybook/addon-links": "^6.1.11",
+    "@storybook/react": "^6.1.11",
     "@testing-library/jest-dom": "^5.11.5",
     "@testing-library/react": "^11.1.0",
     "babel-eslint": "^10.1.0",
@@ -69,7 +71,6 @@
     "style-loader": "^2.0.0"
   },
   "optionalDependencies": {
-    "@babel/core": "^7.12.3",
     "typescript": "^4.0.3",
     "webpack": "^5.0.0"
   },
