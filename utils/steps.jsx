@@ -38,7 +38,7 @@ export const filterDataOnCondition = (steps, data) => {
           (component) =>
             !component.conditionalRender || component.conditionalRender(data)
         )
-        .map((component) => component.name),
+        .map((component) => (step.isMulti ? step.id : component.name)),
     ],
     []
   );
