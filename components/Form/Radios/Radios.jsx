@@ -70,7 +70,7 @@ Radio.propTypes = {
   label: PropTypes.string.isRequired,
   labelSize: PropTypes.oneOf(['s', 'm', 'l', 'xl']),
   name: PropTypes.string.isRequired,
-  register: PropTypes.func.isRequired,
+  register: PropTypes.func,
   options: PropTypes.array,
   hint: PropTypes.string,
   children: PropTypes.node,

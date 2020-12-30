@@ -35,7 +35,7 @@ const Checkbox = ({ label, name, register, required, error }) => (
 Checkbox.propTypes = {
   label: PropTypes.string,
   name: PropTypes.string.isRequired,
-  register: PropTypes.func.isRequired,
+  register: PropTypes.func,
   error: PropTypes.shape({ message: PropTypes.string.isRequired }),
   required: PropTypes.bool,
 };
