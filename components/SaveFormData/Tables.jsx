@@ -33,6 +33,7 @@ export const DetailedTable = ({ tableHeader, data, deleteForm }) => (
             }
           </td>
           <td
+            role="button"
             className="govuk-table__cell"
             onClick={() => deleteForm(cell.formPath)}
           >
@@ -68,6 +69,7 @@ export const StandardTable = ({ tableHeader, data, deleteForm }) => (
             }
           </td>
           <td
+            role="button"
             className="govuk-table__cell"
             onClick={() => deleteForm(cell.formPath)}
           >

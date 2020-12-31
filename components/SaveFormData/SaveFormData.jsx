@@ -14,7 +14,7 @@ export const SavedForms = () => {
   };
   if (!savedForms) {
     return (
-      <p className="govuk-fieldset__legend--m gov-weight-lighter">
+      <p role="label" className="govuk-fieldset__legend--m gov-weight-lighter">
         You don't have any incomplete form, well done!
       </p>
     );
@@ -35,7 +35,7 @@ export const SavedForms = () => {
   const standardData = sortData.filter((item) => !item.includesDetails);
   return (
     <>
-      <p className="govuk-fieldset__legend--s gov-weight-lighter">
+      <p role="label" className="govuk-fieldset__legend--s gov-weight-lighter">
         {`Displaying ${formQty} unfinished ${formQty > 1 ? 'forms' : 'form'}`}{' '}
       </p>
       {standardData.length ? (

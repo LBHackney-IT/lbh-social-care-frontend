@@ -1,0 +1,15 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`LinkButton component should render properly 1`] = `
+<DocumentFragment>
+  <button
+    class="govuk-button govuk-link-button govuk-!-margin-bottom-3"
+    data-module="govuk-button"
+    draggable="false"
+    href="#"
+    role="button"
+  >
+    Foo
+  </button>
+</DocumentFragment>
+`;

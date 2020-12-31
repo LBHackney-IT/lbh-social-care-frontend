@@ -1,0 +1,43 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ErrorSummary component should render properly 1`] = `
+<DocumentFragment>
+  <div
+    aria-labelledby="error-summary-title"
+    class="govuk-error-summary"
+    data-module="govuk-error-summary"
+    role="alert"
+    tabindex="-1"
+  >
+    <h2
+      class="govuk-error-summary__title"
+      id="error-summary-title"
+    >
+      Error Summary
+    </h2>
+    <div
+      class="govuk-error-summary__body"
+    >
+      i am an error summary box
+      <ul
+        class="govuk-list govuk-error-summary__list"
+      >
+        <li>
+          <a
+            href="foo"
+          >
+            foo
+          </a>
+        </li>
+        <li>
+          <a
+            href="bar"
+          >
+            bar
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</DocumentFragment>
+`;

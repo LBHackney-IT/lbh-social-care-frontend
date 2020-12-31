@@ -1,0 +1,14 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AdminLogin component should render properly 1`] = `
+<DocumentFragment>
+  <div>
+    <a
+      class="govuk-button"
+      href="http//foo/bar"
+    >
+      Foo
+    </a>
+  </div>
+</DocumentFragment>
+`;
