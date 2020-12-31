@@ -8,7 +8,7 @@ const Layout = ({ children }) => {
   return (
     <>
       <SkipLink />
-      <Header serviceName="Interim Social Care Admin" />
+      <Header serviceName="Interim Social Care" />
       <div className="govuk-width-container app-width-container">
         <PhaseBanner phase="beta" feedbackLink={feedbackLink} />
         <main

@@ -1,11 +1,11 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import cx from 'classnames';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 
-import { useContext } from 'react';
 import UserContext from 'components/UserContext/UserContext';
 import { getDataIncludes } from 'utils/saveData';
+import { getUserType } from 'utils/user';
 import Logo from './Logo.jsx';
 
 const loggedNavLinks = [
@@ -58,7 +58,7 @@ const HeaderComponent = ({ serviceName }) => {
           <div className="govuk-header__content">
             <Link href="/">
               <a className="govuk-header__link govuk-header__link--service-name">
-                {serviceName}
+                {serviceName} {getUserType(user)}
               </a>
             </Link>
             {navLinks && (
