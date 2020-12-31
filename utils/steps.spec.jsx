@@ -194,15 +194,43 @@ describe('FormWizard', () => {
           },
         ],
       },
+      {
+        id: 'multi_step',
+        title: 'Multi step',
+        isMulti: true,
+        components: [
+          {
+            component: 'TextInput',
+            name: 'title',
+            rules: { required: true },
+          },
+        ],
+      },
     ];
     const data = {
       conditional_trigger: 'No',
       bar: 'asd',
       foo: 'asd',
+      multi_step: [
+        {
+          title: '1',
+        },
+        {
+          title: '2',
+        },
+      ],
     };
     expect(filterDataOnCondition(steps, data)).toEqual({
       conditional_trigger: 'No',
       bar: 'asd',
+      multi_step: [
+        {
+          title: '1',
+        },
+        {
+          title: '2',
+        },
+      ],
     });
   });
 
