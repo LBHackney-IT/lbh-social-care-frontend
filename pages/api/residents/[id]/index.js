@@ -4,7 +4,8 @@ import { getResident } from 'utils/server/residents';
 import { isAuthorised } from 'utils/auth';
 
 export default async (req, res) => {
-  if (!isAuthorised({ req })) {
+  const user = isAuthorised({ req });
+  if (!user) {
     return res
       .status(HttpStatus.UNAUTHORIZED)
       .json({ message: 'Auth cookie missing.' });
@@ -12,7 +13,9 @@ export default async (req, res) => {
   switch (req.method) {
     case 'GET':
       try {
-        const data = await getResident(req.query.id);
+        const data = await getResident(req.query.id, {
+          context_flag: user.permissionFlag,
+        });
         data
           ? res.status(HttpStatus.OK).json(data)
           : res

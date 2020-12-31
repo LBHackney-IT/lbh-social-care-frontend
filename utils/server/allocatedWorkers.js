@@ -2,10 +2,10 @@ import axios from 'axios';
 
 const { ENDPOINT_API, AWS_KEY } = process.env;
 
-export const getResidentAllocatedWorkers = async (mosaic_id) => {
+export const getResidentAllocatedWorkers = async (mosaic_id, params) => {
   const { data } = await axios.get(`${ENDPOINT_API}/allocations`, {
     headers: { 'x-api-key': AWS_KEY },
-    params: { mosaic_id },
+    params: { mosaic_id, ...params },
   });
   return data;
 };
