@@ -1,5 +1,7 @@
+/// <reference types="cypress" />
+
 describe('Adult group', () => {
-  it('Access not allowed - Search for People by name', () => {
+  beforeEach(() => {
     cy.getCookies().should('be.empty');
     cy.setCookie('hackneyToken', Cypress.env('TEST_KEY_ADULT_GROUP'));
     cy.getCookie('hackneyToken').should(
@@ -8,33 +10,18 @@ describe('Adult group', () => {
       Cypress.env('TEST_KEY_ADULT_GROUP')
     );
     cy.visit(Cypress.env('HOST'));
-    cy.get('[data-testid="first_name"]').type(
-      Cypress.env('CHILDREN_RECORD_FIRST_NAME')
-    );
-    cy.get('[data-testid="last_name"]').type(
-      Cypress.env('CHILDREN_RECORD_LAST_NAME')
-    );
+  });
+
+  it('Access not allowed - Search for People by name', () => {
+    cy.contains('First name:').type(Cypress.env('CHILDREN_RECORD_FIRST_NAME'));
+    cy.contains('Last name:').type(Cypress.env('CHILDREN_RECORD_LAST_NAME'));
     cy.get('[type="submit"]').click();
     cy.contains('People not found').should('be.visible');
   });
-});
 
-describe('Adult group', () => {
   it('Access allowed - Search for People by name', () => {
-    cy.getCookies().should('be.empty');
-    cy.setCookie('hackneyToken', Cypress.env('TEST_KEY_ADULT_GROUP'));
-    cy.getCookie('hackneyToken').should(
-      'have.property',
-      'value',
-      Cypress.env('TEST_KEY_ADULT_GROUP')
-    );
-    cy.visit(Cypress.env('HOST'));
-    cy.get('[data-testid="first_name"]').type(
-      Cypress.env('ADULT_RECORD_FIRST_NAME')
-    );
-    cy.get('[data-testid="last_name"]').type(
-      Cypress.env('ADULT_RECORD_LAST_NAME')
-    );
+    cy.contains('First name:').type(Cypress.env('ADULT_RECORD_FIRST_NAME'));
+    cy.contains('Last name:').type(Cypress.env('ADULT_RECORD_LAST_NAME'));
     cy.get('[type="submit"]').click();
     cy.contains(Cypress.env('ADULT_RECORD_FULL_NAME')).should('be.visible');
   });
