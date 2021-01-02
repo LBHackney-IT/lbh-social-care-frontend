@@ -1,4 +1,5 @@
 import { useContext } from 'react';
+import axios from 'axios';
 
 import UserContext from 'components/UserContext/UserContext';
 import FormWizard from 'components/FormWizard/FormWizard';
@@ -7,7 +8,8 @@ import form from 'data/forms/test';
 
 const TestForm = () => {
   const { user } = useContext(UserContext);
-  const onFormSubmit = (formData) => console.log(formData);
+  const onFormSubmit = async (formData) =>
+    await axios.post('/api/test', formData);
   return (
     <FormWizard
       formPath={form.path}
