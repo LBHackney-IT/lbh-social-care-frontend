@@ -1,7 +1,7 @@
 export default [
-  'Fostering support unit 1',
-  'Fostering support unit 2',
-  'Permanency unit',
-  'Placement Management unit',
+  'Fostering Recruitment',
+  'Fostering Support Unit 1',
+  'Fostering Support Unit 2',
+  'Placement Management Unit',
   'CFS Management',
 ];

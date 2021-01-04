@@ -1,6 +1,7 @@
 export default [
-  'Disabled Children’s unit 1',
-  'Disabled Children’s unit 2',
-  'Short breaks',
+  "Disabled Children's Service",
+  'Disabled Childrens Service Unit 1',
+  'Disabled Childrens Service Unit 2',
+  'Short Breaks',
   'CFS Management',
 ];

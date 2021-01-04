@@ -49,7 +49,7 @@ export default {
           component: 'Select',
           name: 'unitCS',
           label: 'Unit - Clinical Services',
-          options: ['CFS Management'],
+          options: ['Clinical Services', 'CFS Management'],
           conditionalRender: ({ serviceArea }) =>
             serviceArea === 'Clinical Services',
         },
@@ -64,10 +64,26 @@ export default {
         {
           component: 'Select',
           name: 'unitDAIS',
-          label: 'Unit - Domestic Abuse Intervention Service',
-          options: ['Domestic Abuse Intervention Service'],
+          label: 'Unit - Domestic Abuse Intervention Service - DAIS ',
+          options: [
+            'Domestic Abuse Intervention Service - DAIS',
+            'CFS ManagementDomestic Abuse Intervention Service',
+          ],
           conditionalRender: ({ serviceArea }) =>
-            serviceArea === 'Domestic Abuse Intervention Service',
+            serviceArea === 'Unit - Domestic Abuse Intervention Service - DAIS',
+        },
+
+        {
+          component: 'Select',
+          name: 'unitFLIP',
+          label: 'Unit - FLIP and Rapid Support Service',
+          options: [
+            'Family Learning and Intervention Project',
+            'Rapid Support Service',
+            'CFS Management',
+          ],
+          conditionalRender: ({ serviceArea }) =>
+            serviceArea === 'FLIP and Rapid Support Service',
         },
         {
           component: 'Select',
@@ -76,6 +92,13 @@ export default {
           options: UNIT_FSS,
           conditionalRender: ({ serviceArea }) =>
             serviceArea === 'Family support service',
+        },
+        {
+          component: 'Select',
+          name: 'unitFAST',
+          label: 'Unit - FAST',
+          options: ['FAST'],
+          conditionalRender: ({ serviceArea }) => serviceArea === 'FAST',
         },
         {
           component: 'Select',
@@ -107,6 +130,14 @@ export default {
           options: ['NRPF and private fostering unit', 'CFS Management'],
           conditionalRender: ({ serviceArea }) =>
             serviceArea === 'NRPF and PF service',
+        },
+        {
+          component: 'Select',
+          name: 'unitPermenancyService',
+          label: 'Unit - Permanency Service',
+          options: ['Permanency Service', 'CFS Management'],
+          conditionalRender: ({ serviceArea }) =>
+            serviceArea === 'Permanency Service',
         },
         {
           component: 'Select',

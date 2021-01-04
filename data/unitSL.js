@@ -1,6 +1,1 @@
-export default [
-  'Rapid support service',
-  'Safeguarding and learning',
-  'Safeguarding and reviewing uni',
-  'CFS Management',
-];
+export default ['Safeguarding and Reviewing Team', 'CFS Management'];
