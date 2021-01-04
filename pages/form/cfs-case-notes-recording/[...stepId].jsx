@@ -1,12 +1,12 @@
-import form from 'data/forms/case-notes-recording';
+import form from 'data/forms/cfs-case-notes-recording';
 import FormCasesWrapper from 'components/FormCasesWrapper/FormCasesWrapper';
 
-const CaseNotesRecording = ({ query }) => (
+const CfsCaseNotesRecording = ({ query }) => (
   <FormCasesWrapper
     personId={query.id}
     title="Case note"
     form={form}
-    formNameOverall="ASC_case_note"
+    formNameOverall="CFS_case_note"
   />
 );
 
@@ -19,4 +19,4 @@ export const getServerSideProps = async (ctx) => {
   };
 };
 
-export default CaseNotesRecording;
+export default CfsCaseNotesRecording;
