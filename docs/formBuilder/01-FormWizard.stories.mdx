@@ -1,0 +1,48 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+
+<Meta title="FormBuilder/Introduction" />
+
+# Form Builder
+
+The Form builder helps you build multi-steps dynamic forms.
+
+## How to create a new form
+
+The `FormWizard` is the core module, it's taking care of handling the logic and the flow of the form.
+
+It's composed of 2 other components:
+
+- `DynamicStep` that is orchestrating the single-step logic (i.e. creating the actual HTML form)
+- `DynamicInput` that is taking care of display the correct component
+
+In order to create a new form, it's enough to create a page component with `[...stepId]` as the file name.
+
+`[...stepId]` is needed because it's the way NextJs represent **catch-all routes**, see more information in the [NextJs documentation](https://nextjs.org/docs/routing/dynamic-routes#catch-all-routes).
+
+```js
+<FormWizard
+  formPath="/form/test"
+  title="test form"
+  onFormSubmit={(formData) => alert(formData)}
+  formSteps={[
+    {
+      id: 'first-step',
+      title: 'First Step',
+      components: [...],
+    },
+  ]}
+/>
+```
+
+The `FormWizard` itself needs only 4 props to work:
+
+- `formPath` the prefix of the actual form (i.e. `/form/test/` it will become `/form/test/${stepId}`)
+- `title` simply the form title
+- `onFormSubmit` the callback called on form submit, with the form data injected as the first argument
+- `formSteps` the actual steps that are going to compose the form
+- `defaultValues` (optional) - the default values of the form, that are going to be pre-filled
+- `successMessage` (optional) - a custom message that is going to appear on the top banner of the confirmation page
+
+## Functionalities
+
+The form builder is dynamic, along with the functionality of multi-step, it can show/hide _steps_ and _inputs_ based on other input value (or even default values). These functionalities are defined in the `formSteps` object. [For more info](/?path=/story/formbuilder-02-formsteps--page).
