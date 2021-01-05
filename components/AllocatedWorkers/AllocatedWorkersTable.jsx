@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types';
+import LinkButton from '../LinkButton/LinkButton';
 
 const AllocatedWorkersEntry = ({
   allocatedWorkerTeam,
@@ -9,9 +10,18 @@ const AllocatedWorkersEntry = ({
   index,
 }) => (
   <>
-    <h3 className="govuk-fieldset__legend--m govuk-custom-text-color govuk-!-margin-top-0">
-      Allocated Worker {index + 1}
-    </h3>
+    <div className="lbh-table-header">
+      <h3 className="govuk-fieldset__legend--m govuk-custom-text-color govuk-!-margin-top-0">
+        Allocated Worker {index + 1}
+      </h3>
+      {
+        <LinkButton
+          isSecondary
+          label="Deallocate Worker"
+          className="govuk-!-margin-bottom-3"
+        />
+      }
+    </div>
     <hr className="govuk-divider" />
     <dl className="govuk-summary-list">
       {allocatedWorker && (
