@@ -2,7 +2,7 @@ import Select from './Select';
 import NationalitySelect from './Nationality';
 
 export default {
-  title: 'Form/Select',
+  title: 'Form Components/Select',
   component: Select,
 };
 
