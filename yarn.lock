@@ -13456,7 +13456,7 @@ typescript@^4.0.3:
   resolved "https://registry.yarnpkg.com/typescript/-/typescript-4.1.3.tgz#519d582bd94cba0cf8934c7d8e8467e473f53bb7"
   integrity sha512-B3ZIOf1IKeH2ixgHhj6la6xdwR9QrLC5d1VKeCSY4tvkqhF2eqd9O7txNlS0PO3GrBAFIdr3L1ndNwteUbZLYg==
 
-uk-postcode-validator@^1.1.0:
+uk-postcode-validator@^1.1.1:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/uk-postcode-validator/-/uk-postcode-validator-1.1.1.tgz#e8db7cf1ff56f15dafd7cfb6e40b097e539e70a9"
   integrity sha512-JHV9/aE2VD0yOeEPUmWrJVBZn85v/lV+PyBqayls/49p+zrl6ZANJ33W/a6+MSNyW1ECnxTgo0KbxXWLn8JiQQ==
