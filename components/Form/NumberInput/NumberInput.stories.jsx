@@ -1,7 +1,7 @@
 import NumberInput from './NumberInput';
 
 export default {
-  title: 'Form/NumberInput',
+  title: 'Form Components/NumberInput',
   component: NumberInput,
 };
 

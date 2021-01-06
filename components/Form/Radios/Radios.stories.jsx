@@ -1,7 +1,7 @@
 import Radios from './Radios';
 
 export default {
-  title: 'Form/Radios',
+  title: 'Form Components/Radios',
   component: Radios,
 };
 
