@@ -8,6 +8,8 @@ const AllocatedWorkersEntry = ({
   allocationEndDate,
   workerType,
   index,
+  id,
+  mosaicId,
 }) => (
   <>
     <div className="lbh-table-header">
@@ -19,6 +21,7 @@ const AllocatedWorkersEntry = ({
           isSecondary
           label="Deallocate Worker"
           className="govuk-!-margin-bottom-3"
+          route={`/people/${mosaicId}/allocated-worker/${id}/delete`}
         />
       }
     </div>
@@ -78,6 +81,8 @@ AllocatedWorkersTable.propTypes = {
       allocatedTeam: PropTypes.string,
       startDate: PropTypes.number,
       endDate: PropTypes.number,
+      id: PropTypes.number,
+      mosaicId: PropTypes.number,
     })
   ).isRequired,
 };
