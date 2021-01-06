@@ -8,12 +8,12 @@ The Form builder helps you build multi-steps dynamic forms.
 
 ## How to create a new form
 
-The `FormWizard` is the core module, it's taking care of handling the logic and the flow of the form.
+The `FormWizard` is the core module, it takes care of handling the logic and the flow of the form.
 
 It's composed of 2 other components:
 
-- `DynamicStep` that is orchestrating the single-step logic (i.e. creating the actual HTML form)
-- `DynamicInput` that is taking care of display the correct component
+- `DynamicStep` that orchestrates the single-step logic (i.e. creating the actual HTML form)
+- `DynamicInput` that is taking care of displaying the correct component
 
 In order to create a new form, it's enough to create a page component with `[...stepId]` as the file name.
 
