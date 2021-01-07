@@ -1,6 +1,8 @@
 import PropTypes from 'prop-types';
 import ReactModal from 'react-modal';
 
+import TimesCircleIcon from 'components/Icons/TimesCircle';
+
 import style from './Modal.module.scss';
 
 ReactModal.setAppElement('#root');
@@ -14,7 +16,7 @@ const Modal = ({ isOpen, onRequestClose, children }) => (
     shouldCloseOnOverlayClick
   >
     <button className={style.closeButton} onClick={onRequestClose}>
-      X
+      <TimesCircleIcon color="border" />
     </button>
     <div>{children}</div>
   </ReactModal>

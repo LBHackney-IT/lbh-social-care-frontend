@@ -1,6 +1,8 @@
 import { render, fireEvent } from '@testing-library/react';
 
-import Modal from './modal';
+import Modal from './Modal';
+
+jest.mock('components/Icons/TimesCircle', () => () => 'MockedCloseIcon');
 
 describe(`Modal`, () => {
   const props = {
