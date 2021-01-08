@@ -37,6 +37,7 @@ const Select = ({
     <select
       className="govuk-select"
       id={name}
+      data-testid={name}
       name={name}
       ref={register}
       aria-describedby={hint && `${name}-hint`}

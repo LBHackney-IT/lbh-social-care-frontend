@@ -1,0 +1,47 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Summary component should render properly 1`] = `
+<DocumentFragment>
+  <div>
+    <div
+      class="govuk-!-margin-bottom-7"
+    >
+      <h3
+        class="govuk-heading-m"
+      >
+        Foo Bar
+      </h3>
+      <dl
+        class="govuk-summary-list"
+      >
+        <div
+          class="govuk-summary-list__row"
+        >
+          <dt
+            class="govuk-summary-list__key"
+          >
+            Foo
+          </dt>
+          <dd
+            class="govuk-summary-list__value"
+          >
+            foo
+          </dd>
+        </div>
+      </dl>
+      <a
+        class="govuk-link"
+        href="/foo/bar-foofoo-bar?fromSummary=true"
+      >
+        Change
+      </a>
+    </div>
+    <button
+      class="govuk-button govuk-button"
+      data-module="govuk-button"
+    >
+      Submit
+    </button>
+  </div>
+</DocumentFragment>
+`;
