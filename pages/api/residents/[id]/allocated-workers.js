@@ -1,6 +1,9 @@
 import * as HttpStatus from 'http-status-codes';
 
-import { getResidentAllocatedWorkers } from 'utils/server/allocatedWorkers';
+import {
+  getResidentAllocatedWorkers,
+  deleteAllocatedWorker,
+} from 'utils/server/allocatedWorkers';
 import { isAuthorised } from 'utils/auth';
 
 export default async (req, res) => {
@@ -40,6 +43,18 @@ export default async (req, res) => {
     //       .json({ message: 'Unable to post Allocated Workers'});
     //   }
     //   break;
+
+    case 'PATCH':
+      try {
+        const data = await deleteAllocatedWorker(req.query.id, req.body);
+        res.status(HttpStatus.OK).json(data);
+      } catch (error) {
+        console.log('Allocated Workers patch error:', error?.response?.data);
+        res
+          .status(HttpStatus.INTERNAL_SERVER_ERROR)
+          .json({ message: 'Unable to deallocated Worker' });
+      }
+      break;
 
     default:
       res

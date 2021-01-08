@@ -5,10 +5,7 @@ export const getAllocatedWorkers = async (id) => {
   return data;
 };
 
-export const addAllocatedWorkers = async (formData) => {
-  const { data } = await axios.post(
-    `/api/residents/allocated-workers`,
-    formData
-  );
+export const deleteAllocatedWorkers = async (formData) => {
+  const { data } = await axios.patch(`/api/allocated-workers`, formData);
   return data;
 };

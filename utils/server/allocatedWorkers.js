@@ -19,9 +19,13 @@ export const getResidentAllocatedWorkers = async (mosaic_id, params) => {
   // TODO: mocked data
 };
 
-// export const addAllocatedWorkers = async (formData) => {
-//   const { data } = await axios.post(`${ENDPOINT_API}/allocations`, formData, {
-//     headers: { 'Content-Type': 'application/json', 'x-api-key': AWS_KEY },
-//   });
-//   return { ref: data?.['_id'] };
-// };
+export const deleteResidentAllocatedWorkers = async (formData) => {
+  const { data } = await axios.patch(
+    `${ENDPOINT_API}/allocations/delete`,
+    formData,
+    {
+      headers: { 'Content-Type': 'application/json', 'x-api-key': AWS_KEY },
+    }
+  );
+  return { ref: data?.['_id'] };
+};
