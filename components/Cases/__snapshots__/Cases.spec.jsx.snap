@@ -1,0 +1,91 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Cases component should render no records  1`] = `
+<DocumentFragment>
+  <div>
+    <svg
+      height="50"
+      stroke="#00703c"
+      style="display: block; margin: auto;"
+      viewBox="0 0 42 42"
+      width="50"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <g
+        fill="none"
+        fill-rule="evenodd"
+      >
+        <g
+          stroke-width="5"
+          transform="translate(3 3)"
+        >
+          <circle
+            cx="18"
+            cy="18"
+            r="18"
+            stroke-opacity=".5"
+          />
+          <path
+            d="M36 18c0-9.94-8.06-18-18-18"
+            transform="rotate(112.708 18 18)"
+          >
+            <animatetransform
+              attributeName="transform"
+              dur="1s"
+              from="0 18 18"
+              repeatCount="indefinite"
+              to="360 18 18"
+              type="rotate"
+            />
+          </path>
+        </g>
+      </g>
+    </svg>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`Cases component should render records properly 1`] = `
+<DocumentFragment>
+  <div>
+    <svg
+      height="50"
+      stroke="#00703c"
+      style="display: block; margin: auto;"
+      viewBox="0 0 42 42"
+      width="50"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <g
+        fill="none"
+        fill-rule="evenodd"
+      >
+        <g
+          stroke-width="5"
+          transform="translate(3 3)"
+        >
+          <circle
+            cx="18"
+            cy="18"
+            r="18"
+            stroke-opacity=".5"
+          />
+          <path
+            d="M36 18c0-9.94-8.06-18-18-18"
+            transform="rotate(112.708 18 18)"
+          >
+            <animatetransform
+              attributeName="transform"
+              dur="1s"
+              from="0 18 18"
+              repeatCount="indefinite"
+              to="360 18 18"
+              type="rotate"
+            />
+          </path>
+        </g>
+      </g>
+    </svg>
+  </div>
+</DocumentFragment>
+`;

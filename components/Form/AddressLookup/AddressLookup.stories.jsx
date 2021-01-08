@@ -4,7 +4,7 @@ import { useForm } from 'react-hook-form';
 import { Button } from 'components/Form';
 
 export default {
-  title: 'Form/AddressLookup',
+  title: 'Form Components/AddressLookup',
   component: AddressLookup,
 };
 
