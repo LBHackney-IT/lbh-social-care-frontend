@@ -10,9 +10,13 @@ export const getResidentAllocatedWorkers = async (mosaic_id, params) => {
   return data;
 };
 
-// export const addAllocatedWorkers = async (formData) => {
-//   const { data } = await axios.post(`${ENDPOINT_API}/allocations`, formData, {
-//     headers: { 'Content-Type': 'application/json', 'x-api-key': AWS_KEY },
-//   });
-//   return { ref: data?.['_id'] };
-// };
+export const addAllocatedWorker = async (resident_id, body) => {
+  const { data } = await axios.post(
+    `${ENDPOINT_API}/allocations`,
+    { resident_id, ...body },
+    {
+      headers: { 'Content-Type': 'application/json', 'x-api-key': AWS_KEY },
+    }
+  );
+  return data;
+};
