@@ -2,7 +2,7 @@ import * as HttpStatus from 'http-status-codes';
 
 import {
   getResidentAllocatedWorkers,
-  deleteAllocatedWorker,
+  deleteResidentAllocatedWorker,
 } from 'utils/server/allocatedWorkers';
 import { isAuthorised } from 'utils/auth';
 
@@ -46,7 +46,10 @@ export default async (req, res) => {
 
     case 'PATCH':
       try {
-        const data = await deleteAllocatedWorker(req.query.id, req.body);
+        const data = await deleteResidentAllocatedWorker(
+          req.query.id,
+          req.body
+        );
         res.status(HttpStatus.OK).json(data);
       } catch (error) {
         console.log('Allocated Workers patch error:', error?.response?.data);
