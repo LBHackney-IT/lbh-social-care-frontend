@@ -5,9 +5,8 @@ import ErrorMessage from 'components/ErrorMessage/ErrorMessage';
 import Spinner from 'components/Spinner/Spinner';
 import { getResident } from 'utils/api/residents';
 import PersonDetails from './PersonDetails';
-import AllocatedWorkers from '../AllocatedWorkers/AllocatedWorkers';
 
-const PersonView = ({ personId, expandView }) => {
+const PersonView = ({ personId, expandView, children }) => {
   const [person, setPerson] = useState();
   const [error, setError] = useState();
   const [loading, setLoading] = useState(true);
@@ -41,7 +40,7 @@ const PersonView = ({ personId, expandView }) => {
                 </h1>
               )}
               <PersonDetails {...person} expandView={expandView} />
-              <AllocatedWorkers id={personId} />
+              {children}
             </>
           )}
         </>
@@ -53,6 +52,7 @@ const PersonView = ({ personId, expandView }) => {
 PersonView.propTypes = {
   expandView: PropTypes.bool,
   personId: PropTypes.string.isRequired,
+  children: PropTypes.node,
 };
 
 export default PersonView;
