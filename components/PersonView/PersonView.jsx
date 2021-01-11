@@ -52,6 +52,7 @@ const PersonView = ({ personId, expandView, children }) => {
 PersonView.propTypes = {
   expandView: PropTypes.bool,
   personId: PropTypes.string.isRequired,
+  children: PropTypes.node,
 };
 
 export default PersonView;
