@@ -4,8 +4,10 @@ import Spinner from 'components/Spinner/Spinner';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import Link from 'next/link';
+import { deleteAllocatedWorkers } from 'utils/api/allocatedWorkers';
 
 const DeallocatedWorkersDetails = ({
+  personId,
   allocatedWorker,
   firstName,
   lastName,
@@ -22,14 +24,8 @@ const DeallocatedWorkersDetails = ({
   const onSubmit = async (data) => {
     setLoading(true);
     try {
-      const test = Object.assign(patchData, data);
-      console.log('loading: ' + loading);
-      await new Promise((resolve) =>
-        setTimeout(
-          () => resolve(console.log('data is' + JSON.stringify(test))),
-          3000
-        )
-      );
+      const test = JSON.stringify(Object.assign(patchData, data));
+      await deleteAllocatedWorkers(personId, test);
     } catch {
       <ErrorMessage label="Something went wrong, please retry"></ErrorMessage>;
       console.log('Something went wrong');

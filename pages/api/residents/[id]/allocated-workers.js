@@ -46,10 +46,7 @@ export default async (req, res) => {
 
     case 'PATCH':
       try {
-        const data = await deleteResidentAllocatedWorker(
-          req.query.id,
-          req.body
-        );
+        const data = await deleteResidentAllocatedWorker(req.body);
         res.status(HttpStatus.OK).json(data);
       } catch (error) {
         console.log('Allocated Workers patch error:', error?.response?.data);

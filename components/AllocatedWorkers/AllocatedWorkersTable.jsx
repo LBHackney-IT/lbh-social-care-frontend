@@ -1,6 +1,5 @@
 import Modal from 'components/Modal/Modal';
 import PropTypes from 'prop-types';
-/* import LinkButton from '../LinkButton/LinkButton'; */
 import Button from '../Form/Button/Button';
 import { useState } from 'react';
 import DeallocatedWorkersDetails from './DeallocateWorkerDetails/DeallocatedWorkerDetails';
@@ -12,7 +11,7 @@ const AllocatedWorkersEntry = ({
   allocationEndDate,
   workerType,
   index,
-  callBack,
+  openModal,
 }) => {
   return (
     <>
@@ -20,15 +19,7 @@ const AllocatedWorkersEntry = ({
         <h3 className="govuk-fieldset__legend--m govuk-custom-text-color govuk-!-margin-top-0">
           Allocated Worker {index + 1}
         </h3>
-        {
-          <Button isSecondary label="Deallocate Worker" onClick={callBack} />
-          /* <LinkButton
-             isSecondary
-             label="Deallocate Worker"
-             className="govuk-!-margin-bottom-3"
-             route={`/people/${mosaicId}/allocated-worker/${id}/delete`}
-           /> */
-        }
+        {<Button isSecondary label="Deallocate Worker" onClick={openModal} />}
       </div>
       <hr className="govuk-divider" />
       <div></div>
@@ -80,7 +71,7 @@ const AllocatedWorkersTable = ({ records, personName }) => {
           key={index}
           index={index}
           personName={personName}
-          callBack={() => console.log(index) || setSelectedWorker(index)}
+          openModal={() => setSelectedWorker(index)}
           {...result}
         />
       ))}

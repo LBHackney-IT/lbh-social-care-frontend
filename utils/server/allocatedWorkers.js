@@ -19,13 +19,17 @@ export const getResidentAllocatedWorkers = async (mosaic_id, params) => {
   // TODO: mocked data
 };
 
-export const deleteResidentAllocatedWorker = async (formData) => {
-  const { data } = await axios.patch(
-    `${ENDPOINT_API}/allocations/delete`,
-    formData,
-    {
-      headers: { 'Content-Type': 'application/json', 'x-api-key': AWS_KEY },
-    }
+export const deleteResidentAllocatedWorker = async (id, formData) => {
+  /* const { data } = await axios.patch(
+   `${ENDPOINT_API}/allocations/delete`,
+   formData,
+   {
+     headers: { 'Content-Type': 'application/json', 'x-api-key': AWS_KEY },
+   }
+ );
+ return { ref: data?.['_id'] }; */
+
+  return new Promise((resolve) =>
+    setTimeout(() => resolve(console.log('data is ' + formData)), 3000)
   );
-  return { ref: data?.['_id'] };
 };
