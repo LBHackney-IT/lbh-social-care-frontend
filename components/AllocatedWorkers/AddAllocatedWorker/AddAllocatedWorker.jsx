@@ -1,4 +1,4 @@
-import { useEffect, useState, useContext } from 'react';
+import { useEffect, useState, useCallback, useContext } from 'react';
 import PropTypes from 'prop-types';
 import { useForm } from 'react-hook-form';
 
@@ -24,19 +24,19 @@ const AddAllocatedWorker = ({ personId, currentlyAllocated }) => {
     mode: 'onChange',
   });
   const { user } = useContext(UserContext);
-  const getAllocatedTeams = async () => {
+  const getAllocatedTeams = useCallback(async () => {
     try {
       const data = await getTeams();
       setTeams(data.teams);
     } catch (e) {
       setError(true);
     }
-  };
+  });
   useEffect(() => {
     getAllocatedTeams();
   }, []);
   const selectedTeam = watch('team');
-  const getAllocatedWorkers = async () => {
+  const getAllocatedWorkers = useCallback(async () => {
     setWorkers();
     try {
       const data = await getTeamWorkers(selectedTeam);
@@ -44,18 +44,18 @@ const AddAllocatedWorker = ({ personId, currentlyAllocated }) => {
     } catch (e) {
       setError(true);
     }
-  };
+  });
   useEffect(() => {
     selectedTeam && getAllocatedWorkers();
   }, [selectedTeam]);
   if (error) {
     return 'Oops an error occurred';
   }
-  const closeModal = () => {
+  const closeModal = useCallback(() => {
     setIsModalOpen(false);
     setWorkers();
-  };
-  const addWorker = async (formData) => {
+  });
+  const addWorker = useCallback(async (formData) => {
     setPostLoading(true);
     setPostError();
     try {
@@ -65,7 +65,7 @@ const AddAllocatedWorker = ({ personId, currentlyAllocated }) => {
       setPostError(true);
     }
     setPostLoading(false);
-  };
+  });
   return (
     <>
       <div className="lbh-table-header">
