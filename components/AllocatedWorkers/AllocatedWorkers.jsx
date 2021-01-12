@@ -10,7 +10,7 @@ import UserContext from 'components/UserContext/UserContext';
 
 const AllocatedWorkers = ({ id }) => {
   const [error, setError] = useState();
-  const [loading, setLoading] = useState();
+  const [loading, setLoading] = useState(true);
   const [allocWorkers, setAllocWorkers] = useState();
   const getWorkers = useCallback(async () => {
     try {
@@ -29,20 +29,16 @@ const AllocatedWorkers = ({ id }) => {
     return <Spinner />;
   }
   return (
-    <>
-      {allocWorkers && (
-        <div className="govuk-!-margin-top-8 govuk-!-margin-bottom-8">
-          <AllocatedWorkersTable records={allocWorkers} />
-          {user.hasAdminPermissions && (
-            <AddAllocatedWorker
-              personId={id}
-              currentlyAllocated={allocWorkers.length}
-            />
-          )}
-        </div>
+    <div className="govuk-!-margin-top-8 govuk-!-margin-bottom-8">
+      {allocWorkers && <AllocatedWorkersTable records={allocWorkers} />}
+      {user.hasAdminPermissions && (
+        <AddAllocatedWorker
+          personId={id}
+          currentlyAllocated={allocWorkers.length}
+        />
       )}
       {error && <ErrorMessage />}
-    </>
+    </div>
   );
 };
 

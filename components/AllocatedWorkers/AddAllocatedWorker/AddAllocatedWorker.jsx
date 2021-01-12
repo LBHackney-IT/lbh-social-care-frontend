@@ -80,7 +80,7 @@ const AddAllocatedWorker = ({ personId, currentlyAllocated }) => {
       </div>
       <hr className="govuk-divider" />
       <p>
-        <i>Optional</i>
+        <i>{currentlyAllocated === 0 ? 'Currently unallocated' : 'Optional'}</i>
       </p>
       <Modal isOpen={isModalOpen} onRequestClose={closeModal}>
         <h2 className="govuk-heading-l">Allocate worker</h2>
