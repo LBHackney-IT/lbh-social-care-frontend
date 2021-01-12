@@ -14,7 +14,7 @@ export default async (req, res) => {
     case 'GET':
       try {
         const data = await getTeams({
-          context_flag: user.permissionFlag,
+          context_flag: user.permissionFlag || 'A', //TODO fix this once 'B' has been added to the BE
         });
         res.status(HttpStatus.OK).json(data);
       } catch (error) {
