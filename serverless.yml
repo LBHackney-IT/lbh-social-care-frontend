@@ -45,6 +45,7 @@ functions:
       POSTCODE_LOOKUP_APIKEY: ${ssm:/lbh-social-care/${self:provider.stage}/postcode-lookup-apikey}
       NEXT_PUBLIC_FEEDBACK_LINK: ${ssm:/lbh-social-care/${self:provider.stage}/next-public-feedback-link}
       REDIRECT_URL: ${ssm:/lbh-social-care/${self:provider.stage}/redirect_url}
+      NEXT_PUBLIC_GOOGLE_TAG_MANAGER_ID: ${ssm:/lbh-social-care/${self:provider.stage}/gtm-id}
 resources:
   Resources:
     CloudFrontDistribution:
