@@ -35,5 +35,9 @@
 @media (min-width: 48.0625em) {
   .govuk-header__logo {
     padding-top: 1rem;
+    margin-bottom: 14px;
+  }
+  .govuk-header__link--service-name {
+    margin-bottom: 0;
   }
 }
