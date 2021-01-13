@@ -9,9 +9,10 @@ export const deleteAllocatedWorkers = async (id, formData) => {
   const { data } = await axios.patch(
     `/api/residents/${id}/allocated-workers`,
     formData
+  );
   return data;
 };
-    
+
 export const addAllocatedWorker = async (residentId, body) => {
   const { data } = await axios.post(
     `/api/residents/${residentId}/allocated-workers`,
