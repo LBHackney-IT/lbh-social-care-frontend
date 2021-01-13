@@ -19,6 +19,7 @@ const DeallocatedWorkersDetails = ({
   const { register, handleSubmit, errors } = useForm();
   const [loading, setLoading] = useState(false);
   const [complete, setComplete] = useState(false);
+  const [error, setError] = useState(false);
   const patchData = {
     worker: allocatedWorker,
   };
@@ -29,8 +30,7 @@ const DeallocatedWorkersDetails = ({
       await deleteAllocatedWorkers(personId, test);
       setComplete(true);
     } catch {
-      <ErrorMessage label="Something went wrong, please retry"></ErrorMessage>;
-      console.log('Something went wrong');
+      setError(true);
     }
     setLoading(false);
   };
@@ -97,6 +97,8 @@ const DeallocatedWorkersDetails = ({
           </p>
         </>
       )}
+
+      {error && <ErrorMessage />}
     </form>
   );
 };
