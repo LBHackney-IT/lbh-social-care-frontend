@@ -1,5 +1,5 @@
 import { render } from '@testing-library/react';
-
+import UserContext from 'components/UserContext/UserContext';
 import AllocatedWorkersTable from './AllocatedWorkersTable';
 
 describe('AllocatedWorkers component', () => {
@@ -15,7 +15,15 @@ describe('AllocatedWorkers component', () => {
     ],
   };
   it('should render properly', () => {
-    const { asFragment } = render(<AllocatedWorkersTable {...props} />);
+    const { asFragment } = render(
+      <UserContext.Provider
+        value={{
+          user: { name: 'foo' },
+        }}
+      >
+        <AllocatedWorkersTable {...props} />
+      </UserContext.Provider>
+    );
     expect(asFragment()).toMatchSnapshot();
   });
 });
