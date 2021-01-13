@@ -1,16 +1,19 @@
 import { NextSeo } from 'next-seo';
 
-import Cases from 'components/Cases/Cases';
 import BackButton from 'components/Layout/BackButton/BackButton';
 import PersonView from 'components/PersonView/PersonView';
+import Cases from 'components/Cases/Cases';
+import AllocatedWorkers from 'components/AllocatedWorkers/AllocatedWorkers';
 
 const CasesPage = ({ query }) => {
   return (
     <div>
       <NextSeo title={`#${query.id} Cases`} noindex />
       <BackButton />
-      <PersonView personId={query.id} />
-      <Cases {...query} />
+      <PersonView personId={query.id}>
+        <AllocatedWorkers {...query} />
+        <Cases {...query} />
+      </PersonView>
     </div>
   );
 };

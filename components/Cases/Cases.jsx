@@ -47,7 +47,7 @@ const Cases = ({ id }) => {
               </p>
             </div>
             {/* commented out as the feature is not ready to be in prod */}
-            {/* <LinkButton label="Add a new record" route={`${query.id}/record`} /> */}
+            {/* <LinkButton label="Add a new record" route={`${query.id}/records`} /> */}
           </div>
           <hr className="govuk-divider" />
           {results && (

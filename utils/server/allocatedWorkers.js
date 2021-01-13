@@ -28,8 +28,18 @@ export const deleteResidentAllocatedWorker = async (id, formData) => {
    }
  );
  return { ref: data?.['_id'] }; */
-
   return new Promise((resolve) =>
     setTimeout(() => resolve(console.log('data is ' + formData)), 3000)
   );
+};
+
+export const addAllocatedWorker = async (resident_id, body) => {
+  const { data } = await axios.post(
+    `${ENDPOINT_API}/allocations`,
+    { resident_id, ...body },
+    {
+      headers: { 'Content-Type': 'application/json', 'x-api-key': AWS_KEY },
+    }
+  );
+  return data;
 };

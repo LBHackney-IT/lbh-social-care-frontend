@@ -3,6 +3,7 @@ import * as HttpStatus from 'http-status-codes';
 import {
   getResidentAllocatedWorkers,
   deleteResidentAllocatedWorker,
+  addAllocatedWorker,
 } from 'utils/server/allocatedWorkers';
 import { isAuthorised } from 'utils/auth';
 
@@ -32,17 +33,17 @@ export default async (req, res) => {
       }
       break;
 
-    // case 'POST':
-    //   try {
-    //     const data = await addAllocatedWorker(req.query.id, req.body);
-    //     res.status(HttpStatus.OK).json(data);
-    //   } catch (error) {
-    //     console.log('Allocated Workers post error:', error?.response?.data);
-    //     res
-    //       .status(HttpStatus.INTERNAL_SERVER_ERROR)
-    //       .json({ message: 'Unable to post Allocated Workers'});
-    //   }
-    //   break;
+    case 'POST':
+      try {
+        const data = await addAllocatedWorker(req.query.id, req.body);
+        res.status(HttpStatus.OK).json(data);
+      } catch (error) {
+        console.log('Allocated Workers post error:', error?.response?.data);
+        res
+          .status(HttpStatus.INTERNAL_SERVER_ERROR)
+          .json({ message: 'Unable to post Allocated Workers' });
+      }
+      break;
 
     case 'PATCH':
       try {

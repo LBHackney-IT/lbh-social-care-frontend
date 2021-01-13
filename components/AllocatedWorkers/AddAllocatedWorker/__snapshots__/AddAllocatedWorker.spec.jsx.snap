@@ -1,0 +1,278 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AddAllocatedWorker should render properly 1`] = `
+<DocumentFragment>
+  <div
+    class="lbh-table-header"
+  >
+    <h3
+      class="govuk-fieldset__legend--m govuk-custom-text-color govuk-!-margin-top-0"
+    >
+      Allocated Worker 4
+    </h3>
+    <button
+      class="govuk-button govuk-button--secondary"
+      data-module="govuk-button"
+    >
+      Allocate worker
+    </button>
+  </div>
+  <hr
+    class="govuk-divider"
+  />
+  <p>
+    <i>
+      Optional
+    </i>
+  </p>
+  <div
+    class="modal"
+  >
+    <button
+      class="closeButton"
+    >
+      MockedCloseButton
+    </button>
+    <div>
+      <h2
+        class="govuk-heading-l"
+      >
+        Allocate worker
+      </h2>
+      <form
+        role="form"
+      >
+        <div
+          class="govuk-form-group"
+        >
+          <label
+            class="govuk-label govuk-label--s"
+            for="team"
+          >
+            Select a team to view workers for that team 
+          </label>
+          <div
+            class="govuk-radios"
+          >
+            <div
+              class="govuk-radios__item"
+            >
+              <input
+                class="govuk-radios__input"
+                id="team_1"
+                name="team"
+                type="radio"
+                value="1"
+              />
+              <label
+                class="govuk-label govuk-radios__label"
+                for="team_1"
+              >
+                Team 1
+              </label>
+            </div>
+            <div
+              class="govuk-radios__item"
+            >
+              <input
+                class="govuk-radios__input"
+                id="team_2"
+                name="team"
+                type="radio"
+                value="2"
+              />
+              <label
+                class="govuk-label govuk-radios__label"
+                for="team_2"
+              >
+                Team 2
+              </label>
+            </div>
+            <div
+              class="govuk-radios__item"
+            >
+              <input
+                class="govuk-radios__input"
+                id="team_3"
+                name="team"
+                type="radio"
+                value="3"
+              />
+              <label
+                class="govuk-label govuk-radios__label"
+                for="team_3"
+              >
+                Team 3
+              </label>
+            </div>
+          </div>
+        </div>
+        <h3>
+          Information and Assessment workers
+        </h3>
+        <p
+          class="govuk-body"
+        >
+          Select a worker to allocate a case to them. You can view more about a worker’s current allocated cases by selecting their name.
+        </p>
+        <table
+          class="govuk-table"
+        >
+          <thead
+            class="govuk-table__head"
+          >
+            <tr
+              class="govuk-table__row"
+            >
+              <th
+                class="govuk-table__header"
+                scope="col"
+                style="width: 4rem;"
+              >
+                Select
+              </th>
+              <th
+                class="govuk-table__header"
+                scope="col"
+              >
+                Name
+              </th>
+              <th
+                class="govuk-table__header govuk-table__header--numeric"
+                scope="col"
+              >
+                Total Cases
+              </th>
+            </tr>
+          </thead>
+          <tbody
+            class="govuk-table__body"
+          >
+            <tr
+              class="govuk-table__row govuk-radios"
+            >
+              <td
+                class="govuk-table__cell"
+              >
+                <div
+                  class="govuk-radios__item"
+                >
+                  <input
+                    aria-labelledby="worker_a"
+                    class="govuk-radios__input"
+                    name="worker"
+                    type="radio"
+                    value="a"
+                  />
+                  <label
+                    class="govuk-label govuk-radios__label"
+                  />
+                </div>
+              </td>
+              <td
+                class="govuk-table__cell lbh-table__cell--va-middle"
+              >
+                <a
+                  class="govuk-link"
+                  href="/workers/a"
+                  id="worker_a"
+                  rel="noopener"
+                  target="_blank"
+                >
+                  Worker A
+                </a>
+              </td>
+              <td
+                class="govuk-table__cell govuk-table__cell--numeric"
+              />
+            </tr>
+            <tr
+              class="govuk-table__row govuk-radios"
+            >
+              <td
+                class="govuk-table__cell"
+              >
+                <div
+                  class="govuk-radios__item"
+                >
+                  <input
+                    aria-labelledby="worker_b"
+                    class="govuk-radios__input"
+                    name="worker"
+                    type="radio"
+                    value="b"
+                  />
+                  <label
+                    class="govuk-label govuk-radios__label"
+                  />
+                </div>
+              </td>
+              <td
+                class="govuk-table__cell lbh-table__cell--va-middle"
+              >
+                <a
+                  class="govuk-link"
+                  href="/workers/b"
+                  id="worker_b"
+                  rel="noopener"
+                  target="_blank"
+                >
+                  Worker B
+                </a>
+              </td>
+              <td
+                class="govuk-table__cell govuk-table__cell--numeric"
+              />
+            </tr>
+            <tr
+              class="govuk-table__row govuk-radios"
+            >
+              <td
+                class="govuk-table__cell"
+              >
+                <div
+                  class="govuk-radios__item"
+                >
+                  <input
+                    aria-labelledby="worker_c"
+                    class="govuk-radios__input"
+                    name="worker"
+                    type="radio"
+                    value="c"
+                  />
+                  <label
+                    class="govuk-label govuk-radios__label"
+                  />
+                </div>
+              </td>
+              <td
+                class="govuk-table__cell lbh-table__cell--va-middle"
+              >
+                <a
+                  class="govuk-link"
+                  href="/workers/c"
+                  id="worker_c"
+                  rel="noopener"
+                  target="_blank"
+                >
+                  Worker C
+                </a>
+              </td>
+              <td
+                class="govuk-table__cell govuk-table__cell--numeric"
+              />
+            </tr>
+          </tbody>
+        </table>
+        <button
+          class="govuk-button"
+          data-module="govuk-button"
+          type="submit"
+        >
+          Allocate worker
+        </button>
+      </form>
+    </div>
+  </div>
+</DocumentFragment>
+`;
