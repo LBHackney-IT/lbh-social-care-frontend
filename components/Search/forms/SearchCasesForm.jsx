@@ -1,4 +1,3 @@
-import { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { useForm } from 'react-hook-form';
 import isPast from 'date-fns/isPast';
@@ -14,7 +13,7 @@ import {
 } from 'components/Form';
 import FORM_NAMES from 'data/formNames';
 
-const SearchCasesForm = ({ onFormSubmit, query }) => {
+const SearchCasesForm = ({ onFormSubmit, defaultValues }) => {
   const {
     register,
     errors,
@@ -22,11 +21,8 @@ const SearchCasesForm = ({ onFormSubmit, query }) => {
     handleSubmit,
     formState: { isDirty },
   } = useForm({
-    defaultValues: query,
+    defaultValues,
   });
-  useEffect(() => {
-    Object.keys(query).length && onFormSubmit(query);
-  }, []);
   return (
     <form role="form" onSubmit={handleSubmit((data) => onFormSubmit(data))}>
       <div className="govuk-grid-row">
@@ -135,7 +131,7 @@ const SearchCasesForm = ({ onFormSubmit, query }) => {
 
 SearchCasesForm.propTypes = {
   onFormSubmit: PropTypes.func.isRequired,
-  query: PropTypes.shape({}),
+  defaultValues: PropTypes.shape({}),
 };
 
 export default SearchCasesForm;

@@ -3,14 +3,19 @@
 exports[`AllocatedWorkers component should render properly 1`] = `
 <DocumentFragment>
   <div>
-    <h3
-      class="govuk-fieldset__legend--m govuk-custom-text-color govuk-!-margin-top-0"
+    <div
+      class="lbh-table-header"
     >
-      Allocated Worker 1
-    </h3>
+      <h3
+        class="govuk-fieldset__legend--m govuk-custom-text-color govuk-!-margin-top-0"
+      >
+        Allocated Worker 1
+      </h3>
+    </div>
     <hr
       class="govuk-divider"
     />
+    <div />
     <dl
       class="govuk-summary-list"
     >

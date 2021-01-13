@@ -5,6 +5,7 @@ import { isAuthorised, AUTH_WHITELIST } from 'utils/auth';
 import Layout from 'components/Layout';
 import SEO from '../next-seo.config';
 import UserContext from 'components/UserContext/UserContext';
+import GoogleTagManager from 'components/GoogleTagManager/GoogleTagManager';
 
 import 'stylesheets/all.scss';
 import 'stylesheets/header.scss';
@@ -27,10 +28,12 @@ class MyApp extends App {
             user: this.state.user,
           }}
         >
-          <Layout>
-            <DefaultSeo {...SEO} />
-            <Component {...pageProps} />
-          </Layout>
+          <GoogleTagManager>
+            <Layout>
+              <DefaultSeo {...SEO} />
+              <Component {...pageProps} />
+            </Layout>
+          </GoogleTagManager>
         </UserContext.Provider>
         <script src="/js/govuk.js"></script>
       </>
