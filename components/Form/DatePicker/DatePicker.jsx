@@ -48,9 +48,8 @@ DatePicker.propTypes = {
   error: PropTypes.shape({
     message: PropTypes.string.isRequired,
   }),
-
   type: PropTypes.string,
-  register: PropTypes.func.isRequired,
+  register: PropTypes.func,
   required: PropTypes.bool,
 };
 export default DatePicker;

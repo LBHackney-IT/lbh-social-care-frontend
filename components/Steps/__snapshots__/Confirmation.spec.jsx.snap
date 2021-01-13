@@ -1,0 +1,53 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Confirmation component should render properly 1`] = `
+<DocumentFragment>
+  <div>
+    <div
+      class="govuk-panel govuk-panel--confirmation govuk-!-margin-bottom-9"
+    >
+      <h1
+        class="govuk-panel__title"
+      >
+        Done!
+      </h1>
+      <div
+        class="govuk-panel__body"
+      >
+        Your reference code
+        <br />
+        <strong>
+          foo123456bar
+        </strong>
+      </div>
+    </div>
+    <div
+      class="govuk-!-margin-bottom-7"
+    >
+      <h3
+        class="govuk-heading-m"
+      >
+        Foo Bar
+      </h3>
+      <dl
+        class="govuk-summary-list"
+      >
+        <div
+          class="govuk-summary-list__row"
+        >
+          <dt
+            class="govuk-summary-list__key"
+          >
+            Foo
+          </dt>
+          <dd
+            class="govuk-summary-list__value"
+          >
+            foo
+          </dd>
+        </div>
+      </dl>
+    </div>
+  </div>
+</DocumentFragment>
+`;

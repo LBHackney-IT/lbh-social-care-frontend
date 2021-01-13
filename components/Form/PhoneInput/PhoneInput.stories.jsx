@@ -1,7 +1,7 @@
 import PhoneInput from './PhoneInput';
 
 export default {
-  title: 'Form/PhoneInput',
+  title: 'Form Components/PhoneInput',
   component: PhoneInput,
 };
 

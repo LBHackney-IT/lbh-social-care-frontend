@@ -4,7 +4,8 @@ import { getCases, addCase } from 'utils/server/cases';
 import { isAuthorised } from 'utils/auth';
 
 export default async (req, res) => {
-  if (!isAuthorised(req)) {
+  const user = isAuthorised({ req });
+  if (!user) {
     return res
       .status(HttpStatus.UNAUTHORIZED)
       .json({ message: 'Auth cookie missing.' });
@@ -12,7 +13,10 @@ export default async (req, res) => {
   switch (req.method) {
     case 'GET':
       try {
-        const data = await getCases(req.query);
+        const data = await getCases({
+          ...req.query,
+          context_flag: user.permissionFlag,
+        });
         res.status(HttpStatus.OK).json(data);
       } catch (error) {
         console.log('Cases get error:', error?.response?.data);

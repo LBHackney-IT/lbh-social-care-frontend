@@ -1,10 +1,14 @@
 import * as HttpStatus from 'http-status-codes';
 
-import { getResidentAllocatedWorkers } from 'utils/server/allocatedWorkers';
+import {
+  getResidentAllocatedWorkers,
+  addAllocatedWorker,
+} from 'utils/server/allocatedWorkers';
 import { isAuthorised } from 'utils/auth';
 
 export default async (req, res) => {
-  if (!isAuthorised(req)) {
+  const user = isAuthorised({ req });
+  if (!user) {
     return res
       .status(HttpStatus.UNAUTHORIZED)
       .json({ message: 'Auth cookie missing.' });
@@ -12,8 +16,9 @@ export default async (req, res) => {
   switch (req.method) {
     case 'GET':
       try {
-        const data = await getResidentAllocatedWorkers(req.query.id);
-
+        const data = await getResidentAllocatedWorkers(req.query.id, {
+          context_flag: user.permissionFlag,
+        });
         res.status(HttpStatus.OK).json(data);
       } catch (error) {
         console.log('Allocated Workers get error:', error?.response?.data);
@@ -27,17 +32,17 @@ export default async (req, res) => {
       }
       break;
 
-    // case 'POST':
-    //   try {
-    //     const data = await addAllocatedWorker(req.query.id, req.body);
-    //     res.status(HttpStatus.OK).json(data);
-    //   } catch (error) {
-    //     console.log('Allocated Workers post error:', error?.response?.data);
-    //     res
-    //       .status(HttpStatus.INTERNAL_SERVER_ERROR)
-    //       .json({ message: 'Unable to post Allocated Workers'});
-    //   }
-    //   break;
+    case 'POST':
+      try {
+        const data = await addAllocatedWorker(req.query.id, req.body);
+        res.status(HttpStatus.OK).json(data);
+      } catch (error) {
+        console.log('Allocated Workers post error:', error?.response?.data);
+        res
+          .status(HttpStatus.INTERNAL_SERVER_ERROR)
+          .json({ message: 'Unable to post Allocated Workers' });
+      }
+      break;
 
     default:
       res

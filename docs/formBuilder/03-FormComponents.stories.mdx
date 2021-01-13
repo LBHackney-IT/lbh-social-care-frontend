@@ -1,0 +1,29 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+
+<Meta title="FormBuilder/Components" />
+
+# Components
+
+`components` defines the input fields. They can be simple as a `TextInput` or advanced as the `AddressLookup`.
+
+## Basic example
+
+```js
+{
+  component: 'TextInput',
+  name: 'title',
+  label: 'Title',
+  rules: { required: true },
+}
+```
+
+Each component has the following properties:
+
+- `component` the component type (i.e. `TextInput`, `CheckBox`, etc.)
+- `name` the name of the property that is going to contain the value of the input
+- `rules` for validation, is an object that is reflecting the [react-hook-form](https://react-hook-form.com/api/) validation APIs
+- `label` the input label
+
+There are other properties that depend on the input type, for example, `options` for `CheckBox` or `width` for `TextInput`.
+
+You can see the full list of components in the sidebar 👈

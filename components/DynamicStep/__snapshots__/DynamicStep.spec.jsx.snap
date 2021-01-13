@@ -1,0 +1,47 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`DynamicStep component should render properly 1`] = `
+<DocumentFragment>
+  <form>
+    <div
+      class="govuk-form-group"
+    >
+      <div
+        class="govuk-form-group"
+      >
+        <label
+          class="govuk-label govuk-label--m"
+          for="bar_input"
+        >
+          Foo 
+        </label>
+        <input
+          class="govuk-input govuk-input--width-30"
+          data-testid="bar_input"
+          id="bar_input"
+          name="bar_input"
+          type="text"
+        />
+      </div>
+    </div>
+    <div
+      class="govuk-form-group"
+    >
+      <button
+        class="govuk-button govuk-!-margin-right-1"
+        data-module="govuk-button"
+        type="submit"
+      >
+        Next
+      </button>
+      <button
+        class="govuk-button govuk-button--secondary"
+        data-module="govuk-button"
+        type="button"
+      >
+        Save and Exit
+      </button>
+    </div>
+  </form>
+</DocumentFragment>
+`;

@@ -33,6 +33,7 @@ jobs:
           key: dependency-cache-{{ checksum "yarn.lock" }}
           paths:
             - ./node_modules
+            - /home/circleci/.cache/Cypress
       - persist_to_workspace:
           root: *workspace_root
           paths: .

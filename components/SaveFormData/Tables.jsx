@@ -1,4 +1,4 @@
-import DeleteIcon from './DeleteIcon';
+import TimesCircleIcon from 'components/Icons/TimesCircle';
 import Link from 'next/link';
 
 export const DetailedTable = ({ tableHeader, data, deleteForm }) => (
@@ -33,10 +33,11 @@ export const DetailedTable = ({ tableHeader, data, deleteForm }) => (
             }
           </td>
           <td
+            role="button"
             className="govuk-table__cell"
             onClick={() => deleteForm(cell.formPath)}
           >
-            <DeleteIcon />
+            <TimesCircleIcon color="danger" />
           </td>
         </tr>
       ))}
@@ -68,10 +69,11 @@ export const StandardTable = ({ tableHeader, data, deleteForm }) => (
             }
           </td>
           <td
+            role="button"
             className="govuk-table__cell"
             onClick={() => deleteForm(cell.formPath)}
           >
-            <DeleteIcon />
+            <TimesCircleIcon color="danger" />
           </td>
         </tr>
       ))}

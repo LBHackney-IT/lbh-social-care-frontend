@@ -59,10 +59,7 @@ const Search = ({ query, type }) => {
     setError(false);
     try {
       setFormData(formData);
-      const data = await searchFunction({
-        ...formData,
-        context_flag: user.permissionFlag,
-      });
+      const data = await searchFunction(formData);
       setResults({
         ...data,
         records: [...records, ...getRecords(data)],

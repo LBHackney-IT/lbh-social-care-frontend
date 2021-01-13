@@ -61,6 +61,13 @@ $screen-sm-min: 576px;
   display: flex;
   justify-content: space-between;
   align-items: flex-end;
+  button {
+    margin-bottom: auto;
+  }
+}
+
+.lbh-table__cell--va-middle {
+  vertical-align: middle;
 }
 
 .cancel-icon {

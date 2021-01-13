@@ -23,6 +23,10 @@ const Home = () => {
         label="Case Notes Recording"
         route="/form/case-notes-recording/case-notes-recording"
       />
+      <LinkButton
+        label="CFS Case Notes Recording"
+        route="/form/cfs-case-notes-recording/cfs-case-notes-recording"
+      />
     </div>
   );
 };

@@ -1,10 +1,20 @@
-export const getPermissionFlag = ({
+export const isOnlyAdult = ({
   hasAdminPermissions,
   hasAdultPermissions,
   hasChildrenPermissions,
-}) => {
-  if (!hasAdminPermissions && hasAdultPermissions && !hasChildrenPermissions)
-    return 'A';
-  if (!hasAdminPermissions && !hasAdultPermissions && hasChildrenPermissions)
-    return 'C';
+}) => !hasAdminPermissions && hasAdultPermissions && !hasChildrenPermissions;
+
+export const isOnlyChildren = ({
+  hasAdminPermissions,
+  hasAdultPermissions,
+  hasChildrenPermissions,
+}) => !hasAdminPermissions && !hasAdultPermissions && hasChildrenPermissions;
+
+export const getPermissionFlag = (user) => {
+  if (isOnlyAdult(user)) return 'A';
+  if (isOnlyChildren(user)) return 'C';
 };
+
+export const getUserType = (user) =>
+  user &&
+  (isOnlyAdult(user) ? 'Adult' : isOnlyChildren(user) ? 'Children' : 'Admin');
