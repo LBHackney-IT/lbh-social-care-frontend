@@ -11,7 +11,7 @@ import SearchResidentsForm from './SearchResidentsForm';
 describe(`SearchResidentsForm`, () => {
   const props = {
     onFormSubmit: jest.fn(),
-    query: {},
+    defaultValues: {},
   };
 
   it('should pass to onFormSubmit the form values', async () => {
@@ -33,9 +33,9 @@ describe(`SearchResidentsForm`, () => {
     });
   });
 
-  it('should initialise the form with the passed query', async () => {
+  it('should initialise the form with the passed defaultValues', async () => {
     const { getByRole } = render(
-      <SearchResidentsForm {...props} query={{ first_name: 'bar' }} />
+      <SearchResidentsForm {...props} defaultValues={{ first_name: 'bar' }} />
     );
     await act(async () => {
       fireEvent.submit(getByRole('form'));
