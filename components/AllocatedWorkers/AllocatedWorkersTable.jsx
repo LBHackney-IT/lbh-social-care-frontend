@@ -1,8 +1,9 @@
+import { useState, useContext } from 'react';
 import Modal from 'components/Modal/Modal';
 import PropTypes from 'prop-types';
 import Button from '../Form/Button/Button';
-import { useState } from 'react';
 import DeallocatedWorkersDetails from './DeallocateWorkerDetails/DeallocatedWorkerDetails';
+import UserContext from 'components/UserContext/UserContext';
 
 const AllocatedWorkersEntry = ({
   allocatedWorkerTeam,
@@ -13,13 +14,16 @@ const AllocatedWorkersEntry = ({
   index,
   openModal,
 }) => {
+  const { user } = useContext(UserContext);
   return (
     <>
       <div className="lbh-table-header">
         <h3 className="govuk-fieldset__legend--m govuk-custom-text-color govuk-!-margin-top-0">
           Allocated Worker {index + 1}
         </h3>
-        {<Button isSecondary label="Deallocate Worker" onClick={openModal} />}
+        {user.hasAdminPermissions && (
+          <Button isSecondary label="Deallocate Worker" onClick={openModal} />
+        )}
       </div>
       <hr className="govuk-divider" />
       <div></div>
@@ -96,8 +100,6 @@ AllocatedWorkersTable.propTypes = {
       allocatedTeam: PropTypes.string,
       startDate: PropTypes.number,
       endDate: PropTypes.number,
-      id: PropTypes.number,
-      mosaicId: PropTypes.number,
     })
   ).isRequired,
 };

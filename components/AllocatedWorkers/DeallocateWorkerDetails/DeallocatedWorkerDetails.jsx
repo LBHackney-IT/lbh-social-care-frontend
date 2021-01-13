@@ -1,9 +1,10 @@
-import ErrorMessage from 'components/ErrorMessage/ErrorMessage';
-import { Button, TextArea } from 'components/Form';
-import Spinner from 'components/Spinner/Spinner';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import Link from 'next/link';
+import PropTypes from 'prop-types';
+import ErrorMessage from 'components/ErrorMessage/ErrorMessage';
+import { Button, TextArea } from 'components/Form';
+import Spinner from 'components/Spinner/Spinner';
 import { deleteAllocatedWorkers } from 'utils/api/allocatedWorkers';
 
 const DeallocatedWorkersDetails = ({
@@ -15,7 +16,7 @@ const DeallocatedWorkersDetails = ({
   allocatedWorkerTeam,
   isLastWorker,
 }) => {
-  const { register, handleSubmit } = useForm();
+  const { register, handleSubmit, errors } = useForm();
   const [loading, setLoading] = useState(false);
   const [complete, setComplete] = useState(false);
   const patchData = {
@@ -24,18 +25,18 @@ const DeallocatedWorkersDetails = ({
   const onSubmit = async (data) => {
     setLoading(true);
     try {
-      const test = JSON.stringify(Object.assign(patchData, data));
+      const test = Object.assign(patchData, data);
       await deleteAllocatedWorkers(personId, test);
+      setComplete(true);
     } catch {
       <ErrorMessage label="Something went wrong, please retry"></ErrorMessage>;
       console.log('Something went wrong');
     }
     setLoading(false);
-    setComplete(true);
   };
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <h1 className="govuk-heading-l">Reason for worker deallocation</h1>
+      <h2 className="govuk-heading-l">Reason for worker deallocation</h2>
       <p className="govuk-body govuk-!-font-weight-bold" ref={register}>
         Person:{firstName} {lastName}
       </p>
@@ -64,7 +65,13 @@ const DeallocatedWorkersDetails = ({
       {!complete && (
         <>
           <h2>What is the reason for this worker to be deallocated?</h2>
-          <TextArea name="DeallocationReason" register={register} />
+          <TextArea
+            name="deallocation_reason"
+            register={register({
+              required: 'Please add a reason for this worker to be deallocated',
+            })}
+            error={errors.deallocation_reason}
+          />
         </>
       )}
       {loading && (
@@ -92,6 +99,16 @@ const DeallocatedWorkersDetails = ({
       )}
     </form>
   );
+};
+
+DeallocatedWorkersDetails.propTypes = {
+  personId: PropTypes.string,
+  allocatedWorker: PropTypes.string,
+  firstName: PropTypes.string,
+  lastName: PropTypes.string,
+  workerType: PropTypes.string,
+  allocatedWorkerTeam: PropTypes.string,
+  isLastWorker: PropTypes.bool,
 };
 
 export default DeallocatedWorkersDetails;

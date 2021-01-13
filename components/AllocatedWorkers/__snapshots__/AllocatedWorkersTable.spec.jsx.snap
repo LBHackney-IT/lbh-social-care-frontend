@@ -11,12 +11,6 @@ exports[`AllocatedWorkers component should render properly 1`] = `
       >
         Allocated Worker 1
       </h3>
-      <button
-        class="govuk-button govuk-button--secondary"
-        data-module="govuk-button"
-      >
-        Deallocate Worker
-      </button>
     </div>
     <hr
       class="govuk-divider"

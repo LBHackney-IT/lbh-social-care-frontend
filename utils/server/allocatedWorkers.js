@@ -19,7 +19,7 @@ export const getResidentAllocatedWorkers = async (mosaic_id, params) => {
   // TODO: mocked data
 };
 
-export const deleteResidentAllocatedWorker = async (id, formData) => {
+export const deleteResidentAllocatedWorker = async (id, body) => {
   /* const { data } = await axios.patch(
    `${ENDPOINT_API}/allocations/delete`,
    formData,
@@ -28,9 +28,10 @@ export const deleteResidentAllocatedWorker = async (id, formData) => {
    }
  );
  return { ref: data?.['_id'] }; */
-  return new Promise((resolve) =>
-    setTimeout(() => resolve(console.log('data is ' + formData)), 3000)
+  await new Promise((resolve) =>
+    setTimeout(() => resolve(console.log('data is ' + id + body)), 3000)
   );
+  return { test: 'test' };
 };
 
 export const addAllocatedWorker = async (resident_id, body) => {
