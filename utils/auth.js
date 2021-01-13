@@ -45,6 +45,7 @@ export const isAuthorised = ({ req, res }, withRedirect = false) => {
     AUTHORISED_ADMIN_GROUP,
     AUTHORISED_ADULT_GROUP,
     AUTHORISED_CHILD_GROUP,
+    AUTHORISED_ALLOCATORS_GROUP,
   } = process.env;
   try {
     const cookies = cookie.parse(req.headers.cookie ?? '');
@@ -63,6 +64,7 @@ export const isAuthorised = ({ req, res }, withRedirect = false) => {
       hasAdminPermissions: groups.includes(AUTHORISED_ADMIN_GROUP),
       hasAdultPermissions: groups.includes(AUTHORISED_ADULT_GROUP),
       hasChildrenPermissions: groups.includes(AUTHORISED_CHILD_GROUP),
+      hasAllocationsPermissions: groups.includes(AUTHORISED_ALLOCATORS_GROUP),
     };
 
     if (
