@@ -8,7 +8,7 @@ const { ENDPOINT_API, AWS_KEY } = process.env;
 
 describe('allocatedWorkersAPI', () => {
   describe('getResidentAllocatedWorkers', () => {
-    it('should work properly', async () => {
+    it.skip('should work properly', async () => {
       axios.get.mockResolvedValue({
         data: { allocations: 'hello' },
       });
