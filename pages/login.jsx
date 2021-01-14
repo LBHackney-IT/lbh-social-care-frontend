@@ -2,26 +2,22 @@ import PropTypes from 'prop-types';
 import { NextSeo } from 'next-seo';
 import { redirectToHome, isAuthorised } from 'utils/auth';
 import { getProtocol } from 'utils/urls';
-import AdminLogin from 'components/AdminLogin/AdminLogin';
 
-export default function AdminLoginPage({ gssoUrl, returnUrl }) {
-  return (
+const AdminLoginPage = ({ gssoUrl, returnUrl }) => (
+  <>
+    <NextSeo title="Log In" noindex />
+    <h1>Login</h1>
+    <p className="govuk-body">Please log in with your Hackney email account.</p>
     <div>
-      <NextSeo title="Log In" noindex />
-      <h1>Login</h1>
-
-      <p className="govuk-body">
-        Please log in with your Hackney email account.
-      </p>
-
-      <AdminLogin submitText="Login" gssoUrl={`${gssoUrl}${returnUrl}`} />
-
-      <p className="govuk-body">
-        Please contact your administrator if you have issues logging in.
-      </p>
+      <a className="govuk-button" href={`${gssoUrl}${returnUrl}`}>
+        Login
+      </a>
     </div>
-  );
-}
+    <p className="govuk-body">
+      Please contact your administrator if you have issues logging in.
+    </p>
+  </>
+);
 
 AdminLoginPage.propTypes = {
   gssoUrl: PropTypes.string.isRequired,
@@ -47,3 +43,5 @@ export const getServerSideProps = async (ctx) => {
     },
   };
 };
+
+export default AdminLoginPage;
