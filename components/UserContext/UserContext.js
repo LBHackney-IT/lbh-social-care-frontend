@@ -1,8 +1,8 @@
-import axios from 'axios';
 import { createContext, useContext, useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 
 import { AUTH_WHITELIST } from 'utils/auth';
+import { getUser } from 'utils/api/checkAuth';
 import Layout from 'components/Layout';
 import Spinner from 'components/Spinner/Spinner';
 
@@ -19,7 +19,7 @@ export const AuthProvider = ({ children }) => {
   useEffect(() => {
     const initializeAuth = async () => {
       try {
-        const { data } = await axios.get('/api/check-auth');
+        const data = getUser();
         setUser(data);
       } catch (e) {
         setUser();
