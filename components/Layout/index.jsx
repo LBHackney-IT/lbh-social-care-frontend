@@ -1,3 +1,5 @@
+import PropTypes from 'prop-types';
+
 import Footer from './Footer/Footer';
 import Header from './Header/Header';
 import SkipLink from './SkipLink/SkipLink';
@@ -22,6 +24,10 @@ const Layout = ({ children }) => {
       <Footer />
     </>
   );
+};
+
+Layout.propTypes = {
+  children: PropTypes.node.isRequired,
 };
 
 export default Layout;

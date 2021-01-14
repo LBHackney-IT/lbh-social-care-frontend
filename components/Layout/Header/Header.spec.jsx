@@ -6,7 +6,7 @@ import { getDataIncludes } from 'utils/saveData';
 
 jest.mock('next/router', () => ({
   useRouter: () => ({
-    asPath: jest.fn(),
+    asPath: 'path',
   }),
 }));
 
