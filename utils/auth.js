@@ -46,10 +46,14 @@ export const isAuthorised = (req) => {
     AUTHORISED_ADULT_GROUP,
     AUTHORISED_CHILD_GROUP,
   } = process.env;
-  const cookies = cookie.parse(req.headers.cookie);
-  const token = cookies[GSSO_TOKEN_NAME];
-  const { groups = [], name, email } =
-    (token && jsonwebtoken.verify(token, HACKNEY_JWT_SECRET)) || {};
+  const cookies = cookie.parse(req.headers.cookie ?? '');
+  const parsedToken =
+    cookies[GSSO_TOKEN_NAME] &&
+    jsonwebtoken.verify(cookies[GSSO_TOKEN_NAME], HACKNEY_JWT_SECRET);
+  if (!parsedToken) {
+    return null;
+  }
+  const { groups = [], name, email } = parsedToken;
   const gssUser = {
     hasAdminPermissions: groups.includes(AUTHORISED_ADMIN_GROUP),
     hasAdultPermissions: groups.includes(AUTHORISED_ADULT_GROUP),
