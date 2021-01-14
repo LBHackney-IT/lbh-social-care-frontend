@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import { NextSeo } from 'next-seo';
-import { redirectToHome, isAuthorised } from 'utils/auth';
+
 import { getProtocol } from 'utils/urls';
 
 const AdminLoginPage = ({ gssoUrl, returnUrl }) => (
@@ -24,22 +24,13 @@ AdminLoginPage.propTypes = {
   returnUrl: PropTypes.string.isRequired,
 };
 
-export const getServerSideProps = async (ctx) => {
-  const { GSSO_URL } = process.env;
+export const getServerSideProps = async () => {
+  const { GSSO_URL, REDIRECT_URL } = process.env;
   const protocol = getProtocol();
-  const { REDIRECT_URL } = process.env;
-  const host = REDIRECT_URL;
-
-  const user = isAuthorised(ctx);
-
-  if (user && user.isAuthorised) {
-    redirectToHome(ctx.res);
-  }
-
   return {
     props: {
       gssoUrl: GSSO_URL,
-      returnUrl: `${protocol}://${host}`,
+      returnUrl: `${protocol}://${REDIRECT_URL}`,
     },
   };
 };

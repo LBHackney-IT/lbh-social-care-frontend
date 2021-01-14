@@ -82,13 +82,4 @@ FormCasesWrapper.propTypes = {
   formNameOverall: PropTypes.string,
 };
 
-export const getServerSideProps = async (ctx) => {
-  const { query } = ctx;
-  return {
-    props: {
-      query,
-    },
-  };
-};
-
 export default FormCasesWrapper;

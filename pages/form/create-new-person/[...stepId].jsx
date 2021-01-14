@@ -1,13 +1,11 @@
-import { useContext } from 'react';
-
-import UserContext from 'components/UserContext/UserContext';
+import { useAuth } from 'components/UserContext/UserContext';
 import FormWizard from 'components/FormWizard/FormWizard';
 import { addResident } from 'utils/api/residents';
 
 import form from 'data/forms/create-new-person';
 
 const CreateNewPerson = () => {
-  const { user } = useContext(UserContext);
+  const user = useAuth();
   const onFormSubmit = async (formData) => {
     const ref = await addResident({
       ...formData,
