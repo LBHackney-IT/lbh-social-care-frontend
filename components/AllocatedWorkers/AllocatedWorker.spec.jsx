@@ -1,6 +1,6 @@
 import { render } from '@testing-library/react';
 
-import UserContext from 'components/UserContext/UserContext';
+import { UserContext } from 'components/UserContext/UserContext';
 import AllocatedWorkers from './AllocatedWorkers';
 
 import { getAllocatedWorkers } from 'utils/api/allocatedWorkers';

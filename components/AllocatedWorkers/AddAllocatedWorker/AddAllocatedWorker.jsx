@@ -1,4 +1,4 @@
-import { useEffect, useState, useCallback, useContext } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import { useForm } from 'react-hook-form';
 
@@ -6,7 +6,7 @@ import { Button, Radios } from 'components/Form';
 import Modal from 'components/Modal/Modal';
 import Spinner from 'components/Spinner/Spinner';
 import ErrorMessage from 'components/ErrorMessage/ErrorMessage';
-import UserContext from 'components/UserContext/UserContext';
+import { useAuth } from 'components/UserContext/UserContext';
 import {
   getTeams,
   getTeamWorkers,
@@ -23,7 +23,7 @@ const AddAllocatedWorker = ({ personId, currentlyAllocated }) => {
   const { handleSubmit, register, watch } = useForm({
     mode: 'onChange',
   });
-  const { user } = useContext(UserContext);
+  const { user } = useAuth();
   const getAllocatedTeams = useCallback(async () => {
     try {
       const data = await getTeams();

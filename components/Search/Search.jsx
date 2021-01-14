@@ -1,4 +1,4 @@
-import { useState, useEffect, useContext, useMemo, useCallback } from 'react';
+import { useState, useEffect, useMemo, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import cx from 'classnames';
 import Link from 'next/link';
@@ -12,7 +12,7 @@ import CasesTable from './results/CasesTable';
 import { Button } from 'components/Form';
 import Spinner from 'components/Spinner/Spinner';
 import ErrorMessage from 'components/ErrorMessage/ErrorMessage';
-import UserContext from 'components/UserContext/UserContext';
+import { useAuth } from 'components/UserContext/UserContext';
 
 import { getResidents } from 'utils/api/residents';
 import { getCases } from 'utils/api/cases';
@@ -28,7 +28,7 @@ const Search = ({ type }) => {
   const [error, setError] = useState();
   const [loading, setLoading] = useState(false);
   const [results, setResults] = useState();
-  const { user } = useContext(UserContext);
+  const { user } = useAuth();
   const { SearchForm, SearchResults, searchFunction } = useMemo(
     () =>
       type === 'records'

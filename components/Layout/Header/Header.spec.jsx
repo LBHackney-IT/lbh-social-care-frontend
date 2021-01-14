@@ -1,7 +1,7 @@
 import { render } from '@testing-library/react';
 
 import Header from './Header';
-import UserContext from 'components/UserContext/UserContext';
+import { UserContext } from 'components/UserContext/UserContext';
 import { getDataIncludes } from 'utils/saveData';
 
 jest.mock('next/router', () => ({

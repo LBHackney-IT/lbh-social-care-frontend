@@ -1,7 +1,7 @@
 import { act, fireEvent, render } from '@testing-library/react';
 
 import { RouterContext } from 'next/dist/next-server/lib/router-context';
-import UserContext from 'components/UserContext/UserContext';
+import { UserContext } from 'components/UserContext/UserContext';
 import { getResidents } from 'utils/api/residents';
 
 import Search from './Search';

@@ -1,5 +1,5 @@
-import UserContext from 'components/UserContext/UserContext';
 import { render } from '@testing-library/react';
+import { UserContext } from 'components/UserContext/UserContext';
 import { getDataIncludes } from 'utils/saveData';
 
 import Layout from './index';

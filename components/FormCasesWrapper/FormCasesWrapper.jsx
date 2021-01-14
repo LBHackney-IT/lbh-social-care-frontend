@@ -1,9 +1,9 @@
-import { useState, useEffect, useContext } from 'react';
+import { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { NextSeo } from 'next-seo';
 import { useRouter } from 'next/router';
 
-import UserContext from 'components/UserContext/UserContext';
+import { useAuth } from 'components/UserContext/UserContext';
 import BackButton from 'components/Layout/BackButton/BackButton';
 import FormWizard from 'components/FormWizard/FormWizard';
 import PersonDetails from 'components/PersonView/PersonDetails';
@@ -27,7 +27,7 @@ const FormCasesWrapper = ({ form, title, personId, formNameOverall }) => {
   useEffect(() => {
     personId ? getPerson(personId) : replace('/');
   }, []);
-  const { user } = useContext(UserContext);
+  const { user } = useAuth();
   const onFormSubmit = async (formData) => {
     const ref = await addCase({
       mosaicId: person.mosaicId,
