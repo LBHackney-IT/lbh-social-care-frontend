@@ -48,9 +48,6 @@ const AddAllocatedWorker = ({ personId, currentlyAllocated }) => {
   useEffect(() => {
     selectedTeam && getAllocatedWorkers();
   }, [selectedTeam]);
-  if (error) {
-    return 'Oops an error occurred';
-  }
   const closeModal = useCallback(() => {
     setIsModalOpen(false);
     setWorkers();
@@ -66,6 +63,9 @@ const AddAllocatedWorker = ({ personId, currentlyAllocated }) => {
     }
     setPostLoading(false);
   });
+  if (error) {
+    return 'Oops an error occurred';
+  }
   return (
     <>
       <div className="lbh-table-header">
