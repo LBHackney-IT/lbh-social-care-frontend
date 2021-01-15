@@ -39,6 +39,7 @@ describe(`AddAllocatedWorker`, () => {
   const props = {
     currentlyAllocated: 3,
     personId: '123',
+    onAddNewAllocation: jest.fn(),
   };
 
   it('should render properly', async () => {
@@ -85,6 +86,7 @@ describe(`AddAllocatedWorker`, () => {
       fireEvent.submit(getByRole('form'));
     });
     expect(addAllocatedWorker).toHaveBeenCalled();
+    expect(props.onAddNewAllocation).toHaveBeenCalled();
     expect(addAllocatedWorker).toHaveBeenCalledWith('123', {
       allocatedBy: 'foo@bar.com',
       allocatedWorkerId: 'c',

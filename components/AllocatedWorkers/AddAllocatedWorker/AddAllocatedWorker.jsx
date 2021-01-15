@@ -13,7 +13,11 @@ import {
   addAllocatedWorker,
 } from 'utils/api/allocatedWorkers';
 
-const AddAllocatedWorker = ({ personId, currentlyAllocated }) => {
+const AddAllocatedWorker = ({
+  personId,
+  currentlyAllocated,
+  onAddNewAllocation,
+}) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [teams, setTeams] = useState();
   const [workers, setWorkers] = useState();
@@ -60,6 +64,7 @@ const AddAllocatedWorker = ({ personId, currentlyAllocated }) => {
         allocatedBy: user.email,
         allocatedWorkerId: worker,
       });
+      onAddNewAllocation();
       closeModal();
     } catch (e) {
       setPostError(true);
@@ -183,6 +188,7 @@ const AddAllocatedWorker = ({ personId, currentlyAllocated }) => {
 AddAllocatedWorker.propTypes = {
   personId: PropTypes.string.isRequired,
   currentlyAllocated: PropTypes.number.isRequired,
+  onAddNewAllocation: PropTypes.func.isRequired,
 };
 
 export default AddAllocatedWorker;
