@@ -36,12 +36,17 @@ export default async (req, res) => {
     case 'POST':
       try {
         const data = await addAllocatedWorker(req.query.id, req.body);
-        res.status(HttpStatus.OK).json(data);
+        res.status(HttpStatus.CREATED).json(data);
       } catch (error) {
-        console.log('Allocated Workers post error:', error?.response?.data);
-        res
-          .status(HttpStatus.INTERNAL_SERVER_ERROR)
-          .json({ message: 'Unable to post Allocated Workers' });
+        console.log(
+          'Allocated Workers post error:',
+          error?.response?.data || error
+        );
+        error.name === 'ValidationError'
+          ? res.status(HttpStatus.BAD_REQUEST).json({ message: error.message })
+          : res
+              .status(HttpStatus.INTERNAL_SERVER_ERROR)
+              .json({ message: 'Unable to post Allocated Workers' });
       }
       break;
 

@@ -47,5 +47,13 @@ describe('allocatedWorkersAPI', () => {
       });
       expect(data).toEqual({ foo: 'foobar' });
     });
+
+    it('should throw an error with the wrong body', async () => {
+      try {
+        await allocatedWorkersAPI.addAllocatedWorker(123);
+      } catch (e) {
+        expect(e.name).toEqual('ValidationError');
+      }
+    });
   });
 });
