@@ -19,11 +19,11 @@ export const AuthProvider = ({ children }) => {
   useEffect(() => {
     const initializeAuth = async () => {
       try {
-        const data = getUser();
+        const data = await getUser();
         setUser(data);
       } catch (e) {
         setUser();
-        setRedirect(e.response.status === 403 ? '/access-denied' : '/login');
+        setRedirect(e.response?.status === 403 ? '/access-denied' : '/login');
       }
       setLoading(false);
     };
@@ -47,9 +47,6 @@ export const AuthProvider = ({ children }) => {
     <UserContext.Provider
       value={{
         user,
-        isLoading,
-        setUser,
-        redirect,
       }}
     >
       {children}
