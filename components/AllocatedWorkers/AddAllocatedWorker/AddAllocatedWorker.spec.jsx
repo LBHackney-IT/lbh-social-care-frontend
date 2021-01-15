@@ -86,9 +86,8 @@ describe(`AddAllocatedWorker`, () => {
     });
     expect(addAllocatedWorker).toHaveBeenCalled();
     expect(addAllocatedWorker).toHaveBeenCalledWith('123', {
-      user: 'foo@bar.com',
-      team: '3',
-      worker: 'c',
+      allocatedBy: 'foo@bar.com',
+      allocatedWorkerId: 'c',
     });
   });
 });

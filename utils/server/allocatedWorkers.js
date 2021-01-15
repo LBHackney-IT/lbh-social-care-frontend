@@ -34,10 +34,17 @@ export const deleteResidentAllocatedWorker = async (id, body) => {
   return { test: 'test' };
 };
 
-export const addAllocatedWorker = async (resident_id, body) => {
+export const addAllocatedWorker = async (
+  mosaicId,
+  { allocatedWorkerId, allocatedBy }
+) => {
   const { data } = await axios.post(
     `${ENDPOINT_API}/allocations`,
-    { resident_id, ...body },
+    JSON.stringify({
+      mosaicId: parseInt(mosaicId, 10),
+      allocatedWorkerId: parseInt(allocatedWorkerId, 10),
+      allocatedBy,
+    }),
     {
       headers: { 'Content-Type': 'application/json', 'x-api-key': AWS_KEY },
     }
