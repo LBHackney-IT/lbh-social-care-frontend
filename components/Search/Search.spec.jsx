@@ -1,14 +1,18 @@
 import { act, fireEvent, render } from '@testing-library/react';
 
 import UserContext from 'components/UserContext/UserContext';
-import Search from './Search';
-
 import { getResidents } from 'utils/api/residents';
 
+import Search from './Search';
+
+const mockedUseRouter = {
+  query: { foo: 'bar' },
+  replace: jest.fn(),
+  pathname: 'foopath',
+};
+
 jest.mock('next/router', () => ({
-  useRouter: () => ({
-    replace: jest.fn(),
-  }),
+  useRouter: () => mockedUseRouter,
 }));
 
 jest.mock('utils/api/residents', () => ({
@@ -18,10 +22,9 @@ jest.mock('utils/api/residents', () => ({
 describe(`Search`, () => {
   const props = {
     onFormSubmit: jest.fn(),
-    query: {},
   };
 
-  it('should work properly on search success', async () => {
+  it('should update the queryString on search and run a new search - with load more', async () => {
     getResidents.mockImplementation(() =>
       Promise.resolve({
         residents: [
@@ -34,7 +37,7 @@ describe(`Search`, () => {
         ],
       })
     );
-    const { getByRole, getByLabelText, queryByText } = render(
+    const { queryByText, getByLabelText, findByText, getByRole } = render(
       <UserContext.Provider
         value={{
           user: { name: 'foo' },
@@ -49,9 +52,20 @@ describe(`Search`, () => {
     await act(async () => {
       fireEvent.submit(getByRole('form'));
     });
-    // expect(queryByText('Add New Person')).toBeInTheDocument();
-    expect(queryByText('PEOPLE SEARCH RESULT')).toBeInTheDocument();
+    expect(mockedUseRouter.replace).toHaveBeenCalled();
+    expect(
+      mockedUseRouter.replace
+    ).toHaveBeenCalledWith(
+      'foopath?foo=bar&first_name=foo',
+      'foopath?foo=bar&first_name=foo',
+      { shallow: true }
+    );
+    const searchResult = await findByText('PEOPLE SEARCH RESULT');
+    expect(searchResult).toBeInTheDocument();
     expect(queryByText('load more')).not.toBeInTheDocument();
+  });
+
+  it('should update the queryString on search and run a new search', async () => {
     getResidents.mockImplementation(() =>
       Promise.resolve({
         residents: [
@@ -62,18 +76,9 @@ describe(`Search`, () => {
             dateOfBirth: '2020-11-11',
           },
         ],
-        nextCursor: 'foo',
       })
     );
-    await act(async () => {
-      fireEvent.submit(getByRole('form'));
-    });
-    expect(queryByText('load more')).toBeInTheDocument();
-  });
-
-  it('should work properly on search fails', async () => {
-    getResidents.mockImplementation(() => Promise.reject());
-    const { getByRole, getByLabelText, queryByText } = render(
+    const { queryByText, getByLabelText, findByText, getByRole } = render(
       <UserContext.Provider
         value={{
           user: { name: 'foo' },
@@ -84,10 +89,35 @@ describe(`Search`, () => {
     );
     const firstNameInput = getByLabelText('First name:');
     fireEvent.change(firstNameInput, { target: { value: 'foo' } });
+    expect(queryByText('Add New Person')).not.toBeInTheDocument();
     await act(async () => {
       fireEvent.submit(getByRole('form'));
     });
+    expect(mockedUseRouter.replace).toHaveBeenCalled();
+    expect(
+      mockedUseRouter.replace
+    ).toHaveBeenCalledWith(
+      'foopath?foo=bar&first_name=foo',
+      'foopath?foo=bar&first_name=foo',
+      { shallow: true }
+    );
+    const searchResult = await findByText('PEOPLE SEARCH RESULT');
+    expect(searchResult).toBeInTheDocument();
+  });
+
+  it('should work properly on search fails', async () => {
+    getResidents.mockImplementation(() => Promise.reject());
+    const { findByText } = render(
+      <UserContext.Provider
+        value={{
+          user: { name: 'foo' },
+        }}
+      >
+        <Search {...props} type="people" />
+      </UserContext.Provider>
+    );
+    const errorLabel = await findByText('Oops an error occurred');
+    expect(errorLabel).toBeInTheDocument();
     // expect(queryByText('Add New Person')).toBeInTheDocument();
-    expect(queryByText('Oops an error occurred')).toBeInTheDocument();
   });
 });
