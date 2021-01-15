@@ -1,5 +1,4 @@
 import Layout from './index';
-import { RouterContext } from 'next/dist/next-server/lib/router-context';
 import UserContext from 'components/UserContext/UserContext';
 
 export default {
@@ -8,19 +7,13 @@ export default {
 };
 
 const Template = (args) => (
-  <RouterContext.Provider
+  <UserContext.Provider
     value={{
-      asPath: 'foo',
+      user: { name: 'bar' },
     }}
   >
-    <UserContext.Provider
-      value={{
-        user: { name: 'bar' },
-      }}
-    >
-      <Layout {...args} />
-    </UserContext.Provider>
-  </RouterContext.Provider>
+    <Layout {...args} />
+  </UserContext.Provider>
 );
 
 export const Default = Template.bind({});
