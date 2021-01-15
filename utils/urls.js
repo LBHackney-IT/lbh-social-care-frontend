@@ -28,3 +28,9 @@ export const getQueryString = (obj) =>
         : acc,
     ''
   );
+
+export const parseQueryString = (str) =>
+  str?.split('&')?.reduce((acc, curr) => {
+    const [key, value] = curr.split('=');
+    return { ...acc, [key]: value };
+  }, {}) || {};

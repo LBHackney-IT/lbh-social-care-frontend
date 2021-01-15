@@ -23,17 +23,12 @@ const getRecords = (data) => [
   ...(data?.cases || []),
 ];
 
-const Search = ({ query, type }) => {
+const Search = ({ type }) => {
+  const { query, pathname, replace } = useRouter();
   const [error, setError] = useState();
   const [loading, setLoading] = useState(false);
   const [results, setResults] = useState();
-  const [formData, setFormData] = useState();
-  const [sort, setSort] = useState({
-    sort_by: query.sort_by,
-    order_by: query.order_by,
-  });
   const { user } = useContext(UserContext);
-  const { pathname, replace } = useRouter();
   const { SearchForm, SearchResults, searchFunction } = useMemo(
     () =>
       type === 'records'
@@ -53,41 +48,41 @@ const Search = ({ query, type }) => {
           },
     []
   );
-  const onFormSubmit = useCallback(async (formData, records = []) => {
+  const onSearch = useCallback(async (formData, records = []) => {
     setLoading(true);
     !formData.cursor && setResults(null);
     setError(false);
     try {
-      setFormData(formData);
       const data = await searchFunction(formData);
       setResults({
         ...data,
         records: [...records, ...getRecords(data)],
-      });
-      const qs = getQueryString(formData);
-      replace(`${pathname}?${qs}`, `${pathname}?${qs}`, {
-        shallow: true,
       });
     } catch (e) {
       setError(true);
     }
     setLoading(false);
   });
-
+  const onFormSubmit = useCallback((formData) => {
+    const qs = getQueryString({ ...query, ...formData });
+    replace(`${pathname}?${qs}`, `${pathname}?${qs}`, {
+      shallow: true,
+    });
+  });
   // commented out as the feature is not ready in the BE
   // eslint-disable-next-line no-unused-vars
   const onSort = useCallback((value) => {
-    const { order_by, sort_by } = sort;
-    setSort(
-      sort_by === value && order_by === 'desc'
+    const { order_by, sort_by } = query || {};
+    onFormSubmit({
+      ...(query || {}),
+      ...(sort_by === value && order_by === 'desc'
         ? { order_by: 'asc', sort_by }
-        : { order_by: 'desc', sort_by: value }
-    );
+        : { order_by: 'desc', sort_by: value }),
+    });
   });
   useEffect(() => {
-    results && sort.sort_by && onFormSubmit({ ...formData, ...sort });
-  }, [sort]);
-
+    Object.keys(query).length && onSearch(query);
+  }, [query]);
   // commented out as the feature is not ready to be in prod
   // const addNewPerson = type === 'people' && (
   //   <>
@@ -136,7 +131,11 @@ const Search = ({ query, type }) => {
               ? 'Search and filter by any combination of fields'
               : 'Search for a person by any combination of fields below'}
           </p>
-          <SearchForm onFormSubmit={onFormSubmit} query={query} user={user} />
+          <SearchForm
+            onFormSubmit={onFormSubmit}
+            defaultValues={query}
+            user={user}
+          />
           {results && (
             <>
               <div className="lbh-table-header">
@@ -149,8 +148,8 @@ const Search = ({ query, type }) => {
               {results.records?.length > 0 ? (
                 <SearchResults
                   records={results.records}
-                  sort={sort}
-                  // onSort={onSort} commented out as the feature is not ready in the BE
+                  sort={query}
+                  // onSort={onSort} // commented out as the feature is not ready in the BE
                 />
               ) : (
                 <>
@@ -169,8 +168,8 @@ const Search = ({ query, type }) => {
                 <Button
                   label="load more"
                   onClick={() =>
-                    onFormSubmit(
-                      { ...formData, cursor: results.nextCursor },
+                    onSearch(
+                      { ...query, cursor: results.nextCursor },
                       results.records
                     )
                   }
@@ -187,7 +186,6 @@ const Search = ({ query, type }) => {
 
 Search.propTypes = {
   type: PropTypes.oneOf(['people', 'records']).isRequired,
-  query: PropTypes.shape({}),
 };
 
 export default Search;

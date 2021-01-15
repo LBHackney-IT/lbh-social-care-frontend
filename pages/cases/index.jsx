@@ -2,21 +2,18 @@ import { NextSeo } from 'next-seo';
 
 import Search from 'components/Search/Search';
 
-const SearchCasesPage = ({ query }) => {
+const SearchCasesPage = () => {
   return (
     <div>
       <NextSeo title="Find unlinked case notes" noindex />
-      <Search query={query} type="records" />
+      <Search type="records" />
     </div>
   );
 };
 
-export const getServerSideProps = async (ctx) => {
-  const { query } = ctx;
+export const getServerSideProps = async () => {
   return {
-    props: {
-      query,
-    },
+    props: {},
   };
 };
 
