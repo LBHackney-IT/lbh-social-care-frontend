@@ -9,10 +9,4 @@ const FormInProgress = () => (
   </>
 );
 
-export const getServerSideProps = async () => {
-  return {
-    props: {},
-  };
-};
-
 export default FormInProgress;

@@ -1,9 +1,9 @@
-import { useState, useEffect, useContext } from 'react';
+import { useState, useEffect } from 'react';
 import cx from 'classnames';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 
-import UserContext from 'components/UserContext/UserContext';
+import { useAuth } from 'components/UserContext/UserContext';
 import { getDataIncludes } from 'utils/saveData';
 import { getUserType } from 'utils/user';
 import Logo from './Logo.jsx';
@@ -28,17 +28,15 @@ const loggedNavLinks = [
 ];
 
 const HeaderComponent = ({ serviceName }) => {
-  const { user } = useContext(UserContext);
+  const { user } = useAuth();
   const { asPath } = useRouter();
-  const [navLinks, setNavLinks] = useState(loggedNavLinks);
+  const [navLinks, setNavLinks] = useState();
   useEffect(() => {
-    if (!user) {
-      setNavLinks();
-    } else if (getDataIncludes('/form')) {
-      setNavLinks(loggedNavLinks);
-    } else if (!getDataIncludes('/form')) {
+    if (user) {
       setNavLinks(
-        loggedNavLinks.filter(({ name }) => name !== 'Forms in progress')
+        getDataIncludes('/form')
+          ? loggedNavLinks
+          : loggedNavLinks.filter(({ name }) => name !== 'Forms in progress')
       );
     }
   }, [user, asPath]);
