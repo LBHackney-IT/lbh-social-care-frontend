@@ -30,7 +30,7 @@ withError.args = {
 };
 
 export const withLabelSizeSmall = Template.bind({});
-withError.args = {
+withLabelSizeSmall.args = {
   label: 'Number Input',
   labelSize: 's',
   name: 'numberInput',

@@ -25,12 +25,12 @@ WithValue.args = {
 export const withError = Template.bind({});
 withError.args = {
   label: 'Email Input',
-  name: 'emailInput',
+  name: 'withError',
   error: { message: 'Ops! There was an error!' },
 };
 
 export const withLabelSizeSmall = Template.bind({});
-withError.args = {
+withLabelSizeSmall.args = {
   label: 'Email Input',
   labelSize: 's',
   name: 'emailInput',
