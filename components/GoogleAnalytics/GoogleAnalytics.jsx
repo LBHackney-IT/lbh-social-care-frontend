@@ -1,15 +1,14 @@
 import { useEffect } from 'react';
 import { useRouter } from 'next/router';
 
-import * as gtm from 'utils/gtm';
+import * as gtag from 'utils/gtag';
 
-const handleRouteChange = () => {
-  gtm.pageview();
+const handleRouteChange = (url) => {
+  gtag.pageview(url);
 };
 
-const GoogleTagManager = ({ children }) => {
+const GoogleAnalytics = ({ children }) => {
   const router = useRouter();
-
   useEffect(() => {
     router.events.on('routeChangeComplete', handleRouteChange);
     return () => {
@@ -20,4 +19,4 @@ const GoogleTagManager = ({ children }) => {
   return children;
 };
 
-export default GoogleTagManager;
+export default GoogleAnalytics;

@@ -3,7 +3,7 @@ import { DefaultSeo } from 'next-seo';
 
 import Layout from 'components/Layout';
 import SEO from '../next-seo.config';
-import GoogleTagManager from 'components/GoogleTagManager/GoogleTagManager';
+import GoogleAnalytics from 'components/GoogleAnalytics/GoogleAnalytics';
 import { AuthProvider } from 'components/UserContext/UserContext';
 
 import 'stylesheets/all.scss';
@@ -18,12 +18,12 @@ class MyApp extends App {
     return (
       <>
         <AuthProvider>
-          <GoogleTagManager>
+          <GoogleAnalytics>
             <Layout>
               <DefaultSeo {...SEO} />
               <Component {...pageProps} />
             </Layout>
-          </GoogleTagManager>
+          </GoogleAnalytics>
         </AuthProvider>
         <script src="/js/govuk.js"></script>
       </>
