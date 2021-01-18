@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { NextSeo } from 'next-seo';
+import { useRouter } from 'next/router';
 
 import BackButton from 'components/Layout/BackButton/BackButton';
 import LinkButton from 'components/LinkButton/LinkButton';
@@ -7,9 +8,9 @@ import PersonView from 'components/PersonView/PersonView';
 import { Select } from 'components/Form';
 import FORM_LIST from 'data/formList';
 
-const CasesPage = ({ query }) => {
+const CasesPage = () => {
   const [url, setUrl] = useState();
-
+  const { query } = useRouter();
   return (
     <div>
       <NextSeo title={`#${query.id} Cases`} noindex />
@@ -35,15 +36,6 @@ const CasesPage = ({ query }) => {
       />
     </div>
   );
-};
-
-export const getServerSideProps = async (ctx) => {
-  const { query } = ctx;
-  return {
-    props: {
-      query,
-    },
-  };
 };
 
 export default CasesPage;

@@ -1,4 +1,4 @@
-import { useState, useCallback, useEffect, useContext } from 'react';
+import { useState, useCallback, useEffect } from 'react';
 import PropTypes from 'prop-types';
 
 import AllocatedWorkersTable from 'components/AllocatedWorkers/AllocatedWorkersTable';
@@ -6,7 +6,7 @@ import AddAllocatedWorker from 'components/AllocatedWorkers/AddAllocatedWorker/A
 import ErrorMessage from 'components/ErrorMessage/ErrorMessage';
 import { getAllocatedWorkers } from 'utils/api/allocatedWorkers';
 import Spinner from 'components/Spinner/Spinner';
-import UserContext from 'components/UserContext/UserContext';
+import { useAuth } from 'components/UserContext/UserContext';
 
 const AllocatedWorkers = ({ id }) => {
   const [error, setError] = useState();
@@ -24,7 +24,7 @@ const AllocatedWorkers = ({ id }) => {
   useEffect(() => {
     getWorkers();
   }, []);
-  const { user } = useContext(UserContext);
+  const { user } = useAuth();
   if (loading) {
     return <Spinner />;
   }

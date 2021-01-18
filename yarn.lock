@@ -7144,7 +7144,7 @@ good-listener@^1.2.2:
   dependencies:
     delegate "^3.1.2"
 
-govuk-frontend@^3.9.1:
+govuk-frontend@^3.10.2:
   version "3.10.2"
   resolved "https://registry.yarnpkg.com/govuk-frontend/-/govuk-frontend-3.10.2.tgz#6589401e4adad1ab1dc340a18057ec88c9435a84"
   integrity sha512-MpMymgLsKoMw40MggZ0XLCAj1FY5N2s8Pf3aQR+k0cZOsegjLsnejxNfEB9qEl9jcma2fiiVcvsEZ+Ipo+Oo2g==
@@ -11909,7 +11909,7 @@ resolve@^1.1.6, resolve@^1.1.7, resolve@^1.10.0, resolve@^1.12.0, resolve@^1.18.
     is-core-module "^2.1.0"
     path-parse "^1.0.6"
 
-restana@^4.3.4:
+restana@^4.8.1:
   version "4.8.1"
   resolved "https://registry.yarnpkg.com/restana/-/restana-4.8.1.tgz#a6431d37c2a061bdf80ea1da3e7f340ef5397d7d"
   integrity sha512-1EWtvy9Px8xpKP+TbIpdvsQgdZZo3K7Pfio165bNXdLMPw8NwQttPfVCXRUjMzzQ0yoJV5AAXhKqLkdGOW2YSg==
@@ -12218,7 +12218,7 @@ serve-static@1.14.1, serve-static@^1.14.1:
     parseurl "~1.3.3"
     send "0.17.1"
 
-serverless-http@^2.4.1:
+serverless-http@^2.6.0:
   version "2.6.0"
   resolved "https://registry.yarnpkg.com/serverless-http/-/serverless-http-2.6.0.tgz#8c4633634e00b9d75bf757558b5630fbe6527a8b"
   integrity sha512-2mBz+MO+JXgC8PDHIZi/Ytsa65v78fc+7cFeXqcYM5laGQS/GEX9Cq+72WOaIGqPJia5JLADqjhdTBI5/iLcHQ==
@@ -12640,6 +12640,11 @@ store2@^2.7.1:
   version "2.12.0"
   resolved "https://registry.yarnpkg.com/store2/-/store2-2.12.0.tgz#e1f1b7e1a59b6083b2596a8d067f6ee88fd4d3cf"
   integrity sha512-7t+/wpKLanLzSnQPX8WAcuLCCeuSHoWdQuh9SB3xD0kNOM38DNf+0Oa+wmvxmYueRzkmh6IcdKFtvTa+ecgPDw==
+
+storybook-addon-next-router@^2.0.3:
+  version "2.0.3"
+  resolved "https://registry.yarnpkg.com/storybook-addon-next-router/-/storybook-addon-next-router-2.0.3.tgz#24cb0233c03749a9b416f5b191bbcd17545a3d3b"
+  integrity sha512-1/q3ZYpN2Hae8ePL553J4rzVEh2rF+mVPvui2+Q7LEVvCTFgcB3Iow9xCA0P9nxNjg+oPs8Xkpb0ahXkwUAIcQ==
 
 stream-browserify@3.0.0:
   version "3.0.0"

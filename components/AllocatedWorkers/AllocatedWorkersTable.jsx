@@ -1,9 +1,10 @@
-import { useState, useContext } from 'react';
-import Modal from 'components/Modal/Modal';
+import { useState } from 'react';
 import PropTypes from 'prop-types';
-import Button from '../Form/Button/Button';
+
+import Modal from 'components/Modal/Modal';
+import Button from 'components/Form/Button/Button';
 import DeallocatedWorkersDetails from './DeallocateWorkerDetails/DeallocatedWorkerDetails';
-import UserContext from 'components/UserContext/UserContext';
+import { useAuth } from 'components/UserContext/UserContext';
 
 const AllocatedWorkersEntry = ({
   allocatedWorkerTeam,
@@ -14,7 +15,7 @@ const AllocatedWorkersEntry = ({
   index,
   openModal,
 }) => {
-  const { user } = useContext(UserContext);
+  const { user } = useAuth();
   return (
     <>
       <div className="lbh-table-header">

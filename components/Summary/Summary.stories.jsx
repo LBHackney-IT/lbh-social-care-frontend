@@ -41,11 +41,3 @@ Default.args = {
   ],
   onFormSubmit: () => alert('submit'),
 };
-
-export const Error = Template.bind({});
-Error.args = {
-  ...Default.args,
-  onFormSubmit: {
-    action: 'error',
-  },
-};

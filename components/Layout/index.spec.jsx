@@ -1,12 +1,12 @@
-import { render, waitFor } from '@testing-library/react';
-import UserContext from 'components/UserContext/UserContext';
+import { render } from '@testing-library/react';
+import { UserContext } from 'components/UserContext/UserContext';
 import { getDataIncludes } from 'utils/saveData';
 
 import Layout from './index';
 
 jest.mock('next/router', () => ({
   useRouter: () => ({
-    asPath: jest.fn(),
+    asPath: 'path',
   }),
 }));
 
@@ -24,18 +24,19 @@ describe('Layout component', () => {
         deleteForm: jest.fn(),
       },
     ]);
-    const { getByText } = render(
+    const { getByText, findByText } = render(
       <UserContext.Provider
         value={{
           user: { name: 'bar' },
         }}
       >
-        <Layout />
+        <Layout>
+          <p>I am the children</p>
+        </Layout>
       </UserContext.Provider>
     );
-    await waitFor(() => {
-      expect(getByText('Menu')).toBeInTheDocument();
-    });
+    const menu = await findByText('Menu');
+    expect(menu).toBeInTheDocument();
     expect(getByText('My records')).toBeInTheDocument();
   });
 });

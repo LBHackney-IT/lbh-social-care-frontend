@@ -1,5 +1,5 @@
 import { render } from '@testing-library/react';
-import UserContext from 'components/UserContext/UserContext';
+import { UserContext } from 'components/UserContext/UserContext';
 import AllocatedWorkersTable from './AllocatedWorkersTable';
 
 describe('AllocatedWorkers component', () => {

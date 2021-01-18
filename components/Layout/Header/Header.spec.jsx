@@ -1,14 +1,16 @@
 import { render } from '@testing-library/react';
 
 import Header from './Header';
-import UserContext from 'components/UserContext/UserContext';
+import { UserContext } from 'components/UserContext/UserContext';
 import { getDataIncludes } from 'utils/saveData';
 
+let mockedUseRouter = { asPath: 'path', pathname: 'pathname' };
+
 jest.mock('next/router', () => ({
-  useRouter: () => ({
-    asPath: jest.fn(),
-  }),
+  useRouter: () => mockedUseRouter,
 }));
+
+jest.mock('./Logo.jsx', () => () => 'MockedLogo');
 
 jest.mock('utils/saveData', () => ({
   getDataIncludes: jest.fn(),
@@ -58,5 +60,23 @@ describe('Header component', () => {
     expect(queryByText('My records')).not.toBeInTheDocument();
     expect(queryByText('Forms in progress')).not.toBeInTheDocument();
     expect(queryByText('Logout')).not.toBeInTheDocument();
+  });
+
+  it('should set active the correct link', () => {
+    mockedUseRouter = {
+      asPath: '/cases?my_notes_only=true',
+      pathname: '/cases',
+    };
+    const { getByText, asFragment } = render(
+      <UserContext.Provider
+        value={{
+          user: { name: 'bar' },
+        }}
+      >
+        <Header {...props} />
+      </UserContext.Provider>
+    );
+    expect(getByText('My records')).toBeInTheDocument();
+    expect(asFragment()).toMatchSnapshot();
   });
 });

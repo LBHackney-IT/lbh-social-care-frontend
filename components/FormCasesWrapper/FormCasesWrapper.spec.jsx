@@ -1,6 +1,6 @@
 import { render } from '@testing-library/react';
 
-import UserContext from 'components/UserContext/UserContext';
+import { UserContext } from 'components/UserContext/UserContext';
 import FormCasesWrapper from './FormCasesWrapper';
 
 import { getResident } from 'utils/api/residents';

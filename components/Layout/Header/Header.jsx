@@ -1,9 +1,9 @@
-import { useState, useEffect, useContext } from 'react';
+import { useState, useEffect } from 'react';
 import cx from 'classnames';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 
-import UserContext from 'components/UserContext/UserContext';
+import { useAuth } from 'components/UserContext/UserContext';
 import { getDataIncludes } from 'utils/saveData';
 import { getUserType } from 'utils/user';
 import Logo from './Logo.jsx';
@@ -12,10 +12,14 @@ const loggedNavLinks = [
   {
     name: 'Search',
     path: '/',
+    isSelected: ({ asPath, pathname }) =>
+      pathname === '/' ||
+      (pathname === '/cases' && asPath !== '/cases?my_notes_only=true'),
   },
   {
     name: 'My records',
     path: '/cases?my_notes_only=true',
+    isSelected: ({ asPath }) => asPath === '/cases?my_notes_only=true',
   },
   {
     name: 'Forms in progress',
@@ -28,20 +32,18 @@ const loggedNavLinks = [
 ];
 
 const HeaderComponent = ({ serviceName }) => {
-  const { user } = useContext(UserContext);
-  const { asPath } = useRouter();
-  const [navLinks, setNavLinks] = useState(loggedNavLinks);
+  const { user } = useAuth();
+  const { pathname, asPath } = useRouter();
+  const [navLinks, setNavLinks] = useState();
   useEffect(() => {
-    if (!user) {
-      setNavLinks();
-    } else if (getDataIncludes('/form')) {
-      setNavLinks(loggedNavLinks);
-    } else if (!getDataIncludes('/form')) {
+    if (user) {
       setNavLinks(
-        loggedNavLinks.filter(({ name }) => name !== 'Forms in progress')
+        getDataIncludes('/form')
+          ? loggedNavLinks
+          : loggedNavLinks.filter(({ name }) => name !== 'Forms in progress')
       );
     }
-  }, [user, asPath]);
+  }, [user, pathname]);
   return (
     <header className="govuk-header" role="banner" data-module="govuk-header">
       <div className="govuk-header__container">
@@ -77,12 +79,13 @@ const HeaderComponent = ({ serviceName }) => {
                     className="govuk-header__navigation "
                     aria-label="Navigation menu"
                   >
-                    {navLinks.map(({ name, path }) => (
+                    {navLinks.map(({ name, path, isSelected }) => (
                       <li
                         key={path}
                         className={cx('govuk-header__navigation-item', {
                           'govuk-header__navigation-item--active':
-                            path === asPath,
+                            isSelected?.({ asPath, pathname }) ||
+                            path === pathname,
                         })}
                       >
                         <Link href={path}>

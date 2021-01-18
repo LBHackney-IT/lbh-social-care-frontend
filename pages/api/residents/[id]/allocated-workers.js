@@ -8,7 +8,7 @@ import {
 import { isAuthorised } from 'utils/auth';
 
 export default async (req, res) => {
-  const user = isAuthorised({ req });
+  const user = isAuthorised(req);
   if (!user) {
     return res
       .status(HttpStatus.UNAUTHORIZED)
