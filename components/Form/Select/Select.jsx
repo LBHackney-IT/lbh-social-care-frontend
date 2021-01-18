@@ -18,8 +18,10 @@ const Select = ({
   isUnselectable = true,
   ignoreValue,
   value,
+  style,
 }) => (
   <div
+    style={style}
     className={cx('govuk-form-group', {
       'govuk-form-group--error': error,
     })}
