@@ -35,6 +35,7 @@ const AllocatedWorkers = ({ id }) => {
         <AddAllocatedWorker
           personId={id}
           currentlyAllocated={allocWorkers.length}
+          onAddNewAllocation={getWorkers}
         />
       )}
       {error && <ErrorMessage />}

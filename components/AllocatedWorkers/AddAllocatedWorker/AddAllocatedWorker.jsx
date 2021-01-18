@@ -13,7 +13,11 @@ import {
   addAllocatedWorker,
 } from 'utils/api/allocatedWorkers';
 
-const AddAllocatedWorker = ({ personId, currentlyAllocated }) => {
+const AddAllocatedWorker = ({
+  personId,
+  currentlyAllocated,
+  onAddNewAllocation,
+}) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [teams, setTeams] = useState();
   const [workers, setWorkers] = useState();
@@ -52,11 +56,15 @@ const AddAllocatedWorker = ({ personId, currentlyAllocated }) => {
     setIsModalOpen(false);
     setWorkers();
   });
-  const addWorker = useCallback(async (formData) => {
+  const addWorker = useCallback(async ({ worker }) => {
     setPostLoading(true);
     setPostError();
     try {
-      await addAllocatedWorker(personId, { user: user.email, ...formData });
+      await addAllocatedWorker(personId, {
+        allocatedBy: user.email,
+        allocatedWorkerId: worker,
+      });
+      onAddNewAllocation();
       closeModal();
     } catch (e) {
       setPostError(true);
@@ -64,7 +72,7 @@ const AddAllocatedWorker = ({ personId, currentlyAllocated }) => {
     setPostLoading(false);
   });
   if (error) {
-    return 'Oops an error occurred';
+    return <ErrorMessage label="Oops an error occurred" />;
   }
   return (
     <>
@@ -180,6 +188,7 @@ const AddAllocatedWorker = ({ personId, currentlyAllocated }) => {
 AddAllocatedWorker.propTypes = {
   personId: PropTypes.string.isRequired,
   currentlyAllocated: PropTypes.number.isRequired,
+  onAddNewAllocation: PropTypes.func.isRequired,
 };
 
 export default AddAllocatedWorker;

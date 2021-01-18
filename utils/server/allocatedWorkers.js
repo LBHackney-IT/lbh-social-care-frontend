@@ -1,4 +1,5 @@
 import axios from 'axios';
+import * as yup from 'yup';
 
 const { ENDPOINT_API, AWS_KEY } = process.env;
 
@@ -34,13 +35,16 @@ export const deleteResidentAllocatedWorker = async (id, body) => {
   return { test: 'test' };
 };
 
-export const addAllocatedWorker = async (resident_id, body) => {
-  const { data } = await axios.post(
-    `${ENDPOINT_API}/allocations`,
-    { resident_id, ...body },
-    {
-      headers: { 'Content-Type': 'application/json', 'x-api-key': AWS_KEY },
-    }
-  );
+const addAllocatedWorkerSchema = yup.object().shape({
+  mosaicId: yup.number().required().integer(),
+  allocatedWorkerId: yup.number().required().integer(),
+  allocatedBy: yup.string().email().required(),
+});
+
+export const addAllocatedWorker = async (mosaicId, params) => {
+  const body = await addAllocatedWorkerSchema.validate({ mosaicId, ...params });
+  const { data } = await axios.post(`${ENDPOINT_API}/allocations`, body, {
+    headers: { 'Content-Type': 'application/json', 'x-api-key': AWS_KEY },
+  });
   return data;
 };

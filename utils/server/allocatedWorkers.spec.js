@@ -29,21 +29,31 @@ describe('allocatedWorkersAPI', () => {
     it('should work properly', async () => {
       axios.post.mockResolvedValue({ data: { foo: 'foobar' } });
       const data = await allocatedWorkersAPI.addAllocatedWorker(123, {
-        foo: 'bar',
+        allocatedWorkerId: '123',
+        allocatedBy: 'foo@bar.com',
       });
       expect(axios.post).toHaveBeenCalled();
       expect(axios.post.mock.calls[0][0]).toEqual(
         `${ENDPOINT_API}/allocations`
       );
       expect(axios.post.mock.calls[0][1]).toEqual({
-        resident_id: 123,
-        foo: 'bar',
+        allocatedBy: 'foo@bar.com',
+        allocatedWorkerId: 123,
+        mosaicId: 123,
       });
       expect(axios.post.mock.calls[0][2].headers).toEqual({
         'Content-Type': 'application/json',
         'x-api-key': AWS_KEY,
       });
       expect(data).toEqual({ foo: 'foobar' });
+    });
+
+    it('should throw an error with the wrong body', async () => {
+      try {
+        await allocatedWorkersAPI.addAllocatedWorker(123);
+      } catch (e) {
+        expect(e.name).toEqual('ValidationError');
+      }
     });
   });
 });
