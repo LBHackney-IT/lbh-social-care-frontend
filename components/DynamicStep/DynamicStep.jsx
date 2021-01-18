@@ -61,7 +61,7 @@ const DynamicStep = ({
             isSecondary
             label="Save and Exit"
             type="button"
-            onClick={handleSubmit(onSaveAndExit)}
+            onClick={() => onSaveAndExit(stepValues)}
           />
         </div>
       </form>
