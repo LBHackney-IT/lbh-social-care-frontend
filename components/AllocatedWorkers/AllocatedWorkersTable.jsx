@@ -22,7 +22,7 @@ const AllocatedWorkersEntry = ({
         <h3 className="govuk-fieldset__legend--m govuk-custom-text-color govuk-!-margin-top-0">
           Allocated Worker {index + 1}
         </h3>
-        {user.hasAdminPermissions && (
+        {user.hasAllocationsPermissions && (
           <Button isSecondary label="Deallocate Worker" onClick={openModal} />
         )}
       </div>

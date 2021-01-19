@@ -31,7 +31,7 @@ const AllocatedWorkers = ({ id }) => {
   return (
     <div className="govuk-!-margin-top-8 govuk-!-margin-bottom-8">
       {allocWorkers && <AllocatedWorkersTable records={allocWorkers} />}
-      {user.hasAdminPermissions && (
+      {user.hasAllocationsPermissions && (
         <AddAllocatedWorker
           personId={id}
           currentlyAllocated={allocWorkers.length}
