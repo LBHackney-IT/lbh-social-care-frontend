@@ -96,11 +96,11 @@ const AllocatedWorkersTable = ({ records, personName }) => {
 AllocatedWorkersTable.propTypes = {
   records: PropTypes.arrayOf(
     PropTypes.shape({
-      allocatedWorker: PropTypes.string,
-      role: PropTypes.string,
-      allocatedTeam: PropTypes.string,
-      startDate: PropTypes.number,
-      endDate: PropTypes.number,
+      allocatedWorkerTeam: PropTypes.string.isRequired,
+      allocatedWorker: PropTypes.string.isRequired,
+      allocationStartDate: PropTypes.string.isRequired,
+      allocationEndDate: PropTypes.string,
+      workerType: PropTypes.string.isRequired,
     })
   ).isRequired,
 };
