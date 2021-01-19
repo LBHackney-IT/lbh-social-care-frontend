@@ -19,10 +19,11 @@ const Select = ({
   ignoreValue,
   value,
   style,
+  govGrid,
 }) => (
   <div
     style={style}
-    className={cx('govuk-form-group', {
+    className={cx(`govuk-form-group govuk-grid-column-${govGrid}`, {
       'govuk-form-group--error': error,
     })}
   >
@@ -37,7 +38,8 @@ const Select = ({
     {children}
     {error && <ErrorMessage label={error.message} />}
     <select
-      className="govuk-select"
+      style={govGrid && { width: '100%' }}
+      className={`govuk-select`}
       id={name}
       data-testid={name}
       name={name}

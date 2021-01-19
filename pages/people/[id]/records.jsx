@@ -14,11 +14,12 @@ const CasesPage = () => {
       <h1 className="govuk-fieldset__legend--l gov-weight-lighter">
         Add a new record for
       </h1>
-      <PersonView personId={query.id} expandView={true} nameSize="m" />
-      <p className="govuk-label govuk-!-margin-top-7 govuk-!-margin-bottom-5">
-        Use forms to create a new record for a person
-      </p>
-      <AddForm id={query.id} />
+      <PersonView personId={query.id} expandView={true} nameSize="m">
+        <p className="govuk-label govuk-!-margin-top-7 govuk-!-margin-bottom-5">
+          Use forms to create a new record for a person
+        </p>
+        <AddForm id={query.id} />
+      </PersonView>
     </>
   );
 };

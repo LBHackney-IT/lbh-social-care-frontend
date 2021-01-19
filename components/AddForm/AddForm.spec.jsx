@@ -2,26 +2,21 @@ import { render, waitFor, fireEvent } from '@testing-library/react';
 import AddForm from './AddForm';
 import { UserContext } from 'components/UserContext/UserContext';
 import { getResident } from 'utils/api/residents';
-import { getUserType } from 'utils/user';
 
 jest.mock('utils/api/residents', () => ({
   getResident: jest.fn(),
 }));
 
-jest.mock('utils/user', () => ({
-  getUserType: jest.fn(),
-}));
-
 describe('AddForm component', () => {
-  getResident.mockImplementation(() =>
-    Promise.resolve({
-      firstName: 'Foo',
-      lastName: 'Bar',
-      mosaicId: '123',
-    })
-  );
   it('should render adult forms', async () => {
-    getUserType.mockImplementation(() => 'Adult');
+    getResident.mockImplementation(() =>
+      Promise.resolve({
+        firstName: 'Foo',
+        lastName: 'Bar',
+        mosaicId: '123',
+        ageContext: 'A',
+      })
+    );
     const { getByTestId, getByText, getByRole } = render(
       <UserContext.Provider
         value={{
@@ -41,8 +36,14 @@ describe('AddForm component', () => {
   });
 
   it('should render children forms', async () => {
-    getUserType.mockImplementation(() => 'Children');
-
+    getResident.mockImplementation(() =>
+      Promise.resolve({
+        firstName: 'Foo',
+        lastName: 'Bar',
+        mosaicId: '123',
+        ageContext: 'C',
+      })
+    );
     const { getByRole, asFragment, getByText, getByTestId } = render(
       <UserContext.Provider
         value={{

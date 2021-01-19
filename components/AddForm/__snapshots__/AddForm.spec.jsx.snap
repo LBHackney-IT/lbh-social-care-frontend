@@ -2,10 +2,11 @@
 
 exports[`AddForm component should render children forms 1`] = `
 <DocumentFragment>
-  <div>
+  <div
+    class="govuk-grid-row"
+  >
     <div
-      class="govuk-form-group"
-      style="display: inline-block;"
+      class="govuk-form-group govuk-grid-column-one-half"
     >
       <label
         class="govuk-label govuk-label--m"
@@ -18,6 +19,7 @@ exports[`AddForm component should render children forms 1`] = `
         data-testid="category"
         id="category"
         name="category"
+        style="width: 100%;"
       >
         <option
           value=""
@@ -33,29 +35,6 @@ exports[`AddForm component should render children forms 1`] = `
           value="FAST"
         >
           FAST
-        </option>
-      </select>
-    </div>
-    <div
-      class="govuk-form-group"
-      style="display: inline-block; margin-left: 40px;"
-    >
-      <label
-        class="govuk-label govuk-label--m"
-        for="formList"
-      >
-        Choose a form 
-      </label>
-      <select
-        class="govuk-select"
-        data-testid="formList"
-        id="formList"
-        name="formList"
-      >
-        <option
-          value=""
-        >
-          Choose one
         </option>
       </select>
     </div>
