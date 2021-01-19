@@ -2,20 +2,9 @@ import { waitFor, render } from '@testing-library/react';
 
 import { UserContext, AuthProvider, useAuth } from './UserContext';
 
-import { getUser } from 'utils/api/checkAuth';
-
-jest.mock('components/Layout', () => () => 'MockedSpinnerWithLayout');
-
-jest.mock('utils/api/checkAuth', () => ({
-  getUser: jest.fn(),
-}));
-
 const mockedUseRouter = {
-  query: { foo: 'bar' },
-  replace: jest.fn(),
+  pathname: '/foo',
   push: jest.fn(),
-  isReady: true,
-  asPath: 'foopath',
 };
 
 jest.mock('next/router', () => ({
@@ -25,33 +14,27 @@ jest.mock('next/router', () => ({
 describe(`UserContext`, () => {
   describe('AuthProvider', () => {
     it('should work properly', async () => {
-      getUser.mockImplementation(() =>
-        Promise.resolve({
-          name: 'foo',
-        })
-      );
-
-      const { findByText, queryByText } = render(
-        <AuthProvider>
+      const { findByText } = render(
+        <AuthProvider
+          user={{
+            name: 'foo',
+            isAuthorised: true,
+          }}
+        >
           <p>foo</p>
         </AuthProvider>
       );
-      expect(getUser).toHaveBeenCalled();
-      expect(queryByText('MockedSpinnerWithLayout')).toBeInTheDocument();
       const children = await findByText('foo');
-      expect(queryByText('MockedSpinnerWithLayout')).not.toBeInTheDocument();
       expect(children).toBeInTheDocument();
     });
 
     it('should redirect to "/access-denied" if check-auth returns 403', async () => {
-      getUser.mockImplementation(() =>
-        Promise.reject({
-          response: { status: 403 },
-        })
-      );
-
       render(
-        <AuthProvider>
+        <AuthProvider
+          user={{
+            name: 'foo',
+          }}
+        >
           <p>foo</p>
         </AuthProvider>
       );
@@ -62,12 +45,6 @@ describe(`UserContext`, () => {
     });
 
     it('should redirect to "/login" if check-auth returns 401', async () => {
-      getUser.mockImplementation(() =>
-        Promise.reject({
-          response: { status: 401 },
-        })
-      );
-
       render(
         <AuthProvider>
           <p>foo</p>
