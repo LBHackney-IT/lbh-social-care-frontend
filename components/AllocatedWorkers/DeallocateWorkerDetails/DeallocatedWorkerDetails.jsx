@@ -9,6 +9,7 @@ import { deleteAllocatedWorkers } from 'utils/api/allocatedWorkers';
 
 const DeallocatedWorkersDetails = ({
   personId,
+  id,
   allocatedWorker,
   firstName,
   lastName,
@@ -20,14 +21,13 @@ const DeallocatedWorkersDetails = ({
   const [loading, setLoading] = useState(false);
   const [complete, setComplete] = useState(false);
   const [error, setError] = useState(false);
-  const patchData = {
-    worker: allocatedWorker,
-  };
-  const onSubmit = async (data) => {
+  const onSubmit = async (reason) => {
     setLoading(true);
     try {
-      const test = Object.assign(patchData, data);
-      await deleteAllocatedWorkers(personId, test);
+      await deleteAllocatedWorkers(personId, {
+        id: id,
+        deallocationReason: reason.deallocation_reason,
+      });
       setComplete(true);
     } catch {
       setError(true);

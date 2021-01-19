@@ -20,19 +20,21 @@ export const getResidentAllocatedWorkers = async (mosaic_id, params) => {
   // TODO: mocked data
 };
 
-export const deleteResidentAllocatedWorker = async (id, body) => {
-  /* const { data } = await axios.patch(
-   `${ENDPOINT_API}/allocations/delete`,
-   formData,
-   {
-     headers: { 'Content-Type': 'application/json', 'x-api-key': AWS_KEY },
-   }
+const deleteAllocatedWorkerSchema = yup.object().shape({
+  id: yup.number().required().integer(),
+  deallocationReason: yup.string().required(),
+});
+
+export const deleteAllocatedWorker = async (params) => {
+  const body = await deleteAllocatedWorkerSchema.validate({ ...params });
+  const { data } = await axios.patch(`${ENDPOINT_API}/allocations`, body, {
+    headers: { 'Content-Type': 'application/json', 'x-api-key': AWS_KEY },
+  });
+  return data;
+  /* await new Promise((resolve) =>
+   setTimeout(() => resolve(console.log('data is ' + id + body)), 3000)
  );
- return { ref: data?.['_id'] }; */
-  await new Promise((resolve) =>
-    setTimeout(() => resolve(console.log('data is ' + id + body)), 3000)
-  );
-  return { test: 'test' };
+ return { test: 'test' }; */
 };
 
 const addAllocatedWorkerSchema = yup.object().shape({
