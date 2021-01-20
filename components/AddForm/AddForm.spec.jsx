@@ -30,8 +30,12 @@ describe('AddForm component', () => {
     await waitFor(() => {
       getByTestId('category');
     });
-    fireEvent.change(getByTestId('category'), { target: { value: 'General' } });
-    expect(getByText('General').selected).toBeTruthy();
+    fireEvent.change(getByTestId('category'), {
+      target: { value: 'Occupational Therapy and Mobility' },
+    });
+    expect(
+      getByText('Occupational Therapy and Mobility').selected
+    ).toBeTruthy();
     expect(getByRole('option', { name: 'Freedom Pass' })).toBeInTheDocument();
   });
 
