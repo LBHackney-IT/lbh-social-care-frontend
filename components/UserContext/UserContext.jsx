@@ -1,46 +1,35 @@
-import { createContext, useContext, useEffect, useState } from 'react';
+import { createContext, useContext } from 'react';
 import { useRouter } from 'next/router';
 
 import { AUTH_WHITELIST } from 'utils/auth';
-import { getUser } from 'utils/api/checkAuth';
-import Layout from 'components/Layout';
-import Spinner from 'components/Spinner/Spinner';
+import { isBrowser } from 'utils/ssr';
 
 export const UserContext = createContext({
   user: undefined,
   setUser: () => {},
 });
 
-export const AuthProvider = ({ children }) => {
-  const [user, setUser] = useState();
-  const [redirect, setRedirect] = useState();
-  const [isLoading, setLoading] = useState(true);
-  const router = useRouter();
-  useEffect(() => {
-    const initializeAuth = async () => {
-      try {
-        const data = await getUser();
-        setUser(data);
-      } catch (e) {
-        setUser();
-        setRedirect(e.response?.status === 403 ? '/access-denied' : '/login');
+const shouldRedirect = (isPathWhitelisted, user) => {
+  if (isBrowser()) {
+    if (!isPathWhitelisted) {
+      if (!user) {
+        return '/login';
       }
-      setLoading(false);
-    };
-    initializeAuth();
-  }, []);
-  if (isLoading || !router.isReady) {
-    return (
-      <Layout>
-        <Spinner />
-      </Layout>
-    );
+      if (!user?.isAuthorised) {
+        return '/access-denied';
+      }
+    }
+    if (isPathWhitelisted & user?.isAuthorised) {
+      return '/';
+    }
   }
-  if (
-    typeof window !== 'undefined' &&
-    AUTH_WHITELIST.includes(router.pathname) === Boolean(user)
-  ) {
-    router.push(redirect || location);
+};
+
+export const AuthProvider = ({ children, user }) => {
+  const { pathname, push } = useRouter();
+  const redirect = shouldRedirect(AUTH_WHITELIST.includes(pathname), user);
+  if (redirect) {
+    push(redirect);
     return <></>;
   }
   return (
