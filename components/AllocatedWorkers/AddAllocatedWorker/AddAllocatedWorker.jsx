@@ -19,6 +19,7 @@ const AddAllocatedWorker = ({
   onAddNewAllocation,
 }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [workersLoading, setWorkersLoading] = useState(false);
   const [teams, setTeams] = useState();
   const [workers, setWorkers] = useState();
   const [error, setError] = useState();
@@ -41,13 +42,14 @@ const AddAllocatedWorker = ({
   }, []);
   const selectedTeam = watch('team');
   const getAllocatedWorkers = useCallback(async () => {
-    setWorkers();
+    setWorkersLoading(true);
     try {
       const data = await getTeamWorkers(selectedTeam);
       setWorkers(data.workers);
     } catch (e) {
       setError(true);
     }
+    setWorkersLoading();
   });
   useEffect(() => {
     selectedTeam && getAllocatedWorkers();
@@ -150,6 +152,7 @@ const AddAllocatedWorker = ({
                                   name="worker"
                                   type="radio"
                                   value={id}
+                                  disabled={workersLoading}
                                   ref={register}
                                 />
                                 <label className="govuk-label govuk-radios__label"></label>
