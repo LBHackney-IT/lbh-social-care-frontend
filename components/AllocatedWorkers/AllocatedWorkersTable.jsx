@@ -67,7 +67,7 @@ const AllocatedWorkersEntry = ({
     </>
   );
 };
-const AllocatedWorkersTable = ({ records, personName }) => {
+const AllocatedWorkersTable = ({ records, personName, updateWorkers }) => {
   const [selectedWorker, setSelectedWorker] = useState();
   return (
     <div>
@@ -87,6 +87,7 @@ const AllocatedWorkersTable = ({ records, personName }) => {
         <DeallocatedWorkersDetails
           {...records[selectedWorker]}
           isLastWorker={records.length === 1}
+          onDeallocation={updateWorkers}
         ></DeallocatedWorkersDetails>
       </Modal>
     </div>

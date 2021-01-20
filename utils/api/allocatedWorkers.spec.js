@@ -53,4 +53,21 @@ describe('allocatedWorkers APIs', () => {
       expect(data).toEqual({ foo: 'bar' });
     });
   });
+
+  describe('deleteAllocatedWorker', () => {
+    it('should work properly', async () => {
+      axios.patch.mockResolvedValue({ data: { foo: 'foobar' } });
+      const data = await allocatedWorkersAPI.deleteAllocatedWorker(123, {
+        foo: 'bar',
+      });
+      expect(axios.patch).toHaveBeenCalled();
+      expect(axios.patch.mock.calls[0][0]).toEqual(
+        '/api/residents/123/allocated-workers'
+      );
+      expect(axios.patch.mock.calls[0][1]).toEqual({
+        foo: 'bar',
+      });
+      expect(data).toEqual({ foo: 'foobar' });
+    });
+  });
 });

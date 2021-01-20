@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import ErrorMessage from 'components/ErrorMessage/ErrorMessage';
 import { Button, TextArea } from 'components/Form';
 import Spinner from 'components/Spinner/Spinner';
-import { deleteAllocatedWorkers } from 'utils/api/allocatedWorkers';
+import { deleteAllocatedWorker } from 'utils/api/allocatedWorkers';
 
 const DeallocatedWorkersDetails = ({
   personId,
@@ -16,18 +16,22 @@ const DeallocatedWorkersDetails = ({
   workerType,
   allocatedWorkerTeam,
   isLastWorker,
+  onDeallocation,
 }) => {
   const { register, handleSubmit, errors } = useForm();
   const [loading, setLoading] = useState(false);
   const [complete, setComplete] = useState(false);
   const [error, setError] = useState(false);
+  const [deallocationReason, setDeallocationReason] = useState('');
   const onSubmit = async (reason) => {
     setLoading(true);
     try {
-      await deleteAllocatedWorkers(personId, {
+      setDeallocationReason(reason.deallocation_reason);
+      await deleteAllocatedWorker(personId, {
         id: id,
-        deallocationReason: reason.deallocation_reason,
+        deallocationReason: deallocationReason,
       });
+      onDeallocation();
       setComplete(true);
     } catch {
       setError(true);
@@ -84,6 +88,8 @@ const DeallocatedWorkersDetails = ({
       )}
       {complete && (
         <>
+          <h2>Reason for worker deallocation</h2>
+          <p>{deallocationReason}</p>
           <h2>What do you want to do next?</h2>
           <p>
             <Link href="#">
