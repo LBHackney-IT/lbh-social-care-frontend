@@ -1,10 +1,16 @@
 export default [
   'Brokerage',
   'Carers',
-  'CFAT',
+  'Case Note',
+  'Client Financial Affairs',
+  'Direct payment',
   'General',
+  'Hospital',
   'ILDS',
-  'Occupational Therapist',
+  'Information Assessment',
+  'Occupational Therapy and Mobility',
+  'Risk management',
   'Safeguarding',
   'Sensory Support',
+  'Significant contact',
 ];
