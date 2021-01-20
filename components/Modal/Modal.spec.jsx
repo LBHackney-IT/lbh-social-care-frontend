@@ -23,4 +23,12 @@ describe(`Modal`, () => {
     fireEvent.click(getByRole('button'));
     expect(props.onRequestClose).toHaveBeenCalled();
   });
+
+  it('should set overflow hidden on the body once open', () => {
+    expect(document.documentElement.style.overflow).not.toBe('hidden');
+    const { unmount } = render(<Modal {...props} />);
+    expect(document.documentElement.style.overflow).toBe('hidden');
+    unmount();
+    expect(document.documentElement.style.overflow).not.toBe('hidden');
+  });
 });

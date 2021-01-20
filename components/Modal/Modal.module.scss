@@ -1,10 +1,8 @@
 .modal {
-  position: relative;
+  position: absolute;
   width: 90%;
   max-width: 960px;
-  height: auto;
   margin: 0;
-  padding: 2.5rem;
   background-color: #fff;
   border-radius: 0.3rem;
   box-shadow: 0 0 2.5rem rgba(0, 0, 0, 0.5);
@@ -13,8 +11,9 @@
   text-align: left;
   transform: translate(-50%, -50%);
   & > div {
-    overflow-y: auto;
-    height: 100%;
+    padding: 2.5rem;
+    overflow: auto;
+    max-height: 90vh;
   }
 }
 
