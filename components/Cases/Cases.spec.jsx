@@ -1,5 +1,7 @@
 import { render, waitFor, fireEvent } from '@testing-library/react';
+
 import { getCasesByResident } from 'utils/api/cases';
+import { UserContext } from 'components/UserContext/UserContext';
 
 import Cases from './Cases';
 
@@ -33,7 +35,13 @@ describe('Cases component', () => {
       })
     );
     const { asFragment, getByRole, getAllByText } = render(
-      <Cases {...props} />
+      <UserContext.Provider
+        value={{
+          user: { hasAdminPermissions: true },
+        }}
+      >
+        <Cases {...props} />
+      </UserContext.Provider>
     );
     await waitFor(() => {
       expect(asFragment()).toMatchSnapshot();
@@ -75,7 +83,15 @@ describe('Cases component', () => {
         nextCursor: 1,
       })
     );
-    const { asFragment, getByText } = render(<Cases {...props} />);
+    const { asFragment, getByText } = render(
+      <UserContext.Provider
+        value={{
+          user: { hasAdminPermissions: true },
+        }}
+      >
+        <Cases {...props} />
+      </UserContext.Provider>
+    );
     await waitFor(() => {
       expect(asFragment()).toMatchSnapshot();
     });
