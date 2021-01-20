@@ -5,11 +5,16 @@ import Layout from 'components/Layout';
 import SEO from '../next-seo.config';
 import GoogleAnalytics from 'components/GoogleAnalytics/GoogleAnalytics';
 import { AuthProvider } from 'components/UserContext/UserContext';
+import { isAuthorised } from 'utils/auth';
 
 import 'stylesheets/all.scss';
 import 'stylesheets/header.scss';
 
 class MyApp extends App {
+  constructor(props) {
+    super(props);
+    this.state = { user: props.user };
+  }
   componentDidMount = () => {
     window.GOVUKFrontend.initAll();
   };
@@ -17,7 +22,7 @@ class MyApp extends App {
     const { Component, pageProps } = this.props;
     return (
       <>
-        <AuthProvider>
+        <AuthProvider user={this.state.user}>
           <GoogleAnalytics>
             <Layout>
               <DefaultSeo {...SEO} />
@@ -30,5 +35,14 @@ class MyApp extends App {
     );
   }
 }
+
+MyApp.getInitialProps = async (appContext) => {
+  let user;
+  if (appContext.ctx.req) {
+    user = isAuthorised(appContext.ctx.req);
+  }
+  const appProps = await App.getInitialProps(appContext);
+  return { ...appProps, user };
+};
 
 export default MyApp;
