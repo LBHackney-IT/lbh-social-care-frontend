@@ -141,7 +141,6 @@ describe('allocatedWorkersAPI', () => {
       try {
         await allocatedWorkersAPI.deleteAllocatedWorker();
       } catch (e) {
-        console.log('error: ' + e);
         expect(e.name).toEqual('ValidationError');
       }
     });
