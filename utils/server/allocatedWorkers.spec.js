@@ -1,4 +1,5 @@
 import axios from 'axios';
+import endOfTomorrow from 'date-fns/endOfTomorrow';
 
 import * as allocatedWorkersAPI from './allocatedWorkers';
 
@@ -8,9 +9,9 @@ const { ENDPOINT_API, AWS_KEY } = process.env;
 
 describe('allocatedWorkersAPI', () => {
   describe('getResidentAllocatedWorkers', () => {
-    it.skip('should work properly', async () => {
+    it('should work properly', async () => {
       axios.get.mockResolvedValue({
-        data: { allocations: 'hello' },
+        data: { allocations: ['hello'] },
       });
       const data = await allocatedWorkersAPI.getResidentAllocatedWorkers(123);
       expect(axios.get).toHaveBeenCalled();
@@ -21,7 +22,64 @@ describe('allocatedWorkersAPI', () => {
       expect(axios.get.mock.calls[0][1].params).toEqual({
         mosaic_id: 123,
       });
-      expect(data).toEqual({ allocations: 'hello' });
+      expect(data).toEqual({ allocations: ['hello'] });
+    });
+
+    it('should filter out closed or expired allocations', async () => {
+      axios.get.mockResolvedValue({
+        data: {
+          allocations: [
+            {
+              id: 1,
+              allocationEndDate: null,
+              caseStatus: 'Closed',
+            },
+            {
+              id: 2,
+              allocationEndDate: null,
+              caseStatus: 'closed',
+            },
+            {
+              id: 3,
+              allocationEndDate: null,
+              caseStatus: 'Open',
+            },
+            {
+              id: 4,
+              allocationEndDate: '2020-01-31 00:00:00',
+              caseStatus: 'Open',
+            },
+            {
+              id: 5,
+              allocationEndDate: endOfTomorrow(),
+              caseStatus: 'Open',
+            },
+          ],
+        },
+      });
+      const data = await allocatedWorkersAPI.getResidentAllocatedWorkers(123);
+      expect(axios.get).toHaveBeenCalled();
+      expect(axios.get.mock.calls[0][0]).toEqual(`${ENDPOINT_API}/allocations`);
+      expect(axios.get.mock.calls[0][1].headers).toEqual({
+        'x-api-key': AWS_KEY,
+      });
+      expect(axios.get.mock.calls[0][1].params).toEqual({
+        mosaic_id: 123,
+      });
+      expect(data).toEqual({
+        allocations: [
+          {
+            id: 3,
+            allocationEndDate: null,
+            caseStatus: 'Open',
+          },
+          {
+            id: 5,
+            allocationEndDate: endOfTomorrow(),
+            caseStatus: 'Open',
+          },
+        ],
+      });
     });
   });
 
