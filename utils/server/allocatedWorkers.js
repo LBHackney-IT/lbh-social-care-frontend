@@ -1,5 +1,7 @@
 import axios from 'axios';
 import * as yup from 'yup';
+import isPast from 'date-fns/isPast';
+import parseISO from 'date-fns/parseISO';
 
 const { ENDPOINT_API, AWS_KEY } = process.env;
 
@@ -8,16 +10,14 @@ export const getResidentAllocatedWorkers = async (mosaic_id, params) => {
     headers: { 'x-api-key': AWS_KEY },
     params: { mosaic_id, ...params },
   });
-  // return data;
-  // TODO: mocked data
   return {
     ...data,
-    allocations: data.allocations.map((allocation, id) => ({
-      id,
-      ...allocation,
-    })),
+    allocations: data.allocations?.filter(
+      ({ caseStatus, allocationEndDate }) =>
+        caseStatus?.toLowerCase() !== 'closed' &&
+        !isPast(parseISO(allocationEndDate))
+    ),
   };
-  // TODO: mocked data
 };
 
 const deleteAllocatedWorkerSchema = yup.object().shape({
