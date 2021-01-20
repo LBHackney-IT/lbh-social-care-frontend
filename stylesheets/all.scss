@@ -81,3 +81,14 @@ $screen-sm-min: 576px;
 .ReactModal__Body--open {
   overflow: hidden;
 }
+
+.govuk-back-link,
+.govuk-link {
+  color: $govuk-link-colour;
+}
+
+.govuk-back-link:hover,
+.govuk-link:hover {
+  text-decoration: underline;
+  color: $govuk-link-hover-colour;
+}
