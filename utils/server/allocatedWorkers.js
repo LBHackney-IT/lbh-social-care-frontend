@@ -31,10 +31,6 @@ export const deleteAllocatedWorker = async (params) => {
     headers: { 'Content-Type': 'application/json', 'x-api-key': AWS_KEY },
   });
   return data;
-  /* await new Promise((resolve) =>
-   setTimeout(() => resolve(console.log('data is ' + id + body)), 3000)
- );
- return { test: 'test' }; */
 };
 
 const addAllocatedWorkerSchema = yup.object().shape({
