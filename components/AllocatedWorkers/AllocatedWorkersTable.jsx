@@ -22,7 +22,7 @@ const AllocatedWorkersEntry = ({
         <h3 className="govuk-fieldset__legend--m govuk-custom-text-color govuk-!-margin-top-0">
           Allocated Worker {index + 1}
         </h3>
-        {user.hasAdminPermissions && (
+        {user.hasAllocationsPermissions && (
           <Button isSecondary label="Deallocate Worker" onClick={openModal} />
         )}
       </div>
@@ -96,11 +96,11 @@ const AllocatedWorkersTable = ({ records, personName }) => {
 AllocatedWorkersTable.propTypes = {
   records: PropTypes.arrayOf(
     PropTypes.shape({
-      allocatedWorker: PropTypes.string,
-      role: PropTypes.string,
-      allocatedTeam: PropTypes.string,
-      startDate: PropTypes.number,
-      endDate: PropTypes.number,
+      allocatedWorkerTeam: PropTypes.string.isRequired,
+      allocatedWorker: PropTypes.string.isRequired,
+      allocationStartDate: PropTypes.string.isRequired,
+      allocationEndDate: PropTypes.string,
+      workerType: PropTypes.string.isRequired,
     })
   ).isRequired,
 };

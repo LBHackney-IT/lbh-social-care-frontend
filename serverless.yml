@@ -46,7 +46,7 @@ functions:
       NEXT_PUBLIC_FEEDBACK_LINK: ${ssm:/lbh-social-care/${self:provider.stage}/next-public-feedback-link}
       REDIRECT_URL: ${ssm:/lbh-social-care/${self:provider.stage}/redirect_url}
       AUTHORISED_ALLOCATORS_GROUP: ${ssm:/lbh-social-care/${self:provider.stage}/authorised-allocators-group}
-      NEXT_PUBLIC_GOOGLE_TAG_MANAGER_ID: ${ssm:/lbh-social-care/${self:provider.stage}/next_public_google_tag_manager_id}
+      NEXT_PUBLIC_GOOGLE_ANALYTICS_ID: ${ssm:/lbh-social-care/${self:provider.stage}/next_public_google_analytics_id}
 resources:
   Resources:
     CloudFrontDistribution:

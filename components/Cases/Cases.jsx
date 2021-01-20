@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 
 import CasesTable from 'components/Cases/CasesTable';
 import ErrorMessage from 'components/ErrorMessage/ErrorMessage';
+import LinkButton from 'components/LinkButton/LinkButton';
 import Button from 'components/Form/Button/Button';
 import Spinner from 'components/Spinner/Spinner';
 import { getCasesByResident } from 'utils/api/cases';
@@ -46,8 +47,7 @@ const Cases = ({ id }) => {
                 Linked files are read only
               </p>
             </div>
-            {/* commented out as the feature is not ready to be in prod */}
-            {/* <LinkButton label="Add a new record" route={`${query.id}/records`} /> */}
+            <LinkButton label="Add a new record" route={`${id}/records`} />
           </div>
           <hr className="govuk-divider" />
           {results && (
