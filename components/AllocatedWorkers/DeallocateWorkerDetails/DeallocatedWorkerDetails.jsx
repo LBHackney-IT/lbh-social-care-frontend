@@ -11,8 +11,6 @@ const DeallocatedWorkersDetails = ({
   personId,
   id,
   allocatedWorker,
-  firstName,
-  lastName,
   workerType,
   allocatedWorkerTeam,
   isLastWorker,
@@ -41,9 +39,6 @@ const DeallocatedWorkersDetails = ({
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <h2 className="govuk-heading-l">Reason for worker deallocation</h2>
-      <p className="govuk-body govuk-!-font-weight-bold" ref={register}>
-        Person:{firstName} {lastName}
-      </p>
       <h2>Deallocation details</h2>
       <ul className="govuk-list">
         <li>
@@ -110,13 +105,13 @@ const DeallocatedWorkersDetails = ({
 };
 
 DeallocatedWorkersDetails.propTypes = {
-  personId: PropTypes.string,
-  allocatedWorker: PropTypes.string,
-  firstName: PropTypes.string,
-  lastName: PropTypes.string,
+  personId: PropTypes.string.isRequired,
+  id: PropTypes.string.isRequired,
+  allocatedWorker: PropTypes.string.isRequired,
   workerType: PropTypes.string,
-  allocatedWorkerTeam: PropTypes.string,
-  isLastWorker: PropTypes.bool,
+  allocatedWorkerTeam: PropTypes.string.isRequired,
+  isLastWorker: PropTypes.bool.isRequired,
+  onDeallocation: PropTypes.func.isRequired,
 };
 
 export default DeallocatedWorkersDetails;

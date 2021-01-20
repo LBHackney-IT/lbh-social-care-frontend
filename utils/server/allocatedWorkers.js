@@ -26,7 +26,7 @@ const deleteAllocatedWorkerSchema = yup.object().shape({
 });
 
 export const deleteAllocatedWorker = async (params) => {
-  const body = await deleteAllocatedWorkerSchema.validate({ ...params });
+  const body = await deleteAllocatedWorkerSchema.validate(params);
   const { data } = await axios.patch(`${ENDPOINT_API}/allocations`, body, {
     headers: { 'Content-Type': 'application/json', 'x-api-key': AWS_KEY },
   });
