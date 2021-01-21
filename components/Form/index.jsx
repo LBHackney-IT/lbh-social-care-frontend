@@ -1,5 +1,4 @@
 import AddressLookup from './AddressLookup/AddressLookup';
-import Button from './Button/Button';
 import Checkbox from './Checkbox/Checkbox';
 import DateInput from './DateInput/DateInput';
 import DatePicker from './DatePicker/DatePicker';
@@ -14,7 +13,6 @@ import PhoneInput from './PhoneInput/PhoneInput';
 
 export {
   AddressLookup,
-  Button,
   Checkbox,
   DateInput,
   DatePicker,

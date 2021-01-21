@@ -4,13 +4,8 @@ import isPast from 'date-fns/isPast';
 
 import { convertFormat } from 'utils/date';
 
-import {
-  Button,
-  TextInput,
-  Checkbox,
-  DateInput,
-  Select,
-} from 'components/Form';
+import { TextInput, Checkbox, DateInput, Select } from 'components/Form';
+import Button from 'components/Button/Button';
 import FORM_NAMES from 'data/formNames';
 
 const SearchCasesForm = ({ onFormSubmit, defaultValues }) => {

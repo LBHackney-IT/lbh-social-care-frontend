@@ -3,7 +3,8 @@ import { useForm } from 'react-hook-form';
 import Link from 'next/link';
 import PropTypes from 'prop-types';
 import ErrorMessage from 'components/ErrorMessage/ErrorMessage';
-import { Button, TextArea } from 'components/Form';
+import { TextArea } from 'components/Form';
+import Button from 'components/Button/Button';
 import Spinner from 'components/Spinner/Spinner';
 import { deleteAllocatedWorkers } from 'utils/api/allocatedWorkers';
 

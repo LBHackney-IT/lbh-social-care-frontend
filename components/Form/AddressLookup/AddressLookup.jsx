@@ -5,7 +5,8 @@ import { Controller } from 'react-hook-form';
 import isPostcodeValid from 'uk-postcode-validator';
 
 import ErrorMessage from 'components/ErrorMessage/ErrorMessage';
-import { Button, Select, TextInput } from 'components/Form';
+import { Select, TextInput } from 'components/Form';
+import Button from 'components/Button/Button';
 import { lookupPostcode } from 'utils/postcodeAPI';
 
 const AddressBox = ({ name, disabled, value, onChange }) => {

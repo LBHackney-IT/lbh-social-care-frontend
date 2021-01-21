@@ -2,7 +2,7 @@ import { useState } from 'react';
 import PropTypes from 'prop-types';
 
 import Modal from 'components/Modal/Modal';
-import Button from 'components/Form/Button/Button';
+import Button from 'components/Button/Button';
 import DeallocatedWorkersDetails from './DeallocateWorkerDetails/DeallocatedWorkerDetails';
 import { useAuth } from 'components/UserContext/UserContext';
 

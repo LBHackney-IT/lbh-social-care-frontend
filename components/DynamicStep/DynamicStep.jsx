@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import { useForm } from 'react-hook-form';
 
-import { Button } from 'components/Form';
+import Button from 'components/Button/Button';
 import DynamicInput from 'components/DynamicStep/DynamicInput';
 
 const DynamicStep = ({
