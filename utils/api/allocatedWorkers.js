@@ -30,3 +30,13 @@ export const getTeamWorkers = async (teamId) => {
   const { data } = await axios.get(`/api/teams/${teamId}/workers`);
   return data;
 };
+
+export const getAllocations = async (workerId) => {
+  const { data } = await axios.get(`/api/workers/${workerId}/allocations`);
+  return data;
+};
+
+export const getWorker = async (workerId) => {
+  const { data } = await axios.get(`/api/workers/${workerId}`);
+  return data;
+};

@@ -70,4 +70,25 @@ describe('allocatedWorkers APIs', () => {
       expect(data).toEqual({ foo: 'foobar' });
     });
   });
+
+  describe('getAllocations', () => {
+    it('should work properly', async () => {
+      axios.get.mockResolvedValue({ data: { foo: 'bar' } });
+      const data = await allocatedWorkersAPI.getAllocations(123);
+      expect(axios.get).toHaveBeenCalled();
+      expect(axios.get.mock.calls[0][0]).toEqual(
+        '/api/workers/123/allocations'
+      );
+      expect(data).toEqual({ foo: 'bar' });
+    });
+  });
+  describe('getWorker', () => {
+    it('should work properly', async () => {
+      axios.get.mockResolvedValue({ data: { foo: 'bar' } });
+      const data = await allocatedWorkersAPI.getWorker(123);
+      expect(axios.get).toHaveBeenCalled();
+      expect(axios.get.mock.calls[0][0]).toEqual('/api/workers/123');
+      expect(data).toEqual({ foo: 'bar' });
+    });
+  });
 });
