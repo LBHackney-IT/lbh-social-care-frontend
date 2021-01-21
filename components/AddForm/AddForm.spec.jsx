@@ -23,7 +23,7 @@ describe('AddForm component', () => {
           user: { name: 'Nom', email: 'i am the email' },
         }}
       >
-        <AddForm />
+        <AddForm id="123" />
       </UserContext.Provider>
     );
 
@@ -54,7 +54,7 @@ describe('AddForm component', () => {
           user: { name: 'Nom', email: 'i am the email' },
         }}
       >
-        <AddForm />
+        <AddForm id="123" />
       </UserContext.Provider>
     );
 
