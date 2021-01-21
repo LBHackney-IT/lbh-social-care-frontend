@@ -184,7 +184,9 @@ exports[`AddAllocatedWorker should render properly 1`] = `
               </td>
               <td
                 class="govuk-table__cell govuk-table__cell--numeric"
-              />
+              >
+                3
+              </td>
             </tr>
             <tr
               class="govuk-table__row govuk-radios"
