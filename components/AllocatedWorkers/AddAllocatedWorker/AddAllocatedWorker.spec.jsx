@@ -30,7 +30,7 @@ describe(`AddAllocatedWorker`, () => {
   getTeamWorkers.mockImplementation(() =>
     Promise.resolve({
       workers: [
-        { id: 'a', firstName: 'Worker', lastName: 'A' },
+        { id: 'a', firstName: 'Worker', lastName: 'A', allocationCount: 3 },
         { id: 'b', firstName: 'Worker', lastName: 'B' },
         { id: 'c', firstName: 'Worker', lastName: 'C' },
       ],
