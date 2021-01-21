@@ -21,14 +21,17 @@ const DeallocatedWorkersDetails = ({
   const [complete, setComplete] = useState(false);
   const [error, setError] = useState(false);
   const [deallocationReason, setDeallocationReason] = useState('');
+  const [worker] = useState(allocatedWorker);
+  const [type] = useState(workerType);
+  const [workerTeam] = useState(allocatedWorkerTeam);
   const onSubmit = async (reason) => {
     setLoading(true);
     try {
-      setDeallocationReason(reason.deallocation_reason);
       await deleteAllocatedWorker(personId, {
         id: id,
-        deallocationReason: deallocationReason,
+        deallocationReason: reason.deallocation_reason,
       });
+      setDeallocationReason(reason.deallocation_reason);
       onDeallocation();
       setComplete(true);
     } catch {
@@ -40,15 +43,15 @@ const DeallocatedWorkersDetails = ({
     <form onSubmit={handleSubmit(onSubmit)}>
       <h2 className="govuk-heading-l">Reason for worker deallocation</h2>
       <h2>Deallocation details</h2>
-      <ul className="govuk-list">
-        <li>
-          <span className="govuk-!-font-weight-bold">
-            {' '}
-            Worker to be deallocated:
-          </span>{' '}
-          {allocatedWorker}, {workerType}, {allocatedWorkerTeam}
-        </li>
-      </ul>
+      <p className="govuk-body">
+        <span className="govuk-!-font-weight-bold">
+          {' '}
+          {complete ? 'Worker Deallocated' : 'Worker to be deallocated:'}
+        </span>{' '}
+        {worker}
+        {type && `, ${type}`}
+        {workerTeam && `, ${workerTeam}`}
+      </p>
       {isLastWorker && (
         <div className="govuk-warning-text">
           <span className="govuk-warning-text__icon" aria-hidden="true">
