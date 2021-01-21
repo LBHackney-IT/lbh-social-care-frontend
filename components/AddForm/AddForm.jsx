@@ -71,21 +71,23 @@ const AddForm = ({ id }) => {
               />
             )}
           </div>
-          <LinkButton
-            label="Load form"
-            route={
-              ageContext === 'C'
-                ? `${url}${populateChildForm(
-                    person.firstName,
-                    person.lastName,
-                    person.mosaicId,
-                    user.name,
-                    url
-                  )}`
-                : url
-            }
-            internalQuery={`?id=${id}`}
-          />
+          {url && (
+            <LinkButton
+              label="Load form"
+              route={
+                ageContext === 'C'
+                  ? `${url}${populateChildForm(
+                      person.firstName,
+                      person.lastName,
+                      person.mosaicId,
+                      user.name,
+                      url
+                    )}`
+                  : url
+              }
+              internalQuery={`?id=${id}`}
+            />
+          )}
         </>
       )}
     </>
