@@ -125,6 +125,20 @@ const SearchCasesForm = ({ onFormSubmit, defaultValues }) => {
       </div>
 
       <Button label="Search" type="submit" disabled={!isDirty} />
+      <input
+        className="govuk-body"
+        type="reset"
+        value="Clear search"
+        style={{
+          background: 'transparent',
+          color: '#00664f ',
+          textDecoration: 'underline',
+          border: 'none',
+          cursor: 'pointer',
+          marginLeft: '20px',
+          marginTop: '10px',
+        }}
+      />
     </form>
   );
 };
