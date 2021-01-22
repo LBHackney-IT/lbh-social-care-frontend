@@ -21,9 +21,6 @@ const DeallocatedWorkersDetails = ({
   const [complete, setComplete] = useState(false);
   const [error, setError] = useState(false);
   const [deallocationReason, setDeallocationReason] = useState('');
-  const [worker] = useState(allocatedWorker);
-  const [type] = useState(workerType);
-  const [workerTeam] = useState(allocatedWorkerTeam);
   const onSubmit = async (reason) => {
     setLoading(true);
     try {
@@ -41,16 +38,16 @@ const DeallocatedWorkersDetails = ({
   };
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <h2 className="govuk-heading-l">Reason for worker deallocation</h2>
+      <h1>Reason for worker deallocation</h1>
       <h2>Deallocation details</h2>
       <p className="govuk-body">
         <span className="govuk-!-font-weight-bold">
           {' '}
           {complete ? 'Worker Deallocated' : 'Worker to be deallocated:'}
         </span>{' '}
-        {worker}
-        {type && `, ${type}`}
-        {workerTeam && `, ${workerTeam}`}
+        {allocatedWorker}
+        {workerType && `, ${workerType}`}
+        {allocatedWorkerTeam && `, ${allocatedWorkerTeam}`}
       </p>
       {isLastWorker && (
         <div className="govuk-warning-text">
