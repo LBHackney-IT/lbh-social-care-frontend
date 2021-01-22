@@ -70,7 +70,7 @@ const DateInput = forwardRef(
                   id={`${name}-day`}
                   name={`${name}-day`}
                   type="text"
-                  pattern="^\d{1,2}$"
+                  pattern="^\d{2}$"
                   inputMode="numeric"
                   defaultValue={date.day}
                   onChange={({ target: { value } }) =>
@@ -99,7 +99,7 @@ const DateInput = forwardRef(
                   id={`${name}-month`}
                   name={`${name}-month`}
                   type="text"
-                  pattern="^\d{1,2}$"
+                  pattern="^\d{2}$"
                   inputMode="numeric"
                   defaultValue={date.month}
                   onChange={({ target: { value } }) =>
