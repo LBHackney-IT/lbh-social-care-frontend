@@ -5,29 +5,31 @@ import PropTypes from 'prop-types';
 import ErrorMessage from 'components/ErrorMessage/ErrorMessage';
 import { Button, TextArea } from 'components/Form';
 import Spinner from 'components/Spinner/Spinner';
-import { deleteAllocatedWorkers } from 'utils/api/allocatedWorkers';
+import { deleteAllocatedWorker } from 'utils/api/allocatedWorkers';
 
 const DeallocatedWorkersDetails = ({
   personId,
+  id,
   allocatedWorker,
-  firstName,
-  lastName,
   workerType,
   allocatedWorkerTeam,
   isLastWorker,
+  onDeallocation,
 }) => {
   const { register, handleSubmit, errors } = useForm();
   const [loading, setLoading] = useState(false);
   const [complete, setComplete] = useState(false);
   const [error, setError] = useState(false);
-  const patchData = {
-    worker: allocatedWorker,
-  };
-  const onSubmit = async (data) => {
+  const [deallocationReason, setDeallocationReason] = useState('');
+  const onSubmit = async (reason) => {
     setLoading(true);
     try {
-      const test = Object.assign(patchData, data);
-      await deleteAllocatedWorkers(personId, test);
+      await deleteAllocatedWorker(personId, {
+        id: id,
+        deallocationReason: reason.deallocation_reason,
+      });
+      setDeallocationReason(reason.deallocation_reason);
+      onDeallocation();
       setComplete(true);
     } catch {
       setError(true);
@@ -36,20 +38,17 @@ const DeallocatedWorkersDetails = ({
   };
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <h2 className="govuk-heading-l">Reason for worker deallocation</h2>
-      <p className="govuk-body govuk-!-font-weight-bold" ref={register}>
-        Person:{firstName} {lastName}
-      </p>
+      <h1>Reason for worker deallocation</h1>
       <h2>Deallocation details</h2>
-      <ul className="govuk-list">
-        <li>
-          <span className="govuk-!-font-weight-bold">
-            {' '}
-            Worker to be deallocated:
-          </span>{' '}
-          {allocatedWorker}, {workerType}, {allocatedWorkerTeam}
-        </li>
-      </ul>
+      <p className="govuk-body">
+        <span className="govuk-!-font-weight-bold">
+          {' '}
+          {complete ? 'Worker Deallocated' : 'Worker to be deallocated:'}
+        </span>{' '}
+        {allocatedWorker}
+        {workerType && `, ${workerType}`}
+        {allocatedWorkerTeam && `, ${allocatedWorkerTeam}`}
+      </p>
       {isLastWorker && (
         <div className="govuk-warning-text">
           <span className="govuk-warning-text__icon" aria-hidden="true">
@@ -84,6 +83,8 @@ const DeallocatedWorkersDetails = ({
       )}
       {complete && (
         <>
+          <h2>Reason for worker deallocation</h2>
+          <p>{deallocationReason}</p>
           <h2>What do you want to do next?</h2>
           <p>
             <Link href="#">
@@ -104,13 +105,13 @@ const DeallocatedWorkersDetails = ({
 };
 
 DeallocatedWorkersDetails.propTypes = {
-  personId: PropTypes.string,
-  allocatedWorker: PropTypes.string,
-  firstName: PropTypes.string,
-  lastName: PropTypes.string,
+  personId: PropTypes.string.isRequired,
+  id: PropTypes.string.isRequired,
+  allocatedWorker: PropTypes.string.isRequired,
   workerType: PropTypes.string,
-  allocatedWorkerTeam: PropTypes.string,
-  isLastWorker: PropTypes.bool,
+  allocatedWorkerTeam: PropTypes.string.isRequired,
+  isLastWorker: PropTypes.bool.isRequired,
+  onDeallocation: PropTypes.func.isRequired,
 };
 
 export default DeallocatedWorkersDetails;

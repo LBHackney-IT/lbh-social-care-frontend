@@ -2,7 +2,7 @@ import * as HttpStatus from 'http-status-codes';
 
 import {
   getResidentAllocatedWorkers,
-  deleteResidentAllocatedWorker,
+  deleteAllocatedWorker,
   addAllocatedWorker,
 } from 'utils/server/allocatedWorkers';
 import { isAuthorised } from 'utils/auth';
@@ -52,16 +52,18 @@ export default async (req, res) => {
 
     case 'PATCH':
       try {
-        const data = await deleteResidentAllocatedWorker(
-          req.query.id,
-          JSON.stringify(req.body)
-        );
+        const data = await deleteAllocatedWorker(req.body);
         res.status(HttpStatus.OK).json(data);
       } catch (error) {
-        console.log('Allocated Workers patch error:', error?.response?.data);
-        res
-          .status(HttpStatus.INTERNAL_SERVER_ERROR)
-          .json({ message: 'Unable to deallocated Worker' });
+        console.log(
+          'Allocated Workers patch error:',
+          error?.response?.data || error
+        );
+        error.name === 'ValidationError'
+          ? res.status(HttpStatus.BAD_REQUEST).json({ message: error.message })
+          : res
+              .status(HttpStatus.INTERNAL_SERVER_ERROR)
+              .json({ message: 'Unable to deallocated Worker' });
       }
       break;
 
