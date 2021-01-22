@@ -10,6 +10,7 @@ import TextArea from './TextArea/TextArea';
 import EmailInput from './EmailInput/EmailInput';
 import NumberInput from './NumberInput/NumberInput';
 import PhoneInput from './PhoneInput/PhoneInput';
+import ObjectInput from './ObjectInput/ObjectInput';
 
 export {
   AddressLookup,
@@ -24,4 +25,5 @@ export {
   EmailInput,
   NumberInput,
   PhoneInput,
+  ObjectInput,
 };

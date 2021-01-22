@@ -2,16 +2,17 @@ import PropTypes from 'prop-types';
 
 import * as Inputs from 'components/Form';
 
-const DynamicInput = ({
-  component,
-  register,
-  control,
-  id,
-  name,
-  errors,
-  multiStepIndex,
-  ...otherProps
-}) => {
+const DynamicInput = (props) => {
+  const {
+    component,
+    register,
+    control,
+    id,
+    name,
+    errors,
+    multiStepIndex,
+    ...otherProps
+  } = props;
   const inputName =
     typeof multiStepIndex === 'number'
       ? `${id}[${multiStepIndex}].${name}`
@@ -24,6 +25,8 @@ const DynamicInput = ({
     ...otherProps,
   };
   switch (component) {
+    case 'ObjectInput':
+      return <Component {...props} />;
     case 'AddressLookup':
     case 'DateInput':
       return <Component control={control} {...sharedProps} />;
