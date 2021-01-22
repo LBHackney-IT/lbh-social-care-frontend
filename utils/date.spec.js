@@ -1,4 +1,11 @@
-import { parseDate, formatDate, isDateValid, convertFormat } from './date';
+import {
+  parseDate,
+  formatDate,
+  isDateValid,
+  convertFormat,
+  stringDateToObject,
+  objectDateToString,
+} from './date';
 
 describe('date util', () => {
   describe('parseDate', () => {
@@ -19,12 +26,62 @@ describe('date util', () => {
       expect(isDateValid('22/09/1941')).toBe(true);
       expect(isDateValid('foo')).toBe(false);
       expect(isDateValid(null)).toBe(false);
+      expect(isDateValid('-12-12')).toBe(false);
     });
   });
 
   describe('convertFormat', () => {
     it('should work properly', () => {
       expect(convertFormat('2000-12-01')).toBe('01-12-2000');
+    });
+  });
+
+  describe('stringDateToObject', () => {
+    it('should work properly', () => {
+      expect(stringDateToObject('2000-12-01')).toEqual({
+        day: '01',
+        month: '12',
+        year: '2000',
+      });
+      expect(stringDateToObject('01-12-2000', 'EU')).toEqual({
+        day: '01',
+        month: '12',
+        year: '2000',
+      });
+      expect(stringDateToObject(null)).toEqual({
+        day: '',
+        month: '',
+        year: '',
+      });
+    });
+  });
+
+  describe('objectDateToString', () => {
+    it('should work properly', () => {
+      expect(
+        objectDateToString({
+          day: '01',
+          month: '12',
+          year: '2000',
+        })
+      ).toEqual('2000-12-01');
+      expect(
+        objectDateToString(
+          {
+            day: '01',
+            month: '12',
+            year: '2000',
+          },
+          'EU'
+        )
+      ).toEqual('01-12-2000');
+      expect(
+        objectDateToString({
+          day: '',
+          month: '',
+          year: '',
+        })
+      ).toEqual(null);
     });
   });
 });
