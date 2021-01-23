@@ -17,7 +17,7 @@ exports[`ObjectInput should render properly 1`] = `
       i accept multiple inputs
     </span>
     <div
-      class="container"
+      class="inlineInputs"
     >
       MockedDynamicInputMockedDynamicInputMockedDynamicInput
     </div>

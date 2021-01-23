@@ -24,7 +24,7 @@ const ObjectInput = ({
         {hint}
       </span>
     )}
-    <div className={cx({ [styles.container]: isInline })}>
+    <div className={cx({ [styles.inlineInputs]: isInline })}>
       {components.map((subComponent) => (
         <DynamicInput
           key={subComponent.name}
