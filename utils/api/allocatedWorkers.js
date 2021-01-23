@@ -5,7 +5,7 @@ export const getAllocatedWorkers = async (id) => {
   return data;
 };
 
-export const deleteAllocatedWorkers = async (residentId, body) => {
+export const deleteAllocatedWorker = async (residentId, body) => {
   const { data } = await axios.patch(
     `/api/residents/${residentId}/allocated-workers`,
     body
