@@ -11,6 +11,9 @@ const ObjectInput = ({
   name,
   labelSize = 'm',
   isInline,
+  // this props is used for UI purpose in the summary
+  // eslint-disable-next-line no-unused-vars
+  summaryInline,
   components,
   ...otherProps
 }) => (
@@ -39,6 +42,7 @@ ObjectInput.propTypes = {
   label: PropTypes.string,
   labelSize: PropTypes.oneOf(['s', 'm', 'l', 'xl']),
   isInline: PropTypes.bool,
+  summaryInline: PropTypes.bool,
   hint: PropTypes.string,
   name: PropTypes.string.isRequired,
   components: PropTypes.array.isRequired,

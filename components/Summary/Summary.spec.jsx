@@ -3,6 +3,20 @@ import { render } from '@testing-library/react';
 import Summary from './Summary';
 
 describe('Summary component', () => {
+  const objectComponents = [
+    {
+      component: 'TextInput',
+      name: 'first',
+    },
+    {
+      component: 'TextInput',
+      name: 'second',
+    },
+    {
+      component: 'TextInput',
+      name: 'third',
+    },
+  ];
   const props = {
     formData: {
       foo: '123',
@@ -10,6 +24,8 @@ describe('Summary component', () => {
       asd: '',
       qwe: 'yo',
       foobar: 'asd',
+      oo: { first: 'first', second: 'second', third: 'third' },
+      oi: { first: 'first', second: 'second', third: 'third' },
     },
     formPath: '/form/foo/',
     formSteps: [
@@ -30,6 +46,25 @@ describe('Summary component', () => {
             component: 'TextInput',
             label: 'I am foobar component',
             name: 'foobar',
+          },
+        ],
+      },
+      {
+        id: 'object-step',
+        title: 'Object Step',
+        components: [
+          {
+            component: 'ObjectInput',
+            label: 'I am object component',
+            name: 'oo',
+            components: objectComponents,
+          },
+          {
+            component: 'ObjectInput',
+            label: 'I am object component inline',
+            name: 'oi',
+            summaryInline: true,
+            components: objectComponents,
           },
         ],
       },
