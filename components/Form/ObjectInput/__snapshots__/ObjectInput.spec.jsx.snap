@@ -1,0 +1,26 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ObjectInput should render properly 1`] = `
+<DocumentFragment>
+  <div
+    class="govuk-form-group"
+  >
+    <label
+      class="govuk-label govuk-label--m"
+    >
+      i am a object input
+    </label>
+    <span
+      class="govuk-hint"
+      id="oo-hint"
+    >
+      i accept multiple inputs
+    </span>
+    <div
+      class="container"
+    >
+      MockedDynamicInputMockedDynamicInputMockedDynamicInput
+    </div>
+  </div>
+</DocumentFragment>
+`;
