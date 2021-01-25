@@ -1,18 +1,15 @@
-import { useState, useEffect, forwardRef } from 'react';
+import { useCallback, forwardRef } from 'react';
 import PropTypes from 'prop-types';
 import cx from 'classnames';
 import { Controller } from 'react-hook-form';
-import isValid from 'date-fns/isValid';
 
 import ErrorMessage from 'components/ErrorMessage/ErrorMessage';
-import { convertFormat } from 'utils/date';
-
-const getInitialDate = (value, format) => {
-  const date = value?.split('-') || ['', '', ''];
-  return format === 'US'
-    ? { day: date[2], month: date[1], year: date[0] }
-    : { day: date[0], month: date[1], year: date[2] };
-};
+import {
+  convertFormat,
+  isDateValid,
+  stringDateToObject,
+  objectDateToString,
+} from 'utils/date';
 
 const DateInput = forwardRef(
   (
@@ -30,19 +27,10 @@ const DateInput = forwardRef(
     },
     ref
   ) => {
-    const [date, setDate] = useState(getInitialDate(value, format));
-    useEffect(() => {
-      const { day, month, year } = date;
-      day !== '' &&
-        month !== '' &&
-        year !== '' &&
-        onChange(
-          format === 'US'
-            ? `${year}-${month}-${day}`
-            : `${day}-${month}-${year}`
-        );
-      day === '' && month === '' && year === '' && onChange();
-    }, [date]);
+    const date = stringDateToObject(value, format);
+    const setNewDate = useCallback((newDate) =>
+      onChange(objectDateToString({ ...date, ...newDate }))
+    );
     return (
       <div
         className={cx('govuk-form-group', {
@@ -82,11 +70,11 @@ const DateInput = forwardRef(
                   id={`${name}-day`}
                   name={`${name}-day`}
                   type="text"
-                  pattern="^\d{1,2}$"
+                  pattern="^\d{2}$"
                   inputMode="numeric"
-                  value={date.day}
+                  defaultValue={date.day}
                   onChange={({ target: { value } }) =>
-                    setDate({ ...date, day: value })
+                    setNewDate({ day: value })
                   }
                   ref={ref}
                   {...otherProps}
@@ -111,11 +99,11 @@ const DateInput = forwardRef(
                   id={`${name}-month`}
                   name={`${name}-month`}
                   type="text"
-                  pattern="^\d{1,2}$"
+                  pattern="^\d{2}$"
                   inputMode="numeric"
-                  value={date.month}
+                  defaultValue={date.month}
                   onChange={({ target: { value } }) =>
-                    setDate({ ...date, month: value })
+                    setNewDate({ month: value })
                   }
                   {...otherProps}
                 />
@@ -141,9 +129,9 @@ const DateInput = forwardRef(
                   type="text"
                   pattern="^\d{4}$"
                   inputMode="numeric"
-                  value={date.year}
+                  defaultValue={date.year}
                   onChange={({ target: { value } }) =>
-                    setDate({ ...date, year: value })
+                    setNewDate({ year: value })
                   }
                   {...otherProps}
                 />
@@ -173,20 +161,19 @@ const ControlledDateInput = ({
 }) => (
   <Controller
     as={<DateInput format={format} {...otherProps} />}
-    onChange={([value]) => value}
     name={name}
     rules={{
       ...rules,
       validate: {
         valid: (value) =>
           value &&
-          (isValid(new Date(format === 'US' ? value : convertFormat(value))) ||
+          (isDateValid(format === 'US' ? value : convertFormat(value)) ||
             'Must be a is valid Date'),
         ...rules?.validate,
       },
     }}
     control={control}
-    defaultValue={control.defaultValuesRef.current[name] || null}
+    defaultValue={null}
   />
 );
 

@@ -30,6 +30,7 @@ describe(`SearchResidentsForm`, () => {
       last_name: '',
       mosaic_id: '',
       postcode: '',
+      date_of_birth: null,
     });
   });
 
@@ -45,6 +46,7 @@ describe(`SearchResidentsForm`, () => {
       last_name: '',
       mosaic_id: '',
       postcode: '',
+      date_of_birth: null,
     });
   });
 });
