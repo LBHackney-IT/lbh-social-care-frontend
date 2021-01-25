@@ -4,7 +4,7 @@ import Router, { useRouter } from 'next/router';
 import { NextSeo } from 'next-seo';
 import { useBeforeunload } from 'react-beforeunload';
 
-import DynamicStep from 'components/DynamicStep/DynamicStep';
+import DynamicStep from 'components/FormWizard/DynamicStep';
 import Breadcrumbs from 'components/Breadcrumbs/Breadcrumbs';
 import { createSteps, getNextStepPath, haveStepsChanged } from 'utils/steps';
 import { deepmerge } from 'utils/objects';

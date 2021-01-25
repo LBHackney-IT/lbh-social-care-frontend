@@ -9,7 +9,7 @@ import SearchCasesForm from './forms/SearchCasesForm';
 import ResidentsTable from './results/ResidentsTable';
 import CasesTable from './results/CasesTable';
 
-import { Button } from 'components/Form';
+import Button from 'components/Button/Button';
 import Spinner from 'components/Spinner/Spinner';
 import ErrorMessage from 'components/ErrorMessage/ErrorMessage';
 import { useAuth } from 'components/UserContext/UserContext';

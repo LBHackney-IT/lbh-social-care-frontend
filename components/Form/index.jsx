@@ -1,5 +1,4 @@
 import AddressLookup from './AddressLookup/AddressLookup';
-import Button from './Button/Button';
 import Checkbox from './Checkbox/Checkbox';
 import DateInput from './DateInput/DateInput';
 import DatePicker from './DatePicker/DatePicker';
@@ -11,10 +10,10 @@ import TextArea from './TextArea/TextArea';
 import EmailInput from './EmailInput/EmailInput';
 import NumberInput from './NumberInput/NumberInput';
 import PhoneInput from './PhoneInput/PhoneInput';
+import ObjectInput from './ObjectInput/ObjectInput';
 
 export {
   AddressLookup,
-  Button,
   Checkbox,
   DateInput,
   DatePicker,
@@ -26,4 +25,5 @@ export {
   EmailInput,
   NumberInput,
   PhoneInput,
+  ObjectInput,
 };

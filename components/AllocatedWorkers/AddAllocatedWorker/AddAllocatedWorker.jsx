@@ -2,7 +2,8 @@ import { useEffect, useState, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import { useForm } from 'react-hook-form';
 
-import { Button, Radios } from 'components/Form';
+import { Radios } from 'components/Form';
+import Button from 'components/Button/Button';
 import Modal from 'components/Modal/Modal';
 import Spinner from 'components/Spinner/Spinner';
 import ErrorMessage from 'components/ErrorMessage/ErrorMessage';

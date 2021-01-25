@@ -30,6 +30,12 @@ export default {
           width: '30',
           label: 'Show next step',
         },
+        {
+          component: 'Checkbox',
+          name: 'show_object_step',
+          width: '30',
+          label: 'Show object step',
+        },
       ],
     },
     {
@@ -42,6 +48,33 @@ export default {
           name: 'title_2',
           width: '30',
           label: 'Title',
+        },
+      ],
+    },
+    {
+      id: 'object-step',
+      title: 'Object Step',
+      conditionalRender: ({ show_object_step }) => show_object_step === true,
+      components: [
+        {
+          component: 'ObjectInput',
+          name: 'phone_number',
+          label: 'Phone Number',
+          isInline: true,
+          summaryInline: true,
+          components: [
+            {
+              component: 'PhoneInput',
+              name: 'phoneNumber',
+              label: 'Phone number',
+              rules: { required: true },
+            },
+            {
+              component: 'TextInput',
+              name: 'phoneType',
+              label: 'Phone type',
+            },
+          ],
         },
       ],
     },

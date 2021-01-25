@@ -5,12 +5,15 @@ import SummaryList from 'components/Summary/SummaryList';
 import { filterStepsOnCondition, filterDataOnCondition } from 'utils/steps';
 import { convertFormat } from 'utils/date';
 
-const MultiValue = ([key, value]) => (
-  <div key={key}>
-    <span>{value}</span>
-    <br />
-  </div>
-);
+const MultiValue = ([key, value], summaryInline) =>
+  summaryInline ? (
+    <span key={key}>{value} </span>
+  ) : (
+    <div key={key}>
+      <span>{value}</span>
+      <br />
+    </div>
+  );
 
 const SummaryMultiSection = ({
   formData,
@@ -57,7 +60,7 @@ export const SummarySection = ({
     <SummaryList
       list={components
         .filter(({ name }) => formData[name])
-        .map(({ component, options, name, label }) => {
+        .map(({ component, options, name, label, summaryInline }) => {
           if (component === 'AddressLookup') {
             const { address, postcode } = formData[name];
             return (
@@ -106,7 +109,7 @@ export const SummarySection = ({
               : typeof formData[name] === 'object'
               ? Object.entries(formData[name])
                   .filter(([, value]) => Boolean(value))
-                  .map(MultiValue)
+                  .map((entry) => MultiValue(entry, summaryInline))
               : typeof formData[name] === 'boolean'
               ? JSON.stringify(formData[name])
               : formData[name],

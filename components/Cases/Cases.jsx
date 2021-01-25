@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import CasesTable from 'components/Cases/CasesTable';
 import ErrorMessage from 'components/ErrorMessage/ErrorMessage';
 import LinkButton from 'components/LinkButton/LinkButton';
-import Button from 'components/Form/Button/Button';
+import Button from 'components/Button/Button';
 import Spinner from 'components/Spinner/Spinner';
 import { getCasesByResident } from 'utils/api/cases';
 import { useAuth } from 'components/UserContext/UserContext';
