@@ -1,8 +1,8 @@
+// @ts-nocheck
 import PropTypes from 'prop-types';
 import { useForm } from 'react-hook-form';
 import isPast from 'date-fns/isPast';
 import isPostcodeValid from 'uk-postcode-validator';
-
 import { TextInput, DateInput } from 'components/Form';
 import Button from 'components/Button/Button';
 
@@ -90,10 +90,9 @@ const SearchResidentsForm = ({ onFormSubmit, defaultValues }) => {
         </div>
       </div>
       <Button label="Search" type="submit" disabled={!isDirty} />
-      <input
+      <span
         className="govuk-body"
-        type="reset"
-        value="Clear search"
+        role="button"
         onClick={() => {
           reset({
             date_of_birth: '',
@@ -108,7 +107,9 @@ const SearchResidentsForm = ({ onFormSubmit, defaultValues }) => {
           marginLeft: '20px',
           marginTop: '10px',
         }}
-      />
+      >
+        Clear search
+      </span>
     </form>
   );
 };

@@ -122,10 +122,8 @@ const SearchCasesForm = ({ onFormSubmit, defaultValues }) => {
       </div>
 
       <Button label="Search" type="submit" disabled={!isDirty} />
-      <input
+      <span
         className="govuk-body"
-        type="reset"
-        value="Clear search"
         onClick={() => {
           reset({
             start_date: '',
@@ -141,7 +139,9 @@ const SearchCasesForm = ({ onFormSubmit, defaultValues }) => {
           marginLeft: '20px',
           marginTop: '10px',
         }}
-      />
+      >
+        Clear search
+      </span>
     </form>
   );
 };
