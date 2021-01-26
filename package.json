@@ -19,6 +19,7 @@
   },
   "dependencies": {
     "axios": "^0.21.1",
+    "body-parser": "^1.19.0",
     "cookie": "^0.4.1",
     "date-fns": "^2.16.1",
     "deepmerge": "^4.2.2",
