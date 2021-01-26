@@ -1,3 +1,34 @@
+const MULTI_SELECT = {
+  foo: [
+    {
+      value: '1',
+      text: 'FOO',
+    },
+    {
+      value: '2',
+      text: 'Foo',
+    },
+    {
+      value: '3',
+      text: 'foo',
+    },
+  ],
+  bar: [
+    {
+      value: 'a',
+      text: 'BAR',
+    },
+    {
+      value: 'b',
+      text: 'Bar',
+    },
+    {
+      value: 'c',
+      text: 'bar',
+    },
+  ],
+};
+
 export default {
   title: 'Test Form',
   path: '/form/test/',
@@ -29,6 +60,12 @@ export default {
           name: 'show_next_step',
           width: '30',
           label: 'Show next step',
+        },
+        {
+          component: 'Checkbox',
+          name: 'show_multi_select_step',
+          width: '30',
+          label: 'Show multi-select step',
         },
         {
           component: 'Checkbox',
@@ -75,6 +112,27 @@ export default {
               label: 'Phone type',
             },
           ],
+        },
+      ],
+    },
+    {
+      id: 'multi-select-step',
+      title: 'Multi Select Step',
+      conditionalRender: ({ show_multi_select_step }) =>
+        show_multi_select_step === true,
+      components: [
+        {
+          component: 'Select',
+          name: 'first_select',
+          label: 'First multi select',
+          options: Object.keys(MULTI_SELECT),
+        },
+        {
+          conditionalRender: ({ first_select }) => first_select,
+          component: 'Select',
+          name: 'multi_select',
+          label: 'Second multi select',
+          options: ({ first_select } = {}) => MULTI_SELECT[first_select],
         },
       ],
     },

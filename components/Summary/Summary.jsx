@@ -82,14 +82,17 @@ export const SummarySection = ({
             );
           }
           if (component === 'Radios' || component === 'Select') {
+            const stepOptions =
+              typeof options === 'function' ? options(formData) : options;
             return {
               key: name,
               title: label,
               value:
-                typeof options[0] === 'string'
+                typeof stepOptions[0] === 'string'
                   ? formData[name]
-                  : options.find((option) => option.value === formData[name])
-                      ?.text,
+                  : stepOptions.find(
+                      (option) => option.value === formData[name]
+                    )?.text,
             };
           }
           if (component === 'DateInput') {
