@@ -13,6 +13,7 @@ const SearchResidentsForm = ({ onFormSubmit, defaultValues }) => {
     control,
     handleSubmit,
     formState: { isDirty },
+    reset,
   } = useForm({
     defaultValues,
   });
@@ -93,6 +94,11 @@ const SearchResidentsForm = ({ onFormSubmit, defaultValues }) => {
         className="govuk-body"
         type="reset"
         value="Clear search"
+        onClick={() => {
+          reset({
+            date_of_birth: '',
+          });
+        }}
         style={{
           background: 'transparent',
           color: '#00664f ',

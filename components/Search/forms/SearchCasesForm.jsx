@@ -1,3 +1,4 @@
+// @ts-nocheck
 import PropTypes from 'prop-types';
 import { useForm } from 'react-hook-form';
 import isPast from 'date-fns/isPast';
@@ -15,6 +16,7 @@ const SearchCasesForm = ({ onFormSubmit, defaultValues }) => {
     control,
     handleSubmit,
     formState: { isDirty },
+    reset,
   } = useForm({
     defaultValues,
   });
@@ -124,6 +126,12 @@ const SearchCasesForm = ({ onFormSubmit, defaultValues }) => {
         className="govuk-body"
         type="reset"
         value="Clear search"
+        onClick={() => {
+          reset({
+            start_date: '',
+            end_date: '',
+          });
+        }}
         style={{
           background: 'transparent',
           color: '#00664f ',
