@@ -15,7 +15,7 @@ exports[`AddForm component should render children forms 1`] = `
         Choose a form category 
       </label>
       <select
-        class="govuk-select"
+        class="govuk-select width-override-30"
         data-testid="category"
         id="category"
         name="category"
