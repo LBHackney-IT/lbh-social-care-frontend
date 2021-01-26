@@ -1,3 +1,6 @@
+// @ts-nocheck
+import NATIONALITIES from 'data/nationalities';
+
 export default {
   title: 'Create New Person',
   path: '/form/create-new-person/',
@@ -61,9 +64,10 @@ export default {
           rules: { required: true },
         },
         {
-          component: 'NationalityList',
+          component: 'Select',
           name: 'nationality',
           label: 'Nationality',
+          options: NATIONALITIES,
           rules: { required: true },
         },
         {
