@@ -7,7 +7,6 @@ import LinkButton from 'components/LinkButton/LinkButton';
 import Button from 'components/Button/Button';
 import Spinner from 'components/Spinner/Spinner';
 import { getCasesByResident } from 'utils/api/cases';
-import { useAuth } from 'components/UserContext/UserContext';
 
 const Cases = ({ id }) => {
   const [error, setError] = useState();
@@ -31,7 +30,6 @@ const Cases = ({ id }) => {
     setLoading(true);
     getPersonCases();
   }, []);
-  const { user } = useAuth();
   return (
     <>
       {loading ? (
@@ -49,9 +47,7 @@ const Cases = ({ id }) => {
                 Linked files are read only
               </p>
             </div>
-            {user.hasAdminPermissions && (
-              <LinkButton label="Add a new record" route={`${id}/records`} />
-            )}
+            <LinkButton label="Add a new record" route={`${id}/records`} />
           </div>
           <hr className="govuk-divider" />
           {results && (
