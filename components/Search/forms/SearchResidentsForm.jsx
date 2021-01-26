@@ -1,4 +1,3 @@
-// @ts-nocheck
 import PropTypes from 'prop-types';
 import { useForm } from 'react-hook-form';
 import isPast from 'date-fns/isPast';
