@@ -1,3 +1,6 @@
+// @ts-ignore
+import ETHNICITIES from 'data/ethnicities';
+
 export default {
   title: 'Create New Person',
   path: '/form/create-new-person/',
@@ -66,6 +69,20 @@ export default {
           label: 'Nationality',
           rules: { required: true },
         },
+        {
+          component: 'Select',
+          name: 'ethnicities',
+          label: 'Ethnicity',
+          options: Object.keys(ETHNICITIES),
+        },
+        {
+          component: 'Select',
+          name: 'Sub-ethnicity',
+          label: 'Sub-ethnicity',
+          options: ({ ethnicities }) => ETHNICITIES[ethnicities],
+          conditionalRender: ({ ethnicities }) => ethnicities,
+        },
+
         {
           component: 'AddressLookup',
           name: 'address',
