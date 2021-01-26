@@ -71,16 +71,16 @@ export default {
         },
         {
           component: 'Select',
-          name: 'ethnicities',
+          name: 'ethnicity',
           label: 'Ethnicity',
           options: Object.keys(ETHNICITIES),
         },
         {
           component: 'Select',
-          name: 'Sub-ethnicity',
+          name: 'macro_ethnicity',
           label: 'Sub-ethnicity',
-          options: ({ ethnicities }) => ETHNICITIES[ethnicities],
-          conditionalRender: ({ ethnicities }) => ethnicities,
+          options: ({ ethnicity }) => ETHNICITIES[ethnicity],
+          conditionalRender: ({ ethnicity }) => ethnicity,
         },
 
         {
