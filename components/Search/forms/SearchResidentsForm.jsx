@@ -2,7 +2,10 @@ import PropTypes from 'prop-types';
 import { useForm } from 'react-hook-form';
 import isPast from 'date-fns/isPast';
 import isPostcodeValid from 'uk-postcode-validator';
+
+// @ts-ignore
 import { TextInput, DateInput } from 'components/Form';
+// @ts-ignore
 import Button from 'components/Button/Button';
 
 const SearchResidentsForm = ({ onFormSubmit, defaultValues }) => {
@@ -90,21 +93,16 @@ const SearchResidentsForm = ({ onFormSubmit, defaultValues }) => {
       </div>
       <Button label="Search" type="submit" disabled={!isDirty} />
       <span
-        className="govuk-body"
+        className="govuk-link"
         role="button"
         onClick={() => {
           reset({
-            date_of_birth: '',
+            date_of_birth: null,
           });
         }}
         style={{
-          background: 'transparent',
-          color: '#00664f ',
-          textDecoration: 'underline',
-          border: 'none',
-          cursor: 'pointer',
-          marginLeft: '20px',
-          marginTop: '10px',
+          marginLeft: '1rem',
+          lineHeight: '2.5rem',
         }}
       >
         Clear search

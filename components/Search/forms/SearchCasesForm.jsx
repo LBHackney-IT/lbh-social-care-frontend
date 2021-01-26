@@ -1,10 +1,8 @@
-// @ts-nocheck
 import PropTypes from 'prop-types';
 import { useForm } from 'react-hook-form';
 import isPast from 'date-fns/isPast';
 
 import { convertFormat } from 'utils/date';
-
 import { TextInput, Checkbox, DateInput, Select } from 'components/Form';
 import Button from 'components/Button/Button';
 import FORM_NAMES from 'data/formNames';
@@ -123,21 +121,16 @@ const SearchCasesForm = ({ onFormSubmit, defaultValues }) => {
 
       <Button label="Search" type="submit" disabled={!isDirty} />
       <span
-        className="govuk-body"
+        className="govuk-link"
         onClick={() => {
           reset({
-            start_date: '',
-            end_date: '',
+            start_date: null,
+            end_date: null,
           });
         }}
         style={{
-          background: 'transparent',
-          color: '#00664f ',
-          textDecoration: 'underline',
-          border: 'none',
-          cursor: 'pointer',
-          marginLeft: '20px',
-          marginTop: '10px',
+          marginLeft: '1rem',
+          lineHeight: '2.5rem',
         }}
       >
         Clear search
