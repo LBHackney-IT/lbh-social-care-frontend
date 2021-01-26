@@ -1,5 +1,5 @@
 import Layout from './index';
-import UserContext from 'components/UserContext/UserContext';
+import { UserContext } from 'components/UserContext/UserContext';
 
 export default {
   title: 'Layout',

@@ -1,8 +1,8 @@
 import PropTypes from 'prop-types';
 import { useForm } from 'react-hook-form';
 
-import { Button } from 'components/Form';
-import DynamicInput from 'components/DynamicStep/DynamicInput';
+import Button from 'components/Button/Button';
+import DynamicInput from 'components/FormWizard/DynamicInput';
 
 const DynamicStep = ({
   isMulti,
@@ -16,18 +16,16 @@ const DynamicStep = ({
     defaultValues: formData,
   });
   const stepValues = watch();
+  const currentData = {
+    ...formData,
+    ...stepValues,
+  };
   return (
     <>
       <form onSubmit={handleSubmit((data) => onStepSubmit(data))}>
         <div className="govuk-form-group">
           {components?.map(({ conditionalRender, ...componentProps }) => {
-            if (
-              conditionalRender &&
-              !conditionalRender({
-                ...formData,
-                ...stepValues,
-              })
-            ) {
+            if (conditionalRender && !conditionalRender(currentData)) {
               return null;
             }
             return (
@@ -37,6 +35,7 @@ const DynamicStep = ({
                 register={register}
                 control={control}
                 errors={errors}
+                currentData={currentData}
                 multiStepIndex={isMulti && (parseInt(stepId[1]) - 1 || 0)}
                 {...componentProps}
               />

@@ -19,6 +19,7 @@
   },
   "dependencies": {
     "axios": "^0.21.1",
+    "body-parser": "^1.19.0",
     "cookie": "^0.4.1",
     "date-fns": "^2.16.1",
     "deepmerge": "^4.2.2",
@@ -40,10 +41,10 @@
   },
   "devDependencies": {
     "@babel/core": "^7.12.10",
-    "@storybook/addon-actions": "^6.1.14",
-    "@storybook/addon-essentials": "^6.1.14",
-    "@storybook/addon-links": "^6.1.14",
-    "@storybook/react": "^6.1.14",
+    "@storybook/addon-actions": "^6.1.15",
+    "@storybook/addon-essentials": "^6.1.15",
+    "@storybook/addon-links": "^6.1.15",
+    "@storybook/react": "^6.1.15",
     "@testing-library/jest-dom": "^5.11.9",
     "@testing-library/react": "^11.2.3",
     "babel-eslint": "^10.1.0",

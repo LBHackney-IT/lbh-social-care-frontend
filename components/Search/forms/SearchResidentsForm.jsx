@@ -3,7 +3,8 @@ import { useForm } from 'react-hook-form';
 import isPast from 'date-fns/isPast';
 import isPostcodeValid from 'uk-postcode-validator';
 
-import { Button, TextInput, DateInput } from 'components/Form';
+import { TextInput, DateInput } from 'components/Form';
+import Button from 'components/Button/Button';
 
 const SearchResidentsForm = ({ onFormSubmit, defaultValues }) => {
   const {

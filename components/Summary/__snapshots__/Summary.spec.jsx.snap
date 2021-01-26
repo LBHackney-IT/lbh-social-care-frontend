@@ -70,5 +70,71 @@ exports[`Summary component should render properly 1`] = `
       </div>
     </dl>
   </div>
+  <div
+    class="govuk-!-margin-bottom-7"
+  >
+    <h3
+      class="govuk-heading-m"
+    >
+      Object Step
+    </h3>
+    <dl
+      class="govuk-summary-list"
+    >
+      <div
+        class="govuk-summary-list__row"
+      >
+        <dt
+          class="govuk-summary-list__key"
+        >
+          I am object component
+        </dt>
+        <dd
+          class="govuk-summary-list__value"
+        >
+          <div>
+            <span>
+              first
+            </span>
+            <br />
+          </div>
+          <div>
+            <span>
+              second
+            </span>
+            <br />
+          </div>
+          <div>
+            <span>
+              third
+            </span>
+            <br />
+          </div>
+        </dd>
+      </div>
+      <div
+        class="govuk-summary-list__row"
+      >
+        <dt
+          class="govuk-summary-list__key"
+        >
+          I am object component inline
+        </dt>
+        <dd
+          class="govuk-summary-list__value"
+        >
+          <span>
+            first 
+          </span>
+          <span>
+            second 
+          </span>
+          <span>
+            third 
+          </span>
+        </dd>
+      </div>
+    </dl>
+  </div>
 </DocumentFragment>
 `;

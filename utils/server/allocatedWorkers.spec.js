@@ -114,4 +114,35 @@ describe('allocatedWorkersAPI', () => {
       }
     });
   });
+
+  describe('deleteAllocatedWorker', () => {
+    it('should work properly', async () => {
+      axios.patch.mockResolvedValue({ data: { foo: 'foobar' } });
+      const data = await allocatedWorkersAPI.deleteAllocatedWorker({
+        id: '123',
+        deallocationReason: 'test',
+      });
+      expect(axios.patch).toHaveBeenCalled();
+      expect(axios.patch.mock.calls[0][0]).toEqual(
+        `${ENDPOINT_API}/allocations`
+      );
+      expect(axios.patch.mock.calls[0][1]).toEqual({
+        id: 123,
+        deallocationReason: 'test',
+      });
+      expect(axios.patch.mock.calls[0][2].headers).toEqual({
+        'Content-Type': 'application/json',
+        'x-api-key': AWS_KEY,
+      });
+      expect(data).toEqual({ foo: 'foobar' });
+    });
+
+    it('should throw an error with the wrong body', async () => {
+      try {
+        await allocatedWorkersAPI.deleteAllocatedWorker();
+      } catch (e) {
+        expect(e.name).toEqual('ValidationError');
+      }
+    });
+  });
 });
