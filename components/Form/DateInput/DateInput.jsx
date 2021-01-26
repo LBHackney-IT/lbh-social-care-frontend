@@ -29,7 +29,7 @@ const DateInput = forwardRef(
   ) => {
     const date = stringDateToObject(value, format);
     const setNewDate = useCallback((newDate) =>
-      onChange(objectDateToString({ ...date, ...newDate }))
+      onChange(objectDateToString({ ...date, ...newDate }, format))
     );
     return (
       <div
