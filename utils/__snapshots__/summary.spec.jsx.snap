@@ -1,0 +1,22 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Summary utils formatData should format "TextInput isMulti" properly 1`] = `
+Object {
+  "key": "text",
+  "title": "Some_text",
+  "value": <React.Fragment>
+    <div>
+      i
+    </div>
+    <div>
+      m
+    </div>
+    <div>
+      multi
+    </div>
+    <div>
+      text
+    </div>
+  </React.Fragment>,
+}
+`;

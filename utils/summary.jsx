@@ -10,7 +10,22 @@ const multiValue = ([key, value], summaryInline) =>
     </div>
   );
 
-const address = ({ address, postcode }, name, label) =>
+const formatIsMulti = (formData, componentProps) => (
+  <>
+    {formData
+      .map((multiData, index) => ({
+        ...formatData(componentProps, {
+          [componentProps.name]: multiData,
+        }),
+        key: `${componentProps.name}_${index}`,
+      }))
+      ?.map(({ key, value }) => (
+        <div key={key}>{value}</div>
+      ))}
+  </>
+);
+
+const formatAddress = ({ address, postcode }, name, label) =>
   address && {
     key: name,
     title: label,
@@ -27,12 +42,17 @@ const address = ({ address, postcode }, name, label) =>
     ),
   };
 
-export const formatData = (
-  { component, options, name, label, summaryInline },
-  formData
-) => {
+export const formatData = (componentProps, formData) => {
+  const {
+    component,
+    options,
+    name,
+    label,
+    isMulti,
+    summaryInline,
+  } = componentProps;
   if (component === 'AddressLookup') {
-    return address(formData[name], name, label);
+    return formatAddress(formData[name], name, label);
   }
   if (component === 'Radios' || component === 'Select') {
     const stepOptions =
@@ -57,9 +77,11 @@ export const formatData = (
     key: name,
     title: label,
     value: Array.isArray(formData[name])
-      ? formData[name]
-          .filter(Boolean)
-          .map((v) => multiValue(v.split('/').pop()))
+      ? isMulti
+        ? formatIsMulti(formData[name], componentProps)
+        : formData[name]
+            .filter(Boolean)
+            .map((v) => multiValue(v.split('/').pop()))
       : typeof formData[name] === 'object'
       ? Object.entries(formData[name])
           .filter(([, value]) => Boolean(value))

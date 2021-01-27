@@ -94,10 +94,18 @@ export default {
       conditionalRender: ({ show_object_step }) => show_object_step === true,
       components: [
         {
+          component: 'TextInput',
+          name: 'title_2',
+          width: '30',
+          label: 'Title',
+          isMulti: true,
+        },
+        {
           component: 'ObjectInput',
           name: 'phone_number',
           label: 'Phone Number',
           isInline: true,
+          isMulti: true,
           summaryInline: true,
           components: [
             {

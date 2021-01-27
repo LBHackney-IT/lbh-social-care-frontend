@@ -80,7 +80,9 @@ const FormWizard = ({
           formSteps={formSteps}
           formPath={formPath}
           onStepSubmit={(data, addAnother) => {
-            const updatedData = deepmerge(formData, data);
+            const updatedData = step.isMulti
+              ? deepmerge(formData, data)
+              : { ...formData, ...data };
             setFormData(updatedData);
             step.onStepSubmit && step.onStepSubmit(updatedData);
             fromSummary &&
@@ -102,7 +104,9 @@ const FormWizard = ({
                 );
           }}
           onSaveAndExit={(data) => {
-            const updatedData = deepmerge(formData, data);
+            const updatedData = step.isMulti
+              ? deepmerge(formData, data)
+              : { ...formData, ...data };
             saveData(
               formPath,
               updatedData,

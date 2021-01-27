@@ -3,6 +3,7 @@ import { useForm } from 'react-hook-form';
 
 import Button from 'components/Button/Button';
 import DynamicInput from 'components/FormWizard/DynamicInput';
+import DynamicInputMulti from 'components/FormWizard/DynamicInputMulti';
 
 const DynamicStep = ({
   isMulti,
@@ -12,7 +13,7 @@ const DynamicStep = ({
   onStepSubmit,
   onSaveAndExit,
 }) => {
-  const { handleSubmit, register, control, errors, watch } = useForm({
+  const { handleSubmit, register, control, errors, setValue, watch } = useForm({
     defaultValues: formData,
   });
   const stepValues = watch();
@@ -26,25 +27,39 @@ const DynamicStep = ({
     <>
       <form onSubmit={handleSubmit((data) => onStepSubmit(data))}>
         <div className="govuk-form-group">
-          {components?.map(({ conditionalRender, name, ...componentProps }) => {
-            if (conditionalRender && !conditionalRender(currentData)) {
-              return null;
+          {components?.map(
+            ({
+              conditionalRender,
+              name,
+              isMulti: isComponentMulti,
+              ...componentProps
+            }) => {
+              if (conditionalRender && !conditionalRender(currentData)) {
+                return null;
+              }
+              const inputName = multiStepPrefix
+                ? `${multiStepPrefix}.${name}`
+                : name;
+              const sharedProps = {
+                key: inputName,
+                name: inputName,
+                register: register,
+                control: control,
+                errors: errors,
+                currentData: currentData,
+                ...componentProps,
+              };
+              return isComponentMulti ? (
+                <DynamicInputMulti
+                  {...sharedProps}
+                  initialInputData={formData[name]}
+                  onDelete={(updatedValue) => setValue(inputName, updatedValue)}
+                />
+              ) : (
+                <DynamicInput {...sharedProps} />
+              );
             }
-            const inputName = multiStepPrefix
-              ? `${multiStepPrefix}.${name}`
-              : name;
-            return (
-              <DynamicInput
-                key={inputName}
-                name={inputName}
-                register={register}
-                control={control}
-                errors={errors}
-                currentData={currentData}
-                {...componentProps}
-              />
-            );
-          })}
+          )}
         </div>
         {isMulti && (
           <Button
