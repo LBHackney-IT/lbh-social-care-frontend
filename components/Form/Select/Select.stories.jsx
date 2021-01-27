@@ -15,6 +15,15 @@ Default.args = {
   options: ['foo', 'bar', 'foobar'],
 };
 
+export const Required = Template.bind({});
+Required.args = {
+  label: 'Select',
+  hint: 'hello, I am a hint :)',
+  name: 'select',
+  options: ['foo', 'bar', 'foobar'],
+  required: true,
+};
+
 export const WithValue = Template.bind({});
 WithValue.args = {
   label: 'Select',

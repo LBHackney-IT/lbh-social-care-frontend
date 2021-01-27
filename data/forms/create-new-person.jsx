@@ -1,4 +1,6 @@
 import NATIONALITIES from 'data/nationalities';
+import ETHNICITIES from 'data/ethnicities';
+import RELIGIONS from 'data/religions';
 
 export default {
   title: 'Create New Person',
@@ -67,6 +69,25 @@ export default {
           name: 'nationality',
           label: 'Nationality',
           options: NATIONALITIES,
+          rules: { required: true },
+        },
+        {
+          component: 'Select',
+          name: 'macroEthnicity',
+          label: 'Ethnicity',
+          options: Object.keys(ETHNICITIES),
+        },
+        {
+          component: 'Select',
+          name: 'ethnicity',
+          label: 'Sub-ethnicity',
+          options: ({ macroEthnicity }) => ETHNICITIES[macroEthnicity],
+          conditionalRender: ({ macroEthnicity }) => macroEthnicity,
+        },
+        {
+          name: 'religions',
+          label: 'Religion',
+          options: RELIGIONS,
           rules: { required: true },
         },
         {

@@ -7,10 +7,12 @@ const DynamicInput = (props) => {
     component,
     register,
     control,
+    errors,
     id,
     name,
-    errors,
     multiStepIndex,
+    options,
+    currentData,
     ...otherProps
   } = props;
   const inputName =
@@ -22,6 +24,7 @@ const DynamicInput = (props) => {
     name: inputName,
     error: errors[inputName],
     required: otherProps?.rules?.required,
+    options: typeof options === 'function' ? options(currentData) : options,
     ...otherProps,
   };
   switch (component) {
@@ -44,6 +47,7 @@ DynamicInput.propTypes = {
   id: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
   errors: PropTypes.object.isRequired,
+  currentData: PropTypes.object.isRequired,
   rules: PropTypes.shape({
     required: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
   }),

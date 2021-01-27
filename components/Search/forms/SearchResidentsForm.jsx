@@ -13,6 +13,7 @@ const SearchResidentsForm = ({ onFormSubmit, defaultValues }) => {
     control,
     handleSubmit,
     formState: { isDirty },
+    reset,
   } = useForm({
     defaultValues,
   });
@@ -89,6 +90,21 @@ const SearchResidentsForm = ({ onFormSubmit, defaultValues }) => {
         </div>
       </div>
       <Button label="Search" type="submit" disabled={!isDirty} />
+      <span
+        className="govuk-link"
+        role="button"
+        onClick={() => {
+          reset({
+            date_of_birth: null,
+          });
+        }}
+        style={{
+          marginLeft: '1rem',
+          lineHeight: '2.5rem',
+        }}
+      >
+        Clear search
+      </span>
     </form>
   );
 };
