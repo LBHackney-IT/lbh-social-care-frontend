@@ -67,7 +67,7 @@ const AllocatedWorkersEntry = ({
     </>
   );
 };
-const AllocatedWorkersTable = ({ records, personName, updateWorkers }) => {
+const AllocatedWorkersTable = ({ records, updateWorkers }) => {
   const [selectedWorker, setSelectedWorker] = useState();
   return (
     <div>
@@ -75,7 +75,6 @@ const AllocatedWorkersTable = ({ records, personName, updateWorkers }) => {
         <AllocatedWorkersEntry
           key={index}
           index={index}
-          personName={personName}
           openModal={() => setSelectedWorker(index)}
           {...result}
         />
@@ -105,8 +104,11 @@ AllocatedWorkersTable.propTypes = {
       allocationStartDate: PropTypes.string.isRequired,
       allocationEndDate: PropTypes.string,
       workerType: PropTypes.string.isRequired,
+      id: PropTypes.string.isRequired,
+      personId: PropTypes.string.isRequired,
     })
   ).isRequired,
+  updateWorkers: PropTypes.func.isRequired,
 };
 
 export default AllocatedWorkersTable;
