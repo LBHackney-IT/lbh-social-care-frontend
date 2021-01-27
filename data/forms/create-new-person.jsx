@@ -1,3 +1,5 @@
+import RELIGIONS from 'data/religions';
+
 export default {
   title: 'Create New Person',
   path: '/form/create-new-person/',
@@ -64,6 +66,13 @@ export default {
           component: 'NationalityList',
           name: 'nationality',
           label: 'Nationality',
+          rules: { required: true },
+        },
+        {
+          component: 'Select',
+          name: 'religions',
+          label: 'Religion',
+          options: RELIGIONS,
           rules: { required: true },
         },
         {
