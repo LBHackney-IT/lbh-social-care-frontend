@@ -50,22 +50,22 @@ describe('ObjectInput', () => {
       {}
     );
     expect(DynamicInput).toHaveBeenNthCalledWith(
-      1,
+      2,
       {
         component: 'TextInput',
         foo: 'bar',
         labelSize: 's',
-        name: 'oo.first',
+        name: 'oo.second',
       },
       {}
     );
     expect(DynamicInput).toHaveBeenNthCalledWith(
-      1,
+      3,
       {
         component: 'TextInput',
         foo: 'bar',
         labelSize: 's',
-        name: 'oo.first',
+        name: 'oo.third',
       },
       {}
     );
