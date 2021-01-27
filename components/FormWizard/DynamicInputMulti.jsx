@@ -17,7 +17,6 @@ const DynamicInputMulti = ({
   isMultiTrigger = 'Add a new one',
   ...otherProps
 }) => {
-  console.log(currentData);
   const multiPresent = initialInputData.length || 0;
   const [counter, setCounter] = useState(multiPresent === 0 ? 1 : 0);
   const removeSelected = useCallback((index) => {
