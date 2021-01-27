@@ -1,3 +1,4 @@
+import ETHNICITIES from 'data/ethnicities';
 import RELIGIONS from 'data/religions';
 
 export default {
@@ -70,6 +71,18 @@ export default {
         },
         {
           component: 'Select',
+          name: 'macroEthnicity',
+          label: 'Ethnicity',
+          options: Object.keys(ETHNICITIES),
+        },
+        {
+          component: 'Select',
+          name: 'ethnicity',
+          label: 'Sub-ethnicity',
+          options: ({ macroEthnicity }) => ETHNICITIES[macroEthnicity],
+          conditionalRender: ({ macroEthnicity }) => macroEthnicity,
+        },
+        {
           name: 'religions',
           label: 'Religion',
           options: RELIGIONS,
