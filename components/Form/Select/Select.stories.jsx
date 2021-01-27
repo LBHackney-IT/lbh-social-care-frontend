@@ -1,5 +1,4 @@
 import Select from './Select';
-import NationalitySelect from './Nationality';
 
 export default {
   title: 'Form Components/Select',
@@ -32,7 +31,3 @@ withError.args = {
   options: ['foo', 'bar', 'foobar'],
   error: { message: 'Ops! There was an error!' },
 };
-
-export const Nationality = () => (
-  <NationalitySelect label="Pick a Nationality" />
-);
