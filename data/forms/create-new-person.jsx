@@ -1,5 +1,5 @@
-// @ts-ignore
 import ETHNICITIES from 'data/ethnicities';
+import RELIGIONS from 'data/religions';
 
 export default {
   title: 'Create New Person',
@@ -82,7 +82,12 @@ export default {
           options: ({ macroEthnicity }) => ETHNICITIES[macroEthnicity],
           conditionalRender: ({ macroEthnicity }) => macroEthnicity,
         },
-
+        {
+          name: 'religions',
+          label: 'Religion',
+          options: RELIGIONS,
+          rules: { required: true },
+        },
         {
           component: 'AddressLookup',
           name: 'address',

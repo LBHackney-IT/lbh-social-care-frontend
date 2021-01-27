@@ -1,5 +1,11 @@
 export default [
   {
+    text: 'Document Upload',
+    value:
+      'https://docs.google.com/forms/d/e/1FAIpQLSdX9U350WacHHx8FidqAmjxhWWpcu3ntJRhhnTWYU-7jZmf5w/viewform',
+    category: 'General',
+  },
+  {
     text: 'Case Note Recording',
     value:
       'https://docs.google.com/forms/d/e/1FAIpQLSeNCZwdm0cEvWqIE2o9Ga7cXC-2e6O_WTyvBjBfMSOA7b0Xag/viewform',
