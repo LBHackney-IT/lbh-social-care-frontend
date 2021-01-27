@@ -1,3 +1,5 @@
+import NATIONALITIES from 'data/nationalities';
+
 export default {
   title: 'Create New Person',
   path: '/form/create-new-person/',
@@ -60,7 +62,13 @@ export default {
           hint: 'For example 0123456789',
           rules: { required: true },
         },
-
+        {
+          component: 'Select',
+          name: 'nationality',
+          label: 'Nationality',
+          options: NATIONALITIES,
+          rules: { required: true },
+        },
         {
           component: 'AddressLookup',
           name: 'address',
