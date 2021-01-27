@@ -1,3 +1,4 @@
+import NATIONALITIES from 'data/nationalities';
 import ETHNICITIES from 'data/ethnicities';
 import RELIGIONS from 'data/religions';
 
@@ -64,9 +65,10 @@ export default {
           rules: { required: true },
         },
         {
-          component: 'NationalityList',
+          component: 'Select',
           name: 'nationality',
           label: 'Nationality',
+          options: NATIONALITIES,
           rules: { required: true },
         },
         {

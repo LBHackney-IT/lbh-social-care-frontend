@@ -1,4 +1,5 @@
 export default [
+  'British',
   'Afghan',
   'Albanian',
   'Algerian',
@@ -25,7 +26,6 @@ export default [
   'Bolivian',
   'Bosnian',
   'Brazilian',
-  'British',
   'Bruneian',
   'Bulgarian',
   'Burkinabe',
