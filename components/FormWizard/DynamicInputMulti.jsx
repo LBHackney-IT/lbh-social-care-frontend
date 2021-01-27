@@ -16,14 +16,16 @@ const DynamicInputMulti = ({
   hint,
   ...otherProps
 }) => {
+  console.log(currentData);
   const multiPresent = initialInputData.length || 0;
   const [counter, setCounter] = useState(multiPresent === 0 ? 1 : 0);
   const removeSelected = useCallback((index) => {
     setCounter(counter - 1);
-    onDelete([
-      ...currentData[name].slice(0, index),
-      ...currentData[name].slice(index + 1, currentData[name].length),
-    ]);
+    currentData[name] &&
+      onDelete([
+        ...currentData[name].slice(0, index),
+        ...currentData[name].slice(index + 1, currentData[name].length),
+      ]);
   });
   return (
     <>
