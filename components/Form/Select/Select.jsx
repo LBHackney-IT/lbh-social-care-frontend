@@ -10,7 +10,7 @@ const Select = ({
   name,
   options,
   onChange,
-  placeHolder = '',
+  placeHolder,
   register,
   required,
   error,
@@ -50,7 +50,7 @@ const Select = ({
     >
       {isUnselectable && (
         <option key="empty" value="">
-          {placeHolder}
+          {placeHolder ? placeHolder : required ? '-- select one --' : ''}
         </option>
       )}
       {options.map((option) => {
