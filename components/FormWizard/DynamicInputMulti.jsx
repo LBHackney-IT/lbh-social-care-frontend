@@ -14,6 +14,7 @@ const DynamicInputMulti = ({
   onDelete,
   label,
   hint,
+  isMultiTrigger = 'Add a new one',
   ...otherProps
 }) => {
   console.log(currentData);
@@ -58,7 +59,7 @@ const DynamicInputMulti = ({
           role="button"
           onClick={() => setCounter(counter + 1)}
         >
-          Add a new one
+          {isMultiTrigger}
         </span>
       </div>
     </>
@@ -72,6 +73,7 @@ DynamicInputMulti.propTypes = {
   initialInputData: PropTypes.array,
   currentData: PropTypes.object.isRequired,
   onDelete: PropTypes.func.isRequired,
+  isMultiTrigger: PropTypes.string,
 };
 
 export default DynamicInputMulti;

@@ -78,6 +78,7 @@ export default {
           label: 'Phone Number',
           isInline: true,
           isMulti: true,
+          isMultiTrigger: '+ Add additional phone number',
           summaryInline: true,
           components: [
             {
