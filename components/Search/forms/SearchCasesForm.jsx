@@ -3,7 +3,6 @@ import { useForm } from 'react-hook-form';
 import isPast from 'date-fns/isPast';
 
 import { convertFormat } from 'utils/date';
-
 import { TextInput, Checkbox, DateInput, Select } from 'components/Form';
 import Button from 'components/Button/Button';
 import FORM_NAMES from 'data/formNames';
@@ -15,6 +14,7 @@ const SearchCasesForm = ({ onFormSubmit, defaultValues }) => {
     control,
     handleSubmit,
     formState: { isDirty },
+    reset,
   } = useForm({
     defaultValues,
   });
@@ -120,6 +120,21 @@ const SearchCasesForm = ({ onFormSubmit, defaultValues }) => {
       </div>
 
       <Button label="Search" type="submit" disabled={!isDirty} />
+      <span
+        className="govuk-link"
+        onClick={() => {
+          reset({
+            start_date: null,
+            end_date: null,
+          });
+        }}
+        style={{
+          marginLeft: '1rem',
+          lineHeight: '2.5rem',
+        }}
+      >
+        Clear search
+      </span>
     </form>
   );
 };
