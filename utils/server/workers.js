@@ -13,3 +13,11 @@ export const getWorkers = async (params) => {
   });
   return data;
 };
+
+export const getWorker = async (id, params) => {
+  const { data } = await axios.get(`${ENDPOINT_API}/workers`, {
+    headers: headersWithKey,
+    params: { id, ...params },
+  });
+  return data;
+};

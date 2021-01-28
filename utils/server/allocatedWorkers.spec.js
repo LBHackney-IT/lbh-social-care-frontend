@@ -145,4 +145,22 @@ describe('allocatedWorkersAPI', () => {
       }
     });
   });
+
+  describe('getAllocationsByWorker', () => {
+    it('should work properly', async () => {
+      axios.get.mockResolvedValue({
+        data: { allocations: ['foo'] },
+      });
+      const data = await allocatedWorkersAPI.getAllocationsByWorker(123);
+      expect(axios.get).toHaveBeenCalled();
+      expect(axios.get.mock.calls[0][0]).toEqual(`${ENDPOINT_API}/allocations`);
+      expect(axios.get.mock.calls[0][1].headers).toEqual({
+        'x-api-key': AWS_KEY,
+      });
+      expect(axios.get.mock.calls[0][1].params).toEqual({
+        worker_id: 123,
+      });
+      expect(data).toEqual({ allocations: ['foo'] });
+    });
+  });
 });

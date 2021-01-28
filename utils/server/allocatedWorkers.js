@@ -46,3 +46,11 @@ export const addAllocatedWorker = async (mosaicId, params) => {
   });
   return data;
 };
+
+export const getAllocationsByWorker = async (worker_id, params) => {
+  const { data } = await axios.get(`${ENDPOINT_API}/allocations`, {
+    headers: { 'x-api-key': AWS_KEY },
+    params: { worker_id, ...params },
+  });
+  return data;
+};
