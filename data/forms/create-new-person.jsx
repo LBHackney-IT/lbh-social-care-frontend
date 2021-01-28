@@ -85,7 +85,8 @@ export default {
           conditionalRender: ({ macroEthnicity }) => macroEthnicity,
         },
         {
-          name: 'religions',
+          component: 'Select',
+          name: 'religion',
           label: 'Religion',
           options: RELIGIONS,
           rules: { required: true },
