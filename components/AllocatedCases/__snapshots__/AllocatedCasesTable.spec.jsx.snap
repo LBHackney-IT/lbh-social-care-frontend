@@ -31,11 +31,6 @@ exports[`AllocatedCasesTable component should render records properly 1`] = `
         >
           Date of birth
         </th>
-        <th
-          class="govuk-table__header"
-        >
-          Assessment type
-        </th>
       </tr>
     </thead>
     <tbody
@@ -68,11 +63,6 @@ exports[`AllocatedCasesTable component should render records properly 1`] = `
           class="govuk-table__cell"
         >
            1/21/2021
-        </td>
-        <td
-          class="govuk-table__cell"
-        >
-           Long Term - case type: reviews
         </td>
       </tr>
     </tbody>
