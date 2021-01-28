@@ -41,8 +41,8 @@ const AddAllocatedWorker = ({
   useEffect(() => {
     getAllocatedTeams();
   }, []);
-  const selectedTeam = watch('team');
-  const getAllocatedWorkers = useCallback(async () => {
+  const formValues = watch();
+  const getAllocatedWorkers = useCallback(async (selectedTeam) => {
     setWorkersLoading(true);
     try {
       const data = await getTeamWorkers(selectedTeam);
@@ -53,8 +53,11 @@ const AddAllocatedWorker = ({
     setWorkersLoading();
   });
   useEffect(() => {
-    selectedTeam && getAllocatedWorkers();
-  }, [selectedTeam]);
+    formValues.team && getAllocatedWorkers(formValues.team);
+  }, [formValues.team]);
+  useEffect(() => {
+    setPostError();
+  }, [formValues.team, formValues.worker]);
   const closeModal = useCallback(() => {
     setIsModalOpen(false);
     setWorkers();
@@ -188,7 +191,7 @@ const AddAllocatedWorker = ({
                   )}
                 </>
               )}
-              {selectedTeam && (!teams || !workers) && <Spinner />}
+              {formValues.team && (!teams || !workers) && <Spinner />}
             </>
           )}
         </form>
