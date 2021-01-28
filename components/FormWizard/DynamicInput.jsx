@@ -20,6 +20,8 @@ const DynamicInput = (props) => {
       ? `${id}[${multiStepIndex}].${name}`
       : name;
   const Component = Inputs[component];
+  if (!Component)
+    throw new Error(`"${component}" is not a supported component type.`);
   const sharedProps = {
     name: inputName,
     error: errors[inputName],
