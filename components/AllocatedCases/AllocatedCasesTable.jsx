@@ -1,12 +1,6 @@
 import Link from 'next/link';
 
-const header = [
-  'Person',
-  'Name',
-  'Address',
-  'Date of birth',
-  'Assessment type',
-];
+const header = ['Person', 'Name', 'Address', 'Date of birth'];
 
 const AllocatedCasesTable = ({ cases }) => (
   <table className="govuk-table">
@@ -35,7 +29,6 @@ const AllocatedCasesTable = ({ cases }) => (
             {' '}
             {new Date(cell.personDateOfBirth).toLocaleDateString('en-GB')}
           </td>
-          <td className="govuk-table__cell"> {cell.allocatedWorkerTeam}</td>
         </tr>
       ))}
     </tbody>

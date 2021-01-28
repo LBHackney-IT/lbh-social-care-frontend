@@ -45,7 +45,7 @@ const AllocatedCases = ({ id }) => {
                 <AllocatedCasesTable cases={allocations.allocations} />
               ) : (
                 <p className="govuk-body govuk-!-margin-top-5">
-                  No cases assigned
+                  No people are assigned to this worker
                 </p>
               )}
             </>
