@@ -1,7 +1,9 @@
 import * as HttpStatus from 'http-status-codes';
 
 import { isAuthorised } from 'utils/auth';
-import { getWorker, getAllocations } from 'utils/server/allocatedWorkers';
+import { getWorker } from 'utils/server/workers';
+import { getAllocationsByWorker } from 'utils/server/allocatedWorkers';
+
 export default async (req, res) => {
   const user = isAuthorised(req);
   if (!user) {
@@ -12,12 +14,17 @@ export default async (req, res) => {
   switch (req.method) {
     case 'GET':
       try {
-        const workers = await getWorker(req.query.id, {
+        const workersData = getWorker(req.query.id, {
           context_flag: user.permissionFlag,
         });
-        const allocations = await getAllocations(req.query.id, {
+        const allocationsData = getAllocationsByWorker(req.query.id, {
           context_flag: user.permissionFlag,
         });
+
+        const [workers, allocations] = await Promise.all([
+          workersData,
+          allocationsData,
+        ]);
         const data = { ...workers, ...allocations };
 
         res.status(HttpStatus.OK).json(data);

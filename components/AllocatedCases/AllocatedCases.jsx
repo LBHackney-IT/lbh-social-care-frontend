@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import AllocatedCasesTable from 'components/AllocatedCases/AllocatedCasesTable';
 import ErrorMessage from 'components/ErrorMessage/ErrorMessage';
-import { getAllocations } from 'utils/api/allocatedWorkers';
+import { getAllocationsByWorker } from 'utils/api/allocatedWorkers';
 import Spinner from 'components/Spinner/Spinner';
 
 const AllocatedCases = ({ id }) => {
@@ -13,7 +13,7 @@ const AllocatedCases = ({ id }) => {
 
   const getAllocation = useCallback(async () => {
     try {
-      const allocationsData = await getAllocations(id);
+      const allocationsData = await getAllocationsByWorker(id);
       setAllocations(allocationsData);
     } catch (e) {
       setError(true);

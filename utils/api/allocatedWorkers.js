@@ -31,12 +31,7 @@ export const getTeamWorkers = async (teamId) => {
   return data;
 };
 
-export const getAllocations = async (workerId) => {
+export const getAllocationsByWorker = async (workerId) => {
   const { data } = await axios.get(`/api/workers/${workerId}/allocations`);
-  return data;
-};
-
-export const getWorker = async (workerId) => {
-  const { data } = await axios.get(`/api/workers/${workerId}`);
   return data;
 };

@@ -15,13 +15,4 @@ const Workers = () => {
   );
 };
 
-export const getServerSideProps = async (ctx) => {
-  const { query } = ctx;
-  return {
-    props: {
-      query,
-    },
-  };
-};
-
 export default Workers;
