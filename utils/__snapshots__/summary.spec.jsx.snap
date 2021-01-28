@@ -1,0 +1,100 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Summary utils formatData should format "AddressLookup" properly 1`] = `
+Object {
+  "key": "main_address",
+  "title": "main address",
+  "value": <React.Fragment>
+    <div>
+      <span>
+        first line
+      </span>
+      <br />
+    </div>
+    <div>
+      <span>
+        second line
+      </span>
+      <br />
+    </div>
+    <div>
+      <span>
+        third line
+      </span>
+      <br />
+    </div>
+    <div>
+      postcode
+    </div>
+  </React.Fragment>,
+}
+`;
+
+exports[`Summary utils formatData should format "ObjectInput" properly 1`] = `
+Object {
+  "key": "oo",
+  "title": "I am object component",
+  "value": Array [
+    <div>
+      <span>
+        first
+      </span>
+      <br />
+    </div>,
+    <div>
+      <span>
+        second
+      </span>
+      <br />
+    </div>,
+    <div>
+      <span>
+        third
+      </span>
+      <br />
+    </div>,
+  ],
+}
+`;
+
+exports[`Summary utils formatData should format "ObjectInput" properly 2`] = `
+Object {
+  "key": "oi",
+  "title": "I am object component inline",
+  "value": Array [
+    <span>
+      first
+       
+    </span>,
+    <span>
+      second
+       
+    </span>,
+    <span>
+      third
+       
+    </span>,
+  ],
+}
+`;
+
+exports[`Summary utils formatData should format "TextInput isMulti" properly 1`] = `
+Object {
+  "key": "text",
+  "title": "Some_text",
+  "value": <React.Fragment>
+    <div>
+      i
+    </div>
+    <div>
+      m
+    </div>
+    <div>
+      multi
+    </div>
+    <div>
+      text
+    </div>
+  </React.Fragment>,
+}
+`;

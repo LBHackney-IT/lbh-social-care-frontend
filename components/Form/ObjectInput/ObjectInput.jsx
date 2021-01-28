@@ -11,10 +11,13 @@ const ObjectInput = ({
   name,
   labelSize = 'm',
   isInline,
+  // this props is used for UI purpose in the summary
+  // eslint-disable-next-line no-unused-vars
+  summaryInline,
   components,
   ...otherProps
 }) => (
-  <div className="govuk-form-group">
+  <div className="govuk-form-group govuk-!-margin-bottom-0">
     <label className={`govuk-label govuk-label--${labelSize}`}>{label}</label>
     {hint && (
       <span id={`${name}-hint`} className="govuk-hint">
@@ -39,6 +42,7 @@ ObjectInput.propTypes = {
   label: PropTypes.string,
   labelSize: PropTypes.oneOf(['s', 'm', 'l', 'xl']),
   isInline: PropTypes.bool,
+  summaryInline: PropTypes.bool,
   hint: PropTypes.string,
   name: PropTypes.string.isRequired,
   components: PropTypes.array.isRequired,

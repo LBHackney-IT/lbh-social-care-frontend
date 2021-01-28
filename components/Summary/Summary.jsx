@@ -3,17 +3,7 @@ import Link from 'next/link';
 
 import SummaryList from 'components/Summary/SummaryList';
 import { filterStepsOnCondition, filterDataOnCondition } from 'utils/steps';
-import { convertFormat } from 'utils/date';
-
-const MultiValue = ([key, value], summaryInline) =>
-  summaryInline ? (
-    <span key={key}>{value} </span>
-  ) : (
-    <div key={key}>
-      <span>{value}</span>
-      <br />
-    </div>
-  );
+import { formatData } from 'utils/summary';
 
 const SummaryMultiSection = ({
   formData,
@@ -60,64 +50,7 @@ export const SummarySection = ({
     <SummaryList
       list={components
         .filter(({ name }) => formData[name])
-        .map(({ component, options, name, label, summaryInline }) => {
-          if (component === 'AddressLookup') {
-            const { address, postcode } = formData[name];
-            return (
-              address && {
-                key: name,
-                title: label,
-                value: (
-                  <>
-                    {address.split(', ').map((value) => (
-                      <div key={value}>
-                        <span>{value}</span>
-                        <br />
-                      </div>
-                    ))}
-                    <div>{postcode}</div>
-                  </>
-                ),
-              }
-            );
-          }
-          if (component === 'Radios' || component === 'Select') {
-            const stepOptions =
-              typeof options === 'function' ? options(formData) : options;
-            return {
-              key: name,
-              title: label,
-              value:
-                typeof stepOptions[0] === 'string'
-                  ? formData[name]
-                  : stepOptions.find(
-                      (option) => option.value === formData[name]
-                    )?.text,
-            };
-          }
-          if (component === 'DateInput') {
-            return {
-              key: name,
-              title: label,
-              value: convertFormat(formData[name]),
-            };
-          }
-          return {
-            key: name,
-            title: label,
-            value: Array.isArray(formData[name])
-              ? formData[name]
-                  .filter(Boolean)
-                  .map((v) => MultiValue(v.split('/').pop()))
-              : typeof formData[name] === 'object'
-              ? Object.entries(formData[name])
-                  .filter(([, value]) => Boolean(value))
-                  .map((entry) => MultiValue(entry, summaryInline))
-              : typeof formData[name] === 'boolean'
-              ? JSON.stringify(formData[name])
-              : formData[name],
-          };
-        })}
+        .map((data) => formatData(data, formData))}
     />
   );
   return (

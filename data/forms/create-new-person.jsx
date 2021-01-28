@@ -97,6 +97,28 @@ export default {
           label: 'Address',
           rules: { required: true },
         },
+        {
+          component: 'ObjectInput',
+          name: 'phone_number',
+          label: 'Phone Number',
+          isInline: true,
+          isMulti: true,
+          isMultiTrigger: '+ Add additional phone number',
+          summaryInline: true,
+          components: [
+            {
+              component: 'PhoneInput',
+              name: 'phoneNumber',
+              label: 'Phone number',
+              rules: { required: true },
+            },
+            {
+              component: 'TextInput',
+              name: 'phoneType',
+              label: 'Phone type',
+            },
+          ],
+        },
       ],
     },
   ],
