@@ -136,7 +136,6 @@ export default {
           options: Object.keys(MULTI_SELECT),
         },
         {
-          conditionalRender: ({ first_select }) => first_select,
           component: 'Select',
           name: 'multi_select',
           label: 'Second multi select',
