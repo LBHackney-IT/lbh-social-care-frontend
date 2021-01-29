@@ -28,6 +28,19 @@ describe('DynamicInputMulti', () => {
     expect(asFragment()).toMatchSnapshot();
   });
 
+  it('should render properly with isMultiInit false', () => {
+    const newProps = {
+      isMultiInit: false,
+      initialInputData: [],
+      isMultiTrigger: 'Add a something',
+    };
+    const { asFragment } = render(
+      <DynamicInputMulti {...props} {...newProps} />
+    );
+    expect(asFragment()).toMatchSnapshot();
+    expect(DynamicInput).not.toHaveBeenCalled();
+  });
+
   it('should pass the correct props to DynamicInput', () => {
     render(<DynamicInputMulti {...props} />);
     expect(DynamicInput).toHaveBeenCalled();

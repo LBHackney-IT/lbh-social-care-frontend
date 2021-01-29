@@ -1,4 +1,4 @@
-import { isValidElement } from 'react';
+import { isValidElement, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import { useForm } from 'react-hook-form';
 
@@ -24,9 +24,15 @@ const DynamicStep = ({
   };
   const multiStepPrefix =
     isMulti && `${stepId[0]}[${parseInt(stepId[1]) - 1 || 0}]`;
+  const sanitiseData = useCallback((data) => ({
+    ...components
+      .filter(({ isMulti }) => isMulti)
+      .reduce((acc, { name }) => ({ ...acc, [name]: undefined }), {}),
+    ...data,
+  }));
   return (
     <>
-      <form onSubmit={handleSubmit((data) => onStepSubmit(data))}>
+      <form onSubmit={handleSubmit((data) => onStepSubmit(sanitiseData(data)))}>
         <div className="govuk-form-group">
           {components?.map(
             ({
@@ -70,7 +76,9 @@ const DynamicStep = ({
             isSecondary
             label="Add Another"
             type="button"
-            onClick={() => handleSubmit((data) => onStepSubmit(data, true))()}
+            onClick={() =>
+              handleSubmit((data) => onStepSubmit(sanitiseData(data), true))()
+            }
           />
         )}
         <div className="govuk-form-group">

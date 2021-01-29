@@ -41,3 +41,18 @@ exports[`DynamicInputMulti should render properly 1`] = `
   </div>
 </DocumentFragment>
 `;
+
+exports[`DynamicInputMulti should render properly with isMultiInit false 1`] = `
+<DocumentFragment>
+  <div
+    class="govuk-!-margin-top-3 govuk-!-margin-bottom-5"
+  >
+    <span
+      class="govuk-link"
+      role="button"
+    >
+      Add a something
+    </span>
+  </div>
+</DocumentFragment>
+`;
