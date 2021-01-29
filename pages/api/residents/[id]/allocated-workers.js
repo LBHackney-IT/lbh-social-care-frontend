@@ -22,7 +22,7 @@ export default async (req, res) => {
         });
         res.status(HttpStatus.OK).json(data);
       } catch (error) {
-        console.log('Allocated Workers get error:', error?.response?.data);
+        console.error('Allocated Workers get error:', error?.response?.data);
         error?.response?.status === HttpStatus.NOT_FOUND
           ? res
               .status(HttpStatus.NOT_FOUND)
@@ -38,7 +38,7 @@ export default async (req, res) => {
         const data = await addAllocatedWorker(req.query.id, req.body);
         res.status(HttpStatus.CREATED).json(data);
       } catch (error) {
-        console.log(
+        console.error(
           'Allocated Workers post error:',
           error?.response?.data || error
         );
@@ -55,7 +55,7 @@ export default async (req, res) => {
         const data = await deleteAllocatedWorker(req.body);
         res.status(HttpStatus.OK).json(data);
       } catch (error) {
-        console.log(
+        console.error(
           'Allocated Workers patch error:',
           error?.response?.data || error
         );
@@ -71,6 +71,6 @@ export default async (req, res) => {
       res
         .status(HttpStatus.BAD_REQUEST)
         .json({ message: 'Invalid request method' });
-      console.log(res.status);
+      console.error(res.status);
   }
 };

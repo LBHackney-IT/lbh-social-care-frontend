@@ -2,6 +2,7 @@ import { useState } from 'react';
 import PropTypes from 'prop-types';
 
 const PersonDetails = ({
+  ageContext,
   firstName,
   lastName,
   mosaicId,
@@ -87,6 +88,14 @@ const PersonDetails = ({
                         </li>
                       ))}
                     </ul>
+                  </dd>
+                </div>
+              )}
+              {ageContext && (
+                <div className="govuk-summary-list__row">
+                  <dt className="govuk-summary-list__key">Person Type</dt>
+                  <dd className="govuk-summary-list__value">
+                    {ageContext === 'C' ? 'CFS' : 'ASC'}
                   </dd>
                 </div>
               )}

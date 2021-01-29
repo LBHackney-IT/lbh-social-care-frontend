@@ -20,7 +20,7 @@ export default async (req, res) => {
         });
         res.status(HttpStatus.OK).json(data);
       } catch (error) {
-        console.log('Cases get error:', error?.response?.data);
+        console.error('Cases get error:', error?.response?.data);
         res
           .status(HttpStatus.INTERNAL_SERVER_ERROR)
           .json({ message: 'Unable to get the Cases' });

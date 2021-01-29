@@ -1,4 +1,4 @@
-import { useCallback } from 'react';
+import { isValidElement, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import { useForm } from 'react-hook-form';
 
@@ -41,6 +41,9 @@ const DynamicStep = ({
               isMulti: isComponentMulti,
               ...componentProps
             }) => {
+              if (isValidElement(componentProps)) {
+                return componentProps;
+              }
               if (conditionalRender && !conditionalRender(currentData)) {
                 return null;
               }

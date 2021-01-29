@@ -48,6 +48,7 @@ export default {
           ],
           rules: { required: true },
         },
+        <h3 key="subtitle">I am an html title</h3>,
         {
           conditionalRender: (data) => data.show_next_input === 'Y',
           component: 'TextInput',
@@ -138,7 +139,6 @@ export default {
           options: Object.keys(MULTI_SELECT),
         },
         {
-          conditionalRender: ({ first_select }) => first_select,
           component: 'Select',
           name: 'multi_select',
           label: 'Second multi select',

@@ -104,8 +104,8 @@ AllocatedWorkersTable.propTypes = {
       allocationStartDate: PropTypes.string.isRequired,
       allocationEndDate: PropTypes.string,
       workerType: PropTypes.string.isRequired,
-      id: PropTypes.string.isRequired,
-      personId: PropTypes.string.isRequired,
+      id: PropTypes.number.isRequired,
+      personId: PropTypes.number.isRequired,
     })
   ).isRequired,
   updateWorkers: PropTypes.func.isRequired,

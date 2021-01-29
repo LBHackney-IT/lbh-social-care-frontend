@@ -13,7 +13,7 @@ export default (req, res) => {
           ? res.status(HttpStatus.OK).json(auth)
           : res.status(HttpStatus.FORBIDDEN).end();
       } catch (e) {
-        console.log(e);
+        console.error(e);
         res
           .status(HttpStatus.INTERNAL_SERVER_ERROR)
           .json({ message: 'Unable to get the Cases' });

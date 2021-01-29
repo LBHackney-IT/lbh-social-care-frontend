@@ -107,11 +107,11 @@ const DeallocatedWorkersDetails = ({
 };
 
 DeallocatedWorkersDetails.propTypes = {
-  personId: PropTypes.string.isRequired,
-  id: PropTypes.string.isRequired,
-  allocatedWorker: PropTypes.string.isRequired,
+  personId: PropTypes.string,
+  id: PropTypes.string,
+  allocatedWorker: PropTypes.string,
   workerType: PropTypes.string,
-  allocatedWorkerTeam: PropTypes.string.isRequired,
+  allocatedWorkerTeam: PropTypes.string,
   isLastWorker: PropTypes.bool.isRequired,
   onDeallocation: PropTypes.func.isRequired,
 };

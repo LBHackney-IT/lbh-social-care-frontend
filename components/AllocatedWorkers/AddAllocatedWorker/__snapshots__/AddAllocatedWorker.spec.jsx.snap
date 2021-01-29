@@ -8,7 +8,7 @@ exports[`AddAllocatedWorker should render properly 1`] = `
     <h3
       class="govuk-fieldset__legend--m govuk-custom-text-color govuk-!-margin-top-0"
     >
-      Allocated Worker 4
+      ALLOCATED WORKER 4
     </h3>
     <button
       class="govuk-button govuk-button--secondary"
@@ -34,11 +34,9 @@ exports[`AddAllocatedWorker should render properly 1`] = `
       MockedCloseButton
     </button>
     <div>
-      <h2
-        class="govuk-heading-l"
-      >
+      <h1>
         Allocate worker
-      </h2>
+      </h1>
       <form
         role="form"
       >
@@ -46,7 +44,7 @@ exports[`AddAllocatedWorker should render properly 1`] = `
           class="govuk-form-group"
         >
           <label
-            class="govuk-label govuk-label--s"
+            class="govuk-label govuk-label--m"
             for="team"
           >
             Select a team to view workers for that team 
@@ -107,9 +105,9 @@ exports[`AddAllocatedWorker should render properly 1`] = `
             </div>
           </div>
         </div>
-        <h3>
-          Information and Assessment workers
-        </h3>
+        <h2>
+          Team 1 workers
+        </h2>
         <p
           class="govuk-body"
         >

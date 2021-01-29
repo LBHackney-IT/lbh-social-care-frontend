@@ -18,7 +18,7 @@ export default async (req, res) => {
         });
         res.status(HttpStatus.OK).json(data);
       } catch (error) {
-        console.log('Teams get error:', error?.response?.data);
+        console.error('Teams get error:', error?.response?.data);
         error?.response?.status === HttpStatus.NOT_FOUND
           ? res
               .status(HttpStatus.NOT_FOUND)

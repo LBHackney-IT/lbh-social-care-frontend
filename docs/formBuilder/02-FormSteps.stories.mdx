@@ -14,6 +14,7 @@ import { Meta } from '@storybook/addon-docs/blocks';
     id: 'first-step',
     title: 'First Step',
     components: [
+      <h2 key="subtitle">I am a subtitle</h2>,
       {
         component: 'Text',
         name: 'first_name',
@@ -33,7 +34,7 @@ Each step has the following properties:
 
 - `id` the step id, that is going to be user in the URL (i.e. `/form/test/:stepId`)
 - `title` that is going to be shown on top of the form
-- `components` an array of objects, each object corresponds to an input field
+- `components` an array of objects, each object corresponds to an input field or HTML elements / React nodes
 
 ## Advanced examples
 
