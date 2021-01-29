@@ -15,7 +15,7 @@ export default async (req, res) => {
         const data = await getAddresses(req.query.postcode);
         res.status(HttpStatus.OK).json(data);
       } catch (error) {
-        console.log('Postcode get error', error?.response?.data);
+        console.error('Postcode get error', error?.response?.data);
         res
           .status(HttpStatus.INTERNAL_SERVER_ERROR)
           .json({ message: 'Unable to get the Addresses' });
