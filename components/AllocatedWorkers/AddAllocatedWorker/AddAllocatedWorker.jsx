@@ -41,8 +41,8 @@ const AddAllocatedWorker = ({
   useEffect(() => {
     getAllocatedTeams();
   }, []);
-  const selectedTeam = watch('team');
-  const getAllocatedWorkers = useCallback(async () => {
+  const formValues = watch();
+  const getAllocatedWorkers = useCallback(async (selectedTeam) => {
     setWorkersLoading(true);
     try {
       const data = await getTeamWorkers(selectedTeam);
@@ -53,8 +53,11 @@ const AddAllocatedWorker = ({
     setWorkersLoading();
   });
   useEffect(() => {
-    selectedTeam && getAllocatedWorkers();
-  }, [selectedTeam]);
+    formValues.team && getAllocatedWorkers(formValues.team);
+  }, [formValues.team]);
+  useEffect(() => {
+    setPostError();
+  }, [formValues.team, formValues.worker]);
   const closeModal = useCallback(() => {
     setIsModalOpen(false);
     setWorkers();
@@ -78,7 +81,7 @@ const AddAllocatedWorker = ({
     <>
       <div className="lbh-table-header">
         <h3 className="govuk-fieldset__legend--m govuk-custom-text-color govuk-!-margin-top-0">
-          Allocated Worker {currentlyAllocated + 1}
+          ALLOCATED WORKER {currentlyAllocated + 1}
         </h3>
         <Button
           label="Allocate worker"
@@ -91,7 +94,7 @@ const AddAllocatedWorker = ({
         <i>{currentlyAllocated === 0 ? 'Currently unallocated' : 'Optional'}</i>
       </p>
       <Modal isOpen={isModalOpen} onRequestClose={closeModal}>
-        <h2 className="govuk-heading-l">Allocate worker</h2>
+        <h1>Allocate worker</h1>
         <form role="form" onSubmit={handleSubmit(addWorker)}>
           {error ? (
             <ErrorMessage label="Oops an error occurred" />
@@ -101,7 +104,7 @@ const AddAllocatedWorker = ({
                 <Radios
                   name="team"
                   label="Select a team to view workers for that team"
-                  labelSize="s"
+                  labelSize="m"
                   options={teams.map(({ id, name }) => ({
                     value: id,
                     text: name,
@@ -111,7 +114,13 @@ const AddAllocatedWorker = ({
               )}
               {workers && (
                 <>
-                  <h3>Information and Assessment workers</h3>
+                  <h2>
+                    {
+                      teams.find(({ id }) => id.toString() === formValues.team)
+                        ?.name
+                    }{' '}
+                    workers
+                  </h2>
                   <p className="govuk-body">
                     Select a worker to allocate a case to them. You can view
                     more about a worker’s current allocated cases by selecting
@@ -188,7 +197,7 @@ const AddAllocatedWorker = ({
                   )}
                 </>
               )}
-              {selectedTeam && (!teams || !workers) && <Spinner />}
+              {formValues.team && (!teams || !workers) && <Spinner />}
             </>
           )}
         </form>

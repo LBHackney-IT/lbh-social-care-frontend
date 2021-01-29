@@ -6,6 +6,7 @@ describe('AllocatedCasesTable component', () => {
   const props = {
     cases: [
       {
+        id: 123,
         personId: 87987,
         personName: 'James Smith',
         personAddress: 'Flat 11, Test road, E2 8TF',
