@@ -23,6 +23,7 @@ describe('Test Form', () => {
 
     cy.get('[for="show_next_input_Y"]').click();
     cy.contains('I am the conditional field').should('be.visible');
+    cy.contains('I am an html title').should('be.visible');
     cy.get('[name="conditional_text"]').type('conditional name');
     cy.get('[for="show_next_step"]').click();
     cy.get('form').submit();
