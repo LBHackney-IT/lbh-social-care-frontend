@@ -82,7 +82,6 @@ export default {
           name: 'ethnicity',
           label: 'Sub-ethnicity',
           options: ({ macroEthnicity }) => ETHNICITIES[macroEthnicity],
-          conditionalRender: ({ macroEthnicity }) => macroEthnicity,
         },
         {
           component: 'Select',

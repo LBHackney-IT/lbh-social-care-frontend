@@ -23,6 +23,9 @@ const DynamicInput = (props) => {
     options: typeof options === 'function' ? options(currentData) : options,
     ...otherProps,
   };
+  if (typeof options === 'function' && !sharedProps.options) {
+    return null;
+  }
   switch (component) {
     case 'ObjectInput':
       return <Component {...props} />;
