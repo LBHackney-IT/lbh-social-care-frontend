@@ -99,6 +99,8 @@ export default {
           width: '30',
           label: 'Title',
           isMulti: true,
+          isMultiInit: false,
+          isMultiTrigger: 'Add a title',
         },
         {
           component: 'ObjectInput',

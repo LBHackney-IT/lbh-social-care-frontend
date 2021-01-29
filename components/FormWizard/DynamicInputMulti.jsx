@@ -15,10 +15,13 @@ const DynamicInputMulti = ({
   label,
   hint,
   isMultiTrigger = 'Add a new one',
+  isMultiInit = true,
   ...otherProps
 }) => {
   const multiPresent = initialInputData.length || 0;
-  const [counter, setCounter] = useState(multiPresent === 0 ? 1 : 0);
+  const [counter, setCounter] = useState(
+    multiPresent === 0 && isMultiInit ? 1 : 0
+  );
   const removeSelected = useCallback((index) => {
     setCounter(counter - 1);
     currentData[name] &&
@@ -41,7 +44,7 @@ const DynamicInputMulti = ({
             label={index === 0 ? label : null}
             hint={index === 0 ? hint : null}
           />
-          {index !== 0 && (
+          {(!isMultiInit || index !== 0) && (
             <span
               className={styles.delete}
               role="button"
