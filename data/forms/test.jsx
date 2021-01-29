@@ -48,6 +48,7 @@ export default {
           ],
           rules: { required: true },
         },
+        <h3 key="subtitle">I am an html title</h3>,
         {
           conditionalRender: (data) => data.show_next_input === 'Y',
           component: 'TextInput',
