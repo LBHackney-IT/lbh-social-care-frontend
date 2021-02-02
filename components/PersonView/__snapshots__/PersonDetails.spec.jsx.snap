@@ -55,7 +55,7 @@ exports[`PersonDetails component should render properly - expanded 2`] = `
         <dt
           class="govuk-summary-list__key"
         >
-          Mosaic ID:
+          Mosaic ID
         </dt>
         <dd
           class="govuk-summary-list__value"
@@ -184,7 +184,7 @@ exports[`PersonDetails component should render properly 1`] = `
         <dt
           class="govuk-summary-list__key"
         >
-          Mosaic ID:
+          Mosaic ID
         </dt>
         <dd
           class="govuk-summary-list__value"
