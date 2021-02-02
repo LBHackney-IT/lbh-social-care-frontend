@@ -40,7 +40,7 @@ const PersonDetails = ({
           <>
             <dl className="govuk-summary-list">
               <div className="govuk-summary-list__row">
-                <dt className="govuk-summary-list__key">Mosaic ID:</dt>
+                <dt className="govuk-summary-list__key">Mosaic ID</dt>
                 <dd className="govuk-summary-list__value">#{mosaicId}</dd>
               </div>
               {dateOfBirth && (
@@ -93,7 +93,7 @@ const PersonDetails = ({
               )}
               {ageContext && (
                 <div className="govuk-summary-list__row">
-                  <dt className="govuk-summary-list__key">Person Type</dt>
+                  <dt className="govuk-summary-list__key">Person type</dt>
                   <dd className="govuk-summary-list__value">
                     {ageContext === 'C' ? 'CFS' : 'ASC'}
                   </dd>
