@@ -56,12 +56,14 @@ const AddForm = ({ id }) => {
               options={category}
               label="Choose a form category"
               placeHolder="Choose one"
+              width={30}
               onChange={(value) => setCategoryValue(value)}
             />
             {categoryValue && (
               <Select
                 govGrid="one-half"
                 name="formList"
+                width={30}
                 options={forms.filter(
                   (form) => form.category === categoryValue
                 )}

@@ -9,8 +9,9 @@ const CreateNewPerson = () => {
   const onFormSubmit = async (formData) => {
     const ref = await addResident({
       ...formData,
-      ageGroup: formData.ageGroup || user.permissionFlag,
+      contextFlag: formData.contextFlag || user.permissionFlag,
       nhsNumber: parseInt(formData.nhsNumber),
+      createdBy: user.user.email,
     });
     return ref;
   };

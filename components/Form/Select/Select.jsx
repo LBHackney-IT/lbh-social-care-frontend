@@ -19,6 +19,7 @@ const Select = ({
   ignoreValue,
   value,
   style,
+  width = 20,
   govGrid,
 }) => (
   <div
@@ -38,8 +39,8 @@ const Select = ({
     {children}
     {error && <ErrorMessage label={error.message} />}
     <select
-      style={govGrid && { width: '100%' }}
-      className={`govuk-select`}
+      style={{ width: '100%' }}
+      className={`govuk-select width-override-${width}`}
       id={name}
       data-testid={name}
       name={name}

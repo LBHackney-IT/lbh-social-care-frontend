@@ -92,3 +92,15 @@ $screen-sm-min: 576px;
   text-decoration: underline;
   color: $govuk-link-hover-colour;
 }
+
+.width-override-10 {
+  max-width: 23ex;
+}
+
+.width-override-20 {
+  max-width: 41ex;
+}
+
+.width-override-30 {
+  max-width: 59ex;
+}
