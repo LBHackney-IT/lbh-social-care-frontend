@@ -22,6 +22,7 @@ describe('PersonView component', () => {
     personId: '44000000',
     expandView: false,
   };
+
   it('should render properly', async () => {
     const { getByText, queryByText } = render(<PersonView {...props} />);
     await waitFor(() => {
@@ -38,5 +39,19 @@ describe('PersonView component', () => {
       expect(getByText('Expand view')).toBeInTheDocument();
     });
     expect(queryByText('11/13/2020')).not.toBeInTheDocument();
+  });
+
+  it('should render properly with node children', async () => {
+    const { findByText } = render(<PersonView {...props}>foo</PersonView>);
+    const children = await findByText('foo');
+    expect(children).toBeDefined();
+  });
+
+  it('should render properly with func children', async () => {
+    const { findByText } = render(
+      <PersonView {...props}>{(person) => `foo${person.firstName}`}</PersonView>
+    );
+    const children = await findByText('fooCiasom');
+    expect(children).toBeDefined();
   });
 });
