@@ -6,9 +6,10 @@ import { isAuthorised } from 'utils/auth';
 export default async (req, res) => {
   const user = isAuthorised(req);
   if (!user) {
-    return res
-      .status(HttpStatus.UNAUTHORIZED)
-      .json({ message: 'Auth cookie missing.' });
+    return res.status(HttpStatus.UNAUTHORIZED).end();
+  }
+  if (!user.isAuthorised) {
+    return res.status(HttpStatus.FORBIDDEN).end();
   }
   const { id, ...params } = req.query;
   switch (req.method) {
