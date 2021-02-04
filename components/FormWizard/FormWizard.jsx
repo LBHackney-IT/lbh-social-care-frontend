@@ -20,6 +20,8 @@ const FormWizard = ({
   title,
   personDetails,
   includesDetails,
+  customConfirmation,
+  customSummary,
 }) => {
   Router.events.on('routeChangeComplete', () => {
     window.scrollTo(0, 0);
@@ -34,7 +36,11 @@ const FormWizard = ({
     ...(continueForm ? getData(formPath)?.data : {}),
   });
   const [queryString] = useState(otherQS);
-  const steps = createSteps(formSteps);
+  const steps = createSteps(formSteps, {
+    confirmation: customConfirmation,
+    summary: customSummary,
+  });
+
   const stepPath = `${formPath}[step]`;
   const step = steps.find(
     ({ id }) => id === (Array.isArray(stepId) ? stepId[0] : stepId)

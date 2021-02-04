@@ -1,10 +1,17 @@
 import Summary from 'components/Steps/Summary';
 import Confirmation from 'components/Steps/Confirmation';
-
-export const createSteps = (formSteps) => [
+export const createSteps = (formSteps, customStep) => [
   ...formSteps,
-  { id: 'summary', title: 'Summary', component: Summary },
-  { id: 'confirmation', title: 'Confirmation', component: Confirmation },
+  {
+    id: 'summary',
+    title: 'Summary',
+    component: customStep?.summary || Summary,
+  },
+  {
+    id: 'confirmation',
+    title: 'Confirmation',
+    component: customStep?.confirmation || Confirmation,
+  },
 ];
 
 export const getNextStepPath = (

@@ -1,6 +1,7 @@
 import { useAuth } from 'components/UserContext/UserContext';
 import FormWizard from 'components/FormWizard/FormWizard';
 import { addResident } from 'utils/api/residents';
+import CustomConfirmation from 'components/Steps/PersonConfirmation';
 
 import form from 'data/forms/create-new-person';
 
@@ -23,6 +24,7 @@ const CreateNewPerson = () => {
       defaultValues={{ user, ...form.defaultValues }}
       onFormSubmit={onFormSubmit}
       successMessage={form.successMessage}
+      customConfirmation={CustomConfirmation}
     />
   );
 };
