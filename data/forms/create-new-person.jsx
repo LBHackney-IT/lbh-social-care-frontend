@@ -18,7 +18,9 @@ export default {
         >
           Add a new person
         </h1>,
-        <p className="govuk-body">Use this form to add a new referral</p>,
+        <p key="subtitle" className="govuk-body">
+          Use this form to add a new referral
+        </p>,
         <h3
           key="subtitle-details"
           className="govuk-fieldset__legend--l gov-weight-lighter govuk-!-margin-bottom-5"
