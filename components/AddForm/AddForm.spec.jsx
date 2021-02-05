@@ -1,29 +1,25 @@
 import { render, waitFor, fireEvent } from '@testing-library/react';
+
 import AddForm from './AddForm';
 import { UserContext } from 'components/UserContext/UserContext';
-import { getResident } from 'utils/api/residents';
-
-jest.mock('utils/api/residents', () => ({
-  getResident: jest.fn(),
-}));
 
 describe('AddForm component', () => {
   it('should render adult forms', async () => {
-    getResident.mockImplementation(() =>
-      Promise.resolve({
+    const props = {
+      person: {
         firstName: 'Foo',
         lastName: 'Bar',
         mosaicId: '123',
         ageContext: 'A',
-      })
-    );
+      },
+    };
     const { getByTestId, getByText, getByRole } = render(
       <UserContext.Provider
         value={{
           user: { name: 'Nom', email: 'i am the email' },
         }}
       >
-        <AddForm id="123" />
+        <AddForm {...props} />
       </UserContext.Provider>
     );
 
@@ -40,21 +36,21 @@ describe('AddForm component', () => {
   });
 
   it('should render children forms', async () => {
-    getResident.mockImplementation(() =>
-      Promise.resolve({
+    const props = {
+      person: {
         firstName: 'Foo',
         lastName: 'Bar',
         mosaicId: '123',
         ageContext: 'C',
-      })
-    );
+      },
+    };
     const { getByRole, asFragment, getByText, getByTestId } = render(
       <UserContext.Provider
         value={{
           user: { name: 'Nom', email: 'i am the email' },
         }}
       >
-        <AddForm id="123" />
+        <AddForm {...props} />
       </UserContext.Provider>
     );
 

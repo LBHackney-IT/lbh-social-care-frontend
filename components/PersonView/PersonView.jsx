@@ -40,7 +40,7 @@ const PersonView = ({ personId, expandView, children }) => {
                 </h1>
               )}
               <PersonDetails {...person} expandView={expandView} />
-              {children}
+              {typeof children === 'function' ? children(person) : children}
             </>
           )}
         </>
@@ -52,7 +52,7 @@ const PersonView = ({ personId, expandView, children }) => {
 PersonView.propTypes = {
   expandView: PropTypes.bool,
   personId: PropTypes.string.isRequired,
-  children: PropTypes.node,
+  children: PropTypes.oneOfType([PropTypes.node, PropTypes.func]),
 };
 
 export default PersonView;
