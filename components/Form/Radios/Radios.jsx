@@ -15,6 +15,7 @@ const Radio = ({
   error,
   children,
   required,
+  rules,
   isRadiosInline = false,
   ...otherProps
 }) => (
@@ -49,7 +50,7 @@ const Radio = ({
               name={name}
               type="radio"
               value={value}
-              ref={register}
+              ref={rules ? register?.(rules) : register}
               aria-describedby={hint && `${name}-hint`}
               {...otherProps}
             />
@@ -67,6 +68,7 @@ const Radio = ({
 );
 
 Radio.propTypes = {
+  rules: PropTypes.shape(),
   label: PropTypes.string.isRequired,
   labelSize: PropTypes.oneOf(['s', 'm', 'l', 'xl']),
   name: PropTypes.string.isRequired,

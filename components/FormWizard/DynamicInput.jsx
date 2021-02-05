@@ -5,7 +5,6 @@ import * as Inputs from 'components/Form';
 const DynamicInput = (props) => {
   const {
     component,
-    register,
     control,
     errors,
     name,
@@ -33,15 +32,12 @@ const DynamicInput = (props) => {
     case 'DateInput':
       return <Component control={control} {...sharedProps} />;
     default:
-      return (
-        <Component register={register(otherProps.rules)} {...sharedProps} />
-      );
+      return <Component {...sharedProps} />;
   }
 };
 
 DynamicInput.propTypes = {
   component: PropTypes.string.isRequired,
-  register: PropTypes.func.isRequired,
   control: PropTypes.object.isRequired,
   name: PropTypes.string.isRequired,
   errors: PropTypes.object.isRequired,
