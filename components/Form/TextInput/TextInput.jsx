@@ -40,7 +40,7 @@ const TextInput = ({
       data-testid={name}
       name={name}
       type={type}
-      ref={register?.(rules)}
+      ref={rules ? register?.(rules) : register}
       aria-describedby={hint && `${name}-hint`}
       {...otherProps}
     />

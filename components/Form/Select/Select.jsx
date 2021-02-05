@@ -45,7 +45,7 @@ const Select = ({
       id={name}
       data-testid={name}
       name={name}
-      ref={register?.(rules)}
+      ref={rules ? register?.(rules) : register}
       aria-describedby={hint && `${name}-hint`}
       onChange={(e) => onChange && onChange(e.target.value)}
       value={ignoreValue ? undefined : value}

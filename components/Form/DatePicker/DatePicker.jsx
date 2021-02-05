@@ -33,7 +33,7 @@ const DatePicker = ({
           'govuk-input--error': error,
         })}
         type="date"
-        ref={register?.(rules)}
+        ref={rules ? register?.(rules) : register}
         name={name}
         {...otherProps}
       />

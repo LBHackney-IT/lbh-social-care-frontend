@@ -19,7 +19,7 @@ const Checkbox = ({ label, name, register, required, error, rules }) => (
           id={name}
           name={name}
           type="checkbox"
-          ref={register?.(rules)}
+          ref={rules ? register?.(rules) : register}
         />
         <label className="govuk-label govuk-checkboxes__label" htmlFor={name}>
           {label} {required && <span className="govuk-required">*</span>}

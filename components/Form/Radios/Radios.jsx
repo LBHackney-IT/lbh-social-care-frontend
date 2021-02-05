@@ -50,7 +50,7 @@ const Radio = ({
               name={name}
               type="radio"
               value={value}
-              ref={register?.(rules)}
+              ref={rules ? register?.(rules) : register}
               aria-describedby={hint && `${name}-hint`}
               {...otherProps}
             />
