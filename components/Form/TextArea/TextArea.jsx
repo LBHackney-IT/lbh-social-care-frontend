@@ -9,6 +9,7 @@ const TextArea = ({
   error,
   register,
   width,
+  rules,
   ...otherProps
 }) => (
   <div
@@ -40,13 +41,14 @@ const TextArea = ({
       name={name}
       rows="5"
       aria-describedby={`${name}-hint ${name}-error`}
-      ref={register}
+      ref={register?.(rules)}
       {...otherProps}
     />
   </div>
 );
 
 TextArea.propTypes = {
+  rules: PropTypes.shape(),
   label: PropTypes.string,
   labelSize: PropTypes.oneOf(['s', 'm', 'l', 'xl']),
   hint: PropTypes.string,

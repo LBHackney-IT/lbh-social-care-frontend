@@ -19,6 +19,7 @@ const Select = ({
   ignoreValue,
   value,
   style,
+  rules,
   width = 20,
   govGrid,
 }) => (
@@ -44,7 +45,7 @@ const Select = ({
       id={name}
       data-testid={name}
       name={name}
-      ref={register}
+      ref={register?.(rules)}
       aria-describedby={hint && `${name}-hint`}
       onChange={(e) => onChange && onChange(e.target.value)}
       value={ignoreValue ? undefined : value}
@@ -68,6 +69,7 @@ const Select = ({
 );
 
 Select.propTypes = {
+  rules: PropTypes.shape(),
   label: PropTypes.string,
   labelSize: PropTypes.oneOf(['s', 'm', 'l', 'xl']),
   name: PropTypes.string.isRequired,

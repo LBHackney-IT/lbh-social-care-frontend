@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import ErrorMessage from 'components/ErrorMessage/ErrorMessage';
 
-const Checkbox = ({ label, name, register, required, error }) => (
+const Checkbox = ({ label, name, register, required, error, rules }) => (
   <div
     className={cx('govuk-form-group', {
       'govuk-form-group--error': error,
@@ -19,7 +19,7 @@ const Checkbox = ({ label, name, register, required, error }) => (
           id={name}
           name={name}
           type="checkbox"
-          ref={register}
+          ref={register?.(rules)}
         />
         <label className="govuk-label govuk-checkboxes__label" htmlFor={name}>
           {label} {required && <span className="govuk-required">*</span>}
@@ -33,6 +33,7 @@ const Checkbox = ({ label, name, register, required, error }) => (
 );
 
 Checkbox.propTypes = {
+  rules: PropTypes.shape(),
   label: PropTypes.string,
   name: PropTypes.string.isRequired,
   register: PropTypes.func,

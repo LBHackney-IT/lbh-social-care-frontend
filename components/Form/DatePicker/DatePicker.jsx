@@ -8,6 +8,7 @@ const DatePicker = ({
   required,
   hint,
   label,
+  rules,
   labelSize = 'm',
   ...otherProps
 }) => {
@@ -32,7 +33,7 @@ const DatePicker = ({
           'govuk-input--error': error,
         })}
         type="date"
-        ref={register}
+        ref={register?.(rules)}
         name={name}
         {...otherProps}
       />
@@ -41,6 +42,7 @@ const DatePicker = ({
 };
 
 DatePicker.propTypes = {
+  rules: PropTypes.shape(),
   label: PropTypes.string,
   labelSize: PropTypes.oneOf(['s', 'm', 'l', 'xl']),
   hint: PropTypes.string,

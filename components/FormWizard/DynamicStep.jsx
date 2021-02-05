@@ -17,6 +17,9 @@ const DynamicStep = ({
   const { handleSubmit, register, control, errors, setValue, watch } = useForm({
     defaultValues: formData,
   });
+  if (!register) {
+    return null;
+  }
   const stepValues = watch();
   const currentData = {
     ...formData,
