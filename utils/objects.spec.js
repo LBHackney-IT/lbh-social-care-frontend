@@ -1,4 +1,4 @@
-import { deepmerge } from './objects';
+import { deepmerge, sanitiseObject } from './objects';
 
 describe('objects util', () => {
   describe('deepmerge', () => {
@@ -26,6 +26,40 @@ describe('objects util', () => {
           { foo: '2' },
         ],
         foobar: 'qwe',
+      });
+    });
+  });
+
+  describe('sanitiseObject', () => {
+    it('should work properly', () => {
+      const obj = {
+        show_next_input: 'Y',
+        show_next_step: false,
+        show_multi_select_step: true,
+        show_object_step: true,
+        conditional_text: '',
+        yo: undefined,
+        bar: null,
+        obj: { phoneNumber: '', phoneType: '' },
+        phone_number: [{ phoneNumber: '123123', phoneType: '' }],
+        phone_number_not_required: [{ phoneNumber: '', phoneType: '' }],
+        array: [''],
+        emptyArray: [],
+        arr: ['foo', 123],
+        first_select: '',
+        'last-step': [{ title_3: '' }],
+        cippa: { yo: { asd: { asd: 123 }, qwe: '' } },
+        lippa: { yo: { asd: { asd: '' }, qwe: { ooo: '' } } },
+      };
+
+      expect(sanitiseObject(obj)).toEqual({
+        show_next_input: 'Y',
+        show_next_step: false,
+        show_multi_select_step: true,
+        show_object_step: true,
+        phone_number: [{ phoneNumber: '123123', phoneType: '' }],
+        arr: ['foo', 123],
+        cippa: { yo: { asd: { asd: 123 } } },
       });
     });
   });
