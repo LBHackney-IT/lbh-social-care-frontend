@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import cx from 'classnames';
-import { useRouter } from 'next/router';
+import Router from 'next/router';
 
 const handleLink = (url) => window.open(url, '_blank');
 
@@ -15,13 +15,12 @@ const Button = ({
   ...otherProps
 }) => {
   const isExternal = route && route.includes('https://');
-  const { push } = useRouter();
   const handleClick = () => {
     onClick?.();
     route &&
       (isExternal
         ? handleLink(route)
-        : push(internalQuery ? `${route}${internalQuery}` : `${route}`));
+        : Router.push(internalQuery ? `${route}${internalQuery}` : `${route}`));
   };
   return (
     <button

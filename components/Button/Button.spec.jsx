@@ -1,16 +1,10 @@
 import { render, fireEvent } from '@testing-library/react';
+
+import Router from 'next/router';
+
+jest.mock('next/router', () => ({ push: jest.fn() }));
+
 import Button from './Button';
-
-const mockedUseRouter = {
-  query: { foo: 'bar' },
-  push: jest.fn(),
-  pathname: 'foopath',
-};
-
-jest.mock('next/router', () => ({
-  useRouter: () => mockedUseRouter,
-}));
-
 describe('Button', () => {
   it('renders a button', () => {
     const buttonText = 'My Button';
@@ -37,7 +31,7 @@ describe('Button', () => {
     };
     const { getByText } = render(<Button {...props} />);
     fireEvent.click(getByText('Foo'));
-    expect(mockedUseRouter.push).toHaveBeenCalled();
-    expect(mockedUseRouter.push).toHaveBeenCalledWith('foo/bar?foo');
+    expect(Router.push).toHaveBeenCalled();
+    expect(Router.push).toHaveBeenCalledWith('foo/bar?foo');
   });
 });
