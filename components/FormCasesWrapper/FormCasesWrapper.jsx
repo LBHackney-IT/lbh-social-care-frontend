@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { NextSeo } from 'next-seo';
 import { useRouter } from 'next/router';
@@ -12,21 +12,11 @@ import { addCase } from 'utils/api/cases';
 import { getResident } from 'utils/api/residents';
 
 const FormCasesWrapper = ({ form, title, personId, formNameOverall }) => {
-  const [person, setPerson] = useState();
-  const [loading, setLoading] = useState(true);
   const { replace } = useRouter();
-  const getPerson = async (personId) => {
-    try {
-      const data = await getResident(personId);
-      setPerson(data);
-    } catch (e) {
-      replace('/');
-    }
-    setLoading(false);
-  };
   useEffect(() => {
-    personId ? getPerson(personId) : replace('/');
+    !personId && replace('/');
   }, []);
+  const { data: person, error } = getResident(personId);
   const { user } = useAuth();
   const onFormSubmit = async (formData) => {
     const ref = await addCase({
@@ -42,29 +32,31 @@ const FormCasesWrapper = ({ form, title, personId, formNameOverall }) => {
     });
     return ref;
   };
+  if (error) {
+    return <ErrorMessage />;
+  }
+  if (!person) {
+    return <Spinner />;
+  }
   return (
     <>
       <NextSeo title={title} noindex />
-      {loading ? (
-        <Spinner />
-      ) : (
-        <>
-          <BackButton />
-          <h1 className="govuk-fieldset__legend--l gov-weight-lighter">
-            {title} for
-          </h1>
-          <PersonDetails {...person} expandView />
-          <FormWizard
-            formPath={form.path}
-            formSteps={form.steps}
-            title={form.title}
-            defaultValues={form.defaultValues}
-            onFormSubmit={onFormSubmit}
-            personDetails={{ ...person }}
-            includesDetails={true}
-          />
-        </>
-      )}
+      <>
+        <BackButton />
+        <h1 className="govuk-fieldset__legend--l gov-weight-lighter">
+          {title} for
+        </h1>
+        <PersonDetails {...person} expandView />
+        <FormWizard
+          formPath={form.path}
+          formSteps={form.steps}
+          title={form.title}
+          defaultValues={form.defaultValues}
+          onFormSubmit={onFormSubmit}
+          personDetails={{ ...person }}
+          includesDetails={true}
+        />
+      </>
     </>
   );
 };

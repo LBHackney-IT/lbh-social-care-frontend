@@ -1,5 +1,7 @@
 import App from 'next/app';
 import { DefaultSeo } from 'next-seo';
+import axios from 'axios';
+import { SWRConfig } from 'swr';
 
 import Layout from 'components/Layout';
 import SEO from '../next-seo.config';
@@ -22,14 +24,21 @@ class MyApp extends App {
     const { Component, pageProps } = this.props;
     return (
       <>
-        <AuthProvider user={this.state.user}>
-          <GoogleAnalytics>
-            <Layout>
-              <DefaultSeo {...SEO} />
-              <Component {...pageProps} />
-            </Layout>
-          </GoogleAnalytics>
-        </AuthProvider>
+        <SWRConfig
+          value={{
+            fetcher: (resource, options) =>
+              axios.get(resource, options).then((res) => res.data),
+          }}
+        >
+          <AuthProvider user={this.state.user}>
+            <GoogleAnalytics>
+              <Layout>
+                <DefaultSeo {...SEO} />
+                <Component {...pageProps} />
+              </Layout>
+            </GoogleAnalytics>
+          </AuthProvider>
+        </SWRConfig>
         <script src="/js/govuk.js"></script>
       </>
     );
