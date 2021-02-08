@@ -35,7 +35,7 @@ const AllocatedWorkers = ({ id }) => {
       {allocWorkers && (
         <AllocatedWorkersTable
           records={allocWorkers}
-          updateWorkers={getWorkers}
+          hasAllocationsPermissions={user.hasAllocationsPermissions}
         />
       )}
       {user.hasAllocationsPermissions && (

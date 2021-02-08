@@ -2,6 +2,12 @@ import { render } from '@testing-library/react';
 import { UserContext } from 'components/UserContext/UserContext';
 import AllocatedWorkersTable from './AllocatedWorkersTable';
 
+jest.mock('next/router', () => ({
+  useRouter: () => ({
+    asPath: 'path',
+  }),
+}));
+
 describe('AllocatedWorkers component', () => {
   const props = {
     records: [
@@ -15,8 +21,9 @@ describe('AllocatedWorkers component', () => {
         personId: 1234,
       },
     ],
-    updateWorkers: jest.fn(),
+    hasAllocationsPermissions: false,
   };
+
   it('should render properly', () => {
     const { asFragment } = render(
       <UserContext.Provider
@@ -25,6 +32,19 @@ describe('AllocatedWorkers component', () => {
         }}
       >
         <AllocatedWorkersTable {...props} />
+      </UserContext.Provider>
+    );
+    expect(asFragment()).toMatchSnapshot();
+  });
+
+  it('should render properly - with deallocate button', () => {
+    const { asFragment } = render(
+      <UserContext.Provider
+        value={{
+          user: { name: 'foo' },
+        }}
+      >
+        <AllocatedWorkersTable {...props} hasAllocationsPermissions={true} />
       </UserContext.Provider>
     );
     expect(asFragment()).toMatchSnapshot();
