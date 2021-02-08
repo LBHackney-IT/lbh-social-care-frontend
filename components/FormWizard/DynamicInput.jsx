@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types';
+import get from 'lodash/get';
 
 import * as Inputs from 'components/Form';
 
@@ -17,7 +18,7 @@ const DynamicInput = (props) => {
     throw new Error(`"${component}" is not a supported component type.`);
   const sharedProps = {
     name,
-    error: errors[name],
+    error: get(errors, name),
     required: otherProps?.rules?.required,
     options: typeof options === 'function' ? options(currentData) : options,
     ...otherProps,
