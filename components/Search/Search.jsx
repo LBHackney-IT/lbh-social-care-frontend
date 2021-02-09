@@ -17,7 +17,6 @@ import { useAuth } from 'components/UserContext/UserContext';
 import { getResidents } from 'utils/api/residents';
 import { getCases } from 'utils/api/cases';
 import { getQueryString } from 'utils/urls';
-import { getUserType } from 'utils/user';
 
 const getRecords = (data) => [
   ...(data.residents || []),
@@ -84,7 +83,7 @@ const Search = ({ type }) => {
   useEffect(() => {
     Object.keys(query).length && onSearch(query);
   }, [query]);
-  const addNewPerson = type === 'people' && getUserType(user) === 'Admin' && (
+  const addNewPerson = type === 'people' && user.hasAdminPermissions && (
     <>
       Results don't match{' '}
       <Link href="/form/create-new-person/client-details">
