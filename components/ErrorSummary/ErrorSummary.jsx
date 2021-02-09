@@ -1,14 +1,22 @@
 import PropTypes from 'prop-types';
+import cx from 'classnames';
 
-const ErrorSummary = ({ title, body, links }) => (
+const ErrorSummary = ({ title, body, links, isRestricted }) => (
   <div
-    className="govuk-error-summary"
+    className={cx('govuk-error-summary', {
+      'restricted-summary-box': isRestricted,
+    })}
     aria-labelledby="error-summary-title"
     role="alert"
     tabIndex="-1"
     data-module="govuk-error-summary"
   >
-    <h2 className="govuk-error-summary__title" id="error-summary-title">
+    <h2
+      className={cx('govuk-error-summary__title', {
+        'restricted-summary-title': isRestricted,
+      })}
+      id="error-summary-title"
+    >
       {title}
     </h2>
     <div className="govuk-error-summary__body">

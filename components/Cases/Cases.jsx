@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 
 import CasesTable from 'components/Cases/CasesTable';
 import ErrorMessage from 'components/ErrorMessage/ErrorMessage';
+//import ErrorSummary from 'components/ErrorSummary/ErrorSummary';
 import LinkButton from 'components/LinkButton/LinkButton';
 import Button from 'components/Button/Button';
 import Spinner from 'components/Spinner/Spinner';
@@ -50,6 +51,9 @@ const Cases = ({ id }) => {
             <LinkButton label="Add a new record" route={`${id}/records`} />
           </div>
           <hr className="govuk-divider" />
+          {/*{person.restricted && (
+              <ErrorSummary title="RESTRICTED" body="The records for this profile are restricted for viewing" isRestricted />
+            )} */}
           {results && (
             <>
               {results?.cases.length > 0 ? (
