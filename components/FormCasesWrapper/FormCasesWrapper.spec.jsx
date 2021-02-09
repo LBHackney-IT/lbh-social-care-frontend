@@ -37,15 +37,15 @@ describe(`FormCasesWrapper`, () => {
   };
 
   it('should work properly if the user exist', async () => {
-    getResident.mockImplementation(() =>
-      Promise.resolve({
+    getResident.mockImplementation(() => ({
+      data: {
         firstName: 'i am the user',
         lastName: '',
         mosaicId: '123',
         dateOfBirth: '2020-11-11',
         ageContext: 'A',
-      })
-    );
+      },
+    }));
     const { findByText } = render(
       <UserContext.Provider
         value={{

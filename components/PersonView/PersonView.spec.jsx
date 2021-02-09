@@ -7,16 +7,16 @@ jest.mock('utils/api/residents', () => ({
 }));
 
 describe('PersonView component', () => {
-  getResident.mockImplementation(() =>
-    Promise.resolve({
+  getResident.mockImplementation(() => ({
+    data: {
       dateOfBirth: '2020-11-13',
       firstName: 'Ciasom',
       lastName: 'Tesselate',
       mosaicId: '44000000',
       formName: 'Foo_bar',
       nhsNumber: '12345',
-    })
-  );
+    },
+  }));
 
   const props = {
     personId: '44000000',

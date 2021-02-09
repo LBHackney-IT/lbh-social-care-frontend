@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import Link from 'next/link';
 import PropTypes from 'prop-types';
@@ -15,24 +15,10 @@ import {
 const DeallocatedWorkers = ({ personId, allocationId }) => {
   const { register, handleSubmit, errors } = useForm();
   const [loading, setLoading] = useState(false);
-  const [loadingAllocations, setLoadingAllocations] = useState(true);
-  const [errorAllocations, setErrorAllocations] = useState(false);
   const [complete, setComplete] = useState(false);
-  const [error, setError] = useState(false);
+  const [postError, setPostError] = useState(false);
   const [deallocationReason, setDeallocationReason] = useState('');
-  const [allocations, setAllocations] = useState();
-  const getAllocations = useCallback(async () => {
-    try {
-      const data = await getAllocatedWorkers(personId);
-      setAllocations(data.allocations);
-    } catch (e) {
-      setErrorAllocations(true);
-    }
-    setLoadingAllocations(false);
-  });
-  useEffect(() => {
-    getAllocations();
-  }, []);
+  const { data: { allocations } = {}, error } = getAllocatedWorkers(personId);
   const onSubmit = async (reason) => {
     setLoading(true);
     try {
@@ -43,14 +29,14 @@ const DeallocatedWorkers = ({ personId, allocationId }) => {
       setDeallocationReason(reason.deallocation_reason);
       setComplete(true);
     } catch {
-      setError(true);
+      setPostError(true);
     }
     setLoading(false);
   };
-  if (errorAllocations) {
+  if (error) {
     return <ErrorMessage />;
   }
-  if (loadingAllocations) {
+  if (!allocations) {
     return <Spinner />;
   }
   const currentAllocation = allocations?.find(
@@ -116,7 +102,7 @@ const DeallocatedWorkers = ({ personId, allocationId }) => {
           </p>
         </>
       )}
-      {error && <ErrorMessage />}
+      {postError && <ErrorMessage />}
     </form>
   );
 };
