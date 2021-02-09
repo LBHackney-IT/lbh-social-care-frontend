@@ -4,9 +4,14 @@ import { getCasesByResident } from 'utils/api/cases';
 import { UserContext } from 'components/UserContext/UserContext';
 
 import Cases from './Cases';
+import { getResident } from 'utils/api/residents';
 
 jest.mock('utils/api/cases', () => ({
   getCasesByResident: jest.fn(),
+}));
+
+jest.mock('utils/api/residents', () => ({
+  getResident: jest.fn(),
 }));
 
 describe('Cases component', () => {
@@ -15,6 +20,8 @@ describe('Cases component', () => {
   };
 
   it('should render records properly', async () => {
+    getResident.mockImplementation(() => Promise.resolve({ restricted: 'N' }));
+
     getCasesByResident.mockImplementation(() =>
       Promise.resolve({
         cases: [
@@ -83,6 +90,9 @@ describe('Cases component', () => {
         nextCursor: 1,
       })
     );
+
+    getResident.mockImplementation(() => Promise.resolve({ restricted: 'N' }));
+
     const { asFragment, getByText } = render(
       <UserContext.Provider
         value={{
@@ -97,5 +107,31 @@ describe('Cases component', () => {
     });
     const label = getByText('Records not found');
     expect(label).toBeInTheDocument();
+  });
+
+  it('should render a error message when a person is restricted', async () => {
+    getCasesByResident.mockImplementation(() =>
+      Promise.resolve({
+        cases: [],
+        nextCursor: 1,
+      })
+    );
+    getResident.mockImplementation(() => Promise.resolve({ restricted: 'Y' }));
+
+    const { asFragment, getByText } = render(
+      <UserContext.Provider
+        value={{
+          user: { hasAdminPermissions: true },
+        }}
+      >
+        <Cases {...props} />
+      </UserContext.Provider>
+    );
+    await waitFor(() => {
+      expect(asFragment()).toMatchSnapshot();
+    });
+
+    const title = getByText('RESTRICTED');
+    expect(title).toBeInTheDocument();
   });
 });

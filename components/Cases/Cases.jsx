@@ -3,18 +3,29 @@ import PropTypes from 'prop-types';
 
 import CasesTable from 'components/Cases/CasesTable';
 import ErrorMessage from 'components/ErrorMessage/ErrorMessage';
-//import ErrorSummary from 'components/ErrorSummary/ErrorSummary';
+import ErrorSummary from 'components/ErrorSummary/ErrorSummary';
 import Button from 'components/Button/Button';
 import Spinner from 'components/Spinner/Spinner';
 import { getCasesByResident } from 'utils/api/cases';
+import { getResident } from 'utils/api/residents';
 
 const Cases = ({ id }) => {
   const [error, setError] = useState();
   const [loading, setLoading] = useState(false);
+  const [personRestricted, setPersonRestricted] = useState();
   const [results, setResults] = useState();
+  const getPerson = async () => {
+    try {
+      const person = await getResident(id);
+      setPersonRestricted(person.restricted);
+    } catch {
+      setPersonRestricted(null);
+    }
+  };
   const getPersonCases = useCallback(async (cursor) => {
     try {
       const data = await getCasesByResident(id, { cursor });
+
       setLoading(false);
       setError(false);
       setResults({
@@ -29,6 +40,7 @@ const Cases = ({ id }) => {
   useEffect(() => {
     setLoading(true);
     getPersonCases();
+    getPerson();
   }, []);
   return (
     <>
@@ -50,10 +62,14 @@ const Cases = ({ id }) => {
             <Button label="Add a new record" route={`${id}/records`} />
           </div>
           <hr className="govuk-divider" />
-          {/*{person.restricted && (
-              <ErrorSummary title="RESTRICTED" body="The records for this profile are restricted for viewing" isRestricted />
-            )} */}
-          {results && (
+          {personRestricted === 'Y' && (
+            <ErrorSummary
+              title="RESTRICTED"
+              body="The records for this profile are restricted for viewing"
+              isRestricted
+            />
+          )}
+          {results && personRestricted === 'N' && (
             <>
               {results?.cases.length > 0 ? (
                 <CasesTable records={results.cases} />
