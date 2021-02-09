@@ -22,6 +22,7 @@ export const getResidentAllocatedWorkers = async (mosaic_id, params) => {
 
 const deleteAllocatedWorkerSchema = yup.object().shape({
   id: yup.number().required().integer(),
+  createdBy: yup.string().email().required(),
   deallocationReason: yup.string().required(),
 });
 
@@ -35,6 +36,7 @@ export const deleteAllocatedWorker = async (params) => {
 
 const addAllocatedWorkerSchema = yup.object().shape({
   mosaicId: yup.number().required().integer(),
+  allocatedTeamId: yup.number().required().integer(),
   allocatedWorkerId: yup.number().required().integer(),
   allocatedBy: yup.string().email().required(),
 });
