@@ -96,7 +96,11 @@ const DeallocatedWorkers = ({ personId, allocationId }) => {
           <p>{deallocationReason}</p>
           <h2>What do you want to do next?</h2>
           <p>
-            <Link href={`/people/${personId}/allocations/add`}>
+            <Link
+              href={`/people/${personId}/allocations/add`}
+              replace={true}
+              shallow={true}
+            >
               <a>Allocate another worker to this person</a>
             </Link>
           </p>
