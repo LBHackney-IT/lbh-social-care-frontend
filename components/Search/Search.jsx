@@ -71,9 +71,6 @@ const Search = ({ type }) => {
         : { order_by: 'desc', sort_by: value }),
     });
   });
-  useEffect(() => {
-    Object.keys(query).length && onSearch(query);
-  }, [query]);
   const addNewPerson = type === 'people' && user.hasAdminPermissions && (
     <>
       Results don't match{' '}
