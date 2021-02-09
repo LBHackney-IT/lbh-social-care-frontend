@@ -4,7 +4,7 @@ exports[`ErrorSummary component should render properly 1`] = `
 <DocumentFragment>
   <div
     aria-labelledby="error-summary-title"
-    class="govuk-error-summary"
+    class="govuk-error-summary restricted_summary_box"
     data-module="govuk-error-summary"
     role="alert"
     tabindex="-1"
