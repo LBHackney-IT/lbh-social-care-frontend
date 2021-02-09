@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 import CasesTable from 'components/Cases/CasesTable';
 import ErrorMessage from 'components/ErrorMessage/ErrorMessage';
 //import ErrorSummary from 'components/ErrorSummary/ErrorSummary';
-import LinkButton from 'components/LinkButton/LinkButton';
 import Button from 'components/Button/Button';
 import Spinner from 'components/Spinner/Spinner';
 import { getCasesByResident } from 'utils/api/cases';
@@ -48,7 +47,7 @@ const Cases = ({ id }) => {
                 Linked files are read only
               </p>
             </div>
-            <LinkButton label="Add a new record" route={`${id}/records`} />
+            <Button label="Add a new record" route={`${id}/records`} />
           </div>
           <hr className="govuk-divider" />
           {/*{person.restricted && (

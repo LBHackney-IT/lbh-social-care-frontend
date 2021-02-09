@@ -7,6 +7,7 @@ import { deleteData } from 'utils/saveData';
 import Summary from 'components/Summary/Summary';
 import ErrorSummary from 'components/ErrorSummary/ErrorSummary';
 import { filterDataOnCondition } from 'utils/steps';
+import { sanitiseObject } from 'utils/objects';
 
 const SummaryStep = ({ formData, formSteps, formPath, onFormSubmit }) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -16,7 +17,7 @@ const SummaryStep = ({ formData, formSteps, formPath, onFormSubmit }) => {
     setHasError(false);
     try {
       const data = await onFormSubmit(
-        filterDataOnCondition(formSteps, formData)
+        filterDataOnCondition(formSteps, sanitiseObject(formData))
       );
       deleteData(formPath);
       Router.replace(

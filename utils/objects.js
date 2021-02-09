@@ -18,3 +18,40 @@ export const deepmerge = (obj1, obj2) =>
   merge(obj1, obj2, {
     arrayMerge: combineMerge,
   });
+
+const sanitise = (result, value, key) => {
+  // Exclude empty strings, null, undefined.
+  if (!value && value !== false) {
+    return result;
+  }
+
+  // Recurse into arrays and objects.
+  if (
+    Array.isArray(value) ||
+    Object.values(value).some((v) => typeof v === 'object')
+  ) {
+    value = sanitiseObject(value);
+  }
+
+  // Exclude empty objects.
+  if (typeof value === 'object' && !Object.values(value).some(Boolean)) {
+    return result;
+  }
+
+  // Exclude empty arrays.
+  if (Array.isArray(value) && !value.length) {
+    return result;
+  }
+
+  return Array.isArray(result)
+    ? [...result, value]
+    : { ...result, [key]: value };
+};
+
+export const sanitiseObject = (object) =>
+  Array.isArray(object)
+    ? object.reduce((acc, value) => sanitise(acc, value), [])
+    : Object.entries(object).reduce(
+        (acc, [key, value]) => sanitise(acc, value, key),
+        {}
+      );

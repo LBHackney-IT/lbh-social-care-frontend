@@ -17,3 +17,10 @@ Secondary.args = {
   label: 'Button',
   isSecondary: 'true',
 };
+
+export const ExternalLink = Template.bind({});
+ExternalLink.args = {
+  label: 'Button',
+  isSecondary: 'true',
+  route: 'https://hackney.gov.uk/',
+};
