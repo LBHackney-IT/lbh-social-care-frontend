@@ -2,7 +2,7 @@ import { useState } from 'react';
 import PropTypes from 'prop-types';
 import cx from 'classnames';
 
-import LinkButton from 'components/LinkButton/LinkButton';
+import Button from 'components/Button/Button';
 import { useAuth } from 'components/UserContext/UserContext';
 import { Select } from 'components/Form';
 import { populateChildForm } from 'utils/populate';
@@ -44,7 +44,7 @@ const AddForm = ({ person }) => {
         )}
       </div>
       {url && (
-        <LinkButton
+        <Button
           label="Load form"
           route={
             ageContext === 'C'

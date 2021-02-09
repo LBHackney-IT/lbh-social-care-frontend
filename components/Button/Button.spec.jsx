@@ -1,6 +1,10 @@
 import { render, fireEvent } from '@testing-library/react';
-import Button from './Button';
 
+import Router from 'next/router';
+
+jest.mock('next/router', () => ({ push: jest.fn() }));
+
+import Button from './Button';
 describe('Button', () => {
   it('renders a button', () => {
     const buttonText = 'My Button';
@@ -15,13 +19,19 @@ describe('Button', () => {
     const { getByText } = render(
       <Button label={buttonText} onClick={myAction} />
     );
-    fireEvent(
-      getByText(buttonText),
-      new MouseEvent('click', {
-        bubbles: true,
-        cancelable: true,
-      })
-    );
+    fireEvent.click(getByText(buttonText));
     expect(myAction).toHaveBeenCalled();
+  });
+
+  it('should render properly with route', () => {
+    const props = {
+      label: 'Foo',
+      route: 'foo/bar',
+      internalQuery: '?foo',
+    };
+    const { getByText } = render(<Button {...props} />);
+    fireEvent.click(getByText('Foo'));
+    expect(Router.push).toHaveBeenCalled();
+    expect(Router.push).toHaveBeenCalledWith('foo/bar?foo');
   });
 });
