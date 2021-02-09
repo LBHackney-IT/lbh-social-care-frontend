@@ -38,28 +38,10 @@ const Cases = ({ id }) => {
       <hr className="govuk-divider" />
       {results && (
         <>
-          <div className="lbh-table-header">
-            <div>
-              <h3 className="govuk-fieldset__legend--m govuk-custom-text-color govuk-!-margin-top-0">
-                RECORDS HISTORY
-              </h3>
-              <p className="govuk-label  govuk-!-margin-top-0">
-                Linked files are read only
-              </p>
-            </div>
-            <Button label="Add a new record" route={`${id}/records`} />
-          </div>
-          <hr className="govuk-divider" />
-          {results && (
-            <>
-              {results?.cases.length > 0 ? (
-                <CasesTable records={results.cases} />
-              ) : (
-                <p className="govuk-body govuk-!-margin-top-5">
-                  Records not found
-                </p>
-              )}
-            </>
+          {results?.cases.length > 0 ? (
+            <CasesTable records={results.cases} />
+          ) : (
+            <p className="govuk-body govuk-!-margin-top-5">Records not found</p>
           )}
         </>
       )}
