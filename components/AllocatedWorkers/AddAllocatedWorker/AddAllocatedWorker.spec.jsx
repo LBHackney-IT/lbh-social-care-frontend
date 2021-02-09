@@ -9,6 +9,13 @@ import {
   addAllocatedWorker,
 } from 'utils/api/allocatedWorkers';
 
+jest.mock('next/router', () => ({
+  useRouter: () => ({
+    asPath: 'path',
+    push: jest.fn(),
+  }),
+}));
+
 jest.mock('components/Spinner/Spinner', () => () => 'MockedSpinner');
 
 jest.mock('utils/api/allocatedWorkers', () => ({
@@ -37,9 +44,7 @@ describe(`AddAllocatedWorker`, () => {
     })
   );
   const props = {
-    currentlyAllocated: 3,
     personId: '123',
-    onAddNewAllocation: jest.fn(),
   };
 
   it('should render properly', async () => {
@@ -52,8 +57,6 @@ describe(`AddAllocatedWorker`, () => {
         <AddAllocatedWorker {...props} type="people" />
       </UserContext.Provider>
     );
-    const showModalButton = getByText('Allocate worker');
-    fireEvent.click(showModalButton);
     const teamRadio = await findByText(
       'Select a team to view workers for that team'
     );
@@ -66,7 +69,7 @@ describe(`AddAllocatedWorker`, () => {
   });
 
   it('should post correctly properly to the API', async () => {
-    const { getByText, getByLabelText, getByRole } = render(
+    const { findByText, getByLabelText, getByRole } = render(
       <UserContext.Provider
         value={{
           user: { name: 'foo', email: 'foo@bar.com' },
@@ -75,9 +78,7 @@ describe(`AddAllocatedWorker`, () => {
         <AddAllocatedWorker {...props} type="people" />
       </UserContext.Provider>
     );
-    await act(async () => {
-      fireEvent.click(getByText('Allocate worker'));
-    });
+    await findByText('Select a team to view workers for that team');
     await act(async () => {
       fireEvent.click(getByLabelText('Team 3'));
     });
@@ -86,7 +87,6 @@ describe(`AddAllocatedWorker`, () => {
       fireEvent.submit(getByRole('form'));
     });
     expect(addAllocatedWorker).toHaveBeenCalled();
-    expect(props.onAddNewAllocation).toHaveBeenCalled();
     expect(addAllocatedWorker).toHaveBeenCalledWith('123', {
       allocatedBy: 'foo@bar.com',
       allocatedWorkerId: 'c',
