@@ -21,6 +21,21 @@ export const deleteSession = (res) => {
   res.end();
 };
 
+export const shouldRedirect = (pathname, user) => {
+  const isPathWhitelisted = AUTH_WHITELIST.includes(pathname);
+  if (!isPathWhitelisted) {
+    if (!user) {
+      return '/login';
+    }
+    if (!user?.isAuthorised) {
+      return '/access-denied';
+    }
+  }
+  if (isPathWhitelisted & user?.isAuthorised) {
+    return '/';
+  }
+};
+
 export const isAuthorised = (req) => {
   const {
     HACKNEY_JWT_SECRET,
