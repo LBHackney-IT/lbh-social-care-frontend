@@ -105,13 +105,6 @@ $screen-sm-min: 576px;
   max-width: 59ex;
 }
 
-.restricted-summary-title {
-  color: #da3711;
-}
-
-.restricted-summary-box {
-  border-top: 1px;
-  border-bottom: 1px;
-  border-right: 1px;
-  background-color: #f8ecea;
+.govuk-error-summary__title {
+  color: govuk-colour('red');
 }

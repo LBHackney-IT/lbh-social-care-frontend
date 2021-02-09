@@ -4,24 +4,24 @@ import { getCasesByResident } from 'utils/api/cases';
 import { UserContext } from 'components/UserContext/UserContext';
 
 import Cases from './Cases';
-import { getResident } from 'utils/api/residents';
 
 jest.mock('utils/api/cases', () => ({
   getCasesByResident: jest.fn(),
 }));
 
-jest.mock('utils/api/residents', () => ({
-  getResident: jest.fn(),
-}));
-
 describe('Cases component', () => {
   const props = {
     id: '44000000',
+    person: {
+      firstName: 'Foo',
+      lastName: 'Bar',
+      mosaicId: '123',
+      ageContext: 'A',
+      restricted: 'N',
+    },
   };
 
   it('should render records properly', async () => {
-    getResident.mockImplementation(() => Promise.resolve({ restricted: 'N' }));
-
     getCasesByResident.mockImplementation(() =>
       Promise.resolve({
         cases: [
@@ -91,8 +91,6 @@ describe('Cases component', () => {
       })
     );
 
-    getResident.mockImplementation(() => Promise.resolve({ restricted: 'N' }));
-
     const { asFragment, getByText } = render(
       <UserContext.Provider
         value={{
@@ -110,13 +108,22 @@ describe('Cases component', () => {
   });
 
   it('should render a error message when a person is restricted', async () => {
+    const props = {
+      id: '44000000',
+      person: {
+        firstName: 'Foo',
+        lastName: 'Bar',
+        mosaicId: '123',
+        ageContext: 'A',
+        restricted: 'Y',
+      },
+    };
     getCasesByResident.mockImplementation(() =>
       Promise.resolve({
         cases: [],
         nextCursor: 1,
       })
     );
-    getResident.mockImplementation(() => Promise.resolve({ restricted: 'Y' }));
 
     const { asFragment, getByText } = render(
       <UserContext.Provider
