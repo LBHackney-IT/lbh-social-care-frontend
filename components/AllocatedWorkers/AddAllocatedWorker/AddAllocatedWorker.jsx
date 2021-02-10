@@ -1,4 +1,4 @@
-import { useEffect, useState, useCallback } from 'react';
+import { useState, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import { useRouter } from 'next/router';
 import { useForm } from 'react-hook-form';
@@ -15,52 +15,24 @@ import {
 } from 'utils/api/allocatedWorkers';
 
 const AddAllocatedWorker = ({ personId }) => {
-  const [workersLoading, setWorkersLoading] = useState(false);
-  const [teams, setTeams] = useState();
-  const [workers, setWorkers] = useState();
-  const [error, setError] = useState();
   const [postError, setPostError] = useState();
   const [postLoading, setPostLoading] = useState();
-  const { push } = useRouter();
-  const { handleSubmit, register, watch } = useForm({
-    mode: 'onChange',
+  const { query, push, replace, pathname } = useRouter();
+  const { handleSubmit, register } = useForm({
+    defaultValues: query,
   });
   const { user } = useAuth();
-  const getAllocatedTeams = useCallback(async () => {
-    try {
-      const data = await getTeams();
-      setTeams(data.teams);
-    } catch (e) {
-      setError(true);
-    }
-  });
-  useEffect(() => {
-    getAllocatedTeams();
-  }, []);
-  const formValues = watch();
-  const getAllocatedWorkers = useCallback(async (selectedTeam) => {
-    setWorkersLoading(true);
-    try {
-      const data = await getTeamWorkers(selectedTeam);
-      setWorkers(data.workers);
-    } catch (e) {
-      setError(true);
-    }
-    setWorkersLoading();
-  });
-  useEffect(() => {
-    formValues.team && getAllocatedWorkers(formValues.team);
-  }, [formValues.team]);
-  useEffect(() => {
-    setPostError();
-  }, [formValues.team, formValues.worker]);
-  const addWorker = useCallback(async ({ worker }) => {
+  const { data: { teams } = {}, error: errorTeams } = getTeams();
+  const { data: { workers } = {}, error: errorWorkers } = getTeamWorkers(
+    query?.teamId
+  );
+  const addWorker = useCallback(async ({ workerId }) => {
     setPostLoading(true);
     setPostError();
     try {
       await addAllocatedWorker(personId, {
         allocatedBy: user.email,
-        allocatedWorkerId: worker,
+        allocatedWorkerId: workerId,
       });
       push(`/people/${personId}`);
     } catch (e) {
@@ -68,27 +40,37 @@ const AddAllocatedWorker = ({ personId }) => {
     }
     setPostLoading(false);
   });
-  if (error) {
+  if (errorTeams | errorWorkers) {
     return <ErrorMessage label="Oops an error occurred" />;
   }
   return (
     <form role="form" onSubmit={handleSubmit(addWorker)}>
       {teams && (
         <Radios
-          name="team"
+          name="teamId"
           label="Select a team to view workers for that team"
           labelSize="m"
           options={teams.map(({ id, name }) => ({
             value: id,
             text: name,
           }))}
-          register={register({ required: true })}
+          onChange={(e) =>
+            replace(
+              {
+                pathname,
+                query: { id: personId, teamId: e.target.value },
+              },
+              null,
+              { scroll: false }
+            )
+          }
+          register={register}
         />
       )}
       {workers && (
         <>
           <h2>
-            {teams.find(({ id }) => id.toString() === formValues.team)?.name}{' '}
+            {teams?.find(({ id }) => id.toString() === query?.teamId)?.name}{' '}
             workers
           </h2>
           <p className="govuk-body">
@@ -124,11 +106,25 @@ const AddAllocatedWorker = ({ personId }) => {
                       <input
                         aria-labelledby={`worker_${id}`}
                         className="govuk-radios__input"
-                        name="worker"
+                        name="workerId"
                         type="radio"
                         value={id}
-                        disabled={workersLoading}
+                        disabled={!workers}
                         ref={register}
+                        onChange={(e) =>
+                          replace(
+                            {
+                              pathname,
+                              query: {
+                                id: personId,
+                                ...query,
+                                workerId: e.target.value,
+                              },
+                            },
+                            null,
+                            { scroll: false }
+                          )
+                        }
                       />
                       <label className="govuk-label govuk-radios__label"></label>
                     </div>
@@ -159,7 +155,7 @@ const AddAllocatedWorker = ({ personId }) => {
           )}
         </>
       )}
-      {formValues.team && (!teams || !workers) && <Spinner />}
+      {query?.teamId && (!teams || !workers) && <Spinner />}
     </form>
   );
 };

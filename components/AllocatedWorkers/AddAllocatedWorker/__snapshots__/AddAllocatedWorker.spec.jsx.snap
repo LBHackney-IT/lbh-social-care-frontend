@@ -10,7 +10,7 @@ exports[`AddAllocatedWorker should render properly 1`] = `
     >
       <label
         class="govuk-label govuk-label--m"
-        for="team"
+        for="teamId"
       >
         Select a team to view workers for that team 
       </label>
@@ -22,14 +22,14 @@ exports[`AddAllocatedWorker should render properly 1`] = `
         >
           <input
             class="govuk-radios__input"
-            id="team_1"
-            name="team"
+            id="teamId_1"
+            name="teamId"
             type="radio"
             value="1"
           />
           <label
             class="govuk-label govuk-radios__label"
-            for="team_1"
+            for="teamId_1"
           >
             Team 1
           </label>
@@ -39,14 +39,14 @@ exports[`AddAllocatedWorker should render properly 1`] = `
         >
           <input
             class="govuk-radios__input"
-            id="team_2"
-            name="team"
+            id="teamId_2"
+            name="teamId"
             type="radio"
             value="2"
           />
           <label
             class="govuk-label govuk-radios__label"
-            for="team_2"
+            for="teamId_2"
           >
             Team 2
           </label>
@@ -56,14 +56,14 @@ exports[`AddAllocatedWorker should render properly 1`] = `
         >
           <input
             class="govuk-radios__input"
-            id="team_3"
-            name="team"
+            id="teamId_3"
+            name="teamId"
             type="radio"
             value="3"
           />
           <label
             class="govuk-label govuk-radios__label"
-            for="team_3"
+            for="teamId_3"
           >
             Team 3
           </label>
@@ -71,7 +71,7 @@ exports[`AddAllocatedWorker should render properly 1`] = `
       </div>
     </div>
     <h2>
-      Team 1 workers
+       workers
     </h2>
     <p
       class="govuk-body"
@@ -123,7 +123,7 @@ exports[`AddAllocatedWorker should render properly 1`] = `
               <input
                 aria-labelledby="worker_a"
                 class="govuk-radios__input"
-                name="worker"
+                name="workerId"
                 type="radio"
                 value="a"
               />
@@ -161,7 +161,7 @@ exports[`AddAllocatedWorker should render properly 1`] = `
               <input
                 aria-labelledby="worker_b"
                 class="govuk-radios__input"
-                name="worker"
+                name="workerId"
                 type="radio"
                 value="b"
               />
@@ -197,7 +197,7 @@ exports[`AddAllocatedWorker should render properly 1`] = `
               <input
                 aria-labelledby="worker_c"
                 class="govuk-radios__input"
-                name="worker"
+                name="workerId"
                 type="radio"
                 value="c"
               />

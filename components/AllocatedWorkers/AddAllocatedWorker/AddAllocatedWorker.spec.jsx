@@ -13,6 +13,7 @@ jest.mock('next/router', () => ({
   useRouter: () => ({
     asPath: 'path',
     push: jest.fn(),
+    replace: jest.fn(),
   }),
 }));
 
@@ -25,24 +26,24 @@ jest.mock('utils/api/allocatedWorkers', () => ({
 }));
 
 describe(`AddAllocatedWorker`, () => {
-  getTeams.mockImplementation(() =>
-    Promise.resolve({
+  getTeams.mockImplementation(() => ({
+    data: {
       teams: [
         { id: '1', name: 'Team 1' },
         { id: '2', name: 'Team 2' },
         { id: '3', name: 'Team 3' },
       ],
-    })
-  );
-  getTeamWorkers.mockImplementation(() =>
-    Promise.resolve({
+    },
+  }));
+  getTeamWorkers.mockImplementation(() => ({
+    data: {
       workers: [
         { id: 'a', firstName: 'Worker', lastName: 'A', allocationCount: 3 },
         { id: 'b', firstName: 'Worker', lastName: 'B' },
         { id: 'c', firstName: 'Worker', lastName: 'C' },
       ],
-    })
-  );
+    },
+  }));
   const props = {
     personId: '123',
   };
