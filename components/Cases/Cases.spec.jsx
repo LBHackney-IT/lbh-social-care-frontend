@@ -119,12 +119,15 @@ describe('Cases component', () => {
         restricted: 'Y',
       },
     };
-    getCasesByResident.mockImplementation(() =>
-      Promise.resolve({
-        cases: [],
-        nextCursor: 1,
-      })
-    );
+    getCasesByResident.mockImplementation(() => ({
+      size: 0,
+      data: [
+        {
+          cases: [],
+          nextCursor: 1,
+        },
+      ],
+    }));
 
     const { asFragment, getByText } = render(
       <UserContext.Provider

@@ -47,9 +47,7 @@ const Cases = ({ id, person }) => {
           {results?.cases.length > 0 ? (
             <CasesTable records={results.cases} />
           ) : (
-            <p className="govuk-body govuk-!-margin-top-5">
-              Records not found
-            </p>
+            <p className="govuk-body govuk-!-margin-top-5">Records not found</p>
           )}
         </>
       )}
