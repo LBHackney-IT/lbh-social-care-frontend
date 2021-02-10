@@ -2,11 +2,12 @@ import PropTypes from 'prop-types';
 
 import CasesTable from 'components/Cases/CasesTable';
 import ErrorMessage from 'components/ErrorMessage/ErrorMessage';
+import ErrorSummary from 'components/ErrorSummary/ErrorSummary';
 import Button from 'components/Button/Button';
 import Spinner from 'components/Spinner/Spinner';
 import { getCasesByResident } from 'utils/api/cases';
 
-const Cases = ({ id }) => {
+const Cases = ({ id, person }) => {
   const { data, size, setSize, error } = getCasesByResident(id);
   const results = data?.length > 0 && {
     cases: data.reduce((acc, { cases }) => [...acc, ...cases], []),
@@ -36,7 +37,12 @@ const Cases = ({ id }) => {
         <Button label="Add a new record" route={`${id}/records`} />
       </div>
       <hr className="govuk-divider" />
-      {results && (
+      {person.restricted === 'Y' ? (
+        <ErrorSummary
+          title="RESTRICTED"
+          body="The records for this profile are restricted for viewing"
+        />
+      ) : (
         <>
           {results?.cases.length > 0 ? (
             <CasesTable records={results.cases} />
@@ -60,6 +66,9 @@ const Cases = ({ id }) => {
 
 Cases.propTypes = {
   id: PropTypes.string.isRequired,
+  person: PropTypes.shape({
+    restricted: PropTypes.string.isRequired,
+  }).isRequired,
 };
 
 export default Cases;

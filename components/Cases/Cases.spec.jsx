@@ -12,6 +12,13 @@ jest.mock('utils/api/cases', () => ({
 describe('Cases component', () => {
   const props = {
     id: '44000000',
+    person: {
+      firstName: 'Foo',
+      lastName: 'Bar',
+      mosaicId: '123',
+      ageContext: 'A',
+      restricted: 'N',
+    },
   };
 
   it('should render records properly', async () => {
@@ -99,5 +106,43 @@ describe('Cases component', () => {
     });
     const label = getByText('Records not found');
     expect(label).toBeInTheDocument();
+  });
+
+  it('should render a error message when a person is restricted', async () => {
+    const props = {
+      id: '44000000',
+      person: {
+        firstName: 'Foo',
+        lastName: 'Bar',
+        mosaicId: '123',
+        ageContext: 'A',
+        restricted: 'Y',
+      },
+    };
+    getCasesByResident.mockImplementation(() => ({
+      size: 0,
+      data: [
+        {
+          cases: [],
+          nextCursor: 1,
+        },
+      ],
+    }));
+
+    const { asFragment, getByText } = render(
+      <UserContext.Provider
+        value={{
+          user: { hasAdminPermissions: true },
+        }}
+      >
+        <Cases {...props} />
+      </UserContext.Provider>
+    );
+    await waitFor(() => {
+      expect(asFragment()).toMatchSnapshot();
+    });
+
+    const title = getByText('RESTRICTED');
+    expect(title).toBeInTheDocument();
   });
 });
