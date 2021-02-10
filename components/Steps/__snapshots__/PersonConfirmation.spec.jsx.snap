@@ -1,0 +1,30 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Person Confirmation component should render properly 1`] = `
+<DocumentFragment>
+  <h1
+    class="govuk-fieldset__legend--l gov-weight-lighter govuk-!-margin-bottom-7"
+  >
+    Add new person confirmed
+  </h1>
+  <div
+    class="govuk-panel govuk-panel--confirmation govuk-!-margin-bottom-9"
+  >
+    <h1
+      class="govuk-fieldset__legend--l gov-weight-lighter"
+    >
+        has been added.
+      <br />
+      #123456
+    </h1>
+  </div>
+  <div>
+    <button
+      class="govuk-button govuk-button--secondary"
+      data-module="govuk-button"
+    >
+      View person
+    </button>
+  </div>
+</DocumentFragment>
+`;

@@ -20,6 +20,7 @@ const AddressBox = ({ name, disabled, value, onChange }) => {
     <div className="govuk-!-margin-top-5">
       <TextInput
         label="Address"
+        width="30"
         name={`${name}.address`}
         defaultValue={address.address}
         onChange={setNewAddress('address')}

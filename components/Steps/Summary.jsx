@@ -21,7 +21,13 @@ const SummaryStep = ({ formData, formSteps, formPath, onFormSubmit }) => {
       );
       deleteData(formPath);
       Router.replace(
-        `${formPath}confirmation${data?.ref ? `?ref=${data.ref}` : ''}`
+        `${formPath}confirmation${
+          data?.ref
+            ? `?ref=${data.ref}`
+            : data?.personId
+            ? `?personId=${data.personId}`
+            : ''
+        }`
       );
     } catch {
       setHasError(true);
