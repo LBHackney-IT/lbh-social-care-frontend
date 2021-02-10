@@ -1,19 +1,43 @@
 import axios from 'axios';
 
 import * as allocatedWorkersAPI from './allocatedWorkers';
+import * as SWR from 'swr';
 
 jest.mock('axios');
+jest.mock('swr');
 
 describe('allocatedWorkers APIs', () => {
   describe('getAllocatedWorkers', () => {
-    it('should work properly', async () => {
-      axios.get.mockResolvedValue({ data: { foo: 'bar' } });
-      const data = await allocatedWorkersAPI.getAllocatedWorkers(123);
-      expect(axios.get).toHaveBeenCalled();
-      expect(axios.get.mock.calls[0][0]).toEqual(
+    it('should work properly', () => {
+      jest.spyOn(SWR, 'default');
+      allocatedWorkersAPI.getAllocatedWorkers(123);
+      expect(SWR.default).toHaveBeenCalledWith(
         '/api/residents/123/allocated-workers'
       );
-      expect(data).toEqual({ foo: 'bar' });
+    });
+  });
+
+  describe('getTeams', () => {
+    it('should work properly', () => {
+      jest.spyOn(SWR, 'default');
+      allocatedWorkersAPI.getTeams();
+      expect(SWR.default).toHaveBeenCalledWith('/api/teams');
+    });
+  });
+
+  describe('getTeamWorkers', () => {
+    it('should work properly', () => {
+      jest.spyOn(SWR, 'default');
+      allocatedWorkersAPI.getTeamWorkers(123);
+      expect(SWR.default).toHaveBeenCalledWith('/api/teams/123/workers');
+    });
+  });
+
+  describe('getAllocationsByWorker', () => {
+    it('should work properly', () => {
+      jest.spyOn(SWR, 'default');
+      allocatedWorkersAPI.getAllocationsByWorker(123);
+      expect(SWR.default).toHaveBeenCalledWith('/api/workers/123/allocations');
     });
   });
 
@@ -34,26 +58,6 @@ describe('allocatedWorkers APIs', () => {
     });
   });
 
-  describe('getTeams', () => {
-    it('should work properly', async () => {
-      axios.get.mockResolvedValue({ data: { foo: 'bar' } });
-      const data = await allocatedWorkersAPI.getTeams();
-      expect(axios.get).toHaveBeenCalled();
-      expect(axios.get.mock.calls[0][0]).toEqual('/api/teams');
-      expect(data).toEqual({ foo: 'bar' });
-    });
-  });
-
-  describe('getTeamWorkers', () => {
-    it('should work properly', async () => {
-      axios.get.mockResolvedValue({ data: { foo: 'bar' } });
-      const data = await allocatedWorkersAPI.getTeamWorkers(123);
-      expect(axios.get).toHaveBeenCalled();
-      expect(axios.get.mock.calls[0][0]).toEqual('/api/teams/123/workers');
-      expect(data).toEqual({ foo: 'bar' });
-    });
-  });
-
   describe('deleteAllocatedWorker', () => {
     it('should work properly', async () => {
       axios.patch.mockResolvedValue({ data: { foo: 'foobar' } });
@@ -68,18 +72,6 @@ describe('allocatedWorkers APIs', () => {
         foo: 'bar',
       });
       expect(data).toEqual({ foo: 'foobar' });
-    });
-  });
-
-  describe('getAllocationsByWorker', () => {
-    it('should work properly', async () => {
-      axios.get.mockResolvedValue({ data: { foo: 'bar' } });
-      const data = await allocatedWorkersAPI.getAllocationsByWorker(123);
-      expect(axios.get).toHaveBeenCalled();
-      expect(axios.get.mock.calls[0][0]).toEqual(
-        '/api/workers/123/allocations'
-      );
-      expect(data).toEqual({ foo: 'bar' });
     });
   });
 });

@@ -23,15 +23,15 @@ jest.mock('components/AllocatedWorkers/AllocatedWorkersTable', () => () => (
 ));
 
 describe(`AddAllocatedWorker`, () => {
-  getAllocatedWorkers.mockImplementation(() =>
-    Promise.resolve({
+  getAllocatedWorkers.mockImplementation(() => ({
+    data: {
       allocations: [
         { id: '1', name: 'Team 1' },
         { id: '2', name: 'Team 2' },
         { id: '3', name: 'Team 3' },
       ],
-    })
-  );
+    },
+  }));
 
   const props = {
     id: '123',

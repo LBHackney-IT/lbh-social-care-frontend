@@ -2,135 +2,214 @@
 
 exports[`Cases component should render a error message when a person is restricted 1`] = `
 <DocumentFragment>
-  <div>
-    <svg
-      height="50"
-      stroke="#00703c"
-      style="display: block; margin: auto;"
-      viewBox="0 0 42 42"
-      width="50"
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      <g
-        fill="none"
-        fill-rule="evenodd"
+  <div
+    class="lbh-table-header"
+  >
+    <div>
+      <h3
+        class="govuk-fieldset__legend--m govuk-custom-text-color govuk-!-margin-top-0"
       >
-        <g
-          stroke-width="5"
-          transform="translate(3 3)"
-        >
-          <circle
-            cx="18"
-            cy="18"
-            r="18"
-            stroke-opacity=".5"
-          />
-          <path
-            d="M36 18c0-9.94-8.06-18-18-18"
-            transform="rotate(112.708 18 18)"
-          >
-            <animatetransform
-              attributeName="transform"
-              dur="1s"
-              from="0 18 18"
-              repeatCount="indefinite"
-              to="360 18 18"
-              type="rotate"
-            />
-          </path>
-        </g>
-      </g>
-    </svg>
+        RECORDS HISTORY
+      </h3>
+      <p
+        class="govuk-label  govuk-!-margin-top-0"
+      >
+        Linked files are read only
+      </p>
+    </div>
+    <button
+      class="govuk-button"
+      data-module="govuk-button"
+    >
+      Add a new record
+    </button>
+  </div>
+  <hr
+    class="govuk-divider"
+  />
+  <div
+    aria-labelledby="error-summary-title"
+    class="govuk-error-summary restricted_summary_box"
+    data-module="govuk-error-summary"
+    role="alert"
+    tabindex="-1"
+  >
+    <h2
+      class="govuk-error-summary__title"
+      id="error-summary-title"
+    >
+      RESTRICTED
+    </h2>
+    <div
+      class="govuk-error-summary__body"
+    >
+      The records for this profile are restricted for viewing
+    </div>
+  </div>
+  <div
+    style="height: 50px; text-align: center;"
+  >
+    <button
+      class="govuk-button"
+      data-module="govuk-button"
+    >
+      load more
+    </button>
   </div>
 </DocumentFragment>
 `;
 
 exports[`Cases component should render no records  1`] = `
 <DocumentFragment>
-  <div>
-    <svg
-      height="50"
-      stroke="#00703c"
-      style="display: block; margin: auto;"
-      viewBox="0 0 42 42"
-      width="50"
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      <g
-        fill="none"
-        fill-rule="evenodd"
+  <div
+    class="lbh-table-header"
+  >
+    <div>
+      <h3
+        class="govuk-fieldset__legend--m govuk-custom-text-color govuk-!-margin-top-0"
       >
-        <g
-          stroke-width="5"
-          transform="translate(3 3)"
-        >
-          <circle
-            cx="18"
-            cy="18"
-            r="18"
-            stroke-opacity=".5"
-          />
-          <path
-            d="M36 18c0-9.94-8.06-18-18-18"
-            transform="rotate(112.708 18 18)"
-          >
-            <animatetransform
-              attributeName="transform"
-              dur="1s"
-              from="0 18 18"
-              repeatCount="indefinite"
-              to="360 18 18"
-              type="rotate"
-            />
-          </path>
-        </g>
-      </g>
-    </svg>
+        RECORDS HISTORY
+      </h3>
+      <p
+        class="govuk-label  govuk-!-margin-top-0"
+      >
+        Linked files are read only
+      </p>
+    </div>
+    <button
+      class="govuk-button"
+      data-module="govuk-button"
+    >
+      Add a new record
+    </button>
+  </div>
+  <hr
+    class="govuk-divider"
+  />
+  <p
+    class="govuk-body govuk-!-margin-top-5"
+  >
+    Records not found
+  </p>
+  <div
+    style="height: 50px; text-align: center;"
+  >
+    <button
+      class="govuk-button"
+      data-module="govuk-button"
+    >
+      load more
+    </button>
   </div>
 </DocumentFragment>
 `;
 
 exports[`Cases component should render records properly 1`] = `
 <DocumentFragment>
-  <div>
-    <svg
-      height="50"
-      stroke="#00703c"
-      style="display: block; margin: auto;"
-      viewBox="0 0 42 42"
-      width="50"
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      <g
-        fill="none"
-        fill-rule="evenodd"
+  <div
+    class="lbh-table-header"
+  >
+    <div>
+      <h3
+        class="govuk-fieldset__legend--m govuk-custom-text-color govuk-!-margin-top-0"
       >
-        <g
-          stroke-width="5"
-          transform="translate(3 3)"
+        RECORDS HISTORY
+      </h3>
+      <p
+        class="govuk-label  govuk-!-margin-top-0"
+      >
+        Linked files are read only
+      </p>
+    </div>
+    <button
+      class="govuk-button"
+      data-module="govuk-button"
+    >
+      Add a new record
+    </button>
+  </div>
+  <hr
+    class="govuk-divider"
+  />
+  <table
+    class="govuk-table"
+  >
+    <tbody
+      class="govuk-table__body"
+    >
+      <tr
+        class="govuk-table__row"
+      >
+        <td
+          class="govuk-table__cell govuk--timestamp"
         >
-          <circle
-            cx="18"
-            cy="18"
-            r="18"
-            stroke-opacity=".5"
-          />
-          <path
-            d="M36 18c0-9.94-8.06-18-18-18"
-            transform="rotate(112.708 18 18)"
+          Jun 11, 1929 
+        </td>
+        <td
+          class="govuk-table__cell"
+        >
+          Foo_foo
+        </td>
+        <td
+          class="govuk-table__cell"
+        >
+          - created by foo@foo.co.uk
+        </td>
+        <td
+          class="govuk-table__cell govuk-button--secondary'"
+        >
+          <a
+            class="govuk-link"
+            href="http//foo/foo"
+            rel="noopener"
+            target="_blank"
           >
-            <animatetransform
-              attributeName="transform"
-              dur="1s"
-              from="0 18 18"
-              repeatCount="indefinite"
-              to="360 18 18"
-              type="rotate"
-            />
-          </path>
-        </g>
-      </g>
-    </svg>
+            View
+          </a>
+        </td>
+      </tr>
+      <tr
+        class="govuk-table__row"
+      >
+        <td
+          class="govuk-table__cell govuk--timestamp"
+        >
+          Jun 11, 1929 
+        </td>
+        <td
+          class="govuk-table__cell"
+        >
+          Bar_bar
+        </td>
+        <td
+          class="govuk-table__cell"
+        >
+          - created by bar@bar.co.uk
+        </td>
+        <td
+          class="govuk-table__cell govuk-button--secondary'"
+        >
+          <a
+            class="govuk-link"
+            href="http//bar/bar"
+            rel="noopener"
+            target="_blank"
+          >
+            View
+          </a>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <div
+    style="height: 50px; text-align: center;"
+  >
+    <button
+      class="govuk-button"
+      data-module="govuk-button"
+    >
+      load more
+    </button>
   </div>
 </DocumentFragment>
 `;
