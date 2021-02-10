@@ -88,6 +88,7 @@ describe('allocatedWorkersAPI', () => {
       axios.post.mockResolvedValue({ data: { foo: 'foobar' } });
       const data = await allocatedWorkersAPI.addAllocatedWorker(123, {
         allocatedWorkerId: '123',
+        allocatedTeamId: '321',
         allocatedBy: 'foo@bar.com',
       });
       expect(axios.post).toHaveBeenCalled();
@@ -96,6 +97,7 @@ describe('allocatedWorkersAPI', () => {
       );
       expect(axios.post.mock.calls[0][1]).toEqual({
         allocatedBy: 'foo@bar.com',
+        allocatedTeamId: 321,
         allocatedWorkerId: 123,
         mosaicId: 123,
       });
@@ -120,6 +122,7 @@ describe('allocatedWorkersAPI', () => {
       axios.patch.mockResolvedValue({ data: { foo: 'foobar' } });
       const data = await allocatedWorkersAPI.deleteAllocatedWorker({
         id: '123',
+        createdBy: 'asd@asd.com',
         deallocationReason: 'test',
       });
       expect(axios.patch).toHaveBeenCalled();
@@ -128,6 +131,7 @@ describe('allocatedWorkersAPI', () => {
       );
       expect(axios.patch.mock.calls[0][1]).toEqual({
         id: 123,
+        createdBy: 'asd@asd.com',
         deallocationReason: 'test',
       });
       expect(axios.patch.mock.calls[0][2].headers).toEqual({

@@ -90,6 +90,7 @@ describe(`AddAllocatedWorker`, () => {
     expect(addAllocatedWorker).toHaveBeenCalled();
     expect(addAllocatedWorker).toHaveBeenCalledWith('123', {
       allocatedBy: 'foo@bar.com',
+      allocatedTeamId: '3',
       allocatedWorkerId: 'c',
     });
   });

@@ -36,7 +36,10 @@ export default async (req, res) => {
 
     case 'POST':
       try {
-        const data = await addAllocatedWorker(req.query.id, req.body);
+        const data = await addAllocatedWorker(req.query.id, {
+          ...req.body,
+          createdBy: user.email,
+        });
         res.status(HttpStatus.CREATED).json(data);
       } catch (error) {
         console.error(
@@ -53,7 +56,10 @@ export default async (req, res) => {
 
     case 'PATCH':
       try {
-        const data = await deleteAllocatedWorker(req.body);
+        const data = await deleteAllocatedWorker({
+          ...req.body,
+          createdBy: user.email,
+        });
         res.status(HttpStatus.OK).json(data);
       } catch (error) {
         console.error(
