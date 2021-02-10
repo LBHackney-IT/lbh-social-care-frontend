@@ -47,6 +47,9 @@ const AddAllocatedWorker = ({ personId }) => {
   if (errorTeams | errorWorkers) {
     return <ErrorMessage label="Oops an error occurred" />;
   }
+  if (!teams) {
+    return <Spinner />;
+  }
   return (
     <form role="form" onSubmit={handleSubmit(addWorker)}>
       {teams && (
