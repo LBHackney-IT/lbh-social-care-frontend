@@ -88,6 +88,9 @@ const Cases = ({ id, person }) => {
 
 Cases.propTypes = {
   id: PropTypes.string.isRequired,
+  person: PropTypes.shape({
+    restricted: PropTypes.string.isRequired,
+  }).isRequired,
 };
 
 export default Cases;
