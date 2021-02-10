@@ -29,7 +29,7 @@ exports[`Cases component should render a error message when a person is restrict
   />
   <div
     aria-labelledby="error-summary-title"
-    class="govuk-error-summary restricted_summary_box"
+    class="govuk-error-summary"
     data-module="govuk-error-summary"
     role="alert"
     tabindex="-1"
