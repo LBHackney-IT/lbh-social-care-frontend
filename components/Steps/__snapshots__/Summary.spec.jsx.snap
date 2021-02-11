@@ -4,13 +4,35 @@ exports[`Summary component should render properly 1`] = `
 <DocumentFragment>
   <div>
     <div
+      class="lbh-table-header"
+    >
+      <h2
+        class="govuk-fieldset__legend--l gov-weight-lighter "
+      >
+        Review details for Mr Foo Bar
+      </h2>
+    </div>
+    <div
       class="govuk-!-margin-bottom-7"
     >
-      <h3
-        class="govuk-heading-m"
+      <div
+        class="lbh-table-header"
       >
-        Foo Bar
-      </h3>
+        <h3
+          class="govuk-heading-m govuk-custom-text-color govuk-!-margin-bottom-0"
+        >
+          FOO BAR
+        </h3>
+        <a
+          class="govuk-link"
+          href="/foo/bar-foofoo-bar?fromSummary=true"
+        >
+          Edit details
+        </a>
+      </div>
+      <hr
+        class="govuk-divider"
+      />
       <dl
         class="govuk-summary-list"
       >
@@ -29,19 +51,25 @@ exports[`Summary component should render properly 1`] = `
           </dd>
         </div>
       </dl>
-      <a
-        class="govuk-link"
-        href="/foo/bar-foofoo-bar?fromSummary=true"
-      >
-        Change
-      </a>
     </div>
-    <button
-      class="govuk-button govuk-button"
-      data-module="govuk-button"
+    <div
+      style="display: flex; justify-content: space-between;"
     >
-      Submit
-    </button>
+      <button
+        class="govuk-button govuk-button--secondary govuk-button"
+        data-module="govuk-button"
+        style="min-width: 200px;"
+      >
+        Cancel
+      </button>
+      <button
+        class="govuk-button govuk-button"
+        data-module="govuk-button"
+        style="min-width: 200px;"
+      >
+        Submit
+      </button>
+    </div>
   </div>
 </DocumentFragment>
 `;

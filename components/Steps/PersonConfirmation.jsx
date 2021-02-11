@@ -2,6 +2,9 @@ import PropTypes from 'prop-types';
 import { useRouter } from 'next/router';
 import Button from 'components/Button/Button';
 
+const referralForm =
+  'https://docs.google.com/forms/d/e/1FAIpQLSc4y4yjw6DpwWHN2fias1SEDo0lZZZNgN3M20Zy_p2He1rSuw/viewform';
+
 const PersonConfirmation = ({ formData, formSteps }) => {
   const router = useRouter();
   const { personId } = router.query;
@@ -17,8 +20,14 @@ const PersonConfirmation = ({ formData, formSteps }) => {
           <br />#{personId}
         </h1>
       </div>
-      <div>
-        <Button label="View person" isSecondary route={`/people/${personId}`} />
+      <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+        <Button
+          label="View person"
+          isSecondary
+          wideButton
+          route={`/people/${personId}`}
+        />
+        <Button label="Google Referral Form" wideButton route={referralForm} />
       </div>
     </>
   );

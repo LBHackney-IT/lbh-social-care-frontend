@@ -55,16 +55,21 @@ export const SummarySection = ({
   );
   return (
     <div className="govuk-!-margin-bottom-7">
-      <h3 className="govuk-heading-m">{title}</h3>
+      <div className="lbh-table-header">
+        <h3 className="govuk-heading-m govuk-custom-text-color govuk-!-margin-bottom-0">
+          {title.toUpperCase()}
+        </h3>
+        {canEdit && (
+          <Link
+            href={`${formPath}${id}?fromSummary=true`}
+            as={`${formPath}${id}?fromSummary=true`}
+          >
+            <a className="govuk-link">Edit details</a>
+          </Link>
+        )}
+      </div>
+      <hr className="govuk-divider" />
       {Summary}
-      {canEdit && (
-        <Link
-          href={`${formPath}${id}?fromSummary=true`}
-          as={`${formPath}${id}?fromSummary=true`}
-        >
-          <a className="govuk-link">Change</a>
-        </Link>
-      )}
     </div>
   );
 };

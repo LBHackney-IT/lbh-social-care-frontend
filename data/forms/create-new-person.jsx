@@ -10,7 +10,7 @@ export default {
   steps: [
     {
       id: 'client-details',
-      title: 'Client Details',
+      title: 'Person Details',
       components: [
         <h1
           key="form-title"
@@ -25,7 +25,7 @@ export default {
           key="subtitle-details"
           className="govuk-fieldset__legend--l gov-weight-lighter govuk-!-margin-bottom-5"
         >
-          Client details
+          Person details
         </h3>,
         {
           conditionalRender: ({ user }) => !user.permissionFlag,

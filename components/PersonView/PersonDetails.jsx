@@ -40,7 +40,7 @@ const PersonDetails = ({
           <>
             <dl className="govuk-summary-list">
               <div className="govuk-summary-list__row">
-                <dt className="govuk-summary-list__key">Mosaic ID</dt>
+                <dt className="govuk-summary-list__key">Person ID</dt>
                 <dd className="govuk-summary-list__value">#{mosaicId}</dd>
               </div>
               {dateOfBirth && (

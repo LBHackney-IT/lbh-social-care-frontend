@@ -5,6 +5,9 @@ describe('Summary component', () => {
   const props = {
     formData: {
       bar_input: 'foo',
+      title: 'Mr',
+      firstName: 'Foo',
+      lastName: 'Bar',
     },
     formSteps: [
       {
