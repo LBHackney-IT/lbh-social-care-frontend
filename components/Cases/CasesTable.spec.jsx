@@ -11,6 +11,7 @@ describe('CasesTable component', () => {
         formName: 'foorm',
         caseFormUrl: 'https://foo.bar',
         officerEmail: 'Fname.Lname@hackney.gov.uk',
+        caseFormData: { form_name_overall: 'foo' },
       },
     ],
   };
