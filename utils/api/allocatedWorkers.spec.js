@@ -12,7 +12,17 @@ describe('allocatedWorkers APIs', () => {
       jest.spyOn(SWR, 'default');
       allocatedWorkersAPI.getAllocatedWorkers(123);
       expect(SWR.default).toHaveBeenCalledWith(
-        '/api/residents/123/allocated-workers'
+        '/api/residents/123/allocations'
+      );
+    });
+  });
+
+  describe('getResidentAllocation', () => {
+    it('should work properly', () => {
+      jest.spyOn(SWR, 'default');
+      allocatedWorkersAPI.getResidentAllocation(123, 321);
+      expect(SWR.default).toHaveBeenCalledWith(
+        '/api/residents/123/allocations/321'
       );
     });
   });
@@ -49,7 +59,7 @@ describe('allocatedWorkers APIs', () => {
       });
       expect(axios.post).toHaveBeenCalled();
       expect(axios.post.mock.calls[0][0]).toEqual(
-        '/api/residents/123/allocated-workers'
+        '/api/residents/123/allocations'
       );
       expect(axios.post.mock.calls[0][1]).toEqual({
         foo: 'bar',
@@ -66,7 +76,7 @@ describe('allocatedWorkers APIs', () => {
       });
       expect(axios.patch).toHaveBeenCalled();
       expect(axios.patch.mock.calls[0][0]).toEqual(
-        '/api/residents/123/allocated-workers'
+        '/api/residents/123/allocations'
       );
       expect(axios.patch.mock.calls[0][1]).toEqual({
         foo: 'bar',
