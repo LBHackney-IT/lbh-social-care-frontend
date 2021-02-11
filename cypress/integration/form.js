@@ -31,7 +31,7 @@ describe('Test Form', () => {
     cy.url().should('include', '/form/test/condition-step');
     cy.contains('Conditional Step').should('be.visible');
     cy.contains('Title').type('conditional step title');
-    cy.contains('Next').click();
+    cy.contains('Continue').click();
 
     cy.url().should('include', '/form/test/last-step');
     cy.contains('Multi Step').should('be.visible');
@@ -40,7 +40,7 @@ describe('Test Form', () => {
     cy.url().should('include', '/form/test/last-step/2');
     cy.contains('Multi Step').should('be.visible');
     cy.contains('Title').type('foo second');
-    cy.contains('Next').click();
+    cy.contains('Continue').click();
 
     cy.url().should('include', '/form/test/summary');
     cy.contains('conditional name').should('be.visible');
@@ -49,7 +49,7 @@ describe('Test Form', () => {
     cy.contains('Multi Step - 2').should('be.visible');
     cy.contains('foo second').should('be.visible');
     cy.contains('Add Another Multi Step').should('be.visible');
-    cy.contains('Change').should('be.visible');
+    cy.contains('Edit details').should('be.visible');
 
     cy.contains('Submit').click();
     cy.wait('@apiCheck').then((interception) => {
