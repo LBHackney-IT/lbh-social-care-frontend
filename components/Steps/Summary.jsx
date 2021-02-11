@@ -39,7 +39,7 @@ const SummaryStep = ({ formData, formSteps, formPath, onFormSubmit }) => {
     <div>
       <div className="lbh-table-header">
         <h2 className="govuk-fieldset__legend--l gov-weight-lighter ">
-          {`Review details for ${formData.title} ${formData.firstName} ${formData.lastName}`}
+          {`Review details`}
         </h2>
       </div>
       <Summary

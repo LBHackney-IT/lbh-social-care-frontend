@@ -9,7 +9,7 @@ exports[`Summary component should render properly 1`] = `
       <h2
         class="govuk-fieldset__legend--l gov-weight-lighter "
       >
-        Review details for Mr Foo Bar
+        Review details
       </h2>
     </div>
     <div
