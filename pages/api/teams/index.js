@@ -15,7 +15,7 @@ export default async (req, res) => {
     case 'GET':
       try {
         const data = await getTeams({
-          context_flag: user.permissionFlag || 'B', //TODO fix this once 'B' has been added to the BE
+          context_flag: req.query?.ageContext || user.permissionFlag || 'B', //TODO fix this once 'B' has been added to the BE
         });
         res.status(HttpStatus.OK).json(data);
       } catch (error) {

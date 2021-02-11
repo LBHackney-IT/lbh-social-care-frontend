@@ -23,6 +23,12 @@ describe('allocatedWorkers APIs', () => {
       allocatedWorkersAPI.getTeams();
       expect(SWR.default).toHaveBeenCalledWith('/api/teams');
     });
+
+    it('should add ageContext if present', () => {
+      jest.spyOn(SWR, 'default');
+      allocatedWorkersAPI.getTeams({ ageContext: 'A' });
+      expect(SWR.default).toHaveBeenCalledWith('/api/teams?ageContext=A');
+    });
   });
 
   describe('getTeamWorkers', () => {

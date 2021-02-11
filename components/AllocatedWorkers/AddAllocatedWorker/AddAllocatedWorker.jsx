@@ -14,7 +14,7 @@ import {
   addAllocatedWorker,
 } from 'utils/api/allocatedWorkers';
 
-const AddAllocatedWorker = ({ personId }) => {
+const AddAllocatedWorker = ({ personId, ageContext }) => {
   const [postError, setPostError] = useState();
   const [postLoading, setPostLoading] = useState();
   const { query, push, replace, pathname } = useRouter();
@@ -22,7 +22,7 @@ const AddAllocatedWorker = ({ personId }) => {
     defaultValues: query,
   });
   const { user } = useAuth();
-  const { data: { teams } = {}, error: errorTeams } = getTeams();
+  const { data: { teams } = {}, error: errorTeams } = getTeams({ ageContext });
   const { data: { workers } = {}, error: errorWorkers } = getTeamWorkers(
     query?.teamId
   );
@@ -178,6 +178,7 @@ const AddAllocatedWorker = ({ personId }) => {
 
 AddAllocatedWorker.propTypes = {
   personId: PropTypes.string.isRequired,
+  ageContext: PropTypes.oneOf(['A', 'C']).isRequired,
 };
 
 export default AddAllocatedWorker;

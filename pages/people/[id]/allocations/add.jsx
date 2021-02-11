@@ -17,7 +17,10 @@ const CasesPage = () => {
       <PersonView personId={query.id} expandView={true} nameSize="m">
         {(person) => (
           <div className="govuk-!-margin-top-7">
-            <AddAllocatedWorker personId={person.mosaicId} />
+            <AddAllocatedWorker
+              personId={person.mosaicId}
+              ageContext={person.ageContext}
+            />
           </div>
         )}
       </PersonView>
