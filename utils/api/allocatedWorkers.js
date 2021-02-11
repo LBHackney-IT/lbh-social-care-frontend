@@ -4,7 +4,8 @@ import axios from 'axios';
 export const getAllocatedWorkers = (id) =>
   useSWR(`/api/residents/${id}/allocated-workers`);
 
-export const getTeams = () => useSWR(`/api/teams`);
+export const getTeams = ({ ageContext } = {}) =>
+  useSWR(`/api/teams${ageContext ? '?ageContext=' + ageContext : ''}`);
 
 export const getTeamWorkers = (teamId) =>
   useSWR(teamId ? `/api/teams/${teamId}/workers` : null);

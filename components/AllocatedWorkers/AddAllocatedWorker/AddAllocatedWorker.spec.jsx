@@ -46,6 +46,7 @@ describe(`AddAllocatedWorker`, () => {
   }));
   const props = {
     personId: '123',
+    ageContext: 'A',
   };
 
   it('should render properly', async () => {
@@ -55,13 +56,14 @@ describe(`AddAllocatedWorker`, () => {
           user: { name: 'foo', email: 'foo@bar.com' },
         }}
       >
-        <AddAllocatedWorker {...props} type="people" />
+        <AddAllocatedWorker {...props} />
       </UserContext.Provider>
     );
     const teamRadio = await findByText(
       'Select a team to view workers for that team'
     );
     expect(teamRadio).toBeInTheDocument();
+    expect(getTeams).toHaveBeenCalledWith({ ageContext: 'A' });
     const radioSelection = getByText('Team 1');
     await act(async () => {
       fireEvent.click(radioSelection);
@@ -76,7 +78,7 @@ describe(`AddAllocatedWorker`, () => {
           user: { name: 'foo', email: 'foo@bar.com' },
         }}
       >
-        <AddAllocatedWorker {...props} type="people" />
+        <AddAllocatedWorker {...props} />
       </UserContext.Provider>
     );
     await findByText('Select a team to view workers for that team');
