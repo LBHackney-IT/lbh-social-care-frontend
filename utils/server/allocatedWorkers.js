@@ -12,20 +12,33 @@ const filterClosedAllocations = (allocations) =>
       !isPast(parseISO(allocationEndDate))
   );
 
-export const getAllocations = async (params) => {
+export const getAllocations = async (params, showOnlyOpen = true) => {
   const { data } = await axios.get(`${ENDPOINT_API}/allocations`, {
     headers: { 'x-api-key': AWS_KEY },
     params,
   });
-  return {
-    ...data,
-    allocations: filterClosedAllocations(data.allocations),
-  };
+  return showOnlyOpen
+    ? {
+        ...data,
+        allocations: filterClosedAllocations(data.allocations),
+      }
+    : data;
 };
 
 export const getResidentAllocatedWorkers = (mosaic_id, params) =>
   getAllocations({ mosaic_id, ...params });
 
+export const getResidentAllocation = async (
+  mosaic_id,
+  allocation_id,
+  params
+) => {
+  const showOnlyOpen = false;
+  const data = await getAllocations({ mosaic_id, ...params }, showOnlyOpen);
+  return data?.allocations?.find(
+    ({ id }) => id === parseInt(allocation_id, 10)
+  );
+};
 export const getAllocationsByWorker = async (worker_id, params) =>
   getAllocations({ worker_id, ...params });
 
