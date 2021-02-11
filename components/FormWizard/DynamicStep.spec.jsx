@@ -28,7 +28,7 @@ describe('DynamicStep component', () => {
   it('should handle next button', async () => {
     const { getByRole } = render(<DynamicStep {...props} />);
     const input = getByRole('textbox', { name: 'Foo' });
-    const nextButton = getByRole('button', { name: 'Next' });
+    const nextButton = getByRole('button', { name: 'Continue' });
 
     expect(input).toBeInTheDocument();
     expect(nextButton).toBeInTheDocument();
@@ -44,7 +44,7 @@ describe('DynamicStep component', () => {
 
   it('should fire save and exit button', async () => {
     const { getByRole } = render(<DynamicStep {...props} />);
-    const saveButton = getByRole('button', { name: 'Save and Exit' });
+    const saveButton = getByRole('button', { name: 'Save and finish later' });
 
     expect(saveButton).toBeInTheDocument();
 

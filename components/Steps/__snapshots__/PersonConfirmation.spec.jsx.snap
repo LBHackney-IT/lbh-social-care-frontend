@@ -18,12 +18,22 @@ exports[`Person Confirmation component should render properly 1`] = `
       #123456
     </h1>
   </div>
-  <div>
+  <div
+    style="display: flex; justify-content: space-between;"
+  >
     <button
       class="govuk-button govuk-button--secondary"
       data-module="govuk-button"
+      style="min-width: 200px;"
     >
       View person
+    </button>
+    <button
+      class="govuk-button"
+      data-module="govuk-button"
+      style="min-width: 200px;"
+    >
+      Google Referral Form
     </button>
   </div>
 </DocumentFragment>

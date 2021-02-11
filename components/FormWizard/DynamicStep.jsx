@@ -1,6 +1,7 @@
 import { isValidElement, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import { useForm } from 'react-hook-form';
+import Link from 'next/link';
 
 import Button from 'components/Button/Button';
 import DynamicInput from 'components/FormWizard/DynamicInput';
@@ -84,17 +85,32 @@ const DynamicStep = ({
             }
           />
         )}
-        <div className="govuk-form-group">
+        <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+          <div>
+            <Button
+              isSecondary
+              wideButton
+              label="Save and finish later"
+              type="button"
+              onClick={() => onSaveAndExit(stepValues)}
+            />
+            <Link href="/">
+              <a
+                className="govuk-link"
+                style={{
+                  marginLeft: '1.5rem',
+                  lineHeight: '2.5rem',
+                }}
+              >
+                Cancel
+              </a>
+            </Link>
+          </div>
           <Button
-            className="govuk-!-margin-right-1"
-            label="Next"
+            wideButton
+            className="govuk-!-margin-left-1"
+            label="Continue"
             type="submit"
-          />
-          <Button
-            isSecondary
-            label="Save and Exit"
-            type="button"
-            onClick={() => onSaveAndExit(stepValues)}
           />
         </div>
       </form>

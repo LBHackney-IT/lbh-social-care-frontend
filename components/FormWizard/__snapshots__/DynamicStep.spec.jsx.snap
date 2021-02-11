@@ -25,21 +25,32 @@ exports[`DynamicStep component should render properly 1`] = `
       </div>
     </div>
     <div
-      class="govuk-form-group"
+      style="display: flex; justify-content: space-between;"
     >
+      <div>
+        <button
+          class="govuk-button govuk-button--secondary"
+          data-module="govuk-button"
+          style="min-width: 200px;"
+          type="button"
+        >
+          Save and finish later
+        </button>
+        <a
+          class="govuk-link"
+          href="/"
+          style="margin-left: 1.5rem; line-height: 2.5rem;"
+        >
+          Cancel
+        </a>
+      </div>
       <button
-        class="govuk-button govuk-!-margin-right-1"
+        class="govuk-button govuk-!-margin-left-1"
         data-module="govuk-button"
+        style="min-width: 200px;"
         type="submit"
       >
-        Next
-      </button>
-      <button
-        class="govuk-button govuk-button--secondary"
-        data-module="govuk-button"
-        type="button"
-      >
-        Save and Exit
+        Continue
       </button>
     </div>
   </form>

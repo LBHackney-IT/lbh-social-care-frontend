@@ -37,18 +37,33 @@ const SummaryStep = ({ formData, formSteps, formPath, onFormSubmit }) => {
   if (!formSteps) return null;
   return (
     <div>
+      <div className="lbh-table-header">
+        <h2 className="govuk-fieldset__legend--l gov-weight-lighter ">
+          {`Review details`}
+        </h2>
+      </div>
       <Summary
         formData={formData}
         formPath={formPath}
         formSteps={formSteps}
         canEdit
       />
-      <Button
-        className="govuk-button"
-        label="Submit"
-        onClick={onSubmit}
-        disabled={isSubmitting}
-      />
+      <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+        <Button
+          wideButton
+          className="govuk-button"
+          label="Cancel"
+          isSecondary
+          route="/"
+        />
+        <Button
+          wideButton
+          className="govuk-button"
+          label="Submit"
+          onClick={onSubmit}
+          disabled={isSubmitting}
+        />
+      </div>
       {hasError && (
         <ErrorSummary
           title="Unfortunately there was a problem with your submission."

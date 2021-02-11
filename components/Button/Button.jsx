@@ -12,6 +12,7 @@ const Button = ({
   className,
   route,
   internalQuery,
+  wideButton,
   ...otherProps
 }) => {
   const isExternal = route && route.includes('https://');
@@ -24,6 +25,7 @@ const Button = ({
   };
   return (
     <button
+      style={wideButton ? { minWidth: '200px' } : null}
       className={cx(
         'govuk-button',
         {
