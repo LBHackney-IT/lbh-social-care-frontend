@@ -27,7 +27,7 @@ const PersonConfirmation = ({ formData, formSteps }) => {
           wideButton
           route={`/people/${personId}`}
         />
-        <Button label="Google Referral Form" wideButton route={referralForm} />
+        <Button label="Add referral details" wideButton route={referralForm} />
       </div>
     </>
   );
