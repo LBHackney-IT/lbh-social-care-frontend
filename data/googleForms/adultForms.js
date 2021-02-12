@@ -42,7 +42,7 @@ export default [
     category: 'Safeguarding',
   },
   {
-    text: 'Contacts',
+    text: 'Referral',
     value:
       'https://docs.google.com/forms/d/e/1FAIpQLSc4y4yjw6DpwWHN2fias1SEDo0lZZZNgN3M20Zy_p2He1rSuw/viewform',
     category: 'Information Assessment',
