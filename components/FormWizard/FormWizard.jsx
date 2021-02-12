@@ -123,7 +123,7 @@ const FormWizard = ({
               includesDetails,
               personDetails
             );
-            Router.push('/');
+            Router.push('/form-in-progress');
           }}
           onFormSubmit={onFormSubmit}
           successMessage={successMessage}

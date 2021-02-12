@@ -33,7 +33,7 @@ exports[`Person Confirmation component should render properly 1`] = `
       data-module="govuk-button"
       style="min-width: 200px;"
     >
-      Google Referral Form
+      Add referral details
     </button>
   </div>
 </DocumentFragment>
