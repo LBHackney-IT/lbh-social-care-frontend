@@ -5,7 +5,7 @@ import DeallocateWorkers from 'components/AllocatedWorkers/DeallocateWorker/Deal
 import BackButton from 'components/Layout/BackButton/BackButton';
 import PersonView from 'components/PersonView/PersonView';
 
-const CasesPage = () => {
+const RemovedAllocationPage = () => {
   const { query } = useRouter();
   return (
     <>
@@ -28,4 +28,4 @@ const CasesPage = () => {
   );
 };
 
-export default CasesPage;
+export default RemovedAllocationPage;

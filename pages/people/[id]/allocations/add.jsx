@@ -5,7 +5,7 @@ import AddAllocatedWorker from 'components/AllocatedWorkers/AddAllocatedWorker/A
 import BackButton from 'components/Layout/BackButton/BackButton';
 import PersonView from 'components/PersonView/PersonView';
 
-const CasesPage = () => {
+const AddNewAllocationPage = () => {
   const { query } = useRouter();
   return (
     <>
@@ -28,4 +28,4 @@ const CasesPage = () => {
   );
 };
 
-export default CasesPage;
+export default AddNewAllocationPage;

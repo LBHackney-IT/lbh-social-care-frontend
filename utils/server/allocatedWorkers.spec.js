@@ -83,6 +83,30 @@ describe('allocatedWorkersAPI', () => {
     });
   });
 
+  describe('getResidentAllocation', () => {
+    it('should work properly', async () => {
+      axios.get.mockResolvedValue({
+        data: {
+          allocations: [
+            {
+              id: 1,
+              allocationEndDate: null,
+              caseStatus: 'Closed',
+            },
+          ],
+        },
+      });
+      const data = await allocatedWorkersAPI.getResidentAllocation(123, 1);
+      expect(data).toEqual({
+        id: 1,
+        allocationEndDate: null,
+        caseStatus: 'Closed',
+      });
+      const nodata = await allocatedWorkersAPI.getResidentAllocation(123, 3);
+      expect(nodata).toEqual(undefined);
+    });
+  });
+
   describe('addAllocatedWorker', () => {
     it('should work properly', async () => {
       axios.post.mockResolvedValue({ data: { foo: 'foobar' } });

@@ -1,0 +1,181 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AllocationRecap should render properly on allocation 1`] = `
+<DocumentFragment>
+  <h1
+    class="govuk-fieldset__legend--l gov-weight-lighter"
+  >
+    Worker allocated
+  </h1>
+  <p
+    class="govuk-body govuk-!-margin-top-6"
+  >
+    <b>
+      Person
+    </b>
+    : 
+    <a
+      href="/people/undefined"
+    >
+      person
+    </a>
+  </p>
+  <div
+    class="govuk-!-margin-top-6"
+  >
+    <h2
+      class="gov-weight-lighter"
+    >
+      Allocations details
+    </h2>
+    <dl
+      class="govuk-summary-list govuk-summary-list--no-border"
+    >
+      <div
+        class="govuk-summary-list__row"
+      >
+        <dt
+          class="govuk-summary-list__key"
+        >
+          Worker
+        </dt>
+        <dd
+          class="govuk-summary-list__value"
+        >
+          worker, type, team
+        </dd>
+      </div>
+      <div
+        class="govuk-summary-list__row"
+      >
+        <dt
+          class="govuk-summary-list__key"
+        >
+          Allocated date
+        </dt>
+        <dd
+          class="govuk-summary-list__value"
+        >
+          10/1/2000
+        </dd>
+      </div>
+      <div
+        class="govuk-summary-list__row"
+      >
+        <dt
+          class="govuk-summary-list__key"
+        >
+          Allocated by
+        </dt>
+        <dd
+          class="govuk-summary-list__value"
+        >
+          creator
+        </dd>
+      </div>
+    </dl>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`AllocationRecap should render properly on deallocation 1`] = `
+<DocumentFragment>
+  <h1
+    class="govuk-fieldset__legend--l gov-weight-lighter"
+  >
+    Worker deallocated
+  </h1>
+  <p
+    class="govuk-body govuk-!-margin-top-6"
+  >
+    <b>
+      Person
+    </b>
+    : 
+    <a
+      href="/people/undefined"
+    >
+      person
+    </a>
+  </p>
+  <div
+    class="govuk-!-margin-top-6"
+  >
+    <h2
+      class="gov-weight-lighter"
+    >
+      Allocations details
+    </h2>
+    <dl
+      class="govuk-summary-list govuk-summary-list--no-border"
+    >
+      <div
+        class="govuk-summary-list__row"
+      >
+        <dt
+          class="govuk-summary-list__key"
+        >
+          Worker
+        </dt>
+        <dd
+          class="govuk-summary-list__value"
+        >
+          worker, type, team
+        </dd>
+      </div>
+      <div
+        class="govuk-summary-list__row"
+      >
+        <dt
+          class="govuk-summary-list__key"
+        >
+          Allocated date
+        </dt>
+        <dd
+          class="govuk-summary-list__value"
+        >
+          10/1/2000
+        </dd>
+      </div>
+      <div
+        class="govuk-summary-list__row"
+      >
+        <dt
+          class="govuk-summary-list__key"
+        >
+          Deallocated date
+        </dt>
+        <dd
+          class="govuk-summary-list__value"
+        >
+          11/1/2000
+        </dd>
+      </div>
+      <div
+        class="govuk-summary-list__row"
+      >
+        <dt
+          class="govuk-summary-list__key"
+        >
+          Deallocated by
+        </dt>
+        <dd
+          class="govuk-summary-list__value"
+        >
+          creator
+        </dd>
+      </div>
+    </dl>
+  </div>
+  <h2
+    class="gov-weight-lighter"
+  >
+    Reason for worker deallocation
+  </h2>
+  <p
+    class="govuk-body"
+  >
+    a valid reason
+  </p>
+</DocumentFragment>
+`;

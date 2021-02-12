@@ -1,7 +1,16 @@
 import PropTypes from 'prop-types';
 import { formatDate } from 'utils/date';
 
-const CasesEntry = ({ formName, caseFormUrl, officerEmail, dateOfEvent }) => (
+import CaseLink from './CaseLink';
+
+const CasesEntry = ({
+  recordId,
+  formName,
+  caseFormUrl,
+  officerEmail,
+  dateOfEvent,
+  caseFormData,
+}) => (
   <tr className="govuk-table__row">
     <td className="govuk-table__cell govuk--timestamp">
       {dateOfEvent && formatDate(dateOfEvent)}{' '}
@@ -11,16 +20,11 @@ const CasesEntry = ({ formName, caseFormUrl, officerEmail, dateOfEvent }) => (
       {officerEmail && `- created by ${officerEmail}`}
     </td>
     <td className="govuk-table__cell govuk-button--secondary'">
-      {caseFormUrl && (
-        <a
-          href={caseFormUrl}
-          target="_blank"
-          rel="noopener"
-          className="govuk-link"
-        >
-          View
-        </a>
-      )}
+      <CaseLink
+        recordId={recordId}
+        externalUrl={caseFormUrl}
+        caseFormData={caseFormData}
+      />
     </td>
   </tr>
 );
