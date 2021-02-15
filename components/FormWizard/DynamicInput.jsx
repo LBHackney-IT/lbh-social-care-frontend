@@ -11,6 +11,7 @@ const DynamicInput = (props) => {
     name,
     options,
     currentData,
+    register,
     ...otherProps
   } = props;
   const Component = Inputs[component];
@@ -33,7 +34,7 @@ const DynamicInput = (props) => {
     case 'DateInput':
       return <Component control={control} {...sharedProps} />;
     default:
-      return <Component {...sharedProps} />;
+      return <Component register={register} {...sharedProps} />;
   }
 };
 

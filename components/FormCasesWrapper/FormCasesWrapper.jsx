@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { NextSeo } from 'next-seo';
 import { useRouter } from 'next/router';
@@ -8,15 +8,17 @@ import BackButton from 'components/Layout/BackButton/BackButton';
 import FormWizard from 'components/FormWizard/FormWizard';
 import PersonDetails from 'components/PersonView/PersonDetails';
 import Spinner from 'components/Spinner/Spinner';
+import ErrorMessage from 'components/ErrorMessage/ErrorMessage';
 import { addCase } from 'utils/api/cases';
 import { getResident } from 'utils/api/residents';
 
 const FormCasesWrapper = ({ form, title, personId, formNameOverall }) => {
+  const [id] = useState(personId);
   const { replace } = useRouter();
   useEffect(() => {
     !personId && replace('/');
   }, []);
-  const { data: person, error } = getResident(personId);
+  const { data: person, error } = getResident(id);
   const { user } = useAuth();
   const onFormSubmit = async (formData) => {
     const ref = await addCase({
@@ -55,6 +57,7 @@ const FormCasesWrapper = ({ form, title, personId, formNameOverall }) => {
           onFormSubmit={onFormSubmit}
           personDetails={{ ...person }}
           includesDetails={true}
+          hideBackButton={true}
         />
       </>
     </>
