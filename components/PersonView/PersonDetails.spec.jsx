@@ -4,13 +4,19 @@ import PersonDetails from './PersonDetails';
 
 describe('PersonDetails component', () => {
   const props = {
+    otherNames: 'test test',
+    ageContext: 'CFS',
     firstName: 'i am the first',
     lastName: 'i am the last',
     mosaicId: 'mosaic',
     dateOfBirth: '1978-02-23T00:00:00.0000000',
+    dateOfDeath: '1998-02-23T00:00:00.0000000',
     nhsNumber: 'nhs_123',
-    nationality: 'foo',
+    ethnicity: 'White',
     gender: 'X',
+    sexualOrientation: 'straight',
+    email: 'test@test.com',
+    preferredMethodOfContact: 'email',
     addressList: [
       {
         contactAddressFlag: 'N',
