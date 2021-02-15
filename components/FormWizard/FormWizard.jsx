@@ -43,9 +43,10 @@ const FormWizard = ({
   });
 
   const stepPath = `${formPath}[step]`;
-  const step = steps.find(
-    ({ id }) => id === (Array.isArray(stepId) ? stepId[0] : stepId)
-  );
+  const step =
+    steps.find(
+      ({ id }) => id === (Array.isArray(stepId) ? stepId[0] : stepId)
+    ) || formSteps[0];
   if (!step) {
     return null;
   }
@@ -81,7 +82,7 @@ const FormWizard = ({
           )}
         <StepComponent
           {...step}
-          key={stepId.join('-')}
+          key={stepId?.join('-')}
           stepId={stepId}
           formData={formData}
           formSteps={formSteps}

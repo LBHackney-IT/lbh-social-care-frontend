@@ -74,7 +74,7 @@ const Search = ({ type }) => {
   const addNewPerson = type === 'people' && user.hasAdminPermissions && (
     <>
       Results don't match?{' '}
-      <Link href="/form/create-new-person/client-details">
+      <Link href="/people/add">
         <a style={{ textDecoration: 'underline' }} className="govuk-link">
           {' '}
           Add New Person
