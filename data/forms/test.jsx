@@ -74,6 +74,12 @@ export default {
           width: '30',
           label: 'Show object step',
         },
+        {
+          component: 'Checkbox',
+          name: 'show_autocomplete',
+          width: '30',
+          label: 'Show autocomplete',
+        },
       ],
     },
     {
@@ -143,6 +149,23 @@ export default {
           name: 'multi_select',
           label: 'Second multi select',
           options: ({ first_select } = {}) => MULTI_SELECT[first_select],
+        },
+      ],
+    },
+    {
+      id: 'autocomplete-step',
+      title: 'Autocomplete Step',
+      conditionalRender: ({ show_autocomplete }) => show_autocomplete === true,
+      components: [
+        {
+          component: 'Autocomplete',
+          name: 'autocomplete',
+          width: '30',
+          label: 'Title',
+          options: [
+            { text: 'foo', value: 22 },
+            { text: 'bar', value: 41 },
+          ],
         },
       ],
     },

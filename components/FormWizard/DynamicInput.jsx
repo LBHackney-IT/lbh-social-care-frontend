@@ -32,6 +32,7 @@ const DynamicInput = (props) => {
       return <Component {...props} />;
     case 'AddressLookup':
     case 'DateInput':
+    case 'Autocomplete':
       return <Component control={control} {...sharedProps} />;
     default:
       return <Component register={register} {...sharedProps} />;
