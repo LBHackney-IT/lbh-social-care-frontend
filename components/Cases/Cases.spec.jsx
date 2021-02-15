@@ -114,23 +114,9 @@ describe('Cases component', () => {
     const props = {
       id: '44000000',
       person: {
-        firstName: 'Foo',
-        lastName: 'Bar',
-        mosaicId: '123',
-        ageContext: 'A',
         restricted: 'Y',
       },
     };
-    getCasesByResident.mockImplementation(() => ({
-      size: 0,
-      data: [
-        {
-          cases: [],
-          nextCursor: 1,
-        },
-      ],
-    }));
-
     const { asFragment, getByText } = render(
       <UserContext.Provider
         value={{
@@ -140,10 +126,8 @@ describe('Cases component', () => {
         <Cases {...props} />
       </UserContext.Provider>
     );
-    await waitFor(() => {
-      expect(asFragment()).toMatchSnapshot();
-    });
-
+    expect(asFragment()).toMatchSnapshot();
+    expect(getCasesByResident).not.toHaveBeenCalled();
     const title = getByText('RESTRICTED');
     expect(title).toBeInTheDocument();
   });

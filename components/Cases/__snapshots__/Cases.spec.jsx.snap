@@ -46,16 +46,6 @@ exports[`Cases component should render a error message when a person is restrict
       The records for this profile are restricted for viewing
     </div>
   </div>
-  <div
-    style="height: 50px; text-align: center;"
-  >
-    <button
-      class="govuk-button"
-      data-module="govuk-button"
-    >
-      load more
-    </button>
-  </div>
 </DocumentFragment>
 `;
 

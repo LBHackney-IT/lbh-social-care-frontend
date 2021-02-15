@@ -7,7 +7,7 @@ import Button from 'components/Button/Button';
 import Spinner from 'components/Spinner/Spinner';
 import { getCasesByResident } from 'utils/api/cases';
 
-const Cases = ({ id, person }) => {
+const Cases = ({ id }) => {
   const { data, size, setSize, error } = getCasesByResident(id);
   const results = data?.length > 0 && {
     cases: data.reduce((acc, { cases }) => [...acc, ...cases], []),
@@ -25,31 +25,10 @@ const Cases = ({ id, person }) => {
   }
   return (
     <>
-      <div className="lbh-table-header">
-        <div>
-          <h3 className="govuk-fieldset__legend--m govuk-custom-text-color govuk-!-margin-top-0">
-            RECORDS HISTORY
-          </h3>
-          <p className="govuk-label  govuk-!-margin-top-0">
-            Linked files are read only
-          </p>
-        </div>
-        <Button label="Add a new record" route={`${id}/records`} />
-      </div>
-      <hr className="govuk-divider" />
-      {person.restricted === 'Y' ? (
-        <ErrorSummary
-          title="RESTRICTED"
-          body="The records for this profile are restricted for viewing"
-        />
+      {results?.cases.length > 0 ? (
+        <CasesTable records={results.cases} />
       ) : (
-        <>
-          {results?.cases.length > 0 ? (
-            <CasesTable records={results.cases} />
-          ) : (
-            <p className="govuk-body govuk-!-margin-top-5">Records not found</p>
-          )}
-        </>
+        <p className="govuk-body govuk-!-margin-top-5">Records not found</p>
       )}
       <div style={{ height: '50px', textAlign: 'center' }}>
         {size > data.length ? (
@@ -64,11 +43,36 @@ const Cases = ({ id, person }) => {
   );
 };
 
-Cases.propTypes = {
+const CasesWrapper = ({ id, person }) => (
+  <>
+    <div className="lbh-table-header">
+      <div>
+        <h3 className="govuk-fieldset__legend--m govuk-custom-text-color govuk-!-margin-top-0">
+          RECORDS HISTORY
+        </h3>
+        <p className="govuk-label  govuk-!-margin-top-0">
+          Linked files are read only
+        </p>
+      </div>
+      <Button label="Add a new record" route={`${id}/records`} />
+    </div>
+    <hr className="govuk-divider" />
+    {person.restricted === 'Y' ? (
+      <ErrorSummary
+        title="RESTRICTED"
+        body="The records for this profile are restricted for viewing"
+      />
+    ) : (
+      <Cases id={id} />
+    )}
+  </>
+);
+
+CasesWrapper.propTypes = {
   id: PropTypes.string.isRequired,
   person: PropTypes.shape({
     restricted: PropTypes.string.isRequired,
   }).isRequired,
 };
 
-export default Cases;
+export default CasesWrapper;
