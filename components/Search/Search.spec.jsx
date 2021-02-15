@@ -61,7 +61,7 @@ describe(`Search`, () => {
     ).toHaveBeenCalledWith(
       'foopath?foo=bar&first_name=foo',
       'foopath?foo=bar&first_name=foo',
-      { shallow: true }
+      { shallow: true, scroll: false }
     );
     const searchResult = await findByText('PEOPLE SEARCH RESULT');
     expect(searchResult).toBeInTheDocument();
@@ -105,7 +105,7 @@ describe(`Search`, () => {
     ).toHaveBeenCalledWith(
       'foopath?foo=bar&first_name=foo',
       'foopath?foo=bar&first_name=foo',
-      { shallow: true }
+      { shallow: true, scroll: false }
     );
     const searchResult = await findByText('PEOPLE SEARCH RESULT');
     expect(searchResult).toBeInTheDocument();
