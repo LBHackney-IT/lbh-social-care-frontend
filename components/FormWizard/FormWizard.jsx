@@ -20,6 +20,7 @@ const FormWizard = ({
   title,
   personDetails,
   includesDetails,
+  hideBackButton,
   customConfirmation,
   customSummary,
 }) => {
@@ -53,7 +54,7 @@ const FormWizard = ({
   return (
     <div className="govuk-width-container">
       <NextSeo title={`${step.title} - ${title}`} noindex={true} />
-      {currentStepIndex !== 0 && step.id !== 'confirmation' && (
+      {!hideBackButton && currentStepIndex !== 0 && step.id !== 'confirmation' && (
         <a className="govuk-back-link" href="#" onClick={() => Router.back()}>
           Back
         </a>
@@ -143,6 +144,7 @@ FormWizard.propTypes = {
     })
   ).isRequired,
   title: PropTypes.string.isRequired,
+  hideBackButton: PropTypes.bool,
   onFormSubmit: PropTypes.func,
   defaultValues: PropTypes.shape({}),
 };
