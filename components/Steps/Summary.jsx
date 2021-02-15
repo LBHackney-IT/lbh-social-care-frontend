@@ -54,7 +54,7 @@ const SummaryStep = ({ formData, formSteps, formPath, onFormSubmit }) => {
           className="govuk-button"
           label="Cancel"
           isSecondary
-          route="/"
+          onClick={() => (window.location = '/')}
         />
         <Button
           wideButton
