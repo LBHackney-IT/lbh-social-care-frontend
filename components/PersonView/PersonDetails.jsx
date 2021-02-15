@@ -2,16 +2,23 @@ import { useState } from 'react';
 import PropTypes from 'prop-types';
 
 const PersonDetails = ({
+  otherNames,
   ageContext,
   firstName,
   lastName,
   mosaicId,
   dateOfBirth,
   nhsNumber,
-  nationality,
+  firstLanguage,
+  religion,
+  dateOfDeath,
+  sexualOrientation,
   gender,
+  ethnicity,
   addressList,
   phoneNumber,
+  email,
+  preferredMethodOfContact,
   expandView = false,
 }) => {
   const [expandDetails, setExpandDetails] = useState(false);
@@ -39,10 +46,22 @@ const PersonDetails = ({
         {(!expandView || expandDetails) && (
           <>
             <dl className="govuk-summary-list">
+              {otherNames && (
+                <div className="govuk-summary-list__row">
+                  <dt className="govuk-summary-list__key">Other Names</dt>
+                  <dd className="govuk-summary-list__value">{otherNames}</dd>
+                </div>
+              )}
               <div className="govuk-summary-list__row">
                 <dt className="govuk-summary-list__key">Person ID</dt>
                 <dd className="govuk-summary-list__value">#{mosaicId}</dd>
               </div>
+              {gender && (
+                <div className="govuk-summary-list__row">
+                  <dt className="govuk-summary-list__key">Gender</dt>
+                  <dd className="govuk-summary-list__value">{gender}</dd>
+                </div>
+              )}
               {dateOfBirth && (
                 <div className="govuk-summary-list__row">
                   <dt className="govuk-summary-list__key">Date of birth</dt>
@@ -51,22 +70,42 @@ const PersonDetails = ({
                   </dd>
                 </div>
               )}
+              {dateOfDeath && (
+                <div className="govuk-summary-list__row">
+                  <dt className="govuk-summary-list__key">Date Of Death</dt>
+                  <dd className="govuk-summary-list__value">{dateOfDeath}</dd>
+                </div>
+              )}
+              {ethnicity && (
+                <div className="govuk-summary-list__row">
+                  <dt className="govuk-summary-list__key">Ethnicity</dt>
+                  <dd className="govuk-summary-list__value">{ethnicity}</dd>
+                </div>
+              )}
+              {firstLanguage && (
+                <div className="govuk-summary-list__row">
+                  <dt className="govuk-summary-list__key">First Language </dt>
+                  <dd className="govuk-summary-list__value">{firstLanguage}</dd>
+                </div>
+              )}
+              {religion && (
+                <div className="govuk-summary-list__row">
+                  <dt className="govuk-summary-list__key">Religion </dt>
+                  <dd className="govuk-summary-list__value">{religion}</dd>
+                </div>
+              )}
+              {sexualOrientation && (
+                <div className="govuk-summary-list__row">
+                  <dt className="govuk-summary-list__key">Religion </dt>
+                  <dd className="govuk-summary-list__value">
+                    {sexualOrientation}
+                  </dd>
+                </div>
+              )}
               {nhsNumber && (
                 <div className="govuk-summary-list__row">
                   <dt className="govuk-summary-list__key">NHS number</dt>
                   <dd className="govuk-summary-list__value">{nhsNumber}</dd>
-                </div>
-              )}
-              {nationality && (
-                <div className="govuk-summary-list__row">
-                  <dt className="govuk-summary-list__key">Nationality</dt>
-                  <dd className="govuk-summary-list__value">{nationality}</dd>
-                </div>
-              )}
-              {gender && (
-                <div className="govuk-summary-list__row">
-                  <dt className="govuk-summary-list__key">Gender</dt>
-                  <dd className="govuk-summary-list__value">{gender}</dd>
                 </div>
               )}
               {address?.addressLine1 && (
@@ -87,6 +126,22 @@ const PersonDetails = ({
                           {phoneNumber} - {phoneType}
                         </li>
                       ))}
+                      {email && (
+                        <div className="govuk-summary-list__row">
+                          <dt className="govuk-summary-list__key">Email </dt>
+                          <dd className="govuk-summary-list__value">{email}</dd>
+                        </div>
+                      )}
+                      {preferredMethodOfContact && (
+                        <div className="govuk-summary-list__row">
+                          <dt className="govuk-summary-list__key">
+                            Preferred Method Of Contact
+                          </dt>
+                          <dd className="govuk-summary-list__value">
+                            {preferredMethodOfContact}
+                          </dd>
+                        </div>
+                      )}
                     </ul>
                   </dd>
                 </div>
