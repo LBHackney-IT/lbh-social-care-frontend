@@ -46,10 +46,18 @@ const PersonDetails = ({
         {(!expandView || expandDetails) && (
           <>
             <dl className="govuk-summary-list">
-              {otherNames && (
+              {otherNames?.length > 0 && (
                 <div className="govuk-summary-list__row">
                   <dt className="govuk-summary-list__key">Other Names</dt>
-                  <dd className="govuk-summary-list__value">{otherNames}</dd>
+                  <dd className="govuk-summary-list__value">
+                    <ul className="govuk-list">
+                      {otherNames.map(({ firstName, lastName }) => (
+                        <li key={otherNames}>
+                          {firstName} {lastName}
+                        </li>
+                      ))}
+                    </ul>
+                  </dd>
                 </div>
               )}
               <div className="govuk-summary-list__row">
@@ -73,7 +81,9 @@ const PersonDetails = ({
               {dateOfDeath && (
                 <div className="govuk-summary-list__row">
                   <dt className="govuk-summary-list__key">Date Of Death</dt>
-                  <dd className="govuk-summary-list__value">{dateOfDeath}</dd>
+                  <dd className="govuk-summary-list__value">
+                    {new Date(dateOfDeath).toLocaleDateString('en-GB')}
+                  </dd>
                 </div>
               )}
               {ethnicity && (
@@ -96,7 +106,9 @@ const PersonDetails = ({
               )}
               {sexualOrientation && (
                 <div className="govuk-summary-list__row">
-                  <dt className="govuk-summary-list__key">Religion </dt>
+                  <dt className="govuk-summary-list__key">
+                    Sexual orientation
+                  </dt>
                   <dd className="govuk-summary-list__value">
                     {sexualOrientation}
                   </dd>
@@ -126,23 +138,23 @@ const PersonDetails = ({
                           {phoneNumber} - {phoneType}
                         </li>
                       ))}
-                      {email && (
-                        <div className="govuk-summary-list__row">
-                          <dt className="govuk-summary-list__key">Email </dt>
-                          <dd className="govuk-summary-list__value">{email}</dd>
-                        </div>
-                      )}
-                      {preferredMethodOfContact && (
-                        <div className="govuk-summary-list__row">
-                          <dt className="govuk-summary-list__key">
-                            Preferred Method Of Contact
-                          </dt>
-                          <dd className="govuk-summary-list__value">
-                            {preferredMethodOfContact}
-                          </dd>
-                        </div>
-                      )}
                     </ul>
+                  </dd>
+                </div>
+              )}
+              {email && (
+                <div className="govuk-summary-list__row">
+                  <dt className="govuk-summary-list__key">Email </dt>
+                  <dd className="govuk-summary-list__value">{email}</dd>
+                </div>
+              )}
+              {preferredMethodOfContact && (
+                <div className="govuk-summary-list__row">
+                  <dt className="govuk-summary-list__key">
+                    Preferred Method Of Contact
+                  </dt>
+                  <dd className="govuk-summary-list__value">
+                    {preferredMethodOfContact}
                   </dd>
                 </div>
               )}
