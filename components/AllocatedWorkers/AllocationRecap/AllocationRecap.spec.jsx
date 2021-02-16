@@ -16,16 +16,6 @@ jest.mock('utils/api/cases', () => ({
 }));
 
 describe(`AllocationRecap`, () => {
-  getCaseByResident.mockImplementation(() => ({
-    data: {
-      caseFormData: {
-        form_name_overall: 'form name',
-        created_by: 'creator',
-        deallocation_reason: 'a valid reason',
-      },
-    },
-  }));
-
   const props = {
     personId: 'p_123',
     allocationId: 'a_123',
@@ -33,6 +23,15 @@ describe(`AllocationRecap`, () => {
   };
 
   it('should render properly on deallocation', async () => {
+    getCaseByResident.mockImplementation(() => ({
+      data: {
+        caseFormData: {
+          form_name_overall: 'API_Deallocation',
+          created_by: 'creator',
+          deallocation_reason: 'a valid reason',
+        },
+      },
+    }));
     getResidentAllocation.mockImplementation(() => ({
       data: {
         personName: 'person',
@@ -41,7 +40,6 @@ describe(`AllocationRecap`, () => {
         allocatedWorkerTeam: 'team',
         allocationStartDate: '2000-10-01',
         allocationEndDate: '2000-11-01',
-        caseStatus: 'Closed',
       },
     }));
     const { asFragment } = render(<AllocationRecap {...props} />);
@@ -51,6 +49,15 @@ describe(`AllocationRecap`, () => {
   });
 
   it('should render properly on allocation', async () => {
+    getCaseByResident.mockImplementation(() => ({
+      data: {
+        caseFormData: {
+          form_name_overall: 'API_Allocation',
+          created_by: 'creator',
+          deallocation_reason: 'a valid reason',
+        },
+      },
+    }));
     getResidentAllocation.mockImplementation(() => ({
       data: {
         personName: 'person',
@@ -58,7 +65,6 @@ describe(`AllocationRecap`, () => {
         workerType: 'type',
         allocatedWorkerTeam: 'team',
         allocationStartDate: '2000-10-01',
-        caseStatus: 'Open',
       },
     }));
     const { asFragment } = render(<AllocationRecap {...props} />);
