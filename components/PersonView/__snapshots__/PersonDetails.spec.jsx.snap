@@ -60,7 +60,13 @@ exports[`PersonDetails component should render properly - expanded 2`] = `
         <dd
           class="govuk-summary-list__value"
         >
-          test test
+          <ul
+            class="govuk-list"
+          >
+            <li>
+              asd 
+            </li>
+          </ul>
         </dd>
       </div>
       <div
@@ -116,7 +122,7 @@ exports[`PersonDetails component should render properly - expanded 2`] = `
         <dd
           class="govuk-summary-list__value"
         >
-          1998-02-23T00:00:00.0000000
+          2/23/1998
         </dd>
       </div>
       <div
@@ -139,7 +145,7 @@ exports[`PersonDetails component should render properly - expanded 2`] = `
         <dt
           class="govuk-summary-list__key"
         >
-          Religion 
+          Sexual orientation
         </dt>
         <dd
           class="govuk-summary-list__value"
@@ -194,35 +200,35 @@ exports[`PersonDetails component should render properly - expanded 2`] = `
             <li>
               02123 - Home
             </li>
-            <div
-              class="govuk-summary-list__row"
-            >
-              <dt
-                class="govuk-summary-list__key"
-              >
-                Email 
-              </dt>
-              <dd
-                class="govuk-summary-list__value"
-              >
-                test@test.com
-              </dd>
-            </div>
-            <div
-              class="govuk-summary-list__row"
-            >
-              <dt
-                class="govuk-summary-list__key"
-              >
-                Preferred Method Of Contact
-              </dt>
-              <dd
-                class="govuk-summary-list__value"
-              >
-                email
-              </dd>
-            </div>
           </ul>
+        </dd>
+      </div>
+      <div
+        class="govuk-summary-list__row"
+      >
+        <dt
+          class="govuk-summary-list__key"
+        >
+          Email 
+        </dt>
+        <dd
+          class="govuk-summary-list__value"
+        >
+          test@test.com
+        </dd>
+      </div>
+      <div
+        class="govuk-summary-list__row"
+      >
+        <dt
+          class="govuk-summary-list__key"
+        >
+          Preferred Method Of Contact
+        </dt>
+        <dd
+          class="govuk-summary-list__value"
+        >
+          email
         </dd>
       </div>
       <div
@@ -273,7 +279,13 @@ exports[`PersonDetails component should render properly 1`] = `
         <dd
           class="govuk-summary-list__value"
         >
-          test test
+          <ul
+            class="govuk-list"
+          >
+            <li>
+              asd 
+            </li>
+          </ul>
         </dd>
       </div>
       <div
@@ -329,7 +341,7 @@ exports[`PersonDetails component should render properly 1`] = `
         <dd
           class="govuk-summary-list__value"
         >
-          1998-02-23T00:00:00.0000000
+          2/23/1998
         </dd>
       </div>
       <div
@@ -352,7 +364,7 @@ exports[`PersonDetails component should render properly 1`] = `
         <dt
           class="govuk-summary-list__key"
         >
-          Religion 
+          Sexual orientation
         </dt>
         <dd
           class="govuk-summary-list__value"
@@ -407,35 +419,35 @@ exports[`PersonDetails component should render properly 1`] = `
             <li>
               02123 - Home
             </li>
-            <div
-              class="govuk-summary-list__row"
-            >
-              <dt
-                class="govuk-summary-list__key"
-              >
-                Email 
-              </dt>
-              <dd
-                class="govuk-summary-list__value"
-              >
-                test@test.com
-              </dd>
-            </div>
-            <div
-              class="govuk-summary-list__row"
-            >
-              <dt
-                class="govuk-summary-list__key"
-              >
-                Preferred Method Of Contact
-              </dt>
-              <dd
-                class="govuk-summary-list__value"
-              >
-                email
-              </dd>
-            </div>
           </ul>
+        </dd>
+      </div>
+      <div
+        class="govuk-summary-list__row"
+      >
+        <dt
+          class="govuk-summary-list__key"
+        >
+          Email 
+        </dt>
+        <dd
+          class="govuk-summary-list__value"
+        >
+          test@test.com
+        </dd>
+      </div>
+      <div
+        class="govuk-summary-list__row"
+      >
+        <dt
+          class="govuk-summary-list__key"
+        >
+          Preferred Method Of Contact
+        </dt>
+        <dd
+          class="govuk-summary-list__value"
+        >
+          email
         </dd>
       </div>
       <div

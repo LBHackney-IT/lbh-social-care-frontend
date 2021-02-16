@@ -4,7 +4,7 @@ import PersonDetails from './PersonDetails';
 
 describe('PersonDetails component', () => {
   const props = {
-    otherNames: 'test test',
+    otherNames: [{ firstName: 'asd', laseName: 'qwe' }],
     ageContext: 'CFS',
     firstName: 'i am the first',
     lastName: 'i am the last',

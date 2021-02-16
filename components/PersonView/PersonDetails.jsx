@@ -25,6 +25,7 @@ const PersonDetails = ({
   const address = addressList?.find(
     ({ displayAddressFlag }) => displayAddressFlag === 'Y'
   );
+  console.log(otherNames);
   return (
     <>
       <div>
@@ -177,10 +178,17 @@ PersonDetails.propTypes = {
   expandView: PropTypes.bool,
   firstName: PropTypes.string.isRequired,
   lastName: PropTypes.string.isRequired,
+  otherNames: PropTypes.arrayOf(PropTypes.shape({})),
   mosaicId: PropTypes.string,
   dateOfBirth: PropTypes.string,
+  dateOfDeath: PropTypes.string,
   nhsNumber: PropTypes.string,
-  nationality: PropTypes.string,
+  ethnicity: PropTypes.string,
+  firstLanguage: PropTypes.string,
+  preferredMethodOfContact: PropTypes.string,
+  ageContext: PropTypes.string,
+  sexualOrientation: PropTypes.string,
+  religion: PropTypes.string,
   gender: PropTypes.string,
   addressList: PropTypes.arrayOf(PropTypes.shape({})),
   phoneNumber: PropTypes.arrayOf(PropTypes.shape({})),
