@@ -11,24 +11,7 @@ describe('PersonDetails component', () => {
     nhsNumber: 'nhs_123',
     nationality: 'foo',
     gender: 'X',
-    addressList: [
-      {
-        contactAddressFlag: 'N',
-        displayAddressFlag: 'N',
-        addressLine1: 'old adress',
-        addressLine2: null,
-        addressLine3: null,
-        postCode: 'E5 0PU',
-      },
-      {
-        contactAddressFlag: 'N',
-        displayAddressFlag: 'Y',
-        addressLine1: 'new adress',
-        addressLine2: null,
-        addressLine3: null,
-        postCode: 'E5 0PU',
-      },
-    ],
+    address: { address: 'new adress', postCode: 'E5 0PU' },
     phoneNumber: [
       {
         phoneNumber: '02123',

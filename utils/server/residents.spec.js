@@ -6,10 +6,45 @@ jest.mock('axios');
 
 const { ENDPOINT_API, AWS_KEY } = process.env;
 
+const residentResponse = {
+  name: 'foo',
+  addressList: [
+    {
+      endDate: '2004-11-30T00:00:00Z',
+      contactAddressFlag: 'N',
+      displayAddressFlag: 'N',
+      addressLine1: '1 line',
+      addressLine2: null,
+      addressLine3: null,
+      postCode: 'E5 0PU',
+    },
+    {
+      endDate: '2014-02-11T00:00:00Z',
+      contactAddressFlag: 'N',
+      displayAddressFlag: 'N',
+      addressLine1: '2 line',
+      addressLine2: null,
+      addressLine3: null,
+      postCode: 'N17 9RP',
+    },
+    {
+      endDate: null,
+      contactAddressFlag: 'Y',
+      displayAddressFlag: 'Y',
+      addressLine1: 'valid line',
+      addressLine2: null,
+      addressLine3: null,
+      postCode: 'SE9 4RZ',
+    },
+  ],
+};
+
 describe('residents APIs', () => {
   describe('getResidents', () => {
     it('should work properly', async () => {
-      axios.get.mockResolvedValue({ data: { foo: 123, residents: 'bar' } });
+      axios.get.mockResolvedValue({
+        data: { foo: 123, residents: [residentResponse] },
+      });
       const data = await residentsAPI.getResidents({
         foo: 'bar',
       });
@@ -18,14 +53,25 @@ describe('residents APIs', () => {
       expect(axios.get.mock.calls[0][1].headers).toEqual({
         'x-api-key': AWS_KEY,
       });
-      expect(data).toEqual({ foo: 123, residents: 'bar' });
+      expect(data).toEqual({
+        foo: 123,
+        residents: [
+          {
+            name: 'foo',
+            restricted: false,
+            address: { address: 'valid line', postcode: 'SE9 4RZ' },
+          },
+        ],
+      });
     });
   });
 
   describe('getResident', () => {
     it('should work properly', async () => {
       axios.get.mockResolvedValue({
-        data: { residents: ['foobar', 'barfoo'] },
+        data: {
+          residents: [{ name: 'foobar', restricted: 'Y' }, { name: 'barfoo' }],
+        },
       });
       const data = await residentsAPI.getResident('foo', { bar: 'foobar' });
       expect(axios.get).toHaveBeenCalled();
@@ -37,7 +83,11 @@ describe('residents APIs', () => {
         mosaic_id: 'foo',
         bar: 'foobar',
       });
-      expect(data).toEqual('foobar');
+      expect(data).toEqual({
+        name: 'foobar',
+        restricted: true,
+        address: undefined,
+      });
     });
   });
 

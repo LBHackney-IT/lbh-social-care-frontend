@@ -10,14 +10,11 @@ const PersonDetails = ({
   nhsNumber,
   nationality,
   gender,
-  addressList,
+  address,
   phoneNumber,
   expandView = false,
 }) => {
   const [expandDetails, setExpandDetails] = useState(false);
-  const address = addressList?.find(
-    ({ displayAddressFlag }) => displayAddressFlag === 'Y'
-  );
   return (
     <>
       <div>
@@ -69,11 +66,11 @@ const PersonDetails = ({
                   <dd className="govuk-summary-list__value">{gender}</dd>
                 </div>
               )}
-              {address?.addressLine1 && (
+              {address?.address && (
                 <div className="govuk-summary-list__row">
                   <dt className="govuk-summary-list__key">Address</dt>
                   <dd className="govuk-summary-list__value">
-                    <p>{address.addressLine1}</p>
+                    <p>{address.address}</p>
                   </dd>
                 </div>
               )}
@@ -115,7 +112,12 @@ PersonDetails.propTypes = {
   nhsNumber: PropTypes.string,
   nationality: PropTypes.string,
   gender: PropTypes.string,
-  addressList: PropTypes.arrayOf(PropTypes.shape({})),
-  phoneNumber: PropTypes.arrayOf(PropTypes.shape({})),
+  address: PropTypes.shape({ address: PropTypes.string }),
+  phoneNumber: PropTypes.arrayOf(
+    PropTypes.shape({
+      phoneNumber: PropTypes.string,
+      phoneType: PropTypes.string,
+    })
+  ),
 };
 export default PersonDetails;
