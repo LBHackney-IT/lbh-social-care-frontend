@@ -25,7 +25,6 @@ const PersonDetails = ({
   const address = addressList?.find(
     ({ displayAddressFlag }) => displayAddressFlag === 'Y'
   );
-  console.log(otherNames);
   return (
     <>
       <div>
@@ -53,7 +52,7 @@ const PersonDetails = ({
                   <dd className="govuk-summary-list__value">
                     <ul className="govuk-list">
                       {otherNames.map(({ firstName, lastName }) => (
-                        <li key={otherNames}>
+                        <li key={`${firstName} ${lastName}`}>
                           {firstName} {lastName}
                         </li>
                       ))}
@@ -178,7 +177,12 @@ PersonDetails.propTypes = {
   expandView: PropTypes.bool,
   firstName: PropTypes.string.isRequired,
   lastName: PropTypes.string.isRequired,
-  otherNames: PropTypes.arrayOf(PropTypes.shape({})),
+  otherNames: PropTypes.arrayOf(
+    PropTypes.shape({
+      firstName: PropTypes.string,
+      lastName: PropTypes.string,
+    })
+  ),
   mosaicId: PropTypes.string,
   dateOfBirth: PropTypes.string,
   dateOfDeath: PropTypes.string,
