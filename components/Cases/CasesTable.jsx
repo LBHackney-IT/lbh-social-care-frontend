@@ -10,10 +10,11 @@ const CasesEntry = ({
   officerEmail,
   dateOfEvent,
   caseFormData,
+  caseFormTimestamp,
 }) => (
   <tr className="govuk-table__row">
     <td className="govuk-table__cell govuk--timestamp">
-      {dateOfEvent && formatDate(dateOfEvent)}{' '}
+      {formatDate(dateOfEvent || caseFormTimestamp)}{' '}
     </td>
     <td className="govuk-table__cell">{formName}</td>
     <td className="govuk-table__cell">
@@ -46,7 +47,8 @@ CasesTable.propTypes = {
       formName: PropTypes.string.isRequired,
       caseFormUrl: PropTypes.string.isRequired,
       officerEmail: PropTypes.string.isRequired,
-      dateOfEvent: PropTypes.string.isRequired,
+      dateOfEvent: PropTypes.string,
+      caseFormTimestamp: PropTypes.string,
     })
   ).isRequired,
 };
