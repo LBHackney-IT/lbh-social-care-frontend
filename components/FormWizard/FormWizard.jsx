@@ -9,7 +9,7 @@ import Breadcrumbs from 'components/Breadcrumbs/Breadcrumbs';
 import { createSteps, getNextStepPath, haveStepsChanged } from 'utils/steps';
 import { deepmerge } from 'utils/objects';
 import { getQueryString } from 'utils/urls';
-import { getData, saveData } from 'utils/saveData';
+import { getFormData, saveData } from 'utils/saveData';
 
 const FormWizard = ({
   formPath,
@@ -34,7 +34,7 @@ const FormWizard = ({
   const [formData, setFormData] = useState({
     ...defaultValues,
     ...otherQS,
-    ...(continueForm ? getData(formPath)?.data : {}),
+    ...(continueForm ? getFormData(formPath)?.data : {}),
   });
   const [queryString] = useState(otherQS);
   const steps = createSteps(formSteps, {
@@ -120,8 +120,8 @@ const FormWizard = ({
               updatedData,
               title,
               includesDetails
-                ? `${stepId.join('/')}?${getQueryString(queryString)}`
-                : stepId.join('/'),
+                ? `${window.location.pathname}?${getQueryString(queryString)}`
+                : window.location.pathname,
               includesDetails,
               personDetails
             );
