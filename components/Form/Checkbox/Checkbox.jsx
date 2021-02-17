@@ -12,7 +12,6 @@ const Checkbox = ({ label, name, register, required, error, rules }) => (
     <div className="govuk-checkboxes">
       <div className="govuk-checkboxes__item">
         <input
-          className="govuk-checkboxes__input"
           className={cx('govuk-checkboxes__input', {
             'govuk-input--error': error,
           })}
