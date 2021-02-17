@@ -79,6 +79,7 @@ DynamicInputMulti.propTypes = {
   currentData: PropTypes.object.isRequired,
   onDelete: PropTypes.func.isRequired,
   isMultiTrigger: PropTypes.string,
+  isMultiInit: PropTypes.bool,
 };
 
 export default DynamicInputMulti;

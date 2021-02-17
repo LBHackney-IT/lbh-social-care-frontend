@@ -55,6 +55,7 @@ TextInput.propTypes = {
   error: PropTypes.shape({
     message: PropTypes.string.isRequired,
   }),
+  rules: PropTypes.shape({}),
   inputClassName: PropTypes.string,
   type: PropTypes.string,
   register: PropTypes.func,

@@ -43,6 +43,10 @@ const Cases = ({ id }) => {
   );
 };
 
+Cases.propTypes = {
+  id: PropTypes.string.isRequired,
+};
+
 const CasesWrapper = ({ id, person }) => (
   <>
     <div className="lbh-table-header">

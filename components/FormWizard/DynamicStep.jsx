@@ -120,8 +120,10 @@ const DynamicStep = ({
 };
 
 DynamicStep.propTypes = {
+  stepId: PropTypes.string,
   components: PropTypes.array,
   onStepSubmit: PropTypes.func.isRequired,
+  onSaveAndExit: PropTypes.func.isRequired,
   formData: PropTypes.object.isRequired,
   isMulti: PropTypes.bool,
 };

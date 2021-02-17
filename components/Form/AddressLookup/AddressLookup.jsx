@@ -192,10 +192,14 @@ AddressLookup.propTypes = {
   name: PropTypes.string.isRequired,
   label: PropTypes.string.isRequired,
   hint: PropTypes.string,
-  rules: PropTypes.shape({}),
+  rules: PropTypes.shape({
+    required: PropTypes.bool,
+    validate: PropTypes.object,
+  }),
   required: PropTypes.bool,
   control: PropTypes.object.isRequired,
   supportManualEntry: PropTypes.bool,
+  error: PropTypes.shape({ message: PropTypes.string.isRequired }),
 };
 
 export default AddressLookup;

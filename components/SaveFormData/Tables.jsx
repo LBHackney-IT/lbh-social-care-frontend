@@ -1,5 +1,7 @@
-import TimesCircleIcon from 'components/Icons/TimesCircle';
+import PropTypes from 'prop-types';
 import Link from 'next/link';
+
+import TimesCircleIcon from 'components/Icons/TimesCircle';
 
 export const DetailedTable = ({ tableHeader, data, deleteForm }) => (
   <table className="govuk-table">
@@ -45,6 +47,22 @@ export const DetailedTable = ({ tableHeader, data, deleteForm }) => (
   </table>
 );
 
+DetailedTable.propTypes = {
+  tableHeader: PropTypes.arrayOf(PropTypes.string).isRequired,
+  data: PropTypes.arrayOf(
+    PropTypes.shape({
+      data: PropTypes.shape({ id: PropTypes.string.isRequired }),
+      firstName: PropTypes.string.isRequired,
+      lastName: PropTypes.string.isRequired,
+      title: PropTypes.string.isRequired,
+      timeStamp: PropTypes.string.isRequired,
+      formPath: PropTypes.string.isRequired,
+      step: PropTypes.string.isRequired,
+    })
+  ).isRequired,
+  deleteForm: PropTypes.func.isRequired,
+};
+
 export const StandardTable = ({ tableHeader, data, deleteForm }) => (
   <table className="govuk-table">
     <thead className="govuk-table__head">
@@ -80,3 +98,16 @@ export const StandardTable = ({ tableHeader, data, deleteForm }) => (
     </tbody>
   </table>
 );
+
+StandardTable.propTypes = {
+  tableHeader: PropTypes.arrayOf(PropTypes.string).isRequired,
+  data: PropTypes.arrayOf(
+    PropTypes.shape({
+      title: PropTypes.string.isRequired,
+      timeStamp: PropTypes.string.isRequired,
+      formPath: PropTypes.string.isRequired,
+      step: PropTypes.string.isRequired,
+    })
+  ).isRequired,
+  deleteForm: PropTypes.func.isRequired,
+};

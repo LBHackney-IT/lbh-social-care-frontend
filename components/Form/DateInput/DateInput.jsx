@@ -152,6 +152,11 @@ DateInput.propTypes = {
   hint: PropTypes.string,
   rules: PropTypes.shape({}),
   format: PropTypes.oneOf(['EU', 'US']),
+  name: PropTypes.string.isRequired,
+  value: PropTypes.object,
+  onChange: PropTypes.func.isRequired,
+  required: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
+  error: PropTypes.shape({ message: PropTypes.string.isRequired }),
 };
 
 const ControlledDateInput = ({
@@ -181,7 +186,7 @@ const ControlledDateInput = ({
 
 ControlledDateInput.propTypes = {
   name: PropTypes.string.isRequired,
-  rules: PropTypes.shape({}),
+  rules: PropTypes.shape({ validate: PropTypes.object }),
   control: PropTypes.object.isRequired,
   format: PropTypes.oneOf(['EU', 'US']),
 };

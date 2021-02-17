@@ -194,6 +194,7 @@ PersonDetails.propTypes = {
   sexualOrientation: PropTypes.string,
   religion: PropTypes.string,
   gender: PropTypes.string,
+  email: PropTypes.string,
   addressList: PropTypes.arrayOf(PropTypes.shape({})),
   phoneNumber: PropTypes.arrayOf(PropTypes.shape({})),
 };

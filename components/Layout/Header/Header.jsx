@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
 import cx from 'classnames';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
@@ -102,6 +103,10 @@ const HeaderComponent = ({ serviceName }) => {
       </div>
     </header>
   );
+};
+
+HeaderComponent.propTypes = {
+  serviceName: PropTypes.string.isRequired,
 };
 
 export default HeaderComponent;

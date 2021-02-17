@@ -36,6 +36,15 @@ const CasesEntry = ({
   </tr>
 );
 
+CasesEntry.propTypes = {
+  firstName: PropTypes.string.isRequired,
+  lastName: PropTypes.string.isRequired,
+  officerEmail: PropTypes.string.isRequired,
+  caseFormUrl: PropTypes.string,
+  dateOfEvent: PropTypes.string,
+  dateOfBirth: PropTypes.string,
+};
+
 const tableHeader = [
   { id: 'first_name', text: 'Client Name' },
   { id: 'date_of_birth', text: 'Date of birth' },

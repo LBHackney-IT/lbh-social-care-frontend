@@ -38,6 +38,14 @@ const SummaryMultiSection = ({
   </>
 );
 
+SummaryMultiSection.propTypes = {
+  formData: PropTypes.shape({}).isRequired,
+  id: PropTypes.string.isRequired,
+  title: PropTypes.string.isRequired,
+  formPath: PropTypes.string.isRequired,
+  canEdit: PropTypes.bool,
+};
+
 export const SummarySection = ({
   formData,
   id,
@@ -72,6 +80,19 @@ export const SummarySection = ({
       {Summary}
     </div>
   );
+};
+
+SummarySection.propTypes = {
+  formData: PropTypes.shape({}).isRequired,
+  id: PropTypes.string.isRequired,
+  title: PropTypes.string.isRequired,
+  components: PropTypes.arrayOf(
+    PropTypes.shape({
+      name: PropTypes.string.isRequired,
+    }).isRequired
+  ).isRequired,
+  formPath: PropTypes.string.isRequired,
+  canEdit: PropTypes.bool,
 };
 
 const Summary = ({ formData, formSteps, formPath, canEdit }) =>
