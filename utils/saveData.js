@@ -1,4 +1,6 @@
-export const windowGlobal = typeof window !== 'undefined' && window;
+import { isBrowser } from 'utils/ssr';
+
+export const SAVE_KEY = 'social-care-forms';
 
 export const saveData = (
   formPath,
@@ -8,7 +10,7 @@ export const saveData = (
   includesDetails,
   personDetails
 ) => {
-  const timeStamp = new Date(Date.now()).toLocaleString().split(',')[0];
+  const timeStamp = new Date().toLocaleDateString('en-GB');
   const savedData = {
     step,
     data,
@@ -19,36 +21,42 @@ export const saveData = (
     ...personDetails,
   };
   try {
-    windowGlobal.localStorage.setItem(formPath, JSON.stringify(savedData));
+    const savedForms = JSON.parse(localStorage.getItem(SAVE_KEY)) || {};
+    localStorage.setItem(
+      SAVE_KEY,
+      JSON.stringify({ ...savedForms, [formPath]: savedData })
+    );
   } catch {
-    deleteData(formPath);
+    localStorage.removeItem(SAVE_KEY);
   }
 };
 
-export const getData = (formPath) => {
-  try {
-    return JSON.parse(windowGlobal.localStorage.getItem(formPath));
-  } catch {
-    deleteData(formPath);
-  }
-};
-
-export const getDataIncludes = (includes) => {
-  if (windowGlobal.localStorage) {
+export const getFormData = (formPath) => {
+  if (isBrowser()) {
     try {
-      const data = Object.fromEntries(
-        Object.entries(windowGlobal.localStorage)
-          .filter(([key]) => key.includes(includes))
-          .map(([key, value]) => [key, JSON.parse(value)])
-      );
-      return Object.keys(data).length > 0 ? data : null;
+      return JSON.parse(localStorage.getItem(SAVE_KEY))?.[formPath];
     } catch {
-      windowGlobal.localStorage.clear();
-      return null;
+      localStorage.removeItem(SAVE_KEY);
+    }
+  }
+};
+
+export const getData = () => {
+  if (isBrowser()) {
+    try {
+      return JSON.parse(localStorage.getItem(SAVE_KEY));
+    } catch {
+      localStorage.removeItem(SAVE_KEY);
     }
   }
 };
 
 export const deleteData = (formPath) => {
-  windowGlobal.localStorage.removeItem(formPath);
+  try {
+    const savedForms = JSON.parse(localStorage.getItem(SAVE_KEY)) || {};
+    delete savedForms[formPath];
+    localStorage.setItem(SAVE_KEY, JSON.stringify(savedForms));
+  } catch {
+    localStorage.removeItem(SAVE_KEY);
+  }
 };

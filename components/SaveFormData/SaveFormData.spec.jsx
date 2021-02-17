@@ -1,18 +1,19 @@
 import { render } from '@testing-library/react';
 import { SavedForms } from './SaveFormData';
-import { getDataIncludes } from 'utils/saveData';
+import { getData } from 'utils/saveData';
 
 jest.mock('utils/saveData', () => ({
-  getDataIncludes: jest.fn(),
+  getData: jest.fn(),
 }));
 
 describe('SaveFormData component', () => {
   it('should render both types of forms', async () => {
-    getDataIncludes.mockImplementationOnce(() => [
+    getData.mockImplementationOnce(() => [
       {
         formPath: '/form/foo-bar/',
         timeStamp: '22/12/2020',
         title: 'Foo Bar',
+        step: 'foo',
         deleteForm: jest.fn(),
       },
       {

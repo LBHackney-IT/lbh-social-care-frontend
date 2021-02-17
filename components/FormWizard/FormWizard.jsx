@@ -9,7 +9,7 @@ import Breadcrumbs from 'components/Breadcrumbs/Breadcrumbs';
 import { createSteps, getNextStepPath, haveStepsChanged } from 'utils/steps';
 import { deepmerge } from 'utils/objects';
 import { getQueryString } from 'utils/urls';
-import { getData, saveData } from 'utils/saveData';
+import { getFormData, saveData } from 'utils/saveData';
 
 const FormWizard = ({
   formPath,
@@ -34,7 +34,7 @@ const FormWizard = ({
   const [formData, setFormData] = useState({
     ...defaultValues,
     ...otherQS,
-    ...(continueForm ? getData(formPath)?.data : {}),
+    ...(continueForm ? getFormData(formPath)?.data : {}),
   });
   const [queryString] = useState(otherQS);
   const steps = createSteps(formSteps, {
@@ -43,9 +43,10 @@ const FormWizard = ({
   });
 
   const stepPath = `${formPath}[step]`;
-  const step = steps.find(
-    ({ id }) => id === (Array.isArray(stepId) ? stepId[0] : stepId)
-  );
+  const step =
+    steps.find(
+      ({ id }) => id === (Array.isArray(stepId) ? stepId[0] : stepId)
+    ) || formSteps[0];
   if (!step) {
     return null;
   }
@@ -81,7 +82,7 @@ const FormWizard = ({
           )}
         <StepComponent
           {...step}
-          key={stepId.join('-')}
+          key={stepId?.join('-')}
           stepId={stepId}
           formData={formData}
           formSteps={formSteps}
@@ -119,8 +120,8 @@ const FormWizard = ({
               updatedData,
               title,
               includesDetails
-                ? `${stepId.join('/')}?${getQueryString(queryString)}`
-                : stepId.join('/'),
+                ? `${window.location.pathname}?${getQueryString(queryString)}`
+                : window.location.pathname,
               includesDetails,
               personDetails
             );
