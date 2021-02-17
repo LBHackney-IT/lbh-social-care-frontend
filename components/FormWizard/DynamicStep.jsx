@@ -1,7 +1,6 @@
 import { isValidElement, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import { useForm } from 'react-hook-form';
-import Link from 'next/link';
 
 import Button from 'components/Button/Button';
 import DynamicInput from 'components/FormWizard/DynamicInput';
@@ -94,17 +93,16 @@ const DynamicStep = ({
               type="button"
               onClick={() => onSaveAndExit(stepValues)}
             />
-            <Link href="/">
-              <a
-                className="govuk-link"
-                style={{
-                  marginLeft: '1.5rem',
-                  lineHeight: '2.5rem',
-                }}
-              >
-                Cancel
-              </a>
-            </Link>
+            <a
+              href="/"
+              className="govuk-link"
+              style={{
+                marginLeft: '1.5rem',
+                lineHeight: '2.5rem',
+              }}
+            >
+              Cancel
+            </a>
           </div>
           <Button
             wideButton

@@ -15,6 +15,40 @@ describe('PersonView component', () => {
       mosaicId: '44000000',
       formName: 'Foo_bar',
       nhsNumber: '12345',
+      ageContext: 'A',
+      firstLanguage: 'English',
+      religion: 'Christian',
+      dateOfDeath: '2021-11-13',
+      sexualOrientation: 'Heterosexual',
+      gender: 'F',
+      ethnicity: 'White',
+      preferredMethodOfContact: 'email',
+      addressList: [
+        {
+          contactAddressFlag: 'N',
+          displayAddressFlag: 'N',
+          addressLine1: 'old adress',
+          addressLine2: null,
+          addressLine3: null,
+          postCode: 'E5 0PU',
+        },
+        {
+          contactAddressFlag: 'N',
+          displayAddressFlag: 'Y',
+          addressLine1: 'new adress',
+          addressLine2: null,
+          addressLine3: null,
+          postCode: 'E5 0PU',
+        },
+      ],
+      phoneNumber: [
+        {
+          phoneNumber: '02123',
+          phoneType: 'Home',
+        },
+      ],
+      otherNames: [{ firstName: 'asd', laseName: 'qwe' }],
+      email: 'foo@bar.com',
     },
   }));
 

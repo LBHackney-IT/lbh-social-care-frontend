@@ -58,6 +58,7 @@ const Search = ({ type }) => {
     const qs = getQueryString({ ...query, ...formData });
     replace(`${pathname}?${qs}`, `${pathname}?${qs}`, {
       shallow: true,
+      scroll: false,
     });
   });
   // commented out as the feature is not ready in the BE
