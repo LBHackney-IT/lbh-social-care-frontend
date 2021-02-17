@@ -9,7 +9,7 @@ jest.mock('swr');
 const mockSWRInfinite = jest.fn();
 
 describe('residents APIs', () => {
-  describe('getResidents', () => {
+  describe('useResidents', () => {
     it('should work properly', () => {
       jest
         .spyOn(SWR, 'useSWRInfinite')
@@ -23,10 +23,10 @@ describe('residents APIs', () => {
     });
   });
 
-  describe('getResident', () => {
+  describe('useResident', () => {
     it('should work properly', () => {
       jest.spyOn(SWR, 'default');
-      residentsAPI.getResident('foo', { bar: 'foobar' });
+      residentsAPI.useResident('foo', { bar: 'foobar' });
       expect(SWR.default).toHaveBeenCalledWith('/api/residents/foo');
     });
   });

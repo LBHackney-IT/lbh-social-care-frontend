@@ -1,6 +1,6 @@
 import * as HttpStatus from 'http-status-codes';
 
-import { getResidentAllocation } from 'utils/server/allocatedWorkers';
+import { useResidentAllocation } from 'utils/server/allocatedWorkers';
 import { isAuthorised } from 'utils/auth';
 
 export default async (req, res) => {
@@ -14,7 +14,7 @@ export default async (req, res) => {
   switch (req.method) {
     case 'GET':
       try {
-        const data = await getResidentAllocation(
+        const data = await useResidentAllocation(
           req.query.id,
           req.query.allocationId
         );

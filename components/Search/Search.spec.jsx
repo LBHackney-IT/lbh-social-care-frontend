@@ -16,7 +16,7 @@ jest.mock('next/router', () => ({
 }));
 
 jest.mock('utils/api/residents', () => ({
-  getResidents: jest.fn(),
+  useResidents: jest.fn(),
 }));
 
 describe(`Search`, () => {

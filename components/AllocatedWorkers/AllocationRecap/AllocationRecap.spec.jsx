@@ -8,11 +8,11 @@ import { useCaseByResident } from 'utils/api/cases';
 jest.mock('components/Spinner/Spinner', () => () => 'MockedSpinner');
 
 jest.mock('utils/api/allocatedWorkers', () => ({
-  getResidentAllocation: jest.fn(),
+  useResidentAllocation: jest.fn(),
 }));
 
 jest.mock('utils/api/cases', () => ({
-  getCaseByResident: jest.fn(),
+  useCaseByResident: jest.fn(),
 }));
 
 describe(`AllocationRecap`, () => {

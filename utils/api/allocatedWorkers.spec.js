@@ -7,7 +7,7 @@ jest.mock('axios');
 jest.mock('swr');
 
 describe('allocatedWorkers APIs', () => {
-  describe('getAllocatedWorkers', () => {
+  describe('useAllocatedWorkers', () => {
     it('should work properly', () => {
       jest.spyOn(SWR, 'default');
       allocatedWorkersAPI.useAllocatedWorkers(123);
@@ -17,7 +17,7 @@ describe('allocatedWorkers APIs', () => {
     });
   });
 
-  describe('getResidentAllocation', () => {
+  describe('useResidentAllocation', () => {
     it('should work properly', () => {
       jest.spyOn(SWR, 'default');
       allocatedWorkersAPI.useResidentAllocation(123, 321);
@@ -27,7 +27,7 @@ describe('allocatedWorkers APIs', () => {
     });
   });
 
-  describe('getTeams', () => {
+  describe('useTeams', () => {
     it('should work properly', () => {
       jest.spyOn(SWR, 'default');
       allocatedWorkersAPI.useTeams();
@@ -41,7 +41,7 @@ describe('allocatedWorkers APIs', () => {
     });
   });
 
-  describe('getTeamWorkers', () => {
+  describe('useTeamWorkers', () => {
     it('should work properly', () => {
       jest.spyOn(SWR, 'default');
       allocatedWorkersAPI.useTeamWorkers(123);

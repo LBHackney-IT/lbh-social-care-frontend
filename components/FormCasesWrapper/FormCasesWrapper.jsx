@@ -10,7 +10,7 @@ import PersonDetails from 'components/PersonView/PersonDetails';
 import Spinner from 'components/Spinner/Spinner';
 import ErrorMessage from 'components/ErrorMessage/ErrorMessage';
 import { addCase } from 'utils/api/cases';
-import { getResident } from 'utils/api/residents';
+import { useResident } from 'utils/api/residents';
 
 const FormCasesWrapper = ({ form, title, personId, formNameOverall }) => {
   const [id] = useState(personId);
@@ -18,7 +18,7 @@ const FormCasesWrapper = ({ form, title, personId, formNameOverall }) => {
   useEffect(() => {
     !personId && replace('/');
   }, [personId, replace]);
-  const { data: person, error } = getResident(id);
+  const { data: person, error } = useResident(id);
   const { user } = useAuth();
   const onFormSubmit = async (formData) => {
     const ref = await addCase({

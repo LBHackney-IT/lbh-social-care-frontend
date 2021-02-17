@@ -20,8 +20,8 @@ jest.mock('next/router', () => ({
 jest.mock('components/Spinner/Spinner', () => () => 'MockedSpinner');
 
 jest.mock('utils/api/allocatedWorkers', () => ({
-  getTeams: jest.fn(),
-  getTeamWorkers: jest.fn(),
+  useTeams: jest.fn(),
+  useTeamWorkers: jest.fn(),
   addAllocatedWorker: jest.fn(),
 }));
 
