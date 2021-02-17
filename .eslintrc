@@ -33,8 +33,7 @@
       "error",
       "unix"
     ],
-    "require-atomic-updates": "off",
-    "react/jsx-uses-vars": 2,
+    "react/display-name": "off",
     "react/react-in-jsx-scope": "off"
   }
 }
