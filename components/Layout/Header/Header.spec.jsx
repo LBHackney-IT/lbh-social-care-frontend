@@ -2,7 +2,7 @@ import { render } from '@testing-library/react';
 
 import Header from './Header';
 import { UserContext } from 'components/UserContext/UserContext';
-import { getDataIncludes } from 'utils/saveData';
+import { getData } from 'utils/saveData';
 
 let mockedUseRouter = { asPath: 'path', pathname: 'pathname' };
 
@@ -13,7 +13,7 @@ jest.mock('next/router', () => ({
 jest.mock('./Logo.jsx', () => () => 'MockedLogo');
 
 jest.mock('utils/saveData', () => ({
-  getDataIncludes: jest.fn(),
+  getData: jest.fn(),
 }));
 
 describe('Header component', () => {
@@ -21,7 +21,7 @@ describe('Header component', () => {
     serviceName: 'Foo',
   };
   it('should render header links with form in progress link', () => {
-    getDataIncludes.mockImplementationOnce(() => [
+    getData.mockImplementationOnce(() => [
       {
         formPath: '/form/foo-bar/',
         timeStamp: '22/12/2020',

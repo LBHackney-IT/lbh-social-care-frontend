@@ -1,18 +1,18 @@
 import { useState, useEffect } from 'react';
 
-import { getDataIncludes, deleteData } from 'utils/saveData';
+import { getData, deleteData } from 'utils/saveData';
 import { DetailedTable, StandardTable } from './Tables';
 
 export const SavedForms = () => {
   const [savedForms, setSavedForms] = useState();
   useEffect(() => {
-    setSavedForms(getDataIncludes('/form'));
+    setSavedForms(getData());
   }, []);
   const deleteForm = (path) => {
     deleteData(path);
-    setSavedForms(getDataIncludes('/form'));
+    setSavedForms(getData());
   };
-  if (!savedForms) {
+  if (!savedForms || Object.keys(savedForms)?.length === 0) {
     return (
       <p role="label" className="govuk-fieldset__legend--m gov-weight-lighter">
         You don&apos;t have any incomplete form, well done!

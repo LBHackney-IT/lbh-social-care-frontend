@@ -44,7 +44,7 @@ exports[`StandardTable component should render properly 1`] = `
         >
           <a
             class="govuk-link"
-            href="/form/foo-bar/foo?continueForm=true"
+            href="/form/foo-bar?continueForm=true"
           >
             Complete
           </a>

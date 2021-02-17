@@ -1,7 +1,7 @@
 export default [
   {
     text: 'Create New Person',
-    value: '/form/create-new-person/client-details',
+    value: '/people/add',
   },
   {
     text: 'Adult Case Note Recording',

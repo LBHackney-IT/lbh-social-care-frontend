@@ -1,6 +1,6 @@
 import * as HttpStatus from 'http-status-codes';
 
-import { useTeams } from 'utils/server/teams';
+import { getTeams } from 'utils/server/teams';
 import { isAuthorised } from 'utils/auth';
 
 export default async (req, res) => {
@@ -14,7 +14,7 @@ export default async (req, res) => {
   switch (req.method) {
     case 'GET':
       try {
-        const data = await useTeams({
+        const data = await getTeams({
           context_flag: req.query?.ageContext || user.permissionFlag || 'B', //TODO fix this once 'B' has been added to the BE
         });
         res.status(HttpStatus.OK).json(data);

@@ -1,6 +1,6 @@
 import * as HttpStatus from 'http-status-codes';
 
-import { useResident } from 'utils/server/residents';
+import { getResident } from 'utils/server/residents';
 import { isAuthorised } from 'utils/auth';
 
 export default async (req, res) => {
@@ -14,7 +14,7 @@ export default async (req, res) => {
   switch (req.method) {
     case 'GET':
       try {
-        const data = await useResident(req.query.id, {
+        const data = await getResident(req.query.id, {
           context_flag: user.permissionFlag,
         });
         data

@@ -29,7 +29,7 @@ export const DetailedTable = ({ tableHeader, data, deleteForm }) => (
           <td className="govuk-table__cell"> {cell.timeStamp}</td>
           <td className="govuk-table__cell">
             {
-              <Link href={`${cell.formPath}${cell.step}&continueForm=true`}>
+              <Link href={`${cell.step}&continueForm=true`}>
                 <a className="govuk-link">Complete</a>
               </Link>
             }
@@ -81,7 +81,7 @@ export const StandardTable = ({ tableHeader, data, deleteForm }) => (
           <td className="govuk-table__cell"> {cell.timeStamp}</td>
           <td className="govuk-table__cell">
             {
-              <Link href={`${cell.formPath}${cell.step}?continueForm=true`}>
+              <Link href={`${cell.step}?continueForm=true`}>
                 <a className="govuk-link">Complete</a>
               </Link>
             }

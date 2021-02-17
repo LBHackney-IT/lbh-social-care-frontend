@@ -1,7 +1,7 @@
 import * as HttpStatus from 'http-status-codes';
 
 import {
-  useResidentAllocatedWorkers,
+  getResidentAllocatedWorkers,
   deleteAllocatedWorker,
   addAllocatedWorker,
 } from 'utils/server/allocatedWorkers';
@@ -18,7 +18,7 @@ export default async (req, res) => {
   switch (req.method) {
     case 'GET':
       try {
-        const data = await useResidentAllocatedWorkers(req.query.id, {
+        const data = await getResidentAllocatedWorkers(req.query.id, {
           context_flag: user.permissionFlag,
         });
         res.status(HttpStatus.OK).json(data);

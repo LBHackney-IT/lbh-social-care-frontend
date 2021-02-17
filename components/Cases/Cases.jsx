@@ -75,7 +75,7 @@ const CasesWrapper = ({ id, person }) => (
 CasesWrapper.propTypes = {
   id: PropTypes.string.isRequired,
   person: PropTypes.shape({
-    restricted: PropTypes.string.isRequired,
+    restricted: PropTypes.string,
   }).isRequired,
 };
 
