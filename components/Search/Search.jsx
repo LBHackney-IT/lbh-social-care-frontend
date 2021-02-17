@@ -46,7 +46,7 @@ const Search = ({ type }) => {
             SearchResults: ResidentsTable,
             searchFunction: getResidents,
           },
-    []
+    [type, user.email]
   );
   const hasQuery = Boolean(Object.keys(query).length);
   const { data, error, size, setSize } = searchFunction(query, hasQuery);
@@ -54,24 +54,31 @@ const Search = ({ type }) => {
     records: data.reduce((acc, d) => [...acc, ...getRecords(d)], []),
     nextCursor: data[data.length - 1].nextCursor,
   };
-  const onFormSubmit = useCallback((formData) => {
-    const qs = getQueryString({ ...query, ...formData });
-    replace(`${pathname}?${qs}`, `${pathname}?${qs}`, {
-      shallow: true,
-      scroll: false,
-    });
-  });
+  const onFormSubmit = useCallback(
+    (formData) => {
+      const qs = getQueryString({ ...query, ...formData });
+      replace(`${pathname}?${qs}`, `${pathname}?${qs}`, {
+        shallow: true,
+        scroll: false,
+      });
+    },
+    [pathname, query, replace]
+  );
+
   // commented out as the feature is not ready in the BE
   // eslint-disable-next-line no-unused-vars
-  const onSort = useCallback((value) => {
-    const { order_by, sort_by } = query || {};
-    onFormSubmit({
-      ...(query || {}),
-      ...(sort_by === value && order_by === 'desc'
-        ? { order_by: 'asc', sort_by }
-        : { order_by: 'desc', sort_by: value }),
-    });
-  });
+  const onSort = useCallback(
+    (value) => {
+      const { order_by, sort_by } = query || {};
+      onFormSubmit({
+        ...(query || {}),
+        ...(sort_by === value && order_by === 'desc'
+          ? { order_by: 'asc', sort_by }
+          : { order_by: 'desc', sort_by: value }),
+      });
+    },
+    [onFormSubmit, query]
+  );
   const addNewPerson = type === 'people' && user.hasAdminPermissions && (
     <>
       Results don't match?{' '}
