@@ -1,9 +1,14 @@
+import { useState } from 'react';
+import cx from 'classnames';
 import PropTypes from 'prop-types';
 import Link from 'next/link';
 
 import SummaryList from 'components/Summary/SummaryList';
 import { filterStepsOnCondition, filterDataOnCondition } from 'utils/steps';
-import { formatData } from 'utils/summary';
+import { formatData, getSectionObject } from 'utils/summary';
+import { setValues } from 'utils/objects';
+
+import styles from './Summary.module.scss';
 
 const SummaryMultiSection = ({
   formData,
@@ -45,6 +50,9 @@ export const SummarySection = ({
   components,
   formPath,
   canEdit,
+  collapsedSection,
+  toggleCollapsed,
+  isSummaryCollapsable,
 }) => {
   const Summary = (
     <SummaryList
@@ -53,48 +61,94 @@ export const SummarySection = ({
         .map((data) => formatData(data, formData))}
     />
   );
+  const isCollapsed = collapsedSection[id];
   return (
     <div className="govuk-!-margin-bottom-7">
       <div className="lbh-table-header">
-        <h3 className="govuk-heading-m govuk-custom-text-color govuk-!-margin-bottom-0">
-          {title.toUpperCase()}
-        </h3>
-        {canEdit && (
-          <Link
-            href={`${formPath}${id}?fromSummary=true`}
-            as={`${formPath}${id}?fromSummary=true`}
+        <div className={styles.sectionTitle}>
+          <h3 className="govuk-heading-m govuk-custom-text-color govuk-!-margin-bottom-0">
+            {title.toUpperCase()}
+          </h3>
+          {canEdit && (
+            <Link
+              href={`${formPath}${id}?fromSummary=true`}
+              as={`${formPath}${id}?fromSummary=true`}
+            >
+              <a className="govuk-link">Edit</a>
+            </Link>
+          )}
+        </div>
+        {isSummaryCollapsable && (
+          <span
+            className="govuk-link govuk-link--underline"
+            role="button"
+            onClick={() => toggleCollapsed(id)}
           >
-            <a className="govuk-link">Edit details</a>
-          </Link>
+            {isCollapsed ? 'Expand view' : 'Collapse view'}
+          </span>
         )}
       </div>
       <hr className="govuk-divider" />
-      {Summary}
+      {!isCollapsed && Summary}
     </div>
   );
 };
 
-const Summary = ({ formData, formSteps, formPath, canEdit }) =>
-  filterStepsOnCondition(formSteps, formData).map((section) => {
-    const props = {
-      key: section.id,
-      formData: filterDataOnCondition(formSteps, formData),
-      formPath: formPath,
-      canEdit: canEdit,
-      ...section,
-    };
-    return section.isMulti ? (
-      <SummaryMultiSection {...props} />
-    ) : (
-      <SummarySection {...props} />
-    );
-  });
+const Summary = ({
+  formData,
+  formSteps,
+  formPath,
+  canEdit,
+  isSummaryCollapsable,
+}) => {
+  const [collapsedSection, setCollapsedSection] = useState(
+    getSectionObject(formSteps, formData, false)
+  );
+  const hasCollapsed = Object.values(collapsedSection).find(Boolean);
+  return (
+    <>
+      {isSummaryCollapsable && (
+        <span
+          className={cx('govuk-link', styles.toggleAll)}
+          role="button"
+          onClick={() =>
+            setCollapsedSection(setValues(collapsedSection, !hasCollapsed))
+          }
+        >
+          {hasCollapsed ? 'Expand all' : 'Collapse all'}
+        </span>
+      )}
+      {filterStepsOnCondition(formSteps, formData).map((section) => {
+        const props = {
+          key: section.id,
+          formData: filterDataOnCondition(formSteps, formData),
+          formPath: formPath,
+          canEdit: canEdit,
+          collapsedSection,
+          toggleCollapsed: (id) =>
+            setCollapsedSection({
+              ...collapsedSection,
+              [id]: !collapsedSection[id],
+            }),
+          isSummaryCollapsable,
+          ...section,
+        };
+        return section.isMulti ? (
+          <SummaryMultiSection {...props} />
+        ) : (
+          <SummarySection {...props} />
+        );
+      })}
+    </>
+  );
+};
 
 Summary.propTypes = {
   formData: PropTypes.shape({}).isRequired,
   formSteps: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
   formPath: PropTypes.string.isRequired,
   canEdit: PropTypes.bool,
+  isSummaryCollapsable: PropTypes.bool,
 };
 
 export default Summary;

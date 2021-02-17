@@ -49,7 +49,7 @@ describe('Test Form', () => {
     cy.contains('MULTI STEP - 2').should('be.visible');
     cy.contains('foo second').should('be.visible');
     cy.contains('Add Another Multi Step').should('be.visible');
-    cy.contains('Edit details').should('be.visible');
+    cy.contains('Edit').should('be.visible');
 
     cy.contains('Submit').click();
     cy.wait('@apiCheck').then((interception) => {

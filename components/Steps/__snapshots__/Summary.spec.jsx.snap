@@ -18,17 +18,21 @@ exports[`Summary component should render properly 1`] = `
       <div
         class="lbh-table-header"
       >
-        <h3
-          class="govuk-heading-m govuk-custom-text-color govuk-!-margin-bottom-0"
+        <div
+          class="sectionTitle"
         >
-          FOO BAR
-        </h3>
-        <a
-          class="govuk-link"
-          href="/foo/bar-foofoo-bar?fromSummary=true"
-        >
-          Edit details
-        </a>
+          <h3
+            class="govuk-heading-m govuk-custom-text-color govuk-!-margin-bottom-0"
+          >
+            FOO BAR
+          </h3>
+          <a
+            class="govuk-link"
+            href="/foo/bar-foofoo-bar?fromSummary=true"
+          >
+            Edit
+          </a>
+        </div>
       </div>
       <hr
         class="govuk-divider"

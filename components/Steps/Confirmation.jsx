@@ -8,6 +8,7 @@ const ConfirmationStep = ({
   formSteps,
   formPath,
   successMessage,
+  isSummaryCollapsable,
 }) => {
   const router = useRouter();
   const { ref } = router.query;
@@ -26,7 +27,12 @@ const ConfirmationStep = ({
           </div>
         )}
       </div>
-      <Summary formData={formData} formPath={formPath} formSteps={formSteps} />
+      <Summary
+        formData={formData}
+        formPath={formPath}
+        formSteps={formSteps}
+        isSummaryCollapsable={isSummaryCollapsable}
+      />
     </div>
   );
 };
@@ -36,6 +42,7 @@ ConfirmationStep.propTypes = {
   formSteps: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
   formPath: PropTypes.string.isRequired,
   successMessage: PropTypes.string,
+  isSummaryCollapsable: PropTypes.bool,
 };
 
 export default ConfirmationStep;

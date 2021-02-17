@@ -1,5 +1,103 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`Summary component isSummaryCollapsable should render properly - with No isSummaryCollapsable 1`] = `
+<DocumentFragment>
+  <div
+    class="govuk-!-margin-bottom-7"
+  >
+    <div
+      class="lbh-table-header"
+    >
+      <div
+        class="sectionTitle"
+      >
+        <h3
+          class="govuk-heading-m govuk-custom-text-color govuk-!-margin-bottom-0"
+        >
+          FIRST STEP
+        </h3>
+      </div>
+    </div>
+    <hr
+      class="govuk-divider"
+    />
+    <dl
+      class="govuk-summary-list"
+    >
+      <div
+        class="govuk-summary-list__row"
+      >
+        <dt
+          class="govuk-summary-list__key"
+        >
+          I am foo component
+        </dt>
+        <dd
+          class="govuk-summary-list__value"
+        >
+          123
+        </dd>
+      </div>
+    </dl>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`Summary component isSummaryCollapsable should render properly - with isSummaryCollapsable 1`] = `
+<DocumentFragment>
+  <span
+    class="govuk-link toggleAll"
+    role="button"
+  >
+    Collapse all
+  </span>
+  <div
+    class="govuk-!-margin-bottom-7"
+  >
+    <div
+      class="lbh-table-header"
+    >
+      <div
+        class="sectionTitle"
+      >
+        <h3
+          class="govuk-heading-m govuk-custom-text-color govuk-!-margin-bottom-0"
+        >
+          FIRST STEP
+        </h3>
+      </div>
+      <span
+        class="govuk-link govuk-link--underline"
+        role="button"
+      >
+        Collapse view
+      </span>
+    </div>
+    <hr
+      class="govuk-divider"
+    />
+    <dl
+      class="govuk-summary-list"
+    >
+      <div
+        class="govuk-summary-list__row"
+      >
+        <dt
+          class="govuk-summary-list__key"
+        >
+          I am foo component
+        </dt>
+        <dd
+          class="govuk-summary-list__value"
+        >
+          123
+        </dd>
+      </div>
+    </dl>
+  </div>
+</DocumentFragment>
+`;
+
 exports[`Summary component should render properly 1`] = `
 <DocumentFragment>
   <div
@@ -8,11 +106,15 @@ exports[`Summary component should render properly 1`] = `
     <div
       class="lbh-table-header"
     >
-      <h3
-        class="govuk-heading-m govuk-custom-text-color govuk-!-margin-bottom-0"
+      <div
+        class="sectionTitle"
       >
-        FIRST STEP
-      </h3>
+        <h3
+          class="govuk-heading-m govuk-custom-text-color govuk-!-margin-bottom-0"
+        >
+          FIRST STEP
+        </h3>
+      </div>
     </div>
     <hr
       class="govuk-divider"
@@ -56,11 +158,15 @@ exports[`Summary component should render properly 1`] = `
     <div
       class="lbh-table-header"
     >
-      <h3
-        class="govuk-heading-m govuk-custom-text-color govuk-!-margin-bottom-0"
+      <div
+        class="sectionTitle"
       >
-        SECOND STEP
-      </h3>
+        <h3
+          class="govuk-heading-m govuk-custom-text-color govuk-!-margin-bottom-0"
+        >
+          SECOND STEP
+        </h3>
+      </div>
     </div>
     <hr
       class="govuk-divider"
@@ -90,11 +196,15 @@ exports[`Summary component should render properly 1`] = `
     <div
       class="lbh-table-header"
     >
-      <h3
-        class="govuk-heading-m govuk-custom-text-color govuk-!-margin-bottom-0"
+      <div
+        class="sectionTitle"
       >
-        OBJECT STEP
-      </h3>
+        <h3
+          class="govuk-heading-m govuk-custom-text-color govuk-!-margin-bottom-0"
+        >
+          OBJECT STEP
+        </h3>
+      </div>
     </div>
     <hr
       class="govuk-divider"
