@@ -26,21 +26,24 @@ const AddAllocatedWorker = ({ personId, ageContext }) => {
   const { data: { workers } = {}, error: errorWorkers } = getTeamWorkers(
     query?.teamId
   );
-  const addWorker = useCallback(async ({ teamId, workerId }) => {
-    setPostLoading(true);
-    setPostError();
-    try {
-      await addAllocatedWorker(personId, {
-        allocatedBy: user.email,
-        allocatedTeamId: teamId,
-        allocatedWorkerId: workerId,
-      });
-      push(`/people/${personId}`);
-    } catch (e) {
-      setPostError(true);
-    }
-    setPostLoading(false);
-  });
+  const addWorker = useCallback(
+    async ({ teamId, workerId }) => {
+      setPostLoading(true);
+      setPostError();
+      try {
+        await addAllocatedWorker(personId, {
+          allocatedBy: user.email,
+          allocatedTeamId: teamId,
+          allocatedWorkerId: workerId,
+        });
+        push(`/people/${personId}`);
+      } catch (e) {
+        setPostError(true);
+      }
+      setPostLoading(false);
+    },
+    [personId, push, user.email]
+  );
   useEffect(() => {
     setPostError();
   }, [query]);

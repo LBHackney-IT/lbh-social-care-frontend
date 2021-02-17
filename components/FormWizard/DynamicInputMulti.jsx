@@ -22,14 +22,17 @@ const DynamicInputMulti = ({
   const [counter, setCounter] = useState(
     multiPresent === 0 && isMultiInit ? 1 : 0
   );
-  const removeSelected = useCallback((index) => {
-    setCounter(counter - 1);
-    currentData[name] &&
-      onDelete([
-        ...currentData[name].slice(0, index),
-        ...currentData[name].slice(index + 1, currentData[name].length),
-      ]);
-  });
+  const removeSelected = useCallback(
+    (index) => {
+      setCounter(counter - 1);
+      currentData[name] &&
+        onDelete([
+          ...currentData[name].slice(0, index),
+          ...currentData[name].slice(index + 1, currentData[name].length),
+        ]);
+    },
+    [counter, currentData, name, onDelete]
+  );
   return (
     <>
       {Array.apply(null, { length: counter + multiPresent }).map((e, index) => (

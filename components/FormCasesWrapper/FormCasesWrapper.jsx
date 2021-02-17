@@ -17,7 +17,7 @@ const FormCasesWrapper = ({ form, title, personId, formNameOverall }) => {
   const { replace } = useRouter();
   useEffect(() => {
     !personId && replace('/');
-  }, []);
+  }, [personId, replace]);
   const { data: person, error } = getResident(id);
   const { user } = useAuth();
   const onFormSubmit = async (formData) => {
