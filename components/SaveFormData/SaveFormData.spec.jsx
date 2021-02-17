@@ -14,6 +14,7 @@ describe('SaveFormData component', () => {
         timeStamp: '22/12/2020',
         title: 'Foo Bar',
         deleteForm: jest.fn(),
+        step: 'foo',
       },
       {
         dateOfBirth: '1984-02-12T00:00:00.0000000',

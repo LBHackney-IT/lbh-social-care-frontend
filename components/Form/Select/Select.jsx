@@ -90,12 +90,12 @@ Select.propTypes = {
   onChange: PropTypes.func,
   isUnselectable: PropTypes.bool,
   ignoreValue: PropTypes.bool,
-  required: PropTypes.bool,
+  required: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
   placeHolder: PropTypes.string,
   selected: PropTypes.string,
   register: PropTypes.func,
   children: PropTypes.node,
-  width: PropTypes.string,
+  width: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
 };
 
 export default Select;

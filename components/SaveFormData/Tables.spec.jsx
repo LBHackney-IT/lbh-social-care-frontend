@@ -40,6 +40,7 @@ describe('StandardTable component', () => {
         formPath: '/form/foo-bar/',
         timeStamp: '22/12/2020',
         title: 'Foo Bar',
+        step: 'foo',
       },
     ],
     deleteForm: jest.fn(),

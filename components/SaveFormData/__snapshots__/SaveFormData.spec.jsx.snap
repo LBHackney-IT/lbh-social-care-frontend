@@ -58,7 +58,7 @@ exports[`SaveFormData component should render both types of forms 1`] = `
         >
           <a
             class="govuk-link"
-            href="/form/foo-bar/undefined?continueForm=true"
+            href="/form/foo-bar/foo?continueForm=true"
           >
             Complete
           </a>

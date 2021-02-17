@@ -120,7 +120,7 @@ const DynamicStep = ({
 };
 
 DynamicStep.propTypes = {
-  stepId: PropTypes.string,
+  stepId: PropTypes.array,
   components: PropTypes.array,
   onStepSubmit: PropTypes.func.isRequired,
   onSaveAndExit: PropTypes.func.isRequired,

@@ -37,7 +37,7 @@ Checkbox.propTypes = {
   name: PropTypes.string.isRequired,
   register: PropTypes.func,
   error: PropTypes.shape({ message: PropTypes.string.isRequired }),
-  required: PropTypes.bool,
+  required: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
 };
 
 export default Checkbox;

@@ -152,9 +152,9 @@ DateInput.propTypes = {
   hint: PropTypes.string,
   rules: PropTypes.shape({}),
   format: PropTypes.oneOf(['EU', 'US']),
-  name: PropTypes.string.isRequired,
-  value: PropTypes.object,
-  onChange: PropTypes.func.isRequired,
+  name: PropTypes.string,
+  value: PropTypes.string,
+  onChange: PropTypes.func,
   required: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
   error: PropTypes.shape({ message: PropTypes.string.isRequired }),
 };

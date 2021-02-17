@@ -64,13 +64,13 @@ const AllocatedWorkersEntry = ({
 );
 
 AllocatedWorkersEntry.propTypes = {
-  allocatedWorkerTeam: PropTypes.string.isRequired,
   allocatedWorker: PropTypes.string.isRequired,
   allocationStartDate: PropTypes.string.isRequired,
-  allocationEndDate: PropTypes.string.isRequired,
+  allocationEndDate: PropTypes.string,
+  allocatedWorkerTeam: PropTypes.string,
   workerType: PropTypes.string.isRequired,
   index: PropTypes.number.isRequired,
-  showDeallocateButton: PropTypes.string.isRequired,
+  showDeallocateButton: PropTypes.bool.isRequired,
   deallocationUrl: PropTypes.string.isRequired,
 };
 
@@ -94,7 +94,7 @@ const AllocatedWorkersTable = ({ records, hasAllocationsPermissions }) => {
 AllocatedWorkersTable.propTypes = {
   records: PropTypes.arrayOf(
     PropTypes.shape({
-      allocatedWorkerTeam: PropTypes.string.isRequired,
+      allocatedWorkerTeam: PropTypes.string,
       allocatedWorker: PropTypes.string.isRequired,
       allocationStartDate: PropTypes.string.isRequired,
       allocationEndDate: PropTypes.string,

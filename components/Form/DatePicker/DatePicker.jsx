@@ -54,6 +54,6 @@ DatePicker.propTypes = {
   }),
   type: PropTypes.string,
   register: PropTypes.func,
-  required: PropTypes.bool,
+  required: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
 };
 export default DatePicker;

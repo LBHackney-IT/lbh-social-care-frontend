@@ -93,7 +93,7 @@ CasesTable.propTypes = {
     PropTypes.shape({
       recordId: PropTypes.string.isRequired,
       formName: PropTypes.string.isRequired,
-      caseFormUrl: PropTypes.string.isRequired,
+      caseFormUrl: PropTypes.string,
       officerEmail: PropTypes.string.isRequired,
       dateOfEvent: PropTypes.string.isRequired,
     })

@@ -88,7 +88,7 @@ SummarySection.propTypes = {
   title: PropTypes.string.isRequired,
   components: PropTypes.arrayOf(
     PropTypes.shape({
-      name: PropTypes.string.isRequired,
+      name: PropTypes.string,
     }).isRequired
   ).isRequired,
   formPath: PropTypes.string.isRequired,

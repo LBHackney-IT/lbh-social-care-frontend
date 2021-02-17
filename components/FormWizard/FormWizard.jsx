@@ -149,8 +149,8 @@ FormWizard.propTypes = {
   defaultValues: PropTypes.shape({}),
   includesDetails: PropTypes.bool,
   successMessage: PropTypes.string,
-  customConfirmation: PropTypes.node,
-  customSummary: PropTypes.node,
+  customConfirmation: PropTypes.oneOfType([PropTypes.func, PropTypes.node]),
+  customSummary: PropTypes.oneOfType([PropTypes.func, PropTypes.node]),
   personDetails: PropTypes.object,
 };
 
