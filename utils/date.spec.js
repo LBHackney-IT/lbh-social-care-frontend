@@ -11,6 +11,12 @@ describe('date util', () => {
   describe('parseDate', () => {
     it('should work properly', () => {
       expect(parseDate('22/09/1941')).toEqual(new Date(1941, 8, 22));
+      expect(parseDate('22/01/2021 10:46:42')).toEqual(new Date(2021, 0, 22));
+      expect(parseDate('2000-12-12')).toEqual(new Date(2000, 11, 12));
+      expect(parseDate('2021-01-19T16:28:54.1295896Z')).toEqual(
+        new Date(2021, 0, 19)
+      );
+      expect(parseDate('-12-12')).toEqual(undefined);
     });
   });
 

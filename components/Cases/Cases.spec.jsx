@@ -57,7 +57,6 @@ describe('Cases component', () => {
               recordId: '12345',
               caseFormUrl: 'http//bar/bar',
               officerEmail: 'bar@bar.co.uk',
-              dateOfEvent: '2020-12-23',
               caseFormData: { form_name_overall: 'foo' },
             },
           ],
