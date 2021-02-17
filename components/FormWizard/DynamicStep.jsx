@@ -17,6 +17,9 @@ const DynamicStep = ({
   const { handleSubmit, register, control, errors, setValue, watch } = useForm({
     defaultValues: formData,
   });
+  if (!register) {
+    return null;
+  }
   const stepValues = watch();
   const currentData = {
     ...formData,
@@ -81,17 +84,31 @@ const DynamicStep = ({
             }
           />
         )}
-        <div className="govuk-form-group">
+        <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+          <div>
+            <Button
+              isSecondary
+              wideButton
+              label="Save and finish later"
+              type="button"
+              onClick={() => onSaveAndExit(stepValues)}
+            />
+            <a
+              href="/"
+              className="govuk-link"
+              style={{
+                marginLeft: '1.5rem',
+                lineHeight: '2.5rem',
+              }}
+            >
+              Cancel
+            </a>
+          </div>
           <Button
-            className="govuk-!-margin-right-1"
-            label="Next"
+            wideButton
+            className="govuk-!-margin-left-1"
+            label="Continue"
             type="submit"
-          />
-          <Button
-            isSecondary
-            label="Save and Exit"
-            type="button"
-            onClick={() => onSaveAndExit(stepValues)}
           />
         </div>
       </form>

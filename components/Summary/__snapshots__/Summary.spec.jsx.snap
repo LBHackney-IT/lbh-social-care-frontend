@@ -5,11 +5,18 @@ exports[`Summary component should render properly 1`] = `
   <div
     class="govuk-!-margin-bottom-7"
   >
-    <h3
-      class="govuk-heading-m"
+    <div
+      class="lbh-table-header"
     >
-      First Step
-    </h3>
+      <h3
+        class="govuk-heading-m govuk-custom-text-color govuk-!-margin-bottom-0"
+      >
+        FIRST STEP
+      </h3>
+    </div>
+    <hr
+      class="govuk-divider"
+    />
     <dl
       class="govuk-summary-list"
     >
@@ -46,11 +53,18 @@ exports[`Summary component should render properly 1`] = `
   <div
     class="govuk-!-margin-bottom-7"
   >
-    <h3
-      class="govuk-heading-m"
+    <div
+      class="lbh-table-header"
     >
-      Second Step
-    </h3>
+      <h3
+        class="govuk-heading-m govuk-custom-text-color govuk-!-margin-bottom-0"
+      >
+        SECOND STEP
+      </h3>
+    </div>
+    <hr
+      class="govuk-divider"
+    />
     <dl
       class="govuk-summary-list"
     >
@@ -73,11 +87,18 @@ exports[`Summary component should render properly 1`] = `
   <div
     class="govuk-!-margin-bottom-7"
   >
-    <h3
-      class="govuk-heading-m"
+    <div
+      class="lbh-table-header"
     >
-      Object Step
-    </h3>
+      <h3
+        class="govuk-heading-m govuk-custom-text-color govuk-!-margin-bottom-0"
+      >
+        OBJECT STEP
+      </h3>
+    </div>
+    <hr
+      class="govuk-divider"
+    />
     <dl
       class="govuk-summary-list"
     >

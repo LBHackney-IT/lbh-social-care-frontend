@@ -20,6 +20,9 @@ const FormWizard = ({
   title,
   personDetails,
   includesDetails,
+  hideBackButton,
+  customConfirmation,
+  customSummary,
 }) => {
   Router.events.on('routeChangeComplete', () => {
     window.scrollTo(0, 0);
@@ -34,7 +37,11 @@ const FormWizard = ({
     ...(continueForm ? getData(formPath)?.data : {}),
   });
   const [queryString] = useState(otherQS);
-  const steps = createSteps(formSteps);
+  const steps = createSteps(formSteps, {
+    confirmation: customConfirmation,
+    summary: customSummary,
+  });
+
   const stepPath = `${formPath}[step]`;
   const step = steps.find(
     ({ id }) => id === (Array.isArray(stepId) ? stepId[0] : stepId)
@@ -47,7 +54,7 @@ const FormWizard = ({
   return (
     <div className="govuk-width-container">
       <NextSeo title={`${step.title} - ${title}`} noindex={true} />
-      {currentStepIndex !== 0 && step.id !== 'confirmation' && (
+      {!hideBackButton && currentStepIndex !== 0 && step.id !== 'confirmation' && (
         <a className="govuk-back-link" href="#" onClick={() => Router.back()}>
           Back
         </a>
@@ -117,7 +124,7 @@ const FormWizard = ({
               includesDetails,
               personDetails
             );
-            Router.push('/');
+            Router.push('/form-in-progress');
           }}
           onFormSubmit={onFormSubmit}
           successMessage={successMessage}
@@ -137,6 +144,7 @@ FormWizard.propTypes = {
     })
   ).isRequired,
   title: PropTypes.string.isRequired,
+  hideBackButton: PropTypes.bool,
   onFormSubmit: PropTypes.func,
   defaultValues: PropTypes.shape({}),
 };

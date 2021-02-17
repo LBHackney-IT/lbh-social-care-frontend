@@ -5,6 +5,13 @@ import AllocatedWorkers from './AllocatedWorkers';
 
 import { getAllocatedWorkers } from 'utils/api/allocatedWorkers';
 
+jest.mock('next/router', () => ({
+  useRouter: () => ({
+    asPath: 'path',
+    push: jest.fn(),
+  }),
+}));
+
 jest.mock('components/Spinner/Spinner', () => () => 'MockedSpinner');
 
 jest.mock('utils/api/allocatedWorkers', () => ({
@@ -14,27 +21,23 @@ jest.mock('utils/api/allocatedWorkers', () => ({
 jest.mock('components/AllocatedWorkers/AllocatedWorkersTable', () => () => (
   <div>MockedAllocatedWorkersTable</div>
 ));
-jest.mock(
-  'components/AllocatedWorkers/AddAllocatedWorker/AddAllocatedWorker',
-  () => () => <div>MockedAddAllocatedWorkers</div>
-);
 
 describe(`AddAllocatedWorker`, () => {
-  getAllocatedWorkers.mockImplementation(() =>
-    Promise.resolve({
+  getAllocatedWorkers.mockImplementation(() => ({
+    data: {
       allocations: [
         { id: '1', name: 'Team 1' },
         { id: '2', name: 'Team 2' },
         { id: '3', name: 'Team 3' },
       ],
-    })
-  );
+    },
+  }));
 
   const props = {
     id: '123',
   };
 
-  it('should render only the table if not admin', async () => {
+  it('should render only the table if not allocator', async () => {
     const { findByText, queryByText } = render(
       <UserContext.Provider
         value={{
@@ -46,11 +49,11 @@ describe(`AddAllocatedWorker`, () => {
     );
     const allocateTable = await findByText('MockedAllocatedWorkersTable');
     expect(allocateTable).toBeInTheDocument();
-    const addAllocate = await queryByText('MockedAddAllocatedWorkers');
+    const addAllocate = await queryByText('Allocate worker');
     expect(addAllocate).not.toBeInTheDocument();
   });
 
-  it('should render everything if admin', async () => {
+  it('should render everything if allocator', async () => {
     const { findByText, queryByText } = render(
       <UserContext.Provider
         value={{
@@ -66,7 +69,7 @@ describe(`AddAllocatedWorker`, () => {
     );
     const allocateTable = await findByText('MockedAllocatedWorkersTable');
     expect(allocateTable).toBeInTheDocument();
-    const addAllocate = await queryByText('MockedAddAllocatedWorkers');
+    const addAllocate = await queryByText('Allocate worker');
     expect(addAllocate).toBeInTheDocument();
   });
 });

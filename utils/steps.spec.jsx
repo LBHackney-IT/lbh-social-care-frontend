@@ -18,15 +18,30 @@ describe('FormWizard', () => {
     { id: 'second-step', title: 'Second Step', components: ['foo', 'bar'] },
     { id: 'third-step', title: 'Third Step', components: ['foobar'] },
   ];
+  const customSteps = { confirmation: Confirmation, summary: Summary };
 
   describe('createSteps', () => {
-    it('should initialise properly', () => {
+    it('should initialise properly with default steps', () => {
       expect(createSteps(steps)).toEqual([
         { id: 'first-step', title: 'First Step', component: FakeComponentStep },
         { id: 'second-step', title: 'Second Step', components: ['foo', 'bar'] },
         { id: 'third-step', title: 'Third Step', components: ['foobar'] },
         { id: 'summary', title: 'Summary', component: Summary },
         { id: 'confirmation', title: 'Confirmation', component: Confirmation },
+      ]);
+    });
+
+    it('should initialise properly with custom steps', () => {
+      expect(createSteps(steps, customSteps)).toEqual([
+        { id: 'first-step', title: 'First Step', component: FakeComponentStep },
+        { id: 'second-step', title: 'Second Step', components: ['foo', 'bar'] },
+        { id: 'third-step', title: 'Third Step', components: ['foobar'] },
+        { id: 'summary', title: 'Summary', component: customSteps.summary },
+        {
+          id: 'confirmation',
+          title: 'Confirmation',
+          component: customSteps.confirmation,
+        },
       ]);
     });
   });

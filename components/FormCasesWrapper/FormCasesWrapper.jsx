@@ -8,25 +8,17 @@ import BackButton from 'components/Layout/BackButton/BackButton';
 import FormWizard from 'components/FormWizard/FormWizard';
 import PersonDetails from 'components/PersonView/PersonDetails';
 import Spinner from 'components/Spinner/Spinner';
+import ErrorMessage from 'components/ErrorMessage/ErrorMessage';
 import { addCase } from 'utils/api/cases';
 import { getResident } from 'utils/api/residents';
 
 const FormCasesWrapper = ({ form, title, personId, formNameOverall }) => {
-  const [person, setPerson] = useState();
-  const [loading, setLoading] = useState(true);
+  const [id] = useState(personId);
   const { replace } = useRouter();
-  const getPerson = async (personId) => {
-    try {
-      const data = await getResident(personId);
-      setPerson(data);
-    } catch (e) {
-      replace('/');
-    }
-    setLoading(false);
-  };
   useEffect(() => {
-    personId ? getPerson(personId) : replace('/');
+    !personId && replace('/');
   }, []);
+  const { data: person, error } = getResident(id);
   const { user } = useAuth();
   const onFormSubmit = async (formData) => {
     const ref = await addCase({
@@ -42,29 +34,32 @@ const FormCasesWrapper = ({ form, title, personId, formNameOverall }) => {
     });
     return ref;
   };
+  if (error) {
+    return <ErrorMessage />;
+  }
+  if (!person) {
+    return <Spinner />;
+  }
   return (
     <>
       <NextSeo title={title} noindex />
-      {loading ? (
-        <Spinner />
-      ) : (
-        <>
-          <BackButton />
-          <h1 className="govuk-fieldset__legend--l gov-weight-lighter">
-            {title} for
-          </h1>
-          <PersonDetails {...person} expandView />
-          <FormWizard
-            formPath={form.path}
-            formSteps={form.steps}
-            title={form.title}
-            defaultValues={form.defaultValues}
-            onFormSubmit={onFormSubmit}
-            personDetails={{ ...person }}
-            includesDetails={true}
-          />
-        </>
-      )}
+      <>
+        <BackButton />
+        <h1 className="govuk-fieldset__legend--l gov-weight-lighter">
+          {title} for
+        </h1>
+        <PersonDetails {...person} expandView />
+        <FormWizard
+          formPath={form.path}
+          formSteps={form.steps}
+          title={form.title}
+          defaultValues={form.defaultValues}
+          onFormSubmit={onFormSubmit}
+          personDetails={{ ...person }}
+          includesDetails={true}
+          hideBackButton={true}
+        />
+      </>
     </>
   );
 };

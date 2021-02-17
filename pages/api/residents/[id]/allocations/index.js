@@ -10,9 +10,10 @@ import { isAuthorised } from 'utils/auth';
 export default async (req, res) => {
   const user = isAuthorised(req);
   if (!user) {
-    return res
-      .status(HttpStatus.UNAUTHORIZED)
-      .json({ message: 'Auth cookie missing.' });
+    return res.status(HttpStatus.UNAUTHORIZED).end();
+  }
+  if (!user.isAuthorised) {
+    return res.status(HttpStatus.FORBIDDEN).end();
   }
   switch (req.method) {
     case 'GET':
@@ -35,7 +36,10 @@ export default async (req, res) => {
 
     case 'POST':
       try {
-        const data = await addAllocatedWorker(req.query.id, req.body);
+        const data = await addAllocatedWorker(req.query.id, {
+          ...req.body,
+          createdBy: user.email,
+        });
         res.status(HttpStatus.CREATED).json(data);
       } catch (error) {
         console.error(
@@ -52,7 +56,10 @@ export default async (req, res) => {
 
     case 'PATCH':
       try {
-        const data = await deleteAllocatedWorker(req.body);
+        const data = await deleteAllocatedWorker({
+          ...req.body,
+          createdBy: user.email,
+        });
         res.status(HttpStatus.OK).json(data);
       } catch (error) {
         console.error(

@@ -7,37 +7,44 @@ import ErrorMessage from 'components/ErrorMessage/ErrorMessage';
 import { TextArea } from 'components/Form';
 import Button from 'components/Button/Button';
 import Spinner from 'components/Spinner/Spinner';
-import { deleteAllocatedWorker } from 'utils/api/allocatedWorkers';
+import {
+  getAllocatedWorkers,
+  deleteAllocatedWorker,
+} from 'utils/api/allocatedWorkers';
 
-const DeallocatedWorkersDetails = ({
-  personId,
-  id,
-  allocatedWorker,
-  workerType,
-  allocatedWorkerTeam,
-  isLastWorker,
-  onDeallocation,
-}) => {
+const DeallocatedWorkers = ({ personId, allocationId }) => {
   const { register, handleSubmit, errors } = useForm();
   const [loading, setLoading] = useState(false);
   const [complete, setComplete] = useState(false);
-  const [error, setError] = useState(false);
+  const [postError, setPostError] = useState(false);
   const [deallocationReason, setDeallocationReason] = useState('');
+  const { data: { allocations } = {}, error } = getAllocatedWorkers(personId);
   const onSubmit = async (reason) => {
     setLoading(true);
     try {
       await deleteAllocatedWorker(personId, {
-        id: id,
+        id: allocationId,
         deallocationReason: reason.deallocation_reason,
       });
       setDeallocationReason(reason.deallocation_reason);
-      onDeallocation();
       setComplete(true);
     } catch {
-      setError(true);
+      setPostError(true);
     }
     setLoading(false);
   };
+  if (error) {
+    return <ErrorMessage />;
+  }
+  if (!allocations) {
+    return <Spinner />;
+  }
+  const currentAllocation = allocations?.find(
+    ({ id }) => id === parseInt(allocationId, 10)
+  );
+  if (allocations.length > 0 && !currentAllocation) {
+    return <ErrorMessage label="Allocated worked not found." />;
+  }
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <h1>Reason for worker deallocation</h1>
@@ -47,11 +54,12 @@ const DeallocatedWorkersDetails = ({
           {' '}
           {complete ? 'Worker Deallocated' : 'Worker to be deallocated:'}
         </span>{' '}
-        {allocatedWorker}
-        {workerType && `, ${workerType}`}
-        {allocatedWorkerTeam && `, ${allocatedWorkerTeam}`}
+        {currentAllocation.allocatedWorker}
+        {currentAllocation.workerType && `, ${currentAllocation.workerType}`}
+        {currentAllocation.allocatedWorkerTeam &&
+          `, ${currentAllocation.allocatedWorkerTeam}`}
       </p>
-      {isLastWorker && (
+      {allocations.length === 1 && (
         <div className="govuk-warning-text">
           <span className="govuk-warning-text__icon" aria-hidden="true">
             !
@@ -62,7 +70,6 @@ const DeallocatedWorkersDetails = ({
           </strong>
         </div>
       )}
-
       {!complete && (
         <>
           <h2>What is the reason for this worker to be deallocated?</h2>
@@ -89,31 +96,24 @@ const DeallocatedWorkersDetails = ({
           <p>{deallocationReason}</p>
           <h2>What do you want to do next?</h2>
           <p>
-            <Link href="#">
+            <Link
+              href={`/people/${personId}/allocations/add`}
+              replace={true}
+              shallow={true}
+            >
               <a>Allocate another worker to this person</a>
-            </Link>
-          </p>
-          <p>
-            <Link href="#">
-              <a>Transfer person to another team</a>
             </Link>
           </p>
         </>
       )}
-
-      {error && <ErrorMessage />}
+      {postError && <ErrorMessage />}
     </form>
   );
 };
 
-DeallocatedWorkersDetails.propTypes = {
+DeallocatedWorkers.propTypes = {
   personId: PropTypes.string,
-  id: PropTypes.string,
-  allocatedWorker: PropTypes.string,
-  workerType: PropTypes.string,
-  allocatedWorkerTeam: PropTypes.string,
-  isLastWorker: PropTypes.bool.isRequired,
-  onDeallocation: PropTypes.func.isRequired,
+  allocationId: PropTypes.string,
 };
 
-export default DeallocatedWorkersDetails;
+export default DeallocatedWorkers;

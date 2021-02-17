@@ -1,19 +1,59 @@
 import axios from 'axios';
 
 import * as allocatedWorkersAPI from './allocatedWorkers';
+import * as SWR from 'swr';
 
 jest.mock('axios');
+jest.mock('swr');
 
 describe('allocatedWorkers APIs', () => {
   describe('getAllocatedWorkers', () => {
-    it('should work properly', async () => {
-      axios.get.mockResolvedValue({ data: { foo: 'bar' } });
-      const data = await allocatedWorkersAPI.getAllocatedWorkers(123);
-      expect(axios.get).toHaveBeenCalled();
-      expect(axios.get.mock.calls[0][0]).toEqual(
-        '/api/residents/123/allocated-workers'
+    it('should work properly', () => {
+      jest.spyOn(SWR, 'default');
+      allocatedWorkersAPI.getAllocatedWorkers(123);
+      expect(SWR.default).toHaveBeenCalledWith(
+        '/api/residents/123/allocations'
       );
-      expect(data).toEqual({ foo: 'bar' });
+    });
+  });
+
+  describe('getResidentAllocation', () => {
+    it('should work properly', () => {
+      jest.spyOn(SWR, 'default');
+      allocatedWorkersAPI.getResidentAllocation(123, 321);
+      expect(SWR.default).toHaveBeenCalledWith(
+        '/api/residents/123/allocations/321'
+      );
+    });
+  });
+
+  describe('getTeams', () => {
+    it('should work properly', () => {
+      jest.spyOn(SWR, 'default');
+      allocatedWorkersAPI.getTeams();
+      expect(SWR.default).toHaveBeenCalledWith('/api/teams');
+    });
+
+    it('should add ageContext if present', () => {
+      jest.spyOn(SWR, 'default');
+      allocatedWorkersAPI.getTeams({ ageContext: 'A' });
+      expect(SWR.default).toHaveBeenCalledWith('/api/teams?ageContext=A');
+    });
+  });
+
+  describe('getTeamWorkers', () => {
+    it('should work properly', () => {
+      jest.spyOn(SWR, 'default');
+      allocatedWorkersAPI.getTeamWorkers(123);
+      expect(SWR.default).toHaveBeenCalledWith('/api/teams/123/workers');
+    });
+  });
+
+  describe('getAllocationsByWorker', () => {
+    it('should work properly', () => {
+      jest.spyOn(SWR, 'default');
+      allocatedWorkersAPI.getAllocationsByWorker(123);
+      expect(SWR.default).toHaveBeenCalledWith('/api/workers/123/allocations');
     });
   });
 
@@ -25,32 +65,12 @@ describe('allocatedWorkers APIs', () => {
       });
       expect(axios.post).toHaveBeenCalled();
       expect(axios.post.mock.calls[0][0]).toEqual(
-        '/api/residents/123/allocated-workers'
+        '/api/residents/123/allocations'
       );
       expect(axios.post.mock.calls[0][1]).toEqual({
         foo: 'bar',
       });
       expect(data).toEqual({ foo: 'foobar' });
-    });
-  });
-
-  describe('getTeams', () => {
-    it('should work properly', async () => {
-      axios.get.mockResolvedValue({ data: { foo: 'bar' } });
-      const data = await allocatedWorkersAPI.getTeams();
-      expect(axios.get).toHaveBeenCalled();
-      expect(axios.get.mock.calls[0][0]).toEqual('/api/teams');
-      expect(data).toEqual({ foo: 'bar' });
-    });
-  });
-
-  describe('getTeamWorkers', () => {
-    it('should work properly', async () => {
-      axios.get.mockResolvedValue({ data: { foo: 'bar' } });
-      const data = await allocatedWorkersAPI.getTeamWorkers(123);
-      expect(axios.get).toHaveBeenCalled();
-      expect(axios.get.mock.calls[0][0]).toEqual('/api/teams/123/workers');
-      expect(data).toEqual({ foo: 'bar' });
     });
   });
 
@@ -62,24 +82,12 @@ describe('allocatedWorkers APIs', () => {
       });
       expect(axios.patch).toHaveBeenCalled();
       expect(axios.patch.mock.calls[0][0]).toEqual(
-        '/api/residents/123/allocated-workers'
+        '/api/residents/123/allocations'
       );
       expect(axios.patch.mock.calls[0][1]).toEqual({
         foo: 'bar',
       });
       expect(data).toEqual({ foo: 'foobar' });
-    });
-  });
-
-  describe('getAllocationsByWorker', () => {
-    it('should work properly', async () => {
-      axios.get.mockResolvedValue({ data: { foo: 'bar' } });
-      const data = await allocatedWorkersAPI.getAllocationsByWorker(123);
-      expect(axios.get).toHaveBeenCalled();
-      expect(axios.get.mock.calls[0][0]).toEqual(
-        '/api/workers/123/allocations'
-      );
-      expect(data).toEqual({ foo: 'bar' });
     });
   });
 });

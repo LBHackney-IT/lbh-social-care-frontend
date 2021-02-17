@@ -6,15 +6,16 @@ import { isAuthorised } from 'utils/auth';
 export default async (req, res) => {
   const user = isAuthorised(req);
   if (!user) {
-    return res
-      .status(HttpStatus.UNAUTHORIZED)
-      .json({ message: 'Auth cookie missing.' });
+    return res.status(HttpStatus.UNAUTHORIZED).end();
+  }
+  if (!user.isAuthorised) {
+    return res.status(HttpStatus.FORBIDDEN).end();
   }
   switch (req.method) {
     case 'GET':
       try {
         const data = await getTeams({
-          context_flag: user.permissionFlag || 'B', //TODO fix this once 'B' has been added to the BE
+          context_flag: req.query?.ageContext || user.permissionFlag || 'B', //TODO fix this once 'B' has been added to the BE
         });
         res.status(HttpStatus.OK).json(data);
       } catch (error) {

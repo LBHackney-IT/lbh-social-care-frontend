@@ -25,18 +25,21 @@ describe(`Search`, () => {
   };
 
   it('should update the queryString on search and run a new search - with load more', async () => {
-    getResidents.mockImplementation(() =>
-      Promise.resolve({
-        residents: [
-          {
-            firstName: 'foo',
-            lastName: '',
-            mosaicId: '',
-            dateOfBirth: '2020-11-11',
-          },
-        ],
-      })
-    );
+    getResidents.mockImplementation(() => ({
+      size: 0,
+      data: [
+        {
+          residents: [
+            {
+              firstName: 'foo',
+              lastName: '',
+              mosaicId: '',
+              dateOfBirth: '2020-11-11',
+            },
+          ],
+        },
+      ],
+    }));
     const { queryByText, getByLabelText, findByText, getByRole } = render(
       <UserContext.Provider
         value={{
@@ -58,7 +61,7 @@ describe(`Search`, () => {
     ).toHaveBeenCalledWith(
       'foopath?foo=bar&first_name=foo',
       'foopath?foo=bar&first_name=foo',
-      { shallow: true }
+      { shallow: true, scroll: false }
     );
     const searchResult = await findByText('PEOPLE SEARCH RESULT');
     expect(searchResult).toBeInTheDocument();
@@ -66,18 +69,21 @@ describe(`Search`, () => {
   });
 
   it('should update the queryString on search and run a new search', async () => {
-    getResidents.mockImplementation(() =>
-      Promise.resolve({
-        residents: [
-          {
-            firstName: 'foo',
-            lastName: '',
-            mosaicId: '',
-            dateOfBirth: '2020-11-11',
-          },
-        ],
-      })
-    );
+    getResidents.mockImplementation(() => ({
+      size: 0,
+      data: [
+        {
+          residents: [
+            {
+              firstName: 'foo',
+              lastName: '',
+              mosaicId: '',
+              dateOfBirth: '2020-11-11',
+            },
+          ],
+        },
+      ],
+    }));
     const { queryByText, getByLabelText, findByText, getByRole } = render(
       <UserContext.Provider
         value={{
@@ -99,14 +105,14 @@ describe(`Search`, () => {
     ).toHaveBeenCalledWith(
       'foopath?foo=bar&first_name=foo',
       'foopath?foo=bar&first_name=foo',
-      { shallow: true }
+      { shallow: true, scroll: false }
     );
     const searchResult = await findByText('PEOPLE SEARCH RESULT');
     expect(searchResult).toBeInTheDocument();
   });
 
   it('should work properly on search fails', async () => {
-    getResidents.mockImplementation(() => Promise.reject());
+    getResidents.mockImplementation(() => ({ error: true }));
     const { findByText } = render(
       <UserContext.Provider
         value={{

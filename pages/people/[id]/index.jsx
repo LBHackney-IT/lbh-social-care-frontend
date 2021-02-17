@@ -13,8 +13,12 @@ const PersonPage = () => {
       <NextSeo title={`#${query.id} Cases`} noindex />
       <BackButton />
       <PersonView personId={query.id}>
-        <AllocatedWorkers {...query} />
-        <Cases {...query} />
+        {(person) => (
+          <>
+            <AllocatedWorkers {...query} />
+            <Cases {...query} person={person} />
+          </>
+        )}
       </PersonView>
     </div>
   );

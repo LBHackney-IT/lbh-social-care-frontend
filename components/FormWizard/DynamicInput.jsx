@@ -1,16 +1,17 @@
 import PropTypes from 'prop-types';
+import get from 'lodash/get';
 
 import * as Inputs from 'components/Form';
 
 const DynamicInput = (props) => {
   const {
     component,
-    register,
     control,
     errors,
     name,
     options,
     currentData,
+    register,
     ...otherProps
   } = props;
   const Component = Inputs[component];
@@ -18,7 +19,7 @@ const DynamicInput = (props) => {
     throw new Error(`"${component}" is not a supported component type.`);
   const sharedProps = {
     name,
-    error: errors[name],
+    error: get(errors, name),
     required: otherProps?.rules?.required,
     options: typeof options === 'function' ? options(currentData) : options,
     ...otherProps,
@@ -33,15 +34,12 @@ const DynamicInput = (props) => {
     case 'DateInput':
       return <Component control={control} {...sharedProps} />;
     default:
-      return (
-        <Component register={register(otherProps.rules)} {...sharedProps} />
-      );
+      return <Component register={register} {...sharedProps} />;
   }
 };
 
 DynamicInput.propTypes = {
   component: PropTypes.string.isRequired,
-  register: PropTypes.func.isRequired,
   control: PropTypes.object.isRequired,
   name: PropTypes.string.isRequired,
   errors: PropTypes.object.isRequired,

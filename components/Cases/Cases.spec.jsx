@@ -12,28 +12,58 @@ jest.mock('utils/api/cases', () => ({
 describe('Cases component', () => {
   const props = {
     id: '44000000',
+    person: {
+      firstName: 'Foo',
+      lastName: 'Bar',
+      mosaicId: '123',
+      ageContext: 'A',
+      restricted: 'N',
+    },
   };
 
   it('should render records properly', async () => {
-    getCasesByResident.mockImplementation(() =>
-      Promise.resolve({
-        cases: [
-          {
-            caseFormTimestamp: '2020-11-04',
-            dateOfBirth: '2020-11-13',
-            firstName: 'Ciasom',
-            lastName: 'Tesselate',
-            personId: '44000000',
-            formName: 'Foo_bar',
-            recordId: '12345',
-            caseFormUrl: 'http//foo/bar',
-            officerEmail: 'foo@bar.co.uk',
-            dateOfEvent: '2020-12-24',
-          },
-        ],
-        nextCursor: 1,
-      })
-    );
+    const mockSetSize = jest.fn();
+    getCasesByResident.mockImplementation(() => ({
+      size: 2,
+      setSize: mockSetSize,
+      data: [
+        {
+          cases: [
+            {
+              caseFormTimestamp: '2020-12-04',
+              dateOfBirth: '2020-12-13',
+              firstName: 'foo',
+              lastName: 'FOO',
+              personId: '44000001',
+              formName: 'Foo_foo',
+              recordId: '12347',
+              caseFormUrl: 'http//foo/foo',
+              officerEmail: 'foo@foo.co.uk',
+              dateOfEvent: '2020-12-23',
+              caseFormData: { form_name_overall: 'foo' },
+            },
+          ],
+          nextCursor: 1,
+        },
+        {
+          cases: [
+            {
+              caseFormTimestamp: '2020-12-04',
+              dateOfBirth: '2020-12-13',
+              firstName: 'bar',
+              lastName: 'BAR',
+              personId: '44000001',
+              formName: 'Bar_bar',
+              recordId: '12345',
+              caseFormUrl: 'http//bar/bar',
+              officerEmail: 'bar@bar.co.uk',
+              caseFormData: { form_name_overall: 'foo' },
+            },
+          ],
+          nextCursor: 2,
+        },
+      ],
+    }));
     const { asFragment, getByRole, getAllByText } = render(
       <UserContext.Provider
         value={{
@@ -47,42 +77,22 @@ describe('Cases component', () => {
       expect(asFragment()).toMatchSnapshot();
     });
     const button = getByRole('button', { name: 'load more' });
-    expect(getAllByText('View')).toHaveLength(1);
-
-    getCasesByResident.mockImplementation(() =>
-      Promise.resolve({
-        cases: [
-          {
-            caseFormTimestamp: '2020-12-04',
-            dateOfBirth: '2020-12-13',
-            firstName: 'Ciasom',
-            lastName: 'Tesselate',
-            personId: '44000000',
-            formName: 'Foo_foo',
-            recordId: '12347',
-            caseFormUrl: 'http//foo/foo',
-            officerEmail: 'foo@foo.co.uk',
-            dateOfEvent: '2020-12-23',
-          },
-        ],
-        nextCursor: 1,
-      })
-    );
-
+    expect(getAllByText('View')).toHaveLength(2);
     fireEvent.click(button);
-    await waitFor(() => {
-      expect(getAllByText('View')).toHaveLength(2);
-    });
-    expect(getCasesByResident).toHaveBeenCalled();
+    expect(mockSetSize).toHaveBeenCalled();
+    expect(mockSetSize).toHaveBeenCalledWith(3);
   });
 
   it('should render no records ', async () => {
-    getCasesByResident.mockImplementation(() =>
-      Promise.resolve({
-        cases: [],
-        nextCursor: 1,
-      })
-    );
+    getCasesByResident.mockImplementation(() => ({
+      size: 0,
+      data: [
+        {
+          cases: [],
+          nextCursor: 1,
+        },
+      ],
+    }));
     const { asFragment, getByText } = render(
       <UserContext.Provider
         value={{
@@ -97,5 +107,27 @@ describe('Cases component', () => {
     });
     const label = getByText('Records not found');
     expect(label).toBeInTheDocument();
+  });
+
+  it('should render a error message when a person is restricted', async () => {
+    const props = {
+      id: '44000000',
+      person: {
+        restricted: 'Y',
+      },
+    };
+    const { asFragment, getByText } = render(
+      <UserContext.Provider
+        value={{
+          user: { hasAdminPermissions: true },
+        }}
+      >
+        <Cases {...props} />
+      </UserContext.Provider>
+    );
+    expect(asFragment()).toMatchSnapshot();
+    expect(getCasesByResident).not.toHaveBeenCalled();
+    const title = getByText('RESTRICTED');
+    expect(title).toBeInTheDocument();
   });
 });

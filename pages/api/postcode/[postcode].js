@@ -4,10 +4,12 @@ import { isAuthorised } from 'utils/auth';
 import { getAddresses } from 'utils/server/postcode';
 
 export default async (req, res) => {
-  if (!isAuthorised(req)) {
-    return res
-      .status(HttpStatus.UNAUTHORIZED)
-      .json({ message: 'Auth cookie missing.' });
+  const user = isAuthorised(req);
+  if (!user) {
+    return res.status(HttpStatus.UNAUTHORIZED).end();
+  }
+  if (!user.isAuthorised) {
+    return res.status(HttpStatus.FORBIDDEN).end();
   }
   switch (req.method) {
     case 'GET':

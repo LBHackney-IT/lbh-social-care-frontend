@@ -7,6 +7,7 @@ import { deleteData } from 'utils/saveData';
 import Summary from 'components/Summary/Summary';
 import ErrorSummary from 'components/ErrorSummary/ErrorSummary';
 import { filterDataOnCondition } from 'utils/steps';
+import { sanitiseObject } from 'utils/objects';
 
 const SummaryStep = ({ formData, formSteps, formPath, onFormSubmit }) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -16,11 +17,17 @@ const SummaryStep = ({ formData, formSteps, formPath, onFormSubmit }) => {
     setHasError(false);
     try {
       const data = await onFormSubmit(
-        filterDataOnCondition(formSteps, formData)
+        filterDataOnCondition(formSteps, sanitiseObject(formData))
       );
       deleteData(formPath);
       Router.replace(
-        `${formPath}confirmation${data?.ref ? `?ref=${data.ref}` : ''}`
+        `${formPath}confirmation${
+          data?.ref
+            ? `?ref=${data.ref}`
+            : data?.personId
+            ? `?personId=${data.personId}`
+            : ''
+        }`
       );
     } catch {
       setHasError(true);
@@ -30,18 +37,33 @@ const SummaryStep = ({ formData, formSteps, formPath, onFormSubmit }) => {
   if (!formSteps) return null;
   return (
     <div>
+      <div className="lbh-table-header">
+        <h2 className="govuk-fieldset__legend--l gov-weight-lighter ">
+          {`Review details`}
+        </h2>
+      </div>
       <Summary
         formData={formData}
         formPath={formPath}
         formSteps={formSteps}
         canEdit
       />
-      <Button
-        className="govuk-button"
-        label="Submit"
-        onClick={onSubmit}
-        disabled={isSubmitting}
-      />
+      <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+        <Button
+          wideButton
+          className="govuk-button"
+          label="Cancel"
+          isSecondary
+          onClick={() => (window.location = '/')}
+        />
+        <Button
+          wideButton
+          className="govuk-button"
+          label="Submit"
+          onClick={onSubmit}
+          disabled={isSubmitting}
+        />
+      </div>
       {hasError && (
         <ErrorSummary
           title="Unfortunately there was a problem with your submission."

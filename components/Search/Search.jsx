@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo, useCallback } from 'react';
+import { useMemo, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import cx from 'classnames';
 import Link from 'next/link';
@@ -25,9 +25,6 @@ const getRecords = (data) => [
 
 const Search = ({ type }) => {
   const { query, pathname, replace } = useRouter();
-  const [error, setError] = useState();
-  const [loading, setLoading] = useState(false);
-  const [results, setResults] = useState();
   const { user } = useAuth();
   const { SearchForm, SearchResults, searchFunction } = useMemo(
     () =>
@@ -35,11 +32,14 @@ const Search = ({ type }) => {
         ? {
             SearchForm: SearchCasesForm,
             SearchResults: CasesTable,
-            searchFunction: ({ my_notes_only, ...formData }) =>
-              getCases({
-                ...formData,
-                worker_email: my_notes_only ? user.email : '',
-              }),
+            searchFunction: ({ my_notes_only, ...formData }, ...args) =>
+              getCases(
+                {
+                  ...formData,
+                  worker_email: my_notes_only ? user.email : '',
+                },
+                ...args
+              ),
           }
         : {
             SearchForm: SearchResidentsForm,
@@ -48,25 +48,17 @@ const Search = ({ type }) => {
           },
     []
   );
-  const onSearch = useCallback(async (formData, records = []) => {
-    setLoading(true);
-    !formData.cursor && setResults(null);
-    setError(false);
-    try {
-      const data = await searchFunction(formData);
-      setResults({
-        ...data,
-        records: [...records, ...getRecords(data)],
-      });
-    } catch (e) {
-      setError(true);
-    }
-    setLoading(false);
-  });
+  const hasQuery = Boolean(Object.keys(query).length);
+  const { data, error, size, setSize } = searchFunction(query, hasQuery);
+  const results = data && {
+    records: data.reduce((acc, d) => [...acc, ...getRecords(d)], []),
+    nextCursor: data[data.length - 1].nextCursor,
+  };
   const onFormSubmit = useCallback((formData) => {
     const qs = getQueryString({ ...query, ...formData });
     replace(`${pathname}?${qs}`, `${pathname}?${qs}`, {
       shallow: true,
+      scroll: false,
     });
   });
   // commented out as the feature is not ready in the BE
@@ -80,22 +72,17 @@ const Search = ({ type }) => {
         : { order_by: 'desc', sort_by: value }),
     });
   });
-  useEffect(() => {
-    Object.keys(query).length && onSearch(query);
-  }, [query]);
-  // commented out as the feature is not ready to be in prod
-  // const addNewPerson = type === 'people' && (
-  //   <>
-  //     Results don't match{' '}
-  //     <Link href="/form/create-new-person/client-details">
-  //       <a style={{ textDecoration: 'underline' }} className="govuk-link">
-  //         {' '}
-  //         Add New Person
-  //       </a>
-  //     </Link>
-  //   </>
-  // );
-  const addNewPerson = '';
+  const addNewPerson = type === 'people' && user.hasAdminPermissions && (
+    <>
+      Results don't match?{' '}
+      <Link href="/form/create-new-person/client-details">
+        <a style={{ textDecoration: 'underline' }} className="govuk-link">
+          {' '}
+          Add New Person
+        </a>
+      </Link>
+    </>
+  );
   return (
     <>
       <h1 className="govuk-heading-l">Search</h1>
@@ -161,19 +148,11 @@ const Search = ({ type }) => {
             </>
           )}
           <div style={{ height: '50px', textAlign: 'center' }}>
-            {loading ? (
+            {(hasQuery && !data) || size > data?.length ? (
               <Spinner />
             ) : (
               results?.nextCursor && (
-                <Button
-                  label="load more"
-                  onClick={() =>
-                    onSearch(
-                      { ...query, cursor: results.nextCursor },
-                      results.records
-                    )
-                  }
-                />
+                <Button label="load more" onClick={() => setSize(size + 1)} />
               )
             )}
           </div>

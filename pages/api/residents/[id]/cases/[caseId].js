@@ -1,24 +1,29 @@
 import * as HttpStatus from 'http-status-codes';
 
-import { getCasesByResident } from 'utils/server/cases';
+import { getCaseByResident } from 'utils/server/cases';
 import { isAuthorised } from 'utils/auth';
 
 export default async (req, res) => {
   const user = isAuthorised(req);
   if (!user) {
-    return res
-      .status(HttpStatus.UNAUTHORIZED)
-      .json({ message: 'Auth cookie missing.' });
+    return res.status(HttpStatus.UNAUTHORIZED).end();
   }
-  const { id, ...params } = req.query;
+  if (!user.isAuthorised) {
+    return res.status(HttpStatus.FORBIDDEN).end();
+  }
+  const { id, caseId, ...params } = req.query;
   switch (req.method) {
     case 'GET':
       try {
-        const data = await getCasesByResident(id, {
+        const data = await getCaseByResident(id, caseId, {
           ...params,
           context_flag: user.permissionFlag,
         });
-        res.status(HttpStatus.OK).json(data);
+        data
+          ? res.status(HttpStatus.OK).json(data)
+          : res
+              .status(HttpStatus.NOT_FOUND)
+              .json({ message: 'Allocation Not Found' });
       } catch (error) {
         console.error('Cases get error:', error?.response?.data);
         res

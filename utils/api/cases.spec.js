@@ -1,30 +1,39 @@
 import axios from 'axios';
 
 import * as casesAPI from './cases';
+import * as SWR from 'swr';
 
 jest.mock('axios');
+jest.mock('swr');
+
+const mockSWRInfinite = jest.fn();
 
 describe('cases APIs', () => {
   describe('getCases', () => {
     it('should work properly', async () => {
-      axios.get.mockResolvedValue({ data: { foo: 'bar' } });
-      const data = await casesAPI.getCases({
+      jest
+        .spyOn(SWR, 'useSWRInfinite')
+        .mockImplementation((getKey) =>
+          mockSWRInfinite(getKey(0, { cases: [] }))
+        );
+      casesAPI.getCases({
         foo: 'bar',
       });
-      expect(axios.get).toHaveBeenCalled();
-      expect(axios.get.mock.calls[0][0]).toEqual('/api/cases');
-      expect(data).toEqual({ foo: 'bar' });
+      expect(mockSWRInfinite).toHaveBeenCalledWith('/api/cases?foo=bar');
     });
   });
 
   describe('getCasesByResident', () => {
-    it('should work properly', async () => {
-      axios.get.mockResolvedValue({ data: 'foobar' });
-      const data = await casesAPI.getCasesByResident('foo', { cursor: 321 });
-      expect(axios.get).toHaveBeenCalled();
-      expect(axios.get.mock.calls[0][0]).toEqual('/api/residents/foo/cases');
-      expect(axios.get.mock.calls[0][1]).toEqual({ params: { cursor: 321 } });
-      expect(data).toEqual('foobar');
+    it('should work properly', () => {
+      jest
+        .spyOn(SWR, 'useSWRInfinite')
+        .mockImplementation((getKey) =>
+          mockSWRInfinite(getKey(0, { cases: [] }))
+        );
+      casesAPI.getCasesByResident('foo', { bar: 'foobar' });
+      expect(mockSWRInfinite).toHaveBeenCalledWith(
+        '/api/residents/foo/cases?bar=foobar'
+      );
     });
   });
 

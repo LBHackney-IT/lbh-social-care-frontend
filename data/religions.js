@@ -1,5 +1,6 @@
 export default [
   'None',
+  'Atheist',
   'Christian',
   'Buddhist',
   'Hindu',

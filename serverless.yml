@@ -29,6 +29,7 @@ functions:
           method: ANY
       - http: ANY /
       - http: ANY /{proxy+}
+    provisionedConcurrency: 5
     vpc:
       securityGroupIds: ${self:custom.securityGroups.${self:provider.stage}}
       subnetIds: ${self:custom.subnets.${self:provider.stage}}

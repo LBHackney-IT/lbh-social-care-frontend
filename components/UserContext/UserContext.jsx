@@ -1,7 +1,7 @@
 import { createContext, useContext } from 'react';
 import { useRouter } from 'next/router';
 
-import { AUTH_WHITELIST } from 'utils/auth';
+import { shouldRedirect } from 'utils/auth';
 import { isBrowser } from 'utils/ssr';
 
 export const UserContext = createContext({
@@ -9,25 +9,9 @@ export const UserContext = createContext({
   setUser: () => {},
 });
 
-const shouldRedirect = (isPathWhitelisted, user) => {
-  if (isBrowser()) {
-    if (!isPathWhitelisted) {
-      if (!user) {
-        return '/login';
-      }
-      if (!user?.isAuthorised) {
-        return '/access-denied';
-      }
-    }
-    if (isPathWhitelisted & user?.isAuthorised) {
-      return '/';
-    }
-  }
-};
-
 export const AuthProvider = ({ children, user }) => {
   const { pathname, push } = useRouter();
-  const redirect = shouldRedirect(AUTH_WHITELIST.includes(pathname), user);
+  const redirect = isBrowser() && shouldRedirect(pathname, user);
   if (redirect) {
     push(redirect);
     return <></>;

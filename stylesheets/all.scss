@@ -92,3 +92,26 @@ $screen-sm-min: 576px;
   text-decoration: underline;
   color: $govuk-link-hover-colour;
 }
+
+.width-override-10 {
+  max-width: 23ex;
+}
+
+.width-override-20 {
+  max-width: 41ex;
+}
+
+.width-override-30 {
+  max-width: 59ex;
+}
+
+.govuk-error-summary__title {
+  color: govuk-colour('red');
+}
+
+.govuk-error-summary {
+  border-top: 1px;
+  border-bottom: 1px;
+  border-right: 1px;
+  background-color: #f8ecea;
+}

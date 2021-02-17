@@ -1,26 +1,31 @@
 import PropTypes from 'prop-types';
 import { formatDate } from 'utils/date';
 
-const CasesEntry = ({ formName, caseFormUrl, officerEmail, dateOfEvent }) => (
+import CaseLink from './CaseLink';
+
+const CasesEntry = ({
+  recordId,
+  formName,
+  caseFormUrl,
+  officerEmail,
+  dateOfEvent,
+  caseFormData,
+  caseFormTimestamp,
+}) => (
   <tr className="govuk-table__row">
     <td className="govuk-table__cell govuk--timestamp">
-      {dateOfEvent && formatDate(dateOfEvent)}{' '}
+      {formatDate(dateOfEvent || caseFormTimestamp)}{' '}
     </td>
     <td className="govuk-table__cell">{formName}</td>
     <td className="govuk-table__cell">
       {officerEmail && `- created by ${officerEmail}`}
     </td>
     <td className="govuk-table__cell govuk-button--secondary'">
-      {caseFormUrl && (
-        <a
-          href={caseFormUrl}
-          target="_blank"
-          rel="noopener"
-          className="govuk-link"
-        >
-          View
-        </a>
-      )}
+      <CaseLink
+        recordId={recordId}
+        externalUrl={caseFormUrl}
+        caseFormData={caseFormData}
+      />
     </td>
   </tr>
 );
@@ -42,7 +47,8 @@ CasesTable.propTypes = {
       formName: PropTypes.string.isRequired,
       caseFormUrl: PropTypes.string.isRequired,
       officerEmail: PropTypes.string.isRequired,
-      dateOfEvent: PropTypes.string.isRequired,
+      dateOfEvent: PropTypes.string,
+      caseFormTimestamp: PropTypes.string,
     })
   ).isRequired,
 };

@@ -1,18 +1,14 @@
 import axios from 'axios';
+import useSWR, { useSWRInfinite } from 'swr';
 
-export const getResidents = async (params) => {
-  const { data } = await axios.get('/api/residents', {
-    params,
-  });
-  return data;
-};
+import { getInfiniteKey } from 'utils/api';
 
-export const getResident = async (id, params) => {
-  const { data } = await axios.get(`/api/residents/${id}`, {
-    params,
-  });
-  return data;
-};
+export const getResidents = (params, invoke = true) =>
+  useSWRInfinite(
+    invoke ? getInfiniteKey('/api/residents', 'residents', params) : null
+  );
+
+export const getResident = (personId) => useSWR(`/api/residents/${personId}`);
 
 export const addResident = async (formData) => {
   const { data } = await axios.post(`/api/residents`, formData);
