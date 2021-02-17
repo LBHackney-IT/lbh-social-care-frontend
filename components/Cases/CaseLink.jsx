@@ -16,7 +16,7 @@ const CaseLink = ({ recordId, externalUrl, caseFormData }) => {
       <a
         href={externalUrl}
         target="_blank"
-        rel="noopener"
+        rel="noreferrer noopener"
         className="govuk-link"
       >
         View

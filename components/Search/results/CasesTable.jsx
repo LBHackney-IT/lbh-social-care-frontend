@@ -26,7 +26,7 @@ const CasesEntry = ({
         <a
           href={caseFormUrl}
           target="_blank"
-          rel="noopener"
+          rel="noreferrer noopener"
           className="govuk-link"
         >
           View
