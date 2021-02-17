@@ -2,8 +2,8 @@ import { render } from '@testing-library/react';
 
 import AllocationRecap from './AllocationRecap';
 
-import { getResidentAllocation } from 'utils/api/allocatedWorkers';
-import { getCaseByResident } from 'utils/api/cases';
+import { useResidentAllocation } from 'utils/api/allocatedWorkers';
+import { useCaseByResident } from 'utils/api/cases';
 
 jest.mock('components/Spinner/Spinner', () => () => 'MockedSpinner');
 
@@ -16,7 +16,7 @@ jest.mock('utils/api/cases', () => ({
 }));
 
 describe(`AllocationRecap`, () => {
-  getCaseByResident.mockImplementation(() => ({
+  useCaseByResident.mockImplementation(() => ({
     data: {
       caseFormData: {
         form_name_overall: 'form name',
@@ -33,7 +33,7 @@ describe(`AllocationRecap`, () => {
   };
 
   it('should render properly on deallocation', async () => {
-    getResidentAllocation.mockImplementation(() => ({
+    useResidentAllocation.mockImplementation(() => ({
       data: {
         personName: 'person',
         allocatedWorker: 'worker',
@@ -45,13 +45,13 @@ describe(`AllocationRecap`, () => {
       },
     }));
     const { asFragment } = render(<AllocationRecap {...props} />);
-    expect(getResidentAllocation).toHaveBeenCalledWith('p_123', 'a_123');
-    expect(getCaseByResident).toHaveBeenCalledWith('p_123', 'r_123');
+    expect(useResidentAllocation).toHaveBeenCalledWith('p_123', 'a_123');
+    expect(useCaseByResident).toHaveBeenCalledWith('p_123', 'r_123');
     expect(asFragment()).toMatchSnapshot();
   });
 
   it('should render properly on allocation', async () => {
-    getResidentAllocation.mockImplementation(() => ({
+    useResidentAllocation.mockImplementation(() => ({
       data: {
         personName: 'person',
         allocatedWorker: 'worker',
@@ -62,8 +62,8 @@ describe(`AllocationRecap`, () => {
       },
     }));
     const { asFragment } = render(<AllocationRecap {...props} />);
-    expect(getResidentAllocation).toHaveBeenCalledWith('p_123', 'a_123');
-    expect(getCaseByResident).toHaveBeenCalledWith('p_123', 'r_123');
+    expect(useResidentAllocation).toHaveBeenCalledWith('p_123', 'a_123');
+    expect(useCaseByResident).toHaveBeenCalledWith('p_123', 'r_123');
     expect(asFragment()).toMatchSnapshot();
   });
 });

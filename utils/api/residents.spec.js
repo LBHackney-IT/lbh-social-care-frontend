@@ -16,7 +16,7 @@ describe('residents APIs', () => {
         .mockImplementation((getKey) =>
           mockSWRInfinite(getKey(0, { residents: [] }))
         );
-      residentsAPI.getResidents({
+      residentsAPI.useResidents({
         foo: 'bar',
       });
       expect(mockSWRInfinite).toHaveBeenCalledWith('/api/residents?foo=bar');

@@ -9,8 +9,8 @@ import Spinner from 'components/Spinner/Spinner';
 import ErrorMessage from 'components/ErrorMessage/ErrorMessage';
 import { useAuth } from 'components/UserContext/UserContext';
 import {
-  getTeams,
-  getTeamWorkers,
+  useTeams,
+  useTeamWorkers,
   addAllocatedWorker,
 } from 'utils/api/allocatedWorkers';
 
@@ -22,8 +22,8 @@ const AddAllocatedWorker = ({ personId, ageContext }) => {
     defaultValues: query,
   });
   const { user } = useAuth();
-  const { data: { teams } = {}, error: errorTeams } = getTeams({ ageContext });
-  const { data: { workers } = {}, error: errorWorkers } = getTeamWorkers(
+  const { data: { teams } = {}, error: errorTeams } = useTeams({ ageContext });
+  const { data: { workers } = {}, error: errorWorkers } = useTeamWorkers(
     query?.teamId
   );
   const addWorker = useCallback(

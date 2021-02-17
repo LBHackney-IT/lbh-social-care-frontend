@@ -1,19 +1,19 @@
 import useSWR from 'swr';
 import axios from 'axios';
 
-export const getAllocatedWorkers = (id) =>
+export const useAllocatedWorkers = (id) =>
   useSWR(`/api/residents/${id}/allocations`);
 
-export const getResidentAllocation = (id, allocationId) =>
+export const useResidentAllocation = (id, allocationId) =>
   useSWR(`/api/residents/${id}/allocations/${allocationId}`);
 
-export const getTeams = ({ ageContext } = {}) =>
+export const useTeams = ({ ageContext } = {}) =>
   useSWR(`/api/teams${ageContext ? '?ageContext=' + ageContext : ''}`);
 
-export const getTeamWorkers = (teamId) =>
+export const useTeamWorkers = (teamId) =>
   useSWR(teamId ? `/api/teams/${teamId}/workers` : null);
 
-export const getAllocationsByWorker = (workerId) =>
+export const useAllocationsByWorker = (workerId) =>
   useSWR(`/api/workers/${workerId}/allocations`);
 
 export const deleteAllocatedWorker = async (residentId, body) => {
