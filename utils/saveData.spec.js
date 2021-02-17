@@ -1,22 +1,21 @@
-import { getDataIncludes } from './saveData';
+import { getFormData, SAVE_KEY } from './saveData';
 
 describe('saveData', () => {
   afterEach(() => {
     localStorage.clear();
   });
 
-  describe('getDataIncludes', () => {
+  describe('getFormData', () => {
     it('should work properly', () => {
-      localStorage.setItem('/foo', '{"foo": "bar"}');
-      localStorage.setItem('/bar', 'oy');
-      expect(getDataIncludes('/foo')).toEqual({ '/foo': { foo: 'bar' } });
-      expect(getDataIncludes('/foobar')).toEqual(null);
+      localStorage.setItem(SAVE_KEY, '{"/foo":{"foo": "bar"}}');
+      expect(getFormData('/foo')).toEqual({ foo: 'bar' });
+      expect(getFormData('/foobar')).toEqual(undefined);
     });
 
     it('should clear localStorage if problem with format data', () => {
-      localStorage.setItem('/foo', '{foo: bar}');
-      expect(getDataIncludes('/foo')).toEqual(null);
-      expect(localStorage.getItem('/foo')).toEqual(null);
+      localStorage.setItem(SAVE_KEY, '{"/foo":{"foo": bar}}');
+      expect(getFormData('/foo')).toEqual(undefined);
+      expect(localStorage.getItem(SAVE_KEY)).toEqual(null);
     });
   });
 });

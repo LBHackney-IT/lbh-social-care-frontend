@@ -1,6 +1,6 @@
 import { render } from '@testing-library/react';
 import { UserContext } from 'components/UserContext/UserContext';
-import { getDataIncludes } from 'utils/saveData';
+import { getData } from 'utils/saveData';
 
 import Layout from './index';
 
@@ -11,12 +11,12 @@ jest.mock('next/router', () => ({
 }));
 
 jest.mock('utils/saveData', () => ({
-  getDataIncludes: jest.fn(),
+  getData: jest.fn(),
 }));
 
 describe('Layout component', () => {
   it('should render properly', async () => {
-    getDataIncludes.mockImplementationOnce(() => [
+    getData.mockImplementationOnce(() => [
       {
         formPath: '/form/foo-bar/',
         timeStamp: '22/12/2020',

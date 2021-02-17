@@ -5,7 +5,7 @@ import ORIENTATION from 'data/orientation';
 
 export default {
   title: 'Create New Person',
-  path: '/form/create-new-person/',
+  path: '/people/add/',
   successMessage: 'New person created',
   steps: [
     {
