@@ -42,11 +42,12 @@ functions:
       AUTHORISED_ADMIN_GROUP: ${ssm:/lbh-social-care/${self:provider.stage}/authorised-admin-group}
       AUTHORISED_ADULT_GROUP: ${ssm:/lbh-social-care/${self:provider.stage}/authorised-adult-group}
       AUTHORISED_CHILD_GROUP: ${ssm:/lbh-social-care/${self:provider.stage}/authorised-child-group}
+      AUTHORISED_ALLOCATORS_GROUP: ${ssm:/lbh-social-care/${self:provider.stage}/authorised-allocators-group}
+      AUTHORISED_UNRESTRICTED_GROUP: ${ssm:/lbh-social-care/${self:provider.stage}/authorised-unrestricted-group}
       POSTCODE_LOOKUP_URL: ${ssm:/lbh-social-care/${self:provider.stage}/postcode-lookup-url}
       POSTCODE_LOOKUP_APIKEY: ${ssm:/lbh-social-care/${self:provider.stage}/postcode-lookup-apikey}
       NEXT_PUBLIC_FEEDBACK_LINK: ${ssm:/lbh-social-care/${self:provider.stage}/next-public-feedback-link}
       REDIRECT_URL: ${ssm:/lbh-social-care/${self:provider.stage}/redirect_url}
-      AUTHORISED_ALLOCATORS_GROUP: ${ssm:/lbh-social-care/${self:provider.stage}/authorised-allocators-group}
       NEXT_PUBLIC_GOOGLE_ANALYTICS_ID: ${ssm:/lbh-social-care/${self:provider.stage}/next_public_google_analytics_id}
 resources:
   Resources:

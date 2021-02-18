@@ -43,6 +43,7 @@ export const isAuthorised = (req) => {
     AUTHORISED_ADULT_GROUP,
     AUTHORISED_CHILD_GROUP,
     AUTHORISED_ALLOCATORS_GROUP,
+    AUTHORISED_UNRESTRICTED_GROUP,
   } = process.env;
   const cookies = cookie.parse(req.headers.cookie ?? '');
   const parsedToken =
@@ -57,6 +58,7 @@ export const isAuthorised = (req) => {
     hasAdultPermissions: groups.includes(AUTHORISED_ADULT_GROUP),
     hasChildrenPermissions: groups.includes(AUTHORISED_CHILD_GROUP),
     hasAllocationsPermissions: groups.includes(AUTHORISED_ALLOCATORS_GROUP),
+    hasUnrestrictedPermissions: groups.includes(AUTHORISED_UNRESTRICTED_GROUP),
   };
   return {
     ...gssUser,
