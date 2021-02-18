@@ -63,6 +63,17 @@ const AllocatedWorkersEntry = ({
   </>
 );
 
+AllocatedWorkersEntry.propTypes = {
+  allocatedWorker: PropTypes.string.isRequired,
+  allocationStartDate: PropTypes.string.isRequired,
+  allocationEndDate: PropTypes.string,
+  allocatedWorkerTeam: PropTypes.string,
+  workerType: PropTypes.string.isRequired,
+  index: PropTypes.number.isRequired,
+  showDeallocateButton: PropTypes.bool.isRequired,
+  deallocationUrl: PropTypes.string.isRequired,
+};
+
 const AllocatedWorkersTable = ({ records, hasAllocationsPermissions }) => {
   const { asPath } = useRouter();
   return (
@@ -83,7 +94,7 @@ const AllocatedWorkersTable = ({ records, hasAllocationsPermissions }) => {
 AllocatedWorkersTable.propTypes = {
   records: PropTypes.arrayOf(
     PropTypes.shape({
-      allocatedWorkerTeam: PropTypes.string.isRequired,
+      allocatedWorkerTeam: PropTypes.string,
       allocatedWorker: PropTypes.string.isRequired,
       allocationStartDate: PropTypes.string.isRequired,
       allocationEndDate: PropTypes.string,

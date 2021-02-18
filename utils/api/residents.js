@@ -3,12 +3,12 @@ import useSWR, { useSWRInfinite } from 'swr';
 
 import { getInfiniteKey } from 'utils/api';
 
-export const getResidents = (params, invoke = true) =>
+export const useResidents = (params, invoke = true) =>
   useSWRInfinite(
     invoke ? getInfiniteKey('/api/residents', 'residents', params) : null
   );
 
-export const getResident = (personId) => useSWR(`/api/residents/${personId}`);
+export const useResident = (personId) => useSWR(`/api/residents/${personId}`);
 
 export const addResident = async (formData) => {
   const { data } = await axios.post(`/api/residents`, formData);

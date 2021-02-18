@@ -28,8 +28,10 @@ const DateInput = forwardRef(
     ref
   ) => {
     const date = stringDateToObject(value, format);
-    const setNewDate = useCallback((newDate) =>
-      onChange(objectDateToString({ ...date, ...newDate }, format))
+    const setNewDate = useCallback(
+      (newDate) =>
+        onChange(objectDateToString({ ...date, ...newDate }, format)),
+      [date, format, onChange]
     );
     return (
       <div
@@ -150,6 +152,11 @@ DateInput.propTypes = {
   hint: PropTypes.string,
   rules: PropTypes.shape({}),
   format: PropTypes.oneOf(['EU', 'US']),
+  name: PropTypes.string,
+  value: PropTypes.string,
+  onChange: PropTypes.func,
+  required: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
+  error: PropTypes.shape({ message: PropTypes.string.isRequired }),
 };
 
 const ControlledDateInput = ({
@@ -179,7 +186,7 @@ const ControlledDateInput = ({
 
 ControlledDateInput.propTypes = {
   name: PropTypes.string.isRequired,
-  rules: PropTypes.shape({}),
+  rules: PropTypes.shape({ validate: PropTypes.object }),
   control: PropTypes.object.isRequired,
   format: PropTypes.oneOf(['EU', 'US']),
 };

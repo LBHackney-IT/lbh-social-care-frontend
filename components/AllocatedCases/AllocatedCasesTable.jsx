@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import PropTypes from 'prop-types';
 
 const header = ['Person', 'Name', 'Address', 'Date of birth'];
 
@@ -34,5 +35,16 @@ const AllocatedCasesTable = ({ cases }) => (
     </tbody>
   </table>
 );
+
+AllocatedCasesTable.propTypes = {
+  cases: PropTypes.arrayOf(
+    PropTypes.shape({
+      personId: PropTypes.string.isRequired,
+      personName: PropTypes.string.isRequired,
+      personAddress: PropTypes.string.isRequired,
+      personDateOfBirth: PropTypes.string.isRequired,
+    })
+  ).isRequired,
+};
 
 export default AllocatedCasesTable;

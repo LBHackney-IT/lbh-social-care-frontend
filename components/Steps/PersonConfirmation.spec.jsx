@@ -11,6 +11,8 @@ describe('Person Confirmation component', () => {
   const props = {
     formData: {
       bar_input: 'foo',
+      firstName: 'first',
+      lastName: 'last',
     },
     formSteps: [
       {

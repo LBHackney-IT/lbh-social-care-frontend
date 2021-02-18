@@ -5,10 +5,10 @@ import ErrorMessage from 'components/ErrorMessage/ErrorMessage';
 import ErrorSummary from 'components/ErrorSummary/ErrorSummary';
 import Button from 'components/Button/Button';
 import Spinner from 'components/Spinner/Spinner';
-import { getCasesByResident } from 'utils/api/cases';
+import { useCasesByResident } from 'utils/api/cases';
 
 const Cases = ({ id }) => {
-  const { data, size, setSize, error } = getCasesByResident(id);
+  const { data, size, setSize, error } = useCasesByResident(id);
   const results = data?.length > 0 && {
     cases: data.reduce((acc, { cases }) => [...acc, ...cases], []),
     nextCursor: data[data.length - 1].nextCursor,
@@ -43,6 +43,10 @@ const Cases = ({ id }) => {
   );
 };
 
+Cases.propTypes = {
+  id: PropTypes.string.isRequired,
+};
+
 const CasesWrapper = ({ id, person }) => (
   <>
     <div className="lbh-table-header">
@@ -57,7 +61,7 @@ const CasesWrapper = ({ id, person }) => (
       <Button label="Add a new record" route={`${id}/records`} />
     </div>
     <hr className="govuk-divider" />
-    {person.restricted === 'Y' ? (
+    {person.restricted ? (
       <ErrorSummary
         title="RESTRICTED"
         body="The records for this profile are restricted for viewing"
@@ -71,7 +75,7 @@ const CasesWrapper = ({ id, person }) => (
 CasesWrapper.propTypes = {
   id: PropTypes.string.isRequired,
   person: PropTypes.shape({
-    restricted: PropTypes.string,
+    restricted: PropTypes.bool,
   }).isRequired,
 };
 

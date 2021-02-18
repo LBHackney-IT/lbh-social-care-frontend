@@ -151,6 +151,11 @@ FormWizard.propTypes = {
   onFormSubmit: PropTypes.func,
   defaultValues: PropTypes.shape({}),
   isSummaryCollapsable: PropTypes.bool,
+  includesDetails: PropTypes.bool,
+  successMessage: PropTypes.string,
+  customConfirmation: PropTypes.oneOfType([PropTypes.func, PropTypes.node]),
+  customSummary: PropTypes.oneOfType([PropTypes.func, PropTypes.node]),
+  personDetails: PropTypes.object,
 };
 
 export default FormWizard;

@@ -1,12 +1,12 @@
 import { render, waitFor, fireEvent } from '@testing-library/react';
 
-import { getCasesByResident } from 'utils/api/cases';
+import { useCasesByResident } from 'utils/api/cases';
 import { UserContext } from 'components/UserContext/UserContext';
 
 import Cases from './Cases';
 
 jest.mock('utils/api/cases', () => ({
-  getCasesByResident: jest.fn(),
+  useCasesByResident: jest.fn(),
 }));
 
 describe('Cases component', () => {
@@ -17,13 +17,12 @@ describe('Cases component', () => {
       lastName: 'Bar',
       mosaicId: '123',
       ageContext: 'A',
-      restricted: 'N',
     },
   };
 
   it('should render records properly', async () => {
     const mockSetSize = jest.fn();
-    getCasesByResident.mockImplementation(() => ({
+    useCasesByResident.mockImplementation(() => ({
       size: 2,
       setSize: mockSetSize,
       data: [
@@ -84,7 +83,7 @@ describe('Cases component', () => {
   });
 
   it('should render no records ', async () => {
-    getCasesByResident.mockImplementation(() => ({
+    useCasesByResident.mockImplementation(() => ({
       size: 0,
       data: [
         {
@@ -113,7 +112,7 @@ describe('Cases component', () => {
     const props = {
       id: '44000000',
       person: {
-        restricted: 'Y',
+        restricted: true,
       },
     };
     const { asFragment, getByText } = render(
@@ -126,7 +125,7 @@ describe('Cases component', () => {
       </UserContext.Provider>
     );
     expect(asFragment()).toMatchSnapshot();
-    expect(getCasesByResident).not.toHaveBeenCalled();
+    expect(useCasesByResident).not.toHaveBeenCalled();
     const title = getByText('RESTRICTED');
     expect(title).toBeInTheDocument();
   });

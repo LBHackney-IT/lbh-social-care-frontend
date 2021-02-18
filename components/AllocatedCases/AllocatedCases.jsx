@@ -2,11 +2,11 @@ import PropTypes from 'prop-types';
 
 import AllocatedCasesTable from 'components/AllocatedCases/AllocatedCasesTable';
 import ErrorMessage from 'components/ErrorMessage/ErrorMessage';
-import { getAllocationsByWorker } from 'utils/api/allocatedWorkers';
+import { useAllocationsByWorker } from 'utils/api/allocatedWorkers';
 import Spinner from 'components/Spinner/Spinner';
 
 const AllocatedCases = ({ id }) => {
-  const { data: allocations, error } = getAllocationsByWorker(id);
+  const { data: allocations, error } = useAllocationsByWorker(id);
   if (error) {
     return <ErrorMessage />;
   }
