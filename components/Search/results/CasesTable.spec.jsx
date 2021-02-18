@@ -10,6 +10,7 @@ describe('CasesTable component', () => {
         recordId: '123',
         dateOfBirth: '25/10/2000',
         dateOfEvent: '25/10/2020 13:49:43',
+        caseFormTimestamp: '25/10/2020 13:49:43',
         firstName: 'foo',
         lastName: 'bar',
         formName: 'i am a form',

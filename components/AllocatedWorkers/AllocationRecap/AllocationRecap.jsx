@@ -21,7 +21,8 @@ const AllocationRecap = ({ personId, allocationId, recordId }) => {
   if (!allocation || !record) {
     return <Spinner />;
   }
-  const isDeallocation = allocation.caseStatus.toLowerCase() === 'closed';
+  const isDeallocation =
+    record.caseFormData.form_name_overall === 'API_Deallocation';
   return (
     <>
       <h1 className="govuk-fieldset__legend--l gov-weight-lighter">

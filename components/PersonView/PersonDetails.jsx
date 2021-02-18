@@ -14,17 +14,14 @@ const PersonDetails = ({
   dateOfDeath,
   sexualOrientation,
   gender,
+  address,
   ethnicity,
-  addressList,
   phoneNumber,
   email,
   preferredMethodOfContact,
   expandView = false,
 }) => {
   const [expandDetails, setExpandDetails] = useState(false);
-  const address = addressList?.find(
-    ({ displayAddressFlag }) => displayAddressFlag === 'Y'
-  );
   return (
     <>
       <div>
@@ -120,11 +117,11 @@ const PersonDetails = ({
                   <dd className="govuk-summary-list__value">{nhsNumber}</dd>
                 </div>
               )}
-              {address?.addressLine1 && (
+              {address?.address && (
                 <div className="govuk-summary-list__row">
                   <dt className="govuk-summary-list__key">Address</dt>
                   <dd className="govuk-summary-list__value">
-                    <p>{address.addressLine1}</p>
+                    <p>{address.address}</p>
                   </dd>
                 </div>
               )}
@@ -173,6 +170,7 @@ const PersonDetails = ({
     </>
   );
 };
+
 PersonDetails.propTypes = {
   expandView: PropTypes.bool,
   firstName: PropTypes.string.isRequired,
@@ -195,7 +193,13 @@ PersonDetails.propTypes = {
   religion: PropTypes.string,
   gender: PropTypes.string,
   email: PropTypes.string,
-  addressList: PropTypes.arrayOf(PropTypes.shape({})),
-  phoneNumber: PropTypes.arrayOf(PropTypes.shape({})),
+  address: PropTypes.shape({ address: PropTypes.string }),
+  phoneNumber: PropTypes.arrayOf(
+    PropTypes.shape({
+      phoneNumber: PropTypes.string,
+      phoneType: PropTypes.string,
+    })
+  ),
 };
+
 export default PersonDetails;
