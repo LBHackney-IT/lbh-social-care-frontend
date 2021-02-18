@@ -29,7 +29,8 @@ export const getCasesByResident = (mosaic_id, params) =>
   getCases({ mosaic_id, ...params });
 
 export const getCaseByResident = async (mosaic_id, case_id, params) => {
-  const data = await getCases({ mosaic_id, ...params });
+  // TODO: this should be covered by the BE
+  const data = await getCases({ mosaic_id, ...params, limit: 100 });
   return data.cases?.find(({ recordId }) => recordId === case_id);
 };
 

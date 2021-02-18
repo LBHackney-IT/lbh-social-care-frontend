@@ -12,7 +12,6 @@ const Checkbox = ({ label, name, register, required, error, rules }) => (
     <div className="govuk-checkboxes">
       <div className="govuk-checkboxes__item">
         <input
-          className="govuk-checkboxes__input"
           className={cx('govuk-checkboxes__input', {
             'govuk-input--error': error,
           })}
@@ -38,7 +37,7 @@ Checkbox.propTypes = {
   name: PropTypes.string.isRequired,
   register: PropTypes.func,
   error: PropTypes.shape({ message: PropTypes.string.isRequired }),
-  required: PropTypes.bool,
+  required: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
 };
 
 export default Checkbox;

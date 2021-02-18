@@ -7,44 +7,44 @@ jest.mock('axios');
 jest.mock('swr');
 
 describe('allocatedWorkers APIs', () => {
-  describe('getAllocatedWorkers', () => {
+  describe('useAllocatedWorkers', () => {
     it('should work properly', () => {
       jest.spyOn(SWR, 'default');
-      allocatedWorkersAPI.getAllocatedWorkers(123);
+      allocatedWorkersAPI.useAllocatedWorkers(123);
       expect(SWR.default).toHaveBeenCalledWith(
         '/api/residents/123/allocations'
       );
     });
   });
 
-  describe('getResidentAllocation', () => {
+  describe('useResidentAllocation', () => {
     it('should work properly', () => {
       jest.spyOn(SWR, 'default');
-      allocatedWorkersAPI.getResidentAllocation(123, 321);
+      allocatedWorkersAPI.useResidentAllocation(123, 321);
       expect(SWR.default).toHaveBeenCalledWith(
         '/api/residents/123/allocations/321'
       );
     });
   });
 
-  describe('getTeams', () => {
+  describe('useTeams', () => {
     it('should work properly', () => {
       jest.spyOn(SWR, 'default');
-      allocatedWorkersAPI.getTeams();
+      allocatedWorkersAPI.useTeams();
       expect(SWR.default).toHaveBeenCalledWith('/api/teams');
     });
 
     it('should add ageContext if present', () => {
       jest.spyOn(SWR, 'default');
-      allocatedWorkersAPI.getTeams({ ageContext: 'A' });
+      allocatedWorkersAPI.useTeams({ ageContext: 'A' });
       expect(SWR.default).toHaveBeenCalledWith('/api/teams?ageContext=A');
     });
   });
 
-  describe('getTeamWorkers', () => {
+  describe('useTeamWorkers', () => {
     it('should work properly', () => {
       jest.spyOn(SWR, 'default');
-      allocatedWorkersAPI.getTeamWorkers(123);
+      allocatedWorkersAPI.useTeamWorkers(123);
       expect(SWR.default).toHaveBeenCalledWith('/api/teams/123/workers');
     });
   });
@@ -52,7 +52,7 @@ describe('allocatedWorkers APIs', () => {
   describe('getAllocationsByWorker', () => {
     it('should work properly', () => {
       jest.spyOn(SWR, 'default');
-      allocatedWorkersAPI.getAllocationsByWorker(123);
+      allocatedWorkersAPI.useAllocationsByWorker(123);
       expect(SWR.default).toHaveBeenCalledWith('/api/workers/123/allocations');
     });
   });

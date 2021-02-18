@@ -11,11 +11,14 @@ import { lookupPostcode } from 'utils/postcodeAPI';
 
 const AddressBox = ({ name, disabled, value, onChange }) => {
   const [address, setAddress] = useState(value || {});
-  const setNewAddress = useCallback((inputName) => ({ target: { value } }) => {
-    const newAddress = { ...address, uprn: null, [inputName]: value };
-    setAddress(newAddress);
-    onChange(newAddress);
-  });
+  const setNewAddress = useCallback(
+    (inputName) => ({ target: { value } }) => {
+      const newAddress = { ...address, uprn: null, [inputName]: value };
+      setAddress(newAddress);
+      onChange(newAddress);
+    },
+    [address, onChange]
+  );
   return (
     <div className="govuk-!-margin-top-5">
       <TextInput
@@ -38,6 +41,16 @@ const AddressBox = ({ name, disabled, value, onChange }) => {
       )}
     </div>
   );
+};
+
+AddressBox.propTypes = {
+  name: PropTypes.string.isRequired,
+  onChange: PropTypes.func.isRequired,
+  value: PropTypes.shape({
+    address: PropTypes.string,
+    postcode: PropTypes.string,
+  }),
+  disabled: PropTypes.bool,
 };
 
 const AddressLookup = ({
@@ -75,7 +88,7 @@ const AddressLookup = ({
     } catch {
       setError('There was a problem with the postcode.');
     }
-  });
+  }, [control, postcode]);
   return (
     <div
       className={cx('govuk-form-group', {
@@ -179,10 +192,14 @@ AddressLookup.propTypes = {
   name: PropTypes.string.isRequired,
   label: PropTypes.string.isRequired,
   hint: PropTypes.string,
-  rules: PropTypes.shape({}),
-  required: PropTypes.bool,
+  rules: PropTypes.shape({
+    required: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
+    validate: PropTypes.object,
+  }),
+  required: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
   control: PropTypes.object.isRequired,
   supportManualEntry: PropTypes.bool,
+  error: PropTypes.shape({ message: PropTypes.string.isRequired }),
 };
 
 export default AddressLookup;

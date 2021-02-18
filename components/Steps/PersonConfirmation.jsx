@@ -34,7 +34,10 @@ const PersonConfirmation = ({ formData, formSteps }) => {
 };
 
 PersonConfirmation.propTypes = {
-  formData: PropTypes.shape({}).isRequired,
+  formData: PropTypes.shape({
+    firstName: PropTypes.string.isRequired,
+    lastName: PropTypes.string.isRequired,
+  }).isRequired,
   formSteps: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
 };
 

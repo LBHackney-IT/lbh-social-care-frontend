@@ -47,6 +47,8 @@ DynamicInput.propTypes = {
   rules: PropTypes.shape({
     required: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
   }),
+  register: PropTypes.func,
+  options: PropTypes.oneOfType([PropTypes.func, PropTypes.array]),
 };
 
 export default DynamicInput;

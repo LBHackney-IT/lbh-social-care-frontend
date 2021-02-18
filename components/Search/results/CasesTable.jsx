@@ -27,7 +27,7 @@ const CasesEntry = ({
         <a
           href={caseFormUrl}
           target="_blank"
-          rel="noopener"
+          rel="noreferrer noopener"
           className="govuk-link"
         >
           View
@@ -36,6 +36,16 @@ const CasesEntry = ({
     </td>
   </tr>
 );
+
+CasesEntry.propTypes = {
+  firstName: PropTypes.string.isRequired,
+  lastName: PropTypes.string.isRequired,
+  officerEmail: PropTypes.string.isRequired,
+  caseFormUrl: PropTypes.string,
+  dateOfEvent: PropTypes.string,
+  dateOfBirth: PropTypes.string,
+  caseFormTimestamp: PropTypes.string.isRequired,
+};
 
 const tableHeader = [
   { id: 'first_name', text: 'Client Name' },
@@ -85,7 +95,7 @@ CasesTable.propTypes = {
     PropTypes.shape({
       recordId: PropTypes.string.isRequired,
       formName: PropTypes.string.isRequired,
-      caseFormUrl: PropTypes.string.isRequired,
+      caseFormUrl: PropTypes.string,
       officerEmail: PropTypes.string.isRequired,
       dateOfEvent: PropTypes.string,
       caseFormTimestamp: PropTypes.string.isRequired,

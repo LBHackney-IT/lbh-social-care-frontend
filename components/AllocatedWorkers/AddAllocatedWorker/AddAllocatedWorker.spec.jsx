@@ -4,8 +4,8 @@ import { UserContext } from 'components/UserContext/UserContext';
 import AddAllocatedWorker from './AddAllocatedWorker';
 
 import {
-  getTeams,
-  getTeamWorkers,
+  useTeams,
+  useTeamWorkers,
   addAllocatedWorker,
 } from 'utils/api/allocatedWorkers';
 
@@ -20,13 +20,13 @@ jest.mock('next/router', () => ({
 jest.mock('components/Spinner/Spinner', () => () => 'MockedSpinner');
 
 jest.mock('utils/api/allocatedWorkers', () => ({
-  getTeams: jest.fn(),
-  getTeamWorkers: jest.fn(),
+  useTeams: jest.fn(),
+  useTeamWorkers: jest.fn(),
   addAllocatedWorker: jest.fn(),
 }));
 
 describe(`AddAllocatedWorker`, () => {
-  getTeams.mockImplementation(() => ({
+  useTeams.mockImplementation(() => ({
     data: {
       teams: [
         { id: '1', name: 'Team 1' },
@@ -35,7 +35,7 @@ describe(`AddAllocatedWorker`, () => {
       ],
     },
   }));
-  getTeamWorkers.mockImplementation(() => ({
+  useTeamWorkers.mockImplementation(() => ({
     data: {
       workers: [
         { id: 'a', firstName: 'Worker', lastName: 'A', allocationCount: 3 },
@@ -63,7 +63,7 @@ describe(`AddAllocatedWorker`, () => {
       'Select a team to view workers for that team'
     );
     expect(teamRadio).toBeInTheDocument();
-    expect(getTeams).toHaveBeenCalledWith({ ageContext: 'A' });
+    expect(useTeams).toHaveBeenCalledWith({ ageContext: 'A' });
     const radioSelection = getByText('Team 1');
     await act(async () => {
       fireEvent.click(radioSelection);
