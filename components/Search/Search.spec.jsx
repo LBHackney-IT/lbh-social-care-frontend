@@ -21,7 +21,7 @@ jest.mock('utils/api/residents', () => ({
 }));
 
 jest.mock('utils/api/cases', () => ({
-  getCases: jest.fn(),
+  useCases: jest.fn(),
 }));
 
 describe(`Search`, () => {
