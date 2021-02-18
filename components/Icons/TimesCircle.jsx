@@ -25,8 +25,8 @@ const TimesCircleIcon = ({ color = 'default' }) => (
   </svg>
 );
 
-export default TimesCircleIcon;
-
-TimesCircleIcon.protoTypes = {
+TimesCircleIcon.propTypes = {
   color: PropTypes.oneOf(['default', 'danger', 'border']),
 };
+
+export default TimesCircleIcon;

@@ -54,6 +54,8 @@ TextArea.propTypes = {
   hint: PropTypes.string,
   name: PropTypes.string.isRequired,
   width: PropTypes.string,
+  register: PropTypes.func,
+  required: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
   error: PropTypes.shape({
     message: PropTypes.string.isRequired,
   }),

@@ -32,7 +32,7 @@ exports[`CasesTable component should render properly 1`] = `
           <a
             class="govuk-link"
             href="https://foo.bar"
-            rel="noopener"
+            rel="noreferrer noopener"
             target="_blank"
           >
             View

@@ -8,7 +8,7 @@ import { TextArea } from 'components/Form';
 import Button from 'components/Button/Button';
 import Spinner from 'components/Spinner/Spinner';
 import {
-  getAllocatedWorkers,
+  useAllocatedWorkers,
   deleteAllocatedWorker,
 } from 'utils/api/allocatedWorkers';
 
@@ -18,7 +18,7 @@ const DeallocatedWorkers = ({ personId, allocationId }) => {
   const [complete, setComplete] = useState(false);
   const [postError, setPostError] = useState(false);
   const [deallocationReason, setDeallocationReason] = useState('');
-  const { data: { allocations } = {}, error } = getAllocatedWorkers(personId);
+  const { data: { allocations } = {}, error } = useAllocatedWorkers(personId);
   const onSubmit = async (reason) => {
     setLoading(true);
     try {

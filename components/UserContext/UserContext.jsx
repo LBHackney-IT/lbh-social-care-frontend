@@ -1,4 +1,5 @@
 import { createContext, useContext } from 'react';
+import PropTypes from 'prop-types';
 import { useRouter } from 'next/router';
 
 import { shouldRedirect } from 'utils/auth';
@@ -25,6 +26,11 @@ export const AuthProvider = ({ children, user }) => {
       {children}
     </UserContext.Provider>
   );
+};
+
+AuthProvider.propTypes = {
+  children: PropTypes.node.isRequired,
+  user: PropTypes.object,
 };
 
 export function useAuth() {

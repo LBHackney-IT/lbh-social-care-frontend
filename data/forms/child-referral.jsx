@@ -464,7 +464,11 @@ export default {
         </h3>,
         <p key="text5" className="govuk-body">
           Please consult the{' '}
-          <a href="https://tinyurl.com/yxzq446e" target="_blank" rel="noopener">
+          <a
+            href="https://tinyurl.com/yxzq446e"
+            target="_blank"
+            rel="noreferrer noopener"
+          >
             Hackney Child Wellbeing Framework
           </a>{' '}
           (opens in new tab) for guidance around levels of intervention. The

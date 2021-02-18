@@ -7,7 +7,7 @@ describe('AllocatedCasesTable component', () => {
     cases: [
       {
         id: 123,
-        personId: 87987,
+        personId: '87987',
         personName: 'James Smith',
         personAddress: 'Flat 11, Test road, E2 8TF',
         personDateOfBirth: '2021-01-21T09:38:02.186078',

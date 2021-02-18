@@ -1,12 +1,12 @@
 import { render, waitFor, fireEvent } from '@testing-library/react';
 
-import { getCasesByResident } from 'utils/api/cases';
+import { useCasesByResident } from 'utils/api/cases';
 import { UserContext } from 'components/UserContext/UserContext';
 
 import Cases from './Cases';
 
 jest.mock('utils/api/cases', () => ({
-  getCasesByResident: jest.fn(),
+  useCasesByResident: jest.fn(),
 }));
 
 describe('Cases component', () => {
@@ -22,7 +22,7 @@ describe('Cases component', () => {
 
   it('should render records properly', async () => {
     const mockSetSize = jest.fn();
-    getCasesByResident.mockImplementation(() => ({
+    useCasesByResident.mockImplementation(() => ({
       size: 2,
       setSize: mockSetSize,
       data: [
@@ -83,7 +83,7 @@ describe('Cases component', () => {
   });
 
   it('should render no records ', async () => {
-    getCasesByResident.mockImplementation(() => ({
+    useCasesByResident.mockImplementation(() => ({
       size: 0,
       data: [
         {
@@ -124,7 +124,7 @@ describe('Cases component', () => {
       </UserContext.Provider>
     );
     expect(asFragment()).toMatchSnapshot();
-    expect(getCasesByResident).not.toHaveBeenCalled();
+    expect(useCasesByResident).not.toHaveBeenCalled();
     expect(queryByText('RESTRICTED')).toBeInTheDocument();
   });
 
@@ -145,7 +145,7 @@ describe('Cases component', () => {
       </UserContext.Provider>
     );
     expect(asFragment()).toMatchSnapshot();
-    expect(getCasesByResident).toHaveBeenCalled();
+    expect(useCasesByResident).toHaveBeenCalled();
     expect(queryByText('RESTRICTED')).not.toBeInTheDocument();
   });
 });

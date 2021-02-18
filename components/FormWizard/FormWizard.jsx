@@ -148,6 +148,11 @@ FormWizard.propTypes = {
   hideBackButton: PropTypes.bool,
   onFormSubmit: PropTypes.func,
   defaultValues: PropTypes.shape({}),
+  includesDetails: PropTypes.bool,
+  successMessage: PropTypes.string,
+  customConfirmation: PropTypes.oneOfType([PropTypes.func, PropTypes.node]),
+  customSummary: PropTypes.oneOfType([PropTypes.func, PropTypes.node]),
+  personDetails: PropTypes.object,
 };
 
 export default FormWizard;

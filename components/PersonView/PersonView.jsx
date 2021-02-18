@@ -3,10 +3,10 @@ import PropTypes from 'prop-types';
 import ErrorMessage from 'components/ErrorMessage/ErrorMessage';
 import Spinner from 'components/Spinner/Spinner';
 import PersonDetails from './PersonDetails';
-import { getResident } from 'utils/api/residents';
+import { useResident } from 'utils/api/residents';
 
 const PersonView = ({ personId, expandView, children }) => {
-  const { data: person, error } = getResident(personId);
+  const { data: person, error } = useResident(personId);
   if (error) {
     return <ErrorMessage />;
   }

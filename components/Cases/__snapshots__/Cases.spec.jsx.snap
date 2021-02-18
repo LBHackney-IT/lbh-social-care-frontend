@@ -151,7 +151,7 @@ exports[`Cases component should render records properly 1`] = `
           <a
             class="govuk-link"
             href="http//foo/foo"
-            rel="noopener"
+            rel="noreferrer noopener"
             target="_blank"
           >
             View
@@ -182,7 +182,7 @@ exports[`Cases component should render records properly 1`] = `
           <a
             class="govuk-link"
             href="http//bar/bar"
-            rel="noopener"
+            rel="noreferrer noopener"
             target="_blank"
           >
             View

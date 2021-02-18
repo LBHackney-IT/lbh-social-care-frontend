@@ -17,9 +17,6 @@ const DynamicStep = ({
   const { handleSubmit, register, control, errors, setValue, watch } = useForm({
     defaultValues: formData,
   });
-  if (!register) {
-    return null;
-  }
   const stepValues = watch();
   const currentData = {
     ...formData,
@@ -27,12 +24,18 @@ const DynamicStep = ({
   };
   const multiStepPrefix =
     isMulti && `${stepId[0]}[${parseInt(stepId[1]) - 1 || 0}]`;
-  const sanitiseData = useCallback((data) => ({
-    ...components
-      .filter(({ isMulti }) => isMulti)
-      .reduce((acc, { name }) => ({ ...acc, [name]: undefined }), {}),
-    ...data,
-  }));
+  const sanitiseData = useCallback(
+    (data) => ({
+      ...components
+        .filter(({ isMulti }) => isMulti)
+        .reduce((acc, { name }) => ({ ...acc, [name]: undefined }), {}),
+      ...data,
+    }),
+    [components]
+  );
+  if (!register) {
+    return null;
+  }
   return (
     <>
       <form onSubmit={handleSubmit((data) => onStepSubmit(sanitiseData(data)))}>
@@ -117,8 +120,10 @@ const DynamicStep = ({
 };
 
 DynamicStep.propTypes = {
+  stepId: PropTypes.array,
   components: PropTypes.array,
   onStepSubmit: PropTypes.func.isRequired,
+  onSaveAndExit: PropTypes.func.isRequired,
   formData: PropTypes.object.isRequired,
   isMulti: PropTypes.bool,
 };
