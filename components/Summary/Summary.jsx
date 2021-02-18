@@ -113,6 +113,9 @@ SummarySection.propTypes = {
   ).isRequired,
   formPath: PropTypes.string.isRequired,
   canEdit: PropTypes.bool,
+  collapsedSection: PropTypes.object.isRequired,
+  toggleCollapsed: PropTypes.func.isRequired,
+  isSummaryCollapsable: PropTypes.bool,
 };
 
 const Summary = ({
