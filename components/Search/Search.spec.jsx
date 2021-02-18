@@ -1,7 +1,7 @@
 import { act, fireEvent, render } from '@testing-library/react';
 
 import { UserContext } from 'components/UserContext/UserContext';
-import { getResidents } from 'utils/api/residents';
+import { useResidents } from 'utils/api/residents';
 
 import Search from './Search';
 
@@ -16,7 +16,7 @@ jest.mock('next/router', () => ({
 }));
 
 jest.mock('utils/api/residents', () => ({
-  getResidents: jest.fn(),
+  useResidents: jest.fn(),
 }));
 
 describe(`Search`, () => {
@@ -25,7 +25,7 @@ describe(`Search`, () => {
   };
 
   it('should update the queryString on search and run a new search - with load more', async () => {
-    getResidents.mockImplementation(() => ({
+    useResidents.mockImplementation(() => ({
       size: 0,
       data: [
         {
@@ -69,7 +69,7 @@ describe(`Search`, () => {
   });
 
   it('should update the queryString on search and run a new search', async () => {
-    getResidents.mockImplementation(() => ({
+    useResidents.mockImplementation(() => ({
       size: 0,
       data: [
         {
@@ -112,7 +112,7 @@ describe(`Search`, () => {
   });
 
   it('should work properly on search fails', async () => {
-    getResidents.mockImplementation(() => ({ error: true }));
+    useResidents.mockImplementation(() => ({ error: true }));
     const { findByText } = render(
       <UserContext.Provider
         value={{

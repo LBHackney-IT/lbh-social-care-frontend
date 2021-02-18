@@ -1,13 +1,13 @@
 import { render, waitFor } from '@testing-library/react';
 import PersonView from './PersonView';
-import { getResident } from 'utils/api/residents';
+import { useResident } from 'utils/api/residents';
 
 jest.mock('utils/api/residents', () => ({
-  getResident: jest.fn(),
+  useResident: jest.fn(),
 }));
 
 describe('PersonView component', () => {
-  getResident.mockImplementation(() => ({
+  useResident.mockImplementation(() => ({
     data: {
       dateOfBirth: '2020-11-13',
       firstName: 'Ciasom',

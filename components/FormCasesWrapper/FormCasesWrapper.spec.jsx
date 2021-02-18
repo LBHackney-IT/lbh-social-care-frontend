@@ -1,9 +1,10 @@
+/* eslint-disable react/prop-types */
 import { render } from '@testing-library/react';
 
 import { UserContext } from 'components/UserContext/UserContext';
 import FormCasesWrapper from './FormCasesWrapper';
 
-import { getResident } from 'utils/api/residents';
+import { useResident } from 'utils/api/residents';
 import { addCase } from 'utils/api/cases';
 
 let mockOnFormSubmit;
@@ -16,7 +17,7 @@ jest.mock('next/router', () => ({
 }));
 
 jest.mock('utils/api/residents', () => ({
-  getResident: jest.fn(),
+  useResident: jest.fn(),
 }));
 
 jest.mock('utils/api/cases', () => ({
@@ -37,7 +38,7 @@ describe(`FormCasesWrapper`, () => {
   };
 
   it('should work properly if the user exist', async () => {
-    getResident.mockImplementation(() => ({
+    useResident.mockImplementation(() => ({
       data: {
         firstName: 'i am the user',
         lastName: '',

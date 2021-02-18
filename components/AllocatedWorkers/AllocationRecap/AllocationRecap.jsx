@@ -3,15 +3,15 @@ import Link from 'next/link';
 
 import ErrorMessage from 'components/ErrorMessage/ErrorMessage';
 import Spinner from 'components/Spinner/Spinner';
-import { getResidentAllocation } from 'utils/api/allocatedWorkers';
-import { getCaseByResident } from 'utils/api/cases';
+import { useResidentAllocation } from 'utils/api/allocatedWorkers';
+import { useCaseByResident } from 'utils/api/cases';
 
 const AllocationRecap = ({ personId, allocationId, recordId }) => {
-  const { data: allocation, error: allocationError } = getResidentAllocation(
+  const { data: allocation, error: allocationError } = useResidentAllocation(
     personId,
     allocationId
   );
-  const { data: record, error: recordError } = getCaseByResident(
+  const { data: record, error: recordError } = useCaseByResident(
     personId,
     recordId
   );

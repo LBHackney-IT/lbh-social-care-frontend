@@ -1,3 +1,5 @@
+import PropTypes from 'prop-types';
+
 const PhaseBanner = ({ phase, feedbackLink }) => (
   <div className="govuk-phase-banner">
     <p className="govuk-phase-banner__content">
@@ -14,5 +16,10 @@ const PhaseBanner = ({ phase, feedbackLink }) => (
     </p>
   </div>
 );
+
+PhaseBanner.propTypes = {
+  phase: PropTypes.string.isRequired,
+  feedbackLink: PropTypes.string.isRequired,
+};
 
 export default PhaseBanner;

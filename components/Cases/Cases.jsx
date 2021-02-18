@@ -5,10 +5,10 @@ import ErrorMessage from 'components/ErrorMessage/ErrorMessage';
 import ErrorSummary from 'components/ErrorSummary/ErrorSummary';
 import Button from 'components/Button/Button';
 import Spinner from 'components/Spinner/Spinner';
-import { getCasesByResident } from 'utils/api/cases';
+import { useCasesByResident } from 'utils/api/cases';
 
 const Cases = ({ id }) => {
-  const { data, size, setSize, error } = getCasesByResident(id);
+  const { data, size, setSize, error } = useCasesByResident(id);
   const results = data?.length > 0 && {
     cases: data.reduce((acc, { cases }) => [...acc, ...cases], []),
     nextCursor: data[data.length - 1].nextCursor,
@@ -41,6 +41,10 @@ const Cases = ({ id }) => {
       </div>
     </>
   );
+};
+
+Cases.propTypes = {
+  id: PropTypes.string.isRequired,
 };
 
 const CasesWrapper = ({ id, person }) => (

@@ -51,6 +51,7 @@ Button.propTypes = {
   className: PropTypes.string,
   route: PropTypes.string,
   internalQuery: PropTypes.string,
+  wideButton: PropTypes.bool,
 };
 
 export default Button;

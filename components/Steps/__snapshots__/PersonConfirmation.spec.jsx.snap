@@ -13,7 +13,7 @@ exports[`Person Confirmation component should render properly 1`] = `
     <h1
       class="govuk-fieldset__legend--l gov-weight-lighter"
     >
-        has been added.
+      first last has been added.
       <br />
       #123456
     </h1>

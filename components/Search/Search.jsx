@@ -14,8 +14,8 @@ import Spinner from 'components/Spinner/Spinner';
 import ErrorMessage from 'components/ErrorMessage/ErrorMessage';
 import { useAuth } from 'components/UserContext/UserContext';
 
-import { getResidents } from 'utils/api/residents';
-import { getCases } from 'utils/api/cases';
+import { useResidents } from 'utils/api/residents';
+import { useCases } from 'utils/api/cases';
 import { getQueryString } from 'utils/urls';
 
 const getRecords = (data) => [
@@ -26,14 +26,14 @@ const getRecords = (data) => [
 const Search = ({ type }) => {
   const { query, pathname, replace } = useRouter();
   const { user } = useAuth();
-  const { SearchForm, SearchResults, searchFunction } = useMemo(
+  const { SearchForm, SearchResults, useSearch } = useMemo(
     () =>
       type === 'records'
         ? {
             SearchForm: SearchCasesForm,
             SearchResults: CasesTable,
-            searchFunction: ({ my_notes_only, ...formData }, ...args) =>
-              getCases(
+            useSearch: ({ my_notes_only, ...formData }, ...args) =>
+              useCases(
                 {
                   ...formData,
                   worker_email: my_notes_only ? user.email : '',
@@ -44,37 +44,44 @@ const Search = ({ type }) => {
         : {
             SearchForm: SearchResidentsForm,
             SearchResults: ResidentsTable,
-            searchFunction: getResidents,
+            useSearch: useResidents,
           },
-    []
+    [type, user.email]
   );
   const hasQuery = Boolean(Object.keys(query).length);
-  const { data, error, size, setSize } = searchFunction(query, hasQuery);
+  const { data, error, size, setSize } = useSearch(query, hasQuery);
   const results = data && {
     records: data.reduce((acc, d) => [...acc, ...getRecords(d)], []),
     nextCursor: data[data.length - 1].nextCursor,
   };
-  const onFormSubmit = useCallback((formData) => {
-    const qs = getQueryString({ ...query, ...formData });
-    replace(`${pathname}?${qs}`, `${pathname}?${qs}`, {
-      shallow: true,
-      scroll: false,
-    });
-  });
+  const onFormSubmit = useCallback(
+    (formData) => {
+      const qs = getQueryString({ ...query, ...formData });
+      replace(`${pathname}?${qs}`, `${pathname}?${qs}`, {
+        shallow: true,
+        scroll: false,
+      });
+    },
+    [pathname, query, replace]
+  );
+
   // commented out as the feature is not ready in the BE
   // eslint-disable-next-line no-unused-vars
-  const onSort = useCallback((value) => {
-    const { order_by, sort_by } = query || {};
-    onFormSubmit({
-      ...(query || {}),
-      ...(sort_by === value && order_by === 'desc'
-        ? { order_by: 'asc', sort_by }
-        : { order_by: 'desc', sort_by: value }),
-    });
-  });
+  const onSort = useCallback(
+    (value) => {
+      const { order_by, sort_by } = query || {};
+      onFormSubmit({
+        ...(query || {}),
+        ...(sort_by === value && order_by === 'desc'
+          ? { order_by: 'asc', sort_by }
+          : { order_by: 'desc', sort_by: value }),
+      });
+    },
+    [onFormSubmit, query]
+  );
   const addNewPerson = type === 'people' && user.hasAdminPermissions && (
     <>
-      Results don't match?{' '}
+      Results don&apos;t match?{' '}
       <Link href="/people/add">
         <a style={{ textDecoration: 'underline' }} className="govuk-link">
           {' '}

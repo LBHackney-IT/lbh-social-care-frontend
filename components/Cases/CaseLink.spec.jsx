@@ -17,7 +17,7 @@ describe('CaseLink component', () => {
         <a
           class="govuk-link"
           href="https://foo.bar"
-          rel="noopener"
+          rel="noreferrer noopener"
           target="_blank"
         >
           View
