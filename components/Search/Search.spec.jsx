@@ -2,6 +2,7 @@ import { act, fireEvent, render } from '@testing-library/react';
 
 import { UserContext } from 'components/UserContext/UserContext';
 import { getResidents } from 'utils/api/residents';
+import { getCases } from 'utils/api/cases';
 
 import Search from './Search';
 
@@ -17,6 +18,10 @@ jest.mock('next/router', () => ({
 
 jest.mock('utils/api/residents', () => ({
   getResidents: jest.fn(),
+}));
+
+jest.mock('utils/api/cases', () => ({
+  getCases: jest.fn(),
 }));
 
 describe(`Search`, () => {
@@ -125,5 +130,26 @@ describe(`Search`, () => {
     const errorLabel = await findByText('Oops an error occurred');
     expect(errorLabel).toBeInTheDocument();
     // expect(queryByText('Add New Person')).toBeInTheDocument();
+  });
+
+  it('should search Cases for user email if "Only include records I have created" is selected', () => {
+    getCases.mockImplementation(() => ({}));
+    mockedUseRouter.query = {
+      worker_email: 'worker@email.com',
+      my_notes_only: true,
+    };
+    render(
+      <UserContext.Provider
+        value={{
+          user: { email: 'user@email.com' },
+        }}
+      >
+        <Search {...props} type="records" />
+      </UserContext.Provider>
+    );
+    expect(getCases).toHaveBeenCalledWith(
+      { worker_email: 'user@email.com' },
+      true
+    );
   });
 });

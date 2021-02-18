@@ -32,11 +32,14 @@ const Search = ({ type }) => {
         ? {
             SearchForm: SearchCasesForm,
             SearchResults: CasesTable,
-            searchFunction: ({ my_notes_only, ...formData }, ...args) =>
+            searchFunction: (
+              { my_notes_only, worker_email, ...formData },
+              ...args
+            ) =>
               getCases(
                 {
                   ...formData,
-                  worker_email: my_notes_only ? user.email : '',
+                  worker_email: my_notes_only ? user.email : worker_email,
                 },
                 ...args
               ),
