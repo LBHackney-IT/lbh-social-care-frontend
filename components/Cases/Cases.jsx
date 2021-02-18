@@ -60,7 +60,7 @@ const CasesWrapper = ({ id, person }) => {
         <Button label="Add a new record" route={`${id}/records`} />
       </div>
       <hr className="govuk-divider" />
-      {user.hasUnrestrictedPermissions || person.restricted !== 'Y' ? (
+      {user.hasUnrestrictedPermissions || !person.restricted ? (
         <Cases id={id} />
       ) : (
         <ErrorSummary
@@ -75,7 +75,7 @@ const CasesWrapper = ({ id, person }) => {
 CasesWrapper.propTypes = {
   id: PropTypes.string.isRequired,
   person: PropTypes.shape({
-    restricted: PropTypes.string,
+    restricted: PropTypes.bool,
   }).isRequired,
 };
 

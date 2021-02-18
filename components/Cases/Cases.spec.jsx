@@ -17,7 +17,6 @@ describe('Cases component', () => {
       lastName: 'Bar',
       mosaicId: '123',
       ageContext: 'A',
-      restricted: 'N',
     },
   };
 
@@ -112,7 +111,7 @@ describe('Cases component', () => {
     const props = {
       id: '44000000',
       person: {
-        restricted: 'Y',
+        restricted: true,
       },
     };
     const { asFragment, queryByText } = render(
@@ -133,7 +132,7 @@ describe('Cases component', () => {
     const props = {
       id: '44000000',
       person: {
-        restricted: 'Y',
+        restricted: true,
       },
     };
     const { asFragment, queryByText } = render(

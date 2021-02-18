@@ -3,6 +3,7 @@ import Link from 'next/link';
 
 const getLink = (recordId, { form_name_overall, ...caseFormData }) => {
   switch (form_name_overall) {
+    case 'API_Allocation':
     case 'API_Deallocation':
       return `/people/${caseFormData.mosaic_id}/allocations/${caseFormData.allocation_id}?recordId=${recordId}`;
     default:
