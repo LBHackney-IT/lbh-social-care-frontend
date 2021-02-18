@@ -44,6 +44,7 @@ CasesEntry.propTypes = {
   caseFormUrl: PropTypes.string,
   dateOfEvent: PropTypes.string,
   dateOfBirth: PropTypes.string,
+  caseFormTimestamp: PropTypes.string.isRequired,
 };
 
 const tableHeader = [
