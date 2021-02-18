@@ -9,6 +9,7 @@ const CasesEntry = ({
   dateOfBirth,
   officerEmail,
   dateOfEvent,
+  caseFormTimestamp,
 }) => (
   <tr className="govuk-table__row">
     <td className="govuk-table__cell">
@@ -19,7 +20,7 @@ const CasesEntry = ({
     </td>
     <td className="govuk-table__cell">{officerEmail}</td>
     <td className="govuk-table__cell">
-      {isDateValid(dateOfEvent) && formatDate(dateOfEvent)}
+      {formatDate(dateOfEvent || caseFormTimestamp)}
     </td>
     <td className="govuk-table__cell govuk-button--secondary'">
       {caseFormUrl && (
@@ -86,7 +87,8 @@ CasesTable.propTypes = {
       formName: PropTypes.string.isRequired,
       caseFormUrl: PropTypes.string.isRequired,
       officerEmail: PropTypes.string.isRequired,
-      dateOfEvent: PropTypes.string.isRequired,
+      dateOfEvent: PropTypes.string,
+      caseFormTimestamp: PropTypes.string.isRequired,
     })
   ).isRequired,
 };
