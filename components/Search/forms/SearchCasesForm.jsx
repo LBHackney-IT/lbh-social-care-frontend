@@ -5,7 +5,11 @@ import isPast from 'date-fns/isPast';
 import { convertFormat } from 'utils/date';
 import { TextInput, Checkbox, DateInput, Select } from 'components/Form';
 import Button from 'components/Button/Button';
-import FORM_NAMES from 'data/formNames';
+import CHILD_FORMS from 'data/googleForms/childForms';
+import ADULT_FORMS from 'data/googleForms/adultForms';
+import ADULT_AND_CHILDREN from 'data/adultAndChildForms.js';
+import { useAuth } from 'components/UserContext/UserContext';
+import { getPermissionFlag } from 'utils/user';
 
 const SearchCasesForm = ({ onFormSubmit, defaultValues }) => {
   const {
@@ -18,6 +22,16 @@ const SearchCasesForm = ({ onFormSubmit, defaultValues }) => {
   } = useForm({
     defaultValues,
   });
+  const { user } = useAuth();
+  const getFormsByUserPermission = (user) => {
+    const permission = getPermissionFlag(user);
+    return permission === 'C'
+      ? CHILD_FORMS
+      : permission === 'A'
+      ? ADULT_FORMS
+      : ADULT_AND_CHILDREN;
+  };
+
   return (
     <form role="form" onSubmit={handleSubmit((data) => onFormSubmit(data))}>
       <div className="govuk-grid-row">
@@ -105,7 +119,7 @@ const SearchCasesForm = ({ onFormSubmit, defaultValues }) => {
             label="Filter by form type:"
             labelSize="s"
             register={register}
-            options={FORM_NAMES}
+            options={getFormsByUserPermission(user)}
           />
         </div>
       </div>
