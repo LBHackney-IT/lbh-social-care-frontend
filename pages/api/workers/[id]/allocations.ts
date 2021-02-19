@@ -4,7 +4,12 @@ import { isAuthorised } from 'utils/auth';
 import { getWorker } from 'utils/server/workers';
 import { getAllocationsByWorker } from 'utils/server/allocatedWorkers';
 
-export default async (req, res) => {
+import type { NextApiRequest, NextApiResponse, NextApiHandler } from 'next';
+
+const endpoint: NextApiHandler = async (
+  req: NextApiRequest,
+  res: NextApiResponse
+) => {
   const user = isAuthorised(req);
   if (!user) {
     return res.status(StatusCodes.UNAUTHORIZED).end();
@@ -48,3 +53,5 @@ export default async (req, res) => {
       console.log(res.status);
   }
 };
+
+export default endpoint;

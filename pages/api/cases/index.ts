@@ -1,9 +1,14 @@
 import { StatusCodes } from 'http-status-codes';
 
-import { getResidents, addResident } from 'utils/server/residents';
+import { getCases, addCase } from 'utils/server/cases';
 import { isAuthorised } from 'utils/auth';
 
-export default async (req, res) => {
+import type { NextApiRequest, NextApiResponse, NextApiHandler } from 'next';
+
+const endpoint: NextApiHandler = async (
+  req: NextApiRequest,
+  res: NextApiResponse
+) => {
   const user = isAuthorised(req);
   if (!user) {
     return res.status(StatusCodes.UNAUTHORIZED).end();
@@ -14,32 +19,32 @@ export default async (req, res) => {
   switch (req.method) {
     case 'GET':
       try {
-        const data = await getResidents({
+        const data = await getCases({
           ...req.query,
           context_flag: user.permissionFlag,
         });
         res.status(StatusCodes.OK).json(data);
       } catch (error) {
-        console.error('Residents get error:', error?.response?.data);
+        console.error('Cases get error:', error?.response?.data);
         error?.response?.status === StatusCodes.NOT_FOUND
           ? res
               .status(StatusCodes.NOT_FOUND)
-              .json({ message: 'Residents Not Found' })
+              .json({ message: 'Cases Not Found' })
           : res
               .status(StatusCodes.INTERNAL_SERVER_ERROR)
-              .json({ message: 'Unable to get the Residents' });
+              .json({ message: 'Unable to get the Cases' });
       }
       break;
 
     case 'POST':
       try {
-        const data = await addResident(req.body);
+        const data = await addCase(req.body);
         res.status(StatusCodes.OK).json(data);
       } catch (error) {
-        console.error('Resident post error:', error?.response?.data);
+        console.error('Case post error:', error?.response?.data);
         res
           .status(StatusCodes.INTERNAL_SERVER_ERROR)
-          .json({ message: 'Unable to add resident' });
+          .json({ message: 'Unable to post case' });
       }
       break;
 
@@ -49,3 +54,5 @@ export default async (req, res) => {
         .json({ message: 'Invalid request method' });
   }
 };
+
+export default endpoint;

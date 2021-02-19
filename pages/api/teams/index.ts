@@ -3,7 +3,12 @@ import { StatusCodes } from 'http-status-codes';
 import { getTeams } from 'utils/server/teams';
 import { isAuthorised } from 'utils/auth';
 
-export default async (req, res) => {
+import type { NextApiRequest, NextApiResponse, NextApiHandler } from 'next';
+
+const endpoint: NextApiHandler = async (
+  req: NextApiRequest,
+  res: NextApiResponse
+) => {
   const user = isAuthorised(req);
   if (!user) {
     return res.status(StatusCodes.UNAUTHORIZED).end();
@@ -36,3 +41,5 @@ export default async (req, res) => {
         .json({ message: 'Invalid request method' });
   }
 };
+
+export default endpoint;

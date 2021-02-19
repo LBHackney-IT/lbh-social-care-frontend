@@ -1,9 +1,14 @@
 import { StatusCodes } from 'http-status-codes';
 
-import { getWorkers } from 'utils/server/workers';
 import { isAuthorised } from 'utils/auth';
+import { getAddresses } from 'utils/server/postcode';
 
-export default async (req, res) => {
+import type { NextApiRequest, NextApiResponse, NextApiHandler } from 'next';
+
+const endpoint: NextApiHandler = async (
+  req: NextApiRequest,
+  res: NextApiResponse
+) => {
   const user = isAuthorised(req);
   if (!user) {
     return res.status(StatusCodes.UNAUTHORIZED).end();
@@ -14,17 +19,13 @@ export default async (req, res) => {
   switch (req.method) {
     case 'GET':
       try {
-        const data = await getWorkers(req.query);
+        const data = await getAddresses(req.query.postcode);
         res.status(StatusCodes.OK).json(data);
       } catch (error) {
-        console.error('Workers get error:', error?.response?.data);
-        error?.response?.status === StatusCodes.NOT_FOUND
-          ? res
-              .status(StatusCodes.NOT_FOUND)
-              .json({ message: 'Workers Not Found' })
-          : res
-              .status(StatusCodes.INTERNAL_SERVER_ERROR)
-              .json({ message: 'Unable to get the Workers' });
+        console.error('Postcode get error', error?.response?.data);
+        res
+          .status(StatusCodes.INTERNAL_SERVER_ERROR)
+          .json({ message: 'Unable to get the Addresses' });
       }
       break;
 
@@ -34,3 +35,5 @@ export default async (req, res) => {
         .json({ message: 'Invalid request method' });
   }
 };
+
+export default endpoint;
