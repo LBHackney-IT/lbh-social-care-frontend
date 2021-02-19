@@ -46,6 +46,9 @@ jobs:
           name: Run linter
           command: yarn lint
       - run:
+          name: Run typecheck
+          command: yarn type-check
+      - run:
           name: Run tests
           command: yarn test -w 2
 

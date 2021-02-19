@@ -7,11 +7,12 @@
     "jest": true
   },
   "plugins": [
+    "@typescript-eslint",
     "react",
     "react-hooks",
     "jest"
   ],
-  "parser": "babel-eslint",
+  "parser": "@typescript-eslint/parser",
   "extends": [
     "eslint:recommended",
     "plugin:prettier/recommended",
@@ -34,6 +35,22 @@
       "unix"
     ],
     "react/display-name": "off",
-    "react/react-in-jsx-scope": "off"
-  }
+    "react/react-in-jsx-scope": "off",
+    "@typescript-eslint/explicit-module-boundary-types": "off"
+  },
+  "overrides": [
+    {
+      "files": [
+        "*.ts",
+        "*.tsx"
+      ],
+      "extends": [
+        "plugin:@typescript-eslint/recommended",
+        "prettier/@typescript-eslint",
+        "plugin:react/recommended",
+        "plugin:react-hooks/recommended",
+        "plugin:cypress/recommended"
+      ]
+    }
+  ]
 }
