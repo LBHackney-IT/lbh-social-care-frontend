@@ -66,7 +66,7 @@ describe('Cases component', () => {
     const { asFragment, getByRole, getAllByText } = render(
       <UserContext.Provider
         value={{
-          user: { hasAdminPermissions: true },
+          user: {},
         }}
       >
         <Cases {...props} />
@@ -95,7 +95,7 @@ describe('Cases component', () => {
     const { asFragment, getByText } = render(
       <UserContext.Provider
         value={{
-          user: { hasAdminPermissions: true },
+          user: {},
         }}
       >
         <Cases {...props} />
@@ -104,8 +104,7 @@ describe('Cases component', () => {
     await waitFor(() => {
       expect(asFragment()).toMatchSnapshot();
     });
-    const label = getByText('Records not found');
-    expect(label).toBeInTheDocument();
+    expect(getByText('Records not found')).toBeInTheDocument();
   });
 
   it('should render a error message when a person is restricted', async () => {
@@ -115,10 +114,10 @@ describe('Cases component', () => {
         restricted: true,
       },
     };
-    const { asFragment, getByText } = render(
+    const { asFragment, queryByText } = render(
       <UserContext.Provider
         value={{
-          user: { hasAdminPermissions: true },
+          user: {},
         }}
       >
         <Cases {...props} />
@@ -126,7 +125,27 @@ describe('Cases component', () => {
     );
     expect(asFragment()).toMatchSnapshot();
     expect(useCasesByResident).not.toHaveBeenCalled();
-    const title = getByText('RESTRICTED');
-    expect(title).toBeInTheDocument();
+    expect(queryByText('RESTRICTED')).toBeInTheDocument();
+  });
+
+  it('should work properly if person is restricted but user.hasUnrestrictedPermissions', async () => {
+    const props = {
+      id: '44000000',
+      person: {
+        restricted: true,
+      },
+    };
+    const { asFragment, queryByText } = render(
+      <UserContext.Provider
+        value={{
+          user: { hasUnrestrictedPermissions: true },
+        }}
+      >
+        <Cases {...props} />
+      </UserContext.Provider>
+    );
+    expect(asFragment()).toMatchSnapshot();
+    expect(useCasesByResident).toHaveBeenCalled();
+    expect(queryByText('RESTRICTED')).not.toBeInTheDocument();
   });
 });
