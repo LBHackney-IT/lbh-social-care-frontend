@@ -35,8 +35,17 @@ export const getCaseByResident = async (mosaic_id, case_id, params) => {
 };
 
 export const addCase = async (formData) => {
-  const { data } = await axios.post(`${ENDPOINT_API}/cases`, formData, {
-    headers: { 'Content-Type': 'application/json', 'x-api-key': AWS_KEY },
-  });
+  const { data } = await axios.post(
+    `${ENDPOINT_API}/cases`,
+    {
+      caseFormData: JSON.stringify({
+        timestamp: new Date(),
+        ...formData,
+      }),
+    },
+    {
+      headers: { 'Content-Type': 'application/json', 'x-api-key': AWS_KEY },
+    }
+  );
   return { ref: data?.['_id'] };
 };

@@ -1,4 +1,5 @@
 import axios from 'axios';
+import MockDate from 'mockdate';
 
 import * as casesAPI from './cases';
 
@@ -46,15 +47,19 @@ describe('cases APIs', () => {
   describe('addCase', () => {
     it('should work properly', async () => {
       axios.post.mockResolvedValue({ data: { _id: 'foobar' } });
+      MockDate.set('2000-11-22');
       const data = await casesAPI.addCase({ foo: 'bar' });
       expect(axios.post).toHaveBeenCalled();
       expect(axios.post.mock.calls[0][0]).toEqual(`${ENDPOINT_API}/cases`);
-      expect(axios.post.mock.calls[0][1]).toEqual({ foo: 'bar' });
+      expect(axios.post.mock.calls[0][1]).toEqual({
+        caseFormData: '{"timestamp":"2000-11-22T00:00:00.000Z","foo":"bar"}',
+      });
       expect(axios.post.mock.calls[0][2].headers).toEqual({
         'Content-Type': 'application/json',
         'x-api-key': AWS_KEY,
       });
       expect(data).toEqual({ ref: 'foobar' });
+      MockDate.reset();
     });
   });
 });
