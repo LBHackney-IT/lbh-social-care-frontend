@@ -9,7 +9,7 @@ exports[`AllocatedWorkers component should render properly - with deallocate but
       <h3
         class="govuk-fieldset__legend--m govuk-custom-text-color govuk-!-margin-top-0"
       >
-        Allocated Worker 1
+        Allocated worker 1
       </h3>
       <button
         class="govuk-button govuk-button--secondary"
@@ -31,7 +31,7 @@ exports[`AllocatedWorkers component should render properly - with deallocate but
         <dt
           class="govuk-summary-list__key"
         >
-          Allocated Worker:
+          Allocated worker:
         </dt>
         <dd
           class="govuk-summary-list__value"
@@ -45,7 +45,7 @@ exports[`AllocatedWorkers component should render properly - with deallocate but
         <dt
           class="govuk-summary-list__key"
         >
-          Allocated Team
+          Allocated team
         </dt>
         <dd
           class="govuk-summary-list__value"
@@ -73,7 +73,7 @@ exports[`AllocatedWorkers component should render properly - with deallocate but
         <dt
           class="govuk-summary-list__key"
         >
-          Start Date
+          Start date
         </dt>
         <dd
           class="govuk-summary-list__value"
@@ -87,7 +87,7 @@ exports[`AllocatedWorkers component should render properly - with deallocate but
         <dt
           class="govuk-summary-list__key"
         >
-          End Date
+          End date
         </dt>
         <dd
           class="govuk-summary-list__value"
@@ -109,7 +109,7 @@ exports[`AllocatedWorkers component should render properly 1`] = `
       <h3
         class="govuk-fieldset__legend--m govuk-custom-text-color govuk-!-margin-top-0"
       >
-        Allocated Worker 1
+        Allocated worker 1
       </h3>
     </div>
     <hr
@@ -125,7 +125,7 @@ exports[`AllocatedWorkers component should render properly 1`] = `
         <dt
           class="govuk-summary-list__key"
         >
-          Allocated Worker:
+          Allocated worker:
         </dt>
         <dd
           class="govuk-summary-list__value"
@@ -139,7 +139,7 @@ exports[`AllocatedWorkers component should render properly 1`] = `
         <dt
           class="govuk-summary-list__key"
         >
-          Allocated Team
+          Allocated team
         </dt>
         <dd
           class="govuk-summary-list__value"
@@ -167,7 +167,7 @@ exports[`AllocatedWorkers component should render properly 1`] = `
         <dt
           class="govuk-summary-list__key"
         >
-          Start Date
+          Start date
         </dt>
         <dd
           class="govuk-summary-list__value"
@@ -181,7 +181,7 @@ exports[`AllocatedWorkers component should render properly 1`] = `
         <dt
           class="govuk-summary-list__key"
         >
-          End Date
+          End date
         </dt>
         <dd
           class="govuk-summary-list__value"
