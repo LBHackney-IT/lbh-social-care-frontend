@@ -9,7 +9,13 @@ import ErrorSummary from 'components/ErrorSummary/ErrorSummary';
 import { filterDataOnCondition } from 'utils/steps';
 import { sanitiseObject } from 'utils/objects';
 
-const SummaryStep = ({ formData, formSteps, formPath, onFormSubmit }) => {
+const SummaryStep = ({
+  formData,
+  formSteps,
+  formPath,
+  onFormSubmit,
+  isSummaryCollapsable,
+}) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [hasError, setHasError] = useState(false);
   const onSubmit = async () => {
@@ -47,6 +53,7 @@ const SummaryStep = ({ formData, formSteps, formPath, onFormSubmit }) => {
         formPath={formPath}
         formSteps={formSteps}
         canEdit
+        isSummaryCollapsable={isSummaryCollapsable}
       />
       <div style={{ display: 'flex', justifyContent: 'space-between' }}>
         <Button
@@ -79,6 +86,7 @@ SummaryStep.propTypes = {
   formSteps: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
   formPath: PropTypes.string.isRequired,
   onFormSubmit: PropTypes.func.isRequired,
+  isSummaryCollapsable: PropTypes.bool,
 };
 
 export default SummaryStep;

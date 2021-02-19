@@ -93,6 +93,10 @@ $screen-sm-min: 576px;
   color: $govuk-link-hover-colour;
 }
 
+.govuk-link--underline {
+  text-decoration: underline;
+}
+
 .width-override-10 {
   max-width: 23ex;
 }

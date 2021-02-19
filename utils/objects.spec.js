@@ -1,4 +1,4 @@
-import { deepmerge, sanitiseObject } from './objects';
+import { deepmerge, sanitiseObject, setValues } from './objects';
 
 describe('objects util', () => {
   describe('deepmerge', () => {
@@ -60,6 +60,15 @@ describe('objects util', () => {
         phone_number: [{ phoneNumber: '123123', phoneType: '' }],
         arr: ['foo', 123],
         cippa: { yo: { asd: { asd: 123 } } },
+      });
+    });
+  });
+
+  describe('setValues', () => {
+    it('should work properly', () => {
+      expect(setValues({ foo: 'bar', foobar: true }, false)).toEqual({
+        foo: false,
+        foobar: false,
       });
     });
   });

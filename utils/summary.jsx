@@ -91,3 +91,14 @@ export const formatData = (componentProps, formData) => {
       : formData[name],
   };
 };
+
+export const getSectionObject = (formSteps, formData, value = false) =>
+  formSteps.reduce((acc, { id, isMulti }) => {
+    const stepIds = isMulti
+      ? formData[id]?.reduce(
+          (acc, _, key) => ({ ...acc, [`${id}/${key + 1}`]: false }),
+          {}
+        )
+      : { [id]: value };
+    return { ...acc, ...stepIds };
+  }, {});

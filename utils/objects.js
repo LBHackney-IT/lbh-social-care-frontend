@@ -55,3 +55,6 @@ export const sanitiseObject = (object) =>
         (acc, [key, value]) => sanitise(acc, value, key),
         {}
       );
+
+export const setValues = (object, value) =>
+  Object.keys(object).reduce((acc, key) => ({ ...acc, [key]: value }), {});

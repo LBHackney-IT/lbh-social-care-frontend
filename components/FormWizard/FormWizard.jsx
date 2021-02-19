@@ -23,6 +23,7 @@ const FormWizard = ({
   hideBackButton,
   customConfirmation,
   customSummary,
+  isSummaryCollapsable = true,
 }) => {
   Router.events.on('routeChangeComplete', () => {
     window.scrollTo(0, 0);
@@ -129,6 +130,7 @@ const FormWizard = ({
           }}
           onFormSubmit={onFormSubmit}
           successMessage={successMessage}
+          isSummaryCollapsable={steps.length > 3 && isSummaryCollapsable}
         />
       </fieldset>
     </div>
@@ -148,6 +150,7 @@ FormWizard.propTypes = {
   hideBackButton: PropTypes.bool,
   onFormSubmit: PropTypes.func,
   defaultValues: PropTypes.shape({}),
+  isSummaryCollapsable: PropTypes.bool,
   includesDetails: PropTypes.bool,
   successMessage: PropTypes.string,
   customConfirmation: PropTypes.oneOfType([PropTypes.func, PropTypes.node]),

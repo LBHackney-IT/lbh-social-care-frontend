@@ -1,4 +1,4 @@
-import { formatData } from './summary';
+import { formatData, getSectionObject } from './summary';
 
 describe('Summary utils', () => {
   describe('formatData', () => {
@@ -114,6 +114,19 @@ describe('Summary utils', () => {
         text: ['i', 'm', 'multi', 'text'],
       };
       expect(formatData(componentProps, formData)).toMatchSnapshot();
+    });
+  });
+
+  describe('getSectionObject', () => {
+    it('should work properly', () => {
+      const formSteps = [{ id: 'foo' }, { id: 'bar', isMulti: true }];
+      const formData = { foo: '', bar: [1, 2, 3] };
+      expect(getSectionObject(formSteps, formData)).toEqual({
+        foo: false,
+        'bar/1': false,
+        'bar/2': false,
+        'bar/3': false,
+      });
     });
   });
 });
