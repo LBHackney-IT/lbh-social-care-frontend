@@ -1,16 +1,21 @@
 import cookie from 'cookie';
 import jsonwebtoken from 'jsonwebtoken';
 
+import type { NextPageContext } from 'next';
+import type { User } from 'types';
+
 import { getPermissionFlag } from 'utils/user';
 
 export const AUTH_WHITELIST = ['/login', '/access-denied'];
 
 const { GSSO_TOKEN_NAME } = process.env;
 
-export const deleteSession = (res) => {
+export const deleteSession = (
+  res: NonNullable<NextPageContext['res']>
+): void => {
   res.setHeader(
     'Set-Cookie',
-    cookie.serialize(GSSO_TOKEN_NAME, null, {
+    cookie.serialize(GSSO_TOKEN_NAME, '', {
       maxAge: -1,
       domain: '.hackney.gov.uk',
     })
@@ -21,7 +26,10 @@ export const deleteSession = (res) => {
   res.end();
 };
 
-export const shouldRedirect = (pathname, user) => {
+export const shouldRedirect = (
+  pathname: string,
+  user: User
+): string | undefined => {
   const isPathWhitelisted = AUTH_WHITELIST.includes(pathname);
   if (!isPathWhitelisted) {
     if (!user) {
@@ -31,12 +39,20 @@ export const shouldRedirect = (pathname, user) => {
       return '/access-denied';
     }
   }
-  if (isPathWhitelisted & user?.isAuthorised) {
+  if (isPathWhitelisted && user?.isAuthorised) {
     return '/';
   }
 };
 
-export const isAuthorised = (req) => {
+interface ParsedCookie {
+  name: string;
+  email: string;
+  groups: string[];
+}
+
+export const isAuthorised = (
+  req: NonNullable<NextPageContext['req']>
+): User | null => {
   const {
     HACKNEY_JWT_SECRET,
     AUTHORISED_ADMIN_GROUP,
@@ -46,9 +62,12 @@ export const isAuthorised = (req) => {
     AUTHORISED_UNRESTRICTED_GROUP,
   } = process.env;
   const cookies = cookie.parse(req.headers.cookie ?? '');
-  const parsedToken =
-    cookies[GSSO_TOKEN_NAME] &&
-    jsonwebtoken.verify(cookies[GSSO_TOKEN_NAME], HACKNEY_JWT_SECRET);
+  const parsedToken = cookies[GSSO_TOKEN_NAME]
+    ? (jsonwebtoken.verify(
+        cookies[GSSO_TOKEN_NAME],
+        HACKNEY_JWT_SECRET
+      ) as ParsedCookie)
+    : null;
   if (!parsedToken) {
     return null;
   }

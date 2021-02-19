@@ -44,7 +44,7 @@ export const getResidentAllocatedWorkers = (
 export const getResidentAllocation = async (
   mosaic_id: number,
   allocation_id: number,
-  params?: Record<string, unknown>[]
+  params?: AllocationsParams
 ): Promise<Allocation | undefined> => {
   const showOnlyOpen = false;
   const data = await getAllocations({ mosaic_id, ...params }, showOnlyOpen);
@@ -52,7 +52,7 @@ export const getResidentAllocation = async (
 };
 export const getAllocationsByWorker = async (
   worker_id: number,
-  params?: Record<string, unknown>
+  params?: AllocationsParams
 ): Promise<AllocationData> => getAllocations({ worker_id, ...params });
 
 const deleteAllocatedWorkerSchema = yup.object().shape({
@@ -79,7 +79,7 @@ const addAllocatedWorkerSchema = yup.object({
 });
 
 export const addAllocatedWorker = async (
-  mosaicId: number,
+  mosaicId: yup.InferType<typeof addAllocatedWorkerSchema>['mosaicId'],
   params: Omit<yup.InferType<typeof addAllocatedWorkerSchema>, 'mosaicId'>
 ): Promise<Record<string, unknown>> => {
   const body = await addAllocatedWorkerSchema.validate({ mosaicId, ...params });

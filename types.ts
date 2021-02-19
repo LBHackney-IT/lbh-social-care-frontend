@@ -31,3 +31,15 @@ export interface ResidentAPI {
   residents: Resident[] | [];
   nextCursor?: string;
 }
+
+export interface User {
+  name: string;
+  email: string;
+  permissionFlag: 'A' | 'C' | undefined;
+  hasAdminPermissions: boolean;
+  hasAdultPermissions: boolean;
+  hasChildrenPermissions: boolean;
+  hasAllocationsPermissions: boolean;
+  hasUnrestrictedPermissions: boolean;
+  isAuthorised: boolean;
+}
