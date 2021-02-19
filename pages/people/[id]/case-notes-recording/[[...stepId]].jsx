@@ -48,7 +48,7 @@ const CaseNotesRecording = () => {
                 person.ageContext === 'A' ? formAdult.steps : formChild.steps
               }
               title="Case Notes Recording"
-              onFormSubmit={onFormSubmit}
+              onFormSubmit={onFormSubmit(person)}
               personDetails={{ ...person }}
               includesDetails
               hideBackButton
