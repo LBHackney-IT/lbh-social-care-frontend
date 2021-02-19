@@ -1,4 +1,4 @@
-import * as HttpStatus from 'http-status-codes';
+import { StatusCodes } from 'http-status-codes';
 
 import { getTeams } from 'utils/server/teams';
 import { isAuthorised } from 'utils/auth';
@@ -6,10 +6,10 @@ import { isAuthorised } from 'utils/auth';
 export default async (req, res) => {
   const user = isAuthorised(req);
   if (!user) {
-    return res.status(HttpStatus.UNAUTHORIZED).end();
+    return res.status(StatusCodes.UNAUTHORIZED).end();
   }
   if (!user.isAuthorised) {
-    return res.status(HttpStatus.FORBIDDEN).end();
+    return res.status(StatusCodes.FORBIDDEN).end();
   }
   switch (req.method) {
     case 'GET':
@@ -17,22 +17,22 @@ export default async (req, res) => {
         const data = await getTeams({
           context_flag: req.query?.ageContext || user.permissionFlag || 'B', //TODO fix this once 'B' has been added to the BE
         });
-        res.status(HttpStatus.OK).json(data);
+        res.status(StatusCodes.OK).json(data);
       } catch (error) {
         console.error('Teams get error:', error?.response?.data);
-        error?.response?.status === HttpStatus.NOT_FOUND
+        error?.response?.status === StatusCodes.NOT_FOUND
           ? res
-              .status(HttpStatus.NOT_FOUND)
+              .status(StatusCodes.NOT_FOUND)
               .json({ message: 'Teams Not Found' })
           : res
-              .status(HttpStatus.INTERNAL_SERVER_ERROR)
+              .status(StatusCodes.INTERNAL_SERVER_ERROR)
               .json({ message: 'Unable to get the Teams' });
       }
       break;
 
     default:
       res
-        .status(HttpStatus.BAD_REQUEST)
+        .status(StatusCodes.BAD_REQUEST)
         .json({ message: 'Invalid request method' });
   }
 };

@@ -2,8 +2,6 @@ import CFS_SERVICE_AREAS from 'data/cfsServiceAreas';
 import CFS_CASE_NOTE from 'data/cfsCaseNoteTypes';
 
 export default {
-  title: '',
-  path: '/form/cfs-case-notes-recording/',
   steps: [
     {
       id: 'cfs-case-notes-recording',
