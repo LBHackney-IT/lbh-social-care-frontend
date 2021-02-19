@@ -3,17 +3,9 @@ import * as yup from 'yup';
 import isPast from 'date-fns/isPast';
 import parseISO from 'date-fns/parseISO';
 
+import type { Allocation, AllocationData } from 'types';
+
 const { ENDPOINT_API, AWS_KEY } = process.env;
-
-interface Allocation {
-  id: number;
-  caseStatus: 'Closed' | 'Open';
-  allocationEndDate?: string;
-}
-
-interface AllocationData {
-  allocations: Allocation[];
-}
 
 interface AllocationsParams {
   mosaic_id?: number;

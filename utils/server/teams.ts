@@ -6,7 +6,9 @@ const headersWithKey = {
   'x-api-key': AWS_KEY,
 };
 
-export const getTeams = async (params) => {
+export const getTeams = async (
+  params: Record<string, unknown>
+): Promise<Record<string, unknown>> => {
   const { data } = await axios.get(`${ENDPOINT_API}/teams`, {
     headers: headersWithKey,
     params,

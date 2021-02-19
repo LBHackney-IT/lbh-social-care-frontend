@@ -20,7 +20,7 @@ const endpoint: NextApiHandler = async (
   switch (req.method) {
     case 'GET':
       try {
-        const workersData = getWorker(req.query.id, {
+        const workersData = getWorker(parseInt(req.query.id as string, 10), {
           context_flag: user.permissionFlag,
         });
         const allocationsData = getAllocationsByWorker(

@@ -20,10 +20,14 @@ const endpoint: NextApiHandler = async (
   switch (req.method) {
     case 'GET':
       try {
-        const data = await getCaseByResident(id, caseId, {
-          ...params,
-          context_flag: user.permissionFlag,
-        });
+        const data = await getCaseByResident(
+          parseInt(id as string, 10),
+          parseInt(caseId as string, 10),
+          {
+            ...params,
+            context_flag: user.permissionFlag,
+          }
+        );
         data
           ? res.status(StatusCodes.OK).json(data)
           : res

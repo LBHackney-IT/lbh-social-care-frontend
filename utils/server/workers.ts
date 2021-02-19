@@ -6,7 +6,9 @@ const headersWithKey = {
   'x-api-key': AWS_KEY,
 };
 
-export const getWorkers = async (params) => {
+export const getWorkers = async (
+  params?: Record<string, unknown>
+): Promise<Record<string, unknown>> => {
   const { data } = await axios.get(`${ENDPOINT_API}/workers`, {
     headers: headersWithKey,
     params,
@@ -14,7 +16,10 @@ export const getWorkers = async (params) => {
   return data;
 };
 
-export const getWorker = async (id, params) => {
+export const getWorker = async (
+  id: number,
+  params?: Record<string, unknown>
+): Promise<Record<string, unknown>> => {
   const { data } = await axios.get(`${ENDPOINT_API}/workers`, {
     headers: headersWithKey,
     params: { id, ...params },
