@@ -4,29 +4,32 @@ import endOfTomorrow from 'date-fns/endOfTomorrow';
 import * as allocatedWorkersAPI from './allocatedWorkers';
 
 jest.mock('axios');
+const mockedAxios = axios as jest.Mocked<typeof axios>;
 
 const { ENDPOINT_API, AWS_KEY } = process.env;
 
 describe('allocatedWorkersAPI', () => {
   describe('getResidentAllocatedWorkers', () => {
     it('should work properly', async () => {
-      axios.get.mockResolvedValue({
+      mockedAxios.get.mockResolvedValue({
         data: { allocations: ['hello'] },
       });
       const data = await allocatedWorkersAPI.getResidentAllocatedWorkers(123);
-      expect(axios.get).toHaveBeenCalled();
-      expect(axios.get.mock.calls[0][0]).toEqual(`${ENDPOINT_API}/allocations`);
-      expect(axios.get.mock.calls[0][1].headers).toEqual({
+      expect(mockedAxios.get).toHaveBeenCalled();
+      expect(mockedAxios.get.mock.calls[0][0]).toEqual(
+        `${ENDPOINT_API}/allocations`
+      );
+      expect(mockedAxios.get.mock.calls[0][1]?.headers).toEqual({
         'x-api-key': AWS_KEY,
       });
-      expect(axios.get.mock.calls[0][1].params).toEqual({
+      expect(mockedAxios.get.mock.calls[0][1]?.params).toEqual({
         mosaic_id: 123,
       });
       expect(data).toEqual({ allocations: ['hello'] });
     });
 
     it('should filter out closed or expired allocations', async () => {
-      axios.get.mockResolvedValue({
+      mockedAxios.get.mockResolvedValue({
         data: {
           allocations: [
             {
@@ -58,12 +61,14 @@ describe('allocatedWorkersAPI', () => {
         },
       });
       const data = await allocatedWorkersAPI.getResidentAllocatedWorkers(123);
-      expect(axios.get).toHaveBeenCalled();
-      expect(axios.get.mock.calls[0][0]).toEqual(`${ENDPOINT_API}/allocations`);
-      expect(axios.get.mock.calls[0][1].headers).toEqual({
+      expect(mockedAxios.get).toHaveBeenCalled();
+      expect(mockedAxios.get.mock.calls[0][0]).toEqual(
+        `${ENDPOINT_API}/allocations`
+      );
+      expect(mockedAxios.get.mock.calls[0][1]?.headers).toEqual({
         'x-api-key': AWS_KEY,
       });
-      expect(axios.get.mock.calls[0][1].params).toEqual({
+      expect(mockedAxios.get.mock.calls[0][1]?.params).toEqual({
         mosaic_id: 123,
       });
       expect(data).toEqual({
@@ -85,7 +90,7 @@ describe('allocatedWorkersAPI', () => {
 
   describe('getResidentAllocation', () => {
     it('should work properly', async () => {
-      axios.get.mockResolvedValue({
+      mockedAxios.get.mockResolvedValue({
         data: {
           allocations: [
             {
@@ -109,23 +114,23 @@ describe('allocatedWorkersAPI', () => {
 
   describe('addAllocatedWorker', () => {
     it('should work properly', async () => {
-      axios.post.mockResolvedValue({ data: { foo: 'foobar' } });
+      mockedAxios.post.mockResolvedValue({ data: { foo: 'foobar' } });
       const data = await allocatedWorkersAPI.addAllocatedWorker(123, {
-        allocatedWorkerId: '123',
-        allocatedTeamId: '321',
+        allocatedWorkerId: 123,
+        allocatedTeamId: 321,
         allocatedBy: 'foo@bar.com',
       });
-      expect(axios.post).toHaveBeenCalled();
-      expect(axios.post.mock.calls[0][0]).toEqual(
+      expect(mockedAxios.post).toHaveBeenCalled();
+      expect(mockedAxios.post.mock.calls[0][0]).toEqual(
         `${ENDPOINT_API}/allocations`
       );
-      expect(axios.post.mock.calls[0][1]).toEqual({
+      expect(mockedAxios.post.mock.calls[0][1]).toEqual({
         allocatedBy: 'foo@bar.com',
         allocatedTeamId: 321,
         allocatedWorkerId: 123,
         mosaicId: 123,
       });
-      expect(axios.post.mock.calls[0][2].headers).toEqual({
+      expect(mockedAxios.post.mock.calls[0][2]?.headers).toEqual({
         'Content-Type': 'application/json',
         'x-api-key': AWS_KEY,
       });
@@ -134,6 +139,7 @@ describe('allocatedWorkersAPI', () => {
 
     it('should throw an error with the wrong body', async () => {
       try {
+        // @ts-expect-error check validation
         await allocatedWorkersAPI.addAllocatedWorker(123);
       } catch (e) {
         expect(e.name).toEqual('ValidationError');
@@ -143,22 +149,22 @@ describe('allocatedWorkersAPI', () => {
 
   describe('deleteAllocatedWorker', () => {
     it('should work properly', async () => {
-      axios.patch.mockResolvedValue({ data: { foo: 'foobar' } });
+      mockedAxios.patch.mockResolvedValue({ data: { foo: 'foobar' } });
       const data = await allocatedWorkersAPI.deleteAllocatedWorker({
         id: '123',
         createdBy: 'asd@asd.com',
         deallocationReason: 'test',
       });
-      expect(axios.patch).toHaveBeenCalled();
-      expect(axios.patch.mock.calls[0][0]).toEqual(
+      expect(mockedAxios.patch).toHaveBeenCalled();
+      expect(mockedAxios.patch.mock.calls[0][0]).toEqual(
         `${ENDPOINT_API}/allocations`
       );
-      expect(axios.patch.mock.calls[0][1]).toEqual({
+      expect(mockedAxios.patch.mock.calls[0][1]).toEqual({
         id: 123,
         createdBy: 'asd@asd.com',
         deallocationReason: 'test',
       });
-      expect(axios.patch.mock.calls[0][2].headers).toEqual({
+      expect(mockedAxios.patch.mock.calls[0][2]?.headers).toEqual({
         'Content-Type': 'application/json',
         'x-api-key': AWS_KEY,
       });
@@ -167,6 +173,7 @@ describe('allocatedWorkersAPI', () => {
 
     it('should throw an error with the wrong body', async () => {
       try {
+        // @ts-expect-error check validation
         await allocatedWorkersAPI.deleteAllocatedWorker();
       } catch (e) {
         expect(e.name).toEqual('ValidationError');
@@ -176,16 +183,18 @@ describe('allocatedWorkersAPI', () => {
 
   describe('getAllocationsByWorker', () => {
     it('should work properly', async () => {
-      axios.get.mockResolvedValue({
+      mockedAxios.get.mockResolvedValue({
         data: { allocations: ['foo'] },
       });
       const data = await allocatedWorkersAPI.getAllocationsByWorker(123);
-      expect(axios.get).toHaveBeenCalled();
-      expect(axios.get.mock.calls[0][0]).toEqual(`${ENDPOINT_API}/allocations`);
-      expect(axios.get.mock.calls[0][1].headers).toEqual({
+      expect(mockedAxios.get).toHaveBeenCalled();
+      expect(mockedAxios.get.mock.calls[0][0]).toEqual(
+        `${ENDPOINT_API}/allocations`
+      );
+      expect(mockedAxios.get.mock.calls[0][1]?.headers).toEqual({
         'x-api-key': AWS_KEY,
       });
-      expect(axios.get.mock.calls[0][1].params).toEqual({
+      expect(mockedAxios.get.mock.calls[0][1]?.params).toEqual({
         worker_id: 123,
       });
       expect(data).toEqual({ allocations: ['foo'] });

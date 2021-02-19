@@ -23,9 +23,12 @@ const endpoint: NextApiHandler = async (
   switch (req.method) {
     case 'GET':
       try {
-        const data = await getResidentAllocatedWorkers(req.query.id, {
-          context_flag: user.permissionFlag,
-        });
+        const data = await getResidentAllocatedWorkers(
+          parseInt(req.query.id as string, 10),
+          {
+            context_flag: user.permissionFlag,
+          }
+        );
         res.status(StatusCodes.OK).json(data);
       } catch (error) {
         console.error('Allocated Workers get error:', error?.response?.data);
@@ -41,10 +44,13 @@ const endpoint: NextApiHandler = async (
 
     case 'POST':
       try {
-        const data = await addAllocatedWorker(req.query.id, {
-          ...req.body,
-          createdBy: user.email,
-        });
+        const data = await addAllocatedWorker(
+          parseInt(req.query.id as string, 10),
+          {
+            ...req.body,
+            createdBy: user.email,
+          }
+        );
         res.status(StatusCodes.CREATED).json(data);
       } catch (error) {
         console.error(

@@ -20,8 +20,8 @@ const endpoint: NextApiHandler = async (
     case 'GET':
       try {
         const data = await getResidentAllocation(
-          req.query.id,
-          req.query.allocationId
+          parseInt(req.query.id as string, 10),
+          parseInt(req.query.allocationId as string, 10)
         );
         data
           ? res.status(StatusCodes.OK).json(data)

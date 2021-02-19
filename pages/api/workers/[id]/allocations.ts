@@ -23,9 +23,12 @@ const endpoint: NextApiHandler = async (
         const workersData = getWorker(req.query.id, {
           context_flag: user.permissionFlag,
         });
-        const allocationsData = getAllocationsByWorker(req.query.id, {
-          context_flag: user.permissionFlag,
-        });
+        const allocationsData = getAllocationsByWorker(
+          parseInt(req.query.id as string, 10),
+          {
+            context_flag: user.permissionFlag,
+          }
+        );
 
         const [workers, allocations] = await Promise.all([
           workersData,
