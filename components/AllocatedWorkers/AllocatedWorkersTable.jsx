@@ -16,7 +16,7 @@ const AllocatedWorkersEntry = ({
   <>
     <div className="lbh-table-header">
       <h3 className="govuk-fieldset__legend--m govuk-custom-text-color govuk-!-margin-top-0">
-        Allocated Worker {index + 1}
+        Allocated worker {index + 1}
       </h3>
       {showDeallocateButton && (
         <Button isSecondary label="Deallocate Worker" route={deallocationUrl} />
@@ -27,13 +27,13 @@ const AllocatedWorkersEntry = ({
     <dl className="govuk-summary-list">
       {allocatedWorker && (
         <div className="govuk-summary-list__row">
-          <dt className="govuk-summary-list__key">Allocated Worker:</dt>
+          <dt className="govuk-summary-list__key">Allocated worker:</dt>
           <dd className="govuk-summary-list__value">{allocatedWorker}</dd>
         </div>
       )}
       {allocatedWorkerTeam && (
         <div className="govuk-summary-list__row">
-          <dt className="govuk-summary-list__key">Allocated Team</dt>
+          <dt className="govuk-summary-list__key">Allocated team</dt>
           <dd className="govuk-summary-list__value">{allocatedWorkerTeam}</dd>
         </div>
       )}
@@ -45,7 +45,7 @@ const AllocatedWorkersEntry = ({
       )}
       {allocationStartDate && (
         <div className="govuk-summary-list__row">
-          <dt className="govuk-summary-list__key">Start Date</dt>
+          <dt className="govuk-summary-list__key">Start date</dt>
           <dd className="govuk-summary-list__value">
             {new Date(allocationStartDate).toLocaleDateString('en-GB')}
           </dd>
@@ -53,7 +53,7 @@ const AllocatedWorkersEntry = ({
       )}
       {allocationEndDate && (
         <div className="govuk-summary-list__row">
-          <dt className="govuk-summary-list__key">End Date</dt>
+          <dt className="govuk-summary-list__key">End date</dt>
           <dd className="govuk-summary-list__value">
             {new Date(allocationEndDate).toLocaleDateString('en-GB')}
           </dd>
