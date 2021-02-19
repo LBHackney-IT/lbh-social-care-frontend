@@ -33,7 +33,7 @@ export default async (req, res) => {
 
     case 'POST':
       try {
-        const data = await addCase(req.query.id, req.body);
+        const data = await addCase(req.body);
         res.status(HttpStatus.OK).json(data);
       } catch (error) {
         console.error('Case post error:', error?.response?.data);

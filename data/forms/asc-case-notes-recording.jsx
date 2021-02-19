@@ -1,8 +1,6 @@
 import FORM_NAMES from 'data/formNames';
 
 export default {
-  title: 'Case Notes Recording',
-  path: '/form/case-notes-recording/',
   steps: [
     {
       id: 'case-notes-recording',
