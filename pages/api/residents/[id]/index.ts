@@ -3,7 +3,12 @@ import { StatusCodes } from 'http-status-codes';
 import { getResident } from 'utils/server/residents';
 import { isAuthorised } from 'utils/auth';
 
-export default async (req, res) => {
+import type { NextApiRequest, NextApiResponse, NextApiHandler } from 'next';
+
+const endpoint: NextApiHandler = async (
+  req: NextApiRequest,
+  res: NextApiResponse
+) => {
   const user = isAuthorised(req);
   if (!user) {
     return res.status(StatusCodes.UNAUTHORIZED).end();
@@ -14,7 +19,7 @@ export default async (req, res) => {
   switch (req.method) {
     case 'GET':
       try {
-        const data = await getResident(req.query.id, {
+        const data = await getResident(parseInt(req.query.id as string, 10), {
           context_flag: user.permissionFlag,
         });
         data
@@ -40,3 +45,5 @@ export default async (req, res) => {
         .json({ message: 'Invalid request method' });
   }
 };
+
+export default endpoint;

@@ -62,7 +62,7 @@ const HeaderComponent = ({ serviceName }) => {
           <div className="govuk-header__content">
             <Link href="/">
               <a className="govuk-header__link govuk-header__link--service-name">
-                {serviceName} {getUserType(user)}
+                {serviceName} {user && getUserType(user)}
               </a>
             </Link>
             {navLinks && (

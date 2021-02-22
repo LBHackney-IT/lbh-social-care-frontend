@@ -1,9 +1,14 @@
 import { StatusCodes } from 'http-status-codes';
 
-import { getResidentAllocation } from 'utils/server/allocatedWorkers';
+import { getCaseByResident } from 'utils/server/cases';
 import { isAuthorised } from 'utils/auth';
 
-export default async (req, res) => {
+import type { NextApiRequest, NextApiResponse, NextApiHandler } from 'next';
+
+const endpoint: NextApiHandler = async (
+  req: NextApiRequest,
+  res: NextApiResponse
+) => {
   const user = isAuthorised(req);
   if (!user) {
     return res.status(StatusCodes.UNAUTHORIZED).end();
@@ -11,12 +16,17 @@ export default async (req, res) => {
   if (!user.isAuthorised) {
     return res.status(StatusCodes.FORBIDDEN).end();
   }
+  const { id, caseId, ...params } = req.query;
   switch (req.method) {
     case 'GET':
       try {
-        const data = await getResidentAllocation(
-          req.query.id,
-          req.query.allocationId
+        const data = await getCaseByResident(
+          parseInt(id as string, 10),
+          caseId as string,
+          {
+            ...params,
+            context_flag: user.permissionFlag,
+          }
         );
         data
           ? res.status(StatusCodes.OK).json(data)
@@ -24,10 +34,10 @@ export default async (req, res) => {
               .status(StatusCodes.NOT_FOUND)
               .json({ message: 'Allocation Not Found' });
       } catch (error) {
-        console.error('Allocations get error:', error?.response?.data);
+        console.error('Cases get error:', error?.response?.data);
         res
           .status(StatusCodes.INTERNAL_SERVER_ERROR)
-          .json({ message: 'Unable to get the Allocated Workers' });
+          .json({ message: 'Unable to get the Cases' });
       }
       break;
 
@@ -35,6 +45,7 @@ export default async (req, res) => {
       res
         .status(StatusCodes.BAD_REQUEST)
         .json({ message: 'Invalid request method' });
-      console.error(res.status);
   }
 };
+
+export default endpoint;

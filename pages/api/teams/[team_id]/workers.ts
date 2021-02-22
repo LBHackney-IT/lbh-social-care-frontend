@@ -1,9 +1,14 @@
 import { StatusCodes } from 'http-status-codes';
 
-import { getTeams } from 'utils/server/teams';
+import { getWorkers } from 'utils/server/workers';
 import { isAuthorised } from 'utils/auth';
 
-export default async (req, res) => {
+import type { NextApiRequest, NextApiResponse, NextApiHandler } from 'next';
+
+const endpoint: NextApiHandler = async (
+  req: NextApiRequest,
+  res: NextApiResponse
+) => {
   const user = isAuthorised(req);
   if (!user) {
     return res.status(StatusCodes.UNAUTHORIZED).end();
@@ -14,19 +19,17 @@ export default async (req, res) => {
   switch (req.method) {
     case 'GET':
       try {
-        const data = await getTeams({
-          context_flag: req.query?.ageContext || user.permissionFlag || 'B', //TODO fix this once 'B' has been added to the BE
-        });
+        const data = await getWorkers(req.query);
         res.status(StatusCodes.OK).json(data);
       } catch (error) {
-        console.error('Teams get error:', error?.response?.data);
+        console.error('Workers get error:', error?.response?.data);
         error?.response?.status === StatusCodes.NOT_FOUND
           ? res
               .status(StatusCodes.NOT_FOUND)
-              .json({ message: 'Teams Not Found' })
+              .json({ message: 'Workers Not Found' })
           : res
               .status(StatusCodes.INTERNAL_SERVER_ERROR)
-              .json({ message: 'Unable to get the Teams' });
+              .json({ message: 'Unable to get the Workers' });
       }
       break;
 
@@ -36,3 +39,5 @@ export default async (req, res) => {
         .json({ message: 'Invalid request method' });
   }
 };
+
+export default endpoint;

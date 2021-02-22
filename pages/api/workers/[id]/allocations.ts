@@ -4,7 +4,12 @@ import { isAuthorised } from 'utils/auth';
 import { getWorker } from 'utils/server/workers';
 import { getAllocationsByWorker } from 'utils/server/allocatedWorkers';
 
-export default async (req, res) => {
+import type { NextApiRequest, NextApiResponse, NextApiHandler } from 'next';
+
+const endpoint: NextApiHandler = async (
+  req: NextApiRequest,
+  res: NextApiResponse
+) => {
   const user = isAuthorised(req);
   if (!user) {
     return res.status(StatusCodes.UNAUTHORIZED).end();
@@ -15,12 +20,15 @@ export default async (req, res) => {
   switch (req.method) {
     case 'GET':
       try {
-        const workersData = getWorker(req.query.id, {
+        const workersData = getWorker(parseInt(req.query.id as string, 10), {
           context_flag: user.permissionFlag,
         });
-        const allocationsData = getAllocationsByWorker(req.query.id, {
-          context_flag: user.permissionFlag,
-        });
+        const allocationsData = getAllocationsByWorker(
+          parseInt(req.query.id as string, 10),
+          {
+            context_flag: user.permissionFlag,
+          }
+        );
 
         const [workers, allocations] = await Promise.all([
           workersData,
@@ -48,3 +56,5 @@ export default async (req, res) => {
       console.log(res.status);
   }
 };
+
+export default endpoint;

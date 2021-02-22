@@ -104,8 +104,5 @@ describe('user', () => {
     it('should be "Children" if only child is true', () => {
       expect(getUserType(PERMISSIONS.ONLY_CHILDREN)).toEqual('Children');
     });
-    it('should return undefined if no user is passed', () => {
-      expect(getUserType()).toBeUndefined();
-    });
   });
 });

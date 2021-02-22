@@ -2,7 +2,12 @@ import { StatusCodes } from 'http-status-codes';
 
 import { isAuthorised } from 'utils/auth';
 
-export default (req, res) => {
+import type { NextApiRequest, NextApiResponse, NextApiHandler } from 'next';
+
+const endpoint: NextApiHandler = async (
+  req: NextApiRequest,
+  res: NextApiResponse
+) => {
   switch (req.method) {
     case 'GET':
       try {
@@ -26,3 +31,5 @@ export default (req, res) => {
         .json({ message: 'Invalid request method' });
   }
 };
+
+export default endpoint;
