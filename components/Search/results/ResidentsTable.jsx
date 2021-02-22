@@ -24,6 +24,14 @@ const ResultEntry = ({
   </tr>
 );
 
+ResultEntry.propTypes = {
+  personId: PropTypes.string,
+  mosaicId: PropTypes.string,
+  firstName: PropTypes.string.isRequired,
+  lastName: PropTypes.string.isRequired,
+  dateOfBirth: PropTypes.string,
+};
+
 const ResultTable = ({ records }) => (
   <table className="govuk-table">
     <thead className="govuk-table__head">

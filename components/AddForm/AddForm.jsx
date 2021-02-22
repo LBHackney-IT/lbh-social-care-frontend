@@ -18,6 +18,9 @@ const AddForm = ({ person }) => {
   const ageContext = person && person.ageContext;
   const category = ageContext === 'C' ? CHILD_CATE : ADULT_CATE;
   const forms = ageContext === 'C' ? CHILD_FORMS : ADULT_FORMS;
+  const filteredForms = forms.filter((form) => form.category === categoryValue);
+  const isOneFormOnly = filteredForms.length === 1;
+  const formURL = isOneFormOnly ? filteredForms[0].value : url;
 
   return (
     <>
@@ -36,26 +39,28 @@ const AddForm = ({ person }) => {
             govGrid="one-half"
             name="formList"
             width={30}
-            options={forms.filter((form) => form.category === categoryValue)}
+            options={filteredForms}
             label="Choose a form"
-            placeHolder="Choose one"
+            placeHolder="choose one"
+            value={isOneFormOnly ? filteredForms[0].value : undefined}
+            isUnselectable={!isOneFormOnly}
             onChange={(value) => setUrl(value)}
           />
         )}
       </div>
-      {url && (
+      {formURL && (
         <Button
           label="Load form"
           route={
             ageContext === 'C'
-              ? `${url}${populateChildForm(
+              ? `${formURL}${populateChildForm(
                   person.firstName,
                   person.lastName,
                   person.mosaicId,
                   user.name,
-                  url
+                  formURL
                 )}`
-              : url
+              : formURL
           }
           internalQuery={`?id=${person.mosaicId}`}
         />

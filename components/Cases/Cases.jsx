@@ -5,10 +5,11 @@ import ErrorMessage from 'components/ErrorMessage/ErrorMessage';
 import ErrorSummary from 'components/ErrorSummary/ErrorSummary';
 import Button from 'components/Button/Button';
 import Spinner from 'components/Spinner/Spinner';
-import { getCasesByResident } from 'utils/api/cases';
+import { useAuth } from 'components/UserContext/UserContext';
+import { useCasesByResident } from 'utils/api/cases';
 
 const Cases = ({ id }) => {
-  const { data, size, setSize, error } = getCasesByResident(id);
+  const { data, size, setSize, error } = useCasesByResident(id);
   const results = data?.length > 0 && {
     cases: data.reduce((acc, { cases }) => [...acc, ...cases], []),
     nextCursor: data[data.length - 1].nextCursor,
@@ -43,35 +44,42 @@ const Cases = ({ id }) => {
   );
 };
 
-const CasesWrapper = ({ id, person }) => (
-  <>
-    <div className="lbh-table-header">
-      <div>
-        <h3 className="govuk-fieldset__legend--m govuk-custom-text-color govuk-!-margin-top-0">
-          RECORDS HISTORY
-        </h3>
-        <p className="govuk-label  govuk-!-margin-top-0">
-          Linked files are read only
-        </p>
+Cases.propTypes = {
+  id: PropTypes.string.isRequired,
+};
+
+const CasesWrapper = ({ id, person }) => {
+  const { user } = useAuth();
+  return (
+    <>
+      <div className="lbh-table-header">
+        <div>
+          <h3 className="govuk-fieldset__legend--m govuk-custom-text-color govuk-!-margin-top-0">
+            RECORDS HISTORY
+          </h3>
+          <p className="govuk-label  govuk-!-margin-top-0">
+            Linked files are read only
+          </p>
+        </div>
+        <Button label="Add a new record" route={`${id}/records`} />
       </div>
-      <Button label="Add a new record" route={`${id}/records`} />
-    </div>
-    <hr className="govuk-divider" />
-    {person.restricted === 'Y' ? (
-      <ErrorSummary
-        title="RESTRICTED"
-        body="The records for this profile are restricted for viewing"
-      />
-    ) : (
-      <Cases id={id} />
-    )}
-  </>
-);
+      <hr className="govuk-divider" />
+      {user.hasUnrestrictedPermissions || !person.restricted ? (
+        <Cases id={id} />
+      ) : (
+        <ErrorSummary
+          title="RESTRICTED"
+          body="The records for this profile are restricted for viewing"
+        />
+      )}
+    </>
+  );
+};
 
 CasesWrapper.propTypes = {
   id: PropTypes.string.isRequired,
   person: PropTypes.shape({
-    restricted: PropTypes.string.isRequired,
+    restricted: PropTypes.bool,
   }).isRequired,
 };
 

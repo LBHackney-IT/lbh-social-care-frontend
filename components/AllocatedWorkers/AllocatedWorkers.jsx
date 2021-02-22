@@ -6,10 +6,10 @@ import ErrorMessage from 'components/ErrorMessage/ErrorMessage';
 import Spinner from 'components/Spinner/Spinner';
 import Button from 'components/Button/Button';
 import { useAuth } from 'components/UserContext/UserContext';
-import { getAllocatedWorkers } from 'utils/api/allocatedWorkers';
+import { useAllocatedWorkers } from 'utils/api/allocatedWorkers';
 
 const AllocatedWorkers = ({ id }) => {
-  const { data: { allocations } = {}, error } = getAllocatedWorkers(id);
+  const { data: { allocations } = {}, error } = useAllocatedWorkers(id);
   const { asPath } = useRouter();
   const { user } = useAuth();
   if (!allocations) {

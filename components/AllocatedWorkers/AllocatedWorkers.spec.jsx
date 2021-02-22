@@ -3,7 +3,7 @@ import { render } from '@testing-library/react';
 import { UserContext } from 'components/UserContext/UserContext';
 import AllocatedWorkers from './AllocatedWorkers';
 
-import { getAllocatedWorkers } from 'utils/api/allocatedWorkers';
+import { useAllocatedWorkers } from 'utils/api/allocatedWorkers';
 
 jest.mock('next/router', () => ({
   useRouter: () => ({
@@ -15,7 +15,7 @@ jest.mock('next/router', () => ({
 jest.mock('components/Spinner/Spinner', () => () => 'MockedSpinner');
 
 jest.mock('utils/api/allocatedWorkers', () => ({
-  getAllocatedWorkers: jest.fn(),
+  useAllocatedWorkers: jest.fn(),
 }));
 
 jest.mock('components/AllocatedWorkers/AllocatedWorkersTable', () => () => (
@@ -23,7 +23,7 @@ jest.mock('components/AllocatedWorkers/AllocatedWorkersTable', () => () => (
 ));
 
 describe(`AddAllocatedWorker`, () => {
-  getAllocatedWorkers.mockImplementation(() => ({
+  useAllocatedWorkers.mockImplementation(() => ({
     data: {
       allocations: [
         { id: '1', name: 'Team 1' },

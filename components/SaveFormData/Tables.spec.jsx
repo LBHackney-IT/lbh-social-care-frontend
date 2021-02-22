@@ -38,6 +38,7 @@ describe('StandardTable component', () => {
     data: [
       {
         formPath: '/form/foo-bar/',
+        step: '/form/foo-bar/',
         timeStamp: '22/12/2020',
         title: 'Foo Bar',
       },

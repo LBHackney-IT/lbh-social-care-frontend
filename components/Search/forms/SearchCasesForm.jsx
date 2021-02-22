@@ -3,7 +3,13 @@ import { useForm } from 'react-hook-form';
 import isPast from 'date-fns/isPast';
 
 import { convertFormat } from 'utils/date';
-import { TextInput, Checkbox, DateInput, Select } from 'components/Form';
+import {
+  TextInput,
+  EmailInput,
+  Checkbox,
+  DateInput,
+  Select,
+} from 'components/Form';
 import Button from 'components/Button/Button';
 import { useAuth } from 'components/UserContext/UserContext';
 
@@ -102,13 +108,21 @@ const SearchCasesForm = ({ onFormSubmit, defaultValues }) => {
         </div>
       </div>
       <div className="govuk-grid-row">
-        <div className="govuk-grid-column-full">
+        <div className="govuk-grid-column-one-half">
           <Select
             name="form_name"
             label="Filter by form type:"
             labelSize="s"
             register={register}
             options={getFormsByUserPermission(user)}
+          />
+        </div>
+        <div className="govuk-grid-column-one-half">
+          <EmailInput
+            name="worker_email"
+            label="Worker email:"
+            labelSize="s"
+            register={register}
           />
         </div>
       </div>

@@ -1,4 +1,4 @@
-import * as HttpStatus from 'http-status-codes';
+import { StatusCodes } from 'http-status-codes';
 
 import {
   getResidentAllocatedWorkers,
@@ -10,10 +10,10 @@ import { isAuthorised } from 'utils/auth';
 export default async (req, res) => {
   const user = isAuthorised(req);
   if (!user) {
-    return res.status(HttpStatus.UNAUTHORIZED).end();
+    return res.status(StatusCodes.UNAUTHORIZED).end();
   }
   if (!user.isAuthorised) {
-    return res.status(HttpStatus.FORBIDDEN).end();
+    return res.status(StatusCodes.FORBIDDEN).end();
   }
   switch (req.method) {
     case 'GET':
@@ -21,15 +21,15 @@ export default async (req, res) => {
         const data = await getResidentAllocatedWorkers(req.query.id, {
           context_flag: user.permissionFlag,
         });
-        res.status(HttpStatus.OK).json(data);
+        res.status(StatusCodes.OK).json(data);
       } catch (error) {
         console.error('Allocated Workers get error:', error?.response?.data);
-        error?.response?.status === HttpStatus.NOT_FOUND
+        error?.response?.status === StatusCodes.NOT_FOUND
           ? res
-              .status(HttpStatus.NOT_FOUND)
+              .status(StatusCodes.NOT_FOUND)
               .json({ message: 'Allocated Workers Not Found' })
           : res
-              .status(HttpStatus.INTERNAL_SERVER_ERROR)
+              .status(StatusCodes.INTERNAL_SERVER_ERROR)
               .json({ message: 'Unable to get the Allocated Workers' });
       }
       break;
@@ -40,16 +40,16 @@ export default async (req, res) => {
           ...req.body,
           createdBy: user.email,
         });
-        res.status(HttpStatus.CREATED).json(data);
+        res.status(StatusCodes.CREATED).json(data);
       } catch (error) {
         console.error(
           'Allocated Workers post error:',
           error?.response?.data || error
         );
         error.name === 'ValidationError'
-          ? res.status(HttpStatus.BAD_REQUEST).json({ message: error.message })
+          ? res.status(StatusCodes.BAD_REQUEST).json({ message: error.message })
           : res
-              .status(HttpStatus.INTERNAL_SERVER_ERROR)
+              .status(StatusCodes.INTERNAL_SERVER_ERROR)
               .json({ message: 'Unable to post Allocated Workers' });
       }
       break;
@@ -60,23 +60,23 @@ export default async (req, res) => {
           ...req.body,
           createdBy: user.email,
         });
-        res.status(HttpStatus.OK).json(data);
+        res.status(StatusCodes.OK).json(data);
       } catch (error) {
         console.error(
           'Allocated Workers patch error:',
           error?.response?.data || error
         );
         error.name === 'ValidationError'
-          ? res.status(HttpStatus.BAD_REQUEST).json({ message: error.message })
+          ? res.status(StatusCodes.BAD_REQUEST).json({ message: error.message })
           : res
-              .status(HttpStatus.INTERNAL_SERVER_ERROR)
+              .status(StatusCodes.INTERNAL_SERVER_ERROR)
               .json({ message: 'Unable to deallocated Worker' });
       }
       break;
 
     default:
       res
-        .status(HttpStatus.BAD_REQUEST)
+        .status(StatusCodes.BAD_REQUEST)
         .json({ message: 'Invalid request method' });
       console.error(res.status);
   }

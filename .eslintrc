@@ -6,9 +6,19 @@
     "node": true,
     "jest": true
   },
-  "plugins": ["react", "jest"],
+  "plugins": [
+    "react",
+    "react-hooks",
+    "jest"
+  ],
   "parser": "babel-eslint",
-  "extends": ["eslint:recommended", "plugin:prettier/recommended", "plugin:cypress/recommended"],
+  "extends": [
+    "eslint:recommended",
+    "plugin:prettier/recommended",
+    "plugin:react/recommended",
+    "plugin:react-hooks/recommended",
+    "plugin:cypress/recommended"
+  ],
   "parserOptions": {
     "sourceType": "module",
     "ecmaVersion": 2018
@@ -19,8 +29,11 @@
     }
   },
   "rules": {
-    "linebreak-style": ["error", "unix"],
-    "require-atomic-updates": "off",
-    "react/jsx-uses-vars": 2
+    "linebreak-style": [
+      "error",
+      "unix"
+    ],
+    "react/display-name": "off",
+    "react/react-in-jsx-scope": "off"
   }
 }

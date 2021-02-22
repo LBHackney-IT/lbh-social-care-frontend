@@ -82,12 +82,20 @@ Select.propTypes = {
       }),
     ])
   ).isRequired,
-  required: PropTypes.bool,
+  error: PropTypes.shape({ message: PropTypes.string.isRequired }),
+  style: PropTypes.object,
+  govGrid: PropTypes.string,
+  value: PropTypes.string,
+  hint: PropTypes.string,
+  onChange: PropTypes.func,
+  isUnselectable: PropTypes.bool,
+  ignoreValue: PropTypes.bool,
+  required: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
   placeHolder: PropTypes.string,
   selected: PropTypes.string,
   register: PropTypes.func,
   children: PropTypes.node,
-  error: PropTypes.shape({ message: PropTypes.string.isRequired }),
+  width: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
 };
 
 export default Select;

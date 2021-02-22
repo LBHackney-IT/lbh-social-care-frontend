@@ -1,5 +1,7 @@
-import TimesCircleIcon from 'components/Icons/TimesCircle';
+import PropTypes from 'prop-types';
 import Link from 'next/link';
+
+import TimesCircleIcon from 'components/Icons/TimesCircle';
 
 export const DetailedTable = ({ tableHeader, data, deleteForm }) => (
   <table className="govuk-table">
@@ -27,7 +29,7 @@ export const DetailedTable = ({ tableHeader, data, deleteForm }) => (
           <td className="govuk-table__cell"> {cell.timeStamp}</td>
           <td className="govuk-table__cell">
             {
-              <Link href={`${cell.formPath}${cell.step}&continueForm=true`}>
+              <Link href={`${cell.step}&continueForm=true`}>
                 <a className="govuk-link">Complete</a>
               </Link>
             }
@@ -44,6 +46,22 @@ export const DetailedTable = ({ tableHeader, data, deleteForm }) => (
     </tbody>
   </table>
 );
+
+DetailedTable.propTypes = {
+  tableHeader: PropTypes.arrayOf(PropTypes.string).isRequired,
+  data: PropTypes.arrayOf(
+    PropTypes.shape({
+      data: PropTypes.shape({ id: PropTypes.string.isRequired }),
+      firstName: PropTypes.string.isRequired,
+      lastName: PropTypes.string.isRequired,
+      title: PropTypes.string.isRequired,
+      timeStamp: PropTypes.string.isRequired,
+      formPath: PropTypes.string.isRequired,
+      step: PropTypes.string.isRequired,
+    })
+  ).isRequired,
+  deleteForm: PropTypes.func.isRequired,
+};
 
 export const StandardTable = ({ tableHeader, data, deleteForm }) => (
   <table className="govuk-table">
@@ -63,7 +81,7 @@ export const StandardTable = ({ tableHeader, data, deleteForm }) => (
           <td className="govuk-table__cell"> {cell.timeStamp}</td>
           <td className="govuk-table__cell">
             {
-              <Link href={`${cell.formPath}${cell.step}?continueForm=true`}>
+              <Link href={`${cell.step}?continueForm=true`}>
                 <a className="govuk-link">Complete</a>
               </Link>
             }
@@ -80,3 +98,16 @@ export const StandardTable = ({ tableHeader, data, deleteForm }) => (
     </tbody>
   </table>
 );
+
+StandardTable.propTypes = {
+  tableHeader: PropTypes.arrayOf(PropTypes.string).isRequired,
+  data: PropTypes.arrayOf(
+    PropTypes.shape({
+      title: PropTypes.string.isRequired,
+      timeStamp: PropTypes.string.isRequired,
+      formPath: PropTypes.string.isRequired,
+      step: PropTypes.string.isRequired,
+    })
+  ).isRequired,
+  deleteForm: PropTypes.func.isRequired,
+};

@@ -1,3 +1,5 @@
+import PropTypes from 'prop-types';
+
 import { TextInput } from '..';
 
 const PhoneInput = ({ rules, ...props }) => (
@@ -13,5 +15,9 @@ const PhoneInput = ({ rules, ...props }) => (
     type="number"
   ></TextInput>
 );
+
+PhoneInput.propTypes = {
+  rules: PropTypes.object,
+};
 
 export default PhoneInput;

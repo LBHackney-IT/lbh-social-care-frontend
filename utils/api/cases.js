@@ -3,13 +3,13 @@ import useSWR, { useSWRInfinite } from 'swr';
 
 import { getInfiniteKey } from 'utils/api';
 
-export const getCases = (params, invoke = true) =>
+export const useCases = (params, invoke = true) =>
   useSWRInfinite(invoke ? getInfiniteKey('/api/cases', 'cases', params) : null);
 
-export const getCasesByResident = (id, params) =>
+export const useCasesByResident = (id, params) =>
   useSWRInfinite(getInfiniteKey(`/api/residents/${id}/cases`, 'cases', params));
 
-export const getCaseByResident = (id, caseId) =>
+export const useCaseByResident = (id, caseId) =>
   useSWR(`/api/residents/${id}/cases/${caseId}`);
 
 export const addCase = async (formData) => {

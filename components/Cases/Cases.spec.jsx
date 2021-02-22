@@ -1,12 +1,12 @@
 import { render, waitFor, fireEvent } from '@testing-library/react';
 
-import { getCasesByResident } from 'utils/api/cases';
+import { useCasesByResident } from 'utils/api/cases';
 import { UserContext } from 'components/UserContext/UserContext';
 
 import Cases from './Cases';
 
 jest.mock('utils/api/cases', () => ({
-  getCasesByResident: jest.fn(),
+  useCasesByResident: jest.fn(),
 }));
 
 describe('Cases component', () => {
@@ -17,13 +17,12 @@ describe('Cases component', () => {
       lastName: 'Bar',
       mosaicId: '123',
       ageContext: 'A',
-      restricted: 'N',
     },
   };
 
   it('should render records properly', async () => {
     const mockSetSize = jest.fn();
-    getCasesByResident.mockImplementation(() => ({
+    useCasesByResident.mockImplementation(() => ({
       size: 2,
       setSize: mockSetSize,
       data: [
@@ -67,7 +66,7 @@ describe('Cases component', () => {
     const { asFragment, getByRole, getAllByText } = render(
       <UserContext.Provider
         value={{
-          user: { hasAdminPermissions: true },
+          user: {},
         }}
       >
         <Cases {...props} />
@@ -84,7 +83,7 @@ describe('Cases component', () => {
   });
 
   it('should render no records ', async () => {
-    getCasesByResident.mockImplementation(() => ({
+    useCasesByResident.mockImplementation(() => ({
       size: 0,
       data: [
         {
@@ -96,7 +95,7 @@ describe('Cases component', () => {
     const { asFragment, getByText } = render(
       <UserContext.Provider
         value={{
-          user: { hasAdminPermissions: true },
+          user: {},
         }}
       >
         <Cases {...props} />
@@ -105,29 +104,48 @@ describe('Cases component', () => {
     await waitFor(() => {
       expect(asFragment()).toMatchSnapshot();
     });
-    const label = getByText('Records not found');
-    expect(label).toBeInTheDocument();
+    expect(getByText('Records not found')).toBeInTheDocument();
   });
 
   it('should render a error message when a person is restricted', async () => {
     const props = {
       id: '44000000',
       person: {
-        restricted: 'Y',
+        restricted: true,
       },
     };
-    const { asFragment, getByText } = render(
+    const { asFragment, queryByText } = render(
       <UserContext.Provider
         value={{
-          user: { hasAdminPermissions: true },
+          user: {},
         }}
       >
         <Cases {...props} />
       </UserContext.Provider>
     );
     expect(asFragment()).toMatchSnapshot();
-    expect(getCasesByResident).not.toHaveBeenCalled();
-    const title = getByText('RESTRICTED');
-    expect(title).toBeInTheDocument();
+    expect(useCasesByResident).not.toHaveBeenCalled();
+    expect(queryByText('RESTRICTED')).toBeInTheDocument();
+  });
+
+  it('should work properly if person is restricted but user.hasUnrestrictedPermissions', async () => {
+    const props = {
+      id: '44000000',
+      person: {
+        restricted: true,
+      },
+    };
+    const { asFragment, queryByText } = render(
+      <UserContext.Provider
+        value={{
+          user: { hasUnrestrictedPermissions: true },
+        }}
+      >
+        <Cases {...props} />
+      </UserContext.Provider>
+    );
+    expect(asFragment()).toMatchSnapshot();
+    expect(useCasesByResident).toHaveBeenCalled();
+    expect(queryByText('RESTRICTED')).not.toBeInTheDocument();
   });
 });

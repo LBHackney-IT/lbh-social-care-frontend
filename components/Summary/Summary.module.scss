@@ -1,0 +1,14 @@
+.sectionTitle {
+  display: flex;
+  align-items: center;
+  a {
+    margin-left: 1rem;
+  }
+}
+
+.toggleAll {
+  text-decoration: underline;
+  font-weight: bold;
+  display: block;
+  text-align: right;
+}

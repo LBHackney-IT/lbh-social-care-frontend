@@ -1,10 +1,11 @@
 import { useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
 import cx from 'classnames';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 
 import { useAuth } from 'components/UserContext/UserContext';
-import { getDataIncludes } from 'utils/saveData';
+import { getData } from 'utils/saveData';
 import { getUserType } from 'utils/user';
 import Logo from './Logo.jsx';
 
@@ -37,8 +38,9 @@ const HeaderComponent = ({ serviceName }) => {
   const [navLinks, setNavLinks] = useState();
   useEffect(() => {
     if (user) {
+      const savedForms = getData();
       setNavLinks(
-        getDataIncludes('/form')
+        savedForms && Object.keys(savedForms)?.length > 0
           ? loggedNavLinks
           : loggedNavLinks.filter(({ name }) => name !== 'Forms in progress')
       );
@@ -102,6 +104,10 @@ const HeaderComponent = ({ serviceName }) => {
       </div>
     </header>
   );
+};
+
+HeaderComponent.propTypes = {
+  serviceName: PropTypes.string.isRequired,
 };
 
 export default HeaderComponent;

@@ -30,6 +30,16 @@ const CasesEntry = ({
   </tr>
 );
 
+CasesEntry.propTypes = {
+  recordId: PropTypes.string.isRequired,
+  formName: PropTypes.string.isRequired,
+  caseFormUrl: PropTypes.string.isRequired,
+  officerEmail: PropTypes.string.isRequired,
+  dateOfEvent: PropTypes.string,
+  caseFormTimestamp: PropTypes.string,
+  caseFormData: PropTypes.object.isRequired,
+};
+
 const CasesTable = ({ records }) => (
   <table className="govuk-table">
     <tbody className="govuk-table__body">
@@ -41,16 +51,7 @@ const CasesTable = ({ records }) => (
 );
 
 CasesTable.propTypes = {
-  records: PropTypes.arrayOf(
-    PropTypes.shape({
-      recordId: PropTypes.string.isRequired,
-      formName: PropTypes.string.isRequired,
-      caseFormUrl: PropTypes.string.isRequired,
-      officerEmail: PropTypes.string.isRequired,
-      dateOfEvent: PropTypes.string,
-      caseFormTimestamp: PropTypes.string,
-    })
-  ).isRequired,
+  records: PropTypes.arrayOf(PropTypes.shape(CasesEntry.propTypes)).isRequired,
 };
 
 export default CasesTable;

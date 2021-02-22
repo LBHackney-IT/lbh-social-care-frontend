@@ -16,7 +16,7 @@ describe('cases APIs', () => {
         .mockImplementation((getKey) =>
           mockSWRInfinite(getKey(0, { cases: [] }))
         );
-      casesAPI.getCases({
+      casesAPI.useCases({
         foo: 'bar',
       });
       expect(mockSWRInfinite).toHaveBeenCalledWith('/api/cases?foo=bar');
@@ -30,7 +30,7 @@ describe('cases APIs', () => {
         .mockImplementation((getKey) =>
           mockSWRInfinite(getKey(0, { cases: [] }))
         );
-      casesAPI.getCasesByResident('foo', { bar: 'foobar' });
+      casesAPI.useCasesByResident('foo', { bar: 'foobar' });
       expect(mockSWRInfinite).toHaveBeenCalledWith(
         '/api/residents/foo/cases?bar=foobar'
       );

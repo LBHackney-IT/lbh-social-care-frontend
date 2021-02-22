@@ -1,4 +1,4 @@
-import * as HttpStatus from 'http-status-codes';
+import { StatusCodes } from 'http-status-codes';
 
 import { isAuthorised } from 'utils/auth';
 
@@ -8,21 +8,21 @@ export default (req, res) => {
       try {
         const auth = isAuthorised(req);
         !auth
-          ? res.status(HttpStatus.UNAUTHORIZED).end()
+          ? res.status(StatusCodes.UNAUTHORIZED).end()
           : auth.isAuthorised
-          ? res.status(HttpStatus.OK).json(auth)
-          : res.status(HttpStatus.FORBIDDEN).end();
+          ? res.status(StatusCodes.OK).json(auth)
+          : res.status(StatusCodes.FORBIDDEN).end();
       } catch (e) {
         console.error(e);
         res
-          .status(HttpStatus.INTERNAL_SERVER_ERROR)
+          .status(StatusCodes.INTERNAL_SERVER_ERROR)
           .json({ message: 'Unable to get the Cases' });
       }
       break;
 
     default:
       res
-        .status(HttpStatus.BAD_REQUEST)
+        .status(StatusCodes.BAD_REQUEST)
         .json({ message: 'Invalid request method' });
   }
 };

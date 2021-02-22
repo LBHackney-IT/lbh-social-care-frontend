@@ -46,6 +46,7 @@ describe(`SearchCasesForm`, () => {
       my_notes_only: false,
       end_date: null,
       start_date: null,
+      worker_email: '',
     });
   });
 
@@ -70,6 +71,7 @@ describe(`SearchCasesForm`, () => {
       my_notes_only: false,
       end_date: null,
       start_date: null,
+      worker_email: '',
     });
   });
 });

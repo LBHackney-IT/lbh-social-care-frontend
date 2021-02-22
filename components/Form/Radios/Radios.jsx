@@ -73,10 +73,12 @@ Radio.propTypes = {
   labelSize: PropTypes.oneOf(['s', 'm', 'l', 'xl']),
   name: PropTypes.string.isRequired,
   register: PropTypes.func,
+  required: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
   options: PropTypes.array,
   hint: PropTypes.string,
   children: PropTypes.node,
   error: PropTypes.shape({ message: PropTypes.string.isRequired }),
+  isRadiosInline: PropTypes.bool,
 };
 
 export default Radio;

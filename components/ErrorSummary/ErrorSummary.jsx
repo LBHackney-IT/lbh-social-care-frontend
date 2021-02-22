@@ -29,6 +29,7 @@ const ErrorSummary = ({ title, body, links }) => (
 ErrorSummary.propTypes = {
   title: PropTypes.string,
   body: PropTypes.node,
+  links: PropTypes.array,
 };
 
 export default ErrorSummary;

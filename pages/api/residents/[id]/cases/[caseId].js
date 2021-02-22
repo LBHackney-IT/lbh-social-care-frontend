@@ -1,4 +1,4 @@
-import * as HttpStatus from 'http-status-codes';
+import { StatusCodes } from 'http-status-codes';
 
 import { getCaseByResident } from 'utils/server/cases';
 import { isAuthorised } from 'utils/auth';
@@ -6,10 +6,10 @@ import { isAuthorised } from 'utils/auth';
 export default async (req, res) => {
   const user = isAuthorised(req);
   if (!user) {
-    return res.status(HttpStatus.UNAUTHORIZED).end();
+    return res.status(StatusCodes.UNAUTHORIZED).end();
   }
   if (!user.isAuthorised) {
-    return res.status(HttpStatus.FORBIDDEN).end();
+    return res.status(StatusCodes.FORBIDDEN).end();
   }
   const { id, caseId, ...params } = req.query;
   switch (req.method) {
@@ -20,21 +20,21 @@ export default async (req, res) => {
           context_flag: user.permissionFlag,
         });
         data
-          ? res.status(HttpStatus.OK).json(data)
+          ? res.status(StatusCodes.OK).json(data)
           : res
-              .status(HttpStatus.NOT_FOUND)
+              .status(StatusCodes.NOT_FOUND)
               .json({ message: 'Allocation Not Found' });
       } catch (error) {
         console.error('Cases get error:', error?.response?.data);
         res
-          .status(HttpStatus.INTERNAL_SERVER_ERROR)
+          .status(StatusCodes.INTERNAL_SERVER_ERROR)
           .json({ message: 'Unable to get the Cases' });
       }
       break;
 
     default:
       res
-        .status(HttpStatus.BAD_REQUEST)
+        .status(StatusCodes.BAD_REQUEST)
         .json({ message: 'Invalid request method' });
   }
 };

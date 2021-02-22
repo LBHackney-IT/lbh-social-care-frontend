@@ -151,7 +151,7 @@ exports[`Cases component should render records properly 1`] = `
           <a
             class="govuk-link"
             href="http//foo/foo"
-            rel="noopener"
+            rel="noreferrer noopener"
             target="_blank"
           >
             View
@@ -182,7 +182,7 @@ exports[`Cases component should render records properly 1`] = `
           <a
             class="govuk-link"
             href="http//bar/bar"
-            rel="noopener"
+            rel="noreferrer noopener"
             target="_blank"
           >
             View
@@ -191,6 +191,51 @@ exports[`Cases component should render records properly 1`] = `
       </tr>
     </tbody>
   </table>
+  <div
+    style="height: 50px; text-align: center;"
+  >
+    <button
+      class="govuk-button"
+      data-module="govuk-button"
+    >
+      load more
+    </button>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`Cases component should work properly if person is restricted but user.hasUnrestrictedPermissions 1`] = `
+<DocumentFragment>
+  <div
+    class="lbh-table-header"
+  >
+    <div>
+      <h3
+        class="govuk-fieldset__legend--m govuk-custom-text-color govuk-!-margin-top-0"
+      >
+        RECORDS HISTORY
+      </h3>
+      <p
+        class="govuk-label  govuk-!-margin-top-0"
+      >
+        Linked files are read only
+      </p>
+    </div>
+    <button
+      class="govuk-button"
+      data-module="govuk-button"
+    >
+      Add a new record
+    </button>
+  </div>
+  <hr
+    class="govuk-divider"
+  />
+  <p
+    class="govuk-body govuk-!-margin-top-5"
+  >
+    Records not found
+  </p>
   <div
     style="height: 50px; text-align: center;"
   >
