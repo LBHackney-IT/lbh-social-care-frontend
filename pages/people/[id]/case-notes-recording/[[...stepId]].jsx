@@ -17,16 +17,13 @@ const CaseNotesRecording = () => {
   const onFormSubmit = useCallback(
     (person) => async (formData) => {
       const ref = await addCase({
-        mosaicId: person.mosaicId,
-        firstName: person.firstName,
-        lastName: person.lastName,
-        ageContext: person.ageContext,
-        workerEmail: user.email,
-        caseFormData: JSON.stringify({
-          form_name_overall:
-            person.ageContext === 'A' ? 'ASC_case_note' : 'CFS_case_note',
-          ...formData,
-        }),
+        mosaic_id: person.mosaicId,
+        first_name: person.firstName,
+        last_name: person.lastName,
+        worker_email: user.email,
+        form_name_overall:
+          person.ageContext === 'A' ? 'ASC_case_note' : 'CFS_case_note',
+        ...formData,
       });
       return ref;
     },
