@@ -1,3 +1,4 @@
+import { useMemo } from 'react';
 import PropTypes from 'prop-types';
 import { useForm } from 'react-hook-form';
 import isPast from 'date-fns/isPast';
@@ -27,6 +28,7 @@ const SearchCasesForm = ({ onFormSubmit, defaultValues }) => {
     defaultValues,
   });
   const { user } = useAuth();
+  const formNameOptions = useMemo(() => getFormsByUserPermission(user), [user]);
   return (
     <form role="form" onSubmit={handleSubmit((data) => onFormSubmit(data))}>
       <div className="govuk-grid-row">
@@ -114,7 +116,7 @@ const SearchCasesForm = ({ onFormSubmit, defaultValues }) => {
             label="Filter by form type:"
             labelSize="s"
             register={register}
-            options={getFormsByUserPermission(user)}
+            options={formNameOptions}
           />
         </div>
         <div className="govuk-grid-column-one-half">
