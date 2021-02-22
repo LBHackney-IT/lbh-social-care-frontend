@@ -60,6 +60,7 @@ describe(`AddAllocatedWorker`, () => {
           user: {
             name: 'foo',
             email: 'foo@bar.com',
+            hasAdminPermissions: true,
             hasAllocationsPermissions: true,
           },
         }}
