@@ -112,7 +112,7 @@ exports[`PersonDetails component should render properly - expanded 2`] = `
         <dd
           class="govuk-summary-list__value"
         >
-          2/23/1978
+          23/02/1978
         </dd>
       </div>
       <div
@@ -126,7 +126,7 @@ exports[`PersonDetails component should render properly - expanded 2`] = `
         <dd
           class="govuk-summary-list__value"
         >
-          2/23/1998
+          23/02/1998
         </dd>
       </div>
       <div
@@ -333,7 +333,7 @@ exports[`PersonDetails component should render properly 1`] = `
         <dd
           class="govuk-summary-list__value"
         >
-          2/23/1978
+          23/02/1978
         </dd>
       </div>
       <div
@@ -347,7 +347,7 @@ exports[`PersonDetails component should render properly 1`] = `
         <dd
           class="govuk-summary-list__value"
         >
-          2/23/1998
+          23/02/1998
         </dd>
       </div>
       <div

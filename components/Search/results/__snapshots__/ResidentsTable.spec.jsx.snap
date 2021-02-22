@@ -54,7 +54,7 @@ exports[`ResidenTable component should render properly 1`] = `
         <td
           class="govuk-table__cell"
         >
-          2/23/1978
+          23/02/1978
         </td>
         <td
           class="govuk-table__cell"
