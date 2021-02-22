@@ -36,7 +36,7 @@ export const getCasesByResident = (
 
 export const getCaseByResident = async (
   mosaic_id: number,
-  case_id: number,
+  case_id: string,
   params: Record<string, unknown>
 ): Promise<Case | undefined> => {
   // TODO: this should be covered by the BE

@@ -9,7 +9,7 @@ export interface AllocationData {
 }
 
 export interface Case {
-  recordId: number;
+  recordId: string;
   caseFormData: Record<string, unknown>;
 }
 

@@ -22,7 +22,7 @@ const endpoint: NextApiHandler = async (
       try {
         const data = await getCaseByResident(
           parseInt(id as string, 10),
-          parseInt(caseId as string, 10),
+          caseId as string,
           {
             ...params,
             context_flag: user.permissionFlag,
