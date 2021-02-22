@@ -9,7 +9,7 @@ exports[`AllocatedWorkers component should render properly - with deallocate but
       <h3
         class="govuk-fieldset__legend--m govuk-custom-text-color govuk-!-margin-top-0"
       >
-        Allocated worker 1
+        ALLOCATED WORKER 1
       </h3>
       <button
         class="govuk-button govuk-button--secondary"
@@ -109,7 +109,7 @@ exports[`AllocatedWorkers component should render properly 1`] = `
       <h3
         class="govuk-fieldset__legend--m govuk-custom-text-color govuk-!-margin-top-0"
       >
-        Allocated worker 1
+        ALLOCATED WORKER 1
       </h3>
     </div>
     <hr

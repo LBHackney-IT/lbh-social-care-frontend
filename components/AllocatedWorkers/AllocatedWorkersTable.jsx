@@ -16,7 +16,7 @@ const AllocatedWorkersEntry = ({
   <>
     <div className="lbh-table-header">
       <h3 className="govuk-fieldset__legend--m govuk-custom-text-color govuk-!-margin-top-0">
-        Allocated worker {index + 1}
+        ALLOCATED WORKER {index + 1}
       </h3>
       {showDeallocateButton && (
         <Button isSecondary label="Deallocate Worker" route={deallocationUrl} />
