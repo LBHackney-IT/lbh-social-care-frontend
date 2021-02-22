@@ -60,7 +60,7 @@ describe('PersonView component', () => {
   it('should render properly', async () => {
     const { getByText, queryByText } = render(<PersonView {...props} />);
     await waitFor(() => {
-      expect(getByText('11/13/2020')).toBeInTheDocument();
+      expect(getByText('13/11/2020')).toBeInTheDocument();
     });
     expect(queryByText('Expand view')).not.toBeInTheDocument();
   });
@@ -72,7 +72,7 @@ describe('PersonView component', () => {
     await waitFor(() => {
       expect(getByText('Expand view')).toBeInTheDocument();
     });
-    expect(queryByText('11/13/2020')).not.toBeInTheDocument();
+    expect(queryByText('13/11/2020')).not.toBeInTheDocument();
   });
 
   it('should render properly with node children', async () => {

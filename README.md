@@ -2,7 +2,7 @@
 
 ## Getting Started
 
-The app needs Node 12, if you have [NVM](https://github.com/nvm-sh/nvm) installed just run `nvm use` in your terminal.
+The app needs Node 14, if you have [NVM](https://github.com/nvm-sh/nvm) installed just run `nvm use` in your terminal.
 
 Install the dependencies:
 

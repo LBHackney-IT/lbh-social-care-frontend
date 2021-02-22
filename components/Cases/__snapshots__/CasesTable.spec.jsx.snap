@@ -14,7 +14,7 @@ exports[`CasesTable component should render properly 1`] = `
         <td
           class="govuk-table__cell govuk--timestamp"
         >
-          Oct 25, 2020 
+          25 Oct 2020 
         </td>
         <td
           class="govuk-table__cell"

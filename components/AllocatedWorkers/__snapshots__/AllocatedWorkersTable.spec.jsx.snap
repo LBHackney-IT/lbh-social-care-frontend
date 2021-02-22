@@ -78,7 +78,7 @@ exports[`AllocatedWorkers component should render properly - with deallocate but
         <dd
           class="govuk-summary-list__value"
         >
-          3/28/2019
+          28/03/2019
         </dd>
       </div>
       <div
@@ -92,7 +92,7 @@ exports[`AllocatedWorkers component should render properly - with deallocate but
         <dd
           class="govuk-summary-list__value"
         >
-          3/28/2019
+          28/03/2019
         </dd>
       </div>
     </dl>
@@ -172,7 +172,7 @@ exports[`AllocatedWorkers component should render properly 1`] = `
         <dd
           class="govuk-summary-list__value"
         >
-          3/28/2019
+          28/03/2019
         </dd>
       </div>
       <div
@@ -186,7 +186,7 @@ exports[`AllocatedWorkers component should render properly 1`] = `
         <dd
           class="govuk-summary-list__value"
         >
-          3/28/2019
+          28/03/2019
         </dd>
       </div>
     </dl>

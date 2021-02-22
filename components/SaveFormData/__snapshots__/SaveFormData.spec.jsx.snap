@@ -150,7 +150,7 @@ exports[`SaveFormData component should render both types of forms 1`] = `
         <td
           class="govuk-table__cell"
         >
-          2/12/1984 
+          12/02/1984 
         </td>
         <td
           class="govuk-table__cell"

@@ -56,7 +56,7 @@ exports[`AllocationRecap should render properly on allocation 1`] = `
         <dd
           class="govuk-summary-list__value"
         >
-          10/1/2000
+          01/10/2000
         </dd>
       </div>
       <div
@@ -134,7 +134,7 @@ exports[`AllocationRecap should render properly on deallocation 1`] = `
         <dd
           class="govuk-summary-list__value"
         >
-          10/1/2000
+          01/10/2000
         </dd>
       </div>
       <div
@@ -148,7 +148,7 @@ exports[`AllocationRecap should render properly on deallocation 1`] = `
         <dd
           class="govuk-summary-list__value"
         >
-          11/1/2000
+          01/11/2000
         </dd>
       </div>
       <div
