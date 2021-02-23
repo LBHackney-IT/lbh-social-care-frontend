@@ -61,7 +61,7 @@ describe('cases APIs', () => {
         'Content-Type': 'application/json',
         'x-api-key': AWS_KEY,
       });
-      expect(data).toEqual({ ref: 'foobar' });
+      expect(data).toEqual({ _id: 'foobar' });
       MockDate.reset();
     });
   });

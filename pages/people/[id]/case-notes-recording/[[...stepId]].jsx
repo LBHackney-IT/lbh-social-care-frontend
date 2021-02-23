@@ -16,7 +16,7 @@ const CaseNotesRecording = () => {
   const { user } = useAuth();
   const onFormSubmit = useCallback(
     (person) => async (formData) => {
-      const ref = await addCase({
+      await addCase({
         mosaic_id: person.mosaicId,
         first_name: person.firstName,
         last_name: person.lastName,
@@ -25,7 +25,6 @@ const CaseNotesRecording = () => {
           person.ageContext === 'A' ? 'ASC_case_note' : 'CFS_case_note',
         ...formData,
       });
-      return ref;
     },
     [user.email]
   );
