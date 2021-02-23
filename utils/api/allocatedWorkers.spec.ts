@@ -4,6 +4,8 @@ import * as allocatedWorkersAPI from './allocatedWorkers';
 import * as SWR from 'swr';
 
 jest.mock('axios');
+const mockedAxios = axios as jest.Mocked<typeof axios>;
+
 jest.mock('swr');
 
 describe('allocatedWorkers APIs', () => {
@@ -30,7 +32,7 @@ describe('allocatedWorkers APIs', () => {
   describe('useTeams', () => {
     it('should work properly', () => {
       jest.spyOn(SWR, 'default');
-      allocatedWorkersAPI.useTeams();
+      allocatedWorkersAPI.useTeams({ ageContext: undefined });
       expect(SWR.default).toHaveBeenCalledWith('/api/teams');
     });
 
@@ -59,15 +61,15 @@ describe('allocatedWorkers APIs', () => {
 
   describe('addAllocatedWorker', () => {
     it('should work properly', async () => {
-      axios.post.mockResolvedValue({ data: { foo: 'foobar' } });
+      mockedAxios.post.mockResolvedValue({ data: { foo: 'foobar' } });
       const data = await allocatedWorkersAPI.addAllocatedWorker(123, {
         foo: 'bar',
       });
-      expect(axios.post).toHaveBeenCalled();
-      expect(axios.post.mock.calls[0][0]).toEqual(
+      expect(mockedAxios.post).toHaveBeenCalled();
+      expect(mockedAxios.post.mock.calls[0][0]).toEqual(
         '/api/residents/123/allocations'
       );
-      expect(axios.post.mock.calls[0][1]).toEqual({
+      expect(mockedAxios.post.mock.calls[0][1]).toEqual({
         foo: 'bar',
       });
       expect(data).toEqual({ foo: 'foobar' });
@@ -76,15 +78,15 @@ describe('allocatedWorkers APIs', () => {
 
   describe('deleteAllocatedWorker', () => {
     it('should work properly', async () => {
-      axios.patch.mockResolvedValue({ data: { foo: 'foobar' } });
+      mockedAxios.patch.mockResolvedValue({ data: { foo: 'foobar' } });
       const data = await allocatedWorkersAPI.deleteAllocatedWorker(123, {
         foo: 'bar',
       });
-      expect(axios.patch).toHaveBeenCalled();
-      expect(axios.patch.mock.calls[0][0]).toEqual(
+      expect(mockedAxios.patch).toHaveBeenCalled();
+      expect(mockedAxios.patch.mock.calls[0][0]).toEqual(
         '/api/residents/123/allocations'
       );
-      expect(axios.patch.mock.calls[0][1]).toEqual({
+      expect(mockedAxios.patch.mock.calls[0][1]).toEqual({
         foo: 'bar',
       });
       expect(data).toEqual({ foo: 'foobar' });

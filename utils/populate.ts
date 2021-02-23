@@ -1,10 +1,10 @@
 export const populateChildForm = (
-  firstName,
-  lastName,
-  mosaicId,
-  userName,
-  url
-) => {
+  firstName: string,
+  lastName: string,
+  mosaicId: number,
+  userName: string,
+  url: string
+): string => {
   const fullName = `${firstName} ${lastName}`;
   if (
     url &&

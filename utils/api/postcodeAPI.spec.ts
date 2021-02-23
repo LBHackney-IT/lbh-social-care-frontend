@@ -11,12 +11,12 @@ describe('postcodeAPI', () => {
           line4: 'foo',
           town: 'LONDON',
           postcode: 'E8 3AS',
-          UPRN: 100021068079,
+          UPRN: '100021068079',
         })
       ).toEqual({
         address: '407 QUEENSBRIDGE ROAD, HACKNEY, foo',
         postcode: 'E8 3AS',
-        uprn: 100021068079,
+        uprn: '100021068079',
       });
     });
 
@@ -29,12 +29,12 @@ describe('postcodeAPI', () => {
           line4: 'foo',
           town: 'LONDON',
           postcode: 'E8 3AS',
-          UPRN: 100021068079,
+          UPRN: '100021068079',
         })
       ).toEqual({
         address: '407 QUEENSBRIDGE ROAD, HACKNEY, foo',
         postcode: 'E8 3AS',
-        uprn: 100021068079,
+        uprn: '100021068079',
       });
     });
   });

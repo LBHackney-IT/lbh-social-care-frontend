@@ -28,7 +28,7 @@ export const deleteSession = (
 
 export const shouldRedirect = (
   pathname: string,
-  user: User
+  user?: User
 ): string | undefined => {
   const isPathWhitelisted = AUTH_WHITELIST.includes(pathname);
   if (!isPathWhitelisted) {

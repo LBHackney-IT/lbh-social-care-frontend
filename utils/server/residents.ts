@@ -6,7 +6,7 @@ const { ENDPOINT_API, AWS_KEY } = process.env;
 
 const headers = { 'x-api-key': AWS_KEY };
 
-interface ResidentBE {
+interface ResidentBE extends Omit<Resident, 'restricted'> {
   restricted: 'Y' | 'N';
   addressList: Array<{
     displayAddressFlag: 'Y' | 'N';
