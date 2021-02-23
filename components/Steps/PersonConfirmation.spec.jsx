@@ -3,7 +3,7 @@ import PersonConfirmation from './PersonConfirmation';
 
 jest.mock('next/router', () => ({
   useRouter: () => ({
-    query: { personId: '123456' },
+    query: { ref: '123456' },
   }),
 }));
 

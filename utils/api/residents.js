@@ -12,5 +12,5 @@ export const useResident = (personId) => useSWR(`/api/residents/${personId}`);
 
 export const addResident = async (formData) => {
   const { data } = await axios.post(`/api/residents`, formData);
-  return data;
+  return { ref: data?.personId, data };
 };

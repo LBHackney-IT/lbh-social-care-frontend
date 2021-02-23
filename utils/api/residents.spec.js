@@ -33,12 +33,17 @@ describe('residents APIs', () => {
 
   describe('addResident', () => {
     it('should work properly', async () => {
-      axios.post.mockResolvedValue({ data: 'foobar' });
-      const data = await residentsAPI.addResident({ foo: 'bar' });
+      axios.post.mockResolvedValue({ data: { foo: 'bar', personId: 123 } });
+      const data = await residentsAPI.addResident({
+        foo: 'bar',
+      });
       expect(axios.post).toHaveBeenCalled();
       expect(axios.post.mock.calls[0][0]).toEqual('/api/residents');
       expect(axios.post.mock.calls[0][1]).toEqual({ foo: 'bar' });
-      expect(data).toEqual('foobar');
+      expect(data).toEqual({
+        data: { foo: 'bar', personId: 123 },
+        ref: 123,
+      });
     });
   });
 });
