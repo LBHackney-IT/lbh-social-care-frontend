@@ -1,4 +1,5 @@
 import { act, fireEvent, render } from '@testing-library/react';
+import { UserContext } from 'components/UserContext/UserContext';
 
 jest.mock('next/router', () => ({
   useRouter: () => ({
@@ -14,6 +15,7 @@ describe(`SearchCasesForm`, () => {
     defaultValues: {},
     user: {
       name: 'i am a user',
+      permissionFlag: 'A',
     },
   };
 
@@ -23,7 +25,13 @@ describe(`SearchCasesForm`, () => {
 
   it('should pass to onFormSubmit the form values', async () => {
     const { getByRole, getByLabelText } = render(
-      <SearchCasesForm {...props} user={{ email: 'foo@bar.com' }} />
+      <UserContext.Provider
+        value={{
+          user: { name: 'foo', permissionFlag: 'A' },
+        }}
+      >
+        <SearchCasesForm {...props} />
+      </UserContext.Provider>
     );
     const firstNameInput = getByLabelText('First name:');
     fireEvent.change(firstNameInput, { target: { value: 'foo' } });
@@ -42,32 +50,15 @@ describe(`SearchCasesForm`, () => {
     });
   });
 
-  it('should pass the user email as worker_email', async () => {
-    const { getByRole, getByLabelText } = render(
-      <SearchCasesForm {...props} user={{ email: 'foo@bar.com' }} />
-    );
-    const my_notes_onlyCheckbox = getByLabelText(
-      "Only include records I've created"
-    );
-    fireEvent.click(my_notes_onlyCheckbox);
-    await act(async () => {
-      fireEvent.submit(getByRole('form'));
-    });
-    expect(props.onFormSubmit).toHaveBeenCalledWith({
-      first_name: '',
-      last_name: '',
-      form_name: '',
-      exact_name_match: false,
-      my_notes_only: true,
-      end_date: null,
-      start_date: null,
-      worker_email: '',
-    });
-  });
-
   it('should initialise the form with the passed defaultValues', async () => {
     const { getByRole } = render(
-      <SearchCasesForm {...props} defaultValues={{ first_name: 'bar' }} />
+      <UserContext.Provider
+        value={{
+          user: { name: 'foo', permissionFlag: 'A' },
+        }}
+      >
+        <SearchCasesForm {...props} defaultValues={{ first_name: 'bar' }} />
+      </UserContext.Provider>
     );
     await act(async () => {
       fireEvent.submit(getByRole('form'));
