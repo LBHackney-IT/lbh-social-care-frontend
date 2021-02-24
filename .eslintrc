@@ -50,7 +50,11 @@
         "plugin:react/recommended",
         "plugin:react-hooks/recommended",
         "plugin:cypress/recommended"
-      ]
+      ],
+      "rules": {
+        "react/react-in-jsx-scope": "off",
+        "@typescript-eslint/ban-ts-comment": "off"
+      }
     }
   ]
 }

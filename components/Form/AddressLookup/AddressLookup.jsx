@@ -7,7 +7,7 @@ import isPostcodeValid from 'uk-postcode-validator';
 import ErrorMessage from 'components/ErrorMessage/ErrorMessage';
 import { Select, TextInput } from 'components/Form';
 import Button from 'components/Button/Button';
-import { lookupPostcode } from 'utils/postcodeAPI';
+import { lookupPostcode } from 'utils/api/postcodeAPI';
 
 const AddressBox = ({ name, disabled, value, onChange }) => {
   const [address, setAddress] = useState(value || {});

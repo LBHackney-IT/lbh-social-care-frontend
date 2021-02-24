@@ -4,6 +4,8 @@ import * as residentsAPI from './residents';
 import * as SWR from 'swr';
 
 jest.mock('axios');
+const mockedAxios = axios as jest.Mocked<typeof axios>;
+
 jest.mock('swr');
 
 const mockSWRInfinite = jest.fn();
@@ -26,18 +28,18 @@ describe('residents APIs', () => {
   describe('useResident', () => {
     it('should work properly', () => {
       jest.spyOn(SWR, 'default');
-      residentsAPI.useResident('foo', { bar: 'foobar' });
-      expect(SWR.default).toHaveBeenCalledWith('/api/residents/foo');
+      residentsAPI.useResident(123);
+      expect(SWR.default).toHaveBeenCalledWith('/api/residents/123');
     });
   });
 
   describe('addResident', () => {
     it('should work properly', async () => {
-      axios.post.mockResolvedValue({ data: 'foobar' });
+      mockedAxios.post.mockResolvedValue({ data: 'foobar' });
       const data = await residentsAPI.addResident({ foo: 'bar' });
-      expect(axios.post).toHaveBeenCalled();
-      expect(axios.post.mock.calls[0][0]).toEqual('/api/residents');
-      expect(axios.post.mock.calls[0][1]).toEqual({ foo: 'bar' });
+      expect(mockedAxios.post).toHaveBeenCalled();
+      expect(mockedAxios.post.mock.calls[0][0]).toEqual('/api/residents');
+      expect(mockedAxios.post.mock.calls[0][1]).toEqual({ foo: 'bar' });
       expect(data).toEqual('foobar');
     });
   });
