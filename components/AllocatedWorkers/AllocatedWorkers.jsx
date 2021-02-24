@@ -28,26 +28,26 @@ const AllocatedWorkers = ({ id }) => {
           }
         />
       )}
-      {user.hasAdminPermissions && user.hasAllocationsPermissions && (
-        <div>
-          <div className="lbh-table-header">
-            <h3 className="govuk-fieldset__legend--m govuk-custom-text-color govuk-!-margin-top-0">
-              ALLOCATED WORKER {allocations.length + 1}
-            </h3>
+      <div>
+        <div className="lbh-table-header">
+          <h3 className="govuk-fieldset__legend--m govuk-custom-text-color govuk-!-margin-top-0">
+            ALLOCATED WORKER {allocations.length + 1}
+          </h3>
+          {user.hasAdminPermissions && user.hasAllocationsPermissions && (
             <Button
               label="Allocate worker"
               isSecondary
               route={`${asPath}/allocations/add`}
             />
-          </div>
-          <hr className="govuk-divider" />
-          <p>
-            <i>
-              {allocations.length === 0 ? 'Currently unallocated' : 'Optional'}
-            </i>
-          </p>
+          )}
         </div>
-      )}
+        <hr className="govuk-divider" />
+        <p>
+          <i>
+            {allocations.length === 0 ? 'Currently unallocated' : 'Optional'}
+          </i>
+        </p>
+      </div>
       {error && <ErrorMessage />}
     </div>
   );
