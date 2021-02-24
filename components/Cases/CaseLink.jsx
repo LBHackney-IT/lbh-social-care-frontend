@@ -1,11 +1,16 @@
 import PropTypes from 'prop-types';
 import Link from 'next/link';
+import * as form from 'data/forms';
 
 const getLink = (recordId, { form_name_overall, ...caseFormData }) => {
+  const fileName = form[form_name_overall] ? form_name_overall : null;
+
   switch (form_name_overall) {
     case 'API_Allocation':
     case 'API_Deallocation':
       return `/people/${caseFormData.mosaic_id}/allocations/${caseFormData.allocation_id}?recordId=${recordId}`;
+    case fileName:
+      return `/people/${caseFormData.mosaic_id}/records/${recordId}`;
     default:
       return null;
   }
