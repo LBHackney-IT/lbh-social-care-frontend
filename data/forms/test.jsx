@@ -59,20 +59,22 @@ export default {
         {
           component: 'Checkbox',
           name: 'show_next_step',
-          width: '30',
           label: 'Show next step',
         },
         {
           component: 'Checkbox',
           name: 'show_multi_select_step',
-          width: '30',
           label: 'Show multi-select step',
         },
         {
           component: 'Checkbox',
           name: 'show_object_step',
-          width: '30',
           label: 'Show object step',
+        },
+        {
+          component: 'Checkbox',
+          name: 'show_address_step',
+          label: 'Show Address Lookup step',
         },
       ],
     },
@@ -123,6 +125,18 @@ export default {
               label: 'Phone type',
             },
           ],
+        },
+      ],
+    },
+    {
+      id: 'address-step',
+      title: 'Address Lookup Step',
+      conditionalRender: ({ show_address_step }) => show_address_step === true,
+      components: [
+        {
+          component: 'AddressLookup',
+          name: 'address',
+          label: 'Address',
         },
       ],
     },
