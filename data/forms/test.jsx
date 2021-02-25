@@ -59,19 +59,16 @@ export default {
         {
           component: 'Checkbox',
           name: 'show_next_step',
-          width: '30',
           label: 'Show next step',
         },
         {
           component: 'Checkbox',
           name: 'show_multi_select_step',
-          width: '30',
           label: 'Show multi-select step',
         },
         {
           component: 'Checkbox',
           name: 'show_object_step',
-          width: '30',
           label: 'Show object step',
         },
       ],
@@ -96,7 +93,7 @@ export default {
       components: [
         {
           component: 'TextInput',
-          name: 'title_2',
+          name: 'title_object',
           width: '30',
           label: 'Title',
           isMulti: true,
@@ -147,7 +144,7 @@ export default {
       ],
     },
     {
-      id: 'last-step',
+      id: 'multi-step',
       title: 'Multi Step',
       isMulti: true,
       components: [
