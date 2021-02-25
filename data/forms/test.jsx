@@ -58,6 +58,16 @@ export default {
         },
         {
           component: 'Checkbox',
+          name: 'multi_checkbox',
+          label: 'This is a multi checkbox',
+          options: [
+            { value: '1', text: 'Foo' },
+            { value: '2', text: 'Bar' },
+            { value: '3', text: 'Foobar' },
+          ],
+        },
+        {
+          component: 'Checkbox',
           name: 'show_next_step',
           label: 'Show next step',
         },
