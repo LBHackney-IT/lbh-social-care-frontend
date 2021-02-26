@@ -7,7 +7,7 @@ const referralForm =
 
 const PersonConfirmation = ({ formData, formSteps }) => {
   const router = useRouter();
-  const { personId } = router.query;
+  const { ref } = router.query;
   if (!formSteps) return null;
   return (
     <>
@@ -17,7 +17,7 @@ const PersonConfirmation = ({ formData, formSteps }) => {
       <div className="govuk-panel govuk-panel--confirmation govuk-!-margin-bottom-9">
         <h1 className="govuk-fieldset__legend--l gov-weight-lighter">
           {formData.firstName} {formData.lastName} has been added.
-          <br />#{personId}
+          <br />#{ref}
         </h1>
       </div>
       <div style={{ display: 'flex', justifyContent: 'space-between' }}>
@@ -25,7 +25,7 @@ const PersonConfirmation = ({ formData, formSteps }) => {
           label="View person"
           isSecondary
           wideButton
-          route={`/people/${personId}`}
+          route={`/people/${ref}`}
         />
         <Button label="Add referral details" wideButton route={referralForm} />
       </div>

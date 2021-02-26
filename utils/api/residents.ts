@@ -27,5 +27,5 @@ export const addResident = async (
   formData: Record<string, unknown>
 ): Promise<Record<string, unknown>> => {
   const { data } = await axios.post(`/api/residents`, formData);
-  return data;
+  return { ref: data?.personId, data };
 };

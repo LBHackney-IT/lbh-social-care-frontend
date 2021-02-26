@@ -59,5 +59,5 @@ export const addCase = async (
       headers: { 'Content-Type': 'application/json', 'x-api-key': AWS_KEY },
     }
   );
-  return { ref: data?.['_id'] };
+  return data;
 };
