@@ -1,6 +1,6 @@
 import { convertFormat } from 'utils/date';
 
-const multiValue = ([key, value], summaryInline) =>
+const multiValue = (key, value, summaryInline) =>
   summaryInline ? (
     <span key={key}>{value} </span>
   ) : (
@@ -54,6 +54,22 @@ export const formatData = (componentProps, formData) => {
   if (component === 'AddressLookup') {
     return formatAddress(formData[name], name, label);
   }
+  if (component === 'Checkbox' && options) {
+    return {
+      key: name,
+      title: label,
+      value:
+        typeof options[0] === 'string'
+          ? formData[name]
+          : formData[name]?.map((data) =>
+              multiValue(
+                data,
+                options.find((o) => o.value === data)?.text,
+                summaryInline
+              )
+            ),
+    };
+  }
   if (component === 'Radios' || component === 'Select') {
     const stepOptions =
       typeof options === 'function' ? options(formData) : options;
@@ -61,7 +77,7 @@ export const formatData = (componentProps, formData) => {
       key: name,
       title: label,
       value:
-        typeof stepOptions[0] === 'string'
+        !stepOptions || typeof stepOptions[0] === 'string'
           ? formData[name]
           : stepOptions.find((option) => option.value === formData[name])?.text,
     };
@@ -79,13 +95,11 @@ export const formatData = (componentProps, formData) => {
     value: Array.isArray(formData[name])
       ? isMulti
         ? formatIsMulti(formData[name], componentProps)
-        : formData[name]
-            .filter(Boolean)
-            .map((v) => multiValue(v.split('/').pop()))
+        : formData[name].map((v) => multiValue(v, v))
       : typeof formData[name] === 'object'
       ? Object.entries(formData[name])
           .filter(([, value]) => Boolean(value))
-          .map((entry) => multiValue(entry, summaryInline))
+          .map((entry) => multiValue(entry[0], entry[1], summaryInline))
       : typeof formData[name] === 'boolean'
       ? JSON.stringify(formData[name])
       : formData[name],
