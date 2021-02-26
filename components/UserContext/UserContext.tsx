@@ -1,16 +1,22 @@
-import { createContext, useContext } from 'react';
+import { createContext, useContext, ReactNode, ReactElement } from 'react';
 import PropTypes from 'prop-types';
 import { useRouter } from 'next/router';
 
 import { shouldRedirect } from 'utils/auth';
 import { isBrowser } from 'utils/ssr';
 
-export const UserContext = createContext({
+import type { User } from 'types';
+
+interface Props {
+  children: ReactNode;
+  user?: User;
+}
+
+export const UserContext = createContext<{ user?: User }>({
   user: undefined,
-  setUser: () => {},
 });
 
-export const AuthProvider = ({ children, user }) => {
+export const AuthProvider = ({ children, user }: Props): ReactElement => {
   const { pathname, push } = useRouter();
   const redirect = isBrowser() && shouldRedirect(pathname, user);
   if (redirect) {
@@ -33,10 +39,10 @@ AuthProvider.propTypes = {
   user: PropTypes.object,
 };
 
-export function useAuth() {
+export const useAuth = (): { user?: User } => {
   const context = useContext(UserContext);
   if (context === undefined) {
     throw new Error('useAuth must be used within an AuthProvider');
   }
   return context;
-}
+};

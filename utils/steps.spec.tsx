@@ -1,3 +1,5 @@
+import { ReactNode } from 'react';
+
 import {
   createSteps,
   getNextStepPath,
@@ -10,13 +12,17 @@ import {
 import Summary from 'components/Steps/Summary';
 import Confirmation from 'components/Steps/Confirmation';
 
-const FakeComponentStep = () => <div>foo</div>;
+const FakeComponentStep = (): ReactNode => <div>foo</div>;
 
 describe('FormWizard', () => {
   const steps = [
     { id: 'first-step', title: 'First Step', component: FakeComponentStep },
-    { id: 'second-step', title: 'Second Step', components: ['foo', 'bar'] },
-    { id: 'third-step', title: 'Third Step', components: ['foobar'] },
+    {
+      id: 'second-step',
+      title: 'Second Step',
+      components: [{ name: 'foo' }, { name: 'bar' }],
+    },
+    { id: 'third-step', title: 'Third Step', components: [{ name: 'foobar' }] },
   ];
   const customSteps = { confirmation: Confirmation, summary: Summary };
 
@@ -24,8 +30,16 @@ describe('FormWizard', () => {
     it('should initialise properly with default steps', () => {
       expect(createSteps(steps)).toEqual([
         { id: 'first-step', title: 'First Step', component: FakeComponentStep },
-        { id: 'second-step', title: 'Second Step', components: ['foo', 'bar'] },
-        { id: 'third-step', title: 'Third Step', components: ['foobar'] },
+        {
+          id: 'second-step',
+          title: 'Second Step',
+          components: [{ name: 'foo' }, { name: 'bar' }],
+        },
+        {
+          id: 'third-step',
+          title: 'Third Step',
+          components: [{ name: 'foobar' }],
+        },
         { id: 'summary', title: 'Summary', component: Summary },
         { id: 'confirmation', title: 'Confirmation', component: Confirmation },
       ]);
@@ -34,8 +48,16 @@ describe('FormWizard', () => {
     it('should initialise properly with custom steps', () => {
       expect(createSteps(steps, customSteps)).toEqual([
         { id: 'first-step', title: 'First Step', component: FakeComponentStep },
-        { id: 'second-step', title: 'Second Step', components: ['foo', 'bar'] },
-        { id: 'third-step', title: 'Third Step', components: ['foobar'] },
+        {
+          id: 'second-step',
+          title: 'Second Step',
+          components: [{ name: 'foo' }, { name: 'bar' }],
+        },
+        {
+          id: 'third-step',
+          title: 'Third Step',
+          components: [{ name: 'foobar' }],
+        },
         { id: 'summary', title: 'Summary', component: customSteps.summary },
         {
           id: 'confirmation',
@@ -48,20 +70,22 @@ describe('FormWizard', () => {
 
   describe('getNextStepPath', () => {
     it('should return the correct step', () => {
-      expect(getNextStepPath(1, steps, '/form/')).toEqual('/form/third-step');
+      expect(getNextStepPath(1, steps, '/form/', {})).toEqual(
+        '/form/third-step'
+      );
     });
   });
 
   describe('renderOnCondition', () => {
     it('should return the component if no render condition', () => {
-      expect(renderOnCondition({}, {}, FakeComponentStep)).toEqual(
+      expect(renderOnCondition({ id: 'foo' }, {}, FakeComponentStep)).toEqual(
         FakeComponentStep
       );
     });
     it('should return the component if render condition "true"', () => {
       expect(
         renderOnCondition(
-          { conditionalRender: ({ hide }) => hide !== true },
+          { id: 'foo', conditionalRender: ({ hide }) => hide !== true },
           { hide: false },
           FakeComponentStep
         )
@@ -70,7 +94,7 @@ describe('FormWizard', () => {
     it('should NOT return the component if render condition "false"', () => {
       expect(
         renderOnCondition(
-          { conditionalRender: ({ hide }) => hide !== true },
+          { id: 'foo', conditionalRender: ({ hide }) => hide !== true },
           { hide: true },
           FakeComponentStep
         )
@@ -95,7 +119,7 @@ describe('FormWizard', () => {
       {
         id: 'step-b',
         title: 'Step B',
-        conditionalRender: ({ conditional_trigger }) =>
+        conditionalRender: ({ conditional_trigger }: Record<string, unknown>) =>
           conditional_trigger === 'Yes',
         components: [
           {
@@ -105,16 +129,18 @@ describe('FormWizard', () => {
           },
           {
             component: 'TextInput',
-            conditionalRender: ({ conditional_trigger }) =>
-              conditional_trigger === 'No',
+            conditionalRender: ({
+              conditional_trigger,
+            }: Record<string, unknown>) => conditional_trigger === 'No',
             name: 'conditional_input',
             label: 'Please filter me',
             rules: { required: true },
           },
           {
             component: 'TextInput',
-            conditionalRender: ({ conditional_trigger }) =>
-              conditional_trigger === 'Yes',
+            conditionalRender: ({
+              conditional_trigger,
+            }: Record<string, unknown>) => conditional_trigger === 'Yes',
             name: 'conditional_input',
             label: 'Please hide me',
             rules: { required: true },
@@ -124,7 +150,7 @@ describe('FormWizard', () => {
       {
         id: 'step-c',
         title: 'Step C',
-        conditionalRender: ({ conditional_trigger }) =>
+        conditionalRender: ({ conditional_trigger }: Record<string, unknown>) =>
           conditional_trigger === 'No',
         components: [
           {
@@ -157,8 +183,9 @@ describe('FormWizard', () => {
         {
           id: 'step-c',
           title: 'Step C',
-          conditionalRender: ({ conditional_trigger }) =>
-            conditional_trigger === 'No',
+          conditionalRender: ({
+            conditional_trigger,
+          }: Record<string, unknown>) => conditional_trigger === 'No',
           components: [
             {
               component: 'TextInput',
@@ -188,7 +215,7 @@ describe('FormWizard', () => {
       {
         id: 'step-b',
         title: 'Step B',
-        conditionalRender: ({ conditional_trigger }) =>
+        conditionalRender: ({ conditional_trigger }: Record<string, unknown>) =>
           conditional_trigger === 'Yes',
         components: [
           {
@@ -266,7 +293,7 @@ describe('FormWizard', () => {
       {
         id: 'step-b',
         title: 'Step B',
-        conditionalRender: ({ conditional_trigger }) =>
+        conditionalRender: ({ conditional_trigger }: Record<string, unknown>) =>
           conditional_trigger === 'Yes',
         components: [
           {
@@ -279,7 +306,7 @@ describe('FormWizard', () => {
       {
         id: 'step-c',
         title: 'Step C',
-        conditionalRender: ({ conditional_trigger }) =>
+        conditionalRender: ({ conditional_trigger }: Record<string, unknown>) =>
           conditional_trigger === 'No',
         components: [
           {

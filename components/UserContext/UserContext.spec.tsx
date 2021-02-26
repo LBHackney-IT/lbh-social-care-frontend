@@ -2,6 +2,8 @@ import { waitFor, render } from '@testing-library/react';
 
 import { UserContext, AuthProvider, useAuth } from './UserContext';
 
+import type { User } from 'types';
+
 const mockedUseRouter = {
   pathname: '/foo',
   push: jest.fn(),
@@ -12,15 +14,19 @@ jest.mock('next/router', () => ({
 }));
 
 describe(`UserContext`, () => {
+  const mockedUser: User = {
+    name: 'I am the user',
+    email: 'email@email.com',
+    permissionFlag: 'A',
+    hasAdminPermissions: true,
+    hasAdultPermissions: false,
+    hasChildrenPermissions: false,
+    isAuthorised: true,
+  };
   describe('AuthProvider', () => {
     it('should work properly', async () => {
       const { findByText } = render(
-        <AuthProvider
-          user={{
-            name: 'foo',
-            isAuthorised: true,
-          }}
-        >
+        <AuthProvider user={mockedUser}>
           <p>foo</p>
         </AuthProvider>
       );
@@ -28,13 +34,9 @@ describe(`UserContext`, () => {
       expect(children).toBeInTheDocument();
     });
 
-    it('should redirect to "/access-denied" if check-auth returns 403', async () => {
+    it('should redirect to "/access-denied" if user is present but isAuthorised false', async () => {
       render(
-        <AuthProvider
-          user={{
-            name: 'foo',
-          }}
-        >
+        <AuthProvider user={{ ...mockedUser, isAuthorised: false }}>
           <p>foo</p>
         </AuthProvider>
       );
@@ -44,7 +46,7 @@ describe(`UserContext`, () => {
       });
     });
 
-    it('should redirect to "/login" if check-auth returns 401', async () => {
+    it('should redirect to "/login" if user undefined', async () => {
       render(
         <AuthProvider>
           <p>foo</p>
@@ -60,19 +62,15 @@ describe(`UserContext`, () => {
   describe('useAuth with UserContext', () => {
     it('should work properly', async () => {
       const TestComponent = () => {
-        const { user } = useAuth();
-        return user;
+        const { user } = useAuth() as { user: User };
+        return user ? <>{user.name}</> : null;
       };
       const { getByText } = render(
-        <UserContext.Provider
-          value={{
-            user: 'i am the user',
-          }}
-        >
+        <UserContext.Provider value={{ user: mockedUser }}>
           <TestComponent />
         </UserContext.Provider>
       );
-      expect(getByText('i am the user')).toBeInTheDocument();
+      expect(getByText('I am the user')).toBeInTheDocument();
     });
   });
 });
