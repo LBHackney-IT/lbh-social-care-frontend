@@ -23,9 +23,7 @@ const AllocatedWorkers = ({ id }) => {
       {allocations && (
         <AllocatedWorkersTable
           records={allocations}
-          hasAllocationsPermissions={
-            user.hasAdminPermissions && user.hasAllocationsPermissions
-          }
+          hasAllocationsPermissions={user.hasAllocationsPermissions}
         />
       )}
       <div>
@@ -33,7 +31,7 @@ const AllocatedWorkers = ({ id }) => {
           <h3 className="govuk-fieldset__legend--m govuk-custom-text-color govuk-!-margin-top-0">
             ALLOCATED WORKER {allocations.length + 1}
           </h3>
-          {user.hasAdminPermissions && user.hasAllocationsPermissions && (
+          {user.hasAllocationsPermissions && (
             <Button
               label="Allocate worker"
               isSecondary
