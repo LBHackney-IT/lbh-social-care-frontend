@@ -6,7 +6,7 @@ import DynamicInput from 'components/FormWizard/DynamicInput';
 
 import styles from './ObjectInput.module.scss';
 
-interface DynamicComponent extends Props {
+export interface DynamicComponent extends Props {
   currentData: Record<string, unknown>;
   control: Control;
   errors: ErrorOption;

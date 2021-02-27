@@ -1,6 +1,6 @@
 import { TextInput } from '..';
 
-import type { PhoneInput as Props } from 'components/Form/types';
+import type { TextInputNoType as Props } from 'components/Form/types';
 
 const PhoneInput = ({ rules, ...props }: Props): React.ReactElement => (
   <TextInput

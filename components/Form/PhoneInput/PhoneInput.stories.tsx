@@ -1,3 +1,7 @@
+import { Story } from '@storybook/react';
+
+import { TextInputNoType as Args } from 'components/Form/types';
+
 import PhoneInput from './PhoneInput';
 
 export default {
@@ -5,7 +9,7 @@ export default {
   component: PhoneInput,
 };
 
-const Template = (args) => <PhoneInput {...args} />;
+const Template: Story<Args> = (args) => <PhoneInput {...args} />;
 
 export const Default = Template.bind({});
 Default.args = {

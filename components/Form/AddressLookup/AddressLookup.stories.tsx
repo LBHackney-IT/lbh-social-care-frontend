@@ -1,3 +1,5 @@
+import { Story } from '@storybook/react';
+
 import AddressLookup from './AddressLookup';
 
 import { useForm } from 'react-hook-form';
@@ -8,9 +10,9 @@ export default {
   component: AddressLookup,
 };
 
-export const Default = () => {
+export const Default: Story = () => {
   const { register, errors, handleSubmit, control } = useForm();
-  const onSubmit = (data) => {
+  const onSubmit = (data: Record<string, unknown>) => {
     alert(JSON.stringify(data));
   };
 

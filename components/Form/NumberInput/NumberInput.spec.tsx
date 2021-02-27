@@ -1,17 +1,15 @@
 import { fireEvent, render } from '@testing-library/react';
-import PhoneInput from './PhoneInput';
+import NumberInput from './NumberInput';
 
-describe('PhoneInput', () => {
-  it('renders a phone input', () => {
-    const inputName = 'my-phone-input';
+describe('NumberInput', () => {
+  it('renders a number input', () => {
+    const inputName = 'my-number-input';
     const inputLabel = 'My Input';
     const { getByLabelText } = render(
-      <PhoneInput name={inputName} label={inputLabel} />
+      <NumberInput name={inputName} label={inputLabel} />
     );
-
     const labelRegex = new RegExp(`s*${inputLabel}s*`);
-    const input = getByLabelText(labelRegex);
-
+    const input = getByLabelText(labelRegex) as HTMLInputElement;
     expect(input).toBeInTheDocument();
     expect(input.id).toEqual(inputName);
     expect(input.name).toEqual(inputName);
@@ -21,13 +19,11 @@ describe('PhoneInput', () => {
     let newValue = '';
     const myAction = jest.fn((e) => (newValue = e.target.value));
     const { getByLabelText } = render(
-      <PhoneInput name={'my-input'} label={'My Input'} onChange={myAction} />
+      <NumberInput name={'my-input'} label={'My Input'} onChange={myAction} />
     );
-
     fireEvent.change(getByLabelText(/\s*My Input\s*/), {
-      target: { value: '07849436768' },
+      target: { value: '2423242526' },
     });
-
-    expect(newValue).toEqual('07849436768');
+    expect(newValue).toEqual('2423242526');
   });
 });
