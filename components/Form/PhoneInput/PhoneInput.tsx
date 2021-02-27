@@ -1,8 +1,8 @@
-import PropTypes from 'prop-types';
-
 import { TextInput } from '..';
 
-const PhoneInput = ({ rules, ...props }) => (
+import type { PhoneInput as Props } from 'components/Form/types';
+
+const PhoneInput = ({ rules, ...props }: Props): React.ReactElement => (
   <TextInput
     {...props}
     rules={{
@@ -13,11 +13,7 @@ const PhoneInput = ({ rules, ...props }) => (
       ...rules,
     }}
     type="number"
-  ></TextInput>
+  />
 );
-
-PhoneInput.propTypes = {
-  rules: PropTypes.object,
-};
 
 export default PhoneInput;

@@ -1,11 +1,12 @@
 import cx from 'classnames';
-import PropTypes from 'prop-types';
 
 import ErrorMessage from 'components/ErrorMessage/ErrorMessage';
 
+import type { Radios as Props } from 'components/Form/types';
+
 const defaultOptions = ['Yes', 'No'];
 
-const Radio = ({
+const Radios = ({
   label,
   labelSize = 'm',
   hint,
@@ -18,7 +19,7 @@ const Radio = ({
   rules,
   isRadiosInline = false,
   ...otherProps
-}) => (
+}: Props): React.ReactElement => (
   <div
     className={cx('govuk-form-group', {
       'govuk-form-group--error': error,
@@ -67,18 +68,4 @@ const Radio = ({
   </div>
 );
 
-Radio.propTypes = {
-  rules: PropTypes.shape(),
-  label: PropTypes.string.isRequired,
-  labelSize: PropTypes.oneOf(['s', 'm', 'l', 'xl']),
-  name: PropTypes.string.isRequired,
-  register: PropTypes.func,
-  required: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
-  options: PropTypes.array,
-  hint: PropTypes.string,
-  children: PropTypes.node,
-  error: PropTypes.shape({ message: PropTypes.string.isRequired }),
-  isRadiosInline: PropTypes.bool,
-};
-
-export default Radio;
+export default Radios;
