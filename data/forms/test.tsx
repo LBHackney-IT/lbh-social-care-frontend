@@ -1,4 +1,6 @@
-const MULTI_SELECT = {
+import { FormConfig, Option } from 'components/Form/types';
+
+const MULTI_SELECT: { [key: string]: Option[] } = {
   foo: [
     {
       value: '1',
@@ -29,7 +31,7 @@ const MULTI_SELECT = {
   ],
 };
 
-export default {
+const formConfig: FormConfig = {
   title: 'Test Form',
   path: '/form/test/',
   successMessage: 'Test Recap',
@@ -53,7 +55,7 @@ export default {
           conditionalRender: (data) => data.show_next_input === 'Y',
           component: 'TextInput',
           name: 'conditional_text',
-          width: '30',
+          width: 30,
           label: 'I am the conditional field',
         },
         {
@@ -96,7 +98,7 @@ export default {
         {
           component: 'TextInput',
           name: 'title_2',
-          width: '30',
+          width: 30,
           label: 'Title',
         },
       ],
@@ -109,7 +111,7 @@ export default {
         {
           component: 'TextInput',
           name: 'title_object',
-          width: '30',
+          width: 30,
           label: 'Title',
           isMulti: true,
           isMultiInit: false,
@@ -166,7 +168,10 @@ export default {
           component: 'Select',
           name: 'multi_select',
           label: 'Second multi select',
-          options: ({ first_select } = {}) => MULTI_SELECT[first_select],
+          options: ({
+            first_select,
+          }: Record<string, string>): Option[] | null =>
+            MULTI_SELECT[first_select],
         },
       ],
     },
@@ -178,10 +183,12 @@ export default {
         {
           component: 'TextInput',
           name: 'title_3',
-          width: '30',
+          width: 30,
           label: 'Title',
         },
       ],
     },
   ],
 };
+
+export default formConfig;
