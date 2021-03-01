@@ -122,7 +122,7 @@ const SearchCasesForm = ({ onFormSubmit, defaultValues }) => {
         <div className="govuk-grid-column-one-half">
           <EmailInput
             name="worker_email"
-            label="Worker email:"
+            label="Uploaded by:"
             labelSize="s"
             register={register}
           />
