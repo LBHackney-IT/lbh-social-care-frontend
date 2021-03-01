@@ -45,7 +45,7 @@ const CaseNotesRecording = (): ReactElement => {
       <>
         <BackButton />
         <h1 className="govuk-fieldset__legend--l gov-weight-lighter">
-          Conversation 1
+          Conversation 3
         </h1>
         <PersonView personId={query.id as string} expandView>
           {(person: Resident) =>

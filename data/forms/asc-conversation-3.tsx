@@ -180,8 +180,8 @@ const steps = [
       },
       {
         component: 'Checkbox',
-        name: 'multi_checkbox',
-        label: 'This is a multi checkbox',
+        name: 'desired_outcome_options',
+        label: 'Desired outcome options',
         options: [
           { value: '1', text: ' Maintain a habitable home environment' },
           { value: '2', text: 'Manage and maintain nutrition' },
@@ -214,7 +214,67 @@ const steps = [
         name: 'show_next_step',
         label: 'Show next step',
       },
-      //find out what is needed here
+      <p key="options">
+        Who by options (Who will be responsible to do this):
+        <ul>
+          <li>By myself</li>
+          <li>By family </li>
+          <li> friend </li>
+          <li>carer </li>
+          <li>By support from a community group</li>
+          <li> By support from a health professional</li>
+          <li> By provision of equipment </li>
+          <li>Major Adaptation </li>
+          <li>By provision of domiciliary care </li>
+          <li>By provision of Direct Payment </li>
+          <li>By Housing with Care By respite </li>
+          <li>By a day service</li>
+          <li> By support from housing</li>
+          <li>By support from Children’s services</li>
+        </ul>
+      </p>,
+      {
+        component: 'TextInput',
+        name: 'budget_spending_plan_who',
+        width: '30',
+        label: 'Who will be responsible to complete desired outcome options ?',
+      },
+      {
+        component: 'TextInput',
+        name: 'budget_spending_plan_how',
+        width: '30',
+        label: 'Budget Spending Plan: How this will be achieved',
+      },
+      {
+        component: 'TextInput',
+        name: 'how_often',
+        width: '30',
+        label: 'Budget Spending Plan: How Often',
+      },
+      {
+        component: 'TextInput',
+        name: 'weekly_cost',
+        width: '30',
+        label: 'Budget Spending Plan: Weekly cost £',
+      },
+      {
+        component: 'TextInput',
+        name: 'yearly_cost',
+        width: '30',
+        label: 'Budget Spending Plan: Weekly cost £',
+      },
+      {
+        component: 'TextInput',
+        name: 'start_date',
+        width: '30',
+        label: 'Budget Spending Plan: Start Date',
+      },
+      {
+        component: 'TextInput',
+        name: 'end_date',
+        width: '30',
+        label: 'Budget Spending Plan: End Date',
+      },
     ],
   },
   {
@@ -231,7 +291,54 @@ const steps = [
           'Local Authority',
           'Other arrangement (e.g. mixed)',
         ],
-        //find out what is needed here
+      },
+      {
+        component: 'Radios',
+        name: 'power_of_attorney',
+        label: 'Does the identified representative have a Power of Attorney?',
+        options: ['Yes', 'No', 'Not applicable'],
+      },
+      {
+        component: 'TextInput',
+        name: 'list_managing_my_budget',
+        width: '30',
+        label: 'List details of those managing my budget',
+        hint:
+          'Include: Name and address, Contact Number and Relationship for each row individual / organisation',
+      },
+      {
+        component: 'Radios',
+        name: 'financial_assessment_form',
+        label:
+          'Has this person been given a copy of the Financial Assessment form?',
+        options: ['Yes', 'No'],
+        rules: { required: true },
+      },
+      <h3 key="budget">My weekly budget is made up of the following</h3>,
+      {
+        component: 'TextInput',
+        name: 'my_contribution',
+        width: '30',
+        label: 'My contribution (£/week to be confirmed by finance)',
+      },
+      {
+        component: 'TextInput',
+        name: 'LA_contribution',
+        width: '30',
+        label:
+          'Local Authority contribution (£/week to be confirmed by finance)',
+      },
+      {
+        component: 'TextInput',
+        name: 'other_contribution',
+        width: '30',
+        label: 'Other contribution (£/week)',
+      },
+      {
+        component: 'TextInput',
+        name: 'details_budget',
+        width: '30',
+        label: 'Details (budget)',
       },
     ],
   },
@@ -261,9 +368,25 @@ const steps = [
   },
   {
     id: '13',
-    title: '',
-    components: [{}],
-    //find out what is needed here
+    title: 'Weekly Timetable',
+    components: [
+      <p key="review">My timetable and review arrangement</p>,
+      {
+        component: 'DateInput',
+        name: 'completed_date_3',
+        label: 'Completed date (Conversation 3)',
+        rules: { required: true },
+        hint:
+          "Today's date being the submission date of this Google form - instead of authorised date",
+      },
+      {
+        component: 'TextInput',
+        name: 'total_weekly',
+        width: '30',
+        label: 'Total weekly hours (Timetable) *',
+        hint: 'Use decimal notation for part-hour',
+      },
+    ],
   },
   {
     id: 'Completedby14',
