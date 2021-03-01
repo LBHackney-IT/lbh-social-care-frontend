@@ -11,19 +11,28 @@ import { addCase } from 'utils/api/cases';
 import formAdult from 'data/forms/asc-case-notes-recording';
 import formChild from 'data/forms/cfs-case-notes-recording';
 
-const CaseNotesRecording = () => {
+import type { Resident, User } from 'types';
+
+const CaseNotesRecording = (): React.ReactElement => {
   const { query } = useRouter();
-  const { user } = useAuth();
+  const personId = query.id as string;
+  const { user } = useAuth() as { user: User };
   const onFormSubmit = useCallback(
-    (person) => async (formData) => {
+    (person: Resident) => async ({
+      form_name,
+      ...formData
+    }: Record<string, unknown>) => {
       await addCase({
-        mosaic_id: person.mosaicId,
-        first_name: person.firstName,
-        last_name: person.lastName,
-        worker_email: user.email,
-        form_name_overall:
+        personId: parseInt(person.mosaicId, 10), // TODO: needs to be fixed BE
+        firstName: person.firstName,
+        lastName: person.lastName,
+        contextFlag: person.ageContext,
+        dateOfBirth: person.dateOfBirth,
+        workerEmail: user.email,
+        formNameOverall:
           person.ageContext === 'A' ? 'ASC_case_note' : 'CFS_case_note',
-        ...formData,
+        formName: form_name,
+        caseFormData: JSON.stringify(formData),
       });
     },
     [user.email]
@@ -36,10 +45,10 @@ const CaseNotesRecording = () => {
         <h1 className="govuk-fieldset__legend--l gov-weight-lighter">
           Case note for
         </h1>
-        <PersonView personId={query.id} expandView nameSize="m">
-          {(person) => (
+        <PersonView personId={personId} expandView>
+          {(person: Resident) => (
             <FormWizard
-              formPath={`/people/${query.id}/case-notes-recording/`}
+              formPath={`/people/${personId}/case-notes-recording/`}
               formSteps={
                 person.ageContext === 'A' ? formAdult.steps : formChild.steps
               }
