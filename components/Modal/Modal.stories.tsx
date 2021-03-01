@@ -7,7 +7,7 @@ export default {
   component: Modal,
 };
 
-export const Default = () => {
+export const Default = (): React.ReactElement => {
   const [isOpen, setIsOpen] = useState(false);
   return (
     <>

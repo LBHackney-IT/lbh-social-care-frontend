@@ -1,11 +1,18 @@
-import PropTypes from 'prop-types';
+export interface Props {
+  title?: string;
+  body?: React.ReactChild;
+  links?: Array<{
+    text: string;
+    href: string;
+  }>;
+}
 
-const ErrorSummary = ({ title, body, links }) => (
+const ErrorSummary = ({ title, body, links }: Props): React.ReactElement => (
   <div
     className="govuk-error-summary"
     aria-labelledby="error-summary-title"
     role="alert"
-    tabIndex="-1"
+    tabIndex={-1}
     data-module="govuk-error-summary"
   >
     <h2 className="govuk-error-summary__title" id="error-summary-title">
@@ -25,11 +32,5 @@ const ErrorSummary = ({ title, body, links }) => (
     </div>
   </div>
 );
-
-ErrorSummary.propTypes = {
-  title: PropTypes.string,
-  body: PropTypes.node,
-  links: PropTypes.array,
-};
 
 export default ErrorSummary;
