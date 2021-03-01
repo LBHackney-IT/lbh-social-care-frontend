@@ -33,11 +33,11 @@ describe('Test Form', () => {
     cy.contains('Title').type('conditional step title');
     cy.contains('Continue').click();
 
-    cy.url().should('include', '/form/test/last-step');
+    cy.url().should('include', '/form/test/multi-step');
     cy.contains('Multi Step').should('be.visible');
     cy.contains('Title').type('foo first');
     cy.contains('Add Another').click();
-    cy.url().should('include', '/form/test/last-step/2');
+    cy.url().should('include', '/form/test/multi-step/2');
     cy.contains('Multi Step').should('be.visible');
     cy.contains('Title').type('foo second');
     cy.contains('Continue').click();
@@ -58,8 +58,9 @@ describe('Test Form', () => {
         show_next_step: true,
         show_object_step: false,
         show_multi_select_step: false,
+        show_address_step: false,
         conditional_text: 'conditional name',
-        'last-step': [{ title_3: 'foo first' }, { title_3: 'foo second' }],
+        'multi-step': [{ title_3: 'foo first' }, { title_3: 'foo second' }],
         title_2: 'conditional step title',
       });
     });

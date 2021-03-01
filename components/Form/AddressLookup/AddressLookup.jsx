@@ -9,6 +9,15 @@ import { Select, TextInput } from 'components/Form';
 import Button from 'components/Button/Button';
 import { lookupPostcode } from 'utils/api/postcodeAPI';
 
+export const defaultValidation = ({ required = false } = {}) => ({
+  address: (value) =>
+    !required || value?.address?.length > 0 || 'You must enter an address',
+  postcode: (value) =>
+    (!required && (value?.postcode === '' || !value?.postcode)) ||
+    (value?.postcode && isPostcodeValid(value?.postcode)) ||
+    'You must enter a valid postcode',
+});
+
 const AddressBox = ({ name, disabled, value, onChange }) => {
   const [address, setAddress] = useState(value || {});
   const setNewAddress = useCallback(
@@ -164,14 +173,7 @@ const AddressLookup = ({
         rules={{
           ...rules,
           validate: {
-            address: (value) =>
-              !rules?.required ||
-              value?.address.length > 0 ||
-              'You must enter an address',
-            postcode: (value) =>
-              (!rules?.required && value?.postcode === '') ||
-              (value?.postcode && isPostcodeValid(value.postcode)) ||
-              'You must enter a valid postcode',
+            ...defaultValidation(rules),
             ...rules?.validate,
           },
         }}

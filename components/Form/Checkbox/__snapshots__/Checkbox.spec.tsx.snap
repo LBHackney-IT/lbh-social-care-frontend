@@ -1,0 +1,91 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Checkbox should render properly - as Checkbox 1`] = `
+<DocumentFragment>
+  <div
+    class="govuk-form-group"
+  >
+    <fieldset
+      class="govuk-fieldset"
+    >
+      <legend
+        class="govuk-fieldset__legend govuk-fieldset__legend--m"
+      >
+        My Checkbox 
+      </legend>
+      <div
+        class="govuk-checkboxes"
+      >
+        <div
+          class="govuk-checkboxes__item"
+        >
+          <input
+            class="govuk-checkboxes__input"
+            id="my-checkbox"
+            name="my-checkbox"
+            type="checkbox"
+            value="foo"
+          />
+          <label
+            class="govuk-label govuk-checkboxes__label"
+            for="my-checkbox"
+          >
+            Foo 
+          </label>
+        </div>
+        <div
+          class="govuk-checkboxes__item"
+        >
+          <input
+            class="govuk-checkboxes__input"
+            id="my-checkbox"
+            name="my-checkbox"
+            type="checkbox"
+            value="bar"
+          />
+          <label
+            class="govuk-label govuk-checkboxes__label"
+            for="my-checkbox"
+          >
+            Bar 
+          </label>
+        </div>
+      </div>
+    </fieldset>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`Checkbox should render properly - as Tickbox 1`] = `
+<DocumentFragment>
+  <div
+    class="govuk-form-group"
+  >
+    <fieldset
+      class="govuk-fieldset"
+    >
+      <div
+        class="govuk-checkboxes"
+      >
+        <div
+          class="govuk-checkboxes__item"
+        >
+          <input
+            class="govuk-checkboxes__input"
+            id="my-checkbox"
+            name="my-checkbox"
+            type="checkbox"
+            value=""
+          />
+          <label
+            class="govuk-label govuk-checkboxes__label"
+            for="my-checkbox"
+          >
+            My Checkbox 
+          </label>
+        </div>
+      </div>
+    </fieldset>
+  </div>
+</DocumentFragment>
+`;

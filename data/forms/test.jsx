@@ -58,21 +58,33 @@ export default {
         },
         {
           component: 'Checkbox',
+          name: 'multi_checkbox',
+          label: 'This is a multi checkbox',
+          options: [
+            { value: '1', text: 'Foo' },
+            { value: '2', text: 'Bar' },
+            { value: '3', text: 'Foobar' },
+          ],
+        },
+        {
+          component: 'Checkbox',
           name: 'show_next_step',
-          width: '30',
           label: 'Show next step',
         },
         {
           component: 'Checkbox',
           name: 'show_multi_select_step',
-          width: '30',
           label: 'Show multi-select step',
         },
         {
           component: 'Checkbox',
           name: 'show_object_step',
-          width: '30',
           label: 'Show object step',
+        },
+        {
+          component: 'Checkbox',
+          name: 'show_address_step',
+          label: 'Show Address Lookup step',
         },
       ],
     },
@@ -96,7 +108,7 @@ export default {
       components: [
         {
           component: 'TextInput',
-          name: 'title_2',
+          name: 'title_object',
           width: '30',
           label: 'Title',
           isMulti: true,
@@ -127,6 +139,18 @@ export default {
       ],
     },
     {
+      id: 'address-step',
+      title: 'Address Lookup Step',
+      conditionalRender: ({ show_address_step }) => show_address_step === true,
+      components: [
+        {
+          component: 'AddressLookup',
+          name: 'address',
+          label: 'Address',
+        },
+      ],
+    },
+    {
       id: 'multi-select-step',
       title: 'Multi Select Step',
       conditionalRender: ({ show_multi_select_step }) =>
@@ -147,7 +171,7 @@ export default {
       ],
     },
     {
-      id: 'last-step',
+      id: 'multi-step',
       title: 'Multi Step',
       isMulti: true,
       components: [
