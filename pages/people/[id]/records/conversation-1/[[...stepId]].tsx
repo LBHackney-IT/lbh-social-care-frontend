@@ -7,7 +7,7 @@ import { useAuth } from 'components/UserContext/UserContext';
 import BackButton from 'components/Layout/BackButton/BackButton';
 import FormWizard from 'components/FormWizard/FormWizard';
 import ErrorMessage from 'components/ErrorMessage/ErrorMessage';
-import { addCase } from 'utils/api/cases';
+// import { addCase } from 'utils/api/cases';
 
 import formSteps from 'data/forms/asc-conversation-1';
 
@@ -19,8 +19,17 @@ const CaseNotesRecording = (): ReactElement => {
   const { query } = useRouter();
   const { user } = useAuth() as { user: User };
   const onFormSubmit = useCallback(
-    (person) => async (formData: FormData) =>
-      await addCase({
+    // (person) => async (formData: FormData) =>
+    //   await addCase({
+    //     mosaic_id: person.mosaicId,
+    //     first_name: person.firstName,
+    //     last_name: person.lastName,
+    //     worker_email: user.email,
+    //     form_name: 'ASC_conv1',
+    //     ...formData,
+    //   }),
+    (person) => (formData: FormData) =>
+      console.log({
         mosaic_id: person.mosaicId,
         first_name: person.firstName,
         last_name: person.lastName,
