@@ -1,20 +1,17 @@
 import axios from 'axios';
 
-import { useAuth } from 'components/UserContext/UserContext';
 import FormWizard from 'components/FormWizard/FormWizard';
 
 import form from 'data/forms/test';
 
-const TestForm = () => {
-  const { user } = useAuth();
-  const onFormSubmit = async (formData) =>
+const TestForm = (): React.ReactElement => {
+  const onFormSubmit = async (formData: Record<string, unknown>) =>
     await axios.post('/api/test', formData);
   return (
     <FormWizard
       formPath={form.path}
       formSteps={form.steps}
       title={form.title}
-      defaultValues={{ user, ...form.defaultValues }}
       onFormSubmit={onFormSubmit}
       successMessage={form.successMessage}
     />

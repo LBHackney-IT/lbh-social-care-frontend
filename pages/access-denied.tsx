@@ -1,6 +1,6 @@
 import { NextSeo } from 'next-seo';
 
-const AccessDenied = () => (
+const AccessDenied = (): React.ReactElement => (
   <>
     <NextSeo title="Access Denied" noindex={true} />
     <h1>Access denied</h1>

@@ -3,7 +3,12 @@ import { NextSeo } from 'next-seo';
 
 import { getProtocol } from 'utils/urls';
 
-const AdminLoginPage = ({ gssoUrl, returnUrl }) => (
+interface Props {
+  gssoUrl: string;
+  returnUrl: string;
+}
+
+const AdminLoginPage = ({ gssoUrl, returnUrl }: Props): React.ReactElement => (
   <>
     <NextSeo title="Log In" noindex />
     <h1>Login</h1>
