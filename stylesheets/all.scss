@@ -78,6 +78,14 @@ $screen-sm-min: 576px;
   cursor: pointer;
 }
 
+.clear-icon {
+  width: 15px;
+  height: 15px;
+  top: 7px;
+  position: relative;
+  cursor: pointer;
+}
+
 .ReactModal__Body--open {
   overflow: hidden;
 }

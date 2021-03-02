@@ -1,4 +1,5 @@
 import AddressLookup from './AddressLookup/AddressLookup';
+import Autocomplete from './Autocomplete/Autocomplete';
 import Checkbox from './Checkbox/Checkbox';
 import DateInput from './DateInput/DateInput';
 import DatePicker from './DatePicker/DatePicker';
@@ -13,6 +14,7 @@ import ObjectInput from './ObjectInput/ObjectInput';
 
 export {
   AddressLookup,
+  Autocomplete,
   Checkbox,
   DateInput,
   DatePicker,

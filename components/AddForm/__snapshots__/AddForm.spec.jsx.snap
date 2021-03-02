@@ -3,41 +3,74 @@
 exports[`AddForm component should render children forms 1`] = `
 <DocumentFragment>
   <div
-    class="govuk-grid-row"
+    class="govuk-form-group"
   >
     <div
-      class="govuk-form-group govuk-grid-column-one-half"
+      class="govuk-form-group govuk-grid-column-undefined"
     >
       <label
         class="govuk-label govuk-label--m"
-        for="category"
+        for="formList"
       >
-        Choose a form category 
+        Choose a form 
       </label>
-      <select
-        class="govuk-select width-override-30"
-        data-testid="category"
-        id="category"
-        name="category"
-        style="width: 100%;"
+      <div
+        aria-expanded="true"
+        aria-haspopup="listbox"
+        aria-labelledby="downshift-1-label"
+        aria-owns="downshift-1-menu"
+        class="inputContainer"
+        role="combobox"
       >
-        <option
+        <input
+          aria-autocomplete="list"
+          aria-controls="downshift-1-menu"
+          aria-labelledby="downshift-1-label"
+          autocomplete="off"
+          class="govuk-input govuk-input--width-20"
+          data-testid="formList"
+          id="formList"
+          name="formList.autocomplete"
+          placeholder="Select or search for a value"
+          style="border-color: #000;"
           value=""
+        />
+      </div>
+      <ul
+        aria-labelledby="downshift-1-label"
+        class="suggestionList"
+        id="downshift-1-menu"
+        role="listbox"
+        style="border-bottom: 1px solid #aaa;"
+      >
+        <li
+          aria-selected="false"
+          class="suggestion"
+          data-testid="formList_0"
+          id="downshift-1-item-0"
+          role="option"
+          style="color: rgb(0, 0, 0); background-color: rgb(255, 255, 255); font-weight: normal;"
         >
-          Choose one
-        </option>
-        <option
-          value="General"
+          Bar - Child
+        </li>
+        <li
+          aria-selected="false"
+          class="suggestion"
+          data-testid="formList_1"
+          id="downshift-1-item-1"
+          role="option"
+          style="color: rgb(0, 0, 0); background-color: rgb(255, 255, 255); font-weight: normal;"
         >
-          General
-        </option>
-        <option
-          value="FAST"
-        >
-          FAST
-        </option>
-      </select>
+          Foo - Child
+        </li>
+      </ul>
     </div>
   </div>
+  <button
+    class="govuk-button"
+    data-module="govuk-button"
+  >
+    Load form
+  </button>
 </DocumentFragment>
 `;

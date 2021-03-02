@@ -1,7 +1,34 @@
-import { render, waitFor, fireEvent } from '@testing-library/react';
+import { render, fireEvent, act } from '@testing-library/react';
 
 import AddForm from './AddForm';
 import { UserContext } from 'components/UserContext/UserContext';
+
+jest.mock('data/googleForms/adultForms', () => [
+  {
+    text: 'Foo - Adult',
+    value: 'https://foo.com',
+    category: 'General',
+    id: 'foo_adult',
+  },
+  {
+    text: 'Bar - Adult',
+    value: 'https://foo.com',
+    category: 'General',
+  },
+]);
+
+jest.mock('data/googleForms/childForms', () => [
+  {
+    text: 'Foo - Child',
+    value: 'https://foo.com',
+    category: 'General',
+  },
+  {
+    text: 'Bar - Child',
+    value: 'https://foo.com',
+    category: 'General',
+  },
+]);
 
 describe('AddForm component', () => {
   it('should render adult forms', async () => {
@@ -13,7 +40,7 @@ describe('AddForm component', () => {
         ageContext: 'A',
       },
     };
-    const { getByTestId, getByText, getByRole } = render(
+    const { getByTestId, getByRole } = render(
       <UserContext.Provider
         value={{
           user: { name: 'Nom', email: 'i am the email' },
@@ -23,16 +50,17 @@ describe('AddForm component', () => {
       </UserContext.Provider>
     );
 
-    await waitFor(() => {
-      getByTestId('category');
+    const autocompleteInput = await getByTestId('formList');
+
+    expect(autocompleteInput).toBeInTheDocument();
+    await act(async () => {
+      fireEvent.click(autocompleteInput);
     });
-    fireEvent.change(getByTestId('category'), {
-      target: { value: 'Occupational Therapy and Mobility' },
+
+    await act(async () => {
+      fireEvent.click(getByRole('option', { name: 'Bar - Adult' }));
     });
-    expect(
-      getByText('Occupational Therapy and Mobility').selected
-    ).toBeTruthy();
-    expect(getByRole('option', { name: 'Freedom Pass' })).toBeInTheDocument();
+    expect(autocompleteInput.value).toBe('Bar - Adult');
   });
 
   it('should render children forms', async () => {
@@ -44,7 +72,7 @@ describe('AddForm component', () => {
         ageContext: 'C',
       },
     };
-    const { getByRole, asFragment, getByText, getByTestId } = render(
+    const { getByRole, asFragment, getByTestId } = render(
       <UserContext.Provider
         value={{
           user: { name: 'Nom', email: 'i am the email' },
@@ -54,12 +82,17 @@ describe('AddForm component', () => {
       </UserContext.Provider>
     );
 
-    await waitFor(() => {
-      getByTestId('category');
+    const autocompleteInput = await getByTestId('formList');
+
+    expect(autocompleteInput).toBeInTheDocument();
+    await act(async () => {
+      fireEvent.click(autocompleteInput);
     });
     expect(asFragment()).toMatchSnapshot();
-    fireEvent.change(getByTestId('category'), { target: { value: 'General' } });
-    expect(getByText('General').selected).toBeTruthy();
-    expect(getByRole('option', { name: 'CFS Visit' })).toBeInTheDocument();
+
+    await act(async () => {
+      fireEvent.click(getByRole('option', { name: 'Foo - Child' }));
+    });
+    expect(autocompleteInput.value).toBe('Foo - Child');
   });
 });
