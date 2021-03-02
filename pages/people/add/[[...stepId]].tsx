@@ -29,6 +29,7 @@ const CreateNewPerson = (): React.ReactElement => {
       formSteps={form.steps}
       title={form.title}
       onFormSubmit={onFormSubmit}
+      defaultValues={{ user }}
       successMessage={form.successMessage}
       customConfirmation={CustomConfirmation}
     />
