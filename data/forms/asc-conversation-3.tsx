@@ -1,5 +1,6 @@
 import TENURETYPES from 'data/tenureTypes';
 import SUPPORTREASON from 'data/supportReason';
+import PROFESSIONS from 'data/professions';
 
 const steps = [
   {
@@ -312,7 +313,109 @@ const steps = [
             hint:
               'Submission date of this Google form - instead of authorised date',
           },
-          //find out what is needed here
+          <h3 key="budget_sub_heading">Budget Spending Plan Guidance</h3>,
+          <p key="gross_weekly">
+            Calculate gross weekly cost of all resources approved (excluding top
+            ups). Do not include symbols or commas in the figures entered.
+          </p>,
+          {
+            component: 'Checkbox',
+            name: 'desired_outcome_options',
+            label: 'Desired outcome options',
+            options: [
+              { value: '1', text: ' Maintain a habitable home environment' },
+              { value: '2', text: 'Manage and maintain nutrition' },
+              { value: '3', text: 'Manage toilet needs' },
+              { value: '4', text: 'Maintain personal hygiene' },
+              { value: '5', text: 'Be appropriately clothed' },
+              {
+                value: '6',
+                text:
+                  'Develop and maintain family or other personal relationships',
+              },
+              {
+                value: '7',
+                text:
+                  'Make use of necessary facilities or services in local community',
+              },
+              {
+                value: '8',
+                text:
+                  'Access and engage in work, training, education or volunteering',
+              },
+              {
+                value: '9',
+                text: 'Carry out any caring responsibilities for a child',
+              },
+              { value: '10', text: 'Be able to make use of your home safely' },
+            ],
+          },
+          {
+            component: 'Checkbox',
+            name: 'show_next_step',
+            label: 'Show next step',
+          },
+          <p key="options">
+            Who by options (Who will be responsible to do this):
+            <ul>
+              <li>By myself</li>
+              <li>By family </li>
+              <li> friend </li>
+              <li>carer </li>
+              <li>By support from a community group</li>
+              <li> By support from a health professional</li>
+              <li> By provision of equipment </li>
+              <li>Major Adaptation </li>
+              <li>By provision of domiciliary care </li>
+              <li>By provision of Direct Payment </li>
+              <li>By Housing with Care By respite </li>
+              <li>By a day service</li>
+              <li> By support from housing</li>
+              <li>By support from Children’s services</li>
+            </ul>
+          </p>,
+          {
+            component: 'TextArea',
+            name: 'budget_desired_outcome',
+            width: '30',
+            label: 'Budget Spending Plan: Desired Outcome',
+            hint: 'Select from options above for each numbered row',
+          },
+          {
+            component: 'TextArea',
+            name: 'budget_spending_plan',
+            label: 'Budget Spending Plan: How this will be achieved',
+          },
+          {
+            component: 'TextArea',
+            name: 'budget_spending_plan_who',
+            label: 'Budget Spending Plan: Who by',
+          },
+          {
+            component: 'TextArea',
+            name: 'budget_spending_plan_often',
+            label: 'Budget Spending Plan: How often',
+          },
+          {
+            component: 'TextArea',
+            name: 'budget_spending_plan_cost',
+            label: 'Budget Spending Plan: Weekly cost £',
+          },
+          {
+            component: 'TextArea',
+            name: 'budget_spending_plan_cost_yearly',
+            label: 'Budget Spending Plan: Yearly cost £',
+          },
+          {
+            component: 'DateInput',
+            name: 'budget_spending_plan_start_date',
+            label: 'Budget Spending Plan:  Start Date',
+          },
+          {
+            component: 'DateInput',
+            name: 'budget_spending_plan_end_date',
+            label: 'Budget Spending Plan:  End Date',
+          },
         ],
       },
       {
@@ -359,9 +462,56 @@ const steps = [
       },
       {
         id: '13',
-        title: '',
-        components: [{}],
-        //find out what is needed here
+        title: 'Weekly Timetable',
+        components: [
+          {
+            component: 'DatePicker',
+            name: 'date_of_timetable',
+            label: 'Date of Timetable',
+            hint:
+              "Today's date, being the submission date of this Google form  instead of authorised date",
+            rules: { required: true },
+          },
+          {
+            component: 'NumberInput',
+            name: 'total_weekly_hours',
+            width: '10',
+            label: 'Total weekly hours (Timetable)',
+            hint: '(Use decimal notation for part-hours)',
+            rules: { required: true },
+          },
+          {
+            component: 'TextInput',
+            name: 'other_£',
+            width: '30',
+            label: 'Other (£/Week)',
+          },
+          <h3 key="weekly_ttable">My Weekly Timetable</h3>,
+          <p key="replaces_a_table">
+            Replaces a table - please number each row and use the same number
+            across all of the fields below
+          </p>,
+          {
+            component: 'Select',
+            name: 'day_options',
+            label: 'Day Options',
+            options: [
+              'Monday',
+              'Tuesday',
+              'Wednesday',
+              'Thursday',
+              'Friday',
+              'Saturday',
+              'Sunday',
+            ],
+          },
+          {
+            component: 'TextInput',
+            name: 'details_of_weekly_timetable',
+            width: '30',
+            label: 'List details of my weekly timetable',
+          },
+        ],
       },
       {
         id: 'Completedby14',
@@ -374,6 +524,12 @@ const steps = [
             rules: { required: true },
           },
           //find out what is needed here
+          {
+            component: 'Select',
+            name: 'other_professionals_involved',
+            label: 'Other professionals involved',
+            options: PROFESSIONS,
+          },
         ],
       },
       {
