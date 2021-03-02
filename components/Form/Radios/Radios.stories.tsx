@@ -1,3 +1,7 @@
+import { Story } from '@storybook/react';
+
+import { Radios as Args } from 'components/Form/types';
+
 import Radios from './Radios';
 
 export default {
@@ -5,7 +9,7 @@ export default {
   component: Radios,
 };
 
-const Template = (args) => <Radios {...args} />;
+const Template: Story<Args> = (args) => <Radios {...args} />;
 
 export const Default = Template.bind({});
 Default.args = {

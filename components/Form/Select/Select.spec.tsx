@@ -20,7 +20,11 @@ describe('Select component', () => {
     const { getByRole, getByTestId } = render(<Select {...props} />);
 
     fireEvent.change(getByTestId('foo_select'), { target: { value: 'foo' } });
-    expect(getByRole('option', { name: 'foo' }).selected).toBeTruthy();
-    expect(getByRole('option', { name: 'bar' }).selected).toBeFalsy();
+    expect(
+      (getByRole('option', { name: 'foo' }) as HTMLOptionElement).selected
+    ).toBeTruthy();
+    expect(
+      (getByRole('option', { name: 'bar' }) as HTMLOptionElement).selected
+    ).toBeFalsy();
   });
 });

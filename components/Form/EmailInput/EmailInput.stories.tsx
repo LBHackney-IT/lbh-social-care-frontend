@@ -1,3 +1,7 @@
+import { Story } from '@storybook/react';
+
+import { TextInputNoType } from 'components/Form/types';
+
 import EmailInput from './EmailInput';
 
 export default {
@@ -5,7 +9,7 @@ export default {
   component: EmailInput,
 };
 
-const Template = (args) => <EmailInput {...args} />;
+const Template: Story<TextInputNoType> = (args) => <EmailInput {...args} />;
 
 export const Default = Template.bind({});
 Default.args = {

@@ -1,9 +1,16 @@
-import PropTypes from 'prop-types';
 import cx from 'classnames';
+import { Control, ErrorOption } from 'react-hook-form';
 
+import { ObjectInput as Props } from 'components/Form/types';
 import DynamicInput from 'components/FormWizard/DynamicInput';
 
 import styles from './ObjectInput.module.scss';
+
+export interface DynamicComponent extends Props {
+  currentData: Record<string, unknown>;
+  control: Control;
+  errors: ErrorOption;
+}
 
 const ObjectInput = ({
   label,
@@ -12,11 +19,11 @@ const ObjectInput = ({
   labelSize = 'm',
   isInline,
   // this props is used for UI purpose in the summary
-  // eslint-disable-next-line no-unused-vars
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   summaryInline,
   components,
   ...otherProps
-}) => (
+}: DynamicComponent): React.ReactElement => (
   <div className="govuk-form-group govuk-!-margin-bottom-0">
     <label className={`govuk-label govuk-label--${labelSize}`}>{label}</label>
     {hint && (
@@ -37,15 +44,5 @@ const ObjectInput = ({
     </div>
   </div>
 );
-
-ObjectInput.propTypes = {
-  label: PropTypes.string,
-  labelSize: PropTypes.oneOf(['s', 'm', 'l', 'xl']),
-  isInline: PropTypes.bool,
-  summaryInline: PropTypes.bool,
-  hint: PropTypes.string,
-  name: PropTypes.string.isRequired,
-  components: PropTypes.array.isRequired,
-};
 
 export default ObjectInput;

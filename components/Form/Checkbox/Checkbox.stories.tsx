@@ -1,7 +1,7 @@
 import { Story } from '@storybook/react';
 
 import Checkbox from './Checkbox';
-import type { Checkbox as Args } from './Checkbox';
+import type { Checkbox as Args } from 'components/Form/types';
 
 export default {
   title: 'Form Components/Checkbox',

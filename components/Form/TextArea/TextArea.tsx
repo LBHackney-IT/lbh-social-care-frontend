@@ -1,5 +1,6 @@
-import PropTypes from 'prop-types';
 import cx from 'classnames';
+
+import type { TextArea as Props } from 'components/Form/types';
 
 const TextArea = ({
   label,
@@ -10,8 +11,9 @@ const TextArea = ({
   register,
   width,
   rules,
+  rows = 5,
   ...otherProps
-}) => (
+}: Props): React.ReactElement => (
   <div
     className={cx('govuk-form-group', {
       'govuk-form-group--error': Boolean(error),
@@ -39,26 +41,12 @@ const TextArea = ({
       })}
       id={name}
       name={name}
-      rows="5"
+      rows={rows}
       aria-describedby={`${name}-hint ${name}-error`}
       ref={rules ? register?.(rules) : register}
       {...otherProps}
     />
   </div>
 );
-
-TextArea.propTypes = {
-  rules: PropTypes.shape(),
-  label: PropTypes.string,
-  labelSize: PropTypes.oneOf(['s', 'm', 'l', 'xl']),
-  hint: PropTypes.string,
-  name: PropTypes.string.isRequired,
-  width: PropTypes.string,
-  register: PropTypes.func,
-  required: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
-  error: PropTypes.shape({
-    message: PropTypes.string.isRequired,
-  }),
-};
 
 export default TextArea;

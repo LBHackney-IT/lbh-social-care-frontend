@@ -1,20 +1,28 @@
-import PropTypes from 'prop-types';
 import cx from 'classnames';
 import Router from 'next/router';
 
-const handleLink = (url) => window.open(url, '_blank');
+const handleLink = (url: string) => window.open(url, '_blank');
+
+interface Props extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+  label: React.ReactNode;
+  onClick?: () => unknown;
+  isSecondary?: boolean;
+  className?: string;
+  route?: string;
+  internalQuery?: string;
+  wideButton?: boolean;
+}
 
 const Button = ({
   onClick,
   label,
-  type,
   isSecondary,
   className,
   route,
   internalQuery,
   wideButton,
   ...otherProps
-}) => {
+}: Props): React.ReactElement => {
   const isExternal = route && route.includes('https://');
   const handleClick = () => {
     onClick?.();
@@ -25,7 +33,7 @@ const Button = ({
   };
   return (
     <button
-      style={wideButton ? { minWidth: '200px' } : null}
+      style={wideButton ? { minWidth: '200px' } : {}}
       className={cx(
         'govuk-button',
         {
@@ -35,23 +43,11 @@ const Button = ({
       )}
       data-module="govuk-button"
       onClick={handleClick}
-      type={type}
       {...otherProps}
     >
       {label}
     </button>
   );
-};
-
-Button.propTypes = {
-  onClick: PropTypes.func,
-  label: PropTypes.node.isRequired,
-  type: PropTypes.string,
-  isSecondary: PropTypes.bool,
-  className: PropTypes.string,
-  route: PropTypes.string,
-  internalQuery: PropTypes.string,
-  wideButton: PropTypes.bool,
 };
 
 export default Button;

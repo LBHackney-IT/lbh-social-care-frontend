@@ -1,3 +1,7 @@
+import { Story } from '@storybook/react';
+
+import { Select as Args } from 'components/Form/types';
+
 import Select from './Select';
 
 export default {
@@ -5,7 +9,7 @@ export default {
   component: Select,
 };
 
-const Template = (args) => <Select {...args} />;
+const Template: Story<Args> = (args) => <Select {...args} />;
 
 export const Default = Template.bind({});
 Default.args = {

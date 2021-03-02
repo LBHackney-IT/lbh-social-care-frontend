@@ -1,7 +1,6 @@
 import { useState, useCallback, useRef } from 'react';
-import PropTypes from 'prop-types';
 import cx from 'classnames';
-import { Controller } from 'react-hook-form';
+import { Controller, Control } from 'react-hook-form';
 import isPostcodeValid from 'uk-postcode-validator';
 
 import ErrorMessage from 'components/ErrorMessage/ErrorMessage';
@@ -9,19 +8,49 @@ import { Select, TextInput } from 'components/Form';
 import Button from 'components/Button/Button';
 import { lookupPostcode } from 'utils/api/postcodeAPI';
 
-export const defaultValidation = ({ required = false } = {}) => ({
+import { Address } from 'types';
+import { AddressLookup as IAddressLookup } from 'components/Form/types';
+
+interface AddressBox {
+  name: string;
+  onChange: (arg0: { uprn: null; address?: string; postcode?: string }) => void;
+  value: {
+    address: string;
+    postcode: string;
+  };
+  disabled: boolean;
+}
+
+interface Props extends IAddressLookup {
+  control: Control;
+}
+
+export const defaultValidation = ({
+  required = false,
+}: IAddressLookup['rules'] = {}): {
+  address: (
+    arg0?: Partial<AddressBox['value']>
+  ) => true | 'You must enter an address';
+  postcode: (
+    arg0?: Partial<AddressBox['value']>
+  ) => true | 'You must enter a valid postcode';
+} => ({
   address: (value) =>
-    !required || value?.address?.length > 0 || 'You must enter an address',
+    !required ||
+    (value?.address?.length && value.address.length > 0) ||
+    'You must enter an address',
   postcode: (value) =>
     (!required && (value?.postcode === '' || !value?.postcode)) ||
     (value?.postcode && isPostcodeValid(value?.postcode)) ||
     'You must enter a valid postcode',
 });
 
-const AddressBox = ({ name, disabled, value, onChange }) => {
+const AddressBox = ({ name, disabled, value, onChange }: AddressBox) => {
   const [address, setAddress] = useState(value || {});
   const setNewAddress = useCallback(
-    (inputName) => ({ target: { value } }) => {
+    (inputName) => ({
+      target: { value },
+    }: React.ChangeEvent<HTMLInputElement>) => {
       const newAddress = { ...address, uprn: null, [inputName]: value };
       setAddress(newAddress);
       onChange(newAddress);
@@ -32,7 +61,7 @@ const AddressBox = ({ name, disabled, value, onChange }) => {
     <div className="govuk-!-margin-top-5">
       <TextInput
         label="Address"
-        width="30"
+        width={30}
         name={`${name}.address`}
         defaultValue={address.address}
         onChange={setNewAddress('address')}
@@ -42,7 +71,7 @@ const AddressBox = ({ name, disabled, value, onChange }) => {
         <TextInput
           label="Postcode"
           name={`${name}.postcode`}
-          width="10"
+          width={10}
           defaultValue={address.postcode}
           onChange={setNewAddress('postcode')}
           disabled={disabled}
@@ -50,16 +79,6 @@ const AddressBox = ({ name, disabled, value, onChange }) => {
       )}
     </div>
   );
-};
-
-AddressBox.propTypes = {
-  name: PropTypes.string.isRequired,
-  onChange: PropTypes.func.isRequired,
-  value: PropTypes.shape({
-    address: PropTypes.string,
-    postcode: PropTypes.string,
-  }),
-  disabled: PropTypes.bool,
 };
 
 const AddressLookup = ({
@@ -71,15 +90,15 @@ const AddressLookup = ({
   supportManualEntry = true,
   required,
   rules,
-}) => {
-  const inputRef = useRef();
+}: Props): React.ReactElement => {
+  const inputRef = useRef<HTMLInputElement>(null);
   const defaultValue = control.defaultValuesRef.current[name];
   const [postcode, setPostcode] = useState(
     defaultValue && defaultValue.postcode
   );
-  const [results, setResults] = useState([]);
-  const [isManually, setIsManually] = useState();
-  const [error, setError] = useState();
+  const [results, setResults] = useState<Address[]>([]);
+  const [isManually, setIsManually] = useState<boolean>();
+  const [error, setError] = useState<string>();
   const searchPostcode = useCallback(async () => {
     control.setValue(`address`, null);
     if (!postcode || !isPostcodeValid(postcode)) {
@@ -87,7 +106,7 @@ const AddressLookup = ({
       return;
     }
     setIsManually(false);
-    setError(false);
+    setError(undefined);
     setResults([]);
     try {
       const res = await lookupPostcode(postcode);
@@ -166,7 +185,9 @@ const AddressLookup = ({
               value={value}
               onChange={(value) => onChange(value)}
             />
-          ) : null
+          ) : (
+            <></>
+          )
         }
         control={control}
         name={name}
@@ -178,7 +199,7 @@ const AddressLookup = ({
           },
         }}
         defaultValue={control.defaultValuesRef.current[name] || null}
-        onFocus={() => inputRef.current.focus()}
+        onFocus={() => inputRef.current?.focus()}
       />
       {(error || errorMessage) && (
         <ErrorMessage
@@ -188,20 +209,6 @@ const AddressLookup = ({
       )}
     </div>
   );
-};
-
-AddressLookup.propTypes = {
-  name: PropTypes.string.isRequired,
-  label: PropTypes.string.isRequired,
-  hint: PropTypes.string,
-  rules: PropTypes.shape({
-    required: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
-    validate: PropTypes.object,
-  }),
-  required: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
-  control: PropTypes.object.isRequired,
-  supportManualEntry: PropTypes.bool,
-  error: PropTypes.shape({ message: PropTypes.string.isRequired }),
 };
 
 export default AddressLookup;
