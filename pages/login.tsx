@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
-import { NextSeo } from 'next-seo';
 
+import Seo from 'components/Layout/Seo/Seo';
 import { getProtocol } from 'utils/urls';
 
 interface Props {
@@ -10,7 +10,7 @@ interface Props {
 
 const AdminLoginPage = ({ gssoUrl, returnUrl }: Props): React.ReactElement => (
   <>
-    <NextSeo title="Log In" noindex />
+    <Seo title="Log In" />
     <h1>Login</h1>
     <p className="govuk-body">Please log in with your Hackney email account.</p>
     <div>

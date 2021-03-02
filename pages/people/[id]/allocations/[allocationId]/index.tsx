@@ -1,6 +1,6 @@
-import { NextSeo } from 'next-seo';
 import { useRouter } from 'next/router';
 
+import Seo from 'components/Layout/Seo/Seo';
 import AllocationRecap from 'components/AllocatedWorkers/AllocationRecap/AllocationRecap';
 import BackButton from 'components/Layout/BackButton/BackButton';
 
@@ -10,7 +10,7 @@ const AllocationPage = (): React.ReactElement => {
   } = useRouter();
   return (
     <>
-      <NextSeo title={`#${id} Allocation`} noindex />
+      <Seo title={`#${id} Allocation`} />
       <BackButton />
       <AllocationRecap
         personId={id as string}

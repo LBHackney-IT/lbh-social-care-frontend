@@ -1,6 +1,6 @@
-import { NextSeo } from 'next-seo';
 import { useRouter } from 'next/router';
 
+import Seo from 'components/Layout/Seo/Seo';
 import BackButton from 'components/Layout/BackButton/BackButton';
 import PersonView from 'components/PersonView/PersonView';
 import Cases from 'components/Cases/Cases';
@@ -12,7 +12,7 @@ const PersonPage = (): React.ReactElement => {
   const personId = query.id as string;
   return (
     <div>
-      <NextSeo title={`#${personId} Cases`} noindex />
+      <Seo title={`#${query.id} Cases`} />
       <BackButton />
       <PersonView personId={personId}>
         {(person: Resident) => (
