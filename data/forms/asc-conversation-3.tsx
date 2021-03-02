@@ -292,6 +292,273 @@ const steps: FormStep[] = [
         name: 'details_manage_nutrition',
         label: 'Details (Manage and maintain nutrition)',
       },
+      {
+        component: 'Radios',
+        name: 'manage_toilet_needs',
+        label:
+          'Can you "Manage toilet needs" alone within within a reasonable time and without significant pain, distress, anxiety or risk to yourself or others?',
+        options: ['Yes', 'No'],
+      },
+      {
+        component: 'TextArea',
+        name: 'details_manage_toilet',
+        label: 'Details (Manage toilet needs)',
+      },
+      {
+        component: 'Radios',
+        name: 'maintain_personal_hygiene',
+        label:
+          'Can you "Maintain personal hygiene" alone within within a reasonable time and without significant pain, distress, anxiety or risk to yourself or others?',
+        options: ['Yes', 'No'],
+      },
+      {
+        component: 'TextArea',
+        name: 'details_maintain_hygiene',
+        label: 'Details (Maintain personal hygiene)',
+      },
+      {
+        component: 'Radios',
+        name: 'maintain_personal_hygiene',
+        label:
+          'Can you "Be appropriately clothed" alone within within a reasonable time and without significant pain, distress, anxiety or risk to yourself or others?',
+        options: ['Yes', 'No'],
+      },
+      {
+        component: 'TextArea',
+        name: 'details_appropriate_clothed',
+        label: 'Details (Be appropriately clothed)',
+      },
+      {
+        component: 'Radios',
+        name: 'maintain_relationships',
+        label:
+          'Can you "Develop and maintain family or other personal relationships" alone within within a reasonable time and without significant pain, distress, anxiety or risk to yourself or others?',
+        options: ['Yes', 'No'],
+      },
+      {
+        component: 'TextArea',
+        name: 'details_maintain_relationships',
+        label:
+          'Details (Develop and maintain family or other personal relationships)',
+      },
+      {
+        component: 'Radios',
+        name: 'use_necessary_facilities',
+        label:
+          'Can you "Make use of necessary facilities or services in the local community (including public transport and recreational facilities/services)" alone within within a reasonable time and without significant pain, distress, anxiety or risk to yourself or others?',
+        options: ['Yes', 'No'],
+      },
+      {
+        component: 'TextArea',
+        name: 'details_necessary_facilities',
+        label:
+          'Details (Make use of necessary facilities or services in the local community)',
+      },
+      {
+        component: 'Radios',
+        name: 'access_work_alone',
+        label:
+          'Can you "Access and engage in work, training, education or volunteering" alone within within a reasonable time and without significant pain, distress, anxiety or risk to yourself or others?',
+        options: ['Yes', 'No'],
+      },
+      {
+        component: 'TextArea',
+        name: 'details_access_work',
+        label:
+          'Details (Access and engage in work, training, education or volunteering)',
+      },
+      {
+        component: 'Radios',
+        name: 'caring_responsibilities',
+        label:
+          'Can you "Carry out any caring responsibilities for a child" alone within within a reasonable time and without significant pain, distress, anxiety or risk to yourself or others?',
+        options: ['Yes', 'No'],
+      },
+      {
+        component: 'TextArea',
+        name: 'details_caring_responsibilities',
+        label: 'Details (Carry out any caring responsibilities for a child)',
+      },
+      {
+        component: 'Radios',
+        name: 'home_safety_alone',
+        label:
+          'Can you "Be able to make use of your home safely" alone within within a reasonable time and without significant pain, distress, anxiety or risk to yourself or others?',
+        options: ['Yes', 'No'],
+      },
+      {
+        component: 'TextArea',
+        name: 'details_home_safety',
+        label: 'Details (Be able to make use of your home safely)',
+      },
+      {
+        component: 'Radios',
+        name: 'home_safety_alone',
+        label:
+          'As a result of being unable to achieve these outcomes is there, or is there likely to be, a significant impact on your wellbeing?',
+        options: ['Yes', 'No'],
+      },
+    ],
+  },
+  {
+    id: 'impact-wellbeing-6',
+    title: 'Impact on wellbeing',
+    conditionalRender: ({ home_safety_alone }) => home_safety_alone === 'Yes',
+    components: [
+      <h3 key="wellbeing_views">
+        The impact on your wellbeing should be looked at disregarding any
+        support you may already have and should take into account the following
+        areas, as well as your (or your representatives) views:{' '}
+      </h3>,
+      <ul className="govuk-list govuk-error-summary__list" key="ul">
+        <li>Personal dignity and being treated with respect</li>
+        <li>Physical and mental health and emotional wellbeing</li>
+        <li>Protection from abuse and neglect</li>
+        <li>Suitability of living accommodation</li>
+        <li>Participation in work, education, training or recreation</li>
+        <li>Social and economic wellbeing</li>
+        <li>Domestic, family and personal relationships</li>
+        <li>Your contribution to society</li>
+        <li>
+          Control over day-to-day life (including over care and support provided
+          and the way it is provided)
+        </li>
+      </ul>,
+      {
+        component: 'TextArea',
+        name: 'details_wellbeing_impact',
+        label:
+          'Details of the impact on your wellbeing (in the absence of any support you may already have in place)',
+      },
+    ],
+  },
+  {
+    id: 'informal-carer-7',
+    title: 'Informal Carer',
+    components: [
+      {
+        component: 'Radios',
+        name: 'carer_support',
+        label: 'Do you receive support from a Carer (informal / unpaid)',
+        options: ['Yes (Carer)', 'No'],
+      },
+    ],
+  },
+  {
+    id: 'informal-carer-details-8',
+    title: 'Impact on wellbeing',
+    conditionalRender: ({ carer_support }) => carer_support === 'Yes (Carer)',
+    components: [
+      {
+        component: 'TextInput',
+        name: 'carer_mosaic_id',
+        width: 30,
+        label: 'Carer Mosaic ID',
+        hint: '(If known)',
+      },
+      {
+        component: 'TextInput',
+        name: 'carer_nhs_number',
+        width: 30,
+        label: 'Carer NHS Number',
+        hint: '(If known)',
+      },
+      {
+        component: 'TextInput',
+        name: 'carer_first_name',
+        width: 30,
+        label: 'Carer First Name',
+      },
+      {
+        component: 'TextInput',
+        name: 'carer_last_name',
+        width: 30,
+        label: 'Carer Last Name',
+      },
+      {
+        component: 'TextInput',
+        name: 'relation_to_subject',
+        width: 30,
+        label: 'Relationship to main subject of assessment',
+      },
+      {
+        component: 'Radios',
+        name: 'main_carer',
+        label: 'Is this the main carer for the cared-for person?)',
+        options: ['Yes', 'No'],
+      },
+      {
+        component: 'Radios',
+        name: 'carer_seperate_conversation',
+        label:
+          'If conversation is completed with an informal / unpaid Carer present, would the Carer like to have a separate conversation?',
+        options: ['Yes', 'No'],
+      },
+      <p key="carer_conversation_form_info">
+        If the Carer has requested a separate conversation you should complete a
+        separate Carers Assessment form to record this.
+      </p>,
+      {
+        component: 'Radios',
+        name: 'carer_seperate_conversation',
+        label:
+          'If conversation is completed with the Carer present, does the Carer agree this is a joint conversation?',
+        options: ['Yes', 'No'],
+      },
+    ],
+  },
+  {
+    id: 'joint-conversation-with-carer-9',
+    title: 'Joint Conversation with Carer',
+    conditionalRender: ({ carer_seperate_conversation }) =>
+      carer_seperate_conversation === 'Yes',
+    components: [
+      {
+        component: 'Radios',
+        name: 'carer_assessed',
+        label:
+          'Has the carer been assessed as having one or more eligible need?',
+        options: ['Yes', 'No'],
+      },
+      {
+        component: 'TextArea',
+        name: 'impact_carer_independence',
+        label: "Impact of caring on your own Carer's independence",
+      },
+      <h3 key="contingency_sub_heading">Contingency - Thinking Ahead</h3>,
+      {
+        component: 'TextArea',
+        name: 'informal_agreements',
+        label:
+          'What are your informal arrangements when you are unable to provide care?',
+      },
+      {
+        component: 'TextArea',
+        name: 'special_requirements',
+        label:
+          'Does the person that you care for have any special requirements that we should know about?',
+      },
+      {
+        component: 'Radios',
+        name: 'carer_provided_information',
+        label:
+          'Was the Carer provided with Information, Advice and Other Universal Services / Signposting?',
+        options: ['Yes', 'No'],
+      },
+      {
+        component: 'Radios',
+        name: 'carer_signposted',
+        label:
+          'If yes, was the Carer signposted to a relevant support service such as the Carers Centre? ',
+        options: ['Yes', 'No', 'Not applicable (not signposted)'],
+      },
+      {
+        component: 'Radios',
+        name: 'deliver_respite',
+        label:
+          'Will respite or other forms of carer support be delivered to the cared-for person? ',
+        options: ['Yes', 'No'],
+      },
     ],
   },
   {
