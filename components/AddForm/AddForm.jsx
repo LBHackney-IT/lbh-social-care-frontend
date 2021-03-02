@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import Button from 'components/Button/Button';
 import { useAuth } from 'components/UserContext/UserContext';
-import { Autocomplete } from 'components/Form';
+import { Autocomplete } from 'components/Form/Autocomplete/Autocomplete';
 import { populateChildForm } from 'utils/populate';
 import ADULT_FORMS from 'data/googleForms/adultForms';
 import CHILD_FORMS from 'data/googleForms/childForms';

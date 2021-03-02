@@ -1,13 +1,14 @@
 import Downshift from 'downshift';
 import PropTypes from 'prop-types';
 import cx from 'classnames';
+import { Controller } from 'react-hook-form';
 
 import { sortObject } from 'utils/objects';
 import ErrorMessage from 'components/ErrorMessage/ErrorMessage';
 import ClearIcon from 'components/Icons/Clear';
 import style from './Autocomplete.module.scss';
 
-const Autocomplete = ({
+export const Autocomplete = ({
   label,
   hint,
   name,
@@ -151,4 +152,27 @@ Autocomplete.propTypes = {
   }),
 };
 
-export default Autocomplete;
+const ControlledAutocomplete = ({ name, control, ...otherProps }) => (
+  <Controller
+    render={({ onChange, value, name }) => (
+      <Autocomplete
+        name={name}
+        value={value}
+        onChange={(value) => onChange(value)}
+        {...otherProps}
+      />
+    )}
+    control={control}
+    name={name}
+    defaultValue={control?.defaultValuesRef?.current[name] || ''}
+  />
+);
+
+ControlledAutocomplete.propTypes = {
+  name: PropTypes.string.isRequired,
+  control: PropTypes.object.isRequired,
+  onChange: PropTypes.func,
+  value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+};
+
+export default ControlledAutocomplete;
