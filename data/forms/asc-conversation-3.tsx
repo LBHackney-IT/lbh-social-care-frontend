@@ -2,7 +2,9 @@ import TENURETYPES from 'data/tenureTypes';
 import SUPPORTREASON from 'data/supportReason';
 import PROFESSIONS from 'data/professions';
 
-const steps = [
+import { FormStep } from 'components/Form/types';
+
+const steps: FormStep[] = [
   {
     id: 'record-of-conversation-1',
     title: 'Record of Conversation',
@@ -23,7 +25,7 @@ const steps = [
         component: 'NumberInput',
         name: 'emergency_id',
         label: 'Emergency ID (ASC)',
-        width: '10',
+        width: 10,
         hint:
           '(Find or create an emergency ID number for this person in the list of numbers provided to your team, and enter it here)',
       },
@@ -48,7 +50,7 @@ const steps = [
       {
         component: 'TextInput',
         name: 'list_key_contacts',
-        width: '30',
+        width: 30,
         label: 'List your key contacts',
         hint:
           "(Include 'Name', 'Relationship/Role', 'Address and Contact Details' for each individual that would appear in the Key Contacts table)",
@@ -56,31 +58,31 @@ const steps = [
       {
         component: 'TextInput',
         name: 'gp_name',
-        width: '30',
+        width: 30,
         label: 'GP Name',
       },
       {
         component: 'TextInput',
         name: 'gp_practice',
-        width: '30',
+        width: 30,
         label: 'GP Practice',
       },
       {
         component: 'TextInput',
         name: 'gp_address',
-        width: '30',
+        width: 30,
         label: 'GP Address',
       },
       {
         component: 'PhoneInput',
         name: 'gp_phone',
-        width: '30',
+        width: 30,
         label: 'GP Telephone',
       },
       {
         component: 'EmailInput',
         name: 'gp_email',
-        width: '30',
+        width: 30,
         label: 'GP Email',
       },
       {
@@ -112,19 +114,19 @@ const steps = [
       {
         component: 'TextInput',
         name: 'preferred_contact',
-        width: '30',
+        width: 30,
         label: 'Preferred method of contact',
       },
       {
         component: 'TextInput',
         name: 'fluency_english',
-        width: '30',
+        width: 30,
         label: 'Fluency in English',
       },
       {
         component: 'TextInput',
         name: 'first_preferred_language',
-        width: '30',
+        width: 30,
         label: 'First/preferred language',
       },
       {
@@ -199,13 +201,13 @@ const steps = [
       {
         component: 'TextInput',
         name: 'internet_access',
-        width: '30',
+        width: 30,
         label: 'Are you able to access / use the Internet?',
       },
       {
         component: 'TextInput',
         name: 'specialist_technology',
-        width: '30',
+        width: 30,
         label:
           'Are you using specialist technology to help you manage at home (e.g. telecare)',
       },
@@ -223,7 +225,7 @@ const steps = [
       {
         component: 'TextInput',
         name: 'next_actions',
-        width: '30',
+        width: 30,
         label: 'Next actions',
       },
       {
@@ -235,7 +237,7 @@ const steps = [
       {
         component: 'TextInput',
         name: 'number_of_visits',
-        width: '30',
+        width: 30,
         label: 'Number of Visits',
         hint: '(including telephone calls to the person, etc)',
       },
@@ -298,7 +300,7 @@ const steps = [
       {
         component: 'TextInput',
         name: 'total_weekly_hours',
-        width: '30',
+        width: 30,
         label: 'My total weekly hours (Budget)',
         hint: 'Use decimal notation for part-hours',
       },
@@ -372,7 +374,7 @@ const steps = [
       {
         component: 'TextArea',
         name: 'budget_desired_outcome',
-        width: '30',
+        width: 30,
         label: 'Budget Spending Plan: Desired Outcome',
         hint: 'Select from options above for each numbered row',
       },
@@ -470,7 +472,7 @@ const steps = [
       {
         component: 'NumberInput',
         name: 'total_weekly_hours',
-        width: '10',
+        width: 10,
         label: 'Total weekly hours (Timetable)',
         hint: '(Use decimal notation for part-hours)',
         rules: { required: true },
@@ -478,7 +480,7 @@ const steps = [
       {
         component: 'TextInput',
         name: 'other_£',
-        width: '30',
+        width: 30,
         label: 'Other (£/Week)',
       },
       <h3 key="weekly_ttable">My Weekly Timetable</h3>,
@@ -503,7 +505,7 @@ const steps = [
       {
         component: 'TextInput',
         name: 'details_of_weekly_timetable',
-        width: '30',
+        width: 30,
         label: 'List details of my weekly timetable',
       },
     ],
@@ -552,9 +554,9 @@ const steps = [
         If yes, please ensure you complete an Adults - Safeguarding Adult
         Concern form
       </p>,
-      {
-        component: 'Checkbox',
-      },
+      // {
+      //   component: 'Checkbox',
+      // },
       //add appropriate checkboxes here
       {
         component: 'Radios',
@@ -566,11 +568,11 @@ const steps = [
       //add logic to send user to appropriate section
     ],
   },
-  {
-    id: 'TransferLongTerm15',
-    title: 'Transfer case to Long Term team',
-    components: [{}],
-  },
+  // {
+  //   id: 'TransferLongTerm15',
+  //   title: 'Transfer case to Long Term team',
+  //   components: [{}],
+  // },
 ];
 
 export default steps;
