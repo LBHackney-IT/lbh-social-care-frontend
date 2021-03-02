@@ -30,7 +30,13 @@ jest.mock('data/googleForms/childForms', () => [
 describe('forms', () => {
   describe('getFormsByUserPermission', () => {
     it('should work properly - for Adults', () => {
-      expect(getFormsByUserPermission({ hasAdultPermissions: true })).toEqual([
+      expect(
+        getFormsByUserPermission({
+          hasAdultPermissions: true,
+          hasChildrenPermissions: false,
+          hasAdminPermissions: false,
+        })
+      ).toEqual([
         { text: 'Bar - Adult', value: 'Bar - Adult' },
         { text: 'Foo - Adult', value: 'foo_adult' },
       ]);
@@ -38,7 +44,11 @@ describe('forms', () => {
 
     it('should work properly - for Children', () => {
       expect(
-        getFormsByUserPermission({ hasChildrenPermissions: true })
+        getFormsByUserPermission({
+          hasChildrenPermissions: true,
+          hasAdminPermissions: false,
+          hasAdultPermissions: false,
+        })
       ).toEqual([
         { text: 'Bar - Child', value: 'Bar - Child' },
         { text: 'Foo - Child', value: 'Foo - Child' },
@@ -46,7 +56,13 @@ describe('forms', () => {
     });
 
     it('should work properly - for Admin', () => {
-      expect(getFormsByUserPermission({ hasAdminPermissions: true })).toEqual([
+      expect(
+        getFormsByUserPermission({
+          hasAdminPermissions: true,
+          hasChildrenPermissions: false,
+          hasAdultPermissions: false,
+        })
+      ).toEqual([
         { text: 'Bar - Adult', value: 'Bar - Adult' },
         { text: 'Bar - Child', value: 'Bar - Child' },
         { text: 'Foo - Adult', value: 'foo_adult' },
