@@ -1,6 +1,6 @@
 import Seo from 'components/Layout/Seo/Seo';
 
-const AccessDenied = () => (
+const AccessDenied = (): React.ReactElement => (
   <>
     <Seo title="Access Denied" />
     <h1>Access denied</h1>

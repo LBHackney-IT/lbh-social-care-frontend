@@ -1,5 +1,4 @@
 import { useEffect } from 'react';
-import PropTypes from 'prop-types';
 import ReactModal from 'react-modal';
 
 import TimesCircleIcon from 'components/Icons/TimesCircle';
@@ -8,10 +7,22 @@ import style from './Modal.module.scss';
 
 ReactModal.setAppElement('#root');
 
-const Modal = ({ isOpen, onRequestClose, children }) => {
+interface Props {
+  isOpen: boolean;
+  onRequestClose: () => void;
+  children: React.ReactChild;
+}
+
+const Modal = ({
+  isOpen,
+  onRequestClose,
+  children,
+}: Props): React.ReactElement => {
   useEffect(() => {
     document.documentElement.style.overflow = isOpen ? 'hidden' : '';
-    return () => (document.documentElement.style.overflow = '');
+    return () => {
+      document.documentElement.style.overflow = '';
+    };
   }, [isOpen]);
   return (
     <ReactModal
@@ -27,12 +38,6 @@ const Modal = ({ isOpen, onRequestClose, children }) => {
       <div>{children}</div>
     </ReactModal>
   );
-};
-
-Modal.propTypes = {
-  isOpen: PropTypes.bool.isRequired,
-  children: PropTypes.node.isRequired,
-  onRequestClose: PropTypes.func.isRequired,
 };
 
 export default Modal;

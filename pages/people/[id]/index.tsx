@@ -5,18 +5,20 @@ import BackButton from 'components/Layout/BackButton/BackButton';
 import PersonView from 'components/PersonView/PersonView';
 import Cases from 'components/Cases/Cases';
 import AllocatedWorkers from 'components/AllocatedWorkers/AllocatedWorkers';
+import { Resident } from 'types';
 
-const PersonPage = () => {
+const PersonPage = (): React.ReactElement => {
   const { query } = useRouter();
+  const personId = query.id as string;
   return (
     <div>
       <Seo title={`#${query.id} Cases`} />
       <BackButton />
-      <PersonView personId={query.id}>
-        {(person) => (
+      <PersonView personId={personId}>
+        {(person: Resident) => (
           <>
-            <AllocatedWorkers {...query} />
-            <Cases {...query} person={person} />
+            <AllocatedWorkers id={personId} />
+            <Cases id={personId} person={person} />
           </>
         )}
       </PersonView>

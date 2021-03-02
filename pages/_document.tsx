@@ -3,7 +3,7 @@ import Document, { Html, Head, Main, NextScript } from 'next/document';
 import { GA_TRACKING_ID } from 'utils/gtag';
 
 export default class AppDocument extends Document {
-  render() {
+  render(): JSX.Element {
     return (
       <Html id="root" className="govuk-template lbh-template">
         <Head>

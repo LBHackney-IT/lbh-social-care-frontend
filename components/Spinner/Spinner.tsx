@@ -1,4 +1,4 @@
-const Spinner = () => (
+const Spinner = (): React.ReactElement => (
   <svg
     width="50"
     height="50"

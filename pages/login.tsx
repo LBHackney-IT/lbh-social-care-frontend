@@ -3,7 +3,12 @@ import PropTypes from 'prop-types';
 import Seo from 'components/Layout/Seo/Seo';
 import { getProtocol } from 'utils/urls';
 
-const AdminLoginPage = ({ gssoUrl, returnUrl }) => (
+interface Props {
+  gssoUrl: string;
+  returnUrl: string;
+}
+
+const AdminLoginPage = ({ gssoUrl, returnUrl }: Props): React.ReactElement => (
   <>
     <Seo title="Log In" />
     <h1>Login</h1>
