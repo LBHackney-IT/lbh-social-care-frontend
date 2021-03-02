@@ -31,7 +31,7 @@ exports[`AddAllocatedWorker should render properly 1`] = `
           data-testid="teamId"
           id="teamId"
           name="teamId.autocomplete"
-          placeholder="Select or search for a value"
+          placeholder="Select or type team name"
           style="border-color: #000;"
           value=""
         />

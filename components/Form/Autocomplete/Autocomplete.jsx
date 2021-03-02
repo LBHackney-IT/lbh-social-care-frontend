@@ -6,6 +6,7 @@ import { Controller } from 'react-hook-form';
 import { sortObject } from 'utils/objects';
 import ErrorMessage from 'components/ErrorMessage/ErrorMessage';
 import ClearIcon from 'components/Icons/Clear';
+import DownArrow from 'components/Icons/DownArrow';
 import style from './Autocomplete.module.scss';
 
 export const Autocomplete = ({
@@ -84,8 +85,17 @@ export const Autocomplete = ({
                 error ? { borderColor: '#d4351c' } : { borderColor: '#000' }
               }
             />
+            {!isOpen && !inputValue && (
+              <span onClick={toggleMenu} role="button">
+                <DownArrow />
+              </span>
+            )}
             {inputValue && (
-              <span onClick={clearSelection} className={style.clear}>
+              <span
+                onClick={clearSelection}
+                className={style.clear}
+                role="button"
+              >
                 <ClearIcon />
               </span>
             )}
