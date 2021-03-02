@@ -1,12 +1,14 @@
-import PropTypes from 'prop-types';
-
 const colors = {
   default: '#000',
   danger: '#d4351c',
   border: '#b1b4b6',
 };
 
-const TimesCircleIcon = ({ color = 'default' }) => (
+interface Props {
+  color: 'default' | 'danger' | 'border';
+}
+
+const TimesCircleIcon = ({ color = 'default' }: Props) => (
   <svg
     className="cancel-icon"
     height="512pt"
@@ -24,9 +26,5 @@ const TimesCircleIcon = ({ color = 'default' }) => (
     />
   </svg>
 );
-
-TimesCircleIcon.propTypes = {
-  color: PropTypes.oneOf(['default', 'danger', 'border']),
-};
 
 export default TimesCircleIcon;

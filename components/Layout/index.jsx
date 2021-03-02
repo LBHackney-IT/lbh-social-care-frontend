@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 
+import Seo from './Seo/Seo';
 import Footer from './Footer/Footer';
 import Header from './Header/Header';
 import SkipLink from './SkipLink/SkipLink';
@@ -9,6 +10,7 @@ const Layout = ({ children }) => {
   const feedbackLink = process.env.NEXT_PUBLIC_FEEDBACK_LINK || '';
   return (
     <>
+      <Seo title="Interim Social Care Admin - Hackney Council" />
       <SkipLink />
       <Header serviceName="Interim Social Care" />
       <div className="govuk-width-container app-width-container">

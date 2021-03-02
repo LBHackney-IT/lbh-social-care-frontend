@@ -1,10 +1,8 @@
 import App from 'next/app';
-import { DefaultSeo } from 'next-seo';
 import axios from 'axios';
 import { SWRConfig } from 'swr';
 
 import Layout from 'components/Layout';
-import SEO from '../next-seo.config';
 import GoogleAnalytics from 'components/GoogleAnalytics/GoogleAnalytics';
 import { AuthProvider } from 'components/UserContext/UserContext';
 import { isAuthorised, shouldRedirect } from 'utils/auth';
@@ -33,7 +31,6 @@ class MyApp extends App {
           <AuthProvider user={this.state.user}>
             <GoogleAnalytics>
               <Layout>
-                <DefaultSeo {...SEO} />
                 <Component {...pageProps} />
               </Layout>
             </GoogleAnalytics>

@@ -1,3 +1,5 @@
+import { Story } from '@storybook/react';
+
 import Spinner from './Spinner';
 
 export default {
@@ -5,7 +7,7 @@ export default {
   component: Spinner,
 };
 
-const Template = (args) => <Spinner {...args} />;
+const Template: Story = (args) => <Spinner {...args} />;
 
 export const Primary = Template.bind({});
 Primary.args = {

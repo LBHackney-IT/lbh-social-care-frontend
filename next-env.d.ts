@@ -13,6 +13,12 @@ declare global {
       AUTHORISED_UNRESTRICTED_GROUP: string;
     }
   }
+
+  interface Window {
+    GOVUKFrontend: {
+      initAll: () => void;
+    };
+  }
 }
 
 // If this file has no import/export statements (i.e. is a script)

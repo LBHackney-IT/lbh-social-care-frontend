@@ -1,16 +1,17 @@
-import { NextSeo } from 'next-seo';
 import { useRouter } from 'next/router';
 
+import Seo from 'components/Layout/Seo/Seo';
 import AllocatedCases from 'components/AllocatedCases/AllocatedCases';
 import BackButton from 'components/Layout/BackButton/BackButton';
 
-const Workers = () => {
+const Workers = (): React.ReactElement => {
   const { query } = useRouter();
+  const allocationId = query.id as string;
   return (
     <div>
-      <NextSeo title={`#${query.id} Allocation Workers`} noindex />
+      <Seo title={`#${query.id} Allocation Workers`} />
       <BackButton />
-      <AllocatedCases id={query.id} />
+      <AllocatedCases id={allocationId} />
     </div>
   );
 };
