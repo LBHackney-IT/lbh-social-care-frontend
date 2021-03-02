@@ -47,17 +47,8 @@ export const getCaseByResident = async (
 export const addCase = async (
   formData: Record<string, unknown>
 ): Promise<{ ref: string }> => {
-  const { data } = await axios.post(
-    `${ENDPOINT_API}/cases`,
-    {
-      caseFormData: JSON.stringify({
-        timestamp: new Date(),
-        ...formData,
-      }),
-    },
-    {
-      headers: { 'Content-Type': 'application/json', 'x-api-key': AWS_KEY },
-    }
-  );
+  const { data } = await axios.post(`${ENDPOINT_API}/cases`, formData, {
+    headers: { 'Content-Type': 'application/json', 'x-api-key': AWS_KEY },
+  });
   return data;
 };
