@@ -184,7 +184,7 @@ const steps = [
       {
         id: 'about-you-4',
         title: 'About You',
-        component: [
+        components: [
           {
             component: 'Radios',
             name: 'decline_support',
@@ -193,6 +193,104 @@ const steps = [
             hint:
               '(Has the client stated that they do not wish further assessment or services from Hackney Adults Social Care at this point)',
             options: ['Yes', 'No'],
+          },
+          {
+            component: 'TextArea',
+            name: 'about_you',
+            label: 'About you',
+          },
+          {
+            component: 'TextInput',
+            name: 'internet_access',
+            width: '30',
+            label: 'Are you able to access / use the Internet?',
+          },
+          {
+            component: 'TextInput',
+            name: 'specialist_technology',
+            width: '30',
+            label:
+              'Are you using specialist technology to help you manage at home (e.g. telecare)',
+          },
+          <h3
+            key="workers recommendation"
+            className="govuk-fieldset__legend--l gov-weight-lighter govuk-!-margin-bottom-5"
+          >
+            Workers recommendations
+          </h3>,
+          {
+            component: 'TextArea',
+            name: 'worker_resource_recommendation',
+            label: 'What resources, support was recommended and outcome',
+          },
+          {
+            component: 'TextInput',
+            name: 'next_actions',
+            width: '30',
+            label: 'Next actions',
+          },
+          {
+            component: 'Radios',
+            name: 'prevent_admission',
+            label: 'Did your input prevent admission to hospital',
+            options: ['Yes', 'No'],
+          },
+          {
+            component: 'TextInput',
+            name: 'number_of_visits',
+            width: '30',
+            label: 'Number of Visits',
+            hint: '(including telephone calls to the person, etc)',
+          },
+          {
+            component: 'Checkbox',
+            name: 'visits_conducted',
+            label: 'Visits conducted',
+            options: ['Telephone', 'Face to face', 'Video link'],
+          },
+        ],
+      },
+      {
+        id: 'care-act-outcomes-and-eligibility-5',
+        title: 'Care Act Outcomes and Eligibility',
+        components: [
+          {
+            component: 'Radios',
+            name: 'medical_condition',
+            label:
+              'Do you have a condition as a result of either your physical, mental, sensory, learning or cognitive disabilities or illnesses, substance misuse or brain injury?',
+            options: ['Yes', 'No'],
+          },
+          {
+            component: 'Radios',
+            name: 'medical_eligible_outcome',
+            label:
+              'As a result of your needs are you unable to achieve two or more of the eligible outcomes below',
+            options: ['Yes', 'No'],
+          },
+          {
+            component: 'Radios',
+            name: 'maintain_home_environment',
+            label:
+              'Can you "Maintain a habitable home environment" alone within a reasonable time and without significant pain, distress, anxiety, or risk to yourself or others?',
+            options: ['Yes', 'No'],
+          },
+          {
+            component: 'TextArea',
+            name: 'details_home_envrionment',
+            label: 'Details (Maintain a habitable home environment)',
+          },
+          {
+            component: 'Radios',
+            name: 'maintain_nutrition_alone',
+            label:
+              'Can you "Manage and maintain nutrition" alone within within a reasonable time and without significant pain, distress, anxiety or risk to yourself or others?',
+            options: ['Yes', 'No'],
+          },
+          {
+            component: 'TextArea',
+            name: 'details_manage_nutrition',
+            label: 'Details (Manage and maintain nutrition)',
           },
         ],
       },
