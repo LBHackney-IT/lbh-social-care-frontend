@@ -24,9 +24,7 @@ export const normalizeAddress = (address: AddressAPI): Address => {
   };
 };
 
-export const lookupPostcode = async (
-  postcode: string
-): Promise<Record<string, unknown>> => {
+export const lookupPostcode = async (postcode: string): Promise<Address[]> => {
   const { data } = await axios.get(`/api/postcode/${postcode}`);
   return data.address.map(normalizeAddress);
 };

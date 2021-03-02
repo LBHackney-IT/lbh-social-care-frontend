@@ -1,3 +1,7 @@
+import { Story } from '@storybook/react';
+
+import { TextInput as Args } from 'components/Form/types';
+
 import TextInput from './TextInput';
 
 export default {
@@ -5,7 +9,7 @@ export default {
   component: TextInput,
 };
 
-const Template = (args) => <TextInput {...args} />;
+const Template: Story<Args> = (args) => <TextInput {...args} />;
 
 export const Default = Template.bind({});
 Default.args = {

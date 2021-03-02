@@ -1,3 +1,7 @@
+import { Story } from '@storybook/react';
+
+import { TextArea as Args } from 'components/Form/types';
+
 import TextArea from './TextArea';
 
 export default {
@@ -5,7 +9,7 @@ export default {
   component: TextArea,
 };
 
-const Template = (args) => <TextArea {...args} />;
+const Template: Story<Args> = (args) => <TextArea {...args} />;
 
 export const Default = Template.bind({});
 Default.args = {

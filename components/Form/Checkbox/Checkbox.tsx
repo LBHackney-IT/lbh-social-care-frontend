@@ -1,24 +1,11 @@
 import cx from 'classnames';
-import { RegisterOptions } from 'react-hook-form';
 
 import ErrorMessage from 'components/ErrorMessage/ErrorMessage';
 
-type Option = string | { text: string; value: string };
+import type { Checkbox as Props, Option } from 'components/Form/types';
 
-interface Tickbox {
-  name: string;
-  label?: string;
-  rules?: RegisterOptions;
-  register?: (arg0: RegisterOptions) => any;
-  error?: { message: string };
-  required?: boolean | string;
+interface Tickbox extends Props {
   value?: string;
-}
-
-export interface Checkbox extends Omit<Tickbox, 'value'> {
-  hint?: string;
-  options?: Option[];
-  labelSize?: 's' | 'm' | 'l' | 'xl';
 }
 
 const Tickbox = ({
@@ -56,7 +43,7 @@ const Checkbox = ({
   required,
   labelSize = 'm',
   ...otherProps
-}: Checkbox): React.ReactElement => (
+}: Props): React.ReactElement => (
   <div
     className={cx('govuk-form-group', {
       'govuk-form-group--error': error,

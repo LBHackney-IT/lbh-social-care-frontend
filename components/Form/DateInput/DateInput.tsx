@@ -1,7 +1,6 @@
 import { useCallback, forwardRef } from 'react';
-import PropTypes from 'prop-types';
 import cx from 'classnames';
-import { Controller } from 'react-hook-form';
+import { Controller, Control } from 'react-hook-form';
 
 import ErrorMessage from 'components/ErrorMessage/ErrorMessage';
 import {
@@ -11,7 +10,19 @@ import {
   objectDateToString,
 } from 'utils/date';
 
-const DateInput = forwardRef(
+import { DateInput as IDateInput } from 'components/Form/types';
+
+interface InputProps extends Omit<IDateInput, 'control'> {
+  value?: string;
+  onChange: (arg0: string | null) => void;
+}
+
+interface Props extends IDateInput {
+  control: Control;
+}
+
+// eslint-disable-next-line react/display-name
+const DateInput = forwardRef<HTMLInputElement, InputProps>(
   (
     {
       label,
@@ -24,13 +35,13 @@ const DateInput = forwardRef(
       required,
       format,
       ...otherProps
-    },
+    }: InputProps,
     ref
   ) => {
     const date = stringDateToObject(value, format);
     const setNewDate = useCallback(
       (newDate) =>
-        onChange(objectDateToString({ ...date, ...newDate }, format)),
+        onChange?.(objectDateToString({ ...date, ...newDate }, format)),
       [date, format, onChange]
     );
     return (
@@ -71,7 +82,6 @@ const DateInput = forwardRef(
                   )}
                   id={`${name}-day`}
                   name={`${name}-day`}
-                  type="text"
                   pattern="^\d{2}$"
                   inputMode="numeric"
                   defaultValue={date.day}
@@ -100,7 +110,6 @@ const DateInput = forwardRef(
                   )}
                   id={`${name}-month`}
                   name={`${name}-month`}
-                  type="text"
                   pattern="^\d{2}$"
                   inputMode="numeric"
                   defaultValue={date.month}
@@ -128,7 +137,6 @@ const DateInput = forwardRef(
                   )}
                   id={`${name}-year`}
                   name={`${name}-year`}
-                  type="text"
                   pattern="^\d{4}$"
                   inputMode="numeric"
                   defaultValue={date.year}
@@ -146,28 +154,23 @@ const DateInput = forwardRef(
   }
 );
 
-DateInput.propTypes = {
-  label: PropTypes.string,
-  labelSize: PropTypes.oneOf(['s', 'm', 'l', 'xl']),
-  hint: PropTypes.string,
-  rules: PropTypes.shape({}),
-  format: PropTypes.oneOf(['EU', 'US']),
-  name: PropTypes.string,
-  value: PropTypes.string,
-  onChange: PropTypes.func,
-  required: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
-  error: PropTypes.shape({ message: PropTypes.string.isRequired }),
-};
-
 const ControlledDateInput = ({
   control,
   name,
   rules,
   format = 'US',
   ...otherProps
-}) => (
+}: Props): React.ReactElement => (
   <Controller
-    as={<DateInput format={format} {...otherProps} />}
+    render={({ onChange, value }) => (
+      <DateInput
+        name={name}
+        value={value}
+        onChange={onChange}
+        format={format}
+        {...otherProps}
+      />
+    )}
     name={name}
     rules={{
       ...rules,
@@ -183,12 +186,5 @@ const ControlledDateInput = ({
     defaultValue={null}
   />
 );
-
-ControlledDateInput.propTypes = {
-  name: PropTypes.string.isRequired,
-  rules: PropTypes.shape({ validate: PropTypes.object }),
-  control: PropTypes.object.isRequired,
-  format: PropTypes.oneOf(['EU', 'US']),
-};
 
 export default ControlledDateInput;

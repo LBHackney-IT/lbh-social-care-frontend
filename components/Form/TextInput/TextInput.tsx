@@ -1,7 +1,8 @@
-import PropTypes from 'prop-types';
 import cx from 'classnames';
 
 import ErrorMessage from 'components/ErrorMessage/ErrorMessage';
+
+import type { TextInput as Props } from 'components/Form/types';
 
 const TextInput = ({
   label,
@@ -16,7 +17,7 @@ const TextInput = ({
   required,
   width,
   ...otherProps
-}) => (
+}: Props): React.ReactElement => (
   <div
     className={cx('govuk-form-group', {
       'govuk-form-group--error': error,
@@ -46,21 +47,5 @@ const TextInput = ({
     />
   </div>
 );
-
-TextInput.propTypes = {
-  label: PropTypes.string,
-  labelSize: PropTypes.oneOf(['s', 'm', 'l', 'xl']),
-  hint: PropTypes.string,
-  name: PropTypes.string.isRequired,
-  error: PropTypes.shape({
-    message: PropTypes.string.isRequired,
-  }),
-  rules: PropTypes.shape({}),
-  inputClassName: PropTypes.string,
-  type: PropTypes.string,
-  register: PropTypes.func,
-  required: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
-  width: PropTypes.string,
-};
 
 export default TextInput;

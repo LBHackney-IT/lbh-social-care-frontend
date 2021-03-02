@@ -1,3 +1,7 @@
+import { Story } from '@storybook/react';
+
+import { TextInputNoType } from 'components/Form/types';
+
 import NumberInput from './NumberInput';
 
 export default {
@@ -5,7 +9,7 @@ export default {
   component: NumberInput,
 };
 
-const Template = (args) => <NumberInput {...args} />;
+const Template: Story<TextInputNoType> = (args) => <NumberInput {...args} />;
 
 export const Default = Template.bind({});
 Default.args = {
