@@ -13,6 +13,7 @@ const steps: FormStep[] = [
         component: 'DatePicker',
         name: 'start_date_of_conversation_3',
         label: 'Start Date of Conversation 3',
+        width: 10,
         rules: { required: true },
       },
       <h3
@@ -349,34 +350,33 @@ const steps: FormStep[] = [
       },
       {
         component: 'Checkbox',
-        name: 'show_next_step',
-        label: 'Show next step',
+        name: 'who_responsible',
+        label: 'Who by options (Who will be responsible to do this):',
+        options: [
+          { value: '1', text: 'By myself ' },
+          { value: '2', text: 'By family' },
+          { value: '3', text: 'carer' },
+          { value: '4', text: 'By support from a community group' },
+          { value: '5', text: 'By support from a health professional' },
+          { value: '6', text: 'By provision of equipment' },
+          { value: '7', text: 'Major Adaptation' },
+          { value: '8', text: 'By provision of domiciliary care' },
+          { value: '9', text: 'By Housing with Care By respite' },
+          { value: '10', text: 'By a day service' },
+          { value: '11', text: 'By support from housing' },
+          {
+            value: '12',
+
+            text: 'By support from Children’s services ',
+          },
+        ],
       },
-      <p key="options">
-        Who by options (Who will be responsible to do this):
-        <ul>
-          <li>By myself</li>
-          <li>By family </li>
-          <li> friend </li>
-          <li>carer </li>
-          <li>By support from a community group</li>
-          <li> By support from a health professional</li>
-          <li> By provision of equipment </li>
-          <li>Major Adaptation </li>
-          <li>By provision of domiciliary care </li>
-          <li>By provision of Direct Payment </li>
-          <li>By Housing with Care By respite </li>
-          <li>By a day service</li>
-          <li> By support from housing</li>
-          <li>By support from Children’s services</li>
-        </ul>
-      </p>,
       {
         component: 'TextArea',
         name: 'budget_desired_outcome',
         width: 30,
         label: 'Budget Spending Plan: Desired Outcome',
-        hint: 'Select from options above for each numbered row',
+        hint: 'Select from options above',
       },
       {
         component: 'TextArea',
@@ -447,24 +447,25 @@ const steps: FormStep[] = [
         component: 'Radios',
         name: 'Section117aftercare',
         label: 'Are you entitled to Section 117 aftercare?',
-        options: ['Yes', 'No', 'Not longer'],
+        options: ['Yes', 'No', 'No longer'],
       },
       {
         component: 'Radios',
         name: 'CareProgrammeApproach',
         label: 'Are you receiving care under the Care Programme Approach',
-        options: ['Yes', 'No', 'Not longer'],
+        options: ['Yes', 'No', 'No longer'],
       },
     ],
   },
   {
-    id: '13',
+    id: 'weeklyTimetable13',
     title: 'Weekly Timetable',
     components: [
       {
         component: 'DatePicker',
         name: 'date_of_timetable',
         label: 'Date of Timetable',
+        width: 10,
         hint:
           "Today's date, being the submission date of this Google form  instead of authorised date",
         rules: { required: true },
@@ -475,7 +476,6 @@ const steps: FormStep[] = [
         width: 10,
         label: 'Total weekly hours (Timetable)',
         hint: '(Use decimal notation for part-hours)',
-        rules: { required: true },
       },
       {
         component: 'TextInput',
@@ -506,6 +506,8 @@ const steps: FormStep[] = [
         component: 'TextInput',
         name: 'details_of_weekly_timetable',
         width: 30,
+        hint:
+          "Please break this down into 'Day','Morning', 'Afternoon', 'Evening', 'Night', 'Estimated Weekly Cost' ",
         label: 'List details of my weekly timetable',
       },
     ],
@@ -554,25 +556,144 @@ const steps: FormStep[] = [
         If yes, please ensure you complete an Adults - Safeguarding Adult
         Concern form
       </p>,
-      // {
-      //   component: 'Checkbox',
-      // },
-      //add appropriate checkboxes here
       {
         component: 'Radios',
-        name: 'SafeguardingConcern?',
-        label: 'What Next - workflow',
-        options: ['Yes', 'No'],
+        name: 'associatedReferrals',
+        label:
+          'Select any of the associated referrals / activities which took place within this conversation',
+        options: [
+          ' Referral to IIT (Reablement)',
+          'Referral to OT (OT equipment or adaptations)',
+          'Referral to Sensory Team',
+          'Referral for Telecare provision',
+          'Provision of Immediate Services',
+        ],
       },
 
-      //add logic to send user to appropriate section
+      <h3 key="workflow_title"> What Next - workflow</h3>,
+      <p key="what_next">
+        If you are not transferring to the Long Term team and the person was
+        also not accepted/eligible for reablement then choose Close Case/ No
+        Further Action- e.g. provision of Immediate Services and/or Telecare
+        falls within No Further Action in this sense after you finish
+        Conversation 3.
+      </p>,
+      {
+        component: 'Radios',
+        name: 'household_structure',
+        label: 'Household Structure',
+        options: [
+          'Transfer case to Long Term team',
+          'Transfer case to IIT (for reablement)',
+          'Close Case /No Further Action',
+        ],
+      },
     ],
   },
-  // {
-  //   id: 'TransferLongTerm15',
-  //   title: 'Transfer case to Long Term team',
-  //   components: [{}],
-  // },
+  {
+    id: 'TransferLongTerm16',
+    title: 'Transfer case to Long Term team',
+    conditionalRender: ({ household_structure }) =>
+      household_structure === 'Transfer case to Long Term team',
+    components: [
+      <h3 key="next_review">Schedule Next Review</h3>,
+      {
+        component: 'DatePicker',
+        name: 'next_review',
+        label: 'Date of Next Review',
+        hint:
+          'Please schedule a date in 3, 6 or 12 months time, as required, for the Long Term team to carry out a Review',
+        rules: { required: true },
+      },
+      <h3 key="please_ensure">
+        Please ensure you also complete (once approved by Panel):
+      </h3>,
+      <ul className="govuk-list govuk-error-summary__list" key="ul">
+        <li>
+          Case Transfer form - Transfer a case to the Long Term Team Provider
+        </li>
+        <li>copy of Support Plan - Adults - C3 Support Plan</li>
+        <li>
+          Intranet page{' '}
+          https://intranet.hackney.gov.uk/corporate-ict-service/cyberattack-internal-forms/
+        </li>
+      </ul>,
+    ],
+  },
+  {
+    id: 'SequeltoConversation17',
+    title: 'Sequel to Conversation 3 (Long Term Team)',
+    conditionalRender: ({ household_structure }) =>
+      household_structure === 'Transfer case to Long Term team',
+    components: [
+      <h3 key="transfer">
+        (New client is being transferred to the Long Term team)
+      </h3>,
+      {
+        component: 'Radios',
+        name: 'Outcomes_for_Transfer',
+        label: 'Outcomes for Transfer to Long Term Team (Sequel)',
+        options: [
+          'Long Term Support (Nursing Care)',
+          'Long Term Support (Residential Care)',
+          'Long Term Support (Community)',
+          'End of Life (overseen by Long Term team)',
+        ],
+      },
+    ],
+  },
+  {
+    id: 'SequeltoConversation18',
+    title: 'Sequel to Conversation 3 (Reablement)',
+    conditionalRender: ({ household_structure }) =>
+      household_structure === 'Transfer case to IIT (for reablement)',
+    components: [
+      {
+        component: 'Radios',
+        name: 'Outcomes for Reablement Referral (Sequel)',
+        label: 'Outcomes for Reablement Referral (Sequel)',
+        options: ['Short Term Support to Maximise Independence (Reablement)'],
+      },
+    ],
+  },
+  {
+    id: 'SequeltoConversation19',
+    title: 'Sequel to Conversation 3 (NFA / Closure)',
+    conditionalRender: ({ household_structure }) =>
+      household_structure === 'Close Case /No Further Action',
+    components: [
+      <p key="nfa">(New client will not receive ongoing services)</p>,
+      {
+        component: 'Radios',
+        name: 'Outcomes for Contact (Sequel)',
+        label: 'Outcomes for Contact (Sequel)',
+        options: [
+          'End of Life (not overseen by Long Term team)',
+          'Ongoing Low Level Support (provided with Telecare or Equipment / Adaptations)',
+          'Short Term Support (other) (e.g. Immediate Services - Time-limited support; NOT Reablement; )',
+          'Universal Services/Signposted to other services',
+          'No services provided - Deceased',
+          'No services provided - other reason',
+        ],
+      },
+    ],
+  },
+  {
+    id: 'ManagerApproval20',
+    title: 'Sequel to Conversation 3 (NFA / Closure)',
+    components: [
+      <p key="manager">(New client will not receive ongoing services)</p>,
+      {
+        component: 'EmailInput',
+        name: 'list_key_contacts',
+        width: 30,
+        label:
+          'Email address of your manager (who would normally approve this decision)',
+        hint:
+          "(Who will retrospectively approve this decision? You need to manually forward the 'receipt' copy of this form to them once you receive it)",
+      },
+    ],
+  },
 ];
 
 export default steps;
