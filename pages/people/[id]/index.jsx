@@ -1,6 +1,6 @@
-import { NextSeo } from 'next-seo';
 import { useRouter } from 'next/router';
 
+import Seo from 'components/Layout/Seo/Seo';
 import BackButton from 'components/Layout/BackButton/BackButton';
 import PersonView from 'components/PersonView/PersonView';
 import Cases from 'components/Cases/Cases';
@@ -10,7 +10,7 @@ const PersonPage = () => {
   const { query } = useRouter();
   return (
     <div>
-      <NextSeo title={`#${query.id} Cases`} noindex />
+      <Seo title={`#${query.id} Cases`} />
       <BackButton />
       <PersonView personId={query.id}>
         {(person) => (

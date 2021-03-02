@@ -1,9 +1,9 @@
 import { useState } from 'react';
 import PropTypes from 'prop-types';
 import Router, { useRouter } from 'next/router';
-import { NextSeo } from 'next-seo';
 import { useBeforeunload } from 'react-beforeunload';
 
+import Seo from 'components/Layout/Seo/Seo';
 import DynamicStep from 'components/FormWizard/DynamicStep';
 import Breadcrumbs from 'components/Breadcrumbs/Breadcrumbs';
 import { createSteps, getNextStepPath, haveStepsChanged } from 'utils/steps';
@@ -55,7 +55,7 @@ const FormWizard = ({
   const StepComponent = step.component ? step.component : DynamicStep;
   return (
     <div className="govuk-width-container">
-      <NextSeo title={`${step.title} - ${title}`} noindex={true} />
+      <Seo title={`${step.title} - ${title}`} />
       {!hideBackButton && currentStepIndex !== 0 && step.id !== 'confirmation' && (
         <a className="govuk-back-link" href="#" onClick={() => Router.back()}>
           Back

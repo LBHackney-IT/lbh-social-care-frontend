@@ -1,7 +1,7 @@
 import { useCallback } from 'react';
 import { useRouter } from 'next/router';
-import { NextSeo } from 'next-seo';
 
+import Seo from 'components/Layout/Seo/Seo';
 import PersonView from 'components/PersonView/PersonView';
 import { useAuth } from 'components/UserContext/UserContext';
 import BackButton from 'components/Layout/BackButton/BackButton';
@@ -39,7 +39,7 @@ const CaseNotesRecording = (): React.ReactElement => {
   );
   return (
     <>
-      <NextSeo title="Case note" noindex />
+      <Seo title="Case note" />
       <>
         <BackButton />
         <h1 className="govuk-fieldset__legend--l gov-weight-lighter">

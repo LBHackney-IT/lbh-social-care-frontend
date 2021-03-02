@@ -1,10 +1,9 @@
-import { NextSeo } from 'next-seo';
-
+import Seo from 'components/Layout/Seo/Seo';
 import Search from 'components/Search/Search';
 
 const SearchResidentPage = () => (
   <div>
-    <NextSeo title="Search" noindex />
+    <Seo title="Search" />
     <Search type="people" />
   </div>
 );

@@ -1,4 +1,4 @@
-import { NextSeo } from 'next-seo';
+import Seo from 'components/Layout/Seo/Seo';
 import { useRouter } from 'next/router';
 
 import AddAllocatedWorker from 'components/AllocatedWorkers/AddAllocatedWorker/AddAllocatedWorker';
@@ -19,7 +19,7 @@ const AddNewAllocationPage = (): React.ReactElement => {
   }
   return (
     <>
-      <NextSeo title={`#${query.id} Cases`} noindex />
+      <Seo title={`#${query.id} Cases`} />
       <BackButton />
       <h1 className="govuk-fieldset__legend--l gov-weight-lighter">
         Allocate worker to
