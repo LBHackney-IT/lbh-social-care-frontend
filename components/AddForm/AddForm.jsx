@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import PropTypes from 'prop-types';
-import { useForm } from 'react-hook-form';
 
 import Button from 'components/Button/Button';
 import { useAuth } from 'components/UserContext/UserContext';
@@ -14,7 +13,6 @@ const AddForm = ({ person }) => {
   const [url, setUrl] = useState();
   const ageContext = person && person.ageContext;
   const forms = ageContext === 'C' ? CHILD_FORMS : ADULT_FORMS;
-  const { control } = useForm({ defaultValues: '' });
 
   return (
     <>
@@ -23,7 +21,6 @@ const AddForm = ({ person }) => {
           name="formList"
           options={forms}
           label="Choose a form"
-          control={control}
           placeHolder="Search or select a form"
           onChange={(value) => setUrl(value)}
         />
