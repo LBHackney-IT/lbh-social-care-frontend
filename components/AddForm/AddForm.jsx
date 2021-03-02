@@ -21,7 +21,7 @@ const AddForm = ({ person }) => {
           name="formList"
           options={forms}
           label="Choose a form"
-          placeHolder="Search or select a form"
+          placeholder="Select or type form name"
           onChange={(value) => setUrl(value)}
         />
       </div>

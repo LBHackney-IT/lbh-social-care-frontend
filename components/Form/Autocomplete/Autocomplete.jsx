@@ -72,7 +72,7 @@ export const Autocomplete = ({
             {error && <ErrorMessage label={error.message} />}
             <input
               {...getInputProps()}
-              placeholder={placeholder || 'Select or search for a value'}
+              placeholder={placeholder || 'Select or search for name'}
               id={name}
               data-testid={name}
               name={`${name}.autocomplete`}
