@@ -60,6 +60,7 @@ const AddAllocatedWorker = ({ personId, ageContext }) => {
           name="teamId"
           label="Select a team to view workers for that team"
           labelSize="m"
+          placeholder="Select or type team name"
           control={control}
           options={teams.map(({ id, name }) => ({
             value: id,
