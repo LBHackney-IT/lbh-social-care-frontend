@@ -88,6 +88,11 @@ const formConfig: FormConfig = {
           name: 'show_address_step',
           label: 'Show Address Lookup step',
         },
+        {
+          component: 'Checkbox',
+          name: 'show_autocomplete_step',
+          label: 'Show autocomplete step',
+        },
       ],
     },
     {
@@ -149,6 +154,24 @@ const formConfig: FormConfig = {
           component: 'AddressLookup',
           name: 'address',
           label: 'Address',
+        },
+      ],
+    },
+    {
+      id: 'autocomplete-step',
+      title: 'Autocomplete Step',
+      conditionalRender: ({ show_autocomplete_step }) =>
+        show_autocomplete_step === true,
+      components: [
+        {
+          component: 'Autocomplete',
+          name: 'autocomplete',
+          label: 'Autocomplete',
+          placeholder: 'Search for a value',
+          options: [
+            { text: 'foo', value: 22 },
+            { text: 'bar', value: 41 },
+          ],
         },
       ],
     },

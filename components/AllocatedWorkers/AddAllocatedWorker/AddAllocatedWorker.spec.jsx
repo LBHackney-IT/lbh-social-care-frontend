@@ -11,6 +11,7 @@ import {
 
 jest.mock('next/router', () => ({
   useRouter: () => ({
+    query: { teamId: '3' },
     asPath: 'path',
     push: jest.fn(),
     replace: jest.fn(),
@@ -47,10 +48,11 @@ describe(`AddAllocatedWorker`, () => {
   const props = {
     personId: '123',
     ageContext: 'A',
+    control: { defaultValuesRef: { current: { name: 'teamId' } } },
   };
 
   it('should render properly', async () => {
-    const { findByText, getByText, asFragment } = render(
+    const { getByTestId, asFragment } = render(
       <UserContext.Provider
         value={{
           user: { name: 'foo', email: 'foo@bar.com' },
@@ -59,20 +61,18 @@ describe(`AddAllocatedWorker`, () => {
         <AddAllocatedWorker {...props} />
       </UserContext.Provider>
     );
-    const teamRadio = await findByText(
-      'Select a team to view workers for that team'
-    );
-    expect(teamRadio).toBeInTheDocument();
+    const teamAutocomplete = await getByTestId('teamId');
+
+    expect(teamAutocomplete).toBeInTheDocument();
     expect(useTeams).toHaveBeenCalledWith({ ageContext: 'A' });
-    const radioSelection = getByText('Team 1');
     await act(async () => {
-      fireEvent.click(radioSelection);
+      fireEvent.click(teamAutocomplete);
     });
     expect(asFragment()).toMatchSnapshot();
   });
 
-  it('should post correctly properly to the API', async () => {
-    const { findByText, getByLabelText, getByRole } = render(
+  it('should render and submit correctly', async () => {
+    const { getByLabelText, getByRole, getByTestId } = render(
       <UserContext.Provider
         value={{
           user: { name: 'foo', email: 'foo@bar.com' },
@@ -81,14 +81,22 @@ describe(`AddAllocatedWorker`, () => {
         <AddAllocatedWorker {...props} />
       </UserContext.Provider>
     );
-    await findByText('Select a team to view workers for that team');
+    const teamAutocomplete = await getByTestId('teamId');
+
     await act(async () => {
-      fireEvent.click(getByLabelText('Team 3'));
+      fireEvent.click(teamAutocomplete);
     });
+
+    await act(async () => {
+      fireEvent.click(getByTestId('teamId_2'));
+    });
+
     fireEvent.click(getByLabelText('Worker C'));
+
     await act(async () => {
       fireEvent.submit(getByRole('form'));
     });
+
     expect(addAllocatedWorker).toHaveBeenCalled();
     expect(addAllocatedWorker).toHaveBeenCalledWith('123', {
       allocatedBy: 'foo@bar.com',

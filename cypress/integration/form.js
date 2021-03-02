@@ -59,6 +59,7 @@ describe('Test Form', () => {
         show_object_step: false,
         show_multi_select_step: false,
         show_address_step: false,
+        show_autocomplete_step: false,
         conditional_text: 'conditional name',
         'multi-step': [{ title_3: 'foo first' }, { title_3: 'foo second' }],
         title_2: 'conditional step title',
