@@ -157,6 +157,6 @@ export interface FormStep {
 export interface FormConfig {
   title: string;
   path: string;
-  successMessage: string;
+  successMessage?: string;
   steps: Array<FormStep>;
 }
