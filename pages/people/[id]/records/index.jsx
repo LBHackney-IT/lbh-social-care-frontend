@@ -1,6 +1,6 @@
-import { NextSeo } from 'next-seo';
 import { useRouter } from 'next/router';
 
+import Seo from 'components/Layout/Seo/Seo';
 import AddForm from 'components/AddForm/AddForm';
 import BackButton from 'components/Layout/BackButton/BackButton';
 import PersonView from 'components/PersonView/PersonView';
@@ -9,7 +9,7 @@ const AddNewRecordPage = () => {
   const { query } = useRouter();
   return (
     <>
-      <NextSeo title={`#${query.id} Cases`} noindex />
+      <Seo title={`#${query.id} Cases`} />
       <BackButton />
       <h1 className="govuk-fieldset__legend--l gov-weight-lighter">
         Add a new record for
