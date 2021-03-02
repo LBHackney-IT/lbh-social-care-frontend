@@ -1,4 +1,6 @@
-export default {
+import { FormConfig } from 'components/Form/types';
+
+const formConfig: FormConfig = {
   title: 'FAST referral form',
   path: '/form/child-referral/',
   steps: [
@@ -9,11 +11,10 @@ export default {
         {
           component: 'EmailInput',
           name: 'worker_email',
-          width: '30',
+          width: 30,
           label: 'Email address',
           hint: 'Valid email address',
           rules: { required: true },
-          type: 'email',
         },
         {
           component: 'Radios',
@@ -33,7 +34,7 @@ export default {
         {
           component: 'TextInput',
           name: 'business_support_name',
-          width: '30',
+          width: 30,
           label:
             'As a member of FAST Business Support, please provide YOUR full name (not that of the referrer).',
         },
@@ -46,27 +47,27 @@ export default {
         {
           component: 'TextInput',
           name: 'full_name',
-          width: '30',
+          width: 30,
           label: 'Your full name',
           rules: { required: true },
         },
         {
           component: 'TextInput',
           name: 'referrer_relationship',
-          width: '30',
+          width: 30,
           label: 'Role / relationship to the child or family: ',
           rules: { required: true },
         },
         {
           component: 'TextInput',
           name: 'position_agency',
-          width: '30',
+          width: 30,
           label: 'Position / agency (if relevant): ',
         },
         {
           component: 'PhoneInput',
           name: 'referrer_telephone',
-          width: '30',
+          width: 30,
           label: 'Telephone Number',
           rules: { required: true },
         },
@@ -80,14 +81,14 @@ export default {
         {
           component: 'TextInput',
           name: 'first_name',
-          width: '30',
+          width: 30,
           label: "Child's first name",
           rules: { required: true },
         },
         {
           component: 'TextInput',
           name: 'last_name',
-          width: '30',
+          width: 30,
           label: "Child's last name",
           rules: { required: true },
         },
@@ -109,43 +110,43 @@ export default {
         {
           component: 'TextInput',
           name: 'ethnicity',
-          width: '30',
+          width: 30,
           label: 'Ethnicity',
         },
         {
           component: 'TextInput',
           name: 'language',
-          width: '30',
+          width: 30,
           label: 'Language',
         },
         {
           component: 'TextInput',
           name: 'school',
-          width: '30',
+          width: 30,
           label: 'School',
         },
         {
           component: 'TextInput',
           name: 'address_1',
-          width: '30',
+          width: 30,
           label: 'Home address line 1',
         },
         {
           component: 'TextInput',
           name: 'address_2',
-          width: '30',
+          width: 30,
           label: 'Home address line 2',
         },
         {
           component: 'TextInput',
           name: 'address_3',
-          width: '30',
+          width: 30,
           label: 'Home address line 3',
         },
         {
           component: 'TextInput',
           name: 'post_code',
-          width: '30',
+          width: 30,
           label: 'Postcode',
           rules: { required: true },
         },
@@ -172,7 +173,7 @@ export default {
         {
           component: 'TextInput',
           name: 'mother_fullname',
-          width: '30',
+          width: 30,
           label: "Mother's full name ",
         },
         {
@@ -184,37 +185,37 @@ export default {
         {
           component: 'PhoneInput',
           name: 'mother_telephone',
-          width: '30',
+          width: 30,
           label: "Mother's telephone number:",
         },
         {
           component: 'EmailInput',
           name: 'mother_email',
-          width: '30',
+          width: 30,
           label: "Mother's email",
         },
         {
           component: 'TextInput',
           name: 'mother_address',
-          width: '30',
+          width: 30,
           label: "Mother's address line",
         },
         {
           component: 'TextInput',
           name: 'mother_address',
-          width: '30',
+          width: 30,
           label: "Mother's address line",
         },
         {
           component: 'TextInput',
           name: 'mother_address',
-          width: '30',
+          width: 30,
           label: "Mother's address line",
         },
         {
           component: 'TextInput',
           name: 'mother_post_code',
-          width: '30',
+          width: 30,
           label: "Mother's postcode",
         },
       ],
@@ -240,7 +241,7 @@ export default {
         {
           component: 'TextInput',
           name: 'father_fullname',
-          width: '30',
+          width: 30,
           label: "Father's full name",
         },
         {
@@ -252,37 +253,37 @@ export default {
         {
           component: 'PhoneInput',
           name: 'father_telephone',
-          width: '30',
+          width: 30,
           label: "Father's telephone number",
         },
         {
           component: 'EmailInput',
           name: 'father_email',
-          width: '30',
+          width: 30,
           label: "Father's email",
         },
         {
           component: 'TextInput',
           name: 'father_address',
-          width: '30',
+          width: 30,
           label: "Father's address line",
         },
         {
           component: 'TextInput',
           name: 'father_address',
-          width: '30',
+          width: 30,
           label: "Father's address line",
         },
         {
           component: 'TextInput',
           name: 'father_address',
-          width: '30',
+          width: 30,
           label: "Father's address line",
         },
         {
           component: 'TextInput',
           name: 'father_post_code',
-          width: '30',
+          width: 30,
           label: "Father's postcode",
         },
       ],
@@ -312,7 +313,7 @@ export default {
         {
           component: 'TextInput',
           name: 'wider_family_fullname',
-          width: '30',
+          width: 30,
           label: 'Name of individual',
           rules: { required: true },
         },
@@ -325,43 +326,43 @@ export default {
         {
           component: 'TextInput',
           name: 'wider_family_relationship',
-          width: '30',
+          width: 30,
           label: 'Role/relationship (specify which child or family member)',
         },
         {
           component: 'PhoneInput',
           name: 'wider_family_telephone',
-          width: '30',
+          width: 30,
           label: 'Telephone number',
         },
         {
           component: 'EmailInput',
           name: 'wider_family_email',
-          width: '30',
+          width: 30,
           label: 'Email address',
         },
         {
           component: 'TextInput',
           name: 'wider_family_address',
-          width: '30',
+          width: 30,
           label: 'Address line 1',
         },
         {
           component: 'TextInput',
           name: 'wider_family_address_2',
-          width: '30',
+          width: 30,
           label: 'Address line 2',
         },
         {
           component: 'TextInput',
           name: 'wider_family_address_3',
-          width: '30',
+          width: 30,
           label: 'Address line 3',
         },
         {
           component: 'TextInput',
           name: 'wider_family_postcode_1',
-          width: '30',
+          width: 30,
           label: 'Postcode',
         },
       ],
@@ -398,51 +399,51 @@ export default {
         {
           component: 'TextInput',
           name: 'professional_name',
-          width: '30',
+          width: 30,
           label: 'Name of professional',
           rules: { required: true },
         },
         {
           component: 'TextInput',
           name: 'professional_relationship',
-          width: '30',
+          width: 30,
           label: 'Relationship of the professional to the child and family',
         },
 
         {
           component: 'PhoneInput',
           name: 'professional_telephone',
-          width: '30',
+          width: 30,
           label: 'Telephone number',
         },
         {
           component: 'EmailInput',
           name: 'professional_email',
-          width: '30',
+          width: 30,
           label: 'Email address',
         },
         {
           component: 'TextInput',
           name: 'professional_address',
-          width: '30',
+          width: 30,
           label: 'Address line 1',
         },
         {
           component: 'TextInput',
           name: 'professional_address',
-          width: '30',
+          width: 30,
           label: 'Address line 2',
         },
         {
           component: 'TextInput',
           name: 'professional_address',
-          width: '30',
+          width: 30,
           label: 'Address line 3',
         },
         {
           component: 'TextInput',
           name: 'professional_postcode',
-          width: '30',
+          width: 30,
           label: 'Postcode',
         },
         {
@@ -524,7 +525,7 @@ export default {
         {
           component: 'TextInput',
           name: 'reasonNoSupport',
-          width: '30',
+          width: 30,
           label:
             'Briefly record the reasons why the parents/carers are not open to additional support. ',
         },
@@ -537,7 +538,7 @@ export default {
         {
           component: 'TextInput',
           name: 'referralReason',
-          width: '30',
+          width: 30,
           label:
             'Why is a referral being made?  Please include what you know and may be worried about in terms of the child(ren)’s day to day experiences. ',
         },
@@ -551,7 +552,7 @@ export default {
         {
           component: 'TextInput',
           name: 'Your Involvemnt',
-          width: '30',
+          width: 30,
           label:
             'Please outline your involvement with the child/family/peer group and any support you have offered them. ',
         },
@@ -562,7 +563,7 @@ export default {
         {
           component: 'TextInput',
           name: 'Early Support',
-          width: '30',
+          width: 30,
           label:
             'What additional support do you think the child(ren) and family would benefit from, at either an early help or a statutory level? ',
         },
@@ -589,3 +590,5 @@ export default {
     },
   ],
 };
+
+export default formConfig;

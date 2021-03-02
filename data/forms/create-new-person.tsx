@@ -3,7 +3,11 @@ import RELIGIONS from 'data/religions';
 import LANGUAGES from 'data/languages';
 import ORIENTATION from 'data/orientation';
 
-export default {
+import { FormConfig, Option } from 'components/Form/types';
+
+const dynamicEthnicities: { [key: string]: Option[] } = ETHNICITIES;
+
+const formConfig: FormConfig = {
   title: 'Create New Person',
   path: '/people/add/',
   successMessage: 'New person created',
@@ -42,21 +46,21 @@ export default {
           component: 'Select',
           name: 'title',
           label: 'Title',
-          width: '10',
+          width: 10,
           placeHolder: 'Choose one',
           options: ['Mr', 'Mrs', 'Miss', 'Ms', 'Dr'],
         },
         {
           component: 'TextInput',
           name: 'firstName',
-          width: '20',
+          width: 20,
           label: 'First Name',
           rules: { required: true },
         },
         {
           component: 'TextInput',
           name: 'lastName',
-          width: '20',
+          width: 20,
           label: 'Last Name',
           rules: { required: true },
         },
@@ -115,7 +119,7 @@ export default {
           placeHolder: 'Choose one',
           name: 'macroEthnicity',
           label: 'Ethnicity',
-          width: '20',
+          width: 20,
           options: Object.keys(ETHNICITIES),
         },
         {
@@ -123,16 +127,16 @@ export default {
           placeHolder: 'Choose one',
           name: 'ethnicity',
           label: 'Sub-ethnicity',
-          width: '20',
+          width: 20,
           rules: { required: true },
-          options: ({ macroEthnicity }) => ETHNICITIES[macroEthnicity],
+          options: ({ macroEthnicity }) => dynamicEthnicities[macroEthnicity],
         },
         {
           component: 'Select',
           placeHolder: 'Choose one',
           name: 'firstLanguage',
           label: 'First Language',
-          width: '20',
+          width: 20,
           options: LANGUAGES,
         },
         {
@@ -140,7 +144,7 @@ export default {
           name: 'religion',
           placeHolder: 'Choose one',
           label: 'Religion',
-          width: '20',
+          width: 20,
           options: RELIGIONS,
         },
         {
@@ -148,13 +152,13 @@ export default {
           name: 'sexualOrientation',
           placeHolder: 'Choose one',
           label: 'Sexual orientation',
-          width: '20',
+          width: 20,
           options: ORIENTATION,
         },
         {
           component: 'NumberInput',
           name: 'nhsNumber',
-          width: '10',
+          width: 10,
           label: 'NHS Number',
         },
         <h3
@@ -194,7 +198,7 @@ export default {
         {
           component: 'EmailInput',
           name: 'emailAddress',
-          width: '20',
+          width: 20,
           label: 'Email address',
         },
         {
@@ -202,10 +206,12 @@ export default {
           name: 'preferredMethodOfContact',
           label: 'Preferred method of contact',
           placeHolder: 'Choose one',
-          width: '20',
+          width: 20,
           options: ['Email', 'Phone', 'Letter', 'Fax', 'Face to face'],
         },
       ],
     },
   ],
 };
+
+export default formConfig;
