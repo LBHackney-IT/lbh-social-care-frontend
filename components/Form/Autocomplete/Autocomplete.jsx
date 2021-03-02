@@ -86,12 +86,16 @@ export const Autocomplete = ({
               }
             />
             {!isOpen && !inputValue && (
-              <span onClick={toggleMenu}>
-                <DownArrow onClick={toggleMenu} />
+              <span onClick={toggleMenu} role="button">
+                <DownArrow />
               </span>
             )}
             {inputValue && (
-              <span onClick={clearSelection} className={style.clear}>
+              <span
+                onClick={clearSelection}
+                className={style.clear}
+                role="button"
+              >
                 <ClearIcon />
               </span>
             )}
