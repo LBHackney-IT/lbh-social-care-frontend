@@ -1,0 +1,12 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`BackButton should render properly 1`] = `
+<DocumentFragment>
+  <a
+    class="govuk-back-link"
+    role="button"
+  >
+    Back
+  </a>
+</DocumentFragment>
+`;

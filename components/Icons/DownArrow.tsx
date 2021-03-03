@@ -1,10 +1,14 @@
-import PropTypes from 'prop-types';
+/* istanbul ignore file */
 
 const colors = {
   default: '#000',
 };
 
-const DownArrow = ({ color = 'default' }) => (
+interface Props {
+  color?: keyof typeof colors;
+}
+
+const DownArrow = ({ color = 'default' }: Props): React.ReactElement => (
   <svg
     className="down-arrow-icon"
     xmlns="http://www.w3.org/2000/svg"
@@ -25,9 +29,5 @@ const DownArrow = ({ color = 'default' }) => (
     </g>
   </svg>
 );
-
-DownArrow.propTypes = {
-  color: PropTypes.oneOf(['default']),
-};
 
 export default DownArrow;

@@ -3,7 +3,7 @@ import Router from 'next/router';
 
 const handleLink = (url: string) => window.open(url, '_blank');
 
-interface Props extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+export interface Props extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   label: React.ReactNode;
   onClick?: () => unknown;
   isSecondary?: boolean;

@@ -1,0 +1,28 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Layout component should render properly 1`] = `
+<DocumentFragment>
+  <a
+    class="govuk-skip-link"
+    href="#content"
+  >
+    Skip to main content
+  </a>
+  Header
+  <div
+    class="govuk-width-container app-width-container"
+  >
+    MockedPhaseBanner
+    <main
+      class="govuk-main-wrapper app-main-class"
+      id="content"
+      role="main"
+    >
+      <p>
+        I am the children
+      </p>
+    </main>
+  </div>
+  Footer
+</DocumentFragment>
+`;

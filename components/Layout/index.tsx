@@ -6,7 +6,11 @@ import Header from './Header/Header';
 import SkipLink from './SkipLink/SkipLink';
 import PhaseBanner from './PhaseBanner/PhaseBanner';
 
-const Layout = ({ children }) => {
+export interface Props {
+  children: React.ReactChild;
+}
+
+const Layout = ({ children }: Props): React.ReactElement => {
   const feedbackLink = process.env.NEXT_PUBLIC_FEEDBACK_LINK || '';
   return (
     <>

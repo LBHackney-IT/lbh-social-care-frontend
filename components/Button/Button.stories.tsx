@@ -1,11 +1,13 @@
-import Button from './Button';
+import { Story } from '@storybook/react';
+
+import Button, { Props } from './Button';
 
 export default {
   title: 'Button',
   component: Button,
 };
 
-const Template = (args) => <Button {...args} />;
+const Template: Story<Props> = (args) => <Button {...args} />;
 
 export const Primary = Template.bind({});
 Primary.args = {
@@ -15,12 +17,12 @@ Primary.args = {
 export const Secondary = Template.bind({});
 Secondary.args = {
   label: 'Button',
-  isSecondary: 'true',
+  isSecondary: true,
 };
 
 export const ExternalLink = Template.bind({});
 ExternalLink.args = {
   label: 'Button',
-  isSecondary: 'true',
+  isSecondary: true,
   route: 'https://hackney.gov.uk/',
 };
