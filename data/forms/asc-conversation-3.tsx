@@ -304,7 +304,6 @@ const steps: FormStep[] = [
         component: 'TextArea',
         name: 'details_home_envrionment',
         label: 'Details (Maintain a habitable home environment)',
-        rules: { required: true },
       },
       {
         component: 'Radios',
@@ -317,7 +316,6 @@ const steps: FormStep[] = [
         component: 'TextArea',
         name: 'details_manage_nutrition',
         label: 'Details (Manage and maintain nutrition)',
-        rules: { required: true },
       },
       {
         component: 'Radios',
@@ -330,7 +328,6 @@ const steps: FormStep[] = [
         component: 'TextArea',
         name: 'details_manage_toilet',
         label: 'Details (Manage toilet needs)',
-        rules: { required: true },
       },
       {
         component: 'Radios',
@@ -343,7 +340,6 @@ const steps: FormStep[] = [
         component: 'TextArea',
         name: 'details_maintain_hygiene',
         label: 'Details (Maintain personal hygiene)',
-        rules: { required: true },
       },
       {
         component: 'Radios',
@@ -356,7 +352,6 @@ const steps: FormStep[] = [
         component: 'TextArea',
         name: 'details_appropriate_clothed',
         label: 'Details (Be appropriately clothed)',
-        rules: { required: true },
       },
       {
         component: 'Radios',
@@ -370,7 +365,6 @@ const steps: FormStep[] = [
         name: 'details_maintain_relationships',
         label:
           'Details (Develop and maintain family or other personal relationships)',
-        rules: { required: true },
       },
       {
         component: 'Radios',
@@ -384,7 +378,6 @@ const steps: FormStep[] = [
         name: 'details_necessary_facilities',
         label:
           'Details (Make use of necessary facilities or services in the local community)',
-        rules: { required: true },
       },
       {
         component: 'Radios',
@@ -398,7 +391,6 @@ const steps: FormStep[] = [
         name: 'details_access_work',
         label:
           'Details (Access and engage in work, training, education or volunteering)',
-        rules: { required: true },
       },
       {
         component: 'Radios',
@@ -411,7 +403,6 @@ const steps: FormStep[] = [
         component: 'TextArea',
         name: 'details_caring_responsibilities',
         label: 'Details (Carry out any caring responsibilities for a child)',
-        rules: { required: true },
       },
       {
         component: 'Radios',
@@ -424,7 +415,6 @@ const steps: FormStep[] = [
         component: 'TextArea',
         name: 'details_home_safety',
         label: 'Details (Be able to make use of your home safely)',
-        rules: { required: true },
       },
       {
         component: 'Radios',
@@ -998,7 +988,10 @@ const steps: FormStep[] = [
       >
         Please ensure you also complete (once approved by Panel):
       </h3>,
-      <ul className="govuk-list govuk-error-summary__list" key="ul">
+      <ul
+        className="govuk-list govuk-error-summary__list"
+        key="case_transfer_list"
+      >
         <li>
           Case Transfer form - Transfer a case to the Long Term Team Provider
         </li>
