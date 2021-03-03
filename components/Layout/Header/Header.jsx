@@ -7,7 +7,7 @@ import { useRouter } from 'next/router';
 import { useAuth } from 'components/UserContext/UserContext';
 import { getData } from 'utils/saveData';
 import { getUserType } from 'utils/user';
-import Logo from './Logo.jsx';
+import Logo from './Logo';
 
 const loggedNavLinks = [
   {

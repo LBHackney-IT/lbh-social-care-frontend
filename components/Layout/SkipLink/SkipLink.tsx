@@ -1,4 +1,4 @@
-const SkipLink = () => (
+const SkipLink = (): React.ReactElement => (
   <a href="#content" className="govuk-skip-link">
     Skip to main content
   </a>

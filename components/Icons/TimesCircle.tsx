@@ -1,3 +1,5 @@
+/* istanbul ignore file */
+
 const colors = {
   default: '#000',
   danger: '#d4351c',
@@ -5,10 +7,10 @@ const colors = {
 };
 
 interface Props {
-  color: 'default' | 'danger' | 'border';
+  color?: keyof typeof colors;
 }
 
-const TimesCircleIcon = ({ color = 'default' }: Props) => (
+const TimesCircleIcon = ({ color = 'default' }: Props): React.ReactElement => (
   <svg
     className="cancel-icon"
     height="512pt"

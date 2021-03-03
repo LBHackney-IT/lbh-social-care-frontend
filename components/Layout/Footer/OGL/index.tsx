@@ -1,4 +1,6 @@
-const OGL = () => (
+/* istanbul ignore file */
+
+const OGL = (): React.ReactElement => (
   <svg
     aria-hidden="true"
     focusable="false"

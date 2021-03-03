@@ -1,4 +1,6 @@
-const HackneyLogo = () => (
+/* istanbul ignore file */
+
+const HackneyLogo = (): React.ReactElement => (
   <svg
     className="govuk-custom-header__logo"
     role="presentation"

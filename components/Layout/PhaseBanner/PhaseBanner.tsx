@@ -1,6 +1,9 @@
-import PropTypes from 'prop-types';
+interface Props {
+  phase: string;
+  feedbackLink: string;
+}
 
-const PhaseBanner = ({ phase, feedbackLink }) => (
+const PhaseBanner = ({ phase, feedbackLink }: Props): React.ReactElement => (
   <div className="govuk-phase-banner">
     <p className="govuk-phase-banner__content">
       <strong className="govuk-tag govuk-phase-banner__content__tag">
@@ -16,10 +19,5 @@ const PhaseBanner = ({ phase, feedbackLink }) => (
     </p>
   </div>
 );
-
-PhaseBanner.propTypes = {
-  phase: PropTypes.string.isRequired,
-  feedbackLink: PropTypes.string.isRequired,
-};
 
 export default PhaseBanner;
