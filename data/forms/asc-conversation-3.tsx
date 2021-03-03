@@ -9,6 +9,15 @@ const steps: FormStep[] = [
     id: 'record-of-conversation-1',
     title: 'Record of Conversation',
     components: [
+      <h2 key="prereqs">
+        You must have completed a Contact (Adults) and a Conversation 1 form
+        before completing this form.
+      </h2>,
+      <p key="omitconv2">
+        A Conversation 2 is required in most circumstances. Please obtain
+        manager approval to omit Conversation 2
+      </p>,
+
       {
         component: 'DatePicker',
         name: 'start_date_of_conversation_3',
@@ -167,6 +176,12 @@ const steps: FormStep[] = [
     id: 'supporting-assessment-3',
     title: 'Supporting you in your assessment',
     components: [
+      <p key="difficulties">
+        If you have difficulties in communication, understanding or
+        decision-making, you may need support for your involvement in your
+        assessment, an advocate to represent you and help you explain your
+        views, or a mental capacity assessment.{' '}
+      </p>,
       {
         component: 'TextArea',
         name: 'assessment_help',
@@ -185,6 +200,14 @@ const steps: FormStep[] = [
     id: 'about-you-4',
     title: 'About You',
     components: [
+      <p key="humanrights">
+        Local Authorities will remain under a duty to meet needs where failure
+        to do so would breach an individual’s human rights under the European
+        Convention on Human Rights. These include, for example, the right to
+        life under Article 2 of the ECHR, the right to freedom from inhuman and
+        degrading treatment under Article 3 and the right to private and family
+        life under Article 8.{' '}
+      </p>,
       {
         component: 'Radios',
         name: 'decline_support',
@@ -405,7 +428,10 @@ const steps: FormStep[] = [
     title: 'Impact on wellbeing',
     conditionalRender: ({ home_safety_alone }) => home_safety_alone === 'Yes',
     components: [
-      <h3 key="wellbeing_views">
+      <h3
+        key="wellbeing_views"
+        className="govuk-fieldset__legend--l gov-weight-lighter govuk-!-margin-bottom-5"
+      >
         The impact on your wellbeing should be looked at disregarding any
         support you may already have and should take into account the following
         areas, as well as your (or your representatives) views:{' '}
@@ -525,7 +551,12 @@ const steps: FormStep[] = [
         name: 'impact_carer_independence',
         label: "Impact of caring on your own Carer's independence",
       },
-      <h3 key="contingency_sub_heading">Contingency - Thinking Ahead</h3>,
+      <h3
+        key="contingency_sub_heading"
+        className="govuk-fieldset__legend--l gov-weight-lighter govuk-!-margin-bottom-5"
+      >
+        Contingency - Thinking Ahead
+      </h3>,
       {
         component: 'TextArea',
         name: 'informal_agreements',
@@ -579,7 +610,12 @@ const steps: FormStep[] = [
         hint:
           'Submission date of this Google form - instead of authorised date',
       },
-      <h3 key="budget_sub_heading">Budget Spending Plan Guidance</h3>,
+      <h3
+        key="budget_sub_heading"
+        className="govuk-fieldset__legend--l gov-weight-lighter govuk-!-margin-bottom-5"
+      >
+        Budget Spending Plan Guidance
+      </h3>,
       <p key="gross_weekly">
         Calculate gross weekly cost of all resources approved (excluding top
         ups). Do not include symbols or commas in the figures entered.
@@ -750,7 +786,12 @@ const steps: FormStep[] = [
         width: 30,
         label: 'Other (£/Week)',
       },
-      <h3 key="weekly_ttable">My Weekly Timetable</h3>,
+      <h3
+        key="weekly_table"
+        className="govuk-fieldset__legend--l gov-weight-lighter govuk-!-margin-bottom-5"
+      >
+        My Weekly Timetable
+      </h3>,
       <p key="replaces_a_table">
         Replaces a table - please number each row and use the same number across
         all of the fields below
@@ -789,7 +830,6 @@ const steps: FormStep[] = [
         label: 'Completed date (Conversation 3)',
         rules: { required: true },
       },
-      //find out what is needed here
       {
         component: 'Select',
         name: 'other_professionals_involved',
@@ -837,7 +877,13 @@ const steps: FormStep[] = [
         ],
       },
 
-      <h3 key="workflow_title"> What Next - workflow</h3>,
+      <h3
+        key="workflow_title"
+        className="govuk-fieldset__legend--l gov-weight-lighter govuk-!-margin-bottom-5"
+      >
+        {' '}
+        What Next - workflow
+      </h3>,
       <p key="what_next">
         If you are not transferring to the Long Term team and the person was
         also not accepted/eligible for reablement then choose Close Case/ No
@@ -863,7 +909,12 @@ const steps: FormStep[] = [
     conditionalRender: ({ household_structure }) =>
       household_structure === 'Transfer case to Long Term team',
     components: [
-      <h3 key="next_review">Schedule Next Review</h3>,
+      <h3
+        key="next_review"
+        className="govuk-fieldset__legend--l gov-weight-lighter govuk-!-margin-bottom-5"
+      >
+        Schedule Next Review
+      </h3>,
       {
         component: 'DatePicker',
         name: 'next_review',
@@ -872,7 +923,10 @@ const steps: FormStep[] = [
           'Please schedule a date in 3, 6 or 12 months time, as required, for the Long Term team to carry out a Review',
         rules: { required: true },
       },
-      <h3 key="please_ensure">
+      <h3
+        key="please_ensure"
+        className="govuk-fieldset__legend--l gov-weight-lighter govuk-!-margin-bottom-5"
+      >
         Please ensure you also complete (once approved by Panel):
       </h3>,
       <ul className="govuk-list govuk-error-summary__list" key="ul">
@@ -893,7 +947,10 @@ const steps: FormStep[] = [
     conditionalRender: ({ household_structure }) =>
       household_structure === 'Transfer case to Long Term team',
     components: [
-      <h3 key="transfer">
+      <h3
+        key="transfer"
+        className="govuk-fieldset__legend--l gov-weight-lighter govuk-!-margin-bottom-5"
+      >
         (New client is being transferred to the Long Term team)
       </h3>,
       {
@@ -948,6 +1005,8 @@ const steps: FormStep[] = [
   {
     id: 'ManagerApproval20',
     title: 'Sequel to Conversation 3 (NFA / Closure)',
+    conditionalRender: ({ household_structure }) =>
+      household_structure === 'Close Case /No Further Action',
     components: [
       <p key="manager">(New client will not receive ongoing services)</p>,
       {
@@ -957,7 +1016,7 @@ const steps: FormStep[] = [
         label:
           'Email address of your manager (who would normally approve this decision)',
         hint:
-          "(Who will retrospectively approve this decision? You need to manually forward the 'receipt' copy of this form to them once you receive it)",
+          "Who will retrospectively approve this decision? You need to manually forward the 'receipt' copy of this form to them once you receive it",
       },
     ],
   },
