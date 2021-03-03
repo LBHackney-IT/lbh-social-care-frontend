@@ -732,7 +732,57 @@ const steps: FormStep[] = [
           'Local Authority',
           'Other arrangement (e.g. mixed)',
         ],
-        //find out what is needed here
+      },
+      {
+        component: 'Radios',
+        name: 'power_of_attorney',
+        label: 'Does the identified representative have a Power of Attorney?',
+        options: ['Yes', 'No', 'Not applicable'],
+      },
+      {
+        component: 'TextArea',
+        name: 'list_details_budget',
+        width: 30,
+        label: 'List details of those managing my budget',
+      },
+      {
+        component: 'Radios',
+        name: 'Financial_assessment_form?',
+        label:
+          'Has this person been given a copy of the Financial Assessment form?',
+        options: ['Yes', 'No'],
+        rules: { required: true },
+      },
+      {
+        component: 'TextArea',
+        name: 'made_up_budget',
+        width: 30,
+        label: 'My weekly budget is made up of the following:',
+      },
+      {
+        component: 'TextInput',
+        name: 'my_contribution',
+        width: 30,
+        label: 'My contribution (£/week to be confirmed by finance) ',
+      },
+      {
+        component: 'TextInput',
+        name: 'LA_contribution',
+        width: 30,
+        label:
+          'Local Authority contribution (£/week to be confirmed by finance) ',
+      },
+      {
+        component: 'TextInput',
+        name: 'other_conttributions',
+        width: 30,
+        label: 'Other contributions (£/week) ',
+      },
+      {
+        component: 'TextArea',
+        name: 'details_budget',
+        width: 30,
+        label: 'Details (budget)',
       },
     ],
   },
