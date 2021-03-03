@@ -172,13 +172,13 @@ const steps: FormStep[] = [
       </p>,
       {
         component: 'TextArea',
-        name: 'assessment_help',
+        name: 'assessment_help_a',
         label:
           'Please provide details of difficulties and what would help you communicate more easily during your assessment (e.g. a family member or friend present, an independent advocate, specialist communication support)',
       },
       {
         component: 'TextArea',
-        name: 'assessment_help',
+        name: 'assessment_help_b',
         label:
           'Please list other people involved in your assessment (e.g. advocate, carer, family, friend, other professionals) Provide details including names, roles/relationship and contact details.',
       },
@@ -347,7 +347,7 @@ const steps: FormStep[] = [
       },
       {
         component: 'Radios',
-        name: 'maintain_personal_hygiene',
+        name: 'can_be_apprpriately_clothed',
         label:
           'Can you "Be appropriately clothed" alone within within a reasonable time and without significant pain, distress, anxiety or risk to yourself or others?',
         rules: { required: true },
@@ -428,7 +428,7 @@ const steps: FormStep[] = [
       },
       {
         component: 'Radios',
-        name: 'home_safety_alone',
+        name: 'home_safety_wellbeing',
         label:
           'As a result of being unable to achieve these outcomes is there, or is there likely to be, a significant impact on your wellbeing?',
         rules: { required: true },
@@ -543,7 +543,7 @@ const steps: FormStep[] = [
       </p>,
       {
         component: 'Radios',
-        name: 'carer_seperate_conversation',
+        name: 'carer_seperate_conversation_agree',
         label:
           'If conversation is completed with the Carer present, does the Carer agree this is a joint conversation?',
         rules: { required: true },
@@ -619,7 +619,7 @@ const steps: FormStep[] = [
     components: [
       {
         component: 'TextInput',
-        name: 'total_weekly_hours',
+        name: 'total_weekly_hours_budget',
         width: 30,
         label: 'My total weekly hours (Budget)',
         hint: 'Use decimal notation for part-hours',
@@ -962,7 +962,7 @@ const steps: FormStep[] = [
       </p>,
       {
         component: 'Radios',
-        name: 'household_structure',
+        name: 'household_situation',
         label: 'Household Structure',
         options: [
           'Transfer case to Long Term team',
@@ -1080,7 +1080,7 @@ const steps: FormStep[] = [
       <p key="manager">(New client will not receive ongoing services)</p>,
       {
         component: 'EmailInput',
-        name: 'list_key_contacts',
+        name: 'list_key_contacts_email',
         width: 30,
         label:
           'Email address of your manager (who would normally approve this decision)',
