@@ -1,12 +1,12 @@
 import React, { useCallback, ReactElement } from 'react';
 import { useRouter } from 'next/router';
-import { NextSeo } from 'next-seo';
 
 import PersonView from 'components/PersonView/PersonView';
 import { useAuth } from 'components/UserContext/UserContext';
 import BackButton from 'components/Layout/BackButton/BackButton';
 import FormWizard from 'components/FormWizard/FormWizard';
 import ErrorMessage from 'components/ErrorMessage/ErrorMessage';
+import Seo from 'components/Layout/Seo/Seo';
 // import { addCase } from 'utils/api/cases';
 
 import formSteps from 'data/forms/asc-conversation-3';
@@ -41,7 +41,7 @@ const CaseNotesRecording = (): ReactElement => {
   );
   return (
     <>
-      <NextSeo title="Case note" noindex />
+      <Seo title="Case note" />
       <>
         <BackButton />
         <h1 className="govuk-fieldset__legend--l gov-weight-lighter">
