@@ -32,14 +32,6 @@ const steps: FormStep[] = [
         Person Details
       </h3>,
       {
-        component: 'NumberInput',
-        name: 'emergency_id',
-        label: 'Emergency ID (ASC)',
-        width: 10,
-        hint:
-          '(Find or create an emergency ID number for this person in the list of numbers provided to your team, and enter it here)',
-      },
-      {
         component: 'Select',
         name: 'primary_address_tenure_type',
         label: 'Primary Address Tenure Type',
@@ -216,7 +208,13 @@ const steps: FormStep[] = [
         hint:
           '(Has the client stated that they do not wish further assessment or services from Hackney Adults Social Care at this point)',
         options: ['Yes', 'No'],
+        rules: { required: true },
       },
+      <p key="lifewellbeing">
+        Areas of my life I enjoy most or value (including my main interests and
+        where I can most contribute) & Changes that would improve my wellbeing
+        or quality of life
+      </p>,
       {
         component: 'TextArea',
         name: 'about_you',
@@ -264,6 +262,7 @@ const steps: FormStep[] = [
         width: 30,
         label: 'Number of Visits',
         hint: '(including telephone calls to the person, etc)',
+        rules: { required: true },
       },
       {
         component: 'Checkbox',
@@ -291,6 +290,7 @@ const steps: FormStep[] = [
         label:
           'Do you have a condition as a result of either your physical, mental, sensory, learning or cognitive disabilities or illnesses, substance misuse or brain injury?',
         options: ['Yes', 'No'],
+        rules: { required: true },
       },
       {
         component: 'Radios',
@@ -298,6 +298,7 @@ const steps: FormStep[] = [
         label:
           'As a result of your needs are you unable to achieve two or more of the eligible outcomes below',
         options: ['Yes', 'No'],
+        rules: { required: true },
       },
       {
         component: 'Radios',
@@ -305,11 +306,13 @@ const steps: FormStep[] = [
         label:
           'Can you "Maintain a habitable home environment" alone within a reasonable time and without significant pain, distress, anxiety, or risk to yourself or others?',
         options: ['Yes', 'No'],
+        rules: { required: true },
       },
       {
         component: 'TextArea',
         name: 'details_home_envrionment',
         label: 'Details (Maintain a habitable home environment)',
+        rules: { required: true },
       },
       {
         component: 'Radios',
@@ -317,11 +320,13 @@ const steps: FormStep[] = [
         label:
           'Can you "Manage and maintain nutrition" alone within within a reasonable time and without significant pain, distress, anxiety or risk to yourself or others?',
         options: ['Yes', 'No'],
+        rules: { required: true },
       },
       {
         component: 'TextArea',
         name: 'details_manage_nutrition',
         label: 'Details (Manage and maintain nutrition)',
+        rules: { required: true },
       },
       {
         component: 'Radios',
@@ -329,11 +334,13 @@ const steps: FormStep[] = [
         label:
           'Can you "Manage toilet needs" alone within within a reasonable time and without significant pain, distress, anxiety or risk to yourself or others?',
         options: ['Yes', 'No'],
+        rules: { required: true },
       },
       {
         component: 'TextArea',
         name: 'details_manage_toilet',
         label: 'Details (Manage toilet needs)',
+        rules: { required: true },
       },
       {
         component: 'Radios',
@@ -341,11 +348,13 @@ const steps: FormStep[] = [
         label:
           'Can you "Maintain personal hygiene" alone within within a reasonable time and without significant pain, distress, anxiety or risk to yourself or others?',
         options: ['Yes', 'No'],
+        rules: { required: true },
       },
       {
         component: 'TextArea',
         name: 'details_maintain_hygiene',
         label: 'Details (Maintain personal hygiene)',
+        rules: { required: true },
       },
       {
         component: 'Radios',
@@ -353,11 +362,13 @@ const steps: FormStep[] = [
         label:
           'Can you "Be appropriately clothed" alone within within a reasonable time and without significant pain, distress, anxiety or risk to yourself or others?',
         options: ['Yes', 'No'],
+        rules: { required: true },
       },
       {
         component: 'TextArea',
         name: 'details_appropriate_clothed',
         label: 'Details (Be appropriately clothed)',
+        rules: { required: true },
       },
       {
         component: 'Radios',
@@ -365,12 +376,14 @@ const steps: FormStep[] = [
         label:
           'Can you "Develop and maintain family or other personal relationships" alone within within a reasonable time and without significant pain, distress, anxiety or risk to yourself or others?',
         options: ['Yes', 'No'],
+        rules: { required: true },
       },
       {
         component: 'TextArea',
         name: 'details_maintain_relationships',
         label:
           'Details (Develop and maintain family or other personal relationships)',
+        rules: { required: true },
       },
       {
         component: 'Radios',
@@ -378,12 +391,14 @@ const steps: FormStep[] = [
         label:
           'Can you "Make use of necessary facilities or services in the local community (including public transport and recreational facilities/services)" alone within within a reasonable time and without significant pain, distress, anxiety or risk to yourself or others?',
         options: ['Yes', 'No'],
+        rules: { required: true },
       },
       {
         component: 'TextArea',
         name: 'details_necessary_facilities',
         label:
           'Details (Make use of necessary facilities or services in the local community)',
+        rules: { required: true },
       },
       {
         component: 'Radios',
@@ -391,12 +406,14 @@ const steps: FormStep[] = [
         label:
           'Can you "Access and engage in work, training, education or volunteering" alone within within a reasonable time and without significant pain, distress, anxiety or risk to yourself or others?',
         options: ['Yes', 'No'],
+        rules: { required: true },
       },
       {
         component: 'TextArea',
         name: 'details_access_work',
         label:
           'Details (Access and engage in work, training, education or volunteering)',
+        rules: { required: true },
       },
       {
         component: 'Radios',
@@ -404,11 +421,13 @@ const steps: FormStep[] = [
         label:
           'Can you "Carry out any caring responsibilities for a child" alone within within a reasonable time and without significant pain, distress, anxiety or risk to yourself or others?',
         options: ['Yes', 'No'],
+        rules: { required: true },
       },
       {
         component: 'TextArea',
         name: 'details_caring_responsibilities',
         label: 'Details (Carry out any caring responsibilities for a child)',
+        rules: { required: true },
       },
       {
         component: 'Radios',
@@ -416,11 +435,13 @@ const steps: FormStep[] = [
         label:
           'Can you "Be able to make use of your home safely" alone within within a reasonable time and without significant pain, distress, anxiety or risk to yourself or others?',
         options: ['Yes', 'No'],
+        rules: { required: true },
       },
       {
         component: 'TextArea',
         name: 'details_home_safety',
         label: 'Details (Be able to make use of your home safely)',
+        rules: { required: true },
       },
       {
         component: 'Radios',
@@ -428,6 +449,7 @@ const steps: FormStep[] = [
         label:
           'As a result of being unable to achieve these outcomes is there, or is there likely to be, a significant impact on your wellbeing?',
         options: ['Yes', 'No'],
+        rules: { required: true },
       },
     ],
   },
@@ -458,11 +480,13 @@ const steps: FormStep[] = [
           and the way it is provided)
         </li>
       </ul>,
+      <br key="space"></br>,
       {
         component: 'TextArea',
         name: 'details_wellbeing_impact',
         label:
           'Details of the impact on your wellbeing (in the absence of any support you may already have in place)',
+        rules: { required: true },
       },
     ],
   },
@@ -502,24 +526,28 @@ const steps: FormStep[] = [
         name: 'carer_first_name',
         width: 30,
         label: 'Carer First Name',
+        rules: { required: true },
       },
       {
         component: 'TextInput',
         name: 'carer_last_name',
         width: 30,
         label: 'Carer Last Name',
+        rules: { required: true },
       },
       {
         component: 'TextInput',
         name: 'relation_to_subject',
         width: 30,
         label: 'Relationship to main subject of assessment',
+        rules: { required: true },
       },
       {
         component: 'Radios',
         name: 'main_carer',
         label: 'Is this the main carer for the cared-for person?)',
         options: ['Yes', 'No'],
+        rules: { required: true },
       },
       {
         component: 'Radios',
@@ -527,6 +555,7 @@ const steps: FormStep[] = [
         label:
           'If conversation is completed with an informal / unpaid Carer present, would the Carer like to have a separate conversation?',
         options: ['Yes', 'No'],
+        rules: { required: true },
       },
       <p key="carer_conversation_form_info">
         If the Carer has requested a separate conversation you should complete a
@@ -538,6 +567,7 @@ const steps: FormStep[] = [
         label:
           'If conversation is completed with the Carer present, does the Carer agree this is a joint conversation?',
         options: ['Yes', 'No'],
+        rules: { required: true },
       },
     ],
   },
@@ -553,11 +583,13 @@ const steps: FormStep[] = [
         label:
           'Has the carer been assessed as having one or more eligible need?',
         options: ['Yes', 'No'],
+        rules: { required: true },
       },
       {
         component: 'TextArea',
         name: 'impact_carer_independence',
         label: "Impact of caring on your own Carer's independence",
+        rules: { required: true },
       },
       <h3
         key="contingency_sub_heading"
@@ -570,12 +602,14 @@ const steps: FormStep[] = [
         name: 'informal_agreements',
         label:
           'What are your informal arrangements when you are unable to provide care?',
+        rules: { required: true },
       },
       {
         component: 'TextArea',
         name: 'special_requirements',
         label:
           'Does the person that you care for have any special requirements that we should know about?',
+        rules: { required: true },
       },
       {
         component: 'Radios',
@@ -583,6 +617,7 @@ const steps: FormStep[] = [
         label:
           'Was the Carer provided with Information, Advice and Other Universal Services / Signposting?',
         options: ['Yes', 'No'],
+        rules: { required: true },
       },
       {
         component: 'Radios',
@@ -590,6 +625,7 @@ const steps: FormStep[] = [
         label:
           'If yes, was the Carer signposted to a relevant support service such as the Carers Centre? ',
         options: ['Yes', 'No', 'Not applicable (not signposted)'],
+        rules: { required: true },
       },
       {
         component: 'Radios',
@@ -597,6 +633,7 @@ const steps: FormStep[] = [
         label:
           'Will respite or other forms of carer support be delivered to the cared-for person? ',
         options: ['Yes', 'No'],
+        rules: { required: true },
       },
     ],
   },
