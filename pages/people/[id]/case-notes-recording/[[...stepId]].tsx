@@ -8,8 +8,8 @@ import BackButton from 'components/Layout/BackButton/BackButton';
 import FormWizard from 'components/FormWizard/FormWizard';
 import { addCase } from 'utils/api/cases';
 
-import formAdult from 'data/forms/asc-case-notes-recording';
-import formChild from 'data/forms/cfs-case-notes-recording';
+import formStepsAdult from 'data/forms/asc-case-notes-recording';
+import formStepsChild from 'data/forms/cfs-case-notes-recording';
 
 import type { Resident, User } from 'types';
 
@@ -50,7 +50,7 @@ const CaseNotesRecording = (): React.ReactElement => {
             <FormWizard
               formPath={`/people/${personId}/case-notes-recording/`}
               formSteps={
-                person.ageContext === 'A' ? formAdult.steps : formChild.steps
+                person.ageContext === 'A' ? formStepsAdult : formStepsChild
               }
               title="Case Notes Recording"
               onFormSubmit={onFormSubmit(person)}
