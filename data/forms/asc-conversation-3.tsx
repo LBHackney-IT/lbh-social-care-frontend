@@ -135,27 +135,23 @@ const steps: FormStep[] = [
         component: 'Radios',
         name: 'interpreter_required',
         label: 'Interpreter required?',
-        options: ['Yes', 'No'],
       },
       {
         component: 'Radios',
         name: 'communication_difficulties',
         label: 'Do you have communication difficulties?',
-        options: ['Yes', 'No'],
       },
       {
         component: 'Radios',
         name: 'understanding_difficulties',
         label:
           'Do you have any difficulties with understanding and/or retaining information?',
-        options: ['Yes', 'No'],
       },
       {
         component: 'Radios',
         name: 'decision_impact_diffiulties',
         label:
           'Do you have any difficulties making decisions and/or understanding their impact?',
-        options: ['Yes', 'No'],
       },
       {
         component: 'TextArea',
@@ -207,7 +203,6 @@ const steps: FormStep[] = [
           'Did the client choose to decline any further Social Services support?',
         hint:
           '(Has the client stated that they do not wish further assessment or services from Hackney Adults Social Care at this point)',
-        options: ['Yes', 'No'],
         rules: { required: true },
       },
       <p key="lifewellbeing">
@@ -289,7 +284,6 @@ const steps: FormStep[] = [
         name: 'medical_condition',
         label:
           'Do you have a condition as a result of either your physical, mental, sensory, learning or cognitive disabilities or illnesses, substance misuse or brain injury?',
-        options: ['Yes', 'No'],
         rules: { required: true },
       },
       {
@@ -297,7 +291,6 @@ const steps: FormStep[] = [
         name: 'medical_eligible_outcome',
         label:
           'As a result of your needs are you unable to achieve two or more of the eligible outcomes below',
-        options: ['Yes', 'No'],
         rules: { required: true },
       },
       {
@@ -305,7 +298,6 @@ const steps: FormStep[] = [
         name: 'maintain_home_environment',
         label:
           'Can you "Maintain a habitable home environment" alone within a reasonable time and without significant pain, distress, anxiety, or risk to yourself or others?',
-        options: ['Yes', 'No'],
         rules: { required: true },
       },
       {
@@ -319,7 +311,6 @@ const steps: FormStep[] = [
         name: 'maintain_nutrition_alone',
         label:
           'Can you "Manage and maintain nutrition" alone within within a reasonable time and without significant pain, distress, anxiety or risk to yourself or others?',
-        options: ['Yes', 'No'],
         rules: { required: true },
       },
       {
@@ -333,7 +324,6 @@ const steps: FormStep[] = [
         name: 'manage_toilet_needs',
         label:
           'Can you "Manage toilet needs" alone within within a reasonable time and without significant pain, distress, anxiety or risk to yourself or others?',
-        options: ['Yes', 'No'],
         rules: { required: true },
       },
       {
@@ -347,7 +337,6 @@ const steps: FormStep[] = [
         name: 'maintain_personal_hygiene',
         label:
           'Can you "Maintain personal hygiene" alone within within a reasonable time and without significant pain, distress, anxiety or risk to yourself or others?',
-        options: ['Yes', 'No'],
         rules: { required: true },
       },
       {
@@ -361,7 +350,6 @@ const steps: FormStep[] = [
         name: 'maintain_personal_hygiene',
         label:
           'Can you "Be appropriately clothed" alone within within a reasonable time and without significant pain, distress, anxiety or risk to yourself or others?',
-        options: ['Yes', 'No'],
         rules: { required: true },
       },
       {
@@ -375,7 +363,6 @@ const steps: FormStep[] = [
         name: 'maintain_relationships',
         label:
           'Can you "Develop and maintain family or other personal relationships" alone within within a reasonable time and without significant pain, distress, anxiety or risk to yourself or others?',
-        options: ['Yes', 'No'],
         rules: { required: true },
       },
       {
@@ -390,7 +377,6 @@ const steps: FormStep[] = [
         name: 'use_necessary_facilities',
         label:
           'Can you "Make use of necessary facilities or services in the local community (including public transport and recreational facilities/services)" alone within within a reasonable time and without significant pain, distress, anxiety or risk to yourself or others?',
-        options: ['Yes', 'No'],
         rules: { required: true },
       },
       {
@@ -405,7 +391,6 @@ const steps: FormStep[] = [
         name: 'access_work_alone',
         label:
           'Can you "Access and engage in work, training, education or volunteering" alone within within a reasonable time and without significant pain, distress, anxiety or risk to yourself or others?',
-        options: ['Yes', 'No'],
         rules: { required: true },
       },
       {
@@ -420,7 +405,6 @@ const steps: FormStep[] = [
         name: 'caring_responsibilities',
         label:
           'Can you "Carry out any caring responsibilities for a child" alone within within a reasonable time and without significant pain, distress, anxiety or risk to yourself or others?',
-        options: ['Yes', 'No'],
         rules: { required: true },
       },
       {
@@ -434,7 +418,6 @@ const steps: FormStep[] = [
         name: 'home_safety_alone',
         label:
           'Can you "Be able to make use of your home safely" alone within within a reasonable time and without significant pain, distress, anxiety or risk to yourself or others?',
-        options: ['Yes', 'No'],
         rules: { required: true },
       },
       {
@@ -448,7 +431,6 @@ const steps: FormStep[] = [
         name: 'home_safety_alone',
         label:
           'As a result of being unable to achieve these outcomes is there, or is there likely to be, a significant impact on your wellbeing?',
-        options: ['Yes', 'No'],
         rules: { required: true },
       },
     ],
@@ -546,7 +528,6 @@ const steps: FormStep[] = [
         component: 'Radios',
         name: 'main_carer',
         label: 'Is this the main carer for the cared-for person?)',
-        options: ['Yes', 'No'],
         rules: { required: true },
       },
       {
@@ -554,7 +535,6 @@ const steps: FormStep[] = [
         name: 'carer_seperate_conversation',
         label:
           'If conversation is completed with an informal / unpaid Carer present, would the Carer like to have a separate conversation?',
-        options: ['Yes', 'No'],
         rules: { required: true },
       },
       <p key="carer_conversation_form_info">
@@ -566,7 +546,6 @@ const steps: FormStep[] = [
         name: 'carer_seperate_conversation',
         label:
           'If conversation is completed with the Carer present, does the Carer agree this is a joint conversation?',
-        options: ['Yes', 'No'],
         rules: { required: true },
       },
     ],
@@ -582,7 +561,6 @@ const steps: FormStep[] = [
         name: 'carer_assessed',
         label:
           'Has the carer been assessed as having one or more eligible need?',
-        options: ['Yes', 'No'],
         rules: { required: true },
       },
       {
@@ -616,7 +594,6 @@ const steps: FormStep[] = [
         name: 'carer_provided_information',
         label:
           'Was the Carer provided with Information, Advice and Other Universal Services / Signposting?',
-        options: ['Yes', 'No'],
         rules: { required: true },
       },
       {
@@ -632,7 +609,6 @@ const steps: FormStep[] = [
         name: 'deliver_respite',
         label:
           'Will respite or other forms of carer support be delivered to the cared-for person? ',
-        options: ['Yes', 'No'],
         rules: { required: true },
       },
     ],
@@ -795,7 +771,6 @@ const steps: FormStep[] = [
         name: 'Financial_assessment_form?',
         label:
           'Has this person been given a copy of the Financial Assessment form?',
-        options: ['Yes', 'No'],
         rules: { required: true },
       },
       {
@@ -952,7 +927,6 @@ const steps: FormStep[] = [
         component: 'Radios',
         name: 'SafeguardingConcern?',
         label: 'Will this Conversation lead to a Safeguarding Concern?',
-        options: ['Yes', 'No'],
       },
       <p key="completeAsc">
         If yes, please ensure you complete an Adults - Safeguarding Adult
