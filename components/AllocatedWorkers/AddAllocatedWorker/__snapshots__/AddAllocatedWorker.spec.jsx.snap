@@ -6,7 +6,7 @@ exports[`AddAllocatedWorker should render properly 1`] = `
     role="form"
   >
     <div
-      class="govuk-form-group"
+      class="govuk-form-group govuk-grid-column-undefined"
     >
       <label
         class="govuk-label govuk-label--m"
@@ -15,63 +15,68 @@ exports[`AddAllocatedWorker should render properly 1`] = `
         Select a team to view workers for that team 
       </label>
       <div
-        class="govuk-radios"
+        aria-expanded="true"
+        aria-haspopup="listbox"
+        aria-labelledby="downshift-0-label"
+        aria-owns="downshift-0-menu"
+        class="inputContainer"
+        role="combobox"
       >
-        <div
-          class="govuk-radios__item"
-        >
-          <input
-            class="govuk-radios__input"
-            id="teamId_1"
-            name="teamId"
-            type="radio"
-            value="1"
-          />
-          <label
-            class="govuk-label govuk-radios__label"
-            for="teamId_1"
-          >
-            Team 1
-          </label>
-        </div>
-        <div
-          class="govuk-radios__item"
-        >
-          <input
-            class="govuk-radios__input"
-            id="teamId_2"
-            name="teamId"
-            type="radio"
-            value="2"
-          />
-          <label
-            class="govuk-label govuk-radios__label"
-            for="teamId_2"
-          >
-            Team 2
-          </label>
-        </div>
-        <div
-          class="govuk-radios__item"
-        >
-          <input
-            class="govuk-radios__input"
-            id="teamId_3"
-            name="teamId"
-            type="radio"
-            value="3"
-          />
-          <label
-            class="govuk-label govuk-radios__label"
-            for="teamId_3"
-          >
-            Team 3
-          </label>
-        </div>
+        <input
+          aria-autocomplete="list"
+          aria-controls="downshift-0-menu"
+          aria-labelledby="downshift-0-label"
+          autocomplete="off"
+          class="govuk-input govuk-input--width-20"
+          data-testid="teamId"
+          id="teamId"
+          name="teamId.autocomplete"
+          placeholder="Select or type team name"
+          style="border-color: #000;"
+          value=""
+        />
       </div>
+      <ul
+        aria-labelledby="downshift-0-label"
+        class="suggestionList"
+        id="downshift-0-menu"
+        role="listbox"
+        style="border-bottom: 1px solid #aaa;"
+      >
+        <li
+          aria-selected="false"
+          class="suggestion"
+          data-testid="teamId_0"
+          id="downshift-0-item-0"
+          role="option"
+          style="color: rgb(0, 0, 0); background-color: rgb(255, 255, 255); font-weight: normal;"
+        >
+          Team 1
+        </li>
+        <li
+          aria-selected="false"
+          class="suggestion"
+          data-testid="teamId_1"
+          id="downshift-0-item-1"
+          role="option"
+          style="color: rgb(0, 0, 0); background-color: rgb(255, 255, 255); font-weight: normal;"
+        >
+          Team 2
+        </li>
+        <li
+          aria-selected="false"
+          class="suggestion"
+          data-testid="teamId_2"
+          id="downshift-0-item-2"
+          role="option"
+          style="color: rgb(0, 0, 0); background-color: rgb(255, 255, 255); font-weight: normal;"
+        >
+          Team 3
+        </li>
+      </ul>
     </div>
     <h2>
-       workers
+      Team 3 workers
     </h2>
     <p
       class="govuk-body"

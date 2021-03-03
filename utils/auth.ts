@@ -28,7 +28,7 @@ export const deleteSession = (
 
 export const shouldRedirect = (
   pathname: string,
-  user?: User
+  user?: Partial<User>
 ): string | undefined => {
   const isPathWhitelisted = AUTH_WHITELIST.includes(pathname);
   if (!isPathWhitelisted) {
@@ -52,7 +52,7 @@ interface ParsedCookie {
 
 export const isAuthorised = (
   req: NonNullable<NextPageContext['req']>
-): User | null => {
+): User | undefined => {
   const {
     HACKNEY_JWT_SECRET,
     AUTHORISED_ADMIN_GROUP,
@@ -69,7 +69,7 @@ export const isAuthorised = (
       ) as ParsedCookie)
     : null;
   if (!parsedToken) {
-    return null;
+    return;
   }
   const { groups = [], name, email } = parsedToken;
   const gssUser = {

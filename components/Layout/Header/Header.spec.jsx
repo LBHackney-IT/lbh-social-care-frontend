@@ -10,7 +10,7 @@ jest.mock('next/router', () => ({
   useRouter: () => mockedUseRouter,
 }));
 
-jest.mock('./Logo.jsx', () => () => 'MockedLogo');
+jest.mock('./Logo', () => () => 'MockedLogo');
 
 jest.mock('utils/saveData', () => ({
   getData: jest.fn(),

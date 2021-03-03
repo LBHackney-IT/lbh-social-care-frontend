@@ -1,6 +1,6 @@
 import type { User } from 'types';
 
-type UserPermissions = Pick<
+export type UserPermissions = Pick<
   User,
   'hasAdminPermissions' | 'hasAdultPermissions' | 'hasChildrenPermissions'
 >;

@@ -1,3 +1,5 @@
+import { FormStep } from 'components/Form/types';
+
 const PROFESSIONALS = [
   'GP',
   'Modern Matron',
@@ -17,7 +19,7 @@ const PROFESSIONALS = [
   'Other',
 ];
 
-const steps = [
+const steps: FormStep[] = [
   {
     id: 'case-notes-recording',
     title: 'Case notes recording',
@@ -25,13 +27,13 @@ const steps = [
       {
         component: 'TextInput',
         name: 'address_tenure_type',
-        width: '30',
+        width: 30,
         label: 'Primary address tenure type',
       },
       {
         component: 'TextInput',
         name: 'address_household_structure',
-        width: '30',
+        width: 30,
         label: 'Household Structure',
       },
       <h3
@@ -43,13 +45,13 @@ const steps = [
       {
         component: 'TextInput',
         name: 'contact_name',
-        width: '30',
+        width: 30,
         label: 'Contact Name',
       },
       {
         component: 'TextInput',
         name: 'contact_relationship',
-        width: '30',
+        width: 30,
         label: 'Contact Relationship/Role',
       },
       {
@@ -82,7 +84,7 @@ const steps = [
       {
         component: 'EmailInput',
         name: 'contact_emailAddress',
-        width: '20',
+        width: 20,
         label: 'Contact Email address',
       },
       <h3
@@ -103,7 +105,7 @@ const steps = [
       {
         component: 'TextInput',
         name: 'preferred_language',
-        width: '30',
+        width: 30,
         label: 'First/Preferred Language',
       },
       {
@@ -224,13 +226,10 @@ const steps = [
       {
         component: 'TextInput',
         name: 'other_form_name_details',
-        width: '30',
+        width: 30,
         label: "Details if 'Other'",
-        conditionalRender: ({
-          professional_involved,
-        }: {
-          professional_involved: string;
-        }): boolean => professional_involved === 'Other',
+        conditionalRender: ({ professional_involved }) =>
+          professional_involved === 'Other',
       },
     ],
   },

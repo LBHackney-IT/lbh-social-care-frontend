@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { useRouter } from 'next/router';
 import { useForm } from 'react-hook-form';
 
-import { Radios } from 'components/Form';
+import { Autocomplete } from 'components/Form';
 import Button from 'components/Button/Button';
 import Spinner from 'components/Spinner/Spinner';
 import ErrorMessage from 'components/ErrorMessage/ErrorMessage';
@@ -18,7 +18,7 @@ const AddAllocatedWorker = ({ personId, ageContext }) => {
   const [postError, setPostError] = useState();
   const [postLoading, setPostLoading] = useState();
   const { query, push, replace, pathname } = useRouter();
-  const { handleSubmit, register } = useForm({
+  const { handleSubmit, register, control } = useForm({
     defaultValues: query,
   });
   const { user } = useAuth();
@@ -27,13 +27,13 @@ const AddAllocatedWorker = ({ personId, ageContext }) => {
     query?.teamId
   );
   const addWorker = useCallback(
-    async ({ teamId, workerId }) => {
+    async ({ workerId }) => {
       setPostLoading(true);
       setPostError();
       try {
         await addAllocatedWorker(personId, {
           allocatedBy: user.email,
-          allocatedTeamId: teamId,
+          allocatedTeamId: query.teamId,
           allocatedWorkerId: workerId,
         });
         push(`/people/${personId}`);
@@ -56,25 +56,26 @@ const AddAllocatedWorker = ({ personId, ageContext }) => {
   return (
     <form role="form" onSubmit={handleSubmit(addWorker)}>
       {teams && (
-        <Radios
+        <Autocomplete
           name="teamId"
           label="Select a team to view workers for that team"
           labelSize="m"
+          placeholder="Select or type team name"
+          control={control}
           options={teams.map(({ id, name }) => ({
             value: id,
             text: name,
           }))}
-          onChange={(e) =>
+          onChange={(value) =>
             replace(
               {
                 pathname,
-                query: { id: personId, teamId: e.target.value },
+                query: { id: personId, teamId: value },
               },
               null,
               { scroll: false }
             )
           }
-          register={register}
         />
       )}
       {workers && (

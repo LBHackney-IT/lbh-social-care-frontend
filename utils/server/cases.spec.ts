@@ -54,9 +54,7 @@ describe('cases APIs', () => {
       expect(mockedAxios.post.mock.calls[0][0]).toEqual(
         `${ENDPOINT_API}/cases`
       );
-      expect(mockedAxios.post.mock.calls[0][1]).toEqual({
-        caseFormData: '{"timestamp":"2000-11-22T00:00:00.000Z","foo":"bar"}',
-      });
+      expect(mockedAxios.post.mock.calls[0][1]).toEqual({ foo: 'bar' });
       expect(mockedAxios.post.mock.calls[0][2]?.headers).toEqual({
         'Content-Type': 'application/json',
         'x-api-key': AWS_KEY,

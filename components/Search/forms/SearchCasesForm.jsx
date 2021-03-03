@@ -124,6 +124,7 @@ const SearchCasesForm = ({ onFormSubmit, defaultValues }) => {
             name="worker_email"
             label="Uploaded by:"
             labelSize="s"
+            placeholder="Email"
             register={register}
           />
         </div>

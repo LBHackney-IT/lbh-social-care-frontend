@@ -58,3 +58,7 @@ export const sanitiseObject = (object) =>
 
 export const setValues = (object, value) =>
   Object.keys(object).reduce((acc, key) => ({ ...acc, [key]: value }), {});
+
+// Sort array option objects.
+export const sortObject = (object) =>
+  object.sort((a, b) => a.text.localeCompare(b.text));
