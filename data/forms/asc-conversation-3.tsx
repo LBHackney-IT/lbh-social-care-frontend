@@ -58,7 +58,7 @@ const steps: FormStep[] = [
         Key Contacts
       </h3>,
       {
-        component: 'TextInput',
+        component: 'TextArea',
         name: 'list_key_contacts',
         width: 30,
         label: 'List your key contacts',
@@ -269,7 +269,15 @@ const steps: FormStep[] = [
         component: 'Checkbox',
         name: 'visits_conducted',
         label: 'Visits conducted',
-        options: ['Telephone', 'Face to face', 'Video link'],
+        options: ['Telephone', 'Face to face', 'Video link', 'Other'],
+      },
+      {
+        conditionalRender: ({ visits_conducted }) =>
+          visits_conducted?.includes('Other'),
+        component: 'TextInput',
+        name: 'other',
+        width: 30,
+        label: 'Other',
       },
     ],
   },
@@ -472,7 +480,7 @@ const steps: FormStep[] = [
   },
   {
     id: 'informal-carer-details-8',
-    title: 'Impact on wellbeing',
+    title: 'Informal Carer Details',
     conditionalRender: ({ carer_support }) => carer_support === 'Yes (Carer)',
     components: [
       {
