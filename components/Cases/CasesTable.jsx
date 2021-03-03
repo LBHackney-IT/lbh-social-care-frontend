@@ -10,11 +10,10 @@ const CasesEntry = ({
   officerEmail,
   dateOfEvent,
   caseFormData,
-  caseFormTimestamp,
 }) => (
   <tr className="govuk-table__row">
     <td className="govuk-table__cell govuk--timestamp">
-      {formatDate(dateOfEvent || caseFormTimestamp)}{' '}
+      {formatDate(dateOfEvent)}{' '}
     </td>
     <td className="govuk-table__cell">{formName}</td>
     <td className="govuk-table__cell">
