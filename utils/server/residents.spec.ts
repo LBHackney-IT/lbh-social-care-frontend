@@ -104,12 +104,51 @@ describe('residents APIs', () => {
       expect(mockedAxios.post.mock.calls[0][0]).toEqual(
         `${ENDPOINT_API}/residents`
       );
-      expect(mockedAxios.post.mock.calls[0][1]).toEqual({ foo: 'bar' });
+      expect(mockedAxios.post.mock.calls[0][1]).toEqual({
+        foo: 'bar',
+        phoneNumbers: null,
+      });
       expect(mockedAxios.post.mock.calls[0][2]?.headers).toEqual({
         'Content-Type': 'application/json',
         'x-api-key': AWS_KEY,
       });
       expect(data).toEqual({ _id: 'foobar' });
+    });
+  });
+
+  const fixture = {
+    phoneNumbers: [
+      { number: '213213', type: '' },
+      { number: '12321', type: 'qwe' },
+      { number: '321321', type: '' },
+    ],
+    contextFlag: 'A',
+    firstName: 'asd',
+    lastName: 'asd',
+    gender: 'U',
+    dateOfBirth: '2000-12-12',
+    address: { address: 'qweqwe', postcode: 'e83as' },
+    nhsNumber: null,
+    createdBy: 'luca.lischetti@hackney.gov.uk',
+  };
+
+  describe('normalisePhoneInput', () => {
+    it('should work properly', () => {
+      expect(residentsAPI.normalisePhoneInput(fixture)).toEqual({
+        phoneNumbers: [
+          { number: '213213', type: 'main' },
+          { number: '12321', type: 'qwe' },
+          { number: '321321', type: 'main' },
+        ],
+        contextFlag: 'A',
+        firstName: 'asd',
+        lastName: 'asd',
+        gender: 'U',
+        dateOfBirth: '2000-12-12',
+        address: { address: 'qweqwe', postcode: 'e83as' },
+        nhsNumber: null,
+        createdBy: 'luca.lischetti@hackney.gov.uk',
+      });
     });
   });
 });

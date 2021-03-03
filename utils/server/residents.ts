@@ -55,11 +55,28 @@ export const getResident = async (
   return sanitiseResidentData(data.residents)?.[0];
 };
 
+export const normalisePhoneInput = (formData: {
+  phoneNumbers?: Record<string, string>[];
+  [key: string]: unknown;
+}): Record<string, unknown> => ({
+  ...formData,
+  phoneNumbers: formData.phoneNumbers
+    ? formData.phoneNumbers.map((phone) => ({
+        ...phone,
+        type: phone.type === '' ? 'main' : phone.type,
+      }))
+    : null,
+});
+
 export const addResident = async (
   formData: Record<string, unknown>
 ): Promise<ResidentAPI> => {
-  const { data } = await axios.post(`${ENDPOINT_API}/residents`, formData, {
-    headers: { ...headers, 'Content-Type': 'application/json' },
-  });
+  const { data } = await axios.post(
+    `${ENDPOINT_API}/residents`,
+    normalisePhoneInput(formData),
+    {
+      headers: { ...headers, 'Content-Type': 'application/json' },
+    }
+  );
   return data;
 };
