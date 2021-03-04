@@ -42,6 +42,7 @@ const endpoint: NextApiHandler = async (
         res.status(StatusCodes.OK).json(data);
       } catch (error) {
         console.error('Resident post error:', error?.response?.data);
+        console.error('Resident post request:', req);
         res
           .status(StatusCodes.INTERNAL_SERVER_ERROR)
           .json({ message: 'Unable to add resident' });
