@@ -31,7 +31,7 @@ exports[`AddForm component should render children forms 1`] = `
           data-testid="formList"
           id="formList"
           name="formList.autocomplete"
-          placeholder="Select or search for a value"
+          placeholder="Select or type form name"
           style="border-color: #000;"
           value=""
         />
