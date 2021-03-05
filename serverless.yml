@@ -15,6 +15,7 @@ functions:
   lbh-social-care:
     name: ${self:service}-${self:provider.stage}
     handler: lambda.handler
+    timeout: 10
     package:
       include:
         - lambda.js
