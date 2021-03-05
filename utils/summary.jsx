@@ -82,7 +82,7 @@ export const formatData = (componentProps, formData) => {
           : stepOptions.find((option) => option.value === formData[name])?.text,
     };
   }
-  if (component === 'DateInput') {
+  if (component === 'DateInput' || component === 'DatePicker') {
     return {
       key: name,
       title: label,
