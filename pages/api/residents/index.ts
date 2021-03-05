@@ -1,6 +1,6 @@
 import { StatusCodes } from 'http-status-codes';
 
-import { getResidents, addResident } from 'utils/server/residents';
+import { getResidents, addResident } from 'lib/residents';
 import { isAuthorised } from 'utils/auth';
 
 import type { NextApiRequest, NextApiResponse, NextApiHandler } from 'next';

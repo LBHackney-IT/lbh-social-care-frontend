@@ -4,7 +4,7 @@ import {
   getResidentAllocatedWorkers,
   deleteAllocatedWorker,
   addAllocatedWorker,
-} from 'utils/server/allocatedWorkers';
+} from 'lib/allocatedWorkers';
 import { isAuthorised } from 'utils/auth';
 
 import type { NextApiRequest, NextApiResponse, NextApiHandler } from 'next';

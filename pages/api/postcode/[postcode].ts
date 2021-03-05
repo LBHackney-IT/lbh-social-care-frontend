@@ -1,7 +1,7 @@
 import { StatusCodes } from 'http-status-codes';
 
 import { isAuthorised } from 'utils/auth';
-import { getAddresses } from 'utils/server/postcode';
+import { getAddresses } from 'lib/postcode';
 
 import type { NextApiRequest, NextApiResponse, NextApiHandler } from 'next';
 
