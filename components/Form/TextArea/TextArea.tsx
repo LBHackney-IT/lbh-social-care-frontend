@@ -11,6 +11,7 @@ const TextArea = ({
   register,
   width,
   rules,
+  required,
   rows = 5,
   ...otherProps
 }: Props): React.ReactElement => (
@@ -21,7 +22,7 @@ const TextArea = ({
   >
     {label && (
       <label className={`govuk-label govuk-label--${labelSize}`} htmlFor={name}>
-        {label}
+        {label} {required && <span className="govuk-required">*</span>}
       </label>
     )}
     {hint && (
