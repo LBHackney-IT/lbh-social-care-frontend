@@ -68,3 +68,14 @@ export interface User {
   hasUnrestrictedPermissions?: boolean;
   isAuthorised: boolean;
 }
+
+export interface WarningNote {
+  id: number;
+  type: string;
+  createdBy: string;
+  createdDate: Date;
+  reviewedBy?: string;
+  reviewedDate?: Date;
+  closedBy?: string;
+  closedDate?: Date;
+}
