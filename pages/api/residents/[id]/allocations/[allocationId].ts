@@ -1,6 +1,6 @@
 import { StatusCodes } from 'http-status-codes';
 
-import { getResidentAllocation } from 'utils/server/allocatedWorkers';
+import { getResidentAllocation } from 'lib/allocatedWorkers';
 import { isAuthorised } from 'utils/auth';
 
 import type { NextApiRequest, NextApiResponse, NextApiHandler } from 'next';

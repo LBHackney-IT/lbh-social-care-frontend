@@ -1,6 +1,6 @@
 import { StatusCodes } from 'http-status-codes';
 
-import { getWarningNotes } from 'utils/server/warningNotes';
+import { getWarningNotes } from 'lib/warningNotes';
 import { isAuthorised } from 'utils/auth';
 
 import type { NextApiRequest, NextApiResponse, NextApiHandler } from 'next';

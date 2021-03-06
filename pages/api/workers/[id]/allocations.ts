@@ -1,8 +1,8 @@
 import { StatusCodes } from 'http-status-codes';
 
 import { isAuthorised } from 'utils/auth';
-import { getWorker } from 'utils/server/workers';
-import { getAllocationsByWorker } from 'utils/server/allocatedWorkers';
+import { getWorker } from 'lib/workers';
+import { getAllocationsByWorker } from 'lib/allocatedWorkers';
 
 import type { NextApiRequest, NextApiResponse, NextApiHandler } from 'next';
 
