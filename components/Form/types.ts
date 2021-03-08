@@ -24,7 +24,7 @@ type GovGrid =
   | 'one-quarter'
   | 'three-quarters';
 
-export type ObjectOption = { text: string; value: string };
+export type ObjectOption = { text: string; value: string | number };
 
 export type Option = string | ObjectOption;
 
@@ -139,7 +139,17 @@ interface StepAddressLookup extends Omit<AddressLookup, 'rules'> {
   component: 'AddressLookup';
   rules?: EnhancedRules;
 }
-
+export interface Autocomplete extends GenericField {
+  name: string;
+  label: string;
+  options: Option[];
+  placeholder?: string;
+  width?: Width;
+  govGrid?: GovGrid;
+}
+interface StepAutocomplete extends Autocomplete {
+  component: 'Autocomplete';
+}
 export interface DateInput extends GenericField {
   format?: 'US' | 'EU';
 }
@@ -157,6 +167,7 @@ type formBasicComponentStep =
   | StepSelect
   | StepRadios
   | StepAddressLookup
+  | StepAutocomplete
   | StepDateInput;
 
 export type FormComponentStep =

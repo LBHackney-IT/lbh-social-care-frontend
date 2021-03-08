@@ -9,7 +9,7 @@ import {
   EmailInput,
   Checkbox,
   DateInput,
-  Select,
+  Autocomplete,
 } from 'components/Form';
 import Button from 'components/Button/Button';
 import { useAuth } from 'components/UserContext/UserContext';
@@ -111,11 +111,11 @@ const SearchCasesForm = ({ onFormSubmit, defaultValues }) => {
       </div>
       <div className="govuk-grid-row">
         <div className="govuk-grid-column-one-half">
-          <Select
+          <Autocomplete
             name="form_name"
             label="Filter by form type:"
             labelSize="s"
-            register={register}
+            control={control}
             options={formNameOptions}
           />
         </div>
@@ -146,6 +146,7 @@ const SearchCasesForm = ({ onFormSubmit, defaultValues }) => {
           reset({
             start_date: null,
             end_date: null,
+            form_name: null,
           });
         }}
         style={{
