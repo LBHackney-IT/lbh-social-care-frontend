@@ -9,6 +9,7 @@ const CasesEntry = ({
   dateOfBirth,
   officerEmail,
   dateOfEvent,
+  caseFormTimestamp,
 }) => (
   <tr className="govuk-table__row">
     <td className="govuk-table__cell">
@@ -18,7 +19,9 @@ const CasesEntry = ({
       {isDateValid(dateOfBirth) && dateOfBirth}
     </td>
     <td className="govuk-table__cell">{officerEmail}</td>
-    <td className="govuk-table__cell">{formatDate(dateOfEvent)}</td>
+    <td className="govuk-table__cell">
+      {formatDate(dateOfEvent || caseFormTimestamp)}
+    </td>
     <td className="govuk-table__cell govuk-button--secondary'">
       {caseFormUrl && (
         <a
