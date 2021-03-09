@@ -1,8 +1,7 @@
 import { render } from '@testing-library/react';
 
-import { UserContext } from 'components/UserContext/UserContext';
-import { useWarningNotes } from '../../utils/api/warningNotes';
-import { WarningNote } from 'types';
+import * as warningNotes from 'utils/api/warningNotes';
+import WarningNotes from './WarningNotes';
 
 jest.mock('next/router', () => ({
   useRouter: () => ({
@@ -16,37 +15,42 @@ jest.mock('utils/api/warningNotes', () => ({
 }));
 
 describe(`useWarningNotes`, () => {
-  useWarningNotes.mockImplementation(() => [
-    {
-      id: 123,
-      type: 'Risk to Adults',
-      createdDate: new Date(2020, 12, 12),
-      createdBy: 'Foo',
-      reviewedDate: new Date(2020, 12, 13),
-      reviewedBy: 'Bar',
-    },
-    {
-      id: 123,
-      type: 'Risk to Adults',
-      createdDate: new Date(2020, 12, 12),
-      createdBy: 'Foo',
-      reviewedDate: new Date(2020, 12, 13),
-      reviewedBy: 'Bar',
-    },
-    {
-      id: 234,
-      type: 'Risk to Staff',
-      createdDate: new Date(2020, 12, 22),
-      createdBy: 'Foo',
-    },
-  ]);
-});
+  jest.spyOn(warningNotes, 'useWarningNotes').mockImplementation(() => ({
+    data: [
+      {
+        id: 123,
+        type: 'Risk to Adults',
+        createdDate: new Date(2020, 12, 12),
+        createdBy: 'Foo',
+        reviewedDate: new Date(2020, 12, 13),
+        reviewedBy: 'Bar',
+      },
+      {
+        id: 321,
+        type: 'Risk to Adults',
+        createdDate: new Date(2020, 12, 12),
+        createdBy: 'Foo',
+        reviewedDate: new Date(2020, 12, 13),
+        reviewedBy: 'Bar',
+      },
+      {
+        id: 234,
+        type: 'Risk to Staff',
+        createdDate: new Date(2020, 12, 22),
+        createdBy: 'Foo',
+      },
+    ],
+    mutate: jest.fn(),
+    revalidate: jest.fn(),
+    isValidating: false,
+  }));
 
-const props = {
-  id: '123',
-};
+  const props = {
+    id: '123',
+  };
 
-it('should render properly', () => {
-  const { asFragment } = render();
-  expect(asFragment()).toMatchSnapshot();
+  it('should render properly', () => {
+    const { asFragment } = render(<WarningNotes {...props} />);
+    expect(asFragment()).toMatchSnapshot();
+  });
 });

@@ -1,5 +1,4 @@
 import useSWR, { responseInterface } from 'swr';
-import axios from 'axios';
 
 import type { WarningNote, ErrorAPI } from 'types';
 
