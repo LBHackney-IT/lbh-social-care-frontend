@@ -16,8 +16,8 @@ export const getWarningNotes = async (
           type: 'Risk to Adults',
           createdDate: new Date(2020, 12, 12),
           createdBy: 'Foo',
-          reviewsDate: new Date(2020, 12, 13),
-          reviewsBy: 'Bar',
+          reviewedDate: new Date(2020, 12, 13),
+          reviewedBy: 'Bar',
         },
       ]
     : [
@@ -26,8 +26,8 @@ export const getWarningNotes = async (
           type: 'Risk to Adults',
           createdDate: new Date(2020, 12, 12),
           createdBy: 'Foo',
-          reviewsDate: new Date(2020, 12, 13),
-          reviewsBy: 'Bar',
+          reviewedDate: new Date(2020, 12, 13),
+          reviewedBy: 'Bar',
         },
         {
           id: 234,
