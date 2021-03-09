@@ -131,8 +131,7 @@ $screen-sm-min: 576px;
 }
 
 .govuk-error-summary {
-  border-top: 1px;
-  border-bottom: 1px;
-  border-right: 1px;
+  border: 1px solid govuk-colour('red');
+  border-left-width: 5px;
   background-color: #f8ecea;
 }
