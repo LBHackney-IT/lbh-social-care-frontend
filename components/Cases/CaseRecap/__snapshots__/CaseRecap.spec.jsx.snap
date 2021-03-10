@@ -1,0 +1,86 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CaseRecap should update the queryString on search and run a new search - with load more 1`] = `
+<DocumentFragment>
+  <div
+    class="govuk-!-margin-bottom-7"
+  >
+    <div
+      class="lbh-table-header"
+    >
+      <div
+        class="sectionTitle"
+      >
+        <h3
+          class="govuk-heading-m govuk-custom-text-color govuk-!-margin-bottom-0"
+        >
+          CASE NOTES RECORDING
+        </h3>
+      </div>
+    </div>
+    <hr
+      class="govuk-divider"
+    />
+    <dl
+      class="govuk-summary-list"
+    >
+      <div
+        class="govuk-summary-list__row"
+      >
+        <dt
+          class="govuk-summary-list__key"
+        >
+          Case Note Type
+        </dt>
+        <dd
+          class="govuk-summary-list__value"
+        >
+          Foo
+        </dd>
+      </div>
+      <div
+        class="govuk-summary-list__row"
+      >
+        <dt
+          class="govuk-summary-list__key"
+        >
+          Date of Event
+        </dt>
+        <dd
+          class="govuk-summary-list__value"
+        >
+          05-06-2020
+        </dd>
+      </div>
+      <div
+        class="govuk-summary-list__row"
+      >
+        <dt
+          class="govuk-summary-list__key"
+        >
+          Case Note Title
+        </dt>
+        <dd
+          class="govuk-summary-list__value"
+        >
+          Foo
+        </dd>
+      </div>
+      <div
+        class="govuk-summary-list__row"
+      >
+        <dt
+          class="govuk-summary-list__key"
+        >
+          Case Note Description
+        </dt>
+        <dd
+          class="govuk-summary-list__value"
+        >
+          Foo bar
+        </dd>
+      </div>
+    </dl>
+  </div>
+</DocumentFragment>
+`;
