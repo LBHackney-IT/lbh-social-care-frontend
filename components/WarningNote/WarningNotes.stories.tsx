@@ -2,7 +2,7 @@ import { WarningBox, Props } from './WarningNotes';
 import { Story } from '@storybook/react';
 
 export default {
-  title: 'WarningBox',
+  title: 'Warning Note',
   component: WarningBox,
 };
 
