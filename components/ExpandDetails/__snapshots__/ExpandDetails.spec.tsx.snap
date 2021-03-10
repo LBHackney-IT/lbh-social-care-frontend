@@ -1,0 +1,30 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ExpandDetails should render properly 1`] = `
+<DocumentFragment>
+  <details
+    class="govuk-details"
+    data-module="govuk-details"
+  >
+    <summary
+      class="summary"
+    >
+      <h3>
+        Show intructions
+      </h3>
+      <span
+        class="govuk-link govuk-link--underline trigger"
+      >
+        Expand guidance
+      </span>
+    </summary>
+    <div
+      class="content"
+    >
+      <p>
+        I am the content!
+      </p>
+    </div>
+  </details>
+</DocumentFragment>
+`;

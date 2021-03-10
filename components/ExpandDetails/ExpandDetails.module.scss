@@ -1,0 +1,26 @@
+@import 'node_modules/govuk-frontend/govuk/base';
+
+.summary {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-left: 0;
+  border-bottom: 2px solid $govuk-border-colour;
+  &:before {
+    display: none;
+  }
+  &:focus {
+    outline: none;
+  }
+  &:focus .trigger {
+    @include govuk-focused-text;
+  }
+}
+
+.trigger {
+  cursor: pointer;
+}
+
+.content {
+  padding: 2rem 0;
+}
