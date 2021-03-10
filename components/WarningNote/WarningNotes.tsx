@@ -6,12 +6,10 @@ import ErrorMessage from 'components/ErrorMessage/ErrorMessage';
 import { WarningNote } from 'types';
 
 import styles from './WarningNotes.module.scss';
-
-export const WarningBox = ({
-  notes,
-}: {
+export interface Props {
   notes: WarningNote[];
-}): React.ReactElement => {
+}
+export const WarningBox = ({ notes }: Props): React.ReactElement => {
   return (
     <dl className="govuk-summary-list govuk-summary-list--no-border">
       <div
