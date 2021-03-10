@@ -6,6 +6,8 @@ import PersonView from 'components/PersonView/PersonView';
 import Cases from 'components/Cases/Cases';
 import AllocatedWorkers from 'components/AllocatedWorkers/AllocatedWorkers';
 import { Resident } from 'types';
+import React from 'react';
+import WarningNotes from 'components/WarningNote/WarningNotes';
 
 const PersonPage = (): React.ReactElement => {
   const { query } = useRouter();
@@ -17,6 +19,7 @@ const PersonPage = (): React.ReactElement => {
       <PersonView personId={personId}>
         {(person: Resident) => (
           <>
+            <WarningNotes id={personId} />
             <AllocatedWorkers id={personId} />
             <Cases id={personId} person={person} />
           </>

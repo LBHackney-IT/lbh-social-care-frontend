@@ -1,0 +1,20 @@
+@import 'node_modules/govuk-frontend/govuk/base';
+
+.note {
+  margin-bottom: 2rem;
+  @include govuk-media-query($from: tablet) {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+  }
+}
+
+.noteDetails {
+  display: grid;
+  grid-template-columns: 8rem 1fr;
+  grid-row-gap: 0.5rem;
+  margin-bottom: 1rem;
+  dt {
+    font-weight: bold;
+  }
+}
