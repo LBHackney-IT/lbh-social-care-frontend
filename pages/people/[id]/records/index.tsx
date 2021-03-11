@@ -8,7 +8,7 @@ import { Resident } from 'types';
 
 const AddNewRecordPage = (): React.ReactElement => {
   const { query } = useRouter();
-  const personId = query.id as string;
+  const personId = Number(query.id as string);
   return (
     <>
       <Seo title={`#${query.id} Cases`} />
@@ -16,7 +16,7 @@ const AddNewRecordPage = (): React.ReactElement => {
       <h1 className="govuk-fieldset__legend--l gov-weight-lighter">
         Add a new record for
       </h1>
-      <PersonView personId={personId} expandView={true}>
+      <PersonView personId={personId} expandView>
         {(person: Resident) => (
           <>
             <p className="govuk-label govuk-!-margin-top-7 govuk-!-margin-bottom-5">

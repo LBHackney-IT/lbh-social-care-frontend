@@ -1,13 +1,13 @@
 import { render, waitFor } from '@testing-library/react';
 import PersonView from './PersonView';
-import { useResident } from 'utils/api/residents';
+import * as residentsAPI from 'utils/api/residents';
 
 jest.mock('utils/api/residents', () => ({
   useResident: jest.fn(),
 }));
 
 describe('PersonView component', () => {
-  useResident.mockImplementation(() => ({
+  jest.spyOn(residentsAPI, 'useResident').mockImplementation(() => ({
     data: {
       dateOfBirth: '2020-11-13',
       firstName: 'Ciasom',
@@ -23,6 +23,8 @@ describe('PersonView component', () => {
       gender: 'F',
       ethnicity: 'White',
       preferredMethodOfContact: 'email',
+      uprn: '',
+      restricted: false,
       addressList: [
         {
           contactAddressFlag: 'N',
@@ -50,10 +52,13 @@ describe('PersonView component', () => {
       otherNames: [{ firstName: 'asd', laseName: 'qwe' }],
       email: 'foo@bar.com',
     },
+    isValidating: false,
+    mutate: jest.fn(),
+    revalidate: jest.fn(),
   }));
 
   const props = {
-    personId: '44000000',
+    personId: 44000000,
     expandView: false,
   };
 

@@ -34,22 +34,39 @@ export interface Resident {
   mosaicId: string;
   firstName: string;
   lastName: string;
-  uprn: string;
+  uprn?: string;
   dateOfBirth: string;
   ageContext: string;
   gender: string;
   nationality?: string;
   nhsNumber: string;
-  restricted: boolean;
+  restricted?: boolean;
   address?: {
     address: string;
     postcode: string;
-    uprn: string;
+    uprn?: string;
   };
-  phoneNumbers?: Array<{
-    number: string;
-    type: string;
+  phoneNumber?: Array<{
+    phoneNumber: string;
+    phoneType: string;
   }>;
+}
+
+/**
+ * This should be what the BE is going to return
+ */
+export interface ExtendedResident extends Resident {
+  otherNames?: Array<{
+    firstName: string;
+    lastName: string;
+  }>;
+  firstLanguage?: string;
+  religion?: string;
+  dateOfDeath?: string;
+  sexualOrientation?: string;
+  ethnicity?: string;
+  email?: string;
+  preferredMethodOfContact?: string;
 }
 
 export interface ResidentAPI {

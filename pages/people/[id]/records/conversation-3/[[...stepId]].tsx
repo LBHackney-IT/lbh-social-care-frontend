@@ -47,7 +47,7 @@ const CaseNotesRecording = (): ReactElement => {
         <h1 className="govuk-fieldset__legend--l gov-weight-lighter">
           Conversation 3
         </h1>
-        <PersonView personId={query.id as string} expandView>
+        <PersonView personId={Number(query.id as string)} expandView>
           {(person: Resident) =>
             person.ageContext === 'A' ? (
               <FormWizard

@@ -1,26 +1,33 @@
 import { useState } from 'react';
-import PropTypes from 'prop-types';
+import { ExtendedResident } from 'types';
+
+interface Props {
+  person: ExtendedResident;
+  expandView?: boolean;
+}
 
 const PersonDetails = ({
-  otherNames,
-  ageContext,
-  firstName,
-  lastName,
-  mosaicId,
-  dateOfBirth,
-  nhsNumber,
-  firstLanguage,
-  religion,
-  dateOfDeath,
-  sexualOrientation,
-  gender,
-  address,
-  ethnicity,
-  phoneNumber,
-  email,
-  preferredMethodOfContact,
+  person: {
+    otherNames,
+    ageContext,
+    firstName,
+    lastName,
+    mosaicId,
+    dateOfBirth,
+    nhsNumber,
+    firstLanguage,
+    religion,
+    dateOfDeath,
+    sexualOrientation,
+    gender,
+    address,
+    ethnicity,
+    phoneNumber,
+    email,
+    preferredMethodOfContact,
+  },
   expandView = false,
-}) => {
+}: Props): React.ReactElement => {
   const [expandDetails, setExpandDetails] = useState(false);
   return (
     <>
@@ -43,7 +50,7 @@ const PersonDetails = ({
         {(!expandView || expandDetails) && (
           <>
             <dl className="govuk-summary-list">
-              {otherNames?.length > 0 && (
+              {otherNames && otherNames?.length > 0 && (
                 <div className="govuk-summary-list__row">
                   <dt className="govuk-summary-list__key">Other Names</dt>
                   <dd className="govuk-summary-list__value">
@@ -125,7 +132,7 @@ const PersonDetails = ({
                   </dd>
                 </div>
               )}
-              {phoneNumber?.length > 0 && (
+              {phoneNumber && phoneNumber?.length > 0 && (
                 <div className="govuk-summary-list__row">
                   <dt className="govuk-summary-list__key">Phone Number</dt>
                   <dd className="govuk-summary-list__value">
@@ -169,37 +176,6 @@ const PersonDetails = ({
       </div>
     </>
   );
-};
-
-PersonDetails.propTypes = {
-  expandView: PropTypes.bool,
-  firstName: PropTypes.string.isRequired,
-  lastName: PropTypes.string.isRequired,
-  otherNames: PropTypes.arrayOf(
-    PropTypes.shape({
-      firstName: PropTypes.string,
-      lastName: PropTypes.string,
-    })
-  ),
-  mosaicId: PropTypes.string,
-  dateOfBirth: PropTypes.string,
-  dateOfDeath: PropTypes.string,
-  nhsNumber: PropTypes.string,
-  ethnicity: PropTypes.string,
-  firstLanguage: PropTypes.string,
-  preferredMethodOfContact: PropTypes.string,
-  ageContext: PropTypes.string,
-  sexualOrientation: PropTypes.string,
-  religion: PropTypes.string,
-  gender: PropTypes.string,
-  email: PropTypes.string,
-  address: PropTypes.shape({ address: PropTypes.string }),
-  phoneNumber: PropTypes.arrayOf(
-    PropTypes.shape({
-      phoneNumber: PropTypes.string,
-      phoneType: PropTypes.string,
-    })
-  ),
 };
 
 export default PersonDetails;

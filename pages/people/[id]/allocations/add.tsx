@@ -11,7 +11,7 @@ import type { Resident } from 'types';
 
 const AddNewAllocationPage = (): React.ReactElement => {
   const { query, replace } = useRouter();
-  const personId = query.id as string;
+  const personId = Number(query.id as string);
   const { user } = useAuth();
   if (isBrowser() && !user?.hasAllocationsPermissions) {
     replace(`/people/${personId}`);
@@ -24,7 +24,7 @@ const AddNewAllocationPage = (): React.ReactElement => {
       <h1 className="govuk-fieldset__legend--l gov-weight-lighter">
         Allocate worker to
       </h1>
-      <PersonView personId={personId} expandView={true}>
+      <PersonView personId={personId} expandView>
         {(person: Resident) => (
           <div className="govuk-!-margin-top-7">
             <AddAllocatedWorker

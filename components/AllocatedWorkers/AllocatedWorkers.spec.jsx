@@ -34,7 +34,7 @@ describe(`AddAllocatedWorker`, () => {
   }));
 
   const props = {
-    id: '123',
+    id: 123,
   };
 
   it('should render only the table if not allocator', async () => {

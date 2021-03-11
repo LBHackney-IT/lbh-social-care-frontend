@@ -16,7 +16,7 @@ const CaseView = (): React.ReactElement => {
       <h1 className="govuk-fieldset__legend--l gov-weight-lighter">
         Case note for
       </h1>
-      <PersonView personId={id as string} expandView>
+      <PersonView personId={Number(id as string)} expandView>
         <CaseRecap personId={id as string} recordId={recordId as string} />
       </PersonView>
     </>

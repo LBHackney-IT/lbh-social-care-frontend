@@ -46,7 +46,7 @@ describe(`useWarningNotes`, () => {
   }));
 
   const props = {
-    id: '123',
+    id: 123,
   };
 
   it('should render properly', () => {

@@ -1,4 +1,3 @@
-import cx from 'classnames';
 import Link from 'next/link';
 
 import { useWarningNotes } from 'utils/api/warningNotes';
@@ -66,8 +65,8 @@ export const WarningBox = ({ notes }: Props): React.ReactElement => {
   );
 };
 
-const WarningNotes = ({ id }: { id: string }): React.ReactElement | null => {
-  const { data: warningNotes, error } = useWarningNotes(parseInt(id, 10));
+const WarningNotes = ({ id }: { id: number }): React.ReactElement | null => {
+  const { data: warningNotes, error } = useWarningNotes(id);
   if (error) {
     return <ErrorMessage />;
   }
