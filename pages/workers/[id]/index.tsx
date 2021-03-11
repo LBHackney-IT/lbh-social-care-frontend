@@ -9,7 +9,7 @@ const Workers = (): React.ReactElement => {
   const allocationId = query.id as string;
   return (
     <div>
-      <Seo title={`Worker Allocations #${query.id}`} />
+      <Seo title={`Worker Allocations -  #${query.id}`} />
       <BackButton />
       <AllocatedCases id={allocationId} />
     </div>
