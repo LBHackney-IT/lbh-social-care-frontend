@@ -179,7 +179,9 @@ const ControlledDateInput = ({
           value &&
           (isDateValid(format === 'US' ? value : convertFormat(value)) ||
             'Must be a valid Date'),
-        ...rules?.validate,
+        ...(typeof rules?.validate === 'function'
+          ? { validation: rules.validate }
+          : rules?.validate),
       },
     }}
     control={control}
