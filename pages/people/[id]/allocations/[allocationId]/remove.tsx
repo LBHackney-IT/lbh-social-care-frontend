@@ -11,7 +11,7 @@ import type { Resident } from 'types';
 
 const RemovedAllocationPage = (): React.ReactElement => {
   const { query, replace } = useRouter();
-  const personId = query.id as string;
+  const personId = Number(query.id as string);
   const allocationId = query.allocationId as string;
   const { user } = useAuth();
   if (isBrowser() && !user?.hasAllocationsPermissions) {

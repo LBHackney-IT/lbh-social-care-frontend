@@ -45,7 +45,7 @@ const Cases = ({ id }) => {
 };
 
 Cases.propTypes = {
-  id: PropTypes.string.isRequired,
+  id: PropTypes.number.isRequired,
 };
 
 const CasesWrapper = ({ id, person }) => {
@@ -77,7 +77,7 @@ const CasesWrapper = ({ id, person }) => {
 };
 
 CasesWrapper.propTypes = {
-  id: PropTypes.string.isRequired,
+  id: PropTypes.number.isRequired,
   person: PropTypes.shape({
     restricted: PropTypes.bool,
   }).isRequired,

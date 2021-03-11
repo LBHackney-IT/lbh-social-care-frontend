@@ -11,7 +11,7 @@ jest.mock('utils/api/cases', () => ({
 
 describe('Cases component', () => {
   const props = {
-    id: '44000000',
+    id: 44000000,
     person: {
       firstName: 'Foo',
       lastName: 'Bar',
@@ -109,7 +109,7 @@ describe('Cases component', () => {
 
   it('should render a error message when a person is restricted', async () => {
     const props = {
-      id: '44000000',
+      id: 44000000,
       person: {
         restricted: true,
       },
@@ -130,7 +130,7 @@ describe('Cases component', () => {
 
   it('should work properly if person is restricted but user.hasUnrestrictedPermissions', async () => {
     const props = {
-      id: '44000000',
+      id: 44000000,
       person: {
         restricted: true,
       },

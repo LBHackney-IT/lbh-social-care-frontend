@@ -11,13 +11,13 @@ import WarningNotes from 'components/WarningNote/WarningNotes';
 
 const PersonPage = (): React.ReactElement => {
   const { query } = useRouter();
-  const personId = query.id as string;
+  const personId = Number(query.id as string);
   return (
     <div>
       <Seo title={`#${query.id} Cases`} />
       <BackButton />
-      <PersonView personId={personId}>
-        {(person: Resident) => (
+      <PersonView personId={personId} showPersonDetails={false}>
+        {(person) => (
           <>
             <WarningNotes id={personId} />
             <AllocatedWorkers id={personId} />

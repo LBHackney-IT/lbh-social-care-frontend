@@ -52,7 +52,7 @@ const AllocatedWorkers = ({ id }) => {
 };
 
 AllocatedWorkers.propTypes = {
-  id: PropTypes.string.isRequired,
+  id: PropTypes.number.isRequired,
 };
 
 export default AllocatedWorkers;
