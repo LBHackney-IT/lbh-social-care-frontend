@@ -68,7 +68,7 @@ exports[`PersonDetails component should render properly - expanded 2`] = `
             class="govuk-list"
           >
             <li>
-              asd 
+              asd qwe
             </li>
           </ul>
         </dd>
@@ -289,7 +289,7 @@ exports[`PersonDetails component should render properly 1`] = `
             class="govuk-list"
           >
             <li>
-              asd 
+              asd qwe
             </li>
           </ul>
         </dd>
