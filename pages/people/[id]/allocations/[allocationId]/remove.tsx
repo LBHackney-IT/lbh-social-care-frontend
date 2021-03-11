@@ -20,7 +20,7 @@ const RemovedAllocationPage = (): React.ReactElement => {
   }
   return (
     <>
-      <Seo title={`#${query.id} Cases`} />
+      <Seo title={`#${query.id} Deallocate Worker`} />
       <BackButton />
       <h1 className="govuk-fieldset__legend--l gov-weight-lighter">
         Deallocate worker from
