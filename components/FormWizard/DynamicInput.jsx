@@ -3,6 +3,19 @@ import get from 'lodash/get';
 
 import * as Inputs from 'components/Form';
 
+const enhanceValidate = (validate, currentData) => {
+  console.log(typeof validate === 'function', currentData);
+  return typeof validate === 'function'
+    ? (value) => validate(value, currentData)
+    : Object.entries(validate).reduce(
+        (acc, [key, validation]) => ({
+          ...acc,
+          [key]: (value) => validation(value, currentData),
+        }),
+        {}
+      );
+};
+
 const DynamicInput = (props) => {
   const {
     component,
@@ -12,6 +25,7 @@ const DynamicInput = (props) => {
     options,
     currentData,
     register,
+    rules,
     ...otherProps
   } = props;
   const Component = Inputs[component];
@@ -20,8 +34,12 @@ const DynamicInput = (props) => {
   const sharedProps = {
     name,
     error: get(errors, name),
-    required: otherProps?.rules?.required,
+    required: rules?.required,
     options: typeof options === 'function' ? options(currentData) : options,
+    rules: {
+      ...rules,
+      validate: rules?.validate && enhanceValidate(rules.validate, currentData),
+    },
     ...otherProps,
   };
   if (typeof options === 'function' && !sharedProps.options) {
@@ -46,7 +64,10 @@ DynamicInput.propTypes = {
   errors: PropTypes.object.isRequired,
   currentData: PropTypes.object.isRequired,
   labelSize: PropTypes.string,
-  rules: PropTypes.shape({}),
+  rules: PropTypes.shape({
+    validate: PropTypes.func,
+    required: PropTypes.bool,
+  }),
   register: PropTypes.func,
   options: PropTypes.oneOfType([PropTypes.func, PropTypes.array]),
 };
