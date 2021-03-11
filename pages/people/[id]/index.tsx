@@ -13,7 +13,7 @@ const PersonPage = (): React.ReactElement => {
   const personId = Number(query.id as string);
   return (
     <div>
-      <Seo title={`#${query.id} Person Details`} />
+      <Seo title={` Person Details - #${query.id}`} />
       <BackButton />
       <PersonView personId={personId} showPersonDetails={false}>
         {(person) => (

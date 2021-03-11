@@ -19,7 +19,7 @@ const AddNewAllocationPage = (): React.ReactElement => {
   }
   return (
     <>
-      <Seo title={`#${query.id} Allocate Worker`} />
+      <Seo title={`Allocate Worker to #${query.id} Allocate Worker`} />
       <BackButton />
       <h1 className="govuk-fieldset__legend--l gov-weight-lighter">
         Allocate worker to

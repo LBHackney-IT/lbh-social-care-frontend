@@ -11,7 +11,7 @@ const AddNewRecordPage = (): React.ReactElement => {
   const personId = Number(query.id as string);
   return (
     <>
-      <Seo title={`#${query.id} New Record`} />
+      <Seo title={`Add a new record for #${query.id}`} />
       <BackButton />
       <h1 className="govuk-fieldset__legend--l gov-weight-lighter">
         Add a new record for
