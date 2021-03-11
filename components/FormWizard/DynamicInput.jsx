@@ -64,10 +64,7 @@ DynamicInput.propTypes = {
   errors: PropTypes.object.isRequired,
   currentData: PropTypes.object.isRequired,
   labelSize: PropTypes.string,
-  rules: PropTypes.shape({
-    validate: PropTypes.func,
-    required: PropTypes.bool,
-  }),
+  rules: PropTypes.shape(),
   register: PropTypes.func,
   options: PropTypes.oneOfType([PropTypes.func, PropTypes.array]),
 };
