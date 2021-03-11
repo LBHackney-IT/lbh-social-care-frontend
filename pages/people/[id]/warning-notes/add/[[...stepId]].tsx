@@ -13,7 +13,7 @@ import type { Resident, User } from 'types';
 
 const CaseNotesRecording = (): React.ReactElement => {
   const { query } = useRouter();
-  const personId = query.id as string;
+  const personId = Number(query.id as string);
   const { user } = useAuth() as { user: User };
   const onFormSubmit = useCallback(
     (person: Resident) => async ({
