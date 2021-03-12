@@ -3,6 +3,7 @@ import cx from 'classnames';
 
 export interface Props {
   children: React.ReactElement | React.ReactElement[];
+  /** reference: https://design-system.service.gov.uk/styles/spacing/ */
   space: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9;
   className?: string;
 }
