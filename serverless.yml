@@ -3,6 +3,7 @@ service: lbh-social-care
 provider:
   name: aws
   runtime: nodejs14.x
+  versionFunctions: false
   region: eu-west-2
   stage: ${opt:stage}
 
