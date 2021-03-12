@@ -19,7 +19,7 @@ const AllocatedWorkers = ({ id }) => {
     return <ErrorMessage />;
   }
   return (
-    <div className="govuk-!-margin-top-8 govuk-!-margin-bottom-8">
+    <div>
       {allocations && (
         <AllocatedWorkersTable
           records={allocations}
@@ -28,7 +28,7 @@ const AllocatedWorkers = ({ id }) => {
       )}
       <div>
         <div className="lbh-table-header">
-          <h3 className="govuk-fieldset__legend--m govuk-custom-text-color govuk-!-margin-top-0">
+          <h3 className="govuk-fieldset__legend--m govuk-custom-text-color">
             ALLOCATED WORKER {allocations.length + 1}
           </h3>
           {user.hasAllocationsPermissions && (

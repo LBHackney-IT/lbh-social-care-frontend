@@ -7,25 +7,26 @@ import PersonDetails from 'components/PersonView/PersonDetails';
 import Cases from 'components/Cases/Cases';
 import AllocatedWorkers from 'components/AllocatedWorkers/AllocatedWorkers';
 import WarningNotes from 'components/WarningNote/WarningNotes';
+import Stack from 'components/Stack/Stack';
 
 const PersonPage = (): React.ReactElement => {
   const { query } = useRouter();
   const personId = Number(query.id as string);
   return (
-    <div>
+    <>
       <Seo title={`Person Details - #${query.id}`} />
       <BackButton />
       <PersonView personId={personId} showPersonDetails={false}>
         {(person) => (
-          <>
+          <Stack space={7} className="govuk-!-margin-top-7">
             <WarningNotes id={personId} />
             <PersonDetails person={person} />
             <AllocatedWorkers id={personId} />
             <Cases id={personId} person={person} />
-          </>
+          </Stack>
         )}
       </PersonView>
-    </div>
+    </>
   );
 };
 

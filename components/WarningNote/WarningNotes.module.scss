@@ -1,5 +1,9 @@
 @import 'node_modules/govuk-frontend/govuk/base';
 
+.container {
+  margin: 0;
+}
+
 .note {
   margin-bottom: 2rem;
   @include govuk-media-query($from: tablet) {
