@@ -94,6 +94,8 @@ interface BaseNote {
   nextReviewDate: Date;
   endedDate?: Date;
   endedBy?: string;
+  reviewedDate?: Date;
+  reviewedBy?: string;
   notes: string;
   discussedWithManager: string;
   discussedWithManagerDate: Date;
