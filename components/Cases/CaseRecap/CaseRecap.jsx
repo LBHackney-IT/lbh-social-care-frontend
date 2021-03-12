@@ -3,14 +3,11 @@ import PropTypes from 'prop-types';
 import ErrorMessage from 'components/ErrorMessage/ErrorMessage';
 import Spinner from 'components/Spinner/Spinner';
 import Summary from 'components/Summary/Summary';
-import { useCaseByResident } from 'utils/api/cases';
+import { useCase } from 'utils/api/cases';
 import * as form from 'data/forms';
 
 const CaseRecap = ({ personId, recordId }) => {
-  const { data: record, error: recordError } = useCaseByResident(
-    personId,
-    recordId
-  );
+  const { data: record, error: recordError } = useCase(recordId);
 
   const recordData =
     record && record.caseFormData && record.caseFormData.form_name_overall;

@@ -1,13 +1,13 @@
 import { act, render } from '@testing-library/react';
 
 import { UserContext } from 'components/UserContext/UserContext';
-import { useCaseByResident } from 'utils/api/cases';
+import { useCase } from 'utils/api/cases';
 import CaseRecap from './CaseRecap';
 
 jest.mock('components/Spinner/Spinner', () => () => 'MockedSpinner');
 
 jest.mock('utils/api/cases', () => ({
-  useCaseByResident: jest.fn(),
+  useCase: jest.fn(),
 }));
 
 describe(`CaseRecap`, () => {
@@ -16,7 +16,7 @@ describe(`CaseRecap`, () => {
     personId: '123',
   };
   it('should update the queryString on search and run a new search - with load more', async () => {
-    useCaseByResident.mockImplementation(() => ({
+    useCase.mockImplementation(() => ({
       data: {
         caseFormTimestamp: '2021-02-26T16:48:29.093Z',
         officerEmail: 'foo@bar.com',

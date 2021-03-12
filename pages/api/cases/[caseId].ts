@@ -1,6 +1,6 @@
 import { StatusCodes } from 'http-status-codes';
 
-import { getCaseByResident } from 'lib/cases';
+import { getCase } from 'lib/cases';
 import { isAuthorised } from 'utils/auth';
 
 import type { NextApiRequest, NextApiResponse, NextApiHandler } from 'next';
@@ -16,18 +16,14 @@ const endpoint: NextApiHandler = async (
   if (!user.isAuthorised) {
     return res.status(StatusCodes.FORBIDDEN).end();
   }
-  const { id, caseId, ...params } = req.query;
+  const { caseId, ...params } = req.query;
   switch (req.method) {
     case 'GET':
       try {
-        const data = await getCaseByResident(
-          parseInt(id as string, 10),
-          caseId as string,
-          {
-            ...params,
-            context_flag: user.permissionFlag,
-          }
-        );
+        const data = await getCase(caseId as string, {
+          ...params,
+          context_flag: user.permissionFlag,
+        });
         data
           ? res.status(StatusCodes.OK).json(data)
           : res

@@ -23,11 +23,9 @@ export const useCasesByResident = (
   // @ts-ignore
   useSWRInfinite(getInfiniteKey(`/api/residents/${id}/cases`, 'cases', params));
 
-export const useCaseByResident = (
-  id: number,
+export const useCase = (
   caseId: number
-): responseInterface<CaseData, ErrorAPI> =>
-  useSWR(`/api/residents/${id}/cases/${caseId}`);
+): responseInterface<CaseData, ErrorAPI> => useSWR(`/api/cases/${caseId}`);
 
 export const addCase = async (
   formData: Record<string, unknown>

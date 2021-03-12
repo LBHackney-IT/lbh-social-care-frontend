@@ -11,7 +11,7 @@ jest.mock('swr');
 const mockSWRInfinite = jest.fn();
 
 describe('cases APIs', () => {
-  describe('getCases', () => {
+  describe('useCases', () => {
     it('should work properly', async () => {
       jest
         .spyOn(SWR, 'useSWRInfinite')
@@ -25,7 +25,7 @@ describe('cases APIs', () => {
     });
   });
 
-  describe('getCasesByResident', () => {
+  describe('useCasesByResident', () => {
     it('should work properly', () => {
       jest
         .spyOn(SWR, 'useSWRInfinite')
@@ -36,6 +36,14 @@ describe('cases APIs', () => {
       expect(mockSWRInfinite).toHaveBeenCalledWith(
         '/api/residents/123/cases?bar=foobar'
       );
+    });
+  });
+
+  describe('useCase', () => {
+    it('should work properly', () => {
+      jest.spyOn(SWR, 'default');
+      casesAPI.useCase(123);
+      expect(SWR.default).toHaveBeenCalledWith('/api/cases/123');
     });
   });
 
