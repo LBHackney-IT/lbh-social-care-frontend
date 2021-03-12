@@ -8,15 +8,15 @@ exports[`Cases component should render a error message when a person is restrict
     >
       <div>
         <h3
-          class="govuk-fieldset__legend--m govuk-custom-text-color govuk-!-margin-top-0"
+          class="govuk-fieldset__legend--m govuk-custom-text-color"
         >
           RECORDS HISTORY
         </h3>
-        <p
-          class="govuk-label  govuk-!-margin-top-0"
+        <span
+          class="govuk-body"
         >
           Linked files are read only
-        </p>
+        </span>
       </div>
       <button
         class="govuk-button"
@@ -59,15 +59,15 @@ exports[`Cases component should render no records  1`] = `
     >
       <div>
         <h3
-          class="govuk-fieldset__legend--m govuk-custom-text-color govuk-!-margin-top-0"
+          class="govuk-fieldset__legend--m govuk-custom-text-color"
         >
           RECORDS HISTORY
         </h3>
-        <p
-          class="govuk-label  govuk-!-margin-top-0"
+        <span
+          class="govuk-body"
         >
           Linked files are read only
-        </p>
+        </span>
       </div>
       <button
         class="govuk-button"
@@ -106,15 +106,15 @@ exports[`Cases component should render records properly 1`] = `
     >
       <div>
         <h3
-          class="govuk-fieldset__legend--m govuk-custom-text-color govuk-!-margin-top-0"
+          class="govuk-fieldset__legend--m govuk-custom-text-color"
         >
           RECORDS HISTORY
         </h3>
-        <p
-          class="govuk-label  govuk-!-margin-top-0"
+        <span
+          class="govuk-body"
         >
           Linked files are read only
-        </p>
+        </span>
       </div>
       <button
         class="govuk-button"
@@ -218,15 +218,15 @@ exports[`Cases component should work properly if person is restricted but user.h
     >
       <div>
         <h3
-          class="govuk-fieldset__legend--m govuk-custom-text-color govuk-!-margin-top-0"
+          class="govuk-fieldset__legend--m govuk-custom-text-color"
         >
           RECORDS HISTORY
         </h3>
-        <p
-          class="govuk-label  govuk-!-margin-top-0"
+        <span
+          class="govuk-body"
         >
           Linked files are read only
-        </p>
+        </span>
       </div>
       <button
         class="govuk-button"
