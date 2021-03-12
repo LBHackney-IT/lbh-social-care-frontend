@@ -8,10 +8,11 @@ import { WarningNote } from 'types';
 import styles from './WarningNotes.module.scss';
 
 export interface Props {
+  personId: number;
   notes: WarningNote[];
 }
 
-export const WarningBox = ({ notes }: Props): React.ReactElement => {
+export const WarningBox = ({ notes, personId }: Props): React.ReactElement => {
   return (
     <div
       className={cx('govuk-error-summary', styles.container)}
@@ -47,12 +48,13 @@ export const WarningBox = ({ notes }: Props): React.ReactElement => {
                     <dt>Review Date</dt>
                     <dd>
                       {new Date(note.reviewedDate).toLocaleDateString('en-GB')}
+                      last reviewed by {note.reviewedBy}
                     </dd>
                   </>
                 )}
               </dl>
-              <Link href="people/:peopleId/warning-notes/:warningNoteId">
-                <a className="govuk-link govuk-link-underline">Review /end</a>
+              <Link href={`/people/${personId}/warning-notes/${note.id}`}>
+                <a className="govuk-link govuk-link-underline">Review / end</a>
               </Link>
             </div>
           ))}
@@ -71,7 +73,7 @@ const WarningNotes = ({ id }: { id: number }): React.ReactElement | null => {
   if (!warningNotes || warningNotes.length === 0) {
     return null;
   }
-  return <WarningBox notes={warningNotes} />;
+  return <WarningBox notes={warningNotes} personId={id} />;
 };
 
 export default WarningNotes;

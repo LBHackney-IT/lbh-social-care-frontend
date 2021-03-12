@@ -3,6 +3,8 @@ import { render } from '@testing-library/react';
 import * as warningNotes from 'utils/api/warningNotes';
 import WarningNotes from './WarningNotes';
 
+import { mockedWarningNote } from './WarningNotes.fixtures';
+
 jest.mock('next/router', () => ({
   useRouter: () => ({
     asPath: 'path',
@@ -16,30 +18,7 @@ jest.mock('utils/api/warningNotes', () => ({
 
 describe(`useWarningNotes`, () => {
   jest.spyOn(warningNotes, 'useWarningNotes').mockImplementation(() => ({
-    data: [
-      {
-        id: 123,
-        type: 'Risk to Adults',
-        createdDate: new Date(2020, 12, 12),
-        createdBy: 'Foo',
-        reviewedDate: new Date(2020, 12, 13),
-        reviewedBy: 'Bar',
-      },
-      {
-        id: 321,
-        type: 'Risk to Adults',
-        createdDate: new Date(2020, 12, 12),
-        createdBy: 'Foo',
-        reviewedDate: new Date(2020, 12, 13),
-        reviewedBy: 'Bar',
-      },
-      {
-        id: 234,
-        type: 'Risk to Staff',
-        createdDate: new Date(2020, 12, 22),
-        createdBy: 'Foo',
-      },
-    ],
+    data: mockedWarningNote,
     mutate: jest.fn(),
     revalidate: jest.fn(),
     isValidating: false,
