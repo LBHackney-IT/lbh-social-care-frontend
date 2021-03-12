@@ -1,5 +1,3 @@
-import PropTypes from 'prop-types';
-
 import Seo from './Seo/Seo';
 import Footer from './Footer/Footer';
 import Header from './Header/Header';
@@ -30,10 +28,6 @@ const Layout = ({ children }: Props): React.ReactElement => {
       <Footer />
     </>
   );
-};
-
-Layout.propTypes = {
-  children: PropTypes.node.isRequired,
 };
 
 export default Layout;
