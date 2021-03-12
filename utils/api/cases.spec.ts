@@ -42,7 +42,7 @@ describe('cases APIs', () => {
   describe('useCase', () => {
     it('should work properly', () => {
       jest.spyOn(SWR, 'default');
-      casesAPI.useCase(123);
+      casesAPI.useCase('123');
       expect(SWR.default).toHaveBeenCalledWith('/api/cases/123');
     });
   });
