@@ -25,7 +25,7 @@ const PersonPage = (): React.ReactElement => {
           </>
         )}
       </PersonView>
-    </div>
+    </>
   );
 };
 

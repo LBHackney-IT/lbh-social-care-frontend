@@ -51,7 +51,7 @@ Cases.propTypes = {
 const CasesWrapper = ({ id, person }) => {
   const { user } = useAuth();
   return (
-    <>
+    <div>
       <div className="lbh-table-header">
         <div>
           <h3 className="govuk-fieldset__legend--m govuk-custom-text-color govuk-!-margin-top-0">
@@ -72,7 +72,7 @@ const CasesWrapper = ({ id, person }) => {
           body="The records for this profile are restricted for viewing"
         />
       )}
-    </>
+    </div>
   );
 };
 

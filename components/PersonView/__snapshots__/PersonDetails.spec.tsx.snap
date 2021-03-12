@@ -2,9 +2,7 @@
 
 exports[`PersonDetails component should render properly - expanded 1`] = `
 <DocumentFragment>
-  <div
-    class="govuk-!-margin-bottom-7"
-  >
+  <div>
     <div
       class="lbh-table-header"
     >
@@ -29,9 +27,7 @@ exports[`PersonDetails component should render properly - expanded 1`] = `
 
 exports[`PersonDetails component should render properly - expanded 2`] = `
 <DocumentFragment>
-  <div
-    class="govuk-!-margin-bottom-7"
-  >
+  <div>
     <div
       class="lbh-table-header"
     >
@@ -256,9 +252,7 @@ exports[`PersonDetails component should render properly - expanded 2`] = `
 
 exports[`PersonDetails component should render properly 1`] = `
 <DocumentFragment>
-  <div
-    class="govuk-!-margin-bottom-7"
-  >
+  <div>
     <div
       class="lbh-table-header"
     >

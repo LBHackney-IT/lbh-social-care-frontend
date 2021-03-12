@@ -19,7 +19,7 @@ const AllocatedWorkers = ({ id }) => {
     return <ErrorMessage />;
   }
   return (
-    <div className="govuk-!-margin-top-8 govuk-!-margin-bottom-8">
+    <div>
       {allocations && (
         <AllocatedWorkersTable
           records={allocations}
