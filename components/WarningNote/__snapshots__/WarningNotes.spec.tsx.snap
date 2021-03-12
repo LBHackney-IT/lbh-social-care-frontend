@@ -40,46 +40,14 @@ exports[`useWarningNotes should render properly 1`] = `
               Review Date
             </dt>
             <dd>
-              13/01/2021
+              13/01/2021last reviewed by Bar
             </dd>
           </dl>
           <a
             class="govuk-link govuk-link-underline"
-            href="/people/:peopleId/warning-notes/:warningNoteId"
+            href="/people/123/warning-notes/123"
           >
-            Review /end
-          </a>
-        </div>
-        <div
-          class="note"
-        >
-          <dl
-            class="noteDetails"
-          >
-            <dt>
-              Type
-            </dt>
-            <dd>
-              Risk to Adults
-            </dd>
-            <dt>
-              Start Date
-            </dt>
-            <dd>
-              12/01/2021created by Foo
-            </dd>
-            <dt>
-              Review Date
-            </dt>
-            <dd>
-              13/01/2021
-            </dd>
-          </dl>
-          <a
-            class="govuk-link govuk-link-underline"
-            href="/people/:peopleId/warning-notes/:warningNoteId"
-          >
-            Review /end
+            Review / end
           </a>
         </div>
         <div
@@ -103,9 +71,9 @@ exports[`useWarningNotes should render properly 1`] = `
           </dl>
           <a
             class="govuk-link govuk-link-underline"
-            href="/people/:peopleId/warning-notes/:warningNoteId"
+            href="/people/123/warning-notes/234"
           >
-            Review /end
+            Review / end
           </a>
         </div>
         <p>

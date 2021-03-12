@@ -1,0 +1,36 @@
+import { WarningNote } from 'types';
+
+export const mockedWarningNote: WarningNote[] = [
+  {
+    id: 123,
+    type: 'Risk to Adults',
+    createdDate: new Date(2020, 12, 12),
+    createdBy: 'Foo',
+    reviewedDate: new Date(2020, 12, 13),
+    reviewedBy: 'Bar',
+    disclosedDate: new Date(2020, 12, 12),
+    disclosedHow: ['written'],
+    disclosedWithIndividual: true,
+    disclosedDetails: 'lorem ipsum',
+    nextReviewDate: new Date(2020, 12, 31),
+    notes: 'i am a note',
+    discussedWithManager: 'the big boss',
+    discussedWithManagerDate: new Date(2020, 12, 12),
+    status: 'open',
+    reviews: [],
+  },
+  {
+    id: 234,
+    type: 'Risk to Staff',
+    createdDate: new Date(2020, 12, 22),
+    createdBy: 'Foo',
+    disclosedWithIndividual: false,
+    disclosedDetails: 'nope',
+    discussedWithManager: 'the big boss',
+    discussedWithManagerDate: new Date(2020, 12, 12),
+    nextReviewDate: new Date(2021, 1, 1),
+    notes: 'a lot to talk about',
+    status: 'open',
+    reviews: [],
+  },
+];
