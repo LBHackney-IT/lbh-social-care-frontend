@@ -86,13 +86,55 @@ export interface User {
   isAuthorised: boolean;
 }
 
-export interface WarningNote {
+interface BaseNote {
   id: number;
   type: string;
   createdBy: string;
   createdDate: Date;
-  reviewedBy?: string;
-  reviewedDate?: Date;
-  closedBy?: string;
-  closedDate?: Date;
+  nextReviewDate: Date;
+  endedDate?: Date;
+  endedBy?: string;
+  notes: string;
+  discussedWithManager: string;
+  discussedWithManagerDate: Date;
+  status: 'closed' | 'open';
+  reviews: Array<DisclosedReviewedNote | UndisclosedReviewedNote>;
+}
+
+interface DisclosedNote extends BaseNote {
+  disclosedWithIndividual: true;
+  disclosedDetails: string;
+  disclosedDate: Date;
+  disclosedHow: ['verbal', 'written'] | ['verbal'] | ['written'];
+}
+
+interface UndisclosedNote extends BaseNote {
+  disclosedWithIndividual: false;
+  disclosedDetails: string;
+}
+
+interface ReviewedNote {
+  reviewedDate: Date;
+  reviewdBy: Date;
+  notes: string;
+  discussedWithManager: string;
+  discussedWithManagerDate: Date;
+}
+
+interface DisclosedReviewedNote extends ReviewedNote {
+  disclosedWithIndividual: true;
+  disclosedDetails: string;
+  disclosedDate: Date;
+  disclosedHow: ['verbal', 'written'] | ['verbal'] | ['written'];
+}
+
+interface UndisclosedReviewedNote extends ReviewedNote {
+  disclosedWithIndividual: false;
+  disclosedDetails: string;
+}
+
+export type WarningNote = DisclosedNote | UndisclosedNote;
+
+export interface WarningNotes {
+  notes: Array<WarningNote>;
 }
