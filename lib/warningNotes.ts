@@ -19,3 +19,14 @@ export const getWarningNotesByResident = async (
     setTimeout(() => resolve(mockedWN), 1000)
   );
 };
+
+export const getWarningNote = async (
+  warningNoteId: number
+): Promise<WarningNote | undefined> => {
+  return await new Promise((resolve) =>
+    setTimeout(
+      () => resolve(mockedWarningNote.find(({ id }) => id === warningNoteId)),
+      1000
+    )
+  );
+};
