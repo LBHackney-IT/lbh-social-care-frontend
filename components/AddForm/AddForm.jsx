@@ -46,8 +46,8 @@ const AddForm = ({ person }) => {
 
 AddForm.propTypes = {
   person: PropTypes.shape({
-    mosaicId: PropTypes.string.isRequired,
-    ageContext: PropTypes.string.isRequired,
+    mosaicId: PropTypes.number.isRequired,
+    ageContext: PropTypes.string,
     firstName: PropTypes.string.isRequired,
     lastName: PropTypes.string.isRequired,
   }).isRequired,

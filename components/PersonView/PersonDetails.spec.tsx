@@ -2,14 +2,16 @@ import { render, fireEvent } from '@testing-library/react';
 
 import PersonDetails from './PersonDetails';
 
+import { AgeContext } from 'types';
+
 describe('PersonDetails component', () => {
   const props = {
     person: {
       otherNames: [{ firstName: 'asd', lastName: 'qwe' }],
-      ageContext: 'CFS',
+      ageContext: 'A' as AgeContext,
       firstName: 'i am the first',
       lastName: 'i am the last',
-      mosaicId: 'mosaic',
+      mosaicId: 123,
       dateOfBirth: '1978-02-23T00:00:00.0000000',
       dateOfDeath: '1998-02-23T00:00:00.0000000',
       nhsNumber: 'nhs_123',

@@ -36,7 +36,7 @@ describe('AddForm component', () => {
       person: {
         firstName: 'Foo',
         lastName: 'Bar',
-        mosaicId: '123',
+        mosaicId: 123,
         ageContext: 'A',
       },
     };
@@ -68,7 +68,7 @@ describe('AddForm component', () => {
       person: {
         firstName: 'Foo',
         lastName: 'Bar',
-        mosaicId: '123',
+        mosaicId: 123,
         ageContext: 'C',
       },
     };

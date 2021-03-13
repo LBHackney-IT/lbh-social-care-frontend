@@ -1,9 +1,9 @@
 import { render } from '@testing-library/react';
 
 import { UserContext } from 'components/UserContext/UserContext';
+import * as allocatedWorkersAPI from 'utils/api/allocatedWorkers';
+import { mockedAllocations } from 'fixtures/allocatedWorkers.fixtures';
 import AllocatedWorkers from './AllocatedWorkers';
-
-import { useAllocatedWorkers } from 'utils/api/allocatedWorkers';
 
 jest.mock('next/router', () => ({
   useRouter: () => ({
@@ -18,20 +18,21 @@ jest.mock('utils/api/allocatedWorkers', () => ({
   useAllocatedWorkers: jest.fn(),
 }));
 
-jest.mock('components/AllocatedWorkers/AllocatedWorkersTable', () => () => (
-  <div>MockedAllocatedWorkersTable</div>
-));
+jest.mock('components/AllocatedWorkers/AllocatedWorkersTable', () => () =>
+  'MockedAllocatedWorkersTable'
+);
 
 describe(`AddAllocatedWorker`, () => {
-  useAllocatedWorkers.mockImplementation(() => ({
-    data: {
-      allocations: [
-        { id: '1', name: 'Team 1' },
-        { id: '2', name: 'Team 2' },
-        { id: '3', name: 'Team 3' },
-      ],
-    },
-  }));
+  jest
+    .spyOn(allocatedWorkersAPI, 'useAllocatedWorkers')
+    .mockImplementation(() => ({
+      data: {
+        allocations: mockedAllocations,
+      },
+      revalidate: jest.fn(),
+      mutate: jest.fn(),
+      isValidating: false,
+    }));
 
   const props = {
     id: 123,
@@ -41,10 +42,18 @@ describe(`AddAllocatedWorker`, () => {
     const { findByText, queryByText } = render(
       <UserContext.Provider
         value={{
-          user: { name: 'foo', email: 'foo@bar.com' },
+          user: {
+            name: 'foo',
+            hasAdminPermissions: true,
+            hasChildrenPermissions: true,
+            hasAdultPermissions: true,
+            email: 'foo@bar.com',
+            permissionFlag: 'A',
+            isAuthorised: true,
+          },
         }}
       >
-        <AllocatedWorkers {...props} type="people" />
+        <AllocatedWorkers {...props} />
       </UserContext.Provider>
     );
     const allocateTable = await findByText('MockedAllocatedWorkersTable');
@@ -59,13 +68,17 @@ describe(`AddAllocatedWorker`, () => {
         value={{
           user: {
             name: 'foo',
-            email: 'foo@bar.com',
             hasAdminPermissions: true,
+            hasChildrenPermissions: true,
+            hasAdultPermissions: true,
+            email: 'foo@bar.com',
+            permissionFlag: 'A',
+            isAuthorised: true,
             hasAllocationsPermissions: true,
           },
         }}
       >
-        <AllocatedWorkers {...props} type="people" />
+        <AllocatedWorkers {...props} />
       </UserContext.Provider>
     );
     const allocateTable = await findByText('MockedAllocatedWorkersTable');

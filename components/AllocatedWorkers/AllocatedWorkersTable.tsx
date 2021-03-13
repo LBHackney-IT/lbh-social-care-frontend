@@ -1,7 +1,14 @@
-import PropTypes from 'prop-types';
 import { useRouter } from 'next/router';
 
 import Button from 'components/Button/Button';
+
+import { Allocation } from 'types';
+
+interface EntryProps extends Allocation {
+  deallocationUrl: string;
+  index: number;
+  showDeallocateButton: boolean;
+}
 
 const AllocatedWorkersEntry = ({
   allocatedWorkerTeam,
@@ -12,7 +19,7 @@ const AllocatedWorkersEntry = ({
   index,
   showDeallocateButton,
   deallocationUrl,
-}) => (
+}: EntryProps): React.ReactElement => (
   <>
     <div className="lbh-table-header">
       <h3 className="govuk-fieldset__legend--m govuk-custom-text-color govuk-!-margin-top-0">
@@ -63,18 +70,15 @@ const AllocatedWorkersEntry = ({
   </>
 );
 
-AllocatedWorkersEntry.propTypes = {
-  allocatedWorker: PropTypes.string.isRequired,
-  allocationStartDate: PropTypes.string.isRequired,
-  allocationEndDate: PropTypes.string,
-  allocatedWorkerTeam: PropTypes.string,
-  workerType: PropTypes.string.isRequired,
-  index: PropTypes.number.isRequired,
-  showDeallocateButton: PropTypes.bool.isRequired,
-  deallocationUrl: PropTypes.string.isRequired,
-};
+export interface Props {
+  records: Allocation[];
+  hasAllocationsPermissions: boolean;
+}
 
-const AllocatedWorkersTable = ({ records, hasAllocationsPermissions }) => {
+const AllocatedWorkersTable = ({
+  records,
+  hasAllocationsPermissions,
+}: Props): React.ReactElement => {
   const { asPath } = useRouter();
   return (
     <div>
@@ -89,21 +93,6 @@ const AllocatedWorkersTable = ({ records, hasAllocationsPermissions }) => {
       ))}
     </div>
   );
-};
-
-AllocatedWorkersTable.propTypes = {
-  records: PropTypes.arrayOf(
-    PropTypes.shape({
-      allocatedWorkerTeam: PropTypes.string,
-      allocatedWorker: PropTypes.string.isRequired,
-      allocationStartDate: PropTypes.string.isRequired,
-      allocationEndDate: PropTypes.string,
-      workerType: PropTypes.string.isRequired,
-      id: PropTypes.number.isRequired,
-      personId: PropTypes.number.isRequired,
-    })
-  ).isRequired,
-  hasAllocationsPermissions: PropTypes.bool.isRequired,
 };
 
 export default AllocatedWorkersTable;
