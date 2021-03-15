@@ -17,10 +17,9 @@ const ReviewWarningNote = (): React.ReactElement => {
       </h1>
       <PersonView personId={personId} expandView>
         {(person: Resident) => (
-          <WarningNoteRecap
-            person={person}
-            warningNoteId={warningNoteId}
-          ></WarningNoteRecap>
+          <div className="govuk-!-margin-top-7">
+            <WarningNoteRecap person={person} warningNoteId={warningNoteId} />
+          </div>
         )}
       </PersonView>
     </>
