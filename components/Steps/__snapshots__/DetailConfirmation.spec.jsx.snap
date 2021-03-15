@@ -1,0 +1,38 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Detail Confirmation component should render properly 1`] = `
+<DocumentFragment>
+  <h1
+    class="govuk-fieldset__legend--l gov-weight-lighter govuk-!-margin-bottom-7"
+  >
+    Done!
+  </h1>
+  <div
+    class="govuk-panel govuk-panel--confirmation govuk-!-margin-bottom-9"
+  >
+    <h1
+      class="govuk-fieldset__legend--l gov-weight-lighter"
+    >
+      Foo Bar details have been added
+    </h1>
+  </div>
+  <div
+    style="display: flex; justify-content: space-between;"
+  >
+    <button
+      class="govuk-button govuk-button--secondary"
+      data-module="govuk-button"
+      style="min-width: 200px;"
+    >
+      Return to search
+    </button>
+    <button
+      class="govuk-button"
+      data-module="govuk-button"
+      style="min-width: 200px;"
+    >
+      View person
+    </button>
+  </div>
+</DocumentFragment>
+`;
