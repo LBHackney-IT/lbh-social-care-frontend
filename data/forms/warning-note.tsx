@@ -132,7 +132,18 @@ const WARNING_TYPE: Array<FormComponentStep> = [
     component: 'DateInput',
     name: 'end_date',
     label: 'Review / end date',
-    rules: { required: true },
+    rules: {
+      required: true,
+      validate: {
+        beforeStartDate: (value, { start_date }) =>
+          new Date(value).getTime() >= new Date(start_date).getTime() ||
+          'The Review / end date cannot be earlier than the Start date',
+        notMoreThanOneYear: (value, { start_date }) =>
+          new Date(value).getTime() - new Date(start_date).getTime() <=
+            365 * 24 * 60 * 60 * 1000 ||
+          'The Review / end date cannot be more than 1 year from the Start date',
+      },
+    },
   },
 ];
 
