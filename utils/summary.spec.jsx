@@ -30,7 +30,7 @@ describe('Summary utils', () => {
       expect(formatData(componentProps, formData)).toEqual({
         key: 'first_date',
         title: 'Frst date',
-        value: '01-10-2000',
+        value: '01/10/2000',
       });
     });
 
