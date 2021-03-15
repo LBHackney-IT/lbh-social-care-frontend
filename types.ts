@@ -104,14 +104,14 @@ interface BaseNote {
 }
 
 interface DisclosedNote extends BaseNote {
-  disclosedWithIndividual: true;
+  disclosedWithIndividual: 'Yes';
   disclosedDetails: string;
   disclosedDate: Date;
   disclosedHow: ['verbal', 'written'] | ['verbal'] | ['written'];
 }
 
 interface UndisclosedNote extends BaseNote {
-  disclosedWithIndividual: false;
+  disclosedWithIndividual: 'No';
   disclosedDetails: string;
 }
 
