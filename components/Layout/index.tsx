@@ -1,5 +1,3 @@
-import PropTypes from 'prop-types';
-
 import Seo from './Seo/Seo';
 import Footer from './Footer/Footer';
 import Header from './Header/Header';
@@ -17,23 +15,15 @@ const Layout = ({ children }: Props): React.ReactElement => {
       <Seo title="Interim Social Care Admin - Hackney Council" />
       <SkipLink />
       <Header serviceName="Interim Social Care" />
-      <div className="govuk-width-container app-width-container">
+      <div className="govuk-width-container">
         <PhaseBanner phase="beta" feedbackLink={feedbackLink} />
-        <main
-          className="govuk-main-wrapper app-main-class"
-          id="content"
-          role="main"
-        >
+        <main className="govuk-main-wrapper" id="content" role="main">
           {children}
         </main>
       </div>
       <Footer />
     </>
   );
-};
-
-Layout.propTypes = {
-  children: PropTypes.node.isRequired,
 };
 
 export default Layout;

@@ -4,17 +4,14 @@ import Link from 'next/link';
 import ErrorMessage from 'components/ErrorMessage/ErrorMessage';
 import Spinner from 'components/Spinner/Spinner';
 import { useResidentAllocation } from 'utils/api/allocatedWorkers';
-import { useCaseByResident } from 'utils/api/cases';
+import { useCase } from 'utils/api/cases';
 
 const AllocationRecap = ({ personId, allocationId, recordId }) => {
   const { data: allocation, error: allocationError } = useResidentAllocation(
     personId,
     allocationId
   );
-  const { data: record, error: recordError } = useCaseByResident(
-    personId,
-    recordId
-  );
+  const { data: record, error: recordError } = useCase(recordId);
   if (recordError || allocationError) {
     return <ErrorMessage />;
   }

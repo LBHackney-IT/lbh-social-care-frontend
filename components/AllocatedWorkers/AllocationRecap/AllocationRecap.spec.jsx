@@ -3,7 +3,7 @@ import { render } from '@testing-library/react';
 import AllocationRecap from './AllocationRecap';
 
 import { useResidentAllocation } from 'utils/api/allocatedWorkers';
-import { useCaseByResident } from 'utils/api/cases';
+import { useCase } from 'utils/api/cases';
 
 jest.mock('components/Spinner/Spinner', () => () => 'MockedSpinner');
 
@@ -12,7 +12,7 @@ jest.mock('utils/api/allocatedWorkers', () => ({
 }));
 
 jest.mock('utils/api/cases', () => ({
-  useCaseByResident: jest.fn(),
+  useCase: jest.fn(),
 }));
 
 describe(`AllocationRecap`, () => {
@@ -23,7 +23,7 @@ describe(`AllocationRecap`, () => {
   };
 
   it('should render properly on deallocation', async () => {
-    useCaseByResident.mockImplementation(() => ({
+    useCase.mockImplementation(() => ({
       data: {
         caseFormData: {
           form_name_overall: 'API_Deallocation',
@@ -44,12 +44,12 @@ describe(`AllocationRecap`, () => {
     }));
     const { asFragment } = render(<AllocationRecap {...props} />);
     expect(useResidentAllocation).toHaveBeenCalledWith('p_123', 'a_123');
-    expect(useCaseByResident).toHaveBeenCalledWith('p_123', 'r_123');
+    expect(useCase).toHaveBeenCalledWith('r_123');
     expect(asFragment()).toMatchSnapshot();
   });
 
   it('should render properly on allocation', async () => {
-    useCaseByResident.mockImplementation(() => ({
+    useCase.mockImplementation(() => ({
       data: {
         caseFormData: {
           form_name_overall: 'API_Allocation',
@@ -69,7 +69,7 @@ describe(`AllocationRecap`, () => {
     }));
     const { asFragment } = render(<AllocationRecap {...props} />);
     expect(useResidentAllocation).toHaveBeenCalledWith('p_123', 'a_123');
-    expect(useCaseByResident).toHaveBeenCalledWith('p_123', 'r_123');
+    expect(useCase).toHaveBeenCalledWith('r_123');
     expect(asFragment()).toMatchSnapshot();
   });
 });

@@ -34,14 +34,17 @@ export const getCasesByResident = (
   params: Record<string, unknown>
 ): Promise<CaseData> => getCases({ mosaic_id, ...params });
 
-export const getCaseByResident = async (
-  mosaic_id: number,
+export const getCase = async (
   case_id: string,
   params: Record<string, unknown>
 ): Promise<Case | undefined> => {
-  // TODO: this should be covered by the BE
-  const data = await getCases({ mosaic_id, ...params, limit: 100 });
-  return data.cases?.find(({ recordId }) => recordId === case_id);
+  const { data } = await axios.get(`${ENDPOINT_API}/cases/${case_id}`, {
+    headers: headersWithKey,
+    params,
+  });
+  return (
+    data && { ...data, caseFormData: sanitiseCaseFormData(data.caseFormData) }
+  );
 };
 
 export const addCase = async (

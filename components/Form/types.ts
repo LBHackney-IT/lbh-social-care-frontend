@@ -1,8 +1,15 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
 import { InputHTMLAttributes } from 'react';
-import { RegisterOptions } from 'react-hook-form';
+import { RegisterOptions, ValidateResult } from 'react-hook-form';
 import TextInput from './TextInput/TextInput';
+
+interface EnhancedRules extends Omit<RegisterOptions, 'validate'> {
+  validate?: (
+    data: any,
+    formData: Record<string, any>
+  ) => ValidateResult | Promise<ValidateResult>;
+}
 
 type LabelSize = 's' | 'm' | 'l' | 'xl';
 type Width = 30 | 20 | 10 | 5 | 4 | 3 | 2;
@@ -69,8 +76,9 @@ export interface TextArea extends TextAreaType {
   rows?: number;
 }
 
-interface StepTextArea extends TextArea {
+interface StepTextArea extends Omit<TextArea, 'rules'> {
   component: 'TextArea';
+  rules?: EnhancedRules;
 }
 
 type SelectType = GenericField &
@@ -86,9 +94,10 @@ export interface Select extends SelectType {
   onChange?: (arg0: string) => string | void;
 }
 
-interface StepSelect extends Omit<Select, 'options'> {
+interface StepSelect extends Omit<Select, 'options' | 'rules'> {
   component: 'Select';
   options: Options;
+  rules?: EnhancedRules;
 }
 
 type RadiosType = GenericField & InputHTMLAttributes<HTMLInputElement>;
@@ -99,9 +108,10 @@ export interface Radios extends RadiosType {
   children?: React.ReactNode;
 }
 
-interface StepRadios extends Omit<Radios, 'options'> {
+interface StepRadios extends Omit<Radios, 'options' | 'rules'> {
   component: 'Radios';
   options?: Options;
+  rules?: EnhancedRules;
 }
 
 export interface ObjectInput extends GenericField {
@@ -111,24 +121,27 @@ export interface ObjectInput extends GenericField {
   components: Array<formBasicComponentStep>;
 }
 
-interface StepObjectInput extends ObjectInput {
+interface StepObjectInput extends Omit<ObjectInput, 'rules'> {
   component: 'ObjectInput';
+  rules?: EnhancedRules;
 }
 
 export interface AddressLookup extends GenericField {
   supportManualEntry?: boolean;
 }
 
-interface StepAddressLookup extends AddressLookup {
+interface StepAddressLookup extends Omit<AddressLookup, 'rules'> {
   component: 'AddressLookup';
+  rules?: EnhancedRules;
 }
 
 export interface DateInput extends GenericField {
   format?: 'US' | 'EU';
 }
 
-interface StepDateInput extends DateInput {
+interface StepDateInput extends Omit<DateInput, 'rules'> {
   component: 'DateInput';
+  rules?: EnhancedRules;
 }
 
 type formBasicComponentStep =

@@ -10,11 +10,11 @@ exports[`Layout component should render properly 1`] = `
   </a>
   Header
   <div
-    class="govuk-width-container app-width-container"
+    class="govuk-width-container"
   >
     MockedPhaseBanner
     <main
-      class="govuk-main-wrapper app-main-class"
+      class="govuk-main-wrapper"
       id="content"
       role="main"
     >

@@ -2,48 +2,50 @@
 
 exports[`Cases component should render a error message when a person is restricted 1`] = `
 <DocumentFragment>
-  <div
-    class="lbh-table-header"
-  >
-    <div>
-      <h3
-        class="govuk-fieldset__legend--m govuk-custom-text-color govuk-!-margin-top-0"
-      >
-        RECORDS HISTORY
-      </h3>
-      <p
-        class="govuk-label  govuk-!-margin-top-0"
-      >
-        Linked files are read only
-      </p>
-    </div>
-    <button
-      class="govuk-button"
-      data-module="govuk-button"
-    >
-      Add a new record
-    </button>
-  </div>
-  <hr
-    class="govuk-divider"
-  />
-  <div
-    aria-labelledby="error-summary-title"
-    class="govuk-error-summary"
-    data-module="govuk-error-summary"
-    role="alert"
-    tabindex="-1"
-  >
-    <h2
-      class="govuk-error-summary__title"
-      id="error-summary-title"
-    >
-      RESTRICTED
-    </h2>
+  <div>
     <div
-      class="govuk-error-summary__body"
+      class="lbh-table-header"
     >
-      The records for this profile are restricted for viewing
+      <div>
+        <h3
+          class="govuk-fieldset__legend--m govuk-custom-text-color"
+        >
+          RECORDS HISTORY
+        </h3>
+        <span
+          class="govuk-body"
+        >
+          Linked files are read only
+        </span>
+      </div>
+      <button
+        class="govuk-button"
+        data-module="govuk-button"
+      >
+        Add a new record
+      </button>
+    </div>
+    <hr
+      class="govuk-divider"
+    />
+    <div
+      aria-labelledby="error-summary-title"
+      class="govuk-error-summary"
+      data-module="govuk-error-summary"
+      role="alert"
+      tabindex="-1"
+    >
+      <h2
+        class="govuk-error-summary__title"
+        id="error-summary-title"
+      >
+        RESTRICTED
+      </h2>
+      <div
+        class="govuk-error-summary__body"
+      >
+        The records for this profile are restricted for viewing
+      </div>
     </div>
   </div>
 </DocumentFragment>
@@ -51,200 +53,206 @@ exports[`Cases component should render a error message when a person is restrict
 
 exports[`Cases component should render no records  1`] = `
 <DocumentFragment>
-  <div
-    class="lbh-table-header"
-  >
-    <div>
-      <h3
-        class="govuk-fieldset__legend--m govuk-custom-text-color govuk-!-margin-top-0"
+  <div>
+    <div
+      class="lbh-table-header"
+    >
+      <div>
+        <h3
+          class="govuk-fieldset__legend--m govuk-custom-text-color"
+        >
+          RECORDS HISTORY
+        </h3>
+        <span
+          class="govuk-body"
+        >
+          Linked files are read only
+        </span>
+      </div>
+      <button
+        class="govuk-button"
+        data-module="govuk-button"
       >
-        RECORDS HISTORY
-      </h3>
-      <p
-        class="govuk-label  govuk-!-margin-top-0"
-      >
-        Linked files are read only
-      </p>
+        Add a new record
+      </button>
     </div>
-    <button
-      class="govuk-button"
-      data-module="govuk-button"
+    <hr
+      class="govuk-divider"
+    />
+    <p
+      class="govuk-body govuk-!-margin-top-5"
     >
-      Add a new record
-    </button>
-  </div>
-  <hr
-    class="govuk-divider"
-  />
-  <p
-    class="govuk-body govuk-!-margin-top-5"
-  >
-    Records not found
-  </p>
-  <div
-    style="height: 50px; text-align: center;"
-  >
-    <button
-      class="govuk-button"
-      data-module="govuk-button"
+      Records not found
+    </p>
+    <div
+      style="height: 50px; text-align: center;"
     >
-      load more
-    </button>
+      <button
+        class="govuk-button"
+        data-module="govuk-button"
+      >
+        load more
+      </button>
+    </div>
   </div>
 </DocumentFragment>
 `;
 
 exports[`Cases component should render records properly 1`] = `
 <DocumentFragment>
-  <div
-    class="lbh-table-header"
-  >
-    <div>
-      <h3
-        class="govuk-fieldset__legend--m govuk-custom-text-color govuk-!-margin-top-0"
+  <div>
+    <div
+      class="lbh-table-header"
+    >
+      <div>
+        <h3
+          class="govuk-fieldset__legend--m govuk-custom-text-color"
+        >
+          RECORDS HISTORY
+        </h3>
+        <span
+          class="govuk-body"
+        >
+          Linked files are read only
+        </span>
+      </div>
+      <button
+        class="govuk-button"
+        data-module="govuk-button"
       >
-        RECORDS HISTORY
-      </h3>
-      <p
-        class="govuk-label  govuk-!-margin-top-0"
-      >
-        Linked files are read only
-      </p>
+        Add a new record
+      </button>
     </div>
-    <button
-      class="govuk-button"
-      data-module="govuk-button"
+    <hr
+      class="govuk-divider"
+    />
+    <table
+      class="govuk-table"
     >
-      Add a new record
-    </button>
-  </div>
-  <hr
-    class="govuk-divider"
-  />
-  <table
-    class="govuk-table"
-  >
-    <tbody
-      class="govuk-table__body"
-    >
-      <tr
-        class="govuk-table__row"
+      <tbody
+        class="govuk-table__body"
       >
-        <td
-          class="govuk-table__cell govuk--timestamp"
+        <tr
+          class="govuk-table__row"
         >
-          23 Dec 2020 
-        </td>
-        <td
-          class="govuk-table__cell"
-        >
-          Foo_foo
-        </td>
-        <td
-          class="govuk-table__cell"
-        >
-          - created by foo@foo.co.uk
-        </td>
-        <td
-          class="govuk-table__cell govuk-button--secondary'"
-        >
-          <a
-            class="govuk-link"
-            href="http//foo/foo"
-            rel="noreferrer noopener"
-            target="_blank"
+          <td
+            class="govuk-table__cell govuk--timestamp"
           >
-            View
-          </a>
-        </td>
-      </tr>
-      <tr
-        class="govuk-table__row"
-      >
-        <td
-          class="govuk-table__cell govuk--timestamp"
-        >
-          4 Dec 2020 
-        </td>
-        <td
-          class="govuk-table__cell"
-        >
-          Bar_bar
-        </td>
-        <td
-          class="govuk-table__cell"
-        >
-          - created by bar@bar.co.uk
-        </td>
-        <td
-          class="govuk-table__cell govuk-button--secondary'"
-        >
-          <a
-            class="govuk-link"
-            href="http//bar/bar"
-            rel="noreferrer noopener"
-            target="_blank"
+            23 Dec 2020 
+          </td>
+          <td
+            class="govuk-table__cell"
           >
-            View
-          </a>
-        </td>
-      </tr>
-    </tbody>
-  </table>
-  <div
-    style="height: 50px; text-align: center;"
-  >
-    <button
-      class="govuk-button"
-      data-module="govuk-button"
+            Foo_foo
+          </td>
+          <td
+            class="govuk-table__cell"
+          >
+            - created by foo@foo.co.uk
+          </td>
+          <td
+            class="govuk-table__cell govuk-button--secondary'"
+          >
+            <a
+              class="govuk-link"
+              href="http//foo/foo"
+              rel="noreferrer noopener"
+              target="_blank"
+            >
+              View
+            </a>
+          </td>
+        </tr>
+        <tr
+          class="govuk-table__row"
+        >
+          <td
+            class="govuk-table__cell govuk--timestamp"
+          >
+            4 Dec 2020 
+          </td>
+          <td
+            class="govuk-table__cell"
+          >
+            Bar_bar
+          </td>
+          <td
+            class="govuk-table__cell"
+          >
+            - created by bar@bar.co.uk
+          </td>
+          <td
+            class="govuk-table__cell govuk-button--secondary'"
+          >
+            <a
+              class="govuk-link"
+              href="http//bar/bar"
+              rel="noreferrer noopener"
+              target="_blank"
+            >
+              View
+            </a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <div
+      style="height: 50px; text-align: center;"
     >
-      load more
-    </button>
+      <button
+        class="govuk-button"
+        data-module="govuk-button"
+      >
+        load more
+      </button>
+    </div>
   </div>
 </DocumentFragment>
 `;
 
 exports[`Cases component should work properly if person is restricted but user.hasUnrestrictedPermissions 1`] = `
 <DocumentFragment>
-  <div
-    class="lbh-table-header"
-  >
-    <div>
-      <h3
-        class="govuk-fieldset__legend--m govuk-custom-text-color govuk-!-margin-top-0"
+  <div>
+    <div
+      class="lbh-table-header"
+    >
+      <div>
+        <h3
+          class="govuk-fieldset__legend--m govuk-custom-text-color"
+        >
+          RECORDS HISTORY
+        </h3>
+        <span
+          class="govuk-body"
+        >
+          Linked files are read only
+        </span>
+      </div>
+      <button
+        class="govuk-button"
+        data-module="govuk-button"
       >
-        RECORDS HISTORY
-      </h3>
-      <p
-        class="govuk-label  govuk-!-margin-top-0"
-      >
-        Linked files are read only
-      </p>
+        Add a new record
+      </button>
     </div>
-    <button
-      class="govuk-button"
-      data-module="govuk-button"
+    <hr
+      class="govuk-divider"
+    />
+    <p
+      class="govuk-body govuk-!-margin-top-5"
     >
-      Add a new record
-    </button>
-  </div>
-  <hr
-    class="govuk-divider"
-  />
-  <p
-    class="govuk-body govuk-!-margin-top-5"
-  >
-    Records not found
-  </p>
-  <div
-    style="height: 50px; text-align: center;"
-  >
-    <button
-      class="govuk-button"
-      data-module="govuk-button"
+      Records not found
+    </p>
+    <div
+      style="height: 50px; text-align: center;"
     >
-      load more
-    </button>
+      <button
+        class="govuk-button"
+        data-module="govuk-button"
+      >
+        load more
+      </button>
+    </div>
   </div>
 </DocumentFragment>
 `;

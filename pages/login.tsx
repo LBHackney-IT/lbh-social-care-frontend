@@ -1,5 +1,3 @@
-import PropTypes from 'prop-types';
-
 import Seo from 'components/Layout/Seo/Seo';
 import { getProtocol } from 'utils/urls';
 
@@ -23,11 +21,6 @@ const AdminLoginPage = ({ gssoUrl, returnUrl }: Props): React.ReactElement => (
     </p>
   </>
 );
-
-AdminLoginPage.propTypes = {
-  gssoUrl: PropTypes.string.isRequired,
-  returnUrl: PropTypes.string.isRequired,
-};
 
 export const getServerSideProps = async () => {
   const { GSSO_URL, REDIRECT_URL } = process.env;

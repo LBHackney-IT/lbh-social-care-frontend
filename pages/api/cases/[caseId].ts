@@ -1,6 +1,6 @@
 import { StatusCodes } from 'http-status-codes';
 
-import { getWarningNotesByResident } from 'lib/warningNotes';
+import { getCase } from 'lib/cases';
 import { isAuthorised } from 'utils/auth';
 
 import type { NextApiRequest, NextApiResponse, NextApiHandler } from 'next';
@@ -16,29 +16,24 @@ const endpoint: NextApiHandler = async (
   if (!user.isAuthorised) {
     return res.status(StatusCodes.FORBIDDEN).end();
   }
+  const { caseId, ...params } = req.query;
   switch (req.method) {
     case 'GET':
       try {
-        const data = await getWarningNotesByResident(
-          parseInt(req.query.id as string, 10)
-          // {
-          //   context_flag: user.permissionFlag,
-          // }
-        );
+        const data = await getCase(caseId as string, {
+          ...params,
+          context_flag: user.permissionFlag,
+        });
         data
           ? res.status(StatusCodes.OK).json(data)
           : res
               .status(StatusCodes.NOT_FOUND)
-              .json({ message: 'Warning Notes Not Found' });
+              .json({ message: 'Allocation Not Found' });
       } catch (error) {
-        console.error('Warning Notes get error:', error?.response?.data);
-        error?.response?.status === StatusCodes.NOT_FOUND
-          ? res
-              .status(StatusCodes.NOT_FOUND)
-              .json({ message: 'Warning Notes Not Found' })
-          : res
-              .status(StatusCodes.INTERNAL_SERVER_ERROR)
-              .json({ message: 'Unable to get the Warning Notes' });
+        console.error('Cases get error:', error?.response?.data);
+        res
+          .status(StatusCodes.INTERNAL_SERVER_ERROR)
+          .json({ message: 'Unable to get the Cases' });
       }
       break;
 

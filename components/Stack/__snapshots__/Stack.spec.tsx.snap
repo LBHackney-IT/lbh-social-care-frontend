@@ -1,0 +1,24 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Stack should render properly 1`] = `
+<DocumentFragment>
+  <div
+    class="foobar"
+  >
+    <div
+      class=""
+    >
+      <div>
+        foo
+      </div>
+    </div>
+    <div
+      class="govuk-!-margin-top-7"
+    >
+      <div>
+        bar
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;
