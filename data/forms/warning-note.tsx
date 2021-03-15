@@ -48,7 +48,16 @@ const WARNING_TYPE: Array<FormComponentStep> = [
           <ul>
             <li>
               identified within the Multi-Agency Public Protection Arrangements
-              (MAPPA) as presenting a significant risk of harm to children
+              (
+              <a
+                href="https://mappa.justice.gov.uk/connect.ti/MAPPA/grouphome"
+                className="govuk-link"
+                target="_blank"
+                rel="noreferrer"
+              >
+                MAPPA
+              </a>
+              ) as presenting a significant risk of harm to children
             </li>
             <li>convicted of an offence against a child</li>
             <li>
@@ -57,8 +66,16 @@ const WARNING_TYPE: Array<FormComponentStep> = [
               Proceedings
             </li>
             <li>
-              identified within a multi-agency risk assessment conference
-              (MARAC) as presenting a risk to children.
+              identified within a multi-agency risk assessment conference (
+              <a
+                href="https://hackney.gov.uk/domestic-violence/#marac"
+                className="govuk-link"
+                target="_blank"
+                rel="noreferrer"
+              >
+                MARAC
+              </a>
+              ) as presenting a risk to children.
             </li>
           </ul>
         </div>
@@ -67,12 +84,30 @@ const WARNING_TYPE: Array<FormComponentStep> = [
           Someone who has been identified within:
           <ul>
             <li>
-              Multi-Agency Public Protection Arrangements (MAPPA) as presenting
-              a risk of significant harm to another adult or adults
+              Multi-Agency Public Protection Arrangements (
+              <a
+                href="https://mappa.justice.gov.uk/connect.ti/MAPPA/grouphome"
+                className="govuk-link"
+                target="_blank"
+                rel="noreferrer"
+              >
+                MAPPA
+              </a>
+              ) as presenting a risk of significant harm to another adult or
+              adults
             </li>
             <li>
-              a Multi-Agency Risk Assessment Conference (MARAC) as presenting a
-              risk of significant harm to another adult or adults.
+              a Multi-Agency Risk Assessment Conference (
+              <a
+                href="https://hackney.gov.uk/domestic-violence/#marac"
+                className="govuk-link"
+                target="_blank"
+                rel="noreferrer"
+              >
+                MARAC
+              </a>
+              ) as presenting a risk of significant harm to another adult or
+              adults.
             </li>
           </ul>
         </div>
@@ -235,8 +270,10 @@ const WARNING_NARRATIVE: Array<FormComponentStep> = [
 const DISCUSSED_WITH_MANAGER: Array<FormComponentStep> = [
   <div key="discussed with manager">
     <h2>Discussed with manager</h2>
-    Adding this Warning Note has been discussed and agreed by the manager named
-    below.
+    <div className="govuk-body">
+      Adding this Warning Note has been discussed and agreed by the manager
+      named below.
+    </div>
   </div>,
   {
     component: 'TextInput',
