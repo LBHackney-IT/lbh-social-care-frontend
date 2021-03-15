@@ -1,0 +1,44 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`WarningNoteRecap should render correctly 1`] = `
+<DocumentFragment>
+  <div
+    class="govuk-!-margin-bottom-7"
+  >
+    <div
+      class="lbh-table-header"
+    >
+      <div
+        class="sectionTitle"
+      >
+        <h3
+          class="govuk-heading-m govuk-custom-text-color govuk-!-margin-bottom-0"
+        >
+          WARNING DETAILS
+        </h3>
+      </div>
+    </div>
+    <hr
+      class="govuk-divider"
+    />
+    <dl
+      class="govuk-summary-list"
+    >
+      <div
+        class="govuk-summary-list__row"
+      >
+        <dt
+          class="govuk-summary-list__key"
+        >
+          Select warning type
+        </dt>
+        <dd
+          class="govuk-summary-list__value"
+        >
+          Risk to Adults
+        </dd>
+      </div>
+    </dl>
+  </div>
+</DocumentFragment>
+`;

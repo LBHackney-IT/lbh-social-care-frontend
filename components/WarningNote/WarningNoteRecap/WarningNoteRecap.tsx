@@ -14,9 +14,7 @@ const WarningNoteRecap = ({
   person,
   warningNoteId,
 }: Props): React.ReactElement => {
-  const personId = Number(person.mosaicId as string);
   const { data: warningNote, error: warningNoteError } = getWarningNote(
-    personId,
     warningNoteId
   );
 

@@ -8,6 +8,7 @@ import { Resident } from 'types';
 const ReviewWarningNote = (): React.ReactElement => {
   const { query } = useRouter();
   const personId = Number(query.id as string);
+  const warningNoteId = Number(query.warningNoteId as string);
   return (
     <>
       <BackButton />
@@ -18,7 +19,7 @@ const ReviewWarningNote = (): React.ReactElement => {
         {(person: Resident) => (
           <WarningNoteRecap
             person={person}
-            warningNoteId={1234}
+            warningNoteId={warningNoteId}
           ></WarningNoteRecap>
         )}
       </PersonView>
