@@ -4,11 +4,13 @@ import { InputHTMLAttributes } from 'react';
 import { RegisterOptions, ValidateResult } from 'react-hook-form';
 import TextInput from './TextInput/TextInput';
 
+type EnhancedValidate = (
+  data: any,
+  formData: Record<string, any>
+) => ValidateResult | Promise<ValidateResult>;
+
 interface EnhancedRules extends Omit<RegisterOptions, 'validate'> {
-  validate?: (
-    data: any,
-    formData: Record<string, any>
-  ) => ValidateResult | Promise<ValidateResult>;
+  validate?: EnhancedValidate | Record<string, EnhancedValidate>;
 }
 
 type LabelSize = 's' | 'm' | 'l' | 'xl';
