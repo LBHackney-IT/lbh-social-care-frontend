@@ -124,13 +124,13 @@ const WARNING_TYPE: Array<FormComponentStep> = [
   },
   {
     component: 'DateInput',
-    name: 'start_date',
+    name: 'createdDate',
     label: 'Start date',
     rules: { required: true },
   },
   {
     component: 'DateInput',
-    name: 'end_date',
+    name: 'nextReviewDate',
     label: 'Review / end date',
     rules: { required: true },
   },
@@ -155,13 +155,13 @@ const WARNING_DISCLOSURE: Array<FormComponentStep> = [
   </div>,
   {
     component: 'Radios',
-    name: 'is_individual_aware',
+    name: 'disclosedWithIndividual',
     rules: { required: true },
     label: 'Is the individual aware of the Warning Note and Review Date?',
   },
   {
     component: 'DateInput',
-    name: 'informed_date',
+    name: 'disclosedDate',
     label: 'Date informed',
     labelSize: 's',
     rules: { required: true },
@@ -170,7 +170,7 @@ const WARNING_DISCLOSURE: Array<FormComponentStep> = [
   },
   {
     component: 'Checkbox',
-    name: 'informed_how',
+    name: 'disclosedHow',
     label: 'How informed',
     labelSize: 's',
     options: ['Verbal', 'Written'],
@@ -180,7 +180,7 @@ const WARNING_DISCLOSURE: Array<FormComponentStep> = [
   },
   {
     component: 'TextArea',
-    name: 'informed_details',
+    name: 'disclosedDetails',
     label: 'Details of disclosure to individual',
     labelSize: 's',
     rules: { required: true },
@@ -189,7 +189,7 @@ const WARNING_DISCLOSURE: Array<FormComponentStep> = [
   },
   {
     component: 'TextArea',
-    name: 'not_informed_details',
+    name: 'disclosedDetails',
     label: 'Justification for non-disclosure of Warning Note',
     labelSize: 's',
     rules: { required: true },
@@ -226,7 +226,7 @@ const WARNING_NARRATIVE: Array<FormComponentStep> = [
   </div>,
   {
     component: 'TextArea',
-    name: 'warning_narrative',
+    name: 'notes',
     label: 'Warning narrative and risks notes',
     rules: { required: true },
   },
@@ -240,13 +240,13 @@ const DISCUSSED_WITH_MANAGER: Array<FormComponentStep> = [
   </div>,
   {
     component: 'TextInput',
-    name: 'discussed_manager',
+    name: 'discussedWithManager',
     label: 'Manager’s name',
     rules: { required: true },
   },
   {
     component: 'DateInput',
-    name: 'discussed_manager_date',
+    name: 'discussedWithManagerDate',
     label: 'Date discussed with manager',
     rules: { required: true },
   },
