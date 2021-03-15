@@ -7,11 +7,11 @@ import { mockedWarningNote } from '../WarningNotes.fixtures';
 jest.mock('components/Spinner/Spinner', () => () => 'MockedSpinner');
 
 jest.mock('utils/api/warningNotes', () => ({
-  getWarningNote: jest.fn(),
+  useWarningNote: jest.fn(),
 }));
 
 describe(`WarningNoteRecap`, () => {
-  jest.spyOn(warningNotes, 'getWarningNote').mockImplementation(() => ({
+  jest.spyOn(warningNotes, 'useWarningNote').mockImplementation(() => ({
     data: mockedWarningNote.find(({ id }) => id === props.warningNoteId),
     mutate: jest.fn(),
     revalidate: jest.fn(),

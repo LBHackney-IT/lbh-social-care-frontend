@@ -1,7 +1,7 @@
 import Spinner from 'components/Spinner/Spinner';
 import Summary from 'components/Summary/Summary';
 import ErrorMessage from 'components/ErrorMessage/ErrorMessage';
-import { getWarningNote } from 'utils/api/warningNotes';
+import { useWarningNote } from 'utils/api/warningNotes';
 import { formStepsAdult, formStepsChild } from 'data/forms/warning-note';
 import { Resident } from 'types';
 
@@ -14,7 +14,7 @@ const WarningNoteRecap = ({
   person,
   warningNoteId,
 }: Props): React.ReactElement => {
-  const { data: warningNote, error: warningNoteError } = getWarningNote(
+  const { data: warningNote, error: warningNoteError } = useWarningNote(
     warningNoteId
   );
 

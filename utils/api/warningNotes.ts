@@ -7,7 +7,7 @@ export const useWarningNotes = (
 ): responseInterface<WarningNote[], ErrorAPI> =>
   useSWR(`/api/residents/${id}/warning-notes`);
 
-export const getWarningNote = (
+export const useWarningNote = (
   warningNoteId: number
 ): responseInterface<WarningNote, ErrorAPI> =>
   useSWR(`/api/warning-notes/${warningNoteId}`);
