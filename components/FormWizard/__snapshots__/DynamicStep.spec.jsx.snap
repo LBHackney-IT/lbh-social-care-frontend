@@ -9,19 +9,23 @@ exports[`DynamicStep component should render properly 1`] = `
       <div
         class="govuk-form-group"
       >
-        <label
-          class="govuk-label govuk-label--m"
-          for="bar_input"
+        <div
+          class="govuk-form-group"
         >
-          Foo 
-        </label>
-        <input
-          class="govuk-input govuk-input--width-30"
-          data-testid="bar_input"
-          id="bar_input"
-          name="bar_input"
-          type="text"
-        />
+          <label
+            class="govuk-label govuk-label--m"
+            for="bar_input"
+          >
+            Foo 
+          </label>
+          <input
+            class="govuk-input govuk-input--width-30"
+            data-testid="bar_input"
+            id="bar_input"
+            name="bar_input"
+            type="text"
+          />
+        </div>
       </div>
     </div>
     <div

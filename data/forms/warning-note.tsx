@@ -165,6 +165,7 @@ const WARNING_DISCLOSURE: Array<FormComponentStep> = [
     label: 'Date informed',
     labelSize: 's',
     rules: { required: true },
+    showConditionalGuides: true,
     conditionalRender: ({ is_individual_aware }) =>
       is_individual_aware === 'Yes',
   },
@@ -175,6 +176,7 @@ const WARNING_DISCLOSURE: Array<FormComponentStep> = [
     labelSize: 's',
     options: ['Verbal', 'Written'],
     rules: { required: true },
+    showConditionalGuides: true,
     conditionalRender: ({ is_individual_aware }) =>
       is_individual_aware === 'Yes',
   },
@@ -184,6 +186,7 @@ const WARNING_DISCLOSURE: Array<FormComponentStep> = [
     label: 'Details of disclosure to individual',
     labelSize: 's',
     rules: { required: true },
+    showConditionalGuides: true,
     conditionalRender: ({ is_individual_aware }) =>
       is_individual_aware === 'Yes',
   },
@@ -193,6 +196,7 @@ const WARNING_DISCLOSURE: Array<FormComponentStep> = [
     label: 'Justification for non-disclosure of Warning Note',
     labelSize: 's',
     rules: { required: true },
+    showConditionalGuides: true,
     conditionalRender: ({ is_individual_aware }) =>
       is_individual_aware === 'No',
   },

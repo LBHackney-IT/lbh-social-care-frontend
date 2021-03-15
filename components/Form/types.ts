@@ -38,6 +38,7 @@ export interface GenericField {
   hint?: string;
   labelSize?: LabelSize;
   conditionalRender?: (arg0: Record<string, any>) => boolean;
+  showConditionalGuides?: boolean;
   isMulti?: boolean;
   isMultiInit?: boolean;
   isMultiTrigger?: string;
