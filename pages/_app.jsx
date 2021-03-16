@@ -15,9 +15,6 @@ class MyApp extends App {
     super(props);
     this.state = { user: props.user };
   }
-  componentDidMount = () => {
-    window.GOVUKFrontend.initAll();
-  };
   render() {
     const { Component, pageProps } = this.props;
     return (
@@ -36,7 +33,6 @@ class MyApp extends App {
             </GoogleAnalytics>
           </AuthProvider>
         </SWRConfig>
-        <script src="/js/govuk.js"></script>
       </>
     );
   }
