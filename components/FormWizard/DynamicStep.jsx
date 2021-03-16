@@ -1,10 +1,13 @@
 import { isValidElement, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import { useForm } from 'react-hook-form';
+import cx from 'classnames';
 
 import Button from 'components/Button/Button';
 import DynamicInput from 'components/FormWizard/DynamicInput';
 import DynamicInputMulti from 'components/FormWizard/DynamicInputMulti';
+
+import styles from './DynamicStep.module.scss';
 
 const DynamicStep = ({
   isMulti,
@@ -43,6 +46,7 @@ const DynamicStep = ({
           {components?.map(
             ({
               conditionalRender,
+              showConditionalGuides,
               name,
               isMulti: isComponentMulti,
               ...componentProps
@@ -65,14 +69,26 @@ const DynamicStep = ({
                 currentData: currentData,
                 ...componentProps,
               };
-              return isComponentMulti ? (
-                <DynamicInputMulti
-                  {...sharedProps}
-                  initialInputData={formData[name]}
-                  onDelete={(updatedValue) => setValue(inputName, updatedValue)}
-                />
-              ) : (
-                <DynamicInput {...sharedProps} />
+              return (
+                <div
+                  key={inputName}
+                  className={cx('govuk-form-group', {
+                    [styles.withConditionalGuides]:
+                      conditionalRender && showConditionalGuides,
+                  })}
+                >
+                  {isComponentMulti ? (
+                    <DynamicInputMulti
+                      {...sharedProps}
+                      initialInputData={formData[name]}
+                      onDelete={(updatedValue) =>
+                        setValue(inputName, updatedValue)
+                      }
+                    />
+                  ) : (
+                    <DynamicInput {...sharedProps} />
+                  )}
+                </div>
               );
             }
           )}

@@ -1,5 +1,3 @@
-import { convertFormat } from 'utils/date';
-
 const multiValue = (key, value, summaryInline) =>
   summaryInline ? (
     <span key={key}>{value} </span>
@@ -86,7 +84,7 @@ export const formatData = (componentProps, formData) => {
     return {
       key: name,
       title: label,
-      value: convertFormat(formData[name]),
+      value: new Date(formData[name]).toLocaleDateString('en-GB'),
     };
   }
   return {
