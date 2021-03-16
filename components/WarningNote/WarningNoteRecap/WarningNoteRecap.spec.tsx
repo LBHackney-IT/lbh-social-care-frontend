@@ -2,7 +2,7 @@ import { render } from '@testing-library/react';
 
 import WarningNoteRecap from './WarningNoteRecap';
 import * as warningNotes from 'utils/api/warningNotes';
-import { mockedWarningNote } from '../WarningNotes.fixtures';
+import { mockedWarningNote } from 'fixtures/warningNotes.fixtures';
 
 jest.mock('components/Spinner/Spinner', () => () => 'MockedSpinner');
 
