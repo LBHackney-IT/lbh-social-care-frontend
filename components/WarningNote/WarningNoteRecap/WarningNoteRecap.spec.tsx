@@ -3,6 +3,7 @@ import { render } from '@testing-library/react';
 import WarningNoteRecap from './WarningNoteRecap';
 import * as warningNotes from 'utils/api/warningNotes';
 import { mockedWarningNote } from 'fixtures/warningNotes.fixtures';
+import { AgeContext } from 'types';
 
 jest.mock('components/Spinner/Spinner', () => () => 'MockedSpinner');
 
@@ -22,9 +23,9 @@ describe(`WarningNoteRecap`, () => {
       dateOfBirth: '2020-11-13',
       firstName: 'Ciasom',
       lastName: 'Tesselate',
-      mosaicId: '44000000',
+      mosaicId: 44000000,
       nhsNumber: '12345',
-      ageContext: 'A',
+      ageContext: 'A' as AgeContext,
       gender: 'F',
     },
     warningNoteId: 123,
