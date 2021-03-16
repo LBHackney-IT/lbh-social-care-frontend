@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`CaseRecap should update the queryString on search and run a new search - with load more 1`] = `
+exports[`WarningNoteRecap should render correctly 1`] = `
 <DocumentFragment>
   <div
     class="govuk-!-margin-bottom-7"
@@ -14,7 +14,7 @@ exports[`CaseRecap should update the queryString on search and run a new search 
         <h3
           class="govuk-heading-m govuk-custom-text-color govuk-!-margin-bottom-0"
         >
-          CASE NOTES RECORDING
+          WARNING DETAILS
         </h3>
       </div>
     </div>
@@ -30,12 +30,12 @@ exports[`CaseRecap should update the queryString on search and run a new search 
         <dt
           class="govuk-summary-list__key"
         >
-          Case Note Type
+          Select warning type
         </dt>
         <dd
           class="govuk-summary-list__value"
         >
-          Foo
+          Risk to Adults
         </dd>
       </div>
       <div
@@ -44,12 +44,12 @@ exports[`CaseRecap should update the queryString on search and run a new search 
         <dt
           class="govuk-summary-list__key"
         >
-          Date of Event
+          Start date
         </dt>
         <dd
           class="govuk-summary-list__value"
         >
-          05/06/2020
+          12/12/2020
         </dd>
       </div>
       <div
@@ -58,12 +58,12 @@ exports[`CaseRecap should update the queryString on search and run a new search 
         <dt
           class="govuk-summary-list__key"
         >
-          Case Note Title
+          Review / end date
         </dt>
         <dd
           class="govuk-summary-list__value"
         >
-          Foo
+          31/12/2020
         </dd>
       </div>
       <div
@@ -72,12 +72,54 @@ exports[`CaseRecap should update the queryString on search and run a new search 
         <dt
           class="govuk-summary-list__key"
         >
-          Case Note Description
+          Is the individual aware of the Warning Note and Review Date?
         </dt>
         <dd
           class="govuk-summary-list__value"
         >
-          Foo bar
+          Yes
+        </dd>
+      </div>
+      <div
+        class="govuk-summary-list__row"
+      >
+        <dt
+          class="govuk-summary-list__key"
+        >
+          Warning narrative and risks notes
+        </dt>
+        <dd
+          class="govuk-summary-list__value"
+        >
+          i am a note
+        </dd>
+      </div>
+      <div
+        class="govuk-summary-list__row"
+      >
+        <dt
+          class="govuk-summary-list__key"
+        >
+          Manager’s name
+        </dt>
+        <dd
+          class="govuk-summary-list__value"
+        >
+          the big boss
+        </dd>
+      </div>
+      <div
+        class="govuk-summary-list__row"
+      >
+        <dt
+          class="govuk-summary-list__key"
+        >
+          Date discussed with manager
+        </dt>
+        <dd
+          class="govuk-summary-list__value"
+        >
+          12/12/2020
         </dd>
       </div>
     </dl>
