@@ -4,7 +4,6 @@ import ErrorMessage from 'components/ErrorMessage/ErrorMessage';
 import Spinner from 'components/Spinner/Spinner';
 import Summary from 'components/Summary/Summary';
 import { useCase } from 'utils/api/cases';
-import PageView from 'components/PageView/PageView';
 import * as form from 'data/forms';
 
 const CaseRecap = ({ personId, recordId }) => {
@@ -27,7 +26,6 @@ const CaseRecap = ({ personId, recordId }) => {
         formSteps={fileData}
         formPath={`/people/${personId}/records/${recordId}/`}
       />
-      <PageView />
     </>
   );
 };

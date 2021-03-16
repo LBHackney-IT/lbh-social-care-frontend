@@ -1,0 +1,39 @@
+.pageView {
+  position: relative;
+  width: 100%;
+}
+
+.content {
+  overflow-y: auto;
+  width: 100%;
+}
+
+.content tr td {
+  width: 33% !important;
+}
+
+.content table {
+  width: 100%;
+}
+
+.title {
+  font-size: 1.1875rem;
+  font-weight: 700;
+  color: #0b0c0c;
+}
+
+.return {
+  width: 50px;
+  height: 50px;
+  display: inline-block;
+  border-radius: 100%;
+  text-align: center;
+  background: #01674e;
+  position: fixed;
+  bottom: 80px;
+  margin: 0 auto;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  opacity: 0.85;
+}
