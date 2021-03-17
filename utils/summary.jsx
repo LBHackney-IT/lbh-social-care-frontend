@@ -90,6 +90,7 @@ export const formatData = (componentProps, formData) => {
   return {
     key: name,
     title: label,
+    type: component,
     value: Array.isArray(formData[name])
       ? isMulti
         ? formatIsMulti(formData[name], componentProps)
