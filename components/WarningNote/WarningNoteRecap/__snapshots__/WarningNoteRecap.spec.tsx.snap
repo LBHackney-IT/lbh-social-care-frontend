@@ -86,6 +86,62 @@ exports[`WarningNoteRecap should render correctly 1`] = `
         <dt
           class="govuk-summary-list__key"
         >
+          Date informed
+        </dt>
+        <dd
+          class="govuk-summary-list__value"
+        >
+          12/12/2020
+        </dd>
+      </div>
+      <div
+        class="govuk-summary-list__row"
+      >
+        <dt
+          class="govuk-summary-list__key"
+        >
+          How informed
+        </dt>
+        <dd
+          class="govuk-summary-list__value"
+        >
+          written
+        </dd>
+      </div>
+      <div
+        class="govuk-summary-list__row"
+      >
+        <dt
+          class="govuk-summary-list__key"
+        >
+          Details of disclosure to individual
+        </dt>
+        <dd
+          class="govuk-summary-list__value"
+        >
+          lorem ipsum
+        </dd>
+      </div>
+      <div
+        class="govuk-summary-list__row"
+      >
+        <dt
+          class="govuk-summary-list__key"
+        >
+          Justification for non-disclosure of Warning Note
+        </dt>
+        <dd
+          class="govuk-summary-list__value"
+        >
+          lorem ipsum
+        </dd>
+      </div>
+      <div
+        class="govuk-summary-list__row"
+      >
+        <dt
+          class="govuk-summary-list__key"
+        >
           Warning narrative and risks notes
         </dt>
         <dd
