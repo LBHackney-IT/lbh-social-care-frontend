@@ -61,7 +61,9 @@ exports[`SummaryList component should render properly 1`] = `
       <dd
         class="govuk-summary-list__value"
       >
-        <pre>
+        <pre
+          class="formattedTextArea"
+        >
           asd
 asd
 asd

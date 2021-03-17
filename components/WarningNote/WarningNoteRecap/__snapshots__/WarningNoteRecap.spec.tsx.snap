@@ -119,7 +119,9 @@ exports[`WarningNoteRecap should render correctly 1`] = `
         <dd
           class="govuk-summary-list__value"
         >
-          <pre>
+          <pre
+            class="formattedTextArea"
+          >
             lorem ipsum
           </pre>
         </dd>
@@ -135,7 +137,9 @@ exports[`WarningNoteRecap should render correctly 1`] = `
         <dd
           class="govuk-summary-list__value"
         >
-          <pre>
+          <pre
+            class="formattedTextArea"
+          >
             lorem ipsum
           </pre>
         </dd>
@@ -151,7 +155,9 @@ exports[`WarningNoteRecap should render correctly 1`] = `
         <dd
           class="govuk-summary-list__value"
         >
-          <pre>
+          <pre
+            class="formattedTextArea"
+          >
             i am a note
           </pre>
         </dd>

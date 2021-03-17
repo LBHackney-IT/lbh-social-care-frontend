@@ -1,3 +1,5 @@
+import styles from './Summary.module.scss';
+
 interface SummaryElement {
   key: string;
   title: string;
@@ -17,7 +19,11 @@ const SummaryList = ({ list }: Props): React.ReactElement => (
         <div key={key} className="govuk-summary-list__row">
           <dt className="govuk-summary-list__key">{title}</dt>
           <dd className="govuk-summary-list__value">
-            {type === 'TextArea' ? <pre>{value}</pre> : value}
+            {type === 'TextArea' ? (
+              <pre className={styles.formattedTextArea}>{value}</pre>
+            ) : (
+              value
+            )}
           </dd>
           {href && (
             <dd className="govuk-summary-list__actions">
