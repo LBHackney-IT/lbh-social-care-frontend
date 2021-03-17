@@ -76,7 +76,7 @@ exports[`AddAllocatedWorker should render properly 1`] = `
       </ul>
     </div>
     <h2>
-      Team 3 workers
+       workers
     </h2>
     <p
       class="govuk-body"
@@ -126,11 +126,11 @@ exports[`AddAllocatedWorker should render properly 1`] = `
               class="govuk-radios__item"
             >
               <input
-                aria-labelledby="worker_a"
+                aria-labelledby="worker_9"
                 class="govuk-radios__input"
                 name="workerId"
                 type="radio"
-                value="a"
+                value="9"
               />
               <label
                 class="govuk-label govuk-radios__label"
@@ -142,8 +142,8 @@ exports[`AddAllocatedWorker should render properly 1`] = `
           >
             <a
               class="govuk-link"
-              href="/workers/a"
-              id="worker_a"
+              href="/workers/9"
+              id="worker_9"
             >
               Worker A
             </a>
@@ -164,11 +164,11 @@ exports[`AddAllocatedWorker should render properly 1`] = `
               class="govuk-radios__item"
             >
               <input
-                aria-labelledby="worker_b"
+                aria-labelledby="worker_8"
                 class="govuk-radios__input"
                 name="workerId"
                 type="radio"
-                value="b"
+                value="8"
               />
               <label
                 class="govuk-label govuk-radios__label"
@@ -180,15 +180,17 @@ exports[`AddAllocatedWorker should render properly 1`] = `
           >
             <a
               class="govuk-link"
-              href="/workers/b"
-              id="worker_b"
+              href="/workers/8"
+              id="worker_8"
             >
               Worker B
             </a>
           </td>
           <td
             class="govuk-table__cell govuk-table__cell--numeric"
-          />
+          >
+            0
+          </td>
         </tr>
         <tr
           class="govuk-table__row govuk-radios"
@@ -200,11 +202,11 @@ exports[`AddAllocatedWorker should render properly 1`] = `
               class="govuk-radios__item"
             >
               <input
-                aria-labelledby="worker_c"
+                aria-labelledby="worker_7"
                 class="govuk-radios__input"
                 name="workerId"
                 type="radio"
-                value="c"
+                value="7"
               />
               <label
                 class="govuk-label govuk-radios__label"
@@ -216,15 +218,17 @@ exports[`AddAllocatedWorker should render properly 1`] = `
           >
             <a
               class="govuk-link"
-              href="/workers/c"
-              id="worker_c"
+              href="/workers/7"
+              id="worker_7"
             >
               Worker C
             </a>
           </td>
           <td
             class="govuk-table__cell govuk-table__cell--numeric"
-          />
+          >
+            1
+          </td>
         </tr>
       </tbody>
     </table>

@@ -9,16 +9,68 @@ export type AgeContext = 'A' | 'B' | 'C' | undefined;
 export interface Allocation {
   id: number;
   caseStatus: 'Closed' | 'Open';
+  allocatedWorkerTeam: string;
+  allocatedWorker: string;
+  allocationStartDate: string;
   allocationEndDate?: string;
+  workerType: string;
+  personId: number;
+  personName: string;
+  personDateOfBirth: string;
+  personAddress: string;
 }
 
 export interface AllocationData {
   allocations: Allocation[];
 }
 
+interface CaseFormDataBase {
+  mosaic_id: number;
+  first_name: string;
+  last_name: string;
+  worker_email: string;
+  form_name_overall: string;
+  form_name: string;
+  context_flag: AgeContext;
+  date_of_event: string | Date;
+  timestamp: string | Date;
+  note?: string;
+  date_of_birth?: string;
+  form_url?: string;
+  case_note_title?: string;
+  case_note_description?: string;
+}
+
+export interface AllocationCaseFormData extends CaseFormDataBase {
+  form_name_overall: 'API_Allocation';
+  allocation_id: number;
+  created_by: string;
+}
+
+export interface DeallocationCaseFormData extends CaseFormDataBase {
+  form_name_overall: 'API_Deallocation';
+  allocation_id: number;
+  deallocation_reason: string;
+  created_by: string;
+}
+
+export type CaseFormData =
+  | CaseFormDataBase
+  | AllocationCaseFormData
+  | DeallocationCaseFormData;
+
 export interface Case {
   recordId: string;
-  caseFormData: Record<string, unknown>;
+  formName: string;
+  personId: number;
+  firstName?: string;
+  lastName?: string;
+  dateOfBirth?: string;
+  officerEmail?: string;
+  caseFormUrl?: string;
+  caseFormTimestamp?: string;
+  dateOfEvent?: string;
+  caseFormData: CaseFormData;
 }
 
 export interface CaseData {
@@ -31,12 +83,12 @@ export interface ErrorAPI {
 }
 
 export interface Resident {
-  mosaicId: string;
+  mosaicId: number;
   firstName: string;
   lastName: string;
   uprn?: string;
   dateOfBirth: string;
-  ageContext: string;
+  ageContext: AgeContext;
   gender: string;
   nationality?: string;
   nhsNumber: string;
@@ -84,6 +136,20 @@ export interface User {
   hasAllocationsPermissions?: boolean;
   hasUnrestrictedPermissions?: boolean;
   isAuthorised: boolean;
+}
+
+export interface Team {
+  id: number;
+  name: string;
+}
+
+export interface Worker {
+  id: number;
+  email: string;
+  firstName: string;
+  lastName: string;
+  role: string;
+  allocationCount: number;
 }
 
 interface BaseNote {

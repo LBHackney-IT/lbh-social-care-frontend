@@ -1,6 +1,8 @@
 import { render } from '@testing-library/react';
+
 import { UserContext } from 'components/UserContext/UserContext';
-import AllocatedWorkersTable from './AllocatedWorkersTable';
+import AllocatedWorkersTable, { Props } from './AllocatedWorkersTable';
+import { mockedAllocations } from 'fixtures/allocatedWorkers.fixtures';
 
 jest.mock('next/router', () => ({
   useRouter: () => ({
@@ -9,18 +11,8 @@ jest.mock('next/router', () => ({
 }));
 
 describe('AllocatedWorkers component', () => {
-  const props = {
-    records: [
-      {
-        allocatedWorkerTeam: 'Safeguarding and Reviewing Team',
-        allocatedWorker: 'Officer Name',
-        allocationEndDate: '2019-03-28 00:00:00',
-        allocationStartDate: '2019-03-28 00:00:00',
-        workerType: 'Consultant Social Worker',
-        id: 123,
-        personId: 1234,
-      },
-    ],
+  const props: Props = {
+    records: mockedAllocations,
     hasAllocationsPermissions: false,
   };
 
@@ -28,7 +20,15 @@ describe('AllocatedWorkers component', () => {
     const { asFragment } = render(
       <UserContext.Provider
         value={{
-          user: { name: 'foo' },
+          user: {
+            name: 'foo',
+            hasAdminPermissions: true,
+            hasChildrenPermissions: true,
+            hasAdultPermissions: true,
+            email: 'foo@bar.com',
+            permissionFlag: 'A',
+            isAuthorised: true,
+          },
         }}
       >
         <AllocatedWorkersTable {...props} />
@@ -41,7 +41,15 @@ describe('AllocatedWorkers component', () => {
     const { asFragment } = render(
       <UserContext.Provider
         value={{
-          user: { name: 'foo' },
+          user: {
+            name: 'foo',
+            hasAdminPermissions: true,
+            hasChildrenPermissions: true,
+            hasAdultPermissions: true,
+            email: 'foo@bar.com',
+            permissionFlag: 'A',
+            isAuthorised: true,
+          },
         }}
       >
         <AllocatedWorkersTable {...props} hasAllocationsPermissions={true} />

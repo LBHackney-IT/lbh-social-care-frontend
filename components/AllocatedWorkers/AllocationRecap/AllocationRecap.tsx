@@ -1,4 +1,3 @@
-import PropTypes from 'prop-types';
 import Link from 'next/link';
 
 import ErrorMessage from 'components/ErrorMessage/ErrorMessage';
@@ -6,24 +5,53 @@ import Spinner from 'components/Spinner/Spinner';
 import { useResidentAllocation } from 'utils/api/allocatedWorkers';
 import { useCase } from 'utils/api/cases';
 
-const AllocationRecap = ({ personId, allocationId, recordId }) => {
+import {
+  CaseFormData,
+  AllocationCaseFormData,
+  DeallocationCaseFormData,
+} from 'types';
+
+interface Props {
+  personId: number;
+  allocationId: number;
+  recordId: string;
+}
+
+const isAllocationCase = (
+  caseFormData: CaseFormData
+): caseFormData is AllocationCaseFormData =>
+  (caseFormData as AllocationCaseFormData).form_name_overall ===
+  'API_Allocation';
+
+const isDeallocationCase = (
+  caseFormData: CaseFormData
+): caseFormData is DeallocationCaseFormData =>
+  (caseFormData as DeallocationCaseFormData).form_name_overall ===
+  'API_Deallocation';
+
+const AllocationRecap = ({
+  personId,
+  allocationId,
+  recordId,
+}: Props): React.ReactElement => {
   const { data: allocation, error: allocationError } = useResidentAllocation(
     personId,
     allocationId
   );
-  const { data: record, error: recordError } = useCase(recordId);
+  const { data: { caseFormData } = {}, error: recordError } = useCase(recordId);
   if (recordError || allocationError) {
     return <ErrorMessage />;
   }
-  if (!allocation || !record) {
+  if (!allocation || !caseFormData) {
     return <Spinner />;
   }
-  const isDeallocation =
-    record.caseFormData.form_name_overall === 'API_Deallocation';
+  if (!isDeallocationCase(caseFormData) && !isAllocationCase(caseFormData)) {
+    return <ErrorMessage />;
+  }
   return (
     <>
       <h1 className="govuk-fieldset__legend--l gov-weight-lighter">
-        Worker {isDeallocation ? 'deallocated' : 'allocated'}
+        Worker {isDeallocationCase(caseFormData) ? 'deallocated' : 'allocated'}
       </h1>
       <p className="govuk-body govuk-!-margin-top-6">
         <b>Person</b>:{' '}
@@ -61,30 +89,23 @@ const AllocationRecap = ({ personId, allocationId, recordId }) => {
           )}
           <div className="govuk-summary-list__row">
             <dt className="govuk-summary-list__key">
-              {isDeallocation ? 'Deallocated' : 'Allocated'} by
+              {isDeallocationCase(caseFormData) ? 'Deallocated' : 'Allocated'}{' '}
+              by
             </dt>
             <dd className="govuk-summary-list__value">
-              {record.caseFormData.created_by}
+              {caseFormData.created_by}
             </dd>
           </div>
         </dl>
       </div>
-      {isDeallocation && (
+      {isDeallocationCase(caseFormData) && (
         <>
           <h2 className="gov-weight-lighter">Reason for worker deallocation</h2>
-          <p className="govuk-body">
-            {record.caseFormData.deallocation_reason}
-          </p>
+          <p className="govuk-body">{caseFormData.deallocation_reason}</p>
         </>
       )}
     </>
   );
-};
-
-AllocationRecap.propTypes = {
-  personId: PropTypes.string.isRequired,
-  allocationId: PropTypes.string.isRequired,
-  recordId: PropTypes.string.isRequired,
 };
 
 export default AllocationRecap;

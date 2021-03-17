@@ -1,7 +1,6 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import Link from 'next/link';
-import PropTypes from 'prop-types';
 
 import ErrorMessage from 'components/ErrorMessage/ErrorMessage';
 import { TextArea } from 'components/Form';
@@ -12,21 +11,33 @@ import {
   deleteAllocatedWorker,
 } from 'utils/api/allocatedWorkers';
 
-const DeallocatedWorkers = ({ personId, allocationId }) => {
+interface Props {
+  personId: number;
+  allocationId: number;
+}
+
+const DeallocatedWorkers = ({
+  personId,
+  allocationId,
+}: Props): React.ReactElement => {
   const { register, handleSubmit, errors } = useForm();
   const [loading, setLoading] = useState(false);
   const [complete, setComplete] = useState(false);
   const [postError, setPostError] = useState(false);
   const [deallocationReason, setDeallocationReason] = useState('');
   const { data: { allocations } = {}, error } = useAllocatedWorkers(personId);
-  const onSubmit = async (reason) => {
+  const onSubmit = async ({
+    deallocationReason,
+  }: {
+    deallocationReason: string;
+  }) => {
     setLoading(true);
     try {
       await deleteAllocatedWorker(personId, {
         id: allocationId,
-        deallocationReason: reason.deallocation_reason,
+        deallocationReason,
       });
-      setDeallocationReason(reason.deallocation_reason);
+      setDeallocationReason(deallocationReason);
       setComplete(true);
     } catch {
       setPostError(true);
@@ -39,10 +50,8 @@ const DeallocatedWorkers = ({ personId, allocationId }) => {
   if (!allocations) {
     return <Spinner />;
   }
-  const currentAllocation = allocations?.find(
-    ({ id }) => id === parseInt(allocationId, 10)
-  );
-  if (allocations.length > 0 && !currentAllocation) {
+  const currentAllocation = allocations.find(({ id }) => id === allocationId);
+  if (!currentAllocation) {
     return <ErrorMessage label="Allocated worked not found." />;
   }
   return (
@@ -74,11 +83,12 @@ const DeallocatedWorkers = ({ personId, allocationId }) => {
         <>
           <h2>What is the reason for this worker to be deallocated?</h2>
           <TextArea
-            name="deallocation_reason"
+            name="deallocationReason"
+            // @ts-ignore
             register={register({
               required: 'Please add a reason for this worker to be deallocated',
             })}
-            error={errors.deallocation_reason}
+            error={errors.deallocationReason}
           />
         </>
       )}
@@ -109,11 +119,6 @@ const DeallocatedWorkers = ({ personId, allocationId }) => {
       {postError && <ErrorMessage />}
     </form>
   );
-};
-
-DeallocatedWorkers.propTypes = {
-  personId: PropTypes.string,
-  allocationId: PropTypes.string,
 };
 
 export default DeallocatedWorkers;

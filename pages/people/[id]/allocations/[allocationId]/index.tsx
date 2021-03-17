@@ -13,8 +13,8 @@ const AllocationPage = (): React.ReactElement => {
       <Seo title={`#${id} Allocation`} />
       <BackButton />
       <AllocationRecap
-        personId={id as string}
-        allocationId={allocationId as string}
+        personId={Number(id as string)}
+        allocationId={Number(allocationId as string)}
         recordId={recordId as string}
       />
     </>

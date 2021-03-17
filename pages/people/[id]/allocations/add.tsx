@@ -7,8 +7,6 @@ import PersonView from 'components/PersonView/PersonView';
 import { useAuth } from 'components/UserContext/UserContext';
 import { isBrowser } from 'utils/ssr';
 
-import type { Resident } from 'types';
-
 const AddNewAllocationPage = (): React.ReactElement => {
   const { query, replace } = useRouter();
   const personId = Number(query.id as string);
@@ -25,7 +23,7 @@ const AddNewAllocationPage = (): React.ReactElement => {
         Allocate worker to
       </h1>
       <PersonView personId={personId} expandView>
-        {(person: Resident) => (
+        {(person) => (
           <div className="govuk-!-margin-top-7">
             <AddAllocatedWorker
               personId={person.mosaicId}

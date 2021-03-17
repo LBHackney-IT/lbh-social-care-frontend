@@ -80,7 +80,7 @@ exports[`PersonDetails component should render properly - expanded 2`] = `
         <dd
           class="govuk-summary-list__value"
         >
-          #mosaic
+          #123
         </dd>
       </div>
       <div
@@ -299,7 +299,7 @@ exports[`PersonDetails component should render properly 1`] = `
         <dd
           class="govuk-summary-list__value"
         >
-          #mosaic
+          #123
         </dd>
       </div>
       <div

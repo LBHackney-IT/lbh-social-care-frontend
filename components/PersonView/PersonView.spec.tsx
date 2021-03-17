@@ -12,7 +12,7 @@ describe('PersonView component', () => {
       dateOfBirth: '2020-11-13',
       firstName: 'Ciasom',
       lastName: 'Tesselate',
-      mosaicId: '44000000',
+      mosaicId: 44000000,
       formName: 'Foo_bar',
       nhsNumber: '12345',
       ageContext: 'A',

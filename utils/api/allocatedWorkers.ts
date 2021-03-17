@@ -1,7 +1,14 @@
 import useSWR, { responseInterface } from 'swr';
 import axios from 'axios';
 
-import type { AgeContext, AllocationData, ErrorAPI } from 'types';
+import type {
+  AgeContext,
+  Allocation,
+  AllocationData,
+  ErrorAPI,
+  Team,
+  Worker,
+} from 'types';
 
 export const useAllocatedWorkers = (
   id: number
@@ -11,19 +18,19 @@ export const useAllocatedWorkers = (
 export const useResidentAllocation = (
   id: number,
   allocationId: number
-): responseInterface<AllocationData, ErrorAPI> =>
+): responseInterface<Allocation, ErrorAPI> =>
   useSWR(`/api/residents/${id}/allocations/${allocationId}`);
 
 export const useTeams = ({
   ageContext,
 }: {
   ageContext: AgeContext;
-}): responseInterface<Record<string, unknown>, ErrorAPI> =>
+}): responseInterface<{ teams: Team[] }, ErrorAPI> =>
   useSWR(`/api/teams${ageContext ? '?ageContext=' + ageContext : ''}`);
 
 export const useTeamWorkers = (
-  teamId: number
-): responseInterface<Record<string, unknown>, ErrorAPI> =>
+  teamId?: number
+): responseInterface<{ workers: Worker[] }, ErrorAPI> =>
   useSWR(teamId ? `/api/teams/${teamId}/workers` : null);
 
 export const useAllocationsByWorker = (

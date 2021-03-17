@@ -1,5 +1,4 @@
-import { useState, useCallback, useEffect } from 'react';
-import PropTypes from 'prop-types';
+import React, { useState, useCallback, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { useForm } from 'react-hook-form';
 
@@ -13,28 +12,38 @@ import {
   useTeamWorkers,
   addAllocatedWorker,
 } from 'utils/api/allocatedWorkers';
+import { AgeContext, User } from 'types';
 
-const AddAllocatedWorker = ({ personId, ageContext }) => {
-  const [postError, setPostError] = useState();
-  const [postLoading, setPostLoading] = useState();
+interface Props {
+  personId: number;
+  ageContext: AgeContext;
+}
+
+const AddAllocatedWorker = ({
+  personId,
+  ageContext,
+}: Props): React.ReactElement => {
+  const [postError, setPostError] = useState<boolean | null>();
+  const [postLoading, setPostLoading] = useState<boolean>();
   const { query, push, replace, pathname } = useRouter();
   const { handleSubmit, register, control } = useForm({
     defaultValues: query,
   });
-  const { user } = useAuth();
+  const { teamId } = query as { teamId?: number };
+  const { user } = useAuth() as { user: User };
   const { data: { teams } = {}, error: errorTeams } = useTeams({ ageContext });
   const { data: { workers } = {}, error: errorWorkers } = useTeamWorkers(
-    query?.teamId
+    teamId
   );
   const addWorker = useCallback(
     async ({ workerId }) => {
       setPostLoading(true);
-      setPostError();
+      setPostError(null);
       try {
         await addAllocatedWorker(personId, {
           allocatedBy: user.email,
-          allocatedTeamId: query.teamId,
-          allocatedWorkerId: workerId,
+          allocatedTeamId: Number(teamId),
+          allocatedWorkerId: Number(workerId),
         });
         push(`/people/${personId}`);
       } catch (e) {
@@ -42,12 +51,12 @@ const AddAllocatedWorker = ({ personId, ageContext }) => {
       }
       setPostLoading(false);
     },
-    [personId, push, user.email]
+    [personId, teamId, push, user.email]
   );
   useEffect(() => {
-    setPostError();
+    setPostError(null);
   }, [query]);
-  if (errorTeams | errorWorkers) {
+  if (errorTeams || errorWorkers) {
     return <ErrorMessage label="Oops an error occurred" />;
   }
   if (!teams) {
@@ -66,13 +75,13 @@ const AddAllocatedWorker = ({ personId, ageContext }) => {
             value: id,
             text: name,
           }))}
-          onChange={(value) =>
+          onChange={(value: number) =>
             replace(
               {
                 pathname,
                 query: { id: personId, teamId: value },
               },
-              null,
+              undefined,
               { scroll: false }
             )
           }
@@ -80,10 +89,7 @@ const AddAllocatedWorker = ({ personId, ageContext }) => {
       )}
       {workers && (
         <>
-          <h2>
-            {teams?.find(({ id }) => id.toString() === query?.teamId)?.name}{' '}
-            workers
-          </h2>
+          <h2>{teams?.find(({ id }) => id === teamId)?.name} workers</h2>
           {workers?.length > 0 ? (
             <>
               <p className="govuk-body">
@@ -136,7 +142,7 @@ const AddAllocatedWorker = ({ personId, ageContext }) => {
                                       workerId: e.target.value,
                                     },
                                   },
-                                  null,
+                                  undefined,
                                   { scroll: false }
                                 )
                               }
@@ -175,14 +181,9 @@ const AddAllocatedWorker = ({ personId, ageContext }) => {
           )}
         </>
       )}
-      {query?.teamId && (!teams || !workers) && <Spinner />}
+      {teamId && (!teams || !workers) && <Spinner />}
     </form>
   );
-};
-
-AddAllocatedWorker.propTypes = {
-  personId: PropTypes.string.isRequired,
-  ageContext: PropTypes.oneOf(['A', 'C']).isRequired,
 };
 
 export default AddAllocatedWorker;
