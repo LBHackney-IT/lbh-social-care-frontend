@@ -119,11 +119,20 @@ exports[`WarningNoteRecap should render correctly 1`] = `
         <dd
           class="govuk-summary-list__value"
         >
-          <pre
-            class="formattedTextArea"
-          >
-            lorem ipsum
-          </pre>
+          <div>
+            <div
+              class="container"
+              style="max-height: 95px;"
+            >
+              <div>
+                <pre
+                  class="formattedTextArea"
+                >
+                  lorem ipsum
+                </pre>
+              </div>
+            </div>
+          </div>
         </dd>
       </div>
       <div
@@ -137,11 +146,20 @@ exports[`WarningNoteRecap should render correctly 1`] = `
         <dd
           class="govuk-summary-list__value"
         >
-          <pre
-            class="formattedTextArea"
-          >
-            lorem ipsum
-          </pre>
+          <div>
+            <div
+              class="container"
+              style="max-height: 95px;"
+            >
+              <div>
+                <pre
+                  class="formattedTextArea"
+                >
+                  lorem ipsum
+                </pre>
+              </div>
+            </div>
+          </div>
         </dd>
       </div>
       <div
@@ -155,11 +173,20 @@ exports[`WarningNoteRecap should render correctly 1`] = `
         <dd
           class="govuk-summary-list__value"
         >
-          <pre
-            class="formattedTextArea"
-          >
-            i am a note
-          </pre>
+          <div>
+            <div
+              class="container"
+              style="max-height: 95px;"
+            >
+              <div>
+                <pre
+                  class="formattedTextArea"
+                >
+                  i am a note
+                </pre>
+              </div>
+            </div>
+          </div>
         </dd>
       </div>
       <div

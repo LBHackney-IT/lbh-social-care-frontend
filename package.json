@@ -19,6 +19,7 @@
     "build-storybook": "build-storybook"
   },
   "dependencies": {
+    "@types/lodash.debounce": "^4.0.6",
     "axios": "^0.21.1",
     "body-parser": "^1.19.0",
     "cookie": "^0.4.1",
@@ -29,6 +30,7 @@
     "govuk-frontend": "^3.10.2",
     "http-status-codes": "^2.1.4",
     "jsonwebtoken": "^8.5.1",
+    "lodash.debounce": "^4.0.8",
     "lodash.get": "^4.4.2",
     "next": "10.0.5",
     "react": "17.0.1",
@@ -41,6 +43,7 @@
     "serverless-http": "^2.6.0",
     "swr": "^0.4.1",
     "uk-postcode-validator": "^1.1.1",
+    "use-resize-observer": "^7.0.0",
     "yup": "^0.32.8"
   },
   "devDependencies": {

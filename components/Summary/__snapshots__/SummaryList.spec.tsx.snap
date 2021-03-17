@@ -61,14 +61,23 @@ exports[`SummaryList component should render properly 1`] = `
       <dd
         class="govuk-summary-list__value"
       >
-        <pre
-          class="formattedTextArea"
-        >
-          asd
+        <div>
+          <div
+            class="container"
+            style="max-height: 95px;"
+          >
+            <div>
+              <pre
+                class="formattedTextArea"
+              >
+                asd
 asd
 asd
 
-        </pre>
+              </pre>
+            </div>
+          </div>
+        </div>
       </dd>
     </div>
   </dl>

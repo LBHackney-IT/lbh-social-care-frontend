@@ -1,0 +1,41 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ShowMoreBox component should render properly - with show more 1`] = `
+<DocumentFragment>
+  <div>
+    <div
+      class="container"
+      style="max-height: 95px;"
+    >
+      <div>
+        <pre>
+          foo
+        </pre>
+      </div>
+    </div>
+    <div
+      class="govuk-link trigger"
+      role="button"
+    >
+      Show more
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`ShowMoreBox component should render properly - without 1`] = `
+<DocumentFragment>
+  <div>
+    <div
+      class="container"
+      style="max-height: 95px;"
+    >
+      <div>
+        <pre>
+          foo
+        </pre>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;
