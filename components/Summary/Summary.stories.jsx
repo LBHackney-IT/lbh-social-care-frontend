@@ -15,6 +15,7 @@ Default.args = {
     asd: '',
     qwe: 'yo',
     foobar: 'asd',
+    textarea: 'asd\nasd\nasd\n',
   },
   formPath: '/form/foo/',
   formSteps: [
@@ -35,6 +36,17 @@ Default.args = {
           component: 'TextInput',
           label: 'I am foobar component',
           name: 'foobar',
+        },
+      ],
+    },
+    {
+      id: 'third-step',
+      title: 'TextArea Step',
+      components: [
+        {
+          component: 'TextArea',
+          label: 'I am a long text',
+          name: 'textarea',
         },
       ],
     },

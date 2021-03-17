@@ -1,12 +1,24 @@
-import PropTypes from 'prop-types';
+interface SummaryElement {
+  key: string;
+  title: string;
+  value: React.ReactNode;
+  type?: string;
+  href?: string;
+}
 
-const SummaryList = ({ list }) => (
+interface Props {
+  list: SummaryElement[];
+}
+
+const SummaryList = ({ list }: Props): React.ReactElement => (
   <dl className="govuk-summary-list">
     {list &&
-      list.map(({ key, title, value, href }) => (
+      list.map(({ key, title, value, href, type }) => (
         <div key={key} className="govuk-summary-list__row">
           <dt className="govuk-summary-list__key">{title}</dt>
-          <dd className="govuk-summary-list__value">{value}</dd>
+          <dd className="govuk-summary-list__value">
+            {type === 'TextArea' ? <pre>{value}</pre> : value}
+          </dd>
           {href && (
             <dd className="govuk-summary-list__actions">
               <a className="govuk-link" href="#">
@@ -19,16 +31,5 @@ const SummaryList = ({ list }) => (
       ))}
   </dl>
 );
-
-SummaryList.propTypes = {
-  list: PropTypes.arrayOf(
-    PropTypes.shape({
-      key: PropTypes.string.isRequired,
-      title: PropTypes.string.isRequired,
-      value: PropTypes.node.isRequired,
-      href: PropTypes.string,
-    }).isRequired
-  ),
-};
 
 export default SummaryList;

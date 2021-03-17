@@ -119,7 +119,9 @@ exports[`WarningNoteRecap should render correctly 1`] = `
         <dd
           class="govuk-summary-list__value"
         >
-          lorem ipsum
+          <pre>
+            lorem ipsum
+          </pre>
         </dd>
       </div>
       <div
@@ -133,7 +135,9 @@ exports[`WarningNoteRecap should render correctly 1`] = `
         <dd
           class="govuk-summary-list__value"
         >
-          lorem ipsum
+          <pre>
+            lorem ipsum
+          </pre>
         </dd>
       </div>
       <div
@@ -147,7 +151,9 @@ exports[`WarningNoteRecap should render correctly 1`] = `
         <dd
           class="govuk-summary-list__value"
         >
-          i am a note
+          <pre>
+            i am a note
+          </pre>
         </dd>
       </div>
       <div
