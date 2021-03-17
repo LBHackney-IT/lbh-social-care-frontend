@@ -170,11 +170,11 @@ const WARNING_TYPE: Array<FormComponentStep> = [
     rules: {
       required: true,
       validate: {
-        beforeStartDate: (value, { start_date }) =>
-          new Date(value).getTime() >= new Date(start_date).getTime() ||
+        beforeStartDate: (value, { createdDate }) =>
+          new Date(value).getTime() >= new Date(createdDate).getTime() ||
           'The Review / end date cannot be earlier than the Start date',
-        notMoreThanOneYear: (value, { start_date }) =>
-          new Date(value).getTime() - new Date(start_date).getTime() <=
+        notMoreThanOneYear: (value, { createdDate }) =>
+          new Date(value).getTime() - new Date(createdDate).getTime() <=
             365 * 24 * 60 * 60 * 1000 ||
           'The Review / end date cannot be more than 1 year from the Start date',
       },
@@ -212,8 +212,8 @@ const WARNING_DISCLOSURE: Array<FormComponentStep> = [
     labelSize: 's',
     rules: { required: true },
     showConditionalGuides: true,
-    conditionalRender: ({ is_individual_aware }) =>
-      is_individual_aware === 'Yes',
+    conditionalRender: ({ disclosedWithIndividual }) =>
+      disclosedWithIndividual === 'Yes',
   },
   {
     component: 'Checkbox',
@@ -223,8 +223,8 @@ const WARNING_DISCLOSURE: Array<FormComponentStep> = [
     options: ['Verbal', 'Written'],
     rules: { required: true },
     showConditionalGuides: true,
-    conditionalRender: ({ is_individual_aware }) =>
-      is_individual_aware === 'Yes',
+    conditionalRender: ({ disclosedWithIndividual }) =>
+      disclosedWithIndividual === 'Yes',
   },
   {
     component: 'TextArea',
@@ -233,8 +233,8 @@ const WARNING_DISCLOSURE: Array<FormComponentStep> = [
     labelSize: 's',
     rules: { required: true },
     showConditionalGuides: true,
-    conditionalRender: ({ is_individual_aware }) =>
-      is_individual_aware === 'Yes',
+    conditionalRender: ({ disclosedWithIndividual }) =>
+      disclosedWithIndividual === 'Yes',
   },
   {
     component: 'TextArea',
@@ -243,8 +243,8 @@ const WARNING_DISCLOSURE: Array<FormComponentStep> = [
     labelSize: 's',
     rules: { required: true },
     showConditionalGuides: true,
-    conditionalRender: ({ is_individual_aware }) =>
-      is_individual_aware === 'No',
+    conditionalRender: ({ disclosedWithIndividual }) =>
+      disclosedWithIndividual === 'No',
   },
 ];
 
