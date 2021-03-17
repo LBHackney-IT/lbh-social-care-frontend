@@ -77,11 +77,20 @@ exports[`CaseRecap should update the queryString on search and run a new search 
         <dd
           class="govuk-summary-list__value"
         >
-          <pre
-            class="formattedTextArea"
-          >
-            Foo bar
-          </pre>
+          <div>
+            <div
+              class="container"
+              style="max-height: 95px;"
+            >
+              <div>
+                <pre
+                  class="formattedTextArea"
+                >
+                  Foo bar
+                </pre>
+              </div>
+            </div>
+          </div>
         </dd>
       </div>
     </dl>

@@ -1,3 +1,5 @@
+import ShowMoreBox from 'components/ShowMoreBox/ShowMoreBox';
+
 import styles from './Summary.module.scss';
 
 interface SummaryElement {
@@ -20,7 +22,9 @@ const SummaryList = ({ list }: Props): React.ReactElement => (
           <dt className="govuk-summary-list__key">{title}</dt>
           <dd className="govuk-summary-list__value">
             {type === 'TextArea' ? (
-              <pre className={styles.formattedTextArea}>{value}</pre>
+              <ShowMoreBox>
+                <pre className={styles.formattedTextArea}>{value}</pre>
+              </ShowMoreBox>
             ) : (
               value
             )}
