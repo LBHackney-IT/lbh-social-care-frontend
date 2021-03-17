@@ -31,7 +31,6 @@ describe('date util', () => {
     it('should work properly', () => {
       expect(isDateValid('22/09/1941')).toBe(true);
       expect(isDateValid('foo')).toBe(false);
-      expect(isDateValid(null)).toBe(false);
       expect(isDateValid('-12-12')).toBe(false);
     });
   });
@@ -53,11 +52,6 @@ describe('date util', () => {
         day: '01',
         month: '12',
         year: '2000',
-      });
-      expect(stringDateToObject(null)).toEqual({
-        day: '',
-        month: '',
-        year: '',
       });
     });
   });

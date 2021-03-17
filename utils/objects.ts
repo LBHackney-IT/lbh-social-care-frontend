@@ -1,7 +1,11 @@
 import merge from 'deepmerge';
 
+import { ObjectOption } from 'components/Form/types';
+
+// @ts-ignore
 const combineMerge = (target, source, options) => {
   const destination = target.slice();
+  // @ts-ignore
   source.forEach((item, index) => {
     if (typeof destination[index] === 'undefined') {
       destination[index] = options.cloneUnlessOtherwiseSpecified(item, options);
@@ -14,12 +18,16 @@ const combineMerge = (target, source, options) => {
   return destination;
 };
 
-export const deepmerge = (obj1, obj2) =>
+export const deepmerge = (
+  obj1: Record<string, unknown>,
+  obj2: Record<string, unknown>
+): Record<string, unknown> =>
   merge(obj1, obj2, {
     arrayMerge: combineMerge,
   });
 
-const sanitise = (result, value, key) => {
+// @ts-ignore
+const sanitise = (result, value?, key?) => {
   // Exclude empty strings, null, undefined.
   if (!value && value !== false) {
     return result;
@@ -48,7 +56,9 @@ const sanitise = (result, value, key) => {
     : { ...result, [key]: value };
 };
 
-export const sanitiseObject = (object) =>
+export const sanitiseObject = (
+  object: Record<string, unknown> | Record<string, unknown>[]
+): Record<string, unknown> | Record<string, unknown>[] =>
   Array.isArray(object)
     ? object.reduce((acc, value) => sanitise(acc, value), [])
     : Object.entries(object).reduce(
@@ -56,9 +66,9 @@ export const sanitiseObject = (object) =>
         {}
       );
 
-export const setValues = (object, value) =>
+export const setValues = <T, K>(object: T, value: K): Record<string, K> =>
   Object.keys(object).reduce((acc, key) => ({ ...acc, [key]: value }), {});
 
 // Sort array option objects.
-export const sortObject = (object) =>
+export const sortObject = (object: ObjectOption[]): ObjectOption[] =>
   object.sort((a, b) => a.text.localeCompare(b.text));

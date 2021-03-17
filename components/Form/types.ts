@@ -24,7 +24,9 @@ type GovGrid =
   | 'one-quarter'
   | 'three-quarters';
 
-export type Option = string | { text: string; value: string };
+export type ObjectOption = { text: string; value: string };
+
+export type Option = string | ObjectOption;
 
 type FuncOption = (arg0: Record<string, string>) => Option[] | null;
 
