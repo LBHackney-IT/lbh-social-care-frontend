@@ -16,6 +16,7 @@ const formSteps: FormStep[] = [
         name: 'reviewDiscussion',
         label: 'Have you discussed this review with the individual',
         isRadiosInline: true,
+        rules: { required: true },
         conditionalRender: ({ person }) => person.ageContext === 'A',
       },
       {
@@ -47,6 +48,7 @@ const formSteps: FormStep[] = [
         component: 'Radios',
         name: 'reviewDecision',
         label: 'What do you want to do?',
+        rules: { required: true },
         options: [
           { value: 'Yes', text: 'Renew Warning Note' },
           { value: 'No', text: 'End Warning Note' },
@@ -56,6 +58,7 @@ const formSteps: FormStep[] = [
         component: 'DateInput',
         name: 'nextReviewDate',
         label: 'Next review date',
+        rules: { required: true },
         hint:
           'Next review date cannot be more than 1 year from date review undertaken ',
         conditionalRender: ({ reviewDecision }) => reviewDecision === 'Yes',

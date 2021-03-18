@@ -11,6 +11,24 @@ exports[`Review Warning Note Confirmation it should rennder the correct text if 
       This Warning Note has been closed
     </h1>
   </div>
+  <div
+    style="display: flex; justify-content: space-between;"
+  >
+    <button
+      class="govuk-button govuk-button--secondary"
+      data-module="govuk-button"
+      style="min-width: 200px;"
+    >
+      Return to search
+    </button>
+    <button
+      class="govuk-button"
+      data-module="govuk-button"
+      style="min-width: 200px;"
+    >
+      View person
+    </button>
+  </div>
 </DocumentFragment>
 `;
 
@@ -24,6 +42,24 @@ exports[`Review Warning Note Confirmation should render the correct text if the 
     >
       The Warning Note has been renewed for Ciasom Tesselate
     </h1>
+  </div>
+  <div
+    style="display: flex; justify-content: space-between;"
+  >
+    <button
+      class="govuk-button govuk-button--secondary"
+      data-module="govuk-button"
+      style="min-width: 200px;"
+    >
+      Return to search
+    </button>
+    <button
+      class="govuk-button"
+      data-module="govuk-button"
+      style="min-width: 200px;"
+    >
+      View person
+    </button>
   </div>
 </DocumentFragment>
 `;
