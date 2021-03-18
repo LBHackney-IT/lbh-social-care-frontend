@@ -3,7 +3,7 @@ import { FormStep } from 'components/Form/types';
 const formSteps: FormStep[] = [
   {
     id: 'review-warning-note',
-    title: 'Warning Note Review',
+    title: 'Warning Review Details',
     components: [
       {
         component: 'DateInput',
@@ -27,7 +27,7 @@ const formSteps: FormStep[] = [
         rules: { required: true },
       },
       <h2 key="manager review discussion">Review discussed with manager</h2>,
-      <span className="govuk-caption-l">
+      <span key="manager review caption" className="govuk-caption-l">
         This Warning Note review has been discussed and agreed by the manager
         named below
       </span>,
@@ -47,7 +47,10 @@ const formSteps: FormStep[] = [
         component: 'Radios',
         name: 'reviewDecision',
         label: 'What do you want to do?',
-        isRadiosInline: true,
+        options: [
+          { value: 'Yes', text: 'Renew Warning Note' },
+          { value: 'No', text: 'End Warning Note' },
+        ],
       },
       {
         component: 'DateInput',

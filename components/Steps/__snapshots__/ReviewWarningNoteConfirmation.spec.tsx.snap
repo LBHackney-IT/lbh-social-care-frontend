@@ -1,0 +1,29 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Review Warning Note Confirmation it should rennder the correct text if the decision was no 1`] = `
+<DocumentFragment>
+  <div
+    class="govuk-panel govuk-panel--confirmation govuk-!-margin-bottom-9"
+  >
+    <h1
+      class="govuk-fieldset__legend--l gov-weight-lighter"
+    >
+      This Warning Note has been closed
+    </h1>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`Review Warning Note Confirmation should render the correct text if the review decision was yes 1`] = `
+<DocumentFragment>
+  <div
+    class="govuk-panel govuk-panel--confirmation govuk-!-margin-bottom-9"
+  >
+    <h1
+      class="govuk-fieldset__legend--l gov-weight-lighter"
+    >
+      The Warning Note has been renewed for Ciasom Tesselate
+    </h1>
+  </div>
+</DocumentFragment>
+`;
