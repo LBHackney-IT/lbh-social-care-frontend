@@ -23,7 +23,7 @@ const CaseNotesRecording = (): React.ReactElement => {
       ...formData
     }: Record<string, unknown>) => {
       await addCase({
-        personId: person.mosaicId,
+        personId: Number(person.mosaicId),
         firstName: person.firstName,
         lastName: person.lastName,
         contextFlag: person.ageContext,
