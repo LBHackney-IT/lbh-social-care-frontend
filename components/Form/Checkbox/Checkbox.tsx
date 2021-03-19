@@ -45,7 +45,7 @@ const Checkbox = ({
   ...otherProps
 }: Props): React.ReactElement => (
   <div
-    className={cx('govuk-form-group', {
+    className={cx('govuk-form-group', 'lbh-form-group', {
       'govuk-form-group--error': error,
     })}
   >
@@ -61,11 +61,11 @@ const Checkbox = ({
         </legend>
       )}
       {hint && (
-        <div id={`${name}-hint`} className="govuk-hint">
+        <div id={`${name}-hint`} className="govuk-hint lbh-hint">
           {hint}
         </div>
       )}
-      <div className="govuk-checkboxes">
+      <div className="govuk-checkboxes lbh-checkboxes">
         {options ? (
           options.map((option: Option) => {
             const { value, text } =

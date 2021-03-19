@@ -12,7 +12,7 @@ exports[`AddAllocatedWorker should render properly 1`] = `
         class="govuk-label govuk-label--m"
         for="teamId"
       >
-        Select a team to view workers for that team
+        Select a team to view workers for that team 
       </label>
       <div
         aria-expanded="true"
@@ -117,7 +117,7 @@ exports[`AddAllocatedWorker should render properly 1`] = `
         class="govuk-table__body"
       >
         <tr
-          class="govuk-table__row govuk-radios"
+          class="govuk-table__row govuk-radios lbh-radios"
         >
           <td
             class="govuk-table__cell"
@@ -155,7 +155,7 @@ exports[`AddAllocatedWorker should render properly 1`] = `
           </td>
         </tr>
         <tr
-          class="govuk-table__row govuk-radios"
+          class="govuk-table__row govuk-radios lbh-radios"
         >
           <td
             class="govuk-table__cell"
@@ -193,7 +193,7 @@ exports[`AddAllocatedWorker should render properly 1`] = `
           </td>
         </tr>
         <tr
-          class="govuk-table__row govuk-radios"
+          class="govuk-table__row govuk-radios lbh-radios"
         >
           <td
             class="govuk-table__cell"
@@ -233,7 +233,7 @@ exports[`AddAllocatedWorker should render properly 1`] = `
       </tbody>
     </table>
     <button
-      class="govuk-button"
+      class="govuk-button lbh-button"
       data-module="govuk-button"
       type="submit"
     >

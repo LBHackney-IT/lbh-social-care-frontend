@@ -62,7 +62,7 @@ const FormWizard = ({
         </a>
       )}
       <fieldset
-        className="govuk-fieldset"
+        className="govuk-fieldset lbh-fieldset"
         role="group"
         aria-describedby="step-hint"
       >

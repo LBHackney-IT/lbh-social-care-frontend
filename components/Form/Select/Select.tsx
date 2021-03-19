@@ -38,7 +38,7 @@ const Select = ({
         {label} {required && <span className="govuk-required">*</span>}
       </label>
       {hint && (
-        <span id={`${name}-hint`} className="govuk-hint">
+        <span id={`${name}-hint`} className="govuk-hint lbh-hint">
           {hint}
         </span>
       )}
@@ -46,7 +46,7 @@ const Select = ({
       {error && <ErrorMessage label={error.message} />}
       <select
         style={{ width: '100%' }}
-        className={`govuk-select width-override-${width}`}
+        className={`govuk-select lbh-select width-override-${width}`}
         id={name}
         data-testid={name}
         name={name}

@@ -3,15 +3,13 @@
 exports[`Header component should set active the correct link 1`] = `
 <DocumentFragment>
   <header
-    class="govuk-header"
-    data-module="govuk-header"
-    role="banner"
+    class="lbh-header"
   >
     <div
-      class="govuk-header__container"
+      class="lbh-header__main"
     >
       <div
-        class="govuk-width-container"
+        class="lbh-container lbh-header__wrapper lbh-header__wrapper--stacked"
       >
         <div
           class="govuk-header__logo"
@@ -39,7 +37,7 @@ exports[`Header component should set active the correct link 1`] = `
           <button
             aria-controls="navigation"
             aria-label="Show or hide navigation menu"
-            class="govuk-header__menu-button govuk-js-header-toggle"
+            class="govuk-header__menu-button"
             type="button"
           >
             Menu

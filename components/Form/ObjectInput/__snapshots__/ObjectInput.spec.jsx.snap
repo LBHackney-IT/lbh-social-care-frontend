@@ -11,7 +11,7 @@ exports[`ObjectInput should render properly 1`] = `
       i am a object input
     </label>
     <span
-      class="govuk-hint"
+      class="govuk-hint lbh-hint"
       id="oo-hint"
     >
       i accept multiple inputs

@@ -3,7 +3,7 @@
 exports[`Breadcrumbs component should render properly 1`] = `
 <DocumentFragment>
   <div
-    class="govuk-breadcrumbs"
+    class="govuk-breadcrumbs lbh-breadcrumbs"
   >
     <ol
       class="govuk-breadcrumbs__list"

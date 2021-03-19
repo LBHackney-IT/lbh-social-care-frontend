@@ -46,7 +46,7 @@ const DateInput = forwardRef<HTMLInputElement, InputProps>(
     );
     return (
       <div
-        className={cx('govuk-form-group', {
+        className={cx('govuk-form-group', 'lbh-form-group', {
           'govuk-form-group--error': error,
         })}
       >
@@ -60,17 +60,14 @@ const DateInput = forwardRef<HTMLInputElement, InputProps>(
           >
             {label} {required && <span className="govuk-required">*</span>}
           </legend>
-          <span id={`${name}-hint`} className="govuk-hint">
+          <span id={`${name}-hint`} className="govuk-hint lbh-hint">
             {hint}
           </span>
           {error && <ErrorMessage label={error.message} />}
-          <div className="govuk-date-input" id={name}>
+          <div className="govuk-date-input lbh-date-input" id={name}>
             <div className="govuk-date-input__item">
-              <div className="govuk-form-group">
-                <label
-                  className="govuk-label govuk-date-input__label"
-                  htmlFor={`${name}-day`}
-                >
+              <div className="govuk-form-group lbh-form-group">
+                <label className="govuk-label" htmlFor={`${name}-day`}>
                   Day
                 </label>
                 <input
@@ -94,11 +91,8 @@ const DateInput = forwardRef<HTMLInputElement, InputProps>(
               </div>
             </div>
             <div className="govuk-date-input__item">
-              <div className="govuk-form-group">
-                <label
-                  className="govuk-label govuk-date-input__label"
-                  htmlFor={`${name}-month`}
-                >
+              <div className="govuk-form-group lbh-form-group">
+                <label className="govuk-label" htmlFor={`${name}-month`}>
                   Month
                 </label>
                 <input
@@ -121,11 +115,8 @@ const DateInput = forwardRef<HTMLInputElement, InputProps>(
               </div>
             </div>
             <div className="govuk-date-input__item">
-              <div className="govuk-form-group">
-                <label
-                  className="govuk-label govuk-date-input__label"
-                  htmlFor={`${name}-year`}
-                >
+              <div className="govuk-form-group lbh-form-group">
+                <label className="govuk-label" htmlFor={`${name}-year`}>
                   Year
                 </label>
                 <input

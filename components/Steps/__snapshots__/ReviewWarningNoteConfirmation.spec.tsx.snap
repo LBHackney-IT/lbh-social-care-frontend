@@ -15,14 +15,14 @@ exports[`Review Warning Note Confirmation it should rennder the correct text if 
     style="display: flex; justify-content: space-between;"
   >
     <button
-      class="govuk-button govuk-button--secondary"
+      class="govuk-button lbh-button govuk-button--secondary lbh-button--secondary"
       data-module="govuk-button"
       style="min-width: 200px;"
     >
       Return to search
     </button>
     <button
-      class="govuk-button"
+      class="govuk-button lbh-button"
       data-module="govuk-button"
       style="min-width: 200px;"
     >
@@ -47,14 +47,14 @@ exports[`Review Warning Note Confirmation should render the correct text if the 
     style="display: flex; justify-content: space-between;"
   >
     <button
-      class="govuk-button govuk-button--secondary"
+      class="govuk-button lbh-button govuk-button--secondary lbh-button--secondary"
       data-module="govuk-button"
       style="min-width: 200px;"
     >
       Return to search
     </button>
     <button
-      class="govuk-button"
+      class="govuk-button lbh-button"
       data-module="govuk-button"
       style="min-width: 200px;"
     >

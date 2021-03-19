@@ -27,7 +27,7 @@ const ObjectInput = ({
   <div className="govuk-form-group govuk-!-margin-bottom-0">
     <label className={`govuk-label govuk-label--${labelSize}`}>{label}</label>
     {hint && (
-      <span id={`${name}-hint`} className="govuk-hint">
+      <span id={`${name}-hint`} className="govuk-hint lbh-hint">
         {hint}
       </span>
     )}

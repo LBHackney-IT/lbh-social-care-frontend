@@ -121,7 +121,10 @@ const AddAllocatedWorker = ({
                 <tbody className="govuk-table__body">
                   {workers.map(
                     ({ firstName, lastName, id, allocationCount }) => (
-                      <tr className="govuk-table__row govuk-radios" key={id}>
+                      <tr
+                        className="govuk-table__row govuk-radios lbh-radios"
+                        key={id}
+                      >
                         <td className="govuk-table__cell">
                           <div className="govuk-radios__item">
                             <input

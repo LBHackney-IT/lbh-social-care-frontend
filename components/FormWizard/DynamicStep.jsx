@@ -42,7 +42,7 @@ const DynamicStep = ({
   return (
     <>
       <form onSubmit={handleSubmit((data) => onStepSubmit(sanitiseData(data)))}>
-        <div className="govuk-form-group">
+        <div className="govuk-form-group lbh-form-group">
           {components?.map(
             ({
               conditionalRender,
@@ -72,7 +72,7 @@ const DynamicStep = ({
               return (
                 <div
                   key={inputName}
-                  className={cx('govuk-form-group', {
+                  className={cx('govuk-form-group', 'lbh-form-group', {
                     [styles.withConditionalGuides]:
                       conditionalRender && showConditionalGuides,
                   })}

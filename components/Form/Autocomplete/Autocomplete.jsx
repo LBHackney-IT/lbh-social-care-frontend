@@ -65,7 +65,7 @@ export const Autocomplete = ({
             {...getRootProps({}, { suppressRefError: true })}
           >
             {hint && (
-              <span id={`${name}-hint`} className="govuk-hint">
+              <span id={`${name}-hint`} className="govuk-hint lbh-hint">
                 {hint}
               </span>
             )}
