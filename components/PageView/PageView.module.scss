@@ -29,6 +29,7 @@
   border-radius: 100%;
   text-align: center;
   background: #01674e;
+  transform: rotate(180deg);
   position: fixed;
   bottom: 80px;
   margin: 0 auto;
@@ -36,4 +37,10 @@
   right: 0;
   z-index: 100;
   opacity: 0.85;
+}
+
+.return svg {
+  width: 25px;
+  height: 25px;
+  top: 13px;
 }

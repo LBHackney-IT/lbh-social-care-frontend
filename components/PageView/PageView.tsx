@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import style from './PageView.module.scss';
-import UpIcon from '../Icons/UpArrow';
+import Arrow from '../Icons/DownArrow';
+import throttle from 'lodash/throttle';
 
 interface Props {
   created: string;
@@ -36,7 +37,7 @@ const PageView = ({
   };
 
   useEffect(() => {
-    window.addEventListener('scroll', toggleVisibility);
+    window.addEventListener('scroll', throttle(toggleVisibility, 1000));
   }, [window]);
   return (
     <>
@@ -77,7 +78,7 @@ const PageView = ({
           >{`${title} Description`}</span>
           {isVisible && (
             <span onClick={scrollToTop} className={style.return} role="button">
-              <UpIcon />
+              <Arrow color={'white'} />
             </span>
           )}
           <div

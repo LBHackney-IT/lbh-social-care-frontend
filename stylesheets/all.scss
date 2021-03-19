@@ -86,21 +86,12 @@ $screen-sm-min: 576px;
   cursor: pointer;
 }
 
-.up-arrow-icon {
-  width: 30px;
-  height: 30px;
-  position: relative;
-  top: 7px;
-  cursor: pointer;
-}
-
 .down-arrow-icon {
   width: 15px;
   height: 15px;
-  top: 3px;
+  top: 7px;
   position: relative;
   cursor: pointer;
-  right: 25px;
 }
 
 .ReactModal__Body--open {
