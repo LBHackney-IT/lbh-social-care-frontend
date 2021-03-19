@@ -1,4 +1,5 @@
 import { render } from '@testing-library/react';
+import { AgeContext } from 'types';
 import ReviewWarningNoteConfirmation from './ReviewWarningNoteConfirmation';
 
 describe('Review Warning Note Confirmation', () => {
@@ -8,9 +9,9 @@ describe('Review Warning Note Confirmation', () => {
         dateOfBirth: '2020-11-13',
         firstName: 'Ciasom',
         lastName: 'Tesselate',
-        mosaicId: '44000000',
+        mosaicId: 44000000,
         nhsNumber: '12345',
-        ageContext: 'A',
+        ageContext: 'A' as AgeContext,
         gender: 'F',
       },
       reviewDecision: 'Yes',
@@ -34,9 +35,9 @@ describe('Review Warning Note Confirmation', () => {
           dateOfBirth: '2020-11-13',
           firstName: 'Ciasom',
           lastName: 'Tesselate',
-          mosaicId: '44000000',
+          mosaicId: 44000000,
           nhsNumber: '12345',
-          ageContext: 'A',
+          ageContext: 'A' as AgeContext,
           gender: 'F',
         },
         reviewDecision: 'No',
