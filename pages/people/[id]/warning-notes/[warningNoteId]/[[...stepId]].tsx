@@ -23,7 +23,7 @@ const ReviewWarningNote = (): React.ReactElement => {
       ...formData
     }: Record<string, unknown>) => {
       console.log({
-        personId: parseInt(person.mosaicId, 10), // TODO: needs to be fixed BE
+        personId: person.mosaicId, // TODO: needs to be fixed BE
         firstName: person.firstName,
         lastName: person.lastName,
         contextFlag: person.ageContext,
