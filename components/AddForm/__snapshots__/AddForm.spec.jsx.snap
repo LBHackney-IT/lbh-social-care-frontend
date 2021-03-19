@@ -3,16 +3,16 @@
 exports[`AddForm component should render children forms 1`] = `
 <DocumentFragment>
   <div
-    class="govuk-form-group"
+    class="govuk-form-group lbh-form-group"
   >
     <div
-      class="govuk-form-group govuk-grid-column-undefined"
+      class="govuk-form-group lbh-form-group govuk-grid-column-undefined"
     >
       <label
         class="govuk-label govuk-label--m"
         for="formList"
       >
-        Choose a form 
+        Choose a form
       </label>
       <div
         aria-expanded="true"

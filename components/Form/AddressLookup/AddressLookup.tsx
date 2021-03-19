@@ -119,7 +119,7 @@ const AddressLookup = ({
   }, [control, postcode]);
   return (
     <div
-      className={cx('govuk-form-group', {
+      className={cx('govuk-form-group', 'lbh-form-group', {
         'govuk-form-group--error': Boolean(error || errorMessage),
       })}
     >

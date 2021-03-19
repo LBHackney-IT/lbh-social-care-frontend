@@ -124,9 +124,7 @@ const PersonDetails = ({
             {address?.address && (
               <div className="govuk-summary-list__row">
                 <dt className="govuk-summary-list__key">Address</dt>
-                <dd className="govuk-summary-list__value">
-                  <p>{address.address}</p>
-                </dd>
+                <dd className="govuk-summary-list__value">{address.address}</dd>
               </div>
             )}
             {phoneNumber && phoneNumber?.length > 0 && (

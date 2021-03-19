@@ -6982,6 +6982,11 @@ fs.realpath@^1.0.0:
   resolved "https://registry.yarnpkg.com/fs.realpath/-/fs.realpath-1.0.0.tgz#1504ad2523158caa40db4a2787cb01411994ea4f"
   integrity sha1-FQStJSMVjKpA20onh8sBQRmU6k8=
 
+fsevents@*:
+  version "2.3.2"
+  resolved "https://registry.yarnpkg.com/fsevents/-/fsevents-2.3.2.tgz#8a526f78b8fdf4623b709e0b975c52c24c02fd1a"
+  integrity sha512-xiqMQR4xAeHTuB9uWm+fFRcIOgKBMiOBP+eXiyT7jsgVCq1bkVygt00oASowB7EdtpOHaaPgKt812P9ab+DDKA==
+
 fsevents@^1.0.0, fsevents@^1.2.7:
   version "1.2.13"
   resolved "https://registry.yarnpkg.com/fsevents/-/fsevents-1.2.13.tgz#f325cb0455592428bcf11b383370ef70e3bfcc38"
@@ -7284,6 +7289,11 @@ govuk-frontend@^3.10.2:
   version "3.10.2"
   resolved "https://registry.yarnpkg.com/govuk-frontend/-/govuk-frontend-3.10.2.tgz#6589401e4adad1ab1dc340a18057ec88c9435a84"
   integrity sha512-MpMymgLsKoMw40MggZ0XLCAj1FY5N2s8Pf3aQR+k0cZOsegjLsnejxNfEB9qEl9jcma2fiiVcvsEZ+Ipo+Oo2g==
+
+govuk-frontend@^3.11.0:
+  version "3.11.0"
+  resolved "https://registry.yarnpkg.com/govuk-frontend/-/govuk-frontend-3.11.0.tgz#5bc38629ec8b290220c2c389dcd664114a045db1"
+  integrity sha512-1hW/3etYBtKPM+PNdWVOijvWVI3mpYL8eb7WLTtlh/Qxf2mCp6LkCsZk9I034n4EJBYQ5jlUWsUlTOOIypftpg==
 
 graceful-fs@^4.1.11, graceful-fs@^4.1.15, graceful-fs@^4.1.2, graceful-fs@^4.1.6, graceful-fs@^4.1.9, graceful-fs@^4.2.0, graceful-fs@^4.2.4:
   version "4.2.4"
@@ -9078,6 +9088,16 @@ lazy-universal-dotenv@^3.0.1:
     core-js "^3.0.4"
     dotenv "^8.0.0"
     dotenv-expand "^5.1.0"
+
+lbh-frontend@^3.3.0:
+  version "3.3.0"
+  resolved "https://registry.yarnpkg.com/lbh-frontend/-/lbh-frontend-3.3.0.tgz#a41a1a5cd5816e28f72d51c42c2f3f270b7a6894"
+  integrity sha512-hzuz9YGQpm2RsVH7FPrHqPbcquWR3m/JbtRHEFWpDZJ/c309W4iHsy3qYvFDR9dJh9YfvHs5XRKayTTtY39snQ==
+  dependencies:
+    govuk-frontend "^3.11.0"
+    underscore "^1.9.1"
+  optionalDependencies:
+    fsevents "*"
 
 leven@^3.1.0:
   version "3.1.0"
@@ -13610,6 +13630,11 @@ uk-postcode-validator@^1.1.1:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/uk-postcode-validator/-/uk-postcode-validator-1.1.1.tgz#e8db7cf1ff56f15dafd7cfb6e40b097e539e70a9"
   integrity sha512-JHV9/aE2VD0yOeEPUmWrJVBZn85v/lV+PyBqayls/49p+zrl6ZANJ33W/a6+MSNyW1ECnxTgo0KbxXWLn8JiQQ==
+
+underscore@^1.9.1:
+  version "1.12.1"
+  resolved "https://registry.yarnpkg.com/underscore/-/underscore-1.12.1.tgz#7bb8cc9b3d397e201cf8553336d262544ead829e"
+  integrity sha512-hEQt0+ZLDVUMhebKxL4x1BTtDY7bavVofhZ9KZ4aI26X9SRaE+Y3m83XUL1UP2jn8ynjndwCCpEHdUG+9pP1Tw==
 
 unfetch@^4.1.0:
   version "4.2.0"

@@ -6,6 +6,8 @@ import isPostcodeValid from 'uk-postcode-validator';
 import { TextInput, DateInput } from 'components/Form';
 import Button from 'components/Button/Button';
 
+import styles from '../Search.module.scss';
+
 const SearchResidentsForm = ({ onFormSubmit, defaultValues }) => {
   const {
     register,
@@ -89,22 +91,20 @@ const SearchResidentsForm = ({ onFormSubmit, defaultValues }) => {
           />
         </div>
       </div>
-      <Button label="Search" type="submit" disabled={!isDirty} />
-      <span
-        className="govuk-link"
-        role="button"
-        onClick={() => {
-          reset({
-            date_of_birth: null,
-          });
-        }}
-        style={{
-          marginLeft: '1rem',
-          lineHeight: '2.5rem',
-        }}
-      >
-        Clear search
-      </span>
+      <div className={styles.formControl}>
+        <Button label="Search" type="submit" disabled={!isDirty} />
+        <span
+          className="govuk-link"
+          role="button"
+          onClick={() => {
+            reset({
+              date_of_birth: null,
+            });
+          }}
+        >
+          Clear search
+        </span>
+      </div>
     </form>
   );
 };

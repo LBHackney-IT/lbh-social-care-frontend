@@ -1,3 +1,6 @@
+@import 'node_modules/govuk-frontend/govuk/base';
+@import 'node_modules/govuk-frontend/govuk/components/header/header';
+
 .govuk-header {
   position: relative;
   z-index: 4;
@@ -8,31 +11,19 @@
   background: #ffffff;
 }
 
-.govuk-header__container {
-  background: #000;
-  border: none;
+.lbh-header__main * + * {
+  margin-top: 0;
 }
 
-.govuk-header:before {
-  bottom: 3px;
-  border-bottom: 3px solid #00b341;
+.govuk-header__navigation-item a,
+.govuk-header__link--service-name {
+  font-weight: 600;
 }
 
-.govuk-header:after {
-  bottom: 9px;
-  border-bottom: 4px solid #00664f;
-}
-
-.govuk-header:before,
-.govuk-header:after {
-  content: '';
-  display: block;
-  position: absolute;
-  right: 0;
-  left: 0;
-}
-
-@media (min-width: 48.0625em) {
+@include govuk-media-query($from: tablet) {
+  .lbh-header__main {
+    padding: 0.5rem 0rem 0rem;
+  }
   .govuk-header__logo {
     padding-top: 1rem;
     margin-bottom: 14px;

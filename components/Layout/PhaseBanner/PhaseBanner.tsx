@@ -4,9 +4,9 @@ interface Props {
 }
 
 const PhaseBanner = ({ phase, feedbackLink }: Props): React.ReactElement => (
-  <div className="govuk-phase-banner">
+  <div className="govuk-phase-banner lbh-phase-banner lbh-container">
     <p className="govuk-phase-banner__content">
-      <strong className="govuk-tag govuk-phase-banner__content__tag">
+      <strong className="govuk-tag govuk-phase-banner__content__tag lbh-tag">
         {phase}
       </strong>
       <span className="govuk-phase-banner__text">

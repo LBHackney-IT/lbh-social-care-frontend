@@ -16,6 +16,8 @@ import { useAuth } from 'components/UserContext/UserContext';
 
 import { getFormsByUserPermission } from 'utils/forms';
 
+import styles from '../Search.module.scss';
+
 const SearchCasesForm = ({ onFormSubmit, defaultValues }) => {
   const {
     register,
@@ -138,23 +140,20 @@ const SearchCasesForm = ({ onFormSubmit, defaultValues }) => {
           />
         </div>
       </div>
-
-      <Button label="Search" type="submit" disabled={!isDirty} />
-      <span
-        className="govuk-link"
-        onClick={() => {
-          reset({
-            start_date: null,
-            end_date: null,
-          });
-        }}
-        style={{
-          marginLeft: '1rem',
-          lineHeight: '2.5rem',
-        }}
-      >
-        Clear search
-      </span>
+      <div className={styles.formControl}>
+        <Button label="Search" type="submit" disabled={!isDirty} />
+        <span
+          className="govuk-link"
+          onClick={() => {
+            reset({
+              start_date: null,
+              end_date: null,
+            });
+          }}
+        >
+          Clear search
+        </span>
+      </div>
     </form>
   );
 };

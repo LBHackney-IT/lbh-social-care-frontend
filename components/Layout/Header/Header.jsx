@@ -47,9 +47,9 @@ const HeaderComponent = ({ serviceName }) => {
     }
   }, [user, pathname]);
   return (
-    <header className="govuk-header" role="banner" data-module="govuk-header">
-      <div className="govuk-header__container">
-        <div className="govuk-width-container">
+    <header className="lbh-header">
+      <div className="lbh-header__main">
+        <div className="lbh-container lbh-header__wrapper lbh-header__wrapper--stacked">
           <div className="govuk-header__logo">
             <Link href="/">
               <a className="govuk-header__link govuk-header__link--homepage">
@@ -69,7 +69,7 @@ const HeaderComponent = ({ serviceName }) => {
               <>
                 <button
                   type="button"
-                  className="govuk-header__menu-button govuk-js-header-toggle"
+                  className="govuk-header__menu-button"
                   aria-controls="navigation"
                   aria-label="Show or hide navigation menu"
                 >

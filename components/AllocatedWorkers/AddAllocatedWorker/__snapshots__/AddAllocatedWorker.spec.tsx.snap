@@ -12,7 +12,7 @@ exports[`AddAllocatedWorker should render properly 1`] = `
         class="govuk-label govuk-label--m"
         for="teamId"
       >
-        Select a team to view workers for that team 
+        Select a team to view workers for that team
       </label>
       <div
         aria-expanded="true"

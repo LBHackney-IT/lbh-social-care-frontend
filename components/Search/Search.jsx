@@ -23,6 +23,8 @@ const getRecords = (data) => [
   ...(data?.cases || []),
 ];
 
+import styles from './Search.module.scss';
+
 const Search = ({ type }) => {
   const { query, pathname, replace } = useRouter();
   const { user } = useAuth();
@@ -101,7 +103,7 @@ const Search = ({ type }) => {
         Use search to find a person before adding a new person or record.
         Records will need to be linked to person.
       </p>
-      <div className="govuk-tabs">
+      <div className="govuk-tabs lbh-tabs" data-module="govuk-tabs">
         <h2 className="govuk-tabs__title">Contents</h2>
         <ul className="govuk-tabs__list">
           <li
@@ -136,7 +138,7 @@ const Search = ({ type }) => {
           />
           {results && (
             <>
-              <div className="lbh-table-header">
+              <div className="lbh-table-header govuk-!-margin-top-7">
                 <h2 className="govuk-fieldset__legend--m govuk-custom-text-color">
                   {type.toUpperCase()} SEARCH RESULT
                 </h2>
@@ -158,7 +160,7 @@ const Search = ({ type }) => {
               )}
             </>
           )}
-          <div style={{ height: '50px', textAlign: 'center' }}>
+          <div className={styles.loading}>
             {(hasQuery && !data) || size > data?.length ? (
               <Spinner />
             ) : (

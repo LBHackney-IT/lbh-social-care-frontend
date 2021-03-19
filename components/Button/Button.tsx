@@ -36,8 +36,10 @@ const Button = ({
       style={wideButton ? { minWidth: '200px' } : {}}
       className={cx(
         'govuk-button',
+        'lbh-button',
         {
           'govuk-button--secondary': isSecondary,
+          'lbh-button--secondary': isSecondary,
         },
         className
       )}

@@ -27,7 +27,7 @@ const PersonView = ({
   return (
     <>
       {!expandView && (
-        <h1 className="govuk-fieldset__legend--l gov-weight-lighter govuk-expand-title">
+        <h1 className="lbh-heading-h1">
           {person.firstName} {person.lastName}
         </h1>
       )}

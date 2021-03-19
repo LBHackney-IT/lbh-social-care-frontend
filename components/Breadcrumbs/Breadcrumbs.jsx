@@ -25,7 +25,7 @@ Breadcrumb.propTypes = {
 };
 
 const Breadcrumbs = ({ steps, data, path, currentStepIndex }) => (
-  <div className="govuk-breadcrumbs">
+  <div className="govuk-breadcrumbs lbh-breadcrumbs">
     <ol className="govuk-breadcrumbs__list">
       {steps.map((step, index) =>
         renderOnCondition(
