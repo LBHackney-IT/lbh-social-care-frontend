@@ -35,7 +35,7 @@ exports[`CaseRecap should update the queryString on search and run a new search 
         <dd
           class="govuk-summary-list__value"
         >
-          Foo
+          Foo bar
         </dd>
       </div>
       <div
@@ -49,48 +49,7 @@ exports[`CaseRecap should update the queryString on search and run a new search 
         <dd
           class="govuk-summary-list__value"
         >
-          05/06/2020
-        </dd>
-      </div>
-      <div
-        class="govuk-summary-list__row"
-      >
-        <dt
-          class="govuk-summary-list__key"
-        >
-          Case Note Title
-        </dt>
-        <dd
-          class="govuk-summary-list__value"
-        >
-          Foo
-        </dd>
-      </div>
-      <div
-        class="govuk-summary-list__row"
-      >
-        <dt
-          class="govuk-summary-list__key"
-        >
-          Case Note Description
-        </dt>
-        <dd
-          class="govuk-summary-list__value"
-        >
-          <div>
-            <div
-              class="container"
-              style="max-height: 95px;"
-            >
-              <div>
-                <pre
-                  class="formattedTextArea"
-                >
-                  Foo bar
-                </pre>
-              </div>
-            </div>
-          </div>
+          Invalid Date
         </dd>
       </div>
     </dl>

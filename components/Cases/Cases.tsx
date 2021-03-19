@@ -1,5 +1,3 @@
-import PropTypes from 'prop-types';
-
 import CasesTable from 'components/Cases/CasesTable';
 import ErrorMessage from 'components/ErrorMessage/ErrorMessage';
 import ErrorSummary from 'components/ErrorSummary/ErrorSummary';
@@ -8,16 +6,28 @@ import Spinner from 'components/Spinner/Spinner';
 import { useAuth } from 'components/UserContext/UserContext';
 import { useCasesByResident } from 'utils/api/cases';
 
-const Cases = ({ id }) => {
+import { Case, Resident, User } from 'types';
+
+interface Props {
+  id: number;
+}
+
+const Cases = ({ id }: Props): React.ReactElement => {
   const { data, size, setSize, error } = useCasesByResident(id);
-  const results = data?.length > 0 && {
-    cases: data.reduce((acc, { cases }) => [...acc, ...cases], []),
-    nextCursor: data[data.length - 1].nextCursor,
-  };
+  const results =
+    data && data.length > 0
+      ? {
+          cases: data.reduce<Case[]>(
+            (acc, { cases }) => [...acc, ...cases],
+            []
+          ),
+          nextCursor: data[data.length - 1].nextCursor,
+        }
+      : null;
   if (error) {
     return <ErrorMessage />;
   }
-  if (!results) {
+  if (!data || !results) {
     return (
       <div>
         <Spinner />
@@ -26,7 +36,7 @@ const Cases = ({ id }) => {
   }
   return (
     <>
-      {results?.cases.length > 0 ? (
+      {results.cases.length > 0 ? (
         <CasesTable records={results.cases} />
       ) : (
         <p className="govuk-body govuk-!-margin-top-5">Records not found</p>
@@ -35,7 +45,7 @@ const Cases = ({ id }) => {
         {size > data.length ? (
           <Spinner />
         ) : (
-          results?.nextCursor && (
+          results.nextCursor && (
             <Button label="load more" onClick={() => setSize(size + 1)} />
           )
         )}
@@ -44,12 +54,13 @@ const Cases = ({ id }) => {
   );
 };
 
-Cases.propTypes = {
-  id: PropTypes.number.isRequired,
-};
+interface WrapperProps {
+  id: number;
+  person: Resident;
+}
 
-const CasesWrapper = ({ id, person }) => {
-  const { user } = useAuth();
+const CasesWrapper = ({ id, person }: WrapperProps): React.ReactElement => {
+  const { user } = useAuth() as { user: User };
   return (
     <div>
       <div className="lbh-table-header">
@@ -72,13 +83,6 @@ const CasesWrapper = ({ id, person }) => {
       )}
     </div>
   );
-};
-
-CasesWrapper.propTypes = {
-  id: PropTypes.number.isRequired,
-  person: PropTypes.shape({
-    restricted: PropTypes.bool,
-  }).isRequired,
 };
 
 export default CasesWrapper;

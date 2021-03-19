@@ -1,19 +1,11 @@
 import { render } from '@testing-library/react';
 
 import CasesTable from './CasesTable';
+import { mockedNote } from 'fixtures/cases.fixtures';
 
 describe('CasesTable component', () => {
   const props = {
-    records: [
-      {
-        recordId: '123',
-        dateOfEvent: '25/10/2020 13:49:43',
-        formName: 'foorm',
-        caseFormUrl: 'https://foo.bar',
-        officerEmail: 'Fname.Lname@hackney.gov.uk',
-        caseFormData: { form_name_overall: 'foo' },
-      },
-    ],
+    records: [mockedNote],
   };
   it('should render properly', () => {
     const { asFragment } = render(<CasesTable {...props} />);

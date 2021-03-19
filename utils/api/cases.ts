@@ -18,7 +18,7 @@ export const useCases = (
 
 export const useCasesByResident = (
   id: number,
-  params: Record<string, unknown>
+  params?: Record<string, unknown>
 ): SWRInfiniteResponseInterface<CaseData, Error> =>
   // @ts-ignore
   useSWRInfinite(getInfiniteKey(`/api/residents/${id}/cases`, 'cases', params));

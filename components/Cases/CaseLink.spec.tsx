@@ -1,4 +1,5 @@
 import { render } from '@testing-library/react';
+import { mockedDeallocationNote } from 'fixtures/cases.fixtures';
 
 import CaseLink from './CaseLink';
 
@@ -7,9 +8,7 @@ describe('CaseLink component', () => {
     const props = {
       recordId: '123',
       externalUrl: 'https://foo.bar',
-      caseFormData: {
-        form_name_overall: 'API_Deallocation',
-      },
+      caseFormData: mockedDeallocationNote.caseFormData,
     };
     const { asFragment } = render(<CaseLink {...props} />);
     expect(asFragment()).toMatchInlineSnapshot(`
@@ -29,15 +28,13 @@ describe('CaseLink component', () => {
   it('should render properly - with handled link', () => {
     const props = {
       recordId: '123',
-      caseFormData: {
-        form_name_overall: 'API_Deallocation',
-      },
+      caseFormData: mockedDeallocationNote.caseFormData,
     };
     const { asFragment } = render(<CaseLink {...props} />);
     expect(asFragment()).toMatchInlineSnapshot(`
       <DocumentFragment>
         <a
-          href="/people/undefined/allocations/undefined?recordId=123"
+          href="/people/123/allocations/321?recordId=123"
         >
           View
         </a>
@@ -48,7 +45,10 @@ describe('CaseLink component', () => {
   it('should render properly - without a link', () => {
     const props = {
       recordId: '123',
-      caseFormData: { form_name_overall: '' },
+      caseFormData: {
+        ...mockedDeallocationNote.caseFormData,
+        form_name_overall: '',
+      },
     };
     const { asFragment } = render(<CaseLink {...props} />);
     expect(asFragment()).toMatchInlineSnapshot(`<DocumentFragment />`);

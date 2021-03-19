@@ -1,8 +1,10 @@
 import { act, render } from '@testing-library/react';
 
 import { UserContext } from 'components/UserContext/UserContext';
-import { useCase } from 'utils/api/cases';
+import * as casesAPI from 'utils/api/cases';
 import CaseRecap from './CaseRecap';
+
+import { mockedNote } from 'fixtures/cases.fixtures';
 
 jest.mock('components/Spinner/Spinner', () => () => 'MockedSpinner');
 
@@ -13,36 +15,33 @@ jest.mock('utils/api/cases', () => ({
 describe(`CaseRecap`, () => {
   const props = {
     recordId: '123',
-    personId: '123',
+    personId: 123,
   };
   it('should update the queryString on search and run a new search - with load more', async () => {
-    useCase.mockImplementation(() => ({
-      data: {
-        caseFormTimestamp: '2021-02-26T16:48:29.093Z',
-        officerEmail: 'foo@bar.com',
-        caseFormData: {
-          case_note_description: 'Foo bar',
-          case_note_title: 'Foo',
-          date_of_event: '2020-06-05',
-          first_name: 'Bar',
-          form_name: 'Foo',
-          form_name_overall: 'ASC_case_note',
-        },
-      },
+    jest.spyOn(casesAPI, 'useCase').mockImplementation(() => ({
+      data: mockedNote,
+      isValidating: false,
+      mutate: jest.fn(),
+      revalidate: jest.fn(),
     }));
     const { asFragment, queryByText } = render(
       <UserContext.Provider
         value={{
-          user: { name: 'foo' },
+          user: {
+            name: 'foo',
+            hasAdminPermissions: true,
+            hasChildrenPermissions: true,
+            hasAdultPermissions: true,
+            email: 'foo@bar.com',
+            permissionFlag: 'A',
+            isAuthorised: true,
+          },
         }}
       >
         <CaseRecap {...props} />
       </UserContext.Provider>
     );
-
-    await act(async () => {
-      expect(queryByText('Foo bar')).toBeInTheDocument();
-    });
+    expect(queryByText('Foo bar')).toBeInTheDocument();
     expect(asFragment()).toMatchSnapshot();
   });
 });

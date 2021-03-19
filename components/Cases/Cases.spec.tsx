@@ -1,28 +1,26 @@
 import { render, waitFor, fireEvent } from '@testing-library/react';
 
-import { useCasesByResident } from 'utils/api/cases';
+import * as casesAPI from 'utils/api/cases';
 import { UserContext } from 'components/UserContext/UserContext';
+
+import { mockedNote, mockedAllocationNote } from 'fixtures/cases.fixtures';
+import { mockedResident } from 'fixtures/resident.fixtures';
 
 import Cases from './Cases';
 
-jest.mock('utils/api/cases', () => ({
-  useCasesByResident: jest.fn(),
-}));
+// jest.mock('utils/api/cases', () => ({
+//   useCasesByResident: jest.fn(),
+// }));
 
 describe('Cases component', () => {
   const props = {
     id: 44000000,
-    person: {
-      firstName: 'Foo',
-      lastName: 'Bar',
-      mosaicId: '123',
-      ageContext: 'A',
-    },
+    person: mockedResident,
   };
 
   it('should render records properly', async () => {
     const mockSetSize = jest.fn();
-    useCasesByResident.mockImplementation(() => ({
+    jest.spyOn(casesAPI, 'useCasesByResident').mockImplementation(() => ({
       size: 2,
       setSize: mockSetSize,
       data: [
@@ -33,40 +31,38 @@ describe('Cases component', () => {
               dateOfBirth: '2020-12-13',
               firstName: 'foo',
               lastName: 'FOO',
-              personId: '44000001',
+              personId: 44000001,
               formName: 'Foo_foo',
               recordId: '12347',
               caseFormUrl: 'http//foo/foo',
               officerEmail: 'foo@foo.co.uk',
               dateOfEvent: '2020-12-23',
-              caseFormData: { form_name_overall: 'foo' },
+              caseFormData: mockedNote.caseFormData,
             },
           ],
           nextCursor: 1,
         },
         {
-          cases: [
-            {
-              caseFormTimestamp: '2020-12-04',
-              dateOfBirth: '2020-12-13',
-              firstName: 'bar',
-              lastName: 'BAR',
-              personId: '44000001',
-              formName: 'Bar_bar',
-              recordId: '12345',
-              caseFormUrl: 'http//bar/bar',
-              officerEmail: 'bar@bar.co.uk',
-              caseFormData: { form_name_overall: 'foo' },
-            },
-          ],
+          cases: [mockedAllocationNote],
           nextCursor: 2,
         },
       ],
+      isValidating: false,
+      mutate: jest.fn(),
+      revalidate: jest.fn(),
     }));
     const { asFragment, getByRole, getAllByText } = render(
       <UserContext.Provider
         value={{
-          user: {},
+          user: {
+            name: 'foo',
+            hasAdminPermissions: true,
+            hasChildrenPermissions: true,
+            hasAdultPermissions: true,
+            email: 'foo@bar.com',
+            permissionFlag: 'A',
+            isAuthorised: true,
+          },
         }}
       >
         <Cases {...props} />
@@ -83,7 +79,7 @@ describe('Cases component', () => {
   });
 
   it('should render no records ', async () => {
-    useCasesByResident.mockImplementation(() => ({
+    jest.spyOn(casesAPI, 'useCasesByResident').mockImplementation(() => ({
       size: 0,
       data: [
         {
@@ -91,19 +87,29 @@ describe('Cases component', () => {
           nextCursor: 1,
         },
       ],
+      isValidating: false,
+      mutate: jest.fn(),
+      revalidate: jest.fn(),
+      setSize: jest.fn(),
     }));
     const { asFragment, getByText } = render(
       <UserContext.Provider
         value={{
-          user: {},
+          user: {
+            name: 'foo',
+            hasAdminPermissions: true,
+            hasChildrenPermissions: true,
+            hasAdultPermissions: true,
+            email: 'foo@bar.com',
+            permissionFlag: 'A',
+            isAuthorised: true,
+          },
         }}
       >
         <Cases {...props} />
       </UserContext.Provider>
     );
-    await waitFor(() => {
-      expect(asFragment()).toMatchSnapshot();
-    });
+    expect(asFragment()).toMatchSnapshot();
     expect(getByText('Records not found')).toBeInTheDocument();
   });
 
@@ -111,20 +117,29 @@ describe('Cases component', () => {
     const props = {
       id: 44000000,
       person: {
+        ...mockedResident,
         restricted: true,
       },
     };
     const { asFragment, queryByText } = render(
       <UserContext.Provider
         value={{
-          user: {},
+          user: {
+            name: 'foo',
+            hasAdminPermissions: true,
+            hasChildrenPermissions: true,
+            hasAdultPermissions: true,
+            email: 'foo@bar.com',
+            permissionFlag: 'A',
+            isAuthorised: true,
+          },
         }}
       >
         <Cases {...props} />
       </UserContext.Provider>
     );
     expect(asFragment()).toMatchSnapshot();
-    expect(useCasesByResident).not.toHaveBeenCalled();
+    expect(casesAPI.useCasesByResident).not.toHaveBeenCalled();
     expect(queryByText('RESTRICTED')).toBeInTheDocument();
   });
 
@@ -132,20 +147,30 @@ describe('Cases component', () => {
     const props = {
       id: 44000000,
       person: {
+        ...mockedResident,
         restricted: true,
       },
     };
     const { asFragment, queryByText } = render(
       <UserContext.Provider
         value={{
-          user: { hasUnrestrictedPermissions: true },
+          user: {
+            name: 'foo',
+            hasAdminPermissions: true,
+            hasChildrenPermissions: true,
+            hasAdultPermissions: true,
+            email: 'foo@bar.com',
+            permissionFlag: 'A',
+            isAuthorised: true,
+            hasUnrestrictedPermissions: true,
+          },
         }}
       >
         <Cases {...props} />
       </UserContext.Provider>
     );
     expect(asFragment()).toMatchSnapshot();
-    expect(useCasesByResident).toHaveBeenCalled();
+    expect(casesAPI.useCasesByResident).toHaveBeenCalled();
     expect(queryByText('RESTRICTED')).not.toBeInTheDocument();
   });
 });

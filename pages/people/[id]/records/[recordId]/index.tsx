@@ -18,7 +18,10 @@ const CaseView = (): React.ReactElement => {
       </h1>
       <PersonView personId={Number(id as string)} expandView>
         <div className="govuk-!-margin-top-7">
-          <CaseRecap personId={id as string} recordId={recordId as string} />
+          <CaseRecap
+            personId={Number(id as string)}
+            recordId={recordId as string}
+          />
         </div>
       </PersonView>
     </>
