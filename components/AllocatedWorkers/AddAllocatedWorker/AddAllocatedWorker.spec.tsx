@@ -18,12 +18,6 @@ jest.mock('next/router', () => ({
 
 jest.mock('components/Spinner/Spinner', () => () => 'MockedSpinner');
 
-jest.mock('utils/api/allocatedWorkers', () => ({
-  useTeams: jest.fn(),
-  useTeamWorkers: jest.fn(),
-  addAllocatedWorker: jest.fn(),
-}));
-
 describe(`AddAllocatedWorker`, () => {
   jest.spyOn(allocatedWorkerAPI, 'useTeams').mockImplementation(() => ({
     data: {
@@ -107,6 +101,7 @@ describe(`AddAllocatedWorker`, () => {
   });
 
   it('should render and submit correctly', async () => {
+    jest.spyOn(allocatedWorkerAPI, 'addAllocatedWorker');
     const { getByLabelText, getByRole, getByTestId } = render(
       <UserContext.Provider
         value={{

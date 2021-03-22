@@ -1,4 +1,4 @@
-import { act, render } from '@testing-library/react';
+import { render } from '@testing-library/react';
 
 import { UserContext } from 'components/UserContext/UserContext';
 import * as casesAPI from 'utils/api/cases';
@@ -7,10 +7,6 @@ import CaseRecap from './CaseRecap';
 import { mockedNote } from 'fixtures/cases.fixtures';
 
 jest.mock('components/Spinner/Spinner', () => () => 'MockedSpinner');
-
-jest.mock('utils/api/cases', () => ({
-  useCase: jest.fn(),
-}));
 
 describe(`CaseRecap`, () => {
   const props = {

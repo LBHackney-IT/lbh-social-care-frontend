@@ -8,10 +8,6 @@ import { mockedResident } from 'fixtures/resident.fixtures';
 
 import Cases from './Cases';
 
-// jest.mock('utils/api/cases', () => ({
-//   useCasesByResident: jest.fn(),
-// }));
-
 describe('Cases component', () => {
   const props = {
     id: 44000000,
