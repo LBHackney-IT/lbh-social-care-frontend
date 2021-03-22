@@ -1,4 +1,9 @@
-import { AllocationCaseFormData, Case, DeallocationCaseFormData } from 'types';
+import {
+  AllocationCaseFormData,
+  Case,
+  HistoricCaseData,
+  DeallocationCaseFormData,
+} from 'types';
 
 export const mockedNote: Case = {
   recordId: '123',
@@ -29,6 +34,15 @@ export const mockedCaseNote: Case = {
     form_name_overall: 'ASC_case_note',
     case_note_title: 'i am a case title',
   },
+};
+
+export const mockedHistoricCaseNote: HistoricCaseData = {
+  title: 'Foo',
+  formName: 'Foo Bar',
+  content: 'I am historic content',
+  officerName: 'Foo Bar Bar',
+  officerEmail: 'foo@hackney.gov.uk',
+  dateOfEvent: '11/03/2021 16:51:56',
 };
 
 export const mockedAllocationNote: Case = {

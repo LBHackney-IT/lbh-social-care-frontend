@@ -34,6 +34,7 @@ interface CaseFormDataBase {
   context_flag: AgeContext;
   date_of_event: string | Date;
   timestamp: string | Date;
+  is_historical?: true | false;
   note?: string;
   date_of_birth?: string;
   form_url?: string;
@@ -52,6 +53,15 @@ export interface DeallocationCaseFormData extends CaseFormDataBase {
   allocation_id: number;
   deallocation_reason: string;
   created_by: string;
+}
+
+export interface HistoricCaseData {
+  title: string;
+  formName?: string;
+  content?: string;
+  officerName?: string;
+  officerEmail?: string;
+  dateOfEvent: string;
 }
 
 export type CaseFormData =

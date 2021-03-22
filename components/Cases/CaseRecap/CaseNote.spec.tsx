@@ -3,13 +3,13 @@ import { render } from '@testing-library/react';
 import { UserContext } from 'components/UserContext/UserContext';
 import { mockedUser } from 'factories/users';
 import * as casesAPI from 'utils/api/cases';
-import CaseRecap from './CaseRecap';
+import CaseNote from './CaseNote';
 
 import { mockedCaseNote } from 'fixtures/cases.fixtures';
 
 jest.mock('components/Spinner/Spinner', () => () => 'MockedSpinner');
 
-describe(`CaseRecap`, () => {
+describe(`CaseNote`, () => {
   it('should display case note', async () => {
     const props = {
       recordId: '123',
@@ -28,7 +28,7 @@ describe(`CaseRecap`, () => {
           user: mockedUser,
         }}
       >
-        <CaseRecap {...props} />
+        <CaseNote {...props} />
       </UserContext.Provider>
     );
     expect(queryByText('Foo bar')).toBeInTheDocument();

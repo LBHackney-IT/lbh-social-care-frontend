@@ -7,7 +7,7 @@ import PersonView from 'components/PersonView/PersonView';
 
 const CaseView = (): React.ReactElement => {
   const {
-    query: { id, recordId },
+    query: { id, recordId, is_historical },
   } = useRouter();
   return (
     <>
@@ -21,6 +21,7 @@ const CaseView = (): React.ReactElement => {
           <CaseRecap
             personId={Number(id as string)}
             recordId={recordId as string}
+            is_historical={Boolean(is_historical as string)}
           />
         </div>
       </PersonView>

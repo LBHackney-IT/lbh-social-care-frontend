@@ -24,6 +24,8 @@ const getLink = (
       }?recordId=${recordId}`;
     case fileName:
       return `/people/${caseFormData.mosaic_id}/records/${recordId}`;
+    case 'Historical_Case_Note':
+      return `/people/${caseFormData.mosaic_id}/records/${recordId}?is_historical=${caseFormData.is_historical}`;
     default:
       return null;
   }
