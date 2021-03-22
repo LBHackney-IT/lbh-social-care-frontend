@@ -1,8 +1,10 @@
 import PropTypes from 'prop-types';
 
 import { formatDate, isDateValid } from 'utils/date';
+import CaseLink from '../../Cases/CaseLink';
 
 const CasesEntry = ({
+  recordId,
   firstName,
   lastName,
   caseFormUrl,
@@ -10,6 +12,7 @@ const CasesEntry = ({
   officerEmail,
   dateOfEvent,
   caseFormTimestamp,
+  caseFormData,
 }) => (
   <tr className="govuk-table__row">
     <td className="govuk-table__cell">
@@ -23,21 +26,17 @@ const CasesEntry = ({
       {formatDate(dateOfEvent || caseFormTimestamp)}
     </td>
     <td className="govuk-table__cell govuk-button--secondary'">
-      {caseFormUrl && (
-        <a
-          href={caseFormUrl}
-          target="_blank"
-          rel="noreferrer noopener"
-          className="govuk-link"
-        >
-          View
-        </a>
-      )}
+      <CaseLink
+        recordId={recordId}
+        externalUrl={caseFormUrl}
+        caseFormData={caseFormData}
+      />
     </td>
   </tr>
 );
 
 CasesEntry.propTypes = {
+  recordId: PropTypes.string.isRequired,
   firstName: PropTypes.string.isRequired,
   lastName: PropTypes.string.isRequired,
   officerEmail: PropTypes.string.isRequired,
@@ -45,6 +44,7 @@ CasesEntry.propTypes = {
   dateOfEvent: PropTypes.string,
   dateOfBirth: PropTypes.string,
   caseFormTimestamp: PropTypes.string.isRequired,
+  caseFormData: PropTypes.object.isRequired,
 };
 
 const tableHeader = [
@@ -99,6 +99,7 @@ CasesTable.propTypes = {
       officerEmail: PropTypes.string.isRequired,
       dateOfEvent: PropTypes.string,
       caseFormTimestamp: PropTypes.string.isRequired,
+      caseFormData: PropTypes.object.isRequired,
     })
   ).isRequired,
 };
