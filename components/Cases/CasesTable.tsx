@@ -1,4 +1,4 @@
-import PropTypes from 'prop-types';
+import { Case } from 'types';
 import { formatDate } from 'utils/date';
 
 import CaseLink from './CaseLink';
@@ -11,10 +11,11 @@ const CasesEntry = ({
   dateOfEvent,
   caseFormData,
   caseFormTimestamp,
-}) => (
+}: Case) => (
   <tr className="govuk-table__row">
     <td className="govuk-table__cell govuk--timestamp">
-      {formatDate(dateOfEvent || caseFormTimestamp)}{' '}
+      {(dateOfEvent && formatDate(dateOfEvent)) ||
+        (caseFormTimestamp && formatDate(caseFormTimestamp))}
     </td>
     <td className="govuk-table__cell">{formName}</td>
     <td className="govuk-table__cell">
@@ -30,17 +31,7 @@ const CasesEntry = ({
   </tr>
 );
 
-CasesEntry.propTypes = {
-  recordId: PropTypes.string.isRequired,
-  formName: PropTypes.string.isRequired,
-  caseFormUrl: PropTypes.string.isRequired,
-  officerEmail: PropTypes.string.isRequired,
-  dateOfEvent: PropTypes.string,
-  caseFormTimestamp: PropTypes.string,
-  caseFormData: PropTypes.object.isRequired,
-};
-
-const CasesTable = ({ records }) => (
+const CasesTable = ({ records }: { records: Case[] }): React.ReactElement => (
   <table className="govuk-table">
     <tbody className="govuk-table__body">
       {records.map((result) => (
@@ -49,9 +40,5 @@ const CasesTable = ({ records }) => (
     </tbody>
   </table>
 );
-
-CasesTable.propTypes = {
-  records: PropTypes.arrayOf(PropTypes.shape(CasesEntry.propTypes)).isRequired,
-};
 
 export default CasesTable;

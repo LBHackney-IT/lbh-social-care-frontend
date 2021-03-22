@@ -75,7 +75,7 @@ export interface Case {
 
 export interface CaseData {
   cases: Case[] | [];
-  nextCursor?: string;
+  nextCursor?: number;
 }
 
 export interface ErrorAPI {

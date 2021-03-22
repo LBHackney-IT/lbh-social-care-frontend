@@ -12,10 +12,6 @@ jest.mock('next/router', () => ({
   }),
 }));
 
-jest.mock('utils/api/warningNotes', () => ({
-  useWarningNotes: jest.fn(),
-}));
-
 describe(`useWarningNotes`, () => {
   jest.spyOn(warningNotes, 'useWarningNotes').mockImplementation(() => ({
     data: mockedWarningNote,

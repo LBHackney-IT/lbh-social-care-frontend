@@ -7,10 +7,6 @@ import { AgeContext } from 'types';
 
 jest.mock('components/Spinner/Spinner', () => () => 'MockedSpinner');
 
-jest.mock('utils/api/warningNotes', () => ({
-  useWarningNote: jest.fn(),
-}));
-
 describe(`WarningNoteRecap`, () => {
   jest.spyOn(warningNotes, 'useWarningNote').mockImplementation(() => ({
     data: mockedWarningNote.find(({ id }) => id === props.warningNoteId),
