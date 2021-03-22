@@ -34,7 +34,7 @@ exports[`useWarningNotes should render properly 1`] = `
               Start Date
             </dt>
             <dd>
-              12/12/2020 
+              13/12/2020 
               <i>
                 created by
               </i>
@@ -44,11 +44,7 @@ exports[`useWarningNotes should render properly 1`] = `
               Review Date
             </dt>
             <dd>
-              13/12/2020 
-              <i>
-                last reviewed by
-              </i>
-               Bar
+              31/12/2020 
             </dd>
           </dl>
           <a
@@ -79,6 +75,12 @@ exports[`useWarningNotes should render properly 1`] = `
                 created by
               </i>
                Foo
+            </dd>
+            <dt>
+              Review Date
+            </dt>
+            <dd>
+              01/02/2021 
             </dd>
           </dl>
           <a

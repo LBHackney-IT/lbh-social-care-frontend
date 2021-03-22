@@ -59,6 +59,7 @@ const formSteps: FormStep[] = [
         name: 'nextReviewDate',
         label: 'Next review date',
         rules: { required: true },
+        showConditionalGuides: true,
         hint:
           'Next review date cannot be more than 1 year from date review undertaken ',
         conditionalRender: ({ reviewDecision }) => reviewDecision === 'Yes',
