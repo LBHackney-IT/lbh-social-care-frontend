@@ -129,6 +129,42 @@ exports[`Cases component should render records properly 1`] = `
     <table
       class="govuk-table"
     >
+      <thead
+        class="govuk-table__head"
+      >
+        <tr
+          class="govuk-table__row"
+        >
+          <th
+            class="govuk-table__header"
+            scope="col"
+          >
+            Date created
+          </th>
+          <th
+            class="govuk-table__header"
+            scope="col"
+          >
+            Record type
+          </th>
+          <th
+            class="govuk-table__header"
+            scope="col"
+          >
+            Created by
+          </th>
+          <th
+            class="govuk-table__header"
+            scope="col"
+          >
+            Action
+          </th>
+          <th
+            class="govuk-table__header"
+            scope="col"
+          />
+        </tr>
+      </thead>
       <tbody
         class="govuk-table__body"
       >
@@ -137,6 +173,7 @@ exports[`Cases component should render records properly 1`] = `
         >
           <td
             class="govuk-table__cell govuk--timestamp"
+            style="width: 120px;"
           >
             25 Oct 2020
           </td>
@@ -148,7 +185,7 @@ exports[`Cases component should render records properly 1`] = `
           <td
             class="govuk-table__cell"
           >
-            - created by Fname.Lname@hackney.gov.uk
+            Fname.Lname@hackney.gov.uk
           </td>
           <td
             class="govuk-table__cell govuk-button--secondary'"
@@ -168,6 +205,7 @@ exports[`Cases component should render records properly 1`] = `
         >
           <td
             class="govuk-table__cell govuk--timestamp"
+            style="width: 120px;"
           >
             25 Oct 2020
           </td>
@@ -179,7 +217,7 @@ exports[`Cases component should render records properly 1`] = `
           <td
             class="govuk-table__cell"
           >
-            - created by Fname.Lname@hackney.gov.uk
+            Fname.Lname@hackney.gov.uk
           </td>
           <td
             class="govuk-table__cell govuk-button--secondary'"

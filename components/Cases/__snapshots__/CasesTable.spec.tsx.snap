@@ -5,6 +5,42 @@ exports[`CasesTable component should render properly 1`] = `
   <table
     class="govuk-table"
   >
+    <thead
+      class="govuk-table__head"
+    >
+      <tr
+        class="govuk-table__row"
+      >
+        <th
+          class="govuk-table__header"
+          scope="col"
+        >
+          Date created
+        </th>
+        <th
+          class="govuk-table__header"
+          scope="col"
+        >
+          Record type
+        </th>
+        <th
+          class="govuk-table__header"
+          scope="col"
+        >
+          Created by
+        </th>
+        <th
+          class="govuk-table__header"
+          scope="col"
+        >
+          Action
+        </th>
+        <th
+          class="govuk-table__header"
+          scope="col"
+        />
+      </tr>
+    </thead>
     <tbody
       class="govuk-table__body"
     >
@@ -13,6 +49,7 @@ exports[`CasesTable component should render properly 1`] = `
       >
         <td
           class="govuk-table__cell govuk--timestamp"
+          style="width: 120px;"
         >
           25 Oct 2020
         </td>
@@ -24,7 +61,7 @@ exports[`CasesTable component should render properly 1`] = `
         <td
           class="govuk-table__cell"
         >
-          - created by Fname.Lname@hackney.gov.uk
+          Fname.Lname@hackney.gov.uk
         </td>
         <td
           class="govuk-table__cell govuk-button--secondary'"
@@ -34,6 +71,67 @@ exports[`CasesTable component should render properly 1`] = `
             href="https://foo.bar"
             rel="noreferrer noopener"
             target="_blank"
+          >
+            View
+          </a>
+        </td>
+      </tr>
+      <tr
+        class="govuk-table__row"
+      >
+        <td
+          class="govuk-table__cell govuk--timestamp"
+          style="width: 120px;"
+        >
+          25 Oct 2020
+        </td>
+        <td
+          class="govuk-table__cell"
+        >
+          Worker allocated
+        </td>
+        <td
+          class="govuk-table__cell"
+        >
+          Fname.Lname@hackney.gov.uk
+        </td>
+        <td
+          class="govuk-table__cell govuk-button--secondary'"
+        >
+          <a
+            href="/people/123/allocations/321?recordId=2"
+          >
+            View
+          </a>
+        </td>
+      </tr>
+      <tr
+        class="govuk-table__row"
+      >
+        <td
+          class="govuk-table__cell govuk--timestamp"
+          style="width: 120px;"
+        >
+          25 Oct 2020
+        </td>
+        <td
+          class="govuk-table__cell"
+        >
+          Case Note - foorm
+          <div>
+            i am a case title
+          </div>
+        </td>
+        <td
+          class="govuk-table__cell"
+        >
+          Fname.Lname@hackney.gov.uk
+        </td>
+        <td
+          class="govuk-table__cell govuk-button--secondary'"
+        >
+          <a
+            href="/people/123/records/4"
           >
             View
           </a>

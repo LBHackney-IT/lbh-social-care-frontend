@@ -14,7 +14,7 @@ export const caseFactory = Factory.define<Case>(({ sequence }) => ({
     last_name: 'Bar',
     timestamp: '11/03/2021 16:51:56',
     mosaic_id: 123,
-    form_name_overall: 'ASC_case_note',
+    form_name_overall: 'foo',
     worker_email: 'worker@hackney.gov.uk',
     form_name: 'Foo bar',
     context_flag: 'A',
@@ -25,7 +25,6 @@ export const caseFactory = Factory.define<Case>(({ sequence }) => ({
 export const mockedNote = caseFactory.build({ caseFormUrl: 'https://foo.bar' });
 export const mockedAllocationNote = caseFactory.build({
   formName: 'Worker allocated',
-  caseFormUrl: undefined,
   caseFormData: {
     allocation_id: 321,
     created_by: 'foo@hackney.gov.uk',
@@ -35,12 +34,17 @@ export const mockedAllocationNote = caseFactory.build({
 });
 export const mockedDeallocationNote = caseFactory.build({
   formName: 'Worker allocated',
-  caseFormUrl: undefined,
   caseFormData: {
     allocation_id: 321,
     created_by: 'foo@hackney.gov.uk',
     deallocation_reason: 'deallocated because',
     form_name_overall: 'API_Deallocation',
     form_name: 'Worker deallocated',
+  },
+});
+export const mockedCaseNote = caseFactory.build({
+  caseFormData: {
+    form_name_overall: 'ASC_case_note',
+    case_note_title: 'i am a case title',
   },
 });

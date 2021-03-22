@@ -5,7 +5,7 @@ import { mockedUser } from 'factories/users';
 import * as casesAPI from 'utils/api/cases';
 import CaseRecap from './CaseRecap';
 
-import { mockedNote } from 'factories/cases';
+import { mockedCaseNote } from 'fixtures/cases.fixtures';
 
 jest.mock('components/Spinner/Spinner', () => () => 'MockedSpinner');
 
@@ -16,7 +16,7 @@ describe(`CaseRecap`, () => {
   };
   it('should update the queryString on search and run a new search - with load more', async () => {
     jest.spyOn(casesAPI, 'useCase').mockImplementation(() => ({
-      data: mockedNote,
+      data: mockedCaseNote,
       isValidating: false,
       mutate: jest.fn(),
       revalidate: jest.fn(),
