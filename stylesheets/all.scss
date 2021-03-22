@@ -89,9 +89,10 @@ $screen-sm-min: 576px;
 .down-arrow-icon {
   width: 15px;
   height: 15px;
-  top: 7px;
+  top: 3px;
   position: relative;
   cursor: pointer;
+  right: 25px;
 }
 
 .ReactModal__Body--open {
