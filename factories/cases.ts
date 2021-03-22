@@ -2,7 +2,7 @@ import { Factory } from 'fishery';
 
 import { Case } from 'types';
 
-const caseFactory = Factory.define<Case>(({ sequence }) => ({
+export const caseFactory = Factory.define<Case>(({ sequence }) => ({
   recordId: sequence.toString(),
   personId: 123,
   dateOfEvent: '25/10/2020 13:49:43',
@@ -22,7 +22,8 @@ const caseFactory = Factory.define<Case>(({ sequence }) => ({
   },
 }));
 
-const allocationCaseFactory = caseFactory.params({
+export const mockedNote = caseFactory.build({ caseFormUrl: 'https://foo.bar' });
+export const mockedAllocationNote = caseFactory.build({
   formName: 'Worker allocated',
   caseFormUrl: undefined,
   caseFormData: {
@@ -32,8 +33,7 @@ const allocationCaseFactory = caseFactory.params({
     form_name: 'Worker allocated',
   },
 });
-
-const deallocationCaseFactory = caseFactory.params({
+export const mockedDeallocationNote = caseFactory.build({
   formName: 'Worker allocated',
   caseFormUrl: undefined,
   caseFormData: {
@@ -44,7 +44,3 @@ const deallocationCaseFactory = caseFactory.params({
     form_name: 'Worker deallocated',
   },
 });
-
-export const mockedNote = caseFactory.build({ caseFormUrl: 'https://foo.bar' });
-export const mockedAllocationNote = allocationCaseFactory.build();
-export const mockedDeallocationNote = deallocationCaseFactory.build();

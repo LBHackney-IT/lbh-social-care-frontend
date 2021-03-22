@@ -2,6 +2,8 @@ import { render, fireEvent, act } from '@testing-library/react';
 
 import AddForm from './AddForm';
 import { UserContext } from 'components/UserContext/UserContext';
+import { mockedUser } from 'factories/users';
+import { residentFactory } from 'factories/residents';
 
 jest.mock('data/googleForms/adultForms', () => [
   {
@@ -33,17 +35,12 @@ jest.mock('data/googleForms/childForms', () => [
 describe('AddForm component', () => {
   it('should render adult forms', async () => {
     const props = {
-      person: {
-        firstName: 'Foo',
-        lastName: 'Bar',
-        mosaicId: 123,
-        ageContext: 'A',
-      },
+      person: residentFactory.build({ ageContext: 'A' }),
     };
     const { getByTestId, getByRole } = render(
       <UserContext.Provider
         value={{
-          user: { name: 'Nom', email: 'i am the email' },
+          user: mockedUser,
         }}
       >
         <AddForm {...props} />
@@ -65,17 +62,12 @@ describe('AddForm component', () => {
 
   it('should render children forms', async () => {
     const props = {
-      person: {
-        firstName: 'Foo',
-        lastName: 'Bar',
-        mosaicId: 123,
-        ageContext: 'C',
-      },
+      person: residentFactory.build({ ageContext: 'C' }),
     };
     const { getByRole, asFragment, getByTestId } = render(
       <UserContext.Provider
         value={{
-          user: { name: 'Nom', email: 'i am the email' },
+          user: mockedUser,
         }}
       >
         <AddForm {...props} />

@@ -2,7 +2,7 @@ import { Factory } from 'fishery';
 
 import { Allocation } from 'types';
 
-export const allocation = Factory.define<Allocation>(({ sequence }) => ({
+export const allocationFactory = Factory.define<Allocation>(({ sequence }) => ({
   id: sequence,
   allocatedWorkerTeam: 'Safeguarding and Reviewing Team',
   allocatedWorker: 'Officer Name',
@@ -16,5 +16,5 @@ export const allocation = Factory.define<Allocation>(({ sequence }) => ({
   personDateOfBirth: '2020-03-20',
 }));
 
-export const mockedAllocation = allocation.build();
-export const mockedAllocations = [allocation.build()];
+export const mockedAllocation = allocationFactory.build();
+export const mockedAllocations = [allocationFactory.build()];

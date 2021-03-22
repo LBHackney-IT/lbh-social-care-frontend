@@ -2,7 +2,7 @@ import { Factory } from 'fishery';
 
 import { Resident, AgeContext } from 'types';
 
-const residentFactory = Factory.define<Resident>(({ sequence }) => ({
+export const residentFactory = Factory.define<Resident>(({ sequence }) => ({
   mosaicId: sequence,
   dateOfBirth: '2020-11-13',
   firstName: 'Foo',

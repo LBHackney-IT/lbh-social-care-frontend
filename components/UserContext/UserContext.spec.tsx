@@ -1,6 +1,7 @@
 import { waitFor, render } from '@testing-library/react';
 
 import { UserContext, AuthProvider, useAuth } from './UserContext';
+import { mockedUser } from 'factories/users';
 
 import type { User } from 'types';
 
@@ -14,15 +15,6 @@ jest.mock('next/router', () => ({
 }));
 
 describe(`UserContext`, () => {
-  const mockedUser: User = {
-    name: 'I am the user',
-    email: 'email@email.com',
-    permissionFlag: 'A',
-    hasAdminPermissions: true,
-    hasAdultPermissions: false,
-    hasChildrenPermissions: false,
-    isAuthorised: true,
-  };
   describe('AuthProvider', () => {
     it('should work properly', async () => {
       const { findByText } = render(
@@ -70,7 +62,7 @@ describe(`UserContext`, () => {
           <TestComponent />
         </UserContext.Provider>
       );
-      expect(getByText('I am the user')).toBeInTheDocument();
+      expect(getByText('foo')).toBeInTheDocument();
     });
   });
 });

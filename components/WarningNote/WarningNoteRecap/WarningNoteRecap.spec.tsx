@@ -3,7 +3,7 @@ import { render } from '@testing-library/react';
 import WarningNoteRecap from './WarningNoteRecap';
 import * as warningNotes from 'utils/api/warningNotes';
 import { mockedWarningNote } from 'factories/warningNotes';
-import { AgeContext } from 'types';
+import { mockedResident } from 'factories/residents';
 
 jest.mock('components/Spinner/Spinner', () => () => 'MockedSpinner');
 
@@ -15,15 +15,7 @@ describe(`WarningNoteRecap`, () => {
     isValidating: false,
   }));
   const props = {
-    person: {
-      dateOfBirth: '2020-11-13',
-      firstName: 'Ciasom',
-      lastName: 'Tesselate',
-      mosaicId: 44000000,
-      nhsNumber: '12345',
-      ageContext: 'A' as AgeContext,
-      gender: 'F',
-    },
+    person: mockedResident,
     warningNoteId: 1,
   };
 

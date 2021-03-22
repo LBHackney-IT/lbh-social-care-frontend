@@ -1,19 +1,11 @@
 import { render } from '@testing-library/react';
-import { AgeContext } from 'types';
+import { mockedResident } from 'factories/residents';
 import ReviewWarningNoteConfirmation from './ReviewWarningNoteConfirmation';
 
 describe('Review Warning Note Confirmation', () => {
   const props = {
     formData: {
-      person: {
-        dateOfBirth: '2020-11-13',
-        firstName: 'Ciasom',
-        lastName: 'Tesselate',
-        mosaicId: 44000000,
-        nhsNumber: '12345',
-        ageContext: 'A' as AgeContext,
-        gender: 'F',
-      },
+      person: mockedResident,
       reviewDecision: 'Yes',
     },
   };
@@ -23,7 +15,7 @@ describe('Review Warning Note Confirmation', () => {
       <ReviewWarningNoteConfirmation {...props} />
     );
     expect(
-      getByText('The Warning Note has been renewed for Ciasom Tesselate')
+      getByText('The Warning Note has been renewed for Foo Bar')
     ).toBeInTheDocument();
     expect(asFragment()).toMatchSnapshot();
   });
@@ -31,15 +23,7 @@ describe('Review Warning Note Confirmation', () => {
   it('it should rennder the correct text if the decision was no', () => {
     const props = {
       formData: {
-        person: {
-          dateOfBirth: '2020-11-13',
-          firstName: 'Ciasom',
-          lastName: 'Tesselate',
-          mosaicId: 44000000,
-          nhsNumber: '12345',
-          ageContext: 'A' as AgeContext,
-          gender: 'F',
-        },
+        person: mockedResident,
         reviewDecision: 'No',
       },
     };

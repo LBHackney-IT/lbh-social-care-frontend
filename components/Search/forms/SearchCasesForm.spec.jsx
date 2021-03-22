@@ -1,5 +1,6 @@
 import { act, fireEvent, render } from '@testing-library/react';
 import { UserContext } from 'components/UserContext/UserContext';
+import { mockedUser } from 'factories/users';
 
 jest.mock('next/router', () => ({
   useRouter: () => ({
@@ -13,10 +14,7 @@ describe(`SearchCasesForm`, () => {
   const props = {
     onFormSubmit: jest.fn(),
     defaultValues: {},
-    user: {
-      name: 'i am a user',
-      permissionFlag: 'A',
-    },
+    user: mockedUser,
   };
 
   afterEach(() => {
@@ -27,7 +25,7 @@ describe(`SearchCasesForm`, () => {
     const { getByRole, getByLabelText } = render(
       <UserContext.Provider
         value={{
-          user: { name: 'foo', permissionFlag: 'A' },
+          user: mockedUser,
         }}
       >
         <SearchCasesForm {...props} />
@@ -54,7 +52,7 @@ describe(`SearchCasesForm`, () => {
     const { getByRole } = render(
       <UserContext.Provider
         value={{
-          user: { name: 'foo', permissionFlag: 'A' },
+          user: mockedUser,
         }}
       >
         <SearchCasesForm {...props} defaultValues={{ first_name: 'bar' }} />

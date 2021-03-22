@@ -1,6 +1,7 @@
 import { render } from '@testing-library/react';
 
 import { UserContext } from 'components/UserContext/UserContext';
+import { mockedUser } from 'factories/users';
 import * as casesAPI from 'utils/api/cases';
 import CaseRecap from './CaseRecap';
 
@@ -23,15 +24,7 @@ describe(`CaseRecap`, () => {
     const { asFragment, queryByText } = render(
       <UserContext.Provider
         value={{
-          user: {
-            name: 'foo',
-            hasAdminPermissions: true,
-            hasChildrenPermissions: true,
-            hasAdultPermissions: true,
-            email: 'foo@bar.com',
-            permissionFlag: 'A',
-            isAuthorised: true,
-          },
+          user: mockedUser,
         }}
       >
         <CaseRecap {...props} />

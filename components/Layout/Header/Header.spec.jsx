@@ -2,6 +2,7 @@ import { render } from '@testing-library/react';
 
 import Header from './Header';
 import { UserContext } from 'components/UserContext/UserContext';
+import { mockedUser } from 'factories/users';
 import { getData } from 'utils/saveData';
 
 let mockedUseRouter = { asPath: 'path', pathname: 'pathname' };
@@ -32,7 +33,7 @@ describe('Header component', () => {
     const { getByText } = render(
       <UserContext.Provider
         value={{
-          user: { name: 'bar' },
+          user: mockedUser,
         }}
       >
         <Header {...props} />
@@ -70,7 +71,7 @@ describe('Header component', () => {
     const { getByText, asFragment } = render(
       <UserContext.Provider
         value={{
-          user: { name: 'bar' },
+          user: mockedUser,
         }}
       >
         <Header {...props} />
