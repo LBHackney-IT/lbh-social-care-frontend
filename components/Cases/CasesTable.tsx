@@ -13,14 +13,27 @@ const CasesEntry = ({
   caseFormTimestamp,
 }: Case) => (
   <tr className="govuk-table__row">
-    <td className="govuk-table__cell govuk--timestamp">
+    <td
+      className="govuk-table__cell govuk--timestamp"
+      style={{ width: '120px' }}
+    >
       {(dateOfEvent && formatDate(dateOfEvent)) ||
         (caseFormTimestamp && formatDate(caseFormTimestamp))}
     </td>
-    <td className="govuk-table__cell">{formName}</td>
     <td className="govuk-table__cell">
-      {officerEmail && `- created by ${officerEmail}`}
+      {
+        <>
+          {['ASC_case_note', 'CFS_case_note'].includes(
+            caseFormData.form_name_overall
+          ) && 'Case Note - '}
+          {formName}
+          {caseFormData.case_note_title && (
+            <div>{caseFormData.case_note_title}</div>
+          )}
+        </>
+      }
     </td>
+    <td className="govuk-table__cell">{officerEmail}</td>
     <td className="govuk-table__cell govuk-button--secondary'">
       <CaseLink
         recordId={recordId}
@@ -31,8 +44,25 @@ const CasesEntry = ({
   </tr>
 );
 
+const tableHeader = [
+  { id: 'date_of_event', text: 'Date created' },
+  { id: 'formName', text: 'Record type' },
+  { id: 'officer_email', text: 'Created by' },
+  { id: 'action', text: 'Action' },
+];
+
 const CasesTable = ({ records }: { records: Case[] }): React.ReactElement => (
   <table className="govuk-table">
+    <thead className="govuk-table__head">
+      <tr className="govuk-table__row">
+        {tableHeader.map(({ id, text }) => (
+          <th key={id} scope="col" className="govuk-table__header">
+            {text}
+          </th>
+        ))}
+        <th scope="col" className="govuk-table__header"></th>
+      </tr>
+    </thead>
     <tbody className="govuk-table__body">
       {records.map((result) => (
         <CasesEntry key={result.recordId} {...result} />
