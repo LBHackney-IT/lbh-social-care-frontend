@@ -13,11 +13,21 @@ export const mockedNote: Case = {
     last_name: 'Bar',
     timestamp: '11/03/2021 16:51:56',
     mosaic_id: 123,
-    form_name_overall: 'ASC_case_note',
+    form_name_overall: 'foo',
     worker_email: 'worker@hackney.gov.uk',
     form_name: 'Foo bar',
     context_flag: 'A',
     date_of_event: '25/10/2020 13:49:43',
+  },
+};
+
+export const mockedCaseNote: Case = {
+  ...mockedNote,
+  recordId: 'cn_123',
+  caseFormData: {
+    ...mockedNote.caseFormData,
+    form_name_overall: 'ASC_case_note',
+    case_note_title: 'i am a case title',
   },
 };
 

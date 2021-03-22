@@ -21,7 +21,17 @@ const CasesEntry = ({
         (caseFormTimestamp && formatDate(caseFormTimestamp))}
     </td>
     <td className="govuk-table__cell">
-      {officerEmail && `- created by ${officerEmail}`}
+      {
+        <>
+          {['ASC_case_note', 'CFS_case_note'].includes(
+            caseFormData.form_name_overall
+          ) && 'Case Note - '}
+          {formName}
+          {caseFormData.case_note_title && (
+            <div>{caseFormData.case_note_title}</div>
+          )}
+        </>
+      }
     </td>
     <td className="govuk-table__cell">{officerEmail}</td>
     <td className="govuk-table__cell govuk-button--secondary'">

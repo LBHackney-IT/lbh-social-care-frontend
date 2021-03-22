@@ -52,6 +52,20 @@ exports[`CaseRecap should update the queryString on search and run a new search 
           Invalid Date
         </dd>
       </div>
+      <div
+        class="govuk-summary-list__row"
+      >
+        <dt
+          class="govuk-summary-list__key"
+        >
+          Case Note Title
+        </dt>
+        <dd
+          class="govuk-summary-list__value"
+        >
+          i am a case title
+        </dd>
+      </div>
     </dl>
   </div>
 </DocumentFragment>
