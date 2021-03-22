@@ -1,7 +1,7 @@
 import { FormStep, FormComponentStep } from 'components/Form/types';
 import ExpandDetails from 'components/ExpandDetails/ExpandDetails';
 
-const WARNING_TYPES = [
+const WARNING_TYPES_ADULTS = [
   'Risk to Children',
   'Risk to Adults',
   'Adult at Risk',
@@ -9,6 +9,20 @@ const WARNING_TYPES = [
   'Disclosure Risk',
   'Risk to Self',
   'Missing Person',
+];
+
+const WARNING_TYPES_CHILDREN = [
+  'Adult who poses risk to children',
+  'Contact arrangement in place',
+  'Do not disclose information',
+  'Duplicate file',
+  'Extrafamilial harm',
+  'MARAC case (Domestic violence)',
+  'Protection order in place',
+  'Restricted file',
+  'Risk of home environment',
+  'Risk posed to worker',
+  'Safeguarding agreement in place',
 ];
 
 const INTRO: Array<FormComponentStep> = [
@@ -37,7 +51,7 @@ const INTRO: Array<FormComponentStep> = [
   </div>,
 ];
 
-const WARNING_TYPE: Array<FormComponentStep> = [
+const WARNING_TYPE_ADULTS: Array<FormComponentStep> = [
   <div key="warning types">
     <h2>Warning types</h2>
     <ExpandDetails label="Guidance on types" triggerLabel="guidance">
@@ -154,9 +168,69 @@ const WARNING_TYPE: Array<FormComponentStep> = [
     component: 'Radios',
     name: 'type',
     label: 'Select warning type',
-    options: WARNING_TYPES,
+    options: WARNING_TYPES_ADULTS,
     rules: { required: true },
   },
+];
+
+const WARNING_TYPE_CHILDREN: Array<FormComponentStep> = [
+  <div key="warning types">
+    <h2>Warning types</h2>
+    <ExpandDetails label="Guidance on types" triggerLabel="guidance">
+      <>
+        <div>
+          <p>
+            <strong>Adult who poses risk to children</strong> - in cases where
+            there may be contact with an adult who either does or does not live
+            in the home, could be a family member etc, for example, cases where
+            there is a risk of abuse but the perpertrator has never been
+            convicted
+          </p>
+          <p>
+            <strong>Do not disclose information</strong> - information should
+            not be disclosed without the consent of a social worker or parent,
+            for example, address, names, phone numbers, date of birth, school,
+            GP or that they have a social worker
+          </p>
+          <p>
+            <strong>Contact arrangement in place</strong> - this includes court
+            directed contact arrangements for a child and parent(s) or family
+            arranged contact
+          </p>
+          <p>
+            <strong>Extrafamilial harm</strong> - Child criminal exploitation
+            (CCE), Child sexual exploitation (CSE) or Gang affiliation
+          </p>
+          <p>
+            <strong>MARAC case</strong> - high risk domestic violence cases
+          </p>
+          <p>
+            <strong>Protection order in place</strong> - Domestic violence cases
+            where there are court orders in place i.e. non-molestation,
+            Prohibited Steps order etc
+          </p>
+          <p>
+            <strong>Risk of home environment</strong> - dangerous dogs, drugs
+            users/needles etc
+          </p>
+          <p>
+            <strong>Risk posed to worker</strong> - if parents have ever
+            assaulted a professional etc
+          </p>
+        </div>
+      </>
+    </ExpandDetails>
+  </div>,
+  {
+    component: 'Radios',
+    name: 'type',
+    label: 'Select warning type',
+    options: WARNING_TYPES_CHILDREN,
+    rules: { required: true },
+  },
+];
+
+const WARNING_DATES: Array<FormComponentStep> = [
   {
     component: 'DateInput',
     name: 'createdDate',
@@ -310,7 +384,8 @@ export const formStepsAdult: FormStep[] = [
     title: 'Warning details',
     components: [
       ...INTRO,
-      ...WARNING_TYPE,
+      ...WARNING_TYPE_ADULTS,
+      ...WARNING_DATES,
       ...WARNING_DISCLOSURE,
       ...WARNING_NARRATIVE,
       ...DISCUSSED_WITH_MANAGER,
@@ -324,7 +399,8 @@ export const formStepsChild: FormStep[] = [
     title: 'Warning details',
     components: [
       ...INTRO,
-      ...WARNING_TYPE,
+      ...WARNING_TYPE_CHILDREN,
+      ...WARNING_DATES,
       ...WARNING_NARRATIVE,
       ...DISCUSSED_WITH_MANAGER,
     ],
