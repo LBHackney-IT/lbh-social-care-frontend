@@ -11,10 +11,10 @@ const formSteps: FormStep[] = [
     title: 'CFS Case Notes Recording',
     components: [
       {
-        component: 'Select',
+        component: 'Radios',
         name: 'serviceAreaType',
         label: 'Is this a group case note?',
-        options: ['Yes', 'No'],
+        rules: { required: true },
       },
       {
         component: 'Select',
@@ -41,24 +41,28 @@ const formSteps: FormStep[] = [
         width: 30,
         label: "if 'Other', please provide case note type",
         conditionalRender: ({ cfsCaseNoteType }) => cfsCaseNoteType === 'Other',
+        rules: { required: true },
       },
       {
         component: 'DateInput',
         name: 'dateOfEvent',
         label: 'Date of Event',
         hint: 'For example, 31 03 1980',
+        rules: { required: true },
       },
       {
         component: 'TextInput',
         name: 'cfsCaseNoteTitle',
         width: 30,
         label: 'Case Note Title',
+        rules: { required: true },
       },
       {
         component: 'TextArea',
         name: 'cfsCaseNoteDescription',
         width: 30,
         label: 'Case Note Description',
+        rules: { required: true },
       },
     ],
   },
