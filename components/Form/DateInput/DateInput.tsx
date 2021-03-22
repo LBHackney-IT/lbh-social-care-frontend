@@ -85,9 +85,12 @@ const DateInput = forwardRef<HTMLInputElement, InputProps>(
                   pattern="^\d{2}$"
                   inputMode="numeric"
                   defaultValue={date.day}
-                  onChange={({ target: { value } }) =>
-                    setNewDate({ day: value })
-                  }
+                  onChange={({
+                    target: {
+                      value,
+                      validity: { valid },
+                    },
+                  }) => valid && setNewDate({ day: value })}
                   ref={ref}
                   {...otherProps}
                 />
@@ -113,9 +116,12 @@ const DateInput = forwardRef<HTMLInputElement, InputProps>(
                   pattern="^\d{2}$"
                   inputMode="numeric"
                   defaultValue={date.month}
-                  onChange={({ target: { value } }) =>
-                    setNewDate({ month: value })
-                  }
+                  onChange={({
+                    target: {
+                      value,
+                      validity: { valid },
+                    },
+                  }) => valid && setNewDate({ month: value })}
                   {...otherProps}
                 />
               </div>
@@ -140,9 +146,12 @@ const DateInput = forwardRef<HTMLInputElement, InputProps>(
                   pattern="^\d{4}$"
                   inputMode="numeric"
                   defaultValue={date.year}
-                  onChange={({ target: { value } }) =>
-                    setNewDate({ year: value })
-                  }
+                  onChange={({
+                    target: {
+                      value,
+                      validity: { valid },
+                    },
+                  }) => valid && setNewDate({ year: value })}
                   {...otherProps}
                 />
               </div>
