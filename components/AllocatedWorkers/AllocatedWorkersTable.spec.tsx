@@ -2,7 +2,7 @@ import { render } from '@testing-library/react';
 
 import { UserContext } from 'components/UserContext/UserContext';
 import AllocatedWorkersTable, { Props } from './AllocatedWorkersTable';
-import { mockedAllocations } from 'fixtures/allocatedWorkers.fixtures';
+import { mockedAllocations } from 'factories/allocatedWorkers';
 
 jest.mock('next/router', () => ({
   useRouter: () => ({

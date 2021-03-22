@@ -49,7 +49,7 @@ exports[`useWarningNotes should render properly 1`] = `
           </dl>
           <a
             class="govuk-link govuk-link-underline"
-            href="/people/123/warning-notes/123"
+            href="/people/123/warning-notes/1"
           >
             Review / end
           </a>
@@ -85,7 +85,7 @@ exports[`useWarningNotes should render properly 1`] = `
           </dl>
           <a
             class="govuk-link govuk-link-underline"
-            href="/people/123/warning-notes/234"
+            href="/people/123/warning-notes/2"
           >
             Review / end
           </a>

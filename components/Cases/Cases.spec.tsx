@@ -3,8 +3,8 @@ import { render, waitFor, fireEvent } from '@testing-library/react';
 import * as casesAPI from 'utils/api/cases';
 import { UserContext } from 'components/UserContext/UserContext';
 
-import { mockedNote, mockedAllocationNote } from 'fixtures/cases.fixtures';
-import { mockedResident } from 'fixtures/resident.fixtures';
+import { mockedNote, mockedAllocationNote } from 'factories/cases';
+import { mockedResident } from 'factories/residents';
 
 import Cases from './Cases';
 

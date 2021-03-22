@@ -1,7 +1,7 @@
 import { render } from '@testing-library/react';
 
 import CasesTable from './CasesTable';
-import { mockedNote } from 'fixtures/cases.fixtures';
+import { mockedNote } from 'factories/cases';
 
 describe('CasesTable component', () => {
   const props = {

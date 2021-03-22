@@ -1,5 +1,5 @@
 import { render } from '@testing-library/react';
-import { mockedDeallocationNote } from 'fixtures/cases.fixtures';
+import { mockedDeallocationNote } from 'factories/cases';
 
 import CaseLink from './CaseLink';
 

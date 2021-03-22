@@ -4,7 +4,7 @@ import { UserContext } from 'components/UserContext/UserContext';
 import * as casesAPI from 'utils/api/cases';
 import CaseRecap from './CaseRecap';
 
-import { mockedNote } from 'fixtures/cases.fixtures';
+import { mockedNote } from 'factories/cases';
 
 jest.mock('components/Spinner/Spinner', () => () => 'MockedSpinner');
 
