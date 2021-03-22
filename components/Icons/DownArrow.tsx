@@ -2,6 +2,7 @@
 
 const colors = {
   default: '#000',
+  white: '#fff',
 };
 
 interface Props {

@@ -1,0 +1,88 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`PageView should render component 1`] = `
+<DocumentFragment>
+  <h3
+    class="govuk-heading-m govuk-custom-text-color govuk-!-margin-bottom-0"
+  >
+    FOO
+    <hr
+      class="govuk-divider"
+    />
+  </h3>
+  <dl
+    class="govuk-summary-list govuk-!-margin-bottom-2"
+  >
+    <div
+      class="govuk-summary-list__row"
+    >
+      <dt
+        class="govuk-summary-list__key"
+      >
+        Created by
+      </dt>
+      <dd
+        class="govuk-summary-list__value"
+      >
+        test@test.com
+      </dd>
+    </div>
+    <div
+      class="govuk-summary-list__row"
+    >
+      <dt
+        class="govuk-summary-list__key"
+      >
+        Foo Type
+      </dt>
+      <dd
+        class="govuk-summary-list__value"
+      >
+        Bar
+      </dd>
+    </div>
+    <div
+      class="govuk-summary-list__row"
+    >
+      <dt
+        class="govuk-summary-list__key"
+      >
+        Date of event
+      </dt>
+      <dd
+        class="govuk-summary-list__value"
+      >
+        05/06/2020
+      </dd>
+    </div>
+    <div
+      class="govuk-summary-list__row"
+    >
+      <dt
+        class="govuk-summary-list__key"
+      >
+        Team
+      </dt>
+      <dd
+        class="govuk-summary-list__value"
+      >
+        Foo 1223
+      </dd>
+    </div>
+  </dl>
+  <div
+    class="pageView"
+  >
+    <span
+      class="gov-weight-lighter title"
+    >
+      Foo Description
+    </span>
+    <div
+      class="content"
+    >
+      Foo Bar
+    </div>
+  </div>
+</DocumentFragment>
+`;
