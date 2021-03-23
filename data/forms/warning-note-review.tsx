@@ -58,7 +58,18 @@ const formSteps: FormStep[] = [
         component: 'DateInput',
         name: 'nextReviewDate',
         label: 'Next review date',
-        rules: { required: true },
+        rules: {
+          required: true,
+          validate: {
+            beforeStartDate: (value, { reviewDate }) =>
+              new Date(value).getTime() >= new Date(reviewDate).getTime() ||
+              'Next review date cannot be earlier than date review undertaken',
+            notMoreThanOneYear: (value, { reviewDate }) =>
+              new Date(value).getTime() - new Date(reviewDate).getTime() <=
+                365 * 24 * 60 * 60 * 1000 ||
+              'Next review date cannot be more than 1 year from date review undertaken',
+          },
+        },
         showConditionalGuides: true,
         hint:
           'Next review date cannot be more than 1 year from date review undertaken ',

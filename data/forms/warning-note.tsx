@@ -240,6 +240,8 @@ const WARNING_DATES: Array<FormComponentStep> = [
   {
     component: 'DateInput',
     name: 'nextReviewDate',
+    hint:
+      'The Review / end date cannot be more than 1 year from the Start date',
     label: 'Review / end date',
     rules: {
       required: true,
