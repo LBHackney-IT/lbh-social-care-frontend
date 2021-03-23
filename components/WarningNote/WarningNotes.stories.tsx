@@ -1,7 +1,7 @@
 import { WarningBox, Props } from './WarningNotes';
 import { Story } from '@storybook/react';
 
-import { mockedWarningNote } from 'fixtures/warningNotes.fixtures';
+import { mockedWarningNote } from 'factories/warningNotes';
 
 export default {
   title: 'Warning Note',

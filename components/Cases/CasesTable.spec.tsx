@@ -5,7 +5,7 @@ import {
   mockedNote,
   mockedCaseNote,
   mockedAllocationNote,
-} from 'fixtures/cases.fixtures';
+} from 'factories/cases';
 
 describe('CasesTable component', () => {
   const props = {

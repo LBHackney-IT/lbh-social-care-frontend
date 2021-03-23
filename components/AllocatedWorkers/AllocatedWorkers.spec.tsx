@@ -1,8 +1,9 @@
 import { render } from '@testing-library/react';
 
 import { UserContext } from 'components/UserContext/UserContext';
+import { userFactory } from 'factories/users';
 import * as allocatedWorkersAPI from 'utils/api/allocatedWorkers';
-import { mockedAllocations } from 'fixtures/allocatedWorkers.fixtures';
+import { mockedAllocations } from 'factories/allocatedWorkers';
 import AllocatedWorkers from './AllocatedWorkers';
 
 jest.mock('next/router', () => ({
@@ -38,15 +39,7 @@ describe(`AddAllocatedWorker`, () => {
     const { findByText, queryByText } = render(
       <UserContext.Provider
         value={{
-          user: {
-            name: 'foo',
-            hasAdminPermissions: true,
-            hasChildrenPermissions: true,
-            hasAdultPermissions: true,
-            email: 'foo@bar.com',
-            permissionFlag: 'A',
-            isAuthorised: true,
-          },
+          user: userFactory.build(),
         }}
       >
         <AllocatedWorkers {...props} />
@@ -54,7 +47,7 @@ describe(`AddAllocatedWorker`, () => {
     );
     const allocateTable = await findByText('MockedAllocatedWorkersTable');
     expect(allocateTable).toBeInTheDocument();
-    const addAllocate = await queryByText('Allocate worker');
+    const addAllocate = queryByText('Allocate worker');
     expect(addAllocate).not.toBeInTheDocument();
   });
 
@@ -62,16 +55,9 @@ describe(`AddAllocatedWorker`, () => {
     const { findByText, queryByText } = render(
       <UserContext.Provider
         value={{
-          user: {
-            name: 'foo',
-            hasAdminPermissions: true,
-            hasChildrenPermissions: true,
-            hasAdultPermissions: true,
-            email: 'foo@bar.com',
-            permissionFlag: 'A',
-            isAuthorised: true,
+          user: userFactory.build({
             hasAllocationsPermissions: true,
-          },
+          }),
         }}
       >
         <AllocatedWorkers {...props} />
@@ -79,7 +65,7 @@ describe(`AddAllocatedWorker`, () => {
     );
     const allocateTable = await findByText('MockedAllocatedWorkersTable');
     expect(allocateTable).toBeInTheDocument();
-    const addAllocate = await queryByText('Allocate worker');
+    const addAllocate = queryByText('Allocate worker');
     expect(addAllocate).toBeInTheDocument();
   });
 });

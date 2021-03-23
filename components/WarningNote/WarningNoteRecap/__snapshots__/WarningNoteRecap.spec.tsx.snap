@@ -49,7 +49,7 @@ exports[`WarningNoteRecap should render correctly 1`] = `
         <dd
           class="govuk-summary-list__value"
         >
-          12/12/2020
+          22/12/2020
         </dd>
       </div>
       <div

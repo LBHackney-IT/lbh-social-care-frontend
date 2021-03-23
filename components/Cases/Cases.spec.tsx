@@ -2,9 +2,10 @@ import { render, waitFor, fireEvent } from '@testing-library/react';
 
 import * as casesAPI from 'utils/api/cases';
 import { UserContext } from 'components/UserContext/UserContext';
+import { userFactory } from 'factories/users';
 
-import { mockedNote, mockedAllocationNote } from 'fixtures/cases.fixtures';
-import { mockedResident } from 'fixtures/resident.fixtures';
+import { mockedNote, mockedAllocationNote } from 'factories/cases';
+import { mockedResident } from 'factories/residents';
 
 import Cases from './Cases';
 
@@ -21,21 +22,7 @@ describe('Cases component', () => {
       setSize: mockSetSize,
       data: [
         {
-          cases: [
-            {
-              caseFormTimestamp: '2020-12-04',
-              dateOfBirth: '2020-12-13',
-              firstName: 'foo',
-              lastName: 'FOO',
-              personId: 44000001,
-              formName: 'Foo_foo',
-              recordId: '12347',
-              caseFormUrl: 'http//foo/foo',
-              officerEmail: 'foo@foo.co.uk',
-              dateOfEvent: '2020-12-23',
-              caseFormData: mockedNote.caseFormData,
-            },
-          ],
+          cases: [mockedNote],
           nextCursor: 1,
         },
         {
@@ -50,15 +37,7 @@ describe('Cases component', () => {
     const { asFragment, getByRole, getAllByText } = render(
       <UserContext.Provider
         value={{
-          user: {
-            name: 'foo',
-            hasAdminPermissions: true,
-            hasChildrenPermissions: true,
-            hasAdultPermissions: true,
-            email: 'foo@bar.com',
-            permissionFlag: 'A',
-            isAuthorised: true,
-          },
+          user: userFactory.build(),
         }}
       >
         <Cases {...props} />
@@ -91,15 +70,7 @@ describe('Cases component', () => {
     const { asFragment, getByText } = render(
       <UserContext.Provider
         value={{
-          user: {
-            name: 'foo',
-            hasAdminPermissions: true,
-            hasChildrenPermissions: true,
-            hasAdultPermissions: true,
-            email: 'foo@bar.com',
-            permissionFlag: 'A',
-            isAuthorised: true,
-          },
+          user: userFactory.build(),
         }}
       >
         <Cases {...props} />
@@ -120,15 +91,7 @@ describe('Cases component', () => {
     const { asFragment, queryByText } = render(
       <UserContext.Provider
         value={{
-          user: {
-            name: 'foo',
-            hasAdminPermissions: true,
-            hasChildrenPermissions: true,
-            hasAdultPermissions: true,
-            email: 'foo@bar.com',
-            permissionFlag: 'A',
-            isAuthorised: true,
-          },
+          user: userFactory.build(),
         }}
       >
         <Cases {...props} />
@@ -150,16 +113,9 @@ describe('Cases component', () => {
     const { asFragment, queryByText } = render(
       <UserContext.Provider
         value={{
-          user: {
-            name: 'foo',
-            hasAdminPermissions: true,
-            hasChildrenPermissions: true,
-            hasAdultPermissions: true,
-            email: 'foo@bar.com',
-            permissionFlag: 'A',
-            isAuthorised: true,
+          user: userFactory.build({
             hasUnrestrictedPermissions: true,
-          },
+          }),
         }}
       >
         <Cases {...props} />

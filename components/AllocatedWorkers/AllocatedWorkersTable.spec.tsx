@@ -2,7 +2,8 @@ import { render } from '@testing-library/react';
 
 import { UserContext } from 'components/UserContext/UserContext';
 import AllocatedWorkersTable, { Props } from './AllocatedWorkersTable';
-import { mockedAllocations } from 'fixtures/allocatedWorkers.fixtures';
+import { mockedAllocations } from 'factories/allocatedWorkers';
+import { mockedUser } from 'factories/users';
 
 jest.mock('next/router', () => ({
   useRouter: () => ({
@@ -20,15 +21,7 @@ describe('AllocatedWorkers component', () => {
     const { asFragment } = render(
       <UserContext.Provider
         value={{
-          user: {
-            name: 'foo',
-            hasAdminPermissions: true,
-            hasChildrenPermissions: true,
-            hasAdultPermissions: true,
-            email: 'foo@bar.com',
-            permissionFlag: 'A',
-            isAuthorised: true,
-          },
+          user: mockedUser,
         }}
       >
         <AllocatedWorkersTable {...props} />
@@ -41,15 +34,7 @@ describe('AllocatedWorkers component', () => {
     const { asFragment } = render(
       <UserContext.Provider
         value={{
-          user: {
-            name: 'foo',
-            hasAdminPermissions: true,
-            hasChildrenPermissions: true,
-            hasAdultPermissions: true,
-            email: 'foo@bar.com',
-            permissionFlag: 'A',
-            isAuthorised: true,
-          },
+          user: mockedUser,
         }}
       >
         <AllocatedWorkersTable {...props} hasAllocationsPermissions={true} />

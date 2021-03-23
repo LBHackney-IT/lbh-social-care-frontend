@@ -83,7 +83,7 @@ exports[`CasesTable component should render properly 1`] = `
           class="govuk-table__cell govuk--timestamp"
           style="width: 120px;"
         >
-          11 Mar 2021
+          25 Oct 2020
         </td>
         <td
           class="govuk-table__cell"
@@ -93,13 +93,13 @@ exports[`CasesTable component should render properly 1`] = `
         <td
           class="govuk-table__cell"
         >
-          foo@hackney.gov.uk
+          Fname.Lname@hackney.gov.uk
         </td>
         <td
           class="govuk-table__cell govuk-button--secondary'"
         >
           <a
-            href="/people/123/allocations/321?recordId=r_123"
+            href="/people/123/allocations/321?recordId=2"
           >
             View
           </a>
@@ -131,10 +131,7 @@ exports[`CasesTable component should render properly 1`] = `
           class="govuk-table__cell govuk-button--secondary'"
         >
           <a
-            class="govuk-link"
-            href="https://foo.bar"
-            rel="noreferrer noopener"
-            target="_blank"
+            href="/people/123/records/4"
           >
             View
           </a>

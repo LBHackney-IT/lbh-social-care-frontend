@@ -9,7 +9,6 @@ describe('PersonView component', () => {
       firstName: 'Ciasom',
       lastName: 'Tesselate',
       mosaicId: 44000000,
-      formName: 'Foo_bar',
       nhsNumber: '12345',
       ageContext: 'A',
       firstLanguage: 'English',

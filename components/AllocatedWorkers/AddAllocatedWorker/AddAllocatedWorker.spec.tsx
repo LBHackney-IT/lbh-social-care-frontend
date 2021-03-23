@@ -1,6 +1,7 @@
 import { act, fireEvent, render } from '@testing-library/react';
 
 import { UserContext } from 'components/UserContext/UserContext';
+import { mockedUser } from 'factories/users';
 import AddAllocatedWorker from './AddAllocatedWorker';
 
 import * as allocatedWorkerAPI from 'utils/api/allocatedWorkers';
@@ -74,15 +75,7 @@ describe(`AddAllocatedWorker`, () => {
     const { getByTestId, asFragment } = render(
       <UserContext.Provider
         value={{
-          user: {
-            name: 'foo',
-            hasAdminPermissions: true,
-            hasChildrenPermissions: true,
-            hasAdultPermissions: true,
-            email: 'foo@bar.com',
-            permissionFlag: 'A',
-            isAuthorised: true,
-          },
+          user: mockedUser,
         }}
       >
         <AddAllocatedWorker {...props} />
@@ -105,15 +98,7 @@ describe(`AddAllocatedWorker`, () => {
     const { getByLabelText, getByRole, getByTestId } = render(
       <UserContext.Provider
         value={{
-          user: {
-            name: 'foo',
-            hasAdminPermissions: true,
-            hasChildrenPermissions: true,
-            hasAdultPermissions: true,
-            email: 'foo@bar.com',
-            permissionFlag: 'A',
-            isAuthorised: true,
-          },
+          user: mockedUser,
         }}
       >
         <AddAllocatedWorker {...props} />

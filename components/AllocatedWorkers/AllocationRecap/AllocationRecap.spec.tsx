@@ -3,11 +3,8 @@ import { render } from '@testing-library/react';
 import AllocationRecap from './AllocationRecap';
 import * as allocatedWorkersAPI from 'utils/api/allocatedWorkers';
 import * as caseAPI from 'utils/api/cases';
-import { mockedAllocations } from 'fixtures/allocatedWorkers.fixtures';
-import {
-  mockedAllocationNote,
-  mockedDeallocationNote,
-} from 'fixtures/cases.fixtures';
+import { mockedAllocations } from 'factories/allocatedWorkers';
+import { mockedAllocationNote, mockedDeallocationNote } from 'factories/cases';
 
 jest.mock('components/Spinner/Spinner', () => () => 'MockedSpinner');
 
