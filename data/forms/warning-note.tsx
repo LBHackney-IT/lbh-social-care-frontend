@@ -235,6 +235,8 @@ const WARNING_DATES: Array<FormComponentStep> = [
     component: 'DateInput',
     name: 'createdDate',
     label: 'Start date',
+    hint:
+      'If the start date is set in the future, the Warning Note will not be displayed until that date.',
     rules: { required: true },
   },
   {
