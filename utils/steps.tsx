@@ -1,7 +1,7 @@
 import { ReactNode } from 'react';
 import Summary from 'components/Steps/Summary';
 import Confirmation from 'components/Steps/Confirmation';
-
+import { FormStep } from 'components/Form/types';
 interface CustomStep {
   summary?: ReactNode;
   confirmation?: ReactNode;
@@ -54,7 +54,7 @@ export const getNextStepPath = (
 };
 
 export const renderOnCondition = (
-  step: Step,
+  step: FormStep,
   data: Record<string, unknown>,
   component: ReactNode
 ): ReactNode | null =>

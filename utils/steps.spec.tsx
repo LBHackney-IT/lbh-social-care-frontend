@@ -78,14 +78,27 @@ describe('FormWizard', () => {
 
   describe('renderOnCondition', () => {
     it('should return the component if no render condition', () => {
-      expect(renderOnCondition({ id: 'foo' }, {}, FakeComponentStep)).toEqual(
-        FakeComponentStep
-      );
+      expect(
+        renderOnCondition(
+          {
+            id: 'foo',
+            title: 'foo',
+            components: [],
+          },
+          {},
+          FakeComponentStep
+        )
+      ).toEqual(FakeComponentStep);
     });
     it('should return the component if render condition "true"', () => {
       expect(
         renderOnCondition(
-          { id: 'foo', conditionalRender: ({ hide }) => hide !== true },
+          {
+            id: 'foo',
+            title: 'foo',
+            components: [],
+            conditionalRender: ({ hide }) => hide !== true,
+          },
           { hide: false },
           FakeComponentStep
         )
@@ -94,7 +107,12 @@ describe('FormWizard', () => {
     it('should NOT return the component if render condition "false"', () => {
       expect(
         renderOnCondition(
-          { id: 'foo', conditionalRender: ({ hide }) => hide !== true },
+          {
+            id: 'foo',
+            title: 'foo',
+            components: [],
+            conditionalRender: ({ hide }) => hide !== true,
+          },
           { hide: true },
           FakeComponentStep
         )

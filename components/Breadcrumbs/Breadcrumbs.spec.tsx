@@ -1,26 +1,31 @@
 import { render } from '@testing-library/react';
 
-import Breadcrumbs from './Breadcrumbs';
+import Breadcrumbs, { BreadcrumbProps } from './Breadcrumbs';
 
 describe('Breadcrumbs component', () => {
-  const props = {
+  const props: BreadcrumbProps = {
     steps: [
       {
         id: 'first-step',
         title: 'First Step',
+        components: [],
       },
       {
         id: 'second-step-not-show',
         title: 'Second Step',
-        conditionalRender: ({ hide }) => hide === 'false',
+        conditionalRender: ({ hide }: Record<string, unknown>) =>
+          hide === 'false',
+        components: [],
       },
       {
         id: 'third-step',
         title: 'Third Step',
+        components: [],
       },
       {
         id: 'fouth-step',
         title: 'Fourt Step',
+        components: [],
       },
     ],
     path: '/foo/',
