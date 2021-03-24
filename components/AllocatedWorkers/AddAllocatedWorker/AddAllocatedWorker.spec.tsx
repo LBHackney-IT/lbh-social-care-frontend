@@ -114,7 +114,7 @@ describe(`AddAllocatedWorker`, () => {
     });
 
     await act(async () => {
-      fireEvent.click(getByTestId('teamId_2'));
+      fireEvent.click(getByTestId('teamId_0'));
     });
 
     fireEvent.click(getByLabelText('Worker C'));
