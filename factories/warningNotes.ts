@@ -9,7 +9,7 @@ export const warningNoteFactory = Factory.define<WarningNote>(
     createdDate: new Date(2020, 11, 22),
     createdBy: 'Foo',
     disclosedWithIndividual: 'No',
-    disclosedDetails: 'nope',
+    undisclosedDetails: 'nope',
     discussedWithManager: 'the big boss',
     discussedWithManagerDate: new Date(2020, 11, 12),
     nextReviewDate: new Date(2021, 1, 1),

@@ -179,7 +179,7 @@ interface DisclosedNote extends BaseNote {
 
 interface UndisclosedNote extends BaseNote {
   disclosedWithIndividual: 'No';
-  disclosedDetails: string;
+  undisclosedDetails: string;
 }
 
 interface ReviewedNote {

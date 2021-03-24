@@ -6,7 +6,7 @@ import BackButton from 'components/Layout/BackButton/BackButton';
 
 const Workers = (): React.ReactElement => {
   const { query } = useRouter();
-  const allocationId = query.id as string;
+  const allocationId = Number(query.id as string);
   return (
     <div>
       <Seo title={`Worker Allocations -  #${query.id}`} />
