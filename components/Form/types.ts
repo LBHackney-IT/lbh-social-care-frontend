@@ -139,17 +139,21 @@ interface StepAddressLookup extends Omit<AddressLookup, 'rules'> {
   component: 'AddressLookup';
   rules?: EnhancedRules;
 }
-export interface Autocomplete extends GenericField {
+
+export interface Autocomplete extends Omit<GenericField, 'onChange'> {
   name: string;
   label: string;
   options: Option[];
   placeholder?: string;
   width?: Width;
   govGrid?: GovGrid;
+  onChange?: (value: string | number | null) => void;
 }
+
 interface StepAutocomplete extends Autocomplete {
   component: 'Autocomplete';
 }
+
 export interface DateInput extends GenericField {
   format?: 'US' | 'EU';
 }
