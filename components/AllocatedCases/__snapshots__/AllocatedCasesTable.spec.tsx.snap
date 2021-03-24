@@ -42,27 +42,27 @@ exports[`AllocatedCasesTable component should render records properly 1`] = `
         <td
           class="govuk-table__cell"
         >
-          87987 
+          1234 
         </td>
         <td
           class="govuk-table__cell"
         >
           <a
             class="govuk-link"
-            href="/people/87987"
+            href="/people/1234"
           >
-            James Smith
+            foo
           </a>
         </td>
         <td
           class="govuk-table__cell"
         >
-           Flat 11, Test road, E2 8TF
+           the address
         </td>
         <td
           class="govuk-table__cell"
         >
-           21/01/2021
+           20/03/2020
         </td>
       </tr>
     </tbody>

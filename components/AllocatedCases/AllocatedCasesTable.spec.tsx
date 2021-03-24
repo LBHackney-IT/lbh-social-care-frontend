@@ -1,19 +1,11 @@
 import { render } from '@testing-library/react';
 
 import AllocatedCasesTable from './AllocatedCasesTable';
+import { mockedAllocation } from 'factories/allocatedWorkers';
 
 describe('AllocatedCasesTable component', () => {
   const props = {
-    cases: [
-      {
-        id: 123,
-        personId: '87987',
-        personName: 'James Smith',
-        personAddress: 'Flat 11, Test road, E2 8TF',
-        personDateOfBirth: '2021-01-21T09:38:02.186078',
-        allocatedWorkerTeam: 'Long Term - case type: reviews',
-      },
-    ],
+    cases: [mockedAllocation],
   };
 
   it('should render records properly', () => {

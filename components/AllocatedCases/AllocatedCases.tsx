@@ -1,11 +1,13 @@
-import PropTypes from 'prop-types';
-
 import AllocatedCasesTable from 'components/AllocatedCases/AllocatedCasesTable';
 import ErrorMessage from 'components/ErrorMessage/ErrorMessage';
 import { useAllocationsByWorker } from 'utils/api/allocatedWorkers';
 import Spinner from 'components/Spinner/Spinner';
 
-const AllocatedCases = ({ id }) => {
+interface Props {
+  id: number;
+}
+
+const AllocatedCases = ({ id }: Props): React.ReactElement => {
   const { data: allocations, error } = useAllocationsByWorker(id);
   if (error) {
     return <ErrorMessage />;
@@ -39,10 +41,6 @@ const AllocatedCases = ({ id }) => {
       )}
     </>
   );
-};
-
-AllocatedCases.propTypes = {
-  id: PropTypes.string.isRequired,
 };
 
 export default AllocatedCases;

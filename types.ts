@@ -150,6 +150,7 @@ export interface Worker {
   lastName: string;
   role: string;
   allocationCount: number;
+  teams: Team[];
 }
 
 interface BaseNote {
