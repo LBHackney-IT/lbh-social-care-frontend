@@ -169,7 +169,7 @@ const Summary = ({
 
 Summary.propTypes = {
   formData: PropTypes.shape({}).isRequired,
-  formSteps: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
+  formSteps: PropTypes.array.isRequired,
   formPath: PropTypes.string.isRequired,
   canEdit: PropTypes.bool,
   isSummaryCollapsable: PropTypes.bool,

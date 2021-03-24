@@ -1,7 +1,15 @@
-import PropTypes from 'prop-types';
 import { useRouter } from 'next/router';
 
 import Summary from 'components/Summary/Summary';
+import { FormStep } from 'components/Form/types';
+
+interface Props {
+  formData: Record<string, unknown>;
+  formSteps: FormStep[];
+  formPath: string;
+  successMessage?: string;
+  isSummaryCollapsable?: boolean;
+}
 
 const ConfirmationStep = ({
   formData,
@@ -9,10 +17,9 @@ const ConfirmationStep = ({
   formPath,
   successMessage,
   isSummaryCollapsable,
-}) => {
+}: Props): React.ReactElement => {
   const router = useRouter();
   const { ref } = router.query;
-  if (!formSteps) return null;
   return (
     <div>
       <div className="govuk-panel govuk-panel--confirmation govuk-!-margin-bottom-9">
@@ -35,14 +42,6 @@ const ConfirmationStep = ({
       />
     </div>
   );
-};
-
-ConfirmationStep.propTypes = {
-  formData: PropTypes.shape({}).isRequired,
-  formSteps: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
-  formPath: PropTypes.string.isRequired,
-  successMessage: PropTypes.string,
-  isSummaryCollapsable: PropTypes.bool,
 };
 
 export default ConfirmationStep;
