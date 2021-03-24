@@ -11,10 +11,10 @@ const AddNewAllocationPage = (): React.ReactElement => {
   const { query, replace } = useRouter();
   const personId = Number(query.id as string);
   const { user } = useAuth();
-  // if (isBrowser() && !user?.hasAllocationsPermissions) {
-  //   replace(`/people/${personId}`);
-  //   return <></>;
-  // }
+  if (isBrowser() && !user?.hasAllocationsPermissions) {
+    replace(`/people/${personId}`);
+    return <></>;
+  }
   return (
     <>
       <Seo title={`Allocate Worker to #${query.id} Allocate Worker`} />
