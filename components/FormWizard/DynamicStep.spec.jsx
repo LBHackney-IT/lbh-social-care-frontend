@@ -9,7 +9,7 @@ describe('DynamicStep component', () => {
       {
         component: 'TextInput',
         name: 'bar_input',
-        width: '30',
+        width: 30,
         label: 'Foo',
       },
     ],

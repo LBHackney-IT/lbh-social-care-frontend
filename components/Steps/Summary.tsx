@@ -1,5 +1,4 @@
-import { useState } from 'react';
-import PropTypes from 'prop-types';
+import React, { useState } from 'react';
 import Router from 'next/router';
 
 import Button from 'components/Button/Button';
@@ -8,6 +7,15 @@ import Summary from 'components/Summary/Summary';
 import ErrorSummary from 'components/ErrorSummary/ErrorSummary';
 import { filterDataOnCondition } from 'utils/steps';
 import { sanitiseObject } from 'utils/objects';
+import { FormStep } from 'components/Form/types';
+
+interface Props {
+  formData: Record<string, unknown>;
+  formSteps: FormStep[];
+  formPath: string;
+  onFormSubmit: (filteredData: unknown) => Promise<{ ref?: string } | void>;
+  isSummaryCollapsable?: boolean;
+}
 
 const SummaryStep = ({
   formData,
@@ -15,7 +23,7 @@ const SummaryStep = ({
   formPath,
   onFormSubmit,
   isSummaryCollapsable,
-}) => {
+}: Props): React.ReactElement => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [hasError, setHasError] = useState(false);
   const onSubmit = async () => {
@@ -23,18 +31,18 @@ const SummaryStep = ({
     setHasError(false);
     try {
       const data = await onFormSubmit(
+        //@ts-ignore TODO fix me
         filterDataOnCondition(formSteps, sanitiseObject(formData))
       );
       deleteData(formPath);
       Router.replace(
-        `${formPath}confirmation${data?.ref ? `?ref=${data.ref}` : ''}`
+        `${formPath}confirmation${data && data.ref ? `?ref=${data.ref}` : ''}`
       );
     } catch {
       setHasError(true);
     }
     setIsSubmitting(false);
   };
-  if (!formSteps) return null;
   return (
     <div>
       <div className="lbh-table-header">
@@ -55,7 +63,7 @@ const SummaryStep = ({
           className="govuk-button"
           label="Cancel"
           isSecondary
-          onClick={() => (window.location = '/')}
+          onClick={() => (window.location.href = '/')}
         />
         <Button
           wideButton
@@ -73,14 +81,6 @@ const SummaryStep = ({
       )}
     </div>
   );
-};
-
-SummaryStep.propTypes = {
-  formData: PropTypes.shape({}).isRequired,
-  formSteps: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
-  formPath: PropTypes.string.isRequired,
-  onFormSubmit: PropTypes.func.isRequired,
-  isSummaryCollapsable: PropTypes.bool,
 };
 
 export default SummaryStep;
