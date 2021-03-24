@@ -1,9 +1,14 @@
 import Link from 'next/link';
-import PropTypes from 'prop-types';
+
+import { Allocation } from 'types';
 
 const header = ['Person', 'Name', 'Address', 'Date of birth'];
 
-const AllocatedCasesTable = ({ cases }) => (
+const AllocatedCasesTable = ({
+  cases,
+}: {
+  cases: Allocation[];
+}): React.ReactElement => (
   <table className="govuk-table">
     <thead className="govuk-table__head">
       <tr className="govuk-table__row">
@@ -35,16 +40,5 @@ const AllocatedCasesTable = ({ cases }) => (
     </tbody>
   </table>
 );
-
-AllocatedCasesTable.propTypes = {
-  cases: PropTypes.arrayOf(
-    PropTypes.shape({
-      personId: PropTypes.string.isRequired,
-      personName: PropTypes.string.isRequired,
-      personAddress: PropTypes.string.isRequired,
-      personDateOfBirth: PropTypes.string.isRequired,
-    })
-  ).isRequired,
-};
 
 export default AllocatedCasesTable;

@@ -314,7 +314,7 @@ const WARNING_DISCLOSURE: Array<FormComponentStep> = [
   },
   {
     component: 'TextArea',
-    name: 'disclosedDetails',
+    name: 'undisclosedDetails',
     label: 'Justification for non-disclosure of Warning Note',
     labelSize: 's',
     rules: { required: true },

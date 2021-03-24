@@ -1,7 +1,7 @@
-import PropTypes from 'prop-types';
-
 import { formatDate, isDateValid } from 'utils/date';
-import CaseLink from '../../Cases/CaseLink';
+
+import CaseLink from 'components/Cases/CaseLink';
+import { Case } from 'types';
 
 const CasesEntry = ({
   recordId,
@@ -13,17 +13,18 @@ const CasesEntry = ({
   dateOfEvent,
   caseFormTimestamp,
   caseFormData,
-}) => (
+}: Case): React.ReactElement => (
   <tr className="govuk-table__row">
     <td className="govuk-table__cell">
       {firstName} {lastName}
     </td>
     <td className="govuk-table__cell">
-      {isDateValid(dateOfBirth) && dateOfBirth}
+      {dateOfBirth && isDateValid(dateOfBirth) && dateOfBirth}
     </td>
     <td className="govuk-table__cell">{officerEmail}</td>
     <td className="govuk-table__cell">
-      {formatDate(dateOfEvent || caseFormTimestamp)}
+      {(dateOfEvent && formatDate(dateOfEvent)) ||
+        (caseFormTimestamp && formatDate(caseFormTimestamp))}
     </td>
     <td className="govuk-table__cell govuk-button--secondary'">
       <CaseLink
@@ -35,18 +36,6 @@ const CasesEntry = ({
   </tr>
 );
 
-CasesEntry.propTypes = {
-  recordId: PropTypes.string.isRequired,
-  firstName: PropTypes.string.isRequired,
-  lastName: PropTypes.string.isRequired,
-  officerEmail: PropTypes.string.isRequired,
-  caseFormUrl: PropTypes.string,
-  dateOfEvent: PropTypes.string,
-  dateOfBirth: PropTypes.string,
-  caseFormTimestamp: PropTypes.string.isRequired,
-  caseFormData: PropTypes.object.isRequired,
-};
-
 const tableHeader = [
   { id: 'first_name', text: 'Client Name' },
   { id: 'date_of_birth', text: 'Date of birth' },
@@ -54,7 +43,20 @@ const tableHeader = [
   { id: 'date_of_event', text: 'Last upload' },
 ];
 
-const CasesTable = ({ records, sort = {}, onSort }) => {
+interface Props {
+  sort?: {
+    sort_by?: string;
+    order_by?: string;
+  };
+  onSort?: (id: string) => void;
+  records: Case[];
+}
+
+const CasesTable = ({
+  records,
+  sort = {},
+  onSort,
+}: Props): React.ReactElement => {
   return (
     <table className="govuk-table">
       <thead className="govuk-table__head">
@@ -83,25 +85,6 @@ const CasesTable = ({ records, sort = {}, onSort }) => {
       </tbody>
     </table>
   );
-};
-
-CasesTable.propTypes = {
-  sort: PropTypes.shape({
-    sort_by: PropTypes.string.isRequired,
-    order_by: PropTypes.string.isRequired,
-  }),
-  onSort: PropTypes.func.isRequired,
-  records: PropTypes.arrayOf(
-    PropTypes.shape({
-      recordId: PropTypes.string.isRequired,
-      formName: PropTypes.string.isRequired,
-      caseFormUrl: PropTypes.string,
-      officerEmail: PropTypes.string.isRequired,
-      dateOfEvent: PropTypes.string,
-      caseFormTimestamp: PropTypes.string.isRequired,
-      caseFormData: PropTypes.object.isRequired,
-    })
-  ).isRequired,
 };
 
 export default CasesTable;

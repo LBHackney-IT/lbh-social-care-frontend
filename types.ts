@@ -150,6 +150,7 @@ export interface Worker {
   lastName: string;
   role: string;
   allocationCount: number;
+  teams: Team[];
 }
 
 interface BaseNote {
@@ -178,7 +179,7 @@ interface DisclosedNote extends BaseNote {
 
 interface UndisclosedNote extends BaseNote {
   disclosedWithIndividual: 'No';
-  disclosedDetails: string;
+  undisclosedDetails: string;
 }
 
 interface ReviewedNote {

@@ -42,6 +42,7 @@ describe(`AddAllocatedWorker`, () => {
           allocationCount: 3,
           role: 'role_a',
           email: 'a@email.com',
+          teams: [],
         },
         {
           id: 8,
@@ -50,6 +51,7 @@ describe(`AddAllocatedWorker`, () => {
           allocationCount: 0,
           role: 'role_b',
           email: 'b@email.com',
+          teams: [],
         },
         {
           id: 7,
@@ -58,6 +60,7 @@ describe(`AddAllocatedWorker`, () => {
           allocationCount: 1,
           role: 'role_c',
           email: 'c@email.com',
+          teams: [],
         },
       ],
     },

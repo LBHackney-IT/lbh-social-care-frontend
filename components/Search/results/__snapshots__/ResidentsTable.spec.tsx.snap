@@ -44,24 +44,24 @@ exports[`ResidenTable component should render properly 1`] = `
         <td
           class="govuk-table__cell"
         >
-          foo
+          1
         </td>
         <td
           class="govuk-table__cell"
         >
-          Fname Lname
+          Foo Bar
         </td>
         <td
           class="govuk-table__cell"
         >
-          23/02/1978
+          13/11/2020
         </td>
         <td
           class="govuk-table__cell"
         >
           <a
             class="govuk-link govuk-custom-text-color"
-            href="/people/foo"
+            href="/people/1"
           >
             View
           </a>

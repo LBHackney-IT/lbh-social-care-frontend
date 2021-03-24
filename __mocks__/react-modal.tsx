@@ -1,15 +1,15 @@
-import PropTypes from 'prop-types';
+import React from 'react';
 
 jest.mock('components/Icons/TimesCircle', () => () => 'MockedCloseButton');
 
-const MockModal = ({ isOpen, children }) =>
+interface Props {
+  isOpen?: boolean;
+  children: React.ReactChild;
+}
+
+const MockModal = ({ isOpen, children }: Props): React.ReactElement | null =>
   isOpen ? <div className="modal">{children}</div> : null;
 
 MockModal.setAppElement = jest.fn();
-
-MockModal.propTypes = {
-  isOpen: PropTypes.bool.isRequired,
-  children: PropTypes.node.isRequired,
-};
 
 export default MockModal;

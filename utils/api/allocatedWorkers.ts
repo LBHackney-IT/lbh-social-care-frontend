@@ -35,8 +35,10 @@ export const useTeamWorkers = (
 
 export const useAllocationsByWorker = (
   workerId: number
-): responseInterface<AllocationData, ErrorAPI> =>
-  useSWR(`/api/workers/${workerId}/allocations`);
+): responseInterface<
+  { allocations: Allocation[]; workers: Worker[] },
+  ErrorAPI
+> => useSWR(`/api/workers/${workerId}/allocations`);
 
 export const deleteAllocatedWorker = async (
   residentId: number,
