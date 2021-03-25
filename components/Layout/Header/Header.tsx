@@ -1,5 +1,4 @@
-import { useState, useEffect } from 'react';
-import PropTypes from 'prop-types';
+import React, { useState, useEffect } from 'react';
 import cx from 'classnames';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
@@ -13,14 +12,15 @@ const loggedNavLinks = [
   {
     name: 'Search',
     path: '/',
-    isSelected: ({ asPath, pathname }) =>
+    isSelected: ({ asPath, pathname }: { asPath: string; pathname: string }) =>
       pathname === '/' ||
       (pathname === '/cases' && asPath !== '/cases?my_notes_only=true'),
   },
   {
     name: 'My records',
     path: '/cases?my_notes_only=true',
-    isSelected: ({ asPath }) => asPath === '/cases?my_notes_only=true',
+    isSelected: ({ asPath }: { asPath: string }) =>
+      asPath === '/cases?my_notes_only=true',
   },
   {
     name: 'Forms in progress',
@@ -32,10 +32,14 @@ const loggedNavLinks = [
   },
 ];
 
-const HeaderComponent = ({ serviceName }) => {
+const HeaderComponent = ({
+  serviceName,
+}: {
+  serviceName: string;
+}): React.ReactElement => {
   const { user } = useAuth();
   const { pathname, asPath } = useRouter();
-  const [navLinks, setNavLinks] = useState();
+  const [navLinks, setNavLinks] = useState<typeof loggedNavLinks>();
   useEffect(() => {
     if (user) {
       const savedForms = getData();
@@ -104,10 +108,6 @@ const HeaderComponent = ({ serviceName }) => {
       </div>
     </header>
   );
-};
-
-HeaderComponent.propTypes = {
-  serviceName: PropTypes.string.isRequired,
 };
 
 export default HeaderComponent;

@@ -3,7 +3,7 @@ import { render } from '@testing-library/react';
 import Header from './Header';
 import { UserContext } from 'components/UserContext/UserContext';
 import { mockedUser } from 'factories/users';
-import { getData } from 'utils/saveData';
+import * as saveData from 'utils/saveData';
 
 let mockedUseRouter = { asPath: 'path', pathname: 'pathname' };
 
@@ -13,23 +13,21 @@ jest.mock('next/router', () => ({
 
 jest.mock('./Logo', () => () => 'MockedLogo');
 
-jest.mock('utils/saveData', () => ({
-  getData: jest.fn(),
-}));
-
 describe('Header component', () => {
   const props = {
     serviceName: 'Foo',
   };
   it('should render header links with form in progress link', () => {
-    getData.mockImplementationOnce(() => [
-      {
+    jest.spyOn(saveData, 'getData').mockImplementationOnce(() => ({
+      first: {
+        data: { id: '123' },
         formPath: '/form/foo-bar/',
         timeStamp: '22/12/2020',
         title: 'Foo Bar',
+        step: 'foo',
         deleteForm: jest.fn(),
       },
-    ]);
+    }));
     const { getByText } = render(
       <UserContext.Provider
         value={{
@@ -50,7 +48,7 @@ describe('Header component', () => {
     const { getByText, queryByText } = render(
       <UserContext.Provider
         value={{
-          user: null,
+          user: undefined,
         }}
       >
         <Header {...props} />
