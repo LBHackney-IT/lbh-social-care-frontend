@@ -1,5 +1,4 @@
-import { useState } from 'react';
-import PropTypes from 'prop-types';
+import React, { useState } from 'react';
 
 import Button from 'components/Button/Button';
 import { useAuth } from 'components/UserContext/UserContext';
@@ -7,10 +6,11 @@ import { Autocomplete } from 'components/Form/Autocomplete/Autocomplete';
 import { populateChildForm } from 'utils/populate';
 import ADULT_FORMS from 'data/googleForms/adultForms';
 import CHILD_FORMS from 'data/googleForms/childForms';
+import { Resident, User } from 'types';
 
-const AddForm = ({ person }) => {
-  const { user } = useAuth();
-  const [url, setUrl] = useState();
+const AddForm = ({ person }: { person: Resident }): React.ReactElement => {
+  const { user } = useAuth() as { user: User };
+  const [url, setUrl] = useState<string>();
   const ageContext = person && person.ageContext;
   const forms = ageContext === 'C' ? CHILD_FORMS : ADULT_FORMS;
 
@@ -22,7 +22,7 @@ const AddForm = ({ person }) => {
           options={forms}
           label="Choose a form"
           placeholder="Select or type form name"
-          onChange={(value) => setUrl(value)}
+          onChange={(value) => setUrl(value as string)}
         />
       </div>
       <Button
@@ -42,15 +42,6 @@ const AddForm = ({ person }) => {
       />
     </>
   );
-};
-
-AddForm.propTypes = {
-  person: PropTypes.shape({
-    mosaicId: PropTypes.number.isRequired,
-    ageContext: PropTypes.string,
-    firstName: PropTypes.string.isRequired,
-    lastName: PropTypes.string.isRequired,
-  }).isRequired,
 };
 
 export default AddForm;

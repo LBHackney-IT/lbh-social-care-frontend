@@ -47,7 +47,7 @@ describe('AddForm component', () => {
       </UserContext.Provider>
     );
 
-    const autocompleteInput = await getByTestId('formList');
+    const autocompleteInput = getByTestId('formList') as HTMLInputElement;
 
     expect(autocompleteInput).toBeInTheDocument();
     await act(async () => {
@@ -74,7 +74,7 @@ describe('AddForm component', () => {
       </UserContext.Provider>
     );
 
-    const autocompleteInput = await getByTestId('formList');
+    const autocompleteInput = getByTestId('formList') as HTMLInputElement;
 
     expect(autocompleteInput).toBeInTheDocument();
     await act(async () => {
