@@ -1,4 +1,4 @@
-import PropTypes from 'prop-types';
+import React from 'react';
 import { useForm } from 'react-hook-form';
 import isPast from 'date-fns/isPast';
 import isPostcodeValid from 'uk-postcode-validator';
@@ -6,7 +6,23 @@ import isPostcodeValid from 'uk-postcode-validator';
 import { TextInput, DateInput } from 'components/Form';
 import Button from 'components/Button/Button';
 
-const SearchResidentsForm = ({ onFormSubmit, defaultValues }) => {
+interface FormValues {
+  first_name?: string;
+  last_name?: string;
+  date_of_birth?: string | null;
+  postcode?: string;
+  mosaic_id?: string;
+}
+
+interface Props {
+  onFormSubmit: (formData: FormValues) => void;
+  defaultValues: FormValues;
+}
+
+const SearchResidentsForm = ({
+  onFormSubmit,
+  defaultValues,
+}: Props): React.ReactElement => {
   const {
     register,
     errors,
@@ -63,15 +79,15 @@ const SearchResidentsForm = ({ onFormSubmit, defaultValues }) => {
             hint="i.e. E8 3AS"
             inputClassName="govuk-input--width-10"
             error={errors.postcode}
-            register={register({
-              required: false,
+            register={register}
+            rules={{
               validate: {
                 valid: (value) =>
                   value === '' ||
                   (value && isPostcodeValid(value)) ||
                   'You entered an invalid postcode',
               },
-            })}
+            }}
           />
         </div>
       </div>
@@ -84,7 +100,7 @@ const SearchResidentsForm = ({ onFormSubmit, defaultValues }) => {
             hint="e.g. 1234567890"
             inputClassName="govuk-input--width-10"
             inputMode="numeric"
-            error={errors.mosaicId}
+            error={errors.mosaic_id}
             register={register}
           />
         </div>
@@ -107,11 +123,6 @@ const SearchResidentsForm = ({ onFormSubmit, defaultValues }) => {
       </span>
     </form>
   );
-};
-
-SearchResidentsForm.propTypes = {
-  onFormSubmit: PropTypes.func.isRequired,
-  defaultValues: PropTypes.shape({}),
 };
 
 export default SearchResidentsForm;
