@@ -3,20 +3,21 @@ import { render } from '@testing-library/react';
 import { UserContext } from 'components/UserContext/UserContext';
 import { mockedUser } from 'factories/users';
 import * as casesAPI from 'utils/api/cases';
-import CaseRecap from './CaseRecap';
+import HistoricNote from './HistoricNote';
 
-import { mockedCaseNote } from 'fixtures/cases.fixtures';
+import { mockedHistoricCaseNote } from 'fixtures/cases.fixtures';
 
 jest.mock('components/Spinner/Spinner', () => () => 'MockedSpinner');
 
-describe(`CaseRecap`, () => {
-  const props = {
-    recordId: '123',
-    personId: 123,
-  };
-  it('should update the queryString on search and run a new search - with load more', async () => {
-    jest.spyOn(casesAPI, 'useCase').mockImplementation(() => ({
-      data: mockedCaseNote,
+describe(`HistoricNote`, () => {
+  it('should display historic case note', async () => {
+    const props = {
+      recordId: '123',
+      is_historical: true,
+      personId: 123,
+    };
+    jest.spyOn(casesAPI, 'useCaseNote').mockImplementation(() => ({
+      data: mockedHistoricCaseNote,
       isValidating: false,
       mutate: jest.fn(),
       revalidate: jest.fn(),
@@ -27,10 +28,10 @@ describe(`CaseRecap`, () => {
           user: mockedUser,
         }}
       >
-        <CaseRecap {...props} />
+        <HistoricNote {...props} />
       </UserContext.Provider>
     );
-    expect(queryByText('Foo bar')).toBeInTheDocument();
+    expect(queryByText('Foo Bar')).toBeInTheDocument();
     expect(asFragment()).toMatchSnapshot();
   });
 });

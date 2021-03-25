@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`CaseRecap should update the queryString on search and run a new search - with load more 1`] = `
+exports[`CaseNote should display case note 1`] = `
 <DocumentFragment>
   <div
     class="govuk-!-margin-bottom-7"

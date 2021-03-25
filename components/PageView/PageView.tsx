@@ -2,23 +2,15 @@ import { useEffect, useState } from 'react';
 import style from './PageView.module.scss';
 import Arrow from '../Icons/DownArrow';
 import throttle from 'lodash/throttle';
+import { HistoricCaseData } from 'types';
 
-interface Props {
-  created: string;
-  title: string;
-  type: string;
-  date: string;
-  team: string;
-  note: string;
-}
 const PageView = ({
-  created,
   title,
-  type,
-  date,
-  note,
-  team,
-}: Props): React.ReactElement => {
+  officerEmail,
+  formName,
+  dateOfEvent,
+  content,
+}: HistoricCaseData): React.ReactElement => {
   const [isVisible, setIsVisible] = useState(false);
 
   const toggleVisibility = () => {
@@ -46,36 +38,30 @@ const PageView = ({
         <hr className="govuk-divider" />
       </h3>
       <dl className="govuk-summary-list govuk-!-margin-bottom-2">
-        {created && (
+        {formName && (
+          <div className="govuk-summary-list__row">
+            <dt className="govuk-summary-list__key">{'Form name'}</dt>
+            <dd className="govuk-summary-list__value">{formName}</dd>
+          </div>
+        )}
+        {officerEmail && (
           <div className="govuk-summary-list__row">
             <dt className="govuk-summary-list__key">{'Created by'}</dt>
-            <dd className="govuk-summary-list__value">{created}</dd>
+            <dd className="govuk-summary-list__value">{officerEmail}</dd>
           </div>
         )}
-        {type && (
-          <div className="govuk-summary-list__row">
-            <dt className="govuk-summary-list__key">{`${title} Type`}</dt>
-            <dd className="govuk-summary-list__value">{type}</dd>
-          </div>
-        )}
-        {date && (
+        {dateOfEvent && (
           <div className="govuk-summary-list__row">
             <dt className="govuk-summary-list__key">{'Date of event'}</dt>
-            <dd className="govuk-summary-list__value">{date}</dd>
-          </div>
-        )}
-        {team && (
-          <div className="govuk-summary-list__row">
-            <dt className="govuk-summary-list__key">{'Team'}</dt>
-            <dd className="govuk-summary-list__value">{team}</dd>
+            <dd className="govuk-summary-list__value">
+              {new Date(dateOfEvent).toLocaleDateString('en-GB')}
+            </dd>
           </div>
         )}
       </dl>
-      {note && (
+      {content && (
         <div className={style.pageView}>
-          <span
-            className={`gov-weight-lighter ${style.title}`}
-          >{`${title} Description`}</span>
+          <span className={`gov-weight-lighter ${style.title}`}>Content</span>
           {isVisible && (
             <span onClick={scrollToTop} className={style.return} role="button">
               <Arrow color={'white'} />
@@ -84,7 +70,7 @@ const PageView = ({
           <div
             className={style.content}
             dangerouslySetInnerHTML={{
-              __html: note,
+              __html: content,
             }}
           />
         </div>

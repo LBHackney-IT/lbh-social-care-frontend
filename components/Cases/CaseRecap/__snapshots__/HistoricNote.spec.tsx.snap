@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`PageView should render component 1`] = `
+exports[`HistoricNote should display historic case note 1`] = `
 <DocumentFragment>
   <h3
     class="govuk-heading-m govuk-custom-text-color govuk-!-margin-bottom-0"
@@ -24,7 +24,7 @@ exports[`PageView should render component 1`] = `
       <dd
         class="govuk-summary-list__value"
       >
-        Bar
+        Foo Bar
       </dd>
     </div>
     <div
@@ -38,7 +38,7 @@ exports[`PageView should render component 1`] = `
       <dd
         class="govuk-summary-list__value"
       >
-        test@test.com
+        foo@hackney.gov.uk
       </dd>
     </div>
     <div
@@ -52,7 +52,7 @@ exports[`PageView should render component 1`] = `
       <dd
         class="govuk-summary-list__value"
       >
-        06/05/2020
+        03/11/2021
       </dd>
     </div>
   </dl>
@@ -67,7 +67,7 @@ exports[`PageView should render component 1`] = `
     <div
       class="content"
     >
-      Foo Bar
+      I am historic content
     </div>
   </div>
 </DocumentFragment>

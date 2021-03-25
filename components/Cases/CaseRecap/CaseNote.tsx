@@ -10,11 +10,13 @@ interface Props {
   recordId: string;
 }
 
-const CaseRecap = ({ personId, recordId }: Props): React.ReactElement => {
+const CaseNote = ({ personId, recordId }: Props): React.ReactElement => {
   const { data: record, error: recordError } = useCase(recordId);
+
   const recordData = record?.caseFormData?.form_name_overall;
   const fileData =
     recordData && (form as Record<string, FormStep[]>)[recordData];
+
   if (recordError || (recordData && !fileData)) {
     return <ErrorMessage />;
   }
@@ -32,4 +34,4 @@ const CaseRecap = ({ personId, recordId }: Props): React.ReactElement => {
   );
 };
 
-export default CaseRecap;
+export default CaseNote;

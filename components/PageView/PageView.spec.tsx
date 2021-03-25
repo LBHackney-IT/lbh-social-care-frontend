@@ -4,12 +4,11 @@ import PageView from './PageView';
 
 describe(`PageView`, () => {
   const props = {
-    created: 'test@test.com',
+    officerEmail: 'test@test.com',
     title: 'Foo',
-    type: 'Bar',
-    date: '05/06/2020',
-    team: 'Foo 1223',
-    note: 'Foo Bar',
+    formName: 'Bar',
+    dateOfEvent: '05/06/2020',
+    content: 'Foo Bar',
   };
 
   it('should render component', () => {

@@ -7,7 +7,7 @@ import useSWR, {
 
 import { getInfiniteKey } from 'utils/api';
 
-import type { CaseData, Case, ErrorAPI } from 'types';
+import type { CaseData, HistoricCaseData, Case, ErrorAPI } from 'types';
 
 export const useCases = (
   params: Record<string, unknown>,
@@ -25,6 +25,11 @@ export const useCasesByResident = (
 
 export const useCase = (caseId: string): responseInterface<Case, ErrorAPI> =>
   useSWR(`/api/cases/${caseId}`);
+
+export const useCaseNote = (
+  caseId: string
+): responseInterface<HistoricCaseData, ErrorAPI> =>
+  useSWR(`/api/cases/historic/${caseId}`);
 
 export const addCase = async (
   formData: Record<string, unknown>
