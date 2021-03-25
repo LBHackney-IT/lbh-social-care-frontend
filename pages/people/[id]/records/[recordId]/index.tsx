@@ -2,7 +2,8 @@ import { useRouter } from 'next/router';
 
 import Seo from 'components/Layout/Seo/Seo';
 import BackButton from 'components/Layout/BackButton/BackButton';
-import CaseRecap from 'components/Cases/CaseRecap/CaseRecap';
+import CaseNote from 'components/Cases/CaseRecap/CaseNote';
+import HistoricNote from 'components/Cases/CaseRecap/HistoricNote';
 import PersonView from 'components/PersonView/PersonView';
 
 const CaseView = (): React.ReactElement => {
@@ -18,11 +19,13 @@ const CaseView = (): React.ReactElement => {
       </h1>
       <PersonView personId={Number(id as string)} expandView>
         <div className="govuk-!-margin-top-7">
-          <CaseRecap
-            personId={Number(id as string)}
-            recordId={recordId as string}
-            is_historical={Boolean(is_historical as string)}
-          />
+          {is_historical && <HistoricNote recordId={recordId as string} />}
+          {!is_historical && (
+            <CaseNote
+              personId={Number(id as string)}
+              recordId={recordId as string}
+            />
+          )}
         </div>
       </PersonView>
     </>

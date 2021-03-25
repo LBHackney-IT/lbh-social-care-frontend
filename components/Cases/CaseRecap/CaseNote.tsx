@@ -1,5 +1,3 @@
-import PropTypes from 'prop-types';
-
 import ErrorMessage from 'components/ErrorMessage/ErrorMessage';
 import Spinner from 'components/Spinner/Spinner';
 import Summary from 'components/Summary/Summary';
@@ -12,7 +10,7 @@ interface Props {
   recordId: string;
 }
 
-const CaseRecap = ({ personId, recordId }: Props): React.ReactElement => {
+const CaseNote = ({ personId, recordId }: Props): React.ReactElement => {
   const { data: record, error: recordError } = useCase(recordId);
 
   const recordData = record?.caseFormData?.form_name_overall;
@@ -36,9 +34,4 @@ const CaseRecap = ({ personId, recordId }: Props): React.ReactElement => {
   );
 };
 
-CaseRecap.propTypes = {
-  personId: PropTypes.string.isRequired,
-  recordId: PropTypes.string.isRequired,
-};
-
-export default CaseRecap;
+export default CaseNote;

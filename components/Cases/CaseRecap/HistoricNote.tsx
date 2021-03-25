@@ -1,5 +1,3 @@
-import PropTypes from 'prop-types';
-
 import ErrorMessage from 'components/ErrorMessage/ErrorMessage';
 import Spinner from 'components/Spinner/Spinner';
 import PageView from 'components/PageView/PageView';
@@ -27,10 +25,6 @@ const HistoricNote = ({ recordId }: Props): React.ReactElement => {
       content={record.content}
     />
   );
-};
-
-HistoricNote.propTypes = {
-  recordId: PropTypes.string,
 };
 
 export default HistoricNote;
