@@ -23,6 +23,5 @@ exports[`Layout component should render properly 1`] = `
       </p>
     </main>
   </div>
-  Footer
 </DocumentFragment>
 `;
