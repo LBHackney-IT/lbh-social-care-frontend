@@ -1,14 +1,16 @@
 import { useState, useEffect } from 'react';
 
-import { getData, deleteData } from 'utils/saveData';
+import { getData, deleteData, BasicData, DetailedData } from 'utils/saveData';
 import { DetailedTable, StandardTable } from './Tables';
 
-export const SavedForms = () => {
-  const [savedForms, setSavedForms] = useState();
+export const SavedForms = (): React.ReactElement => {
+  const [savedForms, setSavedForms] = useState<
+    Record<string, BasicData | DetailedData>
+  >();
   useEffect(() => {
     setSavedForms(getData());
   }, []);
-  const deleteForm = (path) => {
+  const deleteForm = (path: string) => {
     deleteData(path);
     setSavedForms(getData());
   };
@@ -31,7 +33,9 @@ export const SavedForms = () => {
   const standardHeader = ['Form type', 'Last saved', 'Actions', ''];
   const sortData = Object.values(savedForms);
   const formQty = sortData.length;
-  const detailData = sortData.filter((item) => item.includesDetails);
+  const detailData = sortData.filter((item) =>
+    Boolean(item.includesDetails)
+  ) as DetailedData[];
   const standardData = sortData.filter((item) => !item.includesDetails);
   return (
     <>

@@ -1,6 +1,7 @@
 import { render } from '@testing-library/react';
+
 import { SavedForms } from './SaveFormData';
-import { getData } from 'utils/saveData';
+import * as saveData from 'utils/saveData';
 
 jest.mock('utils/saveData', () => ({
   getData: jest.fn(),
@@ -8,15 +9,14 @@ jest.mock('utils/saveData', () => ({
 
 describe('SaveFormData component', () => {
   it('should render both types of forms', async () => {
-    getData.mockImplementationOnce(() => [
-      {
+    jest.spyOn(saveData, 'getData').mockImplementationOnce(() => ({
+      first: {
         formPath: '/form/foo-bar/',
         timeStamp: '22/12/2020',
         title: 'Foo Bar',
         step: 'foo',
-        deleteForm: jest.fn(),
-      },
-      {
+      } as saveData.BasicData,
+      second: {
         dateOfBirth: '1984-02-12T00:00:00.0000000',
         firstName: 'Foo',
         formPath: '/form/bar-foo/',
@@ -29,9 +29,8 @@ describe('SaveFormData component', () => {
         timeStamp: '22/12/2020',
         title: 'Foo Bar',
         data: { id: '12345' },
-        deleteForm: jest.fn(),
       },
-    ]);
+    }));
     const { getByRole, asFragment } = render(<SavedForms />);
     expect(asFragment()).toMatchSnapshot();
     expect(getByRole('label')).toHaveTextContent(

@@ -2,6 +2,8 @@ import { render, fireEvent } from '@testing-library/react';
 
 import { DetailedTable, StandardTable } from './Tables';
 
+import { BasicData } from 'utils/saveData';
+
 describe('DetailedTable component', () => {
   const props = {
     tableHeader: ['Foo', 'Bar'],
@@ -37,14 +39,16 @@ describe('StandardTable component', () => {
     tableHeader: ['Foo', 'Bar'],
     data: [
       {
+        data: { id: 'foo' },
         formPath: '/form/foo-bar/',
         step: '/form/foo-bar/',
         timeStamp: '22/12/2020',
         title: 'Foo Bar',
-      },
+      } as BasicData,
     ],
     deleteForm: jest.fn(),
   };
+
   it('should render properly', () => {
     const { asFragment } = render(<StandardTable {...props} />);
     expect(asFragment()).toMatchSnapshot();
