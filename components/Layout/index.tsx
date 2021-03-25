@@ -1,5 +1,4 @@
 import Seo from './Seo/Seo';
-import Footer from './Footer/Footer';
 import Header from './Header/Header';
 import SkipLink from './SkipLink/SkipLink';
 import PhaseBanner from './PhaseBanner/PhaseBanner';
@@ -21,7 +20,6 @@ const Layout = ({ children }: Props): React.ReactElement => {
           {children}
         </main>
       </div>
-      <Footer />
     </>
   );
 };

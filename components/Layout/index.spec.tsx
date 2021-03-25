@@ -9,7 +9,6 @@ jest.mock('next/router', () => ({
 }));
 
 jest.mock('./Header/Header', () => () => 'Header');
-jest.mock('./Footer/Footer', () => () => 'Footer');
 jest.mock('./PhaseBanner/PhaseBanner', () => () => 'MockedPhaseBanner');
 
 describe('Layout component', () => {
