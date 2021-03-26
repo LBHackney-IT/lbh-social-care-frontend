@@ -1,5 +1,4 @@
 import { useMemo } from 'react';
-import PropTypes from 'prop-types';
 import { useForm } from 'react-hook-form';
 import isPast from 'date-fns/isPast';
 
@@ -13,10 +12,29 @@ import {
 } from 'components/Form';
 import Button from 'components/Button/Button';
 import { useAuth } from 'components/UserContext/UserContext';
-
 import { getFormsByUserPermission } from 'utils/forms';
+import { User } from 'types';
 
-const SearchCasesForm = ({ onFormSubmit, defaultValues }) => {
+interface FormValues {
+  first_name?: string;
+  last_name?: string;
+  exact_name_match?: string;
+  start_date?: string | null;
+  end_date?: string | null;
+  form_name?: string | null;
+  worker_email?: string;
+  my_notes_only?: string;
+}
+
+interface Props {
+  onFormSubmit: (formData: FormValues) => void;
+  defaultValues: FormValues;
+}
+
+const SearchCasesForm = ({
+  onFormSubmit,
+  defaultValues,
+}: Props): React.ReactElement => {
   const {
     register,
     errors,
@@ -27,7 +45,7 @@ const SearchCasesForm = ({ onFormSubmit, defaultValues }) => {
   } = useForm({
     defaultValues,
   });
-  const { user } = useAuth();
+  const { user } = useAuth() as { user: User };
   const formNameOptions = useMemo(() => getFormsByUserPermission(user), [user]);
   return (
     <form role="form" onSubmit={handleSubmit((data) => onFormSubmit(data))}>
@@ -38,12 +56,13 @@ const SearchCasesForm = ({ onFormSubmit, defaultValues }) => {
             labelSize="s"
             name="first_name"
             error={errors.first_name}
-            register={register({
+            register={register}
+            rules={{
               minLength: {
                 value: 2,
                 message: 'Requires at least a minimum of 2 letters.',
               },
-            })}
+            }}
           />
         </div>
         <div className="govuk-grid-column-one-half">
@@ -52,12 +71,13 @@ const SearchCasesForm = ({ onFormSubmit, defaultValues }) => {
             labelSize="s"
             name="last_name"
             error={errors.last_name}
-            register={register({
+            register={register}
+            rules={{
               minLength: {
                 value: 2,
                 message: 'Requires at least a minimum of 2 letters.',
               },
-            })}
+            }}
           />
         </div>
       </div>
@@ -158,11 +178,6 @@ const SearchCasesForm = ({ onFormSubmit, defaultValues }) => {
       </span>
     </form>
   );
-};
-
-SearchCasesForm.propTypes = {
-  onFormSubmit: PropTypes.func.isRequired,
-  defaultValues: PropTypes.shape({}),
 };
 
 export default SearchCasesForm;
