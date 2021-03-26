@@ -27,6 +27,8 @@ jest.mock('utils/api/cases', () => ({
 describe(`Search`, () => {
   const props = {
     onFormSubmit: jest.fn(),
+    subHeader: 'Filter results by (any combination)',
+    resultHeader: 'PEOPLE SEARCH RESULT',
   };
 
   it('should update the queryString on search and run a new search - with load more', async () => {

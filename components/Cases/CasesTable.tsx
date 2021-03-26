@@ -43,7 +43,11 @@ const CaseNoteOfficer = ({ officerEmail }: Case) => (
 );
 
 const CaseNoteAction = ({ recordId, caseFormUrl, caseFormData }: Case) => (
-  <td key="action" className="govuk-table__cell govuk-button--secondary'">
+  <td
+    key="action"
+    className="govuk-table__cell govuk-table__cell--numeric"
+    style={{ width: '50px', textAlign: 'center' }}
+  >
     <CaseLink
       recordId={recordId}
       externalUrl={caseFormUrl}
@@ -74,9 +78,11 @@ const tableEntities = {
   action: { text: 'Action', component: CaseNoteAction },
 };
 
+export type CaseTableColumns = keyof typeof tableEntities;
+
 interface Props {
   records: Case[];
-  columns: Array<keyof typeof tableEntities>;
+  columns: CaseTableColumns[];
   sort?: {
     sort_by?: string;
     order_by?: string;

@@ -22,7 +22,7 @@ const getRecords = (data) => [
   ...(data?.cases || []),
 ];
 
-const Search = ({ type, columns }) => {
+const Search = ({ type, subHeader, resultHeader, columns }) => {
   const { query, pathname, replace } = useRouter();
   const { user } = useAuth();
   const { SearchForm, SearchResults, useSearch } = useMemo(
@@ -95,11 +95,7 @@ const Search = ({ type, columns }) => {
     );
   return (
     <>
-      <p className="govuk-body govuk-!-margin-bottom-5">
-        {type === 'records'
-          ? 'Search and filter by any combination of fields'
-          : 'Search for a person by any combination of fields below'}
-      </p>
+      <p className="govuk-body govuk-!-margin-bottom-5">{subHeader}</p>
       <SearchForm
         onFormSubmit={onFormSubmit}
         defaultValues={query}
@@ -109,7 +105,7 @@ const Search = ({ type, columns }) => {
         <>
           <div className="lbh-table-header">
             <h2 className="govuk-fieldset__legend--m govuk-custom-text-color">
-              {type.toUpperCase()} SEARCH RESULT
+              {resultHeader}
             </h2>
             <div style={{ textAlign: 'right' }}>{addNewPerson}</div>
           </div>
@@ -146,6 +142,8 @@ const Search = ({ type, columns }) => {
 
 Search.propTypes = {
   type: PropTypes.oneOf(['people', 'records']).isRequired,
+  subHeader: PropTypes.string.isRequired,
+  resultHeader: PropTypes.string.isRequired,
   columns: PropTypes.array,
 };
 
