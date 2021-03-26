@@ -8,6 +8,7 @@ const MyCasesPage = (): React.ReactElement => (
       type="records"
       subHeader="Filter results by (any combination)"
       resultHeader="All records you have added"
+      showOnlyMyResults
       columns={[
         'person_id',
         'first_name',
@@ -15,6 +16,7 @@ const MyCasesPage = (): React.ReactElement => (
         'date_of_event',
         'action',
       ]}
+      ctaText="Filter"
     />
   </div>
 );

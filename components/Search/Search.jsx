@@ -22,7 +22,14 @@ const getRecords = (data) => [
   ...(data?.cases || []),
 ];
 
-const Search = ({ type, subHeader, resultHeader, columns }) => {
+const Search = ({
+  type,
+  subHeader,
+  resultHeader,
+  columns,
+  showOnlyMyResults = false,
+  ctaText = 'Search',
+}) => {
   const { query, pathname, replace } = useRouter();
   const { user } = useAuth();
   const { SearchForm, SearchResults, useSearch } = useMemo(
@@ -38,7 +45,10 @@ const Search = ({ type, subHeader, resultHeader, columns }) => {
               useCases(
                 {
                   ...formData,
-                  worker_email: my_notes_only ? user.email : worker_email,
+                  worker_email:
+                    showOnlyMyResults || my_notes_only
+                      ? user.email
+                      : worker_email,
                 },
                 ...args
               ),
@@ -48,10 +58,13 @@ const Search = ({ type, subHeader, resultHeader, columns }) => {
             SearchResults: ResidentsTable,
             useSearch: useResidents,
           },
-    [type, user.email]
+    [type, showOnlyMyResults, user.email]
   );
   const hasQuery = Boolean(Object.keys(query).length);
-  const { data, error, size, setSize } = useSearch(query, hasQuery);
+  const { data, error, size, setSize } = useSearch(
+    query,
+    hasQuery || showOnlyMyResults
+  );
   const results = data && {
     records: data.reduce((acc, d) => [...acc, ...getRecords(d)], []),
     nextCursor: data[data.length - 1].nextCursor,
@@ -100,6 +113,8 @@ const Search = ({ type, subHeader, resultHeader, columns }) => {
         onFormSubmit={onFormSubmit}
         defaultValues={query}
         user={user}
+        showSearchByPerson={!showOnlyMyResults}
+        ctaText={ctaText}
       />
       {results && (
         <>
@@ -144,7 +159,9 @@ Search.propTypes = {
   type: PropTypes.oneOf(['people', 'records']).isRequired,
   subHeader: PropTypes.string.isRequired,
   resultHeader: PropTypes.string.isRequired,
+  showOnlyMyResults: PropTypes.bool,
   columns: PropTypes.array,
+  ctaText: PropTypes.string,
 };
 
 export default Search;
