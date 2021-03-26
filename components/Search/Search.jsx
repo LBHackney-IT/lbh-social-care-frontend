@@ -7,7 +7,7 @@ import { useRouter } from 'next/router';
 import SearchResidentsForm from './forms/SearchResidentsForm';
 import SearchCasesForm from './forms/SearchCasesForm';
 import ResidentsTable from './results/ResidentsTable';
-import CasesTable from './results/CasesTable';
+import CasesTable from 'components/Cases/CasesTable';
 
 import Button from 'components/Button/Button';
 import Spinner from 'components/Spinner/Spinner';
@@ -147,6 +147,15 @@ const Search = ({ type }) => {
                 <SearchResults
                   records={results.records}
                   sort={query}
+                  columns={
+                    type === 'records' && [
+                      'person_id',
+                      'first_name',
+                      'officer_email',
+                      'date_of_event',
+                      'action',
+                    ]
+                  }
                   // onSort={onSort} // commented out as the feature is not ready in the BE
                 />
               ) : (

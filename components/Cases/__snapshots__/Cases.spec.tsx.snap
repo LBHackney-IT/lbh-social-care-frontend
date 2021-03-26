@@ -139,25 +139,25 @@ exports[`Cases component should render records properly 1`] = `
             class="govuk-table__header"
             scope="col"
           >
-            Date created
+            Date created 
           </th>
           <th
             class="govuk-table__header"
             scope="col"
           >
-            Record type
+            Record type 
           </th>
           <th
             class="govuk-table__header"
             scope="col"
           >
-            Created by
+            Created by 
           </th>
           <th
             class="govuk-table__header"
             scope="col"
           >
-            Action
+            Action 
           </th>
           <th
             class="govuk-table__header"
