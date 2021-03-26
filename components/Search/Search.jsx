@@ -1,6 +1,5 @@
 import { useMemo, useCallback } from 'react';
 import PropTypes from 'prop-types';
-import cx from 'classnames';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 
@@ -23,7 +22,7 @@ const getRecords = (data) => [
   ...(data?.cases || []),
 ];
 
-const Search = ({ type }) => {
+const Search = ({ type, columns }) => {
   const { query, pathname, replace } = useRouter();
   const { user } = useAuth();
   const { SearchForm, SearchResults, useSearch } = useMemo(
@@ -96,95 +95,58 @@ const Search = ({ type }) => {
     );
   return (
     <>
-      <h1 className="govuk-heading-l">Search</h1>
       <p className="govuk-body govuk-!-margin-bottom-5">
-        Use search to find a person before adding a new person or record.
-        Records will need to be linked to person.
+        {type === 'records'
+          ? 'Search and filter by any combination of fields'
+          : 'Search for a person by any combination of fields below'}
       </p>
-      <div className="govuk-tabs">
-        <h2 className="govuk-tabs__title">Contents</h2>
-        <ul className="govuk-tabs__list">
-          <li
-            className={cx('govuk-tabs__list-item', {
-              'govuk-tabs__list-item--selected': type !== 'records',
-            })}
-          >
-            <Link href="/" scroll={false}>
-              <a className="govuk-tabs__tab">Search for a person</a>
-            </Link>
-          </li>
-          <li
-            className={cx('govuk-tabs__list-item', {
-              'govuk-tabs__list-item--selected': type === 'records',
-            })}
-          >
-            <Link href="/cases" scroll={false}>
-              <a className="govuk-tabs__tab">Search for records by person</a>
-            </Link>
-          </li>
-        </ul>
-        <div className="govuk-tabs__panel">
-          <p className="govuk-body govuk-!-margin-bottom-5">
-            {type === 'records'
-              ? 'Search and filter by any combination of fields'
-              : 'Search for a person by any combination of fields below'}
-          </p>
-          <SearchForm
-            onFormSubmit={onFormSubmit}
-            defaultValues={query}
-            user={user}
-          />
-          {results && (
+      <SearchForm
+        onFormSubmit={onFormSubmit}
+        defaultValues={query}
+        user={user}
+      />
+      {results && (
+        <>
+          <div className="lbh-table-header">
+            <h2 className="govuk-fieldset__legend--m govuk-custom-text-color">
+              {type.toUpperCase()} SEARCH RESULT
+            </h2>
+            <div style={{ textAlign: 'right' }}>{addNewPerson}</div>
+          </div>
+          <hr className="govuk-divider" />
+          {results.records?.length > 0 ? (
+            <SearchResults
+              records={results.records}
+              sort={query}
+              columns={columns}
+              // onSort={onSort} // commented out as the feature is not ready in the BE
+            />
+          ) : (
             <>
-              <div className="lbh-table-header">
-                <h2 className="govuk-fieldset__legend--m govuk-custom-text-color">
-                  {type.toUpperCase()} SEARCH RESULT
-                </h2>
-                <div style={{ textAlign: 'right' }}>{addNewPerson}</div>
-              </div>
-              <hr className="govuk-divider" />
-              {results.records?.length > 0 ? (
-                <SearchResults
-                  records={results.records}
-                  sort={query}
-                  columns={
-                    type === 'records' && [
-                      'person_id',
-                      'first_name',
-                      'officer_email',
-                      'date_of_event',
-                      'action',
-                    ]
-                  }
-                  // onSort={onSort} // commented out as the feature is not ready in the BE
-                />
-              ) : (
-                <>
-                  <p className="govuk-body govuk-!-margin-top-5">
-                    {type.charAt(0).toUpperCase() + type.slice(1)} not found
-                  </p>
-                </>
-              )}
+              <p className="govuk-body govuk-!-margin-top-5">
+                {type.charAt(0).toUpperCase() + type.slice(1)} not found
+              </p>
             </>
           )}
-          <div style={{ height: '50px', textAlign: 'center' }}>
-            {(hasQuery && !data) || size > data?.length ? (
-              <Spinner />
-            ) : (
-              results?.nextCursor && (
-                <Button label="load more" onClick={() => setSize(size + 1)} />
-              )
-            )}
-          </div>
-          {error && <ErrorMessage />}
-        </div>
+        </>
+      )}
+      <div style={{ height: '50px', textAlign: 'center' }}>
+        {(hasQuery && !data) || size > data?.length ? (
+          <Spinner />
+        ) : (
+          results?.nextCursor && (
+            <Button label="load more" onClick={() => setSize(size + 1)} />
+          )
+        )}
       </div>
+      {error && <ErrorMessage />}
     </>
   );
 };
 
 Search.propTypes = {
   type: PropTypes.oneOf(['people', 'records']).isRequired,
+  columns: PropTypes.array,
 };
 
 export default Search;
