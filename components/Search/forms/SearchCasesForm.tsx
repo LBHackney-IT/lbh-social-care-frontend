@@ -27,7 +27,6 @@ interface FormValues {
 }
 
 interface Props {
-  onFormSubmit: (formData: FormValues) => void;
   onFormSubmit: (formData?: FormValues) => void;
   showSearchByPerson?: boolean;
   defaultValues: FormValues;
