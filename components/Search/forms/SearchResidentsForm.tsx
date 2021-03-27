@@ -15,7 +15,7 @@ interface FormValues {
 }
 
 interface Props {
-  onFormSubmit: (formData: FormValues) => void;
+  onFormSubmit: (formData?: FormValues) => void;
   defaultValues: FormValues;
 }
 
@@ -113,6 +113,7 @@ const SearchResidentsForm = ({
           reset({
             date_of_birth: null,
           });
+          onFormSubmit();
         }}
         style={{
           marginLeft: '1rem',

@@ -28,6 +28,8 @@ interface FormValues {
 
 interface Props {
   onFormSubmit: (formData: FormValues) => void;
+  onFormSubmit: (formData?: FormValues) => void;
+  showSearchByPerson?: boolean;
   defaultValues: FormValues;
 }
 
@@ -168,6 +170,7 @@ const SearchCasesForm = ({
             end_date: null,
             form_name: null,
           });
+          onFormSubmit();
         }}
         style={{
           marginLeft: '1rem',

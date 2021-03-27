@@ -59,8 +59,12 @@ const Search = ({ type }) => {
   };
   const onFormSubmit = useCallback(
     (formData) => {
-      const qs = getQueryString({ ...query, ...formData });
-      replace(`${pathname}?${qs}`, `${pathname}?${qs}`, {
+      console.log('adasdsad');
+      console.log(formData);
+      const qs = formData
+        ? `?${getQueryString({ ...query, ...formData })}`
+        : '';
+      replace(`${pathname}${qs}`, `${pathname}${qs}`, {
         shallow: true,
         scroll: false,
       });
