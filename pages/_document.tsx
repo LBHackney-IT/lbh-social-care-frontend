@@ -5,7 +5,7 @@ import { GA_TRACKING_ID } from 'utils/gtag';
 export default class AppDocument extends Document {
   render(): JSX.Element {
     return (
-      <Html id="root" className="govuk-template lbh-template">
+      <Html id="root" className="govuk-template lbh-template" lang="en">
         <Head>
           <link rel="icon" href="/favicon.ico" />
           <script
