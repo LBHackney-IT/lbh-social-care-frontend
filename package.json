@@ -27,6 +27,7 @@
     "deepmerge": "^4.2.2",
     "downshift": "^6.1.0",
     "eslint-plugin-react-hooks": "^4.2.0",
+    "fishery": "^1.2.0",
     "govuk-frontend": "^3.10.2",
     "http-status-codes": "^2.1.4",
     "jsonwebtoken": "^8.5.1",

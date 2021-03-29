@@ -1,13 +1,12 @@
 import { useMemo, useCallback } from 'react';
 import PropTypes from 'prop-types';
-import cx from 'classnames';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 
 import SearchResidentsForm from './forms/SearchResidentsForm';
 import SearchCasesForm from './forms/SearchCasesForm';
 import ResidentsTable from './results/ResidentsTable';
-import CasesTable from './results/CasesTable';
+import CasesTable from 'components/Cases/CasesTable';
 
 import Button from 'components/Button/Button';
 import Spinner from 'components/Spinner/Spinner';
@@ -23,9 +22,14 @@ const getRecords = (data) => [
   ...(data?.cases || []),
 ];
 
-import styles from './Search.module.scss';
-
-const Search = ({ type }) => {
+const Search = ({
+  type,
+  subHeader,
+  resultHeader,
+  columns,
+  showOnlyMyResults = false,
+  ctaText = 'Search',
+}) => {
   const { query, pathname, replace } = useRouter();
   const { user } = useAuth();
   const { SearchForm, SearchResults, useSearch } = useMemo(
@@ -41,7 +45,10 @@ const Search = ({ type }) => {
               useCases(
                 {
                   ...formData,
-                  worker_email: my_notes_only ? user.email : worker_email,
+                  worker_email:
+                    showOnlyMyResults || my_notes_only
+                      ? user.email
+                      : worker_email,
                 },
                 ...args
               ),
@@ -51,18 +58,25 @@ const Search = ({ type }) => {
             SearchResults: ResidentsTable,
             useSearch: useResidents,
           },
-    [type, user.email]
+    [type, showOnlyMyResults, user.email]
   );
   const hasQuery = Boolean(Object.keys(query).length);
-  const { data, error, size, setSize } = useSearch(query, hasQuery);
+  const { data, error, size, setSize } = useSearch(
+    query,
+    hasQuery || showOnlyMyResults
+  );
   const results = data && {
     records: data.reduce((acc, d) => [...acc, ...getRecords(d)], []),
     nextCursor: data[data.length - 1].nextCursor,
   };
   const onFormSubmit = useCallback(
     (formData) => {
-      const qs = getQueryString({ ...query, ...formData });
-      replace(`${pathname}?${qs}`, `${pathname}?${qs}`, {
+      console.log('adasdsad');
+      console.log(formData);
+      const qs = formData
+        ? `?${getQueryString({ ...query, ...formData })}`
+        : '';
+      replace(`${pathname}${qs}`, `${pathname}${qs}`, {
         shallow: true,
         scroll: false,
       });
@@ -98,86 +112,60 @@ const Search = ({ type }) => {
     );
   return (
     <>
-      <h1 className="govuk-heading-l">Search</h1>
-      <p className="govuk-body govuk-!-margin-bottom-5">
-        Use search to find a person before adding a new person or record.
-        Records will need to be linked to person.
-      </p>
-      <div className="govuk-tabs lbh-tabs" data-module="govuk-tabs">
-        <h2 className="govuk-tabs__title">Contents</h2>
-        <ul className="govuk-tabs__list">
-          <li
-            className={cx('govuk-tabs__list-item', {
-              'govuk-tabs__list-item--selected': type !== 'records',
-            })}
-          >
-            <Link href="/" scroll={false}>
-              <a className="govuk-tabs__tab">Search for a person</a>
-            </Link>
-          </li>
-          <li
-            className={cx('govuk-tabs__list-item', {
-              'govuk-tabs__list-item--selected': type === 'records',
-            })}
-          >
-            <Link href="/cases" scroll={false}>
-              <a className="govuk-tabs__tab">Search for records by person</a>
-            </Link>
-          </li>
-        </ul>
-        <div className="govuk-tabs__panel">
-          <p className="govuk-body govuk-!-margin-bottom-5">
-            {type === 'records'
-              ? 'Search and filter by any combination of fields'
-              : 'Search for a person by any combination of fields below'}
-          </p>
-          <SearchForm
-            onFormSubmit={onFormSubmit}
-            defaultValues={query}
-            user={user}
-          />
-          {results && (
+      <p className="govuk-body govuk-!-margin-bottom-5">{subHeader}</p>
+      <SearchForm
+        onFormSubmit={onFormSubmit}
+        defaultValues={query}
+        user={user}
+        showSearchByPerson={!showOnlyMyResults}
+        ctaText={ctaText}
+      />
+      {results && (
+        <>
+          <div className="lbh-table-header">
+            <h2 className="govuk-fieldset__legend--m govuk-custom-text-color">
+              {resultHeader}
+            </h2>
+            <div style={{ textAlign: 'right' }}>{addNewPerson}</div>
+          </div>
+          <hr className="govuk-divider" />
+          {results.records?.length > 0 ? (
+            <SearchResults
+              records={results.records}
+              sort={query}
+              columns={columns}
+              // onSort={onSort} // commented out as the feature is not ready in the BE
+            />
+          ) : (
             <>
-              <div className="lbh-table-header govuk-!-margin-top-7">
-                <h2 className="govuk-fieldset__legend--m govuk-custom-text-color">
-                  {type.toUpperCase()} SEARCH RESULT
-                </h2>
-                <div style={{ textAlign: 'right' }}>{addNewPerson}</div>
-              </div>
-              <hr className="govuk-divider" />
-              {results.records?.length > 0 ? (
-                <SearchResults
-                  records={results.records}
-                  sort={query}
-                  // onSort={onSort} // commented out as the feature is not ready in the BE
-                />
-              ) : (
-                <>
-                  <p className="govuk-body govuk-!-margin-top-5">
-                    {type.charAt(0).toUpperCase() + type.slice(1)} not found
-                  </p>
-                </>
-              )}
+              <p className="govuk-body govuk-!-margin-top-5">
+                {type.charAt(0).toUpperCase() + type.slice(1)} not found
+              </p>
             </>
           )}
-          <div className={styles.loading}>
-            {(hasQuery && !data) || size > data?.length ? (
-              <Spinner />
-            ) : (
-              results?.nextCursor && (
-                <Button label="load more" onClick={() => setSize(size + 1)} />
-              )
-            )}
-          </div>
-          {error && <ErrorMessage />}
-        </div>
+        </>
+      )}
+      <div style={{ height: '50px', textAlign: 'center' }}>
+        {(hasQuery && !data) || size > data?.length ? (
+          <Spinner />
+        ) : (
+          results?.nextCursor && (
+            <Button label="load more" onClick={() => setSize(size + 1)} />
+          )
+        )}
       </div>
+      {error && <ErrorMessage />}
     </>
   );
 };
 
 Search.propTypes = {
   type: PropTypes.oneOf(['people', 'records']).isRequired,
+  subHeader: PropTypes.string.isRequired,
+  resultHeader: PropTypes.string.isRequired,
+  showOnlyMyResults: PropTypes.bool,
+  columns: PropTypes.array,
+  ctaText: PropTypes.string,
 };
 
 export default Search;

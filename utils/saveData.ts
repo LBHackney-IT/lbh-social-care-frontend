@@ -2,6 +2,24 @@ import { isBrowser } from 'utils/ssr';
 
 export const SAVE_KEY = 'social-care-forms';
 
+export interface BasicData {
+  data: {
+    id: string;
+  };
+  title: string;
+  timeStamp: string;
+  formPath: string;
+  step: string;
+  includesDetails?: boolean;
+  [key: string]: unknown;
+}
+
+export interface DetailedData extends BasicData {
+  firstName: string;
+  lastName: string;
+  dateOfBirth?: string;
+}
+
 export const saveData = (
   formPath: string,
   data: Record<string, unknown>,
@@ -45,7 +63,9 @@ export const getFormData = (
   }
 };
 
-export const getData = (): Record<string, unknown> | undefined => {
+export const getData = ():
+  | Record<string, BasicData | DetailedData>
+  | undefined => {
   if (isBrowser()) {
     try {
       const savedForms = localStorage.getItem(SAVE_KEY);

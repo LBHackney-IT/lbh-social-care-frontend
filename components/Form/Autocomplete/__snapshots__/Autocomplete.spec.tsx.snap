@@ -1,0 +1,65 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Autocomplete should render properly 1`] = `
+<DocumentFragment>
+  <div
+    aria-expanded="true"
+    aria-haspopup="listbox"
+    aria-labelledby="downshift-0-label"
+    aria-owns="downshift-0-menu"
+    class="govuk-form-group govuk-grid-column-undefined"
+    role="combobox"
+  >
+    <label
+      class="govuk-label govuk-label--m"
+      for="autocomplete"
+    >
+      Foo 
+    </label>
+    <div
+      class="inputContainer"
+    >
+      <input
+        aria-autocomplete="list"
+        aria-controls="downshift-0-menu"
+        aria-labelledby="downshift-0-label"
+        autocomplete="off"
+        class="govuk-input govuk-input--width-20"
+        data-testid="autocomplete"
+        id="autocomplete"
+        inputvalue=""
+        placeholder="Foo bar"
+        value=""
+      />
+    </div>
+    <ul
+      aria-labelledby="downshift-0-label"
+      class="suggestionList"
+      id="downshift-0-menu"
+      role="listbox"
+      style="border-bottom: 1px solid #aaa;"
+    >
+      <li
+        aria-selected="false"
+        class="suggestion"
+        data-testid="autocomplete_0"
+        id="downshift-0-item-0"
+        role="option"
+        style="color: rgb(0, 0, 0); background-color: rgb(255, 255, 255);"
+      >
+        bar
+      </li>
+      <li
+        aria-selected="false"
+        class="suggestion"
+        data-testid="autocomplete_1"
+        id="downshift-0-item-1"
+        role="option"
+        style="color: rgb(0, 0, 0); background-color: rgb(255, 255, 255);"
+      >
+        foo
+      </li>
+    </ul>
+  </div>
+</DocumentFragment>
+`;

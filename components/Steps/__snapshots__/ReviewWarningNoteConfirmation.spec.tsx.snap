@@ -40,7 +40,7 @@ exports[`Review Warning Note Confirmation should render the correct text if the 
     <h1
       class="govuk-fieldset__legend--l gov-weight-lighter"
     >
-      The Warning Note has been renewed for Ciasom Tesselate
+      The Warning Note has been renewed for Foo Bar
     </h1>
   </div>
   <div

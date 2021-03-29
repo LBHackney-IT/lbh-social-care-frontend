@@ -1,28 +1,15 @@
 .inputContainer {
   position: relative;
-  display: inline;
+  display: flex;
 }
 
-.input:focus {
-  outline: 3px solid #ffdd00;
-  outline-offset: 0;
-  box-shadow: inset 0 0 0 2px;
-}
-
+.toggle,
 .clear {
-  border: 1px solid transparent;
-  background-color: transparent;
   cursor: pointer;
-  position: absolute;
+  position: relative;
   z-index: 4;
-  right: 4px;
+  right: 32px;
   padding: 4px 8px;
-}
-
-.inputContainer:focus {
-  outline: 3px solid #ffdd00;
-  outline-offset: 0;
-  box-shadow: inset 0 0 0 2px;
 }
 
 .suggestionList {
@@ -31,7 +18,6 @@
   border-left: 1px solid #aaa;
   border-right: 1px solid #aaa;
   background: #fff;
-  font-weight: 600;
   font-size: 1.1875rem;
   max-height: 300px;
   overflow-y: auto;

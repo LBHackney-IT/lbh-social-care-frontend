@@ -1,9 +1,9 @@
 @import 'node_modules/govuk-frontend/govuk/base';
 
 .withConditionalGuides {
-    border-left: 0.75rem solid #DEE0E2;
-    padding-left: 1.5rem;
-    margin-left: 13px;
+  border-left: 0.75rem solid #dee0e2;
+  padding-left: 1.5rem;
+  margin-left: 13px;
 
   & + & {
     padding-top: 20px;

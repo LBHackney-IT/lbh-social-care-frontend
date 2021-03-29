@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-import type { Case, CaseData } from 'types';
+import type { Case, CaseData, HistoricCaseData } from 'types';
 
 const { ENDPOINT_API, AWS_KEY } = process.env;
 
@@ -45,6 +45,17 @@ export const getCase = async (
   return (
     data && { ...data, caseFormData: sanitiseCaseFormData(data.caseFormData) }
   );
+};
+
+export const getCaseNote = async (
+  case_id: string,
+  params: Record<string, unknown>
+): Promise<HistoricCaseData | undefined> => {
+  const { data } = await axios.get(`${ENDPOINT_API}/casenotes/${case_id}`, {
+    headers: headersWithKey,
+    params,
+  });
+  return data;
 };
 
 export const addCase = async (

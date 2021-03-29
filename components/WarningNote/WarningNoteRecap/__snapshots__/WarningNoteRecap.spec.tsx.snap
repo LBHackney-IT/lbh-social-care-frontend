@@ -49,7 +49,7 @@ exports[`WarningNoteRecap should render correctly 1`] = `
         <dd
           class="govuk-summary-list__value"
         >
-          12/12/2020
+          22/12/2020
         </dd>
       </div>
       <div
@@ -115,33 +115,6 @@ exports[`WarningNoteRecap should render correctly 1`] = `
           class="govuk-summary-list__key"
         >
           Details of disclosure to individual
-        </dt>
-        <dd
-          class="govuk-summary-list__value"
-        >
-          <div>
-            <div
-              class="container"
-              style="max-height: 95px;"
-            >
-              <div>
-                <pre
-                  class="formattedTextArea"
-                >
-                  lorem ipsum
-                </pre>
-              </div>
-            </div>
-          </div>
-        </dd>
-      </div>
-      <div
-        class="govuk-summary-list__row"
-      >
-        <dt
-          class="govuk-summary-list__key"
-        >
-          Justification for non-disclosure of Warning Note
         </dt>
         <dd
           class="govuk-summary-list__value"

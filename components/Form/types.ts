@@ -1,7 +1,11 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
 import { InputHTMLAttributes } from 'react';
-import { RegisterOptions, ValidateResult } from 'react-hook-form';
+import {
+  RegisterOptions,
+  ValidateResult,
+  UseFormMethods,
+} from 'react-hook-form';
 import TextInput from './TextInput/TextInput';
 
 type EnhancedValidate = (
@@ -24,7 +28,7 @@ type GovGrid =
   | 'one-quarter'
   | 'three-quarters';
 
-export type ObjectOption = { text: string; value: string };
+export type ObjectOption = { text: string; value: string | number };
 
 export type Option = string | ObjectOption;
 
@@ -36,7 +40,7 @@ export interface GenericField {
   name: string;
   label?: string;
   rules?: RegisterOptions;
-  register?: (arg0: RegisterOptions) => any;
+  register?: UseFormMethods['register'];
   error?: { message?: string };
   required?: boolean | string;
   hint?: string;
@@ -140,6 +144,20 @@ interface StepAddressLookup extends Omit<AddressLookup, 'rules'> {
   rules?: EnhancedRules;
 }
 
+export interface Autocomplete extends Omit<GenericField, 'onChange'> {
+  name: string;
+  label: string;
+  options: Option[];
+  placeholder?: string;
+  width?: Width;
+  govGrid?: GovGrid;
+  onChange?: (value: string | number | null) => void;
+}
+
+interface StepAutocomplete extends Autocomplete {
+  component: 'Autocomplete';
+}
+
 export interface DateInput extends GenericField {
   format?: 'US' | 'EU';
 }
@@ -157,6 +175,7 @@ type formBasicComponentStep =
   | StepSelect
   | StepRadios
   | StepAddressLookup
+  | StepAutocomplete
   | StepDateInput;
 
 export type FormComponentStep =

@@ -34,7 +34,7 @@ exports[`useWarningNotes should render properly 1`] = `
               Start Date
             </dt>
             <dd>
-              12/12/2020 
+              13/12/2020 
               <i>
                 created by
               </i>
@@ -44,16 +44,12 @@ exports[`useWarningNotes should render properly 1`] = `
               Review Date
             </dt>
             <dd>
-              13/12/2020 
-              <i>
-                last reviewed by
-              </i>
-               Bar
+              31/12/2020 
             </dd>
           </dl>
           <a
             class="govuk-link govuk-link-underline"
-            href="/people/123/warning-notes/123"
+            href="/people/123/warning-notes/1"
           >
             Review / end
           </a>
@@ -80,10 +76,16 @@ exports[`useWarningNotes should render properly 1`] = `
               </i>
                Foo
             </dd>
+            <dt>
+              Review Date
+            </dt>
+            <dd>
+              01/02/2021 
+            </dd>
           </dl>
           <a
             class="govuk-link govuk-link-underline"
-            href="/people/123/warning-notes/234"
+            href="/people/123/warning-notes/2"
           >
             Review / end
           </a>

@@ -6811,6 +6811,13 @@ find-versions@^4.0.0:
   dependencies:
     semver-regex "^3.1.2"
 
+fishery@^1.2.0:
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/fishery/-/fishery-1.2.0.tgz#4a8acda69c912a74cf94bb012cecfdc00def68c1"
+  integrity sha512-0GG029KHF3p8Q0NiAl/ZOK1fvyAprOiHdtRWUNS46x9QXuQhMwzcGLNDbZ7XIEEBowwBmMsw7StkaU0ek9dSbg==
+  dependencies:
+    lodash.mergewith "^4.6.2"
+
 flat-cache@^3.0.4:
   version "3.0.4"
   resolved "https://registry.yarnpkg.com/flat-cache/-/flat-cache-3.0.4.tgz#61b0338302b2fe9f957dcc32fc2a87f1c3048b11"
@@ -9513,6 +9520,11 @@ lodash.keys@~2.4.1:
     lodash._isnative "~2.4.1"
     lodash._shimkeys "~2.4.1"
     lodash.isobject "~2.4.1"
+
+lodash.mergewith@^4.6.2:
+  version "4.6.2"
+  resolved "https://registry.yarnpkg.com/lodash.mergewith/-/lodash.mergewith-4.6.2.tgz#617121f89ac55f59047c7aec1ccd6654c6590f55"
+  integrity sha512-GK3g5RPZWTRSeLSpgP8Xhra+pnjBC56q9FZYe1d5RN3TJ35dbkGy3YqBSMbyCrlbi+CM9Z3Jk5yTL7RCsqboyQ==
 
 lodash.noop@~2.4.1:
   version "2.4.1"

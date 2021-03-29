@@ -5,7 +5,7 @@ import ErrorMessage from 'components/ErrorMessage/ErrorMessage';
 import type { Checkbox as Props, Option } from 'components/Form/types';
 
 interface Tickbox extends Props {
-  value?: string;
+  value?: string | number;
 }
 
 const Tickbox = ({

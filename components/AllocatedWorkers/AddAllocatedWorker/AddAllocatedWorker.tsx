@@ -75,7 +75,7 @@ const AddAllocatedWorker = ({
             value: id,
             text: name,
           }))}
-          onChange={(value: number) =>
+          onChange={(value: string | number | null) => {
             replace(
               {
                 pathname,
@@ -83,8 +83,8 @@ const AddAllocatedWorker = ({
               },
               undefined,
               { scroll: false }
-            )
-          }
+            );
+          }}
         />
       )}
       {workers && (

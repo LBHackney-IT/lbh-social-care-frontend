@@ -2,10 +2,6 @@ import { render, waitFor } from '@testing-library/react';
 import PersonView from './PersonView';
 import * as residentsAPI from 'utils/api/residents';
 
-jest.mock('utils/api/residents', () => ({
-  useResident: jest.fn(),
-}));
-
 describe('PersonView component', () => {
   jest.spyOn(residentsAPI, 'useResident').mockImplementation(() => ({
     data: {
@@ -13,7 +9,6 @@ describe('PersonView component', () => {
       firstName: 'Ciasom',
       lastName: 'Tesselate',
       mosaicId: 44000000,
-      formName: 'Foo_bar',
       nhsNumber: '12345',
       ageContext: 'A',
       firstLanguage: 'English',

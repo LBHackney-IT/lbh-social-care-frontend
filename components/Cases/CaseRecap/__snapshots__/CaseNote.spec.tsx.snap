@@ -1,0 +1,72 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CaseNote should display case note 1`] = `
+<DocumentFragment>
+  <div
+    class="govuk-!-margin-bottom-7"
+  >
+    <div
+      class="lbh-table-header"
+    >
+      <div
+        class="sectionTitle"
+      >
+        <h3
+          class="govuk-heading-m govuk-custom-text-color govuk-!-margin-bottom-0"
+        >
+          CASE NOTES RECORDING
+        </h3>
+      </div>
+    </div>
+    <hr
+      class="govuk-divider"
+    />
+    <dl
+      class="govuk-summary-list"
+    >
+      <div
+        class="govuk-summary-list__row"
+      >
+        <dt
+          class="govuk-summary-list__key"
+        >
+          Case Note Type
+        </dt>
+        <dd
+          class="govuk-summary-list__value"
+        >
+          Foo bar
+        </dd>
+      </div>
+      <div
+        class="govuk-summary-list__row"
+      >
+        <dt
+          class="govuk-summary-list__key"
+        >
+          Date of Event
+        </dt>
+        <dd
+          class="govuk-summary-list__value"
+        >
+          Invalid Date
+        </dd>
+      </div>
+      <div
+        class="govuk-summary-list__row"
+      >
+        <dt
+          class="govuk-summary-list__key"
+        >
+          Case Note Title
+        </dt>
+        <dd
+          class="govuk-summary-list__value"
+        >
+          i am a case title
+        </dd>
+      </div>
+    </dl>
+  </div>
+</DocumentFragment>
+`;

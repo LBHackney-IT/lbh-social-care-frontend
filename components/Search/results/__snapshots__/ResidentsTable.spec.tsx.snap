@@ -1,0 +1,73 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ResidenTable component should render properly 1`] = `
+<DocumentFragment>
+  <table
+    class="govuk-table"
+  >
+    <thead
+      class="govuk-table__head"
+    >
+      <tr
+        class="govuk-table__row"
+      >
+        <th
+          class="govuk-table__header"
+          scope="col"
+        >
+          Mosaic ID
+        </th>
+        <th
+          class="govuk-table__header"
+          scope="col"
+        >
+          Client Name
+        </th>
+        <th
+          class="govuk-table__header"
+          scope="col"
+        >
+          Date of birth
+        </th>
+        <th
+          class="govuk-table__header"
+          scope="col"
+        />
+      </tr>
+    </thead>
+    <tbody
+      class="govuk-table__body"
+    >
+      <tr
+        class="govuk-table__row"
+      >
+        <td
+          class="govuk-table__cell"
+        >
+          1
+        </td>
+        <td
+          class="govuk-table__cell"
+        >
+          Foo Bar
+        </td>
+        <td
+          class="govuk-table__cell"
+        >
+          13/11/2020
+        </td>
+        <td
+          class="govuk-table__cell"
+        >
+          <a
+            class="govuk-link govuk-custom-text-color"
+            href="/people/1"
+          >
+            View
+          </a>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</DocumentFragment>
+`;

@@ -2,7 +2,7 @@ import { WarningNote } from 'types';
 
 const { MOCKED_WARNING_NOTES } = process.env;
 
-import { mockedWarningNote } from 'fixtures/warningNotes.fixtures';
+import { mockedWarningNote } from 'factories/warningNotes';
 
 export const getWarningNotesByResident = async (
   personId: number

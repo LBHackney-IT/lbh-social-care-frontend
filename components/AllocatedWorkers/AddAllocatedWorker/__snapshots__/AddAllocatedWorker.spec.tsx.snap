@@ -6,7 +6,12 @@ exports[`AddAllocatedWorker should render properly 1`] = `
     role="form"
   >
     <div
+      aria-expanded="true"
+      aria-haspopup="listbox"
+      aria-labelledby="downshift-0-label"
+      aria-owns="downshift-0-menu"
       class="govuk-form-group govuk-grid-column-undefined"
+      role="combobox"
     >
       <label
         class="govuk-label govuk-label--m"
@@ -15,12 +20,7 @@ exports[`AddAllocatedWorker should render properly 1`] = `
         Select a team to view workers for that team 
       </label>
       <div
-        aria-expanded="true"
-        aria-haspopup="listbox"
-        aria-labelledby="downshift-0-label"
-        aria-owns="downshift-0-menu"
         class="inputContainer"
-        role="combobox"
       >
         <input
           aria-autocomplete="list"
@@ -30,11 +30,26 @@ exports[`AddAllocatedWorker should render properly 1`] = `
           class="govuk-input govuk-input--width-20"
           data-testid="teamId"
           id="teamId"
-          name="teamId.autocomplete"
           placeholder="Select or type team name"
-          style="border-color: #000;"
-          value=""
+          value="Team 3"
         />
+        <span
+          class="clear"
+          role="button"
+        >
+          <svg
+            class="clear-icon"
+            height="329pt"
+            viewBox="0 0 329.26933 329"
+            width="329pt"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="m194.800781 164.769531 128.210938-128.214843c8.34375-8.339844 8.34375-21.824219 0-30.164063-8.339844-8.339844-21.824219-8.339844-30.164063 0l-128.214844 128.214844-128.210937-128.214844c-8.34375-8.339844-21.824219-8.339844-30.164063 0-8.34375 8.339844-8.34375 21.824219 0 30.164063l128.210938 128.214843-128.210938 128.214844c-8.34375 8.339844-8.34375 21.824219 0 30.164063 4.15625 4.160156 9.621094 6.25 15.082032 6.25 5.460937 0 10.921875-2.089844 15.082031-6.25l128.210937-128.214844 128.214844 128.214844c4.160156 4.160156 9.621094 6.25 15.082032 6.25 5.460937 0 10.921874-2.089844 15.082031-6.25 8.34375-8.339844 8.34375-21.824219 0-30.164063zm0 0"
+              fill="#000"
+            />
+          </svg>
+        </span>
       </div>
       <ul
         aria-labelledby="downshift-0-label"
@@ -49,27 +64,7 @@ exports[`AddAllocatedWorker should render properly 1`] = `
           data-testid="teamId_0"
           id="downshift-0-item-0"
           role="option"
-          style="color: rgb(0, 0, 0); background-color: rgb(255, 255, 255); font-weight: normal;"
-        >
-          Team 1
-        </li>
-        <li
-          aria-selected="false"
-          class="suggestion"
-          data-testid="teamId_1"
-          id="downshift-0-item-1"
-          role="option"
-          style="color: rgb(0, 0, 0); background-color: rgb(255, 255, 255); font-weight: normal;"
-        >
-          Team 2
-        </li>
-        <li
-          aria-selected="false"
-          class="suggestion"
-          data-testid="teamId_2"
-          id="downshift-0-item-2"
-          role="option"
-          style="color: rgb(0, 0, 0); background-color: rgb(255, 255, 255); font-weight: normal;"
+          style="color: rgb(0, 0, 0); background-color: rgb(255, 255, 255);"
         >
           Team 3
         </li>

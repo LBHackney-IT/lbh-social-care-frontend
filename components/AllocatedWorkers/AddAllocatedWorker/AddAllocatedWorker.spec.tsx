@@ -1,6 +1,7 @@
 import { act, fireEvent, render } from '@testing-library/react';
 
 import { UserContext } from 'components/UserContext/UserContext';
+import { mockedUser } from 'factories/users';
 import AddAllocatedWorker from './AddAllocatedWorker';
 
 import * as allocatedWorkerAPI from 'utils/api/allocatedWorkers';
@@ -17,12 +18,6 @@ jest.mock('next/router', () => ({
 }));
 
 jest.mock('components/Spinner/Spinner', () => () => 'MockedSpinner');
-
-jest.mock('utils/api/allocatedWorkers', () => ({
-  useTeams: jest.fn(),
-  useTeamWorkers: jest.fn(),
-  addAllocatedWorker: jest.fn(),
-}));
 
 describe(`AddAllocatedWorker`, () => {
   jest.spyOn(allocatedWorkerAPI, 'useTeams').mockImplementation(() => ({
@@ -47,6 +42,7 @@ describe(`AddAllocatedWorker`, () => {
           allocationCount: 3,
           role: 'role_a',
           email: 'a@email.com',
+          teams: [],
         },
         {
           id: 8,
@@ -55,6 +51,7 @@ describe(`AddAllocatedWorker`, () => {
           allocationCount: 0,
           role: 'role_b',
           email: 'b@email.com',
+          teams: [],
         },
         {
           id: 7,
@@ -63,6 +60,7 @@ describe(`AddAllocatedWorker`, () => {
           allocationCount: 1,
           role: 'role_c',
           email: 'c@email.com',
+          teams: [],
         },
       ],
     },
@@ -80,15 +78,7 @@ describe(`AddAllocatedWorker`, () => {
     const { getByTestId, asFragment } = render(
       <UserContext.Provider
         value={{
-          user: {
-            name: 'foo',
-            hasAdminPermissions: true,
-            hasChildrenPermissions: true,
-            hasAdultPermissions: true,
-            email: 'foo@bar.com',
-            permissionFlag: 'A',
-            isAuthorised: true,
-          },
+          user: mockedUser,
         }}
       >
         <AddAllocatedWorker {...props} />
@@ -107,18 +97,11 @@ describe(`AddAllocatedWorker`, () => {
   });
 
   it('should render and submit correctly', async () => {
+    jest.spyOn(allocatedWorkerAPI, 'addAllocatedWorker');
     const { getByLabelText, getByRole, getByTestId } = render(
       <UserContext.Provider
         value={{
-          user: {
-            name: 'foo',
-            hasAdminPermissions: true,
-            hasChildrenPermissions: true,
-            hasAdultPermissions: true,
-            email: 'foo@bar.com',
-            permissionFlag: 'A',
-            isAuthorised: true,
-          },
+          user: mockedUser,
         }}
       >
         <AddAllocatedWorker {...props} />
@@ -131,7 +114,7 @@ describe(`AddAllocatedWorker`, () => {
     });
 
     await act(async () => {
-      fireEvent.click(getByTestId('teamId_2'));
+      fireEvent.click(getByTestId('teamId_0'));
     });
 
     fireEvent.click(getByLabelText('Worker C'));

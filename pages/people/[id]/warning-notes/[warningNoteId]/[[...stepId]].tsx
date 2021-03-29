@@ -54,7 +54,7 @@ const ReviewWarningNote = (): React.ReactElement => {
             {!summary && !confirmation && (
               <>
                 <h2>Reviewing or ending a Warning Note</h2>
-                <span className="govuk-caption-l">
+                <span className="govuk-caption-m">
                   Warnings must be kept under review by Team Managers and the
                   evidence to support continued use must be reviewed at least
                   annually. Warnings must always be reviewed on the closure or
