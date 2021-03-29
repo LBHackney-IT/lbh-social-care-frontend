@@ -8,7 +8,6 @@ import { AuthProvider } from 'components/UserContext/UserContext';
 import { isAuthorised, shouldRedirect } from 'utils/auth';
 
 import 'stylesheets/all.scss';
-import 'stylesheets/header.scss';
 
 class MyApp extends App {
   constructor(props) {
