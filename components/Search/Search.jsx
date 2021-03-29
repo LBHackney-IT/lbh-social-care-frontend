@@ -59,8 +59,6 @@ const Search = ({ type }) => {
   };
   const onFormSubmit = useCallback(
     (formData) => {
-      console.log('adasdsad');
-      console.log(formData);
       const qs = formData
         ? `?${getQueryString({ ...query, ...formData })}`
         : '';

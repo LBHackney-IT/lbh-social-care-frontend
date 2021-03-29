@@ -1,12 +1,10 @@
 import { useState, useEffect } from 'react';
 
-import { getData, deleteData, BasicData, DetailedData } from 'utils/saveData';
-import { DetailedTable, StandardTable } from './Tables';
+import { getData, deleteData, SavedData } from 'utils/saveData';
+import SavedDataTable from './SavedDataTable';
 
 export const SavedForms = (): React.ReactElement => {
-  const [savedForms, setSavedForms] = useState<
-    Record<string, BasicData | DetailedData>
-  >();
+  const [savedForms, setSavedForms] = useState<Record<string, SavedData>>();
   useEffect(() => {
     setSavedForms(getData());
   }, []);
@@ -21,41 +19,31 @@ export const SavedForms = (): React.ReactElement => {
       </p>
     );
   }
-  const detailHeader = [
-    'Person ID',
-    'Client Name',
-    'Date of birth',
-    'Form type',
-    'Last saved',
-    'Actions',
-    '',
-  ];
+  const detailHeader = ['Person ID', 'Client Name', 'Date of birth'];
   const standardHeader = ['Form type', 'Last saved', 'Actions', ''];
   const sortData = Object.values(savedForms);
   const formQty = sortData.length;
-  const detailData = sortData.filter((item) =>
-    Boolean(item.includesDetails)
-  ) as DetailedData[];
-  const standardData = sortData.filter((item) => !item.includesDetails);
+  const detailData = sortData.filter((item) => Boolean(item.personDetails));
+  const standardData = sortData.filter((item) => !item.personDetails);
   return (
     <>
       <p role="label" className="govuk-fieldset__legend--s gov-weight-lighter">
         {`Displaying ${formQty} unfinished ${formQty > 1 ? 'forms' : 'form'}`}{' '}
       </p>
-      {standardData.length ? (
-        <StandardTable
+      {standardData.length > 0 && (
+        <SavedDataTable
           tableHeader={standardHeader}
-          data={standardData}
+          savedData={standardData}
           deleteForm={deleteForm}
         />
-      ) : null}
-      {detailData.length ? (
-        <DetailedTable
-          tableHeader={detailHeader}
-          data={detailData}
+      )}
+      {detailData.length > 0 && (
+        <SavedDataTable
+          tableHeader={[...detailHeader, ...standardHeader]}
+          savedData={detailData}
           deleteForm={deleteForm}
         />
-      ) : null}
+      )}
     </>
   );
 };

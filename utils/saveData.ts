@@ -1,58 +1,39 @@
 import { isBrowser } from 'utils/ssr';
+import { Resident } from 'types';
 
 export const SAVE_KEY = 'social-care-forms';
 
-export interface BasicData {
-  data: {
-    id: string;
-  };
+export interface SavedData {
+  data: Record<string, unknown>;
   title: string;
-  timeStamp: string;
   formPath: string;
+  timestamp: string;
   step: string;
-  includesDetails?: boolean;
-  [key: string]: unknown;
+  personDetails?: Resident;
 }
 
-export interface DetailedData extends BasicData {
-  firstName: string;
-  lastName: string;
-  dateOfBirth?: string;
-}
+type DataToSave = Omit<SavedData, 'timestamp'>;
 
-export const saveData = (
-  formPath: string,
-  data: Record<string, unknown>,
-  title: string,
-  step: string,
-  includesDetails: boolean,
-  personDetails: Record<string, unknown>
-): void => {
-  const timeStamp = new Date().toLocaleDateString('en-GB');
-  const savedData = {
-    step,
-    data,
-    title,
-    timeStamp,
-    formPath,
-    includesDetails,
-    ...personDetails,
-  };
+export const saveData = (data: DataToSave): void => {
   try {
-    const savedForms = localStorage.getItem(SAVE_KEY);
+    const savedForms = localStorage.getItem(SAVE_KEY) || '{}';
     savedForms &&
       localStorage.setItem(
         SAVE_KEY,
-        JSON.stringify({ ...JSON.parse(savedForms), [formPath]: savedData })
+        JSON.stringify({
+          ...JSON.parse(savedForms),
+          [data.formPath]: {
+            ...data,
+            timestamp: new Date().toLocaleDateString('en-GB'),
+          },
+        })
       );
   } catch {
     localStorage.removeItem(SAVE_KEY);
   }
 };
 
-export const getFormData = (
-  formPath: string
-): Record<string, unknown> | undefined => {
+export const getFormData = (formPath: string): SavedData | undefined => {
   if (isBrowser()) {
     try {
       const savedForms = localStorage.getItem(SAVE_KEY);
@@ -63,9 +44,7 @@ export const getFormData = (
   }
 };
 
-export const getData = ():
-  | Record<string, BasicData | DetailedData>
-  | undefined => {
+export const getData = (): Record<string, SavedData> | undefined => {
   if (isBrowser()) {
     try {
       const savedForms = localStorage.getItem(SAVE_KEY);
@@ -78,7 +57,7 @@ export const getData = ():
 
 export const deleteData = (formPath: string): void => {
   try {
-    const savedForms = localStorage.getItem(SAVE_KEY);
+    const savedForms = JSON.parse(localStorage.getItem(SAVE_KEY) || '');
     if (savedForms) delete JSON.parse(savedForms)[formPath];
     localStorage.setItem(SAVE_KEY, JSON.stringify(savedForms));
   } catch {

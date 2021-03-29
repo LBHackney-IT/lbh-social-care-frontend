@@ -44,7 +44,7 @@ const HeaderComponent = ({
     if (user) {
       const savedForms = getData();
       setNavLinks(
-        savedForms && Object.keys(savedForms)?.length > 0
+        savedForms
           ? loggedNavLinks
           : loggedNavLinks.filter(({ name }) => name !== 'Forms in progress')
       );

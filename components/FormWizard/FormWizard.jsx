@@ -8,7 +8,6 @@ import DynamicStep from 'components/FormWizard/DynamicStep';
 import Breadcrumbs from 'components/Breadcrumbs/Breadcrumbs';
 import { createSteps, getNextStepPath, haveStepsChanged } from 'utils/steps';
 import { deepmerge } from 'utils/objects';
-import { getQueryString } from 'utils/urls';
 import { getFormData, saveData } from 'utils/saveData';
 
 const FormWizard = ({
@@ -116,16 +115,13 @@ const FormWizard = ({
             const updatedData = step.isMulti
               ? deepmerge(formData, data)
               : { ...formData, ...data };
-            saveData(
-              formPath,
-              updatedData,
+            saveData({
+              data: updatedData,
               title,
-              includesDetails
-                ? `${window.location.pathname}?${getQueryString(queryString)}`
-                : window.location.pathname,
-              includesDetails,
-              personDetails
-            );
+              formPath,
+              step: window.location.pathname,
+              personDetails: includesDetails && personDetails,
+            });
             Router.push('/form-in-progress');
           }}
           onFormSubmit={onFormSubmit}
