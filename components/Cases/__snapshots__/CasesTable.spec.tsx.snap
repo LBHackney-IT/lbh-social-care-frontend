@@ -15,25 +15,25 @@ exports[`CasesTable component should render properly 1`] = `
           class="govuk-table__header"
           scope="col"
         >
-          Date created
+          Date created 
         </th>
         <th
           class="govuk-table__header"
           scope="col"
         >
-          Record type
+          Record type 
         </th>
         <th
           class="govuk-table__header"
           scope="col"
         >
-          Created by
+          Created by 
         </th>
         <th
           class="govuk-table__header"
           scope="col"
         >
-          Action
+          Action 
         </th>
         <th
           class="govuk-table__header"
@@ -64,7 +64,8 @@ exports[`CasesTable component should render properly 1`] = `
           Fname.Lname@hackney.gov.uk
         </td>
         <td
-          class="govuk-table__cell govuk-button--secondary'"
+          class="govuk-table__cell govuk-table__cell--numeric"
+          style="width: 50px; text-align: center;"
         >
           <a
             class="govuk-link"
@@ -96,7 +97,8 @@ exports[`CasesTable component should render properly 1`] = `
           Fname.Lname@hackney.gov.uk
         </td>
         <td
-          class="govuk-table__cell govuk-button--secondary'"
+          class="govuk-table__cell govuk-table__cell--numeric"
+          style="width: 50px; text-align: center;"
         >
           <a
             href="/people/123/allocations/321?recordId=2"
@@ -128,7 +130,8 @@ exports[`CasesTable component should render properly 1`] = `
           Fname.Lname@hackney.gov.uk
         </td>
         <td
-          class="govuk-table__cell govuk-button--secondary'"
+          class="govuk-table__cell govuk-table__cell--numeric"
+          style="width: 50px; text-align: center;"
         >
           <a
             href="/people/123/records/4"

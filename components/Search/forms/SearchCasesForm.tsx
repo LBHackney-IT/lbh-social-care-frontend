@@ -30,11 +30,14 @@ interface Props {
   onFormSubmit: (formData?: FormValues) => void;
   showSearchByPerson?: boolean;
   defaultValues: FormValues;
+  ctaText?: string;
 }
 
 const SearchCasesForm = ({
   onFormSubmit,
+  showSearchByPerson = true,
   defaultValues,
+  ctaText = 'Search',
 }: Props): React.ReactElement => {
   const {
     register,
@@ -140,27 +143,30 @@ const SearchCasesForm = ({
             options={formNameOptions}
           />
         </div>
-        <div className="govuk-grid-column-one-half">
-          <EmailInput
-            name="worker_email"
-            label="Uploaded by:"
-            labelSize="s"
-            placeholder="Email"
-            register={register}
-          />
-        </div>
+        {showSearchByPerson && (
+          <div className="govuk-grid-column-one-half">
+            <EmailInput
+              name="worker_email"
+              label="Uploaded by:"
+              labelSize="s"
+              placeholder="Email"
+              register={register}
+            />
+          </div>
+        )}
       </div>
-      <div className="govuk-grid-row">
-        <div className="govuk-grid-column-one-half">
-          <Checkbox
-            label="Only include records I've created"
-            name="my_notes_only"
-            register={register}
-          />
+      {showSearchByPerson && (
+        <div className="govuk-grid-row">
+          <div className="govuk-grid-column-one-half">
+            <Checkbox
+              label="Only include records I've created"
+              name="my_notes_only"
+              register={register}
+            />
+          </div>
         </div>
-      </div>
-
-      <Button label="Search" type="submit" disabled={!isDirty} />
+      )}
+      <Button label={ctaText} type="submit" disabled={!isDirty} />
       <span
         className="govuk-link"
         onClick={() => {
@@ -176,7 +182,7 @@ const SearchCasesForm = ({
           lineHeight: '2.5rem',
         }}
       >
-        Clear search
+        Clear {ctaText.toLowerCase()}
       </span>
     </form>
   );

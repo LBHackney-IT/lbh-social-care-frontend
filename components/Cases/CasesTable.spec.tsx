@@ -12,7 +12,12 @@ describe('CasesTable component', () => {
     records: [mockedNote, mockedAllocationNote, mockedCaseNote],
   };
   it('should render properly', () => {
-    const { asFragment } = render(<CasesTable {...props} />);
+    const { asFragment } = render(
+      <CasesTable
+        {...props}
+        columns={['date_of_event', 'formName', 'officer_email', 'action']}
+      />
+    );
     expect(asFragment()).toMatchSnapshot();
   });
 });

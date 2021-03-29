@@ -37,7 +37,10 @@ const Cases = ({ id }: Props): React.ReactElement => {
   return (
     <>
       {results.cases.length > 0 ? (
-        <CasesTable records={results.cases} />
+        <CasesTable
+          records={results.cases}
+          columns={['date_of_event', 'formName', 'officer_email', 'action']}
+        />
       ) : (
         <p className="govuk-body govuk-!-margin-top-5">Records not found</p>
       )}
