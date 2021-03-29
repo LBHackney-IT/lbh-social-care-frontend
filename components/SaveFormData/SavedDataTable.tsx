@@ -47,7 +47,11 @@ const SavedDataTable = ({
           <td className="govuk-table__cell"> {record.timestamp}</td>
           <td className="govuk-table__cell">
             {
-              <Link href={`${record.step}?continueForm=true`}>
+              <Link
+                href={`${record.step}${
+                  record.step.indexOf('?') === -1 ? '?' : '&'
+                }continueForm=true`}
+              >
                 <a className="govuk-link">Complete</a>
               </Link>
             }

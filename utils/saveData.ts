@@ -58,7 +58,7 @@ export const getData = (): Record<string, SavedData> | undefined => {
 export const deleteData = (formPath: string): void => {
   try {
     const savedForms = JSON.parse(localStorage.getItem(SAVE_KEY) || '');
-    if (savedForms) delete JSON.parse(savedForms)[formPath];
+    if (savedForms) delete savedForms[formPath];
     localStorage.setItem(SAVE_KEY, JSON.stringify(savedForms));
   } catch {
     localStorage.removeItem(SAVE_KEY);
