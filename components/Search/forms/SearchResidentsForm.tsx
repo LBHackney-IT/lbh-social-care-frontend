@@ -17,11 +17,13 @@ interface FormValues {
 interface Props {
   onFormSubmit: (formData?: FormValues) => void;
   defaultValues: FormValues;
+  ctaText?: string;
 }
 
 const SearchResidentsForm = ({
   onFormSubmit,
   defaultValues,
+  ctaText = 'Search',
 }: Props): React.ReactElement => {
   const {
     register,
@@ -105,7 +107,7 @@ const SearchResidentsForm = ({
           />
         </div>
       </div>
-      <Button label="Search" type="submit" disabled={!isDirty} />
+      <Button label={ctaText} type="submit" disabled={!isDirty} />
       <span
         className="govuk-link"
         role="button"
@@ -120,7 +122,7 @@ const SearchResidentsForm = ({
           lineHeight: '2.5rem',
         }}
       >
-        Clear search
+        Clear {ctaText.toLowerCase()}
       </span>
     </form>
   );

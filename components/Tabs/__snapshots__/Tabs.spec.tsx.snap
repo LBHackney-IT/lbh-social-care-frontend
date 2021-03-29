@@ -1,0 +1,46 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Tabs should render properly 1`] = `
+<DocumentFragment>
+  <div
+    class="govuk-tabs"
+  >
+    <h2
+      class="govuk-tabs__title"
+    >
+      foo
+    </h2>
+    <ul
+      class="govuk-tabs__list"
+    >
+      <li
+        class="govuk-tabs__list-item govuk-tabs__list-item--selected"
+      >
+        <a
+          class="govuk-tabs__tab"
+          href="/foo"
+        >
+          foo
+        </a>
+      </li>
+      <li
+        class="govuk-tabs__list-item"
+      >
+        <a
+          class="govuk-tabs__tab"
+          href="/bar"
+        >
+          bar
+        </a>
+      </li>
+    </ul>
+    <div
+      class="govuk-tabs__panel"
+    >
+      <p>
+        I am the content!
+      </p>
+    </div>
+  </div>
+</DocumentFragment>
+`;
