@@ -14,3 +14,11 @@
     }
   }
 }
+
+.actions {
+  @media screen and (min-width: 40.0625em) {
+    *:last-of-type {
+      margin-left: 10px;
+    }
+  }
+}

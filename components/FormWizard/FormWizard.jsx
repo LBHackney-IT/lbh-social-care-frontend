@@ -54,8 +54,9 @@ const FormWizard = ({
   const currentStepIndex = steps.findIndex(({ id }) => id === step.id);
   const StepComponent = step.component ? step.component : DynamicStep;
   return (
-    <div className="govuk-width-container">
+    <>
       <Seo title={`${step.title} - ${title}`} />
+
       {!hideBackButton && currentStepIndex !== 0 && step.id !== 'confirmation' && (
         <a className="govuk-back-link" href="#" onClick={() => Router.back()}>
           Back
@@ -81,6 +82,7 @@ const FormWizard = ({
               </legend>
             </>
           )}
+
         <StepComponent
           {...step}
           key={stepId?.join('-')}
@@ -133,7 +135,7 @@ const FormWizard = ({
           isSummaryCollapsable={steps.length > 3 && isSummaryCollapsable}
         />
       </fieldset>
-    </div>
+    </>
   );
 };
 
