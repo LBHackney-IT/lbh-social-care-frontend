@@ -12,6 +12,7 @@ $screen-sm-min: 576px;
 }
 
 .clear-button {
+  display: inline-block;
   border: none;
   background: none;
   @include lbh-body-m;
