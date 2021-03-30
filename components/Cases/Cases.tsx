@@ -49,7 +49,7 @@ const Cases = ({ id }: Props): React.ReactElement => {
           <Spinner />
         ) : (
           results.nextCursor && (
-            <Button label="load more" onClick={() => setSize(size + 1)} />
+            <Button label="Load more" onClick={() => setSize(size + 1)} />
           )
         )}
       </div>
@@ -69,13 +69,12 @@ const CasesWrapper = ({ id, person }: WrapperProps): React.ReactElement => {
       <div className="lbh-table-header">
         <div>
           <h3 className="govuk-fieldset__legend--m govuk-custom-text-color">
-            RECORDS HISTORY
+            Records history
           </h3>
           <span className="govuk-body">Linked files are read only</span>
         </div>
         <Button label="Add a new record" route={`${id}/records`} />
       </div>
-      <hr className="govuk-divider" />
       {user.hasUnrestrictedPermissions || !person.restricted ? (
         <Cases id={id} />
       ) : (

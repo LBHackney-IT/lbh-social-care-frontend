@@ -43,9 +43,7 @@ const CaseNotesRecording = (): React.ReactElement => {
       <Seo title="Case note" />
       <>
         <BackButton />
-        <h1 className="govuk-fieldset__legend--l gov-weight-lighter">
-          Case note for
-        </h1>
+        <h1 className="lbh-heading-h1">Case note</h1>
         <PersonView personId={personId} expandView>
           {(person: Resident) => (
             <FormWizard

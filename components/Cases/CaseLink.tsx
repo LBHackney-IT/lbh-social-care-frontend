@@ -55,7 +55,11 @@ const CaseLink = ({
     );
   }
   const internalLink = getLink(recordId, caseFormData);
-  return internalLink ? <Link href={internalLink}>View</Link> : null;
+  return internalLink ? (
+    <Link href={internalLink}>
+      <a className="lbh-link">View</a>
+    </Link>
+  ) : null;
 };
 
 export default CaseLink;

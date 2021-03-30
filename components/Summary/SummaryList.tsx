@@ -15,7 +15,7 @@ interface Props {
 }
 
 const SummaryList = ({ list }: Props): React.ReactElement => (
-  <dl className="govuk-summary-list">
+  <dl className="govuk-summary-list  lbh-summary-list">
     {list &&
       list.map(({ key, title, value, href, type }) => (
         <div key={key} className="govuk-summary-list__row">

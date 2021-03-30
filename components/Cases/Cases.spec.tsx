@@ -46,7 +46,7 @@ describe('Cases component', () => {
     await waitFor(() => {
       expect(asFragment()).toMatchSnapshot();
     });
-    const button = getByRole('button', { name: 'load more' });
+    const button = getByRole('button', { name: 'Load more' });
     expect(getAllByText('View')).toHaveLength(2);
     fireEvent.click(button);
     expect(mockSetSize).toHaveBeenCalled();

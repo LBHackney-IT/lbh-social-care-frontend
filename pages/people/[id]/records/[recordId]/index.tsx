@@ -14,9 +14,7 @@ const CaseView = (): React.ReactElement => {
     <>
       <Seo title={`#${recordId} record`} />
       <BackButton />
-      <h1 className="govuk-fieldset__legend--l gov-weight-lighter">
-        Case note for
-      </h1>
+      <h1 className="lbh-heading-h1">Case note</h1>
       <PersonView personId={Number(id as string)} expandView>
         <div className="govuk-!-margin-top-7">
           {is_historical && <HistoricNote recordId={recordId as string} />}

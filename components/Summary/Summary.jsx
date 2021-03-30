@@ -96,7 +96,6 @@ export const SummarySection = ({
           </span>
         )}
       </div>
-      <hr className="govuk-divider" />
       {!isCollapsed && Summary}
     </div>
   );

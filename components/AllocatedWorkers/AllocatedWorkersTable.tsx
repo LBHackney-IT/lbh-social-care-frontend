@@ -29,9 +29,7 @@ const AllocatedWorkersEntry = ({
         <Button isSecondary label="Deallocate Worker" route={deallocationUrl} />
       )}
     </div>
-    <hr className="govuk-divider" />
-    <div></div>
-    <dl className="govuk-summary-list">
+    <dl className="govuk-summary-list  lbh-summary-list">
       {allocatedWorker && (
         <div className="govuk-summary-list__row">
           <dt className="govuk-summary-list__key">Allocated worker:</dt>

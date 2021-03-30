@@ -61,7 +61,7 @@ const AllocationRecap = ({
       </p>
       <div className="govuk-!-margin-top-6">
         <h2 className="gov-weight-lighter">Allocations details</h2>
-        <dl className="govuk-summary-list govuk-summary-list--no-border">
+        <dl className="govuk-summary-list  lbh-summary-list govuk-summary-list--no-border">
           <div className="govuk-summary-list__row">
             <dt className="govuk-summary-list__key">Worker</dt>
             <dd className="govuk-summary-list__value">

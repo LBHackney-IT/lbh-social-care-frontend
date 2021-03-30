@@ -34,7 +34,7 @@ const AllocatedWorkers = ({ id }: Props): React.ReactElement => {
       <div>
         <div className="lbh-table-header">
           <h3 className="govuk-fieldset__legend--m govuk-custom-text-color">
-            ALLOCATED WORKER {allocations.length + 1}
+            Allocated worker {allocations.length + 1}
           </h3>
           {user.hasAllocationsPermissions && (
             <Button
@@ -44,11 +44,10 @@ const AllocatedWorkers = ({ id }: Props): React.ReactElement => {
             />
           )}
         </div>
-        <hr className="govuk-divider" />
-        <p>
-          <i>
-            {allocations.length === 0 ? 'Currently unallocated' : 'Optional'}
-          </i>
+        <p className="lbh-body">
+          {allocations.length === 0
+            ? 'No one is allocated right now.'
+            : 'Optional'}
         </p>
       </div>
       {error && <ErrorMessage />}

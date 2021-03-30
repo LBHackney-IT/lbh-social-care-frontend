@@ -130,7 +130,6 @@ const Search = ({
             </h2>
             <div style={{ textAlign: 'right' }}>{addNewPerson}</div>
           </div>
-          <hr className="govuk-divider" />
           {results.records?.length > 0 ? (
             <SearchResults
               records={results.records}
@@ -152,7 +151,7 @@ const Search = ({
           <Spinner />
         ) : (
           results?.nextCursor && (
-            <Button label="load more" onClick={() => setSize(size + 1)} />
+            <Button label="Load more" onClick={() => setSize(size + 1)} />
           )
         )}
       </div>
