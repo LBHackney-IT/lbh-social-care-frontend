@@ -52,7 +52,8 @@ export const Autocomplete = forwardRef<HTMLInputElement, AutoProps>(
     };
 
     const items = useMemo(() => convertToObject(options), [options]);
-    const autoRef = useRef<HTMLInputElement>(null);
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const autoRef = useRef<any>(null);
     const getTextValue = () => {
       if (value) {
         const selection = items.find(

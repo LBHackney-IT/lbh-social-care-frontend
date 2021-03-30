@@ -63,63 +63,6 @@ const HeaderComponent = (): React.ReactElement => {
         </div>
       </div>
     </header>
-
-    // <header className="lbh-header">
-    //   <div className="lbh-header__main">
-    //     <div className="lbh-container lbh-header__wrapper lbh-header__wrapper--stacked">
-    //       <div className="govuk-header__logo">
-    //         <Link href="/">
-    //           <a className="govuk-header__link govuk-header__link--homepage">
-    //             <span className="govuk-header__logotype">
-    //               <Logo />
-    //             </span>
-    //           </a>
-    //         </Link>
-    //       </div>
-    //       <div className="govuk-header__content">
-    //         <Link href="/">
-    //           <a className="govuk-header__link govuk-header__link--service-name">
-    //             {serviceName} {user && getUserType(user)}
-    //           </a>
-    //         </Link>
-    //         {navLinks && (
-    //           <>
-    //             <button
-    //               type="button"
-    //               className="govuk-header__menu-button"
-    //               aria-controls="navigation"
-    //               aria-label="Show or hide navigation menu"
-    //             >
-    //               Menu
-    //             </button>
-    //             <nav>
-    //               <ul
-    //                 id="navigation"
-    //                 className="govuk-header__navigation "
-    //                 aria-label="Navigation menu"
-    //               >
-    //                 {navLinks.map(({ name, path, isSelected }) => (
-    //                   <li
-    //                     key={path}
-    //                     className={cx('govuk-header__navigation-item', {
-    //                       'govuk-header__navigation-item--active':
-    //                         isSelected?.({ asPath, pathname }) ||
-    //                         path === pathname,
-    //                     })}
-    //                   >
-    //                     <Link href={path}>
-    //                       <a className="govuk-header__link">{name}</a>
-    //                     </Link>
-    //                   </li>
-    //                 ))}
-    //               </ul>
-    //             </nav>
-    //           </>
-    //         )}
-    //       </div>
-    //     </div>
-    //   </div>
-    // </header>
   );
 };
 

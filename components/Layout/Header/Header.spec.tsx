@@ -14,9 +14,6 @@ jest.mock('next/router', () => ({
 jest.mock('./Logo', () => () => 'MockedLogo');
 
 describe('Header component', () => {
-  const props = {
-    serviceName: 'Foo',
-  };
   it('should render header links with form in progress link', () => {
     jest.spyOn(saveData, 'getData').mockImplementationOnce(() => ({
       first: {
@@ -44,7 +41,7 @@ describe('Header component', () => {
   });
 
   it('should render service name but no header links', () => {
-    const { getByText, queryByText } = render(
+    const { queryByText } = render(
       <UserContext.Provider
         value={{
           user: undefined,
