@@ -20,15 +20,15 @@ describe('Admin Dev Group', () => {
   });
 
   it('Search of Adult group record', () => {
-    cy.contains('First name:').type(Cypress.env('ADULT_RECORD_FIRST_NAME'));
-    cy.contains('Last name:').type(Cypress.env('ADULT_RECORD_LAST_NAME'));
+    cy.contains('First name').type(Cypress.env('ADULT_RECORD_FIRST_NAME'));
+    cy.contains('Last name').type(Cypress.env('ADULT_RECORD_LAST_NAME'));
     cy.get('form').submit();
     cy.contains(Cypress.env('ADULT_RECORD_FULL_NAME')).should('be.visible');
   });
 
   it('Search of Children group record', () => {
-    cy.contains('First name:').type(Cypress.env('CHILDREN_RECORD_FIRST_NAME'));
-    cy.contains('Last name:').type(Cypress.env('CHILDREN_RECORD_LAST_NAME'));
+    cy.contains('First name').type(Cypress.env('CHILDREN_RECORD_FIRST_NAME'));
+    cy.contains('Last name').type(Cypress.env('CHILDREN_RECORD_LAST_NAME'));
     cy.get('[type="submit"]').click();
     cy.contains('View').click();
     cy.contains(Cypress.env('CHILDREN_RECORD_FULL_NAME')).should('be.visible');
