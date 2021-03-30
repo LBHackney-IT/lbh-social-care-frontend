@@ -97,7 +97,8 @@ export const Autocomplete = forwardRef<HTMLInputElement, AutoProps>(
                 className={`govuk-label lbh-label govuk-label--${labelSize}`}
                 htmlFor={name}
               >
-                {label} {required && <span className="govuk-required">*</span>}
+                {label}
+                {required && <span className="govuk-required">*</span>}
               </label>
               <div className={style.inputContainer}>
                 {hint && (

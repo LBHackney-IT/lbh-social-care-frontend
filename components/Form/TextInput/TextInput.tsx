@@ -27,7 +27,8 @@ const TextInput = ({
       className={`lbh-label govuk-label govuk-label--${labelSize}`}
       htmlFor={name}
     >
-      {label} {required && <span className="govuk-required">*</span>}
+      {label}
+      {required && <span className="govuk-required">*</span>}
     </label>
     {hint && (
       <span id={`${name}-hint`} className="govuk-hint lbh-hint">

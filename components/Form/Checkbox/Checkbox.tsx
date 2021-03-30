@@ -29,7 +29,8 @@ const Tickbox = ({
       ref={rules ? register?.(rules) : register}
     />
     <label className="govuk-label govuk-checkboxes__label" htmlFor={name}>
-      {label} {required && <span className="govuk-required">*</span>}
+      {label}
+      {required && <span className="govuk-required">*</span>}
     </label>
   </div>
 );
@@ -57,7 +58,8 @@ const Checkbox = ({
         <legend
           className={`govuk-fieldset__legend govuk-fieldset__legend--${labelSize}`}
         >
-          {label} {required && <span className="govuk-required">*</span>}
+          {label}
+          {required && <span className="govuk-required">*</span>}
         </legend>
       )}
       {hint && (
