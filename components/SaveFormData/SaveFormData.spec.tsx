@@ -31,17 +31,13 @@ describe('SaveFormData component', () => {
         data: { id: '12345' },
       },
     }));
-    const { getByRole, asFragment } = render(<SavedForms />);
+    const { getByText, asFragment } = render(<SavedForms />);
     expect(asFragment()).toMatchSnapshot();
-    expect(getByRole('label')).toHaveTextContent(
-      'Displaying 2 unfinished form'
-    );
+    expect(getByText('You have 2 unfinished forms'));
   });
 
   it('should display no forms in progress message', () => {
-    const { getByRole } = render(<SavedForms />);
-    expect(getByRole('label')).toHaveTextContent(
-      `You don't have any incomplete form, well done!`
-    );
+    const { getByText } = render(<SavedForms />);
+    expect(getByText(`You have no incomplete forms right now.`));
   });
 });

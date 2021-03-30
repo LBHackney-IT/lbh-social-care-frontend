@@ -56,7 +56,7 @@ describe(`Search`, () => {
         <Search {...props} type="people" />
       </UserContext.Provider>
     );
-    const firstNameInput = getByLabelText('First name:');
+    const firstNameInput = getByLabelText('First name');
     fireEvent.change(firstNameInput, { target: { value: 'foo' } });
     expect(queryByText('Add New Person')).not.toBeInTheDocument();
     await act(async () => {
@@ -100,7 +100,7 @@ describe(`Search`, () => {
         <Search {...props} type="people" />
       </UserContext.Provider>
     );
-    const firstNameInput = getByLabelText('First name:');
+    const firstNameInput = getByLabelText('First name');
     fireEvent.change(firstNameInput, { target: { value: 'foo' } });
     expect(queryByText('Add New Person')).not.toBeInTheDocument();
     await act(async () => {
@@ -129,7 +129,9 @@ describe(`Search`, () => {
         <Search {...props} type="people" />
       </UserContext.Provider>
     );
-    const errorLabel = await findByText('Oops an error occurred');
+    const errorLabel = await findByText(
+      'There was a problem. Please refresh the page or try again later.'
+    );
     expect(errorLabel).toBeInTheDocument();
     // expect(queryByText('Add New Person')).toBeInTheDocument();
   });
