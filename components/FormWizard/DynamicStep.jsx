@@ -42,57 +42,55 @@ const DynamicStep = ({
   return (
     <>
       <form onSubmit={handleSubmit((data) => onStepSubmit(sanitiseData(data)))}>
-        <div className="govuk-form-group lbh-form-group">
-          {components?.map(
-            ({
-              conditionalRender,
-              showConditionalGuides,
-              name,
-              isMulti: isComponentMulti,
-              ...componentProps
-            }) => {
-              if (isValidElement(componentProps)) {
-                return componentProps;
-              }
-              if (conditionalRender && !conditionalRender(currentData)) {
-                return null;
-              }
-              const inputName = multiStepPrefix
-                ? `${multiStepPrefix}.${name}`
-                : name;
-              const sharedProps = {
-                key: inputName,
-                name: inputName,
-                register: register,
-                control: control,
-                errors: errors,
-                currentData: currentData,
-                ...componentProps,
-              };
-              return (
-                <div
-                  key={inputName}
-                  className={cx('govuk-form-group', 'lbh-form-group', {
-                    [styles.withConditionalGuides]:
-                      conditionalRender && showConditionalGuides,
-                  })}
-                >
-                  {isComponentMulti ? (
-                    <DynamicInputMulti
-                      {...sharedProps}
-                      initialInputData={formData[name]}
-                      onDelete={(updatedValue) =>
-                        setValue(inputName, updatedValue)
-                      }
-                    />
-                  ) : (
-                    <DynamicInput {...sharedProps} />
-                  )}
-                </div>
-              );
+        {components?.map(
+          ({
+            conditionalRender,
+            showConditionalGuides,
+            name,
+            isMulti: isComponentMulti,
+            ...componentProps
+          }) => {
+            if (isValidElement(componentProps)) {
+              return componentProps;
             }
-          )}
-        </div>
+            if (conditionalRender && !conditionalRender(currentData)) {
+              return null;
+            }
+            const inputName = multiStepPrefix
+              ? `${multiStepPrefix}.${name}`
+              : name;
+            const sharedProps = {
+              key: inputName,
+              name: inputName,
+              register: register,
+              control: control,
+              errors: errors,
+              currentData: currentData,
+              ...componentProps,
+            };
+            return (
+              <div
+                key={inputName}
+                className={cx('govuk-form-group', 'lbh-form-group', {
+                  [styles.withConditionalGuides]:
+                    conditionalRender && showConditionalGuides,
+                })}
+              >
+                {isComponentMulti ? (
+                  <DynamicInputMulti
+                    {...sharedProps}
+                    initialInputData={formData[name]}
+                    onDelete={(updatedValue) =>
+                      setValue(inputName, updatedValue)
+                    }
+                  />
+                ) : (
+                  <DynamicInput {...sharedProps} />
+                )}
+              </div>
+            );
+          }
+        )}
         {isMulti && (
           <Button
             isSecondary
