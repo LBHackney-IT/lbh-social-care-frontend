@@ -124,7 +124,7 @@ const AddressLookup = ({
       })}
     >
       <label className="govuk-label govuk-label--m" htmlFor="postcode">
-        {label} {required && <span className="govuk-required">*</span>}
+        {label}{required && <span className="govuk-required">*</span>}
       </label>
       {hint && (
         <span id={`${name}-hint`} className="govuk-hint lbh-hint">

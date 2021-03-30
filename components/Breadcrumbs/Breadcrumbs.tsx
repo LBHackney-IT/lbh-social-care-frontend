@@ -44,7 +44,7 @@ const Breadcrumbs = ({
   currentStepIndex,
 }: BreadcrumbProps): React.ReactElement => {
   return (
-    <div className="govuk-breadcrumbs">
+    <div className="govuk-breadcrumbs lbh-breadcrumbs">
       <ol className="govuk-breadcrumbs__list">
         {steps.map((step, index) =>
           renderOnCondition(
