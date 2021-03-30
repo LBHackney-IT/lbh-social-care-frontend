@@ -4,7 +4,8 @@
   border: none;
   background: none;
   padding: 0;
-  padding-bottom: 10px;
+  padding-bottom: 12px;
+  margin-bottom: 10px;
   width: 100%;
   text-align: left;
   cursor: pointer;
@@ -24,6 +25,7 @@
     margin: 0;
     width: 20px;
     height: 20px;
+    top: unset;
   }
 
   &[aria-expanded='false'] svg {

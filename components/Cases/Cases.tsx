@@ -66,15 +66,9 @@ const CasesWrapper = ({ id, person }: WrapperProps): React.ReactElement => {
   const { user } = useAuth() as { user: User };
   return (
     <div>
-      <div className="lbh-table-header">
-        <div>
-          <h3 className="govuk-fieldset__legend--m govuk-custom-text-color">
-            Records history
-          </h3>
-          <span className="govuk-body">Linked files are read only</span>
-        </div>
-        <Button label="Add a new record" route={`${id}/records`} />
-      </div>
+      <h3 className="lbh-heading-h2 section-heading">Records history</h3>
+      <p className="lbh-body">Linked files are read only.</p>
+      <Button label="Add a new record" route={`${id}/records`} />
       {user.hasUnrestrictedPermissions || !person.restricted ? (
         <Cases id={id} />
       ) : (

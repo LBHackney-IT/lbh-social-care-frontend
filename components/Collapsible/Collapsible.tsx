@@ -6,10 +6,15 @@ import DownArrow from 'components/Icons/DownArrow';
 interface Props {
   headline: string;
   children: React.ReactChild;
+  initiallyOpen?: boolean;
 }
 
-const Collapsible = ({ headline, children }: Props): React.ReactElement => {
-  const [open, setOpen] = useState(false);
+const Collapsible = ({
+  headline,
+  children,
+  initiallyOpen = false,
+}: Props): React.ReactElement => {
+  const [open, setOpen] = useState(initiallyOpen);
 
   return (
     <div className={styles.outer}>
@@ -22,7 +27,7 @@ const Collapsible = ({ headline, children }: Props): React.ReactElement => {
 
         <DownArrow />
       </button>
-      {open && <div className={styles.content}>{children}</div>}
+      {open && children}
     </div>
   );
 };

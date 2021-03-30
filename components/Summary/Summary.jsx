@@ -73,19 +73,15 @@ export const SummarySection = ({
   return (
     <div className="govuk-!-margin-bottom-7">
       <div className="lbh-table-header">
-        <div className={styles.sectionTitle}>
-          <h3 className="govuk-heading-m govuk-custom-text-color govuk-!-margin-bottom-0">
-            {title.toUpperCase()}
-          </h3>
-          {canEdit && (
-            <Link
-              href={`${formPath}${id}?fromSummary=true`}
-              as={`${formPath}${id}?fromSummary=true`}
-            >
-              <a className="govuk-link">Edit</a>
-            </Link>
-          )}
-        </div>
+        <h3 className="lbh-heading-h2 section-heading">{title}</h3>
+        {canEdit && (
+          <Link
+            href={`${formPath}${id}?fromSummary=true`}
+            as={`${formPath}${id}?fromSummary=true`}
+          >
+            <a className="govuk-link">Edit</a>
+          </Link>
+        )}
         {isSummaryCollapsable && (
           <span
             className="govuk-link govuk-link--underline"

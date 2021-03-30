@@ -33,9 +33,7 @@ const PageView = ({
   }, []);
   return (
     <>
-      <h3 className="govuk-heading-m govuk-custom-text-color govuk-!-margin-bottom-0">
-        {title.toUpperCase()}
-      </h3>
+      <h3 className="lbh-heading-h2 section-heading">{title}</h3>
       <dl className="govuk-summary-list lbh-summary-list govuk-!-margin-bottom-2">
         {formName && (
           <div className="govuk-summary-list__row">
@@ -60,7 +58,6 @@ const PageView = ({
       </dl>
       {content && (
         <div className={style.pageView}>
-          <span className={`gov-weight-lighter ${style.title}`}>Content</span>
           {isVisible && (
             <a
               href="#main-content"

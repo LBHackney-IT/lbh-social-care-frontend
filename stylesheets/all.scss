@@ -22,6 +22,12 @@ $screen-sm-min: 576px;
   padding: 0.75rem 1.375rem 0.625rem;
 }
 
+.section-heading {
+  padding-bottom: 12px;
+  border-bottom: 3px solid lbh-colour('lbh-text');
+  margin-bottom: 10px;
+}
+
 // new stuff above here
 
 // [role='button'] {
@@ -51,14 +57,6 @@ $screen-sm-min: 576px;
 
 // .gov-weight-lighter {
 //   font-weight: 100;
-// }
-
-// .govuk-custom-text-color {
-//   color: #01674e;
-// }
-
-// .govuk-divider {
-//   border: solid 2px #01674e;
 // }
 
 // .govuk-warning {
