@@ -15,8 +15,9 @@ describe('cases APIs', () => {
     it('should work properly', async () => {
       jest
         .spyOn(SWR, 'useSWRInfinite')
-        .mockImplementation((getKey) =>
-          mockSWRInfinite(getKey(0, { cases: [] }))
+        .mockImplementation(
+          (getKey: (page: number, data: Record<string, unknown>) => string) =>
+            mockSWRInfinite(getKey(0, { cases: [] }))
         );
       casesAPI.useCases({
         foo: 'bar',
@@ -29,8 +30,9 @@ describe('cases APIs', () => {
     it('should work properly', () => {
       jest
         .spyOn(SWR, 'useSWRInfinite')
-        .mockImplementation((getKey) =>
-          mockSWRInfinite(getKey(0, { cases: [] }))
+        .mockImplementation(
+          (getKey: (page: number, data: Record<string, unknown>) => string) =>
+            mockSWRInfinite(getKey(0, { cases: [] }))
         );
       casesAPI.useCasesByResident(123, { bar: 'foobar' });
       expect(mockSWRInfinite).toHaveBeenCalledWith(
