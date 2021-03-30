@@ -9,10 +9,10 @@ interface Props {
 
 const SearchCasesPage = ({ type, columns }: Props): React.ReactElement => (
   <>
-    <h1 className="govuk-heading-l">Search</h1>
-    <p className="govuk-body govuk-!-margin-bottom-5">
-      Use search to find a person before adding a new person or record. Records
-      will need to be linked to person.
+    <h1 className="lbh-heading-h1">Search</h1>
+    <p className="lbh-body govuk-!-margin-bottom-5">
+      Search for a person before adding a new person or record. Records must be
+      linked to people. You can search by any combination of fields.
     </p>
     <Tabs
       title="Contents"
@@ -31,11 +31,6 @@ const SearchCasesPage = ({ type, columns }: Props): React.ReactElement => (
     >
       <Search
         type={type}
-        subHeader={
-          type === 'records'
-            ? 'Search and filter by any combination of fields'
-            : 'Search for a person by any combination of fields below'
-        }
         resultHeader={`${type.toUpperCase()} SEARCH RESULT`}
         // @ts-expect-error TODO: fixed when search.jsx is migrated */}
         columns={columns}

@@ -40,7 +40,7 @@ const SearchResidentsForm = ({
       <div className="govuk-grid-row">
         <div className="govuk-grid-column-one-half">
           <TextInput
-            label="First name:"
+            label="First name"
             labelSize="s"
             name="first_name"
             error={errors.first_name}
@@ -49,7 +49,7 @@ const SearchResidentsForm = ({
         </div>
         <div className="govuk-grid-column-one-half">
           <TextInput
-            label="Last name:"
+            label="Last name"
             labelSize="s"
             name="last_name"
             error={errors.last_name}
@@ -60,7 +60,7 @@ const SearchResidentsForm = ({
       <div className="govuk-grid-row">
         <div className="govuk-grid-column-one-half">
           <DateInput
-            label="Date of Birth:"
+            label="Date of birth"
             labelSize="s"
             name="date_of_birth"
             error={errors.date_of_birth}
@@ -75,10 +75,10 @@ const SearchResidentsForm = ({
         </div>
         <div className="govuk-grid-column-one-half">
           <TextInput
-            label="Postcode:"
+            label="Postcode"
             labelSize="s"
             name="postcode"
-            hint="i.e. E8 3AS"
+            hint="e.g. E8 3AS"
             inputClassName="govuk-input--width-10"
             error={errors.postcode}
             register={register}
@@ -96,7 +96,7 @@ const SearchResidentsForm = ({
       <div className="govuk-grid-row">
         <div className="govuk-grid-column-one-half">
           <TextInput
-            label="Mosaic ID:"
+            label="Mosaic ID"
             labelSize="s"
             name="mosaic_id"
             hint="e.g. 1234567890"
@@ -108,22 +108,18 @@ const SearchResidentsForm = ({
         </div>
       </div>
       <Button label={ctaText} type="submit" disabled={!isDirty} />
-      <span
-        className="govuk-link"
-        role="button"
+      <button
+        href="#"
+        className="govuk-link lbh-link clear-button"
         onClick={() => {
           reset({
             date_of_birth: null,
           });
           onFormSubmit();
         }}
-        style={{
-          marginLeft: '1rem',
-          lineHeight: '2.5rem',
-        }}
       >
         Clear {ctaText.toLowerCase()}
-      </span>
+      </button>
     </form>
   );
 };

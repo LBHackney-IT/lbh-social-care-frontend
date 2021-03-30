@@ -112,7 +112,9 @@ const Search = ({
     );
   return (
     <>
-      <p className="govuk-body govuk-!-margin-bottom-5">{subHeader}</p>
+      {subHeader && (
+        <p className="govuk-body govuk-!-margin-bottom-5">{subHeader}</p>
+      )}
       <SearchForm
         onFormSubmit={onFormSubmit}
         defaultValues={query}

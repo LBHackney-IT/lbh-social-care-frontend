@@ -23,7 +23,10 @@ const TextInput = ({
       'govuk-form-group--error': error,
     })}
   >
-    <label className={`govuk-label govuk-label--${labelSize}`} htmlFor={name}>
+    <label
+      className={`lbh-label govuk-label govuk-label--${labelSize}`}
+      htmlFor={name}
+    >
       {label} {required && <span className="govuk-required">*</span>}
     </label>
     {hint && (
@@ -33,7 +36,7 @@ const TextInput = ({
     )}
     {error && <ErrorMessage label={error.message} />}
     <input
-      className={cx(`govuk-input`, inputClassName, {
+      className={cx(`govuk-input lbh-input`, inputClassName, {
         [`govuk-input--width-${width}`]: width,
         'govuk-input--error': error,
       })}

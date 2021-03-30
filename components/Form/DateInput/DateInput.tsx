@@ -55,9 +55,7 @@ const DateInput = forwardRef<HTMLInputElement, InputProps>(
           role="group"
           aria-describedby={`${name}-hint`}
         >
-          <legend
-            className={`govuk-fieldset__legend govuk-fieldset__legend--${labelSize}`}
-          >
+          <legend className={`lbh-label govuk-label govuk-label--${labelSize}`}>
             {label} {required && <span className="govuk-required">*</span>}
           </legend>
           <span id={`${name}-hint`} className="govuk-hint lbh-hint">
@@ -67,7 +65,10 @@ const DateInput = forwardRef<HTMLInputElement, InputProps>(
           <div className="govuk-date-input lbh-date-input" id={name}>
             <div className="govuk-date-input__item">
               <div className="govuk-form-group lbh-form-group">
-                <label className="govuk-label" htmlFor={`${name}-day`}>
+                <label
+                  className="govuk-label lbh-label"
+                  htmlFor={`${name}-day`}
+                >
                   Day
                 </label>
                 <input
@@ -95,7 +96,10 @@ const DateInput = forwardRef<HTMLInputElement, InputProps>(
             </div>
             <div className="govuk-date-input__item">
               <div className="govuk-form-group lbh-form-group">
-                <label className="govuk-label" htmlFor={`${name}-month`}>
+                <label
+                  className="govuk-label lbh-label"
+                  htmlFor={`${name}-month`}
+                >
                   Month
                 </label>
                 <input
@@ -122,7 +126,10 @@ const DateInput = forwardRef<HTMLInputElement, InputProps>(
             </div>
             <div className="govuk-date-input__item">
               <div className="govuk-form-group lbh-form-group">
-                <label className="govuk-label" htmlFor={`${name}-year`}>
+                <label
+                  className="govuk-label lbh-label"
+                  htmlFor={`${name}-year`}
+                >
                   Year
                 </label>
                 <input

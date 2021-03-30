@@ -32,7 +32,7 @@ export const Autocomplete = forwardRef<HTMLInputElement, AutoProps>(
       required,
       onChange,
       placeholder,
-      width = 20,
+      width,
       govGrid,
       value,
       inputClassName,
@@ -94,7 +94,7 @@ export const Autocomplete = forwardRef<HTMLInputElement, AutoProps>(
               })}
             >
               <label
-                className={`govuk-label govuk-label--${labelSize}`}
+                className={`govuk-label lbh-label govuk-label--${labelSize}`}
                 htmlFor={name}
               >
                 {label} {required && <span className="govuk-required">*</span>}
@@ -115,7 +115,7 @@ export const Autocomplete = forwardRef<HTMLInputElement, AutoProps>(
                     toggleMenu();
                   }}
                   aria-describedby={hint && `${name}-hint`}
-                  className={cx(`govuk-input`, inputClassName, {
+                  className={cx(`govuk-input lbh-input`, inputClassName, {
                     [`govuk-input--width-${width}`]: width,
                   })}
                   ref={ref}
