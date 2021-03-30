@@ -14,10 +14,10 @@ exports[`AddAllocatedWorker should render properly 1`] = `
       role="combobox"
     >
       <label
-        class="govuk-label govuk-label--m"
+        class="govuk-label lbh-label govuk-label--m"
         for="teamId"
       >
-        Select a team to view workers for that team 
+        Select a team to view workers for that team
       </label>
       <div
         class="inputContainer"
@@ -27,7 +27,7 @@ exports[`AddAllocatedWorker should render properly 1`] = `
           aria-controls="downshift-0-menu"
           aria-labelledby="downshift-0-label"
           autocomplete="off"
-          class="govuk-input govuk-input--width-20"
+          class="govuk-input lbh-input"
           data-testid="teamId"
           id="teamId"
           placeholder="Select or type team name"

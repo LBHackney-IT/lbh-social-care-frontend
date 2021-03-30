@@ -34,7 +34,7 @@ describe('Header component', () => {
           user: mockedUser,
         }}
       >
-        <Header {...props} />
+        <Header />
       </UserContext.Provider>
     );
 
@@ -51,7 +51,7 @@ describe('Header component', () => {
           user: undefined,
         }}
       >
-        <Header {...props} />
+        <Header />
       </UserContext.Provider>
     );
     expect(getByText('Foo')).toBeInTheDocument();
@@ -72,7 +72,7 @@ describe('Header component', () => {
           user: mockedUser,
         }}
       >
-        <Header {...props} />
+        <Header />
       </UserContext.Provider>
     );
     expect(getByText('My records')).toBeInTheDocument();

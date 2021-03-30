@@ -1,19 +1,16 @@
 import React, { useState, useEffect } from 'react';
-import cx from 'classnames';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 
 import { useAuth } from 'components/UserContext/UserContext';
 import { getData } from 'utils/saveData';
-import { getUserType } from 'utils/user';
+// import { getUserType } from 'utils/user';
 import Logo from './Logo';
 
 const loggedNavLinks = [
   {
     name: 'My records',
     path: '/cases?my_notes_only=true',
-    isSelected: ({ asPath }: { asPath: string }) =>
-      asPath === '/cases?my_notes_only=true',
   },
   {
     name: 'Forms in progress',
@@ -21,13 +18,9 @@ const loggedNavLinks = [
   },
 ];
 
-const HeaderComponent = ({
-  serviceName,
-}: {
-  serviceName: string;
-}): React.ReactElement => {
+const HeaderComponent = (): React.ReactElement => {
   const { user } = useAuth();
-  const { pathname, asPath } = useRouter();
+  const { pathname } = useRouter();
   const [navLinks, setNavLinks] = useState<typeof loggedNavLinks>();
   useEffect(() => {
     if (user) {
@@ -56,7 +49,7 @@ const HeaderComponent = ({
           <div className="lbh-header__links">
             {navLinks && (
               <>
-                {navLinks.map(({ name, path, isSelected }) => (
+                {navLinks.map(({ name, path }) => (
                   <Link href={path} key={path}>
                     <a>{name}</a>
                   </Link>

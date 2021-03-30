@@ -52,7 +52,7 @@ export const Autocomplete = forwardRef<HTMLInputElement, AutoProps>(
     };
 
     const items = useMemo(() => convertToObject(options), [options]);
-    const autoRef = useRef<any>(null);
+    const autoRef = useRef<HTMLInputElement>(null);
     const getTextValue = () => {
       if (value) {
         const selection = items.find(

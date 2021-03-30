@@ -2,8 +2,12 @@ import Seo from 'components/Layout/Seo/Seo';
 import { getProtocol } from 'utils/urls';
 
 interface Props {
-  gssoUrl: string;
+  gssoUrl?: string;
   returnUrl: string;
+}
+
+interface ServerSideProps {
+  props: Props;
 }
 
 const AdminLoginPage = ({ gssoUrl, returnUrl }: Props): React.ReactElement => (
@@ -36,7 +40,7 @@ const AdminLoginPage = ({ gssoUrl, returnUrl }: Props): React.ReactElement => (
   </>
 );
 
-export const getServerSideProps = async () => {
+export const getServerSideProps = async (): Promise<ServerSideProps> => {
   const { GSSO_URL, REDIRECT_URL } = process.env;
   const protocol = getProtocol();
   return {

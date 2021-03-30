@@ -3,8 +3,8 @@
 exports[`BackButton should render properly 1`] = `
 <DocumentFragment>
   <a
-    class="govuk-back-link"
-    role="button"
+    class="govuk-back-link lbh-back-link"
+    href="#"
   >
     Back
   </a>

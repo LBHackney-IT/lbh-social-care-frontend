@@ -102,10 +102,9 @@ const DynamicStep = ({
           />
         )}
         <div className={styles.actions}>
-          <Button wideButton label="Continue" type="submit" />
+          <Button label="Continue" type="submit" />
           <Button
             isSecondary
-            wideButton
             label="Save and finish later"
             type="button"
             onClick={() => onSaveAndExit(stepValues)}

@@ -11,7 +11,7 @@ exports[`Checkbox should render properly - as Checkbox 1`] = `
       <legend
         class="govuk-fieldset__legend govuk-fieldset__legend--m"
       >
-        My Checkbox 
+        My Checkbox
       </legend>
       <div
         class="govuk-checkboxes lbh-checkboxes"
@@ -30,7 +30,7 @@ exports[`Checkbox should render properly - as Checkbox 1`] = `
             class="govuk-label govuk-checkboxes__label"
             for="my-checkbox"
           >
-            Foo 
+            Foo
           </label>
         </div>
         <div
@@ -47,7 +47,7 @@ exports[`Checkbox should render properly - as Checkbox 1`] = `
             class="govuk-label govuk-checkboxes__label"
             for="my-checkbox"
           >
-            Bar 
+            Bar
           </label>
         </div>
       </div>
@@ -81,7 +81,7 @@ exports[`Checkbox should render properly - as Tickbox 1`] = `
             class="govuk-label govuk-checkboxes__label"
             for="my-checkbox"
           >
-            My Checkbox 
+            My Checkbox
           </label>
         </div>
       </div>

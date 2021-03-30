@@ -30,7 +30,7 @@ const PageView = ({
 
   useEffect(() => {
     window.addEventListener('scroll', throttle(toggleVisibility, 1000));
-  }, [window]);
+  }, []);
   return (
     <>
       <h3 className="govuk-heading-m govuk-custom-text-color govuk-!-margin-bottom-0">

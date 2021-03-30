@@ -3,10 +3,9 @@
 exports[`SaveFormData component should render both types of forms 1`] = `
 <DocumentFragment>
   <p
-    class="govuk-fieldset__legend--s gov-weight-lighter"
-    role="label"
+    class="lbh-body"
   >
-    Displaying 2 unfinished forms 
+    You have 2 unfinished forms 
   </p>
   <table
     class="govuk-table"

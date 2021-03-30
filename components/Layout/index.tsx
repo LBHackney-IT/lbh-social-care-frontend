@@ -13,7 +13,7 @@ const Layout = ({ children }: Props): React.ReactElement => {
     <>
       <Seo title="Social Care Admin - Hackney Council" />
       <SkipLink />
-      <Header serviceName="Interim Social Care" />
+      <Header />
       <PhaseBanner phase="beta" feedbackLink={feedbackLink} />
       <div className="lbh-main-wrapper">
         <main className="lbh-container" id="content" role="main">

@@ -15,11 +15,7 @@ export const SavedForms = (): React.ReactElement => {
     setSavedForms(getData());
   };
   if (!savedForms || Object.keys(savedForms)?.length === 0) {
-    return (
-      <p role="label" className="govuk-fieldset__legend--m gov-weight-lighter">
-        You don&apos;t have any incomplete form, well done!
-      </p>
-    );
+    return <p className="lbh-body">You have no incomplete forms right now.</p>;
   }
   const detailHeader = [
     'Person ID',
@@ -39,8 +35,8 @@ export const SavedForms = (): React.ReactElement => {
   const standardData = sortData.filter((item) => !item.includesDetails);
   return (
     <>
-      <p role="label" className="govuk-fieldset__legend--s gov-weight-lighter">
-        {`Displaying ${formQty} unfinished ${formQty > 1 ? 'forms' : 'form'}`}{' '}
+      <p className="lbh-body">
+        {`You have ${formQty} unfinished ${formQty > 1 ? 'forms' : 'form'}`}{' '}
       </p>
       {standardData.length ? (
         <StandardTable

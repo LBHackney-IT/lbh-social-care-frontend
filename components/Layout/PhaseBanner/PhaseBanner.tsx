@@ -10,11 +10,11 @@ const PhaseBanner = ({ phase, feedbackLink }: Props): React.ReactElement => (
         {phase}
       </strong>
       <span className="govuk-phase-banner__text">
-        This is a new service – your{' '}
+        We&apos;re adding new features to this service every day – your{' '}
         <a className="govuk-link" href={feedbackLink}>
           feedback
         </a>{' '}
-        will help us to improve it.
+        will help us.
       </span>
     </p>
   </div>

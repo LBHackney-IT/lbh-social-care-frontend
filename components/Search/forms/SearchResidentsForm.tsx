@@ -99,7 +99,7 @@ const SearchResidentsForm = ({
             label="Mosaic ID"
             labelSize="s"
             name="mosaic_id"
-            hint="e.g. 1234567890"
+            hint="e.g. 1234567"
             inputClassName="govuk-input--width-10"
             inputMode="numeric"
             error={errors.mosaic_id}
@@ -108,7 +108,7 @@ const SearchResidentsForm = ({
         </div>
       </div>
       <Button label={ctaText} type="submit" disabled={!isDirty} />
-      <button
+      <a
         href="#"
         className="govuk-link lbh-link clear-button"
         onClick={() => {
@@ -119,7 +119,7 @@ const SearchResidentsForm = ({
         }}
       >
         Clear {ctaText.toLowerCase()}
-      </button>
+      </a>
     </form>
   );
 };
