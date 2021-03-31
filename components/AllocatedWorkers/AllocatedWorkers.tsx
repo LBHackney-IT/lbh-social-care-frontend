@@ -34,18 +34,31 @@ const AllocatedWorkers = ({ id }: Props): React.ReactElement => {
       <h3 className="lbh-heading-h2 section-heading">
         Allocated worker {allocations.length + 1}
       </h3>
-      <p className="lbh-body">
-        {allocations.length === 0
-          ? 'No one is allocated right now.'
-          : 'Optional'}
-      </p>
-      {user.hasAllocationsPermissions && (
-        <Button
-          label="Allocate worker"
-          isSecondary
-          route={`${asPath}/allocations/add`}
-        />
+
+      {allocations.length === 0 ? (
+        <>
+          <p className="lbh-body">No one is allocated right now.</p>
+          {user.hasAllocationsPermissions && (
+            <Button
+              label="Allocate a worker"
+              isSecondary
+              route={`${asPath}/allocations/add`}
+            />
+          )}
+        </>
+      ) : (
+        <>
+          <p className="lbh-body">Optional</p>
+          {user.hasAllocationsPermissions && (
+            <Button
+              label="Allocate another worker"
+              isSecondary
+              route={`${asPath}/allocations/add`}
+            />
+          )}
+        </>
       )}
+
       {error && <ErrorMessage />}
     </div>
   );

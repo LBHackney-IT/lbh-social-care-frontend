@@ -23,8 +23,7 @@ const Collapsible = ({
         className={styles.button}
         aria-expanded={open}
       >
-        <h2 className={cx(`lbh-heading-h2`, styles.headline)}>{headline}</h2>
-
+        <h2 className="lbh-heading-h2">{headline}</h2>
         <DownArrow />
       </button>
       {open && children}
