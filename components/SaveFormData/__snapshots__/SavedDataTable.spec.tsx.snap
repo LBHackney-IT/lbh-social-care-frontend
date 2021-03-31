@@ -3,7 +3,7 @@
 exports[`StandardTable component should render properly 1`] = `
 <DocumentFragment>
   <table
-    class="govuk-table lbh-table"
+    class="govuk-table"
   >
     <thead
       class="govuk-table__head"

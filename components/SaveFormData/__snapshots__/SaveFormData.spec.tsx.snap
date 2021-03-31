@@ -8,7 +8,7 @@ exports[`SaveFormData component should render both types of forms 1`] = `
     You have 2 unfinished forms 
   </p>
   <table
-    class="govuk-table lbh-table"
+    class="govuk-table"
   >
     <thead
       class="govuk-table__head"
@@ -87,7 +87,7 @@ exports[`SaveFormData component should render both types of forms 1`] = `
     </tbody>
   </table>
   <table
-    class="govuk-table lbh-table"
+    class="govuk-table"
   >
     <thead
       class="govuk-table__head"
