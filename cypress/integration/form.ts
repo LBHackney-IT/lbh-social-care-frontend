@@ -1,5 +1,3 @@
-/// <reference types="cypress" />
-
 describe('Test Form', () => {
   beforeEach(() => {
     cy.getCookies().should('be.empty');

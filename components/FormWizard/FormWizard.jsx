@@ -55,34 +55,34 @@ const FormWizard = ({
   const StepComponent = step.component ? step.component : DynamicStep;
   return (
     <>
-      <Seo title={`${step.title} - ${title}`} />
-
       {!hideBackButton && currentStepIndex !== 0 && step.id !== 'confirmation' && (
-        <a className="govuk-back-link" href="#" onClick={() => Router.back()}>
+        <a
+          className="govuk-back-link lbh-back-link"
+          href="#"
+          onClick={() => Router.back()}
+        >
           Back
         </a>
       )}
+      {steps.length > 3 && step.id !== 'summary' && step.id !== 'confirmation' && (
+        <>
+          <Breadcrumbs
+            data={formData}
+            path={formPath}
+            steps={formSteps}
+            currentStepIndex={currentStepIndex}
+          />
+          <h1 className="lbh-heading-h1">{step.title}</h1>
+        </>
+      )}
       <main className="lbh-main-wrapper" id="main-content" role="main">
+        <Seo title={`${step.title} - ${title}`} />
+
         <fieldset
-          className="govuk-fieldset lbh-fieldset"
+          className="govuk-fieldset"
           role="group"
           aria-describedby="step-hint"
         >
-          {steps.length > 3 &&
-            step.id !== 'summary' &&
-            step.id !== 'confirmation' && (
-              <>
-                <Breadcrumbs
-                  data={formData}
-                  path={formPath}
-                  steps={formSteps}
-                  currentStepIndex={currentStepIndex}
-                />
-
-                <h1 className="lbh-heading-h1">{step.title}</h1>
-              </>
-            )}
-
           <StepComponent
             {...step}
             key={stepId?.join('-')}
@@ -118,16 +118,15 @@ const FormWizard = ({
               const updatedData = step.isMulti
                 ? deepmerge(formData, data)
                 : { ...formData, ...data };
-              saveData(
-                formPath,
-                updatedData,
+              saveData({
+                data: updatedData,
                 title,
-                includesDetails
+                formPath,
+                step: queryString
                   ? `${window.location.pathname}?${getQueryString(queryString)}`
                   : window.location.pathname,
-                includesDetails,
-                personDetails
-              );
+                personDetails: includesDetails && personDetails,
+              });
               Router.push('/form-in-progress');
             }}
             onFormSubmit={onFormSubmit}

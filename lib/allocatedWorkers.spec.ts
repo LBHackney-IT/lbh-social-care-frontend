@@ -118,14 +118,14 @@ describe('allocatedWorkersAPI', () => {
       const data = await allocatedWorkersAPI.addAllocatedWorker(123, {
         allocatedWorkerId: 123,
         allocatedTeamId: 321,
-        allocatedBy: 'foo@bar.com',
+        createdBy: 'foo@bar.com',
       });
       expect(mockedAxios.post).toHaveBeenCalled();
       expect(mockedAxios.post.mock.calls[0][0]).toEqual(
         `${ENDPOINT_API}/allocations`
       );
       expect(mockedAxios.post.mock.calls[0][1]).toEqual({
-        allocatedBy: 'foo@bar.com',
+        createdBy: 'foo@bar.com',
         allocatedTeamId: 321,
         allocatedWorkerId: 123,
         mosaicId: 123,

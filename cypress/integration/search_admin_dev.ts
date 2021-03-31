@@ -1,5 +1,3 @@
-/// <reference types="cypress" />
-
 describe('Admin Dev Group', () => {
   beforeEach(() => {
     cy.getCookies().should('be.empty');

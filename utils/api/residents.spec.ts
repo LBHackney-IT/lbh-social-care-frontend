@@ -15,8 +15,9 @@ describe('residents APIs', () => {
     it('should work properly', () => {
       jest
         .spyOn(SWR, 'useSWRInfinite')
-        .mockImplementation((getKey) =>
-          mockSWRInfinite(getKey(0, { residents: [] }))
+        .mockImplementation(
+          (getKey: (page: number, data: Record<string, unknown>) => string) =>
+            mockSWRInfinite(getKey(0, { residents: [] }))
         );
       residentsAPI.useResidents({
         foo: 'bar',

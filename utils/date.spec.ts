@@ -48,6 +48,16 @@ describe('date util', () => {
         month: '12',
         year: '2000',
       });
+      expect(stringDateToObject('2000-12-01T00:00:00.0000000')).toEqual({
+        day: '01',
+        month: '12',
+        year: '2000',
+      });
+      expect(stringDateToObject('2000-12-01 00:00:00')).toEqual({
+        day: '01',
+        month: '12',
+        year: '2000',
+      });
       expect(stringDateToObject('01-12-2000', 'EU')).toEqual({
         day: '01',
         month: '12',

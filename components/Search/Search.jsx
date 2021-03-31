@@ -97,7 +97,9 @@ const Search = ({
     [onFormSubmit, query]
   );
   const addNewPerson = type === 'people' &&
-    (user.hasAdminPermissions || user.hasAdultPermissions) && (
+    (user.hasAdminPermissions ||
+      user.hasAdultPermissions ||
+      user.hasAllocationsPermissions) && (
       <p className="lbh-body">
         You can also{' '}
         <Link href="/people/add">

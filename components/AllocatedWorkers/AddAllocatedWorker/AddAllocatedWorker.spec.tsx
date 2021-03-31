@@ -33,37 +33,35 @@ describe(`AddAllocatedWorker`, () => {
     isValidating: false,
   }));
   jest.spyOn(allocatedWorkerAPI, 'useTeamWorkers').mockImplementation(() => ({
-    data: {
-      workers: [
-        {
-          id: 9,
-          firstName: 'Worker',
-          lastName: 'A',
-          allocationCount: 3,
-          role: 'role_a',
-          email: 'a@email.com',
-          teams: [],
-        },
-        {
-          id: 8,
-          firstName: 'Worker',
-          lastName: 'B',
-          allocationCount: 0,
-          role: 'role_b',
-          email: 'b@email.com',
-          teams: [],
-        },
-        {
-          id: 7,
-          firstName: 'Worker',
-          lastName: 'C',
-          allocationCount: 1,
-          role: 'role_c',
-          email: 'c@email.com',
-          teams: [],
-        },
-      ],
-    },
+    data: [
+      {
+        id: 9,
+        firstName: 'Worker',
+        lastName: 'A',
+        allocationCount: 3,
+        role: 'role_a',
+        email: 'a@email.com',
+        teams: [],
+      },
+      {
+        id: 8,
+        firstName: 'Worker',
+        lastName: 'B',
+        allocationCount: 0,
+        role: 'role_b',
+        email: 'b@email.com',
+        teams: [],
+      },
+      {
+        id: 7,
+        firstName: 'Worker',
+        lastName: 'C',
+        allocationCount: 1,
+        role: 'role_c',
+        email: 'c@email.com',
+        teams: [],
+      },
+    ],
     revalidate: jest.fn(),
     mutate: jest.fn(),
     isValidating: false,
@@ -125,7 +123,6 @@ describe(`AddAllocatedWorker`, () => {
 
     expect(allocatedWorkerAPI.addAllocatedWorker).toHaveBeenCalled();
     expect(allocatedWorkerAPI.addAllocatedWorker).toHaveBeenCalledWith(123, {
-      allocatedBy: 'foo@bar.com',
       allocatedTeamId: 3,
       allocatedWorkerId: 7,
     });

@@ -1,13 +1,11 @@
 import { render, fireEvent } from '@testing-library/react';
 
-import { DetailedTable, StandardTable } from './Tables';
-
-import { BasicData } from 'utils/saveData';
+import SavedDataTable from './SavedDataTable';
 
 describe('DetailedTable component', () => {
   const props = {
     tableHeader: ['Foo', 'Bar'],
-    data: [
+    savedData: [
       {
         dateOfBirth: '1984-02-12T00:00:00.0000000',
         firstName: 'Foo',
@@ -18,7 +16,7 @@ describe('DetailedTable component', () => {
         mosaicId: '1234',
         nhsNumber: '123',
         step: 'foo?id=1234',
-        timeStamp: '22/12/2020',
+        timestamp: '22/12/2020',
         title: 'Foo Bar',
         data: { id: '12345' },
       },
@@ -27,7 +25,7 @@ describe('DetailedTable component', () => {
   };
 
   it('should call deleteForm with path', () => {
-    const { getByRole } = render(<DetailedTable {...props} />);
+    const { getByRole } = render(<SavedDataTable {...props} />);
     fireEvent.click(getByRole('button'));
     expect(props.deleteForm).toHaveBeenCalled();
     expect(props.deleteForm).toHaveBeenCalledWith('/form/foo-bar/');
@@ -37,25 +35,25 @@ describe('DetailedTable component', () => {
 describe('StandardTable component', () => {
   const props = {
     tableHeader: ['Foo', 'Bar'],
-    data: [
+    savedData: [
       {
         data: { id: 'foo' },
         formPath: '/form/foo-bar/',
         step: '/form/foo-bar/',
-        timeStamp: '22/12/2020',
+        timestamp: '22/12/2020',
         title: 'Foo Bar',
-      } as BasicData,
+      },
     ],
     deleteForm: jest.fn(),
   };
 
   it('should render properly', () => {
-    const { asFragment } = render(<StandardTable {...props} />);
+    const { asFragment } = render(<SavedDataTable {...props} />);
     expect(asFragment()).toMatchSnapshot();
   });
 
   it('should delete row', () => {
-    const { getByRole } = render(<StandardTable {...props} />);
+    const { getByRole } = render(<SavedDataTable {...props} />);
     fireEvent.click(getByRole('button'));
     expect(props.deleteForm).toHaveBeenCalled();
     expect(props.deleteForm).toHaveBeenCalledWith('/form/foo-bar/');

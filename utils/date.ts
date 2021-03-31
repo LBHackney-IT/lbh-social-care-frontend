@@ -52,7 +52,7 @@ export const stringDateToObject = (
   value?: string,
   format = 'US'
 ): DateObject => {
-  const date = value?.split('-') || ['', '', ''];
+  const date = value?.split(/[-|T|\s]/) || ['', '', ''];
   return format === 'US'
     ? { day: date[2], month: date[1], year: date[0] }
     : { day: date[0], month: date[1], year: date[2] };

@@ -6,13 +6,12 @@ import { Autocomplete } from 'components/Form';
 import Button from 'components/Button/Button';
 import Spinner from 'components/Spinner/Spinner';
 import ErrorMessage from 'components/ErrorMessage/ErrorMessage';
-import { useAuth } from 'components/UserContext/UserContext';
 import {
   useTeams,
   useTeamWorkers,
   addAllocatedWorker,
 } from 'utils/api/allocatedWorkers';
-import { AgeContext, User } from 'types';
+import { AgeContext } from 'types';
 
 interface Props {
   personId: number;
@@ -30,18 +29,14 @@ const AddAllocatedWorker = ({
     defaultValues: query,
   });
   const { teamId } = query as { teamId?: number };
-  const { user } = useAuth() as { user: User };
   const { data: { teams } = {}, error: errorTeams } = useTeams({ ageContext });
-  const { data: { workers } = {}, error: errorWorkers } = useTeamWorkers(
-    teamId
-  );
+  const { data: workers, error: errorWorkers } = useTeamWorkers(teamId);
   const addWorker = useCallback(
     async ({ workerId }) => {
       setPostLoading(true);
       setPostError(null);
       try {
         await addAllocatedWorker(personId, {
-          allocatedBy: user.email,
           allocatedTeamId: Number(teamId),
           allocatedWorkerId: Number(workerId),
         });
@@ -51,7 +46,7 @@ const AddAllocatedWorker = ({
       }
       setPostLoading(false);
     },
-    [personId, teamId, push, user.email]
+    [personId, teamId, push]
   );
   useEffect(() => {
     setPostError(null);

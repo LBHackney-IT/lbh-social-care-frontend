@@ -19,7 +19,7 @@ describe('Header component', () => {
       first: {
         data: { id: '123' },
         formPath: '/form/foo-bar/',
-        timeStamp: '22/12/2020',
+        timestamp: '22/12/2020',
         title: 'Foo Bar',
         step: 'foo',
         deleteForm: jest.fn(),
