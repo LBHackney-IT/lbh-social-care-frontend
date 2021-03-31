@@ -16,8 +16,9 @@ const CaseView = (): React.ReactElement => {
       <BackButton />
       <h1 className="lbh-heading-h1 govuk-!-margin-bottom-8">Case note</h1>
       <PersonView personId={Number(id as string)} expandView>
-        {is_historical && <HistoricNote recordId={recordId as string} />}
-        {!is_historical && (
+        {is_historical ? (
+          <HistoricNote recordId={recordId as string} />
+        ) : (
           <CaseNote
             personId={Number(id as string)}
             recordId={recordId as string}
