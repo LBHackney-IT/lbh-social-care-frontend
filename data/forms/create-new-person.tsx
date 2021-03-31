@@ -171,7 +171,6 @@ const formConfig: FormConfig = {
           component: 'AddressLookup',
           name: 'address',
           label: 'Address',
-          rules: { required: true },
         },
         {
           component: 'ObjectInput',
