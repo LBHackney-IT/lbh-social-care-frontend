@@ -13,7 +13,7 @@ describe('Admin Dev Group', () => {
   it('Search for People by Mosaic ID as logged as Admin Dev', () => {
     cy.get('[data-testid="mosaic_id"]').type(Cypress.env('MOSAIC_ID_TEST'));
     cy.get('[type="submit"]').click();
-    cy.contains('View').click();
+    cy.contains(Cypress.env('NAME_FOR_MOSAIC_ID_TEST')).click();
     cy.contains(Cypress.env('NAME_FOR_MOSAIC_ID_TEST')).should('be.visible');
   });
 
@@ -28,7 +28,7 @@ describe('Admin Dev Group', () => {
     cy.contains('First name').type(Cypress.env('CHILDREN_RECORD_FIRST_NAME'));
     cy.contains('Last name').type(Cypress.env('CHILDREN_RECORD_LAST_NAME'));
     cy.get('[type="submit"]').click();
-    cy.contains('View').click();
+    cy.contains(Cypress.env('CHILDREN_RECORD_FULL_NAME')).click();
     cy.contains(Cypress.env('CHILDREN_RECORD_FULL_NAME')).should('be.visible');
   });
 });

@@ -14,7 +14,7 @@ describe('Adult group', () => {
     cy.contains('First name').type(Cypress.env('CHILDREN_RECORD_FIRST_NAME'));
     cy.contains('Last name').type(Cypress.env('CHILDREN_RECORD_LAST_NAME'));
     cy.get('[type="submit"]').click();
-    cy.contains('People not found').should('be.visible');
+    cy.contains('No results found').should('be.visible');
   });
 
   it('Access allowed - Search for People by name', () => {
