@@ -21,24 +21,19 @@ const AllocatedWorkersEntry = ({
   deallocationUrl,
 }: EntryProps): React.ReactElement => (
   <>
-    <div className="lbh-table-header">
-      <h3 className="govuk-fieldset__legend--m govuk-custom-text-color govuk-!-margin-top-0">
-        ALLOCATED WORKER {index + 1}
-      </h3>
-      {showDeallocateButton && (
-        <Button isSecondary label="Deallocate Worker" route={deallocationUrl} />
-      )}
-    </div>
+    <h3 className="lbh-heading-h2 section-heading">
+      Allocated worker {index + 1}
+    </h3>
     <dl className="govuk-summary-list  lbh-summary-list">
       {allocatedWorker && (
         <div className="govuk-summary-list__row">
-          <dt className="govuk-summary-list__key">Allocated worker:</dt>
+          <dt className="govuk-summary-list__key">Worker</dt>
           <dd className="govuk-summary-list__value">{allocatedWorker}</dd>
         </div>
       )}
       {allocatedWorkerTeam && (
         <div className="govuk-summary-list__row">
-          <dt className="govuk-summary-list__key">Allocated team</dt>
+          <dt className="govuk-summary-list__key">Team</dt>
           <dd className="govuk-summary-list__value">{allocatedWorkerTeam}</dd>
         </div>
       )}
@@ -65,6 +60,9 @@ const AllocatedWorkersEntry = ({
         </div>
       )}
     </dl>
+    {showDeallocateButton && (
+      <Button isSecondary label="Deallocate Worker" route={deallocationUrl} />
+    )}
   </>
 );
 
