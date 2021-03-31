@@ -1,7 +1,7 @@
 import { isBrowser } from 'utils/ssr';
 import { Resident } from 'types';
 
-export const SAVE_KEY = 'social-care-forms';
+export const SAVE_KEY = 'social-care-forms_v2';
 
 export interface SavedData {
   data: Record<string, unknown>;
