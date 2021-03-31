@@ -30,7 +30,7 @@ export const useTeams = ({
 
 export const useTeamWorkers = (
   teamId?: number
-): responseInterface<{ workers: Worker[] }, ErrorAPI> =>
+): responseInterface<Worker[], ErrorAPI> =>
   useSWR(teamId ? `/api/teams/${teamId}/workers` : null);
 
 export const useAllocationsByWorker = (
