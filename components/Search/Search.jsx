@@ -97,7 +97,9 @@ const Search = ({
     [onFormSubmit, query]
   );
   const addNewPerson = type === 'people' &&
-    (user.hasAdminPermissions || user.hasAdultPermissions) && (
+    (user.hasAdminPermissions ||
+      user.hasAdultPermissions ||
+      user.hasAllocationsPermissions) && (
       <>
         Results don&apos;t match?{' '}
         <Link href="/people/add">
