@@ -79,7 +79,7 @@ export const SummarySection = ({
             href={`${formPath}${id}?fromSummary=true`}
             as={`${formPath}${id}?fromSummary=true`}
           >
-            <a className="govuk-link">Edit</a>
+            <a className="lbh-link">Edit</a>
           </Link>
         )}
         {isSummaryCollapsable && (

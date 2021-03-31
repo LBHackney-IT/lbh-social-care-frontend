@@ -45,11 +45,9 @@ const SummaryStep = ({
   };
   return (
     <div>
-      <div className="lbh-table-header">
-        <h2 className="govuk-fieldset__legend--l gov-weight-lighter ">
-          {`Review details`}
-        </h2>
-      </div>
+      <h2 className="lbh-heading-h1 govuk-!-margin-bottom-7">
+        {`Review details`}
+      </h2>
       <Summary
         formData={formData}
         formPath={formPath}
@@ -75,7 +73,7 @@ const SummaryStep = ({
       </div>
       {hasError && (
         <ErrorSummary
-          title="Unfortunately there was a problem with your submission."
+          title="There was a problem with your submission."
           body="Please try again."
         />
       )}
