@@ -34,7 +34,7 @@ describe('Test Form', () => {
     cy.url().should('include', '/form/test/multi-step');
     cy.contains('Multi Step').should('be.visible');
     cy.contains('Title').type('foo first');
-    cy.contains('Add Another').click();
+    cy.contains('Add another').click();
     cy.url().should('include', '/form/test/multi-step/2');
     cy.contains('Multi Step').should('be.visible');
     cy.contains('Title').type('foo second');
@@ -46,7 +46,7 @@ describe('Test Form', () => {
     cy.contains('foo first').should('be.visible');
     cy.contains('Multi Step - 2').should('be.visible');
     cy.contains('foo second').should('be.visible');
-    cy.contains('Add Another Multi Step').should('be.visible');
+    cy.contains('Add another Multi Step').should('be.visible');
     cy.contains('Edit').should('be.visible');
 
     cy.contains('Submit').click();

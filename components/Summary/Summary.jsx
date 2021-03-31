@@ -1,14 +1,11 @@
 import { useState } from 'react';
-import cx from 'classnames';
 import PropTypes from 'prop-types';
 import Link from 'next/link';
 
+import Collapsible from 'components/Collapsible/Collapsible';
 import SummaryList from 'components/Summary/SummaryList';
 import { filterStepsOnCondition, filterDataOnCondition } from 'utils/steps';
 import { formatData, getSectionObject } from 'utils/summary';
-import { setValues } from 'utils/objects';
-
-import styles from './Summary.module.scss';
 
 const SummaryMultiSection = ({
   formData,
@@ -36,7 +33,26 @@ const SummaryMultiSection = ({
           href={`${formPath}${id}/${formData[id].length + 1}?fromSummary=true`}
           as={`${formPath}${id}/${formData[id].length + 1}?fromSummary=true`}
         >
-          <a className="govuk-link">Add Another {title}</a>
+          <a className="govuk-button lbh-button lbh-button--secondary lbh-button--add">
+            <svg
+              width="11"
+              height="11"
+              viewBox="0 0 11 11"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <rect
+                x="4.5293"
+                y="11"
+                width="11"
+                height="1.94118"
+                transform="rotate(-90 4.5293 11)"
+                fill="#00664F"
+              />
+              <rect y="4.52942" width="11" height="1.94118" fill="#00664F" />
+            </svg>
+            Add another {title}
+          </a>
         </Link>
       </p>
     )}
@@ -59,8 +75,7 @@ export const SummarySection = ({
   formPath,
   canEdit,
   collapsedSection,
-  toggleCollapsed,
-  isSummaryCollapsable,
+  // isSummaryCollapsable,
 }) => {
   const Summary = (
     <SummaryList
@@ -71,29 +86,24 @@ export const SummarySection = ({
   );
   const isCollapsed = collapsedSection[id];
   return (
-    <div className="govuk-!-margin-bottom-7">
-      <div className="lbh-table-header">
-        <h3 className="lbh-heading-h2 section-heading">{title}</h3>
-        {canEdit && (
-          <Link
-            href={`${formPath}${id}?fromSummary=true`}
-            as={`${formPath}${id}?fromSummary=true`}
-          >
-            <a className="lbh-link">Edit</a>
-          </Link>
-        )}
-        {isSummaryCollapsable && (
-          <span
-            className="govuk-link govuk-link--underline"
-            role="button"
-            onClick={() => toggleCollapsed(id)}
-          >
-            {isCollapsed ? 'Expand view' : 'Collapse view'}
-          </span>
-        )}
-      </div>
-      {!isCollapsed && Summary}
-    </div>
+    <Collapsible
+      headline={
+        <>
+          {title}
+          {canEdit && (
+            <Link
+              href={`${formPath}${id}?fromSummary=true`}
+              as={`${formPath}${id}?fromSummary=true`}
+            >
+              <a className="lbh-body lbh-link govuk-!-margin-left-3">Edit</a>
+            </Link>
+          )}
+        </>
+      }
+      initiallyClosed={isCollapsed}
+    >
+      {Summary}
+    </Collapsible>
   );
 };
 
@@ -118,25 +128,15 @@ const Summary = ({
   formSteps,
   formPath,
   canEdit,
-  isSummaryCollapsable,
+  // isSummaryCollapsable,
 }) => {
   const [collapsedSection, setCollapsedSection] = useState(
     getSectionObject(formSteps, formData, false)
   );
-  const hasCollapsed = Object.values(collapsedSection).find(Boolean);
+
+  // const hasCollapsed = Object.values(collapsedSection).find(Boolean);
   return (
     <>
-      {isSummaryCollapsable && (
-        <span
-          className={cx('govuk-link', styles.toggleAll)}
-          role="button"
-          onClick={() =>
-            setCollapsedSection(setValues(collapsedSection, !hasCollapsed))
-          }
-        >
-          {hasCollapsed ? 'Expand all' : 'Collapse all'}
-        </span>
-      )}
       {filterStepsOnCondition(formSteps, formData).map((section) => {
         const props = {
           key: section.id,
@@ -149,7 +149,7 @@ const Summary = ({
               ...collapsedSection,
               [id]: !collapsedSection[id],
             }),
-          isSummaryCollapsable,
+          // isSummaryCollapsable,
           ...section,
         };
         return section.isMulti ? (

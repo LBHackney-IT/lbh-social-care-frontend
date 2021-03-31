@@ -114,6 +114,10 @@ $screen-sm-min: 576px;
   cursor: pointer;
 }
 
+.govuk-summary-list__value div {
+  margin-top: 0;
+}
+
 // .ReactModal__Body--open {
 //   overflow: hidden;
 // }

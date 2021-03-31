@@ -55,22 +55,13 @@ const SummaryStep = ({
         canEdit
         isSummaryCollapsable={isSummaryCollapsable}
       />
-      <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-        <Button
-          wideButton
-          className="govuk-button"
-          label="Cancel"
-          isSecondary
-          onClick={() => (window.location.href = '/')}
-        />
-        <Button
-          wideButton
-          className="govuk-button"
-          label="Submit"
-          onClick={onSubmit}
-          disabled={isSubmitting}
-        />
-      </div>
+      <Button
+        wideButton
+        className="govuk-button"
+        label="Submit"
+        onClick={onSubmit}
+        disabled={isSubmitting}
+      />
       {hasError && (
         <ErrorSummary
           title="There was a problem with your submission."
