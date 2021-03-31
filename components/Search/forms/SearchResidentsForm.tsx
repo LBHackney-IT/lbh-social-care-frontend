@@ -112,7 +112,7 @@ const SearchResidentsForm = ({
         className="govuk-link lbh-link clear-button"
         onClick={() => {
           reset({
-            date_of_birth: null
+            date_of_birth: null,
           });
           onFormSubmit();
         }}

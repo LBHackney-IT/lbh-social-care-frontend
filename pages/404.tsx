@@ -1,5 +1,4 @@
 import Seo from 'components/Layout/Seo/Seo';
-import Link from 'next/link';
 
 const NotFound = (): React.ReactElement => (
   <main className="lbh-main-wrapper" id="main-content" role="main">

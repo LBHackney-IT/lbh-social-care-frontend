@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { ExtendedResident } from 'types';
 import Collapsible from 'components/Collapsible/Collapsible';
 

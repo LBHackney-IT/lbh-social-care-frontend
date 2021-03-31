@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 import style from './PageView.module.scss';
-import Arrow from '../Icons/DownArrow';
 import throttle from 'lodash/throttle';
 import { HistoricCaseData } from 'types';
 

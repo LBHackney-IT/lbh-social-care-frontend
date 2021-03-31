@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import cx from 'classnames';
 import styles from './Collapsible.module.scss';
 import DownArrow from 'components/Icons/DownArrow';
 
