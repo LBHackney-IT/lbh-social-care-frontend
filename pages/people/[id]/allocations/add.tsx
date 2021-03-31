@@ -17,21 +17,23 @@ const AddNewAllocationPage = (): React.ReactElement => {
   }
   return (
     <>
-      <Seo title={`Allocate Worker to #${query.id} Allocate Worker`} />
       <BackButton />
-      <h1 className="govuk-fieldset__legend--l gov-weight-lighter">
-        Allocate worker to
-      </h1>
-      <PersonView personId={personId} expandView>
-        {(person) => (
-          <div className="govuk-!-margin-top-7">
-            <AddAllocatedWorker
-              personId={person.mosaicId}
-              ageContext={person.ageContext}
-            />
-          </div>
-        )}
-      </PersonView>
+      <main className="lbh-main-wrapper" id="main-content" role="main">
+        <Seo title={`Allocate Worker to #${query.id} Allocate Worker`} />
+        <h1 className="lbh-heading-h1 govuk-!-margin-bottom-8">
+          Allocate worker to
+        </h1>
+        <PersonView personId={personId} expandView>
+          {(person) => (
+            <div className="govuk-!-margin-top-7">
+              <AddAllocatedWorker
+                personId={person.mosaicId}
+                ageContext={person.ageContext}
+              />
+            </div>
+          )}
+        </PersonView>
+      </main>
     </>
   );
 };

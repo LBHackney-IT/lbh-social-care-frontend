@@ -14,20 +14,17 @@ const formConfig: FormConfig = {
   steps: [
     {
       id: 'client-details',
-      title: 'Person Details',
+      title: 'Person details',
       components: [
-        <h1
-          key="form-title"
-          className="govuk-fieldset__legend--xl gov-weight-lighter"
-        >
+        <h1 key="form-title" className="lbh-heading-h1">
           Add a new person
         </h1>,
-        <p key="subtitle" className="govuk-body">
-          Use this form to add a new referral
+        <p key="subtitle" className="lbh-body">
+          Use this form to add a new referral.
         </p>,
         <h3
           key="subtitle-details"
-          className="govuk-fieldset__legend--l gov-weight-lighter govuk-!-margin-bottom-5"
+          className="lbh-heading-h2 govuk-!-margin-bottom-5"
         >
           Person details
         </h3>,
@@ -54,14 +51,14 @@ const formConfig: FormConfig = {
           component: 'TextInput',
           name: 'firstName',
           width: 20,
-          label: 'First Name',
+          label: 'First name',
           rules: { required: true },
         },
         {
           component: 'TextInput',
           name: 'lastName',
           width: 20,
-          label: 'Last Name',
+          label: 'Last name',
           rules: { required: true },
         },
         {
@@ -77,12 +74,12 @@ const formConfig: FormConfig = {
             {
               component: 'TextInput',
               name: 'firstName',
-              label: 'First Name',
+              label: 'First name',
             },
             {
               component: 'TextInput',
               name: 'lastName',
-              label: 'Last Name',
+              label: 'Last name',
             },
           ],
         },
@@ -104,14 +101,14 @@ const formConfig: FormConfig = {
         {
           component: 'DateInput',
           name: 'dateOfBirth',
-          label: 'Date of Birth',
+          label: 'Date of birth',
           hint: 'For example, 31 03 1980',
           rules: { required: true },
         },
         {
           component: 'DateInput',
           name: 'dateOfDeath',
-          label: 'Date of Death',
+          label: 'Date of death',
           hint: 'For example, 31 03 1980',
         },
         {
@@ -135,7 +132,7 @@ const formConfig: FormConfig = {
           component: 'Select',
           placeHolder: 'Choose one',
           name: 'firstLanguage',
-          label: 'First Language',
+          label: 'First language',
           width: 20,
           options: LANGUAGES,
         },
@@ -159,7 +156,7 @@ const formConfig: FormConfig = {
           component: 'NumberInput',
           name: 'nhsNumber',
           width: 10,
-          label: 'NHS Number',
+          label: 'NHS number',
         },
         <h3
           key="subtitle-contact"

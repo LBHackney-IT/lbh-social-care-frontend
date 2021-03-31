@@ -14,17 +14,15 @@ const CaseView = (): React.ReactElement => {
     <>
       <Seo title={`#${recordId} record`} />
       <BackButton />
-      <h1 className="lbh-heading-h1 govuk-!-margin-bottom-7">Case note</h1>
+      <h1 className="lbh-heading-h1 govuk-!-margin-bottom-8">Case note</h1>
       <PersonView personId={Number(id as string)} expandView>
-        <div className="govuk-!-margin-top-7">
-          {is_historical && <HistoricNote recordId={recordId as string} />}
-          {!is_historical && (
-            <CaseNote
-              personId={Number(id as string)}
-              recordId={recordId as string}
-            />
-          )}
-        </div>
+        {is_historical && <HistoricNote recordId={recordId as string} />}
+        {!is_historical && (
+          <CaseNote
+            personId={Number(id as string)}
+            recordId={recordId as string}
+          />
+        )}
       </PersonView>
     </>
   );

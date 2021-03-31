@@ -52,7 +52,7 @@ const DeallocatedWorkers = ({
   }
   const currentAllocation = allocations.find(({ id }) => id === allocationId);
   if (!currentAllocation) {
-    return <ErrorMessage label="Allocated worked not found." />;
+    return <ErrorMessage label="Allocated worker not found." />;
   }
   return (
     <form onSubmit={handleSubmit(onSubmit)}>

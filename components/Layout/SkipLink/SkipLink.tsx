@@ -1,5 +1,5 @@
 const SkipLink = (): React.ReactElement => (
-  <a href="#content" className="govuk-skip-link">
+  <a href="#main-content" className="govuk-skip-link">
     Skip to main content
   </a>
 );

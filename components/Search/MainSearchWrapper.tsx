@@ -31,7 +31,7 @@ const SearchCasesPage = ({ type, columns }: Props): React.ReactElement => (
     >
       <Search
         type={type}
-        resultHeader={`${type.toUpperCase()} SEARCH RESULT`}
+        resultHeader="Results"
         // @ts-expect-error TODO: fixed when search.jsx is migrated */}
         columns={columns}
       />

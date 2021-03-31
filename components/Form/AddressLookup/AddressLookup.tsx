@@ -123,7 +123,10 @@ const AddressLookup = ({
         'govuk-form-group--error': Boolean(error || errorMessage),
       })}
     >
-      <label className="govuk-label govuk-label--m" htmlFor="postcode">
+      <label
+        className="govuk-label lbh-label govuk-label--m"
+        htmlFor="postcode"
+      >
         {label}
         {required && <span className="govuk-required">*</span>}
       </label>
@@ -132,38 +135,35 @@ const AddressLookup = ({
           {hint}
         </span>
       )}
-      <div className="govuk-grid-row">
-        <div className="govuk-grid-column-one-third">
-          <input
-            className={cx('govuk-input', {
-              'govuk-input--error': Boolean(error),
-            })}
-            id="postcode"
-            name="postal-code"
-            type="text"
-            placeholder="Postcode"
-            onChange={(e) => setPostcode(e.target.value)}
-            ref={inputRef}
-          />
-        </div>
-        <div className="govuk-grid-column-two-third">
-          <Button
-            className="govuk-!-margin-bottom-0 govuk-!-margin-right-1"
-            onClick={searchPostcode}
-            type="button"
-            label="lookup"
-          />
-          {supportManualEntry && (
-            <Button
-              className="govuk-!-margin-bottom-0"
-              onClick={() => setIsManually(true)}
-              isSecondary
-              type="button"
-              label="or enter it manually"
-            />
-          )}
-        </div>
-      </div>
+
+      <input
+        className={cx('govuk-input', {
+          'govuk-input--error': Boolean(error),
+        })}
+        id="postcode"
+        name="postal-code"
+        type="text"
+        placeholder="Postcode"
+        onChange={(e) => setPostcode(e.target.value)}
+        ref={inputRef}
+      />
+
+      <Button
+        className="govuk-!-margin-bottom-0 govuk-!-margin-right-1"
+        onClick={searchPostcode}
+        type="button"
+        label="Search for address"
+      />
+      {supportManualEntry && (
+        <Button
+          className="govuk-!-margin-bottom-0"
+          onClick={() => setIsManually(true)}
+          isSecondary
+          type="button"
+          label="Enter address manually"
+        />
+      )}
+
       <Controller
         render={({ onChange, value, name }) =>
           !isManually && results.length > 0 ? (

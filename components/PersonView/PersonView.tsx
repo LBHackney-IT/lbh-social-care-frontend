@@ -27,7 +27,7 @@ const PersonView = ({
   return (
     <>
       {!expandView && (
-        <h1 className="lbh-heading-h1">
+        <h1 className="lbh-heading-h1 govuk-!-margin-bottom-8">
           {person.firstName} {person.lastName}
         </h1>
       )}

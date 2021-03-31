@@ -16,14 +16,14 @@ const AllocatedCases = ({ id }: Props): React.ReactElement => {
     return <Spinner />;
   }
   return (
-    <>
+    <main className="lbh-main-wrapper" id="main-content" role="main">
       {allocations.workers.length === 0 ? (
-        <p className="govuk-body govuk-!-margin-top-5">Worker not found</p>
+        <p className="lbh-body govuk-!-margin-top-5">Worker not found</p>
       ) : (
         <>
           {allocations.workers && (
-            <h1 className="govuk-fieldset__legend--l gov-weight-lighter">
-              {`Allocations: ${allocations.workers[0].firstName} ${allocations.workers[0].lastName}, ${allocations.workers[0].role}`}
+            <h1 className="lbh-heading-h1 govuk-!-margin-bottom-8">
+              {`Allocated to ${allocations.workers[0].firstName} ${allocations.workers[0].lastName}, ${allocations.workers[0].role}`}
             </h1>
           )}
           {allocations.allocations && (
@@ -31,15 +31,15 @@ const AllocatedCases = ({ id }: Props): React.ReactElement => {
               {allocations.allocations?.length > 0 ? (
                 <AllocatedCasesTable cases={allocations.allocations} />
               ) : (
-                <p className="govuk-body govuk-!-margin-top-5">
-                  No people are assigned to this worker
+                <p className="lbh-body">
+                  No people are allocated to this worker
                 </p>
               )}
             </>
           )}
         </>
       )}
-    </>
+    </main>
   );
 };
 

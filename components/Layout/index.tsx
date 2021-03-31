@@ -15,11 +15,7 @@ const Layout = ({ children }: Props): React.ReactElement => {
       <SkipLink />
       <Header />
       <PhaseBanner phase="beta" feedbackLink={feedbackLink} />
-      <div className="lbh-main-wrapper">
-        <main className="lbh-container" id="content" role="main">
-          {children}
-        </main>
-      </div>
+      <div className="lbh-container">{children}</div>
     </>
   );
 };

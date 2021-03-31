@@ -22,7 +22,7 @@ export const DetailedTable = ({
   data,
   deleteForm,
 }: DetailedProps): React.ReactElement => (
-  <table className="govuk-table">
+  <table className="govuk-table lbh-table">
     <thead className="govuk-table__head">
       <tr className="govuk-table__row">
         {tableHeader.map((text) => (
@@ -70,7 +70,7 @@ export const StandardTable = ({
   data,
   deleteForm,
 }: StandardProps): React.ReactElement => (
-  <table className="govuk-table">
+  <table className="govuk-table lbh-table">
     <thead className="govuk-table__head">
       <tr className="govuk-table__row">
         {tableHeader.map((text) => (

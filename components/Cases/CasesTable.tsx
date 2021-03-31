@@ -96,7 +96,7 @@ const CasesTable = ({
   sort = {},
   onSort,
 }: Props): React.ReactElement => (
-  <table className="govuk-table">
+  <table className="govuk-table lbh-table">
     <thead className="govuk-table__head">
       <tr className="govuk-table__row">
         {columns.map((column) => (

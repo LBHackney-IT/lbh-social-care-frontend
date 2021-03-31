@@ -11,8 +11,8 @@ interface ServerSideProps {
 }
 
 const AdminLoginPage = ({ gssoUrl, returnUrl }: Props): React.ReactElement => (
-  <>
-    <Seo title="Log In" />
+  <main className="lbh-main-wrapper" id="main-content" role="main">
+    <Seo title="Sign in" />
     <h1 className="lbh-heading-h1">Sign in</h1>
     <div>
       <a
@@ -37,7 +37,7 @@ const AdminLoginPage = ({ gssoUrl, returnUrl }: Props): React.ReactElement => (
     <p className="lbh-body">
       Speak to your manager if you have issues logging in.
     </p>
-  </>
+  </main>
 );
 
 export const getServerSideProps = async (): Promise<ServerSideProps> => {

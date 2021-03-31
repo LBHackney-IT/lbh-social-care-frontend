@@ -2,6 +2,10 @@
 
 .container {
   margin: 0;
+
+  p {
+    margin-bottom: 0;
+  }
 }
 
 .note {
@@ -18,6 +22,9 @@
   grid-template-columns: 8rem 1fr;
   grid-row-gap: 0.5rem;
   margin-bottom: 1rem;
+  * {
+    margin-top: 0;
+  }
   dt {
     font-weight: bold;
   }

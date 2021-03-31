@@ -42,7 +42,7 @@ const Cases = ({ id }: Props): React.ReactElement => {
           columns={['date_of_event', 'formName', 'officer_email', 'action']}
         />
       ) : (
-        <p className="govuk-body govuk-!-margin-top-5">Records not found</p>
+        <p className="lbh-body govuk-!-margin-top-5">No records found.</p>
       )}
       <div style={{ height: '50px', textAlign: 'center' }}>
         {size > data.length ? (

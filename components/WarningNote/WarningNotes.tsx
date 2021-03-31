@@ -15,13 +15,13 @@ export interface Props {
 export const WarningBox = ({ notes, personId }: Props): React.ReactElement => {
   return (
     <div
-      className={cx('govuk-error-summary', styles.container)}
+      className={cx('govuk-error-summary lbh-error-summary', styles.container)}
       aria-labelledby="warning-note-title"
       role="alert"
       tabIndex={-1}
     >
       <h2 className="govuk-error-summary__title" id="warning-note-title">
-        WARNING NOTE
+        Warning note
       </h2>
       <div>
         <div className="govuk-error-summary__body">
@@ -36,7 +36,7 @@ export const WarningBox = ({ notes, personId }: Props): React.ReactElement => {
                 )}
                 {note.createdDate && (
                   <>
-                    <dt>Start Date</dt>
+                    <dt>Start date</dt>
                     <dd>
                       {note.reviewedDate
                         ? new Date(note.reviewedDate).toLocaleDateString(
@@ -51,7 +51,7 @@ export const WarningBox = ({ notes, personId }: Props): React.ReactElement => {
                 )}
                 {note.nextReviewDate && (
                   <>
-                    <dt>Review Date</dt>
+                    <dt>Review date</dt>
                     <dd>
                       {new Date(note.nextReviewDate).toLocaleDateString(
                         'en-GB'
@@ -61,11 +61,11 @@ export const WarningBox = ({ notes, personId }: Props): React.ReactElement => {
                 )}
               </dl>
               <Link href={`/people/${personId}/warning-notes/${note.id}`}>
-                <a className="govuk-link govuk-link-underline">Review / end</a>
+                <a className="lbh-link">Review or end</a>
               </Link>
             </div>
           ))}
-          <p>For further information see Warning Note in Records History</p>
+          <p>For more information, see warning note in record history.</p>
         </div>
       </div>
     </div>
@@ -74,6 +74,7 @@ export const WarningBox = ({ notes, personId }: Props): React.ReactElement => {
 
 const WarningNotes = ({ id }: { id: number }): React.ReactElement | null => {
   const { data: warningNotes, error } = useWarningNotes(id);
+
   if (error) {
     return <ErrorMessage />;
   }

@@ -100,15 +100,13 @@ const Search = ({
   );
   const addNewPerson = type === 'people' &&
     (user.hasAdminPermissions || user.hasAdultPermissions) && (
-      <>
-        Results don&apos;t match?{' '}
+      <p className="lbh-body">
+        You can also{' '}
         <Link href="/people/add">
-          <a style={{ textDecoration: 'underline' }} className="govuk-link">
-            {' '}
-            Add New Person
-          </a>
+          <a className="lbh-link">add a new person</a>
         </Link>
-      </>
+        .
+      </p>
     );
   return (
     <>
@@ -124,12 +122,8 @@ const Search = ({
       />
       {results && (
         <>
-          <div className="lbh-table-header">
-            <h2 className="govuk-fieldset__legend--m govuk-custom-text-color">
-              {resultHeader}
-            </h2>
-            <div style={{ textAlign: 'right' }}>{addNewPerson}</div>
-          </div>
+          <h2 className="lbh-heading-h2 section-heading">{resultHeader}</h2>
+          {addNewPerson}
           {results.records?.length > 0 ? (
             <SearchResults
               records={results.records}
@@ -139,14 +133,12 @@ const Search = ({
             />
           ) : (
             <>
-              <p className="govuk-body govuk-!-margin-top-5">
-                {type.charAt(0).toUpperCase() + type.slice(1)} not found
-              </p>
+              <p className="lbh-body">No results found</p>
             </>
           )}
         </>
       )}
-      <div style={{ height: '50px', textAlign: 'center' }}>
+      <div>
         {(hasQuery && !data) || size > data?.length ? (
           <Spinner />
         ) : (

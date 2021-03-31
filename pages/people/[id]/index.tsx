@@ -16,16 +16,18 @@ const PersonPage = (): React.ReactElement => {
     <>
       <Seo title={`Person Details - #${query.id}`} />
       <BackButton />
-      <PersonView personId={personId} showPersonDetails={false}>
-        {(person) => (
-          <Stack space={7} className="govuk-!-margin-top-7">
-            <WarningNotes id={personId} />
-            <PersonDetails person={person} />
-            <AllocatedWorkers id={personId} />
-            <Cases id={personId} person={person} />
-          </Stack>
-        )}
-      </PersonView>
+      <main className="lbh-main-wrapper" id="main-content" role="main">
+        <PersonView personId={personId} showPersonDetails={false}>
+          {(person) => (
+            <Stack space={7} className="govuk-!-margin-top-7">
+              <WarningNotes id={personId} />
+              <PersonDetails person={person} />
+              <AllocatedWorkers id={personId} />
+              <Cases id={personId} person={person} />
+            </Stack>
+          )}
+        </PersonView>
+      </main>
     </>
   );
 };

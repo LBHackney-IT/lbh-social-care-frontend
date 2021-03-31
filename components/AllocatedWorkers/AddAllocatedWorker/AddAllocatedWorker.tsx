@@ -67,7 +67,7 @@ const AddAllocatedWorker = ({
       {teams && (
         <Autocomplete
           name="teamId"
-          label="Select a team to view workers for that team"
+          label="Choose a team to view workers for."
           labelSize="m"
           placeholder="Select or type team name"
           control={control}
@@ -89,15 +89,15 @@ const AddAllocatedWorker = ({
       )}
       {workers && (
         <>
-          <h2>{teams?.find(({ id }) => id === teamId)?.name} workers</h2>
+          <h2 className="lbh-heading-h3">
+            {teams?.find(({ id }) => id === teamId)?.name} workers
+          </h2>
           {workers?.length > 0 ? (
             <>
-              <p className="govuk-body">
-                Select a worker to allocate a case to them. You can view more
-                about a worker’s current allocated cases by selecting their
-                name.
+              <p className="lbh-body">
+                Choose a worker to allocate this case to.
               </p>
-              <table className="govuk-table">
+              <table className="govuk-table lbh-table">
                 <thead className="govuk-table__head">
                   <tr className="govuk-table__row">
                     <th
@@ -105,7 +105,7 @@ const AddAllocatedWorker = ({
                       className="govuk-table__header"
                       style={{ width: '4rem' }}
                     >
-                      Select
+                      <span className="govuk-visually-hidden">Select</span>
                     </th>
                     <th scope="col" className="govuk-table__header">
                       Name
@@ -114,7 +114,7 @@ const AddAllocatedWorker = ({
                       scope="col"
                       className="govuk-table__header govuk-table__header--numeric"
                     >
-                      Total Cases
+                      Total cases
                     </th>
                   </tr>
                 </thead>
@@ -180,7 +180,7 @@ const AddAllocatedWorker = ({
             <p className="govuk-body">Workers not found</p>
           )}
           {postError && (
-            <ErrorMessage label="There was an error allocating the worker. Please retry." />
+            <ErrorMessage label="There was a problem allocating the worker. Please refresh the page or try again later." />
           )}
         </>
       )}

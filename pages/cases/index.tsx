@@ -2,7 +2,7 @@ import Seo from 'components/Layout/Seo/Seo';
 import SearchWrapper from 'components/Search/MainSearchWrapper';
 
 const SearchCasesPage = (): React.ReactElement => (
-  <div>
+  <main className="lbh-main-wrapper" id="main-content" role="main">
     <Seo title="Search for records" />
     <SearchWrapper
       type="records"
@@ -15,7 +15,7 @@ const SearchCasesPage = (): React.ReactElement => (
         'action',
       ]}
     />
-  </div>
+  </main>
 );
 
 export default SearchCasesPage;

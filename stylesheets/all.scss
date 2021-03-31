@@ -28,6 +28,10 @@ $screen-sm-min: 576px;
   margin-bottom: 10px;
 }
 
+.lbh-back-link:visited {
+  color: lbh-colour('lbh-link');
+}
+
 // new stuff above here
 
 // [role='button'] {
