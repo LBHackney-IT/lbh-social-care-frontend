@@ -2,7 +2,7 @@ import Seo from 'components/Layout/Seo/Seo';
 import Search from 'components/Search/Search';
 
 const MyCasesPage = (): React.ReactElement => (
-  <div>
+  <main className="lbh-main-wrapper" id="main-content" role="main">
     <Seo title="My records notes" />
     <Search
       type="records"
@@ -18,7 +18,7 @@ const MyCasesPage = (): React.ReactElement => (
       ]}
       ctaText="Filter"
     />
-  </div>
+  </main>
 );
 
 export default MyCasesPage;

@@ -2,7 +2,7 @@ import Seo from 'components/Layout/Seo/Seo';
 import Link from 'next/link';
 
 const AccessDenied = (): React.ReactElement => (
-  <>
+  <main className="lbh-main-wrapper" id="main-content" role="main">
     <Seo title="Access denied" />
     <h1 className="lbh-heading-h1">Access denied</h1>
     <p className="lbh-body">
@@ -15,7 +15,7 @@ const AccessDenied = (): React.ReactElement => (
       </Link>
       .
     </p>
-  </>
+  </main>
 );
 
 export default AccessDenied;

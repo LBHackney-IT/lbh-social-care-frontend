@@ -8,11 +8,13 @@ const Workers = (): React.ReactElement => {
   const { query } = useRouter();
   const allocationId = Number(query.id as string);
   return (
-    <div>
-      <Seo title={`Worker Allocations -  #${query.id}`} />
+    <>
       <BackButton />
-      <AllocatedCases id={allocationId} />
-    </div>
+      <main className="lbh-main-wrapper" id="main-content" role="main">
+        <Seo title={`Worker Allocations -  #${query.id}`} />
+        <AllocatedCases id={allocationId} />
+      </main>
+    </>
   );
 };
 
