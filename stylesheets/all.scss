@@ -18,8 +18,7 @@ $screen-sm-min: 576px;
   @include lbh-body-m;
   color: lbh-colour('lbh-link');
   cursor: pointer;
-  padding: 12px 22px 10px;
-  padding: 0.75rem 1.375rem 0.625rem;
+  margin: 2.3rem 1.375rem 0.625rem;
 }
 
 .section-heading {

@@ -108,18 +108,17 @@ const SearchResidentsForm = ({
         </div>
       </div>
       <Button label={ctaText} type="submit" disabled={!isDirty} />
-      <a
-        href="#"
+      <button
         className="govuk-link lbh-link clear-button"
         onClick={() => {
           reset({
-            date_of_birth: null,
+            date_of_birth: null
           });
           onFormSubmit();
         }}
       >
         Clear {ctaText.toLowerCase()}
-      </a>
+      </button>
     </form>
   );
 };
