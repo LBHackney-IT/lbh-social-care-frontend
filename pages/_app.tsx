@@ -11,7 +11,6 @@ import { isAuthorised, shouldRedirect } from 'utils/auth';
 import type { User } from 'types';
 
 import 'stylesheets/all.scss';
-import 'stylesheets/header.scss';
 
 interface Props {
   user?: Partial<User>;
