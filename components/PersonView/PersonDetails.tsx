@@ -31,7 +31,7 @@ const PersonDetails = ({
 }: Props): React.ReactElement => {
   return (
     <Collapsible
-      initiallyOpen={true}
+      initiallyClosed={expandView}
       headline={expandView ? `${firstName} ${lastName}` : 'Person details'}
     >
       <>
