@@ -116,16 +116,15 @@ const FormWizard = ({
             const updatedData = step.isMulti
               ? deepmerge(formData, data)
               : { ...formData, ...data };
-            saveData(
-              formPath,
-              updatedData,
+            saveData({
+              data: updatedData,
               title,
-              includesDetails
+              formPath,
+              step: queryString
                 ? `${window.location.pathname}?${getQueryString(queryString)}`
                 : window.location.pathname,
-              includesDetails,
-              personDetails
-            );
+              personDetails: includesDetails && personDetails,
+            });
             Router.push('/form-in-progress');
           }}
           onFormSubmit={onFormSubmit}

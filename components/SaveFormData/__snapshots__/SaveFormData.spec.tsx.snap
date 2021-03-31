@@ -140,7 +140,7 @@ exports[`SaveFormData component should render both types of forms 1`] = `
         <td
           class="govuk-table__cell"
         >
-          #12345 
+          #1 
         </td>
         <td
           class="govuk-table__cell"
@@ -150,7 +150,7 @@ exports[`SaveFormData component should render both types of forms 1`] = `
         <td
           class="govuk-table__cell"
         >
-          12/02/1984 
+          13/11/2020 
         </td>
         <td
           class="govuk-table__cell"
@@ -167,7 +167,7 @@ exports[`SaveFormData component should render both types of forms 1`] = `
         >
           <a
             class="govuk-link"
-            href="/foo&continueForm=true"
+            href="/foo?continueForm=true"
           >
             Complete
           </a>
