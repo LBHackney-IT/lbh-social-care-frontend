@@ -4,13 +4,108 @@ exports[`AllocatedWorkers component should render properly - with deallocate but
 <DocumentFragment>
   <div>
     <div
-      class="lbh-table-header"
+      class="outer"
     >
-      <h3
-        class="govuk-fieldset__legend--m govuk-custom-text-color govuk-!-margin-top-0"
+      <button
+        aria-expanded="true"
+        class="button"
       >
-        ALLOCATED WORKER 1
-      </h3>
+        <h2
+          class="lbh-heading-h2"
+        >
+          Allocated worker 1
+        </h2>
+        <svg
+          class="down-arrow-icon"
+          height="284.929px"
+          viewBox="0 0 284.929 284.929"
+          width="284.929px"
+          x="0px"
+          xmlns="http://www.w3.org/2000/svg"
+          y="0px"
+        >
+          <g>
+            <path
+              d="M282.082,76.511l-14.274-14.273c-1.902-1.906-4.093-2.856-6.57-2.856c-2.471,0-4.661,0.95-6.563,2.856L142.466,174.441 L30.262,62.241c-1.903-1.906-4.093-2.856-6.567-2.856c-2.475,0-4.665,0.95-6.567,2.856L2.856,76.515C0.95,78.417,0,80.607,0,83.082 c0,2.473,0.953,4.663,2.856,6.565l133.043,133.046c1.902,1.903,4.093,2.854,6.567,2.854s4.661-0.951,6.562-2.854L282.082,89.647 c1.902-1.903,2.847-4.093,2.847-6.565C284.929,80.607,283.984,78.417,282.082,76.511z"
+              fill="#000"
+            />
+          </g>
+        </svg>
+      </button>
+      <dl
+        class="govuk-summary-list  lbh-summary-list"
+      >
+        <div
+          class="govuk-summary-list__row"
+        >
+          <dt
+            class="govuk-summary-list__key"
+          >
+            Worker
+          </dt>
+          <dd
+            class="govuk-summary-list__value"
+          >
+            Officer Name
+          </dd>
+        </div>
+        <div
+          class="govuk-summary-list__row"
+        >
+          <dt
+            class="govuk-summary-list__key"
+          >
+            Team
+          </dt>
+          <dd
+            class="govuk-summary-list__value"
+          >
+            Safeguarding and Reviewing Team
+          </dd>
+        </div>
+        <div
+          class="govuk-summary-list__row"
+        >
+          <dt
+            class="govuk-summary-list__key"
+          >
+            Role
+          </dt>
+          <dd
+            class="govuk-summary-list__value"
+          >
+            Consultant Social Worker
+          </dd>
+        </div>
+        <div
+          class="govuk-summary-list__row"
+        >
+          <dt
+            class="govuk-summary-list__key"
+          >
+            Start date
+          </dt>
+          <dd
+            class="govuk-summary-list__value"
+          >
+            28/03/2019
+          </dd>
+        </div>
+        <div
+          class="govuk-summary-list__row"
+        >
+          <dt
+            class="govuk-summary-list__key"
+          >
+            End date
+          </dt>
+          <dd
+            class="govuk-summary-list__value"
+          >
+            28/03/2019
+          </dd>
+        </div>
+      </dl>
       <button
         class="govuk-button lbh-button govuk-button--secondary lbh-button--secondary"
         data-module="govuk-button"
@@ -18,84 +113,6 @@ exports[`AllocatedWorkers component should render properly - with deallocate but
         Deallocate Worker
       </button>
     </div>
-    <hr
-      class="govuk-divider"
-    />
-    <div />
-    <dl
-      class="govuk-summary-list"
-    >
-      <div
-        class="govuk-summary-list__row"
-      >
-        <dt
-          class="govuk-summary-list__key"
-        >
-          Allocated worker:
-        </dt>
-        <dd
-          class="govuk-summary-list__value"
-        >
-          Officer Name
-        </dd>
-      </div>
-      <div
-        class="govuk-summary-list__row"
-      >
-        <dt
-          class="govuk-summary-list__key"
-        >
-          Allocated team
-        </dt>
-        <dd
-          class="govuk-summary-list__value"
-        >
-          Safeguarding and Reviewing Team
-        </dd>
-      </div>
-      <div
-        class="govuk-summary-list__row"
-      >
-        <dt
-          class="govuk-summary-list__key"
-        >
-          Role
-        </dt>
-        <dd
-          class="govuk-summary-list__value"
-        >
-          Consultant Social Worker
-        </dd>
-      </div>
-      <div
-        class="govuk-summary-list__row"
-      >
-        <dt
-          class="govuk-summary-list__key"
-        >
-          Start date
-        </dt>
-        <dd
-          class="govuk-summary-list__value"
-        >
-          28/03/2019
-        </dd>
-      </div>
-      <div
-        class="govuk-summary-list__row"
-      >
-        <dt
-          class="govuk-summary-list__key"
-        >
-          End date
-        </dt>
-        <dd
-          class="govuk-summary-list__value"
-        >
-          28/03/2019
-        </dd>
-      </div>
-    </dl>
   </div>
 </DocumentFragment>
 `;
@@ -104,92 +121,109 @@ exports[`AllocatedWorkers component should render properly 1`] = `
 <DocumentFragment>
   <div>
     <div
-      class="lbh-table-header"
+      class="outer"
     >
-      <h3
-        class="govuk-fieldset__legend--m govuk-custom-text-color govuk-!-margin-top-0"
+      <button
+        aria-expanded="true"
+        class="button"
       >
-        ALLOCATED WORKER 1
-      </h3>
+        <h2
+          class="lbh-heading-h2"
+        >
+          Allocated worker 1
+        </h2>
+        <svg
+          class="down-arrow-icon"
+          height="284.929px"
+          viewBox="0 0 284.929 284.929"
+          width="284.929px"
+          x="0px"
+          xmlns="http://www.w3.org/2000/svg"
+          y="0px"
+        >
+          <g>
+            <path
+              d="M282.082,76.511l-14.274-14.273c-1.902-1.906-4.093-2.856-6.57-2.856c-2.471,0-4.661,0.95-6.563,2.856L142.466,174.441 L30.262,62.241c-1.903-1.906-4.093-2.856-6.567-2.856c-2.475,0-4.665,0.95-6.567,2.856L2.856,76.515C0.95,78.417,0,80.607,0,83.082 c0,2.473,0.953,4.663,2.856,6.565l133.043,133.046c1.902,1.903,4.093,2.854,6.567,2.854s4.661-0.951,6.562-2.854L282.082,89.647 c1.902-1.903,2.847-4.093,2.847-6.565C284.929,80.607,283.984,78.417,282.082,76.511z"
+              fill="#000"
+            />
+          </g>
+        </svg>
+      </button>
+      <dl
+        class="govuk-summary-list  lbh-summary-list"
+      >
+        <div
+          class="govuk-summary-list__row"
+        >
+          <dt
+            class="govuk-summary-list__key"
+          >
+            Worker
+          </dt>
+          <dd
+            class="govuk-summary-list__value"
+          >
+            Officer Name
+          </dd>
+        </div>
+        <div
+          class="govuk-summary-list__row"
+        >
+          <dt
+            class="govuk-summary-list__key"
+          >
+            Team
+          </dt>
+          <dd
+            class="govuk-summary-list__value"
+          >
+            Safeguarding and Reviewing Team
+          </dd>
+        </div>
+        <div
+          class="govuk-summary-list__row"
+        >
+          <dt
+            class="govuk-summary-list__key"
+          >
+            Role
+          </dt>
+          <dd
+            class="govuk-summary-list__value"
+          >
+            Consultant Social Worker
+          </dd>
+        </div>
+        <div
+          class="govuk-summary-list__row"
+        >
+          <dt
+            class="govuk-summary-list__key"
+          >
+            Start date
+          </dt>
+          <dd
+            class="govuk-summary-list__value"
+          >
+            28/03/2019
+          </dd>
+        </div>
+        <div
+          class="govuk-summary-list__row"
+        >
+          <dt
+            class="govuk-summary-list__key"
+          >
+            End date
+          </dt>
+          <dd
+            class="govuk-summary-list__value"
+          >
+            28/03/2019
+          </dd>
+        </div>
+      </dl>
     </div>
-    <hr
-      class="govuk-divider"
-    />
-    <div />
-    <dl
-      class="govuk-summary-list"
-    >
-      <div
-        class="govuk-summary-list__row"
-      >
-        <dt
-          class="govuk-summary-list__key"
-        >
-          Allocated worker:
-        </dt>
-        <dd
-          class="govuk-summary-list__value"
-        >
-          Officer Name
-        </dd>
-      </div>
-      <div
-        class="govuk-summary-list__row"
-      >
-        <dt
-          class="govuk-summary-list__key"
-        >
-          Allocated team
-        </dt>
-        <dd
-          class="govuk-summary-list__value"
-        >
-          Safeguarding and Reviewing Team
-        </dd>
-      </div>
-      <div
-        class="govuk-summary-list__row"
-      >
-        <dt
-          class="govuk-summary-list__key"
-        >
-          Role
-        </dt>
-        <dd
-          class="govuk-summary-list__value"
-        >
-          Consultant Social Worker
-        </dd>
-      </div>
-      <div
-        class="govuk-summary-list__row"
-      >
-        <dt
-          class="govuk-summary-list__key"
-        >
-          Start date
-        </dt>
-        <dd
-          class="govuk-summary-list__value"
-        >
-          28/03/2019
-        </dd>
-      </div>
-      <div
-        class="govuk-summary-list__row"
-      >
-        <dt
-          class="govuk-summary-list__key"
-        >
-          End date
-        </dt>
-        <dd
-          class="govuk-summary-list__value"
-        >
-          28/03/2019
-        </dd>
-      </div>
-    </dl>
   </div>
 </DocumentFragment>
 `;

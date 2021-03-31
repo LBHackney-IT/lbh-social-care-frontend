@@ -85,7 +85,7 @@ describe('DynamicInputMulti', () => {
     );
   });
 
-  it('should add a new input on "Add a new one"', () => {
+  it('should add a new input on "Add another"', () => {
     const { getByText, getAllByText } = render(
       <DynamicInputMulti
         {...props}
@@ -94,7 +94,7 @@ describe('DynamicInputMulti', () => {
       />
     );
     expect(getAllByText('MockedCloseButton').length).toBe(1);
-    fireEvent.click(getByText('Add a new one'));
+    fireEvent.click(getByText('Add another'));
     expect(getAllByText('MockedCloseButton').length).toBe(2);
   });
 

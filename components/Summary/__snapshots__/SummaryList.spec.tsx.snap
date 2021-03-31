@@ -3,7 +3,7 @@
 exports[`SummaryList component should render properly 1`] = `
 <DocumentFragment>
   <dl
-    class="govuk-summary-list"
+    class="govuk-summary-list  lbh-summary-list"
   >
     <div
       class="govuk-summary-list__row"

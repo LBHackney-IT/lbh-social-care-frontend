@@ -4,23 +4,17 @@ exports[`Layout component should render properly 1`] = `
 <DocumentFragment>
   <a
     class="govuk-skip-link"
-    href="#content"
+    href="#main-content"
   >
     Skip to main content
   </a>
   HeaderMockedPhaseBanner
   <div
-    class="lbh-main-wrapper"
+    class="lbh-container"
   >
-    <main
-      class="lbh-container"
-      id="content"
-      role="main"
-    >
-      <p>
-        I am the children
-      </p>
-    </main>
+    <p>
+      I am the children
+    </p>
   </div>
 </DocumentFragment>
 `;

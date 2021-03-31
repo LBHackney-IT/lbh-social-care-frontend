@@ -2,52 +2,72 @@
 
 exports[`PersonDetails component should render properly - expanded 1`] = `
 <DocumentFragment>
-  <div>
-    <div
-      class="lbh-table-header"
+  <div
+    class="outer"
+  >
+    <button
+      aria-expanded="false"
+      class="button"
     >
       <h2
-        class="govuk-fieldset__legend--m govuk-custom-text-color"
+        class="lbh-heading-h2"
       >
         i am the first i am the last
       </h2>
-      <div
-        class="govuk-link"
-        role="button"
+      <svg
+        class="down-arrow-icon"
+        height="284.929px"
+        viewBox="0 0 284.929 284.929"
+        width="284.929px"
+        x="0px"
+        xmlns="http://www.w3.org/2000/svg"
+        y="0px"
       >
-        Expand view
-      </div>
-    </div>
-    <hr
-      class="govuk-divider"
-    />
+        <g>
+          <path
+            d="M282.082,76.511l-14.274-14.273c-1.902-1.906-4.093-2.856-6.57-2.856c-2.471,0-4.661,0.95-6.563,2.856L142.466,174.441 L30.262,62.241c-1.903-1.906-4.093-2.856-6.567-2.856c-2.475,0-4.665,0.95-6.567,2.856L2.856,76.515C0.95,78.417,0,80.607,0,83.082 c0,2.473,0.953,4.663,2.856,6.565l133.043,133.046c1.902,1.903,4.093,2.854,6.567,2.854s4.661-0.951,6.562-2.854L282.082,89.647 c1.902-1.903,2.847-4.093,2.847-6.565C284.929,80.607,283.984,78.417,282.082,76.511z"
+            fill="#000"
+          />
+        </g>
+      </svg>
+    </button>
   </div>
 </DocumentFragment>
 `;
 
 exports[`PersonDetails component should render properly - expanded 2`] = `
 <DocumentFragment>
-  <div>
-    <div
-      class="lbh-table-header"
+  <div
+    class="outer"
+  >
+    <button
+      aria-expanded="true"
+      class="button"
     >
       <h2
-        class="govuk-fieldset__legend--m govuk-custom-text-color"
+        class="lbh-heading-h2"
       >
         i am the first i am the last
       </h2>
-      <div
-        class="govuk-link"
-        role="button"
+      <svg
+        class="down-arrow-icon"
+        height="284.929px"
+        viewBox="0 0 284.929 284.929"
+        width="284.929px"
+        x="0px"
+        xmlns="http://www.w3.org/2000/svg"
+        y="0px"
       >
-        Collapse view
-      </div>
-    </div>
-    <hr
-      class="govuk-divider"
-    />
+        <g>
+          <path
+            d="M282.082,76.511l-14.274-14.273c-1.902-1.906-4.093-2.856-6.57-2.856c-2.471,0-4.661,0.95-6.563,2.856L142.466,174.441 L30.262,62.241c-1.903-1.906-4.093-2.856-6.567-2.856c-2.475,0-4.665,0.95-6.567,2.856L2.856,76.515C0.95,78.417,0,80.607,0,83.082 c0,2.473,0.953,4.663,2.856,6.565l133.043,133.046c1.902,1.903,4.093,2.854,6.567,2.854s4.661-0.951,6.562-2.854L282.082,89.647 c1.902-1.903,2.847-4.093,2.847-6.565C284.929,80.607,283.984,78.417,282.082,76.511z"
+            fill="#000"
+          />
+        </g>
+      </svg>
+    </button>
     <dl
-      class="govuk-summary-list"
+      class="govuk-summary-list  lbh-summary-list"
     >
       <div
         class="govuk-summary-list__row"
@@ -117,7 +137,7 @@ exports[`PersonDetails component should render properly - expanded 2`] = `
         <dt
           class="govuk-summary-list__key"
         >
-          Date Of Death
+          Date Of death
         </dt>
         <dd
           class="govuk-summary-list__value"
@@ -187,7 +207,7 @@ exports[`PersonDetails component should render properly - expanded 2`] = `
         <dt
           class="govuk-summary-list__key"
         >
-          Phone Number
+          Phone number
         </dt>
         <dd
           class="govuk-summary-list__value"
@@ -221,7 +241,7 @@ exports[`PersonDetails component should render properly - expanded 2`] = `
         <dt
           class="govuk-summary-list__key"
         >
-          Preferred Method Of Contact
+          Preferred method of contact
         </dt>
         <dd
           class="govuk-summary-list__value"
@@ -250,21 +270,37 @@ exports[`PersonDetails component should render properly - expanded 2`] = `
 
 exports[`PersonDetails component should render properly 1`] = `
 <DocumentFragment>
-  <div>
-    <div
-      class="lbh-table-header"
+  <div
+    class="outer"
+  >
+    <button
+      aria-expanded="true"
+      class="button"
     >
       <h2
-        class="govuk-fieldset__legend--m govuk-custom-text-color"
+        class="lbh-heading-h2"
       >
-        PERSON DETAILS
+        Person details
       </h2>
-    </div>
-    <hr
-      class="govuk-divider"
-    />
+      <svg
+        class="down-arrow-icon"
+        height="284.929px"
+        viewBox="0 0 284.929 284.929"
+        width="284.929px"
+        x="0px"
+        xmlns="http://www.w3.org/2000/svg"
+        y="0px"
+      >
+        <g>
+          <path
+            d="M282.082,76.511l-14.274-14.273c-1.902-1.906-4.093-2.856-6.57-2.856c-2.471,0-4.661,0.95-6.563,2.856L142.466,174.441 L30.262,62.241c-1.903-1.906-4.093-2.856-6.567-2.856c-2.475,0-4.665,0.95-6.567,2.856L2.856,76.515C0.95,78.417,0,80.607,0,83.082 c0,2.473,0.953,4.663,2.856,6.565l133.043,133.046c1.902,1.903,4.093,2.854,6.567,2.854s4.661-0.951,6.562-2.854L282.082,89.647 c1.902-1.903,2.847-4.093,2.847-6.565C284.929,80.607,283.984,78.417,282.082,76.511z"
+            fill="#000"
+          />
+        </g>
+      </svg>
+    </button>
     <dl
-      class="govuk-summary-list"
+      class="govuk-summary-list  lbh-summary-list"
     >
       <div
         class="govuk-summary-list__row"
@@ -334,7 +370,7 @@ exports[`PersonDetails component should render properly 1`] = `
         <dt
           class="govuk-summary-list__key"
         >
-          Date Of Death
+          Date Of death
         </dt>
         <dd
           class="govuk-summary-list__value"
@@ -404,7 +440,7 @@ exports[`PersonDetails component should render properly 1`] = `
         <dt
           class="govuk-summary-list__key"
         >
-          Phone Number
+          Phone number
         </dt>
         <dd
           class="govuk-summary-list__value"
@@ -438,7 +474,7 @@ exports[`PersonDetails component should render properly 1`] = `
         <dt
           class="govuk-summary-list__key"
         >
-          Preferred Method Of Contact
+          Preferred method of contact
         </dt>
         <dd
           class="govuk-summary-list__value"

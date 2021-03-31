@@ -27,21 +27,14 @@ exports[`Confirmation component should render properly 1`] = `
       <div
         class="lbh-table-header"
       >
-        <div
-          class="sectionTitle"
+        <h3
+          class="lbh-heading-h2 section-heading"
         >
-          <h3
-            class="govuk-heading-m govuk-custom-text-color govuk-!-margin-bottom-0"
-          >
-            FOO BAR
-          </h3>
-        </div>
+          Foo Bar
+        </h3>
       </div>
-      <hr
-        class="govuk-divider"
-      />
       <dl
-        class="govuk-summary-list"
+        class="govuk-summary-list  lbh-summary-list"
       >
         <div
           class="govuk-summary-list__row"

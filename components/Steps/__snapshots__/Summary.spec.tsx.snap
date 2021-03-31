@@ -3,42 +3,31 @@
 exports[`Summary component should render properly 1`] = `
 <DocumentFragment>
   <div>
-    <div
-      class="lbh-table-header"
+    <h2
+      class="lbh-heading-h1 govuk-!-margin-bottom-7"
     >
-      <h2
-        class="govuk-fieldset__legend--l gov-weight-lighter "
-      >
-        Review details
-      </h2>
-    </div>
+      Review details
+    </h2>
     <div
       class="govuk-!-margin-bottom-7"
     >
       <div
         class="lbh-table-header"
       >
-        <div
-          class="sectionTitle"
+        <h3
+          class="lbh-heading-h2 section-heading"
         >
-          <h3
-            class="govuk-heading-m govuk-custom-text-color govuk-!-margin-bottom-0"
-          >
-            FOO BAR
-          </h3>
-          <a
-            class="govuk-link"
-            href="/foo/bar-foofoo-bar?fromSummary=true"
-          >
-            Edit
-          </a>
-        </div>
+          Foo Bar
+        </h3>
+        <a
+          class="lbh-link"
+          href="/foo/bar-foofoo-bar?fromSummary=true"
+        >
+          Edit
+        </a>
       </div>
-      <hr
-        class="govuk-divider"
-      />
       <dl
-        class="govuk-summary-list"
+        class="govuk-summary-list  lbh-summary-list"
       >
         <div
           class="govuk-summary-list__row"

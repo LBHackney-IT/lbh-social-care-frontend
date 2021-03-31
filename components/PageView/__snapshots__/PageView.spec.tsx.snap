@@ -3,15 +3,12 @@
 exports[`PageView should render component 1`] = `
 <DocumentFragment>
   <h3
-    class="govuk-heading-m govuk-custom-text-color govuk-!-margin-bottom-0"
+    class="lbh-heading-h2 section-heading"
   >
-    FOO
-    <hr
-      class="govuk-divider"
-    />
+    Foo
   </h3>
   <dl
-    class="govuk-summary-list govuk-!-margin-bottom-2"
+    class="govuk-summary-list lbh-summary-list govuk-!-margin-bottom-2"
   >
     <div
       class="govuk-summary-list__row"
@@ -59,11 +56,6 @@ exports[`PageView should render component 1`] = `
   <div
     class="pageView"
   >
-    <span
-      class="gov-weight-lighter title"
-    >
-      Content
-    </span>
     <div
       class="content"
     >

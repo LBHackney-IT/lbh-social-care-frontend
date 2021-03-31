@@ -3,7 +3,7 @@
 exports[`CasesTable component should render properly 1`] = `
 <DocumentFragment>
   <table
-    class="govuk-table"
+    class="govuk-table lbh-table"
   >
     <thead
       class="govuk-table__head"
@@ -101,6 +101,7 @@ exports[`CasesTable component should render properly 1`] = `
           style="width: 50px; text-align: center;"
         >
           <a
+            class="lbh-link"
             href="/people/123/allocations/321?recordId=2"
           >
             View
@@ -134,6 +135,7 @@ exports[`CasesTable component should render properly 1`] = `
           style="width: 50px; text-align: center;"
         >
           <a
+            class="lbh-link"
             href="/people/123/records/4"
           >
             View

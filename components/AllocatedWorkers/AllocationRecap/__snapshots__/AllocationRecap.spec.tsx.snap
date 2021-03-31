@@ -29,7 +29,7 @@ exports[`AllocationRecap should render properly on allocation 1`] = `
       Allocations details
     </h2>
     <dl
-      class="govuk-summary-list govuk-summary-list--no-border"
+      class="govuk-summary-list  lbh-summary-list govuk-summary-list--no-border"
     >
       <div
         class="govuk-summary-list__row"
@@ -131,7 +131,7 @@ exports[`AllocationRecap should render properly on deallocation 1`] = `
       Allocations details
     </h2>
     <dl
-      class="govuk-summary-list govuk-summary-list--no-border"
+      class="govuk-summary-list  lbh-summary-list govuk-summary-list--no-border"
     >
       <div
         class="govuk-summary-list__row"

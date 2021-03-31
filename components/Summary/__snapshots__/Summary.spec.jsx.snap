@@ -8,21 +8,14 @@ exports[`Summary component isSummaryCollapsable should render properly - with No
     <div
       class="lbh-table-header"
     >
-      <div
-        class="sectionTitle"
+      <h3
+        class="lbh-heading-h2 section-heading"
       >
-        <h3
-          class="govuk-heading-m govuk-custom-text-color govuk-!-margin-bottom-0"
-        >
-          FIRST STEP
-        </h3>
-      </div>
+        First Step
+      </h3>
     </div>
-    <hr
-      class="govuk-divider"
-    />
     <dl
-      class="govuk-summary-list"
+      class="govuk-summary-list  lbh-summary-list"
     >
       <div
         class="govuk-summary-list__row"
@@ -57,15 +50,11 @@ exports[`Summary component isSummaryCollapsable should render properly - with is
     <div
       class="lbh-table-header"
     >
-      <div
-        class="sectionTitle"
+      <h3
+        class="lbh-heading-h2 section-heading"
       >
-        <h3
-          class="govuk-heading-m govuk-custom-text-color govuk-!-margin-bottom-0"
-        >
-          FIRST STEP
-        </h3>
-      </div>
+        First Step
+      </h3>
       <span
         class="govuk-link govuk-link--underline"
         role="button"
@@ -73,11 +62,8 @@ exports[`Summary component isSummaryCollapsable should render properly - with is
         Collapse view
       </span>
     </div>
-    <hr
-      class="govuk-divider"
-    />
     <dl
-      class="govuk-summary-list"
+      class="govuk-summary-list  lbh-summary-list"
     >
       <div
         class="govuk-summary-list__row"
@@ -106,21 +92,14 @@ exports[`Summary component should render properly 1`] = `
     <div
       class="lbh-table-header"
     >
-      <div
-        class="sectionTitle"
+      <h3
+        class="lbh-heading-h2 section-heading"
       >
-        <h3
-          class="govuk-heading-m govuk-custom-text-color govuk-!-margin-bottom-0"
-        >
-          FIRST STEP
-        </h3>
-      </div>
+        First Step
+      </h3>
     </div>
-    <hr
-      class="govuk-divider"
-    />
     <dl
-      class="govuk-summary-list"
+      class="govuk-summary-list  lbh-summary-list"
     >
       <div
         class="govuk-summary-list__row"
@@ -158,21 +137,14 @@ exports[`Summary component should render properly 1`] = `
     <div
       class="lbh-table-header"
     >
-      <div
-        class="sectionTitle"
+      <h3
+        class="lbh-heading-h2 section-heading"
       >
-        <h3
-          class="govuk-heading-m govuk-custom-text-color govuk-!-margin-bottom-0"
-        >
-          SECOND STEP
-        </h3>
-      </div>
+        Second Step
+      </h3>
     </div>
-    <hr
-      class="govuk-divider"
-    />
     <dl
-      class="govuk-summary-list"
+      class="govuk-summary-list  lbh-summary-list"
     >
       <div
         class="govuk-summary-list__row"
@@ -196,21 +168,14 @@ exports[`Summary component should render properly 1`] = `
     <div
       class="lbh-table-header"
     >
-      <div
-        class="sectionTitle"
+      <h3
+        class="lbh-heading-h2 section-heading"
       >
-        <h3
-          class="govuk-heading-m govuk-custom-text-color govuk-!-margin-bottom-0"
-        >
-          OBJECT STEP
-        </h3>
-      </div>
+        Object Step
+      </h3>
     </div>
-    <hr
-      class="govuk-divider"
-    />
     <dl
-      class="govuk-summary-list"
+      class="govuk-summary-list  lbh-summary-list"
     >
       <div
         class="govuk-summary-list__row"

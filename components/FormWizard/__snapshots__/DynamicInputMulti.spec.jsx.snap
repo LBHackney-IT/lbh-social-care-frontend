@@ -11,33 +11,63 @@ exports[`DynamicInputMulti should render properly 1`] = `
     class="govuk-!-margin-bottom-5 wrapper"
   >
     MockedDynamicInput
-    <span
+    <button
       class="delete"
-      role="button"
     >
       MockedCloseButton
-    </span>
+      <span
+        class="govuk-visually-hidden"
+      >
+        Remove this i am a multi input
+      </span>
+    </button>
   </div>
   <div
     class="govuk-!-margin-bottom-5 wrapper"
   >
     MockedDynamicInput
-    <span
+    <button
       class="delete"
-      role="button"
     >
       MockedCloseButton
-    </span>
+      <span
+        class="govuk-visually-hidden"
+      >
+        Remove this i am a multi input
+      </span>
+    </button>
   </div>
   <div
-    class="govuk-!-margin-top-3 govuk-!-margin-bottom-5"
+    class="govuk-!-margin-bottom-5"
   >
-    <span
-      class="govuk-link"
+    <button
+      class="govuk-button lbh-button lbh-button--secondary lbh-button--add govuk-!-margin-top-0"
       role="button"
     >
-      Add a new one
-    </span>
+      <svg
+        fill="none"
+        height="11"
+        viewBox="0 0 11 11"
+        width="11"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <rect
+          fill="#00664F"
+          height="1.94118"
+          transform="rotate(-90 4.5293 11)"
+          width="11"
+          x="4.5293"
+          y="11"
+        />
+        <rect
+          fill="#00664F"
+          height="1.94118"
+          width="11"
+          y="4.52942"
+        />
+      </svg>
+      Add another
+    </button>
   </div>
 </DocumentFragment>
 `;
@@ -45,14 +75,36 @@ exports[`DynamicInputMulti should render properly 1`] = `
 exports[`DynamicInputMulti should render properly with isMultiInit false 1`] = `
 <DocumentFragment>
   <div
-    class="govuk-!-margin-top-3 govuk-!-margin-bottom-5"
+    class="govuk-!-margin-bottom-5"
   >
-    <span
-      class="govuk-link"
+    <button
+      class="govuk-button lbh-button lbh-button--secondary lbh-button--add govuk-!-margin-top-0"
       role="button"
     >
+      <svg
+        fill="none"
+        height="11"
+        viewBox="0 0 11 11"
+        width="11"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <rect
+          fill="#00664F"
+          height="1.94118"
+          transform="rotate(-90 4.5293 11)"
+          width="11"
+          x="4.5293"
+          y="11"
+        />
+        <rect
+          fill="#00664F"
+          height="1.94118"
+          width="11"
+          y="4.52942"
+        />
+      </svg>
       Add a something
-    </span>
+    </button>
   </div>
 </DocumentFragment>
 `;

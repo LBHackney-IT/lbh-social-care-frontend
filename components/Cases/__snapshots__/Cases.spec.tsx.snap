@@ -3,31 +3,22 @@
 exports[`Cases component should render a error message when a person is restricted 1`] = `
 <DocumentFragment>
   <div>
-    <div
-      class="lbh-table-header"
+    <h3
+      class="lbh-heading-h2 section-heading"
     >
-      <div>
-        <h3
-          class="govuk-fieldset__legend--m govuk-custom-text-color"
-        >
-          RECORDS HISTORY
-        </h3>
-        <span
-          class="govuk-body"
-        >
-          Linked files are read only
-        </span>
-      </div>
-      <button
-        class="govuk-button lbh-button"
-        data-module="govuk-button"
-      >
-        Add a new record
-      </button>
-    </div>
-    <hr
-      class="govuk-divider"
-    />
+      Records history
+    </h3>
+    <p
+      class="lbh-body"
+    >
+      Linked files are read only.
+    </p>
+    <button
+      class="govuk-button lbh-button"
+      data-module="govuk-button"
+    >
+      Add a new record
+    </button>
     <div
       aria-labelledby="error-summary-title"
       class="govuk-error-summary"
@@ -54,35 +45,26 @@ exports[`Cases component should render a error message when a person is restrict
 exports[`Cases component should render no records  1`] = `
 <DocumentFragment>
   <div>
-    <div
-      class="lbh-table-header"
+    <h3
+      class="lbh-heading-h2 section-heading"
     >
-      <div>
-        <h3
-          class="govuk-fieldset__legend--m govuk-custom-text-color"
-        >
-          RECORDS HISTORY
-        </h3>
-        <span
-          class="govuk-body"
-        >
-          Linked files are read only
-        </span>
-      </div>
-      <button
-        class="govuk-button lbh-button"
-        data-module="govuk-button"
-      >
-        Add a new record
-      </button>
-    </div>
-    <hr
-      class="govuk-divider"
-    />
+      Records history
+    </h3>
     <p
-      class="govuk-body govuk-!-margin-top-5"
+      class="lbh-body"
     >
-      Records not found
+      Linked files are read only.
+    </p>
+    <button
+      class="govuk-button lbh-button"
+      data-module="govuk-button"
+    >
+      Add a new record
+    </button>
+    <p
+      class="lbh-body govuk-!-margin-top-5"
+    >
+      No records found.
     </p>
     <div
       style="height: 50px; text-align: center;"
@@ -91,7 +73,7 @@ exports[`Cases component should render no records  1`] = `
         class="govuk-button lbh-button"
         data-module="govuk-button"
       >
-        load more
+        Load more
       </button>
     </div>
   </div>
@@ -101,33 +83,24 @@ exports[`Cases component should render no records  1`] = `
 exports[`Cases component should render records properly 1`] = `
 <DocumentFragment>
   <div>
-    <div
-      class="lbh-table-header"
+    <h3
+      class="lbh-heading-h2 section-heading"
     >
-      <div>
-        <h3
-          class="govuk-fieldset__legend--m govuk-custom-text-color"
-        >
-          RECORDS HISTORY
-        </h3>
-        <span
-          class="govuk-body"
-        >
-          Linked files are read only
-        </span>
-      </div>
-      <button
-        class="govuk-button lbh-button"
-        data-module="govuk-button"
-      >
-        Add a new record
-      </button>
-    </div>
-    <hr
-      class="govuk-divider"
-    />
+      Records history
+    </h3>
+    <p
+      class="lbh-body"
+    >
+      Linked files are read only.
+    </p>
+    <button
+      class="govuk-button lbh-button"
+      data-module="govuk-button"
+    >
+      Add a new record
+    </button>
     <table
-      class="govuk-table"
+      class="govuk-table lbh-table"
     >
       <thead
         class="govuk-table__head"
@@ -225,6 +198,7 @@ exports[`Cases component should render records properly 1`] = `
             style="width: 50px; text-align: center;"
           >
             <a
+              class="lbh-link"
               href="/people/123/allocations/321?recordId=2"
             >
               View
@@ -240,7 +214,7 @@ exports[`Cases component should render records properly 1`] = `
         class="govuk-button lbh-button"
         data-module="govuk-button"
       >
-        load more
+        Load more
       </button>
     </div>
   </div>
@@ -250,35 +224,26 @@ exports[`Cases component should render records properly 1`] = `
 exports[`Cases component should work properly if person is restricted but user.hasUnrestrictedPermissions 1`] = `
 <DocumentFragment>
   <div>
-    <div
-      class="lbh-table-header"
+    <h3
+      class="lbh-heading-h2 section-heading"
     >
-      <div>
-        <h3
-          class="govuk-fieldset__legend--m govuk-custom-text-color"
-        >
-          RECORDS HISTORY
-        </h3>
-        <span
-          class="govuk-body"
-        >
-          Linked files are read only
-        </span>
-      </div>
-      <button
-        class="govuk-button lbh-button"
-        data-module="govuk-button"
-      >
-        Add a new record
-      </button>
-    </div>
-    <hr
-      class="govuk-divider"
-    />
+      Records history
+    </h3>
     <p
-      class="govuk-body govuk-!-margin-top-5"
+      class="lbh-body"
     >
-      Records not found
+      Linked files are read only.
+    </p>
+    <button
+      class="govuk-button lbh-button"
+      data-module="govuk-button"
+    >
+      Add a new record
+    </button>
+    <p
+      class="lbh-body govuk-!-margin-top-5"
+    >
+      No records found.
     </p>
     <div
       style="height: 50px; text-align: center;"
@@ -287,7 +252,7 @@ exports[`Cases component should work properly if person is restricted but user.h
         class="govuk-button lbh-button"
         data-module="govuk-button"
       >
-        load more
+        Load more
       </button>
     </div>
   </div>

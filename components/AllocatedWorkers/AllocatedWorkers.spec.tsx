@@ -65,7 +65,7 @@ describe(`AddAllocatedWorker`, () => {
     );
     const allocateTable = await findByText('MockedAllocatedWorkersTable');
     expect(allocateTable).toBeInTheDocument();
-    const addAllocate = queryByText('Allocate worker');
+    const addAllocate = queryByText('Allocate another worker');
     expect(addAllocate).toBeInTheDocument();
   });
 });

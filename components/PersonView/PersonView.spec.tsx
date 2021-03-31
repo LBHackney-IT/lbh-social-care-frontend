@@ -58,19 +58,21 @@ describe('PersonView component', () => {
   };
 
   it('should render properly', async () => {
-    const { getByText, queryByText } = render(<PersonView {...props} />);
+    const { getByRole, getByText, queryByText } = render(
+      <PersonView {...props} />
+    );
     await waitFor(() => {
       expect(getByText('13/11/2020')).toBeInTheDocument();
     });
-    expect(queryByText('Expand view')).not.toBeInTheDocument();
+    expect(getByRole('button')).toBeInTheDocument();
   });
 
   it('should render person view', async () => {
-    const { getByText, queryByText } = render(
+    const { getByRole, getByText, queryByText } = render(
       <PersonView {...props} expandView={true} />
     );
     await waitFor(() => {
-      expect(getByText('Expand view')).toBeInTheDocument();
+      expect(getByRole('button')).toBeInTheDocument();
     });
     expect(queryByText('13/11/2020')).not.toBeInTheDocument();
   });

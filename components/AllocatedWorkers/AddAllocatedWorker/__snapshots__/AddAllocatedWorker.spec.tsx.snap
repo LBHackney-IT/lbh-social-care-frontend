@@ -17,7 +17,7 @@ exports[`AddAllocatedWorker should render properly 1`] = `
         class="govuk-label lbh-label govuk-label--m"
         for="teamId"
       >
-        Select a team to view workers for that team
+        Choose a team to view workers for.
       </label>
       <div
         class="inputContainer"
@@ -70,16 +70,18 @@ exports[`AddAllocatedWorker should render properly 1`] = `
         </li>
       </ul>
     </div>
-    <h2>
+    <h2
+      class="lbh-heading-h3"
+    >
        workers
     </h2>
     <p
-      class="govuk-body"
+      class="lbh-body"
     >
-      Select a worker to allocate a case to them. You can view more about a worker’s current allocated cases by selecting their name.
+      Choose a worker to allocate this case to.
     </p>
     <table
-      class="govuk-table"
+      class="govuk-table lbh-table"
     >
       <thead
         class="govuk-table__head"
@@ -92,7 +94,11 @@ exports[`AddAllocatedWorker should render properly 1`] = `
             scope="col"
             style="width: 4rem;"
           >
-            Select
+            <span
+              class="govuk-visually-hidden"
+            >
+              Select
+            </span>
           </th>
           <th
             class="govuk-table__header"
@@ -104,7 +110,7 @@ exports[`AddAllocatedWorker should render properly 1`] = `
             class="govuk-table__header govuk-table__header--numeric"
             scope="col"
           >
-            Total Cases
+            Total cases
           </th>
         </tr>
       </thead>

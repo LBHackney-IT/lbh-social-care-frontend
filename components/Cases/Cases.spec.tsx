@@ -77,7 +77,7 @@ describe('Cases component', () => {
       </UserContext.Provider>
     );
     expect(asFragment()).toMatchSnapshot();
-    expect(getByText('Records not found')).toBeInTheDocument();
+    expect(getByText('No records found.')).toBeInTheDocument();
   });
 
   it('should render a error message when a person is restricted', async () => {

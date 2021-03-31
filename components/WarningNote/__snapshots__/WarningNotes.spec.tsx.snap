@@ -4,7 +4,7 @@ exports[`useWarningNotes should render properly 1`] = `
 <DocumentFragment>
   <div
     aria-labelledby="warning-note-title"
-    class="govuk-error-summary container"
+    class="govuk-error-summary lbh-error-summary container"
     role="alert"
     tabindex="-1"
   >
@@ -12,7 +12,7 @@ exports[`useWarningNotes should render properly 1`] = `
       class="govuk-error-summary__title"
       id="warning-note-title"
     >
-      WARNING NOTE
+      Warning note
     </h2>
     <div>
       <div
@@ -31,7 +31,7 @@ exports[`useWarningNotes should render properly 1`] = `
               Risk to Adults
             </dd>
             <dt>
-              Start Date
+              Start date
             </dt>
             <dd>
               13/12/2020 
@@ -41,17 +41,17 @@ exports[`useWarningNotes should render properly 1`] = `
                Foo
             </dd>
             <dt>
-              Review Date
+              Review date
             </dt>
             <dd>
               31/12/2020 
             </dd>
           </dl>
           <a
-            class="govuk-link govuk-link-underline"
+            class="lbh-link"
             href="/people/123/warning-notes/1"
           >
-            Review / end
+            Review or end
           </a>
         </div>
         <div
@@ -67,7 +67,7 @@ exports[`useWarningNotes should render properly 1`] = `
               Risk to Staff
             </dd>
             <dt>
-              Start Date
+              Start date
             </dt>
             <dd>
               22/12/2020 
@@ -77,21 +77,21 @@ exports[`useWarningNotes should render properly 1`] = `
                Foo
             </dd>
             <dt>
-              Review Date
+              Review date
             </dt>
             <dd>
               01/02/2021 
             </dd>
           </dl>
           <a
-            class="govuk-link govuk-link-underline"
+            class="lbh-link"
             href="/people/123/warning-notes/2"
           >
-            Review / end
+            Review or end
           </a>
         </div>
         <p>
-          For further information see Warning Note in Records History
+          For more information, see warning note in record history.
         </p>
       </div>
     </div>

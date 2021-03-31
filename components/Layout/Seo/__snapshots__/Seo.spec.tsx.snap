@@ -3,7 +3,7 @@
 exports[`Seo component should work properly 1`] = `
 <DocumentFragment>
   <title>
-    foo - Social Care Admin - Hackney Council
+    foo | Social Care Admin | Hackney Council
   </title>
 </DocumentFragment>
 `;

@@ -3,7 +3,7 @@
 exports[`ResidenTable component should render properly 1`] = `
 <DocumentFragment>
   <table
-    class="govuk-table"
+    class="govuk-table lbh-table govuk-!-margin-bottom-0"
   >
     <thead
       class="govuk-table__head"
@@ -21,7 +21,7 @@ exports[`ResidenTable component should render properly 1`] = `
           class="govuk-table__header"
           scope="col"
         >
-          Client Name
+          Client
         </th>
         <th
           class="govuk-table__header"
@@ -29,10 +29,6 @@ exports[`ResidenTable component should render properly 1`] = `
         >
           Date of birth
         </th>
-        <th
-          class="govuk-table__header"
-          scope="col"
-        />
       </tr>
     </thead>
     <tbody
@@ -49,22 +45,17 @@ exports[`ResidenTable component should render properly 1`] = `
         <td
           class="govuk-table__cell"
         >
-          Foo Bar
+          <a
+            class="lbh-link"
+            href="/people/1"
+          >
+             Foo Bar
+          </a>
         </td>
         <td
           class="govuk-table__cell"
         >
           13/11/2020
-        </td>
-        <td
-          class="govuk-table__cell"
-        >
-          <a
-            class="govuk-link govuk-custom-text-color"
-            href="/people/1"
-          >
-            View
-          </a>
         </td>
       </tr>
     </tbody>
