@@ -65,7 +65,7 @@ const steps: FormStep[] = [
         label: 'Contact Phone number',
         isInline: true,
         isMulti: true,
-        isMultiTrigger: '+ Add additional phone number',
+        isMultiTrigger: 'Add another phone number',
         summaryInline: true,
         components: [
           {

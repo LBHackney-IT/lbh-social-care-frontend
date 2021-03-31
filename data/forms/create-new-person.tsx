@@ -69,7 +69,7 @@ const formConfig: FormConfig = {
           isMulti: true,
           summaryInline: true,
           isMultiInit: false,
-          isMultiTrigger: '+ Add other names',
+          isMultiTrigger: 'Add another name',
           components: [
             {
               component: 'TextInput',
@@ -158,10 +158,7 @@ const formConfig: FormConfig = {
           width: 10,
           label: 'NHS number',
         },
-        <h3
-          key="subtitle-contact"
-          className="govuk-fieldset__legend--l gov-weight-lighter govuk-!-margin-bottom-5"
-        >
+        <h3 key="subtitle-contact" className="lbh-heading-h2">
           Client contact details
         </h3>,
         {
@@ -176,7 +173,7 @@ const formConfig: FormConfig = {
           label: 'Main phone number',
           isInline: true,
           isMulti: true,
-          isMultiTrigger: '+ Add additional phone number',
+          isMultiTrigger: 'Add another phone number',
           summaryInline: true,
           components: [
             {

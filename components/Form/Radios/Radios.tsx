@@ -25,7 +25,10 @@ const Radios = ({
       'govuk-form-group--error': error,
     })}
   >
-    <label className={`govuk-label govuk-label--${labelSize}`} htmlFor={name}>
+    <label
+      className={`govuk-label lbh-label govuk-label--${labelSize}`}
+      htmlFor={name}
+    >
       {label}
       {required && <span className="govuk-required">*</span>}
     </label>

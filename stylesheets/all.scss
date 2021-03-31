@@ -31,6 +31,18 @@ $screen-sm-min: 576px;
   color: lbh-colour('lbh-link');
 }
 
+.lbh-button--add {
+  svg {
+    margin-right: 10px;
+  }
+  svg rect {
+    fill: lbh-colour('lbh-primary-button');
+  }
+  &:hover svg rect {
+    fill: lbh-colour('lbh-secondary-button');
+  }
+}
+
 // new stuff above here
 
 // [role='button'] {

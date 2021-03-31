@@ -58,14 +58,32 @@ const DynamicInputMulti = ({
           )}
         </div>
       ))}
-      <div className="govuk-!-margin-top-3 govuk-!-margin-bottom-5">
-        <span
-          className="govuk-link"
+      <div className="govuk-!-margin-bottom-5">
+        <button
+          className="govuk-button lbh-button lbh-button--secondary lbh-button--add govuk-!-margin-top-0"
           role="button"
           onClick={() => setCounter(counter + 1)}
         >
+          <svg
+            width="11"
+            height="11"
+            viewBox="0 0 11 11"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <rect
+              x="4.5293"
+              y="11"
+              width="11"
+              height="1.94118"
+              transform="rotate(-90 4.5293 11)"
+              fill="#00664F"
+            />
+            <rect y="4.52942" width="11" height="1.94118" fill="#00664F" />
+          </svg>
+
           {isMultiTrigger}
-        </span>
+        </button>
       </div>
     </>
   );
