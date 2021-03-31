@@ -14,7 +14,7 @@ const DynamicInputMulti = ({
   onDelete,
   label,
   hint,
-  isMultiTrigger = 'Add a new one',
+  isMultiTrigger = 'Add another',
   isMultiInit = true,
   ...otherProps
 }) => {
@@ -48,13 +48,15 @@ const DynamicInputMulti = ({
             hint={index === 0 ? hint : null}
           />
           {(!isMultiInit || index !== 0) && (
-            <span
+            <button
               className={styles.delete}
-              role="button"
               onClick={() => removeSelected(index)}
             >
               <DeleteIcon />
-            </span>
+              <span className="govuk-visually-hidden">
+                Remove this {label.toLowerCase()}
+              </span>
+            </button>
           )}
         </div>
       ))}
