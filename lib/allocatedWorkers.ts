@@ -75,7 +75,7 @@ const addAllocatedWorkerSchema = yup.object({
   mosaicId: yup.number().required().positive().integer(),
   allocatedTeamId: yup.number().required().integer(),
   allocatedWorkerId: yup.number().required().integer(),
-  allocatedBy: yup.string().email().required(),
+  createdBy: yup.string().email().required(),
 });
 
 export const addAllocatedWorker = async (

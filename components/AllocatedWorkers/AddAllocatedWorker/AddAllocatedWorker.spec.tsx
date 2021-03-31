@@ -123,7 +123,6 @@ describe(`AddAllocatedWorker`, () => {
 
     expect(allocatedWorkerAPI.addAllocatedWorker).toHaveBeenCalled();
     expect(allocatedWorkerAPI.addAllocatedWorker).toHaveBeenCalledWith(123, {
-      allocatedBy: 'foo@bar.com',
       allocatedTeamId: 3,
       allocatedWorkerId: 7,
     });
