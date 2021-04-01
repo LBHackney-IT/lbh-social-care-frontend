@@ -1,4 +1,4 @@
-import { SavedForms } from 'components/SaveFormData/SaveFormData';
+import SavedForms from 'components/SaveFormData/SaveFormData';
 
 const FormInProgress = (): React.ReactElement => (
   <>

@@ -20,11 +20,15 @@ Default.args = {
     {
       url: '/foo',
       text: 'foo',
-      isSelected: true,
     },
     { url: '/bar', text: 'bar' },
   ],
   children: <p>I am the content!</p>,
+};
+Default.parameters = {
+  nextRouter: {
+    pathname: '/foo',
+  },
 };
 
 export const SecondSelected = Template.bind({});
@@ -35,7 +39,12 @@ SecondSelected.args = {
       url: '/foo',
       text: 'foo',
     },
-    { url: '/bar', text: 'bar', isSelected: true },
+    { url: '/bar', text: 'bar' },
   ],
   children: <p>I am the content!</p>,
+};
+SecondSelected.parameters = {
+  nextRouter: {
+    pathname: '/bar',
+  },
 };

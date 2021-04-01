@@ -1,0 +1,54 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`MainSearchWrapper should render properly 1`] = `
+<DocumentFragment>
+  <h1
+    class="govuk-heading-l"
+  >
+    Search
+  </h1>
+  <p
+    class="govuk-body govuk-!-margin-bottom-5"
+  >
+    Use search to find a person before adding a new person or record. Records will need to be linked to person.
+  </p>
+  <div
+    class="govuk-tabs"
+  >
+    <h2
+      class="govuk-tabs__title"
+    >
+      Contents
+    </h2>
+    <ul
+      class="govuk-tabs__list"
+    >
+      <li
+        class="govuk-tabs__list-item govuk-tabs__list-item--selected"
+      >
+        <a
+          class="govuk-tabs__tab"
+          href="/"
+        >
+          Search for a person
+        </a>
+      </li>
+      <li
+        class="govuk-tabs__list-item"
+      >
+        <a
+          class="govuk-tabs__tab"
+          href="/cases"
+        >
+          Search for records by person
+        </a>
+      </li>
+    </ul>
+    <div
+      class="govuk-tabs__panel"
+    >
+      MockedSearch
+    </div>
+  </div>
+</DocumentFragment>
+`;
