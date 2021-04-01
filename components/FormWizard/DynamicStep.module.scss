@@ -16,7 +16,7 @@
 }
 
 .actions {
-  @media screen and (min-width: 40.0625em) {
+  @include govuk-media-query($from: tablet) {
     *:last-of-type {
       margin-left: 10px;
     }
