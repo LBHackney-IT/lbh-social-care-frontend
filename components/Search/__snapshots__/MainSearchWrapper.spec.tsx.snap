@@ -3,17 +3,17 @@
 exports[`MainSearchWrapper should render properly 1`] = `
 <DocumentFragment>
   <h1
-    class="govuk-heading-l"
+    class="lbh-heading-h1"
   >
     Search
   </h1>
   <p
-    class="govuk-body govuk-!-margin-bottom-5"
+    class="lbh-body govuk-!-margin-bottom-5"
   >
-    Use search to find a person before adding a new person or record. Records will need to be linked to person.
+    Search for a person before adding a new person or record. Records must be linked to people. You can search by any combination of fields.
   </p>
   <div
-    class="govuk-tabs"
+    class="govuk-tabs lbh-tabs"
   >
     <h2
       class="govuk-tabs__title"

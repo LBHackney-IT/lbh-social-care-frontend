@@ -3,17 +3,17 @@ import SavedForms from 'components/SaveFormData/SaveFormData';
 import DashboardWrapper from 'components/Dashboard/DashboardWrapper';
 
 const MyFormsPage = (): React.ReactElement => (
-  <div>
+  <main className="lbh-main-wrapper" id="main-content" role="main">
     <Seo title="My saved forms" />
     <DashboardWrapper>
       <>
-        <p className="govuk-body">
+        <p className="lbh-body">
           Forms that have been started and are not complete
         </p>
         <SavedForms />
       </>
     </DashboardWrapper>
-  </div>
+  </main>
 );
 
 export default MyFormsPage;
