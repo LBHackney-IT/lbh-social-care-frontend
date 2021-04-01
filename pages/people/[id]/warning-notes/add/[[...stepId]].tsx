@@ -38,10 +38,10 @@ const CaseNotesRecording = (): React.ReactElement => {
   return (
     <>
       <Seo title="Case note" />
-      <>
-        <BackButton />
-        <h1 className="govuk-fieldset__legend--l gov-weight-lighter">
-          Add Warning Note
+      <BackButton />
+      <main className="lbh-main-wrapper" id="main-content" role="main">
+        <h1 className="lbh-heading-h1 govuk-!-margin-bottom-8">
+          Add a warning note
         </h1>
         <PersonView personId={personId} expandView>
           {(person: Resident) => (
@@ -58,7 +58,7 @@ const CaseNotesRecording = (): React.ReactElement => {
             />
           )}
         </PersonView>
-      </>
+      </main>
     </>
   );
 };

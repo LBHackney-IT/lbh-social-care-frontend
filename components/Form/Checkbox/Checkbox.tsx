@@ -55,9 +55,7 @@ const Checkbox = ({
       aria-describedby={hint && `${name}-hint`}
     >
       {options && (
-        <legend
-          className={`govuk-fieldset__legend govuk-fieldset__legend--${labelSize}`}
-        >
+        <legend className={`govuk-label lbh-label govuk-label--${labelSize}`}>
           {label}
           {required && <span className="govuk-required">*</span>}
         </legend>

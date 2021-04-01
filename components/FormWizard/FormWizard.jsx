@@ -75,66 +75,63 @@ const FormWizard = ({
           <h1 className="lbh-heading-h1">{step.title}</h1>
         </>
       )}
-      <main className="lbh-main-wrapper" id="main-content" role="main">
-        <Seo title={`${step.title} - ${title}`} />
-
-        <fieldset
-          className="govuk-fieldset"
-          role="group"
-          aria-describedby="step-hint"
-        >
-          <StepComponent
-            {...step}
-            key={stepId?.join('-')}
-            stepId={stepId}
-            formData={formData}
-            formSteps={formSteps}
-            formPath={formPath}
-            onStepSubmit={(data, addAnother) => {
-              const updatedData = step.isMulti
-                ? deepmerge(formData, data)
-                : { ...formData, ...data };
-              setFormData(updatedData);
-              step.onStepSubmit && step.onStepSubmit(updatedData);
-              fromSummary &&
-              !haveStepsChanged(formSteps, formData, updatedData) &&
-              !addAnother
-                ? Router.push(stepPath, `${formPath}summary`)
-                : Router.push(
-                    stepPath,
-                    addAnother
-                      ? `${formPath}${stepId[0]}/${
-                          updatedData[Object.keys(data)[0]]?.length + 1 || 2
-                        }`
-                      : getNextStepPath(
-                          currentStepIndex,
-                          steps,
-                          formPath,
-                          updatedData
-                        )
-                  );
-            }}
-            onSaveAndExit={(data) => {
-              const updatedData = step.isMulti
-                ? deepmerge(formData, data)
-                : { ...formData, ...data };
-              saveData({
-                data: updatedData,
-                title,
-                formPath,
-                step: queryString
-                  ? `${window.location.pathname}?${getQueryString(queryString)}`
-                  : window.location.pathname,
-                personDetails: includesDetails && personDetails,
-              });
-              Router.push('/form-in-progress');
-            }}
-            onFormSubmit={onFormSubmit}
-            successMessage={successMessage}
-            isSummaryCollapsable={steps.length > 3 && isSummaryCollapsable}
-          />
-        </fieldset>
-      </main>
+      <Seo title={`${step.title} - ${title}`} />
+      <fieldset
+        className="govuk-fieldset"
+        role="group"
+        aria-describedby="step-hint"
+      >
+        <StepComponent
+          {...step}
+          key={stepId?.join('-')}
+          stepId={stepId}
+          formData={formData}
+          formSteps={formSteps}
+          formPath={formPath}
+          onStepSubmit={(data, addAnother) => {
+            const updatedData = step.isMulti
+              ? deepmerge(formData, data)
+              : { ...formData, ...data };
+            setFormData(updatedData);
+            step.onStepSubmit && step.onStepSubmit(updatedData);
+            fromSummary &&
+            !haveStepsChanged(formSteps, formData, updatedData) &&
+            !addAnother
+              ? Router.push(stepPath, `${formPath}summary`)
+              : Router.push(
+                  stepPath,
+                  addAnother
+                    ? `${formPath}${stepId[0]}/${
+                        updatedData[Object.keys(data)[0]]?.length + 1 || 2
+                      }`
+                    : getNextStepPath(
+                        currentStepIndex,
+                        steps,
+                        formPath,
+                        updatedData
+                      )
+                );
+          }}
+          onSaveAndExit={(data) => {
+            const updatedData = step.isMulti
+              ? deepmerge(formData, data)
+              : { ...formData, ...data };
+            saveData({
+              data: updatedData,
+              title,
+              formPath,
+              step: queryString
+                ? `${window.location.pathname}?${getQueryString(queryString)}`
+                : window.location.pathname,
+              personDetails: includesDetails && personDetails,
+            });
+            Router.push('/form-in-progress');
+          }}
+          onFormSubmit={onFormSubmit}
+          successMessage={successMessage}
+          isSummaryCollapsable={steps.length > 3 && isSummaryCollapsable}
+        />
+      </fieldset>
     </>
   );
 };

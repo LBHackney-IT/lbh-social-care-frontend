@@ -21,7 +21,10 @@ const TextArea = ({
     })}
   >
     {label && (
-      <label className={`govuk-label govuk-label--${labelSize}`} htmlFor={name}>
+      <label
+        className={`govuk-label lbh-label govuk-label--${labelSize}`}
+        htmlFor={name}
+      >
         {label}
         {required && <span className="govuk-required">*</span>}
       </label>
@@ -37,7 +40,7 @@ const TextArea = ({
       </span>
     )}
     <textarea
-      className={cx('govuk-textarea', {
+      className={cx('govuk-textarea lbh-textarea', {
         'govuk-textarea--error': Boolean(error),
         [`govuk-input--width-${width}`]: width,
       })}

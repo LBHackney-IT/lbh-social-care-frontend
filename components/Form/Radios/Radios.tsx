@@ -25,52 +25,53 @@ const Radios = ({
       'govuk-form-group--error': error,
     })}
   >
-    <label
-      className={`govuk-label lbh-label govuk-label--${labelSize}`}
-      htmlFor={name}
-    >
-      {label}
-      {required && <span className="govuk-required">*</span>}
-    </label>
-    {hint && (
-      <span id={`${name}-hint`} className="govuk-hint lbh-hint">
-        {hint}
-      </span>
-    )}
-    {children}
-    {error && <ErrorMessage label={error.message} />}
-    <div
-      className={cx('govuk-radios', 'lbh-radios', {
-        'govuk-radios--inline': isRadiosInline,
-      })}
-    >
-      {options.map((option) => {
-        const { value, text } =
-          typeof option === 'string' ? { value: option, text: option } : option;
-        return (
-          <div className="govuk-radios__item" key={text}>
-            <input
-              className={cx('govuk-radios__input', {
-                'govuk-input--error': error,
-              })}
-              id={`${name}_${value}`}
-              name={name}
-              type="radio"
-              value={value}
-              ref={rules ? register?.(rules) : register}
-              aria-describedby={hint && `${name}-hint`}
-              {...otherProps}
-            />
-            <label
-              className="govuk-label govuk-radios__label"
-              htmlFor={`${name}_${value}`}
-            >
-              {text}
-            </label>
-          </div>
-        );
-      })}
-    </div>
+    <fieldset className="govuk-fieldset" aria-describedby="example-hint">
+      <legend className={`govuk-label lbh-label govuk-label--${labelSize}`}>
+        {label} {required && <span className="govuk-required">*</span>}
+      </legend>
+
+      {hint && (
+        <span id={`${name}-hint`} className="govuk-hint lbh-hint">
+          {hint}
+        </span>
+      )}
+      {children}
+      {error && <ErrorMessage label={error.message} />}
+      <div
+        className={cx('govuk-radios', 'lbh-radios', {
+          'govuk-radios--inline': isRadiosInline,
+        })}
+      >
+        {options.map((option) => {
+          const { value, text } =
+            typeof option === 'string'
+              ? { value: option, text: option }
+              : option;
+          return (
+            <div className="govuk-radios__item" key={text}>
+              <input
+                className={cx('govuk-radios__input', {
+                  'govuk-input--error': error,
+                })}
+                id={`${name}_${value}`}
+                name={name}
+                type="radio"
+                value={value}
+                ref={rules ? register?.(rules) : register}
+                aria-describedby={hint && `${name}-hint`}
+                {...otherProps}
+              />
+              <label
+                className="govuk-label govuk-radios__label"
+                htmlFor={`${name}_${value}`}
+              >
+                {text}
+              </label>
+            </div>
+          );
+        })}
+      </div>
+    </fieldset>
   </div>
 );
 
