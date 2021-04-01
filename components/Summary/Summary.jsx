@@ -2,7 +2,7 @@ import { useState } from 'react';
 import PropTypes from 'prop-types';
 import Link from 'next/link';
 
-import Collapsible from 'components/Collapsible/Collapsible';
+import ExpandDetails from 'components/ExpandDetails/ExpandDetails';
 import SummaryList from 'components/Summary/SummaryList';
 import { filterStepsOnCondition, filterDataOnCondition } from 'utils/steps';
 import { formatData, getSectionObject } from 'utils/summary';
@@ -86,8 +86,8 @@ export const SummarySection = ({
   );
   const isCollapsed = collapsedSection[id];
   return (
-    <Collapsible
-      headline={
+    <ExpandDetails
+      label={
         <>
           {title}
           {canEdit && (
@@ -100,10 +100,10 @@ export const SummarySection = ({
           )}
         </>
       }
-      initiallyClosed={isCollapsed}
+      isDefaultOpen={!isCollapsed}
     >
       {Summary}
-    </Collapsible>
+    </ExpandDetails>
   );
 };
 

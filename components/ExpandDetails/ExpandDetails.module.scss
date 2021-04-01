@@ -1,26 +1,38 @@
-@import 'node_modules/govuk-frontend/govuk/base';
+@import 'lbh-frontend/lbh/settings/all';
 
-.summary {
+.outer {
+  margin-bottom: 40px;
+}
+
+.button {
+  border: none;
+  background: none;
+  padding: 0;
+  padding-bottom: 12px;
+  margin-bottom: 10px;
+  width: 100%;
+  text-align: left;
+  cursor: pointer;
+  border-bottom: 3px solid lbh-colour('lbh-text');
+
   display: flex;
+  flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  padding-left: 0;
-  border-bottom: 2px solid $govuk-border-colour;
-  &:before {
-    display: none;
-  }
+
   &:focus {
     outline: none;
+    border-color: lbh-colour('lbh-primary-focus');
   }
-  &:focus .trigger {
-    @include govuk-focused-text;
+
+  svg {
+    margin: 0;
+    width: 20px;
+    height: 20px;
+    top: unset;
   }
-}
 
-.trigger {
-  cursor: pointer;
-}
-
-.content {
-  padding: 2rem 0;
+  &[aria-expanded='false'] svg {
+    transform: rotate(180deg);
+  }
 }

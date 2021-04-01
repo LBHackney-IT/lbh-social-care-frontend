@@ -1,5 +1,5 @@
 import { ExtendedResident } from 'types';
-import Collapsible from 'components/Collapsible/Collapsible';
+import ExpandDetails from 'components/ExpandDetails/ExpandDetails';
 
 interface Props {
   person: ExtendedResident;
@@ -29,9 +29,9 @@ const PersonDetails = ({
   expandView = false,
 }: Props): React.ReactElement => {
   return (
-    <Collapsible
-      initiallyClosed={expandView}
-      headline={expandView ? `${firstName} ${lastName}` : 'Person details'}
+    <ExpandDetails
+      isDefaultOpen={!expandView}
+      label={expandView ? `${firstName} ${lastName}` : 'Person details'}
     >
       <>
         <dl className="govuk-summary-list  lbh-summary-list">
@@ -151,7 +151,7 @@ const PersonDetails = ({
           )}
         </dl>
       </>
-    </Collapsible>
+    </ExpandDetails>
   );
 };
 

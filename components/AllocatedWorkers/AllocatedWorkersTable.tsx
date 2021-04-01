@@ -1,6 +1,6 @@
 import { useRouter } from 'next/router';
 import Button from 'components/Button/Button';
-import Collapsible from 'components/Collapsible/Collapsible';
+import ExpandDetails from 'components/ExpandDetails/ExpandDetails';
 import { Allocation } from 'types';
 
 interface EntryProps extends Allocation {
@@ -20,7 +20,7 @@ const AllocatedWorkersEntry = ({
   deallocationUrl,
 }: EntryProps): React.ReactElement => (
   <>
-    <Collapsible headline={`Allocated worker ${index + 1}`}>
+    <ExpandDetails label={`Allocated worker ${index + 1}`}>
       <>
         <dl className="govuk-summary-list  lbh-summary-list">
           {allocatedWorker && (
@@ -68,7 +68,7 @@ const AllocatedWorkersEntry = ({
           />
         )}
       </>
-    </Collapsible>
+    </ExpandDetails>
   </>
 );
 
