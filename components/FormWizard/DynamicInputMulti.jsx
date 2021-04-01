@@ -65,7 +65,10 @@ const DynamicInputMulti = ({
         <button
           className="govuk-button lbh-button lbh-button--secondary lbh-button--add govuk-!-margin-top-0"
           role="button"
-          onClick={() => setCounter(counter + 1)}
+          onClick={(e) => {
+            e.preventDefault();
+            setCounter(counter + 1);
+          }}
         >
           <AddIcon />
           {isMultiTrigger}
