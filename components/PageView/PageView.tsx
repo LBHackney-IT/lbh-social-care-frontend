@@ -58,7 +58,7 @@ const PageView = ({
       </dl>
       {content && (
         <div className={style.pageView}>
-          {isVisible && <BackToTop handleScroll={scrollToTop} />}
+          {isVisible && <BackToTop scrollHandler={scrollToTop} />}
           <div
             className={style.content}
             dangerouslySetInnerHTML={{

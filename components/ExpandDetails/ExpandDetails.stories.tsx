@@ -12,7 +12,6 @@ const Template: Story<Props> = (args) => <ExpandDetails {...args} />;
 export const Default = Template.bind({});
 Default.args = {
   label: 'Show intructions',
-  triggerLabel: 'guidance',
   children: (
     <div>
       foo <strong>bar</strong>
@@ -23,7 +22,6 @@ Default.args = {
 export const DefaultOpen = Template.bind({});
 DefaultOpen.args = {
   label: 'Show intructions',
-  triggerLabel: 'guidance',
   isDefaultOpen: true,
   children: (
     <div>
