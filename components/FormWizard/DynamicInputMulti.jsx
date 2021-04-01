@@ -51,7 +51,10 @@ const DynamicInputMulti = ({
           {(!isMultiInit || index !== 0) && (
             <button
               className={styles.delete}
-              onClick={() => removeSelected(index)}
+              onClick={(e) => {
+                e.preventDefault();
+                removeSelected(index);
+              }}
             >
               <DeleteIcon />
               <span className="govuk-visually-hidden">
