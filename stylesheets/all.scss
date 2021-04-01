@@ -42,54 +42,9 @@ $screen-sm-min: 576px;
     fill: lbh-colour('lbh-secondary-button');
   }
 }
-
-// new stuff above here
-
-// [role='button'] {
-//   cursor: pointer;
-// }
-
-// .govuk-tag:not([class*='govuk-tag--']) {
-//   background-color: #00513f;
-// }
-
 .govuk-required {
   color: lbh-colour('lbh-error');
 }
-
-// .govuk-table__row--clickable:hover {
-//   background: govuk-colour('light-grey');
-//   cursor: pointer;
-// }
-
-// .govuk-input:disabled {
-//   background: govuk-colour('light-grey');
-// }
-
-// .govuk--timestamp {
-//   font-weight: 600;
-// }
-
-// .gov-weight-lighter {
-//   font-weight: 100;
-// }
-
-// .govuk-warning {
-//   color: #da3711;
-// }
-
-// .lbh-table-header {
-//   display: flex;
-//   justify-content: space-between;
-//   align-items: flex-end;
-//   button {
-//     margin-bottom: 0.5rem;
-//   }
-// }
-
-// .lbh-table__cell--va-middle {
-//   vertical-align: middle;
-// }
 
 .cancel-icon {
   width: 30px;
@@ -117,44 +72,3 @@ $screen-sm-min: 576px;
 .govuk-summary-list__value div {
   margin-top: 0;
 }
-
-// .ReactModal__Body--open {
-//   overflow: hidden;
-// }
-
-// .govuk-back-link,
-// .govuk-link {
-//   color: $govuk-link-colour;
-// }
-
-// .govuk-back-link:hover,
-// .govuk-link:hover {
-//   text-decoration: underline;
-//   color: $govuk-link-hover-colour;
-// }
-
-// .govuk-link--underline {
-//   text-decoration: underline;
-// }
-
-// .width-override-10 {
-//   max-width: 23ex;
-// }
-
-// .width-override-20 {
-//   max-width: 41ex;
-// }
-
-// .width-override-30 {
-//   max-width: 59ex;
-// }
-
-// .govuk-error-summary__title {
-//   color: govuk-colour('red');
-// }
-
-// .govuk-error-summary {
-//   border: 1px solid govuk-colour('red');
-//   border-left-width: 5px;
-//   background-color: #f8ecea;
-// }
