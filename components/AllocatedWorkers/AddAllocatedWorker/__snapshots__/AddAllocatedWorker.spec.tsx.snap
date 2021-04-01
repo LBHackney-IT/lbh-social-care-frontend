@@ -10,7 +10,7 @@ exports[`AddAllocatedWorker should render properly 1`] = `
       aria-haspopup="listbox"
       aria-labelledby="downshift-0-label"
       aria-owns="downshift-0-menu"
-      class="govuk-form-group govuk-grid-column-undefined"
+      class="outerContainer govuk-form-group govuk-grid-column-undefined"
       role="combobox"
     >
       <label

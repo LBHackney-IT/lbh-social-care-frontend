@@ -49,7 +49,7 @@ exports[`PageView should render component 1`] = `
       <dd
         class="govuk-summary-list__value"
       >
-        06/05/2020
+        5/6/2020
       </dd>
     </div>
   </dl>

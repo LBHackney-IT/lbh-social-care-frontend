@@ -10,7 +10,7 @@ exports[`AddForm component should render children forms 1`] = `
       aria-haspopup="listbox"
       aria-labelledby="downshift-1-label"
       aria-owns="downshift-1-menu"
-      class="govuk-form-group govuk-grid-column-undefined"
+      class="outerContainer govuk-form-group govuk-grid-column-undefined"
       role="combobox"
     >
       <label

@@ -62,7 +62,7 @@ exports[`AllocatedCasesTable component should render records properly 1`] = `
         <td
           class="govuk-table__cell"
         >
-           20/03/2020
+           3/20/2020
         </td>
       </tr>
     </tbody>

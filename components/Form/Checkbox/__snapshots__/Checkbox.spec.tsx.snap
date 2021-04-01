@@ -9,7 +9,7 @@ exports[`Checkbox should render properly - as Checkbox 1`] = `
       class="govuk-fieldset"
     >
       <legend
-        class="govuk-fieldset__legend govuk-fieldset__legend--m"
+        class="govuk-label lbh-label govuk-label--m"
       >
         My Checkbox
       </legend>
