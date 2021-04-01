@@ -68,7 +68,7 @@ exports[`WarningNoteRecap should render correctly 1`] = `
         <dt
           class="govuk-summary-list__key"
         >
-          Review / end date
+          Review/end date
         </dt>
         <dd
           class="govuk-summary-list__value"
@@ -82,7 +82,7 @@ exports[`WarningNoteRecap should render correctly 1`] = `
         <dt
           class="govuk-summary-list__key"
         >
-          Is the individual aware of the Warning Note and Review Date?
+          Is the individual aware of the warning note and review date?
         </dt>
         <dd
           class="govuk-summary-list__value"
@@ -110,7 +110,7 @@ exports[`WarningNoteRecap should render correctly 1`] = `
         <dt
           class="govuk-summary-list__key"
         >
-          How informed
+          How were they informed?
         </dt>
         <dd
           class="govuk-summary-list__value"

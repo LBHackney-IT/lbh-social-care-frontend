@@ -1,11 +1,10 @@
-import { render, fireEvent } from '@testing-library/react';
+import { render, fireEvent, waitFor } from '@testing-library/react';
 
 import ExpandDetails from './ExpandDetails';
 
 describe(`ExpandDetails`, () => {
   const props = {
     label: 'Show intructions',
-    triggerLabel: 'guidance',
     children: <p>I am the content!</p>,
   };
 
@@ -14,12 +13,12 @@ describe(`ExpandDetails`, () => {
     expect(asFragment()).toMatchSnapshot();
   });
 
-  it('should change the trigger label on collapse', () => {
-    const { getByText, queryByText } = render(
-      <ExpandDetails isDefaultOpen {...props} />
+  it('should expand and collapse properly', async () => {
+    const { getByText, getByRole, queryByText } = render(
+      <ExpandDetails {...props} />
     );
-    expect(queryByText('Expand guidance')).not.toBeInTheDocument();
-    fireEvent.click(getByText('Collapse guidance'));
-    expect(queryByText('Expand guidance')).toBeInTheDocument();
+    expect(queryByText('I am the content!')).not.toBeInTheDocument();
+    fireEvent.click(getByRole('button'));
+    expect(queryByText('I am the content!')).toBeInTheDocument();
   });
 });
