@@ -7,7 +7,7 @@ interface Props {
   columns?: CaseTableColumns;
 }
 
-const SearchCasesPage = ({ type, columns }: Props): React.ReactElement => (
+const MainSearchWrapper = ({ type, columns }: Props): React.ReactElement => (
   <>
     <h1 className="lbh-heading-h1">Search</h1>
     <p className="lbh-body govuk-!-margin-bottom-5">
@@ -20,12 +20,10 @@ const SearchCasesPage = ({ type, columns }: Props): React.ReactElement => (
         {
           url: '/',
           text: 'Search for a person',
-          isSelected: type === 'people',
         },
         {
           url: '/cases',
           text: 'Search for records by person',
-          isSelected: type === 'records',
         },
       ]}
     >
@@ -39,4 +37,4 @@ const SearchCasesPage = ({ type, columns }: Props): React.ReactElement => (
   </>
 );
 
-export default SearchCasesPage;
+export default MainSearchWrapper;

@@ -2,6 +2,12 @@ import { render } from '@testing-library/react';
 
 import Tabs from './Tabs';
 
+const mockedUseRouter = { pathname: '/foo' };
+
+jest.mock('next/router', () => ({
+  useRouter: () => mockedUseRouter,
+}));
+
 describe(`Tabs`, () => {
   const props = {
     title: 'foo',
@@ -9,7 +15,6 @@ describe(`Tabs`, () => {
       {
         url: '/foo',
         text: 'foo',
-        isSelected: true,
       },
       { url: '/bar', text: 'bar' },
     ],

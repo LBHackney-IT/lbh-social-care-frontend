@@ -1,6 +1,6 @@
 import { render } from '@testing-library/react';
 
-import { SavedForms } from './SaveFormData';
+import SavedForms from './SaveFormData';
 import * as saveData from 'utils/saveData';
 import { mockedResident } from 'factories/residents';
 

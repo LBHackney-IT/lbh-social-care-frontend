@@ -43,3 +43,5 @@ export const SavedForms = (): React.ReactElement => {
     </>
   );
 };
+
+export default SavedForms;
