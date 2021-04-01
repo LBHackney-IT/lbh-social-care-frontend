@@ -90,9 +90,13 @@ export const Autocomplete = forwardRef<HTMLInputElement, AutoProps>(
         }) => {
           return (
             <div
-              className={cx(`govuk-form-group govuk-grid-column-${govGrid}`, {
-                'govuk-form-group--error': error,
-              })}
+              className={cx(
+                style.outerContainer,
+                `govuk-form-group govuk-grid-column-${govGrid}`,
+                {
+                  'govuk-form-group--error': error,
+                }
+              )}
             >
               <label
                 className={`govuk-label lbh-label govuk-label--${labelSize}`}
