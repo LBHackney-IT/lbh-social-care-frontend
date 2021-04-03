@@ -16,15 +16,6 @@ const formConfig: FormConfig = {
       id: 'client-details',
       title: 'Person Details',
       components: [
-        <h1
-          key="form-title"
-          className="govuk-fieldset__legend--xl gov-weight-lighter"
-        >
-          Add a new person
-        </h1>,
-        <p key="subtitle" className="govuk-body">
-          Use this form to add a new referral
-        </p>,
         <h3
           key="subtitle-details"
           className="govuk-fieldset__legend--l gov-weight-lighter govuk-!-margin-bottom-5"

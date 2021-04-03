@@ -7,6 +7,20 @@ import { User } from 'types';
 
 import form from 'data/forms/create-new-person';
 
+const StepHeader = () => (
+  <>
+    <h1
+      key="form-title"
+      className="govuk-fieldset__legend--xl gov-weight-lighter"
+    >
+      Add a new person
+    </h1>
+    <p key="subtitle" className="govuk-body">
+      Use this form to add a new referral
+    </p>
+  </>
+);
+
 interface FormData {
   nhsNumber: string;
   [key: string]: unknown;
@@ -18,7 +32,7 @@ const CreateNewPerson = (): React.ReactElement => {
     const ref = await addResident({
       ...formData,
       contextFlag: formData.contextFlag || user.permissionFlag,
-      nhsNumber: parseInt(formData.nhsNumber, 10),
+      nhsNumber: Number(formData.nhsNumber),
       createdBy: user.email,
     });
     return ref;
@@ -32,6 +46,7 @@ const CreateNewPerson = (): React.ReactElement => {
       defaultValues={{ user }}
       successMessage={form.successMessage}
       customConfirmation={CustomConfirmation}
+      stepHeader={StepHeader}
     />
   );
 };
