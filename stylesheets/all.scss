@@ -60,7 +60,7 @@ $screen-sm-min: 576px;
 .lbh-table-header {
   display: flex;
   justify-content: space-between;
-  align-items: flex-end;
+  align-items: baseline;
   button {
     margin-bottom: 0.5rem;
   }
