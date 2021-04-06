@@ -1,8 +1,8 @@
 import axios from 'axios';
 import useSWR, {
   useSWRInfinite,
-  responseInterface,
-  SWRInfiniteResponseInterface,
+  SWRResponse,
+  SWRInfiniteSWRResponse,
 } from 'swr';
 
 import { getInfiniteKey } from 'utils/api';
@@ -12,7 +12,7 @@ import type { Resident, ErrorAPI } from 'types';
 export const useResidents = (
   params: Record<string, unknown>,
   invoke = true
-): SWRInfiniteResponseInterface<Record<string, unknown>, Error> =>
+): SWRInfiniteSWRResponse<Record<string, unknown>, Error> =>
   useSWRInfinite(
     // @ts-ignore
     invoke ? getInfiniteKey('/api/residents', 'residents', params) : null
@@ -20,8 +20,7 @@ export const useResidents = (
 
 export const useResident = (
   personId: number
-): responseInterface<Resident, ErrorAPI> =>
-  useSWR(`/api/residents/${personId}`);
+): SWRResponse<Resident, ErrorAPI> => useSWR(`/api/residents/${personId}`);
 
 export const addResident = async (
   formData: Record<string, unknown>
