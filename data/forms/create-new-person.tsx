@@ -106,7 +106,6 @@ const formConfig: FormConfig = {
           name: 'dateOfBirth',
           label: 'Date of Birth',
           hint: 'For example, 31 03 1980',
-          rules: { required: true },
         },
         {
           component: 'DateInput',
