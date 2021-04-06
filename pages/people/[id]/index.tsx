@@ -8,15 +8,22 @@ import Cases from 'components/Cases/Cases';
 import AllocatedWorkers from 'components/AllocatedWorkers/AllocatedWorkers';
 import WarningNotes from 'components/WarningNote/WarningNotes';
 import Stack from 'components/Stack/Stack';
+import { useAuth } from 'components/UserContext/UserContext';
+import { User } from 'types';
 
 const PersonPage = (): React.ReactElement => {
   const { query } = useRouter();
+  const { user } = useAuth() as { user: User };
   const personId = Number(query.id as string);
   return (
     <>
       <Seo title={`Person Details - #${query.id}`} />
       <BackButton />
-      <PersonView personId={personId} showPersonDetails={false}>
+      <PersonView
+        personId={personId}
+        showPersonDetails={false}
+        canEdit={user.hasAdminPermissions}
+      >
         {(person) => (
           <Stack space={7} className="govuk-!-margin-top-7">
             <WarningNotes id={personId} />

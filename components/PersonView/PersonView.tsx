@@ -1,3 +1,5 @@
+import Link from 'next/link';
+
 import ErrorMessage from 'components/ErrorMessage/ErrorMessage';
 import Spinner from 'components/Spinner/Spinner';
 import PersonDetails from './PersonDetails';
@@ -9,6 +11,7 @@ interface Props {
   children?: React.ReactChild | ((arg0: Resident) => React.ReactChild);
   expandView?: boolean;
   showPersonDetails?: boolean;
+  canEdit?: boolean;
 }
 
 const PersonView = ({
@@ -16,6 +19,7 @@ const PersonView = ({
   expandView,
   children,
   showPersonDetails = true,
+  canEdit,
 }: Props): React.ReactElement => {
   const { data: person, error } = useResident(personId);
   if (error) {
@@ -27,9 +31,16 @@ const PersonView = ({
   return (
     <>
       {!expandView && (
-        <h1 className="govuk-fieldset__legend--l gov-weight-lighter govuk-expand-title">
-          {person.firstName} {person.lastName}
-        </h1>
+        <div className="lbh-table-header">
+          <h1 className="govuk-fieldset__legend--l gov-weight-lighter govuk-expand-title">
+            {person.firstName} {person.lastName}
+          </h1>
+          {canEdit && (
+            <Link href={`/people/${person.mosaicId}/update`}>
+              <a className="govuk-link">Update person</a>
+            </Link>
+          )}
+        </div>
       )}
       {showPersonDetails && (
         <PersonDetails person={person} expandView={expandView} />

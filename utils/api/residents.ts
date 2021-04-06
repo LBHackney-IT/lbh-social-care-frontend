@@ -29,3 +29,10 @@ export const addResident = async (
   const { data } = await axios.post(`/api/residents`, formData);
   return { ref: data?.personId, data };
 };
+
+export const updateResident = async (
+  formData: Record<string, unknown>
+): Promise<Record<string, unknown>> => {
+  const { data } = await axios.patch(`/api/residents`, formData);
+  return { ref: data?.personId, data };
+};

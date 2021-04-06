@@ -1,11 +1,17 @@
+import { useState, ReactElement } from 'react';
+import { useRouter } from 'next/router';
+
 import { useAuth } from 'components/UserContext/UserContext';
 import FormWizard from 'components/FormWizard/FormWizard';
-import { addResident } from 'utils/api/residents';
+import { updateResident } from 'utils/api/residents';
 import CustomConfirmation from 'components/Steps/PersonConfirmation';
-
-import { User } from 'types';
+import { useResident } from 'utils/api/residents';
+import Spinner from 'components/Spinner/Spinner';
+import ErrorMessage from 'components/ErrorMessage/ErrorMessage';
 
 import form from 'data/forms/create-new-person';
+
+import type { User } from 'types';
 
 const StepHeader = () => (
   <>
@@ -13,23 +19,24 @@ const StepHeader = () => (
       key="form-title"
       className="govuk-fieldset__legend--xl gov-weight-lighter"
     >
-      Add a new person
+      Update person details
     </h1>
-    <p key="subtitle" className="govuk-body">
-      Use this form to add a new referral
-    </p>
   </>
 );
 
 interface FormData {
+  contextFlag: 'A' | 'C';
   nhsNumber: string;
   [key: string]: unknown;
 }
 
-const CreateNewPerson = (): React.ReactElement => {
+const UpdatePerson = (): ReactElement => {
+  const { query } = useRouter();
+  const [personId] = useState(Number(query.id));
+  const { data: person, error } = useResident(personId);
   const { user } = useAuth() as { user: User };
   const onFormSubmit = async (formData: FormData) => {
-    const ref = await addResident({
+    const ref = await updateResident({
       ...formData,
       contextFlag: formData.contextFlag || user.permissionFlag,
       nhsNumber: Number(formData.nhsNumber),
@@ -37,13 +44,22 @@ const CreateNewPerson = (): React.ReactElement => {
     });
     return ref;
   };
+  if (error) {
+    return <ErrorMessage />;
+  }
+  if (!person) {
+    return <Spinner />;
+  }
   return (
     <FormWizard
-      formPath={form.path}
+      formPath={`/people/${personId}/update/`}
       formSteps={form.steps}
       title={form.title}
+      defaultValues={{
+        user,
+        ...{ ...person, contextFlag: person.ageContext },
+      }}
       onFormSubmit={onFormSubmit}
-      defaultValues={{ user }}
       successMessage={form.successMessage}
       customConfirmation={CustomConfirmation}
       stepHeader={StepHeader}
@@ -51,4 +67,4 @@ const CreateNewPerson = (): React.ReactElement => {
   );
 };
 
-export default CreateNewPerson;
+export default UpdatePerson;

@@ -14,6 +14,7 @@ import { getFormData, saveData } from 'utils/saveData';
 const FormWizard = ({
   formPath,
   formSteps,
+  stepHeader,
   successMessage,
   onFormSubmit,
   defaultValues = {},
@@ -81,6 +82,7 @@ const FormWizard = ({
               </legend>
             </>
           )}
+        {stepHeader?.()}
         <StepComponent
           {...step}
           key={stepId?.join('-')}
@@ -155,6 +157,7 @@ FormWizard.propTypes = {
   customConfirmation: PropTypes.oneOfType([PropTypes.func, PropTypes.node]),
   customSummary: PropTypes.oneOfType([PropTypes.func, PropTypes.node]),
   personDetails: PropTypes.object,
+  stepHeader: PropTypes.func,
 };
 
 export default FormWizard;
