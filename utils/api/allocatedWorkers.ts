@@ -35,8 +35,11 @@ export const useTeamWorkers = (
 
 export const useAllocationsByWorker = (
   workerId: number
-): responseInterface<
-  { allocations: Allocation[]; workers: Worker[] },
+): SWRResponse<{ allocations: Allocation[]; workers: Worker[] }, ErrorAPI> =>
+  useSWR(`/api/workers/${workerId}/allocations`);
+
+export const useMyAllocations = (): SWRResponse<
+  { allocations: Allocation[] },
   ErrorAPI
 > => useSWR(`/api/me`);
 

@@ -14,6 +14,10 @@ const DashboardWrapper = ({ children }: Props): React.ReactElement => (
           text: 'Forms to complete',
         },
         {
+          url: '/my-allocations',
+          text: 'Clients allocated',
+        },
+        {
           url: '/my-cases',
           text: "Records I've added",
         },
