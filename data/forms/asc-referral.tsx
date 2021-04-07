@@ -49,6 +49,7 @@ const steps: FormStep[] = [
         component: 'DateInput',
         name: 'dateReferred',
         label: 'Date referred',
+        rules: { required: true },
       },
       {
         component: 'Select',
@@ -65,6 +66,7 @@ const steps: FormStep[] = [
         width: 20,
         placeHolder: 'Choose one',
         options: TYPES,
+        rules: { required: true },
       },
       <h3
         key="subtitle-2"
@@ -120,6 +122,7 @@ const steps: FormStep[] = [
         width: 20,
         label: 'Route of Access',
         options: ROUTES,
+        rules: { required: true },
       },
       {
         component: 'Select',
@@ -181,6 +184,7 @@ const steps: FormStep[] = [
         label:
           'I agree that this assessment may be shared as needed to support my care. I understand that any personal information could be shared on the basis that it is - Necessary for the purpose for which it is being shared - Shared only with those who have a need for it - Shared securely and in a timely way - Not kept for longer than necessary for the original purpose.',
         options: ['Yes', 'No', 'Unable to consent'],
+        rules: { required: true },
       },
       <p key="consent-text" className="govuk-body govuk-!-margin-top-6">
         {`Please note information from this assessment may be shared regardless of
@@ -210,12 +214,14 @@ const steps: FormStep[] = [
         name: 'safeguarding',
         label: 'Will this Contact lead to a Safeguarding Concern?',
         options: ['No', 'Yes'],
+        rules: { required: true },
       },
       {
         conditionalRender: ({ safeguarding }) => safeguarding === 'Yes',
         component: 'Radios',
         name: 'whatNext',
         label: 'What next? ',
+        rules: { required: true },
         options: [
           `Close Case /No Further Action`,
           'Proceed to further case activities',
@@ -226,6 +232,7 @@ const steps: FormStep[] = [
           whatNext === 'Proceed to further case activities',
         component: 'Radios',
         name: 'nextActions',
+        rules: { required: true },
         label:
           'Next actions (choose each of the actions which will happen directly).',
         options: [
@@ -238,6 +245,7 @@ const steps: FormStep[] = [
       {
         conditionalRender: ({ nextActions }) =>
           nextActions === 'No Further Action',
+        rules: { required: true },
         component: 'Radios',
         name: 'noAction',
         label: `If 'No Further Action' please pick one of the following`,
