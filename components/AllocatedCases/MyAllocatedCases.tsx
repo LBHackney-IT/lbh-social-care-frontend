@@ -1,10 +1,10 @@
 import AllocatedCasesTable from 'components/AllocatedCases/AllocatedCasesTable';
 import ErrorMessage from 'components/ErrorMessage/ErrorMessage';
-import { useMyAllocations } from 'utils/api/allocatedWorkers';
+import { useMyData } from 'utils/api/me';
 import Spinner from 'components/Spinner/Spinner';
 
 const MyAllocatedCases = (): React.ReactElement => {
-  const { data, error } = useMyAllocations();
+  const { data, error } = useMyData();
   if (error) {
     return <ErrorMessage />;
   }

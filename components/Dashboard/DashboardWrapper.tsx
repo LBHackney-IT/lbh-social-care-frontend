@@ -1,11 +1,14 @@
+import Stack from 'components/Stack/Stack';
 import Tabs from 'components/Tabs/Tabs';
+import MyData from './MyData';
 
 interface Props {
   children: React.ReactChild;
 }
 
 const DashboardWrapper = ({ children }: Props): React.ReactElement => (
-  <>
+  <Stack space={7}>
+    <MyData />
     <Tabs
       title="Dashboard"
       tabs={[
@@ -25,7 +28,7 @@ const DashboardWrapper = ({ children }: Props): React.ReactElement => (
     >
       {children}
     </Tabs>
-  </>
+  </Stack>
 );
 
 export default DashboardWrapper;
