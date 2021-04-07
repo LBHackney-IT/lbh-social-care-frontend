@@ -14,7 +14,7 @@ export const SavedForms = (): React.ReactElement => {
   };
   if (!savedForms || Object.keys(savedForms)?.length === 0) {
     return (
-      <p role="label" className="govuk-fieldset__legend--m gov-weight-lighter">
+      <p className="govuk-fieldset__legend--m gov-weight-lighter">
         You don&apos;t have any incomplete form, well done!
       </p>
     );
@@ -27,8 +27,8 @@ export const SavedForms = (): React.ReactElement => {
   const standardData = sortData.filter((item) => !item.personDetails);
   return (
     <>
-      <p role="label" className="govuk-fieldset__legend--s gov-weight-lighter">
-        {`Displaying ${formQty} unfinished ${formQty > 1 ? 'forms' : 'form'}`}{' '}
+      <p>
+        Displaying ({formQty}) unfinished {formQty > 1 ? 'forms' : 'form'}
       </p>
       {standardData.length > 0 && (
         <SavedDataTable

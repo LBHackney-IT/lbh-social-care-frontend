@@ -24,6 +24,16 @@ exports[`DashboardWrapper should render properly 1`] = `
         </a>
       </li>
       <li
+        class="govuk-tabs__list-item"
+      >
+        <a
+          class="govuk-tabs__tab"
+          href="/my-allocations"
+        >
+          Clients allocated
+        </a>
+      </li>
+      <li
         class="govuk-tabs__list-item govuk-tabs__list-item--selected"
       >
         <a

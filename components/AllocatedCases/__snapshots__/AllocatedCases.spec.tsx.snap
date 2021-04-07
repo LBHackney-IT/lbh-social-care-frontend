@@ -1,0 +1,12 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AllocatedCases should render properly 1`] = `
+<DocumentFragment>
+  <h1
+    class="govuk-fieldset__legend--l gov-weight-lighter"
+  >
+    Allocations: Foo Bar, aliquam
+  </h1>
+  MockedAllocatedCasesTable
+</DocumentFragment>
+`;

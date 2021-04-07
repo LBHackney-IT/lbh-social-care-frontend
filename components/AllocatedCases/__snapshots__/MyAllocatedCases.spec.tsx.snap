@@ -1,0 +1,10 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`MyAllocatedCases should render properly 1`] = `
+<DocumentFragment>
+  <p>
+    Displaying (1) allocation
+  </p>
+  MockedAllocatedCasesTable
+</DocumentFragment>
+`;

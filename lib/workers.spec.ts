@@ -31,7 +31,7 @@ describe('workers APIs', () => {
   describe('getWorker', () => {
     it('should work properly', async () => {
       mockedAxios.get.mockResolvedValue({
-        data: { allocations: ['foo'] },
+        data: [{ allocations: ['foo'] }],
       });
       const data = await workersAPI.getWorker(123);
       expect(mockedAxios.get).toHaveBeenCalled();
@@ -43,6 +43,26 @@ describe('workers APIs', () => {
       });
       expect(mockedAxios.get.mock.calls[0][1]?.params).toEqual({
         id: 123,
+      });
+      expect(data).toEqual({ allocations: ['foo'] });
+    });
+  });
+
+  describe('getWorkerByEmail', () => {
+    it('should work properly', async () => {
+      mockedAxios.get.mockResolvedValue({
+        data: [{ allocations: ['foo'] }],
+      });
+      const data = await workersAPI.getWorkerByEmail('foo@bar.com');
+      expect(mockedAxios.get).toHaveBeenCalled();
+      expect(mockedAxios.get.mock.calls[0][0]).toEqual(
+        `${ENDPOINT_API}/workers`
+      );
+      expect(mockedAxios.get.mock.calls[0][1]?.headers).toEqual({
+        'x-api-key': AWS_KEY,
+      });
+      expect(mockedAxios.get.mock.calls[0][1]?.params).toEqual({
+        email: 'foo@bar.com',
       });
       expect(data).toEqual({ allocations: ['foo'] });
     });

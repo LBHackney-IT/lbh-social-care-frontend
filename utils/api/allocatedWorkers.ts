@@ -1,4 +1,4 @@
-import useSWR, { responseInterface } from 'swr';
+import useSWR, { SWRResponse } from 'swr';
 import axios from 'axios';
 
 import type {
@@ -12,33 +12,36 @@ import type {
 
 export const useAllocatedWorkers = (
   id: number
-): responseInterface<AllocationData, ErrorAPI> =>
+): SWRResponse<AllocationData, ErrorAPI> =>
   useSWR(`/api/residents/${id}/allocations`);
 
 export const useResidentAllocation = (
   id: number,
   allocationId: number
-): responseInterface<Allocation, ErrorAPI> =>
+): SWRResponse<Allocation, ErrorAPI> =>
   useSWR(`/api/residents/${id}/allocations/${allocationId}`);
 
 export const useTeams = ({
   ageContext,
 }: {
   ageContext: AgeContext;
-}): responseInterface<{ teams: Team[] }, ErrorAPI> =>
+}): SWRResponse<{ teams: Team[] }, ErrorAPI> =>
   useSWR(`/api/teams${ageContext ? '?ageContext=' + ageContext : ''}`);
 
 export const useTeamWorkers = (
   teamId?: number
-): responseInterface<Worker[], ErrorAPI> =>
+): SWRResponse<Worker[], ErrorAPI> =>
   useSWR(teamId ? `/api/teams/${teamId}/workers` : null);
 
 export const useAllocationsByWorker = (
   workerId: number
-): responseInterface<
-  { allocations: Allocation[]; workers: Worker[] },
+): SWRResponse<{ allocations: Allocation[]; workers: Worker[] }, ErrorAPI> =>
+  useSWR(`/api/workers/${workerId}/allocations`);
+
+export const useMyAllocations = (): SWRResponse<
+  { allocations: Allocation[] },
   ErrorAPI
-> => useSWR(`/api/workers/${workerId}/allocations`);
+> => useSWR(`/api/me`);
 
 export const deleteAllocatedWorker = async (
   residentId: number,

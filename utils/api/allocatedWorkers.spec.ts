@@ -51,11 +51,19 @@ describe('allocatedWorkers APIs', () => {
     });
   });
 
-  describe('getAllocationsByWorker', () => {
+  describe('useAllocationsByWorker', () => {
     it('should work properly', () => {
       jest.spyOn(SWR, 'default');
       allocatedWorkersAPI.useAllocationsByWorker(123);
       expect(SWR.default).toHaveBeenCalledWith('/api/workers/123/allocations');
+    });
+  });
+
+  describe('useMyAllocations', () => {
+    it('should work properly', () => {
+      jest.spyOn(SWR, 'default');
+      allocatedWorkersAPI.useMyAllocations();
+      expect(SWR.default).toHaveBeenCalledWith('/api/me');
     });
   });
 
