@@ -3,6 +3,8 @@ import { useState } from 'react';
 import ErrorMessage from 'components/ErrorMessage/ErrorMessage';
 import Spinner from 'components/Spinner/Spinner';
 import { useMyData } from 'utils/api/me';
+import cx from 'classnames';
+import { getUserType } from 'utils/user';
 
 import styles from './MyData.module.scss';
 
@@ -17,12 +19,13 @@ const MyData = (): React.ReactElement => {
   }
   return (
     <div className={styles.container}>
-      <div className={styles.header}>
-        <h2 className="govuk-fieldset__legend--m govuk-custom-text-color">
+      <div className={cx(styles.header, 'lbh-table-header')}>
+        <h2>
           {data.firstName} {data.lastName}
         </h2>
         <div
           className="govuk-link"
+          style={{ color: 'white' }}
           role="button"
           onClick={() => setExpandView(!expandView)}
         >
@@ -30,14 +33,24 @@ const MyData = (): React.ReactElement => {
         </div>
       </div>
       {expandView && (
-        <>
-          <dl className="govuk-summary-list">
-            <div className="govuk-summary-list__row">
-              <dt className="govuk-summary-list__key">Role</dt>
-              <dd className="govuk-summary-list__value">{data.role}</dd>
+        <dl className={cx(styles.body, 'govuk-grid-row')}>
+          <div className="govuk-grid-column-one-half">
+            <div>Role: {data.role}</div>
+            {data.teams.length > 0 && <div>Team {data.teams}</div>}
+          </div>
+          <div className="govuk-grid-column-one-half">
+            <div>Area: {getUserType(data.auth)} Social Care</div>
+            <div>
+              Access:{' '}
+              {data.auth.hasUnrestrictedPermissions
+                ? 'No Restriction'
+                : ' Restricted'}{' '}
             </div>
-          </dl>
-        </>
+            {data.auth.hasAllocationsPermissions && (
+              <div> Permission: Can Allocate</div>
+            )}
+          </div>
+        </dl>
       )}
     </div>
   );
