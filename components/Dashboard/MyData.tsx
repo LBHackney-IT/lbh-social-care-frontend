@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useRouter } from 'next/router';
 
 import ErrorMessage from 'components/ErrorMessage/ErrorMessage';
 import Spinner from 'components/Spinner/Spinner';
@@ -7,10 +8,13 @@ import cx from 'classnames';
 import { getUserType } from 'utils/user';
 
 import styles from './MyData.module.scss';
+import { Team } from 'types';
 
 const MyData = (): React.ReactElement => {
-  const [expandView, setExpandView] = useState(false);
+  const { query, replace, pathname } = useRouter();
+  const [expandView, setExpandView] = useState(Boolean(query.details));
   const { data, error } = useMyData();
+
   if (error) {
     return <ErrorMessage />;
   }
@@ -27,30 +31,41 @@ const MyData = (): React.ReactElement => {
           className="govuk-link"
           style={{ color: 'white' }}
           role="button"
-          onClick={() => setExpandView(!expandView)}
+          onClick={() => {
+            setExpandView(!expandView);
+            replace(
+              `${pathname}?details=${expandView}`,
+              `${pathname}?details=${expandView}`,
+              { shallow: true, scroll: false }
+            );
+          }}
         >
           {expandView ? 'Collapse' : 'Expand'} view
         </div>
       </div>
       {expandView && (
-        <dl className={cx(styles.body, 'govuk-grid-row')}>
-          <div className="govuk-grid-column-one-half">
-            <div>Role: {data.role}</div>
-            {data.teams.length > 0 && <div>Team {data.teams}</div>}
-          </div>
-          <div className="govuk-grid-column-one-half">
-            <div>Area: {getUserType(data.auth)} Social Care</div>
-            <div>
-              Access:{' '}
-              {data.auth.hasUnrestrictedPermissions
-                ? 'No Restriction'
-                : ' Restricted'}{' '}
+        <div className={styles.body}>
+          <dl className="govuk-grid-row">
+            <div className="govuk-grid-column-one-half">
+              <div>Role: {data.role}</div>
+              {data.teams.length > 0 && (
+                <div>Team: {data.teams.map(({ name }: Team) => name)}</div>
+              )}
             </div>
-            {data.auth.hasAllocationsPermissions && (
-              <div> Permission: Can Allocate</div>
-            )}
-          </div>
-        </dl>
+            <div className="govuk-grid-column-one-half">
+              <div>Area: {getUserType(data.auth)} Social Care</div>
+              <div>
+                Access:{' '}
+                {data.auth.hasUnrestrictedPermissions
+                  ? 'No Restriction'
+                  : ' Restricted'}{' '}
+              </div>
+              {data.auth.hasAllocationsPermissions && (
+                <div> Permission: Can Allocate</div>
+              )}
+            </div>
+          </dl>
+        </div>
       )}
     </div>
   );

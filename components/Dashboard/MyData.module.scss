@@ -1,13 +1,15 @@
+@import 'node_modules/lbh-frontend/lbh/base';
+
 .container {
-  background-color: #f8f8f8;
+  background-color: lbh-colour('lbh-grey-4');
 }
 .header {
-  background-color: #00664f;
+  background-color: lbh-colour('lbh-a01');
   color: white;
   padding: 0 1rem;
 }
 
 .body {
   padding: 0 1rem;
-  border: 1 solid #dee0e2;
+  border: 1px solid lbh-colour('lbh-panel');
 }

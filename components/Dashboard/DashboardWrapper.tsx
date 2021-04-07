@@ -8,6 +8,7 @@ interface Props {
 
 const DashboardWrapper = ({ children }: Props): React.ReactElement => (
   <Stack space={7}>
+    <h1 className="govuk-heading-l">My work space</h1>
     <MyData />
     <Tabs
       title="Dashboard"
