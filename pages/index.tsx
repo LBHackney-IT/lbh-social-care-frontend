@@ -1,11 +1,19 @@
 import Seo from 'components/Layout/Seo/Seo';
-import SearchWrapper from 'components/Search/MainSearchWrapper';
+import SavedForms from 'components/SaveFormData/SaveFormData';
+import DashboardWrapper from 'components/Dashboard/DashboardWrapper';
 
-const SearchResidentPage = (): React.ReactElement => (
+const MyFormsPage = (): React.ReactElement => (
   <div>
-    <Seo title="Search" />
-    <SearchWrapper type="people" />
+    <Seo title="My saved forms" />
+    <DashboardWrapper>
+      <>
+        <p className="govuk-body">
+          Forms that have been started and are not complete
+        </p>
+        <SavedForms />
+      </>
+    </DashboardWrapper>
   </div>
 );
 
-export default SearchResidentPage;
+export default MyFormsPage;

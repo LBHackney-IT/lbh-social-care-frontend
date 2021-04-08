@@ -5,7 +5,7 @@ import { UserContext } from 'components/UserContext/UserContext';
 import { mockedUser } from 'factories/users';
 import * as saveData from 'utils/saveData';
 
-let mockedUseRouter = { asPath: 'path', pathname: 'pathname' };
+const mockedUseRouter = { asPath: 'path', pathname: 'pathname' };
 
 jest.mock('next/router', () => ({
   useRouter: () => mockedUseRouter,
@@ -39,8 +39,6 @@ describe('Header component', () => {
     );
 
     expect(getByText('Search')).toBeInTheDocument();
-    expect(getByText('My records')).toBeInTheDocument();
-    expect(getByText('Forms in progress')).toBeInTheDocument();
     expect(getByText('Logout')).toBeInTheDocument();
   });
 
@@ -56,26 +54,6 @@ describe('Header component', () => {
     );
     expect(getByText('Foo')).toBeInTheDocument();
     expect(queryByText('Search')).not.toBeInTheDocument();
-    expect(queryByText('My records')).not.toBeInTheDocument();
-    expect(queryByText('Forms in progress')).not.toBeInTheDocument();
     expect(queryByText('Logout')).not.toBeInTheDocument();
-  });
-
-  it('should set active the correct link', () => {
-    mockedUseRouter = {
-      asPath: '/cases?my_notes_only=true',
-      pathname: '/cases',
-    };
-    const { getByText, asFragment } = render(
-      <UserContext.Provider
-        value={{
-          user: mockedUser,
-        }}
-      >
-        <Header {...props} />
-      </UserContext.Provider>
-    );
-    expect(getByText('My records')).toBeInTheDocument();
-    expect(asFragment()).toMatchSnapshot();
   });
 });

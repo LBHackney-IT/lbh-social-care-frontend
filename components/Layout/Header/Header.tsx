@@ -11,20 +11,9 @@ import Logo from './Logo';
 const loggedNavLinks = [
   {
     name: 'Search',
-    path: '/',
-    isSelected: ({ asPath, pathname }: { asPath: string; pathname: string }) =>
-      pathname === '/' ||
-      (pathname === '/cases' && asPath !== '/cases?my_notes_only=true'),
-  },
-  {
-    name: 'My records',
-    path: '/cases?my_notes_only=true',
-    isSelected: ({ asPath }: { asPath: string }) =>
-      asPath === '/cases?my_notes_only=true',
-  },
-  {
-    name: 'Forms in progress',
-    path: '/form-in-progress',
+    path: '/search',
+    isSelected: ({ pathname }: { pathname: string }) =>
+      pathname === '/search' || pathname === '/cases',
   },
   {
     name: 'Logout',
