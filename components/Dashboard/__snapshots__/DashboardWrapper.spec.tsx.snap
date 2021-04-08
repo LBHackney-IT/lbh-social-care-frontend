@@ -2,53 +2,82 @@
 
 exports[`DashboardWrapper should render properly 1`] = `
 <DocumentFragment>
-  <div
-    class="govuk-tabs"
-  >
-    <h2
-      class="govuk-tabs__title"
-    >
-      Dashboard
-    </h2>
-    <ul
-      class="govuk-tabs__list"
-    >
-      <li
-        class="govuk-tabs__list-item"
-      >
-        <a
-          class="govuk-tabs__tab"
-          href="/my-forms"
-        >
-          Forms to complete
-        </a>
-      </li>
-      <li
-        class="govuk-tabs__list-item"
-      >
-        <a
-          class="govuk-tabs__tab"
-          href="/my-allocations"
-        >
-          Clients allocated
-        </a>
-      </li>
-      <li
-        class="govuk-tabs__list-item govuk-tabs__list-item--selected"
-      >
-        <a
-          class="govuk-tabs__tab"
-          href="/my-cases"
-        >
-          Records I've added
-        </a>
-      </li>
-    </ul>
+  <div>
     <div
-      class="govuk-tabs__panel"
+      class=""
     >
-      <div>
-        foo
+      <h1
+        class="govuk-heading-l"
+      >
+        My work space
+      </h1>
+    </div>
+    <div
+      class="govuk-!-margin-top-7"
+    >
+      <span
+        class="govuk-error-message"
+      >
+        <span
+          class="govuk-visually-hidden"
+        >
+          Error:
+        </span>
+         Oops an error occurred
+      </span>
+    </div>
+    <div
+      class="govuk-!-margin-top-7"
+    >
+      <div
+        class="govuk-tabs"
+      >
+        <h2
+          class="govuk-tabs__title"
+        >
+          Dashboard
+        </h2>
+        <ul
+          class="govuk-tabs__list"
+        >
+          <li
+            class="govuk-tabs__list-item"
+          >
+            <a
+              class="govuk-tabs__tab"
+              href="/my-forms"
+            >
+              Forms to complete
+            </a>
+          </li>
+          <li
+            class="govuk-tabs__list-item"
+          >
+            <a
+              class="govuk-tabs__tab"
+              href="/my-allocations"
+            >
+              Clients allocated
+            </a>
+          </li>
+          <li
+            class="govuk-tabs__list-item govuk-tabs__list-item--selected"
+          >
+            <a
+              class="govuk-tabs__tab"
+              href="/my-cases"
+            >
+              Records I've added
+            </a>
+          </li>
+        </ul>
+        <div
+          class="govuk-tabs__panel"
+        >
+          <div>
+            foo
+          </div>
+        </div>
       </div>
     </div>
   </div>

@@ -14,7 +14,7 @@ export interface Props {
 }
 
 const Tabs = ({ title, tabs, children }: Props): React.ReactElement => {
-  const { pathname, asPath } = useRouter();
+  const { pathname, query } = useRouter();
   return (
     <div className="govuk-tabs">
       <h2 className="govuk-tabs__title">{title}</h2>
@@ -26,7 +26,7 @@ const Tabs = ({ title, tabs, children }: Props): React.ReactElement => {
               'govuk-tabs__list-item--selected': pathname === url,
             })}
           >
-            <Link href={`${url}?${asPath.split('?')?.[1]}`} scroll={false}>
+            <Link href={{ pathname: url, query: query }} scroll={false}>
               <a className="govuk-tabs__tab">{text}</a>
             </Link>
           </li>
