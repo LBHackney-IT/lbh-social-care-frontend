@@ -5,7 +5,7 @@ import { UserContext } from 'components/UserContext/UserContext';
 import { mockedUser } from 'factories/users';
 import * as saveData from 'utils/saveData';
 
-const mockedUseRouter = { asPath: 'path', pathname: 'pathname' };
+const mockedUseRouter = { pathname: 'pathname' };
 
 jest.mock('next/router', () => ({
   useRouter: () => mockedUseRouter,
