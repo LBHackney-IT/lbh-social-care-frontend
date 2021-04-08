@@ -29,10 +29,13 @@
 .body {
   padding: 1rem;
   border: 1px solid lbh-colour('lbh-panel');
-}
-
-.descriptions {
   div + div {
     margin-top: 0.5rem;
+  }
+}
+
+@include govuk-media-query($from: tablet) {
+  .descriptions + .descriptions {
+    margin-top: 0;
   }
 }
