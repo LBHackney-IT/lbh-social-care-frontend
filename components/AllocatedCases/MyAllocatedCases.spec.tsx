@@ -1,7 +1,7 @@
 import { render } from '@testing-library/react';
 
 import { UserContext } from 'components/UserContext/UserContext';
-import { userFactory } from 'factories/users';
+import { mockedUser, userFactory } from 'factories/users';
 import * as meAPI from 'utils/api/me';
 import MyAllocatedCases from './MyAllocatedCases';
 import { mockedAllocations } from 'factories/allocatedWorkers';
@@ -18,6 +18,7 @@ describe(`MyAllocatedCases`, () => {
     data: {
       ...mockedWorker,
       allocations: mockedAllocations,
+      auth: mockedUser,
     },
     revalidate: jest.fn(),
     mutate: jest.fn(),
