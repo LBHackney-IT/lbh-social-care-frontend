@@ -3,13 +3,36 @@
 .container {
   background-color: lbh-colour('lbh-grey-4');
 }
+
 .header {
   background-color: lbh-colour('lbh-a01');
   color: white;
   padding: 0 1rem;
+  align-items: center;
+  h2 {
+    font-weight: normal;
+    margin: 0.5rem 0;
+  }
+  button {
+    background: none;
+    margin: 0;
+    border: none;
+    cursor: pointer;
+    font-size: 14px;
+    &,
+    &:hover {
+      color: currentColor;
+    }
+  }
 }
 
 .body {
-  padding: 0 1rem;
+  padding: 1rem;
   border: 1px solid lbh-colour('lbh-panel');
+}
+
+.descriptions {
+  div + div {
+    margin-top: 0.5rem;
+  }
 }
