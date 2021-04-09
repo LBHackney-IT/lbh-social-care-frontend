@@ -1,7 +1,6 @@
 import { render } from '@testing-library/react';
 
-import { UserContext } from 'components/UserContext/UserContext';
-import { mockedUser, userFactory } from 'factories/users';
+import { mockedUser } from 'factories/users';
 import * as meAPI from 'utils/api/me';
 import MyAllocatedCases from './MyAllocatedCases';
 import { mockedAllocations } from 'factories/allocatedWorkers';
@@ -26,15 +25,7 @@ describe(`MyAllocatedCases`, () => {
   }));
 
   it('should render properly', async () => {
-    const { findByText, asFragment } = render(
-      <UserContext.Provider
-        value={{
-          user: userFactory.build(),
-        }}
-      >
-        <MyAllocatedCases />
-      </UserContext.Provider>
-    );
+    const { findByText, asFragment } = render(<MyAllocatedCases />);
     const allocateTable = await findByText('MockedAllocatedCasesTable');
     expect(allocateTable).toBeInTheDocument();
     expect(asFragment()).toMatchSnapshot();

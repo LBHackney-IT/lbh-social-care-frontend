@@ -1,0 +1,68 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`MyData should render properly 1`] = `
+<DocumentFragment>
+  <div
+    class="container"
+  >
+    <div
+      class="header lbh-table-header"
+    >
+      <h2>
+        Foo Bar
+      </h2>
+      <button
+        class="govuk-link govuk-link--underline"
+      >
+        Expand view
+      </button>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`MyData should render properly 2`] = `
+<DocumentFragment>
+  <div
+    class="container"
+  >
+    <div
+      class="header lbh-table-header"
+    >
+      <h2>
+        Foo Bar
+      </h2>
+      <button
+        class="govuk-link govuk-link--underline"
+      >
+        Collapse view
+      </button>
+    </div>
+    <div
+      class="body"
+    >
+      <div
+        class="govuk-grid-row"
+      >
+        <div
+          class="govuk-grid-column-one-half descriptions"
+        >
+          <div>
+            Role: aliquam
+          </div>
+        </div>
+        <div
+          class="govuk-grid-column-one-half descriptions"
+        >
+          <div>
+            Area: Admin social care
+          </div>
+          <div>
+            Access: Restricted
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;
