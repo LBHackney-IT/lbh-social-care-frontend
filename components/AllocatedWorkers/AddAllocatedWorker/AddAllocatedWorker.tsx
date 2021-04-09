@@ -12,6 +12,7 @@ import {
   addAllocatedWorker,
 } from 'utils/api/allocatedWorkers';
 import { AgeContext } from 'types';
+import DateInput from 'components/Form/DateInput/DateInput';
 
 interface Props {
   personId: number;
@@ -25,7 +26,7 @@ const AddAllocatedWorker = ({
   const [postError, setPostError] = useState<boolean | null>();
   const [postLoading, setPostLoading] = useState<boolean>();
   const { query, push, replace, pathname } = useRouter();
-  const { handleSubmit, register, control } = useForm({
+  const { handleSubmit, register, control, errors } = useForm({
     defaultValues: query,
   });
   const { teamId } = query as { teamId?: number };
@@ -125,8 +126,10 @@ const AddAllocatedWorker = ({
                               name="workerId"
                               type="radio"
                               value={id}
+                              ref={register({
+                                required: true,
+                              })}
                               disabled={!workers}
-                              ref={register}
                               onChange={(e) =>
                                 replace(
                                   {
@@ -162,6 +165,14 @@ const AddAllocatedWorker = ({
                   )}
                 </tbody>
               </table>
+              <DateInput
+                label="Allocation Start Date:"
+                labelSize="s"
+                name="allocation_start_date"
+                error={errors.allocation_start_date}
+                control={control}
+                rules={{ required: true }}
+              />
               <Button
                 label="Allocate worker"
                 type="submit"
