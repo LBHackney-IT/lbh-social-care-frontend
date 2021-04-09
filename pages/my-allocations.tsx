@@ -4,7 +4,7 @@ import DashboardWrapper from 'components/Dashboard/DashboardWrapper';
 
 const MyCasesPage = (): React.ReactElement => (
   <div>
-    <Seo title="My records notes" />
+    <Seo title="My allocations" />
     <DashboardWrapper>
       <>
         <p className="govuk-body">Clients you are currently managing</p>

@@ -16,6 +16,14 @@ const loggedNavLinks = [
       pathname === '/search' || pathname === '/cases',
   },
   {
+    name: 'My work space',
+    path: '/',
+    isSelected: (pathname: string) =>
+      pathname === '/' ||
+      pathname === '/my-records' ||
+      pathname === '/my-allocations',
+  },
+  {
     name: 'Logout',
     path: '/logout',
   },
