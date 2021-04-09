@@ -33,13 +33,14 @@ const AddAllocatedWorker = ({
   const { data: { teams } = {}, error: errorTeams } = useTeams({ ageContext });
   const { data: workers, error: errorWorkers } = useTeamWorkers(teamId);
   const addWorker = useCallback(
-    async ({ workerId }) => {
+    async ({ workerId, allocationStartDate }) => {
       setPostLoading(true);
       setPostError(null);
       try {
         await addAllocatedWorker(personId, {
           allocatedTeamId: Number(teamId),
           allocatedWorkerId: Number(workerId),
+          allocationStartDate,
         });
         push(`/people/${personId}`);
       } catch (e) {
@@ -168,8 +169,8 @@ const AddAllocatedWorker = ({
               <DateInput
                 label="Allocation Start Date:"
                 labelSize="s"
-                name="allocation_start_date"
-                error={errors.allocation_start_date}
+                name="allocated_start_date"
+                error={errors.allocated_start_date}
                 control={control}
                 rules={{ required: true }}
               />

@@ -76,6 +76,7 @@ const addAllocatedWorkerSchema = yup.object({
   allocatedTeamId: yup.number().required().integer(),
   allocatedWorkerId: yup.number().required().integer(),
   createdBy: yup.string().email().required(),
+  allocationStartDate: yup.string().required(),
 });
 
 export const addAllocatedWorker = async (
