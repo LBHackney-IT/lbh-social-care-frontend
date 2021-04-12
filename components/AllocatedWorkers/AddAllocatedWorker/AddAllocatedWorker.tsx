@@ -94,6 +94,9 @@ const AddAllocatedWorker = ({
                 about a worker’s current allocated cases by selecting their
                 name.
               </p>
+              {errors.workerId && (
+                <ErrorMessage label="Please select a worker." />
+              )}
               <table className="govuk-table">
                 <thead className="govuk-table__head">
                   <tr className="govuk-table__row">
@@ -172,7 +175,7 @@ const AddAllocatedWorker = ({
                 name="allocated_start_date"
                 error={errors.allocated_start_date}
                 control={control}
-                rules={{ required: true }}
+                rules={{ required: 'Please select the allocation start date' }}
               />
               <Button
                 label="Allocate worker"

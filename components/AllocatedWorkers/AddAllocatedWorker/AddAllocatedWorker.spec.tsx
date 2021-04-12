@@ -117,6 +117,10 @@ describe(`AddAllocatedWorker`, () => {
 
     fireEvent.click(getByLabelText('Worker C'));
 
+    fireEvent.change(getByLabelText('Day'), { target: { value: '01' } });
+    fireEvent.change(getByLabelText('Month'), { target: { value: '01' } });
+    fireEvent.change(getByLabelText('Year'), { target: { value: '2021' } });
+
     await act(async () => {
       fireEvent.submit(getByRole('form'));
     });
