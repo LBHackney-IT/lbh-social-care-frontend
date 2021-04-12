@@ -8,6 +8,7 @@ import { useAuth } from 'components/UserContext/UserContext';
 import { isBrowser } from 'utils/ssr';
 
 import type { Resident } from 'types';
+import React from 'react';
 
 const RemovedAllocationPage = (): React.ReactElement => {
   const { query, replace } = useRouter();

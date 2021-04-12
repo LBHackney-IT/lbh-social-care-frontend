@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import Link from 'next/link';
+import isPast from 'date-fns/isPast';
 
 import ErrorMessage from 'components/ErrorMessage/ErrorMessage';
-import { TextArea } from 'components/Form';
+import { DateInput, TextArea } from 'components/Form';
 import Button from 'components/Button/Button';
 import Spinner from 'components/Spinner/Spinner';
 import {
@@ -20,7 +21,7 @@ const DeallocatedWorkers = ({
   personId,
   allocationId,
 }: Props): React.ReactElement => {
-  const { register, handleSubmit, errors } = useForm();
+  const { register, handleSubmit, errors, control } = useForm();
   const [loading, setLoading] = useState(false);
   const [complete, setComplete] = useState(false);
   const [postError, setPostError] = useState(false);
@@ -28,14 +29,17 @@ const DeallocatedWorkers = ({
   const { data: { allocations } = {}, error } = useAllocatedWorkers(personId);
   const onSubmit = async ({
     deallocationReason,
+    deallocationDate,
   }: {
     deallocationReason: string;
+    deallocationDate: string;
   }) => {
     setLoading(true);
     try {
       await deleteAllocatedWorker(personId, {
         id: allocationId,
         deallocationReason,
+        deallocationDate,
       });
       setDeallocationReason(deallocationReason);
       setComplete(true);
@@ -54,6 +58,7 @@ const DeallocatedWorkers = ({
   if (!currentAllocation) {
     return <ErrorMessage label="Allocated worked not found." />;
   }
+  console.log(errors);
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <h1>Reason for worker deallocation</h1>
@@ -90,6 +95,20 @@ const DeallocatedWorkers = ({
             })}
             error={errors.deallocationReason}
           />
+          <DateInput
+            hint="Date cannot be set in the future"
+            label="Deallocation Date:"
+            name="deallocationDate"
+            error={errors.deallocationDate}
+            control={control}
+            rules={{
+              required: 'Please select the deallocation start date',
+              validate: {
+                past: (value) =>
+                  value && (isPast(new Date(value)) || 'Must be a past Date'),
+              },
+            }}
+          />
         </>
       )}
       {loading && (
@@ -116,6 +135,7 @@ const DeallocatedWorkers = ({
           </p>
         </>
       )}
+
       {postError && <ErrorMessage />}
     </form>
   );
