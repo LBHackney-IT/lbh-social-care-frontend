@@ -130,6 +130,7 @@ describe('allocatedWorkersAPI', () => {
         allocatedTeamId: 321,
         allocatedWorkerId: 123,
         mosaicId: 123,
+        allocationStartDate: '01-04-2021',
       });
       expect(mockedAxios.post.mock.calls[0][2]?.headers).toEqual({
         'Content-Type': 'application/json',
@@ -165,6 +166,7 @@ describe('allocatedWorkersAPI', () => {
         id: 123,
         createdBy: 'asd@asd.com',
         deallocationReason: 'test',
+        deallocationDate: '01/01/2021',
       });
       expect(mockedAxios.patch.mock.calls[0][2]?.headers).toEqual({
         'Content-Type': 'application/json',
