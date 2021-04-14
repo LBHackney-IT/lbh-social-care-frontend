@@ -17,7 +17,7 @@ const AllocatedCases = ({ id }: Props): React.ReactElement => {
   }
   return (
     <>
-      {allocations.workers.length === 0 ? (
+      {allocations.workers?.length === 0 ? (
         <p className="govuk-body govuk-!-margin-top-5">Worker not found</p>
       ) : (
         <>

@@ -18,7 +18,6 @@ const WorkerRecap = ({
         Name: {firstName} {lastName}
       </p>
       <p>Main Service: {role}</p>
-      <p>Status in System: </p>
       <p>Teams: {teams[0].name}</p>
     </div>
   );

@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useWorker } from 'utils/api/workers';
 import WorkerRecap from 'components/WorkerView/WorkerRecap';
+import AllocatedCases from 'components/AllocatedCases/AllocatedCases';
 
 interface FormValues {
   email: string;
@@ -27,8 +28,8 @@ const WorkerSearch = (): React.ReactElement => {
             <EmailInput
               error={errors.email}
               name="email"
-              hint="jdsadj"
-              label="Uploaded by:"
+              hint="Email address must contain @hackney.gov.uk"
+              label="Worker's email address:"
               labelSize="s"
               placeholder="Email"
               rules={{ required: 'Enter a valid worker email' }}
@@ -38,8 +39,12 @@ const WorkerSearch = (): React.ReactElement => {
         </div>
         <Button label={'Search for worker'} type="submit" />
       </form>
-      {data?.[0] && <WorkerRecap {...data[0]} />}
-      {data?.[1] && <WorkerRecap {...data[1]} />}
+      {data?.[0] && (
+        <>
+          <WorkerRecap {...data[0]} />{' '}
+          <AllocatedCases id={data?.[0].id}></AllocatedCases>{' '}
+        </>
+      )}
     </>
   );
 };
