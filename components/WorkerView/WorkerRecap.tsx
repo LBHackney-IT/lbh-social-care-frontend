@@ -1,6 +1,3 @@
-import { useState } from 'react';
-import { useWorker } from 'utils/api/workers';
-import WorkerSearch from 'components/WorkerView/WorkerSearch';
 import { Worker } from 'types';
 
 const WorkerRecap = ({
