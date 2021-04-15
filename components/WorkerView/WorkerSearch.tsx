@@ -5,18 +5,19 @@ import { useForm } from 'react-hook-form';
 import { useWorker } from 'utils/api/workers';
 import WorkerRecap from 'components/WorkerView/WorkerRecap';
 import AllocatedCases from 'components/AllocatedCases/AllocatedCases';
+import Spinner from 'components/Spinner/Spinner';
 
 interface FormValues {
   email: string;
 }
 
-const WorkerSearch = (): React.ReactElement => {
+const WorkerSearch = (): React.ReactElement | null => {
   const [params, setParams] = useState<FormValues>();
   const { data } = useWorker(params);
-  console.log(data);
-
   const { register, handleSubmit, errors } = useForm();
-
+  if (params && !data) {
+    return <Spinner />;
+  }
   return (
     <div>
       <form
