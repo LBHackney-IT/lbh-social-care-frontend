@@ -90,6 +90,7 @@ export interface CaseData {
 
 export interface ErrorAPI {
   message: string;
+  status: number;
 }
 
 export interface Resident {

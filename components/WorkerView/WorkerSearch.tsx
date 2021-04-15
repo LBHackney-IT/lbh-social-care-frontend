@@ -13,11 +13,13 @@ interface FormValues {
 
 const WorkerSearch = (): React.ReactElement | null => {
   const [params, setParams] = useState<FormValues>();
-  const { data } = useWorker(params);
+  const { data, error } = useWorker(params);
   const { register, handleSubmit, errors } = useForm();
   if (params && !data) {
     return <Spinner />;
   }
+  console.log(errors);
+
   return (
     <div>
       <form
@@ -49,11 +51,14 @@ const WorkerSearch = (): React.ReactElement | null => {
           </div>
         </div>
       </form>
-      {data?.[0] && (
+      {error?.status == 404 && (
+        <p className="govuk-body govuk-!-margin-top-5">test Not found</p>
+      )}
+      {data && data[0] && (
         <>
-          <WorkerRecap {...data[0]} />{' '}
+          <WorkerRecap {...data[0]} />
           <h2 className="gov-weight-lighter">Current Allocations</h2>
-          <AllocatedCases id={data?.[0].id}></AllocatedCases>{' '}
+          <AllocatedCases id={data?.[0].id} />
         </>
       )}
       <div style={{ display: 'flex', justifyContent: 'space-between' }}>
