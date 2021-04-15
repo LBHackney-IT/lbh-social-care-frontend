@@ -2,7 +2,7 @@ import Link from 'next/link';
 
 import { Allocation } from 'types';
 
-const header = ['Person', 'Name', 'Address', 'Date of birth'];
+const header = ['Person', 'Name', 'Address', 'Date of birth', 'Allocated Date'];
 
 const AllocatedCasesTable = ({
   cases,
@@ -34,6 +34,10 @@ const AllocatedCasesTable = ({
           <td className="govuk-table__cell">
             {' '}
             {new Date(cell.personDateOfBirth).toLocaleDateString('en-GB')}
+          </td>
+          <td className="govuk-table__cell">
+            {' '}
+            {new Date(cell.allocationStartDate).toLocaleDateString('en-GB')}
           </td>
         </tr>
       ))}

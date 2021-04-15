@@ -1,10 +1,6 @@
-import AllocatedCases from 'components/AllocatedCases/AllocatedCases';
 import Seo from 'components/Layout/Seo/Seo';
 import WorkerSearch from 'components/WorkerView/WorkerSearch';
 import React from 'react';
-import { useRouter } from 'next/router';
-// import WorkerRecap from 'components/WorkerView/WorkerRecap';
-
 const SearchWorkerPage = (): React.ReactElement => (
   <>
     <div>

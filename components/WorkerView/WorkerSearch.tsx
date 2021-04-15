@@ -18,12 +18,19 @@ const WorkerSearch = (): React.ReactElement => {
   const { register, handleSubmit, errors } = useForm();
 
   return (
-    <>
+    <div>
       <form
         role="form"
         onSubmit={handleSubmit((formData: FormValues) => setParams(formData))}
       >
-        <div className="govuk-grid-row">
+        <div
+          className="govuk-grid-row"
+          style={{
+            display: 'flex',
+            alignItems: 'flex-end',
+            justifyContent: 'center',
+          }}
+        >
           <div className="govuk-grid-column-one-half">
             <EmailInput
               error={errors.email}
@@ -36,16 +43,42 @@ const WorkerSearch = (): React.ReactElement => {
               register={register}
             />
           </div>
+          <div className="govuk-grid-column-one-half">
+            <Button label={'Search'} type="submit" className="govuk-button" />
+          </div>
         </div>
-        <Button label={'Search for worker'} type="submit" />
       </form>
       {data?.[0] && (
         <>
           <WorkerRecap {...data[0]} />{' '}
+          <h2 className="gov-weight-lighter">Current Allocations</h2>
           <AllocatedCases id={data?.[0].id}></AllocatedCases>{' '}
         </>
       )}
-    </>
+      <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+        <div>
+          <a
+            href="/"
+            className="govuk-link"
+            onClick={() => (window.location.href = '/')}
+            style={{
+              lineHeight: '2.5rem',
+            }}
+          >
+            Cancel
+          </a>
+        </div>
+        <Button
+          wideButton
+          className="govuk-!-margin-left-1"
+          label="Update worker's details"
+          type="submit"
+          onClick={() =>
+            (window.location.href = '/workers/edit/?emailAddress=')
+          }
+        />
+      </div>
+    </div>
   );
 };
 
