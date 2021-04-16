@@ -47,7 +47,7 @@ export const getCase = async (
   );
 };
 
-export const getCaseNote = async (
+export const getHistoricNote = async (
   case_id: string,
   params: Record<string, unknown>
 ): Promise<HistoricCaseData | undefined> => {

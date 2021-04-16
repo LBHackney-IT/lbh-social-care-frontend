@@ -26,12 +26,12 @@ describe('cases APIs', () => {
     });
   });
 
-  describe('getCaseNote', () => {
+  describe('getHistoricNote', () => {
     it('should work properly', async () => {
       mockedAxios.get.mockResolvedValue({
         data: { foo: 123 },
       });
-      const data = await casesAPI.getCaseNote('123', {
+      const data = await casesAPI.getHistoricNote('123', {
         foo: 'bar',
       });
       expect(mockedAxios.get).toHaveBeenCalled();

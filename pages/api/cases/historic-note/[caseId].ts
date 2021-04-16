@@ -1,6 +1,6 @@
 import { StatusCodes } from 'http-status-codes';
 
-import { getCaseNote } from 'lib/cases';
+import { getHistoricNote } from 'lib/cases';
 import { isAuthorised } from 'utils/auth';
 
 import type { NextApiRequest, NextApiResponse, NextApiHandler } from 'next';
@@ -20,7 +20,7 @@ const endpoint: NextApiHandler = async (
   switch (req.method) {
     case 'GET':
       try {
-        const data = await getCaseNote(caseId as string, {
+        const data = await getHistoricNote(caseId as string, {
           ...params,
           context_flag: user.permissionFlag,
         });

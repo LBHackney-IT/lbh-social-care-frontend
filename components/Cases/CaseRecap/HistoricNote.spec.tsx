@@ -16,7 +16,7 @@ describe(`HistoricNote`, () => {
       is_historical: true,
       personId: 123,
     };
-    jest.spyOn(casesAPI, 'useCaseNote').mockImplementation(() => ({
+    jest.spyOn(casesAPI, 'useHistoricCaseNote').mockImplementation(() => ({
       data: mockedHistoricCaseNote,
       isValidating: false,
       mutate: jest.fn(),
