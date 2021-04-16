@@ -52,7 +52,19 @@ const WorkerSearch = (): React.ReactElement | null => {
         </div>
       </form>
       {error?.status == 404 && (
-        <p className="govuk-body govuk-!-margin-top-5">test Not found</p>
+        <>
+          <h3>Worker&apos;s email address not found</h3>
+          <p className="govuk-body govuk-!-margin-top-5">
+            The email address is not in the system.
+          </p>
+          <p className="govuk-body govuk-!-margin-top-5">
+            You can search again on a different email address
+          </p>
+          <p className="govuk-body govuk-!-margin-top-5">
+            Please be sure the email address is correct before you use it to
+            create a new worker in the system.
+          </p>
+        </>
       )}
       {data && data[0] && (
         <>
