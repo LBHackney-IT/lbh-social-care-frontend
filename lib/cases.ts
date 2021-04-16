@@ -47,11 +47,22 @@ export const getCase = async (
   );
 };
 
-export const getCaseNote = async (
+export const getHistoricNote = async (
   case_id: string,
   params: Record<string, unknown>
 ): Promise<HistoricCaseData | undefined> => {
   const { data } = await axios.get(`${ENDPOINT_API}/casenotes/${case_id}`, {
+    headers: headersWithKey,
+    params,
+  });
+  return data;
+};
+
+export const getHistoricVisit = async (
+  case_id: string,
+  params: Record<string, unknown>
+): Promise<HistoricCaseData | undefined> => {
+  const { data } = await axios.get(`${ENDPOINT_API}/visits/${case_id}`, {
     headers: headersWithKey,
     params,
   });
