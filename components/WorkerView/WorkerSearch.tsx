@@ -6,6 +6,7 @@ import { useWorker } from 'utils/api/workers';
 import WorkerRecap from 'components/WorkerView/WorkerRecap';
 import AllocatedCases from 'components/AllocatedCases/AllocatedCases';
 import Spinner from 'components/Spinner/Spinner';
+import Link from 'next/link';
 
 interface FormValues {
   email: string;
@@ -15,10 +16,6 @@ const WorkerSearch = (): React.ReactElement | null => {
   const [params, setParams] = useState<FormValues>();
   const { data, error } = useWorker(params);
   const { register, handleSubmit, errors } = useForm();
-  if (params && !data) {
-    return <Spinner />;
-  }
-  console.log(errors);
 
   return (
     <div>
@@ -51,7 +48,8 @@ const WorkerSearch = (): React.ReactElement | null => {
           </div>
         </div>
       </form>
-      {error?.status == 404 && (
+      {params && !data && !error && <Spinner />}
+      {error?.response?.status == 404 && (
         <>
           <h3>Worker&apos;s email address not found</h3>
           <p className="govuk-body govuk-!-margin-top-5">
@@ -61,8 +59,10 @@ const WorkerSearch = (): React.ReactElement | null => {
             You can search again on a different email address
           </p>
           <p className="govuk-body govuk-!-margin-top-5">
-            Please be sure the email address is correct before you use it to
-            create a new worker in the system.
+            Please be sure the email address is correct before you use it to{' '}
+            <Link href={'/workers/add'}>
+              <a className="govuk-link">create a new worker in the system</a>
+            </Link>
           </p>
         </>
       )}
@@ -71,31 +71,28 @@ const WorkerSearch = (): React.ReactElement | null => {
           <WorkerRecap {...data[0]} />
           <h2 className="gov-weight-lighter">Current Allocations</h2>
           <AllocatedCases id={data?.[0].id} />
+          <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+            <div>
+              <Link href="/">
+                <a
+                  className="govuk-link"
+                  style={{
+                    lineHeight: '2.5rem',
+                  }}
+                >
+                  Cancel
+                </a>
+              </Link>
+            </div>
+            <Button
+              wideButton
+              className="govuk-!-margin-left-1"
+              label="Update worker's details"
+              route={`/workers/edit/?emailAddress=${params?.email}`}
+            />
+          </div>
         </>
       )}
-      <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-        <div>
-          <a
-            href="/"
-            className="govuk-link"
-            onClick={() => (window.location.href = '/')}
-            style={{
-              lineHeight: '2.5rem',
-            }}
-          >
-            Cancel
-          </a>
-        </div>
-        <Button
-          wideButton
-          className="govuk-!-margin-left-1"
-          label="Update worker's details"
-          type="submit"
-          onClick={() =>
-            (window.location.href = '/workers/edit/?emailAddress=')
-          }
-        />
-      </div>
     </div>
   );
 };

@@ -15,7 +15,7 @@ const WorkerRecap = ({
         Name: {firstName} {lastName}
       </p>
       <p className="govuk-body">Role: {role}</p>
-      <p className="govuk-body">Teams: {teams[0].name}</p>
+      <p className="govuk-body">Teams: {teams[0]?.name}</p>
     </div>
   );
 };
