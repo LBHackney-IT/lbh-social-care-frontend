@@ -64,6 +64,20 @@ export interface HistoricCaseData {
   dateOfEvent: string;
 }
 
+export interface HistoricVisitData {
+  visitId: number;
+  personId: number;
+  visitType: string;
+  plannedDateTime: string;
+  actualDateTime: string;
+  createdByName: string;
+  createdByEmail: string;
+  reasonNotPlanned?: string;
+  reasonVisitNotMade?: string;
+  seenAloneFlag: boolean;
+  completedFlag: boolean;
+}
+
 export type CaseFormData =
   | CaseFormDataBase
   | AllocationCaseFormData
