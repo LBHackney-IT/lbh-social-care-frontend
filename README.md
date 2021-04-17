@@ -1,4 +1,8 @@
-# lbh-social-care
+# lbh-social-care-frontend
+
+The Social Care Frontend allows Social Care Practitioners to edit cases and residents information.
+
+It is a part of the Social Care system (see [Social Care System Architecture](https://github.com/LBHackney-IT/social-care-architecture/tree/main) for more details).
 
 ## Getting Started
 

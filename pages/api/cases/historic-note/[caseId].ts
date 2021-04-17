@@ -1,6 +1,6 @@
 import { StatusCodes } from 'http-status-codes';
 
-import { getCaseNote } from 'lib/cases';
+import { getHistoricNote } from 'lib/cases';
 import { isAuthorised } from 'utils/auth';
 
 import type { NextApiRequest, NextApiResponse, NextApiHandler } from 'next';
@@ -20,7 +20,7 @@ const endpoint: NextApiHandler = async (
   switch (req.method) {
     case 'GET':
       try {
-        const data = await getCaseNote(caseId as string, {
+        const data = await getHistoricNote(caseId as string, {
           ...params,
           context_flag: user.permissionFlag,
         });
@@ -28,12 +28,12 @@ const endpoint: NextApiHandler = async (
           ? res.status(StatusCodes.OK).json(data)
           : res
               .status(StatusCodes.NOT_FOUND)
-              .json({ message: 'Allocation Not Found' });
+              .json({ message: 'Historic Note Not Found' });
       } catch (error) {
-        console.error('Cases get error:', error?.response?.data);
+        console.error('Historic Note get error:', error?.response?.data);
         res
           .status(StatusCodes.INTERNAL_SERVER_ERROR)
-          .json({ message: 'Unable to get the Cases' });
+          .json({ message: 'Unable to get the Historic Note' });
       }
       break;
 

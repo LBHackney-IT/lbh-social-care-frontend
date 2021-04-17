@@ -5,7 +5,7 @@ import { mockedUser } from 'factories/users';
 import * as casesAPI from 'utils/api/cases';
 import HistoricNote from './HistoricNote';
 
-import { mockedHistoricCaseNote } from 'fixtures/cases.fixtures';
+import { mockedHistoricVisitNote } from 'fixtures/cases.fixtures';
 
 jest.mock('components/Spinner/Spinner', () => () => 'MockedSpinner');
 
@@ -16,13 +16,13 @@ describe(`HistoricNote`, () => {
       is_historical: true,
       personId: 123,
     };
-    jest.spyOn(casesAPI, 'useHistoricCaseNote').mockImplementation(() => ({
-      data: mockedHistoricCaseNote,
+    jest.spyOn(casesAPI, 'useHistoricCaseVisit').mockImplementation(() => ({
+      data: mockedHistoricVisitNote,
       isValidating: false,
       mutate: jest.fn(),
       revalidate: jest.fn(),
     }));
-    const { asFragment, queryByText } = render(
+    const { asFragment } = render(
       <UserContext.Provider
         value={{
           user: mockedUser,
@@ -31,7 +31,6 @@ describe(`HistoricNote`, () => {
         <HistoricNote {...props} />
       </UserContext.Provider>
     );
-    expect(queryByText('Foo Bar')).toBeInTheDocument();
     expect(asFragment()).toMatchSnapshot();
   });
 });
