@@ -48,8 +48,8 @@ const CreateNewPerson = (): React.ReactElement => {
       defaultValues={{
         user,
         teams: {
-          A: ATeams.map(({ id, name }) => ({ value: id, text: name })),
-          C: CTeams.map(({ id, name }) => ({ value: id, text: name })),
+          A: ATeams.map(({ name }) => name),
+          C: CTeams.map(({ name }) => name),
         },
       }}
       successMessage={form.successMessage}
