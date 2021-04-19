@@ -129,6 +129,7 @@ describe(`AddAllocatedWorker`, () => {
     expect(allocatedWorkerAPI.addAllocatedWorker).toHaveBeenCalledWith(123, {
       allocatedTeamId: 3,
       allocatedWorkerId: 7,
+      allocationStartDate: '2021-01-01',
     });
   });
 });

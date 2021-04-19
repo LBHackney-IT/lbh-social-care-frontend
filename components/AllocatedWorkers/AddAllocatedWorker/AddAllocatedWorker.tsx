@@ -172,8 +172,8 @@ const AddAllocatedWorker = ({
               <DateInput
                 label="Allocation Start Date:"
                 labelSize="s"
-                name="allocated_start_date"
-                error={errors.allocated_start_date}
+                name="allocationStartDate"
+                error={errors.allocationStartDate}
                 control={control}
                 rules={{ required: 'Please select the allocation start date' }}
               />

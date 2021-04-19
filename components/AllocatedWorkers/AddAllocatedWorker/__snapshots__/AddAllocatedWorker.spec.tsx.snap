@@ -231,7 +231,7 @@ exports[`AddAllocatedWorker should render properly 1`] = `
       class="govuk-form-group"
     >
       <fieldset
-        aria-describedby="allocated_start_date-hint"
+        aria-describedby="allocationStartDate-hint"
         class="govuk-fieldset"
         role="group"
       >
@@ -242,11 +242,11 @@ exports[`AddAllocatedWorker should render properly 1`] = `
         </legend>
         <span
           class="govuk-hint"
-          id="allocated_start_date-hint"
+          id="allocationStartDate-hint"
         />
         <div
           class="govuk-date-input"
-          id="allocated_start_date"
+          id="allocationStartDate"
         >
           <div
             class="govuk-date-input__item"
@@ -256,15 +256,15 @@ exports[`AddAllocatedWorker should render properly 1`] = `
             >
               <label
                 class="govuk-label govuk-date-input__label"
-                for="allocated_start_date-day"
+                for="allocationStartDate-day"
               >
                 Day
               </label>
               <input
                 class="govuk-input govuk-date-input__input govuk-input--width-2"
-                id="allocated_start_date-day"
+                id="allocationStartDate-day"
                 inputmode="numeric"
-                name="allocated_start_date-day"
+                name="allocationStartDate-day"
                 pattern="^\\\\d{2}$"
                 value=""
               />
@@ -278,15 +278,15 @@ exports[`AddAllocatedWorker should render properly 1`] = `
             >
               <label
                 class="govuk-label govuk-date-input__label"
-                for="allocated_start_date-month"
+                for="allocationStartDate-month"
               >
                 Month
               </label>
               <input
                 class="govuk-input govuk-date-input__input govuk-input--width-2"
-                id="allocated_start_date-month"
+                id="allocationStartDate-month"
                 inputmode="numeric"
-                name="allocated_start_date-month"
+                name="allocationStartDate-month"
                 pattern="^\\\\d{2}$"
                 value=""
               />
@@ -300,15 +300,15 @@ exports[`AddAllocatedWorker should render properly 1`] = `
             >
               <label
                 class="govuk-label govuk-date-input__label"
-                for="allocated_start_date-year"
+                for="allocationStartDate-year"
               >
                 Year
               </label>
               <input
                 class="govuk-input govuk-date-input__input govuk-input--width-4"
-                id="allocated_start_date-year"
+                id="allocationStartDate-year"
                 inputmode="numeric"
-                name="allocated_start_date-year"
+                name="allocationStartDate-year"
                 pattern="^\\\\d{4}$"
                 value=""
               />
