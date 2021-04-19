@@ -54,7 +54,7 @@ const AddAllocatedWorker = ({
     setPostError(null);
   }, [query]);
   if (errorTeams || errorWorkers) {
-    return <ErrorMessage label="Oops an error occurred" />;
+    return <ErrorMessage />;
   }
   if (!teams) {
     return <Spinner />;
