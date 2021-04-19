@@ -227,6 +227,96 @@ exports[`AddAllocatedWorker should render properly 1`] = `
         </tr>
       </tbody>
     </table>
+    <div
+      class="govuk-form-group"
+    >
+      <fieldset
+        aria-describedby="allocationStartDate-hint"
+        class="govuk-fieldset"
+        role="group"
+      >
+        <legend
+          class="govuk-fieldset__legend govuk-fieldset__legend--s"
+        >
+          Allocation Start Date: 
+        </legend>
+        <span
+          class="govuk-hint"
+          id="allocationStartDate-hint"
+        />
+        <div
+          class="govuk-date-input"
+          id="allocationStartDate"
+        >
+          <div
+            class="govuk-date-input__item"
+          >
+            <div
+              class="govuk-form-group"
+            >
+              <label
+                class="govuk-label govuk-date-input__label"
+                for="allocationStartDate-day"
+              >
+                Day
+              </label>
+              <input
+                class="govuk-input govuk-date-input__input govuk-input--width-2"
+                id="allocationStartDate-day"
+                inputmode="numeric"
+                name="allocationStartDate-day"
+                pattern="^\\\\d{2}$"
+                value=""
+              />
+            </div>
+          </div>
+          <div
+            class="govuk-date-input__item"
+          >
+            <div
+              class="govuk-form-group"
+            >
+              <label
+                class="govuk-label govuk-date-input__label"
+                for="allocationStartDate-month"
+              >
+                Month
+              </label>
+              <input
+                class="govuk-input govuk-date-input__input govuk-input--width-2"
+                id="allocationStartDate-month"
+                inputmode="numeric"
+                name="allocationStartDate-month"
+                pattern="^\\\\d{2}$"
+                value=""
+              />
+            </div>
+          </div>
+          <div
+            class="govuk-date-input__item"
+          >
+            <div
+              class="govuk-form-group"
+            >
+              <label
+                class="govuk-label govuk-date-input__label"
+                for="allocationStartDate-year"
+              >
+                Year
+              </label>
+              <input
+                class="govuk-input govuk-date-input__input govuk-input--width-4"
+                id="allocationStartDate-year"
+                inputmode="numeric"
+                name="allocationStartDate-year"
+                pattern="^\\\\d{4}$"
+                value=""
+              />
+            </div>
+          </div>
+        </div>
+      </fieldset>
+    </div>
     <button
       class="govuk-button"
       data-module="govuk-button"

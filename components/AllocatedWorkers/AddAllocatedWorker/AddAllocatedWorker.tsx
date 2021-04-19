@@ -12,6 +12,7 @@ import {
   addAllocatedWorker,
 } from 'utils/api/allocatedWorkers';
 import { AgeContext } from 'types';
+import DateInput from 'components/Form/DateInput/DateInput';
 
 interface Props {
   personId: number;
@@ -25,20 +26,21 @@ const AddAllocatedWorker = ({
   const [postError, setPostError] = useState<boolean | null>();
   const [postLoading, setPostLoading] = useState<boolean>();
   const { query, push, replace, pathname } = useRouter();
-  const { handleSubmit, register, control } = useForm({
+  const { handleSubmit, register, control, errors } = useForm({
     defaultValues: query,
   });
   const { teamId } = query as { teamId?: number };
   const { data: { teams } = {}, error: errorTeams } = useTeams({ ageContext });
   const { data: workers, error: errorWorkers } = useTeamWorkers(teamId);
   const addWorker = useCallback(
-    async ({ workerId }) => {
+    async ({ workerId, allocationStartDate }) => {
       setPostLoading(true);
       setPostError(null);
       try {
         await addAllocatedWorker(personId, {
           allocatedTeamId: Number(teamId),
           allocatedWorkerId: Number(workerId),
+          allocationStartDate,
         });
         push(`/people/${personId}`);
       } catch (e) {
@@ -92,6 +94,9 @@ const AddAllocatedWorker = ({
                 about a worker’s current allocated cases by selecting their
                 name.
               </p>
+              {errors.workerId && (
+                <ErrorMessage label="Please select a worker." />
+              )}
               <table className="govuk-table">
                 <thead className="govuk-table__head">
                   <tr className="govuk-table__row">
@@ -125,8 +130,10 @@ const AddAllocatedWorker = ({
                               name="workerId"
                               type="radio"
                               value={id}
+                              ref={register({
+                                required: true,
+                              })}
                               disabled={!workers}
-                              ref={register}
                               onChange={(e) =>
                                 replace(
                                   {
@@ -162,6 +169,14 @@ const AddAllocatedWorker = ({
                   )}
                 </tbody>
               </table>
+              <DateInput
+                label="Allocation Start Date:"
+                labelSize="s"
+                name="allocationStartDate"
+                error={errors.allocationStartDate}
+                control={control}
+                rules={{ required: 'Please select the allocation start date' }}
+              />
               <Button
                 label="Allocate worker"
                 type="submit"
