@@ -14,7 +14,7 @@ interface FormData {
   [key: string]: unknown;
 }
 
-const CreateNewPerson = (): React.ReactElement => {
+const CreateNewWorker = (): React.ReactElement => {
   const { user } = useAuth() as { user: User };
   const { data: { teams: ATeams } = {}, error: errorATeams } = useTeams({
     ageContext: 'A',
@@ -57,4 +57,4 @@ const CreateNewPerson = (): React.ReactElement => {
   );
 };
 
-export default CreateNewPerson;
+export default CreateNewWorker;
