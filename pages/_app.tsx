@@ -28,6 +28,9 @@ const CustomApp = ({
         value={{
           fetcher: (resource, options) =>
             axios.get(resource, options).then((res) => res.data),
+          onErrorRetry: (error) => {
+            if (error.status === 404) return;
+          },
         }}
       >
         <AuthProvider user={user}>

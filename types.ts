@@ -1,3 +1,7 @@
+import { AxiosError } from 'axios';
+
+export type ErrorAPI = AxiosError;
+
 export interface Address {
   address: string;
   postcode: string;
@@ -100,10 +104,6 @@ export interface Case {
 export interface CaseData {
   cases: Case[] | [];
   nextCursor?: number;
-}
-
-export interface ErrorAPI {
-  message: string;
 }
 
 export interface Resident {
