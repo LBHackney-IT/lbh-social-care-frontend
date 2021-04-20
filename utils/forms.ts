@@ -1,34 +1,20 @@
-import CHILD_FORMS from 'data/googleForms/childForms';
-import ADULT_FORMS from 'data/googleForms/adultForms';
+import { acs } from 'data/formFilterNames/adultFormNames';
+import { cfs } from 'data/formFilterNames/childFormNames';
 
 import { getPermissionFlag, UserPermissions } from 'utils/user';
 
-type Form = typeof ADULT_FORMS[number];
+const sortForms = (formA: string, formB: string) =>
+  formA.toLocaleLowerCase() < formB.toLowerCase() ? -1 : 1;
 
-interface IForm extends Form {
-  id?: string;
-}
-
-interface NormalisedForm {
-  text: string;
-  value: string;
-}
-
-const sortForms = (formA: NormalisedForm, formB: NormalisedForm) =>
-  formA.text.toLowerCase() < formB.text.toLowerCase() ? -1 : 1;
-
-const normaliseForms = (forms: IForm[]) =>
-  forms.map(({ id, text }) => ({ text, value: id ?? text }));
+const adminArray: Array<string> = [...acs, ...cfs].sort(sortForms);
 
 export const getFormsByUserPermission = (
   user: UserPermissions
-): Array<NormalisedForm> => {
+): Array<string> => {
   const permission = getPermissionFlag(user);
   return permission === 'C'
-    ? normaliseForms(CHILD_FORMS).sort(sortForms)
+    ? cfs.sort(sortForms)
     : permission === 'A'
-    ? normaliseForms(ADULT_FORMS).sort(sortForms)
-    : [...normaliseForms(ADULT_FORMS), ...normaliseForms(CHILD_FORMS)].sort(
-        sortForms
-      );
+    ? acs.sort(sortForms)
+    : adminArray.filter((u, i) => i === adminArray.indexOf(u));
 };
