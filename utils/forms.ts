@@ -1,20 +1,23 @@
-import { acs } from 'data/formFilterNames/adultFormNames';
-import { cfs } from 'data/formFilterNames/childFormNames';
+import ADULT_FORM_NAMES from 'data/formFilterNames/adultFormNames';
+import CHILD_FORM_NAMES from 'data/formFilterNames/childFormNames';
 
 import { getPermissionFlag, UserPermissions } from 'utils/user';
 
 const sortForms = (formA: string, formB: string) =>
   formA.toLocaleLowerCase() < formB.toLowerCase() ? -1 : 1;
 
-const adminArray: Array<string> = [...acs, ...cfs].sort(sortForms);
+const adminArray: Array<string> = [
+  ...ADULT_FORM_NAMES,
+  ...CHILD_FORM_NAMES,
+].sort(sortForms);
 
 export const getFormsByUserPermission = (
   user: UserPermissions
 ): Array<string> => {
   const permission = getPermissionFlag(user);
   return permission === 'C'
-    ? cfs.sort(sortForms)
+    ? CHILD_FORM_NAMES.sort(sortForms)
     : permission === 'A'
-    ? acs.sort(sortForms)
+    ? ADULT_FORM_NAMES.sort(sortForms)
     : adminArray.filter((u, i) => i === adminArray.indexOf(u));
 };

@@ -1,4 +1,4 @@
-export const cfs = [
+export default [
   'Adoption Information',
   'Case Audit',
   'Case Summary',

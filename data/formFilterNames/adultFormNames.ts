@@ -1,4 +1,4 @@
-export const acs = [
+export default [
   'Case Audit',
   'Case Summary',
   'Clinician contact',
