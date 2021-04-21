@@ -50,7 +50,7 @@ const CaseNotesRecording = (): React.ReactElement => {
           {(person: Resident) => (
             <div className="govuk-!-margin-top-7">
               <FormWizard
-                formPath={`/people/${personId}/case-notes-recording/`}
+                formPath={`/people/${personId}/records/case-notes-recording/`}
                 formSteps={
                   person.ageContext === 'A' ? formStepsAdult : formStepsChild
                 }
