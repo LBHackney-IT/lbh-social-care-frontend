@@ -6,12 +6,6 @@ export default [
     category: 'General',
   },
   {
-    text: 'Case Note Recording',
-    value:
-      'https://docs.google.com/forms/d/e/1FAIpQLSeNCZwdm0cEvWqIE2o9Ga7cXC-2e6O_WTyvBjBfMSOA7b0Xag/viewform',
-    category: 'Case Note',
-  },
-  {
     text: 'Safeguarding Concern',
     value:
       'https://docs.google.com/forms/d/e/1FAIpQLSdZWi80TowC6YleevxmnBYc10vQyIsAST9fFueas_Huz3X8FQ/viewform',
