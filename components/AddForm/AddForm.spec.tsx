@@ -53,6 +53,7 @@ describe('AddForm component', () => {
     await act(async () => {
       fireEvent.click(autocompleteInput);
     });
+    expect(getByRole('option', { name: 'Case Note Recording' })).toBeDefined();
 
     await act(async () => {
       fireEvent.click(getByRole('option', { name: 'Bar - Adult' }));
