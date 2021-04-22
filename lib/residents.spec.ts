@@ -73,20 +73,20 @@ describe('residents APIs', () => {
     it('should work properly', async () => {
       mockedAxios.get.mockResolvedValue({
         data: {
-          residents: [{ name: 'foobar', restricted: 'Y' }, { name: 'barfoo' }],
+          name: 'foobar',
+          restricted: 'Y',
         },
       });
-      const data = await residentsAPI.getResident(123, { bar: 'foobar' });
+      const data = await residentsAPI.getResident(123, { context_flag: 'A' });
       expect(mockedAxios.get).toHaveBeenCalled();
       expect(mockedAxios.get.mock.calls[0][0]).toEqual(
-        `${ENDPOINT_API}/residents`
+        `${ENDPOINT_API}/residents/123`
       );
       expect(mockedAxios.get.mock.calls[0][1]?.headers).toEqual({
         'x-api-key': AWS_KEY,
       });
       expect(mockedAxios.get.mock.calls[0][1]?.params).toEqual({
-        mosaic_id: 123,
-        bar: 'foobar',
+        context_flag: 'A',
       });
       expect(data).toEqual({
         name: 'foobar',

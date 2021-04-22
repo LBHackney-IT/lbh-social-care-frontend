@@ -3,11 +3,11 @@ import { useRouter } from 'next/router';
 
 import { useAuth } from 'components/UserContext/UserContext';
 import FormWizard from 'components/FormWizard/FormWizard';
-import { updateResident } from 'utils/api/residents';
 import CustomConfirmation from 'components/Steps/PersonConfirmation';
-import { useResident } from 'utils/api/residents';
 import Spinner from 'components/Spinner/Spinner';
 import ErrorMessage from 'components/ErrorMessage/ErrorMessage';
+import { useResident, updateResident } from 'utils/api/residents';
+import { getMacroEthnicity } from 'utils/person';
 
 import form from 'data/forms/create-new-person';
 
@@ -57,7 +57,11 @@ const UpdatePerson = (): ReactElement => {
       title={form.title}
       defaultValues={{
         user,
-        ...{ ...person, contextFlag: person.ageContext },
+        ...{
+          ...person,
+          macroEthnicity:
+            person.ethnicity && getMacroEthnicity(person.ethnicity),
+        },
       }}
       onFormSubmit={onFormSubmit}
       successMessage={form.successMessage}

@@ -1,6 +1,11 @@
 import axios from 'axios';
 
-import type { Resident, ResidentAPI } from 'types';
+import type {
+  Resident,
+  ExtendedResident,
+  ResidentAPI,
+  AgeContext,
+} from 'types';
 
 const { ENDPOINT_API, AWS_KEY } = process.env;
 
@@ -45,14 +50,14 @@ export const getResidents = async (
 };
 
 export const getResident = async (
-  mosaic_id: number,
-  params: Record<string, unknown>
-): Promise<Resident> => {
-  const { data } = await axios.get(`${ENDPOINT_API}/residents`, {
+  personId: number,
+  params: { context_flag: AgeContext }
+): Promise<ExtendedResident> => {
+  const { data } = await axios.get(`${ENDPOINT_API}/residents/${personId}`, {
     headers,
-    params: { mosaic_id, ...params },
+    params,
   });
-  return sanitiseResidentData(data.residents)?.[0];
+  return { ...data, restricted: data.restricted === 'Y' };
 };
 
 export const normalisePhoneInput = (formData: {

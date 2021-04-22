@@ -3,7 +3,7 @@ import useSWR, { useSWRInfinite, SWRResponse, SWRInfiniteResponse } from 'swr';
 
 import { getInfiniteKey } from 'utils/api';
 
-import type { Resident, ErrorAPI } from 'types';
+import type { ExtendedResident, ErrorAPI } from 'types';
 
 export const useResidents = (
   params: Record<string, unknown>,
@@ -16,7 +16,8 @@ export const useResidents = (
 
 export const useResident = (
   personId: number
-): SWRResponse<Resident, ErrorAPI> => useSWR(`/api/residents/${personId}`);
+): SWRResponse<ExtendedResident, ErrorAPI> =>
+  useSWR(`/api/residents/${personId}`);
 
 export const addResident = async (
   formData: Record<string, unknown>
