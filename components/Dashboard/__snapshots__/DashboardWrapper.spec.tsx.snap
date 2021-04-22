@@ -47,7 +47,7 @@ exports[`DashboardWrapper should render properly 1`] = `
               class="govuk-tabs__tab"
               href="/"
             >
-              Forms to complete
+              Clients allocated
             </a>
           </li>
           <li
@@ -55,9 +55,9 @@ exports[`DashboardWrapper should render properly 1`] = `
           >
             <a
               class="govuk-tabs__tab"
-              href="/my-allocations"
+              href="/forms-in-progress"
             >
-              Clients allocated
+              Forms to complete
             </a>
           </li>
           <li

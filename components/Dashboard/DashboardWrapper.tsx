@@ -15,11 +15,11 @@ const DashboardWrapper = ({ children }: Props): React.ReactElement => (
       tabs={[
         {
           url: '/',
-          text: 'Forms to complete',
+          text: 'Clients allocated',
         },
         {
-          url: '/my-allocations',
-          text: 'Clients allocated',
+          url: '/forms-in-progress',
+          text: 'Forms to complete',
         },
         {
           url: '/my-records',

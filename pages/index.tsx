@@ -1,19 +1,17 @@
 import Seo from 'components/Layout/Seo/Seo';
-import SavedForms from 'components/SaveFormData/SaveFormData';
+import MyAllocatedCases from 'components/AllocatedCases/MyAllocatedCases';
 import DashboardWrapper from 'components/Dashboard/DashboardWrapper';
 
-const MyFormsPage = (): React.ReactElement => (
+const MyCasesPage = (): React.ReactElement => (
   <div>
-    <Seo title="My work space" />
+    <Seo title="My Work Space" />
     <DashboardWrapper>
       <>
-        <p className="govuk-body">
-          Forms that have been started and are not complete
-        </p>
-        <SavedForms />
+        <p className="govuk-body">Clients you are currently managing</p>
+        <MyAllocatedCases />
       </>
     </DashboardWrapper>
   </div>
 );
 
-export default MyFormsPage;
+export default MyCasesPage;

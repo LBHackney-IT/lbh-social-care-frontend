@@ -21,7 +21,7 @@ const loggedNavLinks = [
     isSelected: (pathname: string) =>
       pathname === '/' ||
       pathname === '/my-records' ||
-      pathname === '/my-allocations',
+      pathname === '/forms-in-progress',
   },
   {
     name: 'Logout',
