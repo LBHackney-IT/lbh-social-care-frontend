@@ -13,13 +13,21 @@ const AddForm = ({ person }: { person: Resident }): React.ReactElement => {
   const [url, setUrl] = useState<string>();
   const ageContext = person && person.ageContext;
   const forms = ageContext === 'C' ? CHILD_FORMS : ADULT_FORMS;
-
+  const internalForms =
+    ageContext === 'A'
+      ? [
+          {
+            text: 'Case Note Recording',
+            value: `/people/${person.mosaicId}/records/case-notes-recording`,
+          },
+        ]
+      : [];
   return (
     <>
       <div className="govuk-form-group">
         <Autocomplete
           name="formList"
-          options={forms}
+          options={[...internalForms, ...forms]}
           label="Choose a form"
           placeholder="Select or type form name"
           onChange={(value) => setUrl(value as string)}

@@ -3,6 +3,7 @@ import {
   Case,
   HistoricCaseData,
   DeallocationCaseFormData,
+  HistoricVisitData,
 } from 'types';
 
 export const mockedNote: Case = {
@@ -43,6 +44,20 @@ export const mockedHistoricCaseNote: HistoricCaseData = {
   officerName: 'Foo Bar Bar',
   officerEmail: 'foo@hackney.gov.uk',
   dateOfEvent: '11/03/2021 16:51:56',
+};
+
+export const mockedHistoricVisitNote: HistoricVisitData = {
+  visitId: 123,
+  personId: 321,
+  visitType: 'VIS.TYPE',
+  plannedDateTime: '2019-12-12T13:00:00Z',
+  actualDateTime: '2019-12-12T13:00:00Z',
+  createdByName: 'Foo Bar',
+  createdByEmail: 'foo.bar@Hackney.gov.uk',
+  reasonNotPlanned: 'not planned because',
+  reasonVisitNotMade: 'not made reason',
+  seenAloneFlag: true,
+  completedFlag: true,
 };
 
 export const mockedAllocationNote: Case = {

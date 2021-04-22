@@ -117,6 +117,10 @@ describe(`AddAllocatedWorker`, () => {
 
     fireEvent.click(getByLabelText('Worker C'));
 
+    fireEvent.change(getByLabelText('Day'), { target: { value: '01' } });
+    fireEvent.change(getByLabelText('Month'), { target: { value: '01' } });
+    fireEvent.change(getByLabelText('Year'), { target: { value: '2021' } });
+
     await act(async () => {
       fireEvent.submit(getByRole('form'));
     });
@@ -125,6 +129,7 @@ describe(`AddAllocatedWorker`, () => {
     expect(allocatedWorkerAPI.addAllocatedWorker).toHaveBeenCalledWith(123, {
       allocatedTeamId: 3,
       allocatedWorkerId: 7,
+      allocationStartDate: '2021-01-01',
     });
   });
 });

@@ -1,0 +1,194 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`WorkerSearch should display search results 1`] = `
+<DocumentFragment>
+  <div>
+    <form
+      role="form"
+    >
+      <div
+        class="govuk-grid-row"
+        style="display: flex; align-items: flex-end; justify-content: center;"
+      >
+        <div
+          class="govuk-grid-column-one-half"
+        >
+          <div
+            class="govuk-form-group"
+          >
+            <label
+              class="govuk-label govuk-label--s"
+              for="email"
+            >
+              Worker's email address: 
+            </label>
+            <span
+              class="govuk-hint"
+              id="email-hint"
+            >
+              Email address must contain @hackney.gov.uk
+            </span>
+            <input
+              aria-describedby="email-hint"
+              class="govuk-input"
+              data-testid="email"
+              id="email"
+              name="email"
+              placeholder="Email"
+              type="email"
+            />
+          </div>
+        </div>
+        <div
+          class="govuk-grid-column-one-half"
+        >
+          <button
+            class="govuk-button govuk-button"
+            data-module="govuk-button"
+            type="submit"
+          >
+            Search
+          </button>
+        </div>
+      </div>
+    </form>
+    <div>
+      <h2
+        class="gov-weight-lighter"
+      >
+        Worker's details found in system
+      </h2>
+      <p
+        class="govuk-body"
+      >
+        Name: Foo Bar
+      </p>
+      <p
+        class="govuk-body"
+      >
+        Role: aliquam
+      </p>
+      <p
+        class="govuk-body"
+      >
+        Teams: 
+      </p>
+    </div>
+    <h2
+      class="gov-weight-lighter"
+    >
+      Current Allocations
+    </h2>
+    <span
+      class="govuk-error-message"
+    >
+      <span
+        class="govuk-visually-hidden"
+      >
+        Error:
+      </span>
+       Oops an error occurred
+    </span>
+    <div
+      style="display: flex; justify-content: space-between;"
+    >
+      <div>
+        <a
+          class="govuk-link"
+          href="/"
+          style="line-height: 2.5rem;"
+        >
+          Cancel
+        </a>
+      </div>
+      <button
+        class="govuk-button govuk-!-margin-left-1"
+        data-module="govuk-button"
+        style="min-width: 200px;"
+      >
+        Update worker's details
+      </button>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`WorkerSearch should display the error 1`] = `
+<DocumentFragment>
+  <div>
+    <form
+      role="form"
+    >
+      <div
+        class="govuk-grid-row"
+        style="display: flex; align-items: flex-end; justify-content: center;"
+      >
+        <div
+          class="govuk-grid-column-one-half"
+        >
+          <div
+            class="govuk-form-group"
+          >
+            <label
+              class="govuk-label govuk-label--s"
+              for="email"
+            >
+              Worker's email address: 
+            </label>
+            <span
+              class="govuk-hint"
+              id="email-hint"
+            >
+              Email address must contain @hackney.gov.uk
+            </span>
+            <input
+              aria-describedby="email-hint"
+              class="govuk-input"
+              data-testid="email"
+              id="email"
+              name="email"
+              placeholder="Email"
+              type="email"
+            />
+          </div>
+        </div>
+        <div
+          class="govuk-grid-column-one-half"
+        >
+          <button
+            class="govuk-button govuk-button"
+            data-module="govuk-button"
+            type="submit"
+          >
+            Search
+          </button>
+        </div>
+      </div>
+    </form>
+    <h3>
+      Worker's email address not found
+    </h3>
+    <p
+      class="govuk-body govuk-!-margin-top-5"
+    >
+      The email address is not in the system.
+    </p>
+    <p
+      class="govuk-body govuk-!-margin-top-5"
+    >
+      You can search again on a different email address
+    </p>
+    <p
+      class="govuk-body govuk-!-margin-top-5"
+    >
+      Please be sure the email address is correct before you use it to 
+      <a
+        class="govuk-link"
+        href="/workers/add"
+      >
+        create a new worker in the system
+      </a>
+    </p>
+  </div>
+</DocumentFragment>
+`;

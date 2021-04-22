@@ -1,3 +1,7 @@
+import { AxiosError } from 'axios';
+
+export type ErrorAPI = AxiosError;
+
 export interface Address {
   address: string;
   postcode: string;
@@ -64,6 +68,20 @@ export interface HistoricCaseData {
   dateOfEvent: string;
 }
 
+export interface HistoricVisitData {
+  visitId: number;
+  personId: number;
+  visitType: string;
+  plannedDateTime: string;
+  actualDateTime: string;
+  createdByName: string;
+  createdByEmail: string;
+  reasonNotPlanned?: string;
+  reasonVisitNotMade?: string;
+  seenAloneFlag: boolean;
+  completedFlag: boolean;
+}
+
 export type CaseFormData =
   | CaseFormDataBase
   | AllocationCaseFormData
@@ -86,10 +104,6 @@ export interface Case {
 export interface CaseData {
   cases: Case[] | [];
   nextCursor?: number;
-}
-
-export interface ErrorAPI {
-  message: string;
 }
 
 export interface Resident {

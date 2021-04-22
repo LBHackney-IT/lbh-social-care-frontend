@@ -26,17 +26,36 @@ describe('cases APIs', () => {
     });
   });
 
-  describe('getCaseNote', () => {
+  describe('getHistoricNote', () => {
     it('should work properly', async () => {
       mockedAxios.get.mockResolvedValue({
         data: { foo: 123 },
       });
-      const data = await casesAPI.getCaseNote('123', {
+      const data = await casesAPI.getHistoricNote('123', {
         foo: 'bar',
       });
       expect(mockedAxios.get).toHaveBeenCalled();
       expect(mockedAxios.get.mock.calls[0][0]).toEqual(
         `${ENDPOINT_API}/casenotes/123`
+      );
+      expect(mockedAxios.get.mock.calls[0][1]?.headers).toEqual({
+        'x-api-key': AWS_KEY,
+      });
+      expect(data).toEqual({ foo: 123 });
+    });
+  });
+
+  describe('getHistoricVisit', () => {
+    it('should work properly', async () => {
+      mockedAxios.get.mockResolvedValue({
+        data: { foo: 123 },
+      });
+      const data = await casesAPI.getHistoricVisit('123', {
+        foo: 'bar',
+      });
+      expect(mockedAxios.get).toHaveBeenCalled();
+      expect(mockedAxios.get.mock.calls[0][0]).toEqual(
+        `${ENDPOINT_API}/visits/123`
       );
       expect(mockedAxios.get.mock.calls[0][1]?.headers).toEqual({
         'x-api-key': AWS_KEY,

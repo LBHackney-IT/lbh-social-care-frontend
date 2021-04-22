@@ -154,8 +154,9 @@ export interface Autocomplete extends Omit<GenericField, 'onChange'> {
   onChange?: (value: string | number | null) => void;
 }
 
-interface StepAutocomplete extends Autocomplete {
+interface StepAutocomplete extends Omit<Autocomplete, 'options'> {
   component: 'Autocomplete';
+  options: Options;
 }
 
 export interface DateInput extends GenericField {

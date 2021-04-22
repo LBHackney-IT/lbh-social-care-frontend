@@ -48,18 +48,20 @@ const CaseNotesRecording = (): React.ReactElement => {
         </h1>
         <PersonView personId={personId} expandView>
           {(person: Resident) => (
-            <FormWizard
-              formPath={`/people/${personId}/case-notes-recording/`}
-              formSteps={
-                person.ageContext === 'A' ? formStepsAdult : formStepsChild
-              }
-              title="Case Notes Recording"
-              onFormSubmit={onFormSubmit(person)}
-              personDetails={{ ...person }}
-              includesDetails
-              hideBackButton
-              customConfirmation={CustomConfirmation}
-            />
+            <div className="govuk-!-margin-top-7">
+              <FormWizard
+                formPath={`/people/${personId}/records/case-notes-recording/`}
+                formSteps={
+                  person.ageContext === 'A' ? formStepsAdult : formStepsChild
+                }
+                title="Case Notes Recording"
+                onFormSubmit={onFormSubmit(person)}
+                personDetails={{ ...person }}
+                includesDetails
+                hideBackButton
+                customConfirmation={CustomConfirmation}
+              />
+            </div>
           )}
         </PersonView>
       </>

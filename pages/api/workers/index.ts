@@ -1,7 +1,7 @@
 import { StatusCodes } from 'http-status-codes';
-
-import { getCaseNote } from 'lib/cases';
 import { isAuthorised } from 'utils/auth';
+
+import { getWorkers } from 'lib/workers';
 
 import type { NextApiRequest, NextApiResponse, NextApiHandler } from 'next';
 
@@ -16,25 +16,22 @@ const endpoint: NextApiHandler = async (
   if (!user.isAuthorised) {
     return res.status(StatusCodes.FORBIDDEN).end();
   }
-  const { caseId, ...params } = req.query;
   switch (req.method) {
     case 'GET':
       try {
-        const data = await getCaseNote(caseId as string, {
-          ...params,
-          context_flag: user.permissionFlag,
-        });
-        data
-          ? res.status(StatusCodes.OK).json(data)
-          : res
-              .status(StatusCodes.NOT_FOUND)
-              .json({ message: 'Allocation Not Found' });
+        const data = await getWorkers(req.query);
+        res.status(StatusCodes.OK).json(data);
       } catch (error) {
-        console.error('Cases get error:', error?.response?.data);
-        res
-          .status(StatusCodes.INTERNAL_SERVER_ERROR)
-          .json({ message: 'Unable to get the Cases' });
+        console.error('Workers gets an error:', error?.response?.data);
+        error?.response?.status === StatusCodes.NOT_FOUND
+          ? res
+              .status(StatusCodes.NOT_FOUND)
+              .json({ message: 'Worker Not Found' })
+          : res
+              .status(StatusCodes.INTERNAL_SERVER_ERROR)
+              .json({ message: 'Unable to get the worker' });
       }
+
       break;
 
     default:
@@ -43,5 +40,4 @@ const endpoint: NextApiHandler = async (
         .json({ message: 'Invalid request method' });
   }
 };
-
 export default endpoint;

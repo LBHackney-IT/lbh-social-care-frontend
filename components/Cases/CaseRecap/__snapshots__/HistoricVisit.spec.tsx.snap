@@ -1,0 +1,16 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`HistoricNote should display historic case note 1`] = `
+<DocumentFragment>
+  <span
+    class="govuk-error-message"
+  >
+    <span
+      class="govuk-visually-hidden"
+    >
+      Error:
+    </span>
+     Oops an error occurred
+  </span>
+</DocumentFragment>
+`;

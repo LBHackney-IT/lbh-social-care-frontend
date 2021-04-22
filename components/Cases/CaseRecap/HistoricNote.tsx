@@ -1,14 +1,14 @@
 import ErrorMessage from 'components/ErrorMessage/ErrorMessage';
 import Spinner from 'components/Spinner/Spinner';
 import PageView from 'components/PageView/PageView';
-import { useCaseNote } from 'utils/api/cases';
+import { useHistoricCaseNote } from 'utils/api/cases';
 
 interface Props {
   recordId: string;
 }
 
 const HistoricNote = ({ recordId }: Props): React.ReactElement => {
-  const { data: record, error: recordError } = useCaseNote(recordId);
+  const { data: record, error: recordError } = useHistoricCaseNote(recordId);
 
   if (recordError) {
     return <ErrorMessage />;
