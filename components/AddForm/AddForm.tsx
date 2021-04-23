@@ -6,19 +6,23 @@ import { Autocomplete } from 'components/Form/Autocomplete/Autocomplete';
 import { populateChildForm } from 'utils/populate';
 import ADULT_FORMS from 'data/googleForms/adultForms';
 import CHILD_FORMS from 'data/googleForms/childForms';
-import { Resident, User } from 'types';
+import { ExtendedResident, User } from 'types';
 
-const AddForm = ({ person }: { person: Resident }): React.ReactElement => {
+const AddForm = ({
+  person,
+}: {
+  person: ExtendedResident;
+}): React.ReactElement => {
   const { user } = useAuth() as { user: User };
   const [url, setUrl] = useState<string>();
-  const ageContext = person && person.ageContext;
+  const ageContext = person && person.contextFlag;
   const forms = ageContext === 'C' ? CHILD_FORMS : ADULT_FORMS;
   const internalForms =
     ageContext === 'A'
       ? [
           {
             text: 'Case Note Recording',
-            value: `/people/${person.mosaicId}/records/case-notes-recording`,
+            value: `/people/${person.personId}/records/case-notes-recording`,
           },
         ]
       : [];
@@ -40,13 +44,13 @@ const AddForm = ({ person }: { person: Resident }): React.ReactElement => {
             ? `${url}${populateChildForm(
                 person.firstName,
                 person.lastName,
-                person.mosaicId,
+                person.personId,
                 user.name,
                 url
               )}`
             : url
         }
-        internalQuery={`?id=${person.mosaicId}`}
+        internalQuery={`?id=${person.personId}`}
       />
     </>
   );

@@ -9,26 +9,26 @@ import FormWizard from 'components/FormWizard/FormWizard';
 
 import { formStepsAdult, formStepsChild } from 'data/forms/warning-note';
 
-import type { Resident, User } from 'types';
+import type { ExtendedResident, User } from 'types';
 
 const CaseNotesRecording = (): React.ReactElement => {
   const { query } = useRouter();
   const personId = Number(query.id as string);
   const { user } = useAuth() as { user: User };
   const onFormSubmit = useCallback(
-    (person: Resident) => async ({
+    (person: ExtendedResident) => async ({
       form_name,
       ...formData
     }: Record<string, unknown>) => {
       console.log({
-        personId: person.mosaicId, // TODO: needs to be fixed BE
+        personId: person.personId,
         firstName: person.firstName,
         lastName: person.lastName,
-        contextFlag: person.ageContext,
+        contextFlag: person.contextFlag,
         dateOfBirth: person.dateOfBirth,
         workerEmail: user.email,
         formNameOverall:
-          person.ageContext === 'A' ? 'ASC_case_note' : 'CFS_case_note',
+          person.contextFlag === 'A' ? 'ASC_case_note' : 'CFS_case_note',
         formName: form_name,
         caseFormData: JSON.stringify(formData),
       });
@@ -44,11 +44,11 @@ const CaseNotesRecording = (): React.ReactElement => {
           Add Warning Note
         </h1>
         <PersonView personId={personId} expandView>
-          {(person: Resident) => (
+          {(person) => (
             <FormWizard
               formPath={`/people/${personId}/warning-notes/add/`}
               formSteps={
-                person.ageContext === 'A' ? formStepsAdult : formStepsChild
+                person.contextFlag === 'A' ? formStepsAdult : formStepsChild
               }
               title="Add Warning Note"
               onFormSubmit={onFormSubmit(person)}

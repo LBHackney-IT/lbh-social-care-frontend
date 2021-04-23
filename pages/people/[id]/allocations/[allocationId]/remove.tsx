@@ -7,8 +7,6 @@ import PersonView from 'components/PersonView/PersonView';
 import { useAuth } from 'components/UserContext/UserContext';
 import { isBrowser } from 'utils/ssr';
 
-import type { Resident } from 'types';
-
 const RemovedAllocationPage = (): React.ReactElement => {
   const { query, replace } = useRouter();
   const personId = Number(query.id as string);
@@ -26,10 +24,10 @@ const RemovedAllocationPage = (): React.ReactElement => {
         Deallocate worker from
       </h1>
       <PersonView personId={personId} expandView={true}>
-        {(person: Resident) => (
+        {(person) => (
           <div className="govuk-!-margin-top-7">
             <DeallocateWorkers
-              personId={person.mosaicId}
+              personId={person.personId}
               allocationId={allocationId}
             />
           </div>

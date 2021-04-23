@@ -30,7 +30,7 @@ const SavedDataTable = ({
           {record.personDetails && (
             <>
               <td className="govuk-table__cell">
-                {`#${record.personDetails.mosaicId}`}{' '}
+                {`#${record.personDetails.personId}`}{' '}
               </td>
               <td className="govuk-table__cell">
                 {`${record.personDetails.firstName} ${record.personDetails.lastName}`}{' '}

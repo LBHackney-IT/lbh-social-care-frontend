@@ -4,11 +4,11 @@ import ErrorMessage from 'components/ErrorMessage/ErrorMessage';
 import Spinner from 'components/Spinner/Spinner';
 import PersonDetails from './PersonDetails';
 import { useResident } from 'utils/api/residents';
-import { Resident } from 'types';
+import { ExtendedResident } from 'types';
 
 interface Props {
   personId: number;
-  children?: React.ReactChild | ((arg0: Resident) => React.ReactChild);
+  children?: React.ReactChild | ((arg0: ExtendedResident) => React.ReactChild);
   expandView?: boolean;
   showPersonDetails?: boolean;
   canEdit?: boolean;
@@ -36,7 +36,7 @@ const PersonView = ({
             {person.firstName} {person.lastName}
           </h1>
           {canEdit && (
-            <Link href={`/people/${person.mosaicId}/update`}>
+            <Link href={`/people/${person.personId}/update`}>
               <a className="govuk-link">Update person</a>
             </Link>
           )}

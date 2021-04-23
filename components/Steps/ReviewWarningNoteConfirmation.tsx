@@ -1,9 +1,9 @@
-import { Resident } from 'types';
+import { ExtendedResident } from 'types';
 import Button from 'components/Button/Button';
 
 export interface Props {
   formData: {
-    person: Resident;
+    person: ExtendedResident;
     reviewDecision: string;
     [key: string]: unknown;
   };
@@ -27,7 +27,7 @@ const ReviewWarningNoteConfirmation = ({
         <Button
           label="View person"
           wideButton
-          route={`/people/${formData.person.mosaicId}`}
+          route={`/people/${formData.person.personId}`}
         />
       </div>
     </>

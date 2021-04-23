@@ -9,10 +9,10 @@ interface Props {
 const PersonDetails = ({
   person: {
     otherNames,
-    ageContext,
+    contextFlag,
     firstName,
     lastName,
-    mosaicId,
+    personId,
     dateOfBirth,
     nhsNumber,
     firstLanguage,
@@ -22,8 +22,8 @@ const PersonDetails = ({
     gender,
     address,
     ethnicity,
-    phoneNumber,
-    email,
+    phoneNumbers,
+    emailAddress,
     preferredMethodOfContact,
   },
   expandView = false,
@@ -65,7 +65,7 @@ const PersonDetails = ({
             )}
             <div className="govuk-summary-list__row">
               <dt className="govuk-summary-list__key">Person ID</dt>
-              <dd className="govuk-summary-list__value">#{mosaicId}</dd>
+              <dd className="govuk-summary-list__value">#{personId}</dd>
             </div>
             {gender && (
               <div className="govuk-summary-list__row">
@@ -129,24 +129,24 @@ const PersonDetails = ({
                 </dd>
               </div>
             )}
-            {phoneNumber && phoneNumber?.length > 0 && (
+            {phoneNumbers.length > 0 && (
               <div className="govuk-summary-list__row">
                 <dt className="govuk-summary-list__key">Phone Number</dt>
                 <dd className="govuk-summary-list__value">
                   <ul className="govuk-list">
-                    {phoneNumber.map(({ phoneNumber, phoneType }) => (
-                      <li key={phoneNumber}>
-                        {phoneNumber} - {phoneType}
+                    {phoneNumbers.map(({ number, type }) => (
+                      <li key={number}>
+                        {number} - {type}
                       </li>
                     ))}
                   </ul>
                 </dd>
               </div>
             )}
-            {email && (
+            {emailAddress && (
               <div className="govuk-summary-list__row">
-                <dt className="govuk-summary-list__key">Email </dt>
-                <dd className="govuk-summary-list__value">{email}</dd>
+                <dt className="govuk-summary-list__key">Email</dt>
+                <dd className="govuk-summary-list__value">{emailAddress}</dd>
               </div>
             )}
             {preferredMethodOfContact && (
@@ -159,11 +159,11 @@ const PersonDetails = ({
                 </dd>
               </div>
             )}
-            {ageContext && (
+            {contextFlag && (
               <div className="govuk-summary-list__row">
                 <dt className="govuk-summary-list__key">Person type</dt>
                 <dd className="govuk-summary-list__value">
-                  {ageContext === 'C' ? 'CFS' : 'ASC'}
+                  {contextFlag === 'C' ? 'CFS' : 'ASC'}
                 </dd>
               </div>
             )}

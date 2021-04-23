@@ -1,6 +1,6 @@
 import { StatusCodes } from 'http-status-codes';
 
-import { getResident } from 'lib/residents';
+import { getResident, updateResident } from 'lib/residents';
 import { isAuthorised } from 'utils/auth';
 
 import type { NextApiRequest, NextApiResponse, NextApiHandler } from 'next';
@@ -16,10 +16,11 @@ const endpoint: NextApiHandler = async (
   if (!user.isAuthorised) {
     return res.status(StatusCodes.FORBIDDEN).end();
   }
+  const id = parseInt(req.query.id as string, 10);
   switch (req.method) {
     case 'GET':
       try {
-        const data = await getResident(parseInt(req.query.id as string, 10), {
+        const data = await getResident(id, {
           context_flag: user.permissionFlag,
         });
         data
@@ -36,6 +37,19 @@ const endpoint: NextApiHandler = async (
           : res
               .status(StatusCodes.INTERNAL_SERVER_ERROR)
               .json({ message: 'Unable to get the Resident' });
+      }
+      break;
+
+    case 'PATCH':
+      try {
+        const data = await updateResident({ id, ...req.body });
+        res.status(StatusCodes.OK).json(data);
+      } catch (error) {
+        console.error('Resident patch error:', error?.response?.data);
+        console.error('Resident patch request:', req);
+        res
+          .status(StatusCodes.INTERNAL_SERVER_ERROR)
+          .json({ message: 'Unable to update resident' });
       }
       break;
 

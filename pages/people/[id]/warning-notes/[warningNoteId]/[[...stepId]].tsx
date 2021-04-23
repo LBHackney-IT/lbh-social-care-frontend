@@ -4,7 +4,7 @@ import { useCallback } from 'react';
 import PersonView from 'components/PersonView/PersonView';
 import BackButton from 'components/Layout/BackButton/BackButton';
 import WarningNoteRecap from 'components/WarningNote/WarningNoteRecap/WarningNoteRecap';
-import { Resident, User } from 'types';
+import { ExtendedResident, User } from 'types';
 import FormWizard from 'components/FormWizard/FormWizard';
 import formSteps from 'data/forms/warning-note-review';
 import { useAuth } from 'components/UserContext/UserContext';
@@ -18,19 +18,19 @@ const ReviewWarningNote = (): React.ReactElement => {
   const confirmation = asPath.includes('confirmation');
   const { user } = useAuth() as { user: User };
   const onFormSubmit = useCallback(
-    (person: Resident) => async ({
+    (person: ExtendedResident) => async ({
       form_name,
       ...formData
     }: Record<string, unknown>) => {
       console.log({
-        personId: person.mosaicId,
+        personId: person.personId,
         firstName: person.firstName,
         lastName: person.lastName,
-        contextFlag: person.ageContext,
+        contextFlag: person.contextFlag,
         dateOfBirth: person.dateOfBirth,
         workerEmail: user.email,
         formNameOverall:
-          person.ageContext === 'A' ? 'ASC_case_note' : 'CFS_case_note',
+          person.contextFlag === 'A' ? 'ASC_case_note' : 'CFS_case_note',
         formName: form_name,
         caseFormData: JSON.stringify(formData),
       });
@@ -49,7 +49,7 @@ const ReviewWarningNote = (): React.ReactElement => {
           : 'Review/end Warning Note'}
       </h1>
       <PersonView personId={personId} expandView>
-        {(person: Resident) => (
+        {(person) => (
           <>
             {!summary && !confirmation && (
               <>

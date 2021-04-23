@@ -1,52 +1,11 @@
 import { render, waitFor } from '@testing-library/react';
 import PersonView from './PersonView';
 import * as residentsAPI from 'utils/api/residents';
+import { mockedResident } from 'factories/residents';
 
 describe('PersonView component', () => {
   jest.spyOn(residentsAPI, 'useResident').mockImplementation(() => ({
-    data: {
-      dateOfBirth: '2020-11-13',
-      firstName: 'Ciasom',
-      lastName: 'Tesselate',
-      mosaicId: 44000000,
-      nhsNumber: '12345',
-      ageContext: 'A',
-      firstLanguage: 'English',
-      religion: 'Christian',
-      dateOfDeath: '2021-11-13',
-      sexualOrientation: 'Heterosexual',
-      gender: 'F',
-      ethnicity: 'White',
-      preferredMethodOfContact: 'email',
-      uprn: '',
-      restricted: false,
-      addressList: [
-        {
-          contactAddressFlag: 'N',
-          displayAddressFlag: 'N',
-          addressLine1: 'old adress',
-          addressLine2: null,
-          addressLine3: null,
-          postCode: 'E5 0PU',
-        },
-        {
-          contactAddressFlag: 'N',
-          displayAddressFlag: 'Y',
-          addressLine1: 'new adress',
-          addressLine2: null,
-          addressLine3: null,
-          postCode: 'E5 0PU',
-        },
-      ],
-      phoneNumber: [
-        {
-          phoneNumber: '02123',
-          phoneType: 'Home',
-        },
-      ],
-      otherNames: [{ firstName: 'asd', laseName: 'qwe' }],
-      email: 'foo@bar.com',
-    },
+    data: mockedResident,
     isValidating: false,
     mutate: jest.fn(),
     revalidate: jest.fn(),
@@ -85,7 +44,7 @@ describe('PersonView component', () => {
     const { findByText } = render(
       <PersonView {...props}>{(person) => `foo${person.firstName}`}</PersonView>
     );
-    const children = await findByText('fooCiasom');
+    const children = await findByText('fooFoo');
     expect(children).toBeDefined();
   });
 });

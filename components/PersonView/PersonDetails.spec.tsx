@@ -2,32 +2,30 @@ import { render, fireEvent } from '@testing-library/react';
 
 import PersonDetails from './PersonDetails';
 
-import { AgeContext } from 'types';
+import { residentFactory } from 'factories/residents';
 
 describe('PersonDetails component', () => {
   const props = {
-    person: {
-      otherNames: [{ firstName: 'asd', lastName: 'qwe' }],
-      ageContext: 'A' as AgeContext,
+    person: residentFactory.build({
       firstName: 'i am the first',
       lastName: 'i am the last',
-      mosaicId: 123,
-      dateOfBirth: '1978-02-23T00:00:00.0000000',
-      dateOfDeath: '1998-02-23T00:00:00.0000000',
-      nhsNumber: 'nhs_123',
+      otherNames: [{ firstName: 'asd', lastName: 'qwe' }],
+      dateOfBirth: '1978-02-23T00:00:00',
+      dateOfDeath: '1998-02-23T00:00:00',
+      nhsNumber: 123,
       ethnicity: 'White',
       gender: 'X',
       address: { address: 'new adress', postcode: 'E5 0PU' },
       sexualOrientation: 'straight',
-      email: 'test@test.com',
+      emailAddress: 'test@test.com',
       preferredMethodOfContact: 'email',
-      phoneNumber: [
+      phoneNumbers: [
         {
-          phoneNumber: '02123',
-          phoneType: 'Home',
+          number: '02123',
+          type: 'Home',
         },
       ],
-    },
+    }),
   };
 
   it('should render properly', () => {

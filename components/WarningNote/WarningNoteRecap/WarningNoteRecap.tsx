@@ -3,10 +3,10 @@ import Summary from 'components/Summary/Summary';
 import ErrorMessage from 'components/ErrorMessage/ErrorMessage';
 import { useWarningNote } from 'utils/api/warningNotes';
 import { formStepsAdult, formStepsChild } from 'data/forms/warning-note';
-import { Resident } from 'types';
+import { ExtendedResident } from 'types';
 
 export interface Props {
-  person: Resident;
+  person: ExtendedResident;
   warningNoteId: number;
 }
 
@@ -29,7 +29,7 @@ const WarningNoteRecap = ({
     <>
       <Summary
         formData={warningNote}
-        formSteps={person.ageContext === 'A' ? formStepsAdult : formStepsChild}
+        formSteps={person.contextFlag === 'A' ? formStepsAdult : formStepsChild}
         formPath={`/people/:peopleId/warning-notes/:warningNoteId`}
       />
     </>

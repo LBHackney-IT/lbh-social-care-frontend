@@ -12,26 +12,26 @@ import CustomConfirmation from 'components/Steps/DetailConfirmation';
 import formStepsAdult from 'data/forms/asc-case-notes-recording';
 import formStepsChild from 'data/forms/cfs-case-notes-recording';
 
-import type { Resident, User } from 'types';
+import type { ExtendedResident, User } from 'types';
 
 const CaseNotesRecording = (): React.ReactElement => {
   const { query } = useRouter();
   const personId = Number(query.id as string);
   const { user } = useAuth() as { user: User };
   const onFormSubmit = useCallback(
-    (person: Resident) => async ({
+    (person: ExtendedResident) => async ({
       form_name,
       ...formData
     }: Record<string, unknown>) => {
       await addCase({
-        personId: Number(person.mosaicId),
+        personId: person.personId,
         firstName: person.firstName,
         lastName: person.lastName,
-        contextFlag: person.ageContext,
+        contextFlag: person.contextFlag,
         dateOfBirth: person.dateOfBirth,
         workerEmail: user.email,
         formNameOverall:
-          person.ageContext === 'A' ? 'ASC_case_note' : 'CFS_case_note',
+          person.contextFlag === 'A' ? 'ASC_case_note' : 'CFS_case_note',
         formName: form_name,
         caseFormData: JSON.stringify(formData),
       });
@@ -47,12 +47,12 @@ const CaseNotesRecording = (): React.ReactElement => {
           Case note for
         </h1>
         <PersonView personId={personId} expandView>
-          {(person: Resident) => (
+          {(person) => (
             <div className="govuk-!-margin-top-7">
               <FormWizard
                 formPath={`/people/${personId}/records/case-notes-recording/`}
                 formSteps={
-                  person.ageContext === 'A' ? formStepsAdult : formStepsChild
+                  person.contextFlag === 'A' ? formStepsAdult : formStepsChild
                 }
                 title="Case Notes Recording"
                 onFormSubmit={onFormSubmit(person)}

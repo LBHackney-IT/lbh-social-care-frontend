@@ -129,20 +129,40 @@ export interface Resident {
 }
 
 /**
- * This should be what the BE is going to return
+ * This should replace Resident
+ * When /residents is going to be aligned with /residents/:id
  */
-export interface ExtendedResident extends Resident {
-  otherNames?: Array<{
+export interface ExtendedResident {
+  personId: number;
+  firstName: string;
+  lastName: string;
+  gender: string;
+  contextFlag: AgeContext;
+  createdBy: string;
+  otherNames: Array<{
     firstName: string;
     lastName: string;
   }>;
+  phoneNumbers: Array<{
+    number: string;
+    type: string;
+  }>;
+  title?: string;
+  dateOfBirth?: string;
+  ethnicity?: string;
   firstLanguage?: string;
   religion?: string;
-  dateOfDeath?: string;
   sexualOrientation?: string;
-  ethnicity?: string;
-  email?: string;
+  nhsNumber?: number;
+  emailAddress?: string;
   preferredMethodOfContact?: string;
+  restricted?: boolean;
+  dateOfDeath?: string;
+  address?: {
+    address: string;
+    postcode: string;
+    uprn?: string;
+  };
 }
 
 export interface ResidentAPI {

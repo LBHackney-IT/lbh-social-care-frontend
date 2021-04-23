@@ -36,9 +36,10 @@ const UpdatePerson = (): ReactElement => {
   const { data: person, error } = useResident(personId);
   const { user } = useAuth() as { user: User };
   const onFormSubmit = async (formData: FormData) => {
-    const ref = await updateResident({
+    const ref = await updateResident(personId, {
       ...formData,
       contextFlag: formData.contextFlag || user.permissionFlag,
+      restricted: formData.restricted ? 'Y' : 'N',
       nhsNumber: Number(formData.nhsNumber),
       createdBy: user.email,
     });

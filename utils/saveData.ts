@@ -1,5 +1,5 @@
 import { isBrowser } from 'utils/ssr';
-import { Resident } from 'types';
+import { ExtendedResident } from 'types';
 
 export const SAVE_KEY = 'social-care-forms_v2';
 
@@ -9,7 +9,7 @@ export interface SavedData {
   formPath: string;
   timestamp: string;
   step: string;
-  personDetails?: Resident;
+  personDetails?: ExtendedResident;
 }
 
 type DataToSave = Omit<SavedData, 'timestamp'>;

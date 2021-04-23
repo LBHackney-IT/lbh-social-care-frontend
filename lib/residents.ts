@@ -85,3 +85,16 @@ export const addResident = async (
   );
   return data;
 };
+
+export const updateResident = async (
+  formData: Record<string, unknown>
+): Promise<ResidentAPI> => {
+  const { data } = await axios.patch(
+    `${ENDPOINT_API}/residents`,
+    normalisePhoneInput(formData),
+    {
+      headers: { ...headers, 'Content-Type': 'application/json' },
+    }
+  );
+  return data;
+};

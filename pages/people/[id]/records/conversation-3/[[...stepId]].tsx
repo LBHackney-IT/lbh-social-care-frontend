@@ -11,9 +11,9 @@ import Seo from 'components/Layout/Seo/Seo';
 
 import formSteps from 'data/forms/asc-conversation-3';
 
-import type { User, Resident } from 'types';
+import type { User, ExtendedResident } from 'types';
 
-type FormData = Resident & User & Record<string, unknown>;
+type FormData = ExtendedResident & User & Record<string, unknown>;
 
 const CaseNotesRecording = (): ReactElement => {
   const { query } = useRouter();
@@ -48,8 +48,8 @@ const CaseNotesRecording = (): ReactElement => {
           Conversation 3
         </h1>
         <PersonView personId={Number(query.id as string)} expandView>
-          {(person: Resident) =>
-            person.ageContext === 'A' ? (
+          {(person) =>
+            person.contextFlag === 'A' ? (
               <FormWizard
                 formPath={`/people/${query.id}/records/conversation-3/`}
                 formSteps={formSteps}

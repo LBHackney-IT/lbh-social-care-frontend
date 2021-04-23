@@ -6,7 +6,7 @@ import Spinner from 'components/Spinner/Spinner';
 import { useAuth } from 'components/UserContext/UserContext';
 import { useCasesByResident } from 'utils/api/cases';
 
-import { Case, Resident, User } from 'types';
+import { Case, ExtendedResident, User } from 'types';
 
 interface Props {
   id: number;
@@ -59,7 +59,7 @@ const Cases = ({ id }: Props): React.ReactElement => {
 
 interface WrapperProps {
   id: number;
-  person: Resident;
+  person: ExtendedResident;
 }
 
 const CasesWrapper = ({ id, person }: WrapperProps): React.ReactElement => {
