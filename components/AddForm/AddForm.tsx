@@ -18,7 +18,7 @@ const AddForm = ({ person }: { person: Resident }): React.ReactElement => {
       ? [
           {
             text: 'Case Note Recording',
-            value: `/people/${person.personId}/records/case-notes-recording`,
+            value: `/people/${person.id}/records/case-notes-recording`,
           },
         ]
       : [];
@@ -40,13 +40,13 @@ const AddForm = ({ person }: { person: Resident }): React.ReactElement => {
             ? `${url}${populateChildForm(
                 person.firstName,
                 person.lastName,
-                person.personId,
+                person.id,
                 user.name,
                 url
               )}`
             : url
         }
-        internalQuery={`?id=${person.personId}`}
+        internalQuery={`?id=${person.id}`}
       />
     </>
   );

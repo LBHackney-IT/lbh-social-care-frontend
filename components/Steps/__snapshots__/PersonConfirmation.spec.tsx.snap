@@ -2,9 +2,6 @@
 
 exports[`Person Confirmation component should render properly 1`] = `
 <DocumentFragment>
-  <h1
-    class="govuk-fieldset__legend--l gov-weight-lighter govuk-!-margin-bottom-7"
-  />
   <div
     class="govuk-panel govuk-panel--confirmation govuk-!-margin-bottom-9"
   >

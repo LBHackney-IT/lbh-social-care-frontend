@@ -15,7 +15,7 @@ export const legacyResidentFactory = Factory.define<LegacyResident>(
 );
 
 export const residentFactory = Factory.define<Resident>(({ sequence }) => ({
-  personId: sequence,
+  id: sequence,
   dateOfBirth: '2020-11-13',
   firstName: 'Foo',
   lastName: 'Bar',

@@ -21,7 +21,7 @@ const CaseNotesRecording = (): React.ReactElement => {
       ...formData
     }: Record<string, unknown>) => {
       console.log({
-        personId: person.personId,
+        personId: person.id,
         firstName: person.firstName,
         lastName: person.lastName,
         contextFlag: person.contextFlag,

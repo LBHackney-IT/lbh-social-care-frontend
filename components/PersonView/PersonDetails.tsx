@@ -14,7 +14,7 @@ const PersonDetails = ({
     contextFlag,
     firstName,
     lastName,
-    personId,
+    id,
     dateOfBirth,
     nhsNumber,
     firstLanguage,
@@ -67,7 +67,7 @@ const PersonDetails = ({
             )}
             <div className="govuk-summary-list__row">
               <dt className="govuk-summary-list__key">Person ID</dt>
-              <dd className="govuk-summary-list__value">#{personId}</dd>
+              <dd className="govuk-summary-list__value">#{id}</dd>
             </div>
             {gender && (
               <div className="govuk-summary-list__row">

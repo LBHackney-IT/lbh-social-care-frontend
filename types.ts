@@ -138,7 +138,7 @@ export interface ResidentsAPI {
  * When /residents is going to be aligned with /residents/:id
  */
 export interface Resident {
-  personId: number;
+  id: number;
   firstName: string;
   lastName: string;
   gender: string;

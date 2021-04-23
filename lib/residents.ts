@@ -53,16 +53,14 @@ export const getResident = async (
     params,
   });
   return {
-    ethnicity: data.ethinicity,
     ...data,
     restricted: data.restricted === 'Y',
   };
 };
 
-export const normalisePhoneInput = (formData: {
-  phoneNumbers?: Record<string, string>[];
-  [key: string]: unknown;
-}): Record<string, unknown> => ({
+export const normalisePhoneInput = (
+  formData: Resident
+): Record<string, unknown> => ({
   ...formData,
   phoneNumbers: formData.phoneNumbers
     ? formData.phoneNumbers.map((phone) => ({
@@ -73,7 +71,7 @@ export const normalisePhoneInput = (formData: {
 });
 
 export const addResident = async (
-  formData: Record<string, unknown>
+  formData: Resident
 ): Promise<ResidentsAPI> => {
   const { data } = await axios.post(
     `${ENDPOINT_API}/residents`,
@@ -85,14 +83,7 @@ export const addResident = async (
   return data;
 };
 
-interface UpdatedResident {
-  id: number;
-  [key: string]: unknown;
-}
-
-export const updateResident = async (
-  formData: UpdatedResident
-): Promise<UpdatedResident> => {
+export const updateResident = async (formData: Resident): Promise<Resident> => {
   await axios.patch(
     `${ENDPOINT_API}/residents`,
     normalisePhoneInput(formData),

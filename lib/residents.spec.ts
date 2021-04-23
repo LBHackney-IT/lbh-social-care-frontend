@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { mockedResident, residentFactory } from 'factories/residents';
 
 import * as residentsAPI from './residents';
 
@@ -99,15 +100,12 @@ describe('residents APIs', () => {
   describe('addResident', () => {
     it('should work properly', async () => {
       mockedAxios.post.mockResolvedValue({ data: { _id: 'foobar' } });
-      const data = await residentsAPI.addResident({ foo: 'bar' });
+      const data = await residentsAPI.addResident(mockedResident);
       expect(mockedAxios.post).toHaveBeenCalled();
       expect(mockedAxios.post.mock.calls[0][0]).toEqual(
         `${ENDPOINT_API}/residents`
       );
-      expect(mockedAxios.post.mock.calls[0][1]).toEqual({
-        foo: 'bar',
-        phoneNumbers: null,
-      });
+      expect(mockedAxios.post.mock.calls[0][1]).toEqual(mockedResident);
       expect(mockedAxios.post.mock.calls[0][2]?.headers).toEqual({
         'Content-Type': 'application/json',
         'x-api-key': AWS_KEY,
@@ -116,38 +114,50 @@ describe('residents APIs', () => {
     });
   });
 
-  const fixture = {
-    phoneNumbers: [
-      { number: '213213', type: '' },
-      { number: '12321', type: 'qwe' },
-      { number: '321321', type: '' },
-    ],
-    contextFlag: 'A',
-    firstName: 'asd',
-    lastName: 'asd',
-    gender: 'U',
-    dateOfBirth: '2000-12-12',
-    address: { address: 'qweqwe', postcode: 'e83as' },
-    nhsNumber: null,
-    createdBy: 'luca.lischetti@hackney.gov.uk',
-  };
+  describe('updateResident', () => {
+    it('should work properly', async () => {
+      mockedAxios.patch.mockResolvedValue({ data: { _id: 'foobar' } });
+      const data = await residentsAPI.updateResident(mockedResident);
+      expect(mockedAxios.patch).toHaveBeenCalled();
+      expect(mockedAxios.patch.mock.calls[0][0]).toEqual(
+        `${ENDPOINT_API}/residents`
+      );
+      expect(mockedAxios.patch.mock.calls[0][1]).toEqual(mockedResident);
+      expect(mockedAxios.patch.mock.calls[0][2]?.headers).toEqual({
+        'Content-Type': 'application/json',
+        'x-api-key': AWS_KEY,
+      });
+      expect(data).toEqual(mockedResident);
+    });
+  });
 
   describe('normalisePhoneInput', () => {
     it('should work properly', () => {
-      expect(residentsAPI.normalisePhoneInput(fixture)).toEqual({
+      expect(
+        residentsAPI.normalisePhoneInput(
+          residentFactory.build({
+            phoneNumbers: [
+              { number: '213213', type: '' },
+              { number: '12321', type: 'qwe' },
+              { number: '321321', type: '' },
+            ],
+          })
+        )
+      ).toEqual({
         phoneNumbers: [
           { number: '213213', type: 'main' },
           { number: '12321', type: 'qwe' },
           { number: '321321', type: 'main' },
         ],
         contextFlag: 'A',
-        firstName: 'asd',
-        lastName: 'asd',
-        gender: 'U',
-        dateOfBirth: '2000-12-12',
-        address: { address: 'qweqwe', postcode: 'e83as' },
-        nhsNumber: null,
-        createdBy: 'luca.lischetti@hackney.gov.uk',
+        createdBy: 'foo@bar.com',
+        dateOfBirth: '2020-11-13',
+        firstName: 'Foo',
+        gender: 'F',
+        id: 2,
+        lastName: 'Bar',
+        nhsNumber: 12345,
+        otherNames: [],
       });
     });
   });

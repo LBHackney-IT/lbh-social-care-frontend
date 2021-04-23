@@ -27,7 +27,7 @@ const RemovedAllocationPage = (): React.ReactElement => {
         {(person) => (
           <div className="govuk-!-margin-top-7">
             <DeallocateWorkers
-              personId={person.personId}
+              personId={person.id}
               allocationId={allocationId}
             />
           </div>
