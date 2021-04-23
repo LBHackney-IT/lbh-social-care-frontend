@@ -30,5 +30,5 @@ export const updateResident = async (
   formData: Record<string, unknown>
 ): Promise<Record<string, unknown>> => {
   const { data } = await axios.patch(`/api/residents/${personId}`, formData);
-  return { ref: data?.personId, data };
+  return { ref: data?.id, data };
 };

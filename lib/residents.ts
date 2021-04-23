@@ -52,7 +52,11 @@ export const getResident = async (
     headers,
     params,
   });
-  return { ...data, restricted: data.restricted === 'Y' };
+  return {
+    ethnicity: data.ethinicity,
+    ...data,
+    restricted: data.restricted === 'Y',
+  };
 };
 
 export const normalisePhoneInput = (formData: {
@@ -81,15 +85,20 @@ export const addResident = async (
   return data;
 };
 
+interface UpdatedResident {
+  id: number;
+  [key: string]: unknown;
+}
+
 export const updateResident = async (
-  formData: Record<string, unknown>
-): Promise<ResidentsAPI> => {
-  const { data } = await axios.patch(
+  formData: UpdatedResident
+): Promise<UpdatedResident> => {
+  await axios.patch(
     `${ENDPOINT_API}/residents`,
     normalisePhoneInput(formData),
     {
       headers: { ...headers, 'Content-Type': 'application/json' },
     }
   );
-  return data;
+  return formData;
 };

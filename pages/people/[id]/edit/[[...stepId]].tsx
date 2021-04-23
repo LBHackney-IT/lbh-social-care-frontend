@@ -9,19 +9,17 @@ import ErrorMessage from 'components/ErrorMessage/ErrorMessage';
 import { useResident, updateResident } from 'utils/api/residents';
 import { getMacroEthnicity } from 'utils/person';
 
-import form from 'data/forms/create-new-person';
+import formSteps from 'data/forms/create-new-person';
 
 import type { User } from 'types';
 
 const StepHeader = () => (
-  <>
-    <h1
-      key="form-title"
-      className="govuk-fieldset__legend--xl gov-weight-lighter"
-    >
-      Update person details
-    </h1>
-  </>
+  <h1
+    key="form-title"
+    className="govuk-fieldset__legend--xl gov-weight-lighter"
+  >
+    Update person details
+  </h1>
 );
 
 interface FormData {
@@ -54,8 +52,8 @@ const UpdatePerson = (): ReactElement => {
   return (
     <FormWizard
       formPath={`/people/${personId}/edit/`}
-      formSteps={form.steps}
-      title={form.title}
+      formSteps={formSteps}
+      title="Update person"
       defaultValues={{
         user,
         ...{
@@ -65,7 +63,7 @@ const UpdatePerson = (): ReactElement => {
         },
       }}
       onFormSubmit={onFormSubmit}
-      successMessage={form.successMessage}
+      successMessage="Update person confirmed"
       customConfirmation={CustomConfirmation}
       stepHeader={StepHeader}
     />

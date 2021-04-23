@@ -5,20 +5,15 @@ import CustomConfirmation from 'components/Steps/PersonConfirmation';
 
 import { User } from 'types';
 
-import form from 'data/forms/create-new-person';
+import formSteps from 'data/forms/create-new-person';
 
 const StepHeader = () => (
-  <>
-    <h1
-      key="form-title"
-      className="govuk-fieldset__legend--xl gov-weight-lighter"
-    >
-      Add a new person
-    </h1>
-    <p key="subtitle" className="govuk-body">
-      Use this form to add a new referral
-    </p>
-  </>
+  <h1
+    key="form-title"
+    className="govuk-fieldset__legend--xl gov-weight-lighter"
+  >
+    Add a new person
+  </h1>
 );
 
 interface FormData {
@@ -39,12 +34,12 @@ const CreateNewPerson = (): React.ReactElement => {
   };
   return (
     <FormWizard
-      formPath={form.path}
-      formSteps={form.steps}
-      title={form.title}
+      formPath="/people/add/"
+      formSteps={formSteps}
+      title="Create New Person"
       onFormSubmit={onFormSubmit}
       defaultValues={{ user }}
-      successMessage={form.successMessage}
+      successMessage="Add new person confirmed"
       customConfirmation={CustomConfirmation}
       stepHeader={StepHeader}
     />
