@@ -80,7 +80,7 @@ exports[`PersonDetails component should render properly - expanded 2`] = `
         <dd
           class="govuk-summary-list__value"
         >
-          #123
+          #2
         </dd>
       </div>
       <div
@@ -94,7 +94,7 @@ exports[`PersonDetails component should render properly - expanded 2`] = `
         <dd
           class="govuk-summary-list__value"
         >
-          X
+          U
         </dd>
       </div>
       <div
@@ -136,7 +136,7 @@ exports[`PersonDetails component should render properly - expanded 2`] = `
         <dd
           class="govuk-summary-list__value"
         >
-          White
+          White and Black African
         </dd>
       </div>
       <div
@@ -164,7 +164,7 @@ exports[`PersonDetails component should render properly - expanded 2`] = `
         <dd
           class="govuk-summary-list__value"
         >
-          nhs_123
+          123
         </dd>
       </div>
       <div
@@ -178,9 +178,12 @@ exports[`PersonDetails component should render properly - expanded 2`] = `
         <dd
           class="govuk-summary-list__value"
         >
-          <p>
+          <div>
             new adress
-          </p>
+          </div>
+          <div>
+            E5 0PU
+          </div>
         </dd>
       </div>
       <div
@@ -209,7 +212,7 @@ exports[`PersonDetails component should render properly - expanded 2`] = `
         <dt
           class="govuk-summary-list__key"
         >
-          Email 
+          Email
         </dt>
         <dd
           class="govuk-summary-list__value"
@@ -299,7 +302,7 @@ exports[`PersonDetails component should render properly 1`] = `
         <dd
           class="govuk-summary-list__value"
         >
-          #123
+          #2
         </dd>
       </div>
       <div
@@ -313,7 +316,7 @@ exports[`PersonDetails component should render properly 1`] = `
         <dd
           class="govuk-summary-list__value"
         >
-          X
+          U
         </dd>
       </div>
       <div
@@ -355,7 +358,7 @@ exports[`PersonDetails component should render properly 1`] = `
         <dd
           class="govuk-summary-list__value"
         >
-          White
+          White and Black African
         </dd>
       </div>
       <div
@@ -383,7 +386,7 @@ exports[`PersonDetails component should render properly 1`] = `
         <dd
           class="govuk-summary-list__value"
         >
-          nhs_123
+          123
         </dd>
       </div>
       <div
@@ -397,9 +400,12 @@ exports[`PersonDetails component should render properly 1`] = `
         <dd
           class="govuk-summary-list__value"
         >
-          <p>
+          <div>
             new adress
-          </p>
+          </div>
+          <div>
+            E5 0PU
+          </div>
         </dd>
       </div>
       <div
@@ -428,7 +434,7 @@ exports[`PersonDetails component should render properly 1`] = `
         <dt
           class="govuk-summary-list__key"
         >
-          Email 
+          Email
         </dt>
         <dd
           class="govuk-summary-list__value"

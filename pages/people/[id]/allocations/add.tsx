@@ -26,8 +26,8 @@ const AddNewAllocationPage = (): React.ReactElement => {
         {(person) => (
           <div className="govuk-!-margin-top-7">
             <AddAllocatedWorker
-              personId={person.mosaicId}
-              ageContext={person.ageContext}
+              personId={person.id}
+              ageContext={person.contextFlag}
             />
           </div>
         )}

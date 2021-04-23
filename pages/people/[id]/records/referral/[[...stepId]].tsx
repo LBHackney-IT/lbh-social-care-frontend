@@ -48,8 +48,8 @@ const Referral = (): ReactElement => {
           Add referral and screening details
         </h1>
         <PersonView personId={Number(query.id as string)} expandView>
-          {(person: Resident) =>
-            person.ageContext === 'A' ? (
+          {(person) =>
+            person.contextFlag === 'A' ? (
               <FormWizard
                 formPath={`/people/${query.id}/records/referral/`}
                 formSteps={formSteps}

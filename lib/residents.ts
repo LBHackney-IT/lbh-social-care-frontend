@@ -1,12 +1,12 @@
 import axios from 'axios';
 
-import type { Resident, ResidentAPI } from 'types';
+import type { LegacyResident, Resident, ResidentsAPI, AgeContext } from 'types';
 
 const { ENDPOINT_API, AWS_KEY } = process.env;
 
 const headers = { 'x-api-key': AWS_KEY };
 
-interface ResidentBE extends Omit<Resident, 'restricted'> {
+interface ResidentBE extends Omit<LegacyResident, 'restricted'> {
   restricted: 'Y' | 'N';
   addressList: Array<{
     displayAddressFlag: 'Y' | 'N';
@@ -16,9 +16,9 @@ interface ResidentBE extends Omit<Resident, 'restricted'> {
   }>;
 }
 
-const sanitiseResidentData = (residents: ResidentBE[]): Resident[] =>
+const sanitiseResidentData = (residents: ResidentBE[]): LegacyResident[] =>
   residents?.map(
-    ({ addressList, ...resident }: ResidentBE): Resident => {
+    ({ addressList, ...resident }: ResidentBE): LegacyResident => {
       const address = addressList?.find(
         ({ displayAddressFlag }) => displayAddressFlag === 'Y'
       );
@@ -36,7 +36,7 @@ const sanitiseResidentData = (residents: ResidentBE[]): Resident[] =>
 
 export const getResidents = async (
   params: Record<string, unknown>
-): Promise<ResidentAPI> => {
+): Promise<ResidentsAPI> => {
   const { data } = await axios.get(`${ENDPOINT_API}/residents`, {
     headers,
     params,
@@ -45,20 +45,22 @@ export const getResidents = async (
 };
 
 export const getResident = async (
-  mosaic_id: number,
-  params: Record<string, unknown>
+  personId: number,
+  params: { context_flag: AgeContext }
 ): Promise<Resident> => {
-  const { data } = await axios.get(`${ENDPOINT_API}/residents`, {
+  const { data } = await axios.get(`${ENDPOINT_API}/residents/${personId}`, {
     headers,
-    params: { mosaic_id, ...params },
+    params,
   });
-  return sanitiseResidentData(data.residents)?.[0];
+  return {
+    ...data,
+    restricted: data.restricted === 'Y',
+  };
 };
 
-export const normalisePhoneInput = (formData: {
-  phoneNumbers?: Record<string, string>[];
-  [key: string]: unknown;
-}): Record<string, unknown> => ({
+export const normalisePhoneInput = (
+  formData: Resident
+): Record<string, unknown> => ({
   ...formData,
   phoneNumbers: formData.phoneNumbers
     ? formData.phoneNumbers.map((phone) => ({
@@ -69,8 +71,8 @@ export const normalisePhoneInput = (formData: {
 });
 
 export const addResident = async (
-  formData: Record<string, unknown>
-): Promise<ResidentAPI> => {
+  formData: Resident
+): Promise<ResidentsAPI> => {
   const { data } = await axios.post(
     `${ENDPOINT_API}/residents`,
     normalisePhoneInput(formData),
@@ -79,4 +81,15 @@ export const addResident = async (
     }
   );
   return data;
+};
+
+export const updateResident = async (formData: Resident): Promise<Resident> => {
+  await axios.patch(
+    `${ENDPOINT_API}/residents`,
+    normalisePhoneInput(formData),
+    {
+      headers: { ...headers, 'Content-Type': 'application/json' },
+    }
+  );
+  return formData;
 };

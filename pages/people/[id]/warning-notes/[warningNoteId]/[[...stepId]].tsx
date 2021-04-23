@@ -23,14 +23,14 @@ const ReviewWarningNote = (): React.ReactElement => {
       ...formData
     }: Record<string, unknown>) => {
       console.log({
-        personId: person.mosaicId,
+        personId: person.id,
         firstName: person.firstName,
         lastName: person.lastName,
-        contextFlag: person.ageContext,
+        contextFlag: person.contextFlag,
         dateOfBirth: person.dateOfBirth,
         workerEmail: user.email,
         formNameOverall:
-          person.ageContext === 'A' ? 'ASC_case_note' : 'CFS_case_note',
+          person.contextFlag === 'A' ? 'ASC_case_note' : 'CFS_case_note',
         formName: form_name,
         caseFormData: JSON.stringify(formData),
       });
@@ -49,7 +49,7 @@ const ReviewWarningNote = (): React.ReactElement => {
           : 'Review/end Warning Note'}
       </h1>
       <PersonView personId={personId} expandView>
-        {(person: Resident) => (
+        {(person) => (
           <>
             {!summary && !confirmation && (
               <>

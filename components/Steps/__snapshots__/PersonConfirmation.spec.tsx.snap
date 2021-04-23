@@ -2,18 +2,13 @@
 
 exports[`Person Confirmation component should render properly 1`] = `
 <DocumentFragment>
-  <h1
-    class="govuk-fieldset__legend--l gov-weight-lighter govuk-!-margin-bottom-7"
-  >
-    Add new person confirmed
-  </h1>
   <div
     class="govuk-panel govuk-panel--confirmation govuk-!-margin-bottom-9"
   >
     <h1
       class="govuk-fieldset__legend--l gov-weight-lighter"
     >
-      first last has been added.
+      first last has been updated.
       <br />
       #123456
     </h1>
