@@ -4,11 +4,11 @@ import ErrorMessage from 'components/ErrorMessage/ErrorMessage';
 import Spinner from 'components/Spinner/Spinner';
 import PersonDetails from './PersonDetails';
 import { useResident } from 'utils/api/residents';
-import { ExtendedResident } from 'types';
+import { Resident } from 'types';
 
 interface Props {
   personId: number;
-  children?: React.ReactChild | ((arg0: ExtendedResident) => React.ReactChild);
+  children?: React.ReactChild | ((arg0: Resident) => React.ReactChild);
   expandView?: boolean;
   showPersonDetails?: boolean;
   canEdit?: boolean;

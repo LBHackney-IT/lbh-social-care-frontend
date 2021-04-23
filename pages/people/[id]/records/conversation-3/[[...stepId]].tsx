@@ -11,9 +11,9 @@ import Seo from 'components/Layout/Seo/Seo';
 
 import formSteps from 'data/forms/asc-conversation-3';
 
-import type { User, ExtendedResident } from 'types';
+import type { User, Resident } from 'types';
 
-type FormData = ExtendedResident & User & Record<string, unknown>;
+type FormData = Resident & User & Record<string, unknown>;
 
 const CaseNotesRecording = (): ReactElement => {
   const { query } = useRouter();

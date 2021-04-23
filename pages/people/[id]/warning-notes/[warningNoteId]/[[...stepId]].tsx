@@ -4,7 +4,7 @@ import { useCallback } from 'react';
 import PersonView from 'components/PersonView/PersonView';
 import BackButton from 'components/Layout/BackButton/BackButton';
 import WarningNoteRecap from 'components/WarningNote/WarningNoteRecap/WarningNoteRecap';
-import { ExtendedResident, User } from 'types';
+import { Resident, User } from 'types';
 import FormWizard from 'components/FormWizard/FormWizard';
 import formSteps from 'data/forms/warning-note-review';
 import { useAuth } from 'components/UserContext/UserContext';
@@ -18,7 +18,7 @@ const ReviewWarningNote = (): React.ReactElement => {
   const confirmation = asPath.includes('confirmation');
   const { user } = useAuth() as { user: User };
   const onFormSubmit = useCallback(
-    (person: ExtendedResident) => async ({
+    (person: Resident) => async ({
       form_name,
       ...formData
     }: Record<string, unknown>) => {

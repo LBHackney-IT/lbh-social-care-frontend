@@ -6,13 +6,9 @@ import { Autocomplete } from 'components/Form/Autocomplete/Autocomplete';
 import { populateChildForm } from 'utils/populate';
 import ADULT_FORMS from 'data/googleForms/adultForms';
 import CHILD_FORMS from 'data/googleForms/childForms';
-import { ExtendedResident, User } from 'types';
+import { Resident, User } from 'types';
 
-const AddForm = ({
-  person,
-}: {
-  person: ExtendedResident;
-}): React.ReactElement => {
+const AddForm = ({ person }: { person: Resident }): React.ReactElement => {
   const { user } = useAuth() as { user: User };
   const [url, setUrl] = useState<string>();
   const ageContext = person && person.contextFlag;

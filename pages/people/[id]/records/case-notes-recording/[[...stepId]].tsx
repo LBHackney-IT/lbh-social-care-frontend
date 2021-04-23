@@ -12,14 +12,14 @@ import CustomConfirmation from 'components/Steps/DetailConfirmation';
 import formStepsAdult from 'data/forms/asc-case-notes-recording';
 import formStepsChild from 'data/forms/cfs-case-notes-recording';
 
-import type { ExtendedResident, User } from 'types';
+import type { Resident, User } from 'types';
 
 const CaseNotesRecording = (): React.ReactElement => {
   const { query } = useRouter();
   const personId = Number(query.id as string);
   const { user } = useAuth() as { user: User };
   const onFormSubmit = useCallback(
-    (person: ExtendedResident) => async ({
+    (person: Resident) => async ({
       form_name,
       ...formData
     }: Record<string, unknown>) => {

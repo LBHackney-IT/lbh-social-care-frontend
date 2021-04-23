@@ -3,10 +3,10 @@ import Summary from 'components/Summary/Summary';
 import ErrorMessage from 'components/ErrorMessage/ErrorMessage';
 import { useWarningNote } from 'utils/api/warningNotes';
 import { formStepsAdult, formStepsChild } from 'data/forms/warning-note';
-import { ExtendedResident } from 'types';
+import { Resident } from 'types';
 
 export interface Props {
-  person: ExtendedResident;
+  person: Resident;
   warningNoteId: number;
 }
 

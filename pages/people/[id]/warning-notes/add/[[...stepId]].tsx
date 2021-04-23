@@ -9,14 +9,14 @@ import FormWizard from 'components/FormWizard/FormWizard';
 
 import { formStepsAdult, formStepsChild } from 'data/forms/warning-note';
 
-import type { ExtendedResident, User } from 'types';
+import type { Resident, User } from 'types';
 
 const CaseNotesRecording = (): React.ReactElement => {
   const { query } = useRouter();
   const personId = Number(query.id as string);
   const { user } = useAuth() as { user: User };
   const onFormSubmit = useCallback(
-    (person: ExtendedResident) => async ({
+    (person: Resident) => async ({
       form_name,
       ...formData
     }: Record<string, unknown>) => {

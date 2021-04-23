@@ -1,8 +1,8 @@
 import { useState } from 'react';
-import { ExtendedResident } from 'types';
+import { Resident } from 'types';
 
 interface Props {
-  person: ExtendedResident;
+  person: Resident;
   expandView?: boolean;
 }
 

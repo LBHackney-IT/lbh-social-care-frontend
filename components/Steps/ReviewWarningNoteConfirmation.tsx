@@ -1,9 +1,9 @@
-import { ExtendedResident } from 'types';
+import { Resident } from 'types';
 import Button from 'components/Button/Button';
 
 export interface Props {
   formData: {
-    person: ExtendedResident;
+    person: Resident;
     reviewDecision: string;
     [key: string]: unknown;
   };

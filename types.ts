@@ -106,7 +106,7 @@ export interface CaseData {
   nextCursor?: number;
 }
 
-export interface Resident {
+export interface LegacyResident {
   mosaicId: number;
   firstName: string;
   lastName: string;
@@ -128,11 +128,16 @@ export interface Resident {
   }>;
 }
 
+export interface ResidentsAPI {
+  residents: LegacyResident[] | [];
+  nextCursor?: string;
+}
+
 /**
- * This should replace Resident
+ * This should replace LegacyResident
  * When /residents is going to be aligned with /residents/:id
  */
-export interface ExtendedResident {
+export interface Resident {
   personId: number;
   firstName: string;
   lastName: string;
@@ -163,11 +168,6 @@ export interface ExtendedResident {
     postcode: string;
     uprn?: string;
   };
-}
-
-export interface ResidentAPI {
-  residents: Resident[] | [];
-  nextCursor?: string;
 }
 
 export interface User {
