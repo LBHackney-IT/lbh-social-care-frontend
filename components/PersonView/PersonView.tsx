@@ -36,7 +36,7 @@ const PersonView = ({
             {person.firstName} {person.lastName}
           </h1>
           {canEdit && (
-            <Link href={`/people/${person.personId}/update`}>
+            <Link href={`/people/${person.personId}/edit`}>
               <a className="govuk-link">Update person</a>
             </Link>
           )}

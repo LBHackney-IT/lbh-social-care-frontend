@@ -53,7 +53,7 @@ const UpdatePerson = (): ReactElement => {
   }
   return (
     <FormWizard
-      formPath={`/people/${personId}/update/`}
+      formPath={`/people/${personId}/edit/`}
       formSteps={form.steps}
       title={form.title}
       defaultValues={{
