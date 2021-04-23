@@ -1,4 +1,6 @@
 import { useState } from 'react';
+
+import { getEthnicityName } from 'utils/person';
 import { Resident } from 'types';
 
 interface Props {
@@ -92,7 +94,9 @@ const PersonDetails = ({
             {ethnicity && (
               <div className="govuk-summary-list__row">
                 <dt className="govuk-summary-list__key">Ethnicity</dt>
-                <dd className="govuk-summary-list__value">{ethnicity}</dd>
+                <dd className="govuk-summary-list__value">
+                  {getEthnicityName(ethnicity)}
+                </dd>
               </div>
             )}
             {firstLanguage && (
@@ -121,11 +125,12 @@ const PersonDetails = ({
                 <dd className="govuk-summary-list__value">{nhsNumber}</dd>
               </div>
             )}
-            {address?.address && (
+            {address && (
               <div className="govuk-summary-list__row">
                 <dt className="govuk-summary-list__key">Address</dt>
                 <dd className="govuk-summary-list__value">
-                  <p>{address.address}</p>
+                  <div>{address.address}</div>
+                  <div>{address.postcode}</div>
                 </dd>
               </div>
             )}
