@@ -76,7 +76,10 @@ export const isAuthorised = (
     hasAdminPermissions: groups.includes(AUTHORISED_ADMIN_GROUP),
     hasAdultPermissions: groups.includes(AUTHORISED_ADULT_GROUP),
     hasChildrenPermissions: groups.includes(AUTHORISED_CHILD_GROUP),
-    hasAllocationsPermissions: groups.includes(AUTHORISED_ALLOCATORS_GROUP),
+    hasAllocationsPermissions:
+      groups.includes(AUTHORISED_ALLOCATORS_GROUP) ||
+      // children users don't need to be part of allocator group to be able to allocate
+      groups.includes(AUTHORISED_CHILD_GROUP),
     hasUnrestrictedPermissions: groups.includes(AUTHORISED_UNRESTRICTED_GROUP),
   };
   return {

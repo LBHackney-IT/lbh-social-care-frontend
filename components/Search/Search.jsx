@@ -96,20 +96,17 @@ const Search = ({
     },
     [onFormSubmit, query]
   );
-  const addNewPerson = type === 'people' &&
-    (user.hasAdminPermissions ||
-      user.hasAdultPermissions ||
-      user.hasAllocationsPermissions) && (
-      <>
-        Results don&apos;t match?{' '}
-        <Link href="/people/add">
-          <a style={{ textDecoration: 'underline' }} className="govuk-link">
-            {' '}
-            Add New Person
-          </a>
-        </Link>
-      </>
-    );
+  const addNewPerson = type === 'people' && (
+    <>
+      Results don&apos;t match?{' '}
+      <Link href="/people/add">
+        <a style={{ textDecoration: 'underline' }} className="govuk-link">
+          {' '}
+          Add New Person
+        </a>
+      </Link>
+    </>
+  );
   return (
     <>
       <p className="govuk-body govuk-!-margin-bottom-5">{subHeader}</p>
