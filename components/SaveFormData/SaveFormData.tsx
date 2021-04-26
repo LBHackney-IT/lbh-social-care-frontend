@@ -14,7 +14,9 @@ export const SavedForms = (): React.ReactElement => {
   };
   if (!savedForms || Object.keys(savedForms)?.length === 0) {
     return (
-      <p className="govuk-body">You have no incomplete forms right now.</p>
+      <p className="govuk-fieldset__legend--m gov-weight-lighter">
+        You don&apos;t have any incomplete form, well done!
+      </p>
     );
   }
   const detailHeader = ['Person ID', 'Client Name', 'Date of birth'];

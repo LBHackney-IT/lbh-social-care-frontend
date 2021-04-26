@@ -32,7 +32,7 @@ const PersonView = ({
     <>
       {!expandView && (
         <div className="lbh-table-header">
-          <h1 className="govuk-fieldset__legend--l gov-weight-lighter">
+          <h1 className="govuk-fieldset__legend--l gov-weight-lighter govuk-expand-title">
             {person.firstName} {person.lastName}
           </h1>
           {canEdit && (

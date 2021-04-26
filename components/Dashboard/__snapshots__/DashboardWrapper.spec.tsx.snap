@@ -2,82 +2,53 @@
 
 exports[`DashboardWrapper should render properly 1`] = `
 <DocumentFragment>
-  <div>
-    <div
-      class=""
+  <div
+    class="govuk-tabs"
+  >
+    <h2
+      class="govuk-tabs__title"
     >
-      <h1
-        class="govuk-heading-l"
-      >
-        My work space
-      </h1>
-    </div>
-    <div
-      class="govuk-!-margin-top-7"
+      Dashboard
+    </h2>
+    <ul
+      class="govuk-tabs__list"
     >
-      <span
-        class="govuk-error-message"
+      <li
+        class="govuk-tabs__list-item"
       >
-        <span
-          class="govuk-visually-hidden"
+        <a
+          class="govuk-tabs__tab"
+          href="/my-forms"
         >
-          Error:
-        </span>
-         Oops an error occurred
-      </span>
-    </div>
+          Forms to complete
+        </a>
+      </li>
+      <li
+        class="govuk-tabs__list-item"
+      >
+        <a
+          class="govuk-tabs__tab"
+          href="/my-allocations"
+        >
+          Clients allocated
+        </a>
+      </li>
+      <li
+        class="govuk-tabs__list-item govuk-tabs__list-item--selected"
+      >
+        <a
+          class="govuk-tabs__tab"
+          href="/my-cases"
+        >
+          Records I've added
+        </a>
+      </li>
+    </ul>
     <div
-      class="govuk-!-margin-top-7"
+      class="govuk-tabs__panel"
     >
-      <div
-        class="govuk-tabs"
-      >
-        <h2
-          class="govuk-tabs__title"
-        >
-          Dashboard
-        </h2>
-        <ul
-          class="govuk-tabs__list"
-        >
-          <li
-            class="govuk-tabs__list-item"
-          >
-            <a
-              class="govuk-tabs__tab"
-              href="/"
-            >
-              Clients allocated
-            </a>
-          </li>
-          <li
-            class="govuk-tabs__list-item"
-          >
-            <a
-              class="govuk-tabs__tab"
-              href="/forms-in-progress"
-            >
-              Forms to complete
-            </a>
-          </li>
-          <li
-            class="govuk-tabs__list-item"
-          >
-            <a
-              class="govuk-tabs__tab"
-              href="/my-records"
-            >
-              Records I've added
-            </a>
-          </li>
-        </ul>
-        <div
-          class="govuk-tabs__panel"
-        >
-          <div>
-            foo
-          </div>
-        </div>
+      <div>
+        foo
       </div>
     </div>
   </div>
