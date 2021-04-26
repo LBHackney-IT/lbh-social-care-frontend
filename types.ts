@@ -201,8 +201,8 @@ interface BaseNote {
   id: number;
   type: string;
   createdBy: string;
-  createdDate: Date;
-  nextReviewDate: Date;
+  startDate: Date;
+  reviewDate: Date;
   endedDate?: Date;
   endedBy?: string;
   reviewedDate?: Date;
@@ -215,14 +215,14 @@ interface BaseNote {
 }
 
 interface DisclosedNote extends BaseNote {
-  disclosedWithIndividual: 'Yes';
+  disclosedWithIndividual: true;
   disclosedDetails: string;
   disclosedDate: Date;
-  disclosedHow: ['verbal', 'written'] | ['verbal'] | ['written'];
+  disclosedHow: 'Verbal' | 'Written' | 'Verbal / Written';
 }
 
 interface UndisclosedNote extends BaseNote {
-  disclosedWithIndividual: 'No';
+  disclosedWithIndividual: false;
   undisclosedDetails: string;
 }
 
@@ -238,7 +238,7 @@ interface DisclosedReviewedNote extends ReviewedNote {
   disclosedWithIndividual: true;
   disclosedDetails: string;
   disclosedDate: Date;
-  disclosedHow: ['verbal', 'written'] | ['verbal'] | ['written'];
+  disclosedHow: 'Verbal' | 'Written' | 'Verbal / Written';
 }
 
 interface UndisclosedReviewedNote extends ReviewedNote {

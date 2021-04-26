@@ -28,7 +28,12 @@ const WarningNoteRecap = ({
   return (
     <>
       <Summary
-        formData={warningNote}
+        formData={{
+          ...warningNote,
+          disclosedWithIndividual: warningNote.disclosedWithIndividual
+            ? 'Yes'
+            : 'No',
+        }}
         formSteps={person.contextFlag === 'A' ? formStepsAdult : formStepsChild}
         formPath={`/people/:peopleId/warning-notes/:warningNoteId`}
       />

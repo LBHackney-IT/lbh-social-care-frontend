@@ -21,9 +21,6 @@ const endpoint: NextApiHandler = async (
       try {
         const data = await getWarningNote(
           Number(req.query.warningNoteId as string)
-          // {
-          //   context_flag: user.permissionFlag,
-          // }
         );
         data
           ? res.status(StatusCodes.OK).json(data)
