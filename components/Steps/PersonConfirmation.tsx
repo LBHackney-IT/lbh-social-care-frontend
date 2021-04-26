@@ -7,9 +7,6 @@ interface Props {
   successMessage?: string;
 }
 
-const referralForm =
-  'https://docs.google.com/forms/d/e/1FAIpQLSc4y4yjw6DpwWHN2fias1SEDo0lZZZNgN3M20Zy_p2He1rSuw/viewform';
-
 const PersonConfirmation = ({
   formData,
   successMessage,
@@ -31,13 +28,8 @@ const PersonConfirmation = ({
         </h1>
       </div>
       <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-        <Button
-          label="View person"
-          isSecondary
-          wideButton
-          route={`/people/${ref}`}
-        />
-        <Button label="Add referral details" wideButton route={referralForm} />
+        <Button label="Return to search" isSecondary wideButton route="/" />
+        <Button label="View person" wideButton route={`/people/${ref}`} />
       </div>
     </>
   );
