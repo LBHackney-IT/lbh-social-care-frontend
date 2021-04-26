@@ -7,7 +7,7 @@ describe('Adult group', () => {
       'value',
       Cypress.env('TEST_KEY_ADULT_GROUP')
     );
-    cy.visit(Cypress.env('HOST') + '/search');
+    cy.visit(Cypress.env('HOST'));
   });
 
   it('Access not allowed - Search for People by name', () => {

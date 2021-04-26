@@ -59,6 +59,14 @@ describe('allocatedWorkers APIs', () => {
     });
   });
 
+  describe('useMyAllocations', () => {
+    it('should work properly', () => {
+      jest.spyOn(SWR, 'default');
+      allocatedWorkersAPI.useMyAllocations();
+      expect(SWR.default).toHaveBeenCalledWith('/api/me');
+    });
+  });
+
   describe('addAllocatedWorker', () => {
     it('should work properly', async () => {
       mockedAxios.post.mockResolvedValue({ data: { foo: 'foobar' } });

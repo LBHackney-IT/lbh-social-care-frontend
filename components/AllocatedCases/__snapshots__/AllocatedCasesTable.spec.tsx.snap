@@ -14,12 +14,17 @@ exports[`AllocatedCasesTable component should render records properly 1`] = `
         <th
           class="govuk-table__header"
         >
-          Person ID
+          Person
         </th>
         <th
           class="govuk-table__header"
         >
-          Client name
+          Name
+        </th>
+        <th
+          class="govuk-table__header"
+        >
+          Address
         </th>
         <th
           class="govuk-table__header"
@@ -29,12 +34,7 @@ exports[`AllocatedCasesTable component should render records properly 1`] = `
         <th
           class="govuk-table__header"
         >
-          Assessment type
-        </th>
-        <th
-          class="govuk-table__header"
-        >
-          Date allocated
+          Allocated Date
         </th>
       </tr>
     </thead>
@@ -62,17 +62,17 @@ exports[`AllocatedCasesTable component should render records properly 1`] = `
         <td
           class="govuk-table__cell"
         >
-          20/03/2020
+           the address
         </td>
         <td
           class="govuk-table__cell"
         >
-          Consultant Social Worker
+           20/03/2020
         </td>
         <td
           class="govuk-table__cell"
         >
-          28/03/2019
+           28/03/2019
         </td>
       </tr>
     </tbody>

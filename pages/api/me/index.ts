@@ -31,9 +31,7 @@ const endpoint: NextApiHandler = async (
         const allocations = await getAllocationsByWorker(workerData.id, {
           context_flag: user.permissionFlag,
         });
-        res
-          .status(StatusCodes.OK)
-          .json({ ...workerData, ...allocations, auth: user });
+        res.status(StatusCodes.OK).json({ ...workerData, ...allocations });
       } catch (error) {
         console.log('User get error:', error?.response?.data);
         error?.response?.status === StatusCodes.NOT_FOUND
