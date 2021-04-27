@@ -194,6 +194,16 @@ const formConfig: FormStep[] = [
         width: 20,
         options: ['Email', 'Phone', 'Letter', 'Fax', 'Face to face'],
       },
+      {
+        component: 'Radios',
+        name: 'restricted',
+        label: `Does this person's record history need to be restricted?`,
+        options: [
+          { value: 'Y', text: 'Yes' },
+          { value: 'N', text: 'No' },
+        ],
+        rules: { required: true },
+      },
     ],
   },
 ];
