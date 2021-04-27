@@ -1,6 +1,6 @@
 import { StatusCodes } from 'http-status-codes';
 
-import { getResident, updateResident } from 'lib/residents';
+import { getWarningNotesByResident } from 'lib/warningNotes';
 import { isAuthorised } from 'utils/auth';
 
 import type { NextApiRequest, NextApiResponse, NextApiHandler } from 'next';
@@ -16,40 +16,26 @@ const endpoint: NextApiHandler = async (
   if (!user.isAuthorised) {
     return res.status(StatusCodes.FORBIDDEN).end();
   }
-  const id = parseInt(req.query.id as string, 10);
   switch (req.method) {
     case 'GET':
       try {
-        const data = await getResident(id, {
-          context_flag: user.permissionFlag,
-        });
+        const data = await getWarningNotesByResident(
+          parseInt(req.query.id as string, 10)
+        );
         data
           ? res.status(StatusCodes.OK).json(data)
           : res
               .status(StatusCodes.NOT_FOUND)
-              .json({ message: 'Resident Not Found' });
+              .json({ message: 'Warning Notes Not Found' });
       } catch (error) {
-        console.error('Resident get error:', error?.response?.data);
+        console.error('Warning Notes get error:', error?.response?.data);
         error?.response?.status === StatusCodes.NOT_FOUND
           ? res
               .status(StatusCodes.NOT_FOUND)
-              .json({ message: 'Resident Not Found' })
+              .json({ message: 'Warning Notes Not Found' })
           : res
               .status(StatusCodes.INTERNAL_SERVER_ERROR)
-              .json({ message: 'Unable to get the Resident' });
-      }
-      break;
-
-    case 'PATCH':
-      try {
-        const data = await updateResident({ id, ...req.body });
-        res.status(StatusCodes.OK).json(data);
-      } catch (error) {
-        console.error('Resident patch error:', error?.response?.data);
-        console.error('Resident patch request:', req);
-        res
-          .status(StatusCodes.INTERNAL_SERVER_ERROR)
-          .json({ message: 'Unable to update resident' });
+              .json({ message: 'Unable to get the Warning Notes' });
       }
       break;
 

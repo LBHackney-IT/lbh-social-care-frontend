@@ -106,7 +106,7 @@ export interface CaseData {
   nextCursor?: number;
 }
 
-export interface Resident {
+export interface LegacyResident {
   mosaicId: number;
   firstName: string;
   lastName: string;
@@ -128,26 +128,46 @@ export interface Resident {
   }>;
 }
 
+export interface ResidentsAPI {
+  residents: LegacyResident[] | [];
+  nextCursor?: string;
+}
+
 /**
- * This should be what the BE is going to return
+ * This should replace LegacyResident
+ * When /residents is going to be aligned with /residents/:id
  */
-export interface ExtendedResident extends Resident {
-  otherNames?: Array<{
+export interface Resident {
+  id: number;
+  firstName: string;
+  lastName: string;
+  gender: string;
+  contextFlag: AgeContext;
+  createdBy: string;
+  otherNames: Array<{
     firstName: string;
     lastName: string;
   }>;
+  phoneNumbers: Array<{
+    number: string;
+    type: string;
+  }>;
+  title?: string;
+  dateOfBirth?: string;
+  ethnicity?: string;
   firstLanguage?: string;
   religion?: string;
-  dateOfDeath?: string;
   sexualOrientation?: string;
-  ethnicity?: string;
-  email?: string;
+  nhsNumber?: number;
+  emailAddress?: string;
   preferredMethodOfContact?: string;
-}
-
-export interface ResidentAPI {
-  residents: Resident[] | [];
-  nextCursor?: string;
+  restricted?: boolean;
+  dateOfDeath?: string;
+  address?: {
+    address: string;
+    postcode: string;
+    uprn?: string;
+  };
 }
 
 export interface User {
@@ -181,8 +201,8 @@ interface BaseNote {
   id: number;
   type: string;
   createdBy: string;
-  createdDate: Date;
-  nextReviewDate: Date;
+  startDate: Date;
+  reviewDate: Date;
   endedDate?: Date;
   endedBy?: string;
   reviewedDate?: Date;
@@ -195,14 +215,14 @@ interface BaseNote {
 }
 
 interface DisclosedNote extends BaseNote {
-  disclosedWithIndividual: 'Yes';
+  disclosedWithIndividual: true;
   disclosedDetails: string;
   disclosedDate: Date;
-  disclosedHow: ['verbal', 'written'] | ['verbal'] | ['written'];
+  disclosedHow: 'Verbal' | 'Written' | 'Verbal / Written';
 }
 
 interface UndisclosedNote extends BaseNote {
-  disclosedWithIndividual: 'No';
+  disclosedWithIndividual: false;
   undisclosedDetails: string;
 }
 
@@ -218,7 +238,7 @@ interface DisclosedReviewedNote extends ReviewedNote {
   disclosedWithIndividual: true;
   disclosedDetails: string;
   disclosedDate: Date;
-  disclosedHow: ['verbal', 'written'] | ['verbal'] | ['written'];
+  disclosedHow: 'Verbal' | 'Written' | 'Verbal / Written';
 }
 
 interface UndisclosedReviewedNote extends ReviewedNote {

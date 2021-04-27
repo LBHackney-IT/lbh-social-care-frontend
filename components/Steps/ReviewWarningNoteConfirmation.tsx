@@ -27,7 +27,7 @@ const ReviewWarningNoteConfirmation = ({
         <Button
           label="View person"
           wideButton
-          route={`/people/${formData.person.mosaicId}`}
+          route={`/people/${formData.person.id}`}
         />
       </div>
     </>

@@ -26,7 +26,7 @@ const PersonPage = (): React.ReactElement => {
       >
         {(person) => (
           <Stack space={7} className="govuk-!-margin-top-7">
-            <WarningNotes id={personId} />
+            {user.hasAdminPermissions ? <WarningNotes id={personId} /> : <></>}
             <PersonDetails person={person} />
             <AllocatedWorkers id={personId} />
             <Cases id={personId} person={person} />

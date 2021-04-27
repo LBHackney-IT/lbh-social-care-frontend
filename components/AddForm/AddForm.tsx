@@ -11,14 +11,14 @@ import { Resident, User } from 'types';
 const AddForm = ({ person }: { person: Resident }): React.ReactElement => {
   const { user } = useAuth() as { user: User };
   const [url, setUrl] = useState<string>();
-  const ageContext = person && person.ageContext;
+  const ageContext = person && person.contextFlag;
   const forms = ageContext === 'C' ? CHILD_FORMS : ADULT_FORMS;
   const internalForms =
     ageContext === 'A'
       ? [
           {
             text: 'Case Note Recording',
-            value: `/people/${person.mosaicId}/records/case-notes-recording`,
+            value: `/people/${person.id}/records/case-notes-recording`,
           },
         ]
       : [];
@@ -40,13 +40,13 @@ const AddForm = ({ person }: { person: Resident }): React.ReactElement => {
             ? `${url}${populateChildForm(
                 person.firstName,
                 person.lastName,
-                person.mosaicId,
+                person.id,
                 user.name,
                 url
               )}`
             : url
         }
-        internalQuery={`?id=${person.mosaicId}`}
+        internalQuery={`?id=${person.id}`}
       />
     </>
   );

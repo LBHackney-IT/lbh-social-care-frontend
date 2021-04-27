@@ -1,18 +1,20 @@
 import { useState } from 'react';
-import { ExtendedResident } from 'types';
+
+import { getEthnicityName } from 'utils/person';
+import { Resident } from 'types';
 
 interface Props {
-  person: ExtendedResident;
+  person: Resident;
   expandView?: boolean;
 }
 
 const PersonDetails = ({
   person: {
     otherNames,
-    ageContext,
+    contextFlag,
     firstName,
     lastName,
-    mosaicId,
+    id,
     dateOfBirth,
     nhsNumber,
     firstLanguage,
@@ -22,8 +24,8 @@ const PersonDetails = ({
     gender,
     address,
     ethnicity,
-    phoneNumber,
-    email,
+    phoneNumbers,
+    emailAddress,
     preferredMethodOfContact,
   },
   expandView = false,
@@ -65,7 +67,7 @@ const PersonDetails = ({
             )}
             <div className="govuk-summary-list__row">
               <dt className="govuk-summary-list__key">Person ID</dt>
-              <dd className="govuk-summary-list__value">#{mosaicId}</dd>
+              <dd className="govuk-summary-list__value">#{id}</dd>
             </div>
             {gender && (
               <div className="govuk-summary-list__row">
@@ -92,7 +94,9 @@ const PersonDetails = ({
             {ethnicity && (
               <div className="govuk-summary-list__row">
                 <dt className="govuk-summary-list__key">Ethnicity</dt>
-                <dd className="govuk-summary-list__value">{ethnicity}</dd>
+                <dd className="govuk-summary-list__value">
+                  {getEthnicityName(ethnicity)}
+                </dd>
               </div>
             )}
             {firstLanguage && (
@@ -121,32 +125,33 @@ const PersonDetails = ({
                 <dd className="govuk-summary-list__value">{nhsNumber}</dd>
               </div>
             )}
-            {address?.address && (
+            {address && (
               <div className="govuk-summary-list__row">
                 <dt className="govuk-summary-list__key">Address</dt>
                 <dd className="govuk-summary-list__value">
-                  <p>{address.address}</p>
+                  <div>{address.address}</div>
+                  <div>{address.postcode}</div>
                 </dd>
               </div>
             )}
-            {phoneNumber && phoneNumber?.length > 0 && (
+            {phoneNumbers.length > 0 && (
               <div className="govuk-summary-list__row">
                 <dt className="govuk-summary-list__key">Phone Number</dt>
                 <dd className="govuk-summary-list__value">
                   <ul className="govuk-list">
-                    {phoneNumber.map(({ phoneNumber, phoneType }) => (
-                      <li key={phoneNumber}>
-                        {phoneNumber} - {phoneType}
+                    {phoneNumbers.map(({ number, type }) => (
+                      <li key={number}>
+                        {number} - {type}
                       </li>
                     ))}
                   </ul>
                 </dd>
               </div>
             )}
-            {email && (
+            {emailAddress && (
               <div className="govuk-summary-list__row">
-                <dt className="govuk-summary-list__key">Email </dt>
-                <dd className="govuk-summary-list__value">{email}</dd>
+                <dt className="govuk-summary-list__key">Email</dt>
+                <dd className="govuk-summary-list__value">{emailAddress}</dd>
               </div>
             )}
             {preferredMethodOfContact && (
@@ -159,11 +164,11 @@ const PersonDetails = ({
                 </dd>
               </div>
             )}
-            {ageContext && (
+            {contextFlag && (
               <div className="govuk-summary-list__row">
                 <dt className="govuk-summary-list__key">Person type</dt>
                 <dd className="govuk-summary-list__value">
-                  {ageContext === 'C' ? 'CFS' : 'ASC'}
+                  {contextFlag === 'C' ? 'CFS' : 'ASC'}
                 </dd>
               </div>
             )}

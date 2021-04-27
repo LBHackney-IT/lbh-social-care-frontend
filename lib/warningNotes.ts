@@ -1,23 +1,22 @@
-import { WarningNote } from 'types';
-
-const { MOCKED_WARNING_NOTES } = process.env;
+import axios from 'axios';
 
 import { mockedWarningNote } from 'factories/warningNotes';
+import { WarningNote } from 'types';
+
+const { ENDPOINT_API, AWS_KEY } = process.env;
+
+const headers = { 'x-api-key': AWS_KEY };
 
 export const getWarningNotesByResident = async (
   personId: number
 ): Promise<WarningNote[] | []> => {
-  const mockedWN = !MOCKED_WARNING_NOTES
-    ? []
-    : personId % 3 === 0
-    ? []
-    : personId % 3 === 1
-    ? mockedWarningNote.slice(0, 1)
-    : mockedWarningNote;
-
-  return await new Promise((resolve) =>
-    setTimeout(() => resolve(mockedWN), 1000)
+  const { data } = await axios.get(
+    `${ENDPOINT_API}/residents/${personId}/warningnotes`,
+    {
+      headers,
+    }
   );
+  return data.warningNotes;
 };
 
 export const getWarningNote = async (
@@ -29,4 +28,21 @@ export const getWarningNote = async (
       1000
     )
   );
+};
+
+export const addWarningNote = async (
+  params: Record<string, unknown>
+): Promise<void> => {
+  await axios.post(`${ENDPOINT_API}/warningnotes`, params, {
+    headers: { ...headers, 'Content-Type': 'application/json' },
+  });
+};
+
+export const patchWarningNote = async (
+  personId: number,
+  params: Record<string, unknown>
+): Promise<void> => {
+  await axios.patch(`${ENDPOINT_API}/warningnotes/${personId}`, params, {
+    headers: { ...headers, 'Content-Type': 'application/json' },
+  });
 };

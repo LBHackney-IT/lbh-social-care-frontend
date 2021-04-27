@@ -6,31 +6,29 @@ import PersonView from 'components/PersonView/PersonView';
 import { useAuth } from 'components/UserContext/UserContext';
 import BackButton from 'components/Layout/BackButton/BackButton';
 import FormWizard from 'components/FormWizard/FormWizard';
+import { addWarningNote } from 'utils/api/warningNotes';
 
 import { formStepsAdult, formStepsChild } from 'data/forms/warning-note';
 
-import type { Resident, User } from 'types';
+import type { Resident, User, WarningNote } from 'types';
+
+interface FormWarningNote extends Omit<WarningNote, 'disclosedWithIndividual'> {
+  disclosedWithIndividual: 'Yes' | 'No';
+}
 
 const CaseNotesRecording = (): React.ReactElement => {
   const { query } = useRouter();
   const personId = Number(query.id as string);
   const { user } = useAuth() as { user: User };
   const onFormSubmit = useCallback(
-    (person: Resident) => async ({
-      form_name,
-      ...formData
-    }: Record<string, unknown>) => {
-      console.log({
-        personId: person.mosaicId, // TODO: needs to be fixed BE
+    (person: Resident) => async (formData: FormWarningNote) => {
+      await addWarningNote({
+        personId: person.id,
         firstName: person.firstName,
         lastName: person.lastName,
-        contextFlag: person.ageContext,
-        dateOfBirth: person.dateOfBirth,
-        workerEmail: user.email,
-        formNameOverall:
-          person.ageContext === 'A' ? 'ASC_case_note' : 'CFS_case_note',
-        formName: form_name,
-        caseFormData: JSON.stringify(formData),
+        ...formData,
+        disclosedWithIndividual: formData.disclosedWithIndividual === 'Yes',
+        createdBy: user.email,
       });
     },
     [user.email]
@@ -44,11 +42,11 @@ const CaseNotesRecording = (): React.ReactElement => {
           Add Warning Note
         </h1>
         <PersonView personId={personId} expandView>
-          {(person: Resident) => (
+          {(person) => (
             <FormWizard
               formPath={`/people/${personId}/warning-notes/add/`}
               formSteps={
-                person.ageContext === 'A' ? formStepsAdult : formStepsChild
+                person.contextFlag === 'A' ? formStepsAdult : formStepsChild
               }
               title="Add Warning Note"
               onFormSubmit={onFormSubmit(person)}

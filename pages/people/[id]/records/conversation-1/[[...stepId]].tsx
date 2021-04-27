@@ -48,8 +48,8 @@ const CaseNotesRecording = (): ReactElement => {
           Conversation 1
         </h1>
         <PersonView personId={Number(query.id as string)} expandView>
-          {(person: Resident) =>
-            person.ageContext === 'A' ? (
+          {(person) =>
+            person.contextFlag === 'A' ? (
               <FormWizard
                 formPath={`/people/${query.id}/records/conversation-1/`}
                 formSteps={formSteps}

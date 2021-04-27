@@ -35,7 +35,7 @@ jest.mock('data/googleForms/childForms', () => [
 describe('AddForm component', () => {
   it('should render adult forms', async () => {
     const props = {
-      person: residentFactory.build({ ageContext: 'A' }),
+      person: residentFactory.build({ contextFlag: 'A' }),
     };
     const { getByTestId, getByRole } = render(
       <UserContext.Provider
@@ -63,7 +63,7 @@ describe('AddForm component', () => {
 
   it('should render children forms', async () => {
     const props = {
-      person: residentFactory.build({ ageContext: 'C' }),
+      person: residentFactory.build({ contextFlag: 'C' }),
     };
     const { getByRole, asFragment, getByTestId } = render(
       <UserContext.Provider

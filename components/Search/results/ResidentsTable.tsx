@@ -1,12 +1,12 @@
 import Link from 'next/link';
-import { Resident } from 'types';
+import { LegacyResident } from 'types';
 
 const ResultEntry = ({
   mosaicId,
   firstName,
   lastName,
   dateOfBirth,
-}: Resident): React.ReactElement => (
+}: LegacyResident): React.ReactElement => (
   <tr className="govuk-table__row">
     <td className="govuk-table__cell">{mosaicId}</td>
     <td className="govuk-table__cell">
@@ -26,7 +26,7 @@ const ResultEntry = ({
 const ResultTable = ({
   records,
 }: {
-  records: Resident[];
+  records: LegacyResident[];
 }): React.ReactElement => (
   <table className="govuk-table">
     <thead className="govuk-table__head">

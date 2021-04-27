@@ -3,9 +3,8 @@ import get from 'lodash/get';
 
 import * as Inputs from 'components/Form';
 
-const enhanceValidate = (validate, currentData) => {
-  console.log(typeof validate === 'function', currentData);
-  return typeof validate === 'function'
+const enhanceValidate = (validate, currentData) =>
+  typeof validate === 'function'
     ? (value) => validate(value, currentData)
     : Object.entries(validate).reduce(
         (acc, [key, validation]) => ({
@@ -14,7 +13,6 @@ const enhanceValidate = (validate, currentData) => {
         }),
         {}
       );
-};
 
 const DynamicInput = (props) => {
   const {

@@ -22,12 +22,13 @@ export const addResident = async (
   formData: Record<string, unknown>
 ): Promise<Record<string, unknown>> => {
   const { data } = await axios.post(`/api/residents`, formData);
-  return { ref: data?.personId, data };
+  return { ref: data?.id, data };
 };
 
 export const updateResident = async (
+  personId: number,
   formData: Record<string, unknown>
 ): Promise<Record<string, unknown>> => {
-  const { data } = await axios.patch(`/api/residents`, formData);
-  return { ref: data?.personId, data };
+  const { data } = await axios.patch(`/api/residents/${personId}`, formData);
+  return { ref: data?.id, data };
 };

@@ -3,25 +3,23 @@ import { useRouter } from 'next/router';
 
 import { useAuth } from 'components/UserContext/UserContext';
 import FormWizard from 'components/FormWizard/FormWizard';
-import { updateResident } from 'utils/api/residents';
 import CustomConfirmation from 'components/Steps/PersonConfirmation';
-import { useResident } from 'utils/api/residents';
 import Spinner from 'components/Spinner/Spinner';
 import ErrorMessage from 'components/ErrorMessage/ErrorMessage';
+import { useResident, updateResident } from 'utils/api/residents';
+import { getMacroEthnicity } from 'utils/person';
 
-import form from 'data/forms/create-new-person';
+import formSteps from 'data/forms/create-new-person';
 
 import type { User } from 'types';
 
 const StepHeader = () => (
-  <>
-    <h1
-      key="form-title"
-      className="govuk-fieldset__legend--xl gov-weight-lighter"
-    >
-      Update person details
-    </h1>
-  </>
+  <h1
+    key="form-title"
+    className="govuk-fieldset__legend--xl gov-weight-lighter"
+  >
+    Update person details
+  </h1>
 );
 
 interface FormData {
@@ -36,9 +34,10 @@ const UpdatePerson = (): ReactElement => {
   const { data: person, error } = useResident(personId);
   const { user } = useAuth() as { user: User };
   const onFormSubmit = async (formData: FormData) => {
-    const ref = await updateResident({
+    const ref = await updateResident(personId, {
       ...formData,
       contextFlag: formData.contextFlag || user.permissionFlag,
+      restricted: formData.restricted ? 'Y' : 'N',
       nhsNumber: Number(formData.nhsNumber),
       createdBy: user.email,
     });
@@ -52,15 +51,19 @@ const UpdatePerson = (): ReactElement => {
   }
   return (
     <FormWizard
-      formPath={`/people/${personId}/update/`}
-      formSteps={form.steps}
-      title={form.title}
+      formPath={`/people/${personId}/edit/`}
+      formSteps={formSteps}
+      title="Update person"
       defaultValues={{
         user,
-        ...{ ...person, contextFlag: person.ageContext },
+        ...{
+          ...person,
+          macroEthnicity:
+            person.ethnicity && getMacroEthnicity(person.ethnicity),
+        },
       }}
       onFormSubmit={onFormSubmit}
-      successMessage={form.successMessage}
+      successMessage="Update person confirmed"
       customConfirmation={CustomConfirmation}
       stepHeader={StepHeader}
     />
