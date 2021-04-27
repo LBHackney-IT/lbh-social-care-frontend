@@ -36,8 +36,8 @@ describe(`MyData`, () => {
     fireEvent.click(getByRole('button'));
     expect(asFragment()).toMatchSnapshot();
     expect(mockedUseRouter.replace).toHaveBeenCalledWith(
-      'foopath?details=false',
-      'foopath?details=false',
+      'foopath?details=true',
+      'foopath?details=true',
       {
         scroll: false,
         shallow: true,

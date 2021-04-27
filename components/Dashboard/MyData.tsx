@@ -23,8 +23,8 @@ const MyData = (): React.ReactElement => {
   const onExapandToggle = () => {
     setExpandView(!expandView);
     replace(
-      `${pathname}?details=${expandView}`,
-      `${pathname}?details=${expandView}`,
+      `${pathname}?details=${!expandView}`,
+      `${pathname}?details=${!expandView}`,
       { shallow: true, scroll: false }
     );
   };
