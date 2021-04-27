@@ -15,7 +15,13 @@ const MyData = (): React.ReactElement => {
   const [expandView, setExpandView] = useState(Boolean(query?.details));
   const { data, error } = useMyData();
   if (error) {
-    return <ErrorMessage />;
+    return (
+      <ErrorMessage
+        label={
+          error.response?.status ? 'User not found in the system' : undefined
+        }
+      />
+    );
   }
   if (!data) {
     return <Spinner />;
