@@ -11,6 +11,7 @@ const Workers = (): React.ReactElement => {
     <div>
       <Seo title={`Worker Allocations -  #${query.id}`} />
       <BackButton />
+      <h1>Worker&apos;s allocations</h1>
       <AllocatedCases id={allocationId} />
     </div>
   );

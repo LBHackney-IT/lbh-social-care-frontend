@@ -12,12 +12,12 @@ const formConfig: FormStep[] = [
     id: 'client-details',
     title: 'Person Details',
     components: [
-      <h3
+      <h2
         key="subtitle-details"
         className="govuk-fieldset__legend--l gov-weight-lighter govuk-!-margin-bottom-5"
       >
         Person details
-      </h3>,
+      </h2>,
       {
         conditionalRender: ({ user }) => !user.permissionFlag,
         component: 'Radios',

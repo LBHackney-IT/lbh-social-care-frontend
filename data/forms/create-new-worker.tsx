@@ -11,12 +11,12 @@ const formConfig: FormConfig = {
       id: 'worker-details',
       title: 'Worker Details',
       components: [
-        <h3
+        <h2
           key="subtitle-details"
           className="govuk-fieldset__legend--l gov-weight-lighter govuk-!-margin-bottom-5"
         >
           Worker details
-        </h3>,
+        </h2>,
         {
           component: 'EmailInput',
           name: 'emailAddress',
