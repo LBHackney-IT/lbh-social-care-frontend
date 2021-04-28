@@ -21,9 +21,12 @@ export const addWarningNote = async (
 };
 
 export const updateWarningNote = async (
-  noteId: number,
+  warningNoteId: number,
   formData: Record<string, unknown>
 ): Promise<Record<string, unknown>> => {
-  const { data } = await axios.patch(`/api/warningnotes/${noteId}`, formData);
+  const { data } = await axios.patch(
+    `/api/warningnotes/${warningNoteId}`,
+    formData
+  );
   return data;
 };

@@ -38,11 +38,10 @@ export const addWarningNote = async (
   });
 };
 
-export const patchWarningNote = async (
-  personId: number,
+export const updateWarningNote = async (
   params: Record<string, unknown>
 ): Promise<void> => {
-  await axios.patch(`${ENDPOINT_API}/warningnotes/${personId}`, params, {
+  await axios.patch(`${ENDPOINT_API}/warningnotes`, params, {
     headers: { ...headers, 'Content-Type': 'application/json' },
   });
 };
