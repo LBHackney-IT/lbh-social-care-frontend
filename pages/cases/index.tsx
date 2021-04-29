@@ -3,7 +3,7 @@ import SearchWrapper from 'components/Search/MainSearchWrapper';
 
 const SearchCasesPage = (): React.ReactElement => (
   <div>
-    <Seo title="Find unlinked case notes" />
+    <Seo title="Search for record" />
     <SearchWrapper
       type="records"
       //@ts-expect-error TODO: fixed when search.jsx is migrated
