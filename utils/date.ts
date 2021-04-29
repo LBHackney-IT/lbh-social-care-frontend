@@ -1,7 +1,7 @@
 import isValid from 'date-fns/isValid';
 
 const EU_DATE = /^(\d{2})[/|-](\d{2})[/|-](\d{4})/;
-const US_DATE = /^(\d{4})[/|-](\d{2})[/|-](\d{2})/;
+const ISO_DATE = /^(\d{4})[/|-](\d{2})[/|-](\d{2})/;
 
 export const parseDate = (date: string): Date | undefined => {
   const dateEU = EU_DATE.exec(date);
@@ -12,12 +12,12 @@ export const parseDate = (date: string): Date | undefined => {
       Number(dateEU[1])
     );
   }
-  const dateUS = US_DATE.exec(date);
-  if (dateUS) {
+  const dateISON = ISO_DATE.exec(date);
+  if (dateISON) {
     return new Date(
-      Number(dateUS[1]),
-      Number(dateUS[2]) - 1,
-      Number(dateUS[3])
+      Number(dateISON[1]),
+      Number(dateISON[2]) - 1,
+      Number(dateISON[3])
     );
   }
 };
@@ -50,20 +50,20 @@ interface DateObject {
 
 export const stringDateToObject = (
   value?: string,
-  format = 'US'
+  format = 'ISO'
 ): DateObject => {
   const date = value?.split(/[-|T|\s]/) || ['', '', ''];
-  return format === 'US'
+  return format === 'ISO'
     ? { day: date[2], month: date[1], year: date[0] }
     : { day: date[0], month: date[1], year: date[2] };
 };
 
 export const objectDateToString = (
   { day = '', month = '', year = '' }: DateObject,
-  format = 'US'
+  format = 'ISO'
 ): string | null =>
   day === '' && month === '' && year === ''
     ? null
-    : format === 'US'
+    : format === 'ISO'
     ? `${year}-${month}-${day}`
     : `${day}-${month}-${year}`;
