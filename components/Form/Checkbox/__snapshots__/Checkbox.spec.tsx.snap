@@ -61,31 +61,27 @@ exports[`Checkbox should render properly - as Tickbox 1`] = `
   <div
     class="govuk-form-group"
   >
-    <fieldset
-      class="govuk-fieldset"
+    <div
+      class="govuk-checkboxes"
     >
       <div
-        class="govuk-checkboxes"
+        class="govuk-checkboxes__item"
       >
-        <div
-          class="govuk-checkboxes__item"
+        <input
+          class="govuk-checkboxes__input"
+          id="my-checkbox"
+          name="my-checkbox"
+          type="checkbox"
+          value=""
+        />
+        <label
+          class="govuk-label govuk-checkboxes__label"
+          for="my-checkbox"
         >
-          <input
-            class="govuk-checkboxes__input"
-            id="my-checkbox"
-            name="my-checkbox"
-            type="checkbox"
-            value=""
-          />
-          <label
-            class="govuk-label govuk-checkboxes__label"
-            for="my-checkbox"
-          >
-            My Checkbox 
-          </label>
-        </div>
+          My Checkbox 
+        </label>
       </div>
-    </fieldset>
+    </div>
   </div>
 </DocumentFragment>
 `;
