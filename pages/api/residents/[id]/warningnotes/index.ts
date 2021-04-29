@@ -20,16 +20,14 @@ const endpoint: NextApiHandler = async (
     case 'GET':
       try {
         const data = await getWarningNotesByResident(
-          parseInt(req.query.id as string, 10)
+          Number(req.query.id as string)
         );
         res.status(StatusCodes.OK).json(data);
       } catch (error) {
         console.error('Warning Notes get error:', error?.response?.data);
-        error?.response?.status === StatusCodes.NOT_FOUND
-          ? res.status(StatusCodes.OK).json([]) // this should be fixed BE side
-          : res
-              .status(StatusCodes.INTERNAL_SERVER_ERROR)
-              .json({ message: 'Unable to get the Warning Notes' });
+        res
+          .status(StatusCodes.INTERNAL_SERVER_ERROR)
+          .json({ message: 'Unable to get the Warning Notes' });
       }
       break;
 
