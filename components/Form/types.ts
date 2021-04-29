@@ -160,7 +160,7 @@ interface StepAutocomplete extends Omit<Autocomplete, 'options'> {
 }
 
 export interface DateInput extends GenericField {
-  format?: 'US' | 'EU';
+  format?: 'ISO' | 'EU';
 }
 
 interface StepDateInput extends Omit<DateInput, 'rules'> {

@@ -166,7 +166,7 @@ const WARNING_TYPE_ADULTS: Array<FormComponentStep> = [
   </div>,
   {
     component: 'Radios',
-    name: 'type',
+    name: 'noteType',
     label: 'Select warning type',
     options: WARNING_TYPES_ADULTS,
     rules: { required: true },
@@ -223,7 +223,7 @@ const WARNING_TYPE_CHILDREN: Array<FormComponentStep> = [
   </div>,
   {
     component: 'Radios',
-    name: 'type',
+    name: 'noteType',
     label: 'Select warning type',
     options: WARNING_TYPES_CHILDREN,
     rules: { required: true },
@@ -370,7 +370,7 @@ const DISCUSSED_WITH_MANAGER: Array<FormComponentStep> = [
   </div>,
   {
     component: 'TextInput',
-    name: 'discussedWithManager',
+    name: 'managerName',
     label: 'Manager’s name',
     rules: { required: true },
   },

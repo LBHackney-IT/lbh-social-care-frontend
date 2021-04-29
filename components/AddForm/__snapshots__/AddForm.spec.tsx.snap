@@ -61,6 +61,16 @@ exports[`AddForm component should render children forms 1`] = `
         >
           Foo - Child
         </li>
+        <li
+          aria-selected="false"
+          class="suggestion"
+          data-testid="formList_2"
+          id="downshift-1-item-2"
+          role="option"
+          style="color: rgb(0, 0, 0); background-color: rgb(255, 255, 255);"
+        >
+          Warning Note
+        </li>
       </ul>
     </div>
   </div>

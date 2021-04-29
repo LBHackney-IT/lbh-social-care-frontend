@@ -28,10 +28,10 @@ export const WarningBox = ({ notes, personId }: Props): React.ReactElement => {
           {notes.map((note) => (
             <div key={note.id} className={styles.note}>
               <dl className={styles.noteDetails}>
-                {note.type && (
+                {note.noteType && (
                   <>
                     <dt>Type</dt>
-                    <dd>{note.type}</dd>
+                    <dd>{note.noteType}</dd>
                   </>
                 )}
                 {note.startDate && (
