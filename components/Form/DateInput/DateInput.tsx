@@ -167,7 +167,7 @@ const ControlledDateInput = ({
   control,
   name,
   rules,
-  format = 'US',
+  format = 'ISO',
   ...otherProps
 }: Props): React.ReactElement => (
   <Controller
@@ -186,7 +186,7 @@ const ControlledDateInput = ({
       validate: {
         valid: (value) =>
           value &&
-          (isDateValid(format === 'US' ? value : convertFormat(value)) ||
+          (isDateValid(format === 'ISO' ? value : convertFormat(value)) ||
             'Must be a valid Date'),
         ...(typeof rules?.validate === 'function'
           ? { validation: rules.validate }
