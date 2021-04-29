@@ -23,8 +23,12 @@ const ReviewWarningNote = (): React.ReactElement => {
       updateWarningNote(warningNoteId, {
         warningNoteId,
         reviewedBy: user.email,
-        endedBy: formData.reviewDecision === 'No' && user.email,
-        status: formData.reviewDecision === 'No' ? 'Closed' : 'Open',
+        endedBy: formData.reviewDecision === 'No' ? user.email : undefined,
+        endedDate:
+          formData.reviewDecision === 'No'
+            ? new Date().toISOString().substr(0, 10)
+            : undefined,
+        status: formData.reviewDecision === 'No' ? 'closed' : 'open',
         ...formData,
       });
     },

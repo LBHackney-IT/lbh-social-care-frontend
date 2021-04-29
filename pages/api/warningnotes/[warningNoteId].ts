@@ -44,8 +44,8 @@ const endpoint: NextApiHandler = async (
         const data = await updateWarningNote(req.body);
         res.status(StatusCodes.OK).json(data);
       } catch (error) {
-        console.error('Warning note patch error:', error?.response?.data);
-        console.error('Warning note patch request:', req);
+        console.error('Warning Note patch error:', error?.response?.data);
+        console.error('Warning Note patch request:', req);
         res
           .status(StatusCodes.INTERNAL_SERVER_ERROR)
           .json({ message: 'Unable to update warning note' });
