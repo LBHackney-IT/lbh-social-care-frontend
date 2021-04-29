@@ -199,7 +199,7 @@ export interface Worker {
 
 interface BaseNote {
   id: number;
-  type: string;
+  noteType: string;
   createdBy: string;
   startDate: Date;
   reviewDate: Date;
@@ -208,7 +208,7 @@ interface BaseNote {
   reviewedDate?: Date;
   reviewedBy?: string;
   notes: string;
-  discussedWithManager: string;
+  managerName: string;
   discussedWithManagerDate: Date;
   status: 'closed' | 'open';
   reviews: Array<DisclosedReviewedNote | UndisclosedReviewedNote>;
@@ -230,7 +230,7 @@ interface ReviewedNote {
   reviewedDate: Date;
   reviewdBy: Date;
   notes: string;
-  discussedWithManager: string;
+  managerName: string;
   discussedWithManagerDate: Date;
 }
 

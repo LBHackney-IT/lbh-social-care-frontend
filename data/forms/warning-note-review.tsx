@@ -34,7 +34,7 @@ const formSteps: FormStep[] = [
       </span>,
       {
         component: 'TextInput',
-        name: 'discussedWithManager',
+        name: 'managerName',
         label: 'Manager’s name',
         rules: { required: true },
       },
