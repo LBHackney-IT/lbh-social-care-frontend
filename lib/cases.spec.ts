@@ -8,6 +8,16 @@ const mockedAxios = axios as jest.Mocked<typeof axios>;
 
 const { ENDPOINT_API, AWS_KEY } = process.env;
 
+describe('sanitiseCaseFormData', () => {
+  it('should work properly', () => {
+    expect(
+      casesAPI.sanitiseCaseFormData(
+        '{ "_id" : ObjectId("608bbaf33231b56b163e4d99"), "text" : "(foo), bar"}'
+      )
+    ).toEqual({ text: '(foo), bar' });
+  });
+});
+
 describe('cases APIs', () => {
   describe('getCases', () => {
     it('should work properly', async () => {
