@@ -195,6 +195,7 @@ const formConfig: FormStep[] = [
         options: ['Email', 'Phone', 'Letter', 'Fax', 'Face to face'],
       },
       {
+        conditionalRender: ({ user }) => user.hasAdminPermissions,
         component: 'Radios',
         name: 'restricted',
         label: `Does this person's record history need to be restricted?`,
