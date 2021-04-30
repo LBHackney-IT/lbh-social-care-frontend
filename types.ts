@@ -174,6 +174,7 @@ export interface User {
   name: string;
   email: string;
   permissionFlag: AgeContext;
+  hasDevPermissions: boolean;
   hasAdminPermissions: boolean;
   hasAdultPermissions: boolean;
   hasChildrenPermissions: boolean;

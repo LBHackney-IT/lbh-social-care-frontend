@@ -7,37 +7,50 @@ import {
 
 const PERMISSIONS = {
   ONLY_ADULT: {
-    hasAdminPermissions: false,
+    hasDevPermissions: false,
     hasAdultPermissions: true,
     hasChildrenPermissions: false,
+    hasAdminPermissions: false,
   },
   ONLY_CHILDREN: {
-    hasAdminPermissions: false,
+    hasDevPermissions: false,
     hasAdultPermissions: false,
     hasChildrenPermissions: true,
+    hasAdminPermissions: false,
   },
   ONLY_ADMIN: {
+    hasDevPermissions: false,
     hasAdminPermissions: true,
     hasAdultPermissions: false,
     hasChildrenPermissions: false,
   },
   ADMIN_AND_ADULT: {
     hasAdminPermissions: true,
+    hasDevPermissions: false,
     hasAdultPermissions: false,
     hasChildrenPermissions: false,
   },
   ADMIN_AND_CHILDREN: {
     hasAdminPermissions: true,
+    hasDevPermissions: false,
     hasAdultPermissions: false,
     hasChildrenPermissions: false,
   },
   ADMIN_AND_ADULT_AND_CHILDREN: {
     hasAdminPermissions: true,
+    hasDevPermissions: false,
     hasAdultPermissions: false,
     hasChildrenPermissions: false,
   },
   ADULT_AND_CHILDREN: {
     hasAdminPermissions: true,
+    hasDevPermissions: false,
+    hasAdultPermissions: false,
+    hasChildrenPermissions: false,
+  },
+  DEV: {
+    hasAdminPermissions: true,
+    hasDevPermissions: true,
     hasAdultPermissions: false,
     hasChildrenPermissions: false,
   },
@@ -103,6 +116,21 @@ describe('user', () => {
     });
     it('should be "Children" if only child is true', () => {
       expect(getUserType(PERMISSIONS.ONLY_CHILDREN)).toEqual('Children');
+    });
+  });
+
+  describe('getUserType', () => {
+    it('should be "Admin" if admin', () => {
+      expect(getUserType(PERMISSIONS.ADMIN_AND_ADULT)).toEqual('Admin');
+    });
+    it('should be "Admin" if both adult and child', () => {
+      expect(getUserType(PERMISSIONS.ADULT_AND_CHILDREN)).toEqual('Admin');
+    });
+    it('should be "Adult" if only adult is true', () => {
+      expect(getUserType(PERMISSIONS.ONLY_ADULT)).toEqual('Adult');
+    });
+    it('should be "Dev" if dev is true', () => {
+      expect(getUserType(PERMISSIONS.DEV)).toEqual('Dev');
     });
   });
 });

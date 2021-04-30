@@ -55,6 +55,7 @@ export const isAuthorised = (
 ): User | undefined => {
   const {
     HACKNEY_JWT_SECRET,
+    AUTHORISED_DEV_GROUP,
     AUTHORISED_ADMIN_GROUP,
     AUTHORISED_ADULT_GROUP,
     AUTHORISED_CHILD_GROUP,
@@ -73,7 +74,10 @@ export const isAuthorised = (
   }
   const { groups = [], name, email } = parsedToken;
   const gssUser = {
-    hasAdminPermissions: groups.includes(AUTHORISED_ADMIN_GROUP),
+    hasDevPermissions: groups.includes(AUTHORISED_DEV_GROUP),
+    hasAdminPermissions:
+      groups.includes(AUTHORISED_ADMIN_GROUP) ||
+      groups.includes(AUTHORISED_DEV_GROUP),
     hasAdultPermissions: groups.includes(AUTHORISED_ADULT_GROUP),
     hasChildrenPermissions: groups.includes(AUTHORISED_CHILD_GROUP),
     hasAllocationsPermissions:
@@ -86,6 +90,7 @@ export const isAuthorised = (
     ...gssUser,
     permissionFlag: getPermissionFlag(gssUser),
     isAuthorised:
+      gssUser.hasDevPermissions ||
       gssUser.hasAdminPermissions ||
       gssUser.hasAdultPermissions ||
       gssUser.hasChildrenPermissions,
