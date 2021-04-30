@@ -34,6 +34,23 @@ const Tickbox = ({
   </div>
 );
 
+const CheckBoxWrapper = ({
+  children,
+  isFieldset,
+  ariaDescribedby,
+}: {
+  children: React.ReactElement;
+  isFieldset: boolean;
+  ariaDescribedby?: string;
+}): React.ReactElement =>
+  isFieldset ? (
+    <fieldset className="govuk-fieldset" aria-describedby={ariaDescribedby}>
+      {children}
+    </fieldset>
+  ) : (
+    children
+  );
+
 const Checkbox = ({
   label,
   options,
@@ -43,59 +60,66 @@ const Checkbox = ({
   required,
   labelSize = 'm',
   ...otherProps
-}: Props): React.ReactElement => (
-  <div
-    className={cx('govuk-form-group', {
-      'govuk-form-group--error': error,
-    })}
-  >
-    <fieldset
-      className="govuk-fieldset"
-      aria-describedby={hint && `${name}-hint`}
+}: Props): React.ReactElement => {
+  return (
+    <div
+      className={cx('govuk-form-group', {
+        'govuk-form-group--error': error,
+      })}
     >
-      {options && (
-        <legend
-          className={`govuk-fieldset__legend govuk-fieldset__legend--${labelSize}`}
-        >
-          {label} {required && <span className="govuk-required">*</span>}
-        </legend>
-      )}
-      {hint && (
-        <div id={`${name}-hint`} className="govuk-hint">
-          {hint}
-        </div>
-      )}
-      <div className="govuk-checkboxes">
-        {options ? (
-          options.map((option: Option) => {
-            const { value, text } =
-              typeof option === 'string'
-                ? { value: option, text: option }
-                : option;
-            return (
+      <CheckBoxWrapper
+        isFieldset={Boolean(options)}
+        ariaDescribedby={hint && `${name}-hint`}
+      >
+        <>
+          {options && (
+            <legend
+              className={`govuk-fieldset__legend govuk-fieldset__legend--${labelSize}`}
+            >
+              {label} {required && <span className="govuk-required">*</span>}
+            </legend>
+          )}
+          {hint && (
+            <div id={`${name}-hint`} className="govuk-hint">
+              {hint}
+            </div>
+          )}
+          <div className="govuk-checkboxes">
+            {options ? (
+              options.map((option: Option) => {
+                const { value, text } =
+                  typeof option === 'string'
+                    ? { value: option, text: option }
+                    : option;
+                return (
+                  <Tickbox
+                    key={value}
+                    {...otherProps}
+                    name={name}
+                    value={value}
+                    label={text}
+                  />
+                );
+              })
+            ) : (
               <Tickbox
-                key={value}
                 {...otherProps}
                 name={name}
-                value={value}
-                label={text}
+                label={label}
+                required={required}
               />
-            );
-          })
-        ) : (
-          <Tickbox
-            {...otherProps}
-            name={name}
-            label={label}
-            required={required}
-          />
-        )}
-      </div>
-      {error && (
-        <ErrorMessage label={error.message} className="govuk-!-margin-top-3" />
-      )}
-    </fieldset>
-  </div>
-);
+            )}
+          </div>
+          {error && (
+            <ErrorMessage
+              label={error.message}
+              className="govuk-!-margin-top-3"
+            />
+          )}
+        </>
+      </CheckBoxWrapper>
+    </div>
+  );
+};
 
 export default Checkbox;
