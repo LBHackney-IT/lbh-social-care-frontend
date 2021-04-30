@@ -6,6 +6,7 @@ declare global {
     interface ProcessEnv {
       GSSO_TOKEN_NAME: string;
       HACKNEY_JWT_SECRET: string;
+      AUTHORISED_DEV_GROUP: string;
       AUTHORISED_ADMIN_GROUP: string;
       AUTHORISED_ADULT_GROUP: string;
       AUTHORISED_CHILD_GROUP: string;

@@ -2,22 +2,33 @@ import type { User } from 'types';
 
 export type UserPermissions = Pick<
   User,
-  'hasAdminPermissions' | 'hasAdultPermissions' | 'hasChildrenPermissions'
+  | 'hasDevPermissions'
+  | 'hasAdultPermissions'
+  | 'hasChildrenPermissions'
+  | 'hasAdminPermissions'
 >;
 
 export const isOnlyAdult = ({
-  hasAdminPermissions,
+  hasDevPermissions,
   hasAdultPermissions,
   hasChildrenPermissions,
+  hasAdminPermissions,
 }: UserPermissions): boolean =>
-  !hasAdminPermissions && hasAdultPermissions && !hasChildrenPermissions;
+  !hasDevPermissions &&
+  hasAdultPermissions &&
+  !hasChildrenPermissions &&
+  !hasAdminPermissions;
 
 export const isOnlyChildren = ({
-  hasAdminPermissions,
+  hasDevPermissions,
   hasAdultPermissions,
   hasChildrenPermissions,
+  hasAdminPermissions,
 }: UserPermissions): boolean =>
-  !hasAdminPermissions && !hasAdultPermissions && hasChildrenPermissions;
+  !hasDevPermissions &&
+  !hasAdultPermissions &&
+  hasChildrenPermissions &&
+  !hasAdminPermissions;
 
 export const getPermissionFlag = (
   user: UserPermissions
@@ -34,5 +45,11 @@ export const getPermissionFlag = (
  */
 export const getUserType = (
   user: UserPermissions
-): 'Admin' | 'Adult' | 'Children' | undefined =>
-  isOnlyAdult(user) ? 'Adult' : isOnlyChildren(user) ? 'Children' : 'Admin';
+): 'Dev' | 'Admin' | 'Adult' | 'Children' =>
+  isOnlyAdult(user)
+    ? 'Adult'
+    : isOnlyChildren(user)
+    ? 'Children'
+    : user.hasDevPermissions
+    ? 'Dev'
+    : 'Admin';

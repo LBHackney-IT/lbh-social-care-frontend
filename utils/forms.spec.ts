@@ -1,3 +1,9 @@
+import {
+  mockedUser,
+  mockedAdminUser,
+  mockedOnlyAdultUser,
+  mockedOnlyChildUser,
+} from 'factories/users';
 import { getFormsByUserPermission } from './forms';
 
 jest.mock('data/formFilterNames/adultFormNames', () => [
@@ -13,33 +19,35 @@ jest.mock('data/formFilterNames/childFormNames', () => [
 describe('forms', () => {
   describe('getFormsByUserPermission', () => {
     it('should work properly - for Adults', () => {
-      expect(
-        getFormsByUserPermission({
-          hasAdultPermissions: true,
-          hasChildrenPermissions: false,
-          hasAdminPermissions: false,
-        })
-      ).toEqual(['Bar - Adult', 'Foo - Adult']);
+      expect(getFormsByUserPermission(mockedOnlyAdultUser)).toEqual([
+        'Bar - Adult',
+        'Foo - Adult',
+      ]);
     });
 
     it('should work properly - for Children', () => {
-      expect(
-        getFormsByUserPermission({
-          hasChildrenPermissions: true,
-          hasAdminPermissions: false,
-          hasAdultPermissions: false,
-        })
-      ).toEqual(['Bar - Child', 'Foo - Child']);
+      expect(getFormsByUserPermission(mockedOnlyChildUser)).toEqual([
+        'Bar - Child',
+        'Foo - Child',
+      ]);
     });
 
     it('should work properly - for Admin', () => {
-      expect(
-        getFormsByUserPermission({
-          hasAdminPermissions: true,
-          hasChildrenPermissions: false,
-          hasAdultPermissions: false,
-        })
-      ).toEqual(['Bar - Adult', 'Bar - Child', 'Foo - Adult', 'Foo - Child']);
+      expect(getFormsByUserPermission(mockedAdminUser)).toEqual([
+        'Bar - Adult',
+        'Bar - Child',
+        'Foo - Adult',
+        'Foo - Child',
+      ]);
+    });
+
+    it('should work properly - for Admin', () => {
+      expect(getFormsByUserPermission(mockedUser)).toEqual([
+        'Bar - Adult',
+        'Bar - Child',
+        'Foo - Adult',
+        'Foo - Child',
+      ]);
     });
   });
 });

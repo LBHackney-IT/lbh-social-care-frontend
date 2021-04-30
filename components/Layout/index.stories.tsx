@@ -14,6 +14,7 @@ const Template: Story<Props> = (args) => (
       user: {
         name: 'bar',
         hasAdminPermissions: true,
+        hasDevPermissions: false,
         hasChildrenPermissions: true,
         hasAdultPermissions: true,
         email: 'foo@bar.com',
