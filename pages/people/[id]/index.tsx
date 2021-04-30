@@ -22,11 +22,11 @@ const PersonPage = (): React.ReactElement => {
       <PersonView
         personId={personId}
         showPersonDetails={false}
-        canEdit={user.hasAdminPermissions}
+        canEdit={user.hasDevPermissions}
       >
         {(person) => (
           <Stack space={7} className="govuk-!-margin-top-7">
-            {user.hasAdminPermissions ? <WarningNotes id={personId} /> : <></>}
+            {user.hasDevPermissions ? <WarningNotes id={personId} /> : <></>}
             <PersonDetails person={person} />
             <AllocatedWorkers id={personId} />
             <Cases id={personId} person={person} />

@@ -22,7 +22,7 @@ const AddForm = ({ person }: { person: Resident }): React.ReactElement => {
           },
         ]
       : [];
-  const betaForms = user.hasAdminPermissions
+  const betaForms = user.hasDevPermissions
     ? [
         {
           text: 'Warning Note',
