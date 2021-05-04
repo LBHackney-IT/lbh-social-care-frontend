@@ -42,14 +42,14 @@ const formConfig: FormStep[] = [
         name: 'firstName',
         width: 20,
         label: 'First Name',
-        rules: { required: true },
+        rules: { required: 'Please enter a first name' },
       },
       {
         component: 'TextInput',
         name: 'lastName',
         width: 20,
         label: 'Last Name',
-        rules: { required: true },
+        rules: { required: 'Please enter a last name' },
       },
       {
         component: 'ObjectInput',
@@ -86,7 +86,7 @@ const formConfig: FormStep[] = [
           { value: 'U', text: 'Unknown' },
           { value: 'I', text: 'Indeterminate' },
         ],
-        rules: { required: true },
+        rules: { required: 'Please choose an option from the dropdown' },
       },
       {
         component: 'DateInput',
@@ -114,7 +114,7 @@ const formConfig: FormStep[] = [
         name: 'ethnicity',
         label: 'Sub-ethnicity',
         width: 20,
-        rules: { required: true },
+        rules: { required: 'Please choose an option from the dropdown' },
         options: ({ macroEthnicity }) => dynamicEthnicities[macroEthnicity],
       },
       {
@@ -202,7 +202,7 @@ const formConfig: FormStep[] = [
           { value: 'Y', text: 'Yes' },
           { value: 'N', text: 'No' },
         ],
-        rules: { required: true },
+        rules: { required: 'Please choose one option' },
       },
     ],
   },
