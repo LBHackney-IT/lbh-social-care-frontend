@@ -1,6 +1,4 @@
 import { useRouter } from 'next/router';
-
-import Seo from 'components/Layout/Seo/Seo';
 import AddForm from 'components/AddForm/AddForm';
 import BackButton from 'components/Layout/BackButton/BackButton';
 import PersonView from 'components/PersonView/PersonView';
@@ -10,7 +8,6 @@ const AddNewRecordPage = (): React.ReactElement => {
   const personId = Number(query.id as string);
   return (
     <>
-      <Seo title={`Add a new record for #${query.id}`} />
       <BackButton />
       <h1 className="govuk-fieldset__legend--l gov-weight-lighter">
         Add a new record for
