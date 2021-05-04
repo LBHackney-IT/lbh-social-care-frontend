@@ -113,7 +113,6 @@ const CasesTable = ({
             )}
           </th>
         ))}
-        <th scope="col" className="govuk-table__header"></th>
       </tr>
     </thead>
     <tbody className="govuk-table__body">

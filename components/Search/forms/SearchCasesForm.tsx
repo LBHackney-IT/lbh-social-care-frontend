@@ -167,7 +167,7 @@ const SearchCasesForm = ({
         </div>
       )}
       <Button label={ctaText} type="submit" disabled={!isDirty} />
-      <span
+      <button
         className="govuk-link"
         onClick={() => {
           reset({
@@ -183,7 +183,7 @@ const SearchCasesForm = ({
         }}
       >
         Clear {ctaText.toLowerCase()}
-      </span>
+      </button>
     </form>
   );
 };
