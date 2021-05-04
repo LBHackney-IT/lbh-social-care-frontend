@@ -65,7 +65,9 @@ const FormWizard = ({
       <fieldset
         className="govuk-fieldset"
         role="group"
+        id="step-hint"
         aria-describedby="step-hint"
+        aria-labelledby="step-hint"
       >
         {steps.length > 3 &&
           step.id !== 'summary' &&
