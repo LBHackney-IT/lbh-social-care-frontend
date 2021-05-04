@@ -44,6 +44,7 @@ const TextArea = ({
       name={name}
       rows={rows}
       aria-describedby={`${name}-hint ${name}-error`}
+      aria-labelledby={name}
       ref={rules ? register?.(rules) : register}
       {...otherProps}
     />
