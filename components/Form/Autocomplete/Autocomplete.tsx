@@ -94,6 +94,7 @@ export const Autocomplete = forwardRef<HTMLInputElement, AutoProps>(
               })}
             >
               <label
+                id={`govuk-label govuk-label--${labelSize}`}
                 className={`govuk-label govuk-label--${labelSize}`}
                 htmlFor={name}
               >
@@ -115,6 +116,7 @@ export const Autocomplete = forwardRef<HTMLInputElement, AutoProps>(
                     toggleMenu();
                   }}
                   aria-describedby={hint && `${name}-hint`}
+                  aria-labelledby={`govuk-label govuk-label--${labelSize}`}
                   className={cx(`govuk-input`, inputClassName, {
                     [`govuk-input--width-${width}`]: width,
                   })}
