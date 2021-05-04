@@ -96,7 +96,7 @@ const DynamicStep = ({
         {isMulti && (
           <Button
             isSecondary
-            label="Add Another"
+            label="Add another"
             type="button"
             onClick={() =>
               handleSubmit((data) => onStepSubmit(sanitiseData(data), true))()

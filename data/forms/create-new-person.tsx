@@ -91,7 +91,7 @@ const formConfig: FormStep[] = [
       {
         component: 'DateInput',
         name: 'dateOfBirth',
-        label: 'Date of Birth',
+        label: 'Date of birth',
         hint: 'For example, 31 03 1980',
       },
       {
