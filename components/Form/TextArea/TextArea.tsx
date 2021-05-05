@@ -43,7 +43,7 @@ const TextArea = ({
       id={name}
       name={name}
       rows={rows}
-      aria-describedby={`${name}-hint ${name}-error`}
+      aria-describedby={hint && `${name}-hint`}
       ref={rules ? register?.(rules) : register}
       {...otherProps}
     />
