@@ -45,12 +45,15 @@ exports[`Summary component isSummaryCollapsable should render properly - with No
 
 exports[`Summary component isSummaryCollapsable should render properly - with isSummaryCollapsable 1`] = `
 <DocumentFragment>
-  <span
-    class="govuk-link toggleAll"
-    role="button"
+  <div
+    class="summaryControls"
   >
-    Collapse all
-  </span>
+    <button
+      class="govuk-link govuk-link--underline govuk-!-font-weight-bold"
+    >
+      Collapse all
+    </button>
+  </div>
   <div
     class="govuk-!-margin-bottom-7"
   >
@@ -66,12 +69,11 @@ exports[`Summary component isSummaryCollapsable should render properly - with is
           FIRST STEP
         </h3>
       </div>
-      <span
+      <button
         class="govuk-link govuk-link--underline"
-        role="button"
       >
         Collapse view
-      </span>
+      </button>
     </div>
     <hr
       class="govuk-divider"
