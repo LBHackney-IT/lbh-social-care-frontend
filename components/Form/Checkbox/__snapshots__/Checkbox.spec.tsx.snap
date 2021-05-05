@@ -21,14 +21,14 @@ exports[`Checkbox should render properly - as Checkbox 1`] = `
         >
           <input
             class="govuk-checkboxes__input"
-            id="my-checkbox"
+            id="my-checkbox-foo"
             name="my-checkbox"
             type="checkbox"
             value="foo"
           />
           <label
             class="govuk-label govuk-checkboxes__label"
-            for="my-checkbox"
+            for="my-checkbox-foo"
           >
             Foo 
           </label>
@@ -38,14 +38,14 @@ exports[`Checkbox should render properly - as Checkbox 1`] = `
         >
           <input
             class="govuk-checkboxes__input"
-            id="my-checkbox"
+            id="my-checkbox-bar"
             name="my-checkbox"
             type="checkbox"
             value="bar"
           />
           <label
             class="govuk-label govuk-checkboxes__label"
-            for="my-checkbox"
+            for="my-checkbox-bar"
           >
             Bar 
           </label>
