@@ -38,13 +38,15 @@ const PersonDetails = ({
           {expandView ? `${firstName} ${lastName}` : 'PERSON DETAILS'}
         </h2>
         {expandView && (
-          <div
+          <button
             className="govuk-link"
-            role="button"
-            onClick={() => setExpandDetails(!expandDetails)}
+            onClick={(e) => {
+              e.preventDefault();
+              setExpandDetails(!expandDetails);
+            }}
           >
             {expandDetails ? 'Collapse' : 'Expand'} view
-          </div>
+          </button>
         )}
       </div>
       <hr className="govuk-divider" />

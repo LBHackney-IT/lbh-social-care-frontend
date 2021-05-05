@@ -87,13 +87,15 @@ export const SummarySection = ({
           )}
         </div>
         {isSummaryCollapsable && (
-          <span
+          <button
             className="govuk-link govuk-link--underline"
-            role="button"
-            onClick={() => toggleCollapsed(id)}
+            onClick={(e) => {
+              e.preventDefault();
+              toggleCollapsed(id);
+            }}
           >
             {isCollapsed ? 'Expand view' : 'Collapse view'}
-          </span>
+          </button>
         )}
       </div>
       <hr className="govuk-divider" />
@@ -132,15 +134,21 @@ const Summary = ({
   return (
     <>
       {isSummaryCollapsable && (
-        <span
-          className={cx('govuk-link', styles.toggleAll)}
-          role="button"
-          onClick={() =>
-            setCollapsedSection(setValues(collapsedSection, !hasCollapsed))
-          }
-        >
-          {hasCollapsed ? 'Expand all' : 'Collapse all'}
-        </span>
+        <div className={styles.summaryControls}>
+          <button
+            className={cx(
+              'govuk-link',
+              'govuk-link--underline',
+              'govuk-!-font-weight-bold'
+            )}
+            onClick={(e) => {
+              e.preventDefault();
+              setCollapsedSection(setValues(collapsedSection, !hasCollapsed));
+            }}
+          >
+            {hasCollapsed ? 'Expand all' : 'Collapse all'}
+          </button>
+        </div>
       )}
       {filterStepsOnCondition(formSteps, formData).map((section) => {
         const props = {
