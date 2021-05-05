@@ -37,7 +37,6 @@ const UpdatePerson = (): ReactElement => {
     const ref = await updateResident(personId, {
       ...formData,
       contextFlag: formData.contextFlag || user.permissionFlag,
-      restricted: formData.restricted ? 'Y' : 'N',
       nhsNumber: Number(formData.nhsNumber),
       createdBy: user.email,
     });
