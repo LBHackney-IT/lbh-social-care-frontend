@@ -16,6 +16,7 @@ exports[`AddAllocatedWorker should render properly 1`] = `
       <label
         class="govuk-label govuk-label--m"
         for="teamId"
+        id="govuk-label govuk-label--m"
       >
         Select a team to view workers for that team 
       </label>
@@ -25,7 +26,7 @@ exports[`AddAllocatedWorker should render properly 1`] = `
         <input
           aria-autocomplete="list"
           aria-controls="downshift-0-menu"
-          aria-labelledby="downshift-0-label"
+          aria-labelledby="teamId"
           autocomplete="off"
           class="govuk-input govuk-input--width-20"
           data-testid="teamId"

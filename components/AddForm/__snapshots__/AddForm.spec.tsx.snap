@@ -16,6 +16,7 @@ exports[`AddForm component should render children forms 1`] = `
       <label
         class="govuk-label govuk-label--m"
         for="formList"
+        id="govuk-label govuk-label--m"
       >
         Choose a form 
       </label>
@@ -25,7 +26,7 @@ exports[`AddForm component should render children forms 1`] = `
         <input
           aria-autocomplete="list"
           aria-controls="downshift-1-menu"
-          aria-labelledby="downshift-1-label"
+          aria-labelledby="formList"
           autocomplete="off"
           class="govuk-input govuk-input--width-20"
           data-testid="formList"
