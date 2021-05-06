@@ -1,9 +1,8 @@
 import { useRouter } from 'next/router';
-
-import Seo from 'components/Layout/Seo/Seo';
 import AddForm from 'components/AddForm/AddForm';
 import BackButton from 'components/Layout/BackButton/BackButton';
 import PersonView from 'components/PersonView/PersonView';
+import Seo from 'components/Layout/Seo/Seo';
 
 const AddNewRecordPage = (): React.ReactElement => {
   const { query } = useRouter();

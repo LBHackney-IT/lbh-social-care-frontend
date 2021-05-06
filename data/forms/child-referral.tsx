@@ -14,7 +14,7 @@ const formConfig: FormConfig = {
           width: 30,
           label: 'Email address',
           hint: 'Valid email address',
-          rules: { required: true },
+          rules: { required: 'Please add a valid email address.' },
         },
         {
           component: 'Radios',
@@ -22,7 +22,7 @@ const formConfig: FormConfig = {
           label:
             'Are you a member of FAST Business Support at Hackney Council?',
           options: ['Yes', 'No'],
-          rules: { required: true },
+          rules: { required: 'Please select one option' },
         },
       ],
     },
@@ -105,7 +105,7 @@ const formConfig: FormConfig = {
           label:
             'Gender - Which of the following describes how the child thinks of themself?',
           options: ['Female', 'Male', 'Not known', 'Other'],
-          rules: { required: true },
+          rules: { required: 'Please select one option from the dropdown.' },
         },
         {
           component: 'TextInput',
@@ -161,7 +161,7 @@ const formConfig: FormConfig = {
           name: 'mother_details',
           label: "Do you have the details of the child(ren)'s mother?",
           options: ['Yes', 'No'],
-          rules: { required: true },
+          rules: { required: 'Please select one option.' },
         },
       ],
     },
@@ -229,7 +229,7 @@ const formConfig: FormConfig = {
           name: 'father_details',
           label: "Do you have the details of the child(ren)'s father?",
           options: ['Yes', 'No'],
-          rules: { required: true },
+          rules: { required: 'Please select one option.' },
         },
       ],
     },
@@ -377,7 +377,7 @@ const formConfig: FormConfig = {
           label:
             'Do you have any details of any other professionals or agencies working with the family: ?',
           options: ['Yes', 'No'],
-          rules: { required: true },
+          rules: { required: 'Please select one option' },
         },
       ],
     },
@@ -452,7 +452,7 @@ const formConfig: FormConfig = {
           label:
             'Professional: Has the person with parental responsibility consented for Hackney to make contact with this person or agency?',
           options: ['Yes', 'No'],
-          rules: { required: true },
+          rules: { required: 'Please select one option' },
         },
       ],
     },
@@ -488,7 +488,7 @@ const formConfig: FormConfig = {
             'Early Help: Family Support at an early intervention level',
             'Early Help: Targeted Youth Support',
           ],
-          rules: { required: true },
+          rules: { required: 'Please select one option' },
         },
       ],
     },
@@ -503,7 +503,7 @@ const formConfig: FormConfig = {
           label:
             'Have you spoken to the child(ren)’s parents/carers about contacting FAST to request additional support for their child and/or family?',
           options: ['Yes', 'No'],
-          rules: { required: true },
+          rules: { required: 'Please select one option' },
         },
         <p key="text6" className="govuk-body">
           Please note, parental consent is always required for families to be
@@ -514,7 +514,7 @@ const formConfig: FormConfig = {
           name: 'additionalSupport',
           label: 'Are the parents/carers open to additional support?',
           options: ['Yes', 'No'],
-          rules: { required: true },
+          rules: { required: 'Please select one option' },
         },
         <p key="text7" className="govuk-body">
           Please note, referrers are always expected to discuss their requests

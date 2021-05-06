@@ -203,7 +203,7 @@ const formConfig: FormStep[] = [
           { value: 'Y', text: 'Yes' },
           { value: 'N', text: 'No' },
         ],
-        rules: { required: 'Please choose one option' },
+        rules: { required: 'Please choose one option.' },
       },
     ],
   },

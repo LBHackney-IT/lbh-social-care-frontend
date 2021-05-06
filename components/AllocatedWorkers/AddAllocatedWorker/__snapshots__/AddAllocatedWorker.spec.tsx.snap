@@ -10,12 +10,12 @@ exports[`AddAllocatedWorker should render properly 1`] = `
       aria-haspopup="listbox"
       aria-labelledby="downshift-0-label"
       aria-owns="downshift-0-menu"
-      class="govuk-form-group govuk-grid-column-undefined"
+      class="govuk-form-group"
       role="combobox"
     >
       <label
         class="govuk-label govuk-label--m"
-        for="teamId"
+        id="downshift-0-label"
       >
         Select a team to view workers for that team 
       </label>

@@ -87,15 +87,17 @@ export const Autocomplete = forwardRef<HTMLInputElement, AutoProps>(
           highlightedIndex,
           clearSelection,
         }) => {
+          const inputProps = getInputProps();
           return (
             <div
-              className={cx(`govuk-form-group govuk-grid-column-${govGrid}`, {
+              className={cx(`govuk-form-group`, {
+                [`govuk-grid-column-${govGrid}`]: govGrid,
                 'govuk-form-group--error': error,
               })}
             >
               <label
                 className={`govuk-label govuk-label--${labelSize}`}
-                htmlFor={name}
+                id={inputProps['aria-labelledby']}
               >
                 {label} {required && <span className="govuk-required">*</span>}
               </label>
@@ -107,7 +109,7 @@ export const Autocomplete = forwardRef<HTMLInputElement, AutoProps>(
                 )}
                 {error && <ErrorMessage label={error.message} />}
                 <input
-                  {...getInputProps()}
+                  {...inputProps}
                   id={name}
                   placeholder={placeholder || 'Select or search for name'}
                   data-testid={name}
