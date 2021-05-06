@@ -11,12 +11,11 @@ exports[`PersonDetails component should render properly - expanded 1`] = `
       >
         i am the first i am the last
       </h2>
-      <div
+      <button
         class="govuk-link"
-        role="button"
       >
         Expand view
-      </div>
+      </button>
     </div>
     <hr
       class="govuk-divider"
@@ -36,12 +35,11 @@ exports[`PersonDetails component should render properly - expanded 2`] = `
       >
         i am the first i am the last
       </h2>
-      <div
+      <button
         class="govuk-link"
-        role="button"
       >
         Collapse view
-      </div>
+      </button>
     </div>
     <hr
       class="govuk-divider"

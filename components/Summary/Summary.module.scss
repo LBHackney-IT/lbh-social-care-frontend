@@ -6,11 +6,9 @@
   }
 }
 
-.toggleAll {
-  text-decoration: underline;
-  font-weight: bold;
-  display: block;
-  text-align: right;
+.summaryControls {
+  display: flex;
+  justify-content: flex-end;
 }
 
 .formattedTextArea {

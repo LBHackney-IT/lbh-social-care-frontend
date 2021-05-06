@@ -16,23 +16,26 @@ const Tickbox = ({
   name,
   label,
   value,
-}: Tickbox): React.ReactElement => (
-  <div className="govuk-checkboxes__item">
-    <input
-      className={cx('govuk-checkboxes__input', {
-        'govuk-input--error': error,
-      })}
-      id={name}
-      name={name}
-      type="checkbox"
-      value={value}
-      ref={rules ? register?.(rules) : register}
-    />
-    <label className="govuk-label govuk-checkboxes__label" htmlFor={name}>
-      {label} {required && <span className="govuk-required">*</span>}
-    </label>
-  </div>
-);
+}: Tickbox): React.ReactElement => {
+  const id = value ? `${name}-${value}` : name;
+  return (
+    <div className="govuk-checkboxes__item">
+      <input
+        className={cx('govuk-checkboxes__input', {
+          'govuk-input--error': error,
+        })}
+        id={id}
+        name={name}
+        type="checkbox"
+        value={value}
+        ref={rules ? register?.(rules) : register}
+      />
+      <label className="govuk-label govuk-checkboxes__label" htmlFor={id}>
+        {label} {required && <span className="govuk-required">*</span>}
+      </label>
+    </div>
+  );
+};
 
 const CheckBoxWrapper = ({
   children,

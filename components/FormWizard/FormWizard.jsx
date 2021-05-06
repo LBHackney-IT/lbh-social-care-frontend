@@ -54,6 +54,8 @@ const FormWizard = ({
   }
   const currentStepIndex = steps.findIndex(({ id }) => id === step.id);
   const StepComponent = step.component ? step.component : DynamicStep;
+  const showTitle =
+    steps.length > 3 && step.id !== 'summary' && step.id !== 'confirmation';
   return (
     <div className="govuk-width-container">
       <Seo title={`${step.title} - ${title}`} />
@@ -65,25 +67,23 @@ const FormWizard = ({
       <fieldset
         className="govuk-fieldset"
         role="group"
-        id="step-hint"
-        aria-describedby="step-hint"
-        aria-labelledby="step-hint"
+        aria-describedby={showTitle ? 'step-title' : undefined}
       >
-        {steps.length > 3 &&
-          step.id !== 'summary' &&
-          step.id !== 'confirmation' && (
-            <>
-              <Breadcrumbs
-                data={formData}
-                path={formPath}
-                steps={formSteps}
-                currentStepIndex={currentStepIndex}
-              />
-              <legend className="govuk-fieldset__legend govuk-fieldset__legend--m">
-                <h1 className="govuk-fieldset__heading">{step.title}</h1>
-              </legend>
-            </>
-          )}
+        {showTitle && (
+          <>
+            <Breadcrumbs
+              data={formData}
+              path={formPath}
+              steps={formSteps}
+              currentStepIndex={currentStepIndex}
+            />
+            <legend className="govuk-fieldset__legend govuk-fieldset__legend--m">
+              <h1 id="step-title" className="govuk-fieldset__heading">
+                {step.title}
+              </h1>
+            </legend>
+          </>
+        )}
         {stepHeader?.()}
         <StepComponent
           {...step}

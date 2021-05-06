@@ -53,4 +53,57 @@ describe('warningNotesAPI', () => {
       expect(data).toEqual(['foo']);
     });
   });
+
+  describe('updateWarningNote', () => {
+    it('should work properly if the status is open', async () => {
+      mockedAxios.patch.mockResolvedValue({ data: {} });
+      await warningNotesAPI.updateWarningNote({
+        status: 'Open',
+        reviwedBy: 'foo@bar.com',
+      });
+      expect(mockedAxios.patch).toHaveBeenCalled();
+      expect(mockedAxios.patch.mock.calls[0][0]).toEqual(
+        `${ENDPOINT_API}/warningnotes`
+      );
+      expect(mockedAxios.patch.mock.calls[0][1]).toEqual({
+        status: 'Open',
+        reviwedBy: 'foo@bar.com',
+      });
+      expect(mockedAxios.patch.mock.calls[0][2]?.headers).toEqual({
+        'Content-Type': 'application/json',
+        'x-api-key': AWS_KEY,
+      });
+    });
+
+    it('should work properly if the status is closed', async () => {
+      mockedAxios.patch.mockResolvedValue({ data: {} });
+      await warningNotesAPI.updateWarningNote({
+        status: 'Closed',
+        endedBy: 'foo@bar.com',
+        endedDate: '2021-04-29',
+      });
+      expect(mockedAxios.patch).toHaveBeenCalled();
+      expect(mockedAxios.patch.mock.calls[0][0]).toEqual(
+        `${ENDPOINT_API}/warningnotes`
+      );
+      expect(mockedAxios.patch.mock.calls[0][1]).toEqual({
+        status: 'Closed',
+        endedBy: 'foo@bar.com',
+        endedDate: '2021-04-29',
+      });
+      expect(mockedAxios.patch.mock.calls[0][2]?.headers).toEqual({
+        'Content-Type': 'application/json',
+        'x-api-key': AWS_KEY,
+      });
+    });
+
+    it('should throw an error with the wrong body', async () => {
+      try {
+        // @ts-expect-error check validation
+        await warningNotesAPI.updateWarningNote(123);
+      } catch (e) {
+        expect(e.name).toEqual('ValidationError');
+      }
+    });
+  });
 });

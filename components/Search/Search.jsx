@@ -100,10 +100,7 @@ const Search = ({
     <>
       Results don&apos;t match?{' '}
       <Link href="/people/add">
-        <a style={{ textDecoration: 'underline' }} className="govuk-link">
-          {' '}
-          Add New Person
-        </a>
+        <a className="govuk-link govuk-link--underline">Add New Person</a>
       </Link>
     </>
   );

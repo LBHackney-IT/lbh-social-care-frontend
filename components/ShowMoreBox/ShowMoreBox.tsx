@@ -33,13 +33,15 @@ const ShowMoreBox = ({
         <div ref={ref}>{children}</div>
       </div>
       {height > 200 && (
-        <div
+        <button
           className={cx('govuk-link', styles.trigger)}
-          onClick={() => setExpanded(!expanded)}
-          role="button"
+          onClick={(e) => {
+            e.preventDefault();
+            setExpanded(!expanded);
+          }}
         >
           Show {expanded ? 'less' : 'more'}
-        </div>
+        </button>
       )}
     </div>
   );

@@ -62,7 +62,6 @@ describe('residents APIs', () => {
         residents: [
           {
             name: 'foo',
-            restricted: false,
             address: { address: 'valid line', postcode: 'SE9 4RZ' },
           },
         ],
@@ -91,7 +90,7 @@ describe('residents APIs', () => {
       });
       expect(data).toEqual({
         name: 'foobar',
-        restricted: true,
+        restricted: 'Y',
         address: undefined,
       });
     });
