@@ -36,7 +36,7 @@ const formSteps: FormStep[] = [
         component: 'TextInput',
         name: 'managerName',
         label: 'Manager’s name',
-        rules: { required: 'Add the manager&apos;s name.' },
+        rules: { required: "Add the manager's name." },
       },
       {
         component: 'DateInput',
@@ -61,13 +61,13 @@ const formSteps: FormStep[] = [
         rules: {
           required: 'Pease add a valid date.',
           validate: {
-            beforeStartDate: (value, { reviewDate }) =>
-              new Date(value).getTime() >= new Date(reviewDate).getTime() ||
-              'Next review date cannot be earlier than date review undertaken',
+            beforeStartDate: (value) =>
+              new Date(value).getTime() >= new Date().getTime() ||
+              'Next review date cannot be earlier than today.',
             notMoreThanOneYear: (value, { reviewDate }) =>
               new Date(value).getTime() - new Date(reviewDate).getTime() <=
                 365 * 24 * 60 * 60 * 1000 ||
-              'Next review date cannot be more than 1 year from date review undertaken',
+              'Next review date cannot be more than 1 year from date review undertaken.',
           },
         },
         showConditionalGuides: true,
