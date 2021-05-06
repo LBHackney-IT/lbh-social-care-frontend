@@ -36,13 +36,13 @@ const formSteps: FormStep[] = [
         component: 'TextInput',
         name: 'managerName',
         label: 'Manager’s name',
-        rules: { required: 'Add the manager&apos;s name' },
+        rules: { required: 'Add the manager&apos;s name.' },
       },
       {
         component: 'DateInput',
         name: 'discussedWithManagerDate',
         label: 'Date discussed with manager',
-        rules: { required: 'Pease add a valid date' },
+        rules: { required: 'Pease add a valid date.' },
       },
       {
         component: 'Radios',
@@ -59,7 +59,7 @@ const formSteps: FormStep[] = [
         name: 'nextReviewDate',
         label: 'Next review date',
         rules: {
-          required: 'Pease add a valid date',
+          required: 'Pease add a valid date.',
           validate: {
             beforeStartDate: (value, { reviewDate }) =>
               new Date(value).getTime() >= new Date(reviewDate).getTime() ||
@@ -72,7 +72,7 @@ const formSteps: FormStep[] = [
         },
         showConditionalGuides: true,
         hint:
-          'Next review date cannot be more than 1 year from date review undertaken ',
+          'Next review date cannot be more than 1 year from date review undertaken. ',
         conditionalRender: ({ reviewDecision }) => reviewDecision === 'Yes',
       },
     ],

@@ -91,7 +91,8 @@ const DeallocatedWorkers = ({
             label="What is the reason for this worker to be deallocated?"
             // @ts-ignore
             register={register({
-              required: 'Please add a reason for this worker to be deallocated',
+              required:
+                'Please add a reason for this worker to be deallocated.',
             })}
             error={errors.deallocationReason}
           />
@@ -102,7 +103,7 @@ const DeallocatedWorkers = ({
             error={errors.deallocationDate}
             control={control}
             rules={{
-              required: 'Please select the deallocation start date',
+              required: 'Please select the deallocation start date.',
               validate: {
                 past: (value) =>
                   value && (isPast(new Date(value)) || 'Must be a past Date'),

@@ -175,7 +175,7 @@ const AddAllocatedWorker = ({
                 name="allocationStartDate"
                 error={errors.allocationStartDate}
                 control={control}
-                rules={{ required: 'Please select the allocation start date' }}
+                rules={{ required: 'Please select the allocation start date.' }}
               />
               <Button
                 label="Allocate worker"
