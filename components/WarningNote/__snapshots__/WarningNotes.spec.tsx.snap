@@ -34,17 +34,17 @@ exports[`useWarningNotes should render properly 1`] = `
               Start date
             </dt>
             <dd>
-              13/12/2020 
+              13/11/2020 
               <i>
                 created by
               </i>
                Foo
             </dd>
             <dt>
-              Review Date
+              Review date
             </dt>
             <dd>
-              31/12/2020 
+              01/12/2020 
             </dd>
           </dl>
           <a
@@ -70,17 +70,17 @@ exports[`useWarningNotes should render properly 1`] = `
               Start date
             </dt>
             <dd>
-              22/12/2020 
+              22/11/2020 
               <i>
                 created by
               </i>
                Foo
             </dd>
             <dt>
-              Review Date
+              Review date
             </dt>
             <dd>
-              01/02/2021 
+              01/01/2021 
             </dd>
           </dl>
           <a
