@@ -202,23 +202,24 @@ interface BaseNote {
   id: number;
   noteType: string;
   createdBy: string;
-  startDate: Date;
-  reviewDate: Date;
-  endedDate?: Date;
+  startDate: string;
+  reviewDate: string;
+  endedDate?: string;
   endedBy?: string;
-  reviewedDate?: Date;
+  reviewedDate?: string;
   reviewedBy?: string;
+  nextReviewDate?: string;
   notes: string;
   managerName: string;
-  discussedWithManagerDate: Date;
+  discussedWithManagerDate: string;
   status: 'closed' | 'open';
-  reviews: Array<DisclosedReviewedNote | UndisclosedReviewedNote>;
+  reviews: Array<ReviewedNote>;
 }
 
 interface DisclosedNote extends BaseNote {
   disclosedWithIndividual: true;
   disclosedDetails: string;
-  disclosedDate: Date;
+  disclosedDate: string;
   disclosedHow: 'Verbal' | 'Written' | 'Verbal / Written';
 }
 
@@ -228,23 +229,17 @@ interface UndisclosedNote extends BaseNote {
 }
 
 interface ReviewedNote {
-  reviewedDate: Date;
-  reviewdBy: Date;
+  id: number;
+  warningNoteId: number;
+  reviewDate: string;
+  disclosedWithIndividual: boolean;
   notes: string;
   managerName: string;
-  discussedWithManagerDate: Date;
-}
-
-interface DisclosedReviewedNote extends ReviewedNote {
-  disclosedWithIndividual: true;
-  disclosedDetails: string;
-  disclosedDate: Date;
-  disclosedHow: 'Verbal' | 'Written' | 'Verbal / Written';
-}
-
-interface UndisclosedReviewedNote extends ReviewedNote {
-  disclosedWithIndividual: false;
-  disclosedDetails: string;
+  discussedWithManagerDate: string;
+  createdAt: string;
+  createdBy: string;
+  lastModifiedAt?: string;
+  lastModifiedBy: string;
 }
 
 export type WarningNote = DisclosedNote | UndisclosedNote;
