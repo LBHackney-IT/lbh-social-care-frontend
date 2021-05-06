@@ -208,6 +208,7 @@ interface BaseNote {
   endedBy?: string;
   reviewedDate?: Date;
   reviewedBy?: string;
+  nextReviewDate?: string;
   notes: string;
   managerName: string;
   discussedWithManagerDate: Date;
