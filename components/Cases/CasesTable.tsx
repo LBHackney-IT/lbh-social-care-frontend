@@ -69,7 +69,7 @@ const CaseNoteBirthday = ({ dateOfBirth }: Case) => (
 );
 
 const tableEntities = {
-  person_id: { text: 'Person ID', component: CaseNotePersonId },
+  person_id: { text: 'Person id', component: CaseNotePersonId },
   first_name: { text: 'Client Name', component: CaseNoteName },
   date_of_birth: { text: 'Date of birth', component: CaseNoteBirthday },
   date_of_event: { text: 'Date created', component: CaseNoteDate },
@@ -113,7 +113,6 @@ const CasesTable = ({
             )}
           </th>
         ))}
-        <th scope="col" className="govuk-table__header"></th>
       </tr>
     </thead>
     <tbody className="govuk-table__body">

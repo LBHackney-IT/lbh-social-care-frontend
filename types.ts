@@ -116,7 +116,7 @@ export interface LegacyResident {
   gender: string;
   nationality?: string;
   nhsNumber: string;
-  restricted?: boolean;
+  restricted?: 'Y' | 'N';
   address?: {
     address: string;
     postcode: string;
@@ -161,7 +161,7 @@ export interface Resident {
   nhsNumber?: number;
   emailAddress?: string;
   preferredMethodOfContact?: string;
-  restricted?: boolean;
+  restricted?: 'Y' | 'N';
   dateOfDeath?: string;
   address?: {
     address: string;
@@ -174,6 +174,7 @@ export interface User {
   name: string;
   email: string;
   permissionFlag: AgeContext;
+  hasDevPermissions: boolean;
   hasAdminPermissions: boolean;
   hasAdultPermissions: boolean;
   hasChildrenPermissions: boolean;
@@ -199,30 +200,30 @@ export interface Worker {
 
 interface BaseNote {
   id: number;
-  type: string;
+  noteType: string;
   createdBy: string;
-  createdDate: Date;
-  nextReviewDate: Date;
+  startDate: Date;
+  reviewDate: Date;
   endedDate?: Date;
   endedBy?: string;
   reviewedDate?: Date;
   reviewedBy?: string;
   notes: string;
-  discussedWithManager: string;
+  managerName: string;
   discussedWithManagerDate: Date;
   status: 'closed' | 'open';
   reviews: Array<DisclosedReviewedNote | UndisclosedReviewedNote>;
 }
 
 interface DisclosedNote extends BaseNote {
-  disclosedWithIndividual: 'Yes';
+  disclosedWithIndividual: true;
   disclosedDetails: string;
   disclosedDate: Date;
-  disclosedHow: ['verbal', 'written'] | ['verbal'] | ['written'];
+  disclosedHow: 'Verbal' | 'Written' | 'Verbal / Written';
 }
 
 interface UndisclosedNote extends BaseNote {
-  disclosedWithIndividual: 'No';
+  disclosedWithIndividual: false;
   undisclosedDetails: string;
 }
 
@@ -230,7 +231,7 @@ interface ReviewedNote {
   reviewedDate: Date;
   reviewdBy: Date;
   notes: string;
-  discussedWithManager: string;
+  managerName: string;
   discussedWithManagerDate: Date;
 }
 
@@ -238,7 +239,7 @@ interface DisclosedReviewedNote extends ReviewedNote {
   disclosedWithIndividual: true;
   disclosedDetails: string;
   disclosedDate: Date;
-  disclosedHow: ['verbal', 'written'] | ['verbal'] | ['written'];
+  disclosedHow: 'Verbal' | 'Written' | 'Verbal / Written';
 }
 
 interface UndisclosedReviewedNote extends ReviewedNote {

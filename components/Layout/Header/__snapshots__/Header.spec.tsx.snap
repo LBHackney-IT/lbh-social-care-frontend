@@ -55,7 +55,7 @@ exports[`Header component should set active the correct link 1`] = `
               >
                 <a
                   class="govuk-header__link"
-                  href="/search"
+                  href="/"
                 >
                   Search
                 </a>
@@ -65,9 +65,9 @@ exports[`Header component should set active the correct link 1`] = `
               >
                 <a
                   class="govuk-header__link"
-                  href="/"
+                  href="/cases?my_notes_only=true"
                 >
-                  My work space
+                  My records
                 </a>
               </li>
               <li

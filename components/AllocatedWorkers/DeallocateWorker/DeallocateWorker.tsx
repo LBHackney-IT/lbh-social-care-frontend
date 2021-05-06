@@ -86,9 +86,9 @@ const DeallocatedWorkers = ({
       )}
       {!complete && (
         <>
-          <h2>What is the reason for this worker to be deallocated?</h2>
           <TextArea
             name="deallocationReason"
+            label="What is the reason for this worker to be deallocated?"
             // @ts-ignore
             register={register({
               required: 'Please add a reason for this worker to be deallocated',

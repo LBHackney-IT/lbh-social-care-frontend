@@ -5,14 +5,14 @@ import { WarningNote } from 'types';
 export const warningNoteFactory = Factory.define<WarningNote>(
   ({ sequence }) => ({
     id: sequence,
-    type: 'Risk to Staff',
-    createdDate: new Date(2020, 11, 22),
+    noteType: 'Risk to Staff',
+    startDate: new Date(2020, 11, 22),
     createdBy: 'Foo',
-    disclosedWithIndividual: 'No',
+    disclosedWithIndividual: false,
     undisclosedDetails: 'nope',
-    discussedWithManager: 'the big boss',
+    managerName: 'the big boss',
     discussedWithManagerDate: new Date(2020, 11, 12),
-    nextReviewDate: new Date(2021, 1, 1),
+    reviewDate: new Date(2021, 1, 1),
     notes: 'a lot to talk about',
     status: 'open',
     reviews: [],
@@ -21,14 +21,14 @@ export const warningNoteFactory = Factory.define<WarningNote>(
 
 export const mockedWarningNote = [
   warningNoteFactory.build({
-    type: 'Risk to Adults',
+    noteType: 'Risk to Adults',
     reviewedDate: new Date(2020, 11, 13),
     reviewedBy: 'Bar',
     disclosedDate: new Date(2020, 11, 12),
-    disclosedHow: ['written'],
-    disclosedWithIndividual: 'Yes',
+    disclosedHow: 'Written',
+    disclosedWithIndividual: true,
     disclosedDetails: 'lorem ipsum',
-    nextReviewDate: new Date(2020, 11, 31),
+    reviewDate: new Date(2020, 11, 31),
     notes: 'i am a note',
   }),
   warningNoteFactory.build(),

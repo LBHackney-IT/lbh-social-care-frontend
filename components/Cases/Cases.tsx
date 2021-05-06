@@ -76,7 +76,9 @@ const CasesWrapper = ({ id, person }: WrapperProps): React.ReactElement => {
         <Button label="Add a new record" route={`${id}/records`} />
       </div>
       <hr className="govuk-divider" />
-      {user.hasUnrestrictedPermissions || !person.restricted ? (
+      {user.hasUnrestrictedPermissions ||
+      !person.restricted ||
+      person.restricted === 'N' ? (
         <Cases id={id} />
       ) : (
         <ErrorSummary

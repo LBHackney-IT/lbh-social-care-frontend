@@ -28,34 +28,32 @@ export const WarningBox = ({ notes, personId }: Props): React.ReactElement => {
           {notes.map((note) => (
             <div key={note.id} className={styles.note}>
               <dl className={styles.noteDetails}>
-                {note.type && (
+                {note.noteType && (
                   <>
                     <dt>Type</dt>
-                    <dd>{note.type}</dd>
+                    <dd>{note.noteType}</dd>
                   </>
                 )}
-                {note.createdDate && (
+                {note.startDate && (
                   <>
-                    <dt>Start Date</dt>
+                    <dt>Start date</dt>
                     <dd>
                       {note.reviewedDate
                         ? new Date(note.reviewedDate).toLocaleDateString(
                             'en-GB'
                           )
-                        : new Date(note.createdDate).toLocaleDateString(
+                        : new Date(note.startDate).toLocaleDateString(
                             'en-GB'
                           )}{' '}
                       <i>created by</i> {note.createdBy}
                     </dd>
                   </>
                 )}
-                {note.nextReviewDate && (
+                {note.reviewDate && (
                   <>
                     <dt>Review Date</dt>
                     <dd>
-                      {new Date(note.nextReviewDate).toLocaleDateString(
-                        'en-GB'
-                      )}{' '}
+                      {new Date(note.reviewDate).toLocaleDateString('en-GB')}{' '}
                     </dd>
                   </>
                 )}

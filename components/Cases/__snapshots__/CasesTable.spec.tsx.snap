@@ -35,10 +35,6 @@ exports[`CasesTable component should render properly 1`] = `
         >
           Action 
         </th>
-        <th
-          class="govuk-table__header"
-          scope="col"
-        />
       </tr>
     </thead>
     <tbody

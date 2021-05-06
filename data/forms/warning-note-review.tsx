@@ -21,7 +21,7 @@ const formSteps: FormStep[] = [
       },
       {
         component: 'TextArea',
-        name: 'reviewDetails',
+        name: 'reviewNotes',
         label: 'Details of review',
         hint:
           'include details of disclosure to individual, any updates and why renewing or ending',
@@ -34,7 +34,7 @@ const formSteps: FormStep[] = [
       </span>,
       {
         component: 'TextInput',
-        name: 'discussedWithManager',
+        name: 'managerName',
         label: 'Manager’s name',
         rules: { required: true },
       },

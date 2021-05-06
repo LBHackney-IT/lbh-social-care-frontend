@@ -12,12 +12,12 @@ const formConfig: FormStep[] = [
     id: 'client-details',
     title: 'Person Details',
     components: [
-      <h3
+      <h2
         key="subtitle-details"
         className="govuk-fieldset__legend--l gov-weight-lighter govuk-!-margin-bottom-5"
       >
         Person details
-      </h3>,
+      </h2>,
       {
         conditionalRender: ({ user }) => !user.permissionFlag,
         component: 'Radios',
@@ -42,14 +42,14 @@ const formConfig: FormStep[] = [
         name: 'firstName',
         width: 20,
         label: 'First Name',
-        rules: { required: true },
+        rules: { required: 'Please enter a first name' },
       },
       {
         component: 'TextInput',
         name: 'lastName',
         width: 20,
         label: 'Last Name',
-        rules: { required: true },
+        rules: { required: 'Please enter a last name' },
       },
       {
         component: 'ObjectInput',
@@ -86,12 +86,12 @@ const formConfig: FormStep[] = [
           { value: 'U', text: 'Unknown' },
           { value: 'I', text: 'Indeterminate' },
         ],
-        rules: { required: true },
+        rules: { required: 'Please choose an option from the dropdown' },
       },
       {
         component: 'DateInput',
         name: 'dateOfBirth',
-        label: 'Date of Birth',
+        label: 'Date of birth',
         hint: 'For example, 31 03 1980',
       },
       {
@@ -114,7 +114,7 @@ const formConfig: FormStep[] = [
         name: 'ethnicity',
         label: 'Sub-ethnicity',
         width: 20,
-        rules: { required: true },
+        rules: { required: 'Please choose an option from the dropdown' },
         options: ({ macroEthnicity }) => dynamicEthnicities[macroEthnicity],
       },
       {
@@ -193,6 +193,17 @@ const formConfig: FormStep[] = [
         placeHolder: 'Choose one',
         width: 20,
         options: ['Email', 'Phone', 'Letter', 'Fax', 'Face to face'],
+      },
+      {
+        conditionalRender: ({ user }) => user.hasAdminPermissions,
+        component: 'Radios',
+        name: 'restricted',
+        label: `Does this person's record history need to be restricted?`,
+        options: [
+          { value: 'Y', text: 'Yes' },
+          { value: 'N', text: 'No' },
+        ],
+        rules: { required: 'Please choose one option' },
       },
     ],
   },

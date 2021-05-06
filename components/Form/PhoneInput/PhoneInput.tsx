@@ -10,9 +10,17 @@ const PhoneInput = ({ rules, ...props }: Props): React.ReactElement => (
         value: 5,
         message: 'Invalid phone number',
       },
+      // this should be removed when the BE
+      // fix the inconsistencies in phone numbers
+      pattern: {
+        value: /^[\d\s+]+$/,
+        message: 'Move text to phone type box',
+      },
       ...rules,
     }}
-    type="number"
+    // this should be reenable when the BE
+    // fix the inconsistencies in phone numbers
+    // type="number"
   />
 );
 

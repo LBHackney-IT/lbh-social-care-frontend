@@ -36,7 +36,7 @@ const CreateNewPerson = (): React.ReactElement => {
     <FormWizard
       formPath="/people/add/"
       formSteps={formSteps}
-      title="Create New Person"
+      title="Add New Person"
       onFormSubmit={onFormSubmit}
       defaultValues={{ user }}
       successMessage="Add new person confirmed"

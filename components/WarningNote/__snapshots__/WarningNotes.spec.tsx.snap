@@ -31,7 +31,7 @@ exports[`useWarningNotes should render properly 1`] = `
               Risk to Adults
             </dd>
             <dt>
-              Start Date
+              Start date
             </dt>
             <dd>
               13/12/2020 
@@ -67,7 +67,7 @@ exports[`useWarningNotes should render properly 1`] = `
               Risk to Staff
             </dd>
             <dt>
-              Start Date
+              Start date
             </dt>
             <dd>
               22/12/2020 

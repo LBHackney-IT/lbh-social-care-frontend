@@ -113,6 +113,13 @@ $screen-sm-min: 576px;
   text-decoration: underline;
 }
 
+button.govuk-link {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
 .width-override-10 {
   max-width: 23ex;
 }
@@ -133,8 +140,4 @@ $screen-sm-min: 576px;
   border: 1px solid govuk-colour('red');
   border-left-width: 5px;
   background-color: #f8ecea;
-}
-
-.govuk-heading-l {
-  font-weight: 600;
 }

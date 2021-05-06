@@ -58,7 +58,6 @@ describe(`Search`, () => {
     );
     const firstNameInput = getByLabelText('First name:');
     fireEvent.change(firstNameInput, { target: { value: 'foo' } });
-    expect(queryByText('Add New Person')).not.toBeInTheDocument();
     await act(async () => {
       fireEvent.submit(getByRole('form'));
     });
@@ -91,7 +90,7 @@ describe(`Search`, () => {
         },
       ],
     }));
-    const { queryByText, getByLabelText, findByText, getByRole } = render(
+    const { getByLabelText, findByText, getByRole } = render(
       <UserContext.Provider
         value={{
           user: { name: 'foo' },
@@ -102,7 +101,6 @@ describe(`Search`, () => {
     );
     const firstNameInput = getByLabelText('First name:');
     fireEvent.change(firstNameInput, { target: { value: 'foo' } });
-    expect(queryByText('Add New Person')).not.toBeInTheDocument();
     await act(async () => {
       fireEvent.submit(getByRole('form'));
     });
@@ -131,7 +129,6 @@ describe(`Search`, () => {
     );
     const errorLabel = await findByText('Oops an error occurred');
     expect(errorLabel).toBeInTheDocument();
-    // expect(queryByText('Add New Person')).toBeInTheDocument();
   });
 
   it('should search Cases for user email if "Only include records I have created" is selected', () => {

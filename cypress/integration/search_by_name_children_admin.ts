@@ -7,7 +7,7 @@ describe('Children Group', () => {
       'value',
       Cypress.env('TEST_KEY_CHILDREN_GROUP')
     );
-    cy.visit(Cypress.env('HOST') + '/search');
+    cy.visit(Cypress.env('HOST'));
   });
 
   it('Access allowed - Search for People by name', () => {

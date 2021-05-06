@@ -18,7 +18,7 @@ const MainSearchWrapper = ({ type, columns }: Props): React.ReactElement => (
       title="Contents"
       tabs={[
         {
-          url: '/search',
+          url: '/',
           text: 'Search for a person',
         },
         {

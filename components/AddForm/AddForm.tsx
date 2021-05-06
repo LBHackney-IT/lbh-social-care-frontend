@@ -22,12 +22,20 @@ const AddForm = ({ person }: { person: Resident }): React.ReactElement => {
           },
         ]
       : [];
+  const betaForms = user.hasDevPermissions
+    ? [
+        {
+          text: 'Warning Note',
+          value: `/people/${person.id}/warning-notes/add`,
+        },
+      ]
+    : [];
   return (
     <>
       <div className="govuk-form-group">
         <Autocomplete
           name="formList"
-          options={[...internalForms, ...forms]}
+          options={[...internalForms, ...forms, ...betaForms]}
           label="Choose a form"
           placeholder="Select or type form name"
           onChange={(value) => setUrl(value as string)}

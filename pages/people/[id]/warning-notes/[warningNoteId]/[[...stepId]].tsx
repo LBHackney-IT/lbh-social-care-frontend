@@ -9,6 +9,7 @@ import FormWizard from 'components/FormWizard/FormWizard';
 import formSteps from 'data/forms/warning-note-review';
 import { useAuth } from 'components/UserContext/UserContext';
 import CustomConfirmation from 'components/Steps/ReviewWarningNoteConfirmation';
+import { updateWarningNote } from 'utils/api/warningNotes';
 
 const ReviewWarningNote = (): React.ReactElement => {
   const { query, asPath } = useRouter();
@@ -18,21 +19,17 @@ const ReviewWarningNote = (): React.ReactElement => {
   const confirmation = asPath.includes('confirmation');
   const { user } = useAuth() as { user: User };
   const onFormSubmit = useCallback(
-    (person: Resident) => async ({
-      form_name,
-      ...formData
-    }: Record<string, unknown>) => {
-      console.log({
-        personId: person.id,
-        firstName: person.firstName,
-        lastName: person.lastName,
-        contextFlag: person.contextFlag,
-        dateOfBirth: person.dateOfBirth,
-        workerEmail: user.email,
-        formNameOverall:
-          person.contextFlag === 'A' ? 'ASC_case_note' : 'CFS_case_note',
-        formName: form_name,
-        caseFormData: JSON.stringify(formData),
+    async ({ ...formData }: Record<string, unknown>) => {
+      await updateWarningNote(warningNoteId, {
+        warningNoteId,
+        reviewedBy: user.email,
+        endedBy: formData.reviewDecision === 'No' ? user.email : undefined,
+        endedDate:
+          formData.reviewDecision === 'No'
+            ? new Date().toISOString()
+            : undefined,
+        status: formData.reviewDecision === 'No' ? 'closed' : 'open',
+        ...formData,
       });
     },
     [user.email]
@@ -73,7 +70,7 @@ const ReviewWarningNote = (): React.ReactElement => {
               formPath={`/people/${personId}/warning-notes/${warningNoteId}/`}
               formSteps={formSteps}
               title="Review Warning Note"
-              onFormSubmit={onFormSubmit(person)}
+              onFormSubmit={onFormSubmit}
               personDetails={{ ...person }}
               defaultValues={{ person }}
               customConfirmation={CustomConfirmation}

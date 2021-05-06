@@ -48,24 +48,31 @@ const DynamicInputMulti = ({
             hint={index === 0 ? hint : null}
           />
           {(!isMultiInit || index !== 0) && (
-            <span
+            <button
               className={styles.delete}
-              role="button"
-              onClick={() => removeSelected(index)}
+              onClick={(e) => {
+                e.preventDefault();
+                removeSelected(index);
+              }}
             >
               <DeleteIcon />
-            </span>
+              <span className="govuk-visually-hidden">
+                Remove this {label.toLowerCase()}
+              </span>
+            </button>
           )}
         </div>
       ))}
       <div className="govuk-!-margin-top-3 govuk-!-margin-bottom-5">
-        <span
+        <button
           className="govuk-link"
-          role="button"
-          onClick={() => setCounter(counter + 1)}
+          onClick={(e) => {
+            e.preventDefault();
+            setCounter(counter + 1);
+          }}
         >
           {isMultiTrigger}
-        </span>
+        </button>
       </div>
     </>
   );

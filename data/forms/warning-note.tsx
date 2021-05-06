@@ -166,7 +166,7 @@ const WARNING_TYPE_ADULTS: Array<FormComponentStep> = [
   </div>,
   {
     component: 'Radios',
-    name: 'type',
+    name: 'noteType',
     label: 'Select warning type',
     options: WARNING_TYPES_ADULTS,
     rules: { required: true },
@@ -223,7 +223,7 @@ const WARNING_TYPE_CHILDREN: Array<FormComponentStep> = [
   </div>,
   {
     component: 'Radios',
-    name: 'type',
+    name: 'noteType',
     label: 'Select warning type',
     options: WARNING_TYPES_CHILDREN,
     rules: { required: true },
@@ -233,7 +233,7 @@ const WARNING_TYPE_CHILDREN: Array<FormComponentStep> = [
 const WARNING_DATES: Array<FormComponentStep> = [
   {
     component: 'DateInput',
-    name: 'createdDate',
+    name: 'startDate',
     label: 'Start date',
     hint:
       'If the start date is set in the future, the Warning Note will not be displayed until that date.',
@@ -241,18 +241,18 @@ const WARNING_DATES: Array<FormComponentStep> = [
   },
   {
     component: 'DateInput',
-    name: 'nextReviewDate',
+    name: 'reviewDate',
     hint:
       'The Review / end date cannot be more than 1 year from the Start date',
     label: 'Review / end date',
     rules: {
       required: true,
       validate: {
-        beforeStartDate: (value, { createdDate }) =>
-          new Date(value).getTime() >= new Date(createdDate).getTime() ||
+        beforeStartDate: (value, { startDate }) =>
+          new Date(value).getTime() >= new Date(startDate).getTime() ||
           'The Review / end date cannot be earlier than the Start date',
-        notMoreThanOneYear: (value, { createdDate }) =>
-          new Date(value).getTime() - new Date(createdDate).getTime() <=
+        notMoreThanOneYear: (value, { startDate }) =>
+          new Date(value).getTime() - new Date(startDate).getTime() <=
             365 * 24 * 60 * 60 * 1000 ||
           'The Review / end date cannot be more than 1 year from the Start date',
       },
@@ -294,11 +294,11 @@ const WARNING_DISCLOSURE: Array<FormComponentStep> = [
       disclosedWithIndividual === 'Yes',
   },
   {
-    component: 'Checkbox',
+    component: 'Radios',
     name: 'disclosedHow',
     label: 'How informed',
     labelSize: 's',
-    options: ['Verbal', 'Written'],
+    options: ['Verbal', 'Written', 'Verbal / Written'],
     rules: { required: true },
     showConditionalGuides: true,
     conditionalRender: ({ disclosedWithIndividual }) =>
@@ -370,7 +370,7 @@ const DISCUSSED_WITH_MANAGER: Array<FormComponentStep> = [
   </div>,
   {
     component: 'TextInput',
-    name: 'discussedWithManager',
+    name: 'managerName',
     label: 'Manager’s name',
     rules: { required: true },
   },

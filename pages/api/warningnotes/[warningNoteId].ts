@@ -1,6 +1,6 @@
 import { StatusCodes } from 'http-status-codes';
 
-import { getWarningNote } from 'lib/warningNotes';
+import { getWarningNote, updateWarningNote } from 'lib/warningNotes';
 import { isAuthorised } from 'utils/auth';
 
 import type { NextApiRequest, NextApiResponse, NextApiHandler } from 'next';
@@ -21,9 +21,6 @@ const endpoint: NextApiHandler = async (
       try {
         const data = await getWarningNote(
           Number(req.query.warningNoteId as string)
-          // {
-          //   context_flag: user.permissionFlag,
-          // }
         );
         data
           ? res.status(StatusCodes.OK).json(data)
@@ -39,6 +36,19 @@ const endpoint: NextApiHandler = async (
           : res
               .status(StatusCodes.INTERNAL_SERVER_ERROR)
               .json({ message: 'Unable to get the Warning Note' });
+      }
+      break;
+
+    case 'PATCH':
+      try {
+        const data = await updateWarningNote(req.body);
+        res.status(StatusCodes.OK).json(data);
+      } catch (error) {
+        console.error('Warning Note patch error:', error?.response?.data);
+        console.error('Warning Note patch request:', req);
+        res
+          .status(StatusCodes.INTERNAL_SERVER_ERROR)
+          .json({ message: 'Unable to update warning note' });
       }
       break;
 

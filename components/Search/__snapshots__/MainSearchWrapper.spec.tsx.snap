@@ -24,11 +24,11 @@ exports[`MainSearchWrapper should render properly 1`] = `
       class="govuk-tabs__list"
     >
       <li
-        class="govuk-tabs__list-item"
+        class="govuk-tabs__list-item govuk-tabs__list-item--selected"
       >
         <a
           class="govuk-tabs__tab"
-          href="/search"
+          href="/"
         >
           Search for a person
         </a>

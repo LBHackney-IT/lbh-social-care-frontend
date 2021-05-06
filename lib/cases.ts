@@ -8,9 +8,9 @@ const headersWithKey = {
   'x-api-key': AWS_KEY,
 };
 
-const regex = /"_id.*ObjectId\(.*\),./;
+const regex = /"_id.*ObjectId\(\S*\),./;
 
-const sanitiseCaseFormData = (caseFormData: string): string =>
+export const sanitiseCaseFormData = (caseFormData: string): string =>
   caseFormData && JSON.parse(caseFormData.replace(regex, ''));
 
 export const getCases = async (

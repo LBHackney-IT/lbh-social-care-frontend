@@ -9,7 +9,7 @@ describe('warningNotes API', () => {
       jest.spyOn(SWR, 'default');
       warningNotesAPI.useWarningNotes(123);
       expect(SWR.default).toHaveBeenCalledWith(
-        '/api/residents/123/warning-notes'
+        '/api/residents/123/warningnotes'
       );
     });
   });
@@ -18,7 +18,7 @@ describe('warningNotes API', () => {
     it('should work properly', () => {
       jest.spyOn(SWR, 'default');
       warningNotesAPI.useWarningNote(123);
-      expect(SWR.default).toHaveBeenCalledWith('/api/warning-notes/123');
+      expect(SWR.default).toHaveBeenCalledWith('/api/warningnotes/123');
     });
   });
 });

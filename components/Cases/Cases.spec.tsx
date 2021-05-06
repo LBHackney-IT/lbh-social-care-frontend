@@ -5,14 +5,14 @@ import { UserContext } from 'components/UserContext/UserContext';
 import { userFactory } from 'factories/users';
 
 import { mockedNote, mockedAllocationNote } from 'factories/cases';
-import { mockedResident } from 'factories/residents';
+import { residentFactory } from 'factories/residents';
 
 import Cases from './Cases';
 
 describe('Cases component', () => {
   const props = {
     id: 44000000,
-    person: mockedResident,
+    person: residentFactory.build(),
   };
 
   it('should render records properly', async () => {
@@ -83,10 +83,9 @@ describe('Cases component', () => {
   it('should render a error message when a person is restricted', async () => {
     const props = {
       id: 44000000,
-      person: {
-        ...mockedResident,
-        restricted: true,
-      },
+      person: residentFactory.build({
+        restricted: 'Y',
+      }),
     };
     const { asFragment, queryByText } = render(
       <UserContext.Provider
@@ -105,10 +104,9 @@ describe('Cases component', () => {
   it('should work properly if person is restricted but user.hasUnrestrictedPermissions', async () => {
     const props = {
       id: 44000000,
-      person: {
-        ...mockedResident,
-        restricted: true,
-      },
+      person: residentFactory.build({
+        restricted: 'Y',
+      }),
     };
     const { asFragment, queryByText } = render(
       <UserContext.Provider

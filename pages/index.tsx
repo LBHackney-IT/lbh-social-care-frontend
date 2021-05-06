@@ -1,17 +1,11 @@
 import Seo from 'components/Layout/Seo/Seo';
-import MyAllocatedCases from 'components/AllocatedCases/MyAllocatedCases';
-import DashboardWrapper from 'components/Dashboard/DashboardWrapper';
+import SearchWrapper from 'components/Search/MainSearchWrapper';
 
-const MyCasesPage = (): React.ReactElement => (
+const SearchResidentPage = (): React.ReactElement => (
   <div>
-    <Seo title="My Work Space" />
-    <DashboardWrapper>
-      <>
-        <p className="govuk-body">Clients you are currently managing</p>
-        <MyAllocatedCases />
-      </>
-    </DashboardWrapper>
+    <Seo title="Search" />
+    <SearchWrapper type="people" />
   </div>
 );
 
-export default MyCasesPage;
+export default SearchResidentPage;
