@@ -7,7 +7,6 @@ describe(`Autocomplete`, () => {
     label: 'Foo',
     name: 'autocomplete',
     onChange: jest.fn(),
-    inputValue: '',
     placeholder: 'Foo bar',
     options: [
       { text: 'foo', value: 14 },
