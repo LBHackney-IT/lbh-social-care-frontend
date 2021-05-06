@@ -13,12 +13,11 @@ exports[`ShowMoreBox component should render properly - with show more 1`] = `
         </pre>
       </div>
     </div>
-    <div
+    <button
       class="govuk-link trigger"
-      role="button"
     >
       Show more
-    </div>
+    </button>
   </div>
 </DocumentFragment>
 `;

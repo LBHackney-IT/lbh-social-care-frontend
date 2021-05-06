@@ -116,7 +116,7 @@ export interface LegacyResident {
   gender: string;
   nationality?: string;
   nhsNumber: string;
-  restricted?: boolean;
+  restricted?: 'Y' | 'N';
   address?: {
     address: string;
     postcode: string;
@@ -161,7 +161,7 @@ export interface Resident {
   nhsNumber?: number;
   emailAddress?: string;
   preferredMethodOfContact?: string;
-  restricted?: boolean;
+  restricted?: 'Y' | 'N';
   dateOfDeath?: string;
   address?: {
     address: string;

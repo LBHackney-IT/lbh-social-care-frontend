@@ -6,8 +6,7 @@ const { ENDPOINT_API, AWS_KEY } = process.env;
 
 const headers = { 'x-api-key': AWS_KEY };
 
-interface ResidentBE extends Omit<LegacyResident, 'restricted'> {
-  restricted: 'Y' | 'N';
+interface ResidentBE extends LegacyResident {
   addressList: Array<{
     displayAddressFlag: 'Y' | 'N';
     addressLine1: string;
@@ -24,7 +23,6 @@ const sanitiseResidentData = (residents: ResidentBE[]): LegacyResident[] =>
       );
       return {
         ...resident,
-        restricted: resident.restricted === 'Y',
         address: address && {
           address: address.addressLine1,
           postcode: address.postCode,
@@ -52,10 +50,7 @@ export const getResident = async (
     headers,
     params,
   });
-  return {
-    ...data,
-    restricted: data.restricted === 'Y',
-  };
+  return data;
 };
 
 export const normalisePhoneInput = (
