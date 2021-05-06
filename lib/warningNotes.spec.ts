@@ -2,6 +2,8 @@ import axios from 'axios';
 
 import * as warningNotesAPI from './warningNotes';
 
+import { warningNoteFactory } from 'factories/warningNotes';
+
 jest.mock('axios');
 const mockedAxios = axios as jest.Mocked<typeof axios>;
 
@@ -39,8 +41,10 @@ describe('warningNotesAPI', () => {
 
   describe('getWarningNoteByResident', () => {
     it('should work properly', async () => {
+      const openWarningNote = warningNoteFactory.build();
+      const closedWarningNote = warningNoteFactory.build({ status: 'closed' });
       mockedAxios.get.mockResolvedValue({
-        data: { warningNotes: ['foo'] },
+        data: { warningNotes: [openWarningNote, closedWarningNote] },
       });
       const data = await warningNotesAPI.getWarningNotesByResident(123);
       expect(mockedAxios.get).toHaveBeenCalled();
@@ -50,7 +54,7 @@ describe('warningNotesAPI', () => {
       expect(mockedAxios.get.mock.calls[0][1]?.headers).toEqual({
         'x-api-key': AWS_KEY,
       });
-      expect(data).toEqual(['foo']);
+      expect(data).toEqual([openWarningNote]);
     });
   });
 

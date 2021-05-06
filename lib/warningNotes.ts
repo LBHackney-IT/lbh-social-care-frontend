@@ -9,13 +9,13 @@ const headers = { 'x-api-key': AWS_KEY };
 export const getWarningNotesByResident = async (
   personId: number
 ): Promise<WarningNote[] | []> => {
-  const { data } = await axios.get(
+  const { data }: { data: { warningNotes: WarningNote[] } } = await axios.get(
     `${ENDPOINT_API}/residents/${personId}/warningnotes`,
     {
       headers,
     }
   );
-  return data.warningNotes;
+  return data.warningNotes.filter((note) => note.status === 'open');
 };
 
 export const getWarningNote = async (
