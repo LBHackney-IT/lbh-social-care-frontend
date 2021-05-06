@@ -19,14 +19,14 @@ const ReviewWarningNote = (): React.ReactElement => {
   const confirmation = asPath.includes('confirmation');
   const { user } = useAuth() as { user: User };
   const onFormSubmit = useCallback(
-    (person: Resident) => async ({ ...formData }: Record<string, unknown>) => {
-      updateWarningNote(warningNoteId, {
+    async ({ ...formData }: Record<string, unknown>) => {
+      await updateWarningNote(warningNoteId, {
         warningNoteId,
         reviewedBy: user.email,
         endedBy: formData.reviewDecision === 'No' ? user.email : undefined,
         endedDate:
           formData.reviewDecision === 'No'
-            ? new Date().toISOString().substr(0, 10)
+            ? new Date().toISOString()
             : undefined,
         status: formData.reviewDecision === 'No' ? 'closed' : 'open',
         ...formData,
@@ -70,7 +70,7 @@ const ReviewWarningNote = (): React.ReactElement => {
               formPath={`/people/${personId}/warning-notes/${warningNoteId}/`}
               formSteps={formSteps}
               title="Review Warning Note"
-              onFormSubmit={onFormSubmit(person)}
+              onFormSubmit={onFormSubmit}
               personDetails={{ ...person }}
               defaultValues={{ person }}
               customConfirmation={CustomConfirmation}
