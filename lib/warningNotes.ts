@@ -1,6 +1,5 @@
 import axios from 'axios';
 
-import { mockedWarningNote } from 'factories/warningNotes';
 import { WarningNote } from 'types';
 
 const { ENDPOINT_API, AWS_KEY } = process.env;
@@ -22,12 +21,13 @@ export const getWarningNotesByResident = async (
 export const getWarningNote = async (
   warningNoteId: number
 ): Promise<WarningNote | undefined> => {
-  return await new Promise((resolve) =>
-    setTimeout(
-      () => resolve(mockedWarningNote.find(({ id }) => id === warningNoteId)),
-      1000
-    )
+  const { data } = await axios.get(
+    `${ENDPOINT_API}/warningnotes/${warningNoteId}`,
+    {
+      headers,
+    }
   );
+  return data;
 };
 
 export const addWarningNote = async (
