@@ -1,9 +1,11 @@
+import { useRouter } from 'next/router';
+
 import { useAuth } from 'components/UserContext/UserContext';
 import FormWizard from 'components/FormWizard/FormWizard';
-import { addWorker } from 'utils/api/workers';
 import { useTeams } from 'utils/api/allocatedWorkers';
 import Spinner from 'components/Spinner/Spinner';
 import ErrorMessage from 'components/ErrorMessage/ErrorMessage';
+import { useWorkerById, updateWorker } from 'utils/api/workers';
 
 import { User } from 'types';
 
@@ -14,7 +16,9 @@ interface FormData {
   [key: string]: unknown;
 }
 
-const CreateNewWorker = (): React.ReactElement => {
+const UpdateWorker = (): React.ReactElement => {
+  const { query } = useRouter();
+  const workerId = Number(query.id as string);
   const { user } = useAuth() as { user: User };
   const { data: { teams: ATeams } = {}, error: errorATeams } = useTeams({
     ageContext: 'A',
@@ -22,15 +26,17 @@ const CreateNewWorker = (): React.ReactElement => {
   const { data: { teams: CTeams } = {}, error: errorCTeams } = useTeams({
     ageContext: 'C',
   });
-  if (errorATeams || errorCTeams) {
+  const { data, error: errorWorker } = useWorkerById(workerId);
+  if (errorATeams || errorCTeams || errorWorker) {
     return <ErrorMessage />;
   }
-  if (!ATeams || !CTeams) {
+  if (!ATeams || !CTeams || !data) {
     return <Spinner />;
   }
   const onFormSubmit = async ({ team, ...formData }: FormData) => {
-    await addWorker({
+    await updateWorker(workerId, {
       ...formData,
+      workerId,
       teams: (formData.contextFlag === 'A' ? ATeams : CTeams).filter(
         ({ name }) => name === team
       ),
@@ -39,20 +45,22 @@ const CreateNewWorker = (): React.ReactElement => {
   };
   return (
     <FormWizard
-      formPath="/workers/add/"
+      formPath={`/workers/${workerId}/edit/`}
       formSteps={formSteps}
-      title="Create New Worker"
+      title="Update Worker"
       onFormSubmit={onFormSubmit}
       defaultValues={{
+        ...data,
         user,
+        team: data.teams?.[0].name,
         teams: {
           A: ATeams.map(({ name }) => name),
           C: CTeams.map(({ name }) => name),
         },
       }}
-      successMessage="New worker created"
+      successMessage="Worker updated"
     />
   );
 };
 
-export default CreateNewWorker;
+export default UpdateWorker;

@@ -27,6 +27,10 @@ const loggedNavLinks = [
     path: '/form-in-progress',
   },
   {
+    name: 'Manage workers',
+    path: '/workers',
+  },
+  {
     name: 'Logout',
     path: '/logout',
   },
@@ -44,9 +48,11 @@ const HeaderComponent = ({
     if (user) {
       const savedForms = getData();
       setNavLinks(
-        savedForms
-          ? loggedNavLinks
-          : loggedNavLinks.filter(({ name }) => name !== 'Forms in progress')
+        loggedNavLinks
+          .filter(({ name }) => name !== 'Forms in progress' || savedForms)
+          .filter(
+            ({ name }) => name !== 'Manage workers' || user.hasDevPermissions
+          )
       );
     }
   }, [user, pathname]);
