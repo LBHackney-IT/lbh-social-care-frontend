@@ -7,7 +7,7 @@ import ErrorMessage from 'components/ErrorMessage/ErrorMessage';
 
 import { User } from 'types';
 
-import form from 'data/forms/create-new-worker';
+import formSteps from 'data/forms/create-new-worker';
 
 interface FormData {
   nhsNumber: string;
@@ -28,18 +28,20 @@ const CreateNewWorker = (): React.ReactElement => {
   if (!ATeams || !CTeams) {
     return <Spinner />;
   }
-  const onFormSubmit = async (formData: FormData) => {
-    const ref = await addWorker({
+  const onFormSubmit = async ({ team, ...formData }: FormData) => {
+    await addWorker({
       ...formData,
+      teams: (formData.contextFlag === 'A' ? ATeams : CTeams).filter(
+        ({ name }) => name === team
+      ),
       createdBy: user.email,
     });
-    return ref;
   };
   return (
     <FormWizard
-      formPath={form.path}
-      formSteps={form.steps}
-      title={form.title}
+      formPath="/workers/add/"
+      formSteps={formSteps}
+      title="Create New Worker"
       onFormSubmit={onFormSubmit}
       defaultValues={{
         user,
@@ -48,7 +50,7 @@ const CreateNewWorker = (): React.ReactElement => {
           C: CTeams.map(({ name }) => name),
         },
       }}
-      successMessage={form.successMessage}
+      successMessage="New worker created"
     />
   );
 };

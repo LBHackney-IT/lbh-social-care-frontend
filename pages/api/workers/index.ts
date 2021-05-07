@@ -1,7 +1,7 @@
 import { StatusCodes } from 'http-status-codes';
 import { isAuthorised } from 'utils/auth';
 
-import { getWorkers, addWorker, updateWorker } from 'lib/workers';
+import { getWorkers, addWorker } from 'lib/workers';
 
 import type { NextApiRequest, NextApiResponse, NextApiHandler } from 'next';
 
@@ -31,7 +31,6 @@ const endpoint: NextApiHandler = async (
               .status(StatusCodes.INTERNAL_SERVER_ERROR)
               .json({ message: 'Unable to get the worker' });
       }
-
       break;
 
     case 'POST':
@@ -43,18 +42,6 @@ const endpoint: NextApiHandler = async (
         res
           .status(StatusCodes.INTERNAL_SERVER_ERROR)
           .json({ message: 'Unable to add the worker' });
-      }
-      break;
-
-    case 'PATCH':
-      try {
-        const data = await updateWorker(req.body);
-        res.status(StatusCodes.OK).json(data);
-      } catch (error) {
-        console.error('Workers gets an error:', error?.response?.data);
-        res
-          .status(StatusCodes.INTERNAL_SERVER_ERROR)
-          .json({ message: 'Unable to update the worker' });
       }
       break;
 

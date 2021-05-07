@@ -3,7 +3,7 @@ import { Worker, ErrorAPI } from 'types';
 import { getQueryString } from 'utils/urls';
 import axios from 'axios';
 
-export const useWorkerById = (id: number): SWRResponse<Worker[], ErrorAPI> =>
+export const useWorkerById = (id: number): SWRResponse<Worker, ErrorAPI> =>
   useSWR(`/api/workers/${id}`);
 
 export const useWorker = (
