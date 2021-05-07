@@ -30,6 +30,9 @@ describe('date util', () => {
   describe('isDateValid', () => {
     it('should work properly', () => {
       expect(isDateValid('22/09/1941')).toBe(true);
+      expect(isDateValid('22/19/1941')).toBe(false);
+      expect(isDateValid('2020-21-21')).toBe(false);
+      expect(isDateValid('2020-11-21')).toBe(true);
       expect(isDateValid('foo')).toBe(false);
       expect(isDateValid('-12-12')).toBe(false);
     });
