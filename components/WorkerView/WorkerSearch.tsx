@@ -1,12 +1,13 @@
+import { useState } from 'react';
+import { useForm } from 'react-hook-form';
+import Link from 'next/link';
+
 import Button from 'components/Button/Button';
 import { EmailInput } from 'components/Form';
-import React, { useState } from 'react';
-import { useForm } from 'react-hook-form';
-import { useWorker } from 'utils/api/workers';
 import WorkerRecap from 'components/WorkerView/WorkerRecap';
 import AllocatedCases from 'components/AllocatedCases/AllocatedCases';
 import Spinner from 'components/Spinner/Spinner';
-import Link from 'next/link';
+import { useWorker } from 'utils/api/workers';
 
 interface FormValues {
   email: string;
@@ -88,7 +89,7 @@ const WorkerSearch = (): React.ReactElement | null => {
               wideButton
               className="govuk-!-margin-left-1"
               label="Update worker's details"
-              route={`/workers/edit/?emailAddress=${params?.email}`}
+              route={`/workers/${data[0].id}/edit`}
             />
           </div>
         </>

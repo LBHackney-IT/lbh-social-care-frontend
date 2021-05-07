@@ -1,13 +1,12 @@
 import Seo from 'components/Layout/Seo/Seo';
 import WorkerSearch from 'components/WorkerView/WorkerSearch';
-import React from 'react';
+
 const SearchWorkerPage = (): React.ReactElement => (
   <>
     <div>
       <Seo title="Search Worker" />
       <h1 className="govuk-fieldset__legend--l gov-weight-lighter govuk-expand-title">
-        {' '}
-        Manage Workers{' '}
+        Manage Workers
       </h1>
       <p className="govuk-body">
         Before creating or updating a worker in this system, you will need to
