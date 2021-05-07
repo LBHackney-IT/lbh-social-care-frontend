@@ -9,7 +9,11 @@ import ClearIcon from 'components/Icons/Clear';
 import DownArrow from 'components/Icons/DownArrow';
 import style from './Autocomplete.module.scss';
 
-import { Autocomplete as IAutocomplete, Option } from 'components/Form/types';
+import {
+  Autocomplete as IAutocomplete,
+  ObjectOption,
+  Option,
+} from 'components/Form/types';
 interface AutoProps extends Omit<IAutocomplete, 'control'> {
   value?: string | number | null;
   text?: string;
@@ -19,6 +23,19 @@ interface AutoProps extends Omit<IAutocomplete, 'control'> {
 interface Props extends IAutocomplete {
   control: Control;
 }
+
+const convertToObject = (options: Option[]) => {
+  const objects = options?.map((option) => {
+    if (typeof option === 'string') {
+      return { value: option, text: option };
+    }
+    return option;
+  });
+  return sortObject(objects);
+};
+
+const findValue = (items: ObjectOption[], value: string) =>
+  items.find((item) => String(item.value) === value);
 
 // eslint-disable-next-line react/display-name
 export const Autocomplete = forwardRef<HTMLInputElement, AutoProps>(
@@ -41,23 +58,11 @@ export const Autocomplete = forwardRef<HTMLInputElement, AutoProps>(
     }: AutoProps,
     ref
   ) => {
-    const convertToObject = (options: Option[]) => {
-      const objects = options?.map((option) => {
-        if (typeof option === 'string') {
-          return { value: option, text: option };
-        }
-        return option;
-      });
-      return sortObject(objects);
-    };
-
     const items = useMemo(() => convertToObject(options), [options]);
     const autoRef = useRef<any>(null);
     const getTextValue = () => {
       if (value) {
-        const selection = items.find(
-          (item) => String(item.value) === String(value)
-        );
+        const selection = findValue(items, String(value));
         return selection?.text;
       }
       return '';
@@ -67,7 +72,13 @@ export const Autocomplete = forwardRef<HTMLInputElement, AutoProps>(
         autoRef.current?.clearSelection();
       }
     }, [value]);
-
+    useEffect(() => {
+      value &&
+        !findValue(items, String(value)) &&
+        autoRef.current?.clearSelection();
+      // we only need to check {items}
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [items]);
     return (
       <Downshift
         initialInputValue={getTextValue()}
