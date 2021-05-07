@@ -1,6 +1,6 @@
 import { useAuth } from 'components/UserContext/UserContext';
 import FormWizard from 'components/FormWizard/FormWizard';
-// import { addWorker } from 'utils/api/worker';
+import { addWorker } from 'utils/api/workers';
 import { useTeams } from 'utils/api/allocatedWorkers';
 import Spinner from 'components/Spinner/Spinner';
 import ErrorMessage from 'components/ErrorMessage/ErrorMessage';
@@ -29,15 +29,11 @@ const CreateNewWorker = (): React.ReactElement => {
     return <Spinner />;
   }
   const onFormSubmit = async (formData: FormData) => {
-    console.log({
+    const ref = await addWorker({
       ...formData,
       createdBy: user.email,
     });
-    // const ref = await addWorker({
-    //   ...formData,
-    //   createdBy: user.email,
-    // });
-    // return ref;
+    return ref;
   };
   return (
     <FormWizard
