@@ -7,17 +7,13 @@ export const parseDate = (date: string): Date | undefined => {
   const dateEU = EU_DATE.exec(date);
   if (dateEU) {
     return new Date(
-      Number(dateEU[3]),
-      Number(dateEU[2]) - 1,
-      Number(dateEU[1])
+      `${Number(dateEU[3])}-${Number(dateEU[2])}-${Number(dateEU[1])}`
     );
   }
-  const dateISON = ISO_DATE.exec(date);
-  if (dateISON) {
+  const dateISO = ISO_DATE.exec(date);
+  if (dateISO) {
     return new Date(
-      Number(dateISON[1]),
-      Number(dateISON[2]) - 1,
-      Number(dateISON[3])
+      `${Number(dateISO[1])}-${Number(dateISO[2])}-${Number(dateISO[3])}`
     );
   }
 };
