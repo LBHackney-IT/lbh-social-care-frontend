@@ -75,16 +75,6 @@ exports[`Header component should set active the correct link 1`] = `
               >
                 <a
                   class="govuk-header__link"
-                  href="/workers"
-                >
-                  Manage workers
-                </a>
-              </li>
-              <li
-                class="govuk-header__navigation-item"
-              >
-                <a
-                  class="govuk-header__link"
                   href="/logout"
                 >
                   Logout

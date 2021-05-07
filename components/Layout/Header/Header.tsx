@@ -51,7 +51,7 @@ const HeaderComponent = ({
         loggedNavLinks
           .filter(({ name }) => name !== 'Forms in progress' || savedForms)
           .filter(
-            ({ name }) => name !== 'Manage workers' || user.hasAdminPermissions
+            ({ name }) => name !== 'Manage workers' || user.hasDevPermissions
           )
       );
     }
