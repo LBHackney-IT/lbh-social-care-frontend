@@ -14,7 +14,7 @@ Install the dependencies:
 
 Create your `.env` file from `.env.sample`. You will need to grab some secrets from (TBC, it's not clear at the time of writing).
 
-So that the auth token from using Staging/Production can work with your local dev environment and you will be able to access the admin section etc., add the following to your `/etc/hosts` file...
+So that the auth token from using Staging/Production can work with your local dev environment and you will be able to access the application, add the following to your `/etc/hosts` file...
 
     127.0.0.1       dev.hackney.gov.uk
 
@@ -22,7 +22,7 @@ Run the development server:
 
     yarn dev
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://dev.hackney.gov.uk:3000](http://dev.hackney.gov.uk:3000) with your browser to see the result.
 
 You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
 
