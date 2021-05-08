@@ -7,6 +7,7 @@ import { useAuth } from 'components/UserContext/UserContext';
 import BackButton from 'components/Layout/BackButton/BackButton';
 import FormWizard from 'components/FormWizard/FormWizard';
 import { addWarningNote } from 'utils/api/warningNotes';
+import PersonLinkConfirmation from 'components/Steps/PersonLinkConfirmation';
 
 import { formStepsAdult, formStepsChild } from 'data/forms/warning-note';
 
@@ -53,6 +54,8 @@ const CaseNotesRecording = (): React.ReactElement => {
               personDetails={{ ...person }}
               includesDetails
               hideBackButton
+              successMessage="Warning note has been added"
+              customConfirmation={PersonLinkConfirmation}
             />
           )}
         </PersonView>
