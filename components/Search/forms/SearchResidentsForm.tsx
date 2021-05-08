@@ -110,7 +110,8 @@ const SearchResidentsForm = ({
       <Button label={ctaText} type="submit" disabled={!isDirty} />
       <button
         className="govuk-link"
-        onClick={() => {
+        onClick={(e) => {
+          e.preventDefault();
           reset({
             date_of_birth: null,
           });
