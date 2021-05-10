@@ -7,7 +7,7 @@ import { useAuth } from 'components/UserContext/UserContext';
 import BackButton from 'components/Layout/BackButton/BackButton';
 import FormWizard from 'components/FormWizard/FormWizard';
 import { addCase } from 'utils/api/cases';
-import CustomConfirmation from 'components/Steps/DetailConfirmation';
+import PersonLinkConfirmation from 'components/Steps/PersonLinkConfirmation';
 
 import formStepsAdult from 'data/forms/asc-case-notes-recording';
 import formStepsChild from 'data/forms/cfs-case-notes-recording';
@@ -59,7 +59,8 @@ const CaseNotesRecording = (): React.ReactElement => {
                 personDetails={{ ...person }}
                 includesDetails
                 hideBackButton
-                customConfirmation={CustomConfirmation}
+                successMessage="Case Notes Recording details have been added"
+                customConfirmation={PersonLinkConfirmation}
               />
             </div>
           )}
