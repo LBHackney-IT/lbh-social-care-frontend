@@ -27,7 +27,10 @@ const CaseNote = ({ personId, recordId }: Props): React.ReactElement => {
   }
 
   // this needs to be fixed with a better way of distinguishing
-  if (record.caseFormData.form_name === 'Case recording') {
+  if (
+    record?.caseFormData?.case_note_description &&
+    record.caseFormData.form_name === 'Case recording'
+  ) {
     return (
       <FlexibleAnswers
         data={JSON.parse(record?.caseFormData?.case_note_description)}
