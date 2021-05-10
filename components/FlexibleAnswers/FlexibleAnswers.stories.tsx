@@ -7,7 +7,7 @@ export default {
   component: FlexibleAnswers,
 };
 
-const Template: Story = (args) => <FlexibleAnswers data={args.data} />;
+const Template: Story = (args) => <FlexibleAnswers answers={args.data} />;
 
 export const Default = Template.bind({});
 
