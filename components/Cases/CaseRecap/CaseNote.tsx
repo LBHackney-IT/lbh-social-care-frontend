@@ -14,12 +14,8 @@ interface Props {
 const CaseNote = ({ personId, recordId }: Props): React.ReactElement => {
   const { data: record, error: recordError } = useCase(recordId);
 
-  if (record?.caseFormData?.case_note_description) {
-    const answers = JSON.parse(record?.caseFormData?.case_note_description);
-    if (answers) return <FlexibleAnswers data={answers} />;
-  }
-
   const recordData = record?.caseFormData?.form_name_overall;
+
   const fileData =
     recordData && (form as Record<string, FormStep[]>)[recordData];
 
@@ -29,6 +25,16 @@ const CaseNote = ({ personId, recordId }: Props): React.ReactElement => {
   if (!record || !fileData) {
     return <Spinner />;
   }
+
+  // this needs to be fixed with a better way of distinguishing
+  if (record.caseFormData.form_name === 'Case recording') {
+    return (
+      <FlexibleAnswers
+        data={JSON.parse(record?.caseFormData?.case_note_description)}
+      />
+    );
+  }
+
   return (
     <>
       <Summary
