@@ -4,6 +4,7 @@ import Summary from 'components/Summary/Summary';
 import { useCase } from 'utils/api/cases';
 import * as form from 'data/forms';
 import { FormStep } from 'components/Form/types';
+import FlexibleAnswers from 'components/FlexibleAnswers/FlexibleAnswers';
 
 interface Props {
   personId: number;
@@ -12,6 +13,11 @@ interface Props {
 
 const CaseNote = ({ personId, recordId }: Props): React.ReactElement => {
   const { data: record, error: recordError } = useCase(recordId);
+
+  if (record?.caseFormData?.case_note_description) {
+    const answers = JSON.parse(record?.caseFormData?.case_note_description);
+    if (answers) return <FlexibleAnswers data={answers} />;
+  }
 
   const recordData = record?.caseFormData?.form_name_overall;
   const fileData =
