@@ -25,11 +25,16 @@ const RepeaterGroupAnswers = ({
   data: (string | RepeaterGroupAnswer)[];
 }): React.ReactElement => (
   <ul className="govuk-list lbh-list">
-    {data.map((item, i) => (
-      <li key={i}>
-        {typeof item === 'string' ? item : <RepeaterGroupAnswer data={item} />}
-      </li>
-    ))}
+    {data.length > 1 &&
+      data.map((item, i) => (
+        <li key={i}>
+          {typeof item === 'string' ? (
+            item
+          ) : (
+            <RepeaterGroupAnswer data={item} />
+          )}
+        </li>
+      ))}
   </ul>
 );
 
