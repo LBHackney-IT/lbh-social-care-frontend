@@ -56,7 +56,9 @@ const FlexibleAnswers = ({ data }: Props): React.ReactElement => {
               <div className="govuk-summary-list__row" key={questionName}>
                 <dt className="govuk-summary-list__key">{questionName}</dt>
                 <dd className="govuk-summary-list__value">
-                  {Array.isArray(data[stepName][questionName]) ? (
+                  {typeof data[stepName][questionName] === 'string' ? (
+                    data[stepName][questionName]
+                  ) : (
                     <RepeaterGroupAnswers
                       data={
                         data[stepName][questionName] as (
@@ -65,8 +67,6 @@ const FlexibleAnswers = ({ data }: Props): React.ReactElement => {
                         )[]
                       }
                     />
-                  ) : (
-                    data[stepName][questionName]
                   )}
                 </dd>
               </div>
