@@ -36,7 +36,7 @@ Default.args = {
       'Adequate pain relief': 'No',
       'Difficulty breathing': 'No',
       'Prescribed medications': 'No',
-      'Support taking or using medicatons': 'Spicy',
+      'Support taking or using medications': 'Spicy',
     },
   },
 };
