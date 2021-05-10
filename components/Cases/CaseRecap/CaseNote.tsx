@@ -33,7 +33,7 @@ const CaseNote = ({ personId, recordId }: Props): React.ReactElement => {
   ) {
     return (
       <FlexibleAnswers
-        data={JSON.parse(record?.caseFormData?.case_note_description)}
+        answers={JSON.parse(record?.caseFormData?.case_note_description)}
       />
     );
   }

@@ -3,35 +3,33 @@ interface RepeaterGroupAnswer {
 }
 
 const RepeaterGroupAnswer = ({
-  data,
+  answers,
 }: {
-  data: RepeaterGroupAnswer;
+  answers: RepeaterGroupAnswer;
 }): React.ReactElement => (
   <ul className="govuk-list lbh-list">
-    {Object.keys(data).map((questionName) => (
+    {Object.entries(answers).map(([questionName, answer]) => (
       <li key={questionName}>
         <strong>{questionName}:</strong>{' '}
-        {Array.isArray(data[questionName])
-          ? (data[questionName] as string[]).join(', ')
-          : data[questionName]}
+        {Array.isArray(answer) ? answer.join(', ') : answer}
       </li>
     ))}
   </ul>
 );
 
 const RepeaterGroupAnswers = ({
-  data,
+  answers,
 }: {
-  data: (string | RepeaterGroupAnswer)[];
+  answers: (string | RepeaterGroupAnswer)[];
 }): React.ReactElement => (
   <ul className="govuk-list lbh-list">
-    {data.length > 1 &&
-      data.map((item, i) => (
+    {answers.length > 1 &&
+      answers.map((item, i) => (
         <li key={i}>
           {typeof item === 'string' ? (
             item
           ) : (
-            <RepeaterGroupAnswer data={item} />
+            <RepeaterGroupAnswer answers={item} />
           )}
         </li>
       ))}
@@ -39,7 +37,7 @@ const RepeaterGroupAnswers = ({
 );
 
 interface Props {
-  data: {
+  answers: {
     // sections
     [key: string]: {
       // questions and answers
@@ -48,30 +46,24 @@ interface Props {
   };
 }
 
-const FlexibleAnswers = ({ data }: Props): React.ReactElement => {
+const FlexibleAnswers = ({ answers }: Props): React.ReactElement => {
   return (
     <div>
-      {Object.keys(data).map((stepName) => (
+      {Object.entries(answers).map(([stepName, stepAnswers]) => (
         <section key={stepName}>
-          <h3 className="lbh-heading-h3 govuk-!-margin-top-6 govuk-!-margin-bottom-4">
+          <h2 className="lbh-heading-h2 govuk-!-margin-top-7 govuk-!-margin-bottom-4">
             {stepName}
-          </h3>
+          </h2>
+
           <dl className="govuk-summary-list lbh-summary-list">
-            {Object.keys(data[stepName]).map((questionName) => (
+            {Object.entries(stepAnswers).map(([questionName, answerGroup]) => (
               <div className="govuk-summary-list__row" key={questionName}>
                 <dt className="govuk-summary-list__key">{questionName}</dt>
                 <dd className="govuk-summary-list__value">
-                  {typeof data[stepName][questionName] === 'string' ? (
-                    data[stepName][questionName]
+                  {typeof answerGroup === 'string' ? (
+                    answerGroup
                   ) : (
-                    <RepeaterGroupAnswers
-                      data={
-                        data[stepName][questionName] as (
-                          | string
-                          | RepeaterGroupAnswer
-                        )[]
-                      }
-                    />
+                    <RepeaterGroupAnswers answers={answerGroup} />
                   )}
                 </dd>
               </div>

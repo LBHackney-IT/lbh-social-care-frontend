@@ -5,7 +5,7 @@ describe(`ExpandDetails`, () => {
   it('renders basic answers correctly', async () => {
     render(
       <FlexibleAnswers
-        data={{
+        answers={{
           bar: { 'example question': 'red' },
           foo: {
             date: 'example answer 1',
@@ -33,7 +33,7 @@ describe(`ExpandDetails`, () => {
   it('renders repeater groups correctly', async () => {
     render(
       <FlexibleAnswers
-        data={{
+        answers={{
           foo: {
             'Key contacts': [
               {
