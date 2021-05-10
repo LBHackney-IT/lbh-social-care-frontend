@@ -1,4 +1,4 @@
-import { useCallback, forwardRef } from 'react';
+import { useCallback, useRef, forwardRef } from 'react';
 import cx from 'classnames';
 import { Controller, Control } from 'react-hook-form';
 
@@ -169,33 +169,38 @@ const ControlledDateInput = ({
   rules,
   format = 'ISO',
   ...otherProps
-}: Props): React.ReactElement => (
-  <Controller
-    render={({ onChange, value }) => (
-      <DateInput
-        name={name}
-        value={value}
-        onChange={onChange}
-        format={format}
-        {...otherProps}
-      />
-    )}
-    name={name}
-    rules={{
-      ...rules,
-      validate: {
-        valid: (value) =>
-          value &&
-          (isDateValid(format === 'ISO' ? value : convertFormat(value)) ||
-            'Must be a valid Date'),
-        ...(typeof rules?.validate === 'function'
-          ? { validation: rules.validate }
-          : rules?.validate),
-      },
-    }}
-    control={control}
-    defaultValue={null}
-  />
-);
+}: Props): React.ReactElement => {
+  const inputRef = useRef<HTMLInputElement>(null);
+  return (
+    <Controller
+      render={({ onChange, value }) => (
+        <DateInput
+          name={name}
+          value={value}
+          onChange={onChange}
+          format={format}
+          ref={inputRef}
+          {...otherProps}
+        />
+      )}
+      name={name}
+      onFocus={() => inputRef.current?.focus()}
+      rules={{
+        ...rules,
+        validate: {
+          valid: (value) =>
+            value &&
+            (isDateValid(format === 'ISO' ? value : convertFormat(value)) ||
+              'Must be a valid Date'),
+          ...(typeof rules?.validate === 'function'
+            ? { validation: rules.validate }
+            : rules?.validate),
+        },
+      }}
+      control={control}
+      defaultValue={null}
+    />
+  );
+};
 
 export default ControlledDateInput;
