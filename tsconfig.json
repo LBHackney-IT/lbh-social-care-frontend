@@ -17,6 +17,6 @@
     "jsx": "preserve",
     "baseUrl": "."
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "components/FlexibleAnswers/blah"],
   "exclude": ["node_modules", "cypress"]
 }
