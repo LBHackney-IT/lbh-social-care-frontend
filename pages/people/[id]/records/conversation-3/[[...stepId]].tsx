@@ -20,7 +20,6 @@ const CaseNotesRecording = (): ReactElement => {
   const { user } = useAuth() as { user: User };
   const onFormSubmit = useCallback(
     (person) => async (formData: FormData) => {
-      console.log(formData);
       await addCase({
         personId: person.id,
         firstName: person.firstName,
@@ -30,19 +29,10 @@ const CaseNotesRecording = (): ReactElement => {
         dateOfEvent: new Date().toISOString(),
         workerEmail: user.email,
         formNameOverall: 'ASC_conv3',
-        formName: 'ASC_conv3',
+        formName: 'ASC Conversation 3',
         caseFormData: JSON.stringify(formData),
       });
     },
-    // (person) => (formData: FormData) =>
-    //   console.log({
-    //     mosaic_id: person.mosaicId,
-    //     first_name: person.firstName,
-    //     last_name: person.lastName,
-    //     worker_email: user.email,
-    //     form_name: 'ASC_conv3',
-    //     ...formData,
-    //   }),
     [user.email]
   );
   return (
