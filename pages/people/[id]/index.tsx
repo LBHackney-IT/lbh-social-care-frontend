@@ -22,7 +22,7 @@ const PersonPage = (): React.ReactElement => {
       <PersonView
         personId={personId}
         showPersonDetails={false}
-        canEdit={user.hasAdminPermissions || user.hasAdultPermissions}
+        canEdit={user.hasAdminPermissions || user.hasChildrenPermissions}
       >
         {(person) => (
           <Stack space={7} className="govuk-!-margin-top-7">
