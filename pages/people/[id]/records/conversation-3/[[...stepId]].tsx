@@ -27,6 +27,7 @@ const CaseNotesRecording = (): ReactElement => {
         lastName: person.lastName,
         contextFlag: person.contextFlag,
         dateOfBirth: person.dateOfBirth,
+        dateOfEvent: new Date().toISOString(),
         workerEmail: user.email,
         formNameOverall: 'ASC_conv3',
         formName: 'ASC_conv3',
