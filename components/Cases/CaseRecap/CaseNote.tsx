@@ -17,12 +17,15 @@ const CaseNote = ({ personId, recordId }: Props): React.ReactElement => {
   const fileData =
     recordData && (form as Record<string, FormStep[]>)[recordData];
 
+  console.log(recordError, recordData, fileData);
+
   if (recordError || (recordData && !fileData)) {
     return <ErrorMessage />;
   }
   if (!record || !fileData) {
     return <Spinner />;
   }
+
   return (
     <>
       <Summary
