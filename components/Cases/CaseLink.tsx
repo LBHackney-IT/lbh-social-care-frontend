@@ -22,6 +22,7 @@ const getLink = (
         (caseFormData as AllocationCaseFormData | DeallocationCaseFormData)
           .allocation_id
       }?recordId=${recordId}`;
+    case 'ASC_conv3':
     case fileName:
       return `/people/${caseFormData.mosaic_id}/records/${recordId}`;
     case 'Historical_Case_Note':

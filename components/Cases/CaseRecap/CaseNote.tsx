@@ -23,6 +23,7 @@ const CaseNote = ({ personId, recordId }: Props): React.ReactElement => {
   if (!record || !fileData) {
     return <Spinner />;
   }
+
   return (
     <>
       <Summary
