@@ -28,6 +28,8 @@ const getLink = (
       return `/people/${caseFormData.mosaic_id}/records/${recordId}?is_historical=${caseFormData.is_historical}`;
     case 'Historical_Visit':
       return `/people/${caseFormData.mosaic_id}/visits/${recordId}?is_historical=${caseFormData.is_historical}`;
+    case 'Warning_Note':
+      return `/people/${caseFormData.mosaic_id}/warning-notes/${recordId}`;
     default:
       return null;
   }
