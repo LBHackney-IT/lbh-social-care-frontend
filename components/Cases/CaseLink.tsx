@@ -56,7 +56,7 @@ const CaseLink = ({
         href={externalUrl}
         target="_blank"
         rel="noreferrer noopener"
-        className="govuk-link"
+        className="govuk-link lbh-link"
       >
         View
       </a>
