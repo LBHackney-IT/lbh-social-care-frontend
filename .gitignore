@@ -36,3 +36,6 @@ cypress/fixtures
 cypress/screenshots
 cypress/support
 cypress/videos
+
+# Storybook
+storybook-static
