@@ -5,7 +5,7 @@ import styles from './Summary.module.scss';
 interface SummaryElement {
   key: string;
   title: string;
-  value: React.ReactNode;
+  value: string;
   type?: string;
   href?: string;
 }
@@ -22,9 +22,7 @@ const SummaryList = ({ list }: Props): React.ReactElement => (
           <dt className="govuk-summary-list__key">{title}</dt>
           <dd className="govuk-summary-list__value">
             {type === 'TextArea' ? (
-              <ShowMoreBox>
-                <pre className={styles.formattedTextArea}>{value}</pre>
-              </ShowMoreBox>
+              <ShowMoreBox>{value}</ShowMoreBox>
             ) : (
               value
             )}
