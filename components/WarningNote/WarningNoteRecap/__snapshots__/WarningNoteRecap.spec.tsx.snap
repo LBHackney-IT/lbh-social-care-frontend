@@ -120,18 +120,7 @@ exports[`WarningNoteRecap should render correctly 1`] = `
           class="govuk-summary-list__value"
         >
           <div>
-            <div
-              class="container"
-              style="max-height: 95px;"
-            >
-              <div>
-                <pre
-                  class="formattedTextArea"
-                >
-                  lorem ipsum
-                </pre>
-              </div>
-            </div>
+            lorem ipsum
           </div>
         </dd>
       </div>
@@ -147,18 +136,7 @@ exports[`WarningNoteRecap should render correctly 1`] = `
           class="govuk-summary-list__value"
         >
           <div>
-            <div
-              class="container"
-              style="max-height: 95px;"
-            >
-              <div>
-                <pre
-                  class="formattedTextArea"
-                >
-                  i am a note
-                </pre>
-              </div>
-            </div>
+            i am a note
           </div>
         </dd>
       </div>
