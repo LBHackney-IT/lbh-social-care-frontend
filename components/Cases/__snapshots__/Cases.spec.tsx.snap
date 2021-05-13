@@ -188,7 +188,7 @@ exports[`Cases component should render records properly 1`] = `
             style="width: 50px; text-align: center;"
           >
             <a
-              class="govuk-link"
+              class="govuk-link lbh-link"
               href="https://foo.bar"
               rel="noreferrer noopener"
               target="_blank"
@@ -221,6 +221,7 @@ exports[`Cases component should render records properly 1`] = `
             style="width: 50px; text-align: center;"
           >
             <a
+              class="govuk-link lbh-link"
               href="/people/123/allocations/321?recordId=2"
             >
               View
