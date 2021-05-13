@@ -5,6 +5,7 @@ import {
   AllocationCaseFormData,
   CaseFormData,
   DeallocationCaseFormData,
+  WarningNoteCaseFormData,
 } from 'types';
 
 const getLink = (
@@ -30,7 +31,9 @@ const getLink = (
     case 'Historical_Visit':
       return `/people/${caseFormData.mosaic_id}/visits/${recordId}?is_historical=${caseFormData.is_historical}`;
     case 'API_WarningNote':
-      return `/people/${caseFormData.mosaic_id}/warning-notes/${caseFormData.warning_note_id}`;
+      return `/people/${caseFormData.mosaic_id}/warning-notes/${
+        (caseFormData as WarningNoteCaseFormData).warning_note_id
+      }`;
     default:
       return null;
   }
