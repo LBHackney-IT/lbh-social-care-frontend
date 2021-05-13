@@ -44,6 +44,7 @@ interface CaseFormDataBase {
   form_url?: string;
   case_note_title?: string;
   case_note_description?: string;
+  warning_note_id?: number;
 }
 
 export interface AllocationCaseFormData extends CaseFormDataBase {
