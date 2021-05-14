@@ -49,13 +49,7 @@ exports[`ResidenTable component should render properly 1`] = `
         <td
           class="govuk-table__cell"
         >
-          <strong
-            class="govuk-tag"
-            title="ASC"
-          >
-            A
-          </strong>
-           Foo Bar
+          Foo Bar
         </td>
         <td
           class="govuk-table__cell"
