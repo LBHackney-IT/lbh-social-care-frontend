@@ -6,10 +6,17 @@ const ResultEntry = ({
   firstName,
   lastName,
   dateOfBirth,
+  ageContext,
 }: LegacyResident): React.ReactElement => (
   <tr className="govuk-table__row">
     <td className="govuk-table__cell">{mosaicId}</td>
     <td className="govuk-table__cell">
+      <strong
+        className="govuk-tag"
+        title={ageContext === 'A' ? 'Adult' : 'Child'}
+      >
+        {ageContext}
+      </strong>{' '}
       {firstName} {lastName}
     </td>
     <td className="govuk-table__cell">
