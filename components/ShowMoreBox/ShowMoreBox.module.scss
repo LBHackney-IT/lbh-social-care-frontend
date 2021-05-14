@@ -1,11 +1,22 @@
-.container {
-  transition: ease 100ms;
-  overflow: hidden;
-  & > div {
-    overflow: auto;
+.outer {
+  p:first-child {
+    margin-top: 0;
+  }
+  p:last-of-type {
+    margin-bottom: 0;
   }
 }
 
-.trigger {
-  text-align: left;
+.button {
+  margin-top: 10px;
+  display: block;
+  padding: 0;
+
+  svg {
+    margin-right: 7px;
+  }
+
+  &[aria-expanded='true'] svg {
+    transform: rotate(180deg);
+  }
 }

@@ -14,7 +14,7 @@ describe('SummaryList component', () => {
         key: 'bar',
         title: 'Bar',
         href: 'https://bar',
-        value: <span>f_o_o</span>,
+        value: 'f_o_o',
       },
       {
         key: 'foobar',
