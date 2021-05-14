@@ -119,8 +119,14 @@ exports[`WarningNoteRecap should render correctly 1`] = `
         <dd
           class="govuk-summary-list__value"
         >
-          <div>
-            lorem ipsum
+          <div
+            class="outer"
+          >
+            <p
+              data-testid="para"
+            >
+              lorem ipsum
+            </p>
           </div>
         </dd>
       </div>
@@ -135,8 +141,14 @@ exports[`WarningNoteRecap should render correctly 1`] = `
         <dd
           class="govuk-summary-list__value"
         >
-          <div>
-            i am a note
+          <div
+            class="outer"
+          >
+            <p
+              data-testid="para"
+            >
+              i am a note
+            </p>
           </div>
         </dd>
       </div>

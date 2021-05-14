@@ -26,4 +26,11 @@ describe('ShowMoreBox', () => {
     expect(screen.getByText('Show less'));
     expect(screen.getByText(longContent));
   });
+
+  it('preserves newlines when expanded', () => {
+    render(<ShowMoreBox>{`${longContent}\n${longContent}`}</ShowMoreBox>);
+    expect(screen.queryAllByTestId('para').length).toBe(0);
+    fireEvent.click(screen.getByText('Show more'));
+    expect(screen.queryAllByTestId('para').length).toBe(2);
+  });
 });

@@ -59,11 +59,24 @@ exports[`SummaryList component should render properly 1`] = `
       <dd
         class="govuk-summary-list__value"
       >
-        <div>
-          asd
-asd
-asd
-
+        <div
+          class="outer"
+        >
+          <p
+            data-testid="para"
+          >
+            asd
+          </p>
+          <p
+            data-testid="para"
+          >
+            asd
+          </p>
+          <p
+            data-testid="para"
+          >
+            asd
+          </p>
         </div>
       </dd>
     </div>

@@ -11,11 +11,20 @@ const ShowMoreBox = ({ children }: Props): React.ReactElement => {
 
   const wordLimit = 20;
 
+  const paragraphs = children.split('\n').filter((paragraph) => paragraph);
+
   return (
-    <div>
+    <div className={s.outer}>
       {children.split(' ').length > wordLimit ? (
         <>
-          {expanded ? children : truncate(children, wordLimit)}
+          {expanded
+            ? paragraphs.map((paragraph, i) => (
+                <p key={i} data-testid="para">
+                  {paragraph}
+                </p>
+              ))
+            : truncate(children, wordLimit)}
+
           <button
             className={`govuk-link lbh-link ${s.button}`}
             aria-expanded={expanded ? 'true' : 'false'}
@@ -34,7 +43,11 @@ const ShowMoreBox = ({ children }: Props): React.ReactElement => {
           </button>
         </>
       ) : (
-        children
+        paragraphs.map((paragraph, i) => (
+          <p key={i} data-testid="para">
+            {paragraph}
+          </p>
+        ))
       )}
     </div>
   );

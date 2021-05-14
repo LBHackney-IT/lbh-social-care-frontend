@@ -1,3 +1,12 @@
+.outer {
+  p:first-child {
+    margin-top: 0;
+  }
+  p:last-of-type {
+    margin-bottom: 0;
+  }
+}
+
 .button {
   margin-top: 10px;
   display: block;
