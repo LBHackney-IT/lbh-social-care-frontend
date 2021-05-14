@@ -11,10 +11,7 @@ const ResultEntry = ({
   <tr className="govuk-table__row">
     <td className="govuk-table__cell">{mosaicId}</td>
     <td className="govuk-table__cell">
-      <strong
-        className="govuk-tag"
-        title={ageContext === 'A' ? 'Adult' : 'Child'}
-      >
+      <strong className="govuk-tag" title={ageContext === 'A' ? 'ASC' : 'CFS'}>
         {ageContext}
       </strong>{' '}
       {firstName} {lastName}
