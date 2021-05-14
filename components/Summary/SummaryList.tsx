@@ -21,11 +21,7 @@ const SummaryList = ({ list }: Props): React.ReactElement => (
         <div key={key} className="govuk-summary-list__row">
           <dt className="govuk-summary-list__key">{title}</dt>
           <dd className="govuk-summary-list__value">
-            {type === 'TextArea' ? (
-              <ShowMoreBox>{value}</ShowMoreBox>
-            ) : (
-              value
-            )}
+            {type === 'TextArea' ? <ShowMoreBox>{value}</ShowMoreBox> : value}
           </dd>
           {href && (
             <dd className="govuk-summary-list__actions">
