@@ -1,5 +1,5 @@
 import { render } from '@testing-library/react';
-import { mockedDeallocationNote } from 'factories/cases';
+import { mockedDeallocationNote, mockedWarningNote } from 'factories/cases';
 
 import CaseLink from './CaseLink';
 
@@ -53,5 +53,22 @@ describe('CaseLink component', () => {
     };
     const { asFragment } = render(<CaseLink {...props} />);
     expect(asFragment()).toMatchInlineSnapshot(`<DocumentFragment />`);
+  });
+
+  it('should render properly - with handled link for viewing warning notes', () => {
+    const props = {
+      recordId: '123',
+      caseFormData: mockedWarningNote.caseFormData,
+    };
+    const { asFragment } = render(<CaseLink {...props} />);
+    expect(asFragment()).toMatchInlineSnapshot(`
+      <DocumentFragment>
+        <a
+          href="/people/123/warning-notes/456/view"
+        >
+          View
+        </a>
+      </DocumentFragment>
+    `);
   });
 });
