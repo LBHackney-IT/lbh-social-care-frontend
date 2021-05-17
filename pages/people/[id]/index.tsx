@@ -19,11 +19,7 @@ const PersonPage = (): React.ReactElement => {
     <>
       <Seo title={`Person Details - #${query.id}`} />
       <BackButton />
-      <PersonView
-        personId={personId}
-        showPersonDetails={false}
-        canEdit={user.hasAdminPermissions || user.hasChildrenPermissions}
-      >
+      <PersonView personId={personId} showPersonDetails={false}>
         {(person) => (
           <Stack space={7} className="govuk-!-margin-top-7">
             {user.hasDevPermissions ? <WarningNotes id={personId} /> : <></>}

@@ -4,23 +4,39 @@ import ErrorMessage from 'components/ErrorMessage/ErrorMessage';
 import Spinner from 'components/Spinner/Spinner';
 import PersonDetails from './PersonDetails';
 import { useResident } from 'utils/api/residents';
-import { Resident } from 'types';
+import { Resident, User } from 'types';
+import { useAuth } from '../UserContext/UserContext';
 
 interface Props {
   personId: number;
   children?: React.ReactChild | ((arg0: Resident) => React.ReactChild);
   expandView?: boolean;
   showPersonDetails?: boolean;
-  canEdit?: boolean;
 }
+
+const canUserEditPerson = (user: User, person: Resident) => {
+  if (user.hasAdminPermissions || user.hasDevPermissions) {
+    return true;
+  }
+
+  if (person.contextFlag === 'C' && user.hasChildrenPermissions) {
+    return true;
+  }
+
+  if (person.contextFlag === 'A') {
+    return false;
+  }
+
+  return false;
+};
 
 const PersonView = ({
   personId,
   expandView,
   children,
   showPersonDetails = true,
-  canEdit,
 }: Props): React.ReactElement => {
+  const { user } = useAuth() as { user: User };
   const { data: person, error } = useResident(personId);
   if (error) {
     return <ErrorMessage />;
@@ -35,7 +51,7 @@ const PersonView = ({
           <h1 className="govuk-fieldset__legend--l gov-weight-lighter">
             {person.firstName} {person.lastName}
           </h1>
-          {canEdit && (
+          {canUserEditPerson(user, person) && (
             <Link href={`/people/${person.id}/edit`}>
               <a className="govuk-link">Update person</a>
             </Link>
