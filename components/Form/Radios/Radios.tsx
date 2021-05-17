@@ -36,7 +36,9 @@ const Radios = ({
     {children}
     {error && <ErrorMessage label={error.message} />}
     <div
-      className={cx('govuk-radios', { 'govuk-radios--inline': isRadiosInline })}
+      className={cx('govuk-radios lbh-radios', {
+        'govuk-radios--inline': isRadiosInline,
+      })}
     >
       {options.map((option) => {
         const { value, text } =

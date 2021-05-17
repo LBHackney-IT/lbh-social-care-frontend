@@ -87,7 +87,7 @@ const Checkbox = ({
               {hint}
             </div>
           )}
-          <div className="govuk-checkboxes">
+          <div className="govuk-checkboxes lbh-checkboxes">
             {options ? (
               options.map((option: Option) => {
                 const { value, text } =
