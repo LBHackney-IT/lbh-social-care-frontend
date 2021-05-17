@@ -54,35 +54,35 @@ exports[`AddForm component should render children forms 1`] = `
             />
           </svg>
         </button>
+        <ul
+          aria-labelledby="downshift-1-label"
+          class="list"
+          id="downshift-1-menu"
+          role="listbox"
+          style="border-bottom: 1px solid #aaa;"
+        >
+          <li
+            aria-selected="false"
+            class="option"
+            data-testid="formList_0"
+            id="downshift-1-item-0"
+            role="option"
+            style="color: rgb(0, 0, 0); background-color: rgb(255, 255, 255);"
+          >
+            Bar - Child
+          </li>
+          <li
+            aria-selected="false"
+            class="option"
+            data-testid="formList_1"
+            id="downshift-1-item-1"
+            role="option"
+            style="color: rgb(0, 0, 0); background-color: rgb(255, 255, 255);"
+          >
+            Foo - Child
+          </li>
+        </ul>
       </div>
-      <ul
-        aria-labelledby="downshift-1-label"
-        class="suggestionList"
-        id="downshift-1-menu"
-        role="listbox"
-        style="border-bottom: 1px solid #aaa;"
-      >
-        <li
-          aria-selected="false"
-          class="suggestion"
-          data-testid="formList_0"
-          id="downshift-1-item-0"
-          role="option"
-          style="color: rgb(0, 0, 0); background-color: rgb(255, 255, 255);"
-        >
-          Bar - Child
-        </li>
-        <li
-          aria-selected="false"
-          class="suggestion"
-          data-testid="formList_1"
-          id="downshift-1-item-1"
-          role="option"
-          style="color: rgb(0, 0, 0); background-color: rgb(255, 255, 255);"
-        >
-          Foo - Child
-        </li>
-      </ul>
     </div>
   </div>
   <button

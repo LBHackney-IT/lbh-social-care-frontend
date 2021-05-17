@@ -54,25 +54,25 @@ exports[`AddAllocatedWorker should render properly 1`] = `
             />
           </svg>
         </button>
-      </div>
-      <ul
-        aria-labelledby="downshift-0-label"
-        class="suggestionList"
-        id="downshift-0-menu"
-        role="listbox"
-        style="border-bottom: 1px solid #aaa;"
-      >
-        <li
-          aria-selected="false"
-          class="suggestion"
-          data-testid="teamId_0"
-          id="downshift-0-item-0"
-          role="option"
-          style="color: rgb(0, 0, 0); background-color: rgb(255, 255, 255);"
+        <ul
+          aria-labelledby="downshift-0-label"
+          class="list"
+          id="downshift-0-menu"
+          role="listbox"
+          style="border-bottom: 1px solid #aaa;"
         >
-          Team 3
-        </li>
-      </ul>
+          <li
+            aria-selected="false"
+            class="option"
+            data-testid="teamId_0"
+            id="downshift-0-item-0"
+            role="option"
+            style="color: rgb(0, 0, 0); background-color: rgb(255, 255, 255);"
+          >
+            Team 3
+          </li>
+        </ul>
+      </div>
     </div>
     <h2>
        workers

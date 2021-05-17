@@ -51,35 +51,35 @@ exports[`Autocomplete should render properly 1`] = `
           />
         </svg>
       </button>
+      <ul
+        aria-labelledby="downshift-0-label"
+        class="list"
+        id="downshift-0-menu"
+        role="listbox"
+        style="border-bottom: 1px solid #aaa;"
+      >
+        <li
+          aria-selected="false"
+          class="option"
+          data-testid="autocomplete_0"
+          id="downshift-0-item-0"
+          role="option"
+          style="color: rgb(0, 0, 0); background-color: rgb(255, 255, 255);"
+        >
+          bar
+        </li>
+        <li
+          aria-selected="false"
+          class="option"
+          data-testid="autocomplete_1"
+          id="downshift-0-item-1"
+          role="option"
+          style="color: rgb(0, 0, 0); background-color: rgb(255, 255, 255);"
+        >
+          foo
+        </li>
+      </ul>
     </div>
-    <ul
-      aria-labelledby="downshift-0-label"
-      class="suggestionList"
-      id="downshift-0-menu"
-      role="listbox"
-      style="border-bottom: 1px solid #aaa;"
-    >
-      <li
-        aria-selected="false"
-        class="suggestion"
-        data-testid="autocomplete_0"
-        id="downshift-0-item-0"
-        role="option"
-        style="color: rgb(0, 0, 0); background-color: rgb(255, 255, 255);"
-      >
-        bar
-      </li>
-      <li
-        aria-selected="false"
-        class="suggestion"
-        data-testid="autocomplete_1"
-        id="downshift-0-item-1"
-        role="option"
-        style="color: rgb(0, 0, 0); background-color: rgb(255, 255, 255);"
-      >
-        foo
-      </li>
-    </ul>
   </div>
 </DocumentFragment>
 `;
