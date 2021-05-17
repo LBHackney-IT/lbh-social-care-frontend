@@ -14,8 +14,8 @@ const Layout = ({ children }: Props): React.ReactElement => {
       <Seo title="Social Care Admin - Hackney Council" />
       <SkipLink />
       <Header serviceName="Social Care" />
+      <PhaseBanner phase="beta" feedbackLink={feedbackLink} />
       <div className="govuk-width-container">
-        <PhaseBanner phase="beta" feedbackLink={feedbackLink} />
         <main className="govuk-main-wrapper" id="content" role="main">
           {children}
         </main>
