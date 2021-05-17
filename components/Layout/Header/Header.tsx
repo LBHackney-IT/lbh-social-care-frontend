@@ -65,15 +65,13 @@ const HeaderComponent = ({
               <Logo />
               <span className="lbh-header__logo-text"> Hackney </span>
               <span className="lbh-header__service-name">{serviceName}</span>
-              <span className="govuk-tag lbh-tag">
-                {user && getUserType(user)}
-              </span>
+              <span className="govuk-tag">{user && getUserType(user)}</span>
             </a>
           </div>
           <nav className="lbh-header__links" aria-label="Navigation menu">
             {navLinks && (
               <>
-                {navLinks.map(({ name, path, isSelected }) => (
+                {navLinks.map(({ name, path }) => (
                   <Link href={path} key={path}>
                     <a className="govuk-header__link">{name}</a>
                   </Link>
