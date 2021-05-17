@@ -1,5 +1,22 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`MyAllocatedCases should render an error if the API returns a 500 1`] = `
+<DocumentFragment>
+  <span
+    class="govuk-error-message"
+  >
+    <span
+      class="govuk-visually-hidden"
+    >
+      Error:
+    </span>
+     Oops an error occurred
+  </span>
+</DocumentFragment>
+`;
+
+exports[`MyAllocatedCases should render nothing when there is no worker for the current user 1`] = `<DocumentFragment />`;
+
 exports[`MyAllocatedCases should render properly 1`] = `
 <DocumentFragment>
   <p>

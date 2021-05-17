@@ -3,9 +3,12 @@ import ErrorMessage from 'components/ErrorMessage/ErrorMessage';
 import { useMyData } from 'utils/api/me';
 import Spinner from 'components/Spinner/Spinner';
 
-const MyAllocatedCases = (): React.ReactElement => {
+const MyAllocatedCases: React.FC = () => {
   const { data, error } = useMyData();
   if (error) {
+    if (error?.response?.status === 404) {
+      return null;
+    }
     return <ErrorMessage />;
   }
   if (!data) {
