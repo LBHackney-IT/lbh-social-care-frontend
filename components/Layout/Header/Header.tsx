@@ -11,20 +11,17 @@ import Logo from './Logo';
 const loggedNavLinks = [
   {
     name: 'Search',
+    path: '/search',
+    isSelected: (pathname: string) =>
+      pathname === '/search' || pathname === '/cases',
+  },
+  {
+    name: 'My work space',
     path: '/',
-    isSelected: ({ asPath, pathname }: { asPath: string; pathname: string }) =>
+    isSelected: (pathname: string) =>
       pathname === '/' ||
-      (pathname === '/cases' && asPath !== '/cases?my_notes_only=true'),
-  },
-  {
-    name: 'My records',
-    path: '/cases?my_notes_only=true',
-    isSelected: ({ asPath }: { asPath: string }) =>
-      asPath === '/cases?my_notes_only=true',
-  },
-  {
-    name: 'Forms in progress',
-    path: '/form-in-progress',
+      pathname === '/my-records' ||
+      pathname === '/forms-in-progress',
   },
   {
     name: 'Manage workers',
@@ -42,7 +39,7 @@ const HeaderComponent = ({
   serviceName: string;
 }): React.ReactElement => {
   const { user } = useAuth();
-  const { pathname, asPath } = useRouter();
+  const { pathname } = useRouter();
   const [navLinks, setNavLinks] = useState<typeof loggedNavLinks>();
   useEffect(() => {
     if (user) {

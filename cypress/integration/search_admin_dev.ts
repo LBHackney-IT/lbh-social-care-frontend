@@ -7,7 +7,7 @@ describe('Admin Dev Group', () => {
       'value',
       Cypress.env('TEST_KEY_ADMIN_DEV')
     );
-    cy.visit(Cypress.env('HOST'));
+    cy.visit(Cypress.env('HOST') + '/search');
   });
 
   it('Search for People by Mosaic ID as logged as Admin Dev', () => {
