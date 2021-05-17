@@ -5,8 +5,6 @@ import { Controller, Control } from 'react-hook-form';
 
 import { sortObject } from 'utils/objects';
 import ErrorMessage from 'components/ErrorMessage/ErrorMessage';
-import ClearIcon from 'components/Icons/Clear';
-import DownArrow from 'components/Icons/DownArrow';
 import style from './Autocomplete.module.scss';
 
 import {
@@ -96,25 +94,26 @@ export const Autocomplete = forwardRef<HTMLInputElement, AutoProps>(
           inputValue,
           toggleMenu,
           highlightedIndex,
+          getToggleButtonProps,
           clearSelection,
         }) => {
           const inputProps = getInputProps();
           return (
             <div
-              className={cx(`govuk-form-group`, {
+              className={cx(`govuk-form-group lbh-form-group`, {
                 [`govuk-grid-column-${govGrid}`]: govGrid,
                 'govuk-form-group--error': error,
               })}
             >
               <label
-                className={`govuk-label govuk-label--${labelSize}`}
+                className={`govuk-label lbh-label--${labelSize}`}
                 id={inputProps['aria-labelledby']}
               >
-                {label} {required && <span className="govuk-required">*</span>}
+                {label} {required && <span className="lbh-required">*</span>}
               </label>
               <div className={style.inputContainer}>
                 {hint && (
-                  <span id={`${name}-hint`} className="govuk-hint">
+                  <span id={`${name}-hint`} className="govuk-hint lbh-hint">
                     {hint}
                   </span>
                 )}
@@ -128,34 +127,25 @@ export const Autocomplete = forwardRef<HTMLInputElement, AutoProps>(
                     toggleMenu();
                   }}
                   aria-describedby={hint && `${name}-hint`}
-                  className={cx(`govuk-input`, inputClassName, {
-                    [`govuk-input--width-${width}`]: width,
+                  className={cx(`govuk-input lbh-input`, inputClassName, {
+                    [`govuk-input--width-${width} `]: width,
                   })}
                   ref={ref}
                   {...otherProps}
                 />
-                {!isOpen && !inputValue && (
-                  <span
-                    onClick={(): void => {
-                      toggleMenu();
-                    }}
-                    className={style.toggle}
-                    role="button"
-                  >
-                    <DownArrow />
-                  </span>
-                )}
-                {inputValue && (
-                  <span
-                    onClick={(): void => {
-                      clearSelection();
-                    }}
-                    className={style.clear}
-                    role="button"
-                  >
-                    <ClearIcon />
-                  </span>
-                )}
+                <button
+                  {...getToggleButtonProps()}
+                  aria-label="toggle menu"
+                  className={style.button}
+                >
+                  <svg width="17" height="10" viewBox="0 0 17 10" fill="none">
+                    <path
+                      d="M2 1.5L8.5 7.5L15 1.5"
+                      stroke="#0B0C0C"
+                      strokeWidth="3"
+                    />
+                  </svg>
+                </button>
               </div>
               <ul
                 {...getMenuProps()}
@@ -233,3 +223,8 @@ const ControlledAutocomplete = ({
 );
 
 export default ControlledAutocomplete;
+function getToggleButtonProps(): JSX.IntrinsicAttributes &
+  import('react').ClassAttributes<HTMLButtonElement> &
+  import('react').ButtonHTMLAttributes<HTMLButtonElement> {
+  throw new Error('Function not implemented.');
+}

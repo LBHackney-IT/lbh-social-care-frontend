@@ -1,6 +1,9 @@
+@import 'lbh-frontend/lbh/base';
+
 .inputContainer {
   position: relative;
   display: flex;
+  max-width: 48ex;
 }
 
 .toggle,
@@ -28,11 +31,29 @@
   padding: 0;
   z-index: 1;
   width: 414px;
-  max-width: 41ex;
 }
 
 .suggestion {
   cursor: pointer;
   padding: 5px 15px;
   z-index: 2;
+}
+
+.button {
+  cursor: pointer;
+  margin-top: 0;
+  position: absolute;
+  right: 2px;
+  top: 2px;
+  bottom: 2px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: none;
+  border: none;
+  width: 35px;
+  &:focus {
+    outline: none;
+    background: lbh-colour('lbh-primary-focus');
+  }
 }
