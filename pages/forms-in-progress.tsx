@@ -4,7 +4,7 @@ import DashboardWrapper from 'components/Dashboard/DashboardWrapper';
 
 const MyFormsPage = (): React.ReactElement => (
   <div>
-    <Seo title="My saved forms" />
+    <Seo title="My Forms" />
     <DashboardWrapper>
       <>
         <p className="govuk-body">
