@@ -7,7 +7,11 @@ const MyAllocatedCases: React.FC = () => {
   const { data, error } = useMyData();
   if (error) {
     if (error?.response?.status === 404) {
-      return null;
+      return (
+        <p className="govuk-body govuk-!-margin-top-5">
+          No people are assigned to you
+        </p>
+      );
     }
     return <ErrorMessage />;
   }

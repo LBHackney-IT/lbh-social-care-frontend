@@ -26,7 +26,7 @@ describe(`MyAllocatedCases`, () => {
     getByText('Oops an error occurred');
     expect(asFragment()).toMatchSnapshot();
   });
-  it('should render nothing when there is no worker for the current user', async () => {
+  it('should render a message when there is no worker for the current user', async () => {
     //arrange - mock null data and an error not found error response
     jest.spyOn(meAPI, 'useMyData').mockImplementation(() => ({
       data: undefined,
@@ -35,8 +35,8 @@ describe(`MyAllocatedCases`, () => {
       mutate: jest.fn(),
       isValidating: false,
     }));
-    const { asFragment, queryByText } = render(<MyAllocatedCases />);
-    expect(queryByText('Oops an error occurred')).toBeNull();
+    const { asFragment, getByText } = render(<MyAllocatedCases />);
+    getByText('No people are assigned to you');
     expect(asFragment()).toMatchSnapshot();
   });
   it('should render properly', async () => {
