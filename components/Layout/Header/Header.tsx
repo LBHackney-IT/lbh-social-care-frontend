@@ -64,7 +64,7 @@ const HeaderComponent = ({
             <a href="/" className="lbh-header__title-link">
               <Logo />
               <span className="lbh-header__logo-text"> Hackney </span>
-              <span className="lbh-header__service-name">Social care</span>
+              <span className="lbh-header__service-name">{serviceName}</span>
               <span className="govuk-tag lbh-tag">
                 {user && getUserType(user)}
               </span>
