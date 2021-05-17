@@ -29,8 +29,22 @@ declare global {
   }
 }
 
+/**
+ * Visit the given url
+ *
+ * @param {string} url The URL to visit. If relative uses `baseUrl`
+ * @param {AuthRoles} role The user role to act as for this request
+ * @param {VisitOptions} [options] Pass in an options object to change the default behavior of the underlying `cy.visit()` call
+ * @example
+ *    cy.visitAs('http://localhost:3000', AuthRoles.ChildrensGroup)
+ *    cy.visitAs('/somewhere' AuthRoles.AdultsGroup) // opens ${baseUrl}/somewhere
+ *    cy.visitAs('/' AuthRoles.AdminDevGroup, {
+ *      method: 'POST'
+ *    })
+ *
+ */
 const visitAs = (
-  path: string,
+  url: string,
   role: AuthRoles,
   options?: Partial<Cypress.VisitOptions>
 ) => {
@@ -43,7 +57,7 @@ const visitAs = (
     config.tokenValue
   );
 
-  cy.visit(path, options);
+  cy.visit(url, options);
 };
 
 Cypress.Commands.add('visitAs', visitAs);
