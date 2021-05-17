@@ -46,15 +46,4 @@ const visitAs = (
   cy.visit(path, options);
 };
 
-Cypress.Commands.add('visitAs', (path: string, role: AuthRoles) => {
-  const config = roleConfigurations[role];
-
-  cy.setCookie('hackneyToken', config.tokenValue);
-  cy.getCookie('hackneyToken').should(
-    'have.property',
-    'value',
-    config.tokenValue
-  );
-
-  cy.visit(path);
-});
+Cypress.Commands.add('visitAs', visitAs);
