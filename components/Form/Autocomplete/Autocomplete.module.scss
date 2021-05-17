@@ -57,3 +57,39 @@
     background: lbh-colour('lbh-primary-focus');
   }
 }
+
+.list {
+  box-sizing: border-box;
+  background: lbh-colour('lbh-white');
+  border: 2px solid lbh-colour('lbh-text');
+  position: absolute;
+  top: 14px;
+  left: 0px;
+  width: 100%;
+  list-style: none;
+  z-index: 2;
+  max-height: 300px;
+  overflow-y: auto;
+
+  &:empty {
+    border: none;
+  }
+}
+
+.option {
+  margin-top: 0;
+  @include lbh-body-m;
+  padding: 5px 10px;
+  line-height: 1.2;
+
+  &[aria-selected='true'] {
+    background: lbh-colour('lbh-link');
+    color: lbh-colour('lbh-white');
+  }
+}
+
+.noResults {
+  padding: 5px 10px;
+  @include lbh-body-m;
+  color: lbh-colour('lbh-secondary-text');
+}

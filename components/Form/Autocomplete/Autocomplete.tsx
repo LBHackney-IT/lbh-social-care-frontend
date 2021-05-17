@@ -146,45 +146,47 @@ export const Autocomplete = forwardRef<HTMLInputElement, AutoProps>(
                     />
                   </svg>
                 </button>
+
+                <ul
+                  {...getMenuProps()}
+                  className={style.list}
+                  style={
+                    isOpen
+                      ? { borderBottom: '1px solid #aaa' }
+                      : { borderBottom: 'none' }
+                  }
+                >
+                  {isOpen &&
+                    items
+                      .filter(
+                        (item) =>
+                          !inputValue ||
+                          item.text
+                            .toLowerCase()
+                            .includes(inputValue.toLowerCase())
+                      )
+                      .map((item, index) => (
+                        <li
+                          key={index}
+                          data-testid={`${name}_${index}`}
+                          className={style.option}
+                          {...getItemProps({
+                            key: `${item}-${index}`,
+                            index,
+                            item,
+                            style: {
+                              color:
+                                highlightedIndex === index ? '#fff' : '#000',
+                              backgroundColor:
+                                highlightedIndex === index ? '#8b8b8b' : '#fff',
+                            },
+                          })}
+                        >
+                          {item.text}
+                        </li>
+                      ))}
+                </ul>
               </div>
-              <ul
-                {...getMenuProps()}
-                className={style.suggestionList}
-                style={
-                  isOpen
-                    ? { borderBottom: '1px solid #aaa' }
-                    : { borderBottom: 'none' }
-                }
-              >
-                {isOpen &&
-                  items
-                    .filter(
-                      (item) =>
-                        !inputValue ||
-                        item.text
-                          .toLowerCase()
-                          .includes(inputValue.toLowerCase())
-                    )
-                    .map((item, index) => (
-                      <li
-                        key={index}
-                        data-testid={`${name}_${index}`}
-                        className={style.suggestion}
-                        {...getItemProps({
-                          key: `${item}-${index}`,
-                          index,
-                          item,
-                          style: {
-                            color: highlightedIndex === index ? '#fff' : '#000',
-                            backgroundColor:
-                              highlightedIndex === index ? '#8b8b8b' : '#fff',
-                          },
-                        })}
-                      >
-                        {item.text}
-                      </li>
-                    ))}
-              </ul>
             </div>
           );
         }}
