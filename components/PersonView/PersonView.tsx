@@ -15,11 +15,20 @@ interface Props {
 }
 
 const canUserEditPerson = (user: User, person: Resident) => {
+  const isPersonRestricted = person.restricted === 'Y';
+
   if (user.hasAdminPermissions || user.hasDevPermissions) {
+    if (isPersonRestricted) {
+      return user.hasUnrestrictedPermissions || false;
+    }
+
     return true;
   }
 
-  if (person.contextFlag === 'C' && user.hasChildrenPermissions) {
+  if (user.hasChildrenPermissions && person.contextFlag === 'C') {
+    if (isPersonRestricted) {
+      return user.hasUnrestrictedPermissions || false;
+    }
     return true;
   }
 
@@ -51,6 +60,7 @@ const PersonView = ({
           <h1 className="govuk-fieldset__legend--l gov-weight-lighter">
             {person.firstName} {person.lastName}
           </h1>
+
           {canUserEditPerson(user, person) && (
             <Link href={`/people/${person.id}/edit`}>
               <a className="govuk-link">Update person</a>

@@ -20,6 +20,26 @@ describe('Viewing a resident', () => {
       cy.contains('Date created');
       cy.contains('Record type');
     });
+
+    it('should allow allocation of workers against child residents', () => {
+      cy.visitAs(
+        `/people/${Cypress.env('CHILDREN_RECORD_PERSON_ID')}`,
+        AuthRoles.ChildrensGroup
+      );
+
+      cy.contains('Allocate worker');
+    });
+  });
+
+  describe('As a user in the Childrens Unrestricted group', () => {
+    it('should show records of a restricted child resident', () => {
+      cy.visitAs(
+        `/people/${Cypress.env('CHILDREN_RESTRICTED_RECORD_PERSON_ID')}`,
+        AuthRoles.ChildrensUnrestrictedGroup
+      );
+
+      cy.contains('Records not found');
+    });
   });
 
   describe('As a user in the Adults group', () => {
@@ -40,6 +60,49 @@ describe('Viewing a resident', () => {
 
       cy.contains('Date created');
       cy.contains('Record type');
+    });
+
+    it('should hide records of a restricted adult resident', () => {
+      cy.visitAs(
+        `/people/${Cypress.env('ADULT_RESTRICTED_RECORD_PERSON_ID')}`,
+        AuthRoles.AdultsAllocatorGroup
+      );
+
+      cy.contains('The records for this profile are restricted for viewing');
+    });
+  });
+
+  describe('As a user in the Adults Allocators group', () => {
+    it('should allow allocation of workers against adult residents', () => {
+      cy.visitAs(
+        `/people/${Cypress.env('ADULT_RECORD_PERSON_ID')}`,
+        AuthRoles.AdultsAllocatorGroup
+      );
+
+      cy.contains('Allocate worker');
+    });
+  });
+
+  describe('As a user in the Adults Unrestricted group', () => {
+    it('should show records of a restricted adult resident', () => {
+      cy.visitAs(
+        `/people/${Cypress.env('ADULT_RESTRICTED_RECORD_PERSON_ID')}`,
+        AuthRoles.AdultsUnrestrictedGroup
+      );
+
+      cy.contains('Date created');
+      cy.contains('Record type');
+    });
+  });
+
+  describe('As a user in the Admin group', () => {
+    it('should hide records of a restricted resident', () => {
+      cy.visitAs(
+        `/people/${Cypress.env('ADULT_RESTRICTED_RECORD_PERSON_ID')}`,
+        AuthRoles.AdultsAllocatorGroup
+      );
+
+      cy.contains('The records for this profile are restricted for viewing');
     });
   });
 });

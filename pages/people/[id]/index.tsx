@@ -11,10 +11,19 @@ import Stack from 'components/Stack/Stack';
 import { useAuth } from 'components/UserContext/UserContext';
 import { User } from 'types';
 
+const canViewWarningNotes = (user: User) => {
+  if (user.hasDevPermissions) {
+    return true;
+  }
+
+  return false;
+};
+
 const PersonPage = (): React.ReactElement => {
   const { query } = useRouter();
   const { user } = useAuth() as { user: User };
   const personId = Number(query.id as string);
+
   return (
     <>
       <Seo title={`Person Details - #${query.id}`} />
@@ -22,9 +31,9 @@ const PersonPage = (): React.ReactElement => {
       <PersonView personId={personId} showPersonDetails={false}>
         {(person) => (
           <Stack space={7} className="govuk-!-margin-top-7">
-            {user.hasDevPermissions ? <WarningNotes id={personId} /> : <></>}
+            {canViewWarningNotes(user) ? <WarningNotes id={personId} /> : <></>}
             <PersonDetails person={person} />
-            <AllocatedWorkers id={personId} />
+            <AllocatedWorkers person={person} />
             <Cases id={personId} person={person} />
           </Stack>
         )}

@@ -62,26 +62,31 @@ interface WrapperProps {
   person: Resident;
 }
 
-const canViewCases = (user: User, person: Resident) => {
+const canManageCases = (user: User, person: Resident) => {
   const isPersonRestricted = person.restricted === 'Y';
 
-  if (user.hasUnrestrictedPermissions) {
+  if (user.hasAdminPermissions || user.hasDevPermissions) {
+    if (isPersonRestricted) {
+      return user.hasUnrestrictedPermissions || false;
+    }
+
     return true;
   }
 
-  if (
-    user.hasAdultPermissions &&
-    person.contextFlag === 'A' &&
-    !isPersonRestricted
-  ) {
+  if (user.hasChildrenPermissions && person.contextFlag === 'C') {
+    if (isPersonRestricted) {
+      return user.hasUnrestrictedPermissions || false;
+    }
+
     return true;
   }
 
-  if (
-    user.hasChildrenPermissions &&
-    person.contextFlag === 'C' &&
-    !isPersonRestricted
-  ) {
+  if (user.hasAdultPermissions && person.contextFlag === 'A') {
+    if (isPersonRestricted) {
+      console.log({ user });
+      return user.hasUnrestrictedPermissions || false;
+    }
+
     return true;
   }
 
@@ -90,6 +95,8 @@ const canViewCases = (user: User, person: Resident) => {
 
 const CasesWrapper = ({ id, person }: WrapperProps): React.ReactElement => {
   const { user } = useAuth() as { user: User };
+
+  const userCanManageCases = canManageCases(user, person);
 
   return (
     <div>
@@ -100,10 +107,12 @@ const CasesWrapper = ({ id, person }: WrapperProps): React.ReactElement => {
           </h3>
           <span className="govuk-body">Linked files are read only</span>
         </div>
-        <Button label="Add a new record" route={`${id}/records`} />
+        {userCanManageCases && (
+          <Button label="Add a new record" route={`${id}/records`} />
+        )}
       </div>
       <hr className="govuk-divider" />
-      {canViewCases(user, person) ? (
+      {userCanManageCases ? (
         <Cases id={id} />
       ) : (
         <ErrorSummary
