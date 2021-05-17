@@ -10,11 +10,11 @@ exports[`AddForm component should render children forms 1`] = `
       aria-haspopup="listbox"
       aria-labelledby="downshift-1-label"
       aria-owns="downshift-1-menu"
-      class="govuk-form-group"
+      class="govuk-form-group lbh-form-group"
       role="combobox"
     >
       <label
-        class="govuk-label govuk-label--m"
+        class="govuk-label lbh-label--m"
         id="downshift-1-label"
       >
         Choose a form 
@@ -27,12 +27,33 @@ exports[`AddForm component should render children forms 1`] = `
           aria-controls="downshift-1-menu"
           aria-labelledby="downshift-1-label"
           autocomplete="off"
-          class="govuk-input govuk-input--width-20"
+          class="govuk-input lbh-input govuk-input--width-20 "
           data-testid="formList"
           id="formList"
           placeholder="Select or type form name"
           value=""
         />
+        <button
+          aria-haspopup="true"
+          aria-label="toggle menu"
+          class="button"
+          data-toggle="true"
+          role="button"
+          type="button"
+        >
+          <svg
+            fill="none"
+            height="10"
+            viewBox="0 0 17 10"
+            width="17"
+          >
+            <path
+              d="M2 1.5L8.5 7.5L15 1.5"
+              stroke="#0B0C0C"
+              stroke-width="3"
+            />
+          </svg>
+        </button>
       </div>
       <ul
         aria-labelledby="downshift-1-label"
