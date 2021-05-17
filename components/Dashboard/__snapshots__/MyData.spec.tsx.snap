@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`MyData should render properly 1`] = `
+exports[`MyData should render a worker's data only if a worker is available 1`] = `
 <DocumentFragment>
   <div
     class="container"
@@ -21,7 +21,7 @@ exports[`MyData should render properly 1`] = `
 </DocumentFragment>
 `;
 
-exports[`MyData should render properly 2`] = `
+exports[`MyData should render a worker's data only if a worker is available 2`] = `
 <DocumentFragment>
   <div
     class="container"
@@ -66,3 +66,20 @@ exports[`MyData should render properly 2`] = `
   </div>
 </DocumentFragment>
 `;
+
+exports[`MyData should render an error if the API returns a 500 1`] = `
+<DocumentFragment>
+  <span
+    class="govuk-error-message"
+  >
+    <span
+      class="govuk-visually-hidden"
+    >
+      Error:
+    </span>
+     An unknown error has occurred.
+  </span>
+</DocumentFragment>
+`;
+
+exports[`MyData should render nothing when there is no worker for the current user 1`] = `<DocumentFragment />`;

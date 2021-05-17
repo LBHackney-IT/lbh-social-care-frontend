@@ -10,15 +10,18 @@ import { Team } from 'types';
 
 import styles from './MyData.module.scss';
 
-const MyData = (): React.ReactElement => {
+const MyData: React.FC = () => {
   const { query, replace, pathname } = useRouter();
   const [expandView, setExpandView] = useState(Boolean(query?.details));
   const { data, error } = useMyData();
   if (error) {
+    if (error?.response?.status === 404) {
+      return null;
+    }
     return (
       <ErrorMessage
         label={
-          error.response?.status ? 'User not found in the system' : undefined
+          error.response?.status ? 'An unknown error has occurred.' : undefined
         }
       />
     );
