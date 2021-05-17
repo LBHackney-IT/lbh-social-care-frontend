@@ -10,19 +10,9 @@ const prettyDate = (isoDateString: string): string => {
 
 interface Props {
   person: Resident | false;
-  index?: number;
-  onRemove?: (arg0: number) => void;
-  open?: boolean;
-  setOpen?: (arg0: number) => void;
 }
 
-const PersonWidget = ({
-  person,
-  onRemove,
-  index,
-  open,
-  setOpen,
-}: Props): React.ReactElement => {
+const PersonWidget = ({ person }: Props): React.ReactElement => {
   if (person) {
     return (
       <aside className={s.aside}>
