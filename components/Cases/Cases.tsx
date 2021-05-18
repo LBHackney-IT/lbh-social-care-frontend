@@ -7,6 +7,7 @@ import { useAuth } from 'components/UserContext/UserContext';
 import { useCasesByResident } from 'utils/api/cases';
 
 import { Case, Resident, User } from 'types';
+import { canManageCases } from '../../lib/permissions';
 
 interface Props {
   id: number;
@@ -61,36 +62,6 @@ interface WrapperProps {
   id: number;
   person: Resident;
 }
-
-const canManageCases = (user: User, person: Resident) => {
-  const isPersonRestricted = person.restricted === 'Y';
-
-  if (user.hasAdminPermissions || user.hasDevPermissions) {
-    if (isPersonRestricted) {
-      return user.hasUnrestrictedPermissions || false;
-    }
-
-    return true;
-  }
-
-  if (user.hasChildrenPermissions && person.contextFlag === 'C') {
-    if (isPersonRestricted) {
-      return user.hasUnrestrictedPermissions || false;
-    }
-
-    return true;
-  }
-
-  if (user.hasAdultPermissions && person.contextFlag === 'A') {
-    if (isPersonRestricted) {
-      return user.hasUnrestrictedPermissions || false;
-    }
-
-    return true;
-  }
-
-  return false;
-};
 
 const CasesWrapper = ({ id, person }: WrapperProps): React.ReactElement => {
   const { user } = useAuth() as { user: User };
