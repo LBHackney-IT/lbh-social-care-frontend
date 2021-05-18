@@ -11,10 +11,8 @@ const TestForm = (): React.ReactElement => {
   const onFormSubmit = async (formData: Record<string, unknown>) =>
     await axios.post('/api/test', formData);
 
-  const resident = residentFactory.build();
   return (
     <>
-      <PersonWidget person={resident} />
       <FormWizard
         formPath={form.path}
         formSteps={form.steps}
