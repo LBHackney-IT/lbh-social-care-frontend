@@ -9220,10 +9220,10 @@ lazy-universal-dotenv@^3.0.1:
     dotenv "^8.0.0"
     dotenv-expand "^5.1.0"
 
-lbh-frontend@^3.5.2:
-  version "3.5.2"
-  resolved "https://registry.yarnpkg.com/lbh-frontend/-/lbh-frontend-3.5.2.tgz#0882a337d842e32a5695b9f5c6d8081750ffb906"
-  integrity sha512-/i7ThOTp1nX1y7lahpLWOKauRQXwPKUjQOHReh0lIluI81RkSJvzv1+YS5krZmS1VMlxXkKoUJACTqS+bS6qeA==
+lbh-frontend@^3.5.3:
+  version "3.5.3"
+  resolved "https://registry.yarnpkg.com/lbh-frontend/-/lbh-frontend-3.5.3.tgz#fe064b7e29ec30cd619fd97a3bcfed33b8226ed3"
+  integrity sha512-3PElf9B5Cj1zNQJoUGg/Hxtn8YdI0u2bUE/gl1Jx0Qu0VGtqM3o8xD7t/tyNMHQfYkLKp1lioWvBLd3NGI9Dcg==
   dependencies:
     "@reach/dialog" "^0.15.0"
     "@tippyjs/react" "^4.2.5"
