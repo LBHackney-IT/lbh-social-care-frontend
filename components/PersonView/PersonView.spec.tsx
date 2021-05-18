@@ -160,4 +160,33 @@ describe('PersonView component', () => {
 
     expect(queryByText('Update person')).toBeNull();
   });
+
+  it('should not render the "Edit" button if the current user is of the same context type as the resident, but the resident is restricted and the user does not have unrestricted access', async () => {
+    jest.spyOn(residentsAPI, 'useResident').mockImplementation(() => ({
+      data: residentFactory.build({
+        contextFlag: 'C',
+        restricted: 'Y',
+      }),
+      isValidating: false,
+      mutate: jest.fn(),
+      revalidate: jest.fn(),
+    }));
+
+    const { queryByText } = render(
+      <UserContext.Provider
+        value={{
+          user: userFactory.build({
+            hasAdminPermissions: false,
+            hasAdultPermissions: false,
+            hasChildrenPermissions: true,
+            hasUnrestrictedPermissions: false,
+          }),
+        }}
+      >
+        <PersonView {...props} />
+      </UserContext.Provider>
+    );
+
+    expect(queryByText('Update person')).toBeNull();
+  });
 });
