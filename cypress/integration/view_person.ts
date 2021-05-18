@@ -8,7 +8,9 @@ describe('Viewing a resident', () => {
         AuthRoles.ChildrensGroup
       );
 
-      cy.contains('The records for this profile are restricted for viewing');
+      cy.contains(
+        'Some details for this person are restricted due to your permissions.'
+      );
     });
 
     it('should show a list of records when the current user has access to them because they are in the correct user group', () => {
@@ -58,7 +60,9 @@ describe('Viewing a resident', () => {
         AuthRoles.AdultsGroup
       );
 
-      cy.contains('The records for this profile are restricted for viewing');
+      cy.contains(
+        'Some details for this person are restricted due to your permissions.'
+      );
     });
 
     it('should show a list of records when the current user has access to them because they are in the correct user group', () => {
@@ -77,7 +81,9 @@ describe('Viewing a resident', () => {
         AuthRoles.AdultsAllocatorGroup
       );
 
-      cy.contains('The records for this profile are restricted for viewing');
+      cy.contains(
+        'Some details for this person are restricted due to your permissions.'
+      );
     });
   });
 
@@ -111,7 +117,9 @@ describe('Viewing a resident', () => {
         AuthRoles.AdultsAllocatorGroup
       );
 
-      cy.contains('The records for this profile are restricted for viewing');
+      cy.contains(
+        'Some details for this person are restricted due to your permissions.'
+      );
     });
   });
 });

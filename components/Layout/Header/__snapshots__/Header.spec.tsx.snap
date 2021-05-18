@@ -30,7 +30,7 @@ exports[`Header component should set active the correct link 1`] = `
               Foo
             </span>
             <span
-              class="govuk-tag"
+              class="govuk-tag lbh-tag lbh-tag--green"
             >
               Admin
             </span>

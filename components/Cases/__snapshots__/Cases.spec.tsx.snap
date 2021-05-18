@@ -38,7 +38,7 @@ exports[`Cases component should render a error message when a person is restrict
       <div
         class="govuk-error-summary__body"
       >
-        The records for this profile are restricted for viewing
+        Some details for this person are restricted due to your permissions.
       </div>
     </div>
   </div>
