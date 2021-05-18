@@ -1,6 +1,6 @@
 import React from 'react';
 import { Resident } from 'types';
-import s from '../styles/PersonWidget.module.scss';
+import s from './PersonWidget.module.scss';
 import { format } from 'date-fns';
 
 const prettyDate = (isoDateString: string): string => {
