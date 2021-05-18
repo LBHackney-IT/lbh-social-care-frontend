@@ -56,11 +56,11 @@ const DateInput = forwardRef<HTMLInputElement, InputProps>(
           aria-describedby={`${name}-hint`}
         >
           <legend
-            className={`govuk-fieldset__legend govuk-fieldset__legend--${labelSize}`}
+            className={`lbh-fieldset__legend govuk-fieldset__legend--${labelSize}`}
           >
             {label} {required && <span className="govuk-required">*</span>}
           </legend>
-          <span id={`${name}-hint`} className="govuk-hint">
+          <span id={`${name}-hint`} className="lbh-hint govuk-hint">
             {hint}
           </span>
           {error && <ErrorMessage label={error.message} />}

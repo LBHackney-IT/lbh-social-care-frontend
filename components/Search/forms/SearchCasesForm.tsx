@@ -56,7 +56,7 @@ const SearchCasesForm = ({
       <div className="govuk-grid-row">
         <div className="govuk-grid-column-one-half">
           <TextInput
-            label="First name:"
+            label="First name"
             labelSize="s"
             name="first_name"
             error={errors.first_name}
@@ -71,7 +71,7 @@ const SearchCasesForm = ({
         </div>
         <div className="govuk-grid-column-one-half">
           <TextInput
-            label="Last name:"
+            label="Last name"
             labelSize="s"
             name="last_name"
             error={errors.last_name}
@@ -98,7 +98,7 @@ const SearchCasesForm = ({
       <div className="govuk-grid-row">
         <div className="govuk-grid-column-one-half">
           <DateInput
-            label="Date created from:"
+            label="Date created from"
             labelSize="s"
             name="start_date"
             format="EU"
@@ -116,7 +116,7 @@ const SearchCasesForm = ({
         </div>
         <div className="govuk-grid-column-one-half">
           <DateInput
-            label="Date created to:"
+            label="Date created to"
             labelSize="s"
             name="end_date"
             format="EU"
@@ -137,7 +137,7 @@ const SearchCasesForm = ({
         <div className="govuk-grid-column-one-half">
           <Autocomplete
             name="form_name"
-            label="Filter by form type:"
+            label="Filter by form type"
             labelSize="s"
             control={control}
             options={formNameOptions}
@@ -147,7 +147,7 @@ const SearchCasesForm = ({
           <div className="govuk-grid-column-one-half">
             <EmailInput
               name="worker_email"
-              label="Uploaded by:"
+              label="Uploaded by"
               labelSize="s"
               placeholder="Email"
               register={register}
@@ -168,7 +168,7 @@ const SearchCasesForm = ({
       )}
       <Button label={ctaText} type="submit" disabled={!isDirty} />
       <button
-        className="govuk-link"
+        className="govuk-link lbh-link"
         onClick={(e) => {
           e.preventDefault();
           reset({
@@ -181,6 +181,7 @@ const SearchCasesForm = ({
         style={{
           marginLeft: '1rem',
           lineHeight: '2.5rem',
+          marginTop: '0',
         }}
       >
         Clear {ctaText.toLowerCase()}
