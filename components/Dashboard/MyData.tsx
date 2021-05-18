@@ -40,7 +40,7 @@ const MyData: React.FC = () => {
   return (
     <div className={styles.container}>
       <div className={cx(styles.header, 'lbh-table-header')}>
-        <h2 style={{ color: 'lbh-white' }}>
+        <h2>
           {data.firstName} {data.lastName}
         </h2>
         <button
