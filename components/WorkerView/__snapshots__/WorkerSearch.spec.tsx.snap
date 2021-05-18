@@ -17,13 +17,13 @@ exports[`WorkerSearch should display search results 1`] = `
             class="govuk-form-group"
           >
             <label
-              class="govuk-label govuk-label--s"
+              class="lbh-label govuk-label--s"
               for="email"
             >
               Worker's email address: 
             </label>
             <span
-              class="govuk-hint"
+              class="govuk-hint lbh-hint"
               id="email-hint"
             >
               Email address must contain @hackney.gov.uk
@@ -130,13 +130,13 @@ exports[`WorkerSearch should display the error 1`] = `
             class="govuk-form-group"
           >
             <label
-              class="govuk-label govuk-label--s"
+              class="lbh-label govuk-label--s"
               for="email"
             >
               Worker's email address: 
             </label>
             <span
-              class="govuk-hint"
+              class="govuk-hint lbh-hint"
               id="email-hint"
             >
               Email address must contain @hackney.gov.uk

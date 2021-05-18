@@ -5,10 +5,8 @@ describe('Search for a person', () => {
     it('should show a list that contains children records when a search is completed', () => {
       cy.visitAs('/search', AuthRoles.ChildrensGroup);
 
-      cy.contains('First name:').type(
-        Cypress.env('CHILDREN_RECORD_FIRST_NAME')
-      );
-      cy.contains('Last name:').type(Cypress.env('CHILDREN_RECORD_LAST_NAME'));
+      cy.contains('First name').type(Cypress.env('CHILDREN_RECORD_FIRST_NAME'));
+      cy.contains('Last name').type(Cypress.env('CHILDREN_RECORD_LAST_NAME'));
       cy.get('[type="submit"]').click();
 
       cy.get('[data-testid="residents-table"]').contains(
@@ -23,8 +21,8 @@ describe('Search for a person', () => {
     it('should show a list that contains adult records when a search is completed', () => {
       cy.visitAs('/search', AuthRoles.ChildrensGroup);
 
-      cy.contains('First name:').type(Cypress.env('ADULT_RECORD_FIRST_NAME'));
-      cy.contains('Last name:').type(Cypress.env('ADULT_RECORD_LAST_NAME'));
+      cy.contains('First name').type(Cypress.env('ADULT_RECORD_FIRST_NAME'));
+      cy.contains('Last name').type(Cypress.env('ADULT_RECORD_LAST_NAME'));
       cy.get('[type="submit"]').click();
 
       cy.get('[data-testid="residents-table"]').contains(
@@ -41,10 +39,8 @@ describe('Search for a person', () => {
     it('should show a list that contains children records when a search is completed', () => {
       cy.visitAs('/search', AuthRoles.AdultsGroup);
 
-      cy.contains('First name:').type(
-        Cypress.env('CHILDREN_RECORD_FIRST_NAME')
-      );
-      cy.contains('Last name:').type(Cypress.env('CHILDREN_RECORD_LAST_NAME'));
+      cy.contains('First name').type(Cypress.env('CHILDREN_RECORD_FIRST_NAME'));
+      cy.contains('Last name').type(Cypress.env('CHILDREN_RECORD_LAST_NAME'));
       cy.get('[type="submit"]').click();
 
       cy.get('[data-testid="residents-table"]').contains(
@@ -59,8 +55,8 @@ describe('Search for a person', () => {
     it('should show a list that contains adult records when a search is completed', () => {
       cy.visitAs('/search', AuthRoles.AdultsGroup);
 
-      cy.contains('First name:').type(Cypress.env('ADULT_RECORD_FIRST_NAME'));
-      cy.contains('Last name:').type(Cypress.env('ADULT_RECORD_LAST_NAME'));
+      cy.contains('First name').type(Cypress.env('ADULT_RECORD_FIRST_NAME'));
+      cy.contains('Last name').type(Cypress.env('ADULT_RECORD_LAST_NAME'));
       cy.get('[type="submit"]').click();
 
       cy.get('[data-testid="residents-table"]').contains(
@@ -86,8 +82,8 @@ describe('Search for a person', () => {
     it('should show a list that contains adult records when a search is completed', () => {
       cy.visitAs('/search', AuthRoles.AdminDevGroup);
 
-      cy.contains('First name:').type(Cypress.env('ADULT_RECORD_FIRST_NAME'));
-      cy.contains('Last name:').type(Cypress.env('ADULT_RECORD_LAST_NAME'));
+      cy.contains('First name').type(Cypress.env('ADULT_RECORD_FIRST_NAME'));
+      cy.contains('Last name').type(Cypress.env('ADULT_RECORD_LAST_NAME'));
       cy.get('form').submit();
       cy.contains(Cypress.env('ADULT_RECORD_FULL_NAME')).should('be.visible');
     });
@@ -95,10 +91,8 @@ describe('Search for a person', () => {
     it('should show a list that contains children records when a search is completed', () => {
       cy.visitAs('/search', AuthRoles.AdminDevGroup);
 
-      cy.contains('First name:').type(
-        Cypress.env('CHILDREN_RECORD_FIRST_NAME')
-      );
-      cy.contains('Last name:').type(Cypress.env('CHILDREN_RECORD_LAST_NAME'));
+      cy.contains('First name').type(Cypress.env('CHILDREN_RECORD_FIRST_NAME'));
+      cy.contains('Last name').type(Cypress.env('CHILDREN_RECORD_LAST_NAME'));
       cy.get('[type="submit"]').click();
       cy.contains('View').click();
       cy.contains(Cypress.env('CHILDREN_RECORD_FULL_NAME')).should(

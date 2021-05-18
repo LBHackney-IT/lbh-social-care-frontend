@@ -14,7 +14,7 @@ exports[`AddAllocatedWorker should render properly 1`] = `
       role="combobox"
     >
       <label
-        class="govuk-label lbh-label--m"
+        class="lbh-label govuk-label--m"
         id="downshift-0-label"
       >
         Select a team to view workers for that team 
@@ -132,7 +132,7 @@ exports[`AddAllocatedWorker should render properly 1`] = `
                 value="9"
               />
               <label
-                class="govuk-label govuk-radios__label"
+                class="lbh-label govuk-label govuk-radios__label"
               />
             </div>
           </td>
@@ -170,7 +170,7 @@ exports[`AddAllocatedWorker should render properly 1`] = `
                 value="8"
               />
               <label
-                class="govuk-label govuk-radios__label"
+                class="lbh-label govuk-label govuk-radios__label"
               />
             </div>
           </td>
@@ -208,7 +208,7 @@ exports[`AddAllocatedWorker should render properly 1`] = `
                 value="7"
               />
               <label
-                class="govuk-label govuk-radios__label"
+                class="lbh-label govuk-label govuk-radios__label"
               />
             </div>
           </td>
@@ -240,12 +240,12 @@ exports[`AddAllocatedWorker should render properly 1`] = `
         role="group"
       >
         <legend
-          class="govuk-fieldset__legend govuk-fieldset__legend--s"
+          class="lbh-fieldset__legend govuk-fieldset__legend--s"
         >
           Allocation Start Date: 
         </legend>
         <span
-          class="govuk-hint"
+          class="lbh-hint govuk-hint"
           id="allocationStartDate-hint"
         />
         <div
@@ -259,7 +259,7 @@ exports[`AddAllocatedWorker should render properly 1`] = `
               class="govuk-form-group"
             >
               <label
-                class="govuk-label govuk-date-input__label"
+                class="lbh-label govuk-date-input__label"
                 for="allocationStartDate-day"
               >
                 Day
@@ -281,7 +281,7 @@ exports[`AddAllocatedWorker should render properly 1`] = `
               class="govuk-form-group"
             >
               <label
-                class="govuk-label govuk-date-input__label"
+                class="lbh-label govuk-date-input__label"
                 for="allocationStartDate-month"
               >
                 Month

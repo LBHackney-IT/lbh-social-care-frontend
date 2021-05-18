@@ -56,7 +56,7 @@ describe(`Search`, () => {
         <Search {...props} type="people" />
       </UserContext.Provider>
     );
-    const firstNameInput = getByLabelText('First name:');
+    const firstNameInput = getByLabelText('First name');
     fireEvent.change(firstNameInput, { target: { value: 'foo' } });
     await act(async () => {
       fireEvent.submit(getByRole('form'));
@@ -99,7 +99,7 @@ describe(`Search`, () => {
         <Search {...props} type="people" />
       </UserContext.Provider>
     );
-    const firstNameInput = getByLabelText('First name:');
+    const firstNameInput = getByLabelText('First name');
     fireEvent.change(firstNameInput, { target: { value: 'foo' } });
     await act(async () => {
       fireEvent.submit(getByRole('form'));

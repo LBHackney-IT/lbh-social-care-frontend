@@ -13,7 +13,7 @@ exports[`DynamicStep component should render properly 1`] = `
           class="govuk-form-group"
         >
           <label
-            class="govuk-label govuk-label--m"
+            class="lbh-label govuk-label--m"
             for="bar_input"
           >
             Foo 
