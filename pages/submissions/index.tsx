@@ -1,11 +1,22 @@
 import { GetServerSideProps } from 'next';
 import Head from 'next/head';
-import PersonWidget from '../../../components/PersonWidget';
-import TaskList from '../../../../components/TaskList/TaskList';
-import Link from 'next/link';
-import TaskListHeader from '../../../../components/TaskList/TaskListHeader';
+import PersonWidget from '../../components/PersonWidget/PersonWidget';
+import TaskList from '../../components/TaskList/TaskList';
+import TaskListHeader from '../../components/TaskList/TaskListHeader';
+import { Form } from '../../data/flexibleForms/forms.types';
+import { Resident } from '../../types';
 
-const TaskListPage = ({ params, completedSteps, person, form }) => {
+interface Props {
+  completedSteps: string[];
+  person: Resident;
+  form: Form;
+}
+
+const TaskListPage = ({
+  completedSteps,
+  person,
+  form,
+}: Props): React.ReactElement => {
   return (
     <>
       <Head>
@@ -34,14 +45,13 @@ const TaskListPage = ({ params, completedSteps, person, form }) => {
 export const getServerSideProps: GetServerSideProps = async ({
   params,
   req,
-  res,
 }) => {
   const res1 = await fetch(
-    `${process.env.NEXT_PUBLIC_API_ENDPOINT}/api/submissions/${params.id}`,
+    `${process.env.NEXT_PUBLIC_API_ENDPOINT}/api/submissions/${params?.id}`,
     {
       headers: {
-        cookie: req.headers.cookie,
-      },
+        cookie: req?.headers?.cookie,
+      } as HeadersInit,
     }
   );
 
