@@ -1,10 +1,10 @@
 import { GetServerSideProps } from 'next';
 import Head from 'next/head';
-import PersonWidget from '../../components/PersonWidget/PersonWidget';
-import TaskList from '../../components/TaskList/TaskList';
-import TaskListHeader from '../../components/TaskList/TaskListHeader';
-import { Form } from '../../data/flexibleForms/forms.types';
-import { Resident } from '../../types';
+import PersonWidget from '../../../components/PersonWidget/PersonWidget';
+import TaskList from '../../../components/TaskList/TaskList';
+import TaskListHeader from '../../../components/TaskList/TaskListHeader';
+import { Form } from '../../../data/flexibleForms/forms.types';
+import { Resident } from '../../../types';
 
 interface Props {
   completedSteps: string[];
