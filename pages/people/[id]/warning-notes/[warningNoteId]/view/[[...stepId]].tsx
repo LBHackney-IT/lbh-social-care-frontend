@@ -13,7 +13,7 @@ const ViewWarningNote = (): React.ReactElement => {
     <>
       <BackButton />
       <h1 className="govuk-fieldset__legend--l gov-weight-lighter">
-        {'Warning Note Details'}
+        Warning Note Details
       </h1>
       <PersonView personId={personId} expandView>
         {(person) => (

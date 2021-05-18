@@ -48,7 +48,7 @@ export const mockedCaseNote = caseFactory.build({
     case_note_title: 'i am a case title',
   },
 });
-export const mockedWarningNote = caseFactory.build({
+export const mockedWarningNoteCase = caseFactory.build({
   formName: 'Warning Note',
   caseFormData: {
     form_name_overall: 'API_WarningNote',

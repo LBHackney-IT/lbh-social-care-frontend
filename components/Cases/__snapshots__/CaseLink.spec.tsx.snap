@@ -1,0 +1,12 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CaseLink component should render properly - with handled link for viewing warning notes 1`] = `
+<DocumentFragment>
+  <a
+    class="govuk-link lbh-link"
+    href="/people/123/warning-notes/456/view"
+  >
+    View
+  </a>
+</DocumentFragment>
+`;
