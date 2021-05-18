@@ -18,12 +18,6 @@ exports[`Cases component should render a error message when a person is restrict
           Linked files are read only
         </span>
       </div>
-      <button
-        class="govuk-button"
-        data-module="govuk-button"
-      >
-        Add a new record
-      </button>
     </div>
     <hr
       class="govuk-divider"
