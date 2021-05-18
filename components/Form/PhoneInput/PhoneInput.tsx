@@ -13,8 +13,9 @@ const PhoneInput = ({ rules, ...props }: Props): React.ReactElement => (
       // this should be removed when the BE
       // fix the inconsistencies in phone numbers
       pattern: {
-        value: /^[\d\s+]+$/,
-        message: 'Move text to phone type box',
+        value: /^[\d]+$/,
+        // value: /^\+?[\d]+$/,
+        message: 'Only numbers are supported here',
       },
       ...rules,
     }}
