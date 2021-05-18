@@ -33,10 +33,19 @@ describe('Viewing a resident', () => {
 
   describe('As a user in the Childrens Unrestricted group', () => {
     it('should show records of a restricted child resident', () => {
+      cy.intercept({
+        method: 'GET',
+        url: `/api/residents/${Cypress.env(
+          'CHILDREN_RESTRICTED_RECORD_PERSON_ID'
+        )}`,
+      }).as('apiGetResident');
+
       cy.visitAs(
         `/people/${Cypress.env('CHILDREN_RESTRICTED_RECORD_PERSON_ID')}`,
         AuthRoles.ChildrensUnrestrictedGroup
       );
+
+      cy.wait('@apiGetResident');
 
       cy.contains('Records not found');
     });
