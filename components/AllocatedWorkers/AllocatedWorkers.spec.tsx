@@ -36,7 +36,7 @@ describe(`AddAllocatedWorker`, () => {
     person: mockedResident,
   };
 
-  it('should render only the table if not allocator', async () => {
+  it('should not render the "Allocate worker" button if the user doesn\'t have allocator permissions', async () => {
     const { findByText, queryByText } = render(
       <UserContext.Provider
         value={{

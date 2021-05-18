@@ -19,6 +19,7 @@ const canUserAllocateWorkerToPerson = (user: User, person: Resident) => {
   }
 
   if (user.hasChildrenPermissions && person.contextFlag === 'C') {
+    // Children's doesn't require `hasAllocationsPermissions`, as anyone can allocate in CFS
     return true;
   }
 
