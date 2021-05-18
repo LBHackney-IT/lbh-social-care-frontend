@@ -1,14 +1,26 @@
 import Link from 'next/link';
+import cx from 'classnames';
 import { LegacyResident, User } from 'types';
-import { canManageCases, canUserEditPerson } from '../../../lib/permissions';
+import { canManageCases } from '../../../lib/permissions';
 import { useAuth } from '../../UserContext/UserContext';
+import styles from './ResidentsTable.module.scss';
 
 const ResultEntry = (person: LegacyResident): React.ReactElement => {
   const { user } = useAuth() as { user: User };
   const { mosaicId, firstName, lastName, dateOfBirth, ageContext } = person;
 
+  const isRecordRestricted = !canManageCases(user, {
+    contextFlag: ageContext,
+    restricted: person.restricted,
+  });
+
   return (
-    <tr className="govuk-table__row">
+    <tr
+      className={cx(
+        'govuk-table__row',
+        isRecordRestricted && styles.restrictedRow
+      )}
+    >
       <td className="govuk-table__cell">{mosaicId}</td>
       <td className="govuk-table__cell">
         {firstName} {lastName}
@@ -20,11 +32,8 @@ const ResultEntry = (person: LegacyResident): React.ReactElement => {
         {ageContext === 'A' ? 'ACS' : ageContext === 'C' ? 'CFS' : 'Both'}
       </td>
       <td className="govuk-table__cell govuk-table__cell--numeric">
-        {!canManageCases(user, {
-          contextFlag: ageContext,
-          restricted: person.restricted,
-        }) && (
-          <span className="govuk-tag lbh-tag lbh-tag--grey">Restricted</span>
+        {isRecordRestricted && (
+          <span className="govuk-tag lbh-tag lbh-tag--grey">RESTRICTED</span>
         )}
       </td>
       <td className="govuk-table__cell">
