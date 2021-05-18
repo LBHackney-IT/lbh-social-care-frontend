@@ -123,7 +123,7 @@ const AddressLookup = ({
         'govuk-form-group--error': Boolean(error || errorMessage),
       })}
     >
-      <label className="govuk-label govuk-label--m" htmlFor="postcode">
+      <label className="lbh-label govuk-label--m" htmlFor="postcode">
         {label} {required && <span className="govuk-required">*</span>}
       </label>
       {hint && (

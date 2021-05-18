@@ -68,7 +68,7 @@ const DateInput = forwardRef<HTMLInputElement, InputProps>(
             <div className="govuk-date-input__item">
               <div className="govuk-form-group">
                 <label
-                  className="govuk-label govuk-date-input__label"
+                  className="lbh-label govuk-date-input__label"
                   htmlFor={`${name}-day`}
                 >
                   Day
@@ -99,7 +99,7 @@ const DateInput = forwardRef<HTMLInputElement, InputProps>(
             <div className="govuk-date-input__item">
               <div className="govuk-form-group">
                 <label
-                  className="govuk-label govuk-date-input__label"
+                  className="lbh-label govuk-date-input__label"
                   htmlFor={`${name}-month`}
                 >
                   Month

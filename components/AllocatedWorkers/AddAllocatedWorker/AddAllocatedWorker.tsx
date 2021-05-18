@@ -149,7 +149,7 @@ const AddAllocatedWorker = ({
                                 )
                               }
                             />
-                            <label className="govuk-label govuk-radios__label"></label>
+                            <label className="lbh-label govuk-label govuk-radios__label"></label>
                           </div>
                         </td>
                         <td className="govuk-table__cell lbh-table__cell--va-middle">

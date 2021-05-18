@@ -25,7 +25,7 @@ const ObjectInput = ({
   ...otherProps
 }: DynamicComponent): React.ReactElement => (
   <div className="govuk-form-group govuk-!-margin-bottom-0">
-    <label className={`govuk-label govuk-label--${labelSize}`}>{label}</label>
+    <label className={`lbh-label govuk-label--${labelSize}`}>{label}</label>
     {hint && (
       <span id={`${name}-hint`} className="govuk-hint">
         {hint}

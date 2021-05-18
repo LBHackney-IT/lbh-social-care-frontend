@@ -106,7 +106,7 @@ export const Autocomplete = forwardRef<HTMLInputElement, AutoProps>(
               })}
             >
               <label
-                className={`govuk-label lbh-label--${labelSize}`}
+                className={`lbh-label govuk-label--${labelSize}`}
                 id={inputProps['aria-labelledby']}
               >
                 {label} {required && <span className="lbh-required">*</span>}

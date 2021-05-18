@@ -17,7 +17,7 @@ const AddNewRecordPage = (): React.ReactElement => {
       <PersonView personId={personId} expandView>
         {(person) => (
           <>
-            <p className="govuk-label govuk-!-margin-top-7 govuk-!-margin-bottom-5">
+            <p className="lbh-label govuk-!-margin-top-7 govuk-!-margin-bottom-5">
               Use forms to create a new record for a person
             </p>
             <AddForm person={person} />
