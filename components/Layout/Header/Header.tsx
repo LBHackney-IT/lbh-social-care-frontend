@@ -11,27 +11,24 @@ import Logo from './Logo';
 const loggedNavLinks = [
   {
     name: 'Search',
+    path: '/search',
+    isSelected: (pathname: string) =>
+      pathname === '/search' || pathname === '/cases',
+  },
+  {
+    name: 'My work space',
     path: '/',
-    isSelected: ({ asPath, pathname }: { asPath: string; pathname: string }) =>
+    isSelected: (pathname: string) =>
       pathname === '/' ||
-      (pathname === '/cases' && asPath !== '/cases?my_notes_only=true'),
-  },
-  {
-    name: 'My records',
-    path: '/cases?my_notes_only=true',
-    isSelected: ({ asPath }: { asPath: string }) =>
-      asPath === '/cases?my_notes_only=true',
-  },
-  {
-    name: 'Forms in progress',
-    path: '/form-in-progress',
+      pathname === '/my-records' ||
+      pathname === '/forms-in-progress',
   },
   {
     name: 'Manage workers',
     path: '/workers',
   },
   {
-    name: 'Logout',
+    name: 'Sign out',
     path: '/logout',
   },
 ];
@@ -42,7 +39,7 @@ const HeaderComponent = ({
   serviceName: string;
 }): React.ReactElement => {
   const { user } = useAuth();
-  const { pathname, asPath } = useRouter();
+  const { pathname } = useRouter();
   const [navLinks, setNavLinks] = useState<typeof loggedNavLinks>();
   useEffect(() => {
     if (user) {
@@ -65,15 +62,13 @@ const HeaderComponent = ({
               <Logo />
               <span className="lbh-header__logo-text"> Hackney </span>
               <span className="lbh-header__service-name">{serviceName}</span>
-              <span className="govuk-tag lbh-tag">
-                {user && getUserType(user)}
-              </span>
+              {user && <span className="govuk-tag">{getUserType(user)}</span>}
             </a>
           </div>
           <nav className="lbh-header__links" aria-label="Navigation menu">
             {navLinks && (
               <>
-                {navLinks.map(({ name, path, isSelected }) => (
+                {navLinks.map(({ name, path }) => (
                   <Link href={path} key={path}>
                     <a className="govuk-header__link">{name}</a>
                   </Link>

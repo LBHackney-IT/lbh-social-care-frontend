@@ -18,3 +18,8 @@ export const errorFactory = Factory.define<ErrorAPI>(() => ({
 }));
 
 export const mockedAPIerror = errorFactory.build();
+export const mockedAPIservererror = errorFactory.build({
+  response: {
+    status: 500,
+  },
+});
