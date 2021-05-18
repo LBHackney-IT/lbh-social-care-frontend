@@ -83,7 +83,6 @@ const canManageCases = (user: User, person: Resident) => {
 
   if (user.hasAdultPermissions && person.contextFlag === 'A') {
     if (isPersonRestricted) {
-      console.log({ user });
       return user.hasUnrestrictedPermissions || false;
     }
 

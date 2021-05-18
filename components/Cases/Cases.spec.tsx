@@ -159,10 +159,11 @@ describe('Cases component', () => {
       }),
     };
 
-    const { queryByText } = render(
+    const { getByText } = render(
       <UserContext.Provider
         value={{
           user: userFactory.build({
+            hasAdminPermissions: false,
             hasUnrestrictedPermissions: false,
             hasChildrenPermissions: false,
             hasAdultPermissions: true,
@@ -173,6 +174,6 @@ describe('Cases component', () => {
       </UserContext.Provider>
     );
 
-    expect(queryByText('RESTRICTED')).toBeInTheDocument();
+    getByText('RESTRICTED');
   });
 });
