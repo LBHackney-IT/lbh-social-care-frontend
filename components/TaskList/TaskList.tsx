@@ -1,13 +1,13 @@
 import { useCallback } from 'react';
-import s from '../styles/TaskList.module.scss';
+import s from '../../stylesheets/TaskList.module.scss';
 import { groupByTheme } from '../lib/helpers';
-import { Form } from '../config/forms.types';
+import { Form } from '../../data/flexibleForms/forms.types';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 
 interface Props {
   form: Form;
-  completedSteps: String[];
+  completedSteps: string[];
 }
 
 const TaskList = ({ form, completedSteps }: Props): React.ReactElement => {
