@@ -28,7 +28,7 @@ const loggedNavLinks = [
     path: '/workers',
   },
   {
-    name: 'Logout',
+    name: 'Sign out',
     path: '/logout',
   },
 ];
@@ -62,7 +62,7 @@ const HeaderComponent = ({
               <Logo />
               <span className="lbh-header__logo-text"> Hackney </span>
               <span className="lbh-header__service-name">{serviceName}</span>
-              <span className="govuk-tag">{user && getUserType(user)}</span>
+              {user && <span className="govuk-tag">{getUserType(user)}</span>}
             </a>
           </div>
           <nav className="lbh-header__links" aria-label="Navigation menu">

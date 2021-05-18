@@ -56,7 +56,7 @@ exports[`Header component should set active the correct link 1`] = `
             class="govuk-header__link"
             href="/logout"
           >
-            Logout
+            Sign out
           </a>
         </nav>
       </div>
