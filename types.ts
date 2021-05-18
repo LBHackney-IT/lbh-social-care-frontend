@@ -59,6 +59,11 @@ export interface DeallocationCaseFormData extends CaseFormDataBase {
   created_by: string;
 }
 
+export interface WarningNoteCaseFormData extends CaseFormDataBase {
+  form_name_overall: 'API_WarningNote';
+  warning_note_id: number;
+}
+
 export interface HistoricCaseData {
   title: string;
   formName?: string;
@@ -85,7 +90,8 @@ export interface HistoricVisitData {
 export type CaseFormData =
   | CaseFormDataBase
   | AllocationCaseFormData
-  | DeallocationCaseFormData;
+  | DeallocationCaseFormData
+  | WarningNoteCaseFormData;
 
 export interface Case {
   recordId: string;

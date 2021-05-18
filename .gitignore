@@ -34,5 +34,8 @@ assets/
 # cypress
 cypress/fixtures
 cypress/screenshots
-cypress/support
 cypress/videos
+cypress.env.json
+
+# Storybook
+storybook-static

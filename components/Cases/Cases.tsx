@@ -62,8 +62,35 @@ interface WrapperProps {
   person: Resident;
 }
 
+const canViewCases = (user: User, person: Resident) => {
+  const isPersonRestricted = person.restricted === 'Y';
+
+  if (user.hasUnrestrictedPermissions) {
+    return true;
+  }
+
+  if (
+    user.hasAdultPermissions &&
+    person.contextFlag === 'A' &&
+    !isPersonRestricted
+  ) {
+    return true;
+  }
+
+  if (
+    user.hasChildrenPermissions &&
+    person.contextFlag === 'C' &&
+    !isPersonRestricted
+  ) {
+    return true;
+  }
+
+  return false;
+};
+
 const CasesWrapper = ({ id, person }: WrapperProps): React.ReactElement => {
   const { user } = useAuth() as { user: User };
+
   return (
     <div>
       <div className="lbh-table-header">
@@ -76,9 +103,7 @@ const CasesWrapper = ({ id, person }: WrapperProps): React.ReactElement => {
         <Button label="Add a new record" route={`${id}/records`} />
       </div>
       <hr className="govuk-divider" />
-      {user.hasUnrestrictedPermissions ||
-      !person.restricted ||
-      person.restricted === 'N' ? (
+      {canViewCases(user, person) ? (
         <Cases id={id} />
       ) : (
         <ErrorSummary

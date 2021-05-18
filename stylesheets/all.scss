@@ -1,4 +1,7 @@
-@import 'node_modules/govuk-frontend/govuk/all';
+$lbh-global-styles: true;
+$lbh-asset-path: '~lbh-frontend/lbh/assets';
+
+@import 'node_modules/lbh-frontend/lbh/all';
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&amp;display=swap');
 
 $screen-sm-min: 576px;
@@ -140,4 +143,8 @@ button.govuk-link {
   border: 1px solid govuk-colour('red');
   border-left-width: 5px;
   background-color: #f8ecea;
+}
+
+.govuk-heading-l {
+  font-weight: 600;
 }

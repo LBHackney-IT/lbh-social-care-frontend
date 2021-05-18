@@ -1,47 +1,53 @@
-import { useState, useMemo } from 'react';
-import cx from 'classnames';
-import useResizeObserver from 'use-resize-observer';
-import debounce from 'lodash.debounce';
+import { useState } from 'react';
+import { truncate } from '../../lib/utils';
+import s from './ShowMoreBox.module.scss';
 
-import styles from './ShowMoreBox.module.scss';
+interface Props {
+  children: string;
+}
 
-const useDebouncedResizeObserver = (wait = 500) => {
-  const [size, setSize] = useState<{ width?: number; height?: number }>({});
-  const onResize = useMemo(() => debounce(setSize, wait, { leading: true }), [
-    wait,
-  ]);
-  const { ref } = useResizeObserver<HTMLDivElement>({ onResize });
+const ShowMoreBox = ({ children }: Props): React.ReactElement => {
+  const [expanded, setExpanded] = useState<boolean>(false);
 
-  return { ref, ...size };
-};
+  const wordLimit = 20;
 
-const ShowMoreBox = ({
-  children,
-  maxBoxWidth = 95,
-}: {
-  children: React.ReactElement;
-  maxBoxWidth?: number;
-}): React.ReactElement => {
-  const [expanded, setExpanded] = useState(false);
-  const { ref, height = 1 } = useDebouncedResizeObserver();
+  const paragraphs = children.split('\n').filter((paragraph) => paragraph);
+
   return (
-    <div>
-      <div
-        className={styles.container}
-        style={{ maxHeight: expanded ? height : maxBoxWidth }}
-      >
-        <div ref={ref}>{children}</div>
-      </div>
-      {height > 200 && (
-        <button
-          className={cx('govuk-link', styles.trigger)}
-          onClick={(e) => {
-            e.preventDefault();
-            setExpanded(!expanded);
-          }}
-        >
-          Show {expanded ? 'less' : 'more'}
-        </button>
+    <div className={s.outer}>
+      {children.split(' ').length > wordLimit ? (
+        <>
+          {expanded
+            ? paragraphs.map((paragraph, i) => (
+                <p key={i} data-testid="para">
+                  {paragraph}
+                </p>
+              ))
+            : truncate(children, wordLimit)}
+
+          <button
+            className={`govuk-link lbh-link ${s.button}`}
+            aria-expanded={expanded ? 'true' : 'false'}
+            onClick={() => setExpanded(!expanded)}
+          >
+            <svg width="17" height="10" viewBox="0 0 19 12" fill="none">
+              <path
+                fillRule="evenodd"
+                clipRule="evenodd"
+                d="M9.0606 11.182L0 2.12128L2.1213 0L9.0606 6.93938L16 0L18.1213 2.12128L9.0606 11.182Z"
+                fill="#1d70b8"
+              />
+            </svg>
+
+            {expanded ? 'Show less' : 'Show more'}
+          </button>
+        </>
+      ) : (
+        paragraphs.map((paragraph, i) => (
+          <p key={i} data-testid="para">
+            {paragraph}
+          </p>
+        ))
       )}
     </div>
   );

@@ -4,6 +4,7 @@ exports[`ResidenTable component should render properly 1`] = `
 <DocumentFragment>
   <table
     class="govuk-table"
+    data-testid="residents-table"
   >
     <thead
       class="govuk-table__head"

@@ -119,19 +119,14 @@ exports[`WarningNoteRecap should render correctly 1`] = `
         <dd
           class="govuk-summary-list__value"
         >
-          <div>
-            <div
-              class="container"
-              style="max-height: 95px;"
+          <div
+            class="outer"
+          >
+            <p
+              data-testid="para"
             >
-              <div>
-                <pre
-                  class="formattedTextArea"
-                >
-                  lorem ipsum
-                </pre>
-              </div>
-            </div>
+              lorem ipsum
+            </p>
           </div>
         </dd>
       </div>
@@ -146,19 +141,14 @@ exports[`WarningNoteRecap should render correctly 1`] = `
         <dd
           class="govuk-summary-list__value"
         >
-          <div>
-            <div
-              class="container"
-              style="max-height: 95px;"
+          <div
+            class="outer"
+          >
+            <p
+              data-testid="para"
             >
-              <div>
-                <pre
-                  class="formattedTextArea"
-                >
-                  i am a note
-                </pre>
-              </div>
-            </div>
+              i am a note
+            </p>
           </div>
         </dd>
       </div>

@@ -28,9 +28,9 @@ const WARNING_TYPES_CHILDREN = [
 const INTRO: Array<FormComponentStep> = [
   <div key="intro">
     <h2>About adding a Warning Note</h2>
-    <div className="govuk-body">
+    <div className="lbh-body">
       Before adding a Warning Note, you need to have:{' '}
-      <ul>
+      <ul className="lbh-list lbh-list--bullet">
         <li>
           read the Warnings Policy and Operational Procedure, and be familiar
           with your responsibilities under the Data Protection Act (2018) and

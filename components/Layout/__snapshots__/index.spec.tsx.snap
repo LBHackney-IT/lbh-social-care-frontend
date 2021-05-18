@@ -8,11 +8,10 @@ exports[`Layout component should render properly 1`] = `
   >
     Skip to main content
   </a>
-  Header
+  HeaderMockedPhaseBanner
   <div
     class="govuk-width-container"
   >
-    MockedPhaseBanner
     <main
       class="govuk-main-wrapper"
       id="content"
