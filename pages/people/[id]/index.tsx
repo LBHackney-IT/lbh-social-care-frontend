@@ -13,6 +13,7 @@ import { User } from 'types';
 
 const PersonPage = (): React.ReactElement => {
   const { query } = useRouter();
+
   const { user } = useAuth() as { user: User };
   const personId = Number(query.id as string);
   return (
