@@ -14,6 +14,7 @@ const PhoneInput = ({ rules, ...props }: Props): React.ReactElement => (
       // fix the inconsistencies in phone numbers
       pattern: {
         value: /^[\d]+$/,
+        // value: /^\+?[\d]+$/,
         message: 'Only numbers are supported here',
       },
       ...rules,
