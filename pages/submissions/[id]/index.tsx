@@ -5,6 +5,7 @@ import TaskList from '../../../components/TaskList/TaskList';
 import TaskListHeader from '../../../components/TaskList/TaskListHeader';
 import { Form } from '../../../data/flexibleForms/forms.types';
 import { Resident } from '../../../types';
+import { getProtocol } from 'utils/urls';
 
 interface Props {
   completedSteps: string[];
@@ -46,8 +47,10 @@ export const getServerSideProps: GetServerSideProps = async ({
   params,
   req,
 }) => {
+  const protocol = getProtocol();
+
   const res1 = await fetch(
-    `${process.env.NEXT_PUBLIC_API_ENDPOINT}/api/submissions/${params?.id}`,
+    `${protocol}://${process.env.REDIRECT_URL}/api/submissions/${params?.id}`,
     {
       headers: {
         cookie: req?.headers?.cookie,
@@ -57,8 +60,8 @@ export const getServerSideProps: GetServerSideProps = async ({
 
   const data = await res1.json();
 
-  // redirect if submission doesn't exist
-  if (!data.id)
+  // redirect if submission or form doesn't exist
+  if (!data.id || !data.form)
     return {
       props: {},
       redirect: {

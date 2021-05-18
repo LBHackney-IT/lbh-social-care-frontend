@@ -1,9 +1,8 @@
-import s from '../styles/TaskList.module.scss';
-import { Step } from '../config/forms.types';
+import { Step } from '../../data/flexibleForms/forms.types';
 
 interface Props {
   steps: Step[];
-  completedSteps: String[];
+  completedSteps: string[];
   onFinish: () => void;
 }
 
@@ -17,8 +16,8 @@ const TaskListHeader = ({
       <>
         <h2 className="lbh-heading-h4">Submission incomplete</h2>
         <p className="lbh-body  govuk-!-margin-top-2">
-          You've completed {completedSteps?.length || '0'} of {steps.length}{' '}
-          sections. Your work will be saved automatically.
+          You&apos;ve completed {completedSteps?.length || '0'} of{' '}
+          {steps.length} sections. Your work will be saved automatically.
         </p>
       </>
     );
