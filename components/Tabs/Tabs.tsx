@@ -16,7 +16,7 @@ export interface Props {
 const Tabs = ({ title, tabs, children }: Props): React.ReactElement => {
   const { pathname, query } = useRouter();
   return (
-    <div className="govuk-tabs">
+    <div className="govuk-tabs lbh-tabs">
       <h2 className="govuk-tabs__title">{title}</h2>
       <ul className="govuk-tabs__list">
         {tabs.map(({ url, text }) => (

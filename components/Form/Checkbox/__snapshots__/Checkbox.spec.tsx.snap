@@ -14,7 +14,7 @@ exports[`Checkbox should render properly - as Checkbox 1`] = `
         My Checkbox 
       </legend>
       <div
-        class="govuk-checkboxes"
+        class="govuk-checkboxes lbh-checkboxes"
       >
         <div
           class="govuk-checkboxes__item"
@@ -62,7 +62,7 @@ exports[`Checkbox should render properly - as Tickbox 1`] = `
     class="govuk-form-group"
   >
     <div
-      class="govuk-checkboxes"
+      class="govuk-checkboxes lbh-checkboxes"
     >
       <div
         class="govuk-checkboxes__item"

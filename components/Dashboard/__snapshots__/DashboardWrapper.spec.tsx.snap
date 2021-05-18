@@ -30,7 +30,7 @@ exports[`DashboardWrapper should render properly 1`] = `
       class="govuk-!-margin-top-7"
     >
       <div
-        class="govuk-tabs"
+        class="govuk-tabs lbh-tabs"
       >
         <h2
           class="govuk-tabs__title"
