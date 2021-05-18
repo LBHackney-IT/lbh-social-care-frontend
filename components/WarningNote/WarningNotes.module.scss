@@ -15,10 +15,16 @@
 
 .noteDetails {
   display: grid;
-  grid-template-columns: 10rem 1fr;
+  grid-template-columns: 12rem 1fr;
   grid-row-gap: 0.5rem;
   margin-bottom: 1rem;
+
   dt {
     font-weight: bold;
+  }
+
+  dd,
+  dt {
+    margin-top: 0;
   }
 }

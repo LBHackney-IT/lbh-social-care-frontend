@@ -49,9 +49,9 @@ export const WarningBox = ({ notes, personId }: Props): React.ReactElement => {
                     </dd>
                   </>
                 )}
-                {note.reviewDate && (
+                {note.reviewDate && !note.nextReviewDate && (
                   <>
-                    <dt>Review date</dt>
+                    <dt>Last review date</dt>
                     <dd>
                       {new Date(note.reviewDate).toLocaleDateString('en-GB')}{' '}
                     </dd>

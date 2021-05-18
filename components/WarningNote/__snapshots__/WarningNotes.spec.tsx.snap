@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`useWarningNotes should render properly 1`] = `
+exports[`useWarningNotes should render a list of warning notes 1`] = `
 <DocumentFragment>
   <div
     aria-labelledby="warning-note-title"
@@ -41,7 +41,7 @@ exports[`useWarningNotes should render properly 1`] = `
                Foo
             </dd>
             <dt>
-              Review date
+              Last review date
             </dt>
             <dd>
               01/12/2020 
@@ -77,7 +77,7 @@ exports[`useWarningNotes should render properly 1`] = `
                Foo
             </dd>
             <dt>
-              Review date
+              Last review date
             </dt>
             <dd>
               01/01/2021 
