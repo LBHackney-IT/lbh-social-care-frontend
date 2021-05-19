@@ -119,7 +119,7 @@ const AddressLookup = ({
   }, [control, postcode]);
   return (
     <div
-      className={cx('govuk-form-group', {
+      className={cx('lbh-form-group govuk-form-group', {
         'govuk-form-group--error': Boolean(error || errorMessage),
       })}
     >
@@ -134,7 +134,7 @@ const AddressLookup = ({
       <div className="govuk-grid-row">
         <div className="govuk-grid-column-one-third">
           <input
-            className={cx('govuk-input', {
+            className={cx('lbh-input govuk-input', {
               'govuk-input--error': Boolean(error),
             })}
             id="postcode"

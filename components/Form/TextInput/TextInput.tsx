@@ -19,7 +19,7 @@ const TextInput = ({
   ...otherProps
 }: Props): React.ReactElement => (
   <div
-    className={cx('govuk-form-group', {
+    className={cx('lbh-form-group govuk-form-group', {
       'govuk-form-group--error': error,
     })}
   >
@@ -27,13 +27,13 @@ const TextInput = ({
       {label} {required && <span className="govuk-required">*</span>}
     </label>
     {hint && (
-      <span id={`${name}-hint`} className="govuk-hint lbh-hint">
+      <span id={`${name}-hint`} className="lbh-hint govuk-hint ">
         {hint}
       </span>
     )}
     {error && <ErrorMessage label={error.message} />}
     <input
-      className={cx(`govuk-input`, inputClassName, {
+      className={cx(`lbh-input govuk-input`, inputClassName, {
         [`govuk-input--width-${width}`]: width,
         'lbh-input--error': error,
       })}

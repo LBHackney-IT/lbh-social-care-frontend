@@ -127,7 +127,7 @@ export const Autocomplete = forwardRef<HTMLInputElement, AutoProps>(
                     toggleMenu();
                   }}
                   aria-describedby={hint && `${name}-hint`}
-                  className={cx(`govuk-input lbh-input`, inputClassName, {
+                  className={cx(`lbh-input govuk-input`, inputClassName, {
                     [`govuk-input--width-${width} `]: width,
                   })}
                   ref={ref}

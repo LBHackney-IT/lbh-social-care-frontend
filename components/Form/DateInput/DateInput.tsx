@@ -46,7 +46,7 @@ const DateInput = forwardRef<HTMLInputElement, InputProps>(
     );
     return (
       <div
-        className={cx('govuk-form-group', {
+        className={cx('lbh-form-group govuk-form-group', {
           'govuk-form-group--error': error,
         })}
       >
@@ -64,9 +64,9 @@ const DateInput = forwardRef<HTMLInputElement, InputProps>(
             {hint}
           </span>
           {error && <ErrorMessage label={error.message} />}
-          <div className="govuk-date-input" id={name}>
+          <div className="lbh-date-input govuk-date-input" id={name}>
             <div className="govuk-date-input__item">
-              <div className="govuk-form-group">
+              <div className="lbh-form-group govuk-form-group">
                 <label
                   className="lbh-label govuk-date-input__label"
                   htmlFor={`${name}-day`}
@@ -75,7 +75,7 @@ const DateInput = forwardRef<HTMLInputElement, InputProps>(
                 </label>
                 <input
                   className={cx(
-                    'govuk-input govuk-date-input__input govuk-input--width-2',
+                    'lbh-date-input govuk-input govuk-date-input__input govuk-input--width-2',
                     {
                       'govuk-input--error': error,
                     }
@@ -96,8 +96,8 @@ const DateInput = forwardRef<HTMLInputElement, InputProps>(
                 />
               </div>
             </div>
-            <div className="govuk-date-input__item">
-              <div className="govuk-form-group">
+            <div className="lbh-date-input govuk-date-input__item">
+              <div className="lbh-form-group govuk-form-group">
                 <label
                   className="lbh-label govuk-date-input__label"
                   htmlFor={`${name}-month`}
@@ -106,7 +106,7 @@ const DateInput = forwardRef<HTMLInputElement, InputProps>(
                 </label>
                 <input
                   className={cx(
-                    'govuk-input govuk-date-input__input govuk-input--width-2',
+                    'lbh-input govuk-input govuk-date-input__input govuk-input--width-2',
                     {
                       'govuk-input--error': error,
                     }
@@ -126,17 +126,17 @@ const DateInput = forwardRef<HTMLInputElement, InputProps>(
                 />
               </div>
             </div>
-            <div className="govuk-date-input__item">
-              <div className="govuk-form-group">
+            <div className="lbh-date-input govuk-date-input__item">
+              <div className="lbh-form-group govuk-form-group">
                 <label
-                  className="govuk-label govuk-date-input__label"
+                  className="lbh-label  govuk-date-input__label"
                   htmlFor={`${name}-year`}
                 >
                   Year
                 </label>
                 <input
                   className={cx(
-                    'govuk-input govuk-date-input__input govuk-input--width-4',
+                    'lbh-input govuk-input govuk-date-input__input govuk-input--width-4',
                     {
                       'govuk-input--error': error,
                     }

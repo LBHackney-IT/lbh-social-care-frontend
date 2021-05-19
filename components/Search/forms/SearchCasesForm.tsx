@@ -168,7 +168,7 @@ const SearchCasesForm = ({
       )}
       <Button label={ctaText} type="submit" disabled={!isDirty} />
       <button
-        className="govuk-link lbh-link"
+        className="lbh-link govuk-link"
         onClick={(e) => {
           e.preventDefault();
           reset({

@@ -10,7 +10,7 @@ interface Props {
 const MainSearchWrapper = ({ type, columns }: Props): React.ReactElement => (
   <>
     <h1 className="lbh-heading-l">Search</h1>
-    <p className="lbh-body lbh-!-margin-bottom-5">
+    <p className="lbh-body govuk-!-margin-bottom-3">
       Use search to find a person before adding a new person or record. Records
       will need to be linked to person.
     </p>
