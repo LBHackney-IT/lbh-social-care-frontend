@@ -30,7 +30,7 @@ exports[`Header component should set active the correct link 1`] = `
               Foo
             </span>
             <span
-              class="govuk-tag"
+              class="govuk-tag lbh-tag lbh-tag--green"
             >
               Admin
             </span>
@@ -45,12 +45,6 @@ exports[`Header component should set active the correct link 1`] = `
             href="/search"
           >
             Search
-          </a>
-          <a
-            class="govuk-header__link"
-            href="/"
-          >
-            My work space
           </a>
           <a
             class="govuk-header__link"

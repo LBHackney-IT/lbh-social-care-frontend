@@ -9,7 +9,7 @@ import { useWorkerById, updateWorker } from 'utils/api/workers';
 
 import { User } from 'types';
 
-import formSteps from 'data/forms/create-new-worker';
+import formSteps from 'data/forms/edit-worker';
 
 interface FormData {
   nhsNumber: string;

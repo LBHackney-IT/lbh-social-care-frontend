@@ -15,14 +15,15 @@ const loggedNavLinks = [
     isSelected: (pathname: string) =>
       pathname === '/search' || pathname === '/cases',
   },
-  {
-    name: 'My work space',
-    path: '/',
-    isSelected: (pathname: string) =>
-      pathname === '/' ||
-      pathname === '/my-records' ||
-      pathname === '/forms-in-progress',
-  },
+  // TODO: uncomment when dashboard is ready to launch
+  // {
+  //   name: 'My work space',
+  //   path: '/',
+  //   isSelected: (pathname: string) =>
+  //     pathname === '/' ||
+  //     pathname === '/my-records' ||
+  //     pathname === '/forms-in-progress',
+  // },
   {
     name: 'Manage workers',
     path: '/workers',
@@ -62,7 +63,11 @@ const HeaderComponent = ({
               <Logo />
               <span className="lbh-header__logo-text"> Hackney </span>
               <span className="lbh-header__service-name">{serviceName}</span>
-              {user && <span className="govuk-tag">{getUserType(user)}</span>}
+              {user && (
+                <span className="govuk-tag lbh-tag lbh-tag--green">
+                  {getUserType(user)}
+                </span>
+              )}
             </a>
           </div>
           <nav className="lbh-header__links" aria-label="Navigation menu">

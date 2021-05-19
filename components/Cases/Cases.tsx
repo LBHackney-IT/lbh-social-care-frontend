@@ -7,6 +7,7 @@ import { useAuth } from 'components/UserContext/UserContext';
 import { useCasesByResident } from 'utils/api/cases';
 
 import { Case, Resident, User } from 'types';
+import { canManageCases } from '../../lib/permissions';
 
 interface Props {
   id: number;
@@ -62,34 +63,10 @@ interface WrapperProps {
   person: Resident;
 }
 
-const canViewCases = (user: User, person: Resident) => {
-  const isPersonRestricted = person.restricted === 'Y';
-
-  if (user.hasUnrestrictedPermissions) {
-    return true;
-  }
-
-  if (
-    user.hasAdultPermissions &&
-    person.contextFlag === 'A' &&
-    !isPersonRestricted
-  ) {
-    return true;
-  }
-
-  if (
-    user.hasChildrenPermissions &&
-    person.contextFlag === 'C' &&
-    !isPersonRestricted
-  ) {
-    return true;
-  }
-
-  return false;
-};
-
 const CasesWrapper = ({ id, person }: WrapperProps): React.ReactElement => {
   const { user } = useAuth() as { user: User };
+
+  const userCanManageCases = canManageCases(user, person);
 
   return (
     <div>
@@ -100,15 +77,18 @@ const CasesWrapper = ({ id, person }: WrapperProps): React.ReactElement => {
           </h3>
           <span className="govuk-body">Linked files are read only</span>
         </div>
-        <Button label="Add a new record" route={`${id}/records`} />
+        {userCanManageCases && (
+          <Button label="Add a new record" route={`${id}/records`} />
+        )}
       </div>
       <hr className="govuk-divider" />
-      {canViewCases(user, person) ? (
+      {userCanManageCases ? (
         <Cases id={id} />
       ) : (
         <ErrorSummary
           title="RESTRICTED"
-          body="The records for this profile are restricted for viewing"
+          role="complementary"
+          body="Some details for this person are restricted due to your permissions."
         />
       )}
     </div>

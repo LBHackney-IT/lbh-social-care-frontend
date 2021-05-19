@@ -33,7 +33,7 @@ const getLink = (
     case 'API_WarningNote':
       return `/people/${caseFormData.mosaic_id}/warning-notes/${
         (caseFormData as WarningNoteCaseFormData).warning_note_id
-      }`;
+      }/view`;
     default:
       return null;
   }
@@ -56,14 +56,18 @@ const CaseLink = ({
         href={externalUrl}
         target="_blank"
         rel="noreferrer noopener"
-        className="govuk-link"
+        className="govuk-link lbh-link"
       >
         View
       </a>
     );
   }
   const internalLink = getLink(recordId, caseFormData);
-  return internalLink ? <Link href={internalLink}>View</Link> : null;
+  return internalLink ? (
+    <Link href={internalLink}>
+      <a className="govuk-link lbh-link">View</a>
+    </Link>
+  ) : null;
 };
 
 export default CaseLink;

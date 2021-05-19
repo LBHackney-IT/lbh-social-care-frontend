@@ -7,14 +7,35 @@ import Button from 'components/Button/Button';
 import { useAuth } from 'components/UserContext/UserContext';
 import { useAllocatedWorkers } from 'utils/api/allocatedWorkers';
 
-import { User } from 'types';
+import { Resident, User } from 'types';
 
 interface Props {
-  id: number;
+  person: Resident;
 }
 
-const AllocatedWorkers = ({ id }: Props): React.ReactElement => {
-  const { data: { allocations } = {}, error } = useAllocatedWorkers(id);
+const canUserAllocateWorkerToPerson = (user: User, person: Resident) => {
+  if (user.hasAdminPermissions || user.hasDevPermissions) {
+    return true;
+  }
+
+  if (user.hasChildrenPermissions && person.contextFlag === 'C') {
+    // Children's doesn't require `hasAllocationsPermissions`, as anyone can allocate in CFS
+    return true;
+  }
+
+  if (
+    user.hasAdultPermissions &&
+    person.contextFlag === 'A' &&
+    (user.hasAllocationsPermissions || false)
+  ) {
+    return true;
+  }
+
+  return false;
+};
+
+const AllocatedWorkers = ({ person }: Props): React.ReactElement => {
+  const { data: { allocations } = {}, error } = useAllocatedWorkers(person.id);
   const { asPath } = useRouter();
   const { user } = useAuth() as { user: User };
   if (!allocations) {
@@ -23,12 +44,16 @@ const AllocatedWorkers = ({ id }: Props): React.ReactElement => {
   if (error) {
     return <ErrorMessage />;
   }
+
   return (
     <div>
       {allocations && (
         <AllocatedWorkersTable
           records={allocations}
-          hasAllocationsPermissions={Boolean(user.hasAllocationsPermissions)}
+          hasAllocationsPermissions={canUserAllocateWorkerToPerson(
+            user,
+            person
+          )}
         />
       )}
       <div>
@@ -36,7 +61,7 @@ const AllocatedWorkers = ({ id }: Props): React.ReactElement => {
           <h3 className="govuk-fieldset__legend--m govuk-custom-text-color">
             ALLOCATED WORKER {allocations.length + 1}
           </h3>
-          {user.hasAllocationsPermissions && (
+          {canUserAllocateWorkerToPerson(user, person) && (
             <Button
               label="Allocate worker"
               isSecondary

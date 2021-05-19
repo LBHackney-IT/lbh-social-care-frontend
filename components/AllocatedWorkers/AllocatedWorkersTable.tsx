@@ -80,6 +80,7 @@ const AllocatedWorkersTable = ({
   hasAllocationsPermissions,
 }: Props): React.ReactElement => {
   const { asPath } = useRouter();
+
   return (
     <div>
       {records.map((record, index) => (
