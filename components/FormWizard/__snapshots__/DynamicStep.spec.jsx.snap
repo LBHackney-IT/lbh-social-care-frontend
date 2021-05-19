@@ -10,16 +10,16 @@ exports[`DynamicStep component should render properly 1`] = `
         class="govuk-form-group"
       >
         <div
-          class="govuk-form-group"
+          class="lbh-form-group govuk-form-group"
         >
           <label
-            class="lbh-label govuk-label--m"
+            class="lbh-label"
             for="bar_input"
           >
             Foo 
           </label>
           <input
-            class="govuk-input govuk-input--width-30"
+            class="lbh-input govuk-input govuk-input--width-30"
             data-testid="bar_input"
             id="bar_input"
             name="bar_input"
@@ -29,29 +29,26 @@ exports[`DynamicStep component should render properly 1`] = `
       </div>
     </div>
     <div
-      style="display: flex; justify-content: space-between;"
+      class="actions"
     >
-      <div>
-        <button
-          class="govuk-button govuk-button--secondary"
-          data-module="govuk-button"
-          style="min-width: 200px;"
-          type="button"
-        >
-          Save and finish later
-        </button>
-        <a
-          class="govuk-link"
-          href="/"
-          style="margin-left: 1.5rem; line-height: 2.5rem;"
-        >
-          Cancel
-        </a>
-      </div>
       <button
-        class="govuk-button govuk-!-margin-left-1"
+        class="lbh-button govuk-button lbh-button--secondary lbh-button govuk-button"
         data-module="govuk-button"
         style="min-width: 200px;"
+        type="button"
+      >
+        Save and finish later
+      </button>
+      <a
+        class="lbh-link govuk-link"
+        href="/"
+        style="margin-left: 1.5rem;"
+      >
+        Cancel
+      </a>
+      <button
+        class="lbh-button govuk-button"
+        data-module="govuk-button"
         type="submit"
       >
         Continue

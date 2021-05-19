@@ -4,7 +4,7 @@ exports[`Confirmation component should render properly 1`] = `
 <DocumentFragment>
   <div>
     <div
-      class="govuk-panel govuk-panel--confirmation govuk-!-margin-bottom-9"
+      class="govuk-panel govuk-panel--confirmation lbh-panel govuk-!-margin-bottom-9"
     >
       <h1
         class="govuk-panel__title"

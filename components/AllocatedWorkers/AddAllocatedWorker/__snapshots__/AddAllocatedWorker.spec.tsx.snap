@@ -10,11 +10,11 @@ exports[`AddAllocatedWorker should render properly 1`] = `
       aria-haspopup="listbox"
       aria-labelledby="downshift-0-label"
       aria-owns="downshift-0-menu"
-      class="govuk-form-group lbh-form-group"
+      class="lbh-form-group govuk-form-group"
       role="combobox"
     >
       <label
-        class="lbh-label govuk-label--m"
+        class="lbh-label"
         id="downshift-0-label"
       >
         Select a team to view workers for that team 
@@ -27,7 +27,7 @@ exports[`AddAllocatedWorker should render properly 1`] = `
           aria-controls="downshift-0-menu"
           aria-labelledby="downshift-0-label"
           autocomplete="off"
-          class="govuk-input lbh-input govuk-input--width-20 "
+          class="lbh-input govuk-input govuk-input--width-20 "
           data-testid="teamId"
           id="teamId"
           placeholder="Select or type team name"
@@ -232,31 +232,31 @@ exports[`AddAllocatedWorker should render properly 1`] = `
       </tbody>
     </table>
     <div
-      class="govuk-form-group"
+      class="lbh-form-group govuk-form-group"
     >
       <fieldset
         aria-describedby="allocationStartDate-hint"
-        class="govuk-fieldset"
+        class="lbh-fieldset govuk-fieldset"
         role="group"
       >
         <legend
-          class="lbh-fieldset__legend govuk-fieldset__legend--s"
+          class="lbh-fieldset"
         >
           Allocation Start Date: 
         </legend>
         <span
-          class="lbh-hint govuk-hint"
+          class="lbh-hint"
           id="allocationStartDate-hint"
         />
         <div
-          class="govuk-date-input"
+          class="lbh-date-input govuk-date-input"
           id="allocationStartDate"
         >
           <div
-            class="govuk-date-input__item"
+            class="lbh-date-input govuk-date-input__item"
           >
             <div
-              class="govuk-form-group"
+              class="lbh-form-group govuk-form-group"
             >
               <label
                 class="lbh-label govuk-date-input__label"
@@ -265,7 +265,7 @@ exports[`AddAllocatedWorker should render properly 1`] = `
                 Day
               </label>
               <input
-                class="govuk-input govuk-date-input__input govuk-input--width-2"
+                class="lbh-date-input govuk-input govuk-input--width-2"
                 id="allocationStartDate-day"
                 inputmode="numeric"
                 name="allocationStartDate-day"
@@ -275,10 +275,10 @@ exports[`AddAllocatedWorker should render properly 1`] = `
             </div>
           </div>
           <div
-            class="govuk-date-input__item"
+            class="lbh-date-input govuk-date-input__item"
           >
             <div
-              class="govuk-form-group"
+              class="lbh-form-group govuk-form-group"
             >
               <label
                 class="lbh-label govuk-date-input__label"
@@ -287,7 +287,7 @@ exports[`AddAllocatedWorker should render properly 1`] = `
                 Month
               </label>
               <input
-                class="govuk-input govuk-date-input__input govuk-input--width-2"
+                class="lbh-input govuk-input govuk-date-input__input govuk-input--width-2"
                 id="allocationStartDate-month"
                 inputmode="numeric"
                 name="allocationStartDate-month"
@@ -297,19 +297,19 @@ exports[`AddAllocatedWorker should render properly 1`] = `
             </div>
           </div>
           <div
-            class="govuk-date-input__item"
+            class="lbh-date-input govuk-date-input__item"
           >
             <div
-              class="govuk-form-group"
+              class="lbh-form-group govuk-form-group"
             >
               <label
-                class="govuk-label govuk-date-input__label"
+                class="lbh-label  govuk-date-input__label"
                 for="allocationStartDate-year"
               >
                 Year
               </label>
               <input
-                class="govuk-input govuk-date-input__input govuk-input--width-4"
+                class="lbh-input govuk-input govuk-date-input__input govuk-input--width-4"
                 id="allocationStartDate-year"
                 inputmode="numeric"
                 name="allocationStartDate-year"
@@ -322,7 +322,7 @@ exports[`AddAllocatedWorker should render properly 1`] = `
       </fieldset>
     </div>
     <button
-      class="govuk-button"
+      class="lbh-button govuk-button"
       data-module="govuk-button"
       type="submit"
     >

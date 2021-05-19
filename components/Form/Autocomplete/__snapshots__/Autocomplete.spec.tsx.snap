@@ -7,11 +7,11 @@ exports[`Autocomplete should render properly 1`] = `
     aria-haspopup="listbox"
     aria-labelledby="downshift-0-label"
     aria-owns="downshift-0-menu"
-    class="govuk-form-group lbh-form-group"
+    class="lbh-form-group govuk-form-group"
     role="combobox"
   >
     <label
-      class="lbh-label govuk-label--m"
+      class="lbh-label"
       id="downshift-0-label"
     >
       Foo 
@@ -24,7 +24,7 @@ exports[`Autocomplete should render properly 1`] = `
         aria-controls="downshift-0-menu"
         aria-labelledby="downshift-0-label"
         autocomplete="off"
-        class="govuk-input lbh-input govuk-input--width-20 "
+        class="lbh-input govuk-input govuk-input--width-20 "
         data-testid="autocomplete"
         id="autocomplete"
         placeholder="Foo bar"

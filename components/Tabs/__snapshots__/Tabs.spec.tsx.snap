@@ -3,7 +3,7 @@
 exports[`Tabs should render properly 1`] = `
 <DocumentFragment>
   <div
-    class="govuk-tabs lbh-tabs"
+    class="lbh-tabs govuk-tabs"
   >
     <h2
       class="govuk-tabs__title"
@@ -14,20 +14,20 @@ exports[`Tabs should render properly 1`] = `
       class="govuk-tabs__list"
     >
       <li
-        class="govuk-tabs__list-item govuk-tabs__list-item--selected"
+        class="lbh-tabs govuk-tabs__list-item govuk-tabs__list-item--selected"
       >
         <a
-          class="govuk-tabs__tab"
+          class="lbh-tabs govuk-tabs__tab"
           href="/foo"
         >
           foo
         </a>
       </li>
       <li
-        class="govuk-tabs__list-item"
+        class="lbh-tabs govuk-tabs__list-item"
       >
         <a
-          class="govuk-tabs__tab"
+          class="lbh-tabs govuk-tabs__tab"
           href="/bar"
         >
           bar
@@ -35,7 +35,7 @@ exports[`Tabs should render properly 1`] = `
       </li>
     </ul>
     <div
-      class="govuk-tabs__panel"
+      class="lbh-tabs govuk-tabs__panel"
     >
       <p>
         I am the content!

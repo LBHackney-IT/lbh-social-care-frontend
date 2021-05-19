@@ -3,18 +3,18 @@
 exports[`AddForm component should render children forms 1`] = `
 <DocumentFragment>
   <div
-    class="govuk-form-group"
+    class="lbh-form-group govuk-form-group"
   >
     <div
       aria-expanded="true"
       aria-haspopup="listbox"
       aria-labelledby="downshift-1-label"
       aria-owns="downshift-1-menu"
-      class="govuk-form-group lbh-form-group"
+      class="lbh-form-group govuk-form-group"
       role="combobox"
     >
       <label
-        class="lbh-label govuk-label--m"
+        class="lbh-label"
         id="downshift-1-label"
       >
         Choose a form 
@@ -27,7 +27,7 @@ exports[`AddForm component should render children forms 1`] = `
           aria-controls="downshift-1-menu"
           aria-labelledby="downshift-1-label"
           autocomplete="off"
-          class="govuk-input lbh-input govuk-input--width-20 "
+          class="lbh-input govuk-input govuk-input--width-20 "
           data-testid="formList"
           id="formList"
           placeholder="Select or type form name"
@@ -86,7 +86,7 @@ exports[`AddForm component should render children forms 1`] = `
     </div>
   </div>
   <button
-    class="govuk-button"
+    class="lbh-button govuk-button"
     data-module="govuk-button"
   >
     Load form
