@@ -1,5 +1,5 @@
 import { useCallback } from 'react';
-import s from '../../stylesheets/TaskList.module.scss';
+import s from './TaskList.module.scss';
 import { groupByTheme } from '../../lib/utils';
 import { Form } from '../../data/flexibleForms/forms.types';
 import Link from 'next/link';

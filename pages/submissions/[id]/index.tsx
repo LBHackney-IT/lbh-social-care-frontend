@@ -21,13 +21,13 @@ const TaskListPage = ({
   return (
     <>
       <Head>
-        <title>{form?.name} | Social care | Hackney Council</title>
+        <title>{form.name} | Social care | Hackney Council</title>
       </Head>
-      <h1 className="lbh-heading-h1 govuk-!-margin-bottom-8">{form?.name}</h1>
+      <h1 className="lbh-heading-h1 govuk-!-margin-bottom-8">{form.name}</h1>
       <div className="govuk-grid-row">
         <div className="govuk-grid-column-two-thirds">
           <TaskListHeader
-            steps={form?.steps}
+            steps={form.steps}
             completedSteps={completedSteps}
             onFinish={() => {
               null;
