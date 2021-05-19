@@ -41,14 +41,8 @@ const formatAddress = ({ address, postcode }, name, label) =>
   };
 
 export const formatData = (componentProps, formData) => {
-  const {
-    component,
-    options,
-    name,
-    label,
-    isMulti,
-    summaryInline,
-  } = componentProps;
+  const { component, options, name, label, isMulti, summaryInline } =
+    componentProps;
   if (component === 'AddressLookup') {
     return formatAddress(formData[name], name, label);
   }

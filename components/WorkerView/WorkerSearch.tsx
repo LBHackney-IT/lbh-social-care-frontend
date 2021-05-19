@@ -75,14 +75,7 @@ const WorkerSearch = (): React.ReactElement | null => {
           <div style={{ display: 'flex', justifyContent: 'space-between' }}>
             <div>
               <Link href="/">
-                <a
-                  className="govuk-link"
-                  style={{
-                    lineHeight: '2.5rem',
-                  }}
-                >
-                  Cancel
-                </a>
+                <a className="lbh-link">Cancel</a>
               </Link>
             </div>
             <Button

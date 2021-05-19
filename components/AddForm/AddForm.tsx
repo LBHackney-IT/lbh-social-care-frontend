@@ -36,7 +36,7 @@ const AddForm = ({ person }: { person: Resident }): React.ReactElement => {
     : [];
   return (
     <>
-      <div className="govuk-form-group">
+      <div className="lbh-form-group govuk-form-group">
         <Autocomplete
           name="formList"
           options={[...internalForms, ...forms, ...betaForms]}

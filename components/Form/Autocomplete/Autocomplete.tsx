@@ -100,13 +100,13 @@ export const Autocomplete = forwardRef<HTMLInputElement, AutoProps>(
           const inputProps = getInputProps();
           return (
             <div
-              className={cx(`govuk-form-group lbh-form-group`, {
+              className={cx(`lbh-form-group govuk-form-group`, {
                 [`govuk-grid-column-${govGrid}`]: govGrid,
                 'govuk-form-group--error': error,
               })}
             >
               <label
-                className={`govuk-label lbh-label--${labelSize}`}
+                className={`govuk-label lbh-label`}
                 id={inputProps['aria-labelledby']}
               >
                 {label} {required && <span className="lbh-required">*</span>}
@@ -127,7 +127,7 @@ export const Autocomplete = forwardRef<HTMLInputElement, AutoProps>(
                     toggleMenu();
                   }}
                   aria-describedby={hint && `${name}-hint`}
-                  className={cx(`govuk-input lbh-input`, inputClassName, {
+                  className={cx(`lbh-input govuk-input`, inputClassName, {
                     [`govuk-input--width-${width} `]: width,
                   })}
                   ref={ref}

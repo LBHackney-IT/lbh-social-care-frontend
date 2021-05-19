@@ -16,17 +16,17 @@ const TextArea = ({
   ...otherProps
 }: Props): React.ReactElement => (
   <div
-    className={cx('govuk-form-group', {
+    className={cx('lbh-form-group govuk-form-group', {
       'govuk-form-group--error': Boolean(error),
     })}
   >
     {label && (
-      <label className={`govuk-label govuk-label--${labelSize}`} htmlFor={name}>
+      <label className={`lbh-label govuk-label--${labelSize}`} htmlFor={name}>
         {label} {required && <span className="govuk-required">*</span>}
       </label>
     )}
     {hint && (
-      <span id={`${name}-hint`} className="govuk-hint">
+      <span id={`${name}-hint`} className="lbh-hint govuk-hint">
         {hint}
       </span>
     )}
@@ -36,7 +36,7 @@ const TextArea = ({
       </span>
     )}
     <textarea
-      className={cx('govuk-textarea', {
+      className={cx('lbh-textarea govuk-textarea', {
         'govuk-textarea--error': Boolean(error),
         [`govuk-input--width-${width}`]: width,
       })}

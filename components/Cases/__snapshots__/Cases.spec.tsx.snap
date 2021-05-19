@@ -64,7 +64,7 @@ exports[`Cases component should render no records  1`] = `
         </span>
       </div>
       <button
-        class="govuk-button"
+        class="lbh-button govuk-button"
         data-module="govuk-button"
       >
         Add a new record
@@ -82,7 +82,7 @@ exports[`Cases component should render no records  1`] = `
       style="height: 50px; text-align: center;"
     >
       <button
-        class="govuk-button"
+        class="lbh-button govuk-button"
         data-module="govuk-button"
       >
         load more
@@ -111,7 +111,7 @@ exports[`Cases component should render records properly 1`] = `
         </span>
       </div>
       <button
-        class="govuk-button"
+        class="lbh-button govuk-button"
         data-module="govuk-button"
       >
         Add a new record
@@ -228,7 +228,7 @@ exports[`Cases component should render records properly 1`] = `
       style="height: 50px; text-align: center;"
     >
       <button
-        class="govuk-button"
+        class="lbh-button govuk-button"
         data-module="govuk-button"
       >
         load more
@@ -257,7 +257,7 @@ exports[`Cases component should work properly if person is restricted but user.h
         </span>
       </div>
       <button
-        class="govuk-button"
+        class="lbh-button govuk-button"
         data-module="govuk-button"
       >
         Add a new record
@@ -275,7 +275,7 @@ exports[`Cases component should work properly if person is restricted but user.h
       style="height: 50px; text-align: center;"
     >
       <button
-        class="govuk-button"
+        class="lbh-button govuk-button"
         data-module="govuk-button"
       >
         load more

@@ -22,7 +22,7 @@ const ConfirmationStep = ({
   const { ref } = router.query;
   return (
     <div>
-      <div className="govuk-panel govuk-panel--confirmation govuk-!-margin-bottom-9">
+      <div className="govuk-panel govuk-panel--confirmation lbh-panel govuk-!-margin-bottom-9">
         <h1 className="govuk-panel__title">
           {successMessage || 'Submission complete'}
         </h1>

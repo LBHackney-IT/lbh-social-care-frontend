@@ -16,23 +16,23 @@ export interface Props {
 const Tabs = ({ title, tabs, children }: Props): React.ReactElement => {
   const { pathname, query } = useRouter();
   return (
-    <div className="govuk-tabs lbh-tabs">
+    <div className="lbh-tabs govuk-tabs">
       <h2 className="govuk-tabs__title">{title}</h2>
       <ul className="govuk-tabs__list">
         {tabs.map(({ url, text }) => (
           <li
             key={text}
-            className={cx('govuk-tabs__list-item', {
+            className={cx('lbh-tabs govuk-tabs__list-item', {
               'govuk-tabs__list-item--selected': pathname === url,
             })}
           >
             <Link href={{ pathname: url, query: query }} scroll={false}>
-              <a className="govuk-tabs__tab">{text}</a>
+              <a className="lbh-tabs govuk-tabs__tab">{text}</a>
             </Link>
           </li>
         ))}
       </ul>
-      <div className="govuk-tabs__panel">{children}</div>
+      <div className="lbh-tabs govuk-tabs__panel">{children}</div>
     </div>
   );
 };

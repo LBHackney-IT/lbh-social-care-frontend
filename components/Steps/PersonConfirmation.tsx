@@ -20,8 +20,8 @@ const PersonConfirmation = ({
           {successMessage}
         </h1>
       )}
-      <div className="govuk-panel govuk-panel--confirmation govuk-!-margin-bottom-9">
-        <h1 className="govuk-fieldset__legend--l gov-weight-lighter">
+      <div className="govuk-panel govuk-panel--confirmation lbh-panel govuk-!-margin-bottom-9">
+        <h1 className="govuk-panel__title">
           {formData.firstName} {formData.lastName} has been{' '}
           {asPath?.includes('add') ? 'added' : 'updated'}.
           <br />#{ref}

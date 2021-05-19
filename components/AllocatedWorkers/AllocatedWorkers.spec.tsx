@@ -16,8 +16,9 @@ jest.mock('next/router', () => ({
 
 jest.mock('components/Spinner/Spinner', () => () => 'MockedSpinner');
 
-jest.mock('components/AllocatedWorkers/AllocatedWorkersTable', () => () =>
-  'MockedAllocatedWorkersTable'
+jest.mock(
+  'components/AllocatedWorkers/AllocatedWorkersTable',
+  () => () => 'MockedAllocatedWorkersTable'
 );
 
 describe(`AddAllocatedWorker`, () => {

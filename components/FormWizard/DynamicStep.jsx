@@ -103,32 +103,26 @@ const DynamicStep = ({
             }
           />
         )}
-        <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-          <div>
-            <Button
-              isSecondary
-              wideButton
-              label="Save and finish later"
-              type="button"
-              onClick={() => onSaveAndExit(stepValues)}
-            />
-            <a
-              href="/"
-              className="govuk-link"
-              style={{
-                marginLeft: '1.5rem',
-                lineHeight: '2.5rem',
-              }}
-            >
-              Cancel
-            </a>
-          </div>
+        <div className={styles.actions}>
           <Button
+            className="lbh-button govuk-button"
+            isSecondary
             wideButton
-            className="govuk-!-margin-left-1"
-            label="Continue"
-            type="submit"
+            label="Save and finish later"
+            type="button"
+            onClick={() => onSaveAndExit(stepValues)}
           />
+          <a
+            href="/"
+            className="lbh-link govuk-link"
+            style={{
+              marginLeft: '1.5rem',
+            }}
+          >
+            Cancel
+          </a>
+
+          <Button label="Continue" type="submit" />
         </div>
       </form>
     </>

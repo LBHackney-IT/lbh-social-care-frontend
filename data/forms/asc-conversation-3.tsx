@@ -54,8 +54,7 @@ const steps: FormStep[] = [
         name: 'list_key_contacts',
         width: 30,
         label: 'List your key contacts',
-        hint:
-          "(Include 'Name', 'Relationship/Role', 'Address and Contact Details' for each individual that would appear in the Key Contacts table)",
+        hint: "(Include 'Name', 'Relationship/Role', 'Address and Contact Details' for each individual that would appear in the Key Contacts table)",
       },
       {
         component: 'TextInput',
@@ -201,8 +200,7 @@ const steps: FormStep[] = [
         name: 'decline_support',
         label:
           'Did the client choose to decline any further Social Services support?',
-        hint:
-          '(Has the client stated that they do not wish further assessment or services from Hackney Adults Social Care at this point)',
+        hint: '(Has the client stated that they do not wish further assessment or services from Hackney Adults Social Care at this point)',
         rules: { required: 'Please select one option.' },
       },
       <p key="lifewellbeing">
@@ -620,8 +618,7 @@ const steps: FormStep[] = [
         component: 'DateInput',
         name: 'date_of_plan',
         label: 'Date of Plan',
-        hint:
-          'Submission date of this Google form - instead of authorised date',
+        hint: 'Submission date of this Google form - instead of authorised date',
       },
       <h3
         key="budget_sub_heading"
@@ -649,13 +646,11 @@ const steps: FormStep[] = [
           },
           {
             value: '7',
-            text:
-              'Make use of necessary facilities or services in local community',
+            text: 'Make use of necessary facilities or services in local community',
           },
           {
             value: '8',
-            text:
-              'Access and engage in work, training, education or volunteering',
+            text: 'Access and engage in work, training, education or volunteering',
           },
           {
             value: '9',
@@ -831,8 +826,7 @@ const steps: FormStep[] = [
         name: 'date_of_timetable',
         label: 'Date of Timetable',
         width: 10,
-        hint:
-          "Today's date, being the submission date of this Google form  instead of authorised date",
+        hint: "Today's date, being the submission date of this Google form  instead of authorised date",
         rules: { required: 'Please add a date' },
       },
       {
@@ -876,8 +870,7 @@ const steps: FormStep[] = [
         component: 'TextInput',
         name: 'details_of_weekly_timetable',
         width: 30,
-        hint:
-          "Please break this down into 'Day','Morning', 'Afternoon', 'Evening', 'Night', 'Estimated Weekly Cost' ",
+        hint: "Please break this down into 'Day','Morning', 'Afternoon', 'Evening', 'Night', 'Estimated Weekly Cost' ",
         label: 'List details of my weekly timetable',
       },
     ],
@@ -980,8 +973,7 @@ const steps: FormStep[] = [
         component: 'DatePicker',
         name: 'next_review',
         label: 'Date of Next Review',
-        hint:
-          'Please schedule a date in 3, 6 or 12 months time, as required, for the Long Term team to carry out a Review',
+        hint: 'Please schedule a date in 3, 6 or 12 months time, as required, for the Long Term team to carry out a Review',
         rules: { required: 'Please add a date' },
       },
       <h3
@@ -1079,8 +1071,7 @@ const steps: FormStep[] = [
         width: 30,
         label:
           'Email address of your manager (who would normally approve this decision)',
-        hint:
-          "Who will retrospectively approve this decision? You need to manually forward the 'receipt' copy of this form to them once you receive it",
+        hint: "Who will retrospectively approve this decision? You need to manually forward the 'receipt' copy of this form to them once you receive it",
       },
     ],
   },

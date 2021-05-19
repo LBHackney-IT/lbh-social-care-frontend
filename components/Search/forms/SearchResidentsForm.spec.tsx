@@ -19,7 +19,7 @@ describe(`SearchResidentsForm`, () => {
       <SearchResidentsForm {...props} />
     );
 
-    const firstNameInput = getByLabelText('First name:');
+    const firstNameInput = getByLabelText('First name');
     fireEvent.change(firstNameInput, { target: { value: 'foo' } });
 
     await act(async () => {

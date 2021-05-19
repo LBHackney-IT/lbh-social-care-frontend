@@ -25,8 +25,7 @@ const formData: Form[] = [
           {
             id: 'emergency-id-(asc)',
             question: 'Emergency ID (ASC)',
-            hint:
-              '(Find or create an emergency ID number for this person in the list of numbers provided to your team, and enter it here)',
+            hint: '(Find or create an emergency ID number for this person in the list of numbers provided to your team, and enter it here)',
             type: 'text',
           },
           {
@@ -121,8 +120,7 @@ const formData: Form[] = [
           {
             id: 'list-your-key-contacts:',
             question: 'List your key contacts:',
-            hint:
-              "(Include 'Name', 'Relationship/Role', 'Address and Contact Details' for each individual that would appear in the Key Contacts table)",
+            hint: "(Include 'Name', 'Relationship/Role', 'Address and Contact Details' for each individual that would appear in the Key Contacts table)",
             type: 'textarea',
           },
           { id: 'gp-name', question: 'GP Name', hint: '', type: 'text' },
@@ -151,8 +149,7 @@ const formData: Form[] = [
             type: 'text',
           },
           {
-            id:
-              'has-this-person-been-assessed-by-hackney-adult-social-care-before',
+            id: 'has-this-person-been-assessed-by-hackney-adult-social-care-before',
             question:
               'Has this person been assessed by Hackney adult social care before?',
             hint: '',
@@ -209,8 +206,7 @@ const formData: Form[] = [
             ],
           },
           {
-            id:
-              'do-you-have-any-difficulties-with-understanding-andor-retaining-information',
+            id: 'do-you-have-any-difficulties-with-understanding-andor-retaining-information',
             question:
               'Do you have any difficulties with understanding and/or retaining information?',
             hint: '',
@@ -221,8 +217,7 @@ const formData: Form[] = [
             ],
           },
           {
-            id:
-              'do-you-have-any-difficulties-making-decisions-andor-understanding-their-impact',
+            id: 'do-you-have-any-difficulties-making-decisions-andor-understanding-their-impact',
             question:
               'Do you have any difficulties making decisions and/or understanding their impact?',
             hint: '',
@@ -246,16 +241,14 @@ const formData: Form[] = [
         theme: 'You and your needs',
         fields: [
           {
-            id:
-              'please-provide-details-of-difficulties-and-what-would-help-you-communicate-more-easily-during-your-assessment-(e.g.-a-family-member-or-friend-present-an-independent-advocate-specialist-communication-support)',
+            id: 'please-provide-details-of-difficulties-and-what-would-help-you-communicate-more-easily-during-your-assessment-(e.g.-a-family-member-or-friend-present-an-independent-advocate-specialist-communication-support)',
             question:
               'Please provide details of difficulties and what would help you communicate more easily during your assessment (e.g. a family member or friend present, an independent advocate, specialist communication support)',
             hint: '',
             type: 'textarea',
           },
           {
-            id:
-              'please-list-other-people-involved-in-your-assessment-(e.g.-advocate-carer-family-friend-other-professionals)-provide-details-including-names-rolesrelationship-and-contact-details.',
+            id: 'please-list-other-people-involved-in-your-assessment-(e.g.-advocate-carer-family-friend-other-professionals)-provide-details-including-names-rolesrelationship-and-contact-details.',
             question:
               'Please list other people involved in your assessment (e.g. advocate, carer, family, friend, other professionals) Provide details including names, roles/relationship and contact details.',
             hint: '',
@@ -269,12 +262,10 @@ const formData: Form[] = [
         theme: 'You and your needs',
         fields: [
           {
-            id:
-              'did-the-client-choose-to-decline-any-further-social-services-support',
+            id: 'did-the-client-choose-to-decline-any-further-social-services-support',
             question:
               'Did the client choose to decline any further Social Services support?',
-            hint:
-              '(Has the client stated that they do not wish further assessment or services from Hackney Adults Social Care at this point)',
+            hint: '(Has the client stated that they do not wish further assessment or services from Hackney Adults Social Care at this point)',
             type: 'radios',
             choices: [
               { value: 'yes', label: 'Yes' },
@@ -294,8 +285,7 @@ const formData: Form[] = [
             type: 'text',
           },
           {
-            id:
-              'are-you-using-specialist-technology-to-help-you-manage-at-home-(e.g.-telecare)',
+            id: 'are-you-using-specialist-technology-to-help-you-manage-at-home-(e.g.-telecare)',
             question:
               'Are you using specialist technology to help you manage at home (e.g. telecare)',
             hint: '',
@@ -337,8 +327,7 @@ const formData: Form[] = [
         theme: 'You and your needs',
         fields: [
           {
-            id:
-              '1.-do-you-have-a-condition-as-a-result-of-either-your-physical-mental-sensory-learning-or-cognitive-disabilities-or-illnesses-substance-misuse-or-brain-injury',
+            id: '1.-do-you-have-a-condition-as-a-result-of-either-your-physical-mental-sensory-learning-or-cognitive-disabilities-or-illnesses-substance-misuse-or-brain-injury',
             question:
               '1.  Do you have a condition as a result of either your physical, mental, sensory, learning or cognitive disabilities or illnesses, substance misuse or brain injury?',
             hint: '',
@@ -349,8 +338,7 @@ const formData: Form[] = [
             ],
           },
           {
-            id:
-              '2.-as-a-result-of-your-needs-are-you-unable-to-achieve-two-or-more-of-the-eligible-outcomes-below',
+            id: '2.-as-a-result-of-your-needs-are-you-unable-to-achieve-two-or-more-of-the-eligible-outcomes-below',
             question:
               '2.  As a result of your needs are you unable to achieve two or more of the eligible outcomes below',
             hint: '',
@@ -361,8 +349,7 @@ const formData: Form[] = [
             ],
           },
           {
-            id:
-              'can-you-"maintain-a-habitable-home-environment"-alone-within-a-reasonable-time-and-without-significant-pain-distress-anxiety-or-risk-to-yourself-or-others',
+            id: 'can-you-"maintain-a-habitable-home-environment"-alone-within-a-reasonable-time-and-without-significant-pain-distress-anxiety-or-risk-to-yourself-or-others',
             question:
               'Can you "Maintain a habitable home environment" alone within a reasonable time and without significant pain, distress, anxiety, or risk to yourself or others?',
             hint: '',
@@ -379,8 +366,7 @@ const formData: Form[] = [
             type: 'textarea',
           },
           {
-            id:
-              'can-you-"manage-and-maintain-nutrition"-alone-within-within-a-reasonable-time-and-without-significant-pain-distress-anxiety-or-risk-to-yourself-or-others',
+            id: 'can-you-"manage-and-maintain-nutrition"-alone-within-within-a-reasonable-time-and-without-significant-pain-distress-anxiety-or-risk-to-yourself-or-others',
             question:
               'Can you "Manage and maintain nutrition" alone within within a reasonable time and without significant pain, distress, anxiety or risk to yourself or others?',
             hint: '',
@@ -397,8 +383,7 @@ const formData: Form[] = [
             type: 'textarea',
           },
           {
-            id:
-              'can-you-"manage-toilet-needs"-alone-within-within-a-reasonable-time-and-without-significant-pain-distress-anxiety-or-risk-to-yourself-or-others',
+            id: 'can-you-"manage-toilet-needs"-alone-within-within-a-reasonable-time-and-without-significant-pain-distress-anxiety-or-risk-to-yourself-or-others',
             question:
               'Can you "Manage toilet needs" alone within within a reasonable time and without significant pain, distress, anxiety or risk to yourself or others?',
             hint: '',
@@ -415,8 +400,7 @@ const formData: Form[] = [
             type: 'textarea',
           },
           {
-            id:
-              'can-you-"maintain-personal-hygiene"-alone-within-within-a-reasonable-time-and-without-significant-pain-distress-anxiety-or-risk-to-yourself-or-others',
+            id: 'can-you-"maintain-personal-hygiene"-alone-within-within-a-reasonable-time-and-without-significant-pain-distress-anxiety-or-risk-to-yourself-or-others',
             question:
               'Can you "Maintain personal hygiene" alone within within a reasonable time and without significant pain, distress, anxiety or risk to yourself or others?',
             hint: '',
@@ -433,8 +417,7 @@ const formData: Form[] = [
             type: 'textarea',
           },
           {
-            id:
-              'can-you-"be-appropriately-clothed"-alone-within-within-a-reasonable-time-and-without-significant-pain-distress-anxiety-or-risk-to-yourself-or-others',
+            id: 'can-you-"be-appropriately-clothed"-alone-within-within-a-reasonable-time-and-without-significant-pain-distress-anxiety-or-risk-to-yourself-or-others',
             question:
               'Can you "Be appropriately clothed" alone within within a reasonable time and without significant pain, distress, anxiety or risk to yourself or others?',
             hint: '',
@@ -451,8 +434,7 @@ const formData: Form[] = [
             type: 'textarea',
           },
           {
-            id:
-              'can-you-"develop-and-maintain-family-or-other-personal-relationships"-alone-within-within-a-reasonable-time-and-without-significant-pain-distress-anxiety-or-risk-to-yourself-or-others',
+            id: 'can-you-"develop-and-maintain-family-or-other-personal-relationships"-alone-within-within-a-reasonable-time-and-without-significant-pain-distress-anxiety-or-risk-to-yourself-or-others',
             question:
               'Can you "Develop and maintain family or other personal relationships" alone within within a reasonable time and without significant pain, distress, anxiety or risk to yourself or others?',
             hint: '',
@@ -463,16 +445,14 @@ const formData: Form[] = [
             ],
           },
           {
-            id:
-              'details-(develop-and-maintain-family-or-other-personal-relationships)',
+            id: 'details-(develop-and-maintain-family-or-other-personal-relationships)',
             question:
               'Details (Develop and maintain family or other personal relationships)',
             hint: '',
             type: 'textarea',
           },
           {
-            id:
-              'can-you-"make-use-of-necessary-facilities-or-services-in-the-local-community-(including-public-transport-and-recreational-facilitiesservices)"-alone-within-within-a-reasonable-time-and-without-significant-pain-distress-anxiety-or-risk-to-yourself-or-others',
+            id: 'can-you-"make-use-of-necessary-facilities-or-services-in-the-local-community-(including-public-transport-and-recreational-facilitiesservices)"-alone-within-within-a-reasonable-time-and-without-significant-pain-distress-anxiety-or-risk-to-yourself-or-others',
             question:
               'Can you "Make use of necessary facilities or services in the local community (including public transport and recreational facilities/services)" alone within within a reasonable time and without significant pain, distress, anxiety or risk to yourself or others?',
             hint: '',
@@ -483,16 +463,14 @@ const formData: Form[] = [
             ],
           },
           {
-            id:
-              'details-(make-use-of-necessary-facilities-or-services-in-the-local-community)',
+            id: 'details-(make-use-of-necessary-facilities-or-services-in-the-local-community)',
             question:
               'Details (Make use of necessary facilities or services in the local community)',
             hint: '',
             type: 'textarea',
           },
           {
-            id:
-              'can-you-"access-and-engage-in-work-training-education-or-volunteering"-alone-within-within-a-reasonable-time-and-without-significant-pain-distress-anxiety-or-risk-to-yourself-or-others',
+            id: 'can-you-"access-and-engage-in-work-training-education-or-volunteering"-alone-within-within-a-reasonable-time-and-without-significant-pain-distress-anxiety-or-risk-to-yourself-or-others',
             question:
               'Can you "Access and engage in work, training, education or volunteering" alone within within a reasonable time and without significant pain, distress, anxiety or risk to yourself or others?',
             hint: '',
@@ -503,16 +481,14 @@ const formData: Form[] = [
             ],
           },
           {
-            id:
-              'details-(access-and-engage-in-work-training-education-or-volunteering)',
+            id: 'details-(access-and-engage-in-work-training-education-or-volunteering)',
             question:
               'Details (Access and engage in work, training, education or volunteering)',
             hint: '',
             type: 'textarea',
           },
           {
-            id:
-              'can-you-"carry-out-any-caring-responsibilities-for-a-child"-alone-within-within-a-reasonable-time-and-without-significant-pain-distress-anxiety-or-risk-to-yourself-or-others',
+            id: 'can-you-"carry-out-any-caring-responsibilities-for-a-child"-alone-within-within-a-reasonable-time-and-without-significant-pain-distress-anxiety-or-risk-to-yourself-or-others',
             question:
               'Can you "Carry out any caring responsibilities for a child" alone within within a reasonable time and without significant pain, distress, anxiety or risk to yourself or others?',
             hint: '',
@@ -530,8 +506,7 @@ const formData: Form[] = [
             type: 'textarea',
           },
           {
-            id:
-              'can-you-"be-able-to-make-use-of-your-home-safely"-alone-within-within-a-reasonable-time-and-without-significant-pain-distress-anxiety-or-risk-to-yourself-or-others',
+            id: 'can-you-"be-able-to-make-use-of-your-home-safely"-alone-within-within-a-reasonable-time-and-without-significant-pain-distress-anxiety-or-risk-to-yourself-or-others',
             question:
               'Can you "Be able to make use of your home safely" alone within within a reasonable time and without significant pain, distress, anxiety or risk to yourself or others?',
             hint: '',
@@ -548,8 +523,7 @@ const formData: Form[] = [
             type: 'textarea',
           },
           {
-            id:
-              '3.-as-a-result-of-being-unable-to-achieve-these-outcomes-is-there-or-is-there-likely-to-be-a-significant-impact-on-your-wellbeing',
+            id: '3.-as-a-result-of-being-unable-to-achieve-these-outcomes-is-there-or-is-there-likely-to-be-a-significant-impact-on-your-wellbeing',
             question:
               '3.  As a result of being unable to achieve these outcomes is there, or is there likely to be, a significant impact on your wellbeing?',
             hint: '',
@@ -567,8 +541,7 @@ const formData: Form[] = [
         theme: 'You and your needs',
         fields: [
           {
-            id:
-              'details-of-the-impact-on-your-wellbeing-(in-the-absence-of-any-support-you-may-already-have-in-place)',
+            id: 'details-of-the-impact-on-your-wellbeing-(in-the-absence-of-any-support-you-may-already-have-in-place)',
             question:
               'Details of the impact on your wellbeing (in the absence of any support you may already have in place)',
             hint: '',
@@ -607,8 +580,7 @@ const formData: Form[] = [
           {
             id: 'carer-emergency-id-(asc)',
             question: 'Carer Emergency ID (ASC)',
-            hint:
-              '(Find or create an emergency ID number for this person in the list of numbers provided to your team, and enter it here)',
+            hint: '(Find or create an emergency ID number for this person in the list of numbers provided to your team, and enter it here)',
             type: 'text',
           },
           {
@@ -646,8 +618,7 @@ const formData: Form[] = [
             ],
           },
           {
-            id:
-              'if-conversation-is-completed-with-an-informal-unpaid-carer-present-would-the-carer-like-to-have-a-separate-conversation',
+            id: 'if-conversation-is-completed-with-an-informal-unpaid-carer-present-would-the-carer-like-to-have-a-separate-conversation',
             question:
               'If conversation is completed with an informal / unpaid Carer present, would the Carer like to have a separate conversation? ',
             hint: '',
@@ -658,8 +629,7 @@ const formData: Form[] = [
             ],
           },
           {
-            id:
-              'if-conversation-is-completed-with-the-carer-present-does-the-carer-agree-this-is-a-joint-conversation',
+            id: 'if-conversation-is-completed-with-the-carer-present-does-the-carer-agree-this-is-a-joint-conversation',
             question:
               'If conversation is completed with the Carer present, does the Carer agree this is a joint conversation?',
             hint: '',
@@ -677,8 +647,7 @@ const formData: Form[] = [
         theme: 'People who care for you',
         fields: [
           {
-            id:
-              'has-the-carer-been-assessed-as-having-one-or-more-eligible-need',
+            id: 'has-the-carer-been-assessed-as-having-one-or-more-eligible-need',
             question:
               'Has the carer been assessed as having one or more eligible need?',
             hint: '',
@@ -695,24 +664,21 @@ const formData: Form[] = [
             type: 'textarea',
           },
           {
-            id:
-              'what-are-your-informal-arrangements-when-you-are-unable-to-provide-care',
+            id: 'what-are-your-informal-arrangements-when-you-are-unable-to-provide-care',
             question:
               'What are your informal arrangements when you are unable to provide care?',
             hint: '',
             type: 'textarea',
           },
           {
-            id:
-              'does-the-person-that-you-care-for-have-any-special-requirements-that-we-should-know-about',
+            id: 'does-the-person-that-you-care-for-have-any-special-requirements-that-we-should-know-about',
             question:
               'Does the person that you care for have any special requirements that we should know about?',
             hint: '',
             type: 'textarea',
           },
           {
-            id:
-              'was-the-carer-provided-with-information-advice-and-other-universal-services-signposting',
+            id: 'was-the-carer-provided-with-information-advice-and-other-universal-services-signposting',
             question:
               'Was the Carer provided with Information, Advice and Other Universal Services / Signposting?',
             hint: '',
@@ -723,8 +689,7 @@ const formData: Form[] = [
             ],
           },
           {
-            id:
-              'if-yes-was-the-carer-signposted-to-a-relevant-support-service-such-as-the-carers-centre',
+            id: 'if-yes-was-the-carer-signposted-to-a-relevant-support-service-such-as-the-carers-centre',
             question:
               'If yes, was the Carer signposted to a relevant support service such as the Carers Centre? ',
             hint: '',
@@ -739,8 +704,7 @@ const formData: Form[] = [
             ],
           },
           {
-            id:
-              'will-respite-or-other-forms-of-carer-support-be-delivered-to-the-cared-for-person',
+            id: 'will-respite-or-other-forms-of-carer-support-be-delivered-to-the-cared-for-person',
             question:
               'Will respite or other forms of carer support be delivered to the cared-for person? ',
             hint: '',
@@ -956,13 +920,11 @@ const formData: Form[] = [
           {
             id: 'list-details-of-those-managing-my-budget',
             question: 'List details of those managing my budget',
-            hint:
-              "Include 'Name and address', 'Contact Number' and 'Relationship' for each row (individual / organisation)",
+            hint: "Include 'Name and address', 'Contact Number' and 'Relationship' for each row (individual / organisation)",
             type: 'textarea',
           },
           {
-            id:
-              'has-this-person-been-given-a-copy-of-the-financial-assessment-form',
+            id: 'has-this-person-been-given-a-copy-of-the-financial-assessment-form',
             question:
               'Has this person been given a copy of the Financial Assessment form?',
             hint: '',
@@ -979,8 +941,7 @@ const formData: Form[] = [
             type: 'text',
           },
           {
-            id:
-              'local-authority-contribution-(poundweek-to-be-confirmed-by-finance)',
+            id: 'local-authority-contribution-(poundweek-to-be-confirmed-by-finance)',
             question:
               'Local Authority contribution (£/week to be confirmed by finance)',
             hint: '',
@@ -1049,8 +1010,7 @@ const formData: Form[] = [
           {
             id: 'date-of-timetable',
             question: 'Date of Timetable',
-            hint:
-              "(Today's date, being the submission date of this Google form - instead of authorised date)",
+            hint: "(Today's date, being the submission date of this Google form - instead of authorised date)",
             type: 'date',
           },
           {
@@ -1068,8 +1028,7 @@ const formData: Form[] = [
           {
             id: 'list-details-of-my-weekly-timetable',
             question: 'List details of my weekly timetable',
-            hint:
-              "Please break this down into 'Day', 'Morning', 'Afternoon', 'Evening', 'Night' and 'Estimated Weekly Cost'",
+            hint: "Please break this down into 'Day', 'Morning', 'Afternoon', 'Evening', 'Night' and 'Estimated Weekly Cost'",
             type: 'textarea',
           },
         ],
@@ -1113,8 +1072,7 @@ const formData: Form[] = [
           {
             id: 'will-this-conversation-lead-to-a-safeguarding-concern',
             question: 'Will this Conversation lead to a Safeguarding Concern?',
-            hint:
-              "If yes, please ensure you complete an 'Adults - Safeguarding Adult Concern' form",
+            hint: "If yes, please ensure you complete an 'Adults - Safeguarding Adult Concern' form",
             type: 'radios',
             choices: [
               { value: 'yes', label: 'Yes' },
@@ -1124,8 +1082,7 @@ const formData: Form[] = [
           {
             id: 'what-next-workflow',
             question: 'What Next - workflow',
-            hint:
-              "(if you are not transferring to the Long Term team and the person was also not accepted / eligible for reablement then choose 'Close Case / No Further Action' - e.g. provision of Immediate Services and / or Telecare falls within 'No Further Action' in this sense after you finish Conversation 3)",
+            hint: "(if you are not transferring to the Long Term team and the person was also not accepted / eligible for reablement then choose 'Close Case / No Further Action' - e.g. provision of Immediate Services and / or Telecare falls within 'No Further Action' in this sense after you finish Conversation 3)",
             type: 'radios',
             choices: [
               {
@@ -1152,8 +1109,7 @@ const formData: Form[] = [
           {
             id: 'date-of-next-review',
             question: 'Date of Next Review',
-            hint:
-              'Please schedule a date in 3, 6 or 12 months time, as required, for the Long Term team to carry out a Review',
+            hint: 'Please schedule a date in 3, 6 or 12 months time, as required, for the Long Term team to carry out a Review',
             type: 'date',
           },
         ],
@@ -1260,12 +1216,10 @@ const formData: Form[] = [
         theme: 'Next steps and approval',
         fields: [
           {
-            id:
-              'email-address-of-your-manager-(who-would-normally-approve-this-decision)',
+            id: 'email-address-of-your-manager-(who-would-normally-approve-this-decision)',
             question:
               'Email address of your manager (who would normally approve this decision)',
-            hint:
-              "(Who will retrospectively approve this decision? You need to manually forward the 'receipt' copy of this form to them once you receive it)",
+            hint: "(Who will retrospectively approve this decision? You need to manually forward the 'receipt' copy of this form to them once you receive it)",
             type: 'text',
           },
         ],
@@ -1354,8 +1308,7 @@ const formData: Form[] = [
           {
             id: 'reports-unique-id',
             question: 'Reports Unique ID',
-            hint:
-              "(Generate at submission to concatenate the number onto either 'MOS', 'TMP' or 'NHS' to provide something Unique for reporting)",
+            hint: "(Generate at submission to concatenate the number onto either 'MOS', 'TMP' or 'NHS' to provide something Unique for reporting)",
             type: 'text',
           },
           {
@@ -2199,8 +2152,7 @@ const formData: Form[] = [
             ],
           },
           {
-            id:
-              'do-you-have-any-difficulties-with-understanding-andor-retaining-information',
+            id: 'do-you-have-any-difficulties-with-understanding-andor-retaining-information',
             question:
               'Do you have any difficulties with understanding and/or retaining information?',
             type: 'radios',
@@ -2213,8 +2165,7 @@ const formData: Form[] = [
             ],
           },
           {
-            id:
-              'do-you-have-any-difficulties-making-decisions-andor-understanding-their-impact',
+            id: 'do-you-have-any-difficulties-making-decisions-andor-understanding-their-impact',
             question:
               'Do you have any difficulties making decisions and/or understanding their impact?',
             type: 'radios',
@@ -2243,14 +2194,12 @@ const formData: Form[] = [
         theme: 'Your needs and assessment',
         fields: [
           {
-            id:
-              'your-interests-and-what-would-improve-your-wellbeing-or-quality-of-life.',
+            id: 'your-interests-and-what-would-improve-your-wellbeing-or-quality-of-life.',
             question:
               'Your interests and what would improve your wellbeing or quality of life.',
             type: 'textarea',
             required: false,
-            hint:
-              'Areas of my life I enjoy most or value (including my main interests and where I can most contribute) and changes that would improve my wellbeing or quality of life.',
+            hint: 'Areas of my life I enjoy most or value (including my main interests and where I can most contribute) and changes that would improve my wellbeing or quality of life.',
             error: '',
             choices: [],
           },
@@ -2338,8 +2287,7 @@ const formData: Form[] = [
             question: 'Are you the lead conversation officer?',
             type: 'select',
             required: false,
-            hint:
-              "Please use 'Find lead worker' below to select the 'Lead conversation officer'. If you are the lead officer then do this working as yourself (i.e. NOT whilst Acting for someone else).\nAlternatively you may Act for the lead officer then 'Find' them below and tick to sign on their behalf.",
+            hint: "Please use 'Find lead worker' below to select the 'Lead conversation officer'. If you are the lead officer then do this working as yourself (i.e. NOT whilst Acting for someone else).\nAlternatively you may Act for the lead officer then 'Find' them below and tick to sign on their behalf.",
             error: '',
             choices: [
               { value: 'yes', label: 'Yes' },
