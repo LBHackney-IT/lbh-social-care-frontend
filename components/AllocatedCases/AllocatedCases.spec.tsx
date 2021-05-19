@@ -9,9 +9,8 @@ import AllocatedCases from './AllocatedCases';
 
 jest.mock('components/Spinner/Spinner', () => () => 'MockedSpinner');
 
-jest.mock(
-  'components/AllocatedCases/AllocatedCasesTable',
-  () => () => 'MockedAllocatedCasesTable'
+jest.mock('components/AllocatedCases/AllocatedCasesTable', () => () =>
+  'MockedAllocatedCasesTable'
 );
 
 describe(`AllocatedCases`, () => {
