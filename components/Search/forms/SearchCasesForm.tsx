@@ -169,6 +169,7 @@ const SearchCasesForm = ({
       <Button label={ctaText} type="submit" disabled={!isDirty} />
       <button
         className="lbh-link govuk-link"
+        id="clear-link"
         onClick={(e) => {
           e.preventDefault();
           reset({
@@ -177,11 +178,6 @@ const SearchCasesForm = ({
             form_name: null,
           });
           onFormSubmit();
-        }}
-        style={{
-          marginLeft: '1rem',
-          lineHeight: '2.5rem',
-          marginTop: '0',
         }}
       >
         Clear {ctaText.toLowerCase()}

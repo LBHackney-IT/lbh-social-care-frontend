@@ -26,7 +26,7 @@ const DateInput = forwardRef<HTMLInputElement, InputProps>(
   (
     {
       label,
-      labelSize = 'm',
+      labelSize = 'l',
       error,
       hint,
       value,
@@ -51,21 +51,19 @@ const DateInput = forwardRef<HTMLInputElement, InputProps>(
         })}
       >
         <fieldset
-          className="govuk-fieldset"
+          className="lbh-fieldset govuk-fieldset"
           role="group"
           aria-describedby={`${name}-hint`}
         >
-          <legend
-            className={`lbh-fieldset__legend govuk-fieldset__legend--${labelSize}`}
-          >
+          <legend className="lbh-fieldset">
             {label} {required && <span className="govuk-required">*</span>}
           </legend>
-          <span id={`${name}-hint`} className="lbh-hint govuk-hint">
+          <span id={`${name}-hint`} className="lbh-hint">
             {hint}
           </span>
           {error && <ErrorMessage label={error.message} />}
           <div className="lbh-date-input govuk-date-input" id={name}>
-            <div className="govuk-date-input__item">
+            <div className="lbh-date-input govuk-date-input__item">
               <div className="lbh-form-group govuk-form-group">
                 <label
                   className="lbh-label govuk-date-input__label"
@@ -75,7 +73,7 @@ const DateInput = forwardRef<HTMLInputElement, InputProps>(
                 </label>
                 <input
                   className={cx(
-                    'lbh-date-input govuk-input govuk-date-input__input govuk-input--width-2',
+                    'lbh-date-input govuk-input govuk-input--width-2',
                     {
                       'govuk-input--error': error,
                     }

@@ -100,15 +100,12 @@ export const Autocomplete = forwardRef<HTMLInputElement, AutoProps>(
           const inputProps = getInputProps();
           return (
             <div
-              className={cx(`govuk-form-group lbh-form-group`, {
+              className={cx(`lbh-form-group govuk-form-group`, {
                 [`govuk-grid-column-${govGrid}`]: govGrid,
                 'govuk-form-group--error': error,
               })}
             >
-              <label
-                className={`lbh-label govuk-label--${labelSize}`}
-                id={inputProps['aria-labelledby']}
-              >
+              <label className={`lbh-label`} id={inputProps['aria-labelledby']}>
                 {label} {required && <span className="lbh-required">*</span>}
               </label>
               <div className={style.inputContainer}>
