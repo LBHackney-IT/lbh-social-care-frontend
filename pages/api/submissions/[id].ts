@@ -1,12 +1,12 @@
-// import prisma from '../../../../lib/prisma';
 import { NextApiRequest, NextApiResponse } from 'next';
 import forms from '../../../data/flexibleForms/forms';
 import { getResident } from '../../../lib/residents';
 import { isAuthorised } from 'utils/auth';
 
-// import { apiHandler, ApiRequesWithSession } from '../../../../lib/apiHelpers';
-
-const handler = async (req: ApiRequestWithSession, res: NextApiResponse) => {
+const handler = async (
+  req: NextApiRequest,
+  res: NextApiResponse
+): Promise<void> => {
   const user = isAuthorised(req);
 
   const { id } = req.query;
