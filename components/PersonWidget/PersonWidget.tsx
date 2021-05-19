@@ -28,6 +28,11 @@ const PersonWidget = ({ person }: Props): React.ReactElement => {
         {dateOfBirth && (
           <p className={`lbh-body-s ${s.paragraph}`}>Born {dateOfBirth}</p>
         )}
+        <p className={`lbh-body-s ${s.paragraph}`}>
+          {person.address?.address}
+          <br />
+          {person.address?.postcode}
+        </p>
       </aside>
     );
   }
