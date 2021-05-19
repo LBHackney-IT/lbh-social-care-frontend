@@ -21,15 +21,15 @@ const Radios = ({
   ...otherProps
 }: Props): React.ReactElement => (
   <div
-    className={cx('govuk-form-group', {
+    className={cx('govuk-form-group lbh-form-group', {
       'govuk-form-group--error': error,
     })}
   >
-    <label className={`lbh-label govuk-label--${labelSize}`} htmlFor={name}>
+    <label className={`govuk-label govuk-label--${labelSize}`} htmlFor={name}>
       {label} {required && <span className="govuk-required">*</span>}
     </label>
     {hint && (
-      <span id={`${name}-hint`} className="govuk-hint">
+      <span id={`${name}-hint`} className="lbh-hint">
         {hint}
       </span>
     )}
@@ -58,7 +58,7 @@ const Radios = ({
               {...otherProps}
             />
             <label
-              className="lbh-label govuk-radios__label"
+              className="govuk-label govuk-radios__label"
               htmlFor={`${name}_${value}`}
             >
               {text}
