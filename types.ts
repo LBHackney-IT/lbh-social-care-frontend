@@ -204,6 +204,27 @@ export interface Worker {
   teams: Team[];
 }
 
+export interface RelationshipPerson {
+  id: number;
+  firstName: string;
+  lastName: string;
+}
+
+export interface Relationship {
+  id: number;
+  firstName: string;
+  lastName: string;
+  parents: Array<RelationshipPerson>;
+  siblings: Array<RelationshipPerson>;
+  children: Array<RelationshipPerson>;
+  other: Array<RelationshipPerson>;
+}
+
+export interface RelationshipData {
+  personId: number;
+  personalRelationships: Array<Relationship>;
+}
+
 interface BaseNote {
   id: number;
   noteType: string;
