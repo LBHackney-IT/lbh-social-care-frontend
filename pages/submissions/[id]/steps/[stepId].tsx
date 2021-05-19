@@ -1,1 +1,3 @@
-export default <p>placeholder</p>;
+const StepPage = (): React.ReactElement => <p>placeholder</p>;
+
+export default StepPage;
