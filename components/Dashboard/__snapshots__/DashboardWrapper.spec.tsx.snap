@@ -2,11 +2,9 @@
 
 exports[`DashboardWrapper should render properly 1`] = `
 <DocumentFragment>
-  <div
-    class="govuk-tabs lbh-tabs"
-  >
-    <h2
-      class="govuk-tabs__title"
+  <div>
+    <div
+      class=""
     >
       <h1
         class="govuk-heading-l"

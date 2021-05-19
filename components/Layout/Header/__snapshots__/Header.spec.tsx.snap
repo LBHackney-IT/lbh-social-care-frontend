@@ -42,21 +42,21 @@ exports[`Header component should set active the correct link 1`] = `
         >
           <a
             class="govuk-header__link"
-            href="/"
+            href="/search"
           >
             Search
           </a>
           <a
             class="govuk-header__link"
-            href="/cases?my_notes_only=true"
+            href="/"
           >
-            My records
+            My work space
           </a>
           <a
             class="govuk-header__link"
             href="/logout"
           >
-            Logout
+            Sign out
           </a>
         </nav>
       </div>
