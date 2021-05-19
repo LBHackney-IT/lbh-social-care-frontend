@@ -235,15 +235,13 @@ const WARNING_DATES: Array<FormComponentStep> = [
     component: 'DateInput',
     name: 'startDate',
     label: 'Start date',
-    hint:
-      'If the start date is set in the future, the Warning Note will not be displayed until that date.',
+    hint: 'If the start date is set in the future, the Warning Note will not be displayed until that date.',
     rules: { required: true },
   },
   {
     component: 'DateInput',
     name: 'reviewDate',
-    hint:
-      'The Review / end date cannot be more than 1 year from the Start date',
+    hint: 'The Review / end date cannot be more than 1 year from the Start date',
     label: 'Review / end date',
     rules: {
       required: true,

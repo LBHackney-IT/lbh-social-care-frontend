@@ -62,9 +62,7 @@ describe(`Search`, () => {
       fireEvent.submit(getByRole('form'));
     });
     expect(mockedUseRouter.replace).toHaveBeenCalled();
-    expect(
-      mockedUseRouter.replace
-    ).toHaveBeenCalledWith(
+    expect(mockedUseRouter.replace).toHaveBeenCalledWith(
       'foopath?foo=bar&first_name=foo',
       'foopath?foo=bar&first_name=foo',
       { shallow: true, scroll: false }
@@ -105,9 +103,7 @@ describe(`Search`, () => {
       fireEvent.submit(getByRole('form'));
     });
     expect(mockedUseRouter.replace).toHaveBeenCalled();
-    expect(
-      mockedUseRouter.replace
-    ).toHaveBeenCalledWith(
+    expect(mockedUseRouter.replace).toHaveBeenCalledWith(
       'foopath?foo=bar&first_name=foo',
       'foopath?foo=bar&first_name=foo',
       { shallow: true, scroll: false }

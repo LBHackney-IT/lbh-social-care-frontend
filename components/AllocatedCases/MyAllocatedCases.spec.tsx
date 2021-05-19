@@ -9,8 +9,9 @@ import { mockedAPIerror, mockedAPIservererror } from 'factories/APIerrors';
 
 jest.mock('components/Spinner/Spinner', () => () => 'MockedSpinner');
 
-jest.mock('components/AllocatedCases/AllocatedCasesTable', () => () =>
-  'MockedAllocatedCasesTable'
+jest.mock(
+  'components/AllocatedCases/AllocatedCasesTable',
+  () => () => 'MockedAllocatedCasesTable'
 );
 
 describe(`MyAllocatedCases`, () => {

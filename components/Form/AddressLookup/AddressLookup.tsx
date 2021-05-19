@@ -48,13 +48,12 @@ export const defaultValidation = ({
 const AddressBox = ({ name, disabled, value, onChange }: AddressBox) => {
   const [address, setAddress] = useState(value || {});
   const setNewAddress = useCallback(
-    (inputName) => ({
-      target: { value },
-    }: React.ChangeEvent<HTMLInputElement>) => {
-      const newAddress = { ...address, uprn: null, [inputName]: value };
-      setAddress(newAddress);
-      onChange(newAddress);
-    },
+    (inputName) =>
+      ({ target: { value } }: React.ChangeEvent<HTMLInputElement>) => {
+        const newAddress = { ...address, uprn: null, [inputName]: value };
+        setAddress(newAddress);
+        onChange(newAddress);
+      },
     [address, onChange]
   );
   return (
