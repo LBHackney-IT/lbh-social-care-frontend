@@ -105,7 +105,10 @@ export const Autocomplete = forwardRef<HTMLInputElement, AutoProps>(
                 'govuk-form-group--error': error,
               })}
             >
-              <label className={`lbh-label`} id={inputProps['aria-labelledby']}>
+              <label
+                className={`govuk-label lbh-label`}
+                id={inputProps['aria-labelledby']}
+              >
                 {label} {required && <span className="lbh-required">*</span>}
               </label>
               <div className={style.inputContainer}>
