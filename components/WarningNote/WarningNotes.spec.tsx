@@ -3,7 +3,7 @@ import { render } from '@testing-library/react';
 import * as warningNotes from 'utils/api/warningNotes';
 import WarningNotes from './WarningNotes';
 
-import { mockedWarningNote } from 'factories/warningNotes';
+import { mockedWarningNote, warningNoteFactory } from 'factories/warningNotes';
 
 jest.mock('next/router', () => ({
   useRouter: () => ({
@@ -13,19 +13,33 @@ jest.mock('next/router', () => ({
 }));
 
 describe(`useWarningNotes`, () => {
-  jest.spyOn(warningNotes, 'useWarningNotes').mockImplementation(() => ({
-    data: mockedWarningNote,
-    mutate: jest.fn(),
-    revalidate: jest.fn(),
-    isValidating: false,
-  }));
+  it('should render a list of warning notes', () => {
+    jest.spyOn(warningNotes, 'useWarningNotes').mockImplementation(() => ({
+      data: mockedWarningNote,
+      mutate: jest.fn(),
+      revalidate: jest.fn(),
+      isValidating: false,
+    }));
 
-  const props = {
-    id: 123,
-  };
-
-  it('should render properly', () => {
-    const { asFragment } = render(<WarningNotes {...props} />);
+    const { asFragment } = render(<WarningNotes id={123} />);
     expect(asFragment()).toMatchSnapshot();
+  });
+
+  it('should not render the previous review date if there is a scheduled future review date', () => {
+    jest.spyOn(warningNotes, 'useWarningNotes').mockImplementation(() => ({
+      data: [
+        warningNoteFactory.build({
+          nextReviewDate: '2020-11-12',
+        }),
+      ],
+      mutate: jest.fn(),
+      revalidate: jest.fn(),
+      isValidating: false,
+    }));
+
+    const { getByText, queryByText } = render(<WarningNotes id={123} />);
+
+    getByText('Next review date');
+    expect(queryByText('Previous review date')).toBeNull();
   });
 });
