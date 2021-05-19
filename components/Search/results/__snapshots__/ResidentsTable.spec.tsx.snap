@@ -1,9 +1,9 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`ResidenTable component should render properly 1`] = `
+exports[`ResidentsTable component should render a list of residents 1`] = `
 <DocumentFragment>
   <table
-    class="govuk-table"
+    class="govuk-table lbh-table"
     data-testid="residents-table"
   >
     <thead
@@ -33,6 +33,13 @@ exports[`ResidenTable component should render properly 1`] = `
         <th
           class="govuk-table__header"
           scope="col"
+        >
+          Service
+        </th>
+        <th
+          class="govuk-table__header"
+          colspan="2"
+          scope="col"
         />
       </tr>
     </thead>
@@ -57,6 +64,14 @@ exports[`ResidenTable component should render properly 1`] = `
         >
           13/11/2020
         </td>
+        <td
+          class="govuk-table__cell"
+        >
+          ACS
+        </td>
+        <td
+          class="govuk-table__cell govuk-table__cell--numeric"
+        />
         <td
           class="govuk-table__cell"
         >

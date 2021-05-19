@@ -6,6 +6,7 @@ import PersonDetails from './PersonDetails';
 import { useResident } from 'utils/api/residents';
 import { Resident, User } from 'types';
 import { useAuth } from '../UserContext/UserContext';
+import { canUserEditPerson } from '../../lib/permissions';
 
 interface Props {
   personId: number;
@@ -13,31 +14,6 @@ interface Props {
   expandView?: boolean;
   showPersonDetails?: boolean;
 }
-
-const canUserEditPerson = (user: User, person: Resident) => {
-  const isPersonRestricted = person.restricted === 'Y';
-
-  if (user.hasAdminPermissions || user.hasDevPermissions) {
-    if (isPersonRestricted) {
-      return user.hasUnrestrictedPermissions || false;
-    }
-
-    return true;
-  }
-
-  if (user.hasChildrenPermissions && person.contextFlag === 'C') {
-    if (isPersonRestricted) {
-      return user.hasUnrestrictedPermissions || false;
-    }
-    return true;
-  }
-
-  if (person.contextFlag === 'A') {
-    return false;
-  }
-
-  return false;
-};
 
 const PersonView = ({
   personId,
