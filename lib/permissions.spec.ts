@@ -24,25 +24,6 @@ describe('permissions', () => {
       ).toEqual(false);
     });
 
-    it('should return false when the resident is an adult', () => {
-      expect(
-        canUserEditPerson(
-          userFactory.build({
-            hasAdminPermissions: false,
-            hasAdultPermissions: true,
-            hasChildrenPermissions: false,
-            hasUnrestrictedPermissions: false,
-            hasDevPermissions: false,
-            hasAllocationsPermissions: false,
-          }),
-          residentFactory.build({
-            restricted: 'N',
-            contextFlag: 'A',
-          })
-        )
-      ).toEqual(false);
-    });
-
     it('should return true when the user is in CFS and the resident is a child', () => {
       expect(
         canUserEditPerson(
@@ -95,6 +76,63 @@ describe('permissions', () => {
           residentFactory.build({
             restricted: 'Y',
             contextFlag: 'C',
+          })
+        )
+      ).toEqual(false);
+    });
+
+    it('should return true when the user is in ASC and the resident is an adult', () => {
+      expect(
+        canUserEditPerson(
+          userFactory.build({
+            hasAdminPermissions: false,
+            hasAdultPermissions: true,
+            hasChildrenPermissions: false,
+            hasUnrestrictedPermissions: false,
+            hasDevPermissions: false,
+            hasAllocationsPermissions: false,
+          }),
+          residentFactory.build({
+            restricted: 'N',
+            contextFlag: 'A',
+          })
+        )
+      ).toEqual(true);
+    });
+
+    it('should return true when the user is in ASC, has unrestricted permissions, and the resident is a restricted adult', () => {
+      expect(
+        canUserEditPerson(
+          userFactory.build({
+            hasAdminPermissions: false,
+            hasAdultPermissions: true,
+            hasChildrenPermissions: false,
+            hasUnrestrictedPermissions: true,
+            hasDevPermissions: false,
+            hasAllocationsPermissions: false,
+          }),
+          residentFactory.build({
+            restricted: 'Y',
+            contextFlag: 'A',
+          })
+        )
+      ).toEqual(true);
+    });
+
+    it('should return false when the user is in ASC, does not have unrestricted permissions, and the resident is a restricted adult', () => {
+      expect(
+        canUserEditPerson(
+          userFactory.build({
+            hasAdminPermissions: false,
+            hasAdultPermissions: true,
+            hasChildrenPermissions: false,
+            hasUnrestrictedPermissions: false,
+            hasDevPermissions: false,
+            hasAllocationsPermissions: false,
+          }),
+          residentFactory.build({
+            restricted: 'Y',
+            contextFlag: 'A',
           })
         )
       ).toEqual(false);
