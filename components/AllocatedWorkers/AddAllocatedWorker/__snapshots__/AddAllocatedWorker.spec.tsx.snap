@@ -14,7 +14,7 @@ exports[`AddAllocatedWorker should render properly 1`] = `
       role="combobox"
     >
       <label
-        class="lbh-label"
+        class="govuk-label lbh-label"
         id="downshift-0-label"
       >
         Select a team to view workers for that team 
@@ -231,96 +231,91 @@ exports[`AddAllocatedWorker should render properly 1`] = `
         </tr>
       </tbody>
     </table>
-    <div
+    <fieldset
+      aria-describedby="allocationStartDate-hint"
       class="lbh-form-group govuk-form-group"
     >
-      <fieldset
-        aria-describedby="allocationStartDate-hint"
-        class="lbh-fieldset govuk-fieldset"
-        role="group"
+      <legend
+        class="govuk-label"
       >
-        <legend
-          class="lbh-fieldset"
-        >
-          Allocation Start Date: 
-        </legend>
-        <span
-          class="lbh-hint"
-          id="allocationStartDate-hint"
-        />
+        Allocation Start Date: 
+      </legend>
+      <span
+        class="lbh-hint"
+        id="allocationStartDate-hint"
+      />
+      <div
+        class="lbh-date-input govuk-date-input"
+        id="allocationStartDate"
+      >
         <div
-          class="lbh-date-input govuk-date-input"
-          id="allocationStartDate"
+          class="lbh-date-input govuk-date-input__item"
         >
           <div
-            class="lbh-date-input govuk-date-input__item"
+            class="lbh-form-group govuk-form-group"
           >
-            <div
-              class="lbh-form-group govuk-form-group"
+            <label
+              class="lbh-label govuk-date-input__label"
+              for="allocationStartDate-day"
             >
-              <label
-                class="lbh-label govuk-date-input__label"
-                for="allocationStartDate-day"
-              >
-                Day
-              </label>
-              <input
-                class="lbh-date-input govuk-input govuk-input--width-2"
-                id="allocationStartDate-day"
-                inputmode="numeric"
-                name="allocationStartDate-day"
-                pattern="^\\\\d{2}$"
-                value=""
-              />
-            </div>
-          </div>
-          <div
-            class="lbh-date-input govuk-date-input__item"
-          >
-            <div
-              class="lbh-form-group govuk-form-group"
-            >
-              <label
-                class="lbh-label govuk-date-input__label"
-                for="allocationStartDate-month"
-              >
-                Month
-              </label>
-              <input
-                class="lbh-input govuk-input govuk-date-input__input govuk-input--width-2"
-                id="allocationStartDate-month"
-                inputmode="numeric"
-                name="allocationStartDate-month"
-                pattern="^\\\\d{2}$"
-                value=""
-              />
-            </div>
-          </div>
-          <div
-            class="lbh-date-input govuk-date-input__item"
-          >
-            <div
-              class="lbh-form-group govuk-form-group"
-            >
-              <label
-                class="lbh-label  govuk-date-input__label"
-                for="allocationStartDate-year"
-              >
-                Year
-              </label>
-              <input
-                class="lbh-input govuk-input govuk-date-input__input govuk-input--width-4"
-                id="allocationStartDate-year"
-                inputmode="numeric"
-                name="allocationStartDate-year"
-                pattern="^\\\\d{4}$"
-                value=""
-              />
-            </div>
+              Day
+            </label>
+            <input
+              class="lbh-date-input govuk-input govuk-input--width-2"
+              id="allocationStartDate-day"
+              inputmode="numeric"
+              name="allocationStartDate-day"
+              pattern="^\\\\d{2}$"
+              value=""
+            />
           </div>
         </div>
-      </fieldset>
-    </div>
+        <div
+          class="lbh-date-input govuk-date-input__item"
+        >
+          <div
+            class="lbh-form-group govuk-form-group"
+          >
+            <label
+              class="lbh-label govuk-date-input__label"
+              for="allocationStartDate-month"
+            >
+              Month
+            </label>
+            <input
+              class="lbh-input govuk-input govuk-date-input__input govuk-input--width-2"
+              id="allocationStartDate-month"
+              inputmode="numeric"
+              name="allocationStartDate-month"
+              pattern="^\\\\d{2}$"
+              value=""
+            />
+          </div>
+        </div>
+        <div
+          class="lbh-date-input govuk-date-input__item"
+        >
+          <div
+            class="lbh-form-group govuk-form-group"
+          >
+            <label
+              class="lbh-label  govuk-date-input__label"
+              for="allocationStartDate-year"
+            >
+              Year
+            </label>
+            <input
+              class="lbh-input govuk-input govuk-date-input__input govuk-input--width-4"
+              id="allocationStartDate-year"
+              inputmode="numeric"
+              name="allocationStartDate-year"
+              pattern="^\\\\d{4}$"
+              value=""
+            />
+          </div>
+        </div>
+      </div>
+    </fieldset>
     <button
       class="lbh-button govuk-button"
       data-module="govuk-button"

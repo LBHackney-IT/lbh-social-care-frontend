@@ -14,23 +14,23 @@ exports[`WorkerSearch should display search results 1`] = `
           class="govuk-grid-column-one-half"
         >
           <div
-            class="lbh-form-group govuk-form-group"
+            class="govuk-form-group lbh-form-group"
           >
             <label
-              class="lbh-label"
+              class="govuk-label lbh-label"
               for="email"
             >
               Worker's email address: 
             </label>
             <span
-              class="lbh-hint govuk-hint "
+              class="govuk-hint lbh-hint"
               id="email-hint"
             >
               Email address must contain @hackney.gov.uk
             </span>
             <input
               aria-describedby="email-hint"
-              class="lbh-input govuk-input"
+              class="govuk-input lbh-input"
               data-testid="email"
               id="email"
               name="email"
@@ -126,23 +126,23 @@ exports[`WorkerSearch should display the error 1`] = `
           class="govuk-grid-column-one-half"
         >
           <div
-            class="lbh-form-group govuk-form-group"
+            class="govuk-form-group lbh-form-group"
           >
             <label
-              class="lbh-label"
+              class="govuk-label lbh-label"
               for="email"
             >
               Worker's email address: 
             </label>
             <span
-              class="lbh-hint govuk-hint "
+              class="govuk-hint lbh-hint"
               id="email-hint"
             >
               Email address must contain @hackney.gov.uk
             </span>
             <input
               aria-describedby="email-hint"
-              class="lbh-input govuk-input"
+              class="govuk-input lbh-input"
               data-testid="email"
               id="email"
               name="email"

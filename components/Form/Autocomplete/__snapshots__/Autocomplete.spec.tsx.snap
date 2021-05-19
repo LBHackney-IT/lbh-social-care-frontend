@@ -11,7 +11,7 @@ exports[`Autocomplete should render properly 1`] = `
     role="combobox"
   >
     <label
-      class="lbh-label"
+      class="govuk-label lbh-label"
       id="downshift-0-label"
     >
       Foo 

@@ -14,7 +14,7 @@ exports[`AddForm component should render children forms 1`] = `
       role="combobox"
     >
       <label
-        class="lbh-label"
+        class="govuk-label lbh-label"
         id="downshift-1-label"
       >
         Choose a form 
