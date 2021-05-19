@@ -45,118 +45,115 @@ const DateInput = forwardRef<HTMLInputElement, InputProps>(
       [date, format, onChange]
     );
     return (
-      <div
+      <fieldset
         className={cx('lbh-form-group govuk-form-group', {
           'govuk-form-group--error': error,
         })}
+        aria-describedby={`${name}-hint`}
       >
-        <fieldset
-          className="lbh-fieldset govuk-fieldset"
-          role="group"
-          aria-describedby={`${name}-hint`}
-        >
-          <legend className="lbh-fieldset">
-            {label} {required && <span className="govuk-required">*</span>}
-          </legend>
-          <span id={`${name}-hint`} className="lbh-hint">
-            {hint}
-          </span>
-          {error && <ErrorMessage label={error.message} />}
-          <div className="lbh-date-input govuk-date-input" id={name}>
-            <div className="lbh-date-input govuk-date-input__item">
-              <div className="lbh-form-group govuk-form-group">
-                <label
-                  className="lbh-label govuk-date-input__label"
-                  htmlFor={`${name}-day`}
-                >
-                  Day
-                </label>
-                <input
-                  className={cx(
-                    'lbh-date-input govuk-input govuk-input--width-2',
-                    {
-                      'govuk-input--error': error,
-                    }
-                  )}
-                  id={`${name}-day`}
-                  name={`${name}-day`}
-                  pattern="^\d{2}$"
-                  inputMode="numeric"
-                  defaultValue={date.day}
-                  onChange={({
-                    target: {
-                      value,
-                      validity: { valid },
-                    },
-                  }) => valid && setNewDate({ day: value })}
-                  ref={ref}
-                  {...otherProps}
-                />
-              </div>
-            </div>
-            <div className="lbh-date-input govuk-date-input__item">
-              <div className="lbh-form-group govuk-form-group">
-                <label
-                  className="lbh-label govuk-date-input__label"
-                  htmlFor={`${name}-month`}
-                >
-                  Month
-                </label>
-                <input
-                  className={cx(
-                    'lbh-input govuk-input govuk-date-input__input govuk-input--width-2',
-                    {
-                      'govuk-input--error': error,
-                    }
-                  )}
-                  id={`${name}-month`}
-                  name={`${name}-month`}
-                  pattern="^\d{2}$"
-                  inputMode="numeric"
-                  defaultValue={date.month}
-                  onChange={({
-                    target: {
-                      value,
-                      validity: { valid },
-                    },
-                  }) => valid && setNewDate({ month: value })}
-                  {...otherProps}
-                />
-              </div>
-            </div>
-            <div className="lbh-date-input govuk-date-input__item">
-              <div className="lbh-form-group govuk-form-group">
-                <label
-                  className="lbh-label  govuk-date-input__label"
-                  htmlFor={`${name}-year`}
-                >
-                  Year
-                </label>
-                <input
-                  className={cx(
-                    'lbh-input govuk-input govuk-date-input__input govuk-input--width-4',
-                    {
-                      'govuk-input--error': error,
-                    }
-                  )}
-                  id={`${name}-year`}
-                  name={`${name}-year`}
-                  pattern="^\d{4}$"
-                  inputMode="numeric"
-                  defaultValue={date.year}
-                  onChange={({
-                    target: {
-                      value,
-                      validity: { valid },
-                    },
-                  }) => valid && setNewDate({ year: value })}
-                  {...otherProps}
-                />
-              </div>
+        <legend className="govuk-label">
+          {label} {required && <span className="govuk-required">*</span>}
+        </legend>
+        <span id={`${name}-hint`} className="lbh-hint">
+          {hint}
+        </span>
+        {error && <ErrorMessage label={error.message} />}
+        <div className="lbh-date-input govuk-date-input" id={name}>
+          <div className="lbh-date-input govuk-date-input__item">
+            <div className="lbh-form-group govuk-form-group">
+              <label
+                className="lbh-label govuk-date-input__label"
+                htmlFor={`${name}-day`}
+              >
+                Day
+              </label>
+              <input
+                className={cx(
+                  'lbh-date-input govuk-input govuk-input--width-2',
+                  {
+                    'govuk-input--error': error,
+                  }
+                )}
+                id={`${name}-day`}
+                name={`${name}-day`}
+                pattern="^\d{2}$"
+                inputMode="numeric"
+                defaultValue={date.day}
+                onChange={({
+                  target: {
+                    value,
+                    validity: { valid },
+                  },
+                }) => valid && setNewDate({ day: value })}
+                ref={ref}
+                {...otherProps}
+              />
             </div>
           </div>
-        </fieldset>
-      </div>
+
+          <div className="lbh-date-input govuk-date-input__item">
+            <div className="lbh-form-group govuk-form-group">
+              <label
+                className="lbh-label govuk-date-input__label"
+                htmlFor={`${name}-month`}
+              >
+                Month
+              </label>
+              <input
+                className={cx(
+                  'lbh-input govuk-input govuk-date-input__input govuk-input--width-2',
+                  {
+                    'govuk-input--error': error,
+                  }
+                )}
+                id={`${name}-month`}
+                name={`${name}-month`}
+                pattern="^\d{2}$"
+                inputMode="numeric"
+                defaultValue={date.month}
+                onChange={({
+                  target: {
+                    value,
+                    validity: { valid },
+                  },
+                }) => valid && setNewDate({ month: value })}
+                {...otherProps}
+              />
+            </div>
+          </div>
+
+          <div className="lbh-date-input govuk-date-input__item">
+            <div className="lbh-form-group govuk-form-group">
+              <label
+                className="lbh-label  govuk-date-input__label"
+                htmlFor={`${name}-year`}
+              >
+                Year
+              </label>
+              <input
+                className={cx(
+                  'lbh-input govuk-input govuk-date-input__input govuk-input--width-4',
+                  {
+                    'govuk-input--error': error,
+                  }
+                )}
+                id={`${name}-year`}
+                name={`${name}-year`}
+                pattern="^\d{4}$"
+                inputMode="numeric"
+                defaultValue={date.year}
+                onChange={({
+                  target: {
+                    value,
+                    validity: { valid },
+                  },
+                }) => valid && setNewDate({ year: value })}
+                {...otherProps}
+              />
+            </div>
+          </div>
+        </div>
+      </fieldset>
     );
   }
 );
