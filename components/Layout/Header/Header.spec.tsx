@@ -71,7 +71,8 @@ describe('Header component', () => {
         <Header {...props} />
       </UserContext.Provider>
     );
-    expect(getByText('My work space')).toBeInTheDocument();
+    // TODO: uncomment when dashboard is back
+    // expect(getByText('My work space')).toBeInTheDocument();
     expect(asFragment()).toMatchSnapshot();
   });
 });
