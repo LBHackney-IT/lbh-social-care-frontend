@@ -15,14 +15,15 @@ const loggedNavLinks = [
     isSelected: (pathname: string) =>
       pathname === '/search' || pathname === '/cases',
   },
-  {
-    name: 'My work space',
-    path: '/',
-    isSelected: (pathname: string) =>
-      pathname === '/' ||
-      pathname === '/my-records' ||
-      pathname === '/forms-in-progress',
-  },
+  // TODO: uncomment when dashboard is ready to launch
+  // {
+  //   name: 'My work space',
+  //   path: '/',
+  //   isSelected: (pathname: string) =>
+  //     pathname === '/' ||
+  //     pathname === '/my-records' ||
+  //     pathname === '/forms-in-progress',
+  // },
   {
     name: 'Manage workers',
     path: '/workers',
