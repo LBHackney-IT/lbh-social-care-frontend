@@ -8,31 +8,11 @@ import { useAuth } from 'components/UserContext/UserContext';
 import { useAllocatedWorkers } from 'utils/api/allocatedWorkers';
 
 import { Resident, User } from 'types';
+import { canUserAllocateWorkerToPerson } from '../../lib/permissions';
 
 interface Props {
   person: Resident;
 }
-
-const canUserAllocateWorkerToPerson = (user: User, person: Resident) => {
-  if (user.hasAdminPermissions || user.hasDevPermissions) {
-    return true;
-  }
-
-  if (user.hasChildrenPermissions && person.contextFlag === 'C') {
-    // Children's doesn't require `hasAllocationsPermissions`, as anyone can allocate in CFS
-    return true;
-  }
-
-  if (
-    user.hasAdultPermissions &&
-    person.contextFlag === 'A' &&
-    (user.hasAllocationsPermissions || false)
-  ) {
-    return true;
-  }
-
-  return false;
-};
 
 const AllocatedWorkers = ({ person }: Props): React.ReactElement => {
   const { data: { allocations } = {}, error } = useAllocatedWorkers(person.id);
