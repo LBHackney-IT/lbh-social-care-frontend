@@ -87,6 +87,7 @@ const CasesWrapper = ({ id, person }: WrapperProps): React.ReactElement => {
       ) : (
         <ErrorSummary
           title="RESTRICTED"
+          role="complementary"
           body="Some details for this person are restricted due to your permissions."
         />
       )}

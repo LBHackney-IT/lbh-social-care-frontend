@@ -26,7 +26,7 @@ exports[`Cases component should render a error message when a person is restrict
       aria-labelledby="error-summary-title"
       class="govuk-error-summary"
       data-module="govuk-error-summary"
-      role="alert"
+      role="complementary"
       tabindex="-1"
     >
       <h2
