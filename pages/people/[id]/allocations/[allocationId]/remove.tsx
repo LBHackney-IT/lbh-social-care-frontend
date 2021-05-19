@@ -5,16 +5,33 @@ import DeallocateWorkers from 'components/AllocatedWorkers/DeallocateWorker/Deal
 import PersonView from 'components/PersonView/PersonView';
 import { useAuth } from 'components/UserContext/UserContext';
 import { isBrowser } from 'utils/ssr';
+import { useResident } from 'utils/api/residents';
+import { canUserAllocateWorkerToPerson } from 'lib/permissions';
+import Spinner from 'components/Spinner/Spinner';
+import ErrorMessage from 'components/ErrorMessage/ErrorMessage';
+import { User } from 'types';
 
-const RemovedAllocationPage = (): React.ReactElement => {
+const RemovedAllocationPage: React.FC = () => {
   const { query, replace } = useRouter();
   const personId = Number(query.id as string);
+  const { data: person, error } = useResident(personId);
   const allocationId = Number(query.allocationId as string);
-  const { user } = useAuth();
-  if (isBrowser() && !user?.hasAllocationsPermissions) {
-    replace(`/people/${personId}`);
-    return <></>;
+  const { user } = useAuth() as { user: User };
+
+  if (!person) {
+    return <Spinner />;
   }
+
+  if (error) {
+    return <ErrorMessage />;
+  }
+
+  if (isBrowser() && !canUserAllocateWorkerToPerson(user, person)) {
+    replace(`/people/${personId}`);
+
+    return null;
+  }
+
   return (
     <>
       <Seo title={`Deallocate Worker from #${query.id} `} />
