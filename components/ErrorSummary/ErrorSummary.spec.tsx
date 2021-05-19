@@ -15,4 +15,11 @@ describe('ErrorSummary component', () => {
     const { asFragment } = render(<ErrorSummary {...props} />);
     expect(asFragment()).toMatchSnapshot();
   });
+
+  it('should pass through the role attribute', () => {
+    const { getByRole } = render(
+      <ErrorSummary {...props} role="complementary" />
+    );
+    getByRole('complementary');
+  });
 });
