@@ -16,7 +16,7 @@ describe('BackButton', () => {
 
   it('should trigger history back on click', () => {
     const { getByText } = render(<BackButton />);
-    const button = getByText('Back');
+    const button = getByText('Go back');
     fireEvent.click(button);
     expect(Router.back).toHaveBeenCalled();
   });

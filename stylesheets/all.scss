@@ -149,3 +149,14 @@ button.govuk-link {
 .govuk-heading-l {
   font-weight: 600;
 }
+
+// keep back links the normal colour
+.lbh-back-link {
+  &:visited {
+    color: lbh-colour('lbh-link');
+  }
+  &:hover,
+  &:active {
+    color: lbh-colour('lbh-text');
+  }
+}
