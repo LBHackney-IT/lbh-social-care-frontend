@@ -54,12 +54,10 @@ interface RepeaterGroupAnswer {
 }
 
 export interface FlexibleAnswers {
-  answers: {
-    // sections
-    [key: string]: {
-      // questions and answers
-      [key: string]: string | (string | RepeaterGroupAnswer)[];
-    };
+  // sections
+  [key: string]: {
+    // questions and answers
+    [key: string]: string | (string | RepeaterGroupAnswer)[];
   };
 }
 

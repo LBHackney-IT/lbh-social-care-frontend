@@ -9,13 +9,14 @@ const handler = async (
   req: NextApiRequest,
   res: NextApiResponse
 ): Promise<void> => {
+  const { id, stepId } = req.query;
+
   let permissionFlag;
   const user = isAuthorised(req);
   if (user) permissionFlag = getPermissionFlag(user);
 
-  const { id } = req.query;
-
-  // TODO: use a real api call here
+  // 1. grab submission
+  // TODO: replace with real api call
   const submission: Submission = {
     id: String(id),
     socialCareId: 1,
@@ -30,17 +31,36 @@ const handler = async (
     discardedAt: null,
   };
 
-  const person = await getResident(submission.socialCareId, {
-    context_flag: permissionFlag,
-  });
-
+  // 2. grab this particular step from the form
   const form = forms.find((form) => form.id === submission.formId);
+  const step = form?.steps.find((step) => step.id === stepId);
 
-  res.json({
-    ...submission,
-    person,
-    form,
-  });
+  if (!step)
+    res.status(404).json({
+      error: 'Step not found',
+    });
+
+  if (req.method === 'PATCH') {
+    // TODO: replace with real logic to reconcile the old submission with the new
+
+    res.json({
+      ...submission,
+    });
+  } else {
+    // 3. grab person
+    const person = await getResident(submission.socialCareId, {
+      context_flag: permissionFlag,
+    });
+
+    res.json({
+      ...submission,
+      // include the answers for this step only
+      stepAnswers: submission.answers[stepId.toString()],
+      form,
+      step,
+      person,
+    });
+  }
 };
 
 export default handler;
