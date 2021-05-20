@@ -64,6 +64,14 @@ jobs:
       - store_artifacts:
           path: ~/project/cypress/videos
 
+  build-deploy-preview:
+    executor: aws-cli/default
+    steps:
+      - *attach_workspace
+      - run:
+          name: deploy
+          command: yarn build && yarn --production=true && sudo npm i -g serverless && sls deploy --stage preview-$CIRCLE_BRANCH
+
   build-deploy-staging:
     executor: aws-cli/default
     steps:
@@ -125,6 +133,13 @@ workflows:
           filters:
             branches:
               only: main
+      - build-deploy-preview:
+          requires:
+            - assume-role-staging
+          filters:
+            branches:
+              ignore:
+                - main
       - build-deploy-staging:
           requires:
             - assume-role-staging
