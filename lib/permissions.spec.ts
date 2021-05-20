@@ -59,7 +59,7 @@ describe('permissions', () => {
             contextFlag: 'C',
           })
         )
-      ).toEqual(false);
+      ).toEqual(true);
     });
 
     it('should return true when the user is in CFS, has unrestricted permissions, and the resident is a restricted child', () => {
@@ -78,7 +78,7 @@ describe('permissions', () => {
             contextFlag: 'C',
           })
         )
-      ).toEqual(false);
+      ).toEqual(true);
     });
 
     it('should return false when the user is in CFS, does not have unrestricted permissions, and the resident is a restricted child', () => {
