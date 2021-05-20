@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import App, { AppInitialProps, AppContext, AppProps } from 'next/app';
-import { NextComponentType } from 'next/app';
+import { NextComponentType } from 'next';
 import axios from 'axios';
 import { SWRConfig } from 'swr';
 
