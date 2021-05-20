@@ -90,7 +90,7 @@ describe('PersonView component', () => {
       revalidate: jest.fn(),
     }));
 
-    const { getByText } = render(
+    const { queryByText } = render(
       <UserContext.Provider
         value={{
           user: userFactory.build({
@@ -104,7 +104,7 @@ describe('PersonView component', () => {
       </UserContext.Provider>
     );
 
-    getByText('Update person');
+    expect(queryByText('Update person')).toBeNull();
   });
 
   it('should not render the "Edit" button if the resident is an Adult – awaiting sign off from ASC', async () => {
