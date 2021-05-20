@@ -14,14 +14,4 @@ const MyCasesPage = (): React.ReactElement => (
   </div>
 );
 
-// TODO: remove this redirect when dashboard is ready to launch
-export const getServerSideProps = async () => {
-  return {
-    props: {},
-    redirect: {
-      destination: '/search',
-    },
-  };
-};
-
 export default MyCasesPage;
