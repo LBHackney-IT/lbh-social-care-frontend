@@ -1,8 +1,15 @@
-import { Form, Step } from '../data/flexibleForms/forms.types';
+import { Form, Step, Field } from '../data/flexibleForms/forms.types';
+import { Resident } from 'types';
 
 export interface Theme {
   name: string;
   steps: Step[];
+}
+
+type InitialValue = null | string | string[] | InitialValues[];
+
+export interface InitialValues {
+  [key: string]: InitialValue;
 }
 
 /** Take a form's steps and organise them by theme for displaying in a task list */
@@ -27,4 +34,29 @@ export const truncate = (str: string, noWords: number): string => {
   } else {
     return str;
   }
+};
+
+/** Generate flexible initial values for a flexible schema */
+export const generateInitialValues = (
+  fields: Field[],
+  person: Resident
+): InitialValues => {
+  const initialValues: InitialValues = {};
+  fields.map((field) => {
+    if (field.type === 'repeaterGroup') {
+      initialValues[field.id] = [
+        generateInitialValues(field.subfields, person),
+      ];
+    } else if (field.type === 'checkboxes' || field.type === 'repeater') {
+      initialValues[field.id] = [];
+    } else if (field.type === 'file') {
+      initialValues[field.id] = null;
+    } else if (field.type === 'select') {
+      initialValues[field.id] =
+        (person && person[field.prefill]) || field.choices[0].value;
+    } else {
+      initialValues[field.id] = (person && person[field.prefill]) || '';
+    }
+  });
+  return initialValues;
 };
