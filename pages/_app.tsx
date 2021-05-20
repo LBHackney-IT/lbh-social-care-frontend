@@ -20,7 +20,7 @@ interface Props {
 
 interface ExtendedAppProps extends AppProps<Props> {
   Component: NextComponentType & {
-    Postheader: React.ComponentClass;
+    goBackButton?: boolean;
   };
 }
 
