@@ -4,7 +4,7 @@ import Head from 'next/head';
 import PersonWidget from 'components/PersonWidget/PersonWidget';
 import StepForm from 'components/FlexibleForms/StepForm';
 import { useRouter } from 'next/router';
-import s from '../../../../styles/Sidebar.module.scss';
+import s from 'stylesheets/Sidebar.module.scss';
 import Banner from 'components/FlexibleForms/Banner';
 import { Form, Step, Field } from 'data/flexibleForms/forms.types';
 import { Resident } from 'types';
@@ -23,7 +23,7 @@ interface Props {
   form: Form;
 }
 
-const Step = ({
+const StepPage = ({
   params,
   stepAnswers,
   person,
@@ -116,8 +116,6 @@ const Step = ({
   );
 };
 
-Step.goBackButton = true;
-
 export const getServerSideProps: GetServerSideProps = async ({ params }) => {
   const protocol = getProtocol();
 
@@ -143,4 +141,4 @@ export const getServerSideProps: GetServerSideProps = async ({ params }) => {
   };
 };
 
-export default Step;
+export default StepPage;

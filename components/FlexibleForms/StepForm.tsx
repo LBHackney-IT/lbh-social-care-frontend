@@ -1,6 +1,5 @@
 import { Formik, Form } from 'formik';
 import { Field } from 'data/flexibleForms/forms.types';
-import { AutosaveTrigger } from 'contexts/autosaveContext';
 import { generateFlexibleSchema } from 'lib/validators';
 import FlexibleField from './FlexibleFields';
 import { Resident } from 'types';
@@ -39,7 +38,6 @@ const StepForm = ({
       {({
         values,
         isSubmitting,
-        isValidating,
         setSubmitting,
         touched,
         errors,
@@ -47,7 +45,6 @@ const StepForm = ({
         status,
         submitForm,
         isValid,
-        validateForm,
       }) => (
         <Form>
           {status && (
@@ -69,8 +66,6 @@ const StepForm = ({
               values={values}
             />
           ))}
-
-          <AutosaveTrigger />
 
           <button
             className="govuk-button lbh-button"
