@@ -2,12 +2,14 @@ import Seo from './Seo/Seo';
 import Header from './Header/Header';
 import SkipLink from './SkipLink/SkipLink';
 import PhaseBanner from './PhaseBanner/PhaseBanner';
+import BackButton from './BackButton/BackButton';
 
 export interface Props {
   children: React.ReactChild;
+  goBackButton?: boolean;
 }
 
-const Layout = ({ children }: Props): React.ReactElement => {
+const Layout = ({ goBackButton, children }: Props): React.ReactElement => {
   const feedbackLink = process.env.NEXT_PUBLIC_FEEDBACK_LINK || '';
   return (
     <>
@@ -15,6 +17,8 @@ const Layout = ({ children }: Props): React.ReactElement => {
       <SkipLink />
       <Header serviceName="Social Care" />
       <PhaseBanner phase="beta" feedbackLink={feedbackLink} />
+      {goBackButton && <BackButton />}
+
       <div className="govuk-width-container">
         <main className="govuk-main-wrapper" id="content" role="main">
           {children}

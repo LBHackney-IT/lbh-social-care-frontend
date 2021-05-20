@@ -2,7 +2,6 @@ import Seo from 'components/Layout/Seo/Seo';
 import { useRouter } from 'next/router';
 
 import AddAllocatedWorker from 'components/AllocatedWorkers/AddAllocatedWorker/AddAllocatedWorker';
-import BackButton from 'components/Layout/BackButton/BackButton';
 import PersonView from 'components/PersonView/PersonView';
 import { useAuth } from 'components/UserContext/UserContext';
 import { isBrowser } from 'utils/ssr';
@@ -18,7 +17,6 @@ const AddNewAllocationPage = (): React.ReactElement => {
   return (
     <>
       <Seo title={`Allocate Worker to #${query.id} Allocate Worker`} />
-      <BackButton />
       <h1 className="govuk-fieldset__legend--l gov-weight-lighter">
         Allocate worker to
       </h1>
@@ -35,5 +33,7 @@ const AddNewAllocationPage = (): React.ReactElement => {
     </>
   );
 };
+
+AddNewAllocationPage.goBackButton = true;
 
 export default AddNewAllocationPage;

@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import App, { AppInitialProps, AppContext, AppProps } from 'next/app';
+import { NextComponentType } from 'next/app';
 import axios from 'axios';
 import { SWRConfig } from 'swr';
 
@@ -17,10 +18,16 @@ interface Props {
   user?: Partial<User>;
 }
 
+interface ExtendedAppProps extends AppProps<Props> {
+  Component: NextComponentType & {
+    Postheader: React.ComponentClass;
+  };
+}
+
 const CustomApp = ({
   Component,
   pageProps,
-}: AppProps<Props>): JSX.Element | null => {
+}: ExtendedAppProps): JSX.Element | null => {
   const [user] = useState(pageProps.user);
   return (
     <>
@@ -35,7 +42,7 @@ const CustomApp = ({
       >
         <AuthProvider user={user}>
           <GoogleAnalytics>
-            <Layout>
+            <Layout goBackButton={Component.goBackButton}>
               <Component {...pageProps} />
             </Layout>
           </GoogleAnalytics>

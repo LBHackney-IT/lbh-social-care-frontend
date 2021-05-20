@@ -3,7 +3,6 @@ import { useRouter } from 'next/router';
 
 import PersonView from 'components/PersonView/PersonView';
 import { useAuth } from 'components/UserContext/UserContext';
-import BackButton from 'components/Layout/BackButton/BackButton';
 import FormWizard from 'components/FormWizard/FormWizard';
 import ErrorMessage from 'components/ErrorMessage/ErrorMessage';
 import Seo from 'components/Layout/Seo/Seo';
@@ -39,7 +38,6 @@ const CaseNotesRecording = (): ReactElement => {
     <>
       <Seo title="Case note" />
       <>
-        <BackButton />
         <h1 className="govuk-fieldset__legend--l gov-weight-lighter">
           Conversation 3
         </h1>
@@ -64,5 +62,7 @@ const CaseNotesRecording = (): ReactElement => {
     </>
   );
 };
+
+CaseNotesRecording.goBackButton = true;
 
 export default CaseNotesRecording;

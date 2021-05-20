@@ -4,7 +4,6 @@ import { useRouter } from 'next/router';
 import Seo from 'components/Layout/Seo/Seo';
 import PersonView from 'components/PersonView/PersonView';
 import { useAuth } from 'components/UserContext/UserContext';
-import BackButton from 'components/Layout/BackButton/BackButton';
 import FormWizard from 'components/FormWizard/FormWizard';
 import { addCase } from 'utils/api/cases';
 import PersonLinkConfirmation from 'components/Steps/PersonLinkConfirmation';
@@ -40,7 +39,6 @@ const CaseNotesRecording = (): React.ReactElement => {
     <>
       <Seo title="Case note" />
       <>
-        <BackButton />
         <h1 className="govuk-fieldset__legend--l gov-weight-lighter">
           Case note for
         </h1>
@@ -67,5 +65,7 @@ const CaseNotesRecording = (): React.ReactElement => {
     </>
   );
 };
+
+CaseNotesRecording.goBackButton = true;
 
 export default CaseNotesRecording;
