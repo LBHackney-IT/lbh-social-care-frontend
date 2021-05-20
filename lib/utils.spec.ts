@@ -1,4 +1,4 @@
-import { truncate, groupByTheme } from './utils';
+import { truncate, groupByTheme, pushUnique } from './utils';
 
 describe('truncate', () => {
   it('leaves short text unaltered', () => {
@@ -41,5 +41,17 @@ describe('groupByTheme', () => {
     expect(result[0].steps.length).toEqual(2);
     expect(result[1].name).toEqual('Second theme');
     expect(result[1].steps.length).toEqual(1);
+  });
+});
+
+describe('pushUnique', () => {
+  it('removes duplicates', () => {
+    const result = pushUnique(['one', 'two', 'three', 'three'], 'three');
+    expect(result).toEqual(['one', 'two', 'three']);
+  });
+
+  it('leaves arrays without duplicates alone', () => {
+    const result = pushUnique(['one', 'two', 'three', 'four'], 'five');
+    expect(result).toEqual(['one', 'two', 'three', 'four', 'five']);
   });
 });
