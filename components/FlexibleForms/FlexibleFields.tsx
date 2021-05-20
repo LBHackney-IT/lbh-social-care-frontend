@@ -4,8 +4,7 @@ import CheckboxField from './CheckboxField';
 import SelectField from './SelectField';
 import RepeaterField from './RepeaterField';
 import RepeaterGroupField from './RepeaterGroupField';
-// import FileUploadField from "./FileUploadField"
-// import ComboboxField from './ComboboxField';
+import ComboboxField from './ComboboxField';
 import { FormikValues, FormikTouched, FormikErrors } from 'formik';
 import { Field } from 'data/flexibleForms/forms.types';
 
@@ -22,17 +21,6 @@ const FlexibleField = ({
 }): React.ReactElement | null => {
   if (field.condition && values[field.condition.id] !== field.condition.value)
     return null;
-
-  // if (field.type === "file")
-  //   return (
-  //     <FileUploadField
-  //       name={field.id}
-  //       label={field.question}
-  //       touched={touched}
-  //       errors={errors}
-  //       {...field}
-  //     />
-  //   )
 
   if (field.type === 'repeaterGroup')
     return (
@@ -102,17 +90,17 @@ const FlexibleField = ({
       />
     );
 
-  // if (field.type === 'combobox')
-  //   return (
-  //     <ComboboxField
-  //       name={field.id}
-  //       label={field.question}
-  //       touched={touched}
-  //       choices={field.choices}
-  //       errors={errors}
-  //       {...field}
-  //     />
-  //   );
+  if (field.type === 'combobox')
+    return (
+      <ComboboxField
+        name={field.id}
+        label={field.question}
+        touched={touched}
+        choices={field.choices}
+        errors={errors}
+        {...field}
+      />
+    );
 
   if (field.type === 'select')
     return (
