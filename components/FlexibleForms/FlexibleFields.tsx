@@ -19,7 +19,7 @@ const FlexibleField = ({
   field: Field;
   touched: FormikTouched<FormikValues>;
   errors: FormikErrors<FormikValues>;
-}): React.ReactElement => {
+}): React.ReactElement | null => {
   if (field.condition && values[field.condition.id] !== field.condition.value)
     return null;
 
