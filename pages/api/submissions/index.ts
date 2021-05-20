@@ -10,10 +10,6 @@ const handler = async (
     const { socialCareId, formId } = req.body;
 
     // TODO: start a new submission here
-    // const newSubmission = await addCase({
-    //   socialCareId,
-    //   formId,
-    // });
 
     // TODO: send back new case object
     res.json({
