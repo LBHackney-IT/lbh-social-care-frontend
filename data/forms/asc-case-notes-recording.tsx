@@ -27,6 +27,7 @@ const formSteps: FormStep[] = [
         label: 'Date of Event',
         hint: 'For example, 31 03 1980',
         rules: { required: 'Please provide a valid date.' },
+        defaultToday: true,
       },
       {
         component: 'TextInput',
