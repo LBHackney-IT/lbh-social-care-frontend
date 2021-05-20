@@ -44,7 +44,7 @@ const formSteps: FormStep[] = [
         rules: { required: true },
       },
       {
-        component: 'DateInput',
+        component: 'DatePicker',
         name: 'dateOfEvent',
         label: 'Date of Event',
         hint: 'For example, 31 03 1980',
