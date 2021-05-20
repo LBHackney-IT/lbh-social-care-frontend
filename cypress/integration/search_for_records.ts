@@ -1,14 +1,12 @@
 import { AuthRoles } from '../support/commands';
 
 describe('Search for records by person', () => {
-  it('has no detectable accessibility problems', () => {
-    cy.injectAxe();
-    cy.checkA11y();
-  });
-
   describe('As a user in the Admin Dev group', () => {
     it('Search of Adult group record', () => {
       cy.visitAs('/cases', AuthRoles.AdminDevGroup);
+
+      cy.injectAxe();
+      cy.checkA11y();
 
       cy.contains('First name:').type(Cypress.env('ADULT_RECORD_FIRST_NAME'));
       cy.contains('Last name:').type(Cypress.env('ADULT_RECORD_LAST_NAME'));
@@ -18,6 +16,9 @@ describe('Search for records by person', () => {
 
     it('Search of Children group record', () => {
       cy.visitAs('/cases', AuthRoles.AdminDevGroup);
+
+      cy.injectAxe();
+      cy.checkA11y();
 
       cy.contains('First name:').type(
         Cypress.env('CHILDREN_RECORD_FIRST_NAME')

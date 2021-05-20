@@ -1,11 +1,6 @@
 import { AuthRoles } from '../support/commands';
 
 describe('Test Form', () => {
-  it('has no detectable accessibility problems', () => {
-    cy.injectAxe();
-    cy.checkA11y();
-  });
-
   describe('As a user in the Admin Dev group', () => {
     it('submit the form and show a confirmation page', () => {
       cy.visitAs('/form/test/first-step', AuthRoles.AdminDevGroup);
@@ -17,6 +12,9 @@ describe('Test Form', () => {
         },
         []
       ).as('apiCheck');
+
+      cy.injectAxe();
+      cy.checkA11y();
 
       cy.get('[for="show_next_input_Y"]').click();
       cy.contains('I am the conditional field').should('be.visible');

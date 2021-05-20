@@ -1,17 +1,15 @@
 import { AuthRoles } from '../support/commands';
 
 describe('Adding records', () => {
-  it('has no detectable accessibility problems', () => {
-    cy.injectAxe();
-    cy.checkA11y();
-  });
-
   describe('As a user in the Adults group', () => {
     it('should go to the add case note form when "Case Note Recording" is selected', () => {
       cy.visitAs(
         `/people/${Cypress.env('ADULT_RECORD_PERSON_ID')}`,
         AuthRoles.AdultsGroup
       );
+
+      cy.injectAxe();
+      cy.checkA11y();
 
       cy.contains('ASC');
       cy.contains('Add a new record').click();
@@ -42,6 +40,9 @@ describe('Adding records', () => {
         `/people/${Cypress.env('CHILDREN_RECORD_PERSON_ID')}`,
         AuthRoles.ChildrensGroup
       );
+
+      cy.injectAxe();
+      cy.checkA11y();
 
       cy.contains('CFS');
       cy.contains(Cypress.env('CHILDREN_RECORD_FULL_NAME')).should(

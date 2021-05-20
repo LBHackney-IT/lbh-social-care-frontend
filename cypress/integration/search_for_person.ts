@@ -1,14 +1,12 @@
 import { AuthRoles } from '../support/commands';
 
 describe('Search for a person', () => {
-  it('has no detectable accessibility problems', () => {
-    cy.injectAxe();
-    cy.checkA11y();
-  });
-
   describe('As a user in the Childrens group', () => {
     it('should show a list that contains children records when a search is completed', () => {
       cy.visitAs('/search', AuthRoles.ChildrensGroup);
+
+      cy.injectAxe();
+      cy.checkA11y();
 
       cy.contains('First name:').type(
         Cypress.env('CHILDREN_RECORD_FIRST_NAME')

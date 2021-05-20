@@ -13,6 +13,9 @@ describe('Viewing a created warning note', () => {
         AuthRoles.AdultsGroup
       );
 
+      cy.injectAxe();
+      cy.checkA11y();
+
       cy.contains('td', 'Warning Note Created')
         .siblings()
         .contains('a', 'View')
@@ -39,6 +42,9 @@ describe('Viewing a created warning note', () => {
         `/people/${Cypress.env('CHILDREN_RECORD_PERSON_ID')}`,
         AuthRoles.ChildrensGroup
       );
+
+      cy.injectAxe();
+      cy.checkA11y();
 
       cy.contains('td', 'Warning Note Created')
         .siblings()
