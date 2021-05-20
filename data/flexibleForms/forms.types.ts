@@ -48,3 +48,31 @@ export interface Form {
   name: string;
   steps: Step[];
 }
+
+interface RepeaterGroupAnswer {
+  [key: string]: string | string[];
+}
+
+export interface FlexibleAnswers {
+  answers: {
+    // sections
+    [key: string]: {
+      // questions and answers
+      [key: string]: string | (string | RepeaterGroupAnswer)[];
+    };
+  };
+}
+
+export interface Submission {
+  id: string;
+  socialCareId: number;
+  formId: string;
+  answers: FlexibleAnswers;
+  completedSteps: string[];
+  createdBy: string;
+  editedBy: string[];
+  createdAt: string;
+  updatedAt: string;
+  submittedAt: string | null;
+  discardedAt: string | null;
+}

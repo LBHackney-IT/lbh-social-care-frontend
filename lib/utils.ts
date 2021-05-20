@@ -60,3 +60,8 @@ export const generateInitialValues = (
   });
   return initialValues;
 };
+
+/** Push an element into an array, without duplicates */
+export const pushUnique = (array: string[], newElement: string): string[] => [
+  ...new Set(array).add(newElement),
+];
