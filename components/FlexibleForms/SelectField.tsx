@@ -6,6 +6,7 @@ import {
   FormikTouched,
   FormikValues,
 } from 'formik';
+import cx from 'classnames';
 
 interface FieldProps {
   touched: FormikTouched<FormikValues>;
@@ -59,7 +60,7 @@ const Field = ({
       name={name}
       id={name}
       aria-describedby={hint ? `${name}-hint` : false}
-      className={`govuk-select lbh-select ${className}`}
+      className={cx(`govuk-select lbh-select`, className)}
     >
       {choices.map((choice) => (
         <option value={choice.value} key={choice.value}>

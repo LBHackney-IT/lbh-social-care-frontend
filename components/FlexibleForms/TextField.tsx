@@ -6,6 +6,7 @@ import {
   FormikTouched,
   FormikValues,
 } from 'formik';
+import cx from 'classnames';
 
 interface FieldProps {
   touched: FormikTouched<FormikValues>;
@@ -58,11 +59,12 @@ const Field = ({
       name={name}
       id={name}
       type={type}
-      className={`${
+      className={cx(
         as === 'textarea'
           ? 'govuk-textarea lbh-textarea'
-          : 'govuk-input lbh-input'
-      } ${className}`}
+          : 'govuk-input lbh-input',
+        className
+      )}
       aria-describedby={hint && `${name}-hint`}
       as={as}
       rows={rows}
