@@ -52,7 +52,7 @@ describe('SelectField', () => {
       <Formik
         onSubmit={mockSubmit}
         initialValues={{
-          foo: '1',
+          foo: '2',
         }}
       >
         {({ touched, errors }) => (
@@ -69,7 +69,7 @@ describe('SelectField', () => {
         )}
       </Formik>
     );
-    expect(screen.getByDisplayValue('Foo option'));
+    expect(screen.getByDisplayValue('Bar option'));
   });
 
   it('renders errors', () => {

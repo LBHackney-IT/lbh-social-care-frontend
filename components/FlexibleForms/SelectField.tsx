@@ -15,7 +15,6 @@ interface FieldProps {
   type?: string;
   hint?: string;
   className?: string;
-  required?: boolean;
   choices: {
     value: string;
     label: string;
