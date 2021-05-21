@@ -16,8 +16,8 @@ describe('Viewing a created warning note', () => {
       cy.contains('RECORDS HISTORY').should('not.exist');
 
       cy.contains(Cypress.env('ADULT_RECORD_FULL_NAME')).should('be.visible');
-      cy.contains('Expand view').click();
-      cy.contains('Collapse view').should('be.visible');
+      cy.contains('Show details').click();
+      cy.contains('Hide details').should('be.visible');
       cy.contains('Warning Note Details').should('be.visible');
       cy.contains('WARNING DETAILS').should('be.visible');
 
@@ -45,8 +45,8 @@ describe('Viewing a created warning note', () => {
       cy.contains(Cypress.env('CHILDREN_RECORD_FULL_NAME')).should(
         'be.visible'
       );
-      cy.contains('Expand view').click();
-      cy.contains('Collapse view').should('be.visible');
+      cy.contains('Show details').click();
+      cy.contains('Hide details').should('be.visible');
       cy.contains('Warning Note Details').should('be.visible');
       cy.contains('WARNING DETAILS').should('be.visible');
 
