@@ -14,7 +14,7 @@ exports[`PersonDetails component should render properly - expanded 1`] = `
       <button
         class="govuk-link"
       >
-        Expand view
+        Show details
       </button>
     </div>
     <hr
@@ -38,7 +38,7 @@ exports[`PersonDetails component should render properly - expanded 2`] = `
       <button
         class="govuk-link"
       >
-        Collapse view
+        Hide details
       </button>
     </div>
     <hr
