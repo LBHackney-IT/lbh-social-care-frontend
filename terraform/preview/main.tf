@@ -19,14 +19,23 @@ terraform {
     bucket  = "terraform-state-staging-apis"
     encrypt = true
     region  = "eu-west-2"
-    key     = "services/lbh-social-care-frontend/state"
+    key     = "services/lbh-social-care-frontend-preview/state"
   }
 }
 
-# resource "aws_route53_zone" "preview" {
-#   name = "social-care-service-preview.hackney.gov.uk"
+resource "aws_s3_bucket" "serverless_deployment_bucket" {
+  bucket = "lbh-social-care-preview-serverless-deployment-bucket"
+  acl    = "private"
+ 
+  # tags = module.tags.values – TODO: add these tags!
+}
 
-#   tags = {
-#     Environment = "preview"
-#   }
-# }
+resource "aws_s3_bucket_public_access_block" "block_public_access" {
+  bucket = aws_s3_bucket.serverless_deployment_bucket.id
+  depends_on = [aws_s3_bucket.serverless_deployment_bucket]
+
+  block_public_acls       = true
+  block_public_policy     = true
+  ignore_public_acls      = true
+  restrict_public_buckets = true
+}

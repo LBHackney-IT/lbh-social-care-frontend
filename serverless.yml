@@ -100,7 +100,7 @@ custom:
     staging: staging
     production: production
   environmentName: ${self:custom.namedEnvironments.${self:provider.stage}, 'preview'}
-  ssmEnvironmentName: ${self:custom.namedEnvironments.${self:provider.stage}, 'staging'}
+  ssmEnvironmentName: ${self:custom.namedEnvironments.${self:provider.stage}, 'staging'} # TODO: Remove, add SSM keys, and use environmentName
   domain-name:
     Fn::Join:
       - '.'

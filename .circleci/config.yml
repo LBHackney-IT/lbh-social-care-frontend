@@ -11,6 +11,9 @@ executors:
   docker-python:
     docker:
       - image: circleci/python:3.7
+  docker-terraform:
+    docker:
+      - image: 'hashicorp/terraform:light'
 
 references:
   workspace_root: &workspace_root '~'
@@ -64,6 +67,23 @@ jobs:
       - store_artifacts:
           path: ~/project/cypress/videos
 
+  terraform-apply-preview:
+    executor: docker-terraform
+    description: 'Initializes and applies terraform configuration for preview environments'
+    steps:
+      - *attach_workspace
+      - run:
+          command: |
+            cd ./terraform/preview/
+            terraform get -update=true
+            terraform init
+          name: get and init
+      - run:
+          name: apply
+          command: |
+            cd ./terraform/preview/
+            terraform apply -auto-approve
+
   build-deploy-preview:
     executor: aws-cli/default
     steps:
@@ -87,6 +107,19 @@ jobs:
       - run:
           name: deploy
           command: yarn build && yarn --production=true && sudo npm i -g serverless && sls deploy -s production
+
+  assume-role-preview:
+    executor: docker-python
+    steps:
+      - checkout
+      - aws_assume_role/assume_role:
+          account: $AWS_ACCOUNT_STAGING
+          profile_name: default
+          role: 'LBH_Circle_CI_Deployment_Role'
+      - persist_to_workspace:
+          root: *workspace_root
+          paths:
+            - .aws
 
   assume-role-staging:
     executor: docker-python
@@ -125,18 +158,45 @@ workflows:
       - e2e:
           requires:
             - install-dependencies
+      - permit-deploy-preview:
+          type: approval
+          requires:
+            - tests
+            - e2e
+          filters:
+            branches:
+              ignore:
+                - main
+      - assume-role-preview:
+          context: api-assume-role-staging-context
+          requires:
+            - permit-deploy-preview
+          filters:
+            branches:
+              ignore:
+                - main
+      - terraform-apply-preview:
+          requires:
+            - assume-role-preview
+          filters:
+            branches:
+              ignore:
+                - main
+      - build-deploy-preview:
+          requires:
+            - terraform-apply-preview
+          filters:
+            branches:
+              ignore:
+                - main
       - assume-role-staging:
           context: api-assume-role-staging-context
           requires:
             - tests
             - e2e
-      - build-deploy-preview:
-          requires:
-            - assume-role-staging
           filters:
             branches:
-              ignore:
-                - main
+              only: main
       - build-deploy-staging:
           requires:
             - assume-role-staging
