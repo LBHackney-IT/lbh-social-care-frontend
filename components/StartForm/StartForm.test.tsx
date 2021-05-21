@@ -25,7 +25,7 @@ describe('StartForm', () => {
             steps: [],
           },
         ]}
-        onSubmit={() => true}
+        onSubmit={jest.fn()}
       />
     );
     expect(screen.getByLabelText('Social care ID'));
