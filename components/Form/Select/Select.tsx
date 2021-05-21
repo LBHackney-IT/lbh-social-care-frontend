@@ -4,6 +4,8 @@ import ErrorMessage from 'components/ErrorMessage/ErrorMessage';
 
 import type { Select as Props } from 'components/Form/types';
 
+import styles from './Select.module.scss';
+
 const Select = ({
   label,
   labelSize = 'm',
@@ -30,50 +32,55 @@ const Select = ({
   return (
     <div
       style={style}
-      className={cx(`govuk-form-group govuk-grid-column-${govGrid}`, {
-        'govuk-form-group--error': error,
-      })}
+      className={cx(
+        `govuk-form-group lbh-form-group govuk-grid-column-${govGrid}`,
+        {
+          'govuk-form-group--error': error,
+        }
+      )}
     >
-      <label className={`lbh-label govuk-label--${labelSize}`} htmlFor={name}>
+      <label className={`lbh-label`} htmlFor={name}>
         {label} {required && <span className="govuk-required">*</span>}
       </label>
-      {hint && (
-        <span id={`${name}-hint`} className="govuk-hint">
-          {hint}
-        </span>
-      )}
-      {children}
-      {error && <ErrorMessage label={error.message} />}
-      <select
-        style={{ width: '100%' }}
-        className={`govuk-select width-override-${width}`}
-        id={name}
-        data-testid={name}
-        name={name}
-        ref={rules ? register?.(rules) : register}
-        aria-describedby={hint && `${name}-hint`}
-        onChange={(e: React.ChangeEvent<HTMLSelectElement>) =>
-          onChange && onChange(e.target.value)
-        }
-        value={ignoreValue ? undefined : value}
-      >
-        {isUnselectable && (
-          <option key="empty" value="">
-            {placeHolder ? placeHolder : required ? '-- select one --' : ''}
-          </option>
+      <div className={styles.inputContainer}>
+        {hint && (
+          <span id={`${name}-hint`} className="govuk-hint">
+            {hint}
+          </span>
         )}
-        {options.map((option) => {
-          const { value, text } =
-            typeof option === 'string'
-              ? { value: option, text: option }
-              : option;
-          return (
-            <option key={value} value={value}>
-              {text}
+        {children}
+        {error && <ErrorMessage label={error.message} />}
+        <select
+          style={{ width: '100%' }}
+          className={`govuk-select lbh-select width-override-${width}`}
+          id={name}
+          data-testid={name}
+          name={name}
+          ref={rules ? register?.(rules) : register}
+          aria-describedby={hint && `${name}-hint`}
+          onChange={(e: React.ChangeEvent<HTMLSelectElement>) =>
+            onChange && onChange(e.target.value)
+          }
+          value={ignoreValue ? undefined : value}
+        >
+          {isUnselectable && (
+            <option key="empty" value="">
+              {placeHolder ? placeHolder : required ? '-- select one --' : ''}
             </option>
-          );
-        })}
-      </select>
+          )}
+          {options.map((option) => {
+            const { value, text } =
+              typeof option === 'string'
+                ? { value: option, text: option }
+                : option;
+            return (
+              <option key={value} value={value}>
+                {text}
+              </option>
+            );
+          })}
+        </select>
+      </div>
     </div>
   );
 };
