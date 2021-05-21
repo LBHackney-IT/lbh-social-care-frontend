@@ -56,23 +56,17 @@ exports[`WorkerSearch should display search results 1`] = `
       class="detailsContainer"
     >
       <h2
-        class="lbh-heading-h2 gov-weight-lighter title"
+        class="lbh-heading-h2 title"
       >
         Worker's details found in system
       </h2>
-      <p
-        class="lbh-body govuk-body"
-      >
+      <p>
         Name: Foo Bar
       </p>
-      <p
-        class="lbh-body govuk-body"
-      >
+      <p>
         Role: aliquam
       </p>
-      <p
-        class="lbh-body govuk-body"
-      >
+      <p>
         Teams: 
       </p>
     </div>

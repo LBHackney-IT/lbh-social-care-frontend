@@ -10,14 +10,14 @@ const WorkerRecap = ({
 }: Worker): React.ReactElement => {
   return (
     <div className={style.detailsContainer}>
-      <h2 className={`lbh-heading-h2 gov-weight-lighter ${style.title}`}>
+      <h2 className={`lbh-heading-h2 ${style.title}`}>
         Worker&apos;s details found in system
       </h2>
-      <p className="lbh-body govuk-body">
+      <p>
         Name: {firstName} {lastName}
       </p>
-      <p className="lbh-body govuk-body">Role: {role}</p>
-      <p className="lbh-body govuk-body">Teams: {teams[0]?.name}</p>
+      <p>Role: {role}</p>
+      <p>Teams: {teams[0]?.name}</p>
     </div>
   );
 };

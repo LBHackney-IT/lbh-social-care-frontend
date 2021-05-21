@@ -39,7 +39,7 @@ const Select = ({
         }
       )}
     >
-      <label className={`lbh-label`} htmlFor={name}>
+      <label className={`govuk-label lbh-label`} htmlFor={name}>
         {label} {required && <span className="govuk-required">*</span>}
       </label>
       <div className={styles.inputContainer}>
