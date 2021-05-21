@@ -38,22 +38,22 @@ functions:
       securityGroupIds: ${self:custom.securityGroups.${self:custom.environmentName}}
       subnetIds: ${self:custom.subnets.${self:custom.environmentName}}
     environment:
-      AWS_KEY: ${ssm:/lbh-social-care/${self:custom.environmentName}/aws-key}
-      ENDPOINT_API: ${ssm:/lbh-social-care/${self:custom.environmentName}/endpoint-case-viewer}
-      GSSO_URL: ${ssm:/lbh-social-care/${self:custom.environmentName}/gsso-url}
-      GSSO_TOKEN_NAME: ${ssm:/lbh-social-care/${self:custom.environmentName}/gsso-token-name}
-      HACKNEY_JWT_SECRET: ${ssm:/lbh-social-care/${self:custom.environmentName}/hackney-jwt}
-      AUTHORISED_DEV_GROUP: ${ssm:/lbh-social-care/${self:custom.environmentName}/authorised-dev-group}
-      AUTHORISED_ADMIN_GROUP: ${ssm:/lbh-social-care/${self:custom.environmentName}/authorised-admin-group}
-      AUTHORISED_ADULT_GROUP: ${ssm:/lbh-social-care/${self:custom.environmentName}/authorised-adult-group}
-      AUTHORISED_CHILD_GROUP: ${ssm:/lbh-social-care/${self:custom.environmentName}/authorised-child-group}
-      AUTHORISED_ALLOCATORS_GROUP: ${ssm:/lbh-social-care/${self:custom.environmentName}/authorised-allocators-group}
-      AUTHORISED_UNRESTRICTED_GROUP: ${ssm:/lbh-social-care/${self:custom.environmentName}/authorised-unrestricted-group}
-      POSTCODE_LOOKUP_URL: ${ssm:/lbh-social-care/${self:custom.environmentName}/postcode-lookup-url}
-      POSTCODE_LOOKUP_APIKEY: ${ssm:/lbh-social-care/${self:custom.environmentName}/postcode-lookup-apikey}
-      NEXT_PUBLIC_FEEDBACK_LINK: ${ssm:/lbh-social-care/${self:custom.environmentName}/next-public-feedback-link}
-      REDIRECT_URL: ${ssm:/lbh-social-care/${self:custom.environmentName}/redirect_url}
-      NEXT_PUBLIC_GOOGLE_ANALYTICS_ID: ${ssm:/lbh-social-care/${self:custom.environmentName}/next_public_google_analytics_id}
+      AWS_KEY: ${ssm:/lbh-social-care/${self:custom.ssmEnvironmentName}/aws-key}
+      ENDPOINT_API: ${ssm:/lbh-social-care/${self:custom.ssmEnvironmentName}/endpoint-case-viewer}
+      GSSO_URL: ${ssm:/lbh-social-care/${self:custom.ssmEnvironmentName}/gsso-url}
+      GSSO_TOKEN_NAME: ${ssm:/lbh-social-care/${self:custom.ssmEnvironmentName}/gsso-token-name}
+      HACKNEY_JWT_SECRET: ${ssm:/lbh-social-care/${self:custom.ssmEnvironmentName}/hackney-jwt}
+      AUTHORISED_DEV_GROUP: ${ssm:/lbh-social-care/${self:custom.ssmEnvironmentName}/authorised-dev-group}
+      AUTHORISED_ADMIN_GROUP: ${ssm:/lbh-social-care/${self:custom.ssmEnvironmentName}/authorised-admin-group}
+      AUTHORISED_ADULT_GROUP: ${ssm:/lbh-social-care/${self:custom.ssmEnvironmentName}/authorised-adult-group}
+      AUTHORISED_CHILD_GROUP: ${ssm:/lbh-social-care/${self:custom.ssmEnvironmentName}/authorised-child-group}
+      AUTHORISED_ALLOCATORS_GROUP: ${ssm:/lbh-social-care/${self:custom.ssmEnvironmentName}/authorised-allocators-group}
+      AUTHORISED_UNRESTRICTED_GROUP: ${ssm:/lbh-social-care/${self:custom.ssmEnvironmentName}/authorised-unrestricted-group}
+      POSTCODE_LOOKUP_URL: ${ssm:/lbh-social-care/${self:custom.ssmEnvironmentName}/postcode-lookup-url}
+      POSTCODE_LOOKUP_APIKEY: ${ssm:/lbh-social-care/${self:custom.ssmEnvironmentName}/postcode-lookup-apikey}
+      NEXT_PUBLIC_FEEDBACK_LINK: ${ssm:/lbh-social-care/${self:custom.ssmEnvironmentName}/next-public-feedback-link}
+      REDIRECT_URL: ${ssm:/lbh-social-care/${self:custom.ssmEnvironmentName}/redirect_url}
+      NEXT_PUBLIC_GOOGLE_ANALYTICS_ID: ${ssm:/lbh-social-care/${self:custom.ssmEnvironmentName}/next_public_google_analytics_id}
 resources:
   Resources:
     CloudFrontDistribution:
@@ -96,10 +96,11 @@ resources:
                 OriginProtocolPolicy: https-only
 
 custom:
-  stableEnvironments:
+  namedEnvironments:
     staging: staging
     production: production
-  environmentName: ${self:custom.stableEnvironments.${self:provider.stage}, 'preview'}
+  environmentName: ${self:custom.namedEnvironments.${self:provider.stage}, 'preview'}
+  ssmEnvironmentName: ${self:custom.namedEnvironments.${self:provider.stage}, 'staging'}
   domain-name:
     Fn::Join:
       - '.'
@@ -111,10 +112,6 @@ custom:
     preview: lbh-social-care-preview-serverless-deployment-bucket
     staging: lbh-social-care-staging-serverlessdeploymentbucke-1d3k4v28ktkc9
     production: lbh-social-care-producti-serverlessdeploymentbuck-1gtigiratk9ir
-  ssmKeyMap:
-    preview: preview
-    staging: staging
-    production: production
   aliases:
     preview: ${self:provider.stage}.social-care-service-preview.hackney.gov.uk
     staging: social-care-service-staging.hackney.gov.uk
