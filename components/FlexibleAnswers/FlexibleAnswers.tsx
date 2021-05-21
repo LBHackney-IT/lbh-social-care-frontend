@@ -38,7 +38,7 @@ const RepeaterGroupAnswers = ({
 
 interface Props {
   answers: {
-    // sections
+    // steps
     [key: string]: {
       // questions and answers
       [key: string]: string | (string | RepeaterGroupAnswer)[];
