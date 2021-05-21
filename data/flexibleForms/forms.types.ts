@@ -1,3 +1,5 @@
+import { Resident } from 'types';
+
 export interface Choice {
   value: string;
   label: string;
@@ -23,7 +25,7 @@ export interface Field {
   error?: string;
   choices?: Choice[];
   /** Checkbox, file and repeater fields don't support prefilling */
-  prefill?: string;
+  prefill?: keyof Resident;
   className?: string;
   /** For file fields only */
   // multiple?: boolean

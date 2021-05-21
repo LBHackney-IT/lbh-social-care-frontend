@@ -36,32 +36,39 @@ export const truncate = (str: string, noWords: number): string => {
   }
 };
 
+const noPrefill = new Set(['file']);
+const singlePrefills = new Set(['select']);
+const iterablePrefills = new Set(['checkboxes', 'repeated']);
+
 /** Generate flexible initial values for a flexible schema */
 export const generateInitialValues = (
   fields: Field[],
   person: Resident
 ): InitialValues => {
   const initialValues: InitialValues = {};
+
   fields.map((field) => {
     if (field.type === 'repeaterGroup') {
       initialValues[field.id] = [
-        generateInitialValues(field.subfields, person),
+        generateInitialValues(field.subfields || [], person),
       ];
-    } else if (field.type === 'checkboxes' || field.type === 'repeater') {
+    } else if (iterablePrefills.has(field.type)) {
       initialValues[field.id] = [];
-    } else if (field.type === 'file') {
+    } else if (noPrefill.has(field.type)) {
       initialValues[field.id] = null;
-    } else if (field.type === 'select') {
+    } else if (singlePrefills.has(field.type)) {
       initialValues[field.id] =
-        (person && person[field.prefill]) || field.choices[0].value;
+        (person && field.prefill && [field.prefill]) ||
+        (field.choices && field.choices[0].value) ||
+        [];
     } else {
-      initialValues[field.id] = (person && person[field.prefill]) || '';
+      initialValues[field.id] =
+        (person && field.prefill && [field.prefill]) || '';
     }
   });
   return initialValues;
 };
 
 /** Push an element into an array, without duplicates */
-export const pushUnique = (array: string[], newElement: string): string[] => [
-  ...new Set(array).add(newElement),
-];
+export const pushUnique = <T>(array: T[], newElement: T): T[] =>
+  Array.from(new Set(array).add(newElement));
