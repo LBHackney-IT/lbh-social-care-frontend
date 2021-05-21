@@ -16,7 +16,8 @@
     "e2e": "PORT=3000 start-server-and-test start http://localhost:3000 cy:run",
     "cy:run": "cypress run",
     "cy:open": "cypress open",
-    "build-storybook": "build-storybook"
+    "build-storybook": "build-storybook",
+    "transform-google-form": "node jobs/transform-google-form"
   },
   "dependencies": {
     "axios": "^0.21.1",
@@ -91,6 +92,7 @@
     "react-is": "^17.0.2",
     "sass": "^1.32.12",
     "sass-loader": "10",
+    "slugify": "^1.5.3",
     "start-server-and-test": "^1.12.1",
     "storybook-addon-next-router": "^2.0.4",
     "style-loader": "^2.0.0",
