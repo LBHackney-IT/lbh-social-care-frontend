@@ -21,8 +21,12 @@ export const canUserEditPerson = (
     return true;
   }
 
-  if (person.contextFlag === 'A') {
-    return false;
+  if (user.hasAdultPermissions && person.contextFlag === 'A') {
+    if (isPersonRestricted) {
+      return user.hasUnrestrictedPermissions || false;
+    }
+
+    return true;
   }
 
   return false;

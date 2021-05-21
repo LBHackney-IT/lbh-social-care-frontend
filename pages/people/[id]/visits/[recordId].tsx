@@ -1,7 +1,6 @@
 import { useRouter } from 'next/router';
 
 import Seo from 'components/Layout/Seo/Seo';
-import BackButton from 'components/Layout/BackButton/BackButton';
 import HistoricVisit from 'components/Cases/CaseRecap/HistoricVisit';
 import PersonView from 'components/PersonView/PersonView';
 
@@ -12,7 +11,6 @@ const CaseView = (): React.ReactElement => {
   return (
     <>
       <Seo title={`#${recordId} record`} />
-      <BackButton />
       <h1 className="govuk-fieldset__legend--l gov-weight-lighter">
         Visit for
       </h1>
@@ -24,5 +22,7 @@ const CaseView = (): React.ReactElement => {
     </>
   );
 };
+
+CaseView.goBackButton = true;
 
 export default CaseView;

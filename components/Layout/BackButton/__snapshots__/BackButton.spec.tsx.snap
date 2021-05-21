@@ -2,11 +2,15 @@
 
 exports[`BackButton should render properly 1`] = `
 <DocumentFragment>
-  <a
-    class="govuk-back-link"
-    href="#"
+  <div
+    class="lbh-container"
   >
-    Back
-  </a>
+    <a
+      class="govuk-back-link lbh-back-link lbh-link--no-visited-state"
+      href="#"
+    >
+      Go back
+    </a>
+  </div>
 </DocumentFragment>
 `;

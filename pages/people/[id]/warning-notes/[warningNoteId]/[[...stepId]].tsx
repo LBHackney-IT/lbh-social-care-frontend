@@ -2,7 +2,6 @@ import { useRouter } from 'next/router';
 import { useCallback } from 'react';
 
 import PersonView from 'components/PersonView/PersonView';
-import BackButton from 'components/Layout/BackButton/BackButton';
 import WarningNoteRecap from 'components/WarningNote/WarningNoteRecap/WarningNoteRecap';
 import { Resident, User } from 'types';
 import FormWizard from 'components/FormWizard/FormWizard';
@@ -37,7 +36,6 @@ const ReviewWarningNote = (): React.ReactElement => {
 
   return (
     <>
-      <BackButton />
       <h1 className="govuk-fieldset__legend--l gov-weight-lighter">
         {summary
           ? 'Check Warning Note renew details'
@@ -82,5 +80,7 @@ const ReviewWarningNote = (): React.ReactElement => {
     </>
   );
 };
+
+ReviewWarningNote.goBackButton = true;
 
 export default ReviewWarningNote;
