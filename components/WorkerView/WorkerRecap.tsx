@@ -1,5 +1,7 @@
 import { Worker } from 'types';
 
+import style from './WorkerRecap.module.scss';
+
 const WorkerRecap = ({
   firstName,
   lastName,
@@ -7,15 +9,15 @@ const WorkerRecap = ({
   teams,
 }: Worker): React.ReactElement => {
   return (
-    <div>
-      <h2 className="gov-weight-lighter">
+    <div className={style.detailsContainer}>
+      <h2 className={`lbh-heading-h2 gov-weight-lighter ${style.title}`}>
         Worker&apos;s details found in system
       </h2>
-      <p className="govuk-body">
+      <p className="lbh-body govuk-body">
         Name: {firstName} {lastName}
       </p>
-      <p className="govuk-body">Role: {role}</p>
-      <p className="govuk-body">Teams: {teams[0]?.name}</p>
+      <p className="lbh-body govuk-body">Role: {role}</p>
+      <p className="lbh-body govuk-body">Teams: {teams[0]?.name}</p>
     </div>
   );
 };
