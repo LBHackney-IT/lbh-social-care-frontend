@@ -6,6 +6,7 @@ import TaskListHeader from '../../../components/TaskList/TaskListHeader';
 import { Form } from '../../../data/flexibleForms/forms.types';
 import { Resident } from '../../../types';
 import { getProtocol } from 'utils/urls';
+import axios from 'axios';
 
 interface Props {
   completedSteps: string[];
@@ -51,16 +52,9 @@ export const getServerSideProps: GetServerSideProps = async ({
 }) => {
   const protocol = getProtocol();
 
-  const res1 = await fetch(
-    `${protocol}://${process.env.REDIRECT_URL}/api/submissions/${params?.id}`,
-    {
-      headers: {
-        cookie: req?.headers?.cookie,
-      } as HeadersInit,
-    }
+  const { data } = await axios.get(
+    `${protocol}://${process.env.REDIRECT_URL}/api/submissions/${params?.id}`
   );
-
-  const data = await res1.json();
 
   // redirect if submission or form doesn't exist
   if (!data.id || !data.form)
