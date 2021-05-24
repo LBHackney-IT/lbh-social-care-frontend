@@ -8,6 +8,8 @@ import { getData } from 'utils/saveData';
 import { getUserType } from 'utils/user';
 import Logo from './Logo';
 
+const { NEXT_PUBLIC_MAINTENANCE_MODE } = process.env;
+
 const loggedNavLinks = [
   {
     name: 'Search',
@@ -54,6 +56,10 @@ const HeaderComponent = ({
       );
     }
   }, [user, pathname]);
+
+  if (NEXT_PUBLIC_MAINTENANCE_MODE && NEXT_PUBLIC_MAINTENANCE_MODE === '1')
+    return <></>;
+
   return (
     <header className="lbh-header ">
       <div className="lbh-header__main">
