@@ -8,21 +8,23 @@ import ComboboxField from './ComboboxField';
 import { FormikValues, FormikTouched, FormikErrors } from 'formik';
 import { Field } from 'data/flexibleForms/forms.types';
 
+interface Props {
+  values: FormikValues;
+  field: Field;
+  touched: FormikTouched<FormikValues>;
+  errors: FormikErrors<FormikValues>;
+}
+
 const FlexibleField = ({
   values,
   field,
   touched,
   errors,
-}: {
-  values: FormikValues;
-  field: Field;
-  touched: FormikTouched<FormikValues>;
-  errors: FormikErrors<FormikValues>;
-}): React.ReactElement | null => {
+}: Props): React.ReactElement | null => {
   if (field.condition && values[field.condition.id] !== field.condition.value)
     return null;
 
-  if (field.type === 'repeaterGroup')
+  if (field.type === 'repeaterGroup' && field.subfields)
     return (
       <RepeaterGroupField
         name={field.id}
@@ -78,7 +80,7 @@ const FlexibleField = ({
       />
     );
 
-  if (field.type === 'checkboxes')
+  if (field.type === 'checkboxes' && field.choices)
     return (
       <CheckboxField
         name={field.id}
@@ -90,7 +92,7 @@ const FlexibleField = ({
       />
     );
 
-  if (field.type === 'combobox')
+  if (field.type === 'combobox' && field.choices)
     return (
       <ComboboxField
         name={field.id}
@@ -102,7 +104,7 @@ const FlexibleField = ({
       />
     );
 
-  if (field.type === 'select')
+  if (field.type === 'select' && field.choices)
     return (
       <SelectField
         name={field.id}
@@ -114,7 +116,7 @@ const FlexibleField = ({
       />
     );
 
-  if (field.type === 'radios')
+  if (field.type === 'radios' && field.choices)
     return (
       <RadioField
         name={field.id}

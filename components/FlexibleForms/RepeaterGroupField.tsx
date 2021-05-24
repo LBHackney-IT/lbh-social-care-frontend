@@ -1,4 +1,10 @@
-import { FieldArray, useFormikContext } from 'formik';
+import {
+  FieldArray,
+  useFormikContext,
+  FormikValues,
+  FormikErrors,
+  FormikTouched,
+} from 'formik';
 import { Field } from 'data/flexibleForms/forms.types';
 import s from './Repeater.module.scss';
 import FlexibleField from './FlexibleFields';
@@ -19,7 +25,15 @@ const RepeaterGroupField = ({
   hint,
   label,
 }: Props): React.ReactElement => {
-  const { values, touched, errors } = useFormikContext();
+  const {
+    values,
+    touched,
+    errors,
+  }: {
+    values: FormikValues;
+    errors: FormikErrors<FormikValues>;
+    touched: FormikTouched<FormikValues>;
+  } = useFormikContext();
 
   const repeaterValues = [].concat(values[name]);
 
@@ -93,7 +107,7 @@ const RepeaterGroupField = ({
 
               <button
                 type="button"
-                onClick={() => push(generateInitialValues(subfields, null))}
+                onClick={() => push(generateInitialValues(subfields))}
                 className={`govuk-button lbh-button lbh-button--add ${s.addAnother}`}
               >
                 <svg width="12" height="12" viewBox="0 0 12 12">

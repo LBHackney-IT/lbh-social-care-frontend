@@ -43,7 +43,6 @@ describe('StepForm', () => {
   it('shows an error if submission fails', async () => {
     render(
       <StepForm
-        person={{}}
         fields={mockFields}
         onSubmit={(values, { setStatus }) =>
           setStatus('Example status message')
@@ -66,7 +65,6 @@ describe('StepForm', () => {
   it('returns to the task list if submission succeeds', async () => {
     render(
       <StepForm
-        person={{}}
         fields={mockFields}
         onSubmit={() => true}
         onFinish={() => true}
@@ -87,7 +85,6 @@ describe('StepForm', () => {
   it("also triggers the finish event if it's the only step", async () => {
     render(
       <StepForm
-        person={{}}
         fields={mockFields}
         onSubmit={() => true}
         onFinish={mockFinish}

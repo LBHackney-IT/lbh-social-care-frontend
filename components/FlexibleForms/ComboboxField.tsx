@@ -39,7 +39,8 @@ const Field = ({
   const items = choices.map((choice) => choice.label);
 
   const initial =
-    choices?.find((choice) => choice.value === values[name])?.label || '';
+    choices?.find((choice) => choice.value === (values as FormikValues)[name])
+      ?.label || '';
 
   return (
     <Downshift
@@ -48,7 +49,7 @@ const Field = ({
       onChange={(selection) =>
         setFieldValue(
           name,
-          choices.find((choice) => choice.label === selection).value
+          choices.find((choice) => choice.label === selection)?.value
         )
       }
       itemToString={(item) => (item ? item : '')}

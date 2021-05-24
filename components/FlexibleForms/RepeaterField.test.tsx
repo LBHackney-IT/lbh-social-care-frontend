@@ -78,7 +78,7 @@ describe('RepeaterField', () => {
           foo: 'Example error',
         }}
         initialTouched={{
-          foo: true,
+          foo: [],
         }}
       >
         {({ touched, errors }) => (

@@ -11,13 +11,14 @@ import { Resident } from 'types';
 import axios from 'axios';
 import { getProtocol } from 'utils/urls';
 import { FormikValues, FormikHelpers } from 'formik';
+import { InitialValues } from 'lib/utils';
 
 interface Props {
   params: {
     id: string;
     stepId: string;
   };
-  stepAnswers: StepAnswers;
+  stepAnswers: InitialValues;
   person: Resident;
   step: Step;
   form: Form;
@@ -51,7 +52,7 @@ const StepPage = ({
 
   const handleFinish = async (
     values: FormikValues,
-    { setStatus }: FormikHelpers<FormikValues>
+    setStatus: (message: string) => void
   ): Promise<void> => {
     try {
       const { data } = await axios.post(

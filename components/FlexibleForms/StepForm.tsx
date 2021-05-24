@@ -4,18 +4,16 @@ import { generateFlexibleSchema } from 'lib/validators';
 import FlexibleField from './FlexibleFields';
 import { Resident } from 'types';
 import Banner from './Banner';
-import { generateInitialValues } from 'lib/utils';
+import { generateInitialValues, InitialValues } from 'lib/utils';
 import { useRouter } from 'next/router';
-
-type InitialValue = string | string[];
 
 interface Props {
   fields: Field[];
   person?: Resident;
-  initialValues?: InitialValue[];
+  initialValues?: InitialValues;
   onFinish: (
     values: FormikValues,
-    { setStatus }: { setStatus: (message: string) => void }
+    setStatus: (message: string) => void
   ) => void;
   onSubmit: (
     values: FormikValues,
@@ -82,7 +80,7 @@ const StepForm = ({
               if (isValid) {
                 if (singleStep) {
                   setSubmitting(true);
-                  onFinish(values, { setStatus });
+                  onFinish(values, setStatus);
                 } else {
                   if (!isSubmitting)
                     router.push(`/submissions/${router.query.id}`);
