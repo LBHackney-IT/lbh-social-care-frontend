@@ -10,7 +10,7 @@ const pullOutSteps = (allFields) => {
   let currentStep = 0;
 
   allFields.forEach((field) => {
-    if (field.type === 'PAGE_BREAK') {
+    if (field.type === !field[0] && 'PAGE_BREAK') {
       currentStep++;
       newArray.push({
         id: slugify(field.label).replace('.', ')'),
@@ -19,6 +19,7 @@ const pullOutSteps = (allFields) => {
       });
     } else {
       if (newArray.length !== 0) {
+        console.log(newArray[currentStep]);
         newArray[currentStep].fields.push(field);
       } else {
         newArray.push({
