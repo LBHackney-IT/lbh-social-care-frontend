@@ -14,7 +14,7 @@ const RelationshipElement = ({ title, data }: Props): React.ReactElement => {
         <ul className="govuk-list">
           {data.map((person, i) => {
             return (
-              <li className="lbh-link" key={'parent' + i}>
+              <li className="lbh-link" key={`rel_${i}`}>
                 {person.id ? (
                   <Link href={`/people/${person.id}`}>
                     {`${person.firstName} ${person.lastName}`}
