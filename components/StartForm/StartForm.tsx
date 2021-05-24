@@ -18,7 +18,7 @@ interface Props {
   onSubmit: (
     values: FormValues,
     { setStatus }: FormikHelpers<FormValues>
-  ) => void;
+  ) => Promise<void> | void;
 }
 
 const StartForm = ({ forms, onSubmit }: Props): React.ReactElement => {

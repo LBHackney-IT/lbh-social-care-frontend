@@ -2,7 +2,6 @@ import { useRouter } from 'next/router';
 
 import Seo from 'components/Layout/Seo/Seo';
 import DeallocateWorkers from 'components/AllocatedWorkers/DeallocateWorker/DeallocateWorker';
-import BackButton from 'components/Layout/BackButton/BackButton';
 import PersonView from 'components/PersonView/PersonView';
 import { useAuth } from 'components/UserContext/UserContext';
 import { isBrowser } from 'utils/ssr';
@@ -19,7 +18,6 @@ const RemovedAllocationPage = (): React.ReactElement => {
   return (
     <>
       <Seo title={`Deallocate Worker from #${query.id} `} />
-      <BackButton />
       <h1 className="govuk-fieldset__legend--l gov-weight-lighter">
         Deallocate worker from
       </h1>
@@ -36,5 +34,7 @@ const RemovedAllocationPage = (): React.ReactElement => {
     </>
   );
 };
+
+RemovedAllocationPage.goBackButton = true;
 
 export default RemovedAllocationPage;

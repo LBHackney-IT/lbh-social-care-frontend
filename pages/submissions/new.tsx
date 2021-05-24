@@ -1,3 +1,4 @@
+import { useCallback } from 'react';
 import { GetServerSideProps } from 'next';
 import StartForm, { FormValues } from 'components/StartForm/StartForm';
 import { useRouter } from 'next/router';
@@ -13,20 +14,23 @@ interface Props {
 const NewSubmissionPage = ({ forms }: Props): React.ReactElement => {
   const router = useRouter();
 
-  const handleSubmit = async (
-    values: FormValues,
-    { setStatus }: FormikHelpers<FormValues>
-  ): Promise<void> => {
-    try {
-      const { data } = await axios.post(`/api/submissions`, {
-        data: values,
-      });
-      if (data.error) throw data.error;
-      router.push(`/submissions/${data.id}`);
-    } catch (e) {
-      setStatus(e.toString());
-    }
-  };
+  const handleSubmit = useCallback(
+    async (
+      values: FormValues,
+      { setStatus }: FormikHelpers<FormValues>
+    ): Promise<void> => {
+      try {
+        const { data } = await axios.post(`/api/submissions`, {
+          data: values,
+        });
+        if (data.error) throw data.error;
+        router.push(`/submissions/${data.id}`);
+      } catch (e) {
+        setStatus(e.toString());
+      }
+    },
+    [router]
+  );
 
   return (
     <div>
@@ -39,7 +43,7 @@ const NewSubmissionPage = ({ forms }: Props): React.ReactElement => {
   );
 };
 
-export const getServerSideProps: GetServerSideProps = async ({ req }) => {
+export const getServerSideProps: GetServerSideProps = async () => {
   const protocol = getProtocol();
 
   const { data } = await axios.get(
