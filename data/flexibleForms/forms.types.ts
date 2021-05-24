@@ -55,12 +55,14 @@ interface RepeaterGroupAnswer {
   [key: string]: string | string[];
 }
 
+export interface StepAnswers {
+  // questions and answers
+  [key: string]: string | (string | RepeaterGroupAnswer)[];
+}
+
 export interface FlexibleAnswers {
   // sections
-  [key: string]: {
-    // questions and answers
-    [key: string]: string | (string | RepeaterGroupAnswer)[];
-  };
+  [key: string]: StepAnswers;
 }
 
 export interface Submission {

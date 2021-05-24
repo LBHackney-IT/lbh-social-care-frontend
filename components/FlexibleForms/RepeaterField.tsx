@@ -4,12 +4,15 @@ import {
   useFormikContext,
   getIn,
   ErrorMessage,
+  FormikErrors,
+  FormikTouched,
+  FormikValues,
 } from 'formik';
 import s from './Repeater.module.scss';
 
 interface FieldProps {
-  touched;
-  errors;
+  touched: FormikTouched<FormikValues>;
+  errors: FormikErrors<FormikValues>;
   name: string;
   label: string;
   type?: string;

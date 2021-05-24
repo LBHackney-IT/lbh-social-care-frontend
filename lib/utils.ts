@@ -43,7 +43,7 @@ const iterablePrefills = new Set(['checkboxes', 'repeated']);
 /** Generate flexible initial values for a flexible schema */
 export const generateInitialValues = (
   fields: Field[],
-  person: Resident
+  person?: Resident
 ): InitialValues => {
   const initialValues: InitialValues = {};
 

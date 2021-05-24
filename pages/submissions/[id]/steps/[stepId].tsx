@@ -6,18 +6,18 @@ import StepForm from 'components/FlexibleForms/StepForm';
 import { useRouter } from 'next/router';
 import s from 'stylesheets/Sidebar.module.scss';
 import Banner from 'components/FlexibleForms/Banner';
-import { Form, Step, Field } from 'data/flexibleForms/forms.types';
+import { Form, Step, Field, StepAnswers } from 'data/flexibleForms/forms.types';
 import { Resident } from 'types';
 import axios from 'axios';
 import { getProtocol } from 'utils/urls';
-import { FormikValues as FormValues, FormikHelpers } from 'formik';
+import { FormikValues, FormikHelpers } from 'formik';
 
 interface Props {
   params: {
     id: string;
     stepId: string;
   };
-  stepAnswers;
+  stepAnswers: StepAnswers;
   person: Resident;
   step: Step;
   form: Form;
@@ -33,8 +33,8 @@ const StepPage = ({
   const router = useRouter();
 
   const handleSubmit = async (
-    values: FormValues,
-    { setStatus }: FormikHelpers<FormValues>
+    values: FormikValues,
+    { setStatus }: FormikHelpers<FormikValues>
   ): Promise<void> => {
     try {
       const { data } = await axios.patch(
@@ -50,8 +50,8 @@ const StepPage = ({
   };
 
   const handleFinish = async (
-    values: FormValues,
-    { setStatus }: FormikHelpers<FormValues>
+    values: FormikValues,
+    { setStatus }: FormikHelpers<FormikValues>
   ): Promise<void> => {
     try {
       const { data } = await axios.post(

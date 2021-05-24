@@ -1,4 +1,4 @@
-import { Formik, Form } from 'formik';
+import { Formik, Form, FormikValues, FormikHelpers } from 'formik';
 import { Field } from 'data/flexibleForms/forms.types';
 import { generateFlexibleSchema } from 'lib/validators';
 import FlexibleField from './FlexibleFields';
@@ -11,10 +11,16 @@ type InitialValue = string | string[];
 
 interface Props {
   fields: Field[];
-  person: Resident;
+  person?: Resident;
   initialValues?: InitialValue[];
-  onFinish: (values, any) => void;
-  onSubmit: (values, any) => void;
+  onFinish: (
+    values: FormikValues,
+    { setStatus }: { setStatus: (message: string) => void }
+  ) => void;
+  onSubmit: (
+    values: FormikValues,
+    { setStatus }: FormikHelpers<FormikValues>
+  ) => void;
   singleStep?: boolean;
 }
 

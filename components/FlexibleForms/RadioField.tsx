@@ -1,8 +1,15 @@
-import { Field as RawField, ErrorMessage, getIn } from 'formik';
+import {
+  Field as RawField,
+  ErrorMessage,
+  getIn,
+  FormikErrors,
+  FormikTouched,
+  FormikValues,
+} from 'formik';
 
 interface FieldProps {
-  touched;
-  errors;
+  touched: FormikTouched<FormikValues>;
+  errors: FormikErrors<FormikValues>;
   name: string;
   label: string;
   type?: string;

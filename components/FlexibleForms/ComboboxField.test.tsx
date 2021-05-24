@@ -18,7 +18,7 @@ describe('ComboboxField', () => {
   it('renders correctly', () => {
     render(
       <Formik
-        onSubmit={null}
+        onSubmit={jest.fn()}
         initialValues={{
           foo: false,
         }}
@@ -51,7 +51,7 @@ describe('ComboboxField', () => {
   it('accepts an initial value/option', () => {
     render(
       <Formik
-        onSubmit={null}
+        onSubmit={jest.fn()}
         initialValues={{
           foo: '1',
         }}
@@ -76,7 +76,7 @@ describe('ComboboxField', () => {
   it('renders errors', () => {
     render(
       <Formik
-        onSubmit={null}
+        onSubmit={jest.fn()}
         initialValues={{
           foo: '',
         }}

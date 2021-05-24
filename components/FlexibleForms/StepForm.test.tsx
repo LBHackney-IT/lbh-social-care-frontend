@@ -1,5 +1,5 @@
 import StepForm from './StepForm';
-import { AutosaveProvider } from '../contexts/autosaveContext';
+import { Field } from 'data/flexibleForms/forms.types';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 
 const mockPush = jest.fn();
@@ -23,21 +23,18 @@ const mockFields = [
     required: true,
     type: 'text',
   },
-];
+] as Field[];
 
 describe('StepForm', () => {
   it('renders the correct fields', () => {
     render(
-      <AutosaveProvider>
-        <StepForm
-          person={{}}
-          fields={mockFields as any}
-          onSubmit={(values, { setStatus }) =>
-            setStatus('Example status message')
-          }
-          onFinish={() => true}
-        />
-      </AutosaveProvider>
+      <StepForm
+        fields={mockFields}
+        onSubmit={(values, { setStatus }) =>
+          setStatus('Example status message')
+        }
+        onFinish={() => true}
+      />
     );
     expect(screen.getByLabelText('Test question'));
     expect(screen.getByText('Save and continue'));
@@ -45,16 +42,14 @@ describe('StepForm', () => {
 
   it('shows an error if submission fails', async () => {
     render(
-      <AutosaveProvider>
-        <StepForm
-          person={{}}
-          fields={mockFields as any}
-          onSubmit={(values, { setStatus }) =>
-            setStatus('Example status message')
-          }
-          onFinish={() => true}
-        />
-      </AutosaveProvider>
+      <StepForm
+        person={{}}
+        fields={mockFields}
+        onSubmit={(values, { setStatus }) =>
+          setStatus('Example status message')
+        }
+        onFinish={() => true}
+      />
     );
 
     fireEvent.change(screen.getByLabelText('Test question'), {
@@ -70,14 +65,12 @@ describe('StepForm', () => {
 
   it('returns to the task list if submission succeeds', async () => {
     render(
-      <AutosaveProvider>
-        <StepForm
-          person={{}}
-          fields={mockFields as any}
-          onSubmit={() => true}
-          onFinish={() => true}
-        />
-      </AutosaveProvider>
+      <StepForm
+        person={{}}
+        fields={mockFields}
+        onSubmit={() => true}
+        onFinish={() => true}
+      />
     );
 
     fireEvent.change(screen.getByLabelText('Test question'), {
@@ -93,15 +86,13 @@ describe('StepForm', () => {
 
   it("also triggers the finish event if it's the only step", async () => {
     render(
-      <AutosaveProvider>
-        <StepForm
-          person={{}}
-          fields={mockFields as any}
-          onSubmit={() => true}
-          onFinish={mockFinish}
-          singleStep={true}
-        />
-      </AutosaveProvider>
+      <StepForm
+        person={{}}
+        fields={mockFields}
+        onSubmit={() => true}
+        onFinish={mockFinish}
+        singleStep={true}
+      />
     );
 
     fireEvent.change(screen.getByLabelText('Test question'), {
