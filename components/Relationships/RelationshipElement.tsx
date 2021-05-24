@@ -1,10 +1,9 @@
-import ErrorMessage from 'components/ErrorMessage/ErrorMessage';
-import Spinner from 'components/Spinner/Spinner';
 import Link from 'next/link';
+import { RelationshipPerson } from 'types';
 
 interface Props {
   title: string;
-  data: RelationshipPerson;
+  data: RelationshipPerson[];
 }
 
 const RelationshipElement = ({ title, data }: Props): React.ReactElement => {
@@ -18,10 +17,10 @@ const RelationshipElement = ({ title, data }: Props): React.ReactElement => {
               <li className="lbh-link" key={'parent' + i}>
                 {person.id ? (
                   <Link href={`/people/${person.id}`}>
-                    {person.firstName + ' ' + person.lastName}
+                    {`${person.firstName} ${person.lastName}`}
                   </Link>
                 ) : (
-                  ''
+                  `${person.firstName} ${person.lastName}`
                 )}
               </li>
             );
@@ -30,7 +29,7 @@ const RelationshipElement = ({ title, data }: Props): React.ReactElement => {
       </dd>
     </div>
   ) : (
-    ''
+    <></>
   );
 };
 
