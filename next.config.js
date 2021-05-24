@@ -30,7 +30,7 @@ function maintenanceMode() {
       '/api/:slug*',
       '/people',
       '/people/:slug*',
-      '/submissions:slug*',
+      '/submissions/:slug*',
     ];
 
     pages.forEach((elm) => {
