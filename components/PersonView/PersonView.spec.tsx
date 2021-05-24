@@ -31,7 +31,7 @@ describe('PersonView component', () => {
     await waitFor(() => {
       expect(getByText('13/11/2020')).toBeInTheDocument();
     });
-    expect(queryByText('Expand view')).not.toBeInTheDocument();
+    expect(queryByText('Show details')).not.toBeInTheDocument();
   });
 
   it('should render person view', async () => {
@@ -45,7 +45,7 @@ describe('PersonView component', () => {
       </UserContext.Provider>
     );
     await waitFor(() => {
-      expect(getByText('Expand view')).toBeInTheDocument();
+      expect(getByText('Show details')).toBeInTheDocument();
     });
     expect(queryByText('13/11/2020')).not.toBeInTheDocument();
   });
