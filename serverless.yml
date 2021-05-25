@@ -52,7 +52,7 @@ functions:
       NEXT_PUBLIC_FEEDBACK_LINK: ${ssm:/lbh-social-care/${self:provider.stage}/next-public-feedback-link}
       REDIRECT_URL: ${ssm:/lbh-social-care/${self:provider.stage}/redirect_url}
       NEXT_PUBLIC_GOOGLE_ANALYTICS_ID: ${ssm:/lbh-social-care/${self:provider.stage}/next_public_google_analytics_id}
-      NEXT_PUBLIC_MAINTENANCE_MODE: 0
+      NEXT_PUBLIC_MAINTENANCE_MODE: 1
 resources:
   Resources:
     CloudFrontDistribution:
