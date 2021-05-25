@@ -7,17 +7,24 @@ const ViewWarningNote = (): React.ReactElement => {
   const { query } = useRouter();
   const personId = Number(query.id as string);
   const warningNoteId = Number(query.warningNoteId as string);
+  const formName = query.form_name as string;
 
   return (
     <>
       <h1 className="govuk-fieldset__legend--l gov-weight-lighter">
-        Warning Note Details
+        {formName == 'Warning Note Created'
+          ? 'Warning Note Details'
+          : 'Warning Note Review Details'}
       </h1>
       <PersonView personId={personId} expandView>
         {(person) => (
           <>
             <div className="govuk-!-margin-top-7">
-              <WarningNoteRecap person={person} warningNoteId={warningNoteId} />
+              <WarningNoteRecap
+                person={person}
+                warningNoteId={warningNoteId}
+                formName={formName}
+              />
             </div>
           </>
         )}

@@ -32,7 +32,7 @@ const getLink = (
     case 'API_WarningNote':
       return `/people/${caseFormData.mosaic_id}/warning-notes/${
         (caseFormData as WarningNoteCaseFormData).warning_note_id
-      }/view`;
+      }/view?form_name=${caseFormData.form_name}`;
     default:
       return null;
   }
