@@ -5,7 +5,7 @@ import { UserContext } from 'components/UserContext/UserContext';
 import { mockedUser } from 'factories/users';
 import * as saveData from 'utils/saveData';
 
-const mockedUseRouter = { pathname: 'pathname' };
+let mockedUseRouter = { pathname: 'pathname' };
 
 jest.mock('next/router', () => ({
   asPath: 'path',
@@ -58,21 +58,21 @@ describe('Header component', () => {
     expect(queryByText('Sign out')).not.toBeInTheDocument();
   });
 
-  // it('should set active the correct link', () => {
-  //   mockedUseRouter = {
-  //     pathname: '/my-records',
-  //   };
-  //   const { getByText, asFragment } = render(
-  //     <UserContext.Provider
-  //       value={{
-  //         user: mockedUser,
-  //       }}
-  //     >
-  //       <Header {...props} />
-  //     </UserContext.Provider>
-  //   );
-  //   // TODO: uncomment when dashboard is back
-  //   // expect(getByText('My work space')).toBeInTheDocument();
-  //   expect(asFragment()).toMatchSnapshot();
-  // });
+  it('should set active the correct link', () => {
+    mockedUseRouter = {
+      pathname: '/my-records',
+    };
+    const { getByText, asFragment } = render(
+      <UserContext.Provider
+        value={{
+          user: mockedUser,
+        }}
+      >
+        <Header {...props} />
+      </UserContext.Provider>
+    );
+    // TODO: uncomment when dashboard is back
+    // expect(getByText('My work space')).toBeInTheDocument();
+    expect(asFragment()).toMatchSnapshot();
+  });
 });
