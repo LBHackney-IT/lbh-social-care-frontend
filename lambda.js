@@ -15,4 +15,12 @@ server.all('/api/*', bodyParser.json(), (req, res) =>
 
 server.all('*', (req, res) => nextRequestHandler(req, res));
 
+const redirects = [{ from: '/search', to: '/maintenance' }];
+
+redirects.forEach(({ from, to, type = 302, method = 'get' }) => {
+  server[method](from, (req, res) => {
+    res.redirect(type, to);
+  });
+});
+
 module.exports.handler = require('serverless-http')(server);
