@@ -237,7 +237,7 @@ interface BaseNote {
   managerName: string;
   discussedWithManagerDate: string;
   status: 'closed' | 'open';
-  reviews: Array<ReviewedNote>;
+  warningNoteReviews: Array<ReviewedNote>;
 }
 
 interface DisclosedNote extends BaseNote {
