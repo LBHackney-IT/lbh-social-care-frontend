@@ -13,7 +13,7 @@ const formSteps: FormStep[] = [
       },
       {
         component: 'Radios',
-        name: 'reviewDiscussion',
+        name: 'disclosedWithIndividual',
         label: 'Have you discussed this review with the individual',
         isRadiosInline: true,
         rules: { required: true },
@@ -21,7 +21,7 @@ const formSteps: FormStep[] = [
       },
       {
         component: 'TextArea',
-        name: 'reviewNotes',
+        name: 'notes',
         label: 'Details of review',
         hint: 'include details of disclosure to individual, any updates and why renewing or ending',
         rules: { required: true },
