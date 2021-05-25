@@ -17,6 +17,7 @@ describe(`WarningNoteRecap`, () => {
   const props = {
     person: mockedResident,
     warningNoteId: 1,
+    formName: 'test_warning',
   };
 
   it('should render correctly', async () => {
