@@ -73,9 +73,7 @@ const HeaderComponent = ({
               )}
             </a>
           </div>
-          Parameter:
-          {NEXT_PUBLIC_MAINTENANCE_MODE}
-          {console.log(NEXT_PUBLIC_MAINTENANCE_MODE === '1')}
+
           {NEXT_PUBLIC_MAINTENANCE_MODE &&
           NEXT_PUBLIC_MAINTENANCE_MODE === '1' ? (
             <></>
