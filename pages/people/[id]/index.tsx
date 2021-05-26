@@ -33,7 +33,7 @@ const PersonPage = (): React.ReactElement => {
           <Stack space={7} className="govuk-!-margin-top-7">
             {canViewWarningNotes(user) ? <WarningNotes id={personId} /> : <></>}
             <PersonDetails person={person} />
-            <AllocatedWorkers id={personId} />
+            <AllocatedWorkers person={person} />
             <Relationships id={personId} />
             <Cases id={personId} person={person} />
           </Stack>
