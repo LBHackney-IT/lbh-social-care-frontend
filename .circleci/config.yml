@@ -134,7 +134,7 @@ workflows:
       - permit-deploy-production:
           type: approval
           requires:
-            - tests
+            - build-deploy-staging
           filters:
             branches:
               only: main
