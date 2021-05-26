@@ -36,9 +36,9 @@ export const truncate = (str: string, noWords: number): string => {
   }
 };
 
-const noPrefill = new Set(['file']);
-const singlePrefills = new Set(['select']);
-const iterablePrefills = new Set(['checkboxes', 'repeated']);
+const initiallyNull = new Set(['file']);
+const initiallyFirstChoice = new Set(['select']);
+const initiallyArray = new Set(['checkboxes', 'repeater']);
 
 /** Generate flexible initial values for a flexible schema */
 export const generateInitialValues = (
@@ -52,18 +52,19 @@ export const generateInitialValues = (
       initialValues[field.id] = [
         generateInitialValues(field.subfields || [], person),
       ];
-    } else if (iterablePrefills.has(field.type)) {
+    } else if (initiallyArray.has(field.type)) {
       initialValues[field.id] = [];
-    } else if (noPrefill.has(field.type)) {
+    } else if (initiallyNull.has(field.type)) {
       initialValues[field.id] = null;
-    } else if (singlePrefills.has(field.type)) {
-      initialValues[field.id] =
-        (person && field.prefill && [field.prefill]) ||
-        (field.choices && field.choices[0].value) ||
-        [];
+    } else if (initiallyFirstChoice.has(field.type)) {
+      initialValues[field.id] = String(
+        (person && field.prefill && person[field.prefill]) ||
+          (field.choices && field.choices[0].value)
+      );
     } else {
-      initialValues[field.id] =
-        (person && field.prefill && [field.prefill]) || '';
+      initialValues[field.id] = String(
+        (person && field.prefill && person[field.prefill]) || ''
+      );
     }
   });
   return initialValues;
