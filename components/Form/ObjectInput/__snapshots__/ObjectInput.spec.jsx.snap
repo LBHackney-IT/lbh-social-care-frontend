@@ -6,7 +6,7 @@ exports[`ObjectInput should render properly 1`] = `
     class="govuk-form-group govuk-!-margin-bottom-0"
   >
     <label
-      class="govuk-label govuk-label--m"
+      class="lbh-label govuk-label--m"
     >
       i am a object input
     </label>

@@ -21,22 +21,24 @@ const Radios = ({
   ...otherProps
 }: Props): React.ReactElement => (
   <div
-    className={cx('govuk-form-group', {
+    className={cx('govuk-form-group lbh-form-group', {
       'govuk-form-group--error': error,
     })}
   >
-    <label className={`govuk-label govuk-label--${labelSize}`} htmlFor={name}>
+    <label className={`lbh-label govuk-label`} htmlFor={name}>
       {label} {required && <span className="govuk-required">*</span>}
     </label>
     {hint && (
-      <span id={`${name}-hint`} className="govuk-hint">
+      <span id={`${name}-hint`} className="lbh-hint">
         {hint}
       </span>
     )}
     {children}
     {error && <ErrorMessage label={error.message} />}
     <div
-      className={cx('govuk-radios', { 'govuk-radios--inline': isRadiosInline })}
+      className={cx('govuk-radios lbh-radios', {
+        'govuk-radios--inline': isRadiosInline,
+      })}
     >
       {options.map((option) => {
         const { value, text } =

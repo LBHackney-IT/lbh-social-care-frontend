@@ -3,7 +3,6 @@ import { useRouter } from 'next/router';
 
 import PersonView from 'components/PersonView/PersonView';
 import { useAuth } from 'components/UserContext/UserContext';
-import BackButton from 'components/Layout/BackButton/BackButton';
 import FormWizard from 'components/FormWizard/FormWizard';
 import ErrorMessage from 'components/ErrorMessage/ErrorMessage';
 import Seo from 'components/Layout/Seo/Seo';
@@ -43,7 +42,6 @@ const Referral = (): ReactElement => {
     <>
       <Seo title="Referral" />
       <>
-        <BackButton />
         <h1 className="govuk-fieldset__legend--l gov-weight-lighter">
           Add referral and screening details
         </h1>
@@ -68,5 +66,7 @@ const Referral = (): ReactElement => {
     </>
   );
 };
+
+Referral.goBackButton = true;
 
 export default Referral;

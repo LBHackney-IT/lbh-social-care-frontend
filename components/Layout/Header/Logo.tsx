@@ -2,7 +2,7 @@
 
 const HackneyLogo = (): React.ReactElement => (
   <svg
-    className="govuk-custom-header__logo"
+    className="lbh-header__logo"
     role="presentation"
     focusable="false"
     width="208px"

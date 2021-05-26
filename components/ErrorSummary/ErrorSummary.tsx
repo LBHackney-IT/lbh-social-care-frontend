@@ -1,17 +1,23 @@
 export interface Props {
   title?: string;
   body?: React.ReactChild;
+  role?: string;
   links?: Array<{
     text: string;
     href: string;
   }>;
 }
 
-const ErrorSummary = ({ title, body, links }: Props): React.ReactElement => (
+const ErrorSummary = ({
+  title,
+  body,
+  links,
+  role = 'alert',
+}: Props): React.ReactElement => (
   <div
     className="govuk-error-summary"
     aria-labelledby="error-summary-title"
-    role="alert"
+    role={role}
     tabIndex={-1}
     data-module="govuk-error-summary"
   >

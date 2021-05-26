@@ -15,7 +15,7 @@ exports[`ExpandDetails should render properly 1`] = `
       <span
         class="govuk-link govuk-link--underline trigger"
       >
-        Expand guidance
+        Show guidance
       </span>
     </summary>
     <div

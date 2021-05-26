@@ -16,21 +16,19 @@ interface ResidentBE extends LegacyResident {
 }
 
 const sanitiseResidentData = (residents: ResidentBE[]): LegacyResident[] =>
-  residents?.map(
-    ({ addressList, ...resident }: ResidentBE): LegacyResident => {
-      const address = addressList?.find(
-        ({ displayAddressFlag }) => displayAddressFlag === 'Y'
-      );
-      return {
-        ...resident,
-        address: address && {
-          address: address.addressLine1,
-          postcode: address.postCode,
-          uprn: address.uprn,
-        },
-      };
-    }
-  );
+  residents?.map(({ addressList, ...resident }: ResidentBE): LegacyResident => {
+    const address = addressList?.find(
+      ({ displayAddressFlag }) => displayAddressFlag === 'Y'
+    );
+    return {
+      ...resident,
+      address: address && {
+        address: address.addressLine1,
+        postcode: address.postCode,
+        uprn: address.uprn,
+      },
+    };
+  });
 
 export const getResidents = async (
   params: Record<string, unknown>

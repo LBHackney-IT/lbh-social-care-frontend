@@ -48,13 +48,12 @@ export const defaultValidation = ({
 const AddressBox = ({ name, disabled, value, onChange }: AddressBox) => {
   const [address, setAddress] = useState(value || {});
   const setNewAddress = useCallback(
-    (inputName) => ({
-      target: { value },
-    }: React.ChangeEvent<HTMLInputElement>) => {
-      const newAddress = { ...address, uprn: null, [inputName]: value };
-      setAddress(newAddress);
-      onChange(newAddress);
-    },
+    (inputName) =>
+      ({ target: { value } }: React.ChangeEvent<HTMLInputElement>) => {
+        const newAddress = { ...address, uprn: null, [inputName]: value };
+        setAddress(newAddress);
+        onChange(newAddress);
+      },
     [address, onChange]
   );
   return (
@@ -119,11 +118,11 @@ const AddressLookup = ({
   }, [control, postcode]);
   return (
     <div
-      className={cx('govuk-form-group', {
+      className={cx('lbh-form-group govuk-form-group', {
         'govuk-form-group--error': Boolean(error || errorMessage),
       })}
     >
-      <label className="govuk-label govuk-label--m" htmlFor="postcode">
+      <label className="lbh-label govuk-label--m" htmlFor="postcode">
         {label} {required && <span className="govuk-required">*</span>}
       </label>
       {hint && (
@@ -134,7 +133,7 @@ const AddressLookup = ({
       <div className="govuk-grid-row">
         <div className="govuk-grid-column-one-third">
           <input
-            className={cx('govuk-input', {
+            className={cx('lbh-input govuk-input', {
               'govuk-input--error': Boolean(error),
             })}
             id="postcode"

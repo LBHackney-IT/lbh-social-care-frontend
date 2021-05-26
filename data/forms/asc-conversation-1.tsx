@@ -149,8 +149,7 @@ const steps: FormStep[] = [
         component: 'TextArea',
         name: 'about_me',
         label: 'About Me',
-        hint:
-          'Areas of my life I enjoy most or value (including my main interests and where I can most contribute) & Changes that would improve my wellbeing or quality of life',
+        hint: 'Areas of my life I enjoy most or value (including my main interests and where I can most contribute) & Changes that would improve my wellbeing or quality of life',
       },
       {
         component: 'TextArea',
@@ -214,8 +213,7 @@ const steps: FormStep[] = [
       {
         component: 'TextInput',
         name: 'statement',
-        hint:
-          'As this Is G-form version of C1 please state whether you are the "Lead Conversation Officer". And if not please state "Acting For someone else"',
+        hint: 'As this Is G-form version of C1 please state whether you are the "Lead Conversation Officer". And if not please state "Acting For someone else"',
       },
       {
         component: 'Checkbox',

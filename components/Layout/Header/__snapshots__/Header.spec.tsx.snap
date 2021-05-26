@@ -3,86 +3,56 @@
 exports[`Header component should set active the correct link 1`] = `
 <DocumentFragment>
   <header
-    class="govuk-header"
-    data-module="govuk-header"
-    role="banner"
+    class="lbh-header "
   >
     <div
-      class="govuk-header__container"
+      class="lbh-header__main"
     >
       <div
-        class="govuk-width-container"
+        class="lbh-container lbh-header__wrapper"
       >
         <div
-          class="govuk-header__logo"
+          class="lbh-header__title"
         >
           <a
-            class="govuk-header__link govuk-header__link--homepage"
+            class="lbh-header__title-link"
             href="/"
           >
+            MockedLogo
             <span
-              class="govuk-header__logotype"
+              class="lbh-header__logo-text"
             >
-              MockedLogo
+               Hackney 
+            </span>
+            <span
+              class="lbh-header__service-name"
+            >
+              Foo
+            </span>
+            <span
+              class="govuk-tag lbh-tag lbh-tag--green"
+            >
+              Admin
             </span>
           </a>
         </div>
-        <div
-          class="govuk-header__content"
+        <nav
+          aria-label="Navigation menu"
+          class="lbh-header__links"
         >
           <a
-            class="govuk-header__link govuk-header__link--service-name"
-            href="/"
+            class="govuk-header__link"
+            href="/search"
           >
-            Foo Admin
+            Search
           </a>
-          <button
-            aria-controls="navigation"
-            aria-label="Show or hide navigation menu"
-            class="govuk-header__menu-button govuk-js-header-toggle"
-            type="button"
+          <a
+            class="govuk-header__link"
+            href="/logout"
           >
-            Menu
-          </button>
-          <nav>
-            <ul
-              aria-label="Navigation menu"
-              class="govuk-header__navigation "
-              id="navigation"
-            >
-              <li
-                class="govuk-header__navigation-item"
-              >
-                <a
-                  class="govuk-header__link"
-                  href="/search"
-                >
-                  Search
-                </a>
-              </li>
-              <li
-                class="govuk-header__navigation-item govuk-header__navigation-item--active"
-              >
-                <a
-                  class="govuk-header__link"
-                  href="/"
-                >
-                  My work space
-                </a>
-              </li>
-              <li
-                class="govuk-header__navigation-item"
-              >
-                <a
-                  class="govuk-header__link"
-                  href="/logout"
-                >
-                  Logout
-                </a>
-              </li>
-            </ul>
-          </nav>
-        </div>
+            Sign out
+          </a>
+        </nav>
       </div>
     </div>
   </header>

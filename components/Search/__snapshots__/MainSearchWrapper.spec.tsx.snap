@@ -3,17 +3,17 @@
 exports[`MainSearchWrapper should render properly 1`] = `
 <DocumentFragment>
   <h1
-    class="govuk-heading-l"
+    class="lbh-heading-l"
   >
     Search
   </h1>
   <p
-    class="govuk-body govuk-!-margin-bottom-5"
+    class="lbh-body govuk-!-margin-bottom-3"
   >
     Use search to find a person before adding a new person or record. Records will need to be linked to person.
   </p>
   <div
-    class="govuk-tabs"
+    class="lbh-tabs govuk-tabs"
   >
     <h2
       class="govuk-tabs__title"
@@ -24,20 +24,20 @@ exports[`MainSearchWrapper should render properly 1`] = `
       class="govuk-tabs__list"
     >
       <li
-        class="govuk-tabs__list-item"
+        class="lbh-tabs govuk-tabs__list-item"
       >
         <a
-          class="govuk-tabs__tab"
+          class="lbh-tabs govuk-tabs__tab"
           href="/search"
         >
           Search for a person
         </a>
       </li>
       <li
-        class="govuk-tabs__list-item"
+        class="lbh-tabs govuk-tabs__list-item"
       >
         <a
-          class="govuk-tabs__tab"
+          class="lbh-tabs govuk-tabs__tab"
           href="/cases"
         >
           Search for records by person
@@ -45,7 +45,7 @@ exports[`MainSearchWrapper should render properly 1`] = `
       </li>
     </ul>
     <div
-      class="govuk-tabs__panel"
+      class="lbh-tabs govuk-tabs__panel"
     >
       MockedSearch
     </div>

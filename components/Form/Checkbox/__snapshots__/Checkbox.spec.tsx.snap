@@ -3,7 +3,7 @@
 exports[`Checkbox should render properly - as Checkbox 1`] = `
 <DocumentFragment>
   <div
-    class="govuk-form-group"
+    class="lbh-form-group govuk-form-group"
   >
     <fieldset
       class="govuk-fieldset"
@@ -14,13 +14,13 @@ exports[`Checkbox should render properly - as Checkbox 1`] = `
         My Checkbox 
       </legend>
       <div
-        class="govuk-checkboxes"
+        class="govuk-checkboxes lbh-checkboxes"
       >
         <div
           class="govuk-checkboxes__item"
         >
           <input
-            class="govuk-checkboxes__input"
+            class="lbh-checkboxes govuk-checkboxes__input"
             id="my-checkbox-foo"
             name="my-checkbox"
             type="checkbox"
@@ -37,7 +37,7 @@ exports[`Checkbox should render properly - as Checkbox 1`] = `
           class="govuk-checkboxes__item"
         >
           <input
-            class="govuk-checkboxes__input"
+            class="lbh-checkboxes govuk-checkboxes__input"
             id="my-checkbox-bar"
             name="my-checkbox"
             type="checkbox"
@@ -59,16 +59,16 @@ exports[`Checkbox should render properly - as Checkbox 1`] = `
 exports[`Checkbox should render properly - as Tickbox 1`] = `
 <DocumentFragment>
   <div
-    class="govuk-form-group"
+    class="lbh-form-group govuk-form-group"
   >
     <div
-      class="govuk-checkboxes"
+      class="govuk-checkboxes lbh-checkboxes"
     >
       <div
         class="govuk-checkboxes__item"
       >
         <input
-          class="govuk-checkboxes__input"
+          class="lbh-checkboxes govuk-checkboxes__input"
           id="my-checkbox"
           name="my-checkbox"
           type="checkbox"

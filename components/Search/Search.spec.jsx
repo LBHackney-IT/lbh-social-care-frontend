@@ -56,15 +56,13 @@ describe(`Search`, () => {
         <Search {...props} type="people" />
       </UserContext.Provider>
     );
-    const firstNameInput = getByLabelText('First name:');
+    const firstNameInput = getByLabelText('First name');
     fireEvent.change(firstNameInput, { target: { value: 'foo' } });
     await act(async () => {
       fireEvent.submit(getByRole('form'));
     });
     expect(mockedUseRouter.replace).toHaveBeenCalled();
-    expect(
-      mockedUseRouter.replace
-    ).toHaveBeenCalledWith(
+    expect(mockedUseRouter.replace).toHaveBeenCalledWith(
       'foopath?foo=bar&first_name=foo',
       'foopath?foo=bar&first_name=foo',
       { shallow: true, scroll: false }
@@ -99,15 +97,13 @@ describe(`Search`, () => {
         <Search {...props} type="people" />
       </UserContext.Provider>
     );
-    const firstNameInput = getByLabelText('First name:');
+    const firstNameInput = getByLabelText('First name');
     fireEvent.change(firstNameInput, { target: { value: 'foo' } });
     await act(async () => {
       fireEvent.submit(getByRole('form'));
     });
     expect(mockedUseRouter.replace).toHaveBeenCalled();
-    expect(
-      mockedUseRouter.replace
-    ).toHaveBeenCalledWith(
+    expect(mockedUseRouter.replace).toHaveBeenCalledWith(
       'foopath?foo=bar&first_name=foo',
       'foopath?foo=bar&first_name=foo',
       { shallow: true, scroll: false }

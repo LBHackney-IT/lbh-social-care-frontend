@@ -18,12 +18,6 @@ exports[`Cases component should render a error message when a person is restrict
           Linked files are read only
         </span>
       </div>
-      <button
-        class="govuk-button"
-        data-module="govuk-button"
-      >
-        Add a new record
-      </button>
     </div>
     <hr
       class="govuk-divider"
@@ -32,7 +26,7 @@ exports[`Cases component should render a error message when a person is restrict
       aria-labelledby="error-summary-title"
       class="govuk-error-summary"
       data-module="govuk-error-summary"
-      role="alert"
+      role="complementary"
       tabindex="-1"
     >
       <h2
@@ -44,7 +38,7 @@ exports[`Cases component should render a error message when a person is restrict
       <div
         class="govuk-error-summary__body"
       >
-        The records for this profile are restricted for viewing
+        Some details for this person are restricted due to your permissions.
       </div>
     </div>
   </div>
@@ -70,7 +64,7 @@ exports[`Cases component should render no records  1`] = `
         </span>
       </div>
       <button
-        class="govuk-button"
+        class="lbh-button govuk-button"
         data-module="govuk-button"
       >
         Add a new record
@@ -88,7 +82,7 @@ exports[`Cases component should render no records  1`] = `
       style="height: 50px; text-align: center;"
     >
       <button
-        class="govuk-button"
+        class="lbh-button govuk-button"
         data-module="govuk-button"
       >
         load more
@@ -117,7 +111,7 @@ exports[`Cases component should render records properly 1`] = `
         </span>
       </div>
       <button
-        class="govuk-button"
+        class="lbh-button govuk-button"
         data-module="govuk-button"
       >
         Add a new record
@@ -188,7 +182,7 @@ exports[`Cases component should render records properly 1`] = `
             style="width: 50px; text-align: center;"
           >
             <a
-              class="govuk-link"
+              class="govuk-link lbh-link"
               href="https://foo.bar"
               rel="noreferrer noopener"
               target="_blank"
@@ -221,6 +215,7 @@ exports[`Cases component should render records properly 1`] = `
             style="width: 50px; text-align: center;"
           >
             <a
+              class="govuk-link lbh-link"
               href="/people/123/allocations/321?recordId=2"
             >
               View
@@ -233,7 +228,7 @@ exports[`Cases component should render records properly 1`] = `
       style="height: 50px; text-align: center;"
     >
       <button
-        class="govuk-button"
+        class="lbh-button govuk-button"
         data-module="govuk-button"
       >
         load more
@@ -262,7 +257,7 @@ exports[`Cases component should work properly if person is restricted but user.h
         </span>
       </div>
       <button
-        class="govuk-button"
+        class="lbh-button govuk-button"
         data-module="govuk-button"
       >
         Add a new record
@@ -280,7 +275,7 @@ exports[`Cases component should work properly if person is restricted but user.h
       style="height: 50px; text-align: center;"
     >
       <button
-        class="govuk-button"
+        class="lbh-button govuk-button"
         data-module="govuk-button"
       >
         load more

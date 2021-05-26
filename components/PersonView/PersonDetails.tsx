@@ -45,7 +45,7 @@ const PersonDetails = ({
               setExpandDetails(!expandDetails);
             }}
           >
-            {expandDetails ? 'Collapse' : 'Expand'} view
+            {expandDetails ? 'Hide' : 'Show'} details
           </button>
         )}
       </div>

@@ -39,6 +39,7 @@ const UpdatePerson = (): ReactElement => {
       contextFlag: formData.contextFlag || user.permissionFlag,
       nhsNumber: Number(formData.nhsNumber),
       createdBy: user.email,
+      restricted: formData.restricted || person?.restricted,
     });
     return ref;
   };

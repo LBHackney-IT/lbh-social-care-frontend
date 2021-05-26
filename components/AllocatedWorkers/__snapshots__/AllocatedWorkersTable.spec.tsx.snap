@@ -12,7 +12,7 @@ exports[`AllocatedWorkers component should render properly - with deallocate but
         ALLOCATED WORKER 1
       </h3>
       <button
-        class="govuk-button govuk-button--secondary"
+        class="lbh-button govuk-button lbh-button--secondary"
         data-module="govuk-button"
       >
         Deallocate Worker

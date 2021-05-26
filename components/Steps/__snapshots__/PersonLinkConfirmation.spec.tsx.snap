@@ -3,10 +3,10 @@
 exports[`Detail Confirmation component should render properly 1`] = `
 <DocumentFragment>
   <div
-    class="govuk-panel govuk-panel--confirmation govuk-!-margin-bottom-9"
+    class="govuk-panel govuk-panel--confirmation lbh-panel govuk-!-margin-bottom-9"
   >
     <h1
-      class="govuk-fieldset__legend--l gov-weight-lighter"
+      class="govuk-panel__title"
     >
       Done!
     </h1>
@@ -15,14 +15,14 @@ exports[`Detail Confirmation component should render properly 1`] = `
     style="display: flex; justify-content: space-between;"
   >
     <button
-      class="govuk-button govuk-button--secondary"
+      class="lbh-button govuk-button lbh-button--secondary"
       data-module="govuk-button"
       style="min-width: 200px;"
     >
       Return to search
     </button>
     <button
-      class="govuk-button"
+      class="lbh-button govuk-button"
       data-module="govuk-button"
       style="min-width: 200px;"
     >

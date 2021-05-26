@@ -40,7 +40,7 @@ describe('Header component', () => {
     );
 
     expect(getByText('Search')).toBeInTheDocument();
-    expect(getByText('Logout')).toBeInTheDocument();
+    expect(getByText('Sign out')).toBeInTheDocument();
   });
 
   it('should render service name but no header links', () => {
@@ -55,7 +55,7 @@ describe('Header component', () => {
     );
     expect(getByText('Foo')).toBeInTheDocument();
     expect(queryByText('Search')).not.toBeInTheDocument();
-    expect(queryByText('Logout')).not.toBeInTheDocument();
+    expect(queryByText('Sign out')).not.toBeInTheDocument();
   });
 
   it('should set active the correct link', () => {
@@ -71,7 +71,8 @@ describe('Header component', () => {
         <Header {...props} />
       </UserContext.Provider>
     );
-    expect(getByText('My work space')).toBeInTheDocument();
+    // TODO: uncomment when dashboard is back
+    // expect(getByText('My work space')).toBeInTheDocument();
     expect(asFragment()).toMatchSnapshot();
   });
 });

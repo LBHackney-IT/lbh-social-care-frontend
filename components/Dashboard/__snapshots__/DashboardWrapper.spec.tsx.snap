@@ -7,7 +7,7 @@ exports[`DashboardWrapper should render properly 1`] = `
       class=""
     >
       <h1
-        class="govuk-heading-l"
+        class="lbh-heading-l"
       >
         My work space
       </h1>
@@ -30,7 +30,7 @@ exports[`DashboardWrapper should render properly 1`] = `
       class="govuk-!-margin-top-7"
     >
       <div
-        class="govuk-tabs"
+        class="lbh-tabs govuk-tabs"
       >
         <h2
           class="govuk-tabs__title"
@@ -41,30 +41,30 @@ exports[`DashboardWrapper should render properly 1`] = `
           class="govuk-tabs__list"
         >
           <li
-            class="govuk-tabs__list-item"
+            class="lbh-tabs govuk-tabs__list-item"
           >
             <a
-              class="govuk-tabs__tab"
+              class="lbh-tabs govuk-tabs__tab"
               href="/"
             >
               Clients allocated
             </a>
           </li>
           <li
-            class="govuk-tabs__list-item"
+            class="lbh-tabs govuk-tabs__list-item"
           >
             <a
-              class="govuk-tabs__tab"
+              class="lbh-tabs govuk-tabs__tab"
               href="/forms-in-progress"
             >
               Forms to complete
             </a>
           </li>
           <li
-            class="govuk-tabs__list-item"
+            class="lbh-tabs govuk-tabs__list-item"
           >
             <a
-              class="govuk-tabs__tab"
+              class="lbh-tabs govuk-tabs__tab"
               href="/my-records"
             >
               Records I've added
@@ -72,7 +72,7 @@ exports[`DashboardWrapper should render properly 1`] = `
           </li>
         </ul>
         <div
-          class="govuk-tabs__panel"
+          class="lbh-tabs govuk-tabs__panel"
         >
           <div>
             foo
