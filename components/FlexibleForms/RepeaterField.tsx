@@ -9,6 +9,7 @@ import {
   FormikValues,
 } from 'formik';
 import s from './Repeater.module.scss';
+import cx from 'classnames';
 
 interface FieldProps {
   touched: FormikTouched<FormikValues>;
@@ -77,7 +78,7 @@ const RepeaterField = ({
                   <RawField
                     name={`${name}.${i}`}
                     id={`${name}.${i}`}
-                    className={`govuk-input lbh-input ${className}`}
+                    className={cx(`govuk-input lbh-input`, className)}
                   />
 
                   <button

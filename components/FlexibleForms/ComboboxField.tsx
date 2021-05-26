@@ -9,6 +9,7 @@ import {
 } from 'formik';
 import Downshift from 'downshift';
 import s from './ComboboxField.module.scss';
+import cx from 'classnames';
 
 interface FieldProps {
   touched: FormikTouched<FormikValues>;
@@ -96,7 +97,7 @@ const Field = ({
           >
             <input
               {...getInputProps()}
-              className={`govuk-input lbh-input ${s.input} ${className}`}
+              className={cx(`govuk-input lbh-input`, s.input, className)}
               aria-describedby={hint ? `${name}-hint` : undefined}
             />
             <button
