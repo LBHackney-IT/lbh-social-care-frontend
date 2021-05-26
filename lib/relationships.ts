@@ -6,13 +6,11 @@ const headers = { 'x-api-key': AWS_KEY };
 export const getRelationshipByResident = async (
   personId: number
 ): Promise<RelationshipData[] | []> => {
-  const {
-    data,
-  }: { data: { relationships: RelationshipData[] } } = await axios.get(
+  const { data }: { data: RelationshipData[] } = await axios.get(
     `${ENDPOINT_API}/residents/${personId}/relationships`,
     {
       headers,
     }
   );
-  return data.relationships;
+  return data;
 };

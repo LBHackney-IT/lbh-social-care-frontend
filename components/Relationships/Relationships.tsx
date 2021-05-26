@@ -17,16 +17,17 @@ const Relationships = ({ id }: Props): React.ReactElement => {
     return <ErrorMessage />;
   }
 
-  let elm_count = 0;
+  const shouldAppear =
+    (personalRelationships.parents &&
+      personalRelationships.parents.length > 0) ||
+    (personalRelationships.children &&
+      personalRelationships.children.length > 0) ||
+    (personalRelationships.siblings &&
+      personalRelationships.siblings.length > 0) ||
+    (personalRelationships.other && personalRelationships.other.length > 0);
 
-  try {
-    elm_count =
-      personalRelationships[0].parents.length +
-      personalRelationships[0].children.length +
-      personalRelationships[0].siblings.length +
-      personalRelationships[0].other.length;
-  } catch (error) {
-    elm_count = 0;
+  if (!shouldAppear) {
+    return <></>;
   }
 
   return (
@@ -38,28 +39,34 @@ const Relationships = ({ id }: Props): React.ReactElement => {
           </h3>
         </div>
         <hr className="govuk-divider" />
-        {personalRelationships && personalRelationships.length > 0 ? (
-          personalRelationships.map((item, key) => {
-            if (elm_count == 0) {
-              return (
-                <p key={key}>
-                  <i>No relationship found</i>
-                </p>
-              );
+        {
+          <dl className="govuk-summary-list lbh-summary-list">
+            {
+              <RelationshipElement
+                title="Parents"
+                data={personalRelationships.parents}
+              />
             }
-
-            return (
-              <dl key={key} className="govuk-summary-list lbh-summary-list">
-                {<RelationshipElement title="Parents" data={item.parents} />}
-                {<RelationshipElement title="Children" data={item.children} />}
-                {<RelationshipElement title="Siblings" data={item.siblings} />}
-                {<RelationshipElement title="Other" data={item.other} />}
-              </dl>
-            );
-          })
-        ) : (
-          <ErrorMessage />
-        )}
+            {
+              <RelationshipElement
+                title="Children"
+                data={personalRelationships.children}
+              />
+            }
+            {
+              <RelationshipElement
+                title="Siblings"
+                data={personalRelationships.siblings}
+              />
+            }
+            {
+              <RelationshipElement
+                title="Other"
+                data={personalRelationships.other}
+              />
+            }
+          </dl>
+        }
       </div>
       {error && <ErrorMessage />}
     </div>

@@ -211,9 +211,6 @@ export interface RelationshipPerson {
 }
 
 export interface Relationship {
-  id: number;
-  firstName: string;
-  lastName: string;
   parents: Array<RelationshipPerson>;
   siblings: Array<RelationshipPerson>;
   children: Array<RelationshipPerson>;
@@ -222,7 +219,7 @@ export interface Relationship {
 
 export interface RelationshipData {
   personId: number;
-  personalRelationships: Array<Relationship>;
+  personalRelationships: Relationship;
 }
 
 interface BaseNote {
