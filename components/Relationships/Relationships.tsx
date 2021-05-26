@@ -49,12 +49,12 @@ const Relationships = ({ id }: Props): React.ReactElement => {
             }
 
             return (
-              <div key={key} className="govuk-summary-list">
+              <dl key={key} className="govuk-summary-list lbh-summary-list">
                 {<RelationshipElement title="Parents" data={item.parents} />}
                 {<RelationshipElement title="Children" data={item.children} />}
                 {<RelationshipElement title="Siblings" data={item.siblings} />}
                 {<RelationshipElement title="Other" data={item.other} />}
-              </div>
+              </dl>
             );
           })
         ) : (
