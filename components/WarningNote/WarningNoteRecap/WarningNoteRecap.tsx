@@ -66,34 +66,41 @@ const WarningNoteRecap = ({
     warningNote.warningNoteReviews.length > 0 &&
     formName != 'Warning Note Created';
 
+  const reverseDisplayOrderOfReviews = warningNote.warningNoteReviews
+    .slice(0)
+    .reverse();
+
   return (
     <>
       {displayReviews &&
-        warningNote.warningNoteReviews
-          .slice(0)
-          .reverse()
-          .map((review) => {
-            return (
-              <Summary
-                key={review.id}
-                formData={{
-                  ...review,
-                  endDate: warningNote.endDate,
-                  nextReviewDate: warningNote.nextReviewDate,
-                  person,
-                }}
-                formSteps={reviewedNoteSummary.map((step) => {
-                  return {
-                    ...step,
-                    title: `Warning Review Details ${new Date(
-                      review.reviewDate
-                    ).toLocaleDateString('en-GB')}`,
-                  };
-                })}
-                formPath={`/people/:peopleId/warning-notes/:warningNoteId`}
-              />
-            );
-          })}
+        reverseDisplayOrderOfReviews.map((review) => {
+          return (
+            <Summary
+              key={review.id}
+              formData={{
+                ...review,
+                endDate:
+                  reverseDisplayOrderOfReviews.indexOf(review) == 0
+                    ? warningNote.endDate
+                    : null,
+                nextReviewDate:
+                  reverseDisplayOrderOfReviews.indexOf(review) == 0
+                    ? warningNote.nextReviewDate
+                    : null,
+                person,
+              }}
+              formSteps={reviewedNoteSummary.map((step) => {
+                return {
+                  ...step,
+                  title: `Warning Review Details ${new Date(
+                    review.reviewDate
+                  ).toLocaleDateString('en-GB')}`,
+                };
+              })}
+              formPath={`/people/:peopleId/warning-notes/:warningNoteId`}
+            />
+          );
+        })}
       <Summary
         formData={{
           ...warningNote,
