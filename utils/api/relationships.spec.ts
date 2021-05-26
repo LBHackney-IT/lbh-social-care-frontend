@@ -8,7 +8,9 @@ describe('relationships APIs', () => {
     it('should work properly', () => {
       jest.spyOn(SWR, 'default');
       relationshipsAPI.useRelationships(123);
-      expect(SWR.default).toHaveBeenCalledWith('/residents/123/relationships');
+      expect(SWR.default).toHaveBeenCalledWith(
+        '/api/residents/123/relationships'
+      );
     });
   });
 });
