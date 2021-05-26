@@ -48,6 +48,36 @@ describe('ComboboxField', () => {
     expect(screen.getByText('Bar option'));
   });
 
+  it('filters options based on text input', () => {
+    render(
+      <Formik
+        onSubmit={jest.fn()}
+        initialValues={{
+          foo: false,
+        }}
+      >
+        {({ touched, errors }) => (
+          <Form>
+            <ComboboxField
+              touched={touched}
+              errors={errors}
+              name="foo"
+              label="Label text"
+              hint="Hint text"
+              choices={choices}
+            />
+          </Form>
+        )}
+      </Formik>
+    );
+
+    userEvent.click(screen.getByRole('button'));
+    userEvent.type(screen.getByRole('textbox'), 'Foo');
+
+    expect(screen.getByText('Foo option'));
+    expect(screen.queryByText('Bar option')).toBeFalsy();
+  });
+
   it('accepts an initial value/option', () => {
     render(
       <Formik
