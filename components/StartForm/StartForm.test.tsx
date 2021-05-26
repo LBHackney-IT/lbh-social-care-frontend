@@ -2,6 +2,7 @@ import StartForm from './StartForm';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import { useRouter } from 'next/router';
 
+<<<<<<< HEAD
 jest.mock('next/router');
 (useRouter as jest.Mock)
   .mockReturnValueOnce({
@@ -16,10 +17,20 @@ jest.mock('next/router');
     query: {},
   });
 
+=======
+>>>>>>> main
 const mockHandler = jest.fn();
 
 describe('StartForm', () => {
   it('renders the correct fields', () => {
+<<<<<<< HEAD
+=======
+    jest.mock('next/router');
+    (useRouter as jest.Mock).mockReturnValue({
+      query: {},
+    });
+
+>>>>>>> main
     render(
       <StartForm
         forms={[
@@ -34,7 +45,11 @@ describe('StartForm', () => {
             steps: [],
           },
         ]}
+<<<<<<< HEAD
         onSubmit={() => true}
+=======
+        onSubmit={jest.fn()}
+>>>>>>> main
       />
     );
     expect(screen.getByLabelText('Social care ID'));
@@ -42,6 +57,16 @@ describe('StartForm', () => {
   });
 
   it('prefills a social care id from the url', async () => {
+<<<<<<< HEAD
+=======
+    jest.mock('next/router');
+    (useRouter as jest.Mock).mockReturnValue({
+      query: {
+        social_care_id: 123,
+      },
+    });
+
+>>>>>>> main
     render(
       <StartForm
         forms={[
@@ -69,6 +94,13 @@ describe('StartForm', () => {
   });
 
   it('shows an error if submission fails', async () => {
+<<<<<<< HEAD
+=======
+    jest.mock('next/router');
+    (useRouter as jest.Mock).mockReturnValue({
+      query: {},
+    });
+>>>>>>> main
     render(
       <StartForm
         forms={[

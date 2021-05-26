@@ -2,7 +2,6 @@ import { useRouter } from 'next/router';
 
 import Seo from 'components/Layout/Seo/Seo';
 import AllocationRecap from 'components/AllocatedWorkers/AllocationRecap/AllocationRecap';
-import BackButton from 'components/Layout/BackButton/BackButton';
 
 const AllocationPage = (): React.ReactElement => {
   const {
@@ -11,7 +10,6 @@ const AllocationPage = (): React.ReactElement => {
   return (
     <>
       <Seo title={`#${id} Allocation`} />
-      <BackButton />
       <AllocationRecap
         personId={Number(id as string)}
         allocationId={Number(allocationId as string)}
@@ -20,5 +18,7 @@ const AllocationPage = (): React.ReactElement => {
     </>
   );
 };
+
+AllocationPage.goBackButton = true;
 
 export default AllocationPage;

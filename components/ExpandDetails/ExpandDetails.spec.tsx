@@ -14,12 +14,12 @@ describe(`ExpandDetails`, () => {
     expect(asFragment()).toMatchSnapshot();
   });
 
-  it('should change the trigger label on collapse', () => {
+  it('should change the trigger label on hide', () => {
     const { getByText, queryByText } = render(
       <ExpandDetails isDefaultOpen {...props} />
     );
-    expect(queryByText('Expand guidance')).not.toBeInTheDocument();
-    fireEvent.click(getByText('Collapse guidance'));
-    expect(queryByText('Expand guidance')).toBeInTheDocument();
+    expect(queryByText('Show guidance')).not.toBeInTheDocument();
+    fireEvent.click(getByText('Hide guidance'));
+    expect(queryByText('Show guidance')).toBeInTheDocument();
   });
 });
