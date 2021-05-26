@@ -95,13 +95,14 @@ resources:
                 OriginProtocolPolicy: https-only
 
 custom:
-  domain-name:
-    Fn::Join:
-      - '.'
-      - - Ref: ApiGatewayRestApi
-        - execute-api
-        - eu-west-2
-        - amazonaws.com
+  # domain-name: social-care-service-staging.hackney.gov.uk
+  domain-name: 07nt41mi1j.execute-api.eu-west-2.amazonaws.com
+    # Fn::Join:
+    #   - '.'
+    #   - - Ref: ApiGatewayRestApi
+    #     - execute-api
+    #     - eu-west-2
+    #     - amazonaws.com
   aliases:
     staging: social-care-service-staging.hackney.gov.uk
     production: social-care-service.hackney.gov.uk
