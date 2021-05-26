@@ -6,6 +6,7 @@ import {
   FormikTouched,
   FormikValues,
 } from 'formik';
+import cx from 'classnames';
 
 interface FieldProps {
   touched: FormikTouched<FormikValues>;
@@ -60,7 +61,10 @@ const Field = ({
       </ErrorMessage>
 
       <div
-        className={`govuk-radios lbh-radios govuk-!-margin-top-3 ${className}`}
+        className={cx(
+          `govuk-radios lbh-radios govuk-!-margin-top-3`,
+          className
+        )}
       >
         {choices.map((choice) => (
           <div className="govuk-radios__item" key={choice.value}>

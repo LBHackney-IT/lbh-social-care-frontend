@@ -6,6 +6,7 @@ import {
   FormikErrors,
   FormikTouched,
 } from 'formik';
+import cx from 'classnames';
 
 interface FieldProps {
   touched: FormikTouched<FormikValues>;
@@ -57,7 +58,7 @@ const Field = ({
         )}
       </ErrorMessage>
 
-      <div className={`govuk-checkboxes lbh-checkboxes ${className}`}>
+      <div className={cx(`govuk-checkboxes lbh-checkboxes`, className)}>
         {choices.map((choice) => (
           <div className="govuk-checkboxes__item" key={choice.value}>
             <RawField
