@@ -4,20 +4,116 @@ import { render, screen } from '@testing-library/react';
 
 const mockSubmit = jest.fn();
 
+const mockChoices = [
+  {
+    value: 'bar',
+    label: 'Bar',
+  },
+];
+
 describe('TextField', () => {
-  it('returns a normal field', () => {
+  it('returns all supported field types', () => {
     render(
       <Formik onSubmit={mockSubmit} initialValues={{}}>
-        <FlexibleFields
-          field={{ id: 'foo', question: '', type: 'text' }}
-          values={{}}
-          touched={{}}
-          errors={{}}
-        />
+        <>
+          <FlexibleFields
+            field={{ id: 'foo', question: '', type: 'text' }}
+            values={{}}
+            touched={{}}
+            errors={{}}
+          />
+          <FlexibleFields
+            field={{ id: 'foo', question: '', type: 'textarea' }}
+            values={{}}
+            touched={{}}
+            errors={{}}
+          />
+          <FlexibleFields
+            field={{ id: 'foo', question: '', type: 'date' }}
+            values={{}}
+            touched={{}}
+            errors={{}}
+          />
+          <FlexibleFields
+            field={{
+              id: 'foo',
+              question: '',
+              type: 'radios',
+              choices: mockChoices,
+            }}
+            values={{}}
+            touched={{}}
+            errors={{}}
+          />
+          <FlexibleFields
+            field={{
+              id: 'foo',
+              question: '',
+              type: 'checkboxes',
+              choices: mockChoices,
+            }}
+            values={{}}
+            touched={{}}
+            errors={{}}
+          />
+          <FlexibleFields
+            field={{
+              id: 'foo',
+              question: '',
+              type: 'select',
+              choices: mockChoices,
+            }}
+            values={{}}
+            touched={{}}
+            errors={{}}
+          />
+
+          <FlexibleFields
+            field={{ id: 'foo', question: '', type: 'repeater' }}
+            values={{}}
+            touched={{}}
+            errors={{}}
+          />
+          <FlexibleFields
+            field={{
+              id: 'foo',
+              question: '',
+              type: 'repeaterGroup',
+              subfields: [{ id: 'bar', question: 'Su', type: 'text' }],
+            }}
+            values={{}}
+            touched={{}}
+            errors={{}}
+          />
+          <FlexibleFields
+            field={{
+              id: 'foo',
+              question: '',
+              type: 'combobox',
+              choices: mockChoices,
+            }}
+            values={{}}
+            touched={{}}
+            errors={{}}
+          />
+
+          <FlexibleFields
+            field={{ id: 'foo', question: '', type: 'file' }}
+            values={{}}
+            touched={{}}
+            errors={{}}
+          />
+        </>
       </Formik>
     );
 
-    expect(screen.getByRole('textbox'));
+    expect(screen.getAllByRole('textbox').length).toBe(5);
+    expect(screen.getAllByRole('radio').length).toBe(1);
+    expect(screen.getAllByRole('checkbox').length).toBe(1);
+    expect(screen.getAllByRole('combobox').length).toBe(2);
+    expect(screen.getAllByRole('button').length).toBe(5);
+
+    expect(screen.getAllByText('Add another', { exact: false }).length).toBe(2);
   });
 
   it('shows conditional fields when the condition is met', () => {
