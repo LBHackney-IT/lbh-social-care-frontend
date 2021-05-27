@@ -28,6 +28,12 @@ Open [http://dev.hackney.gov.uk:3000](http://dev.hackney.gov.uk:3000) with your 
 
 You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
 
+## Preview environments
+
+A preview environment is a temporary deployment of this application associated with a specific pull request (PR). Once a PR is opened up, that branch will be automatically deployed to `{pr-number}.social-care-service-preview.hackney.gov.uk`. The details of the deployment will be posted against the PR for convenience.
+
+At 6pm UTC every evening, any current live preview environments will be terminated. Preview environments can be restarted by re-running the relevant CircleCI job (`build-deploy-preview`) or pushing new changes to the branch associated with the PR.
+
 ## Learn More
 
 To learn more about Next.js, take a look at the following resources:

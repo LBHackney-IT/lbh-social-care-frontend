@@ -113,7 +113,7 @@ custom:
     staging: lbh-social-care-staging-serverlessdeploymentbucke-1d3k4v28ktkc9
     production: lbh-social-care-producti-serverlessdeploymentbuck-1gtigiratk9ir
   aliases:
-    preview: social-care-service-preview-${self:provider.stage}.hackney.gov.uk # TODO: can this be a sub-domain? May need to update certificate alternate domain
+    preview: social-care-service-${self:provider.stage}.hackney.gov.uk # TODO: can this be a sub-domain? May need to update certificate alternate domain
     staging: social-care-service-staging.hackney.gov.uk
     production: social-care-service.hackney.gov.uk
   certificate-arn:
