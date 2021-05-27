@@ -1,6 +1,6 @@
 import RepeaterGroupField from './RepeaterGroupField';
 import { Formik } from 'formik';
-import { render, screen } from '@testing-library/react';
+import { render, screen, fireEvent } from '@testing-library/react';
 
 const mockSubmit = jest.fn();
 
@@ -64,6 +64,7 @@ describe('RepeaterGroupField', () => {
     expect(screen.getAllByRole('textbox').length).toBe(1);
     expect(screen.getByDisplayValue('example value'));
   });
+
   it('renders errors correctly', () => {
     render(
       <Formik
@@ -140,5 +141,38 @@ describe('RepeaterGroupField', () => {
     );
 
     expect(screen.getByText('example error 2'));
+  });
+
+  it('allows items to be added and removed', () => {
+    render(
+      <Formik
+        onSubmit={mockSubmit}
+        initialValues={{
+          foo: [],
+        }}
+      >
+        <RepeaterGroupField
+          name="foo"
+          label="Label text"
+          hint="Hint text"
+          subfields={[
+            {
+              id: 'bar',
+              question: 'bar',
+              type: 'text',
+            },
+          ]}
+        />
+      </Formik>
+    );
+
+    fireEvent.click(screen.getByText('Add item'));
+    expect(screen.queryAllByRole('textbox').length).toBe(1);
+
+    fireEvent.click(screen.getByText('Add another item'));
+    expect(screen.queryAllByRole('textbox').length).toBe(2);
+
+    fireEvent.click(screen.getAllByText('Remove')[0]);
+    expect(screen.queryAllByRole('textbox').length).toBe(1);
   });
 });

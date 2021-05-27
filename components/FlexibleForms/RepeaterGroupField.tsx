@@ -89,7 +89,7 @@ const RepeaterGroupField = ({
                     onClick={() => remove(i)}
                     className={s.close}
                   >
-                    <span className="govuk-visually-hidden">Close</span>
+                    <span className="govuk-visually-hidden">Remove</span>
 
                     <svg width="18" height="18" viewBox="0 0 13 13" fill="none">
                       <path

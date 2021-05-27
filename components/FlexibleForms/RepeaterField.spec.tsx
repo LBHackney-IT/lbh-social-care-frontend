@@ -1,6 +1,6 @@
 import RepeaterField from './RepeaterField';
 import { Formik, Form } from 'formik';
-import { render, screen } from '@testing-library/react';
+import { render, screen, fireEvent } from '@testing-library/react';
 
 const mockSubmit = jest.fn();
 
@@ -119,5 +119,37 @@ describe('RepeaterField', () => {
       </Formik>
     );
     expect(screen.getByText('Example error 2'));
+  });
+
+  it('allows items to be added and removed', () => {
+    render(
+      <Formik
+        onSubmit={mockSubmit}
+        initialValues={{
+          foo: [],
+        }}
+      >
+        {({ touched, errors }) => (
+          <Form>
+            <RepeaterField
+              touched={touched}
+              errors={errors}
+              name="foo"
+              label="Label text"
+              hint="Hint text"
+            />
+          </Form>
+        )}
+      </Formik>
+    );
+
+    fireEvent.click(screen.getByText('Add item'));
+    expect(screen.queryAllByRole('textbox').length).toBe(1);
+
+    fireEvent.click(screen.getByText('Add another item'));
+    expect(screen.queryAllByRole('textbox').length).toBe(2);
+
+    fireEvent.click(screen.getAllByText('Remove')[0]);
+    expect(screen.queryAllByRole('textbox').length).toBe(1);
   });
 });
