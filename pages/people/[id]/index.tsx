@@ -11,7 +11,7 @@ import Stack from 'components/Stack/Stack';
 import { useAuth } from 'components/UserContext/UserContext';
 import { User } from 'types';
 
-const canViewWarningNotes = (user: User) => {
+const canViewArea = (user: User) => {
   if (user.hasDevPermissions) {
     return true;
   }
@@ -31,10 +31,10 @@ const PersonPage = (): React.ReactElement => {
       <PersonView personId={personId} showPersonDetails={false}>
         {(person) => (
           <Stack space={7} className="govuk-!-margin-top-7">
-            {canViewWarningNotes(user) ? <WarningNotes id={personId} /> : <></>}
+            {canViewArea(user) ? <WarningNotes id={personId} /> : <></>}
             <PersonDetails person={person} />
             <AllocatedWorkers person={person} />
-            <Relationships id={personId} />
+            {canViewArea(user) ? <Relationships id={personId} /> : <></>}
             <Cases id={personId} person={person} />
           </Stack>
         )}
