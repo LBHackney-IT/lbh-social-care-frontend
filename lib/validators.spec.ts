@@ -59,6 +59,12 @@ describe('generateFlexibleSchema', () => {
 
     await expect(
       schema.validate({
+        one: 'bar',
+      })
+    ).toBeTruthy();
+
+    await expect(
+      schema.validate({
         one: '',
       })
     ).rejects.toThrow();
