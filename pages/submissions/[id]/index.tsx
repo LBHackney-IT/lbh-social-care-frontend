@@ -46,10 +46,7 @@ const TaskListPage = ({
 
 TaskListPage.goBackButton = true;
 
-export const getServerSideProps: GetServerSideProps = async ({
-  params,
-  req,
-}) => {
+export const getServerSideProps: GetServerSideProps = async ({ params }) => {
   const protocol = getProtocol();
 
   const { data } = await axios.get(
