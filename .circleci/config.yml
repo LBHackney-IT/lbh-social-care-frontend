@@ -90,7 +90,7 @@ jobs:
       - *attach_workspace
       - run:
           name: deploy
-          command: yarn build && yarn --production=true && sudo npm i -g serverless && sls deploy --stage preview-$(echo $CIRCLE_BRANCH | tr -cd '[[:alnum:]]._-')
+          command: yarn build && yarn --production=true && sudo npm i -g serverless && sls deploy --stage $(echo $CIRCLE_BRANCH | tr -cd '[[:alnum:]]._-')
 
   build-deploy-staging:
     executor: aws-cli/default
