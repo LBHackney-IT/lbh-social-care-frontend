@@ -56,6 +56,18 @@ functions:
       NEXT_PUBLIC_GOOGLE_ANALYTICS_ID: ${ssm:/lbh-social-care/${self:custom.ssmEnvironmentName}/next_public_google_analytics_id}
 resources:
   Resources:
+    # TODO: Add a record to the Route53 hosted zone for this specific deployment
+    # Route53RecordSet:
+    #   Type: AWS::Route53::RecordSet
+    #   Properties:
+    #     AliasTarget:
+    #       HostedZoneId: ${self:custom.hostedZones.${self:custom.environmentName}}
+    #       DNSName:
+    #         Fn::GetAtt: CloudFrontDistribution.DomainName
+    #     HostedZoneId: ${self:custom.hostedZones.${self:custom.environmentName}}
+    #     Region: ${self:provider.region}
+    #     TTL: 60
+    #     Type: A
     CloudFrontDistribution:
       Type: AWS::CloudFront::Distribution
       Properties:
@@ -116,6 +128,8 @@ custom:
     preview: social-care-service-${self:provider.stage}.hackney.gov.uk # TODO: can this be a sub-domain? May need to update certificate alternate domain
     staging: social-care-service-staging.hackney.gov.uk
     production: social-care-service.hackney.gov.uk
+  # hostedZones: TODO: see `Resources` secton above
+  #   preview:
   certificate-arn:
     preview: arn:aws:acm:us-east-1:715003523189:certificate/8f7fa30c-a4e5-4775-b827-ade824a33c9a
     staging: arn:aws:acm:us-east-1:715003523189:certificate/8f7fa30c-a4e5-4775-b827-ade824a33c9a

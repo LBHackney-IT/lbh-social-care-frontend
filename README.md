@@ -34,6 +34,26 @@ A preview environment is a temporary deployment of this application associated w
 
 At 6pm UTC every evening, any current live preview environments will be terminated. Preview environments can be restarted by re-running the relevant CircleCI job (`build-deploy-preview`) or pushing new changes to the branch associated with the PR.
 
+To do list:
+
+- [x] Deploy a preview env with a single-level subdomain
+  - [x] Create additional CircleCI jobs
+- [x] Create single deployment bucket for all preview environments
+  - [x] Initial Terraform setup
+  - [x] CircleCI jobs
+- [ ] Deploy a preview env with a double-level subdomain (e.g. `pr-100.social-care-service-preview.hackney.gov.uk`)
+  - [ ] Create a Route53 hosted zone for `social-care-service-preview.hackney.gov.uk`
+  - [ ] Create an SSL certificate in ACM for `*.social-care-service-preview.hackney.gov.uk`
+  - [ ] PR a new nameserver entry [here](https://github.com/LBHackney-IT/infrastructure/blob/master/platform/public-dns/terraform/zones/uk-gov-hackney/24-ns-records.tf) to delegate control of that subdomain to our Staging AWS account
+  - [ ] Create a record for the subdomain to the relevant Cloudfront distribution
+- [ ] Call the GitHub APIs to create a "deployment" against the PR
+  - [ ] Get GitHub API keys
+  - [ ] Write a script to call the appropriate APIs to set the deployment up
+- [ ] Create a cron task in CircleCI to do a nightly tear down of preview environments
+  - [ ] Create additional CircleCI jobs
+  - [ ] Find all deployments via a tag (or similar)
+  - [ ] Call `sls remove` or delete the CloudFormation stack for each deployment
+
 ## Learn More
 
 To learn more about Next.js, take a look at the following resources:
