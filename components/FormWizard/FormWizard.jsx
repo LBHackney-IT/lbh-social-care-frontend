@@ -158,7 +158,7 @@ FormWizard.propTypes = {
   formSteps: PropTypes.arrayOf(
     PropTypes.shape({
       id: PropTypes.string.isRequired,
-      component: PropTypes.func,
+      components: PropTypes.array.isRequired,
       title: PropTypes.string.isRequired,
     })
   ).isRequired,
