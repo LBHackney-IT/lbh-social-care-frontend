@@ -76,6 +76,7 @@ export type TextInputNoType = Omit<TextInput, 'type'>;
 
 interface StepTextInputNoType extends TextInputNoType {
   component: 'NumberInput' | 'DatePicker' | 'PhoneInput' | 'EmailInput';
+  defaultToday?: boolean;
 }
 
 type TextAreaType = GenericField & InputHTMLAttributes<HTMLTextAreaElement>;
