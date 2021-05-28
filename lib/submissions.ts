@@ -63,7 +63,7 @@ export const finishSubmission = async (
   const { data } = await axios.patch(
     `${ENDPOINT_API}/submissions/${submissionId}`,
     {
-      submittedAt: new Date(),
+      submittedAt: new Date().toISOString(),
     },
     {
       headers: headersWithKey,
