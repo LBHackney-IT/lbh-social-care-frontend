@@ -14,12 +14,12 @@ const ReviewWarningNoteConfirmation = ({
 }: Props): React.ReactElement => {
   return (
     <>
-      <div className="govuk-panel govuk-panel--confirmation lbh-panel govuk-!-margin-bottom-9">
-        <h1 className="govuk-panel__confirmation">
+      <div className="govuk-panel govuk-panel--confirmation lbh-panel">
+        <div className="govuk-panel__body">
           {formData.reviewDecision === 'Yes'
             ? `The Warning Note has been renewed for ${formData.person.firstName} ${formData.person.lastName}`
             : 'This Warning Note has been closed'}
-        </h1>
+        </div>
       </div>
 
       <div style={{ display: 'flex', justifyContent: 'space-between' }}>
