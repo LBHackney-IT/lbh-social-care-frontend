@@ -5,18 +5,14 @@ module.exports = {
     webpack5: true,
   },
   async redirects() {
-    let redirects = maintenanceMode();
-    return redirects.filter(Boolean);
+    return maintenanceMode();
   },
 };
 
 function maintenanceMode() {
   let maintenance_array = [];
 
-  if (
-    process.env.NEXT_PUBLIC_MAINTENANCE_MODE &&
-    process.env.NEXT_PUBLIC_MAINTENANCE_MODE === '1'
-  ) {
+  if (process.env.NEXT_PUBLIC_MAINTENANCE_MODE === '1') {
     let pages = [
       '/access-denied',
       '/forms-in-progress',

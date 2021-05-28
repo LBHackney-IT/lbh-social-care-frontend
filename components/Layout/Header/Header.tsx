@@ -76,7 +76,7 @@ const HeaderComponent = ({
 
           {NEXT_PUBLIC_MAINTENANCE_MODE &&
           NEXT_PUBLIC_MAINTENANCE_MODE === '1' ? (
-            ''
+            <></>
           ) : (
             <nav className="lbh-header__links" aria-label="Navigation menu">
               {navLinks && (

@@ -22,11 +22,12 @@ const formSteps: FormStep[] = [
         rules: { required: 'Please provide a case note type' },
       },
       {
-        component: 'DateInput',
+        component: 'DatePicker',
         name: 'date_of_event',
         label: 'Date of Event',
         hint: 'For example, 31 03 1980',
         rules: { required: 'Please provide a valid date.' },
+        defaultToday: true,
       },
       {
         component: 'TextInput',
