@@ -4,6 +4,7 @@ import ErrorMessage from 'components/ErrorMessage/ErrorMessage';
 import { useWarningNote } from 'utils/api/warningNotes';
 import { formStepsAdult, formStepsChild } from 'data/forms/warning-note';
 import { Resident } from 'types';
+import SummaryList from '../../Summary/SummaryList';
 
 export interface Props {
   person: Resident;
@@ -35,6 +36,16 @@ const WarningNoteRecap = ({
         }}
         formSteps={person.contextFlag === 'A' ? formStepsAdult : formStepsChild}
         formPath={`/people/:peopleId/warning-notes/:warningNoteId`}
+      />
+
+      <SummaryList
+        list={[
+          {
+            key: 'created_by',
+            title: 'Created by',
+            value: warningNote.createdBy,
+          },
+        ]}
       />
     </>
   );

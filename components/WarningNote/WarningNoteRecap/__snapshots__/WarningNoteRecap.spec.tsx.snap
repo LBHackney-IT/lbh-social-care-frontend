@@ -182,5 +182,23 @@ exports[`WarningNoteRecap should render correctly 1`] = `
       </div>
     </dl>
   </div>
+  <dl
+    class="govuk-summary-list"
+  >
+    <div
+      class="govuk-summary-list__row"
+    >
+      <dt
+        class="govuk-summary-list__key"
+      >
+        Created by
+      </dt>
+      <dd
+        class="govuk-summary-list__value"
+      >
+        Foo
+      </dd>
+    </div>
+  </dl>
 </DocumentFragment>
 `;
