@@ -10,7 +10,8 @@
     "@typescript-eslint",
     "react",
     "react-hooks",
-    "jest"
+    "jest",
+    "unicorn"
   ],
   "parser": "@typescript-eslint/parser",
   "extends": [
@@ -30,6 +31,14 @@
     }
   },
   "rules": {
+    "unicorn/expiring-todo-comments": [
+      "error",
+      {
+        "terms": [
+          "feature-flag-expires"
+        ]
+      }
+    ],
     "linebreak-style": [
       "error",
       "unix"
@@ -52,6 +61,7 @@
         "plugin:cypress/recommended"
       ],
       "rules": {
+        "react/prop-types": "off",
         "react/react-in-jsx-scope": "off",
         "@typescript-eslint/ban-ts-comment": "off"
       }

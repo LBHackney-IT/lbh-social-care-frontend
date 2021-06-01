@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import App, { AppInitialProps, AppContext, AppProps } from 'next/app';
 import { NextComponentType } from 'next';
 import axios from 'axios';
@@ -13,6 +13,8 @@ import type { User } from 'types';
 
 import 'stylesheets/all.scss';
 import 'stylesheets/header.scss';
+import { FeatureProvider } from '../hooks/use-feature-flags';
+import { getFeatureFlags } from '../lib/feature-flags';
 
 interface Props {
   user?: Partial<User>;
@@ -29,6 +31,12 @@ const CustomApp = ({
   pageProps,
 }: ExtendedAppProps): JSX.Element | null => {
   const [user] = useState(pageProps.user);
+  const [featureFlags, setFeatureFlags] = useState(pageProps.featureFlags);
+
+  useEffect(() => {
+    setFeatureFlags(getFeatureFlags());
+  }, [user]);
+
   return (
     <>
       <SWRConfig
@@ -40,13 +48,15 @@ const CustomApp = ({
           },
         }}
       >
-        <AuthProvider user={user}>
-          <GoogleAnalytics>
-            <Layout goBackButton={Component.goBackButton}>
-              <Component {...pageProps} />
-            </Layout>
-          </GoogleAnalytics>
-        </AuthProvider>
+        <FeatureProvider features={featureFlags}>
+          <AuthProvider user={user}>
+            <GoogleAnalytics>
+              <Layout goBackButton={Component.goBackButton}>
+                <Component {...pageProps} />
+              </Layout>
+            </GoogleAnalytics>
+          </AuthProvider>
+        </FeatureProvider>
       </SWRConfig>
     </>
   );
@@ -58,6 +68,7 @@ CustomApp.getInitialProps = async (
   let user;
   if (appContext.ctx.req && appContext.ctx.res) {
     user = isAuthorised(appContext.ctx.req) ?? user;
+
     const redirect =
       appContext.ctx.req.url && shouldRedirect(appContext.ctx.req.url, user);
     if (redirect && appContext.ctx.res.writeHead) {
@@ -67,8 +78,19 @@ CustomApp.getInitialProps = async (
       appContext.ctx.res.end();
     }
   }
+
   const appProps = await App.getInitialProps(appContext);
-  return { ...appProps, pageProps: { ...appProps.pageProps, user } };
+
+  const featureFlags = getFeatureFlags();
+
+  return {
+    ...appProps,
+    pageProps: {
+      ...appProps.pageProps,
+      user,
+      featureFlags,
+    },
+  };
 };
 
 export default CustomApp;
