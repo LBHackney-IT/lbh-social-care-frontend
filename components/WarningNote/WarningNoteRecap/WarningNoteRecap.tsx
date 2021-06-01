@@ -36,10 +36,7 @@ const WarningNoteRecap = ({
         }}
         formSteps={person.contextFlag === 'A' ? formStepsAdult : formStepsChild}
         formPath={`/people/:peopleId/warning-notes/:warningNoteId`}
-      />
-
-      <SummaryList
-        list={[
+        additionalMetadata={[
           {
             key: 'created_by',
             title: 'Created by',

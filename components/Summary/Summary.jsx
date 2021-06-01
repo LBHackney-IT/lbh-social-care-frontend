@@ -49,6 +49,15 @@ SummaryMultiSection.propTypes = {
   title: PropTypes.string.isRequired,
   formPath: PropTypes.string.isRequired,
   canEdit: PropTypes.bool,
+  additionalMetadata: PropTypes.arrayOf(
+    PropTypes.shape({
+      key: PropTypes.string.isRequired,
+      title: PropTypes.string.isRequired,
+      value: PropTypes.string.isRequired,
+      type: PropTypes.string,
+      href: PropTypes.string,
+    })
+  ),
 };
 
 export const SummarySection = ({
@@ -61,15 +70,10 @@ export const SummarySection = ({
   collapsedSection,
   toggleCollapsed,
   isSummaryCollapsable,
+  additionalMetadata,
 }) => {
-  const Summary = (
-    <SummaryList
-      list={components
-        .filter(({ name }) => formData[name])
-        .map((data) => formatData(data, formData))}
-    />
-  );
   const isCollapsed = collapsedSection[id];
+
   return (
     <div className="govuk-!-margin-bottom-7">
       <div className="lbh-table-header">
@@ -99,7 +103,16 @@ export const SummarySection = ({
         )}
       </div>
       <hr className="govuk-divider" />
-      {!isCollapsed && Summary}
+      {!isCollapsed && (
+        <SummaryList
+          list={[
+            ...components
+              .filter(({ name }) => formData[name])
+              .map((data) => formatData(data, formData)),
+            ...(additionalMetadata || []),
+          ]}
+        />
+      )}
     </div>
   );
 };
@@ -118,6 +131,15 @@ SummarySection.propTypes = {
   collapsedSection: PropTypes.object.isRequired,
   toggleCollapsed: PropTypes.func.isRequired,
   isSummaryCollapsable: PropTypes.bool,
+  additionalMetadata: PropTypes.arrayOf(
+    PropTypes.shape({
+      key: PropTypes.string.isRequired,
+      title: PropTypes.string.isRequired,
+      value: PropTypes.string.isRequired,
+      type: PropTypes.string,
+      href: PropTypes.string,
+    })
+  ),
 };
 
 const Summary = ({
@@ -126,6 +148,7 @@ const Summary = ({
   formPath,
   canEdit,
   isSummaryCollapsable,
+  additionalMetadata,
 }) => {
   const [collapsedSection, setCollapsedSection] = useState(
     getSectionObject(formSteps, formData, false)
@@ -164,6 +187,7 @@ const Summary = ({
             }),
           isSummaryCollapsable,
           ...section,
+          additionalMetadata,
         };
         return section.isMulti ? (
           <SummaryMultiSection {...props} />
@@ -181,6 +205,15 @@ Summary.propTypes = {
   formPath: PropTypes.string.isRequired,
   canEdit: PropTypes.bool,
   isSummaryCollapsable: PropTypes.bool,
+  additionalMetadata: PropTypes.arrayOf(
+    PropTypes.shape({
+      key: PropTypes.string.isRequired,
+      title: PropTypes.string.isRequired,
+      value: PropTypes.string.isRequired,
+      type: PropTypes.string,
+      href: PropTypes.string,
+    })
+  ),
 };
 
 export default Summary;
