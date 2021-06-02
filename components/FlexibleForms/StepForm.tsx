@@ -70,8 +70,6 @@ const StepForm = ({
             </Banner>
           )}
 
-          {String(dirty)}
-
           {fields.map((field) => (
             <FlexibleField
               key={field.id}
