@@ -1,5 +1,5 @@
 import { NextApiRequest, NextApiResponse } from 'next';
-import forms from 'data/flexibleForms/forms';
+import forms from 'data/flexibleForms';
 import { Submission } from 'data/flexibleForms/forms.types';
 import { getResident } from 'lib/residents';
 import { isAuthorised } from 'utils/auth';
@@ -19,7 +19,7 @@ const handler = async (
   const submission: Submission = {
     id: String(id),
     socialCareId: 1,
-    formId: 'conversation-3',
+    formId: 'review-of-care-and-support-plan-3c',
     answers: {},
     completedSteps: [],
     editedBy: [],
