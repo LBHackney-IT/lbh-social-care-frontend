@@ -46,8 +46,7 @@ export const AutosaveTrigger = ({ delay = 1000 }: { delay?: number }): null => {
   // keep context in sync with submit status
   useEffect(() => {
     setSaving(!!isSubmitting);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isSubmitting]);
+  }, [isSubmitting, setSaving]);
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const debouncedSubmit = useCallback(
