@@ -53,6 +53,5 @@ export const mockedWarningNoteCase = caseFactory.build({
   caseFormData: {
     form_name_overall: 'API_WarningNote',
     warning_note_id: 456,
-    form_name: 'test_form',
   },
 });
