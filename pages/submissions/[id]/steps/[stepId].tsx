@@ -114,6 +114,8 @@ const StepPage = ({
   );
 };
 
+StepPage.goBackButton = true;
+
 export const getServerSideProps: GetServerSideProps = async ({ params }) => {
   const protocol = getProtocol();
 
