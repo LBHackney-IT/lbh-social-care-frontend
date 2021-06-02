@@ -7,18 +7,25 @@ import React, {
 } from 'react';
 import { useFormikContext } from 'formik';
 import debounce from 'lodash/throttle';
-import s from '../styles/Autosave.module.scss';
+import s from './Autosave.module.scss';
 import useWarnUnsavedChanges from '../hooks/useWarnUnsavedChanges';
 
-const AutosaveContext = createContext(null);
+interface ContextType {
+  saved: boolean;
+  setSaved: (newVal: boolean) => void;
+  saving: boolean;
+  setSaving: (newVal: boolean) => void;
+}
+
+const AutosaveContext = createContext<null | ContextType>(null);
 
 export const AutosaveProvider = ({
   children,
 }: {
   children: React.ReactChild;
 }): React.ReactElement => {
-  const [saved, setSaved] = useState(true);
-  const [saving, setSaving] = useState(true);
+  const [saved, setSaved] = useState<boolean>(true);
+  const [saving, setSaving] = useState<boolean>(true);
 
   return (
     <AutosaveContext.Provider value={{ saved, setSaved, saving, setSaving }}>
@@ -28,7 +35,9 @@ export const AutosaveProvider = ({
 };
 
 export const AutosaveTrigger = ({ delay = 1000 }: { delay?: number }): null => {
-  const { saved, setSaved, setSaving } = useContext(AutosaveContext);
+  const { saved, setSaved, setSaving } = useContext(
+    AutosaveContext
+  ) as ContextType;
 
   const { submitForm, validateForm, values, isSubmitting } = useFormikContext();
 
@@ -68,7 +77,7 @@ export const AutosaveTrigger = ({ delay = 1000 }: { delay?: number }): null => {
 };
 
 export const AutosaveIndicator = (): React.ReactElement => {
-  const { saved, saving } = useContext(AutosaveContext);
+  const { saved, saving } = useContext(AutosaveContext) as ContextType;
 
   return (
     <div className={s.outer} role="status" aria-live="polite">
