@@ -16,7 +16,14 @@ describe('AutosaveProvider', () => {
 describe('AutosaveIndicator', () => {
   it('correctly shows when changes are saved', () => {
     render(
-      <AutosaveContext.Provider value={{ saved: true, saving: false }}>
+      <AutosaveContext.Provider
+        value={{
+          saved: true,
+          saving: false,
+          setSaved: jest.fn(),
+          setSaving: jest.fn(),
+        }}
+      >
         <AutosaveIndicator />
       </AutosaveContext.Provider>
     );
@@ -25,7 +32,14 @@ describe('AutosaveIndicator', () => {
 
   it('correctly shows when saving is in progress', () => {
     render(
-      <AutosaveContext.Provider value={{ saved: false, saving: true }}>
+      <AutosaveContext.Provider
+        value={{
+          saved: false,
+          saving: true,
+          setSaved: jest.fn(),
+          setSaving: jest.fn(),
+        }}
+      >
         <AutosaveIndicator />
       </AutosaveContext.Provider>
     );
@@ -34,7 +48,14 @@ describe('AutosaveIndicator', () => {
 
   it('correctly shows when there are unsaved changes', () => {
     render(
-      <AutosaveContext.Provider value={{ saved: false, saving: false }}>
+      <AutosaveContext.Provider
+        value={{
+          saved: false,
+          saving: false,
+          setSaved: jest.fn(),
+          setSaving: jest.fn(),
+        }}
+      >
         <AutosaveIndicator />
       </AutosaveContext.Provider>
     );
