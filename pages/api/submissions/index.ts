@@ -1,4 +1,4 @@
-import forms from 'data/flexibleForms/forms';
+import forms from 'data/flexibleForms';
 import { NextApiRequest, NextApiResponse } from 'next';
 import StatusCodes from 'http-status-codes';
 
