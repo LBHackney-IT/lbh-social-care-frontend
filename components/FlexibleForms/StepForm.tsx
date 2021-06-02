@@ -72,7 +72,7 @@ const StepForm = ({
             />
           ))}
 
-          <AutosaveTrigger />
+          <AutosaveTrigger delay={10000} />
 
           <button
             className="govuk-button lbh-button"
