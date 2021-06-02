@@ -21,7 +21,7 @@ const Tickbox = ({
   return (
     <div className="govuk-checkboxes__item">
       <input
-        className={cx('govuk-checkboxes__input', {
+        className={cx('lbh-checkboxes govuk-checkboxes__input', {
           'govuk-input--error': error,
         })}
         id={id}
@@ -66,7 +66,7 @@ const Checkbox = ({
 }: Props): React.ReactElement => {
   return (
     <div
-      className={cx('govuk-form-group', {
+      className={cx('lbh-form-group govuk-form-group', {
         'govuk-form-group--error': error,
       })}
     >
@@ -87,7 +87,7 @@ const Checkbox = ({
               {hint}
             </div>
           )}
-          <div className="govuk-checkboxes">
+          <div className="govuk-checkboxes lbh-checkboxes">
             {options ? (
               options.map((option: Option) => {
                 const { value, text } =

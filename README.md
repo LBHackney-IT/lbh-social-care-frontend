@@ -4,6 +4,8 @@ The Social Care Frontend allows Social Care Practitioners to edit cases and resi
 
 It is a part of the Social Care system (see [Social Care System Architecture](https://github.com/LBHackney-IT/social-care-architecture/tree/main) for more details).
 
+It makes use of the [Hackney Design System](https://design-system.hackney.gov.uk/).
+
 ## Getting Started
 
 The app needs Node 14, if you have [NVM](https://github.com/nvm-sh/nvm) installed just run `nvm use` in your terminal.

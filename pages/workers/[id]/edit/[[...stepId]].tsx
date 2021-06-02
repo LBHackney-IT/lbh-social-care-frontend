@@ -9,7 +9,7 @@ import { useWorkerById, updateWorker } from 'utils/api/workers';
 
 import { User } from 'types';
 
-import formSteps from 'data/forms/create-new-worker';
+import formSteps from 'data/forms/edit-worker';
 
 interface FormData {
   nhsNumber: string;
@@ -43,6 +43,7 @@ const UpdateWorker = (): React.ReactElement => {
       createdBy: user.email,
     });
   };
+
   return (
     <FormWizard
       formPath={`/workers/${workerId}/edit/`}
@@ -52,7 +53,7 @@ const UpdateWorker = (): React.ReactElement => {
       defaultValues={{
         ...data,
         user,
-        team: data.teams?.[0].name,
+        team: data.teams?.[0]?.name,
         teams: {
           A: ATeams.map(({ name }) => name),
           C: CTeams.map(({ name }) => name),

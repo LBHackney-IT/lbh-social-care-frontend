@@ -35,7 +35,7 @@ describe('SaveFormData component', () => {
   it('should display no forms in progress message', () => {
     const { queryByText } = render(<SavedForms />);
     expect(
-      queryByText("You don't have any incomplete form, well done!")
+      queryByText('You have no incomplete forms right now.')
     ).toBeInTheDocument();
   });
 });

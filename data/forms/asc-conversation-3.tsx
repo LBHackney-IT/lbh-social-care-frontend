@@ -23,7 +23,7 @@ const steps: FormStep[] = [
         name: 'start_date_of_conversation_3',
         label: 'Start Date of Conversation 3',
         width: 10,
-        rules: { required: true },
+        rules: { required: 'Add a valid date.' },
       },
       <h3
         key="person details"
@@ -54,8 +54,7 @@ const steps: FormStep[] = [
         name: 'list_key_contacts',
         width: 30,
         label: 'List your key contacts',
-        hint:
-          "(Include 'Name', 'Relationship/Role', 'Address and Contact Details' for each individual that would appear in the Key Contacts table)",
+        hint: "(Include 'Name', 'Relationship/Role', 'Address and Contact Details' for each individual that would appear in the Key Contacts table)",
       },
       {
         component: 'TextInput',
@@ -93,7 +92,7 @@ const steps: FormStep[] = [
         label:
           'Has this person been assessed by Hackney adult social care before?',
         options: ['Yes', 'No', 'Not known'],
-        rules: { required: true },
+        rules: { required: 'Please select one option.' },
       },
       <h3
         key="support reasons"
@@ -201,9 +200,8 @@ const steps: FormStep[] = [
         name: 'decline_support',
         label:
           'Did the client choose to decline any further Social Services support?',
-        hint:
-          '(Has the client stated that they do not wish further assessment or services from Hackney Adults Social Care at this point)',
-        rules: { required: true },
+        hint: '(Has the client stated that they do not wish further assessment or services from Hackney Adults Social Care at this point)',
+        rules: { required: 'Please select one option.' },
       },
       <p key="lifewellbeing">
         Areas of my life I enjoy most or value (including my main interests and
@@ -257,7 +255,7 @@ const steps: FormStep[] = [
         width: 30,
         label: 'Number of Visits',
         hint: '(including telephone calls to the person, etc)',
-        rules: { required: true },
+        rules: { required: 'Please enter the number of visits' },
       },
       {
         component: 'Checkbox',
@@ -284,21 +282,23 @@ const steps: FormStep[] = [
         name: 'medical_condition',
         label:
           'Do you have a condition as a result of either your physical, mental, sensory, learning or cognitive disabilities or illnesses, substance misuse or brain injury?',
-        rules: { required: true },
+        rules: { required: 'Please select a relevant option.' },
       },
       {
         component: 'Radios',
         name: 'medical_eligible_outcome',
         label:
           'As a result of your needs are you unable to achieve two or more of the eligible outcomes below',
-        rules: { required: true },
+        rules: { required: 'Please select a relevant option..' },
       },
       {
         component: 'Radios',
         name: 'maintain_home_environment',
         label:
           'Can you "Maintain a habitable home environment" alone within a reasonable time and without significant pain, distress, anxiety, or risk to yourself or others?',
-        rules: { required: true },
+        rules: {
+          required: 'Please select relevant options.',
+        },
       },
       {
         component: 'TextArea',
@@ -310,7 +310,7 @@ const steps: FormStep[] = [
         name: 'maintain_nutrition_alone',
         label:
           'Can you "Manage and maintain nutrition" alone within within a reasonable time and without significant pain, distress, anxiety or risk to yourself or others?',
-        rules: { required: true },
+        rules: { required: 'Please select a relevant option.' },
       },
       {
         component: 'TextArea',
@@ -322,7 +322,7 @@ const steps: FormStep[] = [
         name: 'manage_toilet_needs',
         label:
           'Can you "Manage toilet needs" alone within within a reasonable time and without significant pain, distress, anxiety or risk to yourself or others?',
-        rules: { required: true },
+        rules: { required: 'Please select a relevant option.' },
       },
       {
         component: 'TextArea',
@@ -334,7 +334,7 @@ const steps: FormStep[] = [
         name: 'maintain_personal_hygiene',
         label:
           'Can you "Maintain personal hygiene" alone within within a reasonable time and without significant pain, distress, anxiety or risk to yourself or others?',
-        rules: { required: true },
+        rules: { required: 'Please select a relevant option.' },
       },
       {
         component: 'TextArea',
@@ -346,7 +346,7 @@ const steps: FormStep[] = [
         name: 'can_be_apprpriately_clothed',
         label:
           'Can you "Be appropriately clothed" alone within within a reasonable time and without significant pain, distress, anxiety or risk to yourself or others?',
-        rules: { required: true },
+        rules: { required: 'Please select a relevant option.' },
       },
       {
         component: 'TextArea',
@@ -358,7 +358,7 @@ const steps: FormStep[] = [
         name: 'maintain_relationships',
         label:
           'Can you "Develop and maintain family or other personal relationships" alone within within a reasonable time and without significant pain, distress, anxiety or risk to yourself or others?',
-        rules: { required: true },
+        rules: { required: 'Please select a relevant option.' },
       },
       {
         component: 'TextArea',
@@ -371,7 +371,7 @@ const steps: FormStep[] = [
         name: 'use_necessary_facilities',
         label:
           'Can you "Make use of necessary facilities or services in the local community (including public transport and recreational facilities/services)" alone within within a reasonable time and without significant pain, distress, anxiety or risk to yourself or others?',
-        rules: { required: true },
+        rules: { required: 'Please select a relevant option.' },
       },
       {
         component: 'TextArea',
@@ -384,7 +384,7 @@ const steps: FormStep[] = [
         name: 'access_work_alone',
         label:
           'Can you "Access and engage in work, training, education or volunteering" alone within within a reasonable time and without significant pain, distress, anxiety or risk to yourself or others?',
-        rules: { required: true },
+        rules: { required: 'Please select a relevant option.' },
       },
       {
         component: 'TextArea',
@@ -397,7 +397,7 @@ const steps: FormStep[] = [
         name: 'caring_responsibilities',
         label:
           'Can you "Carry out any caring responsibilities for a child" alone within within a reasonable time and without significant pain, distress, anxiety or risk to yourself or others?',
-        rules: { required: true },
+        rules: { required: 'Please select a relevant option.' },
       },
       {
         component: 'TextArea',
@@ -409,7 +409,7 @@ const steps: FormStep[] = [
         name: 'home_safety_alone',
         label:
           'Can you "Be able to make use of your home safely" alone within within a reasonable time and without significant pain, distress, anxiety or risk to yourself or others?',
-        rules: { required: true },
+        rules: { required: 'Please select a relevant option.' },
       },
       {
         component: 'TextArea',
@@ -421,7 +421,7 @@ const steps: FormStep[] = [
         name: 'home_safety_wellbeing',
         label:
           'As a result of being unable to achieve these outcomes is there, or is there likely to be, a significant impact on your wellbeing?',
-        rules: { required: true },
+        rules: { required: 'Please select a relevant option.' },
       },
     ],
   },
@@ -458,7 +458,7 @@ const steps: FormStep[] = [
         name: 'details_wellbeing_impact',
         label:
           'Details of the impact on your wellbeing (in the absence of any support you may already have in place)',
-        rules: { required: true },
+        rules: { required: 'Please provide details.' },
       },
     ],
   },
@@ -498,27 +498,27 @@ const steps: FormStep[] = [
         name: 'carer_first_name',
         width: 30,
         label: 'Carer First Name',
-        rules: { required: true },
+        rules: { required: 'Please add carer&apos:s name.' },
       },
       {
         component: 'TextInput',
         name: 'carer_last_name',
         width: 30,
         label: 'Carer Last Name',
-        rules: { required: true },
+        rules: { required: 'Please add last name' },
       },
       {
         component: 'TextInput',
         name: 'relation_to_subject',
         width: 30,
         label: 'Relationship to main subject of assessment',
-        rules: { required: true },
+        rules: { required: 'Please describe the relationship' },
       },
       {
         component: 'Radios',
         name: 'main_carer',
         label: 'Is this the main carer for the cared-for person?)',
-        rules: { required: true },
+        rules: { required: 'Please select a relevant option.' },
       },
       {
         component: 'Radios',
@@ -536,7 +536,7 @@ const steps: FormStep[] = [
         name: 'carer_seperate_conversation_agree',
         label:
           'If conversation is completed with the Carer present, does the Carer agree this is a joint conversation?',
-        rules: { required: true },
+        rules: { required: 'Does the carer agree?' },
       },
     ],
   },
@@ -551,13 +551,13 @@ const steps: FormStep[] = [
         name: 'carer_assessed',
         label:
           'Has the carer been assessed as having one or more eligible need?',
-        rules: { required: true },
+        rules: { required: 'Please select a relevant option.' },
       },
       {
         component: 'TextArea',
         name: 'impact_carer_independence',
         label: "Impact of caring on your own Carer's independence",
-        rules: { required: true },
+        rules: { required: "Describe impact on carer's independence" },
       },
       <h3
         key="contingency_sub_heading"
@@ -618,8 +618,7 @@ const steps: FormStep[] = [
         component: 'DateInput',
         name: 'date_of_plan',
         label: 'Date of Plan',
-        hint:
-          'Submission date of this Google form - instead of authorised date',
+        hint: 'Submission date of this Google form - instead of authorised date',
       },
       <h3
         key="budget_sub_heading"
@@ -647,13 +646,11 @@ const steps: FormStep[] = [
           },
           {
             value: '7',
-            text:
-              'Make use of necessary facilities or services in local community',
+            text: 'Make use of necessary facilities or services in local community',
           },
           {
             value: '8',
-            text:
-              'Access and engage in work, training, education or volunteering',
+            text: 'Access and engage in work, training, education or volunteering',
           },
           {
             value: '9',
@@ -829,9 +826,8 @@ const steps: FormStep[] = [
         name: 'date_of_timetable',
         label: 'Date of Timetable',
         width: 10,
-        hint:
-          "Today's date, being the submission date of this Google form  instead of authorised date",
-        rules: { required: true },
+        hint: "Today's date, being the submission date of this Google form  instead of authorised date",
+        rules: { required: 'Please add a date' },
       },
       {
         component: 'NumberInput',
@@ -874,8 +870,7 @@ const steps: FormStep[] = [
         component: 'TextInput',
         name: 'details_of_weekly_timetable',
         width: 30,
-        hint:
-          "Please break this down into 'Day','Morning', 'Afternoon', 'Evening', 'Night', 'Estimated Weekly Cost' ",
+        hint: "Please break this down into 'Day','Morning', 'Afternoon', 'Evening', 'Night', 'Estimated Weekly Cost' ",
         label: 'List details of my weekly timetable',
       },
     ],
@@ -978,9 +973,8 @@ const steps: FormStep[] = [
         component: 'DatePicker',
         name: 'next_review',
         label: 'Date of Next Review',
-        hint:
-          'Please schedule a date in 3, 6 or 12 months time, as required, for the Long Term team to carry out a Review',
-        rules: { required: true },
+        hint: 'Please schedule a date in 3, 6 or 12 months time, as required, for the Long Term team to carry out a Review',
+        rules: { required: 'Please add a date' },
       },
       <h3
         key="please_ensure"
@@ -1077,8 +1071,7 @@ const steps: FormStep[] = [
         width: 30,
         label:
           'Email address of your manager (who would normally approve this decision)',
-        hint:
-          "Who will retrospectively approve this decision? You need to manually forward the 'receipt' copy of this form to them once you receive it",
+        hint: "Who will retrospectively approve this decision? You need to manually forward the 'receipt' copy of this form to them once you receive it",
       },
     ],
   },

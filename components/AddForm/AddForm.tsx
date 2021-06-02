@@ -20,6 +20,10 @@ const AddForm = ({ person }: { person: Resident }): React.ReactElement => {
             text: 'Case Note Recording',
             value: `/people/${person.id}/records/case-notes-recording`,
           },
+          // {
+          //   text: 'Conversation 3',
+          //   value: `/people/${person.id}/records/conversation-3`,
+          // },
         ]
       : [];
   const betaForms = user.hasDevPermissions
@@ -32,7 +36,7 @@ const AddForm = ({ person }: { person: Resident }): React.ReactElement => {
     : [];
   return (
     <>
-      <div className="govuk-form-group">
+      <div className="lbh-form-group govuk-form-group">
         <Autocomplete
           name="formList"
           options={[...internalForms, ...forms, ...betaForms]}

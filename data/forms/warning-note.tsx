@@ -25,12 +25,12 @@ const WARNING_TYPES_CHILDREN = [
   'Safeguarding agreement in place',
 ];
 
-const INTRO: Array<FormComponentStep> = [
+const INTRO_ADULTS: Array<FormComponentStep> = [
   <div key="intro">
     <h2>About adding a Warning Note</h2>
-    <div className="govuk-body">
+    <div className="lbh-body">
       Before adding a Warning Note, you need to have:{' '}
-      <ul>
+      <ul className="lbh-list lbh-list--bullet">
         <li>
           read the Warnings Policy and Operational Procedure, and be familiar
           with your responsibilities under the Data Protection Act (2018) and
@@ -47,6 +47,16 @@ const INTRO: Array<FormComponentStep> = [
           others).
         </li>
       </ul>
+    </div>
+  </div>,
+];
+
+const INTRO_CHILDREN: Array<FormComponentStep> = [
+  <div key="intro">
+    <h2>About adding a Warning Note</h2>
+    <div className="lbh-body">
+      Before adding a Warning Note, you need to have discussed and agreed with a
+      manager that a Warning Note needs to be added.
     </div>
   </div>,
 ];
@@ -235,15 +245,13 @@ const WARNING_DATES: Array<FormComponentStep> = [
     component: 'DateInput',
     name: 'startDate',
     label: 'Start date',
-    hint:
-      'If the start date is set in the future, the Warning Note will not be displayed until that date.',
+    hint: 'Start date cannot be set in the future.',
     rules: { required: true },
   },
   {
     component: 'DateInput',
     name: 'reviewDate',
-    hint:
-      'The Review / end date cannot be more than 1 year from the Start date',
+    hint: 'Review / end date cannot be more than 1 year after the Start date.',
     label: 'Review / end date',
     rules: {
       required: true,
@@ -254,7 +262,7 @@ const WARNING_DATES: Array<FormComponentStep> = [
         notMoreThanOneYear: (value, { startDate }) =>
           new Date(value).getTime() - new Date(startDate).getTime() <=
             365 * 24 * 60 * 60 * 1000 ||
-          'The Review / end date cannot be more than 1 year from the Start date',
+          'Review / end date cannot be more than 1 year after the Start date.',
       },
     },
   },
@@ -326,7 +334,7 @@ const WARNING_DISCLOSURE: Array<FormComponentStep> = [
   },
 ];
 
-const WARNING_NARRATIVE: Array<FormComponentStep> = [
+const WARNING_NARRATIVE_ADULTS: Array<FormComponentStep> = [
   <div key="warning narrative">
     <h2>Guidance on narrative and risks</h2>
     <ExpandDetails label="Guidance on disclosure" triggerLabel="guidance">
@@ -360,6 +368,18 @@ const WARNING_NARRATIVE: Array<FormComponentStep> = [
   },
 ];
 
+const WARNING_NARRATIVE_CHILDREN: Array<FormComponentStep> = [
+  <div key="warning narrative">
+    <h2>Warning note details</h2>
+  </div>,
+  {
+    component: 'TextArea',
+    name: 'notes',
+    label: 'Add further details about the Warning Note',
+    rules: { required: true },
+  },
+];
+
 const DISCUSSED_WITH_MANAGER: Array<FormComponentStep> = [
   <div key="discussed with manager">
     <h2>Discussed with manager</h2>
@@ -387,11 +407,11 @@ export const formStepsAdult: FormStep[] = [
     id: 'warning-details',
     title: 'Warning details',
     components: [
-      ...INTRO,
+      ...INTRO_ADULTS,
       ...WARNING_TYPE_ADULTS,
       ...WARNING_DATES,
       ...WARNING_DISCLOSURE,
-      ...WARNING_NARRATIVE,
+      ...WARNING_NARRATIVE_ADULTS,
       ...DISCUSSED_WITH_MANAGER,
     ],
   },
@@ -402,10 +422,10 @@ export const formStepsChild: FormStep[] = [
     id: 'warning-details',
     title: 'Warning details',
     components: [
-      ...INTRO,
+      ...INTRO_CHILDREN,
       ...WARNING_TYPE_CHILDREN,
       ...WARNING_DATES,
-      ...WARNING_NARRATIVE,
+      ...WARNING_NARRATIVE_CHILDREN,
       ...DISCUSSED_WITH_MANAGER,
     ],
   },

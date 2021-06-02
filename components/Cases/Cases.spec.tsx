@@ -123,4 +123,57 @@ describe('Cases component', () => {
     expect(casesAPI.useCasesByResident).toHaveBeenCalled();
     expect(queryByText('RESTRICTED')).not.toBeInTheDocument();
   });
+
+  it('should render the cases if the user is of the same context type as the resident', () => {
+    const props = {
+      id: 44000000,
+      person: residentFactory.build({
+        contextFlag: 'A',
+        restricted: 'N',
+      }),
+    };
+
+    const { queryByText } = render(
+      <UserContext.Provider
+        value={{
+          user: userFactory.build({
+            hasUnrestrictedPermissions: false,
+            hasChildrenPermissions: false,
+            hasAdultPermissions: true,
+          }),
+        }}
+      >
+        <Cases {...props} />
+      </UserContext.Provider>
+    );
+
+    expect(queryByText('RESTRICTED')).not.toBeInTheDocument();
+  });
+
+  it('should restrict the cases if the user is not of the same context type as the resident', () => {
+    const props = {
+      id: 44000000,
+      person: residentFactory.build({
+        contextFlag: 'C',
+        restricted: 'N',
+      }),
+    };
+
+    const { getByText } = render(
+      <UserContext.Provider
+        value={{
+          user: userFactory.build({
+            hasAdminPermissions: false,
+            hasUnrestrictedPermissions: false,
+            hasChildrenPermissions: false,
+            hasAdultPermissions: true,
+          }),
+        }}
+      >
+        <Cases {...props} />
+      </UserContext.Provider>
+    );
+
+    getByText('RESTRICTED');
+  });
 });

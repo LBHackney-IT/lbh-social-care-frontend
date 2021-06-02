@@ -28,7 +28,7 @@ const ExpandDetails = ({
         <span
           className={cx('govuk-link', 'govuk-link--underline', styles.trigger)}
         >
-          {isOpen ? 'Collapse' : 'Expand'} {triggerLabel}
+          {isOpen ? 'Hide' : 'Show'} {triggerLabel}
         </span>
       </summary>
       <div className={styles.content}>{children}</div>

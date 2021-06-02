@@ -132,7 +132,7 @@ const Search = ({
             />
           ) : (
             <>
-              <p className="govuk-body govuk-!-margin-top-5">
+              <p className="lbh-body govuk-body govuk-!-margin-top-5">
                 {type.charAt(0).toUpperCase() + type.slice(1)} not found
               </p>
             </>

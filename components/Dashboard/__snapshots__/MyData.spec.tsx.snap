@@ -1,0 +1,85 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`MyData should render a worker's data only if a worker is available 1`] = `
+<DocumentFragment>
+  <div
+    class="container"
+  >
+    <div
+      class="header lbh-table-header"
+    >
+      <h2>
+        Foo Bar
+      </h2>
+      <button
+        class="govuk-link govuk-link--underline"
+      >
+        Expand view
+      </button>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`MyData should render a worker's data only if a worker is available 2`] = `
+<DocumentFragment>
+  <div
+    class="container"
+  >
+    <div
+      class="header lbh-table-header"
+    >
+      <h2>
+        Foo Bar
+      </h2>
+      <button
+        class="govuk-link govuk-link--underline"
+      >
+        Collapse view
+      </button>
+    </div>
+    <div
+      class="body"
+    >
+      <div
+        class="govuk-grid-row"
+      >
+        <div
+          class="govuk-grid-column-one-half descriptions"
+        >
+          <div>
+            Role: aliquam
+          </div>
+        </div>
+        <div
+          class="govuk-grid-column-one-half descriptions"
+        >
+          <div>
+            Area: Admin social care
+          </div>
+          <div>
+            Access: Restricted
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`MyData should render an error if the API returns a 500 1`] = `
+<DocumentFragment>
+  <span
+    class="govuk-error-message"
+  >
+    <span
+      class="govuk-visually-hidden"
+    >
+      Error:
+    </span>
+     An unknown error has occurred.
+  </span>
+</DocumentFragment>
+`;
+
+exports[`MyData should render nothing when there is no worker for the current user 1`] = `<DocumentFragment />`;

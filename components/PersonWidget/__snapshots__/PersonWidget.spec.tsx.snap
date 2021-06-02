@@ -1,0 +1,25 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`PersonWidget should render properly 1`] = `
+<DocumentFragment>
+  <aside
+    class="aside"
+  >
+    <h2
+      class="lbh-heading-h3 title"
+    >
+      Foo Bar
+    </h2>
+    <p
+      class="lbh-body-s paragraph"
+    >
+      Born 13 Nov 2020
+    </p>
+    <p
+      class="lbh-body-s paragraph"
+    >
+      <br />
+    </p>
+  </aside>
+</DocumentFragment>
+`;

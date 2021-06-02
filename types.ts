@@ -59,6 +59,11 @@ export interface DeallocationCaseFormData extends CaseFormDataBase {
   created_by: string;
 }
 
+export interface WarningNoteCaseFormData extends CaseFormDataBase {
+  form_name_overall: 'API_WarningNote';
+  warning_note_id: number;
+}
+
 export interface HistoricCaseData {
   title: string;
   formName?: string;
@@ -85,7 +90,8 @@ export interface HistoricVisitData {
 export type CaseFormData =
   | CaseFormDataBase
   | AllocationCaseFormData
-  | DeallocationCaseFormData;
+  | DeallocationCaseFormData
+  | WarningNoteCaseFormData;
 
 export interface Case {
   recordId: string;
@@ -196,6 +202,24 @@ export interface Worker {
   role: string;
   allocationCount: number;
   teams: Team[];
+}
+
+export interface RelationshipPerson {
+  id: number;
+  firstName: string;
+  lastName: string;
+}
+
+export interface Relationship {
+  parents: Array<RelationshipPerson>;
+  siblings: Array<RelationshipPerson>;
+  children: Array<RelationshipPerson>;
+  other: Array<RelationshipPerson>;
+}
+
+export interface RelationshipData {
+  personId: number;
+  personalRelationships: Relationship;
 }
 
 interface BaseNote {

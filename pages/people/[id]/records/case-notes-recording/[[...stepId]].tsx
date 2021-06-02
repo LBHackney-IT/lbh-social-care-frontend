@@ -4,7 +4,6 @@ import { useRouter } from 'next/router';
 import Seo from 'components/Layout/Seo/Seo';
 import PersonView from 'components/PersonView/PersonView';
 import { useAuth } from 'components/UserContext/UserContext';
-import BackButton from 'components/Layout/BackButton/BackButton';
 import FormWizard from 'components/FormWizard/FormWizard';
 import { addCase } from 'utils/api/cases';
 import PersonLinkConfirmation from 'components/Steps/PersonLinkConfirmation';
@@ -19,30 +18,27 @@ const CaseNotesRecording = (): React.ReactElement => {
   const personId = Number(query.id as string);
   const { user } = useAuth() as { user: User };
   const onFormSubmit = useCallback(
-    (person: Resident) => async ({
-      form_name,
-      ...formData
-    }: Record<string, unknown>) => {
-      await addCase({
-        personId: person.id,
-        firstName: person.firstName,
-        lastName: person.lastName,
-        contextFlag: person.contextFlag,
-        dateOfBirth: person.dateOfBirth,
-        workerEmail: user.email,
-        formNameOverall:
-          person.contextFlag === 'A' ? 'ASC_case_note' : 'CFS_case_note',
-        formName: form_name,
-        caseFormData: JSON.stringify(formData),
-      });
-    },
+    (person: Resident) =>
+      async ({ form_name, ...formData }: Record<string, unknown>) => {
+        await addCase({
+          personId: person.id,
+          firstName: person.firstName,
+          lastName: person.lastName,
+          contextFlag: person.contextFlag,
+          dateOfBirth: person.dateOfBirth,
+          workerEmail: user.email,
+          formNameOverall:
+            person.contextFlag === 'A' ? 'ASC_case_note' : 'CFS_case_note',
+          formName: form_name,
+          caseFormData: JSON.stringify(formData),
+        });
+      },
     [user.email]
   );
   return (
     <>
       <Seo title="Case note" />
       <>
-        <BackButton />
         <h1 className="govuk-fieldset__legend--l gov-weight-lighter">
           Case note for
         </h1>
@@ -69,5 +65,7 @@ const CaseNotesRecording = (): React.ReactElement => {
     </>
   );
 };
+
+CaseNotesRecording.goBackButton = true;
 
 export default CaseNotesRecording;

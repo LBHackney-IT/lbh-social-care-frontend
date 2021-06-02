@@ -26,4 +26,22 @@ describe('PhoneInput', () => {
     });
     expect(newValue).toEqual('07849436768');
   });
+
+  it('Tests phone number with spaces', () => {
+    let newValue = '';
+    const myAction = jest.fn((e) => (newValue = e.target.value));
+    const { getByLabelText, getByText } = render(
+      <PhoneInput name={'my-input'} label={'My Input'} onChange={myAction} />
+    );
+    fireEvent.change(getByLabelText('My Input'), {
+      target: { value: '07 849 436 768' },
+    });
+
+    let error;
+    fireEvent.blur(getByLabelText('My Input'), function () {
+      error = getByText('Only numbers are supported here');
+    });
+
+    expect(error).not.toBeNull();
+  });
 });

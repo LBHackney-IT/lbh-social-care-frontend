@@ -16,7 +16,7 @@ functions:
   lbh-social-care:
     name: ${self:service}-${self:provider.stage}
     handler: lambda.handler
-    timeout: 10
+    timeout: 30
     package:
       include:
         - lambda.js
@@ -96,11 +96,11 @@ resources:
 custom:
   domain-name:
     Fn::Join:
-      - '.'
-      - - Ref: ApiGatewayRestApi
-        - execute-api
-        - eu-west-2
-        - amazonaws.com
+       - '.'
+       - - Ref: ApiGatewayRestApi
+         - execute-api
+         - eu-west-2
+         - amazonaws.com
   aliases:
     staging: social-care-service-staging.hackney.gov.uk
     production: social-care-service.hackney.gov.uk

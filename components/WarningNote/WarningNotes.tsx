@@ -17,7 +17,7 @@ export const WarningBox = ({ notes, personId }: Props): React.ReactElement => {
     <div
       className={cx('govuk-error-summary', styles.container)}
       aria-labelledby="warning-note-title"
-      role="alert"
+      role="complementary"
       tabIndex={-1}
     >
       <h2 className="govuk-error-summary__title" id="warning-note-title">
@@ -49,9 +49,9 @@ export const WarningBox = ({ notes, personId }: Props): React.ReactElement => {
                     </dd>
                   </>
                 )}
-                {note.reviewDate && (
+                {note.reviewDate && !note.nextReviewDate && (
                   <>
-                    <dt>Review date</dt>
+                    <dt>Previous review date</dt>
                     <dd>
                       {new Date(note.reviewDate).toLocaleDateString('en-GB')}{' '}
                     </dd>

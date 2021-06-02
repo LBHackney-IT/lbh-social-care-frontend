@@ -40,7 +40,7 @@ const SearchResidentsForm = ({
       <div className="govuk-grid-row">
         <div className="govuk-grid-column-one-half">
           <TextInput
-            label="First name:"
+            label="First name"
             labelSize="s"
             name="first_name"
             error={errors.first_name}
@@ -49,7 +49,7 @@ const SearchResidentsForm = ({
         </div>
         <div className="govuk-grid-column-one-half">
           <TextInput
-            label="Last name:"
+            label="Last name"
             labelSize="s"
             name="last_name"
             error={errors.last_name}
@@ -60,7 +60,7 @@ const SearchResidentsForm = ({
       <div className="govuk-grid-row">
         <div className="govuk-grid-column-one-half">
           <DateInput
-            label="Date of birth:"
+            label="Date of birth"
             labelSize="s"
             name="date_of_birth"
             error={errors.date_of_birth}
@@ -75,7 +75,7 @@ const SearchResidentsForm = ({
         </div>
         <div className="govuk-grid-column-one-half">
           <TextInput
-            label="Postcode:"
+            label="Postcode"
             labelSize="s"
             name="postcode"
             hint="e.g. E8 3AS"
@@ -96,7 +96,7 @@ const SearchResidentsForm = ({
       <div className="govuk-grid-row">
         <div className="govuk-grid-column-one-half">
           <TextInput
-            label="Mosaic ID:"
+            label="Social care ID"
             labelSize="s"
             name="mosaic_id"
             hint="e.g. 1234567890"
@@ -109,17 +109,14 @@ const SearchResidentsForm = ({
       </div>
       <Button label={ctaText} type="submit" disabled={!isDirty} />
       <button
-        className="govuk-link"
+        className="lbh-link govuk-link"
+        id="clear-link"
         onClick={(e) => {
           e.preventDefault();
           reset({
             date_of_birth: null,
           });
           onFormSubmit();
-        }}
-        style={{
-          marginLeft: '1rem',
-          lineHeight: '2.5rem',
         }}
       >
         Clear {ctaText.toLowerCase()}

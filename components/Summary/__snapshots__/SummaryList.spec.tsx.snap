@@ -30,9 +30,7 @@ exports[`SummaryList component should render properly 1`] = `
       <dd
         class="govuk-summary-list__value"
       >
-        <span>
-          f_o_o
-        </span>
+        f_o_o
       </dd>
       <dd
         class="govuk-summary-list__actions"
@@ -61,22 +59,24 @@ exports[`SummaryList component should render properly 1`] = `
       <dd
         class="govuk-summary-list__value"
       >
-        <div>
-          <div
-            class="container"
-            style="max-height: 95px;"
+        <div
+          class="outer"
+        >
+          <p
+            data-testid="para"
           >
-            <div>
-              <pre
-                class="formattedTextArea"
-              >
-                asd
-asd
-asd
-
-              </pre>
-            </div>
-          </div>
+            asd
+          </p>
+          <p
+            data-testid="para"
+          >
+            asd
+          </p>
+          <p
+            data-testid="para"
+          >
+            asd
+          </p>
         </div>
       </dd>
     </div>

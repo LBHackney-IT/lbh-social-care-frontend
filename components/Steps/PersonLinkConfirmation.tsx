@@ -11,10 +11,8 @@ const DetailConfirmation = ({ successMessage }: Props): React.ReactElement => {
   const { id } = router.query;
   return (
     <>
-      <div className="govuk-panel govuk-panel--confirmation govuk-!-margin-bottom-9">
-        <h1 className="govuk-fieldset__legend--l gov-weight-lighter">
-          {successMessage}
-        </h1>
+      <div className="govuk-panel govuk-panel--confirmation lbh-panel govuk-!-margin-bottom-9">
+        <h1 className="govuk-panel__title">{successMessage}</h1>
       </div>
       <div style={{ display: 'flex', justifyContent: 'space-between' }}>
         <Button label="Return to search" isSecondary wideButton route={`/`} />

@@ -14,9 +14,8 @@ const WarningNoteRecap = ({
   person,
   warningNoteId,
 }: Props): React.ReactElement => {
-  const { data: warningNote, error: warningNoteError } = useWarningNote(
-    warningNoteId
-  );
+  const { data: warningNote, error: warningNoteError } =
+    useWarningNote(warningNoteId);
 
   if (warningNoteError) {
     return <ErrorMessage />;
