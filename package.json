@@ -16,8 +16,7 @@
     "e2e": "PORT=3000 start-server-and-test start http://localhost:3000 cy:run",
     "cy:run": "cypress run",
     "cy:open": "cypress open",
-    "build-storybook": "build-storybook",
-    "transform-google-form": "node jobs/transform-google-form"
+    "build-storybook": "build-storybook"
   },
   "dependencies": {
     "axios": "^0.21.1",

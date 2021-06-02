@@ -39,6 +39,3 @@ cypress.env.json
 
 # Storybook
 storybook-static
-
-#Jobs
-jobs/*.json
