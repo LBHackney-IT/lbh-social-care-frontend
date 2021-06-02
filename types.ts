@@ -228,7 +228,7 @@ interface BaseNote {
   createdBy: string;
   startDate: string;
   reviewDate: string;
-  endedDate?: string;
+  endDate?: string;
   endedBy?: string;
   reviewedDate?: string;
   reviewedBy?: string;

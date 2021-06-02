@@ -14,7 +14,9 @@ const ViewWarningNote = (): React.ReactElement => {
       <h1 className="govuk-fieldset__legend--l gov-weight-lighter">
         {formName == 'Warning Note Created'
           ? 'Warning Note Details'
-          : 'Warning Note Review Details'}
+          : formName == 'Warning Note Reviewed'
+          ? 'Warning Note Review Details'
+          : 'Warning Note End Details'}
       </h1>
       <PersonView personId={personId} expandView>
         {(person) => (
