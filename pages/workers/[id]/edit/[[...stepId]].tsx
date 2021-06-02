@@ -43,6 +43,7 @@ const UpdateWorker = (): React.ReactElement => {
       createdBy: user.email,
     });
   };
+
   return (
     <FormWizard
       formPath={`/workers/${workerId}/edit/`}
@@ -52,7 +53,7 @@ const UpdateWorker = (): React.ReactElement => {
       defaultValues={{
         ...data,
         user,
-        team: data.teams?.[0].name,
+        team: data.teams?.[0]?.name,
         teams: {
           A: ATeams.map(({ name }) => name),
           C: CTeams.map(({ name }) => name),
