@@ -24,7 +24,13 @@ const TaskListPage = ({
       <Head>
         <title>{form.name} | Social care | Hackney Council</title>
       </Head>
-      <h1 className="lbh-heading-h1 govuk-!-margin-bottom-8">{form.name}</h1>
+      <div className="govuk-grid-row">
+        <div className="govuk-grid-column-two-thirds">
+          <h1 className="lbh-heading-h1 govuk-!-margin-bottom-8">
+            {form.name}
+          </h1>
+        </div>
+      </div>
       <div className="govuk-grid-row">
         <div className="govuk-grid-column-two-thirds">
           <TaskListHeader

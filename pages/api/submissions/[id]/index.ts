@@ -19,7 +19,7 @@ const handler = async (
   const submission: Submission = {
     id: String(id),
     socialCareId: 1,
-    formId: 'review3C',
+    formId: 'review-of-care-and-support-plan-3c',
     answers: {},
     completedSteps: [],
     editedBy: [],

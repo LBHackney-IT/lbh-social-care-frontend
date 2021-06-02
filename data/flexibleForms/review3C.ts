@@ -1,14 +1,20 @@
 import { Form } from './forms.types';
 
 const form: Form = {
-  id: 'review3C',
-  name: 'Review of conversation 3',
+  id: 'review-of-care-and-support-plan-3c',
+  name: 'Review of Care and Support Plan (3C)',
   steps: [
     {
-      id: 'first-step',
-      name: 'First step',
+      id: 'person-details',
+      name: 'Person details',
+      theme: 'About you',
       fields: [
-        { id: 'title', question: 'Title', hint: '', type: 'text' },
+        {
+          id: 'title',
+          question: 'Title',
+          hint: '',
+          type: 'text',
+        },
         {
           id: 'first-name',
           question: 'First name',
@@ -27,9 +33,18 @@ const form: Form = {
           hint: '',
           type: 'radios',
           choices: [
-            { value: 'female', label: 'Female' },
-            { value: 'male', label: 'Male' },
-            { value: 'not-known', label: 'Not known' },
+            {
+              value: 'female',
+              label: 'Female',
+            },
+            {
+              value: 'male',
+              label: 'Male',
+            },
+            {
+              value: 'not-known',
+              label: 'Not known',
+            },
           ],
         },
         {
@@ -45,7 +60,7 @@ const form: Form = {
           type: 'text',
         },
         {
-          id: 'emergency-id-(asc)',
+          id: 'emergency-id-asc',
           question: 'Emergency ID (ASC)',
           hint: '(If you do not know the Mosaic ID  then find or create an emergency ID number for this person in the list of numbers provided to your team, and enter it here)',
           type: 'text',
@@ -86,20 +101,45 @@ const form: Form = {
           hint: '',
           type: 'radios',
           choices: [
-            { value: 'lives-alone', label: 'Lives Alone' },
-            { value: 'lives-with-others', label: 'Lives with Others' },
-            { value: 'unknown', label: 'Unknown' },
+            {
+              value: 'lives-alone',
+              label: 'Lives Alone',
+            },
+            {
+              value: 'lives-with-others',
+              label: 'Lives with Others',
+            },
+            {
+              value: 'unknown',
+              label: 'Unknown',
+            },
           ],
         },
+      ],
+    },
+    {
+      id: 'communication',
+      name: 'Communication',
+      theme: 'About you',
+      fields: [
         {
           id: 'preferred-method-of-contact',
           question: 'Preferred method of contact',
           hint: '',
           type: 'radios',
           choices: [
-            { value: 'face-to-face', label: 'Face to face' },
-            { value: 'telephone', label: 'Telephone' },
-            { value: 'video-link', label: 'Video link' },
+            {
+              value: 'face-to-face',
+              label: 'Face to face',
+            },
+            {
+              value: 'telephone',
+              label: 'Telephone',
+            },
+            {
+              value: 'video-link',
+              label: 'Video link',
+            },
             {
               value: 'combination-of-the-above',
               label: 'Combination of the above',
@@ -113,14 +153,17 @@ const form: Form = {
           type: 'radios',
           choices: [
             {
-              value: 'good-(both-written-and-spoken)',
+              value: 'good-both-written-and-spoken',
               label: 'Good (both written and spoken)',
             },
-            { value: 'not-fluent', label: 'Not fluent' },
+            {
+              value: 'not-fluent',
+              label: 'Not fluent',
+            },
           ],
         },
         {
-          id: 'first-preferred-language',
+          id: 'first--preferred-language',
           question: 'First / preferred language',
           hint: '',
           type: 'text',
@@ -131,8 +174,14 @@ const form: Form = {
           hint: '',
           type: 'radios',
           choices: [
-            { value: 'yes', label: 'Yes' },
-            { value: 'no', label: 'No' },
+            {
+              value: 'yes',
+              label: 'Yes',
+            },
+            {
+              value: 'no',
+              label: 'No',
+            },
           ],
         },
         {
@@ -141,8 +190,14 @@ const form: Form = {
           hint: '',
           type: 'radios',
           choices: [
-            { value: 'yes', label: 'Yes' },
-            { value: 'no', label: 'No' },
+            {
+              value: 'yes',
+              label: 'Yes',
+            },
+            {
+              value: 'no',
+              label: 'No',
+            },
           ],
         },
         {
@@ -152,8 +207,14 @@ const form: Form = {
           hint: '',
           type: 'radios',
           choices: [
-            { value: 'yes', label: 'Yes' },
-            { value: 'no', label: 'No' },
+            {
+              value: 'yes',
+              label: 'Yes',
+            },
+            {
+              value: 'no',
+              label: 'No',
+            },
           ],
         },
         {
@@ -163,108 +224,160 @@ const form: Form = {
           hint: '',
           type: 'radios',
           choices: [
-            { value: 'yes', label: 'Yes' },
-            { value: 'no', label: 'No' },
+            {
+              value: 'yes',
+              label: 'Yes',
+            },
+            {
+              value: 'no',
+              label: 'No',
+            },
           ],
         },
         {
-          id: 'communication-further-details',
+          id: 'communication--further-details',
           question: 'Communication - Further Details',
           hint: '',
           type: 'textarea',
         },
+      ],
+    },
+    {
+      id: 'primary-support-reason',
+      name: 'Primary support reason',
+      theme: 'About you',
+      fields: [],
+    },
+    {
+      id: 'key-contact',
+      name: 'Key contact',
+      theme: 'Key contacts',
+      fields: [
         {
-          id: 'key-contact-1:-name',
+          id: 'key-contact-1-name',
           question: 'Key Contact 1: Name',
           hint: '',
           type: 'text',
         },
         {
-          id: 'key-contact-1:-relationship-role',
+          id: 'key-contact-1-relationship--role',
           question: 'Key Contact 1: Relationship / role',
           hint: '',
           type: 'text',
         },
         {
-          id: 'key-contact-1:-address',
+          id: 'key-contact-1-address',
           question: 'Key Contact 1: Address',
           hint: '',
           type: 'text',
         },
         {
-          id: 'key-contact-1:-contact-details',
+          id: 'key-contact-1-contact-details',
           question: 'Key Contact 1: Contact details',
           hint: '',
           type: 'text',
         },
         {
-          id: 'do-you-have-another-key-contact-to-add-(second)',
+          id: 'do-you-have-another-key-contact-to-add-second',
           question: 'Do you have another key contact to add? (second)',
           hint: '',
           type: 'radios',
           choices: [
-            { value: 'yes', label: 'Yes' },
-            { value: 'no', label: 'No' },
+            {
+              value: 'yes',
+              label: 'Yes',
+            },
+            {
+              value: 'no',
+              label: 'No',
+            },
           ],
         },
+      ],
+    },
+    {
+      id: 'key-contact-second',
+      name: 'Key contact (second)',
+      theme: 'Key contacts',
+      fields: [
         {
-          id: 'key-contact-2:-name',
+          id: 'key-contact-2-name',
           question: 'Key Contact 2: Name',
           hint: '',
           type: 'text',
         },
         {
-          id: 'key-contact-2:-relationship-role',
+          id: 'key-contact-2-relationship--role',
           question: 'Key Contact 2: Relationship / role',
           hint: '',
           type: 'text',
         },
         {
-          id: 'key-contact-2:-address',
+          id: 'key-contact-2-address',
           question: 'Key Contact 2: Address',
           hint: '',
           type: 'text',
         },
         {
-          id: 'key-contact-2:-contact-details',
+          id: 'key-contact-2-contact-details',
           question: 'Key Contact 2: Contact details',
           hint: '',
           type: 'text',
         },
         {
-          id: 'do-you-have-another-key-contact-to-add-(third)',
+          id: 'do-you-have-another-key-contact-to-add-third',
           question: 'Do you have another key contact to add? (third)',
           hint: '',
           type: 'radios',
           choices: [
-            { value: 'yes', label: 'Yes' },
-            { value: 'no', label: 'No' },
+            {
+              value: 'yes',
+              label: 'Yes',
+            },
+            {
+              value: 'no',
+              label: 'No',
+            },
           ],
         },
+      ],
+    },
+    {
+      id: 'key-contact-third',
+      name: 'Key contact (third)',
+      theme: 'Key contacts',
+      fields: [
         {
-          id: 'key-contact-3:-name',
+          id: 'key-contact-3-name',
           question: 'Key Contact 3: Name',
           hint: '',
           type: 'text',
         },
         {
-          id: 'key-contact-3:-relationship-role',
+          id: 'key-contact-3-relationship--role',
           question: 'Key Contact 3: Relationship / role',
           hint: '',
           type: 'text',
         },
         {
-          id: 'key-contact-3:-address',
+          id: 'key-contact-3-address',
           question: 'Key Contact 3: Address',
           hint: '',
           type: 'text',
         },
         {
-          id: 'key-contact-3:-contact-details',
+          id: 'key-contact-3-contact-details',
           question: 'Key Contact 3: Contact details',
           hint: '',
           type: 'text',
         },
+      ],
+    },
+    {
+      id: 'gp-details',
+      name: 'GP details',
+      theme: 'Health and wellbeing',
+      fields: [
         {
           id: 'gp-name',
           question: 'GP name',
@@ -301,14 +414,27 @@ const form: Form = {
           hint: '',
           type: 'text',
         },
+      ],
+    },
+    {
+      id: 'my-review',
+      name: 'My review',
+      theme: 'Review',
+      fields: [
         {
           id: 'review-type',
           question: 'Review type',
           hint: '',
           type: 'radios',
           choices: [
-            { value: 'planned', label: 'Planned' },
-            { value: 'unplanned', label: 'Unplanned' },
+            {
+              value: 'planned',
+              label: 'Planned',
+            },
+            {
+              value: 'unplanned',
+              label: 'Unplanned',
+            },
           ],
         },
         {
@@ -318,40 +444,55 @@ const form: Form = {
           type: 'radios',
           choices: [
             {
-              value: 'hospital-(planned-and-unplanned-episodes)',
+              value: 'hospital-planned-and-unplanned-episodes',
               label: 'Hospital (Planned and Unplanned episodes)',
             },
-            { value: 'carer-related', label: 'Carer related' },
+            {
+              value: 'carer-related',
+              label: 'Carer related',
+            },
             {
               value: 'safeguarding-concern',
               label: 'Safeguarding Concern',
             },
-            { value: 'other-reason', label: 'Other Reason' },
-            { value: 'provider-failure', label: 'Provider Failure' },
+            {
+              value: 'other-reason',
+              label: 'Other Reason',
+            },
+            {
+              value: 'provider-failure',
+              label: 'Provider Failure',
+            },
             {
               value: 'change-in-commissioning-arrangements',
               label: 'Change in Commissioning Arrangements',
             },
             {
-              value: 'not-applicable-(review-was-planned)',
+              value: 'not-applicable-review-was-planned',
               label: 'Not Applicable (Review was planned)',
             },
           ],
         },
         {
-          id: 'what-is-the-current-setting-for-the-person-(if-the-person-is-in-a-hospital-state-the-most-recent-setting-before-going-to-hospital)',
+          id: 'what-is-the-current-setting-for-the-person--if-the-person-is-in-a-hospital-state-the-most-recent-setting-before-going-to-hospital',
           question:
             'What is the current setting for the person ? (If the person is in a hospital, state the most recent setting before going to hospital)',
           hint: '',
           type: 'radios',
           choices: [
             {
-              value: 'community-(for-example-living-at-home-supported-living)',
+              value: 'community-for-example-living-at-home-supported-living',
               label:
                 'Community (for example, living at home, supported living)',
             },
-            { value: 'residential-care', label: 'Residential Care' },
-            { value: 'nursing-care', label: 'Nursing Care' },
+            {
+              value: 'residential-care',
+              label: 'Residential Care',
+            },
+            {
+              value: 'nursing-care',
+              label: 'Nursing Care',
+            },
           ],
         },
         {
@@ -361,41 +502,57 @@ const form: Form = {
           hint: '',
           type: 'radios',
           choices: [
-            { value: 'increase', label: 'Increase' },
-            { value: 'decrease', label: 'Decrease' },
-            { value: 'no-change', label: 'No change' },
+            {
+              value: 'increase',
+              label: 'Increase',
+            },
+            {
+              value: 'decrease',
+              label: 'Decrease',
+            },
+            {
+              value: 'no-change',
+              label: 'No change',
+            },
           ],
         },
         {
-          id: "my-(or-my-representative's)-view-on-how-well-my-care-and-support-has-been-working-since-my-last-assessment-or-review",
+          id: 'my-or-my-representatives-view-on-how-well-my-care-and-support-has-been-working-since-my-last-assessment-or-review',
           question:
             "My (or my representative's) view on how well my care and support has been working since my last assessment or review",
           hint: '',
           type: 'textarea',
         },
         {
-          id: "my-(or-my-representative's)-view-on-anything-that-needs-to-change-to-help-me-work-towards-what-i-want-to-achieve",
+          id: 'my-or-my-representatives-view-on-anything-that-needs-to-change-to-help-me-work-towards-what-i-want-to-achieve',
           question:
             "My (or my representative's) view on anything that needs to change to help me work towards what I want to achieve",
           hint: '',
           type: 'textarea',
         },
+      ],
+    },
+    {
+      id: 'about-me',
+      name: 'About me',
+      theme: 'About you',
+      fields: [
         {
-          id: 'areas-of-my-life-i-enjoy-most-or-value-(including-my-main-interests-and-where-i-can-most-contribute)-and-changes-that-would-improve-my-wellbeing-or-quality-of-life',
+          id: 'areas-of-my-life-i-enjoy-most-or-value-including-my-main-interests-and-where-i-can-most-contribute--changes-that-would-improve-my-wellbeing-or-quality-of-life',
           question:
             'Areas of my life I enjoy most or value (including my main interests and where I can most contribute) & changes that would improve my wellbeing or quality of life',
           hint: '',
           type: 'textarea',
         },
         {
-          id: 'what-resources-support-was-recommended-and-outcome-(workers-recommendations)',
+          id: 'what-resources-support-was-recommended-and-outcome-workers-recommendations',
           question:
             'What resources, support was recommended and outcome? (workers recommendations)',
           hint: '',
           type: 'textarea',
         },
         {
-          id: 'next-actions-(workers-recommendations)',
+          id: 'next-actions-workers-recommendations',
           question: 'Next actions (workers recommendations)',
           hint: '',
           type: 'textarea',
@@ -406,8 +563,14 @@ const form: Form = {
           hint: '',
           type: 'radios',
           choices: [
-            { value: 'yes', label: 'Yes' },
-            { value: 'no', label: 'No' },
+            {
+              value: 'yes',
+              label: 'Yes',
+            },
+            {
+              value: 'no',
+              label: 'No',
+            },
           ],
         },
         {
@@ -416,8 +579,14 @@ const form: Form = {
           hint: '',
           type: 'radios',
           choices: [
-            { value: 'yes', label: 'Yes' },
-            { value: 'no', label: 'No' },
+            {
+              value: 'yes',
+              label: 'Yes',
+            },
+            {
+              value: 'no',
+              label: 'No',
+            },
           ],
         },
         {
@@ -433,237 +602,347 @@ const form: Form = {
           hint: '',
           type: 'radios',
           choices: [
-            { value: 'yes', label: 'Yes' },
-            { value: 'no', label: 'No' },
+            {
+              value: 'yes',
+              label: 'Yes',
+            },
+            {
+              value: 'no',
+              label: 'No',
+            },
           ],
         },
+      ],
+    },
+    {
+      id: 'care-act-outcomes-and-eligibility',
+      name: 'Care act outcomes and eligibility',
+      theme: 'Review',
+      fields: [
         {
-          id: '1)-do-you-have-a-condition-as-a-result-of-either-your-physical-mental-sensory-learning-or-cognitive-disabilities-or-illnesses-substance-misuse-or-brain-injury',
+          id: '1--do-you-have-a-condition-as-a-result-of-either-your-physical-mental-sensory-learning-or-cognitive-disabilities-or-illnesses-substance-misuse-or-brain-injury',
           question:
             '1.  Do you have a condition as a result of either your physical, mental, sensory, learning or cognitive disabilities or illnesses, substance misuse or brain injury?',
           hint: '',
           type: 'radios',
           choices: [
-            { value: 'yes', label: 'Yes' },
-            { value: 'no', label: 'No' },
+            {
+              value: 'yes',
+              label: 'Yes',
+            },
+            {
+              value: 'no',
+              label: 'No',
+            },
           ],
         },
         {
-          id: '2)-as-a-result-of-your-needs-are-you-unable-to-achieve-two-or-more-of-the-eligible-outcomes-below',
+          id: '2-as-a-result-of-your-needs-are-you-unable-to-achieve-two-or-more-of-the-eligible-outcomes-below',
           question:
             '2. As a result of your needs are you unable to achieve two or more of the eligible outcomes below?',
           hint: '',
           type: 'radios',
           choices: [
-            { value: 'yes', label: 'Yes' },
-            { value: 'no', label: 'No' },
+            {
+              value: 'yes',
+              label: 'Yes',
+            },
+            {
+              value: 'no',
+              label: 'No',
+            },
           ],
         },
         {
-          id: 'can-you-"maintain-a-habitable-home-environment"-alone-within-a-reasonable-time-and-without-significant-pain-distress-anxiety-or-risk-to-yourself-or-others',
+          id: 'can-you-maintain-a-habitable-home-environment-alone-within-a-reasonable-time-and-without-significant-pain-distress-anxiety-or-risk-to-yourself-or-others',
           question:
             'Can you "Maintain a habitable home environment" alone within a reasonable time and without significant pain, distress, anxiety, or risk to yourself or others?',
           hint: '',
           type: 'radios',
           choices: [
-            { value: 'yes', label: 'Yes' },
-            { value: 'no', label: 'No' },
+            {
+              value: 'yes',
+              label: 'Yes',
+            },
+            {
+              value: 'no',
+              label: 'No',
+            },
           ],
         },
         {
-          id: 'details-(maintain-a-habitable-home-environment)',
+          id: 'details-maintain-a-habitable-home-environment',
           question: 'Details (Maintain a habitable home environment)',
           hint: '',
           type: 'textarea',
         },
         {
-          id: 'can-you-"manage-and-maintain-nutrition"-alone-within-a-reasonable-time-and-without-significant-pain-distress-anxiety-or-risk-to-yourself-or-others',
+          id: 'can-you-manage-and-maintain-nutrition-alone-within-a-reasonable-time-and-without-significant-pain-distress-anxiety-or-risk-to-yourself-or-others',
           question:
             'Can you "Manage and maintain nutrition" alone within a reasonable time and without significant pain, distress, anxiety, or risk to yourself or others?',
           hint: '',
           type: 'radios',
           choices: [
-            { value: 'yes', label: 'Yes' },
-            { value: 'no', label: 'No' },
+            {
+              value: 'yes',
+              label: 'Yes',
+            },
+            {
+              value: 'no',
+              label: 'No',
+            },
           ],
         },
         {
-          id: 'details-(manage-and-maintain-nutrition)',
+          id: 'details-manage-and-maintain-nutrition',
           question: 'Details (Manage and maintain nutrition)',
           hint: '',
           type: 'textarea',
         },
         {
-          id: 'can-you-"manage-toilet-needs"-alone-within-a-reasonable-time-and-without-significant-pain-distress-anxiety-or-risk-to-yourself-or-others',
+          id: 'can-you-manage-toilet-needs-alone-within-a-reasonable-time-and-without-significant-pain-distress-anxiety-or-risk-to-yourself-or-others',
           question:
             'Can you "Manage toilet needs" alone within a reasonable time and without significant pain, distress, anxiety, or risk to yourself or others?',
           hint: '',
           type: 'radios',
           choices: [
-            { value: 'yes', label: 'Yes' },
-            { value: 'no', label: 'No' },
+            {
+              value: 'yes',
+              label: 'Yes',
+            },
+            {
+              value: 'no',
+              label: 'No',
+            },
           ],
         },
         {
-          id: 'details-(manage-toilet-needs)',
+          id: 'details-manage-toilet-needs',
           question: 'Details (Manage toilet needs)',
           hint: '',
           type: 'textarea',
         },
         {
-          id: 'can-you-"maintain-personal-hygiene"-alone-within-a-reasonable-time-and-without-significant-pain-distress-anxiety-or-risk-to-yourself-or-others',
+          id: 'can-you-maintain-personal-hygiene-alone-within-a-reasonable-time-and-without-significant-pain-distress-anxiety-or-risk-to-yourself-or-others',
           question:
             'Can you "Maintain personal hygiene" alone within a reasonable time and without significant pain, distress, anxiety, or risk to yourself or others?',
           hint: '',
           type: 'radios',
           choices: [
-            { value: 'yes', label: 'Yes' },
-            { value: 'no', label: 'No' },
+            {
+              value: 'yes',
+              label: 'Yes',
+            },
+            {
+              value: 'no',
+              label: 'No',
+            },
           ],
         },
         {
-          id: 'details-(maintain-personal-hygiene)',
+          id: 'details-maintain-personal-hygiene',
           question: 'Details (Maintain personal hygiene)',
           hint: '',
           type: 'textarea',
         },
         {
-          id: 'can-you-"be-appropriately-clothed"-alone-within-a-reasonable-time-and-without-significant-pain-distress-anxiety-or-risk-to-yourself-or-others',
+          id: 'can-you-be-appropriately-clothed-alone-within-a-reasonable-time-and-without-significant-pain-distress-anxiety-or-risk-to-yourself-or-others',
           question:
             'Can you "Be appropriately clothed" alone within a reasonable time and without significant pain, distress, anxiety, or risk to yourself or others?',
           hint: '',
           type: 'radios',
           choices: [
-            { value: 'yes', label: 'Yes' },
-            { value: 'no', label: 'No' },
+            {
+              value: 'yes',
+              label: 'Yes',
+            },
+            {
+              value: 'no',
+              label: 'No',
+            },
           ],
         },
         {
-          id: 'details-(be-appropriately-clothed)',
+          id: 'details-be-appropriately-clothed',
           question: 'Details (Be appropriately clothed)',
           hint: '',
           type: 'textarea',
         },
         {
-          id: 'can-you-"develop-and-maintain-family-or-other-personal-relationships"-alone-within-a-reasonable-time-and-without-significant-pain-distress-anxiety-or-risk-to-yourself-or-others',
+          id: 'can-you-develop-and-maintain-family-or-other-personal-relationships-alone-within-a-reasonable-time-and-without-significant-pain-distress-anxiety-or-risk-to-yourself-or-others',
           question:
             'Can you "Develop and maintain family or other personal relationships" alone within a reasonable time and without significant pain, distress, anxiety, or risk to yourself or others?',
           hint: '',
           type: 'radios',
           choices: [
-            { value: 'yes', label: 'Yes' },
-            { value: 'no', label: 'No' },
+            {
+              value: 'yes',
+              label: 'Yes',
+            },
+            {
+              value: 'no',
+              label: 'No',
+            },
           ],
         },
         {
-          id: 'details-(develop-and-maintain-family-or-other-personal-relationships)',
+          id: 'details-develop-and-maintain-family-or-other-personal-relationships',
           question:
             'Details (Develop and maintain family or other personal relationships)',
           hint: '',
           type: 'textarea',
         },
         {
-          id: 'can-you-"make-use-of-necessary-facilities-or-services-in-local-community-(including-public-transport-and-recreational-facilitiesservices)"-alone-within-a-reasonable-time-and-without-significant-pain-distress-anxiety-or-risk-to-yourself-or-others',
+          id: 'can-you-make-use-of-necessary-facilities-or-services-in-local-community-including-public-transport-and-recreational-facilitiesservices-alone-within-a-reasonable-time-and-without-significant-pain-distress-anxiety-or-risk-to-yourself-or-others',
           question:
             'Can you "Make use of necessary facilities or services in local community (including public transport and recreational facilities/services)" alone within a reasonable time and without significant pain, distress, anxiety, or risk to yourself or others?',
           hint: '',
           type: 'radios',
           choices: [
-            { value: 'yes', label: 'Yes' },
-            { value: 'no', label: 'No' },
+            {
+              value: 'yes',
+              label: 'Yes',
+            },
+            {
+              value: 'no',
+              label: 'No',
+            },
           ],
         },
         {
-          id: 'details-(make-use-of-necessary-facilities-or-services-in-local-community)',
+          id: 'details-make-use-of-necessary-facilities-or-services-in-local-community',
           question:
             'Details (Make use of necessary facilities or services in local community)',
           hint: '',
           type: 'textarea',
         },
         {
-          id: 'can-you-"access-and-engage-in-work-training-education-or-volunteering"-alone-within-a-reasonable-time-and-without-significant-pain-distress-anxiety-or-risk-to-yourself-or-others',
+          id: 'can-you-access-and-engage-in-work-training-education-or-volunteering-alone-within-a-reasonable-time-and-without-significant-pain-distress-anxiety-or-risk-to-yourself-or-others',
           question:
             'Can you "Access and engage in work, training, education or volunteering" alone within a reasonable time and without significant pain, distress, anxiety, or risk to yourself or others?',
           hint: '',
           type: 'radios',
           choices: [
-            { value: 'yes', label: 'Yes' },
-            { value: 'no', label: 'No' },
+            {
+              value: 'yes',
+              label: 'Yes',
+            },
+            {
+              value: 'no',
+              label: 'No',
+            },
           ],
         },
         {
-          id: 'details-(access-and-engage-in-work-training-education-or-volunteering)',
+          id: 'details-access-and-engage-in-work-training-education-or-volunteering',
           question:
             'Details (Access and engage in work, training, education or volunteering)',
           hint: '',
           type: 'textarea',
         },
         {
-          id: 'can-you-"carry-out-any-caring-responsibilities-for-a-child"-alone-within-a-reasonable-time-and-without-significant-pain-distress-anxiety-or-risk-to-yourself-or-others',
+          id: 'can-you-carry-out-any-caring-responsibilities-for-a-child-alone-within-a-reasonable-time-and-without-significant-pain-distress-anxiety-or-risk-to-yourself-or-others',
           question:
             'Can you "Carry out any caring responsibilities for a child" alone within a reasonable time and without significant pain, distress, anxiety, or risk to yourself or others?',
           hint: '',
           type: 'radios',
           choices: [
-            { value: 'yes', label: 'Yes' },
-            { value: 'no', label: 'No' },
-            { value: 'not-applicable', label: 'Not applicable' },
+            {
+              value: 'yes',
+              label: 'Yes',
+            },
+            {
+              value: 'no',
+              label: 'No',
+            },
+            {
+              value: 'not-applicable',
+              label: 'Not applicable',
+            },
           ],
         },
         {
-          id: 'details-(carry-out-any-caring-responsibilities-for-a-child)',
+          id: 'details-carry-out-any-caring-responsibilities-for-a-child',
           question:
             'Details (Carry out any caring responsibilities for a child)',
           hint: '',
           type: 'textarea',
         },
         {
-          id: 'can-you-"be-able-to-make-use-of-your-home-safely"-alone-within-a-reasonable-time-and-without-significant-pain-distress-anxiety-or-risk-to-yourself-or-others',
+          id: 'can-you-be-able-to-make-use-of-your-home-safely-alone-within-a-reasonable-time-and-without-significant-pain-distress-anxiety-or-risk-to-yourself-or-others',
           question:
             'Can you "Be able to make use of your home safely" alone within a reasonable time and without significant pain, distress, anxiety, or risk to yourself or others?',
           hint: '',
           type: 'radios',
           choices: [
-            { value: 'yes', label: 'Yes' },
-            { value: 'no', label: 'No' },
+            {
+              value: 'yes',
+              label: 'Yes',
+            },
+            {
+              value: 'no',
+              label: 'No',
+            },
           ],
         },
         {
-          id: 'details-(be-able-to-make-use-of-your-home-safely)',
+          id: 'details-be-able-to-make-use-of-your-home-safely',
           question: 'Details (Be able to make use of your home safely)',
           hint: '',
           type: 'textarea',
         },
         {
-          id: '3)-as-a-result-of-being-unable-to-achieve-these-outcomes-is-there-or-is-there-likely-to-be-significant-impact-on-your-well-being',
+          id: '3-as-a-result-of-being-unable-to-achieve-these-outcomes-is-there-or-is-there-likely-to-be-significant-impact-on-your-wellbeing',
           question:
             '3. As a result of being unable to achieve these outcomes is there, or is there likely to be, significant impact on your well-being?',
           hint: '',
           type: 'radios',
           choices: [
-            { value: 'yes', label: 'Yes' },
-            { value: 'no', label: 'No' },
-            { value: 'not-applicable', label: 'Not applicable' },
+            {
+              value: 'yes',
+              label: 'Yes',
+            },
+            {
+              value: 'no',
+              label: 'No',
+            },
+            {
+              value: 'not-applicable',
+              label: 'Not applicable',
+            },
           ],
         },
         {
-          id: 'do-you-receive-support-from-a-carer-(informal-unpaid)',
+          id: 'do-you-receive-support-from-a-carer-informal--unpaid-',
           question: 'Do you receive support from a carer? (informal / unpaid) ',
           hint: '',
           type: 'radios',
           choices: [
-            { value: 'yes', label: 'Yes' },
-            { value: 'no', label: 'No' },
+            {
+              value: 'yes',
+              label: 'Yes',
+            },
+            {
+              value: 'no',
+              label: 'No',
+            },
           ],
         },
+      ],
+    },
+    {
+      id: 'personal-budget',
+      name: 'Personal budget',
+      theme: 'Review',
+      fields: [
         {
-          id: 'date-of-plan-(authorised)',
+          id: 'date-of-plan-authorised',
           question: 'Date of plan (authorised)',
           hint: '',
           type: 'date',
         },
         {
-          id: 'my-weekly-total-hours-(decimal)',
+          id: 'my-weekly-total-hours-decimal',
           question: 'My weekly total hours (decimal)',
           hint: '',
           type: 'text',
@@ -680,7 +959,12 @@ const form: Form = {
           hint: '',
           type: 'textarea',
         },
-        { id: 'who-by', question: 'Who by?', hint: '', type: 'text' },
+        {
+          id: 'who-by',
+          question: 'Who by?',
+          hint: '',
+          type: 'text',
+        },
         {
           id: 'how-often',
           question: 'How often?',
@@ -688,13 +972,13 @@ const form: Form = {
           type: 'text',
         },
         {
-          id: 'weekly-cost-(pound)',
+          id: 'weekly-cost-',
           question: 'Weekly cost (£)',
           hint: '',
           type: 'text',
         },
         {
-          id: 'yearly-cost-(pound)',
+          id: 'yearly-cost-',
           question: 'Yearly cost (£)',
           hint: '',
           type: 'text',
@@ -717,11 +1001,20 @@ const form: Form = {
           hint: '',
           type: 'radios',
           choices: [
-            { value: 'me', label: 'Me' },
-            { value: 'my-representative', label: 'My representative' },
-            { value: 'local-authority', label: 'Local authority' },
             {
-              value: 'other-arrangement-(eg-mixed)',
+              value: 'me',
+              label: 'Me',
+            },
+            {
+              value: 'my-representative',
+              label: 'My representative',
+            },
+            {
+              value: 'local-authority',
+              label: 'Local authority',
+            },
+            {
+              value: 'other-arrangement-eg-mixed',
               label: 'Other arrangement (eg mixed)',
             },
           ],
@@ -745,14 +1038,14 @@ const form: Form = {
           type: 'text',
         },
         {
-          id: 'my-weekly-budget-contribution-(to-be-confirmed-by-finance)',
+          id: 'my-weekly-budget-contribution-to-be-confirmed-by-finance',
           question:
             'My weekly budget contribution (to be confirmed by finance)',
           hint: '',
           type: 'text',
         },
         {
-          id: 'local-authority-weekly-budget-contribution-(to-be-confirmed-by-finance)',
+          id: 'local-authority-weekly-budget-contribution-to-be-confirmed-by-finance',
           question:
             'Local authority weekly budget contribution (to be confirmed by finance)',
           hint: '',
@@ -776,9 +1069,18 @@ const form: Form = {
           hint: '',
           type: 'radios',
           choices: [
-            { value: 'yes', label: 'Yes' },
-            { value: 'no', label: 'No' },
-            { value: 'not-known', label: 'Not known' },
+            {
+              value: 'yes',
+              label: 'Yes',
+            },
+            {
+              value: 'no',
+              label: 'No',
+            },
+            {
+              value: 'not-known',
+              label: 'Not known',
+            },
           ],
         },
         {
@@ -787,9 +1089,18 @@ const form: Form = {
           hint: '',
           type: 'radios',
           choices: [
-            { value: 'yes', label: 'Yes' },
-            { value: 'no', label: 'No' },
-            { value: 'no-longer', label: 'No longer' },
+            {
+              value: 'yes',
+              label: 'Yes',
+            },
+            {
+              value: 'no',
+              label: 'No',
+            },
+            {
+              value: 'no-longer',
+              label: 'No longer',
+            },
           ],
         },
         {
@@ -798,18 +1109,39 @@ const form: Form = {
           hint: '',
           type: 'radios',
           choices: [
-            { value: 'yes', label: 'Yes' },
-            { value: 'no', label: 'No' },
-            { value: 'no-longer', label: 'No longer' },
+            {
+              value: 'yes',
+              label: 'Yes',
+            },
+            {
+              value: 'no',
+              label: 'No',
+            },
+            {
+              value: 'no-longer',
+              label: 'No longer',
+            },
           ],
         },
+      ],
+    },
+    {
+      id: 'weekly-timetable',
+      name: 'Weekly timetable',
+      theme: 'Review',
+      fields: [
         {
-          id: 'date-of-timetable-(authorised)',
+          id: 'date-of-timetable-authorised',
           question: 'Date of Timetable (authorised)',
           hint: '',
           type: 'date',
         },
-        { id: 'day', question: 'Day ', hint: '', type: 'text' },
+        {
+          id: 'day-',
+          question: 'Day ',
+          hint: '',
+          type: 'text',
+        },
         {
           id: 'morning',
           question: 'Morning',
@@ -828,13 +1160,25 @@ const form: Form = {
           hint: '',
           type: 'text',
         },
-        { id: 'night', question: 'Night ', hint: '', type: 'text' },
+        {
+          id: 'night-',
+          question: 'Night ',
+          hint: '',
+          type: 'text',
+        },
         {
           id: 'estimated-weekly-cost',
           question: 'Estimated weekly cost',
           hint: '',
           type: 'text',
         },
+      ],
+    },
+    {
+      id: 'completed-by',
+      name: 'Completed by',
+      theme: 'Review',
+      fields: [
         {
           id: 'completed-date',
           question: 'Completed Date',
@@ -859,6 +1203,13 @@ const form: Form = {
           hint: '',
           type: 'text',
         },
+      ],
+    },
+    {
+      id: 'completion-details-review-conversation',
+      name: 'Completion details (Review Conversation)',
+      theme: 'Review',
+      fields: [
         {
           id: 'what-next',
           question: 'What Next',
@@ -866,35 +1217,49 @@ const form: Form = {
           type: 'radios',
           choices: [
             {
-              value: 'schedule-next-review-(provide-date-below-and-sequel)',
+              value: 'schedule-next-review-provide-date-below-and-sequel',
               label: 'Schedule next review (provide date below, and Sequel)',
             },
             {
-              value: "close-case-no-further-action-(provide-'sequel'-below)",
+              value: 'close-case-no-further-action-provide-sequel-below',
               label: "Close Case /No Further Action (provide 'Sequel' below)",
             },
           ],
         },
+      ],
+    },
+    {
+      id: 'schedule-next-review',
+      name: 'Schedule Next Review',
+      theme: 'Review',
+      fields: [
         {
           id: 'date-of-next-review',
           question: 'Date of Next Review',
           hint: '',
           type: 'date',
         },
+      ],
+    },
+    {
+      id: 'sequel-to-review-conversation',
+      name: 'Sequel to Review Conversation',
+      theme: 'Review',
+      fields: [
         {
-          id: 'outcomes-for-review-(sequel)',
+          id: 'outcomes-for-review-sequel',
           question: 'Outcomes for Review (Sequel)',
           hint: '',
           type: 'radios',
           choices: [
             {
-              value: 'change-in-setting-move-to-nursing-care-(from-community)',
+              value: 'change-in-setting--move-to-nursing-care-from-community',
               label:
                 'Change in setting - Move to Nursing Care (from Community)',
             },
             {
               value:
-                'change-in-setting-move-to-residential-care-(from-community',
+                'change-in-setting--move-to-residential-care-from-community',
               label:
                 'Change in setting - Move to Residential Care (from Community',
             },
@@ -904,32 +1269,39 @@ const form: Form = {
             },
             {
               value:
-                'no-change-in-setting-level-of-long-term-support-increased',
+                'no-change-in-setting--level-of-longterm-support-increased',
               label:
                 'No Change in Setting - Level of Long-Term Support Increased',
             },
             {
-              value: 'no-change-in-setting-no-change-in-long-term-support',
+              value: 'no-change-in-setting--no-change-in-long-term-support',
               label: 'No Change in Setting - No Change in Long Term Support',
             },
             {
               value:
-                'no-change-in-setting-level-of-long-term-support-decreased',
+                'no-change-in-setting--level-of-longterm-support-decreased',
               label:
                 'No Change in Setting - Level of Long-Term Support Decreased',
             },
             {
               value:
-                'no-change-in-setting-all-long-term-support-temporarily-suspended',
+                'no-change-in-setting--all-longterm-support-temporarily-suspended',
               label:
                 'No Change in Setting - ALL Long-Term Support Temporarily Suspended',
             },
             {
-              value: 'no-change-in-setting-all-long-term-support-ended',
+              value: 'no-change-in-setting--all-long-term-support-ended',
               label: 'No Change in Setting - ALL Long Term Support Ended',
             },
           ],
         },
+      ],
+    },
+    {
+      id: 'manager-approval',
+      name: 'Manager approval',
+      theme: 'Review',
+      fields: [
         {
           id: 'email-address-of-your-manager',
           question: 'Email address of your manager',
