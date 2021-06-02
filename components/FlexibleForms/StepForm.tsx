@@ -6,6 +6,7 @@ import { Resident } from 'types';
 import Banner from './Banner';
 import { generateInitialValues, InitialValues } from 'lib/utils';
 import { useRouter } from 'next/router';
+import useWarnUnsavedChanges from 'hooks/useWarnUnsavedChanges';
 
 interface Props {
   fields: Field[];
@@ -21,6 +22,11 @@ interface Props {
   ) => void;
   singleStep?: boolean;
 }
+
+const WarnUnsavedChanges = ({ dirty }: { dirty: boolean }) => {
+  useWarnUnsavedChanges(dirty);
+  return null;
+};
 
 const StepForm = ({
   initialValues,
@@ -49,8 +55,11 @@ const StepForm = ({
         status,
         submitForm,
         isValid,
+        dirty,
       }) => (
         <Form>
+          <WarnUnsavedChanges dirty={dirty} />
+
           {status && (
             <Banner
               title="There was a problem saving your answers"
@@ -60,6 +69,8 @@ const StepForm = ({
               <p className="lbh-body-xs">{status}</p>
             </Banner>
           )}
+
+          {String(dirty)}
 
           {fields.map((field) => (
             <FlexibleField
