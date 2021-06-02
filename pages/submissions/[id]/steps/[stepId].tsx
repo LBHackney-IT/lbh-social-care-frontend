@@ -6,7 +6,7 @@ import StepForm from 'components/FlexibleForms/StepForm';
 import { useRouter } from 'next/router';
 import s from 'stylesheets/Sidebar.module.scss';
 import Banner from 'components/FlexibleForms/Banner';
-import { Form, Step, Field, StepAnswers } from 'data/flexibleForms/forms.types';
+import { Form, Step, Field } from 'data/flexibleForms/forms.types';
 import { Resident } from 'types';
 import axios from 'axios';
 import { getProtocol } from 'utils/urls';
@@ -116,6 +116,8 @@ const StepPage = ({
     </>
   );
 };
+
+StepPage.goBackButton = true;
 
 export const getServerSideProps: GetServerSideProps = async ({ params }) => {
   const protocol = getProtocol();

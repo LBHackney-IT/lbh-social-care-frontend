@@ -6,6 +6,7 @@ import TaskListHeader from '../../../components/TaskList/TaskListHeader';
 import { Form } from '../../../data/flexibleForms/forms.types';
 import { Resident } from '../../../types';
 import { getProtocol } from 'utils/urls';
+import s from 'stylesheets/Sidebar.module.scss';
 import axios from 'axios';
 
 interface Props {
@@ -31,7 +32,7 @@ const TaskListPage = ({
           </h1>
         </div>
       </div>
-      <div className="govuk-grid-row">
+      <div className={`govuk-grid-row ${s.outer}`}>
         <div className="govuk-grid-column-two-thirds">
           <TaskListHeader
             steps={form.steps}
@@ -43,7 +44,10 @@ const TaskListPage = ({
           <TaskList form={form} completedSteps={completedSteps} />
         </div>
         <div className="govuk-grid-column-one-third">
-          <PersonWidget person={person} />
+          <div className={s.sticky}>
+            <p className="lbh-body">This is for:</p>
+            <PersonWidget person={person} />
+          </div>
         </div>
       </div>
     </>
