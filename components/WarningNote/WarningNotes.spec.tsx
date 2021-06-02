@@ -25,7 +25,7 @@ describe(`useWarningNotes`, () => {
     expect(asFragment()).toMatchSnapshot();
   });
 
-  it('should not render the previous review date if there is a scheduled future review date', () => {
+  it('should not render the review date if there is a scheduled future review date', () => {
     jest.spyOn(warningNotes, 'useWarningNotes').mockImplementation(() => ({
       data: [
         warningNoteFactory.build({
@@ -40,6 +40,10 @@ describe(`useWarningNotes`, () => {
     const { getByText, queryByText } = render(<WarningNotes id={123} />);
 
     getByText('Next review date');
-    expect(queryByText('Previous review date')).toBeNull();
+    expect(
+      queryByText('Review date', {
+        exact: true,
+      })
+    ).toBeNull();
   });
 });
