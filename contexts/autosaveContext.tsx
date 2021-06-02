@@ -17,7 +17,12 @@ interface ContextType {
   setSaving: (newVal: boolean) => void;
 }
 
-const AutosaveContext = createContext<null | ContextType>(null);
+const AutosaveContext = createContext<ContextType>({
+  saved: true,
+  saving: true,
+  setSaved: () => null,
+  setSaving: () => null,
+});
 
 export const AutosaveProvider = ({
   children,
@@ -35,9 +40,7 @@ export const AutosaveProvider = ({
 };
 
 export const AutosaveTrigger = ({ delay = 1000 }: { delay?: number }): null => {
-  const { saved, setSaved, setSaving } = useContext(
-    AutosaveContext
-  ) as ContextType;
+  const { saved, setSaved, setSaving } = useContext(AutosaveContext);
 
   const { submitForm, validateForm, values, isSubmitting } = useFormikContext();
 
@@ -76,7 +79,7 @@ export const AutosaveTrigger = ({ delay = 1000 }: { delay?: number }): null => {
 };
 
 export const AutosaveIndicator = (): React.ReactElement => {
-  const { saved, saving } = useContext(AutosaveContext) as ContextType;
+  const { saved, saving } = useContext(AutosaveContext);
 
   return (
     <div className={s.outer} role="status" aria-live="polite">

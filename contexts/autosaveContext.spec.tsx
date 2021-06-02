@@ -63,12 +63,11 @@ describe('AutosaveIndicator', () => {
   });
 });
 
-describe('AutosaveTrigger', () => {
+describe('AutosaveTrigger', async () => {
   const mockSubmit = jest.fn();
+  jest.useFakeTimers();
 
-  it('submits changes after a delay', async () => {
-    jest.useFakeTimers();
-
+  it('submits the latest changes after a delay', async () => {
     render(
       <AutosaveProvider>
         <Formik
@@ -95,9 +94,7 @@ describe('AutosaveTrigger', () => {
     jest.runAllTimers();
 
     await waitFor(() => expect(mockSubmit).toHaveBeenCalledTimes(1));
-  });
 
-  it('submits the latest values', () => {
     expect(mockSubmit).toHaveBeenLastCalledWith(
       {
         foo: 'test value',
