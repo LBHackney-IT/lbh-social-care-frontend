@@ -12,6 +12,7 @@ import axios from 'axios';
 import { getProtocol } from 'utils/urls';
 import { FormikValues, FormikHelpers } from 'formik';
 import { InitialValues } from 'lib/utils';
+import { AutosaveProvider, AutosaveIndicator } from 'contexts/autosaveContext';
 
 interface Props {
   params: {
@@ -93,26 +94,29 @@ const StepPage = ({
         </div>
       </div>
 
-      <div className={`govuk-grid-row ${s.outer}`}>
-        <div className="govuk-grid-column-two-thirds">
-          {step.fields && (
-            <StepForm
-              person={person}
-              initialValues={stepAnswers}
-              fields={step.fields}
-              onSubmit={handleSubmit}
-              onFinish={handleFinish}
-              singleStep={form.steps.length === 1}
-            />
-          )}
-        </div>
-        <div className="govuk-grid-column-one-third">
-          <div className={s.sticky}>
-            <p className="lbh-body">This is for:</p>
-            <PersonWidget person={person} />
+      <AutosaveProvider>
+        <div className={`govuk-grid-row ${s.outer}`}>
+          <div className="govuk-grid-column-two-thirds">
+            {step.fields && (
+              <StepForm
+                person={person}
+                initialValues={stepAnswers}
+                fields={step.fields}
+                onSubmit={handleSubmit}
+                onFinish={handleFinish}
+                singleStep={form.steps.length === 1}
+              />
+            )}
+          </div>
+          <div className="govuk-grid-column-one-third">
+            <div className={s.sticky}>
+              <AutosaveIndicator />
+              <p className="lbh-body">This is for:</p>
+              <PersonWidget person={person} />
+            </div>
           </div>
         </div>
-      </div>
+      </AutosaveProvider>
     </>
   );
 };
