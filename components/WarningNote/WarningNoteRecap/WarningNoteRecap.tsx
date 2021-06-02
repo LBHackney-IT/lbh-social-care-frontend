@@ -97,7 +97,7 @@ const WarningNoteRecap = ({
                   ).toLocaleDateString('en-GB')}`,
                 };
               })}
-              formPath={`/people/:peopleId/warning-notes/:warningNoteId`}
+              formPath="/people/:peopleId/warning-notes/:warningNoteId"
             />
           );
         })}
