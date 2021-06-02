@@ -4,6 +4,7 @@ import { Submission } from 'data/flexibleForms/forms.types';
 import { getResident } from 'lib/residents';
 import { isAuthorised } from 'utils/auth';
 import { getPermissionFlag } from 'utils/user';
+import { getSubmissionById } from 'lib/submissions';
 
 const handler = async (
   req: NextApiRequest,
@@ -15,20 +16,7 @@ const handler = async (
 
   const { id } = req.query;
 
-  // TODO: use a real api call here
-  const submission: Submission = {
-    id: String(id),
-    socialCareId: 1,
-    formId: 'conversation-3',
-    answers: {},
-    completedSteps: [],
-    editedBy: [],
-    createdBy: 'test.user@hackney.gov.uk',
-    createdAt: '2021-05-17T10:48:12.880Z',
-    updatedAt: '2021-05-17T10:48:12.892Z',
-    submittedAt: null,
-    discardedAt: null,
-  };
+  const submission = await getSubmissionById(id as string);
 
   const person = await getResident(submission.socialCareId, {
     context_flag: permissionFlag,
