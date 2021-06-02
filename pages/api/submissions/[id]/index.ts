@@ -1,6 +1,5 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import forms from 'data/flexibleForms/forms';
-import { Submission } from 'data/flexibleForms/forms.types';
 import { getResident } from 'lib/residents';
 import { isAuthorised } from 'utils/auth';
 import { getPermissionFlag } from 'utils/user';
@@ -16,7 +15,7 @@ const handler = async (
 
   const { id } = req.query;
 
-  const submission = await getSubmissionById(id as string);
+  const submission = await getSubmissionById(String(id));
 
   const person = await getResident(submission.socialCareId, {
     context_flag: permissionFlag,

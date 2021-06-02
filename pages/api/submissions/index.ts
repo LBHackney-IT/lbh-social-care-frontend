@@ -17,7 +17,7 @@ const handler = async (
         const submission = await startSubmission(
           formId,
           socialCareId,
-          user?.email as string
+          String(user?.email)
         );
 
         res.json(submission);
