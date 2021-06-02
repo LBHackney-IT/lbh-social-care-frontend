@@ -8,7 +8,7 @@ jest.mock('axios');
 
 describe('relationships APIs', () => {
   describe('getRelationshipByResident', () => {
-    it('should work properly', async () => {
+    it("calls the service API's relationships endpoint", async () => {
       const relationships = mockedRelationship;
       mockedAxios.get.mockResolvedValue({
         data: relationships,
