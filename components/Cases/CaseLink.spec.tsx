@@ -61,15 +61,6 @@ describe('CaseLink component', () => {
       caseFormData: mockedWarningNoteCase.caseFormData,
     };
     const { asFragment } = render(<CaseLink {...props} />);
-    expect(asFragment()).toMatchInlineSnapshot(`
-      <DocumentFragment>
-        <a
-          class="govuk-link lbh-link"
-          href="/people/123/warning-notes/456/view?form_name=test_form"
-        >
-          View
-        </a>
-      </DocumentFragment>
-    `);
+    expect(asFragment()).toMatchSnapshot();
   });
 });

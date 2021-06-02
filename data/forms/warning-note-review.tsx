@@ -71,7 +71,22 @@ const formSteps: FormStep[] = [
         },
         showConditionalGuides: true,
         hint: 'Next review date cannot be more than 1 year from date review undertaken. ',
-        conditionalRender: ({ reviewDecision }) => reviewDecision === 'Yes',
+        conditionalRender: ({ reviewDecision, outputAsDetailedSummary }) =>
+          reviewDecision === 'Yes' || outputAsDetailedSummary === 'Yes',
+      },
+      {
+        component: 'DateInput',
+        name: 'endDate',
+        label: 'End Date',
+        conditionalRender: ({ outputAsDetailedSummary }) =>
+          outputAsDetailedSummary === 'Yes',
+      },
+      {
+        component: 'TextInput',
+        name: 'lastModifiedBy',
+        label: 'Review done by',
+        conditionalRender: ({ outputAsDetailedSummary }) =>
+          outputAsDetailedSummary === 'Yes',
       },
     ],
   },
