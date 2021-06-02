@@ -6,7 +6,7 @@ import StepForm from 'components/FlexibleForms/StepForm';
 import { useRouter } from 'next/router';
 import s from 'stylesheets/Sidebar.module.scss';
 import Banner from 'components/FlexibleForms/Banner';
-import { Form, Step, Field, StepAnswers } from 'data/flexibleForms/forms.types';
+import { Form, Step, Field } from 'data/flexibleForms/forms.types';
 import { Resident } from 'types';
 import axios from 'axios';
 import { getProtocol } from 'utils/urls';
@@ -39,7 +39,7 @@ const StepPage = ({
   ): Promise<void> => {
     try {
       const { data } = await axios.patch(
-        `${process.env.NEXT_PUBLIC_API_ENDPOINT}/api/submissions/${params.id}/steps/${params.stepId}`,
+        `/api/submissions/${params.id}/steps/${params.stepId}`,
         {
           data: values,
         }
@@ -55,12 +55,9 @@ const StepPage = ({
     setStatus: (message: string) => void
   ): Promise<void> => {
     try {
-      const { data } = await axios.post(
-        `${process.env.NEXT_PUBLIC_API_ENDPOINT}/api/submissions/${params.id}`,
-        {
-          data: person,
-        }
-      );
+      const { data } = await axios.post(`/api/submissions/${params.id}`, {
+        data: person,
+      });
       if (data.error) throw data.error;
       router.push('/');
     } catch (e) {
