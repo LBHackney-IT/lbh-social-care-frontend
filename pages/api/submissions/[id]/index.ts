@@ -1,5 +1,5 @@
 import { NextApiRequest, NextApiResponse } from 'next';
-import forms from 'data/flexibleForms/forms';
+import forms from 'data/flexibleForms';
 import { getResident } from 'lib/residents';
 import { isAuthorised } from 'utils/auth';
 import { getPermissionFlag } from 'utils/user';
