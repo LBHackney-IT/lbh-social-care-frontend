@@ -20,7 +20,6 @@ const handler = async (
     case 'POST':
       {
         const submission = await finishSubmission(String(id));
-
         res.json(submission);
       }
       break;

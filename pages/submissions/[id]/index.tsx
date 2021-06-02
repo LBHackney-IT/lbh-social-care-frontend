@@ -1,25 +1,44 @@
 import { GetServerSideProps } from 'next';
 import Head from 'next/head';
-import PersonWidget from '../../../components/PersonWidget/PersonWidget';
-import TaskList from '../../../components/TaskList/TaskList';
-import TaskListHeader from '../../../components/TaskList/TaskListHeader';
+import PersonWidget from 'components/PersonWidget/PersonWidget';
+import TaskList from 'components/TaskList/TaskList';
+import TaskListHeader from 'components/TaskList/TaskListHeader';
+import Banner from 'components/FlexibleForms/Banner';
 import { Form } from '../../../data/flexibleForms/forms.types';
 import { Resident } from '../../../types';
 import { getProtocol } from 'utils/urls';
 import s from 'stylesheets/Sidebar.module.scss';
 import axios from 'axios';
+import { useState } from 'react';
+import { useRouter } from 'next/router';
 
 interface Props {
+  params: {
+    id: string;
+  };
   completedSteps: string[];
   person: Resident;
   form: Form;
 }
 
 const TaskListPage = ({
+  params,
   completedSteps,
   person,
   form,
 }: Props): React.ReactElement => {
+  const router = useRouter();
+  const [status, setStatus] = useState<string | false>(false);
+
+  const handleFinish = async (): Promise<void> => {
+    try {
+      await axios.post(`/api/submissions/${params.id}`);
+      router.push(`/people/${person.id}`);
+    } catch (e) {
+      setStatus(e.toString());
+    }
+  };
+
   return (
     <>
       <Head>
@@ -34,13 +53,22 @@ const TaskListPage = ({
       </div>
       <div className={`govuk-grid-row ${s.outer}`}>
         <div className="govuk-grid-column-two-thirds">
+          {status && (
+            <Banner
+              title="There was a problem finishing the submission"
+              className="lbh-page-announcement--warning"
+            >
+              <p>Please refresh the page or try again later.</p>
+              <p className="lbh-body-xs">{status}</p>
+            </Banner>
+          )}
+
           <TaskListHeader
             steps={form.steps}
             completedSteps={completedSteps}
-            onFinish={() => {
-              null;
-            }}
+            onFinish={handleFinish}
           />
+
           <TaskList form={form} completedSteps={completedSteps} />
         </div>
         <div className="govuk-grid-column-one-third">
