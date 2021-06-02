@@ -45,7 +45,7 @@ exports[`DashboardWrapper should render properly 1`] = `
           >
             <a
               class="lbh-tabs govuk-tabs__tab"
-              href="/"
+              href="/__dashboard"
             >
               Clients allocated
             </a>
