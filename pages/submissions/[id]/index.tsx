@@ -54,13 +54,13 @@ export const getServerSideProps: GetServerSideProps = async ({ params }) => {
   );
 
   // redirect if submission or form doesn't exist
-  if (!data.id || !data.form)
-    return {
-      props: {},
-      redirect: {
-        destination: '/404',
-      },
-    };
+  // if (!data.id || !data.form)
+  //   return {
+  //     props: {},
+  //     redirect: {
+  //       destination: '/404',
+  //     },
+  //   };
 
   return {
     props: {
