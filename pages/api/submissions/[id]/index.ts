@@ -3,7 +3,8 @@ import forms from 'data/flexibleForms';
 import { getResident } from 'lib/residents';
 import { isAuthorised } from 'utils/auth';
 import { getPermissionFlag } from 'utils/user';
-import { getSubmissionById } from 'lib/submissions';
+import StatusCodes from 'http-status-codes';
+import { getSubmissionById, finishSubmission } from 'lib/submissions';
 
 const handler = async (
   req: NextApiRequest,
@@ -15,19 +16,37 @@ const handler = async (
 
   const { id } = req.query;
 
-  const submission = await getSubmissionById(String(id));
+  switch (req.method) {
+    case 'POST':
+      {
+        const submission = await finishSubmission(String(id));
 
-  const person = await getResident(submission.socialCareId, {
-    context_flag: permissionFlag,
-  });
+        res.json(submission);
+      }
+      break;
+    case 'GET':
+      {
+        const submission = await getSubmissionById(String(id));
 
-  const form = forms.find((form) => form.id === submission.formId);
+        const person = await getResident(submission.socialCareId, {
+          context_flag: permissionFlag,
+        });
 
-  res.json({
-    ...submission,
-    person,
-    form,
-  });
+        const form = forms.find((form) => form.id === submission.formId);
+
+        res.json({
+          ...submission,
+          person,
+          form,
+        });
+      }
+      break;
+    default:
+      res
+        .status(StatusCodes.BAD_REQUEST)
+        .json({ message: 'Invalid request method' });
+      break;
+  }
 };
 
 export default handler;
