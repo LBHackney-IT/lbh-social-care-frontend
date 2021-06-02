@@ -1,6 +1,6 @@
 import { Form } from './forms.types';
 
-const formData: Form[] = [
+const forms: Form[] = [
   {
     id: 'conversation-3',
     name: 'Conversation 3',
@@ -123,7 +123,12 @@ const formData: Form[] = [
             hint: "(Include 'Name', 'Relationship/Role', 'Address and Contact Details' for each individual that would appear in the Key Contacts table)",
             type: 'textarea',
           },
-          { id: 'gp-name', question: 'GP Name', hint: '', type: 'text' },
+          {
+            id: 'gp-name',
+            question: 'GP Name',
+            hint: '',
+            type: 'text',
+          },
           {
             id: 'gp-practice',
             question: 'GP Practice',
@@ -1986,7 +1991,10 @@ const formData: Form[] = [
                 label:
                   '\nSettled mainstream housing with family / friends (including flat sharing)',
               },
-              { value: 'shared-lives-scheme', label: '\nShared lives scheme' },
+              {
+                value: 'shared-lives-scheme',
+                label: '\nShared lives scheme',
+              },
               {
                 value:
                   'sheltered-housing-extra-care-housing-other-sheltered-housing',
@@ -2015,7 +2023,10 @@ const formData: Form[] = [
                 value: 'registered-social-landlord',
                 label: ' registered social landlord',
               },
-              { value: 'housing-association)', label: ' housing association)' },
+              {
+                value: 'housing-association)',
+                label: ' housing association)',
+              },
               {
                 value: 'tenant-private-landlord',
                 label: '\nTenant - private landlord',
@@ -2252,7 +2263,10 @@ const formData: Form[] = [
                 label: ' Short term community support',
               },
               { value: 'universal-service', label: ' Universal service' },
-              { value: 'no-support-provided', label: ' No support provided' },
+              {
+                value: 'no-support-provided',
+                label: ' No support provided',
+              },
             ],
           },
         ],
@@ -2316,7 +2330,10 @@ const formData: Form[] = [
                 value: 'secondary-health-(acrt)',
                 label: ' Secondary health (ACRT)',
               },
-              { value: 'occupational-therapy', label: ' Occupational therapy' },
+              {
+                value: 'occupational-therapy',
+                label: ' Occupational therapy',
+              },
               { value: 'social-worker', label: ' Social worker' },
               { value: 'sensory', label: ' Sensory' },
               {
@@ -2332,7 +2349,10 @@ const formData: Form[] = [
                 value: 'mental-health-services',
                 label: ' Mental health services',
               },
-              { value: 'lbh-housing-services', label: ' LBH housing services' },
+              {
+                value: 'lbh-housing-services',
+                label: ' LBH housing services',
+              },
               {
                 value: 'non-lbh-housing-services',
                 label: ' Non-LBH housing services',
@@ -2350,4 +2370,4 @@ const formData: Form[] = [
   },
 ];
 
-export default formData;
+export default forms;
