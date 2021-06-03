@@ -30,7 +30,7 @@ exports[`WarningNoteRecap should render correctly 1`] = `
         <dt
           class="govuk-summary-list__key"
         >
-          Select warning type
+          Warning type
         </dt>
         <dd
           class="govuk-summary-list__value"
