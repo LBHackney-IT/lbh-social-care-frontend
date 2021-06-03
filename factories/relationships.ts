@@ -1,5 +1,5 @@
 import { Factory } from 'fishery';
-import { RelationshipData, Relationship, RelationshipPerson } from 'types';
+import { RelationshipData, RelationshipPerson } from 'types';
 
 const mockedRelationshipFactory = Factory.define<RelationshipData>(
   ({ sequence }) => ({

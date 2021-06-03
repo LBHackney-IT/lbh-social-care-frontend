@@ -1,6 +1,6 @@
 import { Form } from './forms.types';
 
-const formData: Form[] = [
+const forms: Form[] = [
   {
     id: 'conversation-3',
     name: 'Conversation 3',
@@ -123,7 +123,12 @@ const formData: Form[] = [
             hint: "(Include 'Name', 'Relationship/Role', 'Address and Contact Details' for each individual that would appear in the Key Contacts table)",
             type: 'textarea',
           },
-          { id: 'gp-name', question: 'GP Name', hint: '', type: 'text' },
+          {
+            id: 'gp-name',
+            question: 'GP Name',
+            hint: '',
+            type: 'text',
+          },
           {
             id: 'gp-practice',
             question: 'GP Practice',
@@ -1228,197 +1233,13 @@ const formData: Form[] = [
   },
 
   {
-    id: 'imported-google-form',
-    name: 'Imported Google Form',
-    steps: [
-      {
-        id: 'first-step',
-        name: 'First step',
-        fields: [
-          {
-            id: 'first-name',
-            question: 'First Name ',
-            hint: '',
-            type: 'text',
-          },
-          {
-            id: 'surname',
-            question: 'Surname',
-            hint: '',
-            type: 'text',
-          },
-          {
-            id: 'date-of-birth',
-            question: 'Date of Birth',
-            hint: '',
-            type: 'date',
-          },
-          {
-            id: 'address-line-1',
-            question: 'Address Line 1 ',
-            hint: '',
-            type: 'text',
-          },
-          {
-            id: 'address-line-2',
-            question: 'Address Line 2 ',
-            hint: '',
-            type: 'text',
-          },
-          {
-            id: 'post-code',
-            question: 'Post Code ',
-            hint: '',
-            type: 'text',
-          },
-          {
-            id: 'contact-number',
-            question: 'Contact number',
-            hint: '',
-            type: 'text',
-          },
-          {
-            id: 'person-unique-id-type',
-            question: 'Person Unique ID Type',
-            hint: '(Choose the first that you know)',
-            type: 'radios',
-            choices: [
-              {
-                value: 'mosaic-id',
-                label: 'Mosaic ID',
-              },
-              {
-                value: 'emergency-id',
-                label: 'Emergency ID',
-              },
-            ],
-          },
-          {
-            id: 'person-unique-id',
-            question: 'Person Unique ID',
-            hint: '',
-            type: 'text',
-          },
-        ],
-      },
-      {
-        id: 'hidden-section-form-identifiers',
-        name: 'hidden-section-form-identifiers',
-        fields: [
-          {
-            id: 'reports-unique-id',
-            question: 'Reports Unique ID',
-            hint: "(Generate at submission to concatenate the number onto either 'MOS', 'TMP' or 'NHS' to provide something Unique for reporting)",
-            type: 'text',
-          },
-          {
-            id: 'mosaic-person-reference',
-            question: 'Mosaic Person Reference ',
-            hint: '',
-            type: 'text',
-          },
-          {
-            id: 'emergency-id-number',
-            question: 'Emergency ID number',
-            hint: '',
-            type: 'text',
-          },
-          {
-            id: 'original-timestamp-form',
-            question: 'Original Timestamp - Form',
-            hint: '',
-            type: 'date',
-          },
-          {
-            id: 'original-submitter-form',
-            question: 'Original Submitter - Form',
-            hint: '',
-            type: 'text',
-          },
-          {
-            id: 'original-edit_url-form',
-            question: 'Original Edit_URL - Form',
-            hint: '',
-            type: 'text',
-          },
-          {
-            id: 'previous-timestamp-form',
-            question: 'Previous Timestamp - Form',
-            hint: '',
-            type: 'date',
-          },
-          {
-            id: 'previous-submitter-form',
-            question: 'Previous Submitter -  Form',
-            hint: '',
-            type: 'text',
-          },
-          {
-            id: 'workflow-identifier',
-            question: 'Workflow Identifier',
-            hint: '',
-            type: 'text',
-          },
-          {
-            id: 'form-title-previous-form',
-            question: 'Form Title - Previous Form',
-            hint: '',
-            type: 'text',
-          },
-          {
-            id: 'original-timestamp-workflow',
-            question: 'Original Timestamp - Workflow',
-            hint: '',
-            type: 'date',
-          },
-          {
-            id: 'original-submitter-workflow',
-            question: 'Original Submitter - Workflow',
-            hint: '',
-            type: 'text',
-          },
-          {
-            id: 'original-edit_url-workflow',
-            question: 'Original Edit_URL - Workflow',
-            hint: '',
-            type: 'text',
-          },
-        ],
-      },
-      {
-        id: 'case-note-details',
-        name: 'case-note-details',
-        fields: [
-          {
-            id: "if-'other'-please-provide-case-note-type",
-            question: "If 'Other', please provide case note type ",
-            hint: '',
-            type: 'text',
-          },
-          {
-            id: 'date-of-event',
-            question: 'Date of Event ',
-            hint: '',
-            type: 'date',
-          },
-          {
-            id: 'case-note-description-(please-write-case-notes-here)',
-            question: 'Case Note Description (please write case notes here)',
-            hint: '',
-            type: 'textarea',
-          },
-        ],
-      },
-    ],
-  },
-
-  {
     id: 'case-note',
     name: 'Case note',
     steps: [
       {
         id: 'case-note',
         name: 'New case note',
+        theme: 'First step',
         fields: [
           {
             id: 'type',
@@ -1986,7 +1807,10 @@ const formData: Form[] = [
                 label:
                   '\nSettled mainstream housing with family / friends (including flat sharing)',
               },
-              { value: 'shared-lives-scheme', label: '\nShared lives scheme' },
+              {
+                value: 'shared-lives-scheme',
+                label: '\nShared lives scheme',
+              },
               {
                 value:
                   'sheltered-housing-extra-care-housing-other-sheltered-housing',
@@ -2015,7 +1839,10 @@ const formData: Form[] = [
                 value: 'registered-social-landlord',
                 label: ' registered social landlord',
               },
-              { value: 'housing-association)', label: ' housing association)' },
+              {
+                value: 'housing-association)',
+                label: ' housing association)',
+              },
               {
                 value: 'tenant-private-landlord',
                 label: '\nTenant - private landlord',
@@ -2252,7 +2079,10 @@ const formData: Form[] = [
                 label: ' Short term community support',
               },
               { value: 'universal-service', label: ' Universal service' },
-              { value: 'no-support-provided', label: ' No support provided' },
+              {
+                value: 'no-support-provided',
+                label: ' No support provided',
+              },
             ],
           },
         ],
@@ -2316,7 +2146,10 @@ const formData: Form[] = [
                 value: 'secondary-health-(acrt)',
                 label: ' Secondary health (ACRT)',
               },
-              { value: 'occupational-therapy', label: ' Occupational therapy' },
+              {
+                value: 'occupational-therapy',
+                label: ' Occupational therapy',
+              },
               { value: 'social-worker', label: ' Social worker' },
               { value: 'sensory', label: ' Sensory' },
               {
@@ -2332,7 +2165,10 @@ const formData: Form[] = [
                 value: 'mental-health-services',
                 label: ' Mental health services',
               },
-              { value: 'lbh-housing-services', label: ' LBH housing services' },
+              {
+                value: 'lbh-housing-services',
+                label: ' LBH housing services',
+              },
               {
                 value: 'non-lbh-housing-services',
                 label: ' Non-LBH housing services',
@@ -2350,4 +2186,4 @@ const formData: Form[] = [
   },
 ];
 
-export default formData;
+export default forms;

@@ -19,10 +19,7 @@ const endpoint: NextApiHandler = async (
   switch (req.method) {
     case 'GET':
       try {
-        const data = await getResidents({
-          ...req.query,
-          context_flag: user.permissionFlag,
-        });
+        const data = await getResidents(req.query);
         res.status(StatusCodes.OK).json(data);
       } catch (error) {
         console.error('Residents get error:', error?.response?.data);
