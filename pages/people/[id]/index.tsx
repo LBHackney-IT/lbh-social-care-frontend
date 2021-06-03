@@ -34,7 +34,8 @@ const PersonPage = (): React.ReactElement => {
             {canViewArea(user) ? <WarningNotes id={personId} /> : <></>}
             <PersonDetails person={person} />
             <AllocatedWorkers person={person} />
-            {user.hasDevPermissions || user.hasAdultPermissions ? (
+            {user.hasDevPermissions ||
+            (user.hasAdultPermissions && person.contextFlag == 'A') ? (
               <Relationships id={personId} />
             ) : (
               <></>
