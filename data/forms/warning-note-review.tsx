@@ -35,13 +35,13 @@ const formSteps: FormStep[] = [
         component: 'TextInput',
         name: 'managerName',
         label: 'Manager’s name',
-        rules: { required: "Add the manager's name." },
+        rules: { required: true },
       },
       {
         component: 'DateInput',
         name: 'discussedWithManagerDate',
         label: 'Date discussed with manager',
-        rules: { required: 'Pease add a valid date.' },
+        rules: { required: true },
       },
       {
         component: 'Radios',
@@ -58,7 +58,7 @@ const formSteps: FormStep[] = [
         name: 'nextReviewDate',
         label: 'Next review date',
         rules: {
-          required: 'Pease add a valid date.',
+          required: true,
           validate: {
             beforeStartDate: (value) =>
               new Date(value).getTime() >= new Date().getTime() ||
