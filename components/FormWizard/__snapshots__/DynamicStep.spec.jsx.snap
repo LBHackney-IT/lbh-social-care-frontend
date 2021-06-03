@@ -2,7 +2,9 @@
 
 exports[`DynamicStep component should render properly 1`] = `
 <DocumentFragment>
-  <form>
+  <form
+    role="form"
+  >
     <div
       class="govuk-form-group"
     >

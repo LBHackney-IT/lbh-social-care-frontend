@@ -144,23 +144,23 @@ const AddressLookup = ({
             ref={inputRef}
           />
         </div>
-        <div className="govuk-grid-column-two-third">
+      </div>
+      <div className="govuk-grid-column-two-third">
+        <Button
+          className="govuk-!-margin-bottom-0 govuk-!-margin-right-1"
+          onClick={searchPostcode}
+          type="button"
+          label="lookup"
+        />
+        {supportManualEntry && (
           <Button
-            className="govuk-!-margin-bottom-0 govuk-!-margin-right-1"
-            onClick={searchPostcode}
+            className="govuk-!-margin-bottom-0"
+            onClick={() => setIsManually(true)}
+            isSecondary
             type="button"
-            label="lookup"
+            label="or enter it manually"
           />
-          {supportManualEntry && (
-            <Button
-              className="govuk-!-margin-bottom-0"
-              onClick={() => setIsManually(true)}
-              isSecondary
-              type="button"
-              label="or enter it manually"
-            />
-          )}
-        </div>
+        )}
       </div>
       <Controller
         render={({ onChange, value, name }) =>
