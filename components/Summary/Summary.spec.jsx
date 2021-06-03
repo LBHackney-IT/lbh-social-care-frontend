@@ -121,4 +121,38 @@ describe('Summary component', () => {
       expect(asFragment()).toMatchSnapshot();
     });
   });
+
+  it('should render any additional metadata provided', () => {
+    const { getByText } = render(
+      <Summary
+        formData={{
+          foo: '123',
+        }}
+        formPath="/form/foo/"
+        formSteps={[
+          {
+            id: 'first-step',
+            title: 'First Step',
+            components: [
+              {
+                component: 'TextInput',
+                label: 'I am foo component',
+                name: 'foo',
+              },
+            ],
+          },
+        ]}
+        additionalMetadata={[
+          {
+            key: 'title-of-row',
+            title: 'Title of row',
+            value: 'Value of row',
+          },
+        ]}
+      />
+    );
+
+    getByText('Title of row');
+    getByText('Value of row');
+  });
 });
