@@ -76,7 +76,7 @@ export const canViewRelationships = (user: User, resident: Resident) => {
   if (user.hasDevPermissions) {
     return true;
   }
-  if (user.hasAdultPermissions && resident.contextFlag == 'A') {
+  if (user.hasAdultPermissions && resident.contextFlag === 'A') {
     return true;
   }
 
