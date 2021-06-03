@@ -17,6 +17,7 @@ const FormWizard = ({
   stepHeader,
   successMessage,
   onFormSubmit,
+  onProgressStep,
   defaultValues = {},
   title,
   personDetails,
@@ -97,24 +98,36 @@ const FormWizard = ({
               ? deepmerge(formData, data)
               : { ...formData, ...data };
             setFormData(updatedData);
-            step.onStepSubmit && step.onStepSubmit(updatedData);
-            fromSummary &&
-            !haveStepsChanged(formSteps, formData, updatedData) &&
-            !addAnother
-              ? Router.push(stepPath, `${formPath}summary`)
-              : Router.push(
-                  stepPath,
-                  addAnother
-                    ? `${formPath}${stepId[0]}/${
-                        updatedData[Object.keys(data)[0]]?.length + 1 || 2
-                      }`
-                    : getNextStepPath(
-                        currentStepIndex,
-                        steps,
-                        formPath,
-                        updatedData
-                      )
-                );
+
+            if (step.onStepSubmit) {
+              step.onStepSubmit(updatedData);
+            }
+
+            if (onProgressStep) {
+              onProgressStep(updatedData);
+            }
+
+            if (
+              fromSummary &&
+              !haveStepsChanged(formSteps, formData, updatedData) &&
+              !addAnother
+            ) {
+              Router.push(stepPath, `${formPath}summary`);
+            } else {
+              Router.push(
+                stepPath,
+                addAnother
+                  ? `${formPath}${stepId[0]}/${
+                      updatedData[Object.keys(data)[0]]?.length + 1 || 2
+                    }`
+                  : getNextStepPath(
+                      currentStepIndex,
+                      steps,
+                      formPath,
+                      updatedData
+                    )
+              );
+            }
           }}
           onSaveAndExit={(data) => {
             const updatedData = step.isMulti
@@ -145,13 +158,14 @@ FormWizard.propTypes = {
   formSteps: PropTypes.arrayOf(
     PropTypes.shape({
       id: PropTypes.string.isRequired,
-      component: PropTypes.func,
+      components: PropTypes.array.isRequired,
       title: PropTypes.string.isRequired,
     })
   ).isRequired,
   title: PropTypes.string.isRequired,
   hideBackButton: PropTypes.bool,
   onFormSubmit: PropTypes.func,
+  onProgressStep: PropTypes.func,
   defaultValues: PropTypes.shape({}),
   isSummaryCollapsable: PropTypes.bool,
   includesDetails: PropTypes.bool,

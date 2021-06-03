@@ -1,7 +1,17 @@
 import Seo from 'components/Layout/Seo/Seo';
 import MyAllocatedCases from 'components/AllocatedCases/MyAllocatedCases';
 import DashboardWrapper from 'components/Dashboard/DashboardWrapper';
-import { GetServerSideProps } from 'next';
+
+/**
+ * This page, the Dashboard, is being exposed for internal testing at `{domain}/__dashboard`.
+ *
+ * Once the Dashboard is ready to launch, this file should be removed, and the redirect
+ *  (see `getServerSideProps()` in `/pages/index.tsx`) should be removed, so the
+ *  dashboard is available at the `{domain}/` route.
+ *
+ * `/components/Dashboard/DashboardWrapper.tsx` will also need to change to modify the base path of
+ *  the dashboard from `/__dashboard` to `/`.
+ */
 
 const MyCasesPage = (): React.ReactElement => (
   <div>
@@ -14,14 +24,5 @@ const MyCasesPage = (): React.ReactElement => (
     </DashboardWrapper>
   </div>
 );
-
-export const getServerSideProps: GetServerSideProps = async () => {
-  return {
-    props: {},
-    redirect: {
-      destination: '/search',
-    },
-  };
-};
 
 export default MyCasesPage;

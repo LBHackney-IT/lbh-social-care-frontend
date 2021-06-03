@@ -41,7 +41,10 @@ const DynamicStep = ({
   }
   return (
     <>
-      <form onSubmit={handleSubmit((data) => onStepSubmit(sanitiseData(data)))}>
+      <form
+        role="form"
+        onSubmit={handleSubmit((data) => onStepSubmit(sanitiseData(data)))}
+      >
         <div className="govuk-form-group">
           {components?.map(
             ({

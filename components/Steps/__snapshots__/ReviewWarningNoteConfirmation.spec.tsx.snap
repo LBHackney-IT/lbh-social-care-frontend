@@ -3,13 +3,13 @@
 exports[`Review Warning Note Confirmation it should rennder the correct text if the decision was no 1`] = `
 <DocumentFragment>
   <div
-    class="govuk-panel govuk-panel--confirmation lbh-panel govuk-!-margin-bottom-9"
+    class="govuk-panel govuk-panel--confirmation lbh-panel"
   >
-    <h1
-      class="govuk-panel__confirmation"
+    <div
+      class="govuk-panel__body"
     >
       This Warning Note has been closed
-    </h1>
+    </div>
   </div>
   <div
     style="display: flex; justify-content: space-between;"
@@ -35,13 +35,13 @@ exports[`Review Warning Note Confirmation it should rennder the correct text if 
 exports[`Review Warning Note Confirmation should render the correct text if the review decision was yes 1`] = `
 <DocumentFragment>
   <div
-    class="govuk-panel govuk-panel--confirmation lbh-panel govuk-!-margin-bottom-9"
+    class="govuk-panel govuk-panel--confirmation lbh-panel"
   >
-    <h1
-      class="govuk-panel__confirmation"
+    <div
+      class="govuk-panel__body"
     >
       The Warning Note has been renewed for Foo Bar
-    </h1>
+    </div>
   </div>
   <div
     style="display: flex; justify-content: space-between;"
