@@ -72,11 +72,14 @@ export const devCanViewArea = (user: User) => {
 
   return false;
 };
-export const canViewRelationships = (user: User, resident: Resident) => {
+export const canViewRelationships = (
+  user: User,
+  person: Pick<Resident, 'restricted' | 'contextFlag'>
+) => {
   if (user.hasDevPermissions) {
     return true;
   }
-  if (user.hasAdultPermissions && resident.contextFlag === 'A') {
+  if (user.hasAdultPermissions && person.contextFlag === 'A') {
     return true;
   }
 
