@@ -15,7 +15,7 @@ export const warningNoteFactory = Factory.define<WarningNote>(
     reviewDate: '2021-1-1',
     notes: 'a lot to talk about',
     status: 'open',
-    reviews: [],
+    warningNoteReviews: [],
   })
 );
 

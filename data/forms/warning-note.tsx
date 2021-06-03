@@ -177,7 +177,7 @@ const WARNING_TYPE_ADULTS: Array<FormComponentStep> = [
   {
     component: 'Radios',
     name: 'noteType',
-    label: 'Select warning type',
+    label: 'Warning type',
     options: WARNING_TYPES_ADULTS,
     rules: { required: true },
   },
@@ -234,7 +234,7 @@ const WARNING_TYPE_CHILDREN: Array<FormComponentStep> = [
   {
     component: 'Radios',
     name: 'noteType',
-    label: 'Select warning type',
+    label: 'Warning type',
     options: WARNING_TYPES_CHILDREN,
     rules: { required: true },
   },
@@ -375,7 +375,7 @@ const WARNING_NARRATIVE_CHILDREN: Array<FormComponentStep> = [
   {
     component: 'TextArea',
     name: 'notes',
-    label: 'Add further details about the Warning Note',
+    label: 'Further details about the Warning Note',
     rules: { required: true },
   },
 ];

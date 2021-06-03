@@ -13,7 +13,7 @@ const formSteps: FormStep[] = [
       },
       {
         component: 'Radios',
-        name: 'reviewDiscussion',
+        name: 'disclosedWithIndividual',
         label: 'Have you discussed this review with the individual',
         isRadiosInline: true,
         rules: { required: true },
@@ -21,7 +21,7 @@ const formSteps: FormStep[] = [
       },
       {
         component: 'TextArea',
-        name: 'reviewNotes',
+        name: 'notes',
         label: 'Details of review',
         hint: 'include details of disclosure to individual, any updates and why renewing or ending',
         rules: { required: true },
@@ -71,7 +71,22 @@ const formSteps: FormStep[] = [
         },
         showConditionalGuides: true,
         hint: 'Next review date cannot be more than 1 year from date review undertaken. ',
-        conditionalRender: ({ reviewDecision }) => reviewDecision === 'Yes',
+        conditionalRender: ({ reviewDecision, outputAsDetailedSummary }) =>
+          reviewDecision === 'Yes' || outputAsDetailedSummary === 'Yes',
+      },
+      {
+        component: 'DateInput',
+        name: 'endDate',
+        label: 'End Date',
+        conditionalRender: ({ outputAsDetailedSummary }) =>
+          outputAsDetailedSummary === 'Yes',
+      },
+      {
+        component: 'TextInput',
+        name: 'lastModifiedBy',
+        label: 'Review done by',
+        conditionalRender: ({ outputAsDetailedSummary }) =>
+          outputAsDetailedSummary === 'Yes',
       },
     ],
   },
