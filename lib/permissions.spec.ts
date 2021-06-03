@@ -1,7 +1,12 @@
 import { residentFactory } from '../factories/residents';
 import { userFactory } from '../factories/users';
 
-import { canUserEditPerson, canManageCases } from './permissions';
+import {
+  canUserEditPerson,
+  canManageCases,
+  canViewRelationships,
+  canViewArea,
+} from './permissions';
 
 describe('permissions', () => {
   describe('#canUserEditPerson()', () => {
@@ -382,6 +387,134 @@ describe('permissions', () => {
           residentFactory.build({
             restricted: 'Y',
             contextFlag: 'C',
+          })
+        )
+      ).toEqual(true);
+    });
+  });
+
+  describe('#canViewRelationships()', () => {
+    it('should return false when the user has no permissions', () => {
+      expect(
+        canViewRelationships(
+          userFactory.build({
+            hasAdminPermissions: false,
+            hasAdultPermissions: false,
+            hasChildrenPermissions: false,
+            hasUnrestrictedPermissions: false,
+            hasDevPermissions: false,
+            hasAllocationsPermissions: false,
+          }),
+          residentFactory.build({
+            restricted: 'N',
+            contextFlag: 'C',
+          })
+        )
+      ).toEqual(false);
+    });
+
+    it('should return true when the user is a dev', () => {
+      expect(
+        canViewRelationships(
+          userFactory.build({
+            hasAdminPermissions: false,
+            hasAdultPermissions: false,
+            hasChildrenPermissions: false,
+            hasUnrestrictedPermissions: false,
+            hasDevPermissions: true,
+            hasAllocationsPermissions: false,
+          }),
+          residentFactory.build({
+            restricted: 'Y',
+            contextFlag: 'C',
+          })
+        )
+      ).toEqual(true);
+    });
+
+    it('should return false when the user has children permissions', () => {
+      expect(
+        canViewRelationships(
+          userFactory.build({
+            hasAdminPermissions: false,
+            hasAdultPermissions: false,
+            hasChildrenPermissions: true,
+            hasUnrestrictedPermissions: false,
+            hasDevPermissions: false,
+            hasAllocationsPermissions: false,
+          }),
+          residentFactory.build({
+            restricted: 'Y',
+            contextFlag: 'C',
+          })
+        )
+      ).toEqual(false);
+    });
+
+    it('should return true when the user has adult permissions and the resident is an adult', () => {
+      expect(
+        canViewRelationships(
+          userFactory.build({
+            hasAdminPermissions: false,
+            hasAdultPermissions: true,
+            hasChildrenPermissions: false,
+            hasUnrestrictedPermissions: false,
+            hasDevPermissions: false,
+            hasAllocationsPermissions: false,
+          }),
+          residentFactory.build({
+            restricted: 'Y',
+            contextFlag: 'A',
+          })
+        )
+      ).toEqual(true);
+    });
+    it('should return false when the user has adult permissions and the resident is a child', () => {
+      expect(
+        canViewRelationships(
+          userFactory.build({
+            hasAdminPermissions: false,
+            hasAdultPermissions: true,
+            hasChildrenPermissions: false,
+            hasUnrestrictedPermissions: false,
+            hasDevPermissions: false,
+            hasAllocationsPermissions: false,
+          }),
+          residentFactory.build({
+            restricted: 'Y',
+            contextFlag: 'C',
+          })
+        )
+      ).toEqual(false);
+    });
+  });
+
+  describe('#canViewArea()', () => {
+    it('should return false when the user has no permissions', () => {
+      expect(
+        canViewArea(
+          userFactory.build({
+            hasAdminPermissions: false,
+            hasAdultPermissions: false,
+            hasChildrenPermissions: false,
+            hasUnrestrictedPermissions: false,
+            hasDevPermissions: false,
+            hasAllocationsPermissions: false,
+          })
+        )
+      ).toEqual(false);
+    });
+
+    it('should return true when the user is a dev', () => {
+      expect(
+        canViewArea(
+          userFactory.build({
+            hasAdminPermissions: false,
+            hasAdultPermissions: false,
+            hasChildrenPermissions: false,
+            hasUnrestrictedPermissions: false,
+            hasDevPermissions: true,
+            hasAllocationsPermissions: false,
           })
         )
       ).toEqual(true);
