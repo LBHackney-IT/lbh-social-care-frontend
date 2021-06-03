@@ -10,14 +10,7 @@ import WarningNotes from 'components/WarningNote/WarningNotes';
 import Stack from 'components/Stack/Stack';
 import { useAuth } from 'components/UserContext/UserContext';
 import { User } from 'types';
-
-const canViewArea = (user: User) => {
-  if (user.hasDevPermissions) {
-    return true;
-  }
-
-  return false;
-};
+import { canUserViewWarningNotes, canViewRelationships } from 'lib/permissions';
 
 const PersonPage = (): React.ReactElement => {
   const { query } = useRouter();
@@ -31,10 +24,18 @@ const PersonPage = (): React.ReactElement => {
       <PersonView personId={personId} showPersonDetails={false}>
         {(person) => (
           <Stack space={7} className="govuk-!-margin-top-7">
-            {canViewArea(user) ? <WarningNotes id={personId} /> : <></>}
+            {canUserViewWarningNotes(user) ? (
+              <WarningNotes id={personId} />
+            ) : (
+              <></>
+            )}
             <PersonDetails person={person} />
             <AllocatedWorkers person={person} />
-            {canViewArea(user) ? <Relationships id={personId} /> : <></>}
+            {canViewRelationships(user, person) ? (
+              <Relationships id={personId} />
+            ) : (
+              <></>
+            )}
             <Cases id={personId} person={person} />
           </Stack>
         )}
