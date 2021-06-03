@@ -8,6 +8,19 @@ import {
   WarningNoteCaseFormData,
 } from 'types';
 
+const getWarningNoteDetailsPageName = (form_name: string) => {
+  switch (form_name) {
+    case 'Warning Note Created':
+      return 'note-created';
+    case 'Warning Note Reviewed':
+      return 'note-reviews';
+    case 'Warning Note Ended':
+      return 'note-end';
+    default:
+      return null;
+  }
+};
+
 const getLink = (
   recordId: string,
   { form_name_overall, ...caseFormData }: CaseFormData
@@ -32,7 +45,7 @@ const getLink = (
     case 'API_WarningNote':
       return `/people/${caseFormData.mosaic_id}/warning-notes/${
         (caseFormData as WarningNoteCaseFormData).warning_note_id
-      }/view`;
+      }/view/${getWarningNoteDetailsPageName(caseFormData.form_name)}`;
     default:
       return null;
   }
