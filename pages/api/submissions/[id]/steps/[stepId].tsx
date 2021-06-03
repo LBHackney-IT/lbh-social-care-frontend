@@ -48,9 +48,7 @@ const handler = async (
     });
   } else {
     // 3. grab person
-    const person = await getResident(submission.socialCareId, {
-      context_flag: permissionFlag,
-    });
+    const person = await getResident(submission.socialCareId);
 
     res.json({
       ...submission,
