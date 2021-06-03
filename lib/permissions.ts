@@ -65,7 +65,7 @@ export const canManageCases = (
   return false;
 };
 
-export const devCanViewArea = (user: User) => {
+export const canUserViewWarningNotes = (user: User) => {
   if (user.hasDevPermissions) {
     return true;
   }

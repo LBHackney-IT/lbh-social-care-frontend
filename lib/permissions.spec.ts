@@ -5,7 +5,7 @@ import {
   canUserEditPerson,
   canManageCases,
   canViewRelationships,
-  devCanViewArea,
+  canUserViewWarningNotes,
 } from './permissions';
 
 describe('permissions', () => {
@@ -489,10 +489,10 @@ describe('permissions', () => {
     });
   });
 
-  describe('#canViewArea()', () => {
+  describe('#canUserViewWarningNotes()', () => {
     it('should return false when the user has no permissions', () => {
       expect(
-        devCanViewArea(
+        canUserViewWarningNotes(
           userFactory.build({
             hasAdminPermissions: false,
             hasAdultPermissions: false,
@@ -507,7 +507,7 @@ describe('permissions', () => {
 
     it('should return true when the user is a dev', () => {
       expect(
-        devCanViewArea(
+        canUserViewWarningNotes(
           userFactory.build({
             hasAdminPermissions: false,
             hasAdultPermissions: false,
@@ -518,6 +518,20 @@ describe('permissions', () => {
           })
         )
       ).toEqual(true);
+    });
+    it('should return false when the user is not a dev', () => {
+      expect(
+        canUserViewWarningNotes(
+          userFactory.build({
+            hasAdminPermissions: true,
+            hasAdultPermissions: true,
+            hasChildrenPermissions: true,
+            hasUnrestrictedPermissions: true,
+            hasDevPermissions: false,
+            hasAllocationsPermissions: true,
+          })
+        )
+      ).toEqual(false);
     });
   });
 });
