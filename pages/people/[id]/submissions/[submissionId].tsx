@@ -6,6 +6,7 @@ import FlexibleAnswers from 'components/FlexibleAnswers/FlexibleAnswers';
 import Head from 'next/head';
 import s from 'stylesheets/Sidebar.module.scss';
 import PersonWidget from 'components/PersonWidget/PersonWidget';
+import ApprovalWidget from 'components/ApprovalWidget/ApprovalWidget';
 import { Resident } from 'types';
 import { isAuthorised } from 'utils/auth';
 import { getPermissionFlag } from 'utils/user';
@@ -35,6 +36,7 @@ const SubmissionPage = ({ submission, person }: Props): React.ReactElement => (
         <div className={s.sticky}>
           <p className="lbh-body">This is for:</p>
           <PersonWidget person={person} />
+          <ApprovalWidget submission={Submission} />
         </div>
       </div>
     </div>

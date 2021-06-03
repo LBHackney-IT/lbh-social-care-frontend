@@ -73,8 +73,10 @@ export interface Submission {
   completedSteps: string[];
   createdBy: string;
   editedBy: string[];
+  approvedBy: string;
   createdAt: string;
   updatedAt: string;
   submittedAt: string | null;
   discardedAt: string | null;
+  approvedAt: string | null;
 }
