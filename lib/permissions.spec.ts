@@ -5,7 +5,7 @@ import {
   canUserEditPerson,
   canManageCases,
   canViewRelationships,
-  canViewArea,
+  devCanViewArea,
 } from './permissions';
 
 describe('permissions', () => {
@@ -492,7 +492,7 @@ describe('permissions', () => {
   describe('#canViewArea()', () => {
     it('should return false when the user has no permissions', () => {
       expect(
-        canViewArea(
+        devCanViewArea(
           userFactory.build({
             hasAdminPermissions: false,
             hasAdultPermissions: false,
@@ -507,7 +507,7 @@ describe('permissions', () => {
 
     it('should return true when the user is a dev', () => {
       expect(
-        canViewArea(
+        devCanViewArea(
           userFactory.build({
             hasAdminPermissions: false,
             hasAdultPermissions: false,
