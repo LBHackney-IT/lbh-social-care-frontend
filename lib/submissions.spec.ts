@@ -68,7 +68,7 @@ describe('finishSubmission', () => {
       `${ENDPOINT_API}/submissions/foo`
     );
     expect(mockedAxios.patch.mock.calls[0][1]).toEqual({
-      submittedAt: new Date(),
+      submittedAt: new Date().toISOString(),
     });
     expect(mockedAxios.patch.mock.calls[0][2]?.headers).toEqual({
       'x-api-key': AWS_KEY,
