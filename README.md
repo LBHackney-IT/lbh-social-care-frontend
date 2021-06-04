@@ -1,10 +1,14 @@
-# lbh-social-care-frontend
+# Social Care Tools for Hackney
 
-The Social Care Frontend allows Social Care Practitioners to edit cases and residents information.
+> A web front end for managing social care services at the London Borough of Hackney
 
-It is a part of the Social Care system (see [Social Care System Architecture](https://github.com/LBHackney-IT/social-care-architecture/tree/main) for more details).
+This service allows social care practitioners to:
 
-It makes use of the [Hackney Design System](https://design-system.hackney.gov.uk/).
+- Create and manage residents
+- Create and manage cases and case notes against residents
+- Create and manage workers and their resident assignments
+
+It is a part of the broader social care system, which is documented in the [Social Care System Architecture](https://github.com/LBHackney-IT/social-care-architecture/tree/main).
 
 ## Getting Started
 
@@ -28,7 +32,13 @@ Open [http://dev.hackney.gov.uk:3000](http://dev.hackney.gov.uk:3000) with your 
 
 You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
 
-## Learn More
+## Testing
+
+## Design and UI
+
+The application makes use the [Hackney Design System](https://design-system.hackney.gov.uk/).
+
+## Next.js
 
 To learn more about Next.js, take a look at the following resources:
 
