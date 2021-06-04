@@ -1,6 +1,6 @@
 import Seo from 'components/Layout/Seo/Seo';
 import SearchWrapper from 'components/Search/MainSearchWrapper';
-import { FeatureContainer } from '../lib/feature-flags';
+import { FeatureContainer } from '../hooks/use-feature-flags';
 
 const SearchResidentPage = (): React.ReactElement => (
   <div>

@@ -1,8 +1,4 @@
-import React from 'react';
-import {
-  ConditionalFeature,
-  useFeatureFlags,
-} from '../hooks/use-feature-flags';
+import { ConditionalFeature } from '../hooks/use-feature-flags';
 
 const getLocalStorageFlagValue = (flagName: string): 'active' | 'inactive' => {
   if (typeof window === 'undefined') {
@@ -23,7 +19,7 @@ export const getFeatureFlags = (): ConditionalFeature[] => {
     {
       // FEATURE-FLAG-EXPIRES[2021-06-30]
       name: 'dashboard',
-      get condition(): boolean {
+      get isActive() {
         if (getLocalStorageFlagValue('dashboard') === 'active') {
           return true;
         }
@@ -38,22 +34,21 @@ export const getFeatureFlags = (): ConditionalFeature[] => {
     {
       // FEATURE-FLAG-EXPIRES[2022-01-01]
       name: 'some-custom-feature',
-      get condition(): boolean {
+      get isActive() {
         return Math.random() > 0.5;
       },
     },
   ];
 };
 
-export const FeatureContainer: React.FC<{ name: string }> = ({
-  name,
-  children,
-}) => {
-  const { isFeatureActive } = useFeatureFlags();
+export const isFeatureActive = (featureName: string): boolean => {
+  const features = getFeatureFlags();
 
-  if (!isFeatureActive(name)) {
-    return null;
+  const feature = features.find(({ name }) => name === featureName);
+
+  if (!feature) {
+    return false;
   }
 
-  return <>{children}</>;
+  return feature.isActive || false;
 };

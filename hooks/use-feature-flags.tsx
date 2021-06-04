@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 
 export type ConditionalFeature = {
   name: string;
-  condition: boolean;
+  isActive: boolean;
 };
 
 const FeatureContext = React.createContext<{ features: ConditionalFeature[] }>({
@@ -27,14 +27,28 @@ export const useFeatureFlags = (): {
 
   const isFeatureActive = (featureName: string) => {
     const feature = features.find(({ name }) => name === featureName);
+
     if (!feature) {
       return false;
     }
 
-    return feature.condition || false;
+    return feature.isActive || false;
   };
 
   return {
     isFeatureActive,
   };
+};
+
+export const FeatureContainer: React.FC<{ name: string }> = ({
+  name,
+  children,
+}) => {
+  const { isFeatureActive } = useFeatureFlags();
+
+  if (!isFeatureActive(name)) {
+    return null;
+  }
+
+  return <>{children}</>;
 };
