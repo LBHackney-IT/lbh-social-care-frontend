@@ -47,7 +47,9 @@ const formSteps: FormStep[] = [
         component: 'Radios',
         name: 'reviewDecision',
         label: 'What do you want to do?',
-        rules: { required: true },
+        rules: {
+          required: 'Select what you want to do',
+        },
         options: [
           { value: 'Yes', text: 'Renew Warning Note' },
           { value: 'No', text: 'End Warning Note' },
