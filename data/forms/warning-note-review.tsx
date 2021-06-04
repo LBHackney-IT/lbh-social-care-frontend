@@ -35,19 +35,21 @@ const formSteps: FormStep[] = [
         component: 'TextInput',
         name: 'managerName',
         label: 'Manager’s name',
-        rules: { required: "Add the manager's name." },
+        rules: { required: true },
       },
       {
         component: 'DateInput',
         name: 'discussedWithManagerDate',
         label: 'Date discussed with manager',
-        rules: { required: 'Pease add a valid date.' },
+        rules: { required: true },
       },
       {
         component: 'Radios',
         name: 'reviewDecision',
         label: 'What do you want to do?',
-        rules: { required: true },
+        rules: {
+          required: 'Select what you want to do',
+        },
         options: [
           { value: 'Yes', text: 'Renew Warning Note' },
           { value: 'No', text: 'End Warning Note' },
@@ -58,7 +60,7 @@ const formSteps: FormStep[] = [
         name: 'nextReviewDate',
         label: 'Next review date',
         rules: {
-          required: 'Pease add a valid date.',
+          required: true,
           validate: {
             beforeStartDate: (value) =>
               new Date(value).getTime() >= new Date().getTime() ||

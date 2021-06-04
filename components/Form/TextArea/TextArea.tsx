@@ -1,6 +1,7 @@
 import cx from 'classnames';
 
 import type { TextArea as Props } from 'components/Form/types';
+import { FieldErrorMessage } from '../FieldErrorMessage/FieldErrorMessage';
 
 const TextArea = ({
   label,
@@ -30,11 +31,14 @@ const TextArea = ({
         {hint}
       </span>
     )}
-    {error && (
-      <span id={`${name}-error`} className="govuk-error-message">
-        <span className="govuk-visually-hidden">Error:</span> {error.message}
-      </span>
-    )}
+
+    <FieldErrorMessage
+      error={error}
+      action="Enter"
+      label={label}
+      isSingular={false}
+    />
+
     <textarea
       className={cx('lbh-textarea govuk-textarea', {
         'govuk-textarea--error': Boolean(error),
