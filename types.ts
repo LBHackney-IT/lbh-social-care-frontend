@@ -257,7 +257,7 @@ interface ReviewedNote {
   warningNoteId: number;
   reviewDate: string;
   disclosedWithIndividual: boolean;
-  notes: string;
+  reviewNotes: string;
   managerName: string;
   discussedWithManagerDate: string;
   createdAt: string;
