@@ -8,8 +8,6 @@ import { getData } from 'utils/saveData';
 import { getUserType } from 'utils/user';
 import Logo from './Logo';
 
-const { NEXT_PUBLIC_MAINTENANCE_MODE } = process.env;
-
 const loggedNavLinks = [
   {
     name: 'Search',
@@ -74,22 +72,17 @@ const HeaderComponent = ({
             </a>
           </div>
 
-          {NEXT_PUBLIC_MAINTENANCE_MODE &&
-          NEXT_PUBLIC_MAINTENANCE_MODE === '1' ? (
-            <></>
-          ) : (
-            <nav className="lbh-header__links" aria-label="Navigation menu">
-              {navLinks && (
-                <>
-                  {navLinks.map(({ name, path }) => (
-                    <Link href={path} key={path}>
-                      <a className="govuk-header__link">{name}</a>
-                    </Link>
-                  ))}
-                </>
-              )}
-            </nav>
-          )}
+          <nav className="lbh-header__links" aria-label="Navigation menu">
+            {navLinks && (
+              <>
+                {navLinks.map(({ name, path }) => (
+                  <Link href={path} key={path}>
+                    <a className="govuk-header__link">{name}</a>
+                  </Link>
+                ))}
+              </>
+            )}
+          </nav>
         </div>
       </div>
     </header>
