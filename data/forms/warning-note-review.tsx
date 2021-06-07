@@ -13,7 +13,7 @@ const formSteps: FormStep[] = [
       },
       {
         component: 'Radios',
-        name: 'reviewDiscussion',
+        name: 'disclosedWithIndividual',
         label: 'Have you discussed this review with the individual',
         isRadiosInline: true,
         rules: { required: true },
@@ -21,7 +21,7 @@ const formSteps: FormStep[] = [
       },
       {
         component: 'TextArea',
-        name: 'reviewNotes',
+        name: 'notes',
         label: 'Details of review',
         hint: 'include details of disclosure to individual, any updates and why renewing or ending',
         rules: { required: true },
@@ -35,19 +35,21 @@ const formSteps: FormStep[] = [
         component: 'TextInput',
         name: 'managerName',
         label: 'Manager’s name',
-        rules: { required: "Add the manager's name." },
+        rules: { required: true },
       },
       {
         component: 'DateInput',
         name: 'discussedWithManagerDate',
         label: 'Date discussed with manager',
-        rules: { required: 'Pease add a valid date.' },
+        rules: { required: true },
       },
       {
         component: 'Radios',
         name: 'reviewDecision',
         label: 'What do you want to do?',
-        rules: { required: true },
+        rules: {
+          required: 'Select what you want to do',
+        },
         options: [
           { value: 'Yes', text: 'Renew Warning Note' },
           { value: 'No', text: 'End Warning Note' },
@@ -58,7 +60,7 @@ const formSteps: FormStep[] = [
         name: 'nextReviewDate',
         label: 'Next review date',
         rules: {
-          required: 'Pease add a valid date.',
+          required: true,
           validate: {
             beforeStartDate: (value) =>
               new Date(value).getTime() >= new Date().getTime() ||
@@ -71,7 +73,22 @@ const formSteps: FormStep[] = [
         },
         showConditionalGuides: true,
         hint: 'Next review date cannot be more than 1 year from date review undertaken. ',
-        conditionalRender: ({ reviewDecision }) => reviewDecision === 'Yes',
+        conditionalRender: ({ reviewDecision, outputAsDetailedSummary }) =>
+          reviewDecision === 'Yes' || outputAsDetailedSummary === 'Yes',
+      },
+      {
+        component: 'DateInput',
+        name: 'endDate',
+        label: 'End Date',
+        conditionalRender: ({ outputAsDetailedSummary }) =>
+          outputAsDetailedSummary === 'Yes',
+      },
+      {
+        component: 'TextInput',
+        name: 'lastModifiedBy',
+        label: 'Review done by',
+        conditionalRender: ({ outputAsDetailedSummary }) =>
+          outputAsDetailedSummary === 'Yes',
       },
     ],
   },

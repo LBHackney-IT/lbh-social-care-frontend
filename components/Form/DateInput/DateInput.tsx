@@ -11,6 +11,7 @@ import {
 } from 'utils/date';
 
 import { DateInput as IDateInput } from 'components/Form/types';
+import { FieldErrorMessage } from '../FieldErrorMessage/FieldErrorMessage';
 
 interface InputProps extends Omit<IDateInput, 'control'> {
   value?: string;
@@ -57,7 +58,9 @@ const DateInput = forwardRef<HTMLInputElement, InputProps>(
         <span id={`${name}-hint`} className="lbh-hint">
           {hint}
         </span>
-        {error && <ErrorMessage label={error.message} />}
+
+        <FieldErrorMessage error={error} label={label} />
+
         <div className="lbh-date-input govuk-date-input" id={name}>
           <div className="lbh-date-input govuk-date-input__item">
             <div className="lbh-form-group govuk-form-group">
