@@ -21,7 +21,7 @@ const formSteps: FormStep[] = [
       },
       {
         component: 'TextArea',
-        name: 'notes',
+        name: 'reviewNotes',
         label: 'Details of review',
         hint: 'include details of disclosure to individual, any updates and why renewing or ending',
         rules: { required: true },
