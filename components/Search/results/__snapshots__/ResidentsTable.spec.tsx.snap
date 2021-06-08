@@ -16,13 +16,13 @@ exports[`ResidentsTable component should render a list of residents 1`] = `
           class="govuk-table__header"
           scope="col"
         >
-          Mosaic ID
+          Social care ID
         </th>
         <th
           class="govuk-table__header"
           scope="col"
         >
-          Client Name
+          Person
         </th>
         <th
           class="govuk-table__header"
@@ -34,13 +34,14 @@ exports[`ResidentsTable component should render a list of residents 1`] = `
           class="govuk-table__header"
           scope="col"
         >
-          Service
+          Address
         </th>
         <th
           class="govuk-table__header"
-          colspan="2"
           scope="col"
-        />
+        >
+          Post code
+        </th>
       </tr>
     </thead>
     <tbody
@@ -57,7 +58,12 @@ exports[`ResidentsTable component should render a list of residents 1`] = `
         <td
           class="govuk-table__cell"
         >
-          Foo Bar
+          <a
+            class="govuk-link govuk-custom-text-color"
+            href="/people/1"
+          >
+            Foo Bar
+          </a>
         </td>
         <td
           class="govuk-table__cell"
@@ -66,22 +72,13 @@ exports[`ResidentsTable component should render a list of residents 1`] = `
         </td>
         <td
           class="govuk-table__cell"
-        >
-          ACS
-        </td>
-        <td
-          class="govuk-table__cell govuk-table__cell--numeric"
         />
         <td
           class="govuk-table__cell"
-        >
-          <a
-            class="govuk-link govuk-custom-text-color"
-            href="/people/1"
-          >
-            View
-          </a>
-        </td>
+        />
+        <td
+          class="govuk-table__cell govuk-table__cell--numeric"
+        />
       </tr>
     </tbody>
   </table>

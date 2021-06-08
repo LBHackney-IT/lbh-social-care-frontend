@@ -1,7 +1,6 @@
 import Seo from 'components/Layout/Seo/Seo';
 import MyAllocatedCases from 'components/AllocatedCases/MyAllocatedCases';
 import DashboardWrapper from 'components/Dashboard/DashboardWrapper';
-import { GetServerSideProps } from 'next';
 
 const MyCasesPage = (): React.ReactElement => (
   <div>
@@ -14,14 +13,5 @@ const MyCasesPage = (): React.ReactElement => (
     </DashboardWrapper>
   </div>
 );
-
-export const getServerSideProps: GetServerSideProps = async () => {
-  return {
-    props: {},
-    redirect: {
-      destination: '/search',
-    },
-  };
-};
 
 export default MyCasesPage;
