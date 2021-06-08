@@ -14,7 +14,7 @@ const DashboardWrapper = ({ children }: Props): React.ReactElement => (
       title="Dashboard"
       tabs={[
         {
-          url: '/__dashboard',
+          url: '/',
           text: 'Clients allocated',
         },
         {

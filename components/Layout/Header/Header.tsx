@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import cx from 'classnames';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 
@@ -15,15 +14,15 @@ const loggedNavLinks = [
     isSelected: (pathname: string) =>
       pathname === '/search' || pathname === '/cases',
   },
-  // TODO: uncomment when dashboard is ready to launch
-  // {
-  //   name: 'My work space',
-  //   path: '/',
-  //   isSelected: (pathname: string) =>
-  //     pathname === '/' ||
-  //     pathname === '/my-records' ||
-  //     pathname === '/forms-in-progress',
-  // },
+
+  {
+    name: 'My work space',
+    path: '/',
+    isSelected: (pathname: string) =>
+      pathname === '/' ||
+      pathname === '/my-records' ||
+      pathname === '/forms-in-progress',
+  },
   {
     name: 'Manage workers',
     path: '/workers',
