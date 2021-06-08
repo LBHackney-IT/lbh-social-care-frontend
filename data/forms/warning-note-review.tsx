@@ -9,7 +9,14 @@ const formSteps: FormStep[] = [
         component: 'DateInput',
         name: 'reviewDate',
         label: 'Date review undertaken',
-        rules: { required: true },
+        rules: {
+          required: true,
+          validate: {
+            notInFuture: (value) =>
+              new Date(value).getTime() <= new Date().getTime() ||
+              "Date review undertaken can't be in the future",
+          },
+        },
       },
       {
         component: 'Radios',
@@ -21,7 +28,7 @@ const formSteps: FormStep[] = [
       },
       {
         component: 'TextArea',
-        name: 'notes',
+        name: 'reviewNotes',
         label: 'Details of review',
         hint: 'include details of disclosure to individual, any updates and why renewing or ending',
         rules: { required: true },
@@ -41,7 +48,14 @@ const formSteps: FormStep[] = [
         component: 'DateInput',
         name: 'discussedWithManagerDate',
         label: 'Date discussed with manager',
-        rules: { required: true },
+        rules: {
+          required: true,
+          validate: {
+            notInFuture: (value) =>
+              new Date(value).getTime() <= new Date().getTime() ||
+              "Date discussed with manager can't be in the future",
+          },
+        },
       },
       {
         component: 'Radios',
