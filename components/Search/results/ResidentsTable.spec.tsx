@@ -42,6 +42,6 @@ describe('ResidentsTable component', () => {
       </UserContext.Provider>
     );
 
-    getByText('RESTRICTED');
+    getByText('Restricted');
   });
 });
