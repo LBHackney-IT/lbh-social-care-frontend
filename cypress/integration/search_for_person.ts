@@ -75,7 +75,7 @@ describe('Search for a person', () => {
 
       cy.get('[data-testid="mosaic_id"]').type(Cypress.env('MOSAIC_ID_TEST'));
       cy.get('[type="submit"]').click();
-      cy.get(Cypress.env('NAME_FOR_MOSAIC_ID_TEST')).click();
+      cy.get('td a').click();
       cy.contains(Cypress.env('NAME_FOR_MOSAIC_ID_TEST')).should('be.visible');
     });
 
