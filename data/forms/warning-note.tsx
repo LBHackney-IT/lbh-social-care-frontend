@@ -251,7 +251,7 @@ const WARNING_DATES: Array<FormComponentStep> = [
       validate: {
         notInFuture: (value) =>
           new Date(value).getTime() <= new Date().getTime() ||
-          'Start date cannot be set in the future',
+          "Start date can't be in the future",
       },
     },
   },
@@ -410,7 +410,7 @@ const DISCUSSED_WITH_MANAGER: Array<FormComponentStep> = [
       validate: {
         notInFuture: (value) =>
           new Date(value).getTime() <= new Date().getTime() ||
-          'Date discussed with manager cannot be set in the future',
+          "Date discussed with manager can't be in the future",
       },
     },
   },

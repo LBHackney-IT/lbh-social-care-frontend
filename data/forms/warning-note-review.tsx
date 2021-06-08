@@ -14,7 +14,7 @@ const formSteps: FormStep[] = [
           validate: {
             notInFuture: (value) =>
               new Date(value).getTime() <= new Date().getTime() ||
-              'Date review undertaken cannot be set in the future',
+              "Date review undertaken can't be in the future",
           },
         },
       },
@@ -53,7 +53,7 @@ const formSteps: FormStep[] = [
           validate: {
             notInFuture: (value) =>
               new Date(value).getTime() <= new Date().getTime() ||
-              'Date discussed with manager cannot be set in the future',
+              "Date discussed with manager can't be in the future",
           },
         },
       },
