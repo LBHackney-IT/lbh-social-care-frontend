@@ -12,12 +12,6 @@ const formConfig: FormStep[] = [
     id: 'client-details',
     title: 'Person Details',
     components: [
-      <h2
-        key="subtitle-details"
-        className="govuk-fieldset__legend--l gov-weight-lighter govuk-!-margin-bottom-5"
-      >
-        Person details
-      </h2>,
       {
         conditionalRender: ({ user }) => !user.permissionFlag,
         component: 'Radios',
@@ -41,14 +35,14 @@ const formConfig: FormStep[] = [
         component: 'TextInput',
         name: 'firstName',
         width: 20,
-        label: 'First Name',
+        label: 'First name',
         rules: { required: 'Please enter a first name' },
       },
       {
         component: 'TextInput',
         name: 'lastName',
         width: 20,
-        label: 'Last Name',
+        label: 'Last name',
         rules: { required: 'Please enter a last name' },
       },
       {
@@ -64,12 +58,12 @@ const formConfig: FormStep[] = [
           {
             component: 'TextInput',
             name: 'firstName',
-            label: 'First Name',
+            label: 'First name',
           },
           {
             component: 'TextInput',
             name: 'lastName',
-            label: 'Last Name',
+            label: 'Last name',
           },
         ],
       },
@@ -97,7 +91,7 @@ const formConfig: FormStep[] = [
       {
         component: 'DateInput',
         name: 'dateOfDeath',
-        label: 'Date of Death',
+        label: 'Date of death',
         hint: 'For example, 31 03 1980',
       },
       {
@@ -121,7 +115,7 @@ const formConfig: FormStep[] = [
         component: 'Select',
         placeHolder: 'Choose one',
         name: 'firstLanguage',
-        label: 'First Language',
+        label: 'First language',
         width: 20,
         options: LANGUAGES,
       },
@@ -145,14 +139,11 @@ const formConfig: FormStep[] = [
         component: 'NumberInput',
         name: 'nhsNumber',
         width: 10,
-        label: 'NHS Number',
+        label: 'NHS number',
       },
-      <h3
-        key="subtitle-contact"
-        className="govuk-fieldset__legend--l gov-weight-lighter govuk-!-margin-bottom-5"
-      >
-        Client contact details
-      </h3>,
+      <h2 key="subtitle-contact" className="govuk-!-margin-bottom-5">
+        Their contact details
+      </h2>,
       {
         component: 'AddressLookup',
         name: 'address',
@@ -176,7 +167,7 @@ const formConfig: FormStep[] = [
             component: 'TextInput',
             name: 'type',
             label: 'Phone type',
-            placeholder: 'home',
+            placeholder: 'eg. Home',
           },
         ],
       },

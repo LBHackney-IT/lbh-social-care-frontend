@@ -150,7 +150,7 @@ const AddressLookup = ({
           className="govuk-!-margin-bottom-0 govuk-!-margin-right-1"
           onClick={searchPostcode}
           type="button"
-          label="lookup"
+          label="Look up"
         />
         {supportManualEntry && (
           <Button
@@ -158,7 +158,7 @@ const AddressLookup = ({
             onClick={() => setIsManually(true)}
             isSecondary
             type="button"
-            label="or enter it manually"
+            label="Or enter it manually"
           />
         )}
       </div>
