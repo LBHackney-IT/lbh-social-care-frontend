@@ -11,7 +11,8 @@ const handler = async (
   switch (req.method) {
     case 'POST':
       {
-        const { formId, socialCareId } = JSON.parse(req.body);
+        const { formId, socialCareId } = req.body;
+
         const user = isAuthorised(req);
 
         const submission = await startSubmission(
