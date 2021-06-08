@@ -246,7 +246,14 @@ const WARNING_DATES: Array<FormComponentStep> = [
     name: 'startDate',
     label: 'Start date',
     hint: 'Start date cannot be set in the future.',
-    rules: { required: true },
+    rules: {
+      required: true,
+      validate: {
+        notInFuture: (value) =>
+          new Date(value).getTime() <= new Date().getTime() ||
+          'Start date cannot be set in the future',
+      },
+    },
   },
   {
     component: 'DateInput',
@@ -398,7 +405,14 @@ const DISCUSSED_WITH_MANAGER: Array<FormComponentStep> = [
     component: 'DateInput',
     name: 'discussedWithManagerDate',
     label: 'Date discussed with manager',
-    rules: { required: true },
+    rules: {
+      required: true,
+      validate: {
+        notInFuture: (value) =>
+          new Date(value).getTime() <= new Date().getTime() ||
+          'Date discussed with manager cannot be set in the future',
+      },
+    },
   },
 ];
 
