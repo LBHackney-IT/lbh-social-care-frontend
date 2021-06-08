@@ -75,7 +75,7 @@ describe('Search for a person', () => {
 
       cy.get('[data-testid="mosaic_id"]').type(Cypress.env('MOSAIC_ID_TEST'));
       cy.get('[type="submit"]').click();
-      cy.contains('View').click();
+      cy.get('a').click();
       cy.contains(Cypress.env('NAME_FOR_MOSAIC_ID_TEST')).should('be.visible');
     });
 
@@ -94,7 +94,7 @@ describe('Search for a person', () => {
       cy.contains('First name').type(Cypress.env('CHILDREN_RECORD_FIRST_NAME'));
       cy.contains('Last name').type(Cypress.env('CHILDREN_RECORD_LAST_NAME'));
       cy.get('[type="submit"]').click();
-      cy.contains('View').click();
+      cy.contains('a').click();
       cy.contains(Cypress.env('CHILDREN_RECORD_FULL_NAME')).should(
         'be.visible'
       );
