@@ -303,7 +303,14 @@ const WARNING_DISCLOSURE: Array<FormComponentStep> = [
     name: 'disclosedDate',
     label: 'Date informed',
     labelSize: 's',
-    rules: { required: true },
+    rules: {
+      required: true,
+      validate: {
+        notInFuture: (value) =>
+          new Date(value).getTime() <= new Date().getTime() ||
+          "Date informed can't be in the future",
+      },
+    },
     showConditionalGuides: true,
     conditionalRender: ({ disclosedWithIndividual }) =>
       disclosedWithIndividual === 'Yes',
