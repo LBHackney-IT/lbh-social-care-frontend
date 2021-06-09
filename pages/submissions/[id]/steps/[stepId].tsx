@@ -19,7 +19,7 @@ interface Props {
     stepId: string;
   };
   stepAnswers: InitialValues;
-  person: Resident;
+  residents: Resident[];
   step: Step;
   form: Form;
 }
@@ -27,11 +27,13 @@ interface Props {
 const StepPage = ({
   params,
   stepAnswers,
-  person,
+  residents,
   step,
   form,
 }: Props): React.ReactElement => {
   const router = useRouter();
+
+  const person = residents[0];
 
   const handleSubmit = async (
     values: FormikValues,

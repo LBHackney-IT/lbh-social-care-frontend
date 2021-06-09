@@ -17,7 +17,7 @@ interface Props {
     id: string;
   };
   formAnswers: FlexibleAnswers;
-  person: Resident;
+  residents: Resident[];
   form: Form;
 }
 
@@ -25,13 +25,14 @@ const TaskListPage = ({
   params,
   // completedSteps,
   formAnswers,
-  person,
+  residents,
   form,
 }: Props): React.ReactElement => {
   const router = useRouter();
   const [status, setStatus] = useState<string | false>(false);
 
   const completedSteps = Object.keys(formAnswers);
+  const person = residents[0];
 
   const handleFinish = async (): Promise<void> => {
     try {
