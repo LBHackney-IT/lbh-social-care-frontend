@@ -10,92 +10,6 @@ const form: Form = {
       theme: 'About you',
       fields: [
         {
-          id: 'title',
-          question: 'Title',
-          hint: '',
-          type: 'text',
-        },
-        {
-          id: 'first-name',
-          question: 'First name',
-          hint: '',
-          type: 'text',
-        },
-        {
-          id: 'surname',
-          question: 'Surname',
-          hint: '',
-          type: 'text',
-        },
-        {
-          id: 'gender',
-          question: 'Gender',
-          hint: '',
-          type: 'radios',
-          choices: [
-            {
-              value: 'female',
-              label: 'Female',
-            },
-            {
-              value: 'male',
-              label: 'Male',
-            },
-            {
-              value: 'not-known',
-              label: 'Not known',
-            },
-          ],
-        },
-        {
-          id: 'date-of-birth',
-          question: 'Date of birth',
-          hint: '',
-          type: 'date',
-        },
-        {
-          id: 'mosaic-id',
-          question: 'Mosaic ID',
-          hint: '',
-          type: 'text',
-        },
-        {
-          id: 'emergency-id-asc',
-          question: 'Emergency ID (ASC)',
-          hint: '(If you do not know the Mosaic ID  then find or create an emergency ID number for this person in the list of numbers provided to your team, and enter it here)',
-          type: 'text',
-        },
-        {
-          id: 'nhs-number',
-          question: 'NHS number',
-          hint: '',
-          type: 'text',
-        },
-        {
-          id: 'primary-address',
-          question: 'Primary address',
-          hint: '',
-          type: 'textarea',
-        },
-        {
-          id: 'postcode',
-          question: 'Postcode',
-          hint: '',
-          type: 'text',
-        },
-        {
-          id: 'phone-number',
-          question: 'Phone number',
-          hint: '',
-          type: 'text',
-        },
-        {
-          id: 'person-email',
-          question: 'Person Email',
-          hint: '',
-          type: 'text',
-        },
-        {
           id: 'primary-address-tenure-type',
           question: 'Primary address tenure type',
           hint: '',
@@ -1328,37 +1242,6 @@ const form: Form = {
         {
           id: 'estimated-weekly-cost',
           question: 'Estimated weekly cost',
-          hint: '',
-          type: 'text',
-        },
-      ],
-    },
-    {
-      id: 'completed-by',
-      name: 'Completed by',
-      theme: 'Next steps',
-      fields: [
-        {
-          id: 'completed-date',
-          question: 'Completed Date',
-          hint: '',
-          type: 'date',
-        },
-        {
-          id: 'worker-name',
-          question: 'Worker Name',
-          hint: '',
-          type: 'text',
-        },
-        {
-          id: 'worker-team',
-          question: 'Worker Team',
-          hint: '',
-          type: 'text',
-        },
-        {
-          id: 'manager-name',
-          question: 'Manager Name',
           hint: '',
           type: 'text',
         },
