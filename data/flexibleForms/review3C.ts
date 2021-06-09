@@ -322,130 +322,44 @@ const form: Form = {
       ],
     },
     {
-      id: 'key-contact',
-      name: 'Key contact',
+      id: 'key-contacts',
+      name: 'Key contacts',
       theme: 'About you',
       fields: [
         {
-          id: 'key-contact-1-name',
-          question: 'Key Contact 1: Name',
-          hint: '',
-          type: 'text',
-        },
-        {
-          id: 'key-contact-1-relationship--role',
-          question: 'Key Contact 1: Relationship / role',
-          hint: '',
-          type: 'text',
-        },
-        {
-          id: 'key-contact-1-address',
-          question: 'Key Contact 1: Address',
-          hint: '',
-          type: 'text',
-        },
-        {
-          id: 'key-contact-1-contact-details',
-          question: 'Key Contact 1: Contact details',
-          hint: '',
-          type: 'text',
-        },
-        {
-          id: 'do-you-have-another-key-contact-to-add-second',
-          question: 'Do you have another key contact to add? (second)',
-          hint: '',
-          type: 'radios',
-          choices: [
+          id: 'key-contacts',
+          question: 'Who are your key contacts?',
+          type: 'repeaterGroup',
+          subfields: [
             {
-              value: 'yes',
-              label: 'Yes',
+              id: 'key-contact-1-name',
+              question: 'Name',
+              hint: '',
+              type: 'text',
             },
             {
-              value: 'no',
-              label: 'No',
+              id: 'key-contact-1-relationship--role',
+              question: 'Relationship or role',
+              hint: '',
+              type: 'text',
+            },
+            {
+              id: 'key-contact-1-address',
+              question: 'Address',
+              hint: '',
+              type: 'text',
+            },
+            {
+              id: 'key-contact-1-contact-details',
+              question: 'Contact details',
+              hint: '',
+              type: 'text',
             },
           ],
         },
       ],
     },
-    {
-      id: 'key-contact-second',
-      name: 'Key contact (second)',
-      theme: 'About you',
-      fields: [
-        {
-          id: 'key-contact-2-name',
-          question: 'Key Contact 2: Name',
-          hint: '',
-          type: 'text',
-        },
-        {
-          id: 'key-contact-2-relationship--role',
-          question: 'Key Contact 2: Relationship / role',
-          hint: '',
-          type: 'text',
-        },
-        {
-          id: 'key-contact-2-address',
-          question: 'Key Contact 2: Address',
-          hint: '',
-          type: 'text',
-        },
-        {
-          id: 'key-contact-2-contact-details',
-          question: 'Key Contact 2: Contact details',
-          hint: '',
-          type: 'text',
-        },
-        {
-          id: 'do-you-have-another-key-contact-to-add-third',
-          question: 'Do you have another key contact to add? (third)',
-          hint: '',
-          type: 'radios',
-          choices: [
-            {
-              value: 'yes',
-              label: 'Yes',
-            },
-            {
-              value: 'no',
-              label: 'No',
-            },
-          ],
-        },
-      ],
-    },
-    {
-      id: 'key-contact-third',
-      name: 'Key contact (third)',
-      theme: 'About you',
-      fields: [
-        {
-          id: 'key-contact-3-name',
-          question: 'Key Contact 3: Name',
-          hint: '',
-          type: 'text',
-        },
-        {
-          id: 'key-contact-3-relationship--role',
-          question: 'Key Contact 3: Relationship / role',
-          hint: '',
-          type: 'text',
-        },
-        {
-          id: 'key-contact-3-address',
-          question: 'Key Contact 3: Address',
-          hint: '',
-          type: 'text',
-        },
-        {
-          id: 'key-contact-3-contact-details',
-          question: 'Key Contact 3: Contact details',
-          hint: '',
-          type: 'text',
-        },
-      ],
-    },
+
     {
       id: 'gp-details',
       name: 'GP details',
