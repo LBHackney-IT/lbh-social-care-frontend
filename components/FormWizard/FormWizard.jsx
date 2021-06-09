@@ -142,7 +142,7 @@ const FormWizard = ({
                 : window.location.pathname,
               personDetails: includesDetails && personDetails,
             });
-            Router.push('/form-in-progress');
+            Router.push('/forms-in-progress');
           }}
           onFormSubmit={onFormSubmit}
           successMessage={successMessage}
