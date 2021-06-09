@@ -432,7 +432,7 @@ describe('permissions', () => {
       ).toEqual(true);
     });
 
-    it('should return false when the user has children permissions', () => {
+    it('should return true when the user has children permissions and the resident is a child', () => {
       expect(
         canViewRelationships(
           userFactory.build({
@@ -448,7 +448,7 @@ describe('permissions', () => {
             contextFlag: 'C',
           })
         )
-      ).toEqual(false);
+      ).toEqual(true);
     });
 
     it('should return true when the user has adult permissions and the resident is an adult', () => {
@@ -483,6 +483,24 @@ describe('permissions', () => {
           residentFactory.build({
             restricted: 'Y',
             contextFlag: 'C',
+          })
+        )
+      ).toEqual(false);
+    });
+    it('should return false when the user has children permissions and the resident is an adult', () => {
+      expect(
+        canViewRelationships(
+          userFactory.build({
+            hasAdminPermissions: false,
+            hasAdultPermissions: false,
+            hasChildrenPermissions: true,
+            hasUnrestrictedPermissions: false,
+            hasDevPermissions: false,
+            hasAllocationsPermissions: false,
+          }),
+          residentFactory.build({
+            restricted: 'Y',
+            contextFlag: 'A',
           })
         )
       ).toEqual(false);
