@@ -412,6 +412,7 @@ const form: Form = {
           id: 'key-contacts',
           question: 'Who are your key contacts?',
           type: 'repeaterGroup',
+          itemName: 'contact',
           subfields: [
             {
               id: 'key-contact-1-name',
