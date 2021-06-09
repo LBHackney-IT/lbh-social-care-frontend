@@ -96,6 +96,108 @@ const form: Form = {
           type: 'text',
         },
         {
+          id: 'primary-address-tenure-type',
+          question: 'Primary address tenure type',
+          hint: '',
+          type: 'select',
+          choices: [
+            {
+              value: 'owner-occupier-or-shared-ownership-scheme',
+              label: 'Owner occupier or shared ownership scheme',
+            },
+            {
+              value:
+                'tenant-including-local-authority-arms-length-management-organisations-registered-social-landlord-housing-association',
+              label:
+                "Tenant (including local authority, arm's length management organisations, registered social landlord, housing association)",
+            },
+            {
+              value: 'tenant--private-landlord',
+              label: 'Tenant - private landlord',
+            },
+            {
+              value:
+                'settled-mainstream-housing-with-family--friends-including-flatsharing',
+              label:
+                'Settled mainstream housing with family / friends (including flat-sharing)',
+            },
+            {
+              value:
+                'supported-accommodation--supported-lodgings--supported-group-home-ie-accommodation-supported-by-staff-or-resident-care-taker',
+              label:
+                'Supported accommodation / supported lodgings / supported group home (i.e. accommodation supported by staff or resident care taker)',
+            },
+            {
+              value: 'shared-lives-scheme',
+              label: 'Shared Lives scheme',
+            },
+            {
+              value:
+                'approved-premises-for-offenders-released-from-prison-or-under-probation-supervision-eg-probation-hostel',
+              label:
+                'Approved premises for offenders released from prison or under probation supervision (e.g. probation hostel)',
+            },
+            {
+              value:
+                'sheltered-housing--extra-care-housing--other-sheltered-housing',
+              label:
+                'Sheltered housing / extra care housing / other sheltered housing',
+            },
+            {
+              value:
+                'mobile-accommodation-for-gypsy--roma-and-traveller-communities',
+              label:
+                'Mobile accommodation for Gypsy / Roma and Traveller communities',
+            },
+            {
+              value: 'rough-sleeper--squatting',
+              label: 'Rough sleeper / squatting',
+            },
+            {
+              value:
+                'night-shelter--emergency-hostel--direct-access-hostel-temporary-accommodation-accepting-selfreferrals',
+              label:
+                'Night shelter / emergency hostel / direct access hostel (temporary accommodation accepting self-referrals)',
+            },
+            {
+              value: 'refuge',
+              label: 'Refuge',
+            },
+            {
+              value:
+                'placed-in-temporary-accommodation-by-the-council-including-homelessness-resettlement',
+              label:
+                'Placed in temporary accommodation by the council (including homelessness resettlement)',
+            },
+            {
+              value: 'staying-with-family--friends-as-a-shortterm-guest',
+              label: 'Staying with family / friends as a short-term guest',
+            },
+            {
+              value:
+                'acute--longterm-healthcare-residential-facility-or-hospital-eg-nhs-independent-general-hospital--clinic-longstay-hospital-specialist-rehabilitation--recovery-hospital',
+              label:
+                'Acute / long-term healthcare residential facility or hospital (e.g. NHS Independent general hospital / clinic, long-stay hospital, specialist rehabilitation / recovery hospital)',
+            },
+            {
+              value: 'registered-care-home',
+              label: 'Registered care home',
+            },
+            {
+              value: 'registered-nursing-home',
+              label: 'Registered nursing home',
+            },
+            {
+              value: 'prison--young-offenders-institution--detention-centre',
+              label: 'Prison / Young offenders institution / detention centre',
+            },
+            {
+              value: 'other-temporary-accommodation',
+              label: 'Other temporary accommodation',
+            },
+          ],
+        },
+        {
           id: 'household-structure',
           question: 'Household structure',
           hint: '',
@@ -246,7 +348,64 @@ const form: Form = {
       id: 'primary-support-reason',
       name: 'Primary support reason',
       theme: 'About you',
-      fields: [],
+      fields: [
+        {
+          id: 'psr-group-',
+          question: 'PSR Group ',
+          hint: '',
+          type: 'select',
+          choices: [
+            {
+              value: 'physical-support--access--mobility-only',
+              label: 'Physical Support - Access & mobility only',
+            },
+            {
+              value: 'physical-support--personal-care-and-support',
+              label: 'Physical Support - Personal Care and Support',
+            },
+            {
+              value: 'sensory-support--support-for-visual-impairment',
+              label: 'Sensory Support - Support for visual impairment',
+            },
+            {
+              value: 'sensory-support--support-for-hearing-impairment',
+              label: 'Sensory Support - Support for hearing impairment',
+            },
+            {
+              value: 'sensory-support--support-for-dual-impairment',
+              label: 'Sensory Support - Support for dual impairment',
+            },
+            {
+              value: 'support-with-memory--cognition',
+              label: 'Support with Memory & Cognition',
+            },
+            {
+              value: 'learning-disability-support',
+              label: 'Learning Disability Support',
+            },
+            {
+              value: 'mental-health-support-asc',
+              label: 'Mental Health Support (ASC)',
+            },
+            {
+              value: 'mental-health-support-elft',
+              label: 'Mental Health Support (ELFT)',
+            },
+            {
+              value: 'social-support--substance-misuse-support',
+              label: 'Social Support - Substance misuse support',
+            },
+            {
+              value: 'social-support--asylum-seeker-support',
+              label: 'Social Support - Asylum seeker support',
+            },
+            {
+              value: 'social-support--support-for-social-isolationother',
+              label: 'Social Support - Support for Social Isolation/Other',
+            },
+          ],
+        },
+      ],
     },
     {
       id: 'key-contact',
@@ -376,7 +535,7 @@ const form: Form = {
     {
       id: 'gp-details',
       name: 'GP details',
-      theme: 'Health and wellbeing',
+      theme: 'Your health and wellbeing',
       fields: [
         {
           id: 'gp-name',
@@ -419,7 +578,7 @@ const form: Form = {
     {
       id: 'my-review',
       name: 'My review',
-      theme: 'Review',
+      theme: 'Next steps',
       fields: [
         {
           id: 'review-type',
@@ -617,7 +776,7 @@ const form: Form = {
     {
       id: 'care-act-outcomes-and-eligibility',
       name: 'Care act outcomes and eligibility',
-      theme: 'Review',
+      theme: 'Next steps',
       fields: [
         {
           id: '1--do-you-have-a-condition-as-a-result-of-either-your-physical-mental-sensory-learning-or-cognitive-disabilities-or-illnesses-substance-misuse-or-brain-injury',
@@ -933,7 +1092,7 @@ const form: Form = {
     {
       id: 'personal-budget',
       name: 'Personal budget',
-      theme: 'Review',
+      theme: 'Next steps',
       fields: [
         {
           id: 'date-of-plan-authorised',
@@ -1128,7 +1287,7 @@ const form: Form = {
     {
       id: 'weekly-timetable',
       name: 'Weekly timetable',
-      theme: 'Review',
+      theme: 'Next steps',
       fields: [
         {
           id: 'date-of-timetable-authorised',
@@ -1177,7 +1336,7 @@ const form: Form = {
     {
       id: 'completed-by',
       name: 'Completed by',
-      theme: 'Review',
+      theme: 'Next steps',
       fields: [
         {
           id: 'completed-date',
@@ -1208,7 +1367,7 @@ const form: Form = {
     {
       id: 'completion-details-review-conversation',
       name: 'Completion details (Review Conversation)',
-      theme: 'Review',
+      theme: 'Next steps',
       fields: [
         {
           id: 'what-next',
@@ -1231,7 +1390,7 @@ const form: Form = {
     {
       id: 'schedule-next-review',
       name: 'Schedule Next Review',
-      theme: 'Review',
+      theme: 'Next steps',
       fields: [
         {
           id: 'date-of-next-review',
@@ -1244,7 +1403,7 @@ const form: Form = {
     {
       id: 'sequel-to-review-conversation',
       name: 'Sequel to Review Conversation',
-      theme: 'Review',
+      theme: 'Next steps',
       fields: [
         {
           id: 'outcomes-for-review-sequel',
@@ -1300,7 +1459,7 @@ const form: Form = {
     {
       id: 'manager-approval',
       name: 'Manager approval',
-      theme: 'Review',
+      theme: 'Next steps',
       fields: [
         {
           id: 'email-address-of-your-manager',
