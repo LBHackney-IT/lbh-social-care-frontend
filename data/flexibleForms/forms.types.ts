@@ -46,7 +46,7 @@ export interface Step {
 }
 
 export interface Form {
-  id: string | number;
+  id: string;
   name: string;
   steps: Step[];
 }

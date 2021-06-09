@@ -8,14 +8,14 @@ const headersWithKey = {
 };
 
 export const startSubmission = async (
-  formId: number,
+  formId: string,
   socialCareId: number,
   createdBy: string
 ): Promise<Submission> => {
   const { data } = await axios.post(
     `${ENDPOINT_API}/submissions`,
     {
-      formId: Number(formId),
+      formId,
       socialCareId: Number(socialCareId),
       createdBy,
     },
@@ -23,6 +23,7 @@ export const startSubmission = async (
       headers: headersWithKey,
     }
   );
+
   return data;
 };
 
