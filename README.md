@@ -12,27 +12,52 @@ It is a part of the broader social care system, which is documented in the [Soci
 
 ## Getting Started
 
-The app needs Node 14, if you have [NVM](https://github.com/nvm-sh/nvm) installed just run `nvm use` in your terminal.
+This app has the following requirements:
 
-Install the dependencies:
+- Node.js v14 (run `$ nvm use` to install – [see `nvm` docs](https://github.com/nvm-sh/nvm))
+- Yarn v1.x ([see installation instructions](https://classic.yarnpkg.com/en/docs/install))
 
-    yarn install
+To get the app running locally:
 
-Create your `.env` file from `.env.sample`. You will need to grab some secrets from (TBC, it's not clear at the time of writing).
+1.  Clone this repository and `cd` into it
 
-So that the auth token from using Staging/Production can work with your local dev environment and you will be able to access the application, add the following to your `/etc/hosts` file...
+2.  Install the dependencies
 
-    127.0.0.1       dev.hackney.gov.uk
+        yarn
 
-Run the development server:
+3.  Make a copy of `.env.sample` called `.env.local` and complete as follows:
 
-    yarn dev
+| Name | Description |
+| ---- | ----------- |
+| a    | a           |
 
-Open [http://dev.hackney.gov.uk:3000](http://dev.hackney.gov.uk:3000) with your browser to see the result.
+4. Make a copy of `cypress.env.sample.json` called `cypress.env.json` and complete as follows:
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
+| Name | Description |
+| ---- | ----------- |
+| a    | a           |
 
-## Testing
+5.  The Hackney authentication service requires the application to run on a `hackney.gov.uk` domain. To be able to access the application, add the following to your `/etc/hosts` file:
+
+        127.0.0.1       dev.hackney.gov.uk
+
+### Run the tests
+
+1.  Once you're set up, verify the app is working by running the unit test suites:
+
+        yarn test
+
+2.  You can then run the end to end Cypress tests with:
+
+        yarn e2e
+
+    > Note! It's possible Cypress will fail the first time you try to run it, with an error similar to `Cypress verification time out`. If this happens, just run the command again, and it should start working!
+
+3.  If all the tests pass, you should be able to safely launch the application server by running:
+
+        yarn dev
+
+4.  Open [http://dev.hackney.gov.uk:3000](http://dev.hackney.gov.uk:3000) with your browser to see the result.
 
 ## Design and UI
 
