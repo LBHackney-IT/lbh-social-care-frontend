@@ -324,7 +324,7 @@ const form: Form = {
     {
       id: 'key-contact',
       name: 'Key contact',
-      theme: 'Key contacts',
+      theme: 'About you',
       fields: [
         {
           id: 'key-contact-1-name',
@@ -371,7 +371,7 @@ const form: Form = {
     {
       id: 'key-contact-second',
       name: 'Key contact (second)',
-      theme: 'Key contacts',
+      theme: 'About you',
       fields: [
         {
           id: 'key-contact-2-name',
@@ -418,7 +418,7 @@ const form: Form = {
     {
       id: 'key-contact-third',
       name: 'Key contact (third)',
-      theme: 'Key contacts',
+      theme: 'About you',
       fields: [
         {
           id: 'key-contact-3-name',
@@ -449,7 +449,7 @@ const form: Form = {
     {
       id: 'gp-details',
       name: 'GP details',
-      theme: 'Your health and wellbeing',
+      theme: 'About you',
       fields: [
         {
           id: 'gp-name',
@@ -492,7 +492,7 @@ const form: Form = {
     {
       id: 'my-review',
       name: 'My review',
-      theme: 'Next steps',
+      theme: 'Reviewing your care',
       fields: [
         {
           id: 'review-type',
@@ -690,7 +690,7 @@ const form: Form = {
     {
       id: 'care-act-outcomes-and-eligibility',
       name: 'Care act outcomes and eligibility',
-      theme: 'Next steps',
+      theme: 'Reviewing your care',
       fields: [
         {
           id: '1--do-you-have-a-condition-as-a-result-of-either-your-physical-mental-sensory-learning-or-cognitive-disabilities-or-illnesses-substance-misuse-or-brain-injury',
@@ -1006,7 +1006,7 @@ const form: Form = {
     {
       id: 'personal-budget',
       name: 'Personal budget',
-      theme: 'Next steps',
+      theme: 'Reviewing your care',
       fields: [
         {
           id: 'date-of-plan-authorised',
@@ -1201,7 +1201,7 @@ const form: Form = {
     {
       id: 'weekly-timetable',
       name: 'Weekly timetable',
-      theme: 'Next steps',
+      theme: 'Reviewing your care',
       fields: [
         {
           id: 'date-of-timetable-authorised',
@@ -1249,7 +1249,7 @@ const form: Form = {
     },
     {
       id: 'completion-details-review-conversation',
-      name: 'Completion details (Review Conversation)',
+      name: 'Completion details (review conversation)',
       theme: 'Next steps',
       fields: [
         {
