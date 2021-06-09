@@ -6,7 +6,7 @@ const form: Form = {
   steps: [
     {
       id: 'person-details',
-      name: 'Person details',
+      name: 'Living situation',
       theme: 'About you',
       fields: [
         {
@@ -322,6 +322,88 @@ const form: Form = {
       ],
     },
     {
+      id: 'about-me',
+      name: 'About me',
+      theme: 'About you',
+      fields: [
+        {
+          id: 'areas-of-my-life-i-enjoy-most-or-value-including-my-main-interests-and-where-i-can-most-contribute--changes-that-would-improve-my-wellbeing-or-quality-of-life',
+          question:
+            'Areas of my life I enjoy most or value (including my main interests and where I can most contribute) & changes that would improve my wellbeing or quality of life',
+          hint: '',
+          type: 'textarea',
+        },
+        {
+          id: 'what-resources-support-was-recommended-and-outcome-workers-recommendations',
+          question:
+            'What resources, support was recommended and outcome? (workers recommendations)',
+          hint: '',
+          type: 'textarea',
+        },
+        {
+          id: 'next-actions-workers-recommendations',
+          question: 'Next actions (workers recommendations)',
+          hint: '',
+          type: 'textarea',
+        },
+        {
+          id: 'is-there-an-increase-or-decrease-to-services-provided',
+          question: 'Is there an increase or decrease to services provided?',
+          hint: '',
+          type: 'radios',
+          choices: [
+            {
+              value: 'yes',
+              label: 'Yes',
+            },
+            {
+              value: 'no',
+              label: 'No',
+            },
+          ],
+        },
+        {
+          id: 'has-a-mental-capacity-assessment-been-completed',
+          question: 'Has a Mental Capacity Assessment been completed?',
+          hint: '',
+          type: 'radios',
+          choices: [
+            {
+              value: 'yes',
+              label: 'Yes',
+            },
+            {
+              value: 'no',
+              label: 'No',
+            },
+          ],
+        },
+        {
+          id: 'if-yes-what-was-the-outcome-of-the-mental-capacity-assessment',
+          question:
+            'If yes, what was the outcome of the Mental Capacity Assessment?',
+          hint: '',
+          type: 'textarea',
+        },
+        {
+          id: 'if-no-is-a-mental-capacity-assessment-required',
+          question: 'If no, is a Mental Capacity Assessment required?',
+          hint: '',
+          type: 'radios',
+          choices: [
+            {
+              value: 'yes',
+              label: 'Yes',
+            },
+            {
+              value: 'no',
+              label: 'No',
+            },
+          ],
+        },
+      ],
+    },
+    {
       id: 'key-contacts',
       name: 'Key contacts',
       theme: 'About you',
@@ -359,7 +441,6 @@ const form: Form = {
         },
       ],
     },
-
     {
       id: 'gp-details',
       name: 'GP details',
@@ -516,88 +597,6 @@ const form: Form = {
             "My (or my representative's) view on anything that needs to change to help me work towards what I want to achieve",
           hint: '',
           type: 'textarea',
-        },
-      ],
-    },
-    {
-      id: 'about-me',
-      name: 'About me',
-      theme: 'About you',
-      fields: [
-        {
-          id: 'areas-of-my-life-i-enjoy-most-or-value-including-my-main-interests-and-where-i-can-most-contribute--changes-that-would-improve-my-wellbeing-or-quality-of-life',
-          question:
-            'Areas of my life I enjoy most or value (including my main interests and where I can most contribute) & changes that would improve my wellbeing or quality of life',
-          hint: '',
-          type: 'textarea',
-        },
-        {
-          id: 'what-resources-support-was-recommended-and-outcome-workers-recommendations',
-          question:
-            'What resources, support was recommended and outcome? (workers recommendations)',
-          hint: '',
-          type: 'textarea',
-        },
-        {
-          id: 'next-actions-workers-recommendations',
-          question: 'Next actions (workers recommendations)',
-          hint: '',
-          type: 'textarea',
-        },
-        {
-          id: 'is-there-an-increase-or-decrease-to-services-provided',
-          question: 'Is there an increase or decrease to services provided?',
-          hint: '',
-          type: 'radios',
-          choices: [
-            {
-              value: 'yes',
-              label: 'Yes',
-            },
-            {
-              value: 'no',
-              label: 'No',
-            },
-          ],
-        },
-        {
-          id: 'has-a-mental-capacity-assessment-been-completed',
-          question: 'Has a Mental Capacity Assessment been completed?',
-          hint: '',
-          type: 'radios',
-          choices: [
-            {
-              value: 'yes',
-              label: 'Yes',
-            },
-            {
-              value: 'no',
-              label: 'No',
-            },
-          ],
-        },
-        {
-          id: 'if-yes-what-was-the-outcome-of-the-mental-capacity-assessment',
-          question:
-            'If yes, what was the outcome of the Mental Capacity Assessment?',
-          hint: '',
-          type: 'textarea',
-        },
-        {
-          id: 'if-no-is-a-mental-capacity-assessment-required',
-          question: 'If no, is a Mental Capacity Assessment required?',
-          hint: '',
-          type: 'radios',
-          choices: [
-            {
-              value: 'yes',
-              label: 'Yes',
-            },
-            {
-              value: 'no',
-              label: 'No',
-            },
-          ],
         },
       ],
     },
@@ -1186,7 +1185,7 @@ const form: Form = {
     },
     {
       id: 'schedule-next-review',
-      name: 'Schedule Next Review',
+      name: 'Schedule next review',
       theme: 'Next steps',
       fields: [
         {
@@ -1199,7 +1198,7 @@ const form: Form = {
     },
     {
       id: 'sequel-to-review-conversation',
-      name: 'Sequel to Review Conversation',
+      name: 'Sequel to review conversation',
       theme: 'Next steps',
       fields: [
         {
