@@ -35,9 +35,13 @@ const ResultEntry = (person: LegacyResident): React.ReactElement => {
         {dateOfBirth && new Date(dateOfBirth).toLocaleDateString('en-GB')}
       </td>
       <td className="govuk-table__cell">
-        {address?.address && truncate(address.address, 4)}
+        {address?.address && truncate(address.address || '', 4)}
       </td>
-      <td className="govuk-table__cell">{address?.postcode.toUpperCase()}</td>
+      <td className="govuk-table__cell">
+        <span className={styles.uppercase}>
+          {(address && address.postcode) || ''}
+        </span>
+      </td>
       <td className="govuk-table__cell govuk-table__cell--numeric">
         {isRecordRestricted && (
           <span
