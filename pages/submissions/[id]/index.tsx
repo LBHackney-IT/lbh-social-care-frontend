@@ -4,7 +4,7 @@ import PersonWidget from 'components/PersonWidget/PersonWidget';
 import TaskList from 'components/TaskList/TaskList';
 import TaskListHeader from 'components/TaskList/TaskListHeader';
 import Banner from 'components/FlexibleForms/Banner';
-import { Form } from '../../../data/flexibleForms/forms.types';
+import { Form, FlexibleAnswers } from '../../../data/flexibleForms/forms.types';
 import { Resident } from '../../../types';
 import { getProtocol } from 'utils/urls';
 import s from 'stylesheets/Sidebar.module.scss';
@@ -16,19 +16,22 @@ interface Props {
   params: {
     id: string;
   };
-  completedSteps: string[];
+  formAnswers: FlexibleAnswers;
   person: Resident;
   form: Form;
 }
 
 const TaskListPage = ({
   params,
-  completedSteps,
+  // completedSteps,
+  formAnswers,
   person,
   form,
 }: Props): React.ReactElement => {
   const router = useRouter();
   const [status, setStatus] = useState<string | false>(false);
+
+  const completedSteps = Object.keys(formAnswers);
 
   const handleFinish = async (): Promise<void> => {
     try {
@@ -92,7 +95,7 @@ export const getServerSideProps: GetServerSideProps = async ({ params }) => {
   );
 
   // redirect if submission or form doesn't exist
-  if (!data.id || !data.form)
+  if (!data.submissionId || !data.form)
     return {
       props: {},
       redirect: {
