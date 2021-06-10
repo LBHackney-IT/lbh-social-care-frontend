@@ -15,7 +15,7 @@ This document intends to investigate how we might implement a fairly lightweight
 
 - Easy to implement new feature flags, with an obvious place for them to live
 - Easy to manage existing feature flags, and understand when they need to be tidied up
-- Transparency about which flags are currently in the systme, and how they are activated
+- Transparency about which flags are currently in the system, and how they are activated
 - That delivering a feature being a flag is so trivial that it becomes the default for all engineers on the team
 - That the API design has scope to grow to become more flexible in the future
 
