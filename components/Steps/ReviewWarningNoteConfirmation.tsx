@@ -18,7 +18,7 @@ const ReviewWarningNoteConfirmation = ({
         <div className="govuk-panel__body">
           {formData.reviewDecision === 'Yes'
             ? `The Warning Note has been renewed for ${formData.person.firstName} ${formData.person.lastName}`
-            : 'This Warning Note has been closed'}
+            : `This Warning Note has been closed for ${formData.person.firstName} ${formData.person.lastName}`}
         </div>
       </div>
 
