@@ -81,13 +81,8 @@ const DateInput = forwardRef<HTMLInputElement, InputProps>(
                 name={`${name}-day`}
                 pattern="^\d{2}$"
                 inputMode="numeric"
-                defaultValue={date.day}
-                onChange={({
-                  target: {
-                    value,
-                    validity: { valid },
-                  },
-                }) => valid && setNewDate({ day: value })}
+                value={date.day}
+                onChange={({ target: { value } }) => setNewDate({ day: value })}
                 ref={ref}
                 {...otherProps}
               />
@@ -113,13 +108,10 @@ const DateInput = forwardRef<HTMLInputElement, InputProps>(
                 name={`${name}-month`}
                 pattern="^\d{2}$"
                 inputMode="numeric"
-                defaultValue={date.month}
-                onChange={({
-                  target: {
-                    value,
-                    validity: { valid },
-                  },
-                }) => valid && setNewDate({ month: value })}
+                value={date.month}
+                onChange={({ target: { value } }) =>
+                  setNewDate({ month: value })
+                }
                 {...otherProps}
               />
             </div>
@@ -144,13 +136,11 @@ const DateInput = forwardRef<HTMLInputElement, InputProps>(
                 name={`${name}-year`}
                 pattern="^\d{4}$"
                 inputMode="numeric"
-                defaultValue={date.year}
-                onChange={({
-                  target: {
-                    value,
-                    validity: { valid },
-                  },
-                }) => valid && setNewDate({ year: value })}
+                value={date.year}
+                // onChange={(value) => setNewDate({year: value})}
+                onChange={({ target: { value } }) =>
+                  setNewDate({ year: value })
+                }
                 {...otherProps}
               />
             </div>
