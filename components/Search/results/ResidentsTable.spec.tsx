@@ -44,4 +44,35 @@ describe('ResidentsTable component', () => {
 
     getByText('Restricted');
   });
+
+  it('should render a resident without a postcode', () => {
+    const { asFragment } = render(
+      <UserContext.Provider
+        value={{
+          user: userFactory.build({
+            hasAdminPermissions: false,
+            hasDevPermissions: false,
+            hasChildrenPermissions: false,
+            hasUnrestrictedPermissions: false,
+            hasAllocationsPermissions: false,
+            hasAdultPermissions: true,
+          }),
+        }}
+      >
+        <ResidentsTable
+          records={[
+            legacyResidentFactory.build({
+              ageContext: 'C',
+              address: {
+                address: 'some address',
+                postcode: null,
+              },
+            }),
+          ]}
+        />
+      </UserContext.Provider>
+    );
+
+    expect(asFragment()).toMatchSnapshot();
+  });
 });
