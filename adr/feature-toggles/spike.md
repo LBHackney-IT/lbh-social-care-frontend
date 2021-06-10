@@ -145,4 +145,5 @@ In order to make this usable by all of our contributors, we will need to documen
 - when it is sensible to use a feature flag
 - how to add a new feature flag
 - best practices around which data to use to determine the status of a flag
--
+- how to handle an expiring feature flag
+- best practices around testing feature flags
