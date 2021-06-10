@@ -124,8 +124,8 @@ export interface LegacyResident {
   nhsNumber: string;
   restricted?: 'Y' | 'N';
   address?: {
-    address: string;
-    postcode: string;
+    address: string | null;
+    postcode: string | null;
     uprn?: string;
   };
   phoneNumber?: Array<{
