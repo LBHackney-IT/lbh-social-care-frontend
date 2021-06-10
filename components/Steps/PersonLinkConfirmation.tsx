@@ -15,7 +15,12 @@ const DetailConfirmation = ({ successMessage }: Props): React.ReactElement => {
         <h1 className="govuk-panel__title">{successMessage}</h1>
       </div>
       <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-        <Button label="Return to search" isSecondary wideButton route={`/`} />
+        <Button
+          label="Return to search"
+          isSecondary
+          wideButton
+          route={`/search`}
+        />
         <Button label="View person" wideButton route={`/people/${id}`} />
       </div>
     </>
