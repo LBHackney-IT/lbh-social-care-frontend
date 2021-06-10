@@ -34,6 +34,7 @@ const ReviewWarningNote = (): React.ReactElement => {
             : undefined,
         status: formData.reviewDecision === 'No' ? 'closed' : 'open',
         ...formData,
+        disclosedWithIndividual: formData.disclosedWithIndividual === 'Yes',
       });
     },
     [user.email]
