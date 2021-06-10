@@ -21,7 +21,6 @@ const REVIEW_DISCLOSURE: Array<FormComponentStep> = [
     component: 'Radios',
     name: 'disclosedWithIndividual',
     label: 'Have you discussed this review with the individual',
-    isRadiosInline: true,
     rules: { required: true },
   },
 ];
