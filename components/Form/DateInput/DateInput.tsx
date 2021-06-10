@@ -137,7 +137,6 @@ const DateInput = forwardRef<HTMLInputElement, InputProps>(
                 pattern="^\d{4}$"
                 inputMode="numeric"
                 value={date.year}
-                // onChange={(value) => setNewDate({year: value})}
                 onChange={({ target: { value } }) =>
                   setNewDate({ year: value })
                 }
