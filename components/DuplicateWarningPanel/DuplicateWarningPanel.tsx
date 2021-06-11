@@ -1,9 +1,8 @@
-import { useState, useEffect } from 'react';
 import cx from 'classnames';
 import s from './DuplicateWarningPanel.module.scss';
-import { LegacyResident } from 'types';
-import axios from 'axios';
 import ResidentsTable from 'components/Search/results/ResidentsTable';
+import { useResidents } from 'utils/api/residents';
+import { LegacyResident } from 'types';
 
 interface Props {
   newResident: Record<string, unknown>;
@@ -12,23 +11,14 @@ interface Props {
 const DuplicateWarningPanel = ({
   newResident,
 }: Props): React.ReactElement | null => {
-  const [matchingResidents, setMatchingResidents] = useState<LegacyResident[]>(
-    []
-  );
+  const { data } = useResidents({
+    first_name: newResident.firstName,
+    last_name: newResident.lastName,
+  });
 
-  useEffect(() => {
-    axios
-      .get(`/api/residents`, {
-        headers: { 'x-api-key': process.env.AWS_KEY },
-        params: {
-          first_name: newResident.firstName,
-          last_name: newResident.lastName,
-        },
-      })
-      .then(({ data }) => setMatchingResidents(data.residents));
-  }, [newResident]);
+  const matchingResidents = data?.[0]?.residents as LegacyResident[];
 
-  if (matchingResidents?.length > 0)
+  if (matchingResidents?.length > 0) {
     return (
       <div className={s.mutedPanel}>
         <div
@@ -52,6 +42,7 @@ const DuplicateWarningPanel = ({
         </div>
       </div>
     );
+  }
 
   return null;
 };
