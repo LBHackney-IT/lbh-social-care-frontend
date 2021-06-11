@@ -16,13 +16,13 @@ exports[`ResidentsTable component should render a list of residents 1`] = `
           class="govuk-table__header"
           scope="col"
         >
-          Mosaic ID
+          Social care ID
         </th>
         <th
           class="govuk-table__header"
           scope="col"
         >
-          Client Name
+          Person
         </th>
         <th
           class="govuk-table__header"
@@ -34,13 +34,14 @@ exports[`ResidentsTable component should render a list of residents 1`] = `
           class="govuk-table__header"
           scope="col"
         >
-          Service
+          Address
         </th>
         <th
           class="govuk-table__header"
-          colspan="2"
           scope="col"
-        />
+        >
+          Post code
+        </th>
       </tr>
     </thead>
     <tbody
@@ -57,7 +58,101 @@ exports[`ResidentsTable component should render a list of residents 1`] = `
         <td
           class="govuk-table__cell"
         >
-          Foo Bar
+          <a
+            class="govuk-link govuk-custom-text-color"
+            href="/people/1"
+          >
+            Foo Bar
+          </a>
+        </td>
+        <td
+          class="govuk-table__cell"
+        >
+          13/11/2020
+        </td>
+        <td
+          class="govuk-table__cell"
+        />
+        <td
+          class="govuk-table__cell"
+        >
+          <span
+            class="uppercase"
+          />
+        </td>
+        <td
+          class="govuk-table__cell govuk-table__cell--numeric"
+        />
+      </tr>
+    </tbody>
+  </table>
+</DocumentFragment>
+`;
+
+exports[`ResidentsTable component should render a resident without a postcode 1`] = `
+<DocumentFragment>
+  <table
+    class="govuk-table lbh-table"
+    data-testid="residents-table"
+  >
+    <thead
+      class="govuk-table__head"
+    >
+      <tr
+        class="govuk-table__row"
+      >
+        <th
+          class="govuk-table__header"
+          scope="col"
+        >
+          Social care ID
+        </th>
+        <th
+          class="govuk-table__header"
+          scope="col"
+        >
+          Person
+        </th>
+        <th
+          class="govuk-table__header"
+          scope="col"
+        >
+          Date of birth
+        </th>
+        <th
+          class="govuk-table__header"
+          scope="col"
+        >
+          Address
+        </th>
+        <th
+          class="govuk-table__header"
+          scope="col"
+        >
+          Post code
+        </th>
+      </tr>
+    </thead>
+    <tbody
+      class="govuk-table__body"
+    >
+      <tr
+        class="govuk-table__row restrictedRow"
+      >
+        <td
+          class="govuk-table__cell"
+        >
+          3
+        </td>
+        <td
+          class="govuk-table__cell"
+        >
+          <a
+            class="govuk-link govuk-custom-text-color"
+            href="/people/3"
+          >
+            Foo Bar
+          </a>
         </td>
         <td
           class="govuk-table__cell"
@@ -67,20 +162,23 @@ exports[`ResidentsTable component should render a list of residents 1`] = `
         <td
           class="govuk-table__cell"
         >
-          ACS
+          some address
         </td>
-        <td
-          class="govuk-table__cell govuk-table__cell--numeric"
-        />
         <td
           class="govuk-table__cell"
         >
-          <a
-            class="govuk-link govuk-custom-text-color"
-            href="/people/1"
+          <span
+            class="uppercase"
+          />
+        </td>
+        <td
+          class="govuk-table__cell govuk-table__cell--numeric"
+        >
+          <span
+            class="govuk-tag lbh-tag lbh-tag--grey uppercase"
           >
-            View
-          </a>
+            Restricted
+          </span>
         </td>
       </tr>
     </tbody>

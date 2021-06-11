@@ -1,0 +1,23 @@
+@import 'lbh-frontend/lbh/base';
+
+.mutedPanel {
+  background: lbh-colour('lbh-grey-4');
+  border: 1px solid lbh-colour('lbh-grey-3');
+  padding: 25px;
+}
+
+.warningText {
+  padding: 0;
+}
+
+.text {
+  padding-left: 55px;
+}
+
+.icon {
+  margin-top: 0;
+}
+
+.actions {
+  text-align: center;
+}

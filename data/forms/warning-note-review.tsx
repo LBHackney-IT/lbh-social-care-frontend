@@ -9,7 +9,14 @@ const formSteps: FormStep[] = [
         component: 'DateInput',
         name: 'reviewDate',
         label: 'Date review undertaken',
-        rules: { required: true },
+        rules: {
+          required: true,
+          validate: {
+            notInFuture: (value) =>
+              new Date(value).getTime() <= new Date().getTime() ||
+              "Date review undertaken can't be in the future",
+          },
+        },
       },
       {
         component: 'Radios',
@@ -21,13 +28,13 @@ const formSteps: FormStep[] = [
       },
       {
         component: 'TextArea',
-        name: 'notes',
+        name: 'reviewNotes',
         label: 'Details of review',
         hint: 'include details of disclosure to individual, any updates and why renewing or ending',
         rules: { required: true },
       },
-      <h2 key="manager review discussion">Review discussed with manager</h2>,
-      <span key="manager review caption" className="govuk-caption-l">
+      <h3 key="manager review discussion">Review discussed with manager</h3>,
+      <span key="manager review caption" className="govuk-caption-m">
         This Warning Note review has been discussed and agreed by the manager
         named below
       </span>,
@@ -35,19 +42,29 @@ const formSteps: FormStep[] = [
         component: 'TextInput',
         name: 'managerName',
         label: 'Manager’s name',
-        rules: { required: "Add the manager's name." },
+        rules: { required: true },
       },
       {
         component: 'DateInput',
         name: 'discussedWithManagerDate',
         label: 'Date discussed with manager',
-        rules: { required: 'Pease add a valid date.' },
+        rules: {
+          required: true,
+          validate: {
+            notInFuture: (value) =>
+              new Date(value).getTime() <= new Date().getTime() ||
+              "Date discussed with manager can't be in the future",
+          },
+        },
       },
+      <h3 key="next steps">Next steps</h3>,
       {
         component: 'Radios',
         name: 'reviewDecision',
         label: 'What do you want to do?',
-        rules: { required: true },
+        rules: {
+          required: 'Select what you want to do',
+        },
         options: [
           { value: 'Yes', text: 'Renew Warning Note' },
           { value: 'No', text: 'End Warning Note' },
@@ -58,7 +75,7 @@ const formSteps: FormStep[] = [
         name: 'nextReviewDate',
         label: 'Next review date',
         rules: {
-          required: 'Pease add a valid date.',
+          required: true,
           validate: {
             beforeStartDate: (value) =>
               new Date(value).getTime() >= new Date().getTime() ||
