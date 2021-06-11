@@ -33,8 +33,8 @@ const formSteps: FormStep[] = [
         hint: 'include details of disclosure to individual, any updates and why renewing or ending',
         rules: { required: true },
       },
-      <h2 key="manager review discussion">Review discussed with manager</h2>,
-      <span key="manager review caption" className="govuk-caption-l">
+      <h3 key="manager review discussion">Review discussed with manager</h3>,
+      <span key="manager review caption" className="govuk-caption-m">
         This Warning Note review has been discussed and agreed by the manager
         named below
       </span>,
@@ -57,6 +57,7 @@ const formSteps: FormStep[] = [
           },
         },
       },
+      <h3 key="next steps">Next steps</h3>,
       {
         component: 'Radios',
         name: 'reviewDecision',
