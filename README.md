@@ -27,7 +27,7 @@ To get the app running locally:
 
 3.  Make a copy of `.env.sample` called `.env.local` and complete as per the comments in the file.
 
-4.  Make a copy of `cypress.env.json.sample` called `cypress.env.json` and per the comments in the file.
+4.  Make a copy of `cypress.env.json.sample` called `cypress.env.json` and complete as per the comments in the file.
 
     > ⚠️ Note! Remember to remove the commented lines from the file, as they are not valid JSON!
 
