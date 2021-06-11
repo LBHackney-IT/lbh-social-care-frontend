@@ -28,8 +28,6 @@ const DuplicateWarningPanel = ({
       .then(({ data }) => setMatchingResidents(data.residents));
   }, [newResident]);
 
-  console.log(matchingResidents);
-
   if (matchingResidents?.length > 0)
     return (
       <div className={s.mutedPanel}>
