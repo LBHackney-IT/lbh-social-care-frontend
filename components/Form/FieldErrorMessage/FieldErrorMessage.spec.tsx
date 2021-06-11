@@ -11,7 +11,9 @@ describe('<FieldErrorMessage />', () => {
   it('should render an unknown error if no message or type is provided on the error object', () => {
     const { getByText } = render(<FieldErrorMessage error={{}} />);
 
-    getByText('Oops an error occurred');
+    getByText(
+      'There was a problem. Please refresh the page or try again later.'
+    );
   });
 
   it('should render the provided error message if one is given', () => {
