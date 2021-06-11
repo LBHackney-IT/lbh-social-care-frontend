@@ -1,12 +1,12 @@
-import { Resident } from 'types';
+import { Resident } from './../../types';
 import { useState } from 'react';
 import PersonWidget from './../PersonWidget/PersonWidget';
-import Dialog from './Dialog';
+import Dialog from './../Dialog/Dialog';
 import s from '../styles/PersonWidget.module.scss';
 import PersonSelect from './../PersonSelect/PersonSelect';
 
 interface Props {
-  initialPerson: Person;
+  initialPerson: Resident;
 }
 
 const GroupRecordingWidget = ({ initialPerson }: Props): React.ReactElement => {
