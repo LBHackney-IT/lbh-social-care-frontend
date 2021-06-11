@@ -8,10 +8,7 @@ import { User } from 'types';
 import formSteps from 'data/forms/create-new-person';
 
 const StepHeader = () => (
-  <h1
-    key="form-title"
-    className="govuk-fieldset__legend--xl gov-weight-lighter"
-  >
+  <h1 key="form-title" className="govuk-!-margin-bottom-8">
     Add a new person
   </h1>
 );

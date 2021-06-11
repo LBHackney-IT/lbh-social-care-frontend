@@ -11,6 +11,7 @@ import {
 } from 'utils/date';
 
 import { DateInput as IDateInput } from 'components/Form/types';
+import { FieldErrorMessage } from '../FieldErrorMessage/FieldErrorMessage';
 
 interface InputProps extends Omit<IDateInput, 'control'> {
   value?: string;
@@ -57,7 +58,9 @@ const DateInput = forwardRef<HTMLInputElement, InputProps>(
         <span id={`${name}-hint`} className="lbh-hint">
           {hint}
         </span>
-        {error && <ErrorMessage label={error.message} />}
+
+        <FieldErrorMessage error={error} label={label} />
+
         <div className="lbh-date-input govuk-date-input" id={name}>
           <div className="lbh-date-input govuk-date-input__item">
             <div className="lbh-form-group govuk-form-group">
@@ -78,13 +81,8 @@ const DateInput = forwardRef<HTMLInputElement, InputProps>(
                 name={`${name}-day`}
                 pattern="^\d{2}$"
                 inputMode="numeric"
-                defaultValue={date.day}
-                onChange={({
-                  target: {
-                    value,
-                    validity: { valid },
-                  },
-                }) => valid && setNewDate({ day: value })}
+                value={date.day}
+                onChange={({ target: { value } }) => setNewDate({ day: value })}
                 ref={ref}
                 {...otherProps}
               />
@@ -110,13 +108,10 @@ const DateInput = forwardRef<HTMLInputElement, InputProps>(
                 name={`${name}-month`}
                 pattern="^\d{2}$"
                 inputMode="numeric"
-                defaultValue={date.month}
-                onChange={({
-                  target: {
-                    value,
-                    validity: { valid },
-                  },
-                }) => valid && setNewDate({ month: value })}
+                value={date.month}
+                onChange={({ target: { value } }) =>
+                  setNewDate({ month: value })
+                }
                 {...otherProps}
               />
             </div>
@@ -141,13 +136,10 @@ const DateInput = forwardRef<HTMLInputElement, InputProps>(
                 name={`${name}-year`}
                 pattern="^\d{4}$"
                 inputMode="numeric"
-                defaultValue={date.year}
-                onChange={({
-                  target: {
-                    value,
-                    validity: { valid },
-                  },
-                }) => valid && setNewDate({ year: value })}
+                value={date.year}
+                onChange={({ target: { value } }) =>
+                  setNewDate({ year: value })
+                }
                 {...otherProps}
               />
             </div>

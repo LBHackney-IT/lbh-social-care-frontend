@@ -82,6 +82,8 @@ export const canViewRelationships = (
   if (user.hasAdultPermissions && person.contextFlag === 'A') {
     return true;
   }
-
+  if (user.hasChildrenPermissions && person.contextFlag === 'C') {
+    return true;
+  }
   return false;
 };

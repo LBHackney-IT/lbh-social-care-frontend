@@ -100,7 +100,7 @@ exports[`WarningNoteRecap should render correctly 1`] = `
         <dt
           class="govuk-summary-list__key"
         >
-          How informed
+          How was the individual informed
         </dt>
         <dd
           class="govuk-summary-list__value"

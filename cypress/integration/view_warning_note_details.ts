@@ -44,8 +44,13 @@ describe('Viewing a created warning note', () => {
       cy.contains(Cypress.env('ADULT_RECORD_FULL_NAME')).should('be.visible');
       cy.contains('Show details').click();
       cy.contains('Hide details').should('be.visible');
+
       cy.contains('Warning Note Review Details').should('be.visible');
       cy.contains('WARNING REVIEW DETAILS').should('be.visible');
+      cy.contains('Have you discussed this review with the individual').should(
+        'be.visible'
+      );
+
       cy.contains('WARNING DETAILS').should('be.visible');
     });
 
@@ -65,8 +70,13 @@ describe('Viewing a created warning note', () => {
       cy.contains(Cypress.env('ADULT_RECORD_FULL_NAME')).should('be.visible');
       cy.contains('Show details').click();
       cy.contains('Hide details').should('be.visible');
+
       cy.contains('Warning Note End Details').should('be.visible');
       cy.contains('WARNING REVIEW DETAILS').should('be.visible');
+      cy.contains('Have you discussed this review with the individual').should(
+        'be.visible'
+      );
+
       cy.contains('WARNING DETAILS').should('be.visible');
     });
   });
@@ -118,8 +128,13 @@ describe('Viewing a created warning note', () => {
       );
       cy.contains('Show details').click();
       cy.contains('Hide details').should('be.visible');
+
       cy.contains('Warning Note Review Details').should('be.visible');
       cy.contains('WARNING REVIEW DETAILS').should('be.visible');
+      cy.contains('Have you discussed this review with the individual').should(
+        'not.exist'
+      );
+
       cy.contains('WARNING DETAILS').should('be.visible');
     });
 
@@ -141,8 +156,13 @@ describe('Viewing a created warning note', () => {
       );
       cy.contains('Show details').click();
       cy.contains('Hide details').should('be.visible');
+
       cy.contains('Warning Note End Details').should('be.visible');
       cy.contains('WARNING REVIEW DETAILS').should('be.visible');
+      cy.contains('Have you discussed this review with the individual').should(
+        'not.exist'
+      );
+
       cy.contains('WARNING DETAILS').should('be.visible');
     });
   });
