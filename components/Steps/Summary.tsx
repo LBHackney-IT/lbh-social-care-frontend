@@ -8,6 +8,7 @@ import ErrorSummary from 'components/ErrorSummary/ErrorSummary';
 import { filterDataOnCondition } from 'utils/steps';
 import { sanitiseObject } from 'utils/objects';
 import { FormStep } from 'components/Form/types';
+import DuplicateWarningPanel from 'components/DuplicateWarningPanel/DuplicateWarningPanel';
 
 interface Props {
   formData: Record<string, unknown>;
@@ -43,6 +44,7 @@ const SummaryStep = ({
     }
     setIsSubmitting(false);
   };
+
   return (
     <div>
       <div className="lbh-table-header">
@@ -57,6 +59,9 @@ const SummaryStep = ({
         canEdit
         isSummaryCollapsable={isSummaryCollapsable}
       />
+      {formPath === '/people/add/' && (
+        <DuplicateWarningPanel newResident={formData} />
+      )}
       <div style={{ display: 'flex', justifyContent: 'space-between' }}>
         <Button
           wideButton
