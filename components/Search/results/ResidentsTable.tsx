@@ -33,7 +33,8 @@ const ResultEntry = ({
         {newTab ? (
           <a
             href={`/people/${mosaicId}`}
-            target="blank"
+            target="_blank"
+            rel="noreferrer"
             className="govuk-link govuk-custom-text-color"
           >
             {firstName} {lastName}
