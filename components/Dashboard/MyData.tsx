@@ -6,8 +6,6 @@ import ErrorMessage from 'components/ErrorMessage/ErrorMessage';
 import Spinner from 'components/Spinner/Spinner';
 import { useMyData } from 'utils/api/me';
 import { getUserType } from 'utils/user';
-import { Team } from 'types';
-
 import styles from './MyData.module.scss';
 
 const MyData: React.FC = () => {
