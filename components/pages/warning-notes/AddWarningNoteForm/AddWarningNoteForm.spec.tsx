@@ -261,6 +261,108 @@ describe('<AddWarningNoteForm />', () => {
     });
   });
 
+  it("should show an error message if a disclosure with individual value is selected and an informed date isn't entered", async () => {
+    (PersonView as jest.Mock).mockImplementationOnce(
+      createMockedPersonView(mockedAdultsResident)
+    );
+
+    render(
+      <AuthProvider user={mockedUser}>
+        <AddWarningNoteForm personId={100} />
+      </AuthProvider>
+    );
+
+    fireEvent.click(
+      screen.getByText('Yes', {
+        selector: "[for='disclosedWithIndividual_Yes']",
+      })
+    );
+
+    fireEvent.submit(screen.getByRole('form'));
+
+    await waitFor(() => {
+      screen.getByText('Enter a date informed');
+    });
+  });
+
+  it('should show an error message if a disclosure with individual value is selected and an invalid informed date is entered', async () => {
+    (PersonView as jest.Mock).mockImplementationOnce(
+      createMockedPersonView(mockedAdultsResident)
+    );
+
+    render(
+      <AuthProvider user={mockedUser}>
+        <AddWarningNoteForm personId={100} />
+      </AuthProvider>
+    );
+
+    fireEvent.click(
+      screen.getByText('Yes', {
+        selector: "[for='disclosedWithIndividual_Yes']",
+      })
+    );
+
+    setDateFieldValue('disclosedDate', {
+      date: '56',
+      month: '15',
+      year: '10',
+    });
+
+    fireEvent.submit(screen.getByRole('form'));
+
+    await waitFor(() => {
+      screen.getByText('Must be a valid Date');
+    });
+  });
+
+  it('should show an error message if a disclosure with individual value is selected and no inform method is selected', async () => {
+    (PersonView as jest.Mock).mockImplementationOnce(
+      createMockedPersonView(mockedAdultsResident)
+    );
+
+    render(
+      <AuthProvider user={mockedUser}>
+        <AddWarningNoteForm personId={100} />
+      </AuthProvider>
+    );
+
+    fireEvent.click(
+      screen.getByText('Yes', {
+        selector: "[for='disclosedWithIndividual_Yes']",
+      })
+    );
+
+    fireEvent.submit(screen.getByRole('form'));
+
+    await waitFor(() => {
+      screen.getByText('Select how the individual was informed');
+    });
+  });
+
+  it('should show an error message if a disclosure with individual value is selected and no details are entered', async () => {
+    (PersonView as jest.Mock).mockImplementationOnce(
+      createMockedPersonView(mockedAdultsResident)
+    );
+
+    render(
+      <AuthProvider user={mockedUser}>
+        <AddWarningNoteForm personId={100} />
+      </AuthProvider>
+    );
+
+    fireEvent.click(
+      screen.getByText('Yes', {
+        selector: "[for='disclosedWithIndividual_Yes']",
+      })
+    );
+
+    fireEvent.submit(screen.getByRole('form'));
+
+    await waitFor(() => {
+      screen.getByText('Enter details of disclosure to individual');
+    });
+  });
+
   it('should show an error message if notes are not entered', async () => {
     (PersonView as jest.Mock).mockImplementationOnce(
       createMockedPersonView(mockedAdultsResident)
