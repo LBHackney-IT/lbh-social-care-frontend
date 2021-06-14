@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import cx from 'classnames';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 
@@ -8,8 +7,6 @@ import { getData } from 'utils/saveData';
 import { getUserType } from 'utils/user';
 import Logo from './Logo';
 
-const { NEXT_PUBLIC_MAINTENANCE_MODE } = process.env;
-
 const loggedNavLinks = [
   {
     name: 'Search',
@@ -17,15 +14,15 @@ const loggedNavLinks = [
     isSelected: (pathname: string) =>
       pathname === '/search' || pathname === '/cases',
   },
-  // TODO: uncomment when dashboard is ready to launch
-  // {
-  //   name: 'My work space',
-  //   path: '/',
-  //   isSelected: (pathname: string) =>
-  //     pathname === '/' ||
-  //     pathname === '/my-records' ||
-  //     pathname === '/forms-in-progress',
-  // },
+
+  {
+    name: 'My work space',
+    path: '/',
+    isSelected: (pathname: string) =>
+      pathname === '/' ||
+      pathname === '/my-records' ||
+      pathname === '/forms-in-progress',
+  },
   {
     name: 'Manage workers',
     path: '/workers',
@@ -74,22 +71,17 @@ const HeaderComponent = ({
             </a>
           </div>
 
-          {NEXT_PUBLIC_MAINTENANCE_MODE &&
-          NEXT_PUBLIC_MAINTENANCE_MODE === '1' ? (
-            <></>
-          ) : (
-            <nav className="lbh-header__links" aria-label="Navigation menu">
-              {navLinks && (
-                <>
-                  {navLinks.map(({ name, path }) => (
-                    <Link href={path} key={path}>
-                      <a className="govuk-header__link">{name}</a>
-                    </Link>
-                  ))}
-                </>
-              )}
-            </nav>
-          )}
+          <nav className="lbh-header__links" aria-label="Navigation menu">
+            {navLinks && (
+              <>
+                {navLinks.map(({ name, path }) => (
+                  <Link href={path} key={path}>
+                    <a className="govuk-header__link">{name}</a>
+                  </Link>
+                ))}
+              </>
+            )}
+          </nav>
         </div>
       </div>
     </header>

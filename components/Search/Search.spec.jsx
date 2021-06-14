@@ -123,7 +123,9 @@ describe(`Search`, () => {
         <Search {...props} type="people" />
       </UserContext.Provider>
     );
-    const errorLabel = await findByText('Oops an error occurred');
+    const errorLabel = await findByText(
+      'There was a problem. Please refresh the page or try again later.'
+    );
     expect(errorLabel).toBeInTheDocument();
   });
 

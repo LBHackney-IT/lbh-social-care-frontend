@@ -6,7 +6,7 @@ export interface Props {
 }
 
 const ErrorMessage = ({
-  label = 'Oops an error occurred',
+  label = 'There was a problem. Please refresh the page or try again later.',
   className,
 }: Props): React.ReactElement => (
   <span className={cx('govuk-error-message', className)}>

@@ -64,3 +64,26 @@ export const canManageCases = (
 
   return false;
 };
+
+export const canUserViewWarningNotes = (user: User) => {
+  if (user.hasDevPermissions) {
+    return true;
+  }
+
+  return false;
+};
+export const canViewRelationships = (
+  user: User,
+  person: Pick<Resident, 'restricted' | 'contextFlag'>
+) => {
+  if (user.hasDevPermissions) {
+    return true;
+  }
+  if (user.hasAdultPermissions && person.contextFlag === 'A') {
+    return true;
+  }
+  if (user.hasChildrenPermissions && person.contextFlag === 'C') {
+    return true;
+  }
+  return false;
+};
