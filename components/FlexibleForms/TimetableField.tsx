@@ -15,7 +15,9 @@ interface Props {
   hint?: string;
 }
 
-const days = {
+const days: {
+  [key: string]: string;
+} = {
   Mon: 'Monday',
   Tue: 'Tuesday',
   Wed: 'Wednesday',
@@ -73,29 +75,32 @@ const TimetableField = ({ name, hint, label }: Props): React.ReactElement => {
             <table className={`govuk-table lbh-table ${s.table}`}>
               <thead>
                 <tr>
-                  <td></td>
-                  {Object.keys(days).map((day) => (
+                  <td className="govuk-table__header"></td>
+                  {times.map((time) => (
                     <th
-                      className="govuk-table__header govuk-body-xs"
-                      key={day}
+                      className="govuk-table__header govuk-body-s"
+                      key={time}
                       scope="col"
                     >
-                      {day}
+                      {time}
                     </th>
                   ))}
                 </tr>
               </thead>
               <tbody className="govuk-table__body">
-                {times.map((time) => (
-                  <tr key={time} className="govuk-table__row">
+                {Object.keys(days).map((shortDay) => (
+                  <tr key={shortDay} className="govuk-table__row">
                     <th
-                      className="govuk-table__header govuk-body-xs"
+                      className="govuk-table__header govuk-body-s"
                       scope="row"
                     >
-                      {time}
+                      <span aria-hidden="true">{shortDay}</span>
+                      <span className="govuk-visually-hidden">
+                        {days[shortDay]}
+                      </span>
                     </th>
-                    {Object.keys(days).map((day) => (
-                      <td className="govuk-table__cell" key={day}>
+                    {times.map((time) => (
+                      <td className="govuk-table__cell" key={time}>
                         <input type="number" min="0" max="24" step="0.5" />
                       </td>
                     ))}
@@ -108,7 +113,7 @@ const TimetableField = ({ name, hint, label }: Props): React.ReactElement => {
       </fieldset>
 
       <p>
-        Total hours <strong>00</strong>
+        <strong>00</strong> hours total
       </p>
     </div>
   );
