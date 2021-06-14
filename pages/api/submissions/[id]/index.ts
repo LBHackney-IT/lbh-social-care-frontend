@@ -30,9 +30,7 @@ const handler = async (
     discardedAt: null,
   };
 
-  const person = await getResident(submission.socialCareId, {
-    context_flag: permissionFlag,
-  });
+  const person = await getResident(submission.socialCareId);
 
   const form = forms.find((form) => form.id === submission.formId);
 

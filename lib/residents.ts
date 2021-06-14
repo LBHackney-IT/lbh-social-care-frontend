@@ -40,13 +40,9 @@ export const getResidents = async (
   return { ...data, residents: sanitiseResidentData(data.residents) };
 };
 
-export const getResident = async (
-  personId: number,
-  params: { context_flag: AgeContext }
-): Promise<Resident> => {
+export const getResident = async (personId: number): Promise<Resident> => {
   const { data } = await axios.get(`${ENDPOINT_API}/residents/${personId}`, {
     headers,
-    params,
   });
   return data;
 };
