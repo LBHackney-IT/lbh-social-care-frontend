@@ -3,6 +3,7 @@ import cx from 'classnames';
 import ErrorMessage from 'components/ErrorMessage/ErrorMessage';
 
 import type { TextInput as Props } from 'components/Form/types';
+import { FieldErrorMessage } from '../FieldErrorMessage/FieldErrorMessage';
 
 const TextInput = ({
   label,
@@ -31,7 +32,9 @@ const TextInput = ({
         {hint}
       </span>
     )}
-    {error && <ErrorMessage label={error.message} />}
+
+    <FieldErrorMessage error={error} label={label} />
+
     <input
       className={cx(`govuk-input lbh-input`, inputClassName, {
         [`govuk-input--width-${width}`]: width,

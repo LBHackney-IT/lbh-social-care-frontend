@@ -124,8 +124,8 @@ export interface LegacyResident {
   nhsNumber: string;
   restricted?: 'Y' | 'N';
   address?: {
-    address: string;
-    postcode: string;
+    address: string | null;
+    postcode: string | null;
     uprn?: string;
   };
   phoneNumber?: Array<{
@@ -257,7 +257,7 @@ interface ReviewedNote {
   warningNoteId: number;
   reviewDate: string;
   disclosedWithIndividual: boolean;
-  notes: string;
+  reviewNotes: string;
   managerName: string;
   discussedWithManagerDate: string;
   createdAt: string;

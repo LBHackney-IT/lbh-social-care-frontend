@@ -5,7 +5,10 @@ import PersonView from 'components/PersonView/PersonView';
 import WarningNoteRecap from 'components/WarningNote/WarningNoteRecap/WarningNoteRecap';
 import { Resident, User } from 'types';
 import FormWizard from 'components/FormWizard/FormWizard';
-import formSteps from 'data/forms/warning-note-review';
+import {
+  reviewFormStepsAdult,
+  reviewFormStepsChild,
+} from 'data/forms/warning-note-review';
 import { useAuth } from 'components/UserContext/UserContext';
 import CustomConfirmation from 'components/Steps/ReviewWarningNoteConfirmation';
 import { updateWarningNote } from 'utils/api/warningNotes';
@@ -31,6 +34,7 @@ const ReviewWarningNote = (): React.ReactElement => {
             : undefined,
         status: formData.reviewDecision === 'No' ? 'closed' : 'open',
         ...formData,
+        disclosedWithIndividual: formData.disclosedWithIndividual === 'Yes',
       });
     },
     [user.email]
@@ -81,7 +85,11 @@ const ReviewWarningNote = (): React.ReactElement => {
             )}
             <FormWizard
               formPath={`/people/${personId}/warning-notes/${warningNoteId}/`}
-              formSteps={formSteps}
+              formSteps={
+                person.contextFlag === 'A'
+                  ? reviewFormStepsAdult
+                  : reviewFormStepsChild
+              }
               title="Review Warning Note"
               onFormSubmit={onFormSubmit}
               onProgressStep={handleProgressStep}

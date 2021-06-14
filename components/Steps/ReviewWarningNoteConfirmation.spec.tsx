@@ -20,7 +20,7 @@ describe('Review Warning Note Confirmation', () => {
     expect(asFragment()).toMatchSnapshot();
   });
 
-  it('it should rennder the correct text if the decision was no', () => {
+  it('it should render the correct text if the decision was no', () => {
     const props = {
       formData: {
         person: mockedResident,
@@ -31,7 +31,9 @@ describe('Review Warning Note Confirmation', () => {
     const { asFragment, getByText } = render(
       <ReviewWarningNoteConfirmation {...props} />
     );
-    expect(getByText('This Warning Note has been closed')).toBeInTheDocument();
+    expect(
+      getByText('This Warning Note has been closed for Foo Bar')
+    ).toBeInTheDocument();
     expect(asFragment()).toMatchSnapshot();
   });
 });
