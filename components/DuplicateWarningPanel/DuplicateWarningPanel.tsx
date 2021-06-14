@@ -37,7 +37,7 @@ const DuplicateWarningPanel = ({
               the person doesn’t already exist before continuing:
             </p>
 
-            <ResidentsTable records={matchingResidents} />
+            <ResidentsTable records={matchingResidents} newTab={true} />
           </div>
         </div>
       </div>
