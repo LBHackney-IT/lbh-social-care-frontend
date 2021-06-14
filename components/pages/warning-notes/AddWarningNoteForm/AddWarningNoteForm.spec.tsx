@@ -212,7 +212,7 @@ describe('<AddWarningNoteForm />', () => {
     );
 
     setDateFieldValue('startDate', new Date('2021-01-01'));
-    setDateFieldValue('reviewDate', new Date('2023-01-01'));
+    setDateFieldValue('reviewDate', new Date('2022-01-02')); // One year and one day later
 
     fireEvent.submit(screen.getByRole('form'));
 
