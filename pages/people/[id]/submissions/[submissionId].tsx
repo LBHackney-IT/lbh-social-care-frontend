@@ -7,8 +7,6 @@ import Head from 'next/head';
 import s from 'stylesheets/Sidebar.module.scss';
 import PersonWidget from 'components/PersonWidget/PersonWidget';
 import { Resident } from 'types';
-import { isAuthorised } from 'utils/auth';
-import { getPermissionFlag } from 'utils/user';
 
 interface Props {
   submission: Submission;
@@ -41,19 +39,9 @@ const SubmissionPage = ({ submission, person }: Props): React.ReactElement => (
   </>
 );
 
-export const getServerSideProps: GetServerSideProps = async ({
-  req,
-  params,
-}) => {
+export const getServerSideProps: GetServerSideProps = async ({ params }) => {
   const submission = await getSubmissionById(String(params?.submissionId));
-
-  let permissionFlag;
-  const user = isAuthorised(req);
-  if (user) permissionFlag = getPermissionFlag(user);
-
-  const person = await getResident(Number(params?.id), {
-    context_flag: permissionFlag,
-  });
+  const person = await getResident(Number(params?.id));
 
   return {
     props: {
