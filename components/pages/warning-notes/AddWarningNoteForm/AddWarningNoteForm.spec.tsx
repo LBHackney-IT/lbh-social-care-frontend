@@ -67,9 +67,15 @@ jest.mock('next/router', () => ({
   }),
 }));
 
-const createMockedPersonView = (
-  resident: Resident = residentFactory.build()
-) => {
+const mockedAdultsResident = residentFactory.build({
+  contextFlag: 'A',
+});
+
+const mockedChildrensResident = residentFactory.build({
+  contextFlag: 'C',
+});
+
+const createMockedPersonView = (resident: Resident) => {
   const MockedPersonView = ({
     children,
   }: {
@@ -88,11 +94,7 @@ describe('<AddWarningNoteForm />', () => {
 
   it('should render the warning notes form for an adults resident', () => {
     (PersonView as jest.Mock).mockImplementationOnce(
-      createMockedPersonView(
-        residentFactory.build({
-          contextFlag: 'A',
-        })
-      )
+      createMockedPersonView(mockedAdultsResident)
     );
 
     const { asFragment } = render(
@@ -106,11 +108,7 @@ describe('<AddWarningNoteForm />', () => {
 
   it('should render the warning notes form for a childrens resident', () => {
     (PersonView as jest.Mock).mockImplementationOnce(
-      createMockedPersonView(
-        residentFactory.build({
-          contextFlag: 'C',
-        })
-      )
+      createMockedPersonView(mockedChildrensResident)
     );
 
     const { asFragment } = render(
@@ -123,7 +121,9 @@ describe('<AddWarningNoteForm />', () => {
   });
 
   it('should show an error message if a warning type is not selected', async () => {
-    (PersonView as jest.Mock).mockImplementationOnce(createMockedPersonView());
+    (PersonView as jest.Mock).mockImplementationOnce(
+      createMockedPersonView(mockedAdultsResident)
+    );
 
     render(
       <AuthProvider user={mockedUser}>
@@ -139,7 +139,9 @@ describe('<AddWarningNoteForm />', () => {
   });
 
   it('should show an error message if a warning type is not selected', async () => {
-    (PersonView as jest.Mock).mockImplementationOnce(createMockedPersonView());
+    (PersonView as jest.Mock).mockImplementationOnce(
+      createMockedPersonView(mockedAdultsResident)
+    );
 
     render(
       <AuthProvider user={mockedUser}>
@@ -155,7 +157,9 @@ describe('<AddWarningNoteForm />', () => {
   });
 
   it('should show an error message if a start date is not entered', async () => {
-    (PersonView as jest.Mock).mockImplementationOnce(createMockedPersonView());
+    (PersonView as jest.Mock).mockImplementationOnce(
+      createMockedPersonView(mockedAdultsResident)
+    );
 
     render(
       <AuthProvider user={mockedUser}>
@@ -171,7 +175,9 @@ describe('<AddWarningNoteForm />', () => {
   });
 
   it('should show an error message if the start date entered is in the future', async () => {
-    (PersonView as jest.Mock).mockImplementationOnce(createMockedPersonView());
+    (PersonView as jest.Mock).mockImplementationOnce(
+      createMockedPersonView(mockedAdultsResident)
+    );
 
     render(
       <AuthProvider user={mockedUser}>
@@ -196,7 +202,9 @@ describe('<AddWarningNoteForm />', () => {
   });
 
   it('should show an error message if a review / end date is not entered', async () => {
-    (PersonView as jest.Mock).mockImplementationOnce(createMockedPersonView());
+    (PersonView as jest.Mock).mockImplementationOnce(
+      createMockedPersonView(mockedAdultsResident)
+    );
 
     render(
       <AuthProvider user={mockedUser}>
@@ -212,7 +220,9 @@ describe('<AddWarningNoteForm />', () => {
   });
 
   it('should show an error message if the review / end date entered is more than one year after the entered start date', async () => {
-    (PersonView as jest.Mock).mockImplementationOnce(createMockedPersonView());
+    (PersonView as jest.Mock).mockImplementationOnce(
+      createMockedPersonView(mockedAdultsResident)
+    );
 
     render(
       <AuthProvider user={mockedUser}>
@@ -234,7 +244,9 @@ describe('<AddWarningNoteForm />', () => {
   });
 
   it('should show an error message if a disclosure with individual value is not selected', async () => {
-    (PersonView as jest.Mock).mockImplementationOnce(createMockedPersonView());
+    (PersonView as jest.Mock).mockImplementationOnce(
+      createMockedPersonView(mockedAdultsResident)
+    );
 
     render(
       <AuthProvider user={mockedUser}>
@@ -250,7 +262,9 @@ describe('<AddWarningNoteForm />', () => {
   });
 
   it('should show an error message if notes are not entered', async () => {
-    (PersonView as jest.Mock).mockImplementationOnce(createMockedPersonView());
+    (PersonView as jest.Mock).mockImplementationOnce(
+      createMockedPersonView(mockedAdultsResident)
+    );
 
     render(
       <AuthProvider user={mockedUser}>
@@ -266,7 +280,9 @@ describe('<AddWarningNoteForm />', () => {
   });
 
   it("should show an error message if a manager's name is not entered", async () => {
-    (PersonView as jest.Mock).mockImplementationOnce(createMockedPersonView());
+    (PersonView as jest.Mock).mockImplementationOnce(
+      createMockedPersonView(mockedAdultsResident)
+    );
 
     render(
       <AuthProvider user={mockedUser}>
@@ -282,7 +298,9 @@ describe('<AddWarningNoteForm />', () => {
   });
 
   it('should show an error message if a manager discussion date is not entered', async () => {
-    (PersonView as jest.Mock).mockImplementationOnce(createMockedPersonView());
+    (PersonView as jest.Mock).mockImplementationOnce(
+      createMockedPersonView(mockedAdultsResident)
+    );
 
     render(
       <AuthProvider user={mockedUser}>
@@ -298,7 +316,9 @@ describe('<AddWarningNoteForm />', () => {
   });
 
   it('should show an error message if the manager discussion date entered is invalid', async () => {
-    (PersonView as jest.Mock).mockImplementationOnce(createMockedPersonView());
+    (PersonView as jest.Mock).mockImplementationOnce(
+      createMockedPersonView(mockedAdultsResident)
+    );
 
     render(
       <AuthProvider user={mockedUser}>
@@ -322,7 +342,9 @@ describe('<AddWarningNoteForm />', () => {
   });
 
   it('should show an error message if the manager discussion date entered is in the future', async () => {
-    (PersonView as jest.Mock).mockImplementationOnce(createMockedPersonView());
+    (PersonView as jest.Mock).mockImplementationOnce(
+      createMockedPersonView(mockedAdultsResident)
+    );
 
     render(
       <AuthProvider user={mockedUser}>
