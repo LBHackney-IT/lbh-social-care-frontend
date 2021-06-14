@@ -10,6 +10,12 @@ const form: Form = {
       theme: 'About you',
       fields: [
         {
+          id: 'Weekly timetable',
+          question: 'What are the weekly care arrangements?',
+          hint: "Use estimates if precise hours aren't known",
+          type: 'timetable',
+        },
+        {
           id: 'primary-address-tenure-type',
           question: 'Primary address tenure type',
           hint: '',
