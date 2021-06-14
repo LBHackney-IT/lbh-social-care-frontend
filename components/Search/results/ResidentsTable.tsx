@@ -4,9 +4,14 @@ import { LegacyResident, User } from 'types';
 import { canManageCases } from '../../../lib/permissions';
 import { useAuth } from '../../UserContext/UserContext';
 import styles from './ResidentsTable.module.scss';
-import { truncate } from 'lib/utils';
 
-const ResultEntry = (person: LegacyResident): React.ReactElement => {
+const ResultEntry = ({
+  person,
+  newTab,
+}: {
+  person: LegacyResident;
+  newTab?: boolean;
+}): React.ReactElement => {
   const { user } = useAuth() as { user: User };
   const { mosaicId, firstName, lastName, dateOfBirth, address, ageContext } =
     person;
@@ -25,11 +30,21 @@ const ResultEntry = (person: LegacyResident): React.ReactElement => {
     >
       <td className="govuk-table__cell">{mosaicId}</td>
       <td className="govuk-table__cell">
-        <Link href={`/people/${mosaicId}`}>
-          <a className="govuk-link govuk-custom-text-color">
+        {newTab ? (
+          <a
+            href={`/people/${mosaicId}`}
+            target="blank"
+            className="govuk-link govuk-custom-text-color"
+          >
             {firstName} {lastName}
           </a>
-        </Link>
+        ) : (
+          <Link href={`/people/${mosaicId}`}>
+            <a className="govuk-link govuk-custom-text-color">
+              {firstName} {lastName}
+            </a>
+          </Link>
+        )}
       </td>
       <td className="govuk-table__cell">
         {dateOfBirth && new Date(dateOfBirth).toLocaleDateString('en-GB')}
@@ -54,8 +69,11 @@ const ResultEntry = (person: LegacyResident): React.ReactElement => {
 
 const ResultTable = ({
   records,
+  newTab,
 }: {
   records: LegacyResident[];
+  /** whether to open residents in a new tab? */
+  newTab?: boolean;
 }): React.ReactElement => (
   <table className="govuk-table lbh-table" data-testid="residents-table">
     <thead className="govuk-table__head">
@@ -77,7 +95,7 @@ const ResultTable = ({
     </thead>
     <tbody className="govuk-table__body">
       {records.map((result) => (
-        <ResultEntry key={result.mosaicId} {...result} />
+        <ResultEntry key={result.mosaicId} person={result} newTab={newTab} />
       ))}
     </tbody>
   </table>
