@@ -37,6 +37,13 @@ const MyData: React.FC = () => {
       { shallow: true, scroll: false }
     );
   };
+
+  const teams =
+    data.teams.length > 1
+      ? `Teams: ${data.teams.map((team) => team.name).join(', ')}`
+      : data.teams.length > 0
+      ? `Team: ${data.teams[0].name}`
+      : '';
   return (
     <div className={styles.container}>
       <div className={cx(styles.header, 'lbh-table-header')}>
@@ -57,9 +64,7 @@ const MyData: React.FC = () => {
               className={cx('govuk-grid-column-one-half', styles.descriptions)}
             >
               <div>Role: {data.role}</div>
-              {data.teams.length > 0 && (
-                <div>Team: {data.teams.map(({ name }: Team) => name)}</div>
-              )}
+              {teams && <div>{teams}</div>}
             </div>
             <div
               className={cx('govuk-grid-column-one-half', styles.descriptions)}
