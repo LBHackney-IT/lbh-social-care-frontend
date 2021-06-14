@@ -8,14 +8,20 @@ import PersonView from '../../../PersonView/PersonView';
 import { AuthProvider } from '../../../UserContext/UserContext';
 import { mockedUser } from '../../../../factories/users';
 
-const setDateFieldValue = (fieldName: string, date: Date) => {
+const setDateFieldValue = (
+  fieldName: string,
+  date: Date | { date: string; month: string; year: string }
+) => {
   fireEvent.change(
     screen.getByLabelText('Day', {
       selector: `[name='${fieldName}-day']`,
     }),
     {
       target: {
-        value: String(date.getDate()).padStart(2, '0'),
+        value:
+          date instanceof Date
+            ? String(date.getDate()).padStart(2, '0')
+            : date.date,
       },
     }
   );
@@ -25,7 +31,10 @@ const setDateFieldValue = (fieldName: string, date: Date) => {
     }),
     {
       target: {
-        value: String(date.getMonth() + 1).padStart(2, '0'),
+        value:
+          date instanceof Date
+            ? String(date.getMonth() + 1).padStart(2, '0')
+            : date.month,
       },
     }
   );
@@ -35,7 +44,7 @@ const setDateFieldValue = (fieldName: string, date: Date) => {
     }),
     {
       target: {
-        value: String(date.getFullYear()),
+        value: date instanceof Date ? String(date.getFullYear()) : date.year,
       },
     }
   );
@@ -221,6 +230,119 @@ describe('<AddWarningNoteForm />', () => {
         'Review / end date cannot be more than 1 year after the Start date.',
         { selector: '.govuk-error-message' }
       );
+    });
+  });
+
+  it('should show an error message if a disclosure with individual value is not selected', async () => {
+    (PersonView as jest.Mock).mockImplementationOnce(createMockedPersonView());
+
+    render(
+      <AuthProvider user={mockedUser}>
+        <AddWarningNoteForm personId={100} />
+      </AuthProvider>
+    );
+
+    fireEvent.submit(screen.getByRole('form'));
+
+    await waitFor(() => {
+      screen.getByText('Select an answer for this input');
+    });
+  });
+
+  it('should show an error message if notes are not entered', async () => {
+    (PersonView as jest.Mock).mockImplementationOnce(createMockedPersonView());
+
+    render(
+      <AuthProvider user={mockedUser}>
+        <AddWarningNoteForm personId={100} />
+      </AuthProvider>
+    );
+
+    fireEvent.submit(screen.getByRole('form'));
+
+    await waitFor(() => {
+      screen.getByText('Enter warning narrative and risks notes');
+    });
+  });
+
+  it("should show an error message if a manager's name is not entered", async () => {
+    (PersonView as jest.Mock).mockImplementationOnce(createMockedPersonView());
+
+    render(
+      <AuthProvider user={mockedUser}>
+        <AddWarningNoteForm personId={100} />
+      </AuthProvider>
+    );
+
+    fireEvent.submit(screen.getByRole('form'));
+
+    await waitFor(() => {
+      screen.getByText('Enter a manager’s name');
+    });
+  });
+
+  it('should show an error message if a manager discussion date is not entered', async () => {
+    (PersonView as jest.Mock).mockImplementationOnce(createMockedPersonView());
+
+    render(
+      <AuthProvider user={mockedUser}>
+        <AddWarningNoteForm personId={100} />
+      </AuthProvider>
+    );
+
+    fireEvent.submit(screen.getByRole('form'));
+
+    await waitFor(() => {
+      screen.getByText('Enter a date discussed with manager');
+    });
+  });
+
+  it('should show an error message if the manager discussion date entered is invalid', async () => {
+    (PersonView as jest.Mock).mockImplementationOnce(createMockedPersonView());
+
+    render(
+      <AuthProvider user={mockedUser}>
+        <AddWarningNoteForm personId={100} />
+      </AuthProvider>
+    );
+
+    setDateFieldValue('discussedWithManagerDate', {
+      date: '56',
+      month: '15',
+      year: '10',
+    });
+
+    fireEvent.submit(screen.getByRole('form'));
+
+    await waitFor(() => {
+      screen.getByText('Must be a valid Date', {
+        selector: '.govuk-error-message',
+      });
+    });
+  });
+
+  it('should show an error message if the manager discussion date entered is in the future', async () => {
+    (PersonView as jest.Mock).mockImplementationOnce(createMockedPersonView());
+
+    render(
+      <AuthProvider user={mockedUser}>
+        <AddWarningNoteForm personId={100} />
+      </AuthProvider>
+    );
+
+    const today = new Date();
+
+    setDateFieldValue(
+      'discussedWithManagerDate',
+      new Date(`${today.getFullYear() + 2}-01-01`)
+    );
+
+    fireEvent.submit(screen.getByRole('form'));
+
+    await waitFor(() => {
+      screen.getByText("Date discussed with manager can't be in the future", {
+        selector: '.govuk-error-message',
+      });
     });
   });
 });
