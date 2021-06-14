@@ -1,0 +1,48 @@
+@import 'lbh-frontend/lbh/base';
+
+.banner {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  text-align: left;
+  padding: 20px 25px;
+
+  * + * {
+    margin-top: 0;
+  }
+
+  svg {
+    margin-right: 25px;
+  }
+}
+
+.title {
+  color: lbh-colour('lbh-grey-4');
+  margin: 0;
+  font-weight: $lbh-font-weight-bold;
+  font-size: 1.3rem;
+  margin-bottom: 10px;
+}
+
+.body {
+  font-size: 1.1rem;
+
+  a {
+    display: block;
+    margin-top: 10px;
+
+    @include govuk-media-query($from: tablet) {
+      display: inline-block;
+      margin-left: 15px;
+      margin-bottom: 0;
+    }
+
+    color: lbh-colour('lbh-white');
+    font-weight: $lbh-font-weight-bold;
+
+    &:focus {
+      color: lbh-colour('lbh-text');
+    }
+  }
+}
