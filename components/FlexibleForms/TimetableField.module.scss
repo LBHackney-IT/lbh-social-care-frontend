@@ -1,0 +1,57 @@
+@import 'lbh-frontend/lbh/base';
+
+.table {
+  table-layout: fixed;
+  width: 100%;
+
+  th {
+    padding: 7px;
+  }
+
+  //   style days
+  tbody tr th {
+    padding: 10px 10px 10px 0px;
+  }
+
+  thead tr th,
+  tbody tr td {
+    padding: 0;
+    position: relative;
+    // border-left: 1px solid lbh-colour('lbh-grey-2');
+  }
+
+  input[type='number'] {
+    display: block;
+    border: none;
+    background: none;
+    font-size: 1rem;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: calc(100% - 10px);
+    height: 100%;
+    padding: 0px 5px;
+
+    -moz-appearance: textfield;
+    appearance: textfield;
+    &::-webkit-inner-spin-button,
+    &::-webkit-outer-spin-button {
+      opacity: 0;
+    }
+
+    &:hover,
+    &:focus {
+      -moz-appearance: initial;
+      appearance: initial;
+
+      &::-webkit-inner-spin-button,
+      &::-webkit-outer-spin-button {
+        opacity: 1;
+      }
+    }
+
+    &:focus {
+      outline: 3px solid lbh-colour('lbh-primary-focus');
+    }
+  }
+}
