@@ -1,0 +1,1526 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<AddWarningNoteForm /> should render the warning notes form for a childrens resident 1`] = `
+<DocumentFragment>
+  <div
+    class="govuk-width-container"
+  >
+    <fieldset
+      class="govuk-fieldset"
+      role="group"
+    >
+      <form
+        role="form"
+      >
+        <div
+          class="govuk-form-group"
+        >
+          <div>
+            <h2>
+              About adding a Warning Note
+            </h2>
+            <div
+              class="lbh-body"
+            >
+              Before adding a Warning Note, you need to have discussed and agreed with a manager that a Warning Note needs to be added.
+            </div>
+          </div>
+          <div>
+            <h2>
+              Warning types
+            </h2>
+            <details
+              class="govuk-details"
+              data-module="govuk-details"
+            >
+              <summary
+                class="summary"
+              >
+                <h3>
+                  Guidance on types
+                </h3>
+                <span
+                  class="govuk-link govuk-link--underline trigger"
+                >
+                  Show guidance
+                </span>
+              </summary>
+              <div
+                class="content"
+              >
+                <div>
+                  <p>
+                    <strong>
+                      Adult who poses risk to children
+                    </strong>
+                     - in cases where there may be contact with an adult who either does or does not live in the home, could be a family member etc, for example, cases where there is a risk of abuse but the perpertrator has never been convicted
+                  </p>
+                  <p>
+                    <strong>
+                      Do not disclose information
+                    </strong>
+                     - information should not be disclosed without the consent of a social worker or parent, for example, address, names, phone numbers, date of birth, school, GP or that they have a social worker
+                  </p>
+                  <p>
+                    <strong>
+                      Contact arrangement in place
+                    </strong>
+                     - this includes court directed contact arrangements for a child and parent(s) or family arranged contact
+                  </p>
+                  <p>
+                    <strong>
+                      Extrafamilial harm
+                    </strong>
+                     - Child criminal exploitation (CCE), Child sexual exploitation (CSE) or Gang affiliation
+                  </p>
+                  <p>
+                    <strong>
+                      MARAC case
+                    </strong>
+                     - high risk domestic violence cases
+                  </p>
+                  <p>
+                    <strong>
+                      Protection order in place
+                    </strong>
+                     - Domestic violence cases where there are court orders in place i.e. non-molestation, Prohibited Steps order etc
+                  </p>
+                  <p>
+                    <strong>
+                      Risk of home environment
+                    </strong>
+                     - dangerous dogs, drugs users/needles etc
+                  </p>
+                  <p>
+                    <strong>
+                      Risk posed to worker
+                    </strong>
+                     - if parents have ever assaulted a professional etc
+                  </p>
+                </div>
+              </div>
+            </details>
+          </div>
+          <div
+            class="govuk-form-group"
+          >
+            <div
+              class="govuk-form-group lbh-form-group"
+            >
+              <label
+                class="lbh-label govuk-label"
+                for="noteType"
+              >
+                Warning type 
+                <span
+                  class="govuk-required"
+                >
+                  *
+                </span>
+              </label>
+              <div
+                class="govuk-radios lbh-radios"
+              >
+                <div
+                  class="govuk-radios__item"
+                >
+                  <input
+                    class="govuk-radios__input"
+                    id="noteType_Adult who poses risk to children"
+                    name="noteType"
+                    type="radio"
+                    value="Adult who poses risk to children"
+                  />
+                  <label
+                    class="govuk-label govuk-radios__label"
+                    for="noteType_Adult who poses risk to children"
+                  >
+                    Adult who poses risk to children
+                  </label>
+                </div>
+                <div
+                  class="govuk-radios__item"
+                >
+                  <input
+                    class="govuk-radios__input"
+                    id="noteType_Contact arrangement in place"
+                    name="noteType"
+                    type="radio"
+                    value="Contact arrangement in place"
+                  />
+                  <label
+                    class="govuk-label govuk-radios__label"
+                    for="noteType_Contact arrangement in place"
+                  >
+                    Contact arrangement in place
+                  </label>
+                </div>
+                <div
+                  class="govuk-radios__item"
+                >
+                  <input
+                    class="govuk-radios__input"
+                    id="noteType_Do not disclose information"
+                    name="noteType"
+                    type="radio"
+                    value="Do not disclose information"
+                  />
+                  <label
+                    class="govuk-label govuk-radios__label"
+                    for="noteType_Do not disclose information"
+                  >
+                    Do not disclose information
+                  </label>
+                </div>
+                <div
+                  class="govuk-radios__item"
+                >
+                  <input
+                    class="govuk-radios__input"
+                    id="noteType_Duplicate file"
+                    name="noteType"
+                    type="radio"
+                    value="Duplicate file"
+                  />
+                  <label
+                    class="govuk-label govuk-radios__label"
+                    for="noteType_Duplicate file"
+                  >
+                    Duplicate file
+                  </label>
+                </div>
+                <div
+                  class="govuk-radios__item"
+                >
+                  <input
+                    class="govuk-radios__input"
+                    id="noteType_Extrafamilial harm"
+                    name="noteType"
+                    type="radio"
+                    value="Extrafamilial harm"
+                  />
+                  <label
+                    class="govuk-label govuk-radios__label"
+                    for="noteType_Extrafamilial harm"
+                  >
+                    Extrafamilial harm
+                  </label>
+                </div>
+                <div
+                  class="govuk-radios__item"
+                >
+                  <input
+                    class="govuk-radios__input"
+                    id="noteType_MARAC case (Domestic violence)"
+                    name="noteType"
+                    type="radio"
+                    value="MARAC case (Domestic violence)"
+                  />
+                  <label
+                    class="govuk-label govuk-radios__label"
+                    for="noteType_MARAC case (Domestic violence)"
+                  >
+                    MARAC case (Domestic violence)
+                  </label>
+                </div>
+                <div
+                  class="govuk-radios__item"
+                >
+                  <input
+                    class="govuk-radios__input"
+                    id="noteType_Protection order in place"
+                    name="noteType"
+                    type="radio"
+                    value="Protection order in place"
+                  />
+                  <label
+                    class="govuk-label govuk-radios__label"
+                    for="noteType_Protection order in place"
+                  >
+                    Protection order in place
+                  </label>
+                </div>
+                <div
+                  class="govuk-radios__item"
+                >
+                  <input
+                    class="govuk-radios__input"
+                    id="noteType_Restricted file"
+                    name="noteType"
+                    type="radio"
+                    value="Restricted file"
+                  />
+                  <label
+                    class="govuk-label govuk-radios__label"
+                    for="noteType_Restricted file"
+                  >
+                    Restricted file
+                  </label>
+                </div>
+                <div
+                  class="govuk-radios__item"
+                >
+                  <input
+                    class="govuk-radios__input"
+                    id="noteType_Risk of home environment"
+                    name="noteType"
+                    type="radio"
+                    value="Risk of home environment"
+                  />
+                  <label
+                    class="govuk-label govuk-radios__label"
+                    for="noteType_Risk of home environment"
+                  >
+                    Risk of home environment
+                  </label>
+                </div>
+                <div
+                  class="govuk-radios__item"
+                >
+                  <input
+                    class="govuk-radios__input"
+                    id="noteType_Risk posed to worker"
+                    name="noteType"
+                    type="radio"
+                    value="Risk posed to worker"
+                  />
+                  <label
+                    class="govuk-label govuk-radios__label"
+                    for="noteType_Risk posed to worker"
+                  >
+                    Risk posed to worker
+                  </label>
+                </div>
+                <div
+                  class="govuk-radios__item"
+                >
+                  <input
+                    class="govuk-radios__input"
+                    id="noteType_Safeguarding agreement in place"
+                    name="noteType"
+                    type="radio"
+                    value="Safeguarding agreement in place"
+                  />
+                  <label
+                    class="govuk-label govuk-radios__label"
+                    for="noteType_Safeguarding agreement in place"
+                  >
+                    Safeguarding agreement in place
+                  </label>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            class="govuk-form-group"
+          >
+            <fieldset
+              aria-describedby="startDate-hint"
+              class="lbh-form-group govuk-form-group"
+            >
+              <legend
+                class="govuk-label"
+              >
+                Start date 
+                <span
+                  class="govuk-required"
+                >
+                  *
+                </span>
+              </legend>
+              <span
+                class="lbh-hint"
+                id="startDate-hint"
+              >
+                Start date cannot be set in the future.
+              </span>
+              <div
+                class="lbh-date-input govuk-date-input"
+                id="startDate"
+              >
+                <div
+                  class="lbh-date-input govuk-date-input__item"
+                >
+                  <div
+                    class="lbh-form-group govuk-form-group"
+                  >
+                    <label
+                      class="lbh-label govuk-date-input__label"
+                      for="startDate-day"
+                    >
+                      Day
+                    </label>
+                    <input
+                      class="lbh-date-input govuk-input govuk-input--width-2"
+                      id="startDate-day"
+                      inputmode="numeric"
+                      name="startDate-day"
+                      pattern="^\\\\d{2}$"
+                      value=""
+                    />
+                  </div>
+                </div>
+                <div
+                  class="lbh-date-input govuk-date-input__item"
+                >
+                  <div
+                    class="lbh-form-group govuk-form-group"
+                  >
+                    <label
+                      class="lbh-label govuk-date-input__label"
+                      for="startDate-month"
+                    >
+                      Month
+                    </label>
+                    <input
+                      class="lbh-input govuk-input govuk-date-input__input govuk-input--width-2"
+                      id="startDate-month"
+                      inputmode="numeric"
+                      name="startDate-month"
+                      pattern="^\\\\d{2}$"
+                      value=""
+                    />
+                  </div>
+                </div>
+                <div
+                  class="lbh-date-input govuk-date-input__item"
+                >
+                  <div
+                    class="lbh-form-group govuk-form-group"
+                  >
+                    <label
+                      class="lbh-label  govuk-date-input__label"
+                      for="startDate-year"
+                    >
+                      Year
+                    </label>
+                    <input
+                      class="lbh-input govuk-input govuk-date-input__input govuk-input--width-4"
+                      id="startDate-year"
+                      inputmode="numeric"
+                      name="startDate-year"
+                      pattern="^\\\\d{4}$"
+                      value=""
+                    />
+                  </div>
+                </div>
+              </div>
+            </fieldset>
+          </div>
+          <div
+            class="govuk-form-group"
+          >
+            <fieldset
+              aria-describedby="reviewDate-hint"
+              class="lbh-form-group govuk-form-group"
+            >
+              <legend
+                class="govuk-label"
+              >
+                Review / end date 
+                <span
+                  class="govuk-required"
+                >
+                  *
+                </span>
+              </legend>
+              <span
+                class="lbh-hint"
+                id="reviewDate-hint"
+              >
+                Review / end date cannot be more than 1 year after the Start date.
+              </span>
+              <div
+                class="lbh-date-input govuk-date-input"
+                id="reviewDate"
+              >
+                <div
+                  class="lbh-date-input govuk-date-input__item"
+                >
+                  <div
+                    class="lbh-form-group govuk-form-group"
+                  >
+                    <label
+                      class="lbh-label govuk-date-input__label"
+                      for="reviewDate-day"
+                    >
+                      Day
+                    </label>
+                    <input
+                      class="lbh-date-input govuk-input govuk-input--width-2"
+                      id="reviewDate-day"
+                      inputmode="numeric"
+                      name="reviewDate-day"
+                      pattern="^\\\\d{2}$"
+                      value=""
+                    />
+                  </div>
+                </div>
+                <div
+                  class="lbh-date-input govuk-date-input__item"
+                >
+                  <div
+                    class="lbh-form-group govuk-form-group"
+                  >
+                    <label
+                      class="lbh-label govuk-date-input__label"
+                      for="reviewDate-month"
+                    >
+                      Month
+                    </label>
+                    <input
+                      class="lbh-input govuk-input govuk-date-input__input govuk-input--width-2"
+                      id="reviewDate-month"
+                      inputmode="numeric"
+                      name="reviewDate-month"
+                      pattern="^\\\\d{2}$"
+                      value=""
+                    />
+                  </div>
+                </div>
+                <div
+                  class="lbh-date-input govuk-date-input__item"
+                >
+                  <div
+                    class="lbh-form-group govuk-form-group"
+                  >
+                    <label
+                      class="lbh-label  govuk-date-input__label"
+                      for="reviewDate-year"
+                    >
+                      Year
+                    </label>
+                    <input
+                      class="lbh-input govuk-input govuk-date-input__input govuk-input--width-4"
+                      id="reviewDate-year"
+                      inputmode="numeric"
+                      name="reviewDate-year"
+                      pattern="^\\\\d{4}$"
+                      value=""
+                    />
+                  </div>
+                </div>
+              </div>
+            </fieldset>
+          </div>
+          <div>
+            <h2>
+              Warning note details
+            </h2>
+          </div>
+          <div
+            class="govuk-form-group"
+          >
+            <div
+              class="lbh-form-group govuk-form-group"
+            >
+              <label
+                class="lbh-label govuk-label"
+                for="notes"
+              >
+                Further details about the Warning Note 
+                <span
+                  class="govuk-required"
+                >
+                  *
+                </span>
+              </label>
+              <textarea
+                class="lbh-textarea govuk-textarea"
+                id="notes"
+                name="notes"
+                rows="5"
+              />
+            </div>
+          </div>
+          <div>
+            <h2>
+              Discussed with manager
+            </h2>
+            <div
+              class="govuk-body"
+            >
+              Adding this Warning Note has been discussed and agreed by the manager named below.
+            </div>
+          </div>
+          <div
+            class="govuk-form-group"
+          >
+            <div
+              class="govuk-form-group lbh-form-group"
+            >
+              <label
+                class="govuk-label lbh-label"
+                for="managerName"
+              >
+                Manager’s name 
+                <span
+                  class="govuk-required"
+                >
+                  *
+                </span>
+              </label>
+              <input
+                class="govuk-input lbh-input"
+                data-testid="managerName"
+                id="managerName"
+                name="managerName"
+                type="text"
+              />
+            </div>
+          </div>
+          <div
+            class="govuk-form-group"
+          >
+            <fieldset
+              aria-describedby="discussedWithManagerDate-hint"
+              class="lbh-form-group govuk-form-group"
+            >
+              <legend
+                class="govuk-label"
+              >
+                Date discussed with manager 
+                <span
+                  class="govuk-required"
+                >
+                  *
+                </span>
+              </legend>
+              <span
+                class="lbh-hint"
+                id="discussedWithManagerDate-hint"
+              />
+              <div
+                class="lbh-date-input govuk-date-input"
+                id="discussedWithManagerDate"
+              >
+                <div
+                  class="lbh-date-input govuk-date-input__item"
+                >
+                  <div
+                    class="lbh-form-group govuk-form-group"
+                  >
+                    <label
+                      class="lbh-label govuk-date-input__label"
+                      for="discussedWithManagerDate-day"
+                    >
+                      Day
+                    </label>
+                    <input
+                      class="lbh-date-input govuk-input govuk-input--width-2"
+                      id="discussedWithManagerDate-day"
+                      inputmode="numeric"
+                      name="discussedWithManagerDate-day"
+                      pattern="^\\\\d{2}$"
+                      value=""
+                    />
+                  </div>
+                </div>
+                <div
+                  class="lbh-date-input govuk-date-input__item"
+                >
+                  <div
+                    class="lbh-form-group govuk-form-group"
+                  >
+                    <label
+                      class="lbh-label govuk-date-input__label"
+                      for="discussedWithManagerDate-month"
+                    >
+                      Month
+                    </label>
+                    <input
+                      class="lbh-input govuk-input govuk-date-input__input govuk-input--width-2"
+                      id="discussedWithManagerDate-month"
+                      inputmode="numeric"
+                      name="discussedWithManagerDate-month"
+                      pattern="^\\\\d{2}$"
+                      value=""
+                    />
+                  </div>
+                </div>
+                <div
+                  class="lbh-date-input govuk-date-input__item"
+                >
+                  <div
+                    class="lbh-form-group govuk-form-group"
+                  >
+                    <label
+                      class="lbh-label  govuk-date-input__label"
+                      for="discussedWithManagerDate-year"
+                    >
+                      Year
+                    </label>
+                    <input
+                      class="lbh-input govuk-input govuk-date-input__input govuk-input--width-4"
+                      id="discussedWithManagerDate-year"
+                      inputmode="numeric"
+                      name="discussedWithManagerDate-year"
+                      pattern="^\\\\d{4}$"
+                      value=""
+                    />
+                  </div>
+                </div>
+              </div>
+            </fieldset>
+          </div>
+        </div>
+        <div
+          class="actions"
+        >
+          <button
+            class="lbh-button govuk-button lbh-button--secondary lbh-button govuk-button"
+            data-module="govuk-button"
+            style="min-width: 200px;"
+            type="button"
+          >
+            Save and finish later
+          </button>
+          <a
+            class="lbh-link govuk-link"
+            href="/"
+            style="margin-left: 1.5rem;"
+          >
+            Cancel
+          </a>
+          <button
+            class="lbh-button govuk-button"
+            data-module="govuk-button"
+            type="submit"
+          >
+            Continue
+          </button>
+        </div>
+      </form>
+    </fieldset>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`<AddWarningNoteForm /> should render the warning notes form for an adults resident 1`] = `
+<DocumentFragment>
+  <div
+    class="govuk-width-container"
+  >
+    <fieldset
+      class="govuk-fieldset"
+      role="group"
+    >
+      <form
+        role="form"
+      >
+        <div
+          class="govuk-form-group"
+        >
+          <div>
+            <h2>
+              About adding a Warning Note
+            </h2>
+            <div
+              class="lbh-body"
+            >
+              Before adding a Warning Note, you need to have: 
+              <ul
+                class="lbh-list lbh-list--bullet"
+              >
+                <li>
+                  read the Warnings Policy and Operational Procedure, and be familiar with your responsibilities under the Data Protection Act (2018) and GDPR
+                </li>
+                <li>
+                  have evidence that is accurate and verifiable
+                </li>
+                <li>
+                  discussed and agreed with a manager that a Warning Note needs to be added
+                </li>
+                <li>
+                  discussed / informed the individual of both the Warning Note and Review date (unless disclosure creates substantial risk to staff and others).
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div>
+            <h2>
+              Warning types
+            </h2>
+            <details
+              class="govuk-details"
+              data-module="govuk-details"
+            >
+              <summary
+                class="summary"
+              >
+                <h3>
+                  Guidance on types
+                </h3>
+                <span
+                  class="govuk-link govuk-link--underline trigger"
+                >
+                  Show guidance
+                </span>
+              </summary>
+              <div
+                class="content"
+              >
+                <div>
+                  <h4>
+                    Risk to Children
+                  </h4>
+                  Someone who has been:
+                  <ul>
+                    <li>
+                      identified within the Multi-Agency Public Protection Arrangements (
+                      <a
+                        class="govuk-link"
+                        href="https://mappa.justice.gov.uk/connect.ti/MAPPA/grouphome"
+                        rel="noreferrer"
+                        target="_blank"
+                      >
+                        MAPPA
+                      </a>
+                      ) as presenting a significant risk of harm to children
+                    </li>
+                    <li>
+                      convicted of an offence against a child
+                    </li>
+                    <li>
+                      found to have harmed a child or to present a risk of significant harm to a child in a civil court, usually through family Court Proceedings
+                    </li>
+                    <li>
+                      identified within a multi-agency risk assessment conference (
+                      <a
+                        class="govuk-link"
+                        href="https://hackney.gov.uk/domestic-violence/#marac"
+                        rel="noreferrer"
+                        target="_blank"
+                      >
+                        MARAC
+                      </a>
+                      ) as presenting a risk to children.
+                    </li>
+                  </ul>
+                </div>
+                <div>
+                  <h4>
+                    Risk to Adults
+                  </h4>
+                  Someone who has been identified within:
+                  <ul>
+                    <li>
+                      Multi-Agency Public Protection Arrangements (
+                      <a
+                        class="govuk-link"
+                        href="https://mappa.justice.gov.uk/connect.ti/MAPPA/grouphome"
+                        rel="noreferrer"
+                        target="_blank"
+                      >
+                        MAPPA
+                      </a>
+                      ) as presenting a risk of significant harm to another adult or adults
+                    </li>
+                    <li>
+                      a Multi-Agency Risk Assessment Conference (
+                      <a
+                        class="govuk-link"
+                        href="https://hackney.gov.uk/domestic-violence/#marac"
+                        rel="noreferrer"
+                        target="_blank"
+                      >
+                        MARAC
+                      </a>
+                      ) as presenting a risk of significant harm to another adult or adults.
+                    </li>
+                  </ul>
+                </div>
+                <div>
+                  <h4>
+                    Adult at Risk
+                  </h4>
+                  Someone who is currently subject to a Safeguarding Adults Action Plan within an active Adult Safeguarding process.
+                </div>
+                <div>
+                  <h4>
+                    Risk to Staff
+                  </h4>
+                  This category should be applied when the behaviour of a service user poses specific risks to staff members and/or service providers. This category can also be applied when the risk is being posed by other family members or associates. It includes:
+                  <ul>
+                    <li>
+                       Risk of assualt
+                    </li>
+                    <li>
+                      Risk of verbal abuse or harrassment (sexual, racial, religious, disability etc)
+                    </li>
+                    <li>
+                      Significant risk because of pets, livestock or pests.
+                    </li>
+                  </ul>
+                </div>
+                <div>
+                  <h4>
+                    Disclosure Risk
+                  </h4>
+                  This category can apply in situations where disclosing informatin about the service user or their family may place them at risk from others eg domestic abuse.
+                </div>
+                <div>
+                  <h4>
+                    Risk to Self
+                  </h4>
+                  Those individuals who have been identified by an appropriately qualified health professional as being at significant risk of suicide, self-harm or self-neglect.
+                </div>
+                <div>
+                  <h4>
+                    Missing Person
+                  </h4>
+                  Vulnerable individuals who have been notified as missing.
+                </div>
+              </div>
+            </details>
+          </div>
+          <div
+            class="govuk-form-group"
+          >
+            <div
+              class="govuk-form-group lbh-form-group"
+            >
+              <label
+                class="lbh-label govuk-label"
+                for="noteType"
+              >
+                Warning type 
+                <span
+                  class="govuk-required"
+                >
+                  *
+                </span>
+              </label>
+              <div
+                class="govuk-radios lbh-radios"
+              >
+                <div
+                  class="govuk-radios__item"
+                >
+                  <input
+                    class="govuk-radios__input"
+                    id="noteType_Risk to Children"
+                    name="noteType"
+                    type="radio"
+                    value="Risk to Children"
+                  />
+                  <label
+                    class="govuk-label govuk-radios__label"
+                    for="noteType_Risk to Children"
+                  >
+                    Risk to Children
+                  </label>
+                </div>
+                <div
+                  class="govuk-radios__item"
+                >
+                  <input
+                    class="govuk-radios__input"
+                    id="noteType_Risk to Adults"
+                    name="noteType"
+                    type="radio"
+                    value="Risk to Adults"
+                  />
+                  <label
+                    class="govuk-label govuk-radios__label"
+                    for="noteType_Risk to Adults"
+                  >
+                    Risk to Adults
+                  </label>
+                </div>
+                <div
+                  class="govuk-radios__item"
+                >
+                  <input
+                    class="govuk-radios__input"
+                    id="noteType_Adult at Risk"
+                    name="noteType"
+                    type="radio"
+                    value="Adult at Risk"
+                  />
+                  <label
+                    class="govuk-label govuk-radios__label"
+                    for="noteType_Adult at Risk"
+                  >
+                    Adult at Risk
+                  </label>
+                </div>
+                <div
+                  class="govuk-radios__item"
+                >
+                  <input
+                    class="govuk-radios__input"
+                    id="noteType_Risk to Staff"
+                    name="noteType"
+                    type="radio"
+                    value="Risk to Staff"
+                  />
+                  <label
+                    class="govuk-label govuk-radios__label"
+                    for="noteType_Risk to Staff"
+                  >
+                    Risk to Staff
+                  </label>
+                </div>
+                <div
+                  class="govuk-radios__item"
+                >
+                  <input
+                    class="govuk-radios__input"
+                    id="noteType_Disclosure Risk"
+                    name="noteType"
+                    type="radio"
+                    value="Disclosure Risk"
+                  />
+                  <label
+                    class="govuk-label govuk-radios__label"
+                    for="noteType_Disclosure Risk"
+                  >
+                    Disclosure Risk
+                  </label>
+                </div>
+                <div
+                  class="govuk-radios__item"
+                >
+                  <input
+                    class="govuk-radios__input"
+                    id="noteType_Risk to Self"
+                    name="noteType"
+                    type="radio"
+                    value="Risk to Self"
+                  />
+                  <label
+                    class="govuk-label govuk-radios__label"
+                    for="noteType_Risk to Self"
+                  >
+                    Risk to Self
+                  </label>
+                </div>
+                <div
+                  class="govuk-radios__item"
+                >
+                  <input
+                    class="govuk-radios__input"
+                    id="noteType_Missing Person"
+                    name="noteType"
+                    type="radio"
+                    value="Missing Person"
+                  />
+                  <label
+                    class="govuk-label govuk-radios__label"
+                    for="noteType_Missing Person"
+                  >
+                    Missing Person
+                  </label>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            class="govuk-form-group"
+          >
+            <fieldset
+              aria-describedby="startDate-hint"
+              class="lbh-form-group govuk-form-group"
+            >
+              <legend
+                class="govuk-label"
+              >
+                Start date 
+                <span
+                  class="govuk-required"
+                >
+                  *
+                </span>
+              </legend>
+              <span
+                class="lbh-hint"
+                id="startDate-hint"
+              >
+                Start date cannot be set in the future.
+              </span>
+              <div
+                class="lbh-date-input govuk-date-input"
+                id="startDate"
+              >
+                <div
+                  class="lbh-date-input govuk-date-input__item"
+                >
+                  <div
+                    class="lbh-form-group govuk-form-group"
+                  >
+                    <label
+                      class="lbh-label govuk-date-input__label"
+                      for="startDate-day"
+                    >
+                      Day
+                    </label>
+                    <input
+                      class="lbh-date-input govuk-input govuk-input--width-2"
+                      id="startDate-day"
+                      inputmode="numeric"
+                      name="startDate-day"
+                      pattern="^\\\\d{2}$"
+                      value=""
+                    />
+                  </div>
+                </div>
+                <div
+                  class="lbh-date-input govuk-date-input__item"
+                >
+                  <div
+                    class="lbh-form-group govuk-form-group"
+                  >
+                    <label
+                      class="lbh-label govuk-date-input__label"
+                      for="startDate-month"
+                    >
+                      Month
+                    </label>
+                    <input
+                      class="lbh-input govuk-input govuk-date-input__input govuk-input--width-2"
+                      id="startDate-month"
+                      inputmode="numeric"
+                      name="startDate-month"
+                      pattern="^\\\\d{2}$"
+                      value=""
+                    />
+                  </div>
+                </div>
+                <div
+                  class="lbh-date-input govuk-date-input__item"
+                >
+                  <div
+                    class="lbh-form-group govuk-form-group"
+                  >
+                    <label
+                      class="lbh-label  govuk-date-input__label"
+                      for="startDate-year"
+                    >
+                      Year
+                    </label>
+                    <input
+                      class="lbh-input govuk-input govuk-date-input__input govuk-input--width-4"
+                      id="startDate-year"
+                      inputmode="numeric"
+                      name="startDate-year"
+                      pattern="^\\\\d{4}$"
+                      value=""
+                    />
+                  </div>
+                </div>
+              </div>
+            </fieldset>
+          </div>
+          <div
+            class="govuk-form-group"
+          >
+            <fieldset
+              aria-describedby="reviewDate-hint"
+              class="lbh-form-group govuk-form-group"
+            >
+              <legend
+                class="govuk-label"
+              >
+                Review / end date 
+                <span
+                  class="govuk-required"
+                >
+                  *
+                </span>
+              </legend>
+              <span
+                class="lbh-hint"
+                id="reviewDate-hint"
+              >
+                Review / end date cannot be more than 1 year after the Start date.
+              </span>
+              <div
+                class="lbh-date-input govuk-date-input"
+                id="reviewDate"
+              >
+                <div
+                  class="lbh-date-input govuk-date-input__item"
+                >
+                  <div
+                    class="lbh-form-group govuk-form-group"
+                  >
+                    <label
+                      class="lbh-label govuk-date-input__label"
+                      for="reviewDate-day"
+                    >
+                      Day
+                    </label>
+                    <input
+                      class="lbh-date-input govuk-input govuk-input--width-2"
+                      id="reviewDate-day"
+                      inputmode="numeric"
+                      name="reviewDate-day"
+                      pattern="^\\\\d{2}$"
+                      value=""
+                    />
+                  </div>
+                </div>
+                <div
+                  class="lbh-date-input govuk-date-input__item"
+                >
+                  <div
+                    class="lbh-form-group govuk-form-group"
+                  >
+                    <label
+                      class="lbh-label govuk-date-input__label"
+                      for="reviewDate-month"
+                    >
+                      Month
+                    </label>
+                    <input
+                      class="lbh-input govuk-input govuk-date-input__input govuk-input--width-2"
+                      id="reviewDate-month"
+                      inputmode="numeric"
+                      name="reviewDate-month"
+                      pattern="^\\\\d{2}$"
+                      value=""
+                    />
+                  </div>
+                </div>
+                <div
+                  class="lbh-date-input govuk-date-input__item"
+                >
+                  <div
+                    class="lbh-form-group govuk-form-group"
+                  >
+                    <label
+                      class="lbh-label  govuk-date-input__label"
+                      for="reviewDate-year"
+                    >
+                      Year
+                    </label>
+                    <input
+                      class="lbh-input govuk-input govuk-date-input__input govuk-input--width-4"
+                      id="reviewDate-year"
+                      inputmode="numeric"
+                      name="reviewDate-year"
+                      pattern="^\\\\d{4}$"
+                      value=""
+                    />
+                  </div>
+                </div>
+              </div>
+            </fieldset>
+          </div>
+          <div>
+            <h2>
+              Disclosure of Warning Note to the individual
+            </h2>
+            <details
+              class="govuk-details"
+              data-module="govuk-details"
+            >
+              <summary
+                class="summary"
+              >
+                <h3>
+                  Guidance on disclosure
+                </h3>
+                <span
+                  class="govuk-link govuk-link--underline trigger"
+                >
+                  Show guidance
+                </span>
+              </summary>
+              <div
+                class="content"
+              >
+                <div>
+                  The Data Protection Act 2018 gives individuals the right to request access to the personal data held about them (Subject Access Request). Where there is a Warning Note against an individual's record, this should be disclosed to the individual. However, in exceptional circumstances revealing the existence of, or reasons for, the Warning Indicator may also lead to a substantial risk to staff or other individuals. Justification and evidence for non-disclosure must be recorded in these circumstances. In such cases advice should be sought from Data Protection Officer.
+                </div>
+              </div>
+            </details>
+          </div>
+          <div
+            class="govuk-form-group"
+          >
+            <div
+              class="govuk-form-group lbh-form-group"
+            >
+              <label
+                class="lbh-label govuk-label"
+                for="disclosedWithIndividual"
+              >
+                Is the individual aware of the Warning Note and Review Date? 
+                <span
+                  class="govuk-required"
+                >
+                  *
+                </span>
+              </label>
+              <div
+                class="govuk-radios lbh-radios"
+              >
+                <div
+                  class="govuk-radios__item"
+                >
+                  <input
+                    class="govuk-radios__input"
+                    id="disclosedWithIndividual_Yes"
+                    name="disclosedWithIndividual"
+                    type="radio"
+                    value="Yes"
+                  />
+                  <label
+                    class="govuk-label govuk-radios__label"
+                    for="disclosedWithIndividual_Yes"
+                  >
+                    Yes
+                  </label>
+                </div>
+                <div
+                  class="govuk-radios__item"
+                >
+                  <input
+                    class="govuk-radios__input"
+                    id="disclosedWithIndividual_No"
+                    name="disclosedWithIndividual"
+                    type="radio"
+                    value="No"
+                  />
+                  <label
+                    class="govuk-label govuk-radios__label"
+                    for="disclosedWithIndividual_No"
+                  >
+                    No
+                  </label>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div>
+            <h2>
+              Warning narrative and risks
+            </h2>
+            <details
+              class="govuk-details"
+              data-module="govuk-details"
+            >
+              <summary
+                class="summary"
+              >
+                <h3>
+                  Guidance on narrative and risks
+                </h3>
+                <span
+                  class="govuk-link govuk-link--underline trigger"
+                >
+                  Show guidance
+                </span>
+              </summary>
+              <div
+                class="content"
+              >
+                <div>
+                  This case note provides the context of the warning and should contain:
+                  <ul>
+                    <li>
+                      a description of incidents that occur that may put a member of staff, or any other person at risk
+                    </li>
+                    <li>
+                      a statement of the reasons for identifying that an individual is a risk
+                    </li>
+                    <li>
+                      a statement about the risks to staff (e.g. 2 workers visit only)
+                    </li>
+                    <li>
+                      details of possible incident triggers and relevant safety recommendations for members of staff.
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </details>
+          </div>
+          <div
+            class="govuk-form-group"
+          >
+            <div
+              class="lbh-form-group govuk-form-group"
+            >
+              <label
+                class="lbh-label govuk-label"
+                for="notes"
+              >
+                Warning narrative and risks notes 
+                <span
+                  class="govuk-required"
+                >
+                  *
+                </span>
+              </label>
+              <textarea
+                class="lbh-textarea govuk-textarea"
+                id="notes"
+                name="notes"
+                rows="5"
+              />
+            </div>
+          </div>
+          <div>
+            <h2>
+              Discussed with manager
+            </h2>
+            <div
+              class="govuk-body"
+            >
+              Adding this Warning Note has been discussed and agreed by the manager named below.
+            </div>
+          </div>
+          <div
+            class="govuk-form-group"
+          >
+            <div
+              class="govuk-form-group lbh-form-group"
+            >
+              <label
+                class="govuk-label lbh-label"
+                for="managerName"
+              >
+                Manager’s name 
+                <span
+                  class="govuk-required"
+                >
+                  *
+                </span>
+              </label>
+              <input
+                class="govuk-input lbh-input"
+                data-testid="managerName"
+                id="managerName"
+                name="managerName"
+                type="text"
+              />
+            </div>
+          </div>
+          <div
+            class="govuk-form-group"
+          >
+            <fieldset
+              aria-describedby="discussedWithManagerDate-hint"
+              class="lbh-form-group govuk-form-group"
+            >
+              <legend
+                class="govuk-label"
+              >
+                Date discussed with manager 
+                <span
+                  class="govuk-required"
+                >
+                  *
+                </span>
+              </legend>
+              <span
+                class="lbh-hint"
+                id="discussedWithManagerDate-hint"
+              />
+              <div
+                class="lbh-date-input govuk-date-input"
+                id="discussedWithManagerDate"
+              >
+                <div
+                  class="lbh-date-input govuk-date-input__item"
+                >
+                  <div
+                    class="lbh-form-group govuk-form-group"
+                  >
+                    <label
+                      class="lbh-label govuk-date-input__label"
+                      for="discussedWithManagerDate-day"
+                    >
+                      Day
+                    </label>
+                    <input
+                      class="lbh-date-input govuk-input govuk-input--width-2"
+                      id="discussedWithManagerDate-day"
+                      inputmode="numeric"
+                      name="discussedWithManagerDate-day"
+                      pattern="^\\\\d{2}$"
+                      value=""
+                    />
+                  </div>
+                </div>
+                <div
+                  class="lbh-date-input govuk-date-input__item"
+                >
+                  <div
+                    class="lbh-form-group govuk-form-group"
+                  >
+                    <label
+                      class="lbh-label govuk-date-input__label"
+                      for="discussedWithManagerDate-month"
+                    >
+                      Month
+                    </label>
+                    <input
+                      class="lbh-input govuk-input govuk-date-input__input govuk-input--width-2"
+                      id="discussedWithManagerDate-month"
+                      inputmode="numeric"
+                      name="discussedWithManagerDate-month"
+                      pattern="^\\\\d{2}$"
+                      value=""
+                    />
+                  </div>
+                </div>
+                <div
+                  class="lbh-date-input govuk-date-input__item"
+                >
+                  <div
+                    class="lbh-form-group govuk-form-group"
+                  >
+                    <label
+                      class="lbh-label  govuk-date-input__label"
+                      for="discussedWithManagerDate-year"
+                    >
+                      Year
+                    </label>
+                    <input
+                      class="lbh-input govuk-input govuk-date-input__input govuk-input--width-4"
+                      id="discussedWithManagerDate-year"
+                      inputmode="numeric"
+                      name="discussedWithManagerDate-year"
+                      pattern="^\\\\d{4}$"
+                      value=""
+                    />
+                  </div>
+                </div>
+              </div>
+            </fieldset>
+          </div>
+        </div>
+        <div
+          class="actions"
+        >
+          <button
+            class="lbh-button govuk-button lbh-button--secondary lbh-button govuk-button"
+            data-module="govuk-button"
+            style="min-width: 200px;"
+            type="button"
+          >
+            Save and finish later
+          </button>
+          <a
+            class="lbh-link govuk-link"
+            href="/"
+            style="margin-left: 1.5rem;"
+          >
+            Cancel
+          </a>
+          <button
+            class="lbh-button govuk-button"
+            data-module="govuk-button"
+            type="submit"
+          >
+            Continue
+          </button>
+        </div>
+      </form>
+    </fieldset>
+  </div>
+</DocumentFragment>
+`;
