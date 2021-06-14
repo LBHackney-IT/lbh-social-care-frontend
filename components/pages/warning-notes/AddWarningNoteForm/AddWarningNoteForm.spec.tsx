@@ -1,5 +1,7 @@
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import React from 'react';
+import { addDays, addMonths, addYears } from 'date-fns';
+import Router from 'next/router';
 
 import { residentFactory } from 'factories/residents';
 import { Resident } from 'types';
@@ -118,6 +120,24 @@ describe('<AddWarningNoteForm />', () => {
     );
 
     expect(asFragment()).toMatchSnapshot();
+  });
+
+  it('should not push to the summary route if there are errors on the form', async () => {
+    (PersonView as jest.Mock).mockImplementationOnce(
+      createMockedPersonView(mockedAdultsResident)
+    );
+
+    render(
+      <AuthProvider user={mockedUser}>
+        <AddWarningNoteForm personId={100} />
+      </AuthProvider>
+    );
+
+    fireEvent.submit(screen.getByRole('form'));
+
+    await waitFor(() => {
+      expect(Router.push).not.toHaveBeenCalled();
+    });
   });
 
   it('should show an error message if a warning type is not selected', async () => {
@@ -315,6 +335,32 @@ describe('<AddWarningNoteForm />', () => {
     });
   });
 
+  it('should show an error message if a disclosure with individual value is selected and an informed date in the future is entered', async () => {
+    (PersonView as jest.Mock).mockImplementationOnce(
+      createMockedPersonView(mockedAdultsResident)
+    );
+
+    render(
+      <AuthProvider user={mockedUser}>
+        <AddWarningNoteForm personId={100} />
+      </AuthProvider>
+    );
+
+    fireEvent.click(
+      screen.getByText('Yes', {
+        selector: "[for='disclosedWithIndividual_Yes']",
+      })
+    );
+
+    setDateFieldValue('disclosedDate', addDays(new Date(), 10));
+
+    fireEvent.submit(screen.getByRole('form'));
+
+    await waitFor(() => {
+      screen.getByText("Date informed can't be in the future");
+    });
+  });
+
   it('should show an error message if a disclosure with individual value is selected and no inform method is selected', async () => {
     (PersonView as jest.Mock).mockImplementationOnce(
       createMockedPersonView(mockedAdultsResident)
@@ -454,12 +500,7 @@ describe('<AddWarningNoteForm />', () => {
       </AuthProvider>
     );
 
-    const today = new Date();
-
-    setDateFieldValue(
-      'discussedWithManagerDate',
-      new Date(`${today.getFullYear() + 2}-01-01`)
-    );
+    setDateFieldValue('discussedWithManagerDate', addYears(new Date(), 1));
 
     fireEvent.submit(screen.getByRole('form'));
 
@@ -467,6 +508,89 @@ describe('<AddWarningNoteForm />', () => {
       screen.getByText("Date discussed with manager can't be in the future", {
         selector: '.govuk-error-message',
       });
+    });
+  });
+
+  it('should push to the summary route when the form is submitted with valid data', async () => {
+    (PersonView as jest.Mock).mockImplementationOnce(
+      createMockedPersonView(mockedAdultsResident)
+    );
+
+    render(
+      <AuthProvider user={mockedUser}>
+        <AddWarningNoteForm personId={100} />
+      </AuthProvider>
+    );
+
+    setDateFieldValue('discussedWithManagerDate', addYears(new Date(), 1));
+
+    // Warning type
+    fireEvent.click(
+      screen.getByText('Risk to Self', {
+        selector: "[for='noteType_Risk to Self']",
+      })
+    );
+
+    // Start date
+    setDateFieldValue('startDate', new Date());
+
+    // Review / end date
+    setDateFieldValue('reviewDate', addMonths(new Date(), 1));
+
+    // Is the individual aware?
+    fireEvent.click(
+      screen.getByText('Yes', {
+        selector: "[for='disclosedWithIndividual_Yes']",
+      })
+    );
+
+    // Date informed
+    setDateFieldValue('disclosedDate', new Date());
+
+    // How was the individual informed?
+    fireEvent.click(
+      screen.getByText('Verbal', {
+        selector: "[for='disclosedHow_Verbal']",
+      })
+    );
+
+    // Details of disclosure to individual
+    fireEvent.change(
+      screen.getByLabelText(/Details of disclosure to individual/),
+      {
+        target: {
+          value: 'Some details',
+        },
+      }
+    );
+
+    // Warning narrative
+    fireEvent.change(
+      screen.getByLabelText(/Warning narrative and risks notes/),
+      {
+        target: {
+          value: 'Some narrative',
+        },
+      }
+    );
+
+    // Manager's name
+    fireEvent.change(screen.getByLabelText(/Manager’s name/), {
+      target: {
+        value: 'First Last',
+      },
+    });
+
+    // Date discussed with manager
+    setDateFieldValue('discussedWithManagerDate', new Date());
+
+    fireEvent.submit(screen.getByRole('form'));
+
+    await waitFor(() => {
+      expect(Router.push).toHaveBeenCalledWith(
+        '/people/100/warning-notes/add/[step]',
+        '/people/100/warning-notes/add/summary'
+      );
     });
   });
 });
