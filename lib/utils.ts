@@ -52,6 +52,8 @@ export const generateInitialValues = (
       initialValues[field.id] = [
         generateInitialValues(field.subfields || [], person),
       ];
+    } else if (field.type === 'timetable') {
+      initialValues[field.id] = null;
     } else if (initiallyArray.has(field.type)) {
       initialValues[field.id] = [];
     } else if (initiallyNull.has(field.type)) {
