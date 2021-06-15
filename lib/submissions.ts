@@ -37,7 +37,7 @@ export const getSubmissionById = async (
     }
   );
   return {
-    formAnswers: JSON.parse(data.formAnswers),
+    formAnswers: data?.formAnswers && JSON.parse(data.formAnswers),
     ...data,
   };
 };
