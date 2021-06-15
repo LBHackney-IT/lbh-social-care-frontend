@@ -5,6 +5,12 @@ import {
   FlexibleAnswers,
 } from 'data/flexibleForms/forms.types';
 
+interface RawSubmission extends Submission {
+  formAnswers: {
+    [key: string]: string;
+  };
+}
+
 const { ENDPOINT_API, AWS_KEY } = process.env;
 
 const headersWithKey = {
@@ -28,18 +34,18 @@ export const startSubmission = async (
       headers: headersWithKey,
     }
   );
-
   return data;
 };
 
-const deserialiseAnswers = (answers: {
-  [key: string]: string;
-}): FlexibleAnswers => {
+const deserialiseAnswers = (data: RawSubmission): Submission => {
   const deserialisedAnswers: FlexibleAnswers = {};
-  Object.keys(answers).map(
-    (step) => (deserialisedAnswers[step] = JSON.parse(answers[step]))
+  Object.keys(data.formAnswers).map(
+    (step) => (deserialisedAnswers[step] = JSON.parse(data.formAnswers[step]))
   );
-  return deserialisedAnswers;
+  return {
+    ...data,
+    formAnswers: deserialisedAnswers,
+  };
 };
 
 /** get an existing submission by its id */
@@ -52,10 +58,7 @@ export const getSubmissionById = async (
       headers: headersWithKey,
     }
   );
-  return {
-    formAnswers: data?.formAnswers && deserialiseAnswers(data.formAnswers),
-    ...data,
-  };
+  return deserialiseAnswers(data);
 };
 
 /** update the answers for a given step on a submission, providing the submission id, step id, editor's name and the answers to update */
@@ -75,7 +78,7 @@ export const patchSubmissionForStep = async (
       headers: headersWithKey,
     }
   );
-  return data;
+  return deserialiseAnswers(data);
 };
 
 /** mark an existing submission as finished, providing its id  */
@@ -91,5 +94,5 @@ export const finishSubmission = async (
       headers: headersWithKey,
     }
   );
-  return data;
+  return deserialiseAnswers(data);
 };
