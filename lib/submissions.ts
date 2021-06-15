@@ -36,7 +36,10 @@ export const getSubmissionById = async (
       headers: headersWithKey,
     }
   );
-  return data;
+  return {
+    formAnswers: JSON.parse(data.formAnswers),
+    ...data,
+  };
 };
 
 export const patchSubmissionForStep = async (
@@ -48,7 +51,7 @@ export const patchSubmissionForStep = async (
   const { data } = await axios.patch(
     `${ENDPOINT_API}/submissions/${submissionId}/steps/${stepId}`,
     {
-      stepAnswers,
+      stepAnswers: JSON.stringify(stepAnswers),
       editedBy,
     },
     {
