@@ -11,6 +11,7 @@ const headersWithKey = {
   'x-api-key': AWS_KEY,
 };
 
+/** create a new submission for the given form, resident and worker  */
 export const startSubmission = async (
   formId: string,
   socialCareId: number,
@@ -41,6 +42,7 @@ const deserialiseAnswers = (answers: {
   return deserialisedAnswers;
 };
 
+/** get an existing submission by its id */
 export const getSubmissionById = async (
   submissionId: string
 ): Promise<Submission> => {
@@ -51,11 +53,12 @@ export const getSubmissionById = async (
     }
   );
   return {
-    formAnswers: data?.formAnswers && deserialiseAnswers(data?.formAnswers),
+    formAnswers: data?.formAnswers && deserialiseAnswers(data.formAnswers),
     ...data,
   };
 };
 
+/** update the answers for a given step on a submission, providing the submission id, step id, editor's name and the answers to update */
 export const patchSubmissionForStep = async (
   submissionId: string,
   stepId: string,
@@ -75,6 +78,7 @@ export const patchSubmissionForStep = async (
   return data;
 };
 
+/** mark an existing submission as finished, providing its id  */
 export const finishSubmission = async (
   submissionId: string
 ): Promise<Submission> => {
