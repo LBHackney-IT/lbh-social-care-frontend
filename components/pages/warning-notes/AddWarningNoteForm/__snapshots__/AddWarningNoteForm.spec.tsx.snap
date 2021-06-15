@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`<AddWarningNoteForm /> should render the warning notes form for a childrens resident 1`] = `
+exports[`<AddWarningNoteForm /> for a childrens resident should render the warning notes form 1`] = `
 <DocumentFragment>
   <div
     class="govuk-width-container"
@@ -696,7 +696,7 @@ exports[`<AddWarningNoteForm /> should render the warning notes form for a child
 </DocumentFragment>
 `;
 
-exports[`<AddWarningNoteForm /> should render the warning notes form for an adults resident 1`] = `
+exports[`<AddWarningNoteForm /> for an adults resident should render the warning notes form 1`] = `
 <DocumentFragment>
   <div
     class="govuk-width-container"
