@@ -1,5 +1,9 @@
 import axios from 'axios';
-import { Submission, StepAnswers } from 'data/flexibleForms/forms.types';
+import {
+  Submission,
+  StepAnswers,
+  FlexibleAnswers,
+} from 'data/flexibleForms/forms.types';
 
 const { ENDPOINT_API, AWS_KEY } = process.env;
 
@@ -27,6 +31,16 @@ export const startSubmission = async (
   return data;
 };
 
+const deserialiseAnswers = (answers: {
+  [key: string]: string;
+}): FlexibleAnswers => {
+  const deserialisedAnswers = {};
+  Object.keys(answers).map(
+    (step) => (deserialisedAnswers[step] = JSON.parse(answers[step]))
+  );
+  return deserialisedAnswers;
+};
+
 export const getSubmissionById = async (
   submissionId: string
 ): Promise<Submission> => {
@@ -37,7 +51,7 @@ export const getSubmissionById = async (
     }
   );
   return {
-    formAnswers: data?.formAnswers && JSON.parse(data.formAnswers),
+    formAnswers: data?.formAnswers && deserialiseAnswers(data?.formAnswers),
     ...data,
   };
 };
