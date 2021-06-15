@@ -24,6 +24,12 @@ const ReviewWarningNote = (): React.ReactElement => {
   const { user } = useAuth() as { user: User };
   const onFormSubmit = useCallback(
     async ({ ...formData }: Record<string, unknown>) => {
+      if (formData.disclosedWithIndividual !== undefined) {
+        formData = {
+          ...formData,
+          disclosedWithIndividual: formData.disclosedWithIndividual === 'Yes',
+        };
+      }
       await updateWarningNote(warningNoteId, {
         warningNoteId,
         reviewedBy: user.email,
@@ -34,7 +40,6 @@ const ReviewWarningNote = (): React.ReactElement => {
             : undefined,
         status: formData.reviewDecision === 'No' ? 'closed' : 'open',
         ...formData,
-        disclosedWithIndividual: formData.disclosedWithIndividual === 'Yes',
       });
     },
     [user.email]
