@@ -77,16 +77,13 @@ describe('residents APIs', () => {
           restricted: 'Y',
         },
       });
-      const data = await residentsAPI.getResident(123, { context_flag: 'A' });
+      const data = await residentsAPI.getResident(123);
       expect(mockedAxios.get).toHaveBeenCalled();
       expect(mockedAxios.get.mock.calls[0][0]).toEqual(
         `${ENDPOINT_API}/residents/123`
       );
       expect(mockedAxios.get.mock.calls[0][1]?.headers).toEqual({
         'x-api-key': AWS_KEY,
-      });
-      expect(mockedAxios.get.mock.calls[0][1]?.params).toEqual({
-        context_flag: 'A',
       });
       expect(data).toEqual({
         name: 'foobar',
