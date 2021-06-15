@@ -172,7 +172,7 @@ describe('<AddWarningNoteForm />', () => {
       });
     });
 
-    it('should show an error message if and invalid start date is entered', async () => {
+    it('should show an error message if an invalid start date is entered', async () => {
       setDateFieldValue('startDate', {
         date: '56',
         month: '15',
@@ -193,6 +193,22 @@ describe('<AddWarningNoteForm />', () => {
 
       await waitFor(() => {
         screen.getByText('Enter a review / end date', {
+          selector: '.govuk-error-message',
+        });
+      });
+    });
+
+    it('should show an error message if an invalid review / end date is entered', async () => {
+      setDateFieldValue('reviewDate', {
+        date: '56',
+        month: '15',
+        year: '10',
+      });
+
+      fireEvent.submit(screen.getByRole('form'));
+
+      await waitFor(() => {
+        screen.getByText('Must be a valid Date', {
           selector: '.govuk-error-message',
         });
       });
