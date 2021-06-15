@@ -25,7 +25,7 @@ exports[`ErrorMessage component should render properly with the default message 
     >
       Error:
     </span>
-     Oops an error occurred
+     There was a problem. Please refresh the page or try again later.
   </span>
 </DocumentFragment>
 `;

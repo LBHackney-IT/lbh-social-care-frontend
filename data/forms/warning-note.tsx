@@ -295,7 +295,7 @@ const WARNING_DISCLOSURE: Array<FormComponentStep> = [
   {
     component: 'Radios',
     name: 'disclosedWithIndividual',
-    rules: { required: true },
+    rules: { required: 'Select an answer for this input' },
     label: 'Is the individual aware of the Warning Note and Review Date?',
   },
   {
@@ -303,7 +303,14 @@ const WARNING_DISCLOSURE: Array<FormComponentStep> = [
     name: 'disclosedDate',
     label: 'Date informed',
     labelSize: 's',
-    rules: { required: true },
+    rules: {
+      required: true,
+      validate: {
+        notInFuture: (value) =>
+          new Date(value).getTime() <= new Date().getTime() ||
+          "Date informed can't be in the future",
+      },
+    },
     showConditionalGuides: true,
     conditionalRender: ({ disclosedWithIndividual }) =>
       disclosedWithIndividual === 'Yes',
@@ -311,10 +318,10 @@ const WARNING_DISCLOSURE: Array<FormComponentStep> = [
   {
     component: 'Radios',
     name: 'disclosedHow',
-    label: 'How informed',
+    label: 'How was the individual informed',
     labelSize: 's',
     options: ['Verbal', 'Written', 'Verbal / Written'],
-    rules: { required: true },
+    rules: { required: 'Select how the individual was informed' },
     showConditionalGuides: true,
     conditionalRender: ({ disclosedWithIndividual }) =>
       disclosedWithIndividual === 'Yes',
@@ -343,8 +350,11 @@ const WARNING_DISCLOSURE: Array<FormComponentStep> = [
 
 const WARNING_NARRATIVE_ADULTS: Array<FormComponentStep> = [
   <div key="warning narrative">
-    <h2>Guidance on narrative and risks</h2>
-    <ExpandDetails label="Guidance on disclosure" triggerLabel="guidance">
+    <h2>Warning narrative and risks</h2>
+    <ExpandDetails
+      label="Guidance on narrative and risks"
+      triggerLabel="guidance"
+    >
       <div>
         This case note provides the context of the warning and should contain:
         <ul>

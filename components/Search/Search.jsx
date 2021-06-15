@@ -151,7 +151,7 @@ const Search = ({
               <p>Can&apos;t find a match?</p>
               <p>
                 Try narrowing your search, or{' '}
-                <Link href="/people/add">
+                <Link href={`/people/add?${getQueryString(query)}`}>
                   <a className="lbh-link lbh-link--no-visited-state">
                     add a new person
                   </a>
@@ -162,7 +162,7 @@ const Search = ({
           ) : (
             <p>
               Try widening your search, or{' '}
-              <Link href="/people/add">
+              <Link href={`/people/add?${getQueryString(query)}`}>
                 <a className="lbh-link lbh-link--no-visited-state">
                   add a new person
                 </a>

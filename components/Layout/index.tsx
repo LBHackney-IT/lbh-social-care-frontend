@@ -3,6 +3,7 @@ import Header from './Header/Header';
 import SkipLink from './SkipLink/SkipLink';
 import PhaseBanner from './PhaseBanner/PhaseBanner';
 import BackButton from './BackButton/BackButton';
+import Footer from './Footer/Footer';
 
 export interface Props {
   children: React.ReactChild;
@@ -24,6 +25,8 @@ const Layout = ({ goBackButton, children }: Props): React.ReactElement => {
           {children}
         </main>
       </div>
+
+      <Footer />
     </>
   );
 };

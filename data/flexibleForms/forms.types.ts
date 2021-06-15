@@ -51,7 +51,7 @@ export interface Form {
   steps: Step[];
 }
 
-interface RepeaterGroupAnswer {
+export interface RepeaterGroupAnswer {
   [key: string]: string | string[];
 }
 

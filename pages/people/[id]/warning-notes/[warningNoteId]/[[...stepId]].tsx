@@ -5,7 +5,10 @@ import PersonView from 'components/PersonView/PersonView';
 import WarningNoteRecap from 'components/WarningNote/WarningNoteRecap/WarningNoteRecap';
 import { Resident, User } from 'types';
 import FormWizard from 'components/FormWizard/FormWizard';
-import formSteps from 'data/forms/warning-note-review';
+import {
+  reviewFormStepsAdult,
+  reviewFormStepsChild,
+} from 'data/forms/warning-note-review';
 import { useAuth } from 'components/UserContext/UserContext';
 import CustomConfirmation from 'components/Steps/ReviewWarningNoteConfirmation';
 import { updateWarningNote } from 'utils/api/warningNotes';
@@ -21,6 +24,12 @@ const ReviewWarningNote = (): React.ReactElement => {
   const { user } = useAuth() as { user: User };
   const onFormSubmit = useCallback(
     async ({ ...formData }: Record<string, unknown>) => {
+      if (formData.disclosedWithIndividual !== undefined) {
+        formData = {
+          ...formData,
+          disclosedWithIndividual: formData.disclosedWithIndividual === 'Yes',
+        };
+      }
       await updateWarningNote(warningNoteId, {
         warningNoteId,
         reviewedBy: user.email,
@@ -81,7 +90,11 @@ const ReviewWarningNote = (): React.ReactElement => {
             )}
             <FormWizard
               formPath={`/people/${personId}/warning-notes/${warningNoteId}/`}
-              formSteps={formSteps}
+              formSteps={
+                person.contextFlag === 'A'
+                  ? reviewFormStepsAdult
+                  : reviewFormStepsChild
+              }
               title="Review Warning Note"
               onFormSubmit={onFormSubmit}
               onProgressStep={handleProgressStep}

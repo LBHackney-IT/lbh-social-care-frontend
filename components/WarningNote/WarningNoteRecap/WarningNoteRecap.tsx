@@ -5,7 +5,10 @@ import { useWarningNote } from 'utils/api/warningNotes';
 import { formStepsAdult, formStepsChild } from 'data/forms/warning-note';
 import { Resident } from 'types';
 import SummaryList from '../../Summary/SummaryList';
-import reviewFormSteps from 'data/forms/warning-note-review';
+import {
+  reviewFormStepsAdult,
+  reviewFormStepsChild,
+} from 'data/forms/warning-note-review';
 
 export interface Props {
   person: Resident;
@@ -38,6 +41,9 @@ const WarningNoteRecap = ({
     ...warningNote.warningNoteReviews,
   ].reverse();
 
+  const reviewFormSteps =
+    person.contextFlag === 'A' ? reviewFormStepsAdult : reviewFormStepsChild;
+
   return (
     <>
       {shouldPageDisplayNoteReviews(noteDetails) &&
@@ -49,6 +55,9 @@ const WarningNoteRecap = ({
               key={review.id}
               formData={{
                 ...review,
+                disclosedWithIndividual: review.disclosedWithIndividual
+                  ? 'Yes'
+                  : 'No',
                 outputAsDetailedSummary: 'Yes',
                 endDate: isSelectedReviewTheMostRecent
                   ? warningNote.endDate
@@ -56,7 +65,6 @@ const WarningNoteRecap = ({
                 nextReviewDate: isSelectedReviewTheMostRecent
                   ? warningNote.nextReviewDate
                   : null,
-                person,
               }}
               formSteps={reviewFormSteps.map((step) => {
                 return {

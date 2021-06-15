@@ -7,94 +7,110 @@ const form: Form = {
   steps: [
     {
       id: 'person-details',
-      name: 'Person details',
+      name: 'Living situation',
       theme: 'About you',
       fields: [
         {
-          id: 'title',
-          question: 'Title',
+          id: 'primary-address-tenure-type',
+          question: 'Primary address tenure type',
           hint: '',
-          type: 'text',
-        },
-        {
-          id: 'first-name',
-          question: 'First name',
-          hint: '',
-          type: 'text',
-        },
-        {
-          id: 'surname',
-          question: 'Surname',
-          hint: '',
-          type: 'text',
-        },
-        {
-          id: 'gender',
-          question: 'Gender',
-          hint: '',
-          type: 'radios',
+          type: 'select',
           choices: [
             {
-              value: 'female',
-              label: 'Female',
+              value: 'owner-occupier-or-shared-ownership-scheme',
+              label: 'Owner occupier or shared ownership scheme',
             },
             {
-              value: 'male',
-              label: 'Male',
+              value:
+                'tenant-including-local-authority-arms-length-management-organisations-registered-social-landlord-housing-association',
+              label:
+                "Tenant (including local authority, arm's length management organisations, registered social landlord, housing association)",
             },
             {
-              value: 'not-known',
-              label: 'Not known',
+              value: 'tenant--private-landlord',
+              label: 'Tenant - private landlord',
+            },
+            {
+              value:
+                'settled-mainstream-housing-with-family--friends-including-flatsharing',
+              label:
+                'Settled mainstream housing with family / friends (including flat-sharing)',
+            },
+            {
+              value:
+                'supported-accommodation--supported-lodgings--supported-group-home-ie-accommodation-supported-by-staff-or-resident-care-taker',
+              label:
+                'Supported accommodation / supported lodgings / supported group home (i.e. accommodation supported by staff or resident care taker)',
+            },
+            {
+              value: 'shared-lives-scheme',
+              label: 'Shared Lives scheme',
+            },
+            {
+              value:
+                'approved-premises-for-offenders-released-from-prison-or-under-probation-supervision-eg-probation-hostel',
+              label:
+                'Approved premises for offenders released from prison or under probation supervision (e.g. probation hostel)',
+            },
+            {
+              value:
+                'sheltered-housing--extra-care-housing--other-sheltered-housing',
+              label:
+                'Sheltered housing / extra care housing / other sheltered housing',
+            },
+            {
+              value:
+                'mobile-accommodation-for-gypsy--roma-and-traveller-communities',
+              label:
+                'Mobile accommodation for Gypsy / Roma and Traveller communities',
+            },
+            {
+              value: 'rough-sleeper--squatting',
+              label: 'Rough sleeper / squatting',
+            },
+            {
+              value:
+                'night-shelter--emergency-hostel--direct-access-hostel-temporary-accommodation-accepting-selfreferrals',
+              label:
+                'Night shelter / emergency hostel / direct access hostel (temporary accommodation accepting self-referrals)',
+            },
+            {
+              value: 'refuge',
+              label: 'Refuge',
+            },
+            {
+              value:
+                'placed-in-temporary-accommodation-by-the-council-including-homelessness-resettlement',
+              label:
+                'Placed in temporary accommodation by the council (including homelessness resettlement)',
+            },
+            {
+              value: 'staying-with-family--friends-as-a-shortterm-guest',
+              label: 'Staying with family / friends as a short-term guest',
+            },
+            {
+              value:
+                'acute--longterm-healthcare-residential-facility-or-hospital-eg-nhs-independent-general-hospital--clinic-longstay-hospital-specialist-rehabilitation--recovery-hospital',
+              label:
+                'Acute / long-term healthcare residential facility or hospital (e.g. NHS Independent general hospital / clinic, long-stay hospital, specialist rehabilitation / recovery hospital)',
+            },
+            {
+              value: 'registered-care-home',
+              label: 'Registered care home',
+            },
+            {
+              value: 'registered-nursing-home',
+              label: 'Registered nursing home',
+            },
+            {
+              value: 'prison--young-offenders-institution--detention-centre',
+              label: 'Prison / Young offenders institution / detention centre',
+            },
+            {
+              value: 'other-temporary-accommodation',
+              label: 'Other temporary accommodation',
             },
           ],
-        },
-        {
-          id: 'date-of-birth',
-          question: 'Date of birth',
-          hint: '',
-          type: 'date',
-        },
-        {
-          id: 'mosaic-id',
-          question: 'Mosaic ID',
-          hint: '',
-          type: 'text',
-        },
-        {
-          id: 'emergency-id-asc',
-          question: 'Emergency ID (ASC)',
-          hint: '(If you do not know the Mosaic ID  then find or create an emergency ID number for this person in the list of numbers provided to your team, and enter it here)',
-          type: 'text',
-        },
-        {
-          id: 'nhs-number',
-          question: 'NHS number',
-          hint: '',
-          type: 'text',
-        },
-        {
-          id: 'primary-address',
-          question: 'Primary address',
-          hint: '',
-          type: 'textarea',
-        },
-        {
-          id: 'postcode',
-          question: 'Postcode',
-          hint: '',
-          type: 'text',
-        },
-        {
-          id: 'phone-number',
-          question: 'Phone number',
-          hint: '',
-          type: 'text',
-        },
-        {
-          id: 'person-email',
-          question: 'Person Email',
-          hint: '',
-          type: 'text',
         },
         {
           id: 'household-structure',
@@ -247,40 +263,132 @@ const form: Form = {
       id: 'primary-support-reason',
       name: 'Primary support reason',
       theme: 'About you',
-      fields: [],
-    },
-    {
-      id: 'key-contact',
-      name: 'Key contact',
-      theme: 'Key contacts',
       fields: [
         {
-          id: 'key-contact-1-name',
-          question: 'Key Contact 1: Name',
+          id: 'psr-group-',
+          question: 'PSR Group ',
           hint: '',
-          type: 'text',
+          type: 'select',
+          choices: [
+            {
+              value: 'physical-support--access--mobility-only',
+              label: 'Physical Support - Access & mobility only',
+            },
+            {
+              value: 'physical-support--personal-care-and-support',
+              label: 'Physical Support - Personal Care and Support',
+            },
+            {
+              value: 'sensory-support--support-for-visual-impairment',
+              label: 'Sensory Support - Support for visual impairment',
+            },
+            {
+              value: 'sensory-support--support-for-hearing-impairment',
+              label: 'Sensory Support - Support for hearing impairment',
+            },
+            {
+              value: 'sensory-support--support-for-dual-impairment',
+              label: 'Sensory Support - Support for dual impairment',
+            },
+            {
+              value: 'support-with-memory--cognition',
+              label: 'Support with Memory & Cognition',
+            },
+            {
+              value: 'learning-disability-support',
+              label: 'Learning Disability Support',
+            },
+            {
+              value: 'mental-health-support-asc',
+              label: 'Mental Health Support (ASC)',
+            },
+            {
+              value: 'mental-health-support-elft',
+              label: 'Mental Health Support (ELFT)',
+            },
+            {
+              value: 'social-support--substance-misuse-support',
+              label: 'Social Support - Substance misuse support',
+            },
+            {
+              value: 'social-support--asylum-seeker-support',
+              label: 'Social Support - Asylum seeker support',
+            },
+            {
+              value: 'social-support--support-for-social-isolationother',
+              label: 'Social Support - Support for Social Isolation/Other',
+            },
+          ],
+        },
+      ],
+    },
+    {
+      id: 'about-me',
+      name: 'About me',
+      theme: 'About you',
+      fields: [
+        {
+          id: 'areas-of-my-life-i-enjoy-most-or-value-including-my-main-interests-and-where-i-can-most-contribute--changes-that-would-improve-my-wellbeing-or-quality-of-life',
+          question:
+            'Areas of my life I enjoy most or value (including my main interests and where I can most contribute) & changes that would improve my wellbeing or quality of life',
+          hint: '',
+          type: 'textarea',
         },
         {
-          id: 'key-contact-1-relationship--role',
-          question: 'Key Contact 1: Relationship / role',
+          id: 'what-resources-support-was-recommended-and-outcome-workers-recommendations',
+          question:
+            'What resources, support was recommended and outcome? (workers recommendations)',
           hint: '',
-          type: 'text',
+          type: 'textarea',
         },
         {
-          id: 'key-contact-1-address',
-          question: 'Key Contact 1: Address',
+          id: 'next-actions-workers-recommendations',
+          question: 'Next actions (workers recommendations)',
           hint: '',
-          type: 'text',
+          type: 'textarea',
         },
         {
-          id: 'key-contact-1-contact-details',
-          question: 'Key Contact 1: Contact details',
+          id: 'is-there-an-increase-or-decrease-to-services-provided',
+          question: 'Is there an increase or decrease to services provided?',
           hint: '',
-          type: 'text',
+          type: 'radios',
+          choices: [
+            {
+              value: 'yes',
+              label: 'Yes',
+            },
+            {
+              value: 'no',
+              label: 'No',
+            },
+          ],
         },
         {
-          id: 'do-you-have-another-key-contact-to-add-second',
-          question: 'Do you have another key contact to add? (second)',
+          id: 'has-a-mental-capacity-assessment-been-completed',
+          question: 'Has a Mental Capacity Assessment been completed?',
+          hint: '',
+          type: 'radios',
+          choices: [
+            {
+              value: 'yes',
+              label: 'Yes',
+            },
+            {
+              value: 'no',
+              label: 'No',
+            },
+          ],
+        },
+        {
+          id: 'if-yes-what-was-the-outcome-of-the-mental-capacity-assessment',
+          question:
+            'If yes, what was the outcome of the Mental Capacity Assessment?',
+          hint: '',
+          type: 'textarea',
+        },
+        {
+          id: 'if-no-is-a-mental-capacity-assessment-required',
+          question: 'If no, is a Mental Capacity Assessment required?',
           hint: '',
           type: 'radios',
           choices: [
@@ -297,87 +405,48 @@ const form: Form = {
       ],
     },
     {
-      id: 'key-contact-second',
-      name: 'Key contact (second)',
-      theme: 'Key contacts',
+      id: 'key-contacts',
+      name: 'Key contacts',
+      theme: 'About you',
       fields: [
         {
-          id: 'key-contact-2-name',
-          question: 'Key Contact 2: Name',
-          hint: '',
-          type: 'text',
-        },
-        {
-          id: 'key-contact-2-relationship--role',
-          question: 'Key Contact 2: Relationship / role',
-          hint: '',
-          type: 'text',
-        },
-        {
-          id: 'key-contact-2-address',
-          question: 'Key Contact 2: Address',
-          hint: '',
-          type: 'text',
-        },
-        {
-          id: 'key-contact-2-contact-details',
-          question: 'Key Contact 2: Contact details',
-          hint: '',
-          type: 'text',
-        },
-        {
-          id: 'do-you-have-another-key-contact-to-add-third',
-          question: 'Do you have another key contact to add? (third)',
-          hint: '',
-          type: 'radios',
-          choices: [
+          id: 'key-contacts',
+          question: 'Who are your key contacts?',
+          type: 'repeaterGroup',
+          itemName: 'contact',
+          subfields: [
             {
-              value: 'yes',
-              label: 'Yes',
+              id: 'key-contact-1-name',
+              question: 'Name',
+              hint: '',
+              type: 'text',
             },
             {
-              value: 'no',
-              label: 'No',
+              id: 'key-contact-1-relationship--role',
+              question: 'Relationship or role',
+              hint: '',
+              type: 'text',
+            },
+            {
+              id: 'key-contact-1-address',
+              question: 'Address',
+              hint: '',
+              type: 'text',
+            },
+            {
+              id: 'key-contact-1-contact-details',
+              question: 'Contact details',
+              hint: '',
+              type: 'text',
             },
           ],
-        },
-      ],
-    },
-    {
-      id: 'key-contact-third',
-      name: 'Key contact (third)',
-      theme: 'Key contacts',
-      fields: [
-        {
-          id: 'key-contact-3-name',
-          question: 'Key Contact 3: Name',
-          hint: '',
-          type: 'text',
-        },
-        {
-          id: 'key-contact-3-relationship--role',
-          question: 'Key Contact 3: Relationship / role',
-          hint: '',
-          type: 'text',
-        },
-        {
-          id: 'key-contact-3-address',
-          question: 'Key Contact 3: Address',
-          hint: '',
-          type: 'text',
-        },
-        {
-          id: 'key-contact-3-contact-details',
-          question: 'Key Contact 3: Contact details',
-          hint: '',
-          type: 'text',
         },
       ],
     },
     {
       id: 'gp-details',
       name: 'GP details',
-      theme: 'Health and wellbeing',
+      theme: 'About you',
       fields: [
         {
           id: 'gp-name',
@@ -420,7 +489,7 @@ const form: Form = {
     {
       id: 'my-review',
       name: 'My review',
-      theme: 'Review',
+      theme: 'Reviewing your care',
       fields: [
         {
           id: 'review-type',
@@ -534,91 +603,9 @@ const form: Form = {
       ],
     },
     {
-      id: 'about-me',
-      name: 'About me',
-      theme: 'About you',
-      fields: [
-        {
-          id: 'areas-of-my-life-i-enjoy-most-or-value-including-my-main-interests-and-where-i-can-most-contribute--changes-that-would-improve-my-wellbeing-or-quality-of-life',
-          question:
-            'Areas of my life I enjoy most or value (including my main interests and where I can most contribute) & changes that would improve my wellbeing or quality of life',
-          hint: '',
-          type: 'textarea',
-        },
-        {
-          id: 'what-resources-support-was-recommended-and-outcome-workers-recommendations',
-          question:
-            'What resources, support was recommended and outcome? (workers recommendations)',
-          hint: '',
-          type: 'textarea',
-        },
-        {
-          id: 'next-actions-workers-recommendations',
-          question: 'Next actions (workers recommendations)',
-          hint: '',
-          type: 'textarea',
-        },
-        {
-          id: 'is-there-an-increase-or-decrease-to-services-provided',
-          question: 'Is there an increase or decrease to services provided?',
-          hint: '',
-          type: 'radios',
-          choices: [
-            {
-              value: 'yes',
-              label: 'Yes',
-            },
-            {
-              value: 'no',
-              label: 'No',
-            },
-          ],
-        },
-        {
-          id: 'has-a-mental-capacity-assessment-been-completed',
-          question: 'Has a Mental Capacity Assessment been completed?',
-          hint: '',
-          type: 'radios',
-          choices: [
-            {
-              value: 'yes',
-              label: 'Yes',
-            },
-            {
-              value: 'no',
-              label: 'No',
-            },
-          ],
-        },
-        {
-          id: 'if-yes-what-was-the-outcome-of-the-mental-capacity-assessment',
-          question:
-            'If yes, what was the outcome of the Mental Capacity Assessment?',
-          hint: '',
-          type: 'textarea',
-        },
-        {
-          id: 'if-no-is-a-mental-capacity-assessment-required',
-          question: 'If no, is a Mental Capacity Assessment required?',
-          hint: '',
-          type: 'radios',
-          choices: [
-            {
-              value: 'yes',
-              label: 'Yes',
-            },
-            {
-              value: 'no',
-              label: 'No',
-            },
-          ],
-        },
-      ],
-    },
-    {
       id: 'care-act-outcomes-and-eligibility',
       name: 'Care act outcomes and eligibility',
-      theme: 'Review',
+      theme: 'Reviewing your care',
       fields: [
         {
           id: '1--do-you-have-a-condition-as-a-result-of-either-your-physical-mental-sensory-learning-or-cognitive-disabilities-or-illnesses-substance-misuse-or-brain-injury',
@@ -934,7 +921,7 @@ const form: Form = {
     {
       id: 'personal-budget',
       name: 'Personal budget',
-      theme: 'Review',
+      theme: 'Reviewing your care',
       fields: [
         {
           id: 'date-of-plan-authorised',
@@ -1129,7 +1116,7 @@ const form: Form = {
     {
       id: 'weekly-timetable',
       name: 'Weekly timetable',
-      theme: 'Review',
+      theme: 'Reviewing your care',
       fields: [
         {
           id: 'date-of-timetable-authorised',
@@ -1176,40 +1163,9 @@ const form: Form = {
       ],
     },
     {
-      id: 'completed-by',
-      name: 'Completed by',
-      theme: 'Review',
-      fields: [
-        {
-          id: 'completed-date',
-          question: 'Completed Date',
-          hint: '',
-          type: 'date',
-        },
-        {
-          id: 'worker-name',
-          question: 'Worker Name',
-          hint: '',
-          type: 'text',
-        },
-        {
-          id: 'worker-team',
-          question: 'Worker Team',
-          hint: '',
-          type: 'text',
-        },
-        {
-          id: 'manager-name',
-          question: 'Manager Name',
-          hint: '',
-          type: 'text',
-        },
-      ],
-    },
-    {
       id: 'completion-details-review-conversation',
-      name: 'Completion details (Review Conversation)',
-      theme: 'Review',
+      name: 'Completion details (review conversation)',
+      theme: 'Next steps',
       fields: [
         {
           id: 'what-next',
@@ -1231,8 +1187,8 @@ const form: Form = {
     },
     {
       id: 'schedule-next-review',
-      name: 'Schedule Next Review',
-      theme: 'Review',
+      name: 'Schedule next review',
+      theme: 'Next steps',
       fields: [
         {
           id: 'date-of-next-review',
@@ -1244,8 +1200,8 @@ const form: Form = {
     },
     {
       id: 'sequel-to-review-conversation',
-      name: 'Sequel to Review Conversation',
-      theme: 'Review',
+      name: 'Sequel to review conversation',
+      theme: 'Next steps',
       fields: [
         {
           id: 'outcomes-for-review-sequel',
@@ -1301,7 +1257,7 @@ const form: Form = {
     {
       id: 'manager-approval',
       name: 'Manager approval',
-      theme: 'Review',
+      theme: 'Next steps',
       fields: [
         {
           id: 'email-address-of-your-manager',
