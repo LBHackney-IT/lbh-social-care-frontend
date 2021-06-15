@@ -34,7 +34,7 @@ export const startSubmission = async (
 const deserialiseAnswers = (answers: {
   [key: string]: string;
 }): FlexibleAnswers => {
-  const deserialisedAnswers = {};
+  const deserialisedAnswers: FlexibleAnswers = {};
   Object.keys(answers).map(
     (step) => (deserialisedAnswers[step] = JSON.parse(answers[step]))
   );
