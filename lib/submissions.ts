@@ -5,11 +5,11 @@ import {
   FlexibleAnswers,
 } from 'data/flexibleForms/forms.types';
 
-interface RawSubmission extends Submission {
+type RawSubmission = Omit<Submission, 'formAnswers'> & {
   formAnswers: {
     [key: string]: string;
   };
-}
+};
 
 const { ENDPOINT_API, AWS_KEY } = process.env;
 
@@ -83,16 +83,17 @@ export const patchSubmissionForStep = async (
 
 /** mark an existing submission as finished, providing its id  */
 export const finishSubmission = async (
-  submissionId: string
-): Promise<Submission> => {
-  const { data } = await axios.patch(
+  submissionId: string,
+  finishedBy: string
+): Promise<number> => {
+  const { status } = await axios.patch(
     `${ENDPOINT_API}/submissions/${submissionId}`,
     {
-      submittedAt: new Date().toISOString(),
+      createdBy: finishedBy,
     },
     {
       headers: headersWithKey,
     }
   );
-  return deserialiseAnswers(data);
+  return status;
 };
