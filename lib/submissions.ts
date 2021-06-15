@@ -1,5 +1,9 @@
 import axios from 'axios';
-import { Submission, StepAnswers } from 'data/flexibleForms/forms.types';
+import {
+  Submission,
+  StepAnswers,
+  FlexibleAnswers,
+} from 'data/flexibleForms/forms.types';
 
 const { ENDPOINT_API, AWS_KEY } = process.env;
 
@@ -16,14 +20,25 @@ export const startSubmission = async (
     `${ENDPOINT_API}/submissions`,
     {
       formId,
-      socialCareId,
+      socialCareId: Number(socialCareId),
       createdBy,
     },
     {
       headers: headersWithKey,
     }
   );
+
   return data;
+};
+
+const deserialiseAnswers = (answers: {
+  [key: string]: string;
+}): FlexibleAnswers => {
+  const deserialisedAnswers: FlexibleAnswers = {};
+  Object.keys(answers).map(
+    (step) => (deserialisedAnswers[step] = JSON.parse(answers[step]))
+  );
+  return deserialisedAnswers;
 };
 
 export const getSubmissionById = async (
@@ -35,7 +50,10 @@ export const getSubmissionById = async (
       headers: headersWithKey,
     }
   );
-  return data;
+  return {
+    formAnswers: data?.formAnswers && deserialiseAnswers(data?.formAnswers),
+    ...data,
+  };
 };
 
 export const patchSubmissionForStep = async (
@@ -47,7 +65,7 @@ export const patchSubmissionForStep = async (
   const { data } = await axios.patch(
     `${ENDPOINT_API}/submissions/${submissionId}/steps/${stepId}`,
     {
-      stepAnswers,
+      stepAnswers: JSON.stringify(stepAnswers),
       editedBy,
     },
     {

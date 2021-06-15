@@ -19,7 +19,7 @@ interface Props {
     stepId: string;
   };
   stepAnswers: InitialValues;
-  person: Resident;
+  residents: Resident[];
   step: Step;
   form: Form;
 }
@@ -27,11 +27,13 @@ interface Props {
 const StepPage = ({
   params,
   stepAnswers,
-  person,
+  residents,
   step,
   form,
 }: Props): React.ReactElement => {
   const router = useRouter();
+
+  const person = residents[0];
 
   const handleSubmit = async (
     values: FormikValues,
@@ -39,7 +41,7 @@ const StepPage = ({
   ): Promise<void> => {
     try {
       const { data } = await axios.patch(
-        `${process.env.NEXT_PUBLIC_API_ENDPOINT}/api/submissions/${params.id}/steps/${params.stepId}`,
+        `/api/submissions/${params.id}/steps/${params.stepId}`,
         {
           data: values,
         }
@@ -55,12 +57,9 @@ const StepPage = ({
     setStatus: (message: string) => void
   ): Promise<void> => {
     try {
-      const { data } = await axios.post(
-        `${process.env.NEXT_PUBLIC_API_ENDPOINT}/api/submissions/${params.id}`,
-        {
-          data: person,
-        }
-      );
+      const { data } = await axios.post(`/api/submissions/${params.id}`, {
+        data: person,
+      });
       if (data.error) throw data.error;
       router.push('/');
     } catch (e) {
