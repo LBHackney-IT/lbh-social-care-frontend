@@ -151,7 +151,7 @@ describe('AddForm component', () => {
     expect(autocompleteInput.value).toBe('Warning Note');
   });
 
-  it('shound not render Warning Note for an adults user', async () => {
+  it('should not render Warning Note for an adults user', async () => {
     const props = {
       person: residentFactory.build({ contextFlag: 'A' }),
     };
