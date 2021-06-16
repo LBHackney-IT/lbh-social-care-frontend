@@ -5,7 +5,6 @@ import FlexibleField from './FlexibleFields';
 import { Resident } from 'types';
 import Banner from './Banner';
 import { generateInitialValues, InitialValues } from 'lib/utils';
-import { useRouter } from 'next/router';
 import { AutosaveTrigger } from 'contexts/autosaveContext';
 
 interface Props {
@@ -28,11 +27,8 @@ const StepForm = ({
   fields,
   person,
   onSubmit,
-  onFinish,
   singleStep,
 }: Props): React.ReactElement => {
-  const router = useRouter();
-
   return (
     <Formik
       initialValues={initialValues || generateInitialValues(fields, person)}
@@ -40,17 +36,7 @@ const StepForm = ({
       onSubmit={onSubmit}
       validateOnMount={true}
     >
-      {({
-        values,
-        isSubmitting,
-        setSubmitting,
-        touched,
-        errors,
-        setStatus,
-        status,
-        submitForm,
-        isValid,
-      }) => (
+      {({ values, isSubmitting, touched, errors, status }) => (
         <Form>
           {status && (
             <Banner
@@ -74,23 +60,7 @@ const StepForm = ({
 
           <AutosaveTrigger delay={2000} />
 
-          <button
-            className="govuk-button lbh-button"
-            disabled={isSubmitting}
-            onClick={async () => {
-              await submitForm();
-              // next, finish the submission if it's the only step, or return to the task list
-              if (isValid) {
-                if (singleStep) {
-                  setSubmitting(true);
-                  onFinish(values, setStatus);
-                } else {
-                  if (!isSubmitting)
-                    router.push(`/submissions/${router.query.id}`);
-                }
-              }
-            }}
-          >
+          <button className="govuk-button lbh-button" disabled={isSubmitting}>
             {singleStep ? 'Save and finish' : 'Save and continue'}
           </button>
         </Form>
