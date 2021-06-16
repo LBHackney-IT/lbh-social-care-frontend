@@ -65,17 +65,18 @@ export const canManageCases = (
   return false;
 };
 
-export const canUserViewWarningNotes = (user: User) => {
+export const canUserViewWarningNotes = (user: User): boolean => {
   if (user.hasDevPermissions) {
     return true;
   }
 
   return false;
 };
+
 export const canViewRelationships = (
   user: User,
   person: Pick<Resident, 'restricted' | 'contextFlag'>
-) => {
+): boolean => {
   if (user.hasDevPermissions) {
     return true;
   }
@@ -85,5 +86,29 @@ export const canViewRelationships = (
   if (user.hasChildrenPermissions && person.contextFlag === 'C') {
     return true;
   }
+  return false;
+};
+
+export const canUserAllocateWorkerToPerson = (
+  user: User,
+  person: Resident
+): boolean => {
+  if (user.hasAdminPermissions || user.hasDevPermissions) {
+    return true;
+  }
+
+  if (user.hasChildrenPermissions && person.contextFlag === 'C') {
+    // Children's doesn't require `hasAllocationsPermissions`, as anyone can allocate in CFS
+    return true;
+  }
+
+  if (
+    user.hasAdultPermissions &&
+    person.contextFlag === 'A' &&
+    (user.hasAllocationsPermissions || false)
+  ) {
+    return true;
+  }
+
   return false;
 };

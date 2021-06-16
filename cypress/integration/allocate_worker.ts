@@ -48,6 +48,18 @@ describe('Allocating workers', () => {
         `/people/${Cypress.env('ADULT_RECORD_PERSON_ID')}`
       );
     });
+
+    it('should redirect away from the allocate worker form for a childrens resident', () => {
+      cy.visitAs(
+        `/people/${Cypress.env('CHILDREN_RECORD_PERSON_ID')}/allocations/add`,
+        AuthRoles.AdultsGroup
+      );
+
+      cy.location('pathname').should(
+        'eq',
+        `/people/${Cypress.env('CHILDREN_RECORD_PERSON_ID')}`
+      );
+    });
   });
 
   describe('As a user in the Childrens group', () => {
@@ -67,6 +79,18 @@ describe('Allocating workers', () => {
       );
 
       cy.contains('Allocate worker to');
+    });
+
+    it('should redirect away from the allocate worker form for an adults resident', () => {
+      cy.visitAs(
+        `/people/${Cypress.env('ADULT_RECORD_PERSON_ID')}/allocations/add`,
+        AuthRoles.ChildrensGroup
+      );
+
+      cy.location('pathname').should(
+        'eq',
+        `/people/${Cypress.env('ADULT_RECORD_PERSON_ID')}`
+      );
     });
   });
 });
