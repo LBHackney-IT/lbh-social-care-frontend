@@ -121,7 +121,7 @@ describe('<AddWarningNoteForm />', () => {
     jest.resetAllMocks();
   });
 
-  describe('for an adults resident', () => {
+  describe('for any resident (adults or childrens)', () => {
     let renderResult: RenderResult;
 
     beforeEach(() => {
@@ -134,10 +134,6 @@ describe('<AddWarningNoteForm />', () => {
           <AddWarningNoteForm personId={100} />
         </AuthProvider>
       );
-    });
-
-    it('should render the warning notes form', () => {
-      expect(renderResult.asFragment()).toMatchSnapshot();
     });
 
     it('should show an error message if a warning type is not selected', async () => {
@@ -225,122 +221,6 @@ describe('<AddWarningNoteForm />', () => {
           'Review / end date cannot be more than 1 year after the Start date.',
           { selector: '.govuk-error-message' }
         );
-      });
-    });
-
-    it('should show an error message if a disclosure with individual value is not selected', async () => {
-      fireEvent.submit(screen.getByRole('form'));
-
-      await waitFor(() => {
-        screen.getByText('Select an answer for this input', {
-          selector: '.govuk-error-message',
-        });
-      });
-    });
-
-    it("should show an error message if a disclosure with individual value is selected as No and a justification for non-disclosure isn't entered", async () => {
-      fireEvent.click(
-        screen.getByText('No', {
-          selector: "[for='disclosedWithIndividual_No']",
-        })
-      );
-
-      fireEvent.submit(screen.getByRole('form'));
-
-      await waitFor(() => {
-        screen.getByText(
-          'Enter justification for non-disclosure of warning note',
-          {
-            selector: '.govuk-error-message',
-          }
-        );
-      });
-    });
-    it("should show an error message if a disclosure with individual value is selected as Yes and an informed date isn't entered", async () => {
-      fireEvent.click(
-        screen.getByText('Yes', {
-          selector: "[for='disclosedWithIndividual_Yes']",
-        })
-      );
-
-      fireEvent.submit(screen.getByRole('form'));
-
-      await waitFor(() => {
-        screen.getByText('Enter a date informed', {
-          selector: '.govuk-error-message',
-        });
-      });
-    });
-
-    it('should show an error message if a disclosure with individual value is selected as Yes and an invalid informed date is entered', async () => {
-      fireEvent.click(
-        screen.getByText('Yes', {
-          selector: "[for='disclosedWithIndividual_Yes']",
-        })
-      );
-
-      setDateFieldValue('disclosedDate', {
-        date: '56',
-        month: '15',
-        year: '10',
-      });
-
-      fireEvent.submit(screen.getByRole('form'));
-
-      await waitFor(() => {
-        screen.getByText('Must be a valid Date', {
-          selector: '.govuk-error-message',
-        });
-      });
-    });
-
-    it('should show an error message if a disclosure with individual value is selected as Yes and an informed date in the future is entered', async () => {
-      fireEvent.click(
-        screen.getByText('Yes', {
-          selector: "[for='disclosedWithIndividual_Yes']",
-        })
-      );
-
-      setDateFieldValue('disclosedDate', addDays(new Date(), 10));
-
-      fireEvent.submit(screen.getByRole('form'));
-
-      await waitFor(() => {
-        screen.getByText("Date informed can't be in the future", {
-          selector: '.govuk-error-message',
-        });
-      });
-    });
-
-    it('should show an error message if a disclosure with individual value is selected as Yes and no inform method is selected', async () => {
-      fireEvent.click(
-        screen.getByText('Yes', {
-          selector: "[for='disclosedWithIndividual_Yes']",
-        })
-      );
-
-      fireEvent.submit(screen.getByRole('form'));
-
-      await waitFor(() => {
-        screen.getByText('Select how the individual was informed', {
-          selector: '.govuk-error-message',
-        });
-      });
-    });
-
-    it('should show an error message if a disclosure with individual value is selected as Yes and no details are entered', async () => {
-      fireEvent.click(
-        screen.getByText('Yes', {
-          selector: "[for='disclosedWithIndividual_Yes']",
-        })
-      );
-
-      fireEvent.submit(screen.getByRole('form'));
-
-      await waitFor(() => {
-        screen.getByText('Enter details of disclosure to individual', {
-          selector: '.govuk-error-message',
-        });
       });
     });
 
@@ -480,6 +360,143 @@ describe('<AddWarningNoteForm />', () => {
 
       await waitFor(() => {
         expect(Router.push).not.toHaveBeenCalled();
+      });
+    });
+  });
+
+  describe('for an adults resident', () => {
+    let renderResult: RenderResult;
+
+    beforeEach(() => {
+      (PersonView as jest.Mock).mockImplementationOnce(
+        createMockedPersonView(mockedAdultsResident)
+      );
+
+      renderResult = render(
+        <AuthProvider user={mockedUser}>
+          <AddWarningNoteForm personId={100} />
+        </AuthProvider>
+      );
+    });
+
+    it('should render the warning notes form', () => {
+      expect(renderResult.asFragment()).toMatchSnapshot();
+    });
+
+    it('should show an error message if a disclosure with individual value is not selected', async () => {
+      fireEvent.submit(screen.getByRole('form'));
+
+      await waitFor(() => {
+        screen.getByText('Select an answer for this input', {
+          selector: '.govuk-error-message',
+        });
+      });
+    });
+
+    it("should show an error message if a disclosure with individual value is selected as No and a justification for non-disclosure isn't entered", async () => {
+      fireEvent.click(
+        screen.getByText('No', {
+          selector: "[for='disclosedWithIndividual_No']",
+        })
+      );
+
+      fireEvent.submit(screen.getByRole('form'));
+
+      await waitFor(() => {
+        screen.getByText(
+          'Enter justification for non-disclosure of warning note',
+          {
+            selector: '.govuk-error-message',
+          }
+        );
+      });
+    });
+
+    it("should show an error message if a disclosure with individual value is selected as Yes and an informed date isn't entered", async () => {
+      fireEvent.click(
+        screen.getByText('Yes', {
+          selector: "[for='disclosedWithIndividual_Yes']",
+        })
+      );
+
+      fireEvent.submit(screen.getByRole('form'));
+
+      await waitFor(() => {
+        screen.getByText('Enter a date informed', {
+          selector: '.govuk-error-message',
+        });
+      });
+    });
+
+    it('should show an error message if a disclosure with individual value is selected as Yes and an invalid informed date is entered', async () => {
+      fireEvent.click(
+        screen.getByText('Yes', {
+          selector: "[for='disclosedWithIndividual_Yes']",
+        })
+      );
+
+      setDateFieldValue('disclosedDate', {
+        date: '56',
+        month: '15',
+        year: '10',
+      });
+
+      fireEvent.submit(screen.getByRole('form'));
+
+      await waitFor(() => {
+        screen.getByText('Must be a valid Date', {
+          selector: '.govuk-error-message',
+        });
+      });
+    });
+
+    it('should show an error message if a disclosure with individual value is selected as Yes and an informed date in the future is entered', async () => {
+      fireEvent.click(
+        screen.getByText('Yes', {
+          selector: "[for='disclosedWithIndividual_Yes']",
+        })
+      );
+
+      setDateFieldValue('disclosedDate', addDays(new Date(), 10));
+
+      fireEvent.submit(screen.getByRole('form'));
+
+      await waitFor(() => {
+        screen.getByText("Date informed can't be in the future", {
+          selector: '.govuk-error-message',
+        });
+      });
+    });
+
+    it('should show an error message if a disclosure with individual value is selected as Yes and no inform method is selected', async () => {
+      fireEvent.click(
+        screen.getByText('Yes', {
+          selector: "[for='disclosedWithIndividual_Yes']",
+        })
+      );
+
+      fireEvent.submit(screen.getByRole('form'));
+
+      await waitFor(() => {
+        screen.getByText('Select how the individual was informed', {
+          selector: '.govuk-error-message',
+        });
+      });
+    });
+
+    it('should show an error message if a disclosure with individual value is selected as Yes and no details are entered', async () => {
+      fireEvent.click(
+        screen.getByText('Yes', {
+          selector: "[for='disclosedWithIndividual_Yes']",
+        })
+      );
+
+      fireEvent.submit(screen.getByRole('form'));
+
+      await waitFor(() => {
+        screen.getByText('Enter details of disclosure to individual', {
+          selector: '.govuk-error-message',
+        });
       });
     });
   });
