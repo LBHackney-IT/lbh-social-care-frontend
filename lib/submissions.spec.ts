@@ -39,7 +39,7 @@ describe('startSubmission', () => {
 describe('getSubmissionById', () => {
   it('should work properly', async () => {
     mockedAxios.get.mockResolvedValue({
-      data: { submissionId: '123' },
+      data: { submissionId: '123', formAnswers: {} },
     });
     const data = await getSubmissionById('123');
     expect(mockedAxios.get).toHaveBeenCalled();
@@ -51,7 +51,7 @@ describe('getSubmissionById', () => {
       'x-api-key': AWS_KEY,
     });
 
-    expect(data).toEqual({ submissionId: '123' });
+    expect(data).toEqual({ submissionId: '123', formAnswers: {} });
   });
 });
 
@@ -62,20 +62,20 @@ describe('finishSubmission', () => {
     });
     MockDate.set('2000-11-22');
 
-    const data = await finishSubmission('foo');
+    await finishSubmission('foo', 'bar');
     expect(mockedAxios.patch).toHaveBeenCalled();
     expect(mockedAxios.patch.mock.calls[0][0]).toEqual(
       `${ENDPOINT_API}/submissions/foo`
     );
     expect(mockedAxios.patch.mock.calls[0][1]).toEqual({
-      submittedAt: new Date().toISOString(),
+      createdBy: 'bar',
     });
     expect(mockedAxios.patch.mock.calls[0][2]?.headers).toEqual({
       'x-api-key': AWS_KEY,
     });
-    expect(data).toEqual({
-      submissionId: '123',
-    });
+    // expect(data).toEqual({
+    //   submissionId: '123',
+    // });
   });
 });
 
@@ -87,7 +87,7 @@ const mockAnswers = {
 describe('patchSubmissionForStep', () => {
   it('should work properly', async () => {
     mockedAxios.patch.mockResolvedValue({
-      data: { submissionId: '123' },
+      data: { submissionId: '123', formAnswers: {} },
     });
     const data = await patchSubmissionForStep('123', '456', 'foo', mockAnswers);
     expect(mockedAxios.patch).toHaveBeenCalled();
@@ -103,6 +103,7 @@ describe('patchSubmissionForStep', () => {
     });
     expect(data).toEqual({
       submissionId: '123',
+      formAnswers: {},
     });
   });
 });
