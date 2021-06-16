@@ -27,7 +27,7 @@ const SubmissionPage = ({ submission, person }: Props): React.ReactElement => (
     </div>
     <div className={`govuk-grid-row ${s.outer}`}>
       <div className="govuk-grid-column-two-thirds">
-        <FlexibleAnswers answers={submission.answers} />
+        <FlexibleAnswers answers={submission.formAnswers} />
       </div>
       <div className="govuk-grid-column-one-third">
         <div className={s.sticky}>

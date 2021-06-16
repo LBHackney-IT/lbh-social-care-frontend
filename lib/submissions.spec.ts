@@ -95,7 +95,7 @@ describe('patchSubmissionForStep', () => {
       `${ENDPOINT_API}/submissions/123/steps/456`
     );
     expect(mockedAxios.patch.mock.calls[0][1]).toEqual({
-      stepAnswers: mockAnswers,
+      stepAnswers: JSON.stringify(mockAnswers),
       editedBy: 'foo',
     });
     expect(mockedAxios.patch.mock.calls[0][2]?.headers).toEqual({
