@@ -5,15 +5,31 @@ import AddAllocatedWorker from 'components/AllocatedWorkers/AddAllocatedWorker/A
 import PersonView from 'components/PersonView/PersonView';
 import { useAuth } from 'components/UserContext/UserContext';
 import { isBrowser } from 'utils/ssr';
+import { canUserAllocateWorkerToPerson } from '../../../../lib/permissions';
+import { User } from '../../../../types';
+import { useResident } from '../../../../utils/api/residents';
+import ErrorMessage from '../../../../components/ErrorMessage/ErrorMessage';
+import Spinner from '../../../../components/Spinner/Spinner';
 
 const AddNewAllocationPage = (): React.ReactElement => {
   const { query, replace } = useRouter();
   const personId = Number(query.id as string);
-  const { user } = useAuth();
-  if (isBrowser() && !user?.hasAllocationsPermissions) {
+  const { user } = useAuth() as { user: User };
+  const { data: person, error } = useResident(personId);
+
+  if (error) {
+    return <ErrorMessage />;
+  }
+
+  if (!person) {
+    return <Spinner />;
+  }
+
+  if (isBrowser() && !canUserAllocateWorkerToPerson(user, person)) {
     replace(`/people/${personId}`);
     return <></>;
   }
+
   return (
     <>
       <Seo title={`Allocate Worker to #${query.id} Allocate Worker`} />

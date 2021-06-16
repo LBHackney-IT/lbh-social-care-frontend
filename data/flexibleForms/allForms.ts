@@ -1596,15 +1596,14 @@ const forms: Form[] = [
     name: 'Another example',
     steps: [
       {
-        id: 'bar',
-        name: 'Bar',
+        id: 'foo',
+        name: 'Foo',
         theme: 'More stuff',
         fields: [
           {
             id: 'example question',
             question: "What's your favourite colour?",
             type: 'select',
-            required: false,
             choices: [
               {
                 value: 'red',
@@ -1615,6 +1614,18 @@ const forms: Form[] = [
                 label: 'Green',
               },
             ],
+          },
+        ],
+      },
+      {
+        id: 'bar',
+        name: 'Bar',
+        theme: 'More stuff',
+        fields: [
+          {
+            id: 'example question 2',
+            question: "What's your favourite car?",
+            type: 'text',
           },
         ],
       },
