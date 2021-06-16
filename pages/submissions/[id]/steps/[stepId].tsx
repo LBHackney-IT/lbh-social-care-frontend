@@ -42,9 +42,7 @@ const StepPage = ({
     try {
       const { data } = await axios.patch(
         `/api/submissions/${params.id}/steps/${params.stepId}`,
-        {
-          data: values,
-        }
+        values
       );
       if (data.error) throw data.error;
     } catch (e) {
