@@ -67,10 +67,11 @@ const Search = ({
     query,
     hasQuery || showOnlyMyResults
   );
-  const results = data && {
-    records: data?.reduce((acc, d) => [...acc, ...getRecords(d)], []),
-    nextCursor: data[data.length - 1].nextCursor,
-  };
+  const results = data &&
+    data != 1 && {
+      records: data?.reduce((acc, d) => [...acc, ...getRecords(d)], []),
+      nextCursor: data[data.length - 1].nextCursor,
+    };
   const onFormSubmit = useCallback(
     (formData) => {
       const qs = formData
@@ -142,7 +143,7 @@ const Search = ({
           )
         )}
       </div>
-      {error && <ErrorMessage />}
+      {error && data != 1 && <ErrorMessage />}
 
       {type === 'people' && results && !results?.nextCursor && (
         <>
