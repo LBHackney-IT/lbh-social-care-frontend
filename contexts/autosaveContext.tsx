@@ -39,6 +39,8 @@ export const AutosaveProvider = ({
   );
 };
 
+export const useAutosave = (): ContextType => useContext(AutosaveContext);
+
 export const AutosaveTrigger = ({ delay = 1000 }: { delay?: number }): null => {
   const { saved, setSaved, setSaving } = useContext(AutosaveContext);
 

@@ -5,7 +5,8 @@ import FlexibleField from './FlexibleFields';
 import { Resident } from 'types';
 import Banner from './Banner';
 import { generateInitialValues, InitialValues } from 'lib/utils';
-import { AutosaveTrigger } from 'contexts/autosaveContext';
+import { useAutosave, AutosaveTrigger } from 'contexts/autosaveContext';
+import { useRouter } from 'next/router';
 
 interface Props {
   fields: Field[];
@@ -27,8 +28,12 @@ const StepForm = ({
   fields,
   person,
   onSubmit,
+  onFinish,
   singleStep,
 }: Props): React.ReactElement => {
+  const { setSaved } = useAutosave();
+  const router = useRouter();
+
   return (
     <Formik
       initialValues={initialValues || generateInitialValues(fields, person)}
@@ -36,7 +41,17 @@ const StepForm = ({
       onSubmit={onSubmit}
       validateOnMount={true}
     >
-      {({ values, isSubmitting, touched, errors, status }) => (
+      {({
+        values,
+        isSubmitting,
+        touched,
+        errors,
+        status,
+        submitForm,
+        setSubmitting,
+        isValid,
+        setStatus,
+      }) => (
         <Form>
           {status && (
             <Banner
@@ -58,9 +73,26 @@ const StepForm = ({
             />
           ))}
 
-          <AutosaveTrigger delay={2000} />
+          <AutosaveTrigger delay={20000} />
 
-          <button className="govuk-button lbh-button" disabled={isSubmitting}>
+          <button
+            className="govuk-button lbh-button"
+            disabled={isSubmitting}
+            onClick={async () => {
+              await submitForm();
+              setSaved(true);
+              // next, finish the submission if it's the only step, or return to the task list
+              if (isValid) {
+                if (singleStep) {
+                  setSubmitting(true);
+                  onFinish(values, setStatus);
+                } else {
+                  if (!isSubmitting)
+                    router.push(`/submissions/${router.query.id}`);
+                }
+              }
+            }}
+          >
             {singleStep ? 'Save and finish' : 'Save and continue'}
           </button>
         </Form>
