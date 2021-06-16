@@ -7,21 +7,11 @@ const MyCasesPage = (): React.ReactElement => (
     <Seo title="My Work Space" />
     <DashboardWrapper>
       <>
-        <p className="govuk-body">Clients you are currently managing</p>
+        <p className="govuk-body">People you are working with</p>
         <MyAllocatedCases />
       </>
     </DashboardWrapper>
   </div>
 );
-
-// TODO: remove this redirect when dashboard is ready to launch
-export const getServerSideProps = async () => {
-  return {
-    props: {},
-    redirect: {
-      destination: '/search',
-    },
-  };
-};
 
 export default MyCasesPage;

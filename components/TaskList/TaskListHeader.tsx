@@ -24,9 +24,9 @@ const TaskListHeader = ({
 
   return (
     <>
-      <h2 className="lbh-heading-h4">Submission complete</h2>
+      <h2 className="lbh-heading-h4">Ready to send</h2>
       <p className="lbh-body  govuk-!-margin-top-2">
-        You can now submit for review.
+        You can now submit for approval.
       </p>
 
       <button onClick={onFinish} className="govuk-button lbh-button">

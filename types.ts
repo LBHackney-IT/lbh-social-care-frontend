@@ -124,8 +124,8 @@ export interface LegacyResident {
   nhsNumber: string;
   restricted?: 'Y' | 'N';
   address?: {
-    address: string;
-    postcode: string;
+    address: string | null;
+    postcode: string | null;
     uprn?: string;
   };
   phoneNumber?: Array<{
@@ -228,7 +228,7 @@ interface BaseNote {
   createdBy: string;
   startDate: string;
   reviewDate: string;
-  endedDate?: string;
+  endDate?: string;
   endedBy?: string;
   reviewedDate?: string;
   reviewedBy?: string;
@@ -237,7 +237,7 @@ interface BaseNote {
   managerName: string;
   discussedWithManagerDate: string;
   status: 'closed' | 'open';
-  reviews: Array<ReviewedNote>;
+  warningNoteReviews: Array<ReviewedNote>;
 }
 
 interface DisclosedNote extends BaseNote {
@@ -257,7 +257,7 @@ interface ReviewedNote {
   warningNoteId: number;
   reviewDate: string;
   disclosedWithIndividual: boolean;
-  notes: string;
+  reviewNotes: string;
   managerName: string;
   discussedWithManagerDate: string;
   createdAt: string;

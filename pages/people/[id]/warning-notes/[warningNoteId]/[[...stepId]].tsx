@@ -1,11 +1,14 @@
 import { useRouter } from 'next/router';
-import { useCallback } from 'react';
+import { useCallback, useState } from 'react';
 
 import PersonView from 'components/PersonView/PersonView';
 import WarningNoteRecap from 'components/WarningNote/WarningNoteRecap/WarningNoteRecap';
 import { Resident, User } from 'types';
 import FormWizard from 'components/FormWizard/FormWizard';
-import formSteps from 'data/forms/warning-note-review';
+import {
+  reviewFormStepsAdult,
+  reviewFormStepsChild,
+} from 'data/forms/warning-note-review';
 import { useAuth } from 'components/UserContext/UserContext';
 import CustomConfirmation from 'components/Steps/ReviewWarningNoteConfirmation';
 import { updateWarningNote } from 'utils/api/warningNotes';
@@ -14,11 +17,19 @@ const ReviewWarningNote = (): React.ReactElement => {
   const { query, asPath } = useRouter();
   const personId = Number(query.id as string);
   const warningNoteId = Number(query.warningNoteId as string);
+  const [reviewType, setReviewType] = useState<'renew' | 'end' | null>(null);
+
   const summary = asPath.includes('summary');
   const confirmation = asPath.includes('confirmation');
   const { user } = useAuth() as { user: User };
   const onFormSubmit = useCallback(
     async ({ ...formData }: Record<string, unknown>) => {
+      if (formData.disclosedWithIndividual !== undefined) {
+        formData = {
+          ...formData,
+          disclosedWithIndividual: formData.disclosedWithIndividual === 'Yes',
+        };
+      }
       await updateWarningNote(warningNoteId, {
         warningNoteId,
         reviewedBy: user.email,
@@ -34,14 +45,27 @@ const ReviewWarningNote = (): React.ReactElement => {
     [user.email]
   );
 
+  const handleProgressStep = useCallback(
+    (formData: Record<string, unknown>) => {
+      setReviewType(
+        formData.reviewDecision === 'Yes'
+          ? 'renew'
+          : formData.reviewDecision === 'No'
+          ? 'end'
+          : null
+      );
+    },
+    []
+  );
+
   return (
     <>
       <h1 className="govuk-fieldset__legend--l gov-weight-lighter">
         {summary
-          ? 'Check Warning Note renew details'
+          ? `Check Warning Note ${reviewType || 'renew / end'} details`
           : confirmation
-          ? 'Warning Note renew confirmed'
-          : 'Review/end Warning Note'}
+          ? `Warning Note ${reviewType || 'renew / end'} confirmed`
+          : 'Review / end Warning Note'}
       </h1>
       <PersonView personId={personId} expandView>
         {(person) => (
@@ -66,9 +90,14 @@ const ReviewWarningNote = (): React.ReactElement => {
             )}
             <FormWizard
               formPath={`/people/${personId}/warning-notes/${warningNoteId}/`}
-              formSteps={formSteps}
+              formSteps={
+                person.contextFlag === 'A'
+                  ? reviewFormStepsAdult
+                  : reviewFormStepsChild
+              }
               title="Review Warning Note"
               onFormSubmit={onFormSubmit}
+              onProgressStep={handleProgressStep}
               personDetails={{ ...person }}
               defaultValues={{ person }}
               customConfirmation={CustomConfirmation}

@@ -58,7 +58,10 @@ describe('CaseLink component', () => {
   it('should render properly - with handled link for viewing warning notes', () => {
     const props = {
       recordId: '123',
-      caseFormData: mockedWarningNoteCase.caseFormData,
+      caseFormData: {
+        ...mockedWarningNoteCase.caseFormData,
+        form_name: 'Warning Note Created',
+      },
     };
     const { asFragment } = render(<CaseLink {...props} />);
     expect(asFragment()).toMatchSnapshot();

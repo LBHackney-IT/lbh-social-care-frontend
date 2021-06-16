@@ -30,7 +30,7 @@ exports[`WarningNoteRecap should render correctly 1`] = `
         <dt
           class="govuk-summary-list__key"
         >
-          Select warning type
+          Warning type
         </dt>
         <dd
           class="govuk-summary-list__value"
@@ -100,7 +100,7 @@ exports[`WarningNoteRecap should render correctly 1`] = `
         <dt
           class="govuk-summary-list__key"
         >
-          How informed
+          How was the individual informed
         </dt>
         <dd
           class="govuk-summary-list__value"
@@ -178,6 +178,20 @@ exports[`WarningNoteRecap should render correctly 1`] = `
           class="govuk-summary-list__value"
         >
           12/11/2020
+        </dd>
+      </div>
+      <div
+        class="govuk-summary-list__row"
+      >
+        <dt
+          class="govuk-summary-list__key"
+        >
+          Created by
+        </dt>
+        <dd
+          class="govuk-summary-list__value"
+        >
+          Foo
         </dd>
       </div>
     </dl>

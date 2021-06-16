@@ -41,7 +41,7 @@ describe('TaskList', () => {
       />
     );
 
-    expect(screen.getByText('Submission complete'));
+    expect(screen.getByText('Ready to send'));
   });
 
   const mockHandler = jest.fn();

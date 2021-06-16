@@ -177,7 +177,7 @@ const WARNING_TYPE_ADULTS: Array<FormComponentStep> = [
   {
     component: 'Radios',
     name: 'noteType',
-    label: 'Select warning type',
+    label: 'Warning type',
     options: WARNING_TYPES_ADULTS,
     rules: { required: true },
   },
@@ -234,7 +234,7 @@ const WARNING_TYPE_CHILDREN: Array<FormComponentStep> = [
   {
     component: 'Radios',
     name: 'noteType',
-    label: 'Select warning type',
+    label: 'Warning type',
     options: WARNING_TYPES_CHILDREN,
     rules: { required: true },
   },
@@ -246,7 +246,14 @@ const WARNING_DATES: Array<FormComponentStep> = [
     name: 'startDate',
     label: 'Start date',
     hint: 'Start date cannot be set in the future.',
-    rules: { required: true },
+    rules: {
+      required: true,
+      validate: {
+        notInFuture: (value) =>
+          new Date(value).getTime() <= new Date().getTime() ||
+          "Start date can't be in the future",
+      },
+    },
   },
   {
     component: 'DateInput',
@@ -288,7 +295,7 @@ const WARNING_DISCLOSURE: Array<FormComponentStep> = [
   {
     component: 'Radios',
     name: 'disclosedWithIndividual',
-    rules: { required: true },
+    rules: { required: 'Select an answer for this input' },
     label: 'Is the individual aware of the Warning Note and Review Date?',
   },
   {
@@ -296,7 +303,14 @@ const WARNING_DISCLOSURE: Array<FormComponentStep> = [
     name: 'disclosedDate',
     label: 'Date informed',
     labelSize: 's',
-    rules: { required: true },
+    rules: {
+      required: true,
+      validate: {
+        notInFuture: (value) =>
+          new Date(value).getTime() <= new Date().getTime() ||
+          "Date informed can't be in the future",
+      },
+    },
     showConditionalGuides: true,
     conditionalRender: ({ disclosedWithIndividual }) =>
       disclosedWithIndividual === 'Yes',
@@ -304,10 +318,10 @@ const WARNING_DISCLOSURE: Array<FormComponentStep> = [
   {
     component: 'Radios',
     name: 'disclosedHow',
-    label: 'How informed',
+    label: 'How was the individual informed',
     labelSize: 's',
     options: ['Verbal', 'Written', 'Verbal / Written'],
-    rules: { required: true },
+    rules: { required: 'Select how the individual was informed' },
     showConditionalGuides: true,
     conditionalRender: ({ disclosedWithIndividual }) =>
       disclosedWithIndividual === 'Yes',
@@ -336,8 +350,11 @@ const WARNING_DISCLOSURE: Array<FormComponentStep> = [
 
 const WARNING_NARRATIVE_ADULTS: Array<FormComponentStep> = [
   <div key="warning narrative">
-    <h2>Guidance on narrative and risks</h2>
-    <ExpandDetails label="Guidance on disclosure" triggerLabel="guidance">
+    <h2>Warning narrative and risks</h2>
+    <ExpandDetails
+      label="Guidance on narrative and risks"
+      triggerLabel="guidance"
+    >
       <div>
         This case note provides the context of the warning and should contain:
         <ul>
@@ -375,7 +392,7 @@ const WARNING_NARRATIVE_CHILDREN: Array<FormComponentStep> = [
   {
     component: 'TextArea',
     name: 'notes',
-    label: 'Add further details about the Warning Note',
+    label: 'Further details about the Warning Note',
     rules: { required: true },
   },
 ];
@@ -398,7 +415,14 @@ const DISCUSSED_WITH_MANAGER: Array<FormComponentStep> = [
     component: 'DateInput',
     name: 'discussedWithManagerDate',
     label: 'Date discussed with manager',
-    rules: { required: true },
+    rules: {
+      required: true,
+      validate: {
+        notInFuture: (value) =>
+          new Date(value).getTime() <= new Date().getTime() ||
+          "Date discussed with manager can't be in the future",
+      },
+    },
   },
 ];
 
