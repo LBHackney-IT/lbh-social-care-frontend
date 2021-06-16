@@ -66,10 +66,10 @@ export interface FlexibleAnswers {
 }
 
 export interface Submission {
-  id: string;
+  submissionId: string;
   socialCareId: number;
   formId: string;
-  answers: FlexibleAnswers;
+  formAnswers: FlexibleAnswers;
   completedSteps: string[];
   createdBy: string;
   editedBy: string[];

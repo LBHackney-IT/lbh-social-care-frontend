@@ -20,11 +20,9 @@ const NewSubmissionPage = ({ forms }: Props): React.ReactElement => {
       { setStatus }: FormikHelpers<FormValues>
     ): Promise<void> => {
       try {
-        const { data } = await axios.post(`/api/submissions`, {
-          data: values,
-        });
-        if (data.error) throw data.error;
-        router.push(`/submissions/${data.id}`);
+        const { data } = await axios.post(`/api/submissions`, values);
+        if (data.error || !data.submissionId) throw data.error;
+        router.push(`/submissions/${data.submissionId}`);
       } catch (e) {
         setStatus(e.toString());
       }
