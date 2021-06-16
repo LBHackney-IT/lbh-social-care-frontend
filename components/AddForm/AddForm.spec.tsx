@@ -89,7 +89,7 @@ describe('AddForm component', () => {
     expect(autocompleteInput.value).toBe('Foo - Child');
   });
 
-  it('shound render Warning Note for a developer user', async () => {
+  it('should render Warning Note for a developer user', async () => {
     const props = {
       person: residentFactory.build({ contextFlag: 'A' }),
     };
