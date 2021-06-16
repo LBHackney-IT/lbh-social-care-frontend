@@ -2,6 +2,7 @@ import { NextApiRequest, NextApiResponse } from 'next';
 import forms from 'data/flexibleForms';
 import StatusCodes from 'http-status-codes';
 import { getSubmissionById, finishSubmission } from 'lib/submissions';
+import { isAuthorised } from 'utils/auth';
 
 const handler = async (
   req: NextApiRequest,
@@ -12,8 +13,9 @@ const handler = async (
   switch (req.method) {
     case 'POST':
       {
-        const submission = await finishSubmission(String(id));
-        res.json(submission);
+        const user = isAuthorised(req);
+        const status = await finishSubmission(String(id), String(user?.email));
+        res.status(status).end();
       }
       break;
     case 'GET':
