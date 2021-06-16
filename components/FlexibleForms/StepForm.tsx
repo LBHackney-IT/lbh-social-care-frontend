@@ -23,8 +23,8 @@ interface Props {
   singleStep?: boolean;
 }
 
-const WarnUnsavedChanges = ({ dirty }: { dirty: boolean }) => {
-  useWarnUnsavedChanges(dirty);
+const WarnUnsavedChanges = ({ warn }: { warn: boolean }) => {
+  useWarnUnsavedChanges(warn);
   return null;
 };
 
@@ -58,7 +58,7 @@ const StepForm = ({
         dirty,
       }) => (
         <Form>
-          <WarnUnsavedChanges dirty={dirty} />
+          <WarnUnsavedChanges warn={dirty && !isSubmitting} />
 
           {status && (
             <Banner
