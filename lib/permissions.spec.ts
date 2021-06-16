@@ -434,7 +434,9 @@ describe('permissions', () => {
     });
 
     it('should return true when the user is a dev', () => {
-      expect(canUserAllocateWorkerToPerson(users.dev, residentFactory.build()));
+      expect(
+        canUserAllocateWorkerToPerson(users.dev, residentFactory.build())
+      ).toEqual(true);
     });
 
     it('should return true when the user is in the childrens group and the resident is a child', () => {
