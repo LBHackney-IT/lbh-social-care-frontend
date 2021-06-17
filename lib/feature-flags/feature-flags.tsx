@@ -11,7 +11,10 @@ export const FeatureFlagContext: React.FC<{
   return <Context.Provider value={features}>{children}</Context.Provider>;
 };
 
-export const ConditionalFeature = ({ name }: { name: string }) => {
+export const ConditionalFeature: React.FC<{ name: string }> = ({
+  name,
+  children,
+}) => {
   const features = useContext(Context);
 
   if (features[name] === undefined) {
@@ -22,5 +25,5 @@ export const ConditionalFeature = ({ name }: { name: string }) => {
     return null;
   }
 
-  return <div data-testid="expectedElement">This should be visible!</div>;
+  return <>{children}</>;
 };

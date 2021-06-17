@@ -13,6 +13,7 @@ import type { User } from 'types';
 
 import 'stylesheets/all.scss';
 import 'stylesheets/header.scss';
+import { FeatureFlagContext } from '../lib/feature-flags/feature-flags';
 
 interface Props {
   user?: Partial<User>;
@@ -29,25 +30,28 @@ const CustomApp = ({
   pageProps,
 }: ExtendedAppProps): JSX.Element | null => {
   const [user] = useState(pageProps.user);
+  const features = { 'feature-flags-implementation-proof': true };
   return (
     <>
-      <SWRConfig
-        value={{
-          fetcher: (resource, options) =>
-            axios.get(resource, options).then((res) => res.data),
-          onErrorRetry: (error) => {
-            if (error.status === 404) return;
-          },
-        }}
-      >
-        <AuthProvider user={user}>
-          <GoogleAnalytics>
-            <Layout goBackButton={Component.goBackButton}>
-              <Component {...pageProps} />
-            </Layout>
-          </GoogleAnalytics>
-        </AuthProvider>
-      </SWRConfig>
+      <FeatureFlagContext features={features}>
+        <SWRConfig
+          value={{
+            fetcher: (resource, options) =>
+              axios.get(resource, options).then((res) => res.data),
+            onErrorRetry: (error) => {
+              if (error.status === 404) return;
+            },
+          }}
+        >
+          <AuthProvider user={user}>
+            <GoogleAnalytics>
+              <Layout goBackButton={Component.goBackButton}>
+                <Component {...pageProps} />
+              </Layout>
+            </GoogleAnalytics>
+          </AuthProvider>
+        </SWRConfig>
+      </FeatureFlagContext>
     </>
   );
 };
