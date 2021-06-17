@@ -5,8 +5,8 @@ import FlexibleField from './FlexibleFields';
 import { Resident } from 'types';
 import Banner from './Banner';
 import { generateInitialValues, InitialValues } from 'lib/utils';
+import { useAutosave, AutosaveTrigger } from 'contexts/autosaveContext';
 import { useRouter } from 'next/router';
-import useWarnUnsavedChanges from 'hooks/useWarnUnsavedChanges';
 
 interface Props {
   fields: Field[];
@@ -23,11 +23,6 @@ interface Props {
   singleStep?: boolean;
 }
 
-const WarnUnsavedChanges = ({ dirty }: { dirty: boolean }) => {
-  useWarnUnsavedChanges(dirty);
-  return null;
-};
-
 const StepForm = ({
   initialValues,
   fields,
@@ -36,6 +31,7 @@ const StepForm = ({
   onFinish,
   singleStep,
 }: Props): React.ReactElement => {
+  const { setSaved } = useAutosave();
   const router = useRouter();
 
   return (
@@ -48,18 +44,15 @@ const StepForm = ({
       {({
         values,
         isSubmitting,
-        setSubmitting,
         touched,
         errors,
-        setStatus,
         status,
         submitForm,
+        setSubmitting,
         isValid,
-        dirty,
+        setStatus,
       }) => (
         <Form>
-          <WarnUnsavedChanges dirty={dirty} />
-
           {status && (
             <Banner
               title="There was a problem saving your answers"
@@ -80,11 +73,14 @@ const StepForm = ({
             />
           ))}
 
+          <AutosaveTrigger delay={2000} />
+
           <button
             className="govuk-button lbh-button"
             disabled={isSubmitting}
             onClick={async () => {
               await submitForm();
+              setSaved(true);
               // next, finish the submission if it's the only step, or return to the task list
               if (isValid) {
                 if (singleStep) {
