@@ -13,6 +13,7 @@ const Footer = (): React.ReactElement => (
       </nav>
 
       <div className={s.meta}>Built and maintained by HackIT.</div>
+      <div className={s.meta}>The Demo Feature Flag is active</div>
     </div>
   </footer>
 );
