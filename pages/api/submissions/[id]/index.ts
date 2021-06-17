@@ -15,13 +15,13 @@ const handler = async (
       {
         const user = isAuthorised(req);
         const status = await finishSubmission(String(id), String(user?.email));
+
         res.status(status).end();
       }
       break;
     case 'GET':
       {
         const submission = await getSubmissionById(String(id));
-
         const form = forms.find((form) => form.id === submission.formId);
 
         res.json({
