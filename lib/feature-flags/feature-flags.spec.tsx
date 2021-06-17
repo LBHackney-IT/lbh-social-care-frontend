@@ -12,10 +12,14 @@ import { ConditionalFeature, FeatureFlagContext } from './feature-flags';
 
 describe('<ConditionalFeature />', () => {
   it('should render nothing if an unknown feature name is provided', () => {
+    const features = {};
+
     render(
-      <ConditionalFeature name="some-unknown-feature-name">
-        <div data-testid="expectedElement">This should not be visible!</div>
-      </ConditionalFeature>
+      <FeatureFlagContext features={features}>
+        <ConditionalFeature name="some-unknown-feature-name">
+          <div data-testid="expectedElement">This should not be visible!</div>
+        </ConditionalFeature>
+      </FeatureFlagContext>
     );
 
     const children = screen.queryByTestId('expectedElement');
@@ -42,10 +46,16 @@ describe('<ConditionalFeature />', () => {
   });
 
   it('should render the children if a known feature name is provided and that feature is active', () => {
+    const features = {
+      'some-known-active-feature-name': true,
+    };
+
     render(
-      <ConditionalFeature name="some-known-active-feature-name">
-        <div data-testid="expectedElement">This should be visible!</div>
-      </ConditionalFeature>
+      <FeatureFlagContext features={features}>
+        <ConditionalFeature name="some-known-active-feature-name">
+          <div data-testid="expectedElement">This should be visible!</div>
+        </ConditionalFeature>
+      </FeatureFlagContext>
     );
 
     screen.getByTestId('expectedElement');
