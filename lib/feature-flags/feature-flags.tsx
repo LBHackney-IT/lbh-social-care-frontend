@@ -13,7 +13,12 @@ export const FeatureFlagContext: React.FC<{
 
 export const ConditionalFeature = ({ name }: { name: string }) => {
   const features = useContext(Context);
-  if (features[name] === false || features[name] === undefined) {
+
+  if (features[name] === undefined) {
+    return null;
+  }
+
+  if (features[name] === false) {
     return null;
   }
 
