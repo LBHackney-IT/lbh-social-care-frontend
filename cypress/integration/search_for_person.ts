@@ -33,6 +33,18 @@ describe('Search for a person', () => {
         Cypress.env('ADULT_RECORD_FULL_NAME')
       );
     });
+
+    it('should not redirect to login page after clicking "clear search" twice', () => {
+      cy.visitAs('/search', AuthRoles.ChildrensGroup);
+
+      cy.contains('First name').type(Cypress.env('ADULT_RECORD_FIRST_NAME'));
+      cy.contains('Last name').type(Cypress.env('ADULT_RECORD_LAST_NAME'));
+
+      cy.get('#clear-link').click();
+      cy.get('#clear-link').click();
+
+      cy.url().should('include', '/search');
+    });
   });
 
   describe('As a user in the Adults group', () => {
