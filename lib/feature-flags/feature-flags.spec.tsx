@@ -8,18 +8,46 @@
 
 import { render, screen } from '@testing-library/react';
 
-import { ConditionalFeature } from './feature-flags';
+import { ConditionalFeature, FeatureFlagContext } from './feature-flags';
 
 describe('<ConditionalFeature />', () => {
   it('should render nothing if an unknown feature name is provided', () => {
     render(
       <ConditionalFeature name="some-unknown-feature-name">
-        <h1>This should not be visible!</h1>
+        <div data-testid="expectedElement">This should not be visible!</div>
       </ConditionalFeature>
     );
 
-    const children = screen.queryByText('This should not be visible!');
+    const children = screen.queryByTestId('expectedElement');
 
     expect(children).toBeNull();
+  });
+
+  it('should render nothing if a known feature name is provided and that feature is inactive', () => {
+    const features = {
+      'some-known-inactive-feature-name': false,
+    };
+
+    render(
+      <FeatureFlagContext features={features}>
+        <ConditionalFeature name="some-known-inactive-feature-name">
+          <div data-testid="expectedElement">This should be visible!</div>
+        </ConditionalFeature>
+      </FeatureFlagContext>
+    );
+
+    const children = screen.queryByTestId('expectedElement');
+
+    expect(children).toBeNull();
+  });
+
+  it('should render the children if a known feature name is provided and that feature is active', () => {
+    render(
+      <ConditionalFeature name="some-known-active-feature-name">
+        <div data-testid="expectedElement">This should be visible!</div>
+      </ConditionalFeature>
+    );
+
+    screen.getByTestId('expectedElement');
   });
 });
