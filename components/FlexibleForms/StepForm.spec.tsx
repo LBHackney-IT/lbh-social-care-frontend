@@ -14,6 +14,10 @@ useRouter.mockImplementation(() => ({
   query: {
     id: 'foo',
   },
+  events: {
+    on: jest.fn(),
+    off: jest.fn(),
+  },
 }));
 
 const mockFields = [
