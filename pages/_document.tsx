@@ -24,9 +24,10 @@ export default class AppDocument extends Document {
           `,
             }}
           />
-          <script
-            dangerouslySetInnerHTML={{
-              __html: `// Hotjar Tracking Code for https://social-care-service.hackney.gov.uk/
+          {process.env.NODE_ENV === 'production' ? (
+            <script
+              dangerouslySetInnerHTML={{
+                __html: `// Hotjar Tracking Code for https://social-care-service.hackney.gov.uk/
             (function(h,o,t,j,a,r){
             h.hj=h.hj||function(){(h.hj.q=h.hj.q||[]).push(arguments)};
             h._hjSettings={hjid:2457845,hjsv:6};
@@ -35,8 +36,9 @@ export default class AppDocument extends Document {
             r.src=t+h._hjSettings.hjid+j+h._hjSettings.hjsv;
             a.appendChild(r);
             })(window,document,'https://static.hotjar.com/c/hotjar-','.js?sv=');`,
-            }}
-          />
+              }}
+            />
+          ) : null}
         </Head>
         <body className="govuk-template__body lbh-template__body js-enabled">
           <Main />
