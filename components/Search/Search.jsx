@@ -68,7 +68,7 @@ const Search = ({
     hasQuery || showOnlyMyResults
   );
   const results = data &&
-    data != 1 && {
+    data !== 1 && {
       records: data?.reduce((acc, d) => [...acc, ...getRecords(d)], []),
       nextCursor: data[data.length - 1].nextCursor,
     };
@@ -143,7 +143,7 @@ const Search = ({
           )
         )}
       </div>
-      {error && data != 1 && <ErrorMessage />}
+      {error && data !== 1 && <ErrorMessage />}
 
       {type === 'people' && results && !results?.nextCursor && (
         <>
