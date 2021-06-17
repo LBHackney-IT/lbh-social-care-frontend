@@ -10,12 +10,7 @@ const handler = async (
 ): Promise<void> => {
   const { id, stepId } = req.query;
 
-  const user = isAuthorised(req);
-
-  // 1. grab submission
   const submission = await getSubmissionById(String(id));
-
-  // 2. grab this particular step from the form
   const form = forms.find((form) => form.id === submission.formId);
   const step = form?.steps.find((step) => step.id === stepId);
 
@@ -26,12 +21,15 @@ const handler = async (
 
   if (req.method === 'PATCH') {
     const values = req.body;
+    const user = isAuthorised(req);
+
     patchSubmissionForStep(
       String(id),
       String(stepId),
       String(user?.email),
       values
     );
+
     res.json(submission);
   } else {
     res.json({
