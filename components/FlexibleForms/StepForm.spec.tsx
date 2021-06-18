@@ -86,23 +86,24 @@ describe('StepForm', () => {
     });
   });
 
-  it("also triggers the finish event if it's the only step", async () => {
-    render(
-      <StepForm
-        fields={mockFields}
-        onSubmit={() => true}
-        onFinish={mockFinish}
-        singleStep={true}
-      />
-    );
+  // TODO: bring this test back when we bring this functionality back
+  // it("also triggers the finish event if it's the only step", async () => {
+  //   render(
+  //     <StepForm
+  //       fields={mockFields}
+  //       onSubmit={() => true}
+  //       onFinish={mockFinish}
+  //       singleStep={true}
+  //     />
+  //   );
 
-    fireEvent.change(screen.getByLabelText('Test question'), {
-      target: { value: 'test value' },
-    });
-    fireEvent.click(screen.getByText('Save and finish'));
+  //   fireEvent.change(screen.getByLabelText('Test question'), {
+  //     target: { value: 'test value' },
+  //   });
+  //   fireEvent.click(screen.getByText('Save and finish'));
 
-    await waitFor(() => {
-      expect(mockFinish).toBeCalledTimes(1);
-    });
-  });
+  //   await waitFor(() => {
+  //     expect(mockFinish).toBeCalledTimes(1);
+  //   });
+  // });
 });

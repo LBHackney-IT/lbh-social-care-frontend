@@ -1,5 +1,12 @@
 import { useState, useEffect } from 'react';
-import { Formik, Form, FormikValues, FormikHelpers } from 'formik';
+import {
+  Formik,
+  Form,
+  FormikValues,
+  FormikHelpers,
+  FormikTouched,
+  FormikErrors,
+} from 'formik';
 import { Field } from 'data/flexibleForms/forms.types';
 import { generateFlexibleSchema } from 'lib/validators';
 import FlexibleField from './FlexibleFields';
@@ -13,13 +20,13 @@ interface Props {
   fields: Field[];
   person?: Resident;
   initialValues?: InitialValues;
-  onFinish: (
-    values: FormikValues,
-    setStatus: (message: string) => void
-  ) => void;
   onSubmit: (
     values: FormikValues,
     { setStatus }: FormikHelpers<FormikValues>
+  ) => void;
+  onFinish: (
+    values: FormikValues,
+    setStatus: (message: string) => void
   ) => void;
   singleStep?: boolean;
 }
@@ -42,13 +49,13 @@ const StepForm = ({
 
 interface InnerProps {
   fields: Field[];
-  touched;
-  errors;
-  values;
+  touched: FormikTouched<FormikValues>;
+  errors: FormikErrors<FormikValues>;
+  values: FormikValues;
   isValid: boolean;
   isSubmitting: boolean;
-  submitForm;
-  status;
+  submitForm: () => Promise<void>;
+  status?: string;
 }
 
 const StepFormInner = ({
