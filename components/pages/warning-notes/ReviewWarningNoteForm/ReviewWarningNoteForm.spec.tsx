@@ -120,23 +120,27 @@ describe('<ReviewWarningNoteForm />', () => {
       });
     });
 
-    it("should show an error message if a manager's name is not entered", async () => {
+    it("should NOT show an error message if a manager's name is not entered", async () => {
       fireEvent.submit(screen.getByRole('form'));
 
       await waitFor(() => {
-        screen.getByText('Enter a manager’s name', {
-          selector: '.govuk-error-message',
-        });
+        expect(
+          screen.queryByText('Enter a manager’s name', {
+            selector: '.govuk-error-message',
+          })
+        ).toBeNull();
       });
     });
 
-    it('should show an error message if a manager discussion date is not entered', async () => {
+    it('should NOT show an error message if a manager discussion date is not entered', async () => {
       fireEvent.submit(screen.getByRole('form'));
 
       await waitFor(() => {
-        screen.getByText('Enter a date discussed with manager', {
-          selector: '.govuk-error-message',
-        });
+        expect(
+          screen.queryByText('Enter a date discussed with manager', {
+            selector: '.govuk-error-message',
+          })
+        ).toBeNull();
       });
     });
 
