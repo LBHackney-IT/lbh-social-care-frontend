@@ -479,6 +479,36 @@ describe('<AddWarningNoteForm />', () => {
         });
       });
     });
+
+    it("should NOT show an error message if a manager's name is not entered", async () => {
+      fireEvent.submit(screen.getByRole('form'));
+
+      await waitFor(() => {
+        const errorMessageElement = screen.queryByText(
+          'Enter a manager’s name',
+          {
+            selector: '.govuk-error-message',
+          }
+        );
+
+        expect(errorMessageElement).toBeNull();
+      });
+    });
+
+    it('should NOT show an error message if a manager discussion date is not entered', async () => {
+      fireEvent.submit(screen.getByRole('form'));
+
+      await waitFor(() => {
+        const errorMessageElement = screen.queryByText(
+          'Enter a date discussed with manager',
+          {
+            selector: '.govuk-error-message',
+          }
+        );
+
+        expect(errorMessageElement).toBeNull();
+      });
+    });
   });
 
   describe('for a childrens resident', () => {
