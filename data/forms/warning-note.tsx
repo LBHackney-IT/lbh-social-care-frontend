@@ -397,7 +397,34 @@ const WARNING_NARRATIVE_CHILDREN: Array<FormComponentStep> = [
   },
 ];
 
-const DISCUSSED_WITH_MANAGER: Array<FormComponentStep> = [
+const DISCUSSED_WITH_MANAGER_ADULTS: Array<FormComponentStep> = [
+  <div key="discussed with manager">
+    <h2>Discussed with manager</h2>
+    <div className="govuk-body">
+      Adding this Warning Note has been discussed and agreed by the manager
+      named below.
+    </div>
+  </div>,
+  {
+    component: 'TextInput',
+    name: 'managerName',
+    label: 'Manager’s name',
+  },
+  {
+    component: 'DateInput',
+    name: 'discussedWithManagerDate',
+    label: 'Date discussed with manager',
+    rules: {
+      validate: {
+        notInFuture: (value) =>
+          new Date(value).getTime() <= new Date().getTime() ||
+          "Date discussed with manager can't be in the future",
+      },
+    },
+  },
+];
+
+const DISCUSSED_WITH_MANAGER_CHILDREN: Array<FormComponentStep> = [
   <div key="discussed with manager">
     <h2>Discussed with manager</h2>
     <div className="govuk-body">
@@ -436,7 +463,7 @@ export const formStepsAdult: FormStep[] = [
       ...WARNING_DATES,
       ...WARNING_DISCLOSURE,
       ...WARNING_NARRATIVE_ADULTS,
-      ...DISCUSSED_WITH_MANAGER,
+      ...DISCUSSED_WITH_MANAGER_ADULTS,
     ],
   },
 ];
@@ -450,7 +477,7 @@ export const formStepsChild: FormStep[] = [
       ...WARNING_TYPE_CHILDREN,
       ...WARNING_DATES,
       ...WARNING_NARRATIVE_CHILDREN,
-      ...DISCUSSED_WITH_MANAGER,
+      ...DISCUSSED_WITH_MANAGER_CHILDREN,
     ],
   },
 ];
