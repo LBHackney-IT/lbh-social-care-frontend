@@ -397,6 +397,7 @@ const WARNING_NARRATIVE_CHILDREN: Array<FormComponentStep> = [
   },
 ];
 
+// This is optional on an adults form
 const DISCUSSED_WITH_MANAGER_ADULTS: Array<FormComponentStep> = [
   <div key="discussed with manager">
     <h2>Discussed with manager</h2>
