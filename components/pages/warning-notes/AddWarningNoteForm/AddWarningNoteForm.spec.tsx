@@ -10,11 +10,14 @@ import { addDays, addMonths, addYears } from 'date-fns';
 import Router from 'next/router';
 
 import { residentFactory } from 'factories/residents';
-import { Resident } from 'types';
 import { AddWarningNoteForm } from './AddWarningNoteForm';
 import PersonView from '../../../PersonView/PersonView';
 import { AuthProvider } from '../../../UserContext/UserContext';
 import { mockedUser } from '../../../../factories/users';
+import {
+  createMockedPersonView,
+  setDateFieldValue,
+} from '../../../../test/helpers';
 
 jest.mock('../../../PersonView/PersonView');
 jest.mock('next/router', () => ({
@@ -40,96 +43,18 @@ const mockedChildrensResident = residentFactory.build({
   contextFlag: 'C',
 });
 
-/**
- * Creates a mocked `<PersonView>` which our component is wrapped in internally
- *
- * @param {Resident} resident The resident to use for this <PersonView />
- *
- * @example
- *    createMockedPersonView(residentFactory.build());
- */
-const createMockedPersonView = (resident: Resident) => {
-  const MockedPersonView = ({
-    children,
-  }: {
-    children: (resident: Resident) => React.ComponentType;
-  }) => {
-    return <>{children(resident)}</>;
-  };
-
-  return MockedPersonView;
-};
-
-/**
- * Set the value of a date field
- *
- * @param {string} fieldName The name of the field to set the value on
- * @param {Date | { date: string; month: string; year: string }} date The date to set the form field to – use the non-Date type for setting invalid values
- *
- * @example
- *    setDateFieldValue("fieldName", new Date(2021-01-01));
- *    setDateFieldValue("fieldName", {
- *      date: "01",
- *      month: "01",
- *      year: "2021"
- *    });
- */
-const setDateFieldValue = (
-  fieldName: string,
-  date: Date | { date: string; month: string; year: string }
-) => {
-  fireEvent.change(
-    screen.getByLabelText('Day', {
-      selector: `[name='${fieldName}-day']`,
-    }),
-    {
-      target: {
-        value:
-          date instanceof Date
-            ? String(date.getDate()).padStart(2, '0')
-            : date.date,
-      },
-    }
-  );
-  fireEvent.change(
-    screen.getByLabelText('Month', {
-      selector: `[name='${fieldName}-month']`,
-    }),
-    {
-      target: {
-        value:
-          date instanceof Date
-            ? String(date.getMonth() + 1).padStart(2, '0')
-            : date.month,
-      },
-    }
-  );
-  fireEvent.change(
-    screen.getByLabelText('Year', {
-      selector: `[name='${fieldName}-year']`,
-    }),
-    {
-      target: {
-        value: date instanceof Date ? String(date.getFullYear()) : date.year,
-      },
-    }
-  );
-};
-
 describe('<AddWarningNoteForm />', () => {
   beforeEach(() => {
     jest.resetAllMocks();
   });
 
   describe('for any resident (adults or childrens)', () => {
-    let renderResult: RenderResult;
-
     beforeEach(() => {
       (PersonView as jest.Mock).mockImplementationOnce(
         createMockedPersonView(mockedAdultsResident)
       );
 
-      renderResult = render(
+      render(
         <AuthProvider user={mockedUser}>
           <AddWarningNoteForm personId={100} />
         </AuthProvider>
