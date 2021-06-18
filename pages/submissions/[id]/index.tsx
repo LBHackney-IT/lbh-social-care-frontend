@@ -104,6 +104,15 @@ export const getServerSideProps: GetServerSideProps = async ({ params }) => {
       },
     };
 
+  if (data.submissionState !== 'In progress') {
+    return {
+      props: {},
+      redirect: {
+        destination: `/people/${data.residents[0].id}/submissions/${data.submissionId}`,
+      },
+    };
+  }
+
   return {
     props: {
       params,
