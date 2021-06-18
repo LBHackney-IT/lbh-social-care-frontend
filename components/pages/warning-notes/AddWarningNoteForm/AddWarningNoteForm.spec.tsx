@@ -159,26 +159,6 @@ describe('<AddWarningNoteForm />', () => {
       });
     });
 
-    it("should show an error message if a manager's name is not entered", async () => {
-      fireEvent.submit(screen.getByRole('form'));
-
-      await waitFor(() => {
-        screen.getByText('Enter a manager’s name', {
-          selector: '.govuk-error-message',
-        });
-      });
-    });
-
-    it('should show an error message if a manager discussion date is not entered', async () => {
-      fireEvent.submit(screen.getByRole('form'));
-
-      await waitFor(() => {
-        screen.getByText('Enter a date discussed with manager', {
-          selector: '.govuk-error-message',
-        });
-      });
-    });
-
     it('should show an error message if the manager discussion date entered is invalid', async () => {
       setDateFieldValue('discussedWithManagerDate', {
         date: '56',
@@ -424,6 +404,40 @@ describe('<AddWarningNoteForm />', () => {
         });
       });
     });
+
+    it("should NOT show an error message if a manager's name is not entered", async () => {
+      fireEvent.submit(screen.getByRole('form'));
+
+      // Making sure screen is updated after submission attempt before querying
+      await waitFor(() => {
+        screen.getByText('Discussed with manager');
+      });
+
+      await waitFor(() => {
+        expect(
+          screen.queryByText('Enter a manager’s name', {
+            selector: '.govuk-error-message',
+          })
+        ).toBeNull();
+      });
+    });
+
+    it('should NOT show an error message if a manager discussion date is not entered', async () => {
+      fireEvent.submit(screen.getByRole('form'));
+
+      // Making sure screen is updated after submission attempt before querying
+      await waitFor(() => {
+        screen.getByText('Discussed with manager');
+      });
+
+      await waitFor(() => {
+        expect(
+          screen.queryByText('Enter a date discussed with manager', {
+            selector: '.govuk-error-message',
+          })
+        ).toBeNull();
+      });
+    });
   });
 
   describe('for a childrens resident', () => {
@@ -443,6 +457,26 @@ describe('<AddWarningNoteForm />', () => {
 
     it('should render the warning notes form', () => {
       expect(renderResult.asFragment()).toMatchSnapshot();
+    });
+
+    it("should show an error message if a manager's name is not entered", async () => {
+      fireEvent.submit(screen.getByRole('form'));
+
+      await waitFor(() => {
+        screen.getByText('Enter a manager’s name', {
+          selector: '.govuk-error-message',
+        });
+      });
+    });
+
+    it('should show an error message if a manager discussion date is not entered', async () => {
+      fireEvent.submit(screen.getByRole('form'));
+
+      await waitFor(() => {
+        screen.getByText('Enter a date discussed with manager', {
+          selector: '.govuk-error-message',
+        });
+      });
     });
   });
 });

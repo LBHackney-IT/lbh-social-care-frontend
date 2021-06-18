@@ -35,7 +35,33 @@ const REVIEW_DETAILS: Array<FormComponentStep> = [
   },
 ];
 
-const REVIEW_DISCUSSED_WITH_MANAGER: Array<FormComponentStep> = [
+// This is optional on an adults form
+const REVIEW_DISCUSSED_WITH_MANAGER_ADULTS: Array<FormComponentStep> = [
+  <h3 key="manager review discussion">Review discussed with manager</h3>,
+  <span key="manager review caption" className="govuk-caption-m">
+    This Warning Note review has been discussed and agreed by the manager named
+    below
+  </span>,
+  {
+    component: 'TextInput',
+    name: 'managerName',
+    label: 'Manager’s name',
+  },
+  {
+    component: 'DateInput',
+    name: 'discussedWithManagerDate',
+    label: 'Date discussed with manager',
+    rules: {
+      validate: {
+        notInFuture: (value) =>
+          new Date(value).getTime() <= new Date().getTime() ||
+          "Date discussed with manager can't be in the future",
+      },
+    },
+  },
+];
+
+const REVIEW_DISCUSSED_WITH_MANAGER_CHILDREN: Array<FormComponentStep> = [
   <h3 key="manager review discussion">Review discussed with manager</h3>,
   <span key="manager review caption" className="govuk-caption-m">
     This Warning Note review has been discussed and agreed by the manager named
@@ -127,7 +153,7 @@ export const reviewFormStepsAdult: FormStep[] = [
       ...REVIEW_UNDERTAKEN_DATE,
       ...REVIEW_DISCLOSURE,
       ...REVIEW_DETAILS,
-      ...REVIEW_DISCUSSED_WITH_MANAGER,
+      ...REVIEW_DISCUSSED_WITH_MANAGER_ADULTS,
       ...REVIEW_DECISION,
       ...NEXT_REVIEW_DETAILS,
       ...DETAILS_FOR_SUMMARY_VIEW,
@@ -142,7 +168,7 @@ export const reviewFormStepsChild: FormStep[] = [
     components: [
       ...REVIEW_UNDERTAKEN_DATE,
       ...REVIEW_DETAILS,
-      ...REVIEW_DISCUSSED_WITH_MANAGER,
+      ...REVIEW_DISCUSSED_WITH_MANAGER_CHILDREN,
       ...REVIEW_DECISION,
       ...NEXT_REVIEW_DETAILS,
       ...DETAILS_FOR_SUMMARY_VIEW,
