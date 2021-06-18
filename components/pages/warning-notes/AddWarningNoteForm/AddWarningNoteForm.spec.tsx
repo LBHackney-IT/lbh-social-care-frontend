@@ -483,30 +483,34 @@ describe('<AddWarningNoteForm />', () => {
     it("should NOT show an error message if a manager's name is not entered", async () => {
       fireEvent.submit(screen.getByRole('form'));
 
+      //Making sure screen is updated after submission attenmpt before querying
       await waitFor(() => {
-        const errorMessageElement = screen.queryByText(
-          'Enter a manager’s name',
-          {
-            selector: '.govuk-error-message',
-          }
-        );
+        screen.getByText('Discussed with manager');
+      });
 
-        expect(errorMessageElement).toBeNull();
+      await waitFor(() => {
+        expect(
+          screen.queryByText('Enter a manager’s name', {
+            selector: '.govuk-error-message',
+          })
+        ).toBeNull();
       });
     });
 
     it('should NOT show an error message if a manager discussion date is not entered', async () => {
       fireEvent.submit(screen.getByRole('form'));
 
+      //Making sure screen is updated after submission attenmpt before querying
       await waitFor(() => {
-        const errorMessageElement = screen.queryByText(
-          'Enter a date discussed with manager',
-          {
-            selector: '.govuk-error-message',
-          }
-        );
+        screen.getByText('Discussed with manager');
+      });
 
-        expect(errorMessageElement).toBeNull();
+      await waitFor(() => {
+        expect(
+          screen.queryByText('Enter a date discussed with manager', {
+            selector: '.govuk-error-message',
+          })
+        ).toBeNull();
       });
     });
   });
