@@ -24,96 +24,89 @@ interface Props {
   singleStep?: boolean;
 }
 
-const ContinueHandler = ({
-  goBackToTaskList,
-  isValid,
-  saved,
-}: {
-  goBackToTaskList: boolean;
-  isValid: boolean;
-  saved: boolean;
-}): null => {
-  const router = useRouter();
-  useEffect(() => {
-    if (goBackToTaskList && saved && isValid) {
-      router.push(`/submissions/${router.query.id}`);
-    }
-  }, [goBackToTaskList, isValid, saved, router]);
-  return null;
-};
-
 const StepForm = ({
   initialValues,
   fields,
   person,
   onSubmit,
-  // onFinish,
-  singleStep,
-}: Props): React.ReactElement => {
+}: Props): React.ReactElement => (
+  <Formik
+    initialValues={initialValues || generateInitialValues(fields, person)}
+    validationSchema={generateFlexibleSchema(fields)}
+    onSubmit={onSubmit}
+    validateOnMount={true}
+  >
+    {(formikProps) => <StepFormInner {...formikProps} fields={fields} />}
+  </Formik>
+);
+
+interface InnerProps {
+  fields: Field[];
+  touched;
+  errors;
+  values;
+  isValid: boolean;
+  isSubmitting: boolean;
+  submitForm;
+  status;
+}
+
+const StepFormInner = ({
+  fields,
+  touched,
+  errors,
+  values,
+  isValid,
+  isSubmitting,
+  submitForm,
+  status,
+}: InnerProps) => {
   const [goBackToTaskList, setGoBackToTaskList] = useState<boolean>(false);
   const { saved, setSaved } = useAutosave();
+  const router = useRouter();
+
+  useEffect(() => {
+    if (goBackToTaskList && saved && isValid) {
+      router.push(`/submissions/${router.query.id}`);
+    }
+  }, [goBackToTaskList, isValid, saved, router]);
 
   return (
-    <Formik
-      initialValues={initialValues || generateInitialValues(fields, person)}
-      validationSchema={generateFlexibleSchema(fields)}
-      onSubmit={onSubmit}
-      validateOnMount={true}
-    >
-      {({
-        values,
-        isSubmitting,
-        touched,
-        errors,
-        status,
-        submitForm,
-        // setSubmitting,
-        isValid,
-        // setStatus,
-      }) => (
-        <Form>
-          {status && (
-            <Banner
-              title="There was a problem saving your answers"
-              className="lbh-page-announcement--warning"
-            >
-              <p>Please refresh the page or try again later.</p>
-              <p className="lbh-body-xs">{status}</p>
-            </Banner>
-          )}
-
-          {fields.map((field) => (
-            <FlexibleField
-              key={field.id}
-              field={field}
-              touched={touched}
-              errors={errors}
-              values={values}
-            />
-          ))}
-
-          <AutosaveTrigger delay={2000} />
-
-          <ContinueHandler
-            saved={saved}
-            goBackToTaskList={goBackToTaskList}
-            isValid={isValid}
-          />
-
-          <button
-            className="govuk-button lbh-button"
-            disabled={isSubmitting}
-            onClick={async () => {
-              await submitForm();
-              setGoBackToTaskList(true);
-              setSaved(true);
-            }}
-          >
-            {singleStep ? 'Save and finish' : 'Save and continue'}
-          </button>
-        </Form>
+    <Form>
+      {status && (
+        <Banner
+          title="There was a problem saving your answers"
+          className="lbh-page-announcement--warning"
+        >
+          <p>Please refresh the page or try again later.</p>
+          <p className="lbh-body-xs">{status}</p>
+        </Banner>
       )}
-    </Formik>
+
+      {fields.map((field) => (
+        <FlexibleField
+          key={field.id}
+          field={field}
+          touched={touched}
+          errors={errors}
+          values={values}
+        />
+      ))}
+
+      <AutosaveTrigger delay={20000000} />
+
+      <button
+        className="govuk-button lbh-button"
+        disabled={isSubmitting}
+        onClick={async () => {
+          await submitForm();
+          setGoBackToTaskList(true);
+          setSaved(true);
+        }}
+      >
+        Save and continue
+      </button>
+    </Form>
   );
 };
 
