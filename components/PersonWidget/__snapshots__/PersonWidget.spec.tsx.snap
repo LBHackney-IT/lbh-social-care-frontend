@@ -15,11 +15,6 @@ exports[`PersonWidget should render properly 1`] = `
     >
       Born 13 Nov 2020
     </p>
-    <p
-      class="lbh-body-s paragraph"
-    >
-      <br />
-    </p>
   </aside>
 </DocumentFragment>
 `;

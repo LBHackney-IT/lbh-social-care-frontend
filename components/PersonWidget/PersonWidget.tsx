@@ -19,6 +19,8 @@ interface Props {
 const PersonWidget = ({ person }: Props): React.ReactElement => {
   const dateOfBirth = prettyDate(person?.dateOfBirth ?? '');
 
+  const address = person?.addresses?.[0];
+
   if (person) {
     return (
       <aside className={s.aside}>
@@ -28,11 +30,14 @@ const PersonWidget = ({ person }: Props): React.ReactElement => {
         {dateOfBirth && (
           <p className={`lbh-body-s ${s.paragraph}`}>Born {dateOfBirth}</p>
         )}
-        <p className={`lbh-body-s ${s.paragraph}`}>
-          {person.address?.address}
-          <br />
-          {person.address?.postcode}
-        </p>
+
+        {address && (
+          <p className={`lbh-body-s ${s.paragraph}`}>
+            {address.addressLines}
+            <br />
+            {address.postCode}
+          </p>
+        )}
       </aside>
     );
   }
