@@ -1,3 +1,4 @@
+import { useState, useEffect } from 'react';
 import { Formik, Form, FormikValues, FormikHelpers } from 'formik';
 import { Field } from 'data/flexibleForms/forms.types';
 import { generateFlexibleSchema } from 'lib/validators';
@@ -23,16 +24,34 @@ interface Props {
   singleStep?: boolean;
 }
 
+const ContinueHandler = ({
+  goBackToTaskList,
+  isValid,
+  saved,
+}: {
+  goBackToTaskList: boolean;
+  isValid: boolean;
+  saved: boolean;
+}): null => {
+  const router = useRouter();
+  useEffect(() => {
+    if (goBackToTaskList && saved && isValid) {
+      router.push(`/submissions/${router.query.id}`);
+    }
+  }, [goBackToTaskList, isValid, saved, router]);
+  return null;
+};
+
 const StepForm = ({
   initialValues,
   fields,
   person,
   onSubmit,
-  onFinish,
+  // onFinish,
   singleStep,
 }: Props): React.ReactElement => {
-  const { setSaved } = useAutosave();
-  const router = useRouter();
+  const [goBackToTaskList, setGoBackToTaskList] = useState<boolean>(false);
+  const { saved, setSaved } = useAutosave();
 
   return (
     <Formik
@@ -48,9 +67,9 @@ const StepForm = ({
         errors,
         status,
         submitForm,
-        setSubmitting,
+        // setSubmitting,
         isValid,
-        setStatus,
+        // setStatus,
       }) => (
         <Form>
           {status && (
@@ -75,22 +94,19 @@ const StepForm = ({
 
           <AutosaveTrigger delay={2000} />
 
+          <ContinueHandler
+            saved={saved}
+            goBackToTaskList={goBackToTaskList}
+            isValid={isValid}
+          />
+
           <button
             className="govuk-button lbh-button"
             disabled={isSubmitting}
             onClick={async () => {
               await submitForm();
+              setGoBackToTaskList(true);
               setSaved(true);
-              // next, finish the submission if it's the only step, or return to the task list
-              if (isValid) {
-                if (singleStep) {
-                  setSubmitting(true);
-                  onFinish(values, setStatus);
-                } else {
-                  if (!isSubmitting)
-                    router.push(`/submissions/${router.query.id}`);
-                }
-              }
             }}
           >
             {singleStep ? 'Save and finish' : 'Save and continue'}
