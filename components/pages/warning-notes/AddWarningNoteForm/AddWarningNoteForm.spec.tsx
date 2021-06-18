@@ -500,7 +500,7 @@ describe('<AddWarningNoteForm />', () => {
     it('should NOT show an error message if a manager discussion date is not entered', async () => {
       fireEvent.submit(screen.getByRole('form'));
 
-      //Making sure screen is updated after submission attenmpt before querying
+      // Making sure screen is updated after submission attempt before querying
       await waitFor(() => {
         screen.getByText('Discussed with manager');
       });
