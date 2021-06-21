@@ -40,8 +40,12 @@ export class ErrorBoundary extends Component<
           </h2>
           <div className="govuk-error-summary__body">
             <p>
-              Try your request again. If the error persists, please contact{' '}
-              <a href="#">Support</a> sharing the current URL and message below:
+              Try your request again. If the error persists, contact us via the{' '}
+              <a href="https://docs.google.com/forms/d/e/1FAIpQLScILbPD1ioKHzp1D3HN4_DKaxV2tpWLMu8upSSqNgSPCo85cg/viewform">
+                feedback form
+              </a>
+              . Include the current URL and the error message below in your
+              feedback:
             </p>
             <ul className="govuk-list govuk-error-summary__list">
               <li className={styles.errorMessage}>
