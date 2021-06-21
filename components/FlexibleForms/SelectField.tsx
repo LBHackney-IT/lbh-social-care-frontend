@@ -16,6 +16,7 @@ interface FieldProps {
   type?: string;
   hint?: string;
   className?: string;
+  required?: boolean;
   choices: {
     value: string;
     label: string;
@@ -30,6 +31,7 @@ const Field = ({
   hint,
   className,
   choices,
+  required,
 }: FieldProps): React.ReactElement => (
   <div
     className={`govuk-form-group lbh-form-group ${
@@ -37,7 +39,7 @@ const Field = ({
     }`}
   >
     <label htmlFor={name} className="govuk-label lbh-label">
-      {label}
+      {label} {required && <span className="govuk-required">*</span>}
     </label>
 
     {hint && (
