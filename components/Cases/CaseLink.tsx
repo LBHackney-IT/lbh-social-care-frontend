@@ -7,7 +7,6 @@ import {
   DeallocationCaseFormData,
   WarningNoteCaseFormData,
 } from 'types';
-import { isLocalURL } from 'next/dist/next-server/lib/router/router';
 
 const getWarningNoteDetailsPageName = (form_name: string) => {
   switch (form_name) {
