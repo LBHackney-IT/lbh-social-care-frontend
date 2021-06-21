@@ -1,5 +1,23 @@
 import { render, screen } from '@testing-library/react';
+import { Router } from 'next/router';
 import { ErrorBoundary } from './ErrorBoundary';
+
+jest.mock('next/router', () => ({
+  withRouter: (Component: React.ComponentType<{ router: Router }>) =>
+    function WithRouterComponent({ children }: { children: React.ReactNode }) {
+      return (
+        <Component
+          router={
+            {
+              asPath: '/error-path',
+            } as Router
+          }
+        >
+          {children}
+        </Component>
+      );
+    },
+}));
 
 const Child: React.FC<{ message?: string }> = ({ message }) => {
   throw new Error(message);
@@ -24,5 +42,15 @@ describe('Error Boundary', () => {
     );
 
     screen.getByText('Some custom error message');
+  });
+
+  it('should render the page path when one is provided', () => {
+    render(
+      <ErrorBoundary>
+        <Child />
+      </ErrorBoundary>
+    );
+
+    screen.getByText('/error-path');
   });
 });
