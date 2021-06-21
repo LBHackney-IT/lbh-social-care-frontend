@@ -41,7 +41,13 @@ const Relationships = ({ id }: Props): React.ReactElement => {
           <h3 className="govuk-fieldset__legend--m govuk-custom-text-color">
             RELATIONSHIPS
           </h3>
+
+          <Button
+            label="Add a new relationships"
+            route={`${id}/relationships/add`}
+          />
         </div>
+
         <hr className="govuk-divider" />
         {
           <dl className="govuk-summary-list lbh-summary-list">
