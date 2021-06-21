@@ -1,3 +1,4 @@
+import forms from 'data/flexibleForms';
 import { Case } from 'types';
 import { formatDate, isDateValid } from 'utils/date';
 
@@ -20,21 +21,31 @@ const CaseNoteDate = ({ dateOfEvent, caseFormTimestamp }: Case) => (
   </td>
 );
 
-const CaseNoteTitle = ({ formName, caseFormData }: Case) => (
-  <td key="title" className="govuk-table__cell">
-    {
-      <>
-        {['ASC_case_note', 'CFS_case_note'].includes(
-          caseFormData.form_name_overall
-        ) && 'Case Note - '}
-        {formName}
-        {caseFormData.case_note_title && (
-          <div>{caseFormData.case_note_title}</div>
-        )}
-      </>
-    }
-  </td>
-);
+const CaseNoteTitle = ({ formName, caseFormData }: Case) => {
+  // 1. handle case notes
+  if (
+    ['ASC_case_note', 'CFS_case_note'].includes(
+      caseFormData?.form_name_overall
+    ) &&
+    'Case Note - '
+  )
+    return (
+      <td className="govuk-table__cell">
+        Case note: {formName}
+        <br />
+        <p className="lbh-body-s govuk-!-margin-top-2">
+          {caseFormData?.case_note_title}
+        </p>
+      </td>
+    );
+
+  // 2. handle flexible form submissions
+  const form = forms.find((form) => form.id === formName);
+  if (form) return <td className="govuk-table__cell">{form.name}</td>;
+
+  // 3. handle everything else
+  return <td className="govuk-table__cell">{formName}</td>;
+};
 
 const CaseNoteOfficer = ({ officerEmail }: Case) => (
   <td key="officer" className="govuk-table__cell">
@@ -42,7 +53,13 @@ const CaseNoteOfficer = ({ officerEmail }: Case) => (
   </td>
 );
 
-const CaseNoteAction = ({ recordId, caseFormUrl, caseFormData }: Case) => (
+const CaseNoteAction = ({
+  recordId,
+  caseFormUrl,
+  caseFormData,
+  formName,
+  personId,
+}: Case) => (
   <td
     key="action"
     className="govuk-table__cell govuk-table__cell--numeric"
@@ -52,6 +69,8 @@ const CaseNoteAction = ({ recordId, caseFormUrl, caseFormData }: Case) => (
       recordId={recordId}
       externalUrl={caseFormUrl}
       caseFormData={caseFormData}
+      formName={formName}
+      personId={personId}
     />
   </td>
 );
@@ -70,7 +89,7 @@ const CaseNoteBirthday = ({ dateOfBirth }: Case) => (
 
 const tableEntities = {
   person_id: { text: 'Person ID', component: CaseNotePersonId },
-  first_name: { text: 'Client Name', component: CaseNoteName },
+  first_name: { text: 'Client name', component: CaseNoteName },
   date_of_birth: { text: 'Date of birth', component: CaseNoteBirthday },
   date_of_event: { text: 'Date created', component: CaseNoteDate },
   formName: { text: 'Record type', component: CaseNoteTitle },
