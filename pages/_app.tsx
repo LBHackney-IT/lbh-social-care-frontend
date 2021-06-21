@@ -30,7 +30,10 @@ const CustomApp = ({
   pageProps,
 }: ExtendedAppProps): JSX.Element | null => {
   const [user] = useState(pageProps.user);
-  const features = { 'feature-flags-implementation-proof': true };
+  const environmentName = pageProps.environmentName;
+  const features = {
+    'feature-flags-implementation-proof': environmentName !== 'production',
+  };
   return (
     <>
       <FeatureFlagContext features={features}>
@@ -72,7 +75,14 @@ CustomApp.getInitialProps = async (
     }
   }
   const appProps = await App.getInitialProps(appContext);
-  return { ...appProps, pageProps: { ...appProps.pageProps, user } };
+  const environmentName =
+    process.env.REDIRECT_URL === 'social-care-service.hackney.gov.uk'
+      ? 'production'
+      : 'development';
+  return {
+    ...appProps,
+    pageProps: { ...appProps.pageProps, user, environmentName },
+  };
 };
 
 export default CustomApp;
