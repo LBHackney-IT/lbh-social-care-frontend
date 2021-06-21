@@ -458,7 +458,7 @@ const form: Form = {
           type: 'textarea',
         },
         {
-          id: 'Ppostal code',
+          id: 'Postal code',
           question: 'Practice postal code',
           hint: 'For example, E8 1DY',
           type: 'text',
