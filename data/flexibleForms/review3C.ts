@@ -401,7 +401,7 @@ const form: Form = {
       ],
     },
     {
-      id: 'key-contacts',
+      id: 'Key contacts',
       name: 'Key contacts',
       theme: 'About you',
       fields: [
@@ -447,7 +447,7 @@ const form: Form = {
           type: 'text',
         },
         {
-          id: 'gp-practice',
+          id: 'Practice name',
           question: 'Practice name',
           hint: 'For example, Cedar Brook Practice',
           type: 'text',
@@ -458,8 +458,8 @@ const form: Form = {
           type: 'textarea',
         },
         {
-          id: 'Practice postal code',
-          question: 'Postal code',
+          id: 'Postal code',
+          question: 'Practice postal code',
           hint: 'For example, E8 1DY',
           type: 'text',
         },
@@ -971,7 +971,7 @@ const form: Form = {
           type: 'date',
         },
         {
-          id: 'end-date',
+          id: 'End date',
           question: 'When should this budget end?',
           type: 'date',
         },
@@ -1045,7 +1045,7 @@ const form: Form = {
         },
 
         {
-          id: 'weekly-budget-details',
+          id: 'Weekly budget details',
           question: 'Weekly budget details',
           type: 'text',
         },
@@ -1110,50 +1110,43 @@ const form: Form = {
       ],
     },
     {
-      id: 'weekly-timetable',
+      id: 'Timetable',
       name: 'Weekly timetable',
       theme: 'Reviewing your care',
       fields: [
         {
-          id: 'date-of-timetable-authorised',
-          question: 'Date of Timetable (authorised)',
-          hint: '',
+          id: 'Authorisation date',
+          question: 'Date timetable was authorised',
           type: 'date',
         },
         {
-          id: 'day-',
-          question: 'Day ',
-          hint: '',
+          id: 'Day',
+          question: 'Day',
           type: 'text',
         },
         {
-          id: 'morning',
+          id: 'Morning',
           question: 'Morning',
-          hint: '',
           type: 'text',
         },
         {
-          id: 'afternoon',
+          id: 'Afternoon',
           question: 'Afternoon',
-          hint: '',
           type: 'text',
         },
         {
-          id: 'evening',
+          id: 'Evening',
           question: 'Evening',
-          hint: '',
           type: 'text',
         },
         {
-          id: 'night-',
-          question: 'Night ',
-          hint: '',
+          id: 'Night',
+          question: 'Night',
           type: 'text',
         },
         {
-          id: 'estimated-weekly-cost',
+          id: 'Estimated weekly cost',
           question: 'Estimated weekly cost',
-          hint: '',
           type: 'text',
         },
       ],
@@ -1242,12 +1235,12 @@ const form: Form = {
     },
 
     {
-      id: 'manager-approval',
+      id: 'Manager approval',
       name: 'Manager approval',
       theme: 'Next steps',
       fields: [
         {
-          id: 'email-address-of-your-manager',
+          id: "Manager's email address",
           question: 'Who will approve this review?',
           hint: 'Provide the email address of a social care manager',
           type: 'text',
