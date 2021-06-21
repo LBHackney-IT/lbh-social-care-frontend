@@ -1,4 +1,12 @@
-import { Formik, Form, FormikValues, FormikHelpers } from 'formik';
+import { useState, useEffect } from 'react';
+import {
+  Formik,
+  Form,
+  FormikValues,
+  FormikHelpers,
+  FormikTouched,
+  FormikErrors,
+} from 'formik';
 import { Field } from 'data/flexibleForms/forms.types';
 import { generateFlexibleSchema } from 'lib/validators';
 import FlexibleField from './FlexibleFields';
@@ -12,13 +20,13 @@ interface Props {
   fields: Field[];
   person?: Resident;
   initialValues?: InitialValues;
-  onFinish: (
-    values: FormikValues,
-    setStatus: (message: string) => void
-  ) => void;
   onSubmit: (
     values: FormikValues,
     { setStatus }: FormikHelpers<FormikValues>
+  ) => void;
+  onFinish: (
+    values: FormikValues,
+    setStatus: (message: string) => void
   ) => void;
   singleStep?: boolean;
 }
@@ -28,76 +36,81 @@ const StepForm = ({
   fields,
   person,
   onSubmit,
-  onFinish,
-  singleStep,
-}: Props): React.ReactElement => {
-  const { setSaved } = useAutosave();
+}: Props): React.ReactElement => (
+  <Formik
+    initialValues={initialValues || generateInitialValues(fields, person)}
+    validationSchema={generateFlexibleSchema(fields)}
+    onSubmit={onSubmit}
+    validateOnMount={true}
+  >
+    {(formikProps) => <StepFormInner {...formikProps} fields={fields} />}
+  </Formik>
+);
+
+interface InnerProps {
+  fields: Field[];
+  touched: FormikTouched<FormikValues>;
+  errors: FormikErrors<FormikValues>;
+  values: FormikValues;
+  isValid: boolean;
+  isSubmitting: boolean;
+  submitForm: () => Promise<void>;
+  status?: string;
+}
+
+const StepFormInner = ({
+  fields,
+  touched,
+  errors,
+  values,
+  isValid,
+  isSubmitting,
+  submitForm,
+  status,
+}: InnerProps): React.ReactElement => {
+  const [goBackToTaskList, setGoBackToTaskList] = useState<boolean>(false);
+  const { saved, setSaved } = useAutosave();
   const router = useRouter();
 
+  if (goBackToTaskList && saved && isValid)
+    router.push(`/submissions/${router.query.id}`);
+
   return (
-    <Formik
-      initialValues={initialValues || generateInitialValues(fields, person)}
-      validationSchema={generateFlexibleSchema(fields)}
-      onSubmit={onSubmit}
-      validateOnMount={true}
-    >
-      {({
-        values,
-        isSubmitting,
-        touched,
-        errors,
-        status,
-        submitForm,
-        setSubmitting,
-        isValid,
-        setStatus,
-      }) => (
-        <Form>
-          {status && (
-            <Banner
-              title="There was a problem saving your answers"
-              className="lbh-page-announcement--warning"
-            >
-              <p>Please refresh the page or try again later.</p>
-              <p className="lbh-body-xs">{status}</p>
-            </Banner>
-          )}
-
-          {fields.map((field) => (
-            <FlexibleField
-              key={field.id}
-              field={field}
-              touched={touched}
-              errors={errors}
-              values={values}
-            />
-          ))}
-
-          <AutosaveTrigger delay={2000} />
-
-          <button
-            className="govuk-button lbh-button"
-            disabled={isSubmitting}
-            onClick={async () => {
-              await submitForm();
-              setSaved(true);
-              // next, finish the submission if it's the only step, or return to the task list
-              if (isValid) {
-                if (singleStep) {
-                  setSubmitting(true);
-                  onFinish(values, setStatus);
-                } else {
-                  if (!isSubmitting)
-                    router.push(`/submissions/${router.query.id}`);
-                }
-              }
-            }}
-          >
-            {singleStep ? 'Save and finish' : 'Save and continue'}
-          </button>
-        </Form>
+    <Form>
+      {status && (
+        <Banner
+          title="There was a problem saving your answers"
+          className="lbh-page-announcement--warning"
+        >
+          <p>Please refresh the page or try again later.</p>
+          <p className="lbh-body-xs">{status}</p>
+        </Banner>
       )}
-    </Formik>
+
+      {fields.map((field) => (
+        <FlexibleField
+          key={field.id}
+          field={field}
+          touched={touched}
+          errors={errors}
+          values={values}
+        />
+      ))}
+
+      <AutosaveTrigger delay={20000000} />
+
+      <button
+        className="govuk-button lbh-button"
+        disabled={isSubmitting}
+        onClick={async () => {
+          await submitForm();
+          setGoBackToTaskList(true);
+          setSaved(true);
+        }}
+      >
+        Save and continue
+      </button>
+    </Form>
   );
 };
 
