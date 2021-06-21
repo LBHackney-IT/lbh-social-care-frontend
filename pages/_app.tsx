@@ -13,6 +13,8 @@ import type { User } from 'types';
 
 import 'stylesheets/all.scss';
 import 'stylesheets/header.scss';
+import React from 'react';
+import { ErrorBoundary } from '../components/ErrorBoundary/ErrorBoundary';
 
 interface Props {
   user?: Partial<User>;
@@ -43,7 +45,9 @@ const CustomApp = ({
         <AuthProvider user={user}>
           <GoogleAnalytics>
             <Layout goBackButton={Component.goBackButton}>
-              <Component {...pageProps} />
+              <ErrorBoundary>
+                <Component {...pageProps} />
+              </ErrorBoundary>
             </Layout>
           </GoogleAnalytics>
         </AuthProvider>
