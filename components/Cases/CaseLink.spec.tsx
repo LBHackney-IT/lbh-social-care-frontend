@@ -14,7 +14,7 @@ describe('CaseLink component', () => {
     expect(asFragment()).toMatchInlineSnapshot(`
       <DocumentFragment>
         <a
-          class="govuk-link lbh-link"
+          class="lbh-link"
           href="https://foo.bar"
           rel="noreferrer noopener"
           target="_blank"
@@ -34,7 +34,7 @@ describe('CaseLink component', () => {
     expect(asFragment()).toMatchInlineSnapshot(`
       <DocumentFragment>
         <a
-          class="govuk-link lbh-link"
+          class="lbh-link"
           href="/people/123/allocations/321?recordId=123"
         >
           View
