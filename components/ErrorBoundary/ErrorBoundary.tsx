@@ -1,13 +1,16 @@
+import { withRouter, Router } from 'next/router';
 import { ReactNode, Component } from 'react';
 
 import styles from './ErrorBoundary.module.scss';
 
-type ErrorBoundaryProps = Record<string, unknown>;
+type ErrorBoundaryProps = Record<string, unknown> & {
+  router: Router;
+};
 type ErrorBoundaryState = {
   error: Error | null;
 };
 
-export class ErrorBoundary extends Component<
+class ErrorBoundaryComponent extends Component<
   ErrorBoundaryProps,
   ErrorBoundaryState
 > {
@@ -24,6 +27,7 @@ export class ErrorBoundary extends Component<
   }
 
   render(): ReactNode {
+    const { router, children } = this.props;
     const { error } = this.state;
 
     if (error) {
@@ -42,12 +46,19 @@ export class ErrorBoundary extends Component<
             <p>
               Try your request again. If the error persists, contact us via the{' '}
               <a href={process.env.NEXT_PUBLIC_FEEDBACK_LINK}>feedback form</a>.
-              Include the current URL and the error message below in your
-              feedback:
+              Please include the information below in your feedback so we can
+              fully understand how to resolve the problem.
             </p>
             <ul className="govuk-list govuk-error-summary__list">
-              <li className={styles.errorMessage}>
-                {error.message || 'An unknown error has occurred'}
+              <li>
+                Error message:{' '}
+                <span className={styles.errorMessage}>
+                  {error.message || 'An unknown error has occurred'}
+                </span>
+              </li>
+              <li>
+                Page URL:{' '}
+                <span className={styles.errorMessage}>{router.asPath}</span>
               </li>
             </ul>
           </div>
@@ -55,8 +66,8 @@ export class ErrorBoundary extends Component<
       );
     }
 
-    const { children } = this.props;
-
     return children;
   }
 }
+
+export const ErrorBoundary = withRouter(ErrorBoundaryComponent);
