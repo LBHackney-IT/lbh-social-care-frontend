@@ -26,6 +26,10 @@ export const residentFactory = Factory.define<Resident>(({ sequence }) => ({
   otherNames: [],
   phoneNumbers: [],
   addresses: [],
+  address: {
+    address: 'sjakdjlk',
+    postcode: 'hdsadjk',
+  },
 }));
 
 export const mockedLegacyResident = legacyResidentFactory.build();
