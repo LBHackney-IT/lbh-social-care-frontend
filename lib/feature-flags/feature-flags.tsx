@@ -1,7 +1,13 @@
 import React from 'react';
 import { useContext } from 'react';
 
-const Context = React.createContext({});
+const Context =
+  React.createContext<
+    | {
+        [featureName: string]: boolean;
+      }
+    | undefined
+  >(undefined);
 
 export const FeatureFlagContext: React.FC<{
   features: {
@@ -16,6 +22,12 @@ export const ConditionalFeature: React.FC<{ name: string }> = ({
   children,
 }) => {
   const features = useContext(Context);
+
+  if (features === undefined) {
+    throw new Error(
+      'A <FeatureFlagContext /> must be provided as a parent of this component'
+    );
+  }
 
   if (features[name] === undefined) {
     return null;

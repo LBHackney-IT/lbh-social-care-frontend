@@ -60,4 +60,12 @@ describe('<ConditionalFeature />', () => {
 
     screen.getByTestId('expectedElement');
   });
+
+  it('should throw an exception if feature flag context is not provided', () => {
+    expect(() => {
+      render(<ConditionalFeature name="some-known-active-feature-name" />);
+    }).toThrow(
+      'A <FeatureFlagContext /> must be provided as a parent of this component'
+    );
+  });
 });
