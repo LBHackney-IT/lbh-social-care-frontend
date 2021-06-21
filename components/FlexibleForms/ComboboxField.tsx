@@ -34,6 +34,7 @@ const Field = ({
   hint,
   className,
   choices,
+  required,
 }: FieldProps): React.ReactElement => {
   const { values, setFieldValue } = useFormikContext();
 
@@ -73,7 +74,7 @@ const Field = ({
           }`}
         >
           <label className="govuk-label lbh-label" {...getLabelProps()}>
-            {label}
+            {label} {required && <span className="govuk-required">*</span>}
           </label>
 
           {hint && (
