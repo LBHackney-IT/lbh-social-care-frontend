@@ -7,14 +7,13 @@ import { SWRConfig } from 'swr';
 import Layout from 'components/Layout';
 import GoogleAnalytics from 'components/GoogleAnalytics/GoogleAnalytics';
 import { AuthProvider } from 'components/UserContext/UserContext';
+import { ErrorBoundary } from 'components/ErrorBoundary/ErrorBoundary';
 import { isAuthorised, shouldRedirect } from 'utils/auth';
 
 import type { User } from 'types';
 
 import 'stylesheets/all.scss';
 import 'stylesheets/header.scss';
-import React from 'react';
-import { ErrorBoundary } from '../components/ErrorBoundary/ErrorBoundary';
 
 interface Props {
   user?: Partial<User>;
