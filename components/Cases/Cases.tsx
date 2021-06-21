@@ -50,7 +50,7 @@ const Cases = ({ id }: Props): React.ReactElement => {
           <Spinner />
         ) : (
           results.nextCursor && (
-            <Button label="load more" onClick={() => setSize(size + 1)} />
+            <Button label="Load more" onClick={() => setSize(size + 1)} />
           )
         )}
       </div>
