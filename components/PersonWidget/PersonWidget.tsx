@@ -23,7 +23,6 @@ const PersonWidget = ({ person }: Props): React.ReactElement => {
   const displayAddresses = person?.addresses?.[0];
 
   if (person) {
-    console.log(displayPostcode);
     return (
       <aside className={s.aside}>
         <h2 className={`lbh-heading-h3 ${s.title}`}>
@@ -32,11 +31,14 @@ const PersonWidget = ({ person }: Props): React.ReactElement => {
         {dateOfBirth && (
           <p className={`lbh-body-s ${s.paragraph}`}>Born {dateOfBirth}</p>
         )}
-        <p className={`lbh-body-s ${s.paragraph}`}>
-          {displayAddress || displayAddresses?.addressLines}
-          <br />
-          {displayPostcode || displayAddresses?.postCode}
-        </p>
+        {displayAddress ||
+          (displayAddresses && (
+            <p className={`lbh-body-s ${s.paragraph}`}>
+              {displayAddress || displayAddresses?.addressLines}
+              <br />
+              {displayPostcode || displayAddresses?.postCode}
+            </p>
+          ))}
       </aside>
     );
   }
