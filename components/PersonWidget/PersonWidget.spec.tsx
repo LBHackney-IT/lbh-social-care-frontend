@@ -19,6 +19,7 @@ describe('PersonWidget', () => {
     expect(getByText('Foo Bar'));
     expect(getByText('Born 13 Nov 2020'));
     expect(queryByText('FLAT 10, GEORGE LEYBOURNE HOUSE, FLETCHER STREET'));
+    expect(queryByText('E1 8HW'));
   });
 
   it('renders correctly when there is no person', () => {
