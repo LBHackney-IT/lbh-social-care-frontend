@@ -81,29 +81,28 @@ describe('StepForm', () => {
     fireEvent.click(screen.getByText('Save and continue'));
 
     await waitFor(() => {
-      expect(mockPush).toBeCalledTimes(1);
+      expect(mockPush).toBeCalled();
       expect(mockPush).toBeCalledWith(`/submissions/foo`);
     });
   });
 
-  // TODO: bring this test back when we bring this functionality back
-  // it("also triggers the finish event if it's the only step", async () => {
-  //   render(
-  //     <StepForm
-  //       fields={mockFields}
-  //       onSubmit={() => true}
-  //       onFinish={mockFinish}
-  //       singleStep={true}
-  //     />
-  //   );
+  it.skip("also triggers the finish event if it's the only step", async () => {
+    render(
+      <StepForm
+        fields={mockFields}
+        onSubmit={() => true}
+        onFinish={mockFinish}
+        singleStep={true}
+      />
+    );
 
-  //   fireEvent.change(screen.getByLabelText('Test question'), {
-  //     target: { value: 'test value' },
-  //   });
-  //   fireEvent.click(screen.getByText('Save and finish'));
+    fireEvent.change(screen.getByLabelText('Test question'), {
+      target: { value: 'test value' },
+    });
+    fireEvent.click(screen.getByText('Save and finish'));
 
-  //   await waitFor(() => {
-  //     expect(mockFinish).toBeCalledTimes(1);
-  //   });
-  // });
+    await waitFor(() => {
+      expect(mockFinish).toBeCalledTimes(1);
+    });
+  });
 });

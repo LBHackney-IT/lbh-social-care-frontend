@@ -67,16 +67,13 @@ const StepFormInner = ({
   isSubmitting,
   submitForm,
   status,
-}: InnerProps) => {
+}: InnerProps): React.ReactElement => {
   const [goBackToTaskList, setGoBackToTaskList] = useState<boolean>(false);
   const { saved, setSaved } = useAutosave();
   const router = useRouter();
 
-  useEffect(() => {
-    if (goBackToTaskList && saved && isValid) {
-      router.push(`/submissions/${router.query.id}`);
-    }
-  }, [goBackToTaskList, isValid, saved, router]);
+  if (goBackToTaskList && saved && isValid)
+    router.push(`/submissions/${router.query.id}`);
 
   return (
     <Form>
