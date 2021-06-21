@@ -1,0 +1,1136 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<ReviewWarningNoteForm /> for a childrens resident should render the warning notes form 1`] = `
+<DocumentFragment>
+  <h1
+    class="govuk-fieldset__legend--l gov-weight-lighter"
+  >
+    Review / end Warning Note
+  </h1>
+  <h2>
+    Reviewing or ending a Warning Note
+  </h2>
+  <span
+    class="govuk-caption-m"
+  >
+    Warnings must be kept under review by Team Managers and the evidence to support continued use must be reviewed at least annually. Warnings must always be reviewed on the closure or transfer of the case
+  </span>
+  <div
+    class="govuk-!-margin-top-7"
+  >
+    <div
+      class="govuk-!-margin-bottom-7"
+    >
+      <div
+        class="lbh-table-header"
+      >
+        <div
+          class="sectionTitle"
+        >
+          <h3
+            class="govuk-heading-m govuk-custom-text-color govuk-!-margin-bottom-0"
+          >
+            WARNING DETAILS
+          </h3>
+        </div>
+      </div>
+      <hr
+        class="govuk-divider"
+      />
+      <dl
+        class="govuk-summary-list"
+      >
+        <div
+          class="govuk-summary-list__row"
+        >
+          <dt
+            class="govuk-summary-list__key"
+          >
+            Warning type
+          </dt>
+          <dd
+            class="govuk-summary-list__value"
+          >
+            Risk to Adults
+          </dd>
+        </div>
+        <div
+          class="govuk-summary-list__row"
+        >
+          <dt
+            class="govuk-summary-list__key"
+          >
+            Start date
+          </dt>
+          <dd
+            class="govuk-summary-list__value"
+          >
+            22/11/2020
+          </dd>
+        </div>
+        <div
+          class="govuk-summary-list__row"
+        >
+          <dt
+            class="govuk-summary-list__key"
+          >
+            Review / end date
+          </dt>
+          <dd
+            class="govuk-summary-list__value"
+          >
+            01/12/2020
+          </dd>
+        </div>
+        <div
+          class="govuk-summary-list__row"
+        >
+          <dt
+            class="govuk-summary-list__key"
+          >
+            Further details about the Warning Note
+          </dt>
+          <dd
+            class="govuk-summary-list__value"
+          >
+            <div
+              class="outer"
+            >
+              <p
+                data-testid="para"
+              >
+                i am a note
+              </p>
+            </div>
+          </dd>
+        </div>
+        <div
+          class="govuk-summary-list__row"
+        >
+          <dt
+            class="govuk-summary-list__key"
+          >
+            Manager’s name
+          </dt>
+          <dd
+            class="govuk-summary-list__value"
+          >
+            the big boss
+          </dd>
+        </div>
+        <div
+          class="govuk-summary-list__row"
+        >
+          <dt
+            class="govuk-summary-list__key"
+          >
+            Date discussed with manager
+          </dt>
+          <dd
+            class="govuk-summary-list__value"
+          >
+            12/11/2020
+          </dd>
+        </div>
+        <div
+          class="govuk-summary-list__row"
+        >
+          <dt
+            class="govuk-summary-list__key"
+          >
+            Created by
+          </dt>
+          <dd
+            class="govuk-summary-list__value"
+          >
+            Foo
+          </dd>
+        </div>
+      </dl>
+    </div>
+  </div>
+  <h2>
+    Warning Note review
+  </h2>
+  <div
+    class="govuk-width-container"
+  >
+    <fieldset
+      class="govuk-fieldset"
+      role="group"
+    >
+      <form
+        role="form"
+      >
+        <div
+          class="govuk-form-group"
+        >
+          <div
+            class="govuk-form-group"
+          >
+            <fieldset
+              aria-describedby="reviewDate-hint"
+              class="lbh-form-group govuk-form-group"
+            >
+              <legend
+                class="govuk-label"
+              >
+                Date review undertaken 
+                <span
+                  class="govuk-required"
+                >
+                  *
+                </span>
+              </legend>
+              <span
+                class="lbh-hint"
+                id="reviewDate-hint"
+              />
+              <div
+                class="lbh-date-input govuk-date-input"
+                id="reviewDate"
+              >
+                <div
+                  class="lbh-date-input govuk-date-input__item"
+                >
+                  <div
+                    class="lbh-form-group govuk-form-group"
+                  >
+                    <label
+                      class="lbh-label govuk-date-input__label"
+                      for="reviewDate-day"
+                    >
+                      Day
+                    </label>
+                    <input
+                      class="lbh-date-input govuk-input govuk-input--width-2"
+                      id="reviewDate-day"
+                      inputmode="numeric"
+                      name="reviewDate-day"
+                      pattern="^\\\\d{2}$"
+                      value=""
+                    />
+                  </div>
+                </div>
+                <div
+                  class="lbh-date-input govuk-date-input__item"
+                >
+                  <div
+                    class="lbh-form-group govuk-form-group"
+                  >
+                    <label
+                      class="lbh-label govuk-date-input__label"
+                      for="reviewDate-month"
+                    >
+                      Month
+                    </label>
+                    <input
+                      class="lbh-input govuk-input govuk-date-input__input govuk-input--width-2"
+                      id="reviewDate-month"
+                      inputmode="numeric"
+                      name="reviewDate-month"
+                      pattern="^\\\\d{2}$"
+                      value=""
+                    />
+                  </div>
+                </div>
+                <div
+                  class="lbh-date-input govuk-date-input__item"
+                >
+                  <div
+                    class="lbh-form-group govuk-form-group"
+                  >
+                    <label
+                      class="lbh-label  govuk-date-input__label"
+                      for="reviewDate-year"
+                    >
+                      Year
+                    </label>
+                    <input
+                      class="lbh-input govuk-input govuk-date-input__input govuk-input--width-4"
+                      id="reviewDate-year"
+                      inputmode="numeric"
+                      name="reviewDate-year"
+                      pattern="^\\\\d{4}$"
+                      value=""
+                    />
+                  </div>
+                </div>
+              </div>
+            </fieldset>
+          </div>
+          <div
+            class="govuk-form-group"
+          >
+            <div
+              class="lbh-form-group govuk-form-group"
+            >
+              <label
+                class="lbh-label govuk-label"
+                for="reviewNotes"
+              >
+                Details of review 
+                <span
+                  class="govuk-required"
+                >
+                  *
+                </span>
+              </label>
+              <span
+                class="lbh-hint govuk-hint"
+                id="reviewNotes-hint"
+              >
+                include details of disclosure to individual, any updates and why renewing or ending
+              </span>
+              <textarea
+                aria-describedby="reviewNotes-hint"
+                class="lbh-textarea govuk-textarea"
+                id="reviewNotes"
+                name="reviewNotes"
+                rows="5"
+              />
+            </div>
+          </div>
+          <h3>
+            Review discussed with manager
+          </h3>
+          <span
+            class="govuk-caption-m"
+          >
+            This Warning Note review has been discussed and agreed by the manager named below
+          </span>
+          <div
+            class="govuk-form-group"
+          >
+            <div
+              class="govuk-form-group lbh-form-group"
+            >
+              <label
+                class="govuk-label lbh-label"
+                for="managerName"
+              >
+                Manager’s name 
+                <span
+                  class="govuk-required"
+                >
+                  *
+                </span>
+              </label>
+              <input
+                class="govuk-input lbh-input"
+                data-testid="managerName"
+                id="managerName"
+                name="managerName"
+                type="text"
+              />
+            </div>
+          </div>
+          <div
+            class="govuk-form-group"
+          >
+            <fieldset
+              aria-describedby="discussedWithManagerDate-hint"
+              class="lbh-form-group govuk-form-group"
+            >
+              <legend
+                class="govuk-label"
+              >
+                Date discussed with manager 
+                <span
+                  class="govuk-required"
+                >
+                  *
+                </span>
+              </legend>
+              <span
+                class="lbh-hint"
+                id="discussedWithManagerDate-hint"
+              />
+              <div
+                class="lbh-date-input govuk-date-input"
+                id="discussedWithManagerDate"
+              >
+                <div
+                  class="lbh-date-input govuk-date-input__item"
+                >
+                  <div
+                    class="lbh-form-group govuk-form-group"
+                  >
+                    <label
+                      class="lbh-label govuk-date-input__label"
+                      for="discussedWithManagerDate-day"
+                    >
+                      Day
+                    </label>
+                    <input
+                      class="lbh-date-input govuk-input govuk-input--width-2"
+                      id="discussedWithManagerDate-day"
+                      inputmode="numeric"
+                      name="discussedWithManagerDate-day"
+                      pattern="^\\\\d{2}$"
+                      value=""
+                    />
+                  </div>
+                </div>
+                <div
+                  class="lbh-date-input govuk-date-input__item"
+                >
+                  <div
+                    class="lbh-form-group govuk-form-group"
+                  >
+                    <label
+                      class="lbh-label govuk-date-input__label"
+                      for="discussedWithManagerDate-month"
+                    >
+                      Month
+                    </label>
+                    <input
+                      class="lbh-input govuk-input govuk-date-input__input govuk-input--width-2"
+                      id="discussedWithManagerDate-month"
+                      inputmode="numeric"
+                      name="discussedWithManagerDate-month"
+                      pattern="^\\\\d{2}$"
+                      value=""
+                    />
+                  </div>
+                </div>
+                <div
+                  class="lbh-date-input govuk-date-input__item"
+                >
+                  <div
+                    class="lbh-form-group govuk-form-group"
+                  >
+                    <label
+                      class="lbh-label  govuk-date-input__label"
+                      for="discussedWithManagerDate-year"
+                    >
+                      Year
+                    </label>
+                    <input
+                      class="lbh-input govuk-input govuk-date-input__input govuk-input--width-4"
+                      id="discussedWithManagerDate-year"
+                      inputmode="numeric"
+                      name="discussedWithManagerDate-year"
+                      pattern="^\\\\d{4}$"
+                      value=""
+                    />
+                  </div>
+                </div>
+              </div>
+            </fieldset>
+          </div>
+          <h3>
+            Next steps
+          </h3>
+          <div
+            class="govuk-form-group"
+          >
+            <div
+              class="govuk-form-group lbh-form-group"
+            >
+              <label
+                class="lbh-label govuk-label"
+                for="reviewDecision"
+              >
+                What do you want to do? 
+                <span
+                  class="govuk-required"
+                >
+                  *
+                </span>
+              </label>
+              <div
+                class="govuk-radios lbh-radios"
+              >
+                <div
+                  class="govuk-radios__item"
+                >
+                  <input
+                    class="govuk-radios__input"
+                    id="reviewDecision_Yes"
+                    name="reviewDecision"
+                    type="radio"
+                    value="Yes"
+                  />
+                  <label
+                    class="govuk-label govuk-radios__label"
+                    for="reviewDecision_Yes"
+                  >
+                    Renew Warning Note
+                  </label>
+                </div>
+                <div
+                  class="govuk-radios__item"
+                >
+                  <input
+                    class="govuk-radios__input"
+                    id="reviewDecision_No"
+                    name="reviewDecision"
+                    type="radio"
+                    value="No"
+                  />
+                  <label
+                    class="govuk-label govuk-radios__label"
+                    for="reviewDecision_No"
+                  >
+                    End Warning Note
+                  </label>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          class="actions"
+        >
+          <button
+            class="lbh-button govuk-button lbh-button--secondary lbh-button govuk-button"
+            data-module="govuk-button"
+            style="min-width: 200px;"
+            type="button"
+          >
+            Save and finish later
+          </button>
+          <a
+            class="lbh-link govuk-link"
+            href="/"
+            style="margin-left: 1.5rem;"
+          >
+            Cancel
+          </a>
+          <button
+            class="lbh-button govuk-button"
+            data-module="govuk-button"
+            type="submit"
+          >
+            Continue
+          </button>
+        </div>
+      </form>
+    </fieldset>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`<ReviewWarningNoteForm /> for an adults resident should render the warning notes form 1`] = `
+<DocumentFragment>
+  <h1
+    class="govuk-fieldset__legend--l gov-weight-lighter"
+  >
+    Review / end Warning Note
+  </h1>
+  <h2>
+    Reviewing or ending a Warning Note
+  </h2>
+  <span
+    class="govuk-caption-m"
+  >
+    Warnings must be kept under review by Team Managers and the evidence to support continued use must be reviewed at least annually. Warnings must always be reviewed on the closure or transfer of the case
+  </span>
+  <div
+    class="govuk-!-margin-top-7"
+  >
+    <div
+      class="govuk-!-margin-bottom-7"
+    >
+      <div
+        class="lbh-table-header"
+      >
+        <div
+          class="sectionTitle"
+        >
+          <h3
+            class="govuk-heading-m govuk-custom-text-color govuk-!-margin-bottom-0"
+          >
+            WARNING DETAILS
+          </h3>
+        </div>
+      </div>
+      <hr
+        class="govuk-divider"
+      />
+      <dl
+        class="govuk-summary-list"
+      >
+        <div
+          class="govuk-summary-list__row"
+        >
+          <dt
+            class="govuk-summary-list__key"
+          >
+            Warning type
+          </dt>
+          <dd
+            class="govuk-summary-list__value"
+          >
+            Risk to Adults
+          </dd>
+        </div>
+        <div
+          class="govuk-summary-list__row"
+        >
+          <dt
+            class="govuk-summary-list__key"
+          >
+            Start date
+          </dt>
+          <dd
+            class="govuk-summary-list__value"
+          >
+            22/11/2020
+          </dd>
+        </div>
+        <div
+          class="govuk-summary-list__row"
+        >
+          <dt
+            class="govuk-summary-list__key"
+          >
+            Review / end date
+          </dt>
+          <dd
+            class="govuk-summary-list__value"
+          >
+            01/12/2020
+          </dd>
+        </div>
+        <div
+          class="govuk-summary-list__row"
+        >
+          <dt
+            class="govuk-summary-list__key"
+          >
+            Is the individual aware of the Warning Note and Review Date?
+          </dt>
+          <dd
+            class="govuk-summary-list__value"
+          >
+            Yes
+          </dd>
+        </div>
+        <div
+          class="govuk-summary-list__row"
+        >
+          <dt
+            class="govuk-summary-list__key"
+          >
+            Date informed
+          </dt>
+          <dd
+            class="govuk-summary-list__value"
+          >
+            12/11/2020
+          </dd>
+        </div>
+        <div
+          class="govuk-summary-list__row"
+        >
+          <dt
+            class="govuk-summary-list__key"
+          >
+            How was the individual informed
+          </dt>
+          <dd
+            class="govuk-summary-list__value"
+          >
+            Written
+          </dd>
+        </div>
+        <div
+          class="govuk-summary-list__row"
+        >
+          <dt
+            class="govuk-summary-list__key"
+          >
+            Details of disclosure to individual
+          </dt>
+          <dd
+            class="govuk-summary-list__value"
+          >
+            <div
+              class="outer"
+            >
+              <p
+                data-testid="para"
+              >
+                lorem ipsum
+              </p>
+            </div>
+          </dd>
+        </div>
+        <div
+          class="govuk-summary-list__row"
+        >
+          <dt
+            class="govuk-summary-list__key"
+          >
+            Warning narrative and risks notes
+          </dt>
+          <dd
+            class="govuk-summary-list__value"
+          >
+            <div
+              class="outer"
+            >
+              <p
+                data-testid="para"
+              >
+                i am a note
+              </p>
+            </div>
+          </dd>
+        </div>
+        <div
+          class="govuk-summary-list__row"
+        >
+          <dt
+            class="govuk-summary-list__key"
+          >
+            Manager’s name
+          </dt>
+          <dd
+            class="govuk-summary-list__value"
+          >
+            the big boss
+          </dd>
+        </div>
+        <div
+          class="govuk-summary-list__row"
+        >
+          <dt
+            class="govuk-summary-list__key"
+          >
+            Date discussed with manager
+          </dt>
+          <dd
+            class="govuk-summary-list__value"
+          >
+            12/11/2020
+          </dd>
+        </div>
+        <div
+          class="govuk-summary-list__row"
+        >
+          <dt
+            class="govuk-summary-list__key"
+          >
+            Created by
+          </dt>
+          <dd
+            class="govuk-summary-list__value"
+          >
+            Foo
+          </dd>
+        </div>
+      </dl>
+    </div>
+  </div>
+  <h2>
+    Warning Note review
+  </h2>
+  <div
+    class="govuk-width-container"
+  >
+    <fieldset
+      class="govuk-fieldset"
+      role="group"
+    >
+      <form
+        role="form"
+      >
+        <div
+          class="govuk-form-group"
+        >
+          <div
+            class="govuk-form-group"
+          >
+            <fieldset
+              aria-describedby="reviewDate-hint"
+              class="lbh-form-group govuk-form-group"
+            >
+              <legend
+                class="govuk-label"
+              >
+                Date review undertaken 
+                <span
+                  class="govuk-required"
+                >
+                  *
+                </span>
+              </legend>
+              <span
+                class="lbh-hint"
+                id="reviewDate-hint"
+              />
+              <div
+                class="lbh-date-input govuk-date-input"
+                id="reviewDate"
+              >
+                <div
+                  class="lbh-date-input govuk-date-input__item"
+                >
+                  <div
+                    class="lbh-form-group govuk-form-group"
+                  >
+                    <label
+                      class="lbh-label govuk-date-input__label"
+                      for="reviewDate-day"
+                    >
+                      Day
+                    </label>
+                    <input
+                      class="lbh-date-input govuk-input govuk-input--width-2"
+                      id="reviewDate-day"
+                      inputmode="numeric"
+                      name="reviewDate-day"
+                      pattern="^\\\\d{2}$"
+                      value=""
+                    />
+                  </div>
+                </div>
+                <div
+                  class="lbh-date-input govuk-date-input__item"
+                >
+                  <div
+                    class="lbh-form-group govuk-form-group"
+                  >
+                    <label
+                      class="lbh-label govuk-date-input__label"
+                      for="reviewDate-month"
+                    >
+                      Month
+                    </label>
+                    <input
+                      class="lbh-input govuk-input govuk-date-input__input govuk-input--width-2"
+                      id="reviewDate-month"
+                      inputmode="numeric"
+                      name="reviewDate-month"
+                      pattern="^\\\\d{2}$"
+                      value=""
+                    />
+                  </div>
+                </div>
+                <div
+                  class="lbh-date-input govuk-date-input__item"
+                >
+                  <div
+                    class="lbh-form-group govuk-form-group"
+                  >
+                    <label
+                      class="lbh-label  govuk-date-input__label"
+                      for="reviewDate-year"
+                    >
+                      Year
+                    </label>
+                    <input
+                      class="lbh-input govuk-input govuk-date-input__input govuk-input--width-4"
+                      id="reviewDate-year"
+                      inputmode="numeric"
+                      name="reviewDate-year"
+                      pattern="^\\\\d{4}$"
+                      value=""
+                    />
+                  </div>
+                </div>
+              </div>
+            </fieldset>
+          </div>
+          <div
+            class="govuk-form-group"
+          >
+            <div
+              class="govuk-form-group lbh-form-group"
+            >
+              <label
+                class="lbh-label govuk-label"
+                for="disclosedWithIndividual"
+              >
+                Have you discussed this review with the individual 
+                <span
+                  class="govuk-required"
+                >
+                  *
+                </span>
+              </label>
+              <div
+                class="govuk-radios lbh-radios"
+              >
+                <div
+                  class="govuk-radios__item"
+                >
+                  <input
+                    class="govuk-radios__input"
+                    id="disclosedWithIndividual_Yes"
+                    name="disclosedWithIndividual"
+                    type="radio"
+                    value="Yes"
+                  />
+                  <label
+                    class="govuk-label govuk-radios__label"
+                    for="disclosedWithIndividual_Yes"
+                  >
+                    Yes
+                  </label>
+                </div>
+                <div
+                  class="govuk-radios__item"
+                >
+                  <input
+                    class="govuk-radios__input"
+                    id="disclosedWithIndividual_No"
+                    name="disclosedWithIndividual"
+                    type="radio"
+                    value="No"
+                  />
+                  <label
+                    class="govuk-label govuk-radios__label"
+                    for="disclosedWithIndividual_No"
+                  >
+                    No
+                  </label>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            class="govuk-form-group"
+          >
+            <div
+              class="lbh-form-group govuk-form-group"
+            >
+              <label
+                class="lbh-label govuk-label"
+                for="reviewNotes"
+              >
+                Details of review 
+                <span
+                  class="govuk-required"
+                >
+                  *
+                </span>
+              </label>
+              <span
+                class="lbh-hint govuk-hint"
+                id="reviewNotes-hint"
+              >
+                include details of disclosure to individual, any updates and why renewing or ending
+              </span>
+              <textarea
+                aria-describedby="reviewNotes-hint"
+                class="lbh-textarea govuk-textarea"
+                id="reviewNotes"
+                name="reviewNotes"
+                rows="5"
+              />
+            </div>
+          </div>
+          <h3>
+            Review discussed with manager
+          </h3>
+          <span
+            class="govuk-caption-m"
+          >
+            This Warning Note review has been discussed and agreed by the manager named below
+          </span>
+          <div
+            class="govuk-form-group"
+          >
+            <div
+              class="govuk-form-group lbh-form-group"
+            >
+              <label
+                class="govuk-label lbh-label"
+                for="managerName"
+              >
+                Manager’s name 
+              </label>
+              <input
+                class="govuk-input lbh-input"
+                data-testid="managerName"
+                id="managerName"
+                name="managerName"
+                type="text"
+              />
+            </div>
+          </div>
+          <div
+            class="govuk-form-group"
+          >
+            <fieldset
+              aria-describedby="discussedWithManagerDate-hint"
+              class="lbh-form-group govuk-form-group"
+            >
+              <legend
+                class="govuk-label"
+              >
+                Date discussed with manager 
+              </legend>
+              <span
+                class="lbh-hint"
+                id="discussedWithManagerDate-hint"
+              />
+              <div
+                class="lbh-date-input govuk-date-input"
+                id="discussedWithManagerDate"
+              >
+                <div
+                  class="lbh-date-input govuk-date-input__item"
+                >
+                  <div
+                    class="lbh-form-group govuk-form-group"
+                  >
+                    <label
+                      class="lbh-label govuk-date-input__label"
+                      for="discussedWithManagerDate-day"
+                    >
+                      Day
+                    </label>
+                    <input
+                      class="lbh-date-input govuk-input govuk-input--width-2"
+                      id="discussedWithManagerDate-day"
+                      inputmode="numeric"
+                      name="discussedWithManagerDate-day"
+                      pattern="^\\\\d{2}$"
+                      value=""
+                    />
+                  </div>
+                </div>
+                <div
+                  class="lbh-date-input govuk-date-input__item"
+                >
+                  <div
+                    class="lbh-form-group govuk-form-group"
+                  >
+                    <label
+                      class="lbh-label govuk-date-input__label"
+                      for="discussedWithManagerDate-month"
+                    >
+                      Month
+                    </label>
+                    <input
+                      class="lbh-input govuk-input govuk-date-input__input govuk-input--width-2"
+                      id="discussedWithManagerDate-month"
+                      inputmode="numeric"
+                      name="discussedWithManagerDate-month"
+                      pattern="^\\\\d{2}$"
+                      value=""
+                    />
+                  </div>
+                </div>
+                <div
+                  class="lbh-date-input govuk-date-input__item"
+                >
+                  <div
+                    class="lbh-form-group govuk-form-group"
+                  >
+                    <label
+                      class="lbh-label  govuk-date-input__label"
+                      for="discussedWithManagerDate-year"
+                    >
+                      Year
+                    </label>
+                    <input
+                      class="lbh-input govuk-input govuk-date-input__input govuk-input--width-4"
+                      id="discussedWithManagerDate-year"
+                      inputmode="numeric"
+                      name="discussedWithManagerDate-year"
+                      pattern="^\\\\d{4}$"
+                      value=""
+                    />
+                  </div>
+                </div>
+              </div>
+            </fieldset>
+          </div>
+          <h3>
+            Next steps
+          </h3>
+          <div
+            class="govuk-form-group"
+          >
+            <div
+              class="govuk-form-group lbh-form-group"
+            >
+              <label
+                class="lbh-label govuk-label"
+                for="reviewDecision"
+              >
+                What do you want to do? 
+                <span
+                  class="govuk-required"
+                >
+                  *
+                </span>
+              </label>
+              <div
+                class="govuk-radios lbh-radios"
+              >
+                <div
+                  class="govuk-radios__item"
+                >
+                  <input
+                    class="govuk-radios__input"
+                    id="reviewDecision_Yes"
+                    name="reviewDecision"
+                    type="radio"
+                    value="Yes"
+                  />
+                  <label
+                    class="govuk-label govuk-radios__label"
+                    for="reviewDecision_Yes"
+                  >
+                    Renew Warning Note
+                  </label>
+                </div>
+                <div
+                  class="govuk-radios__item"
+                >
+                  <input
+                    class="govuk-radios__input"
+                    id="reviewDecision_No"
+                    name="reviewDecision"
+                    type="radio"
+                    value="No"
+                  />
+                  <label
+                    class="govuk-label govuk-radios__label"
+                    for="reviewDecision_No"
+                  >
+                    End Warning Note
+                  </label>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          class="actions"
+        >
+          <button
+            class="lbh-button govuk-button lbh-button--secondary lbh-button govuk-button"
+            data-module="govuk-button"
+            style="min-width: 200px;"
+            type="button"
+          >
+            Save and finish later
+          </button>
+          <a
+            class="lbh-link govuk-link"
+            href="/"
+            style="margin-left: 1.5rem;"
+          >
+            Cancel
+          </a>
+          <button
+            class="lbh-button govuk-button"
+            data-module="govuk-button"
+            type="submit"
+          >
+            Continue
+          </button>
+        </div>
+      </form>
+    </fieldset>
+  </div>
+</DocumentFragment>
+`;
