@@ -5,10 +5,39 @@ const mockedRelationshipFactory = Factory.define<RelationshipData>(
   ({ sequence }) => ({
     personId: sequence,
     personalRelationships: {
-      parents: [],
-      siblings: [],
-      children: [],
+      sibling: [],
       other: [],
+      parent: [],
+      child: [],
+      greatGrandchild: [],
+      greatGrandparent: [],
+      grandchild: [],
+      grandparent: [],
+      stepParent: [],
+      auntUncle: [],
+      stepChild: [],
+      unbornChild: [],
+      partner: [],
+      exPartner: [],
+      halfSibling: [],
+      stepSibling: [],
+      unbornSibling: [],
+      spouse: [],
+      cousin: [],
+      nieceNephew: [],
+      fosterCarer: [],
+      friend: [],
+      exSpouse: [],
+      parentOfUnbornChild: [],
+      siblingOfUnbornChild: [],
+      fosterCarerSupportCarer: [],
+      privateFosterCarer: [],
+      privateFosterChild: [],
+      fosterChild: [],
+      supportCarerFosterCarer: [],
+      neighbour: [],
+      inContactWith: [],
+      acquaintance: [],
     },
   })
 );
@@ -24,7 +53,7 @@ const mockedRelationPerson = Factory.define<RelationshipPerson>(
 export const mockedRelationship = mockedRelationshipFactory.build({
   personId: 123,
   personalRelationships: {
-    parents: [
+    parent: [
       mockedRelationPerson.build({
         id: 111,
         firstName: 'Giovanni',
@@ -32,7 +61,7 @@ export const mockedRelationship = mockedRelationshipFactory.build({
       }),
     ],
 
-    siblings: [
+    sibling: [
       mockedRelationPerson.build({
         id: 222,
         firstName: 'Andrea',
@@ -40,7 +69,7 @@ export const mockedRelationship = mockedRelationshipFactory.build({
       }),
     ],
 
-    children: [
+    child: [
       mockedRelationPerson.build({
         id: 333,
         firstName: 'Giuseppe',
@@ -61,9 +90,9 @@ export const mockedRelationship = mockedRelationshipFactory.build({
 export const mockedRelationshipNoData = mockedRelationshipFactory.build({
   personId: 123,
   personalRelationships: {
-    parents: [],
-    siblings: [],
-    children: [],
+    parent: [],
+    sibling: [],
+    child: [],
     other: [],
   },
 });
@@ -76,15 +105,15 @@ export const mockRelationshipEmptyData = mockedRelationshipFactory.build({
 export const mockedRelationshipPartialData = mockedRelationshipFactory.build({
   personId: 123,
   personalRelationships: {
-    parents: [
+    parent: [
       mockedRelationPerson.build({
         id: 111,
         firstName: 'Mastro',
         lastName: 'Geppetto',
       }),
     ],
-    siblings: [],
-    children: [
+    sibling: [],
+    child: [
       mockedRelationPerson.build({
         id: 123,
         firstName: 'Pinocchio',

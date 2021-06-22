@@ -17,14 +17,10 @@ const Relationships = ({ id }: Props): React.ReactElement => {
     return <ErrorMessage />;
   }
 
-  const shouldAppear =
-    (personalRelationships.parents &&
-      personalRelationships.parents.length > 0) ||
-    (personalRelationships.children &&
-      personalRelationships.children.length > 0) ||
-    (personalRelationships.siblings &&
-      personalRelationships.siblings.length > 0) ||
-    (personalRelationships.other && personalRelationships.other.length > 0);
+  let shouldAppear = false;
+  Object.values(personalRelationships).map((val) => {
+    shouldAppear = shouldAppear || val.length > 0;
+  });
 
   if (!shouldAppear) {
     return <></>;
@@ -41,30 +37,19 @@ const Relationships = ({ id }: Props): React.ReactElement => {
         <hr className="govuk-divider" />
         {
           <dl className="govuk-summary-list lbh-summary-list">
-            {
-              <RelationshipElement
-                title="Parents"
-                data={personalRelationships.parents}
-              />
-            }
-            {
-              <RelationshipElement
-                title="Children"
-                data={personalRelationships.children}
-              />
-            }
-            {
-              <RelationshipElement
-                title="Siblings"
-                data={personalRelationships.siblings}
-              />
-            }
-            {
-              <RelationshipElement
-                title="Other"
-                data={personalRelationships.other}
-              />
-            }
+            {Object.entries(personalRelationships)
+              .sort((a, b) => b[1] - a[1])
+              .map(([key, value]) => {
+                if (value.length > 0) {
+                  return (
+                    <RelationshipElement
+                      title={key}
+                      data={value}
+                      key={`rel_${key}`}
+                    />
+                  );
+                }
+              })}
           </dl>
         }
       </div>
