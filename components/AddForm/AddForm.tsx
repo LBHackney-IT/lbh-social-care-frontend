@@ -20,7 +20,7 @@ const AddForm = ({ person }: { person: Resident }): React.ReactElement => {
       text: 'Case Note Recording',
       value: `/people/${person.id}/records/case-notes-recording`,
     },
-    (user.hasDevPermissions || ageContext === 'C') && {
+    {
       text: 'Warning Note',
       value: `/people/${person.id}/warning-notes/add`,
     },
