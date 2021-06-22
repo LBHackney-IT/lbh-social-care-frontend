@@ -110,8 +110,8 @@ const StepFormInner = ({
         disabled={isSubmitting}
         onClick={async () => {
           await submitForm();
-          // setGoBackToTaskList(true);
-          // setSaved(true);
+          setGoBackToTaskList(true);
+          setSaved(true);
         }}
       >
         Save and continue
