@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Submission } from 'data/flexibleForms/forms.types';
 import SubmissionRow from './SubmissionRow';
 import { useAuth } from 'components/UserContext/UserContext';
+import { User } from 'types';
 
 interface FilterProps {
   value: string;
@@ -80,7 +81,7 @@ export const SubmissionsTable = ({
               key={submission.submissionId}
               openRow={openRow}
               setOpenRow={setOpenRow}
-              user={user}
+              user={user as User}
             />
           ))}
       </ul>
