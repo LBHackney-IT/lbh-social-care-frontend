@@ -74,8 +74,8 @@ const StepFormInner = ({
 
   if (goBackToTaskList && saved && isValid) {
     router.push(`/submissions/${router.query.id}`);
-  } else {
-    if (goBackToTaskList) setGoBackToTaskList(false);
+  } else if (goBackToTaskList) {
+    setGoBackToTaskList(false);
   }
 
   return (
