@@ -7,7 +7,7 @@ export const getRelationshipByResident = async (
   personId: number
 ): Promise<RelationshipData[] | []> => {
   const { data }: { data: RelationshipData[] } = await axios.get(
-    `${ENDPOINT_API}/residents/${personId}/relationships-v1`,
+    `${ENDPOINT_API}/residents/${personId}/relationships`,
     {
       headers,
     }
