@@ -1,60 +1,7 @@
 import { useState } from 'react';
 import { Submission } from 'data/flexibleForms/forms.types';
-import Link from 'next/link';
+import SubmissionRow from './SubmissionRow';
 import { useAuth } from 'components/UserContext/UserContext';
-import { format } from 'date-fns';
-import forms from 'data/flexibleForms';
-
-interface RowProps {
-  submission: Submission;
-  openRow: string | false;
-  setOpenRow: (value: string | false) => void;
-}
-
-const SubmissionRow = ({
-  submission,
-  openRow,
-  setOpenRow,
-}: RowProps): React.ReactElement => {
-  const form = forms.find((form) => form.id === submission.formId);
-
-  return (
-    <li>
-      <Link href={`/people/${submission.residents[0].id}`}>
-        <a className="lbh-link">
-          <h3>
-            {submission.residents?.[0]?.firstName}{' '}
-            {submission.residents?.[0]?.lastName}
-          </h3>
-        </a>
-      </Link>
-      <p>{submission.residents[0].id}</p>
-
-      <dl className="lbh-body-s">
-        <dt>Form</dt>
-        <dd>{form?.name}</dd>
-        <dt>Last edited</dt>
-        <dd>{format(new Date(submission.createdAt), 'dd MMM yyyy')}</dd>
-      </dl>
-
-      <Link href={`/submissions/${submission.submissionId}`}>
-        <a className="govuk-button lbh-button">Continue</a>
-      </Link>
-
-      <button
-        onClick={() =>
-          setOpenRow(
-            openRow === submission.submissionId
-              ? false
-              : submission.submissionId
-          )
-        }
-      >
-        {openRow === submission.submissionId ? 'Close' : 'Open'}
-      </button>
-    </li>
-  );
-};
 
 interface FilterProps {
   value: string;
@@ -133,6 +80,7 @@ export const SubmissionsTable = ({
               key={submission.submissionId}
               openRow={openRow}
               setOpenRow={setOpenRow}
+              user={user}
             />
           ))}
       </ul>
