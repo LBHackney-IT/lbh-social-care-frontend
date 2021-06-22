@@ -84,6 +84,20 @@ export const mockedRelationship = mockedRelationshipFactory.build({
         lastName: 'Geppetto',
       }),
     ],
+    unbornSibling: [
+      mockedRelationPerson.build({
+        id: 444,
+        firstName: 'Jambi',
+        lastName: 'Neverborn',
+      }),
+    ],
+    siblingOfUnbornChild: [
+      mockedRelationPerson.build({
+        id: 444,
+        firstName: 'Cento',
+        lastName: 'Neverborn',
+      }),
+    ],
   },
 });
 
