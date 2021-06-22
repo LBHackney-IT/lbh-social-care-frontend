@@ -122,6 +122,10 @@ const form: Form = {
               label: 'Lives with others',
             },
             {
+              value: 'Shared housing',
+              label: 'Shared housing',
+            },
+            {
               value: 'Unknown',
               label: 'Unknown',
             },
