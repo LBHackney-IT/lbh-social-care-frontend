@@ -38,8 +38,14 @@ const Field = ({
       getIn(touched, name) && getIn(errors, name) && 'govuk-form-group--error'
     }`}
   >
-    <label htmlFor={name} className="govuk-label lbh-label">
-      {label} {required && <span className="govuk-required">*</span>}
+    <label htmlFor={name} data-testid={name} className="govuk-label lbh-label">
+      {label}{' '}
+      {required && (
+        <span className="govuk-required">
+          <span aria-hidden="true">*</span>
+          <span className="govuk-visually-hidden">required</span>
+        </span>
+      )}
     </label>
 
     {hint && (

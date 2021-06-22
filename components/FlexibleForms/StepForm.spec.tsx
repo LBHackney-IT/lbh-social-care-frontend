@@ -40,7 +40,8 @@ describe('StepForm', () => {
         onFinish={() => true}
       />
     );
-    expect(screen.getByLabelText('Test question *'));
+
+    expect(screen.getByTestId('one')).toHaveTextContent('Test question');
     expect(screen.getByText('Save and continue'));
   });
 
@@ -55,7 +56,7 @@ describe('StepForm', () => {
       />
     );
 
-    fireEvent.change(screen.getByLabelText('Test question *'), {
+    fireEvent.change(screen.getByRole('textbox'), {
       target: { value: 'test value' },
     });
     fireEvent.click(screen.getByText('Save and continue'));
@@ -75,7 +76,7 @@ describe('StepForm', () => {
       />
     );
 
-    fireEvent.change(screen.getByLabelText('Test question *'), {
+    fireEvent.change(screen.getByRole('textbox'), {
       target: { value: 'test value' },
     });
     fireEvent.click(screen.getByText('Save and continue'));
@@ -96,7 +97,7 @@ describe('StepForm', () => {
       />
     );
 
-    fireEvent.change(screen.getByLabelText('Test question *'), {
+    fireEvent.change(screen.getByRole('textbox'), {
       target: { value: 'test value' },
     });
     fireEvent.click(screen.getByText('Save and finish'));

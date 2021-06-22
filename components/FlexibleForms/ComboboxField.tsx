@@ -73,8 +73,18 @@ const Field = ({
             'govuk-form-group--error'
           }`}
         >
-          <label className="govuk-label lbh-label" {...getLabelProps()}>
-            {label} {required && <span className="govuk-required">*</span>}
+          <label
+            data-testid={name}
+            className="govuk-label lbh-label"
+            {...getLabelProps()}
+          >
+            {label}{' '}
+            {required && (
+              <span className="govuk-required">
+                <span aria-hidden="true">*</span>
+                <span className="govuk-visually-hidden">required</span>
+              </span>
+            )}
           </label>
 
           {hint && (
