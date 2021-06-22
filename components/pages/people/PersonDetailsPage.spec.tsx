@@ -9,7 +9,6 @@ import { createMockedPersonView } from '../../../test/helpers';
 import * as casesAPI from 'utils/api/cases';
 import { PersonDetailsPage } from './PersonDetailsPage';
 import * as warningNotes from '../../../utils/api/warningNotes';
-import { mockedWarningNoteCase } from '../../../factories/cases';
 import { mockedWarningNote } from '../../../factories/warningNotes';
 
 jest.mock('../../PersonView/PersonView');
@@ -131,7 +130,9 @@ describe('<PersonDetailsPage />', () => {
         </AuthProvider>
       );
 
-      screen.getByText('RESTRICTED');
+      screen.getByText(
+        'Some details for this person are restricted due to your permissions.'
+      );
     });
   });
 
@@ -189,7 +190,9 @@ describe('<PersonDetailsPage />', () => {
         </AuthProvider>
       );
 
-      screen.getByText('RESTRICTED');
+      screen.getByText(
+        'Some details for this person are restricted due to your permissions.'
+      );
     });
   });
 });
