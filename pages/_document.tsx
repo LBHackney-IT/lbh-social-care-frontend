@@ -53,16 +53,6 @@ export default class AppDocument extends Document {
           />
         </Head>
         <body className="govuk-template__body lbh-template__body js-enabled">
-          <noscript
-            dangerouslySetInnerHTML={{
-              __html: `
-            <!-- Google Tag Manager (noscript) -->
-            <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TV9MT99"
-            height="0" width="0" style="display:none;visibility:hidden"></iframe>
-            <!-- End Google Tag Manager (noscript) -->`,
-            }}
-          />
-
           <Main />
           <NextScript />
         </body>
