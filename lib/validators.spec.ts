@@ -1,4 +1,7 @@
-import { generateFlexibleSchema } from './validators';
+import {
+  generateFlexibleSchema,
+  validateConditionalFields,
+} from './validators';
 
 describe('generateFlexibleSchema', () => {
   it('handles different field types', async () => {
@@ -136,5 +139,46 @@ describe('generateFlexibleSchema', () => {
         ],
       })
     ).rejects.toThrowError('This question is required');
+  });
+});
+
+describe('validateConditionalFields', () => {
+  it('validates a basic required field when the condition is met', () => {
+    const result = validateConditionalFields(
+      {
+        bar: 'my-value',
+      },
+      [
+        {
+          id: 'foo',
+          type: 'text',
+          question: 'Foo',
+          required: true,
+          condition: {
+            id: 'bar',
+            value: 'my-value',
+          },
+        },
+      ]
+    );
+    expect(result).toMatchObject({
+      foo: 'This question is required',
+    });
+  });
+
+  it('does nothing when the condition is not met', () => {
+    const result = validateConditionalFields({}, [
+      {
+        id: 'foo',
+        type: 'text',
+        question: 'Foo',
+        required: true,
+        condition: {
+          id: 'bar',
+          value: 'my-value',
+        },
+      },
+    ]);
+    expect(result).toMatchObject({});
   });
 });

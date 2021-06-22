@@ -1,4 +1,5 @@
 import * as Yup from 'yup';
+import { FormikValues, FormikErrors } from 'formik';
 import { Field } from 'data/flexibleForms/forms.types';
 import { ObjectShape, OptionalObjectSchema, TypeOfShape } from 'yup/lib/object';
 
@@ -52,4 +53,29 @@ export const generateFlexibleSchema = (
   });
 
   return Yup.object().shape(shape);
+};
+
+/** respect the "required" attribute for conditional fields, only when the condition is met */
+export const validateConditionalFields = (
+  values: FormikValues,
+  fields: Field[]
+): FormikErrors<FormikValues> => {
+  const errors: FormikErrors<FormikValues> = {};
+  fields.map((field) => {
+    if (
+      field.condition &&
+      values[field.condition.id] === field.condition.value &&
+      field.required &&
+      !values[field.id]
+    ) {
+      if (field.type === true) {
+        // handle array type fields
+        errors[field.id] = 'This question is required';
+      } else {
+        // handle string type fields
+        errors[field.id] = 'This question is required';
+      }
+    }
+  });
+  return errors;
 };
