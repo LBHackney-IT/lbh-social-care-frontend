@@ -21,10 +21,6 @@ interface FieldProps {
     value: string;
     label: string;
   }[];
-  condition?: {
-    id: string;
-    value: string | boolean;
-  };
   onChange?: React.ChangeEventHandler<HTMLInputElement>;
 }
 
