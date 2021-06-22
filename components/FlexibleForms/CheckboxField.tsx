@@ -31,6 +31,7 @@ const Field = ({
   hint,
   className,
   choices,
+  required,
 }: FieldProps): React.ReactElement => (
   <div
     className={`govuk-form-group lbh-form-group ${
@@ -41,7 +42,15 @@ const Field = ({
       className="govuk-fieldset"
       aria-describedby={hint && `${name}-hint`}
     >
-      <legend className="govuk-label lbh-label">{label}</legend>
+      <legend className="govuk-label lbh-label" data-testid={name}>
+        {label}{' '}
+        {required && (
+          <span className="govuk-required">
+            <span aria-hidden="true">*</span>
+            <span className="govuk-visually-hidden">required</span>
+          </span>
+        )}
+      </legend>
 
       {hint && (
         <span id={`${name}-hint`} className="govuk-hint lbh-hint">
