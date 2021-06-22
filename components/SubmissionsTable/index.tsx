@@ -7,9 +7,15 @@ import forms from 'data/flexibleForms';
 
 interface RowProps {
   submission: Submission;
+  openRow: string | false;
+  setOpenRow: (value: string | false) => void;
 }
 
-const SubmissionRow = ({ submission }: RowProps): React.ReactElement => {
+const SubmissionRow = ({
+  submission,
+  openRow,
+  setOpenRow,
+}: RowProps): React.ReactElement => {
   const form = forms.find((form) => form.id === submission.formId);
 
   return (
@@ -34,6 +40,18 @@ const SubmissionRow = ({ submission }: RowProps): React.ReactElement => {
       <Link href={`/submissions/${submission.submissionId}`}>
         <a className="govuk-button lbh-button">Continue</a>
       </Link>
+
+      <button
+        onClick={() =>
+          setOpenRow(
+            openRow === submission.submissionId
+              ? false
+              : submission.submissionId
+          )
+        }
+      >
+        {openRow === submission.submissionId ? 'Close' : 'Open'}
+      </button>
     </li>
   );
 };
@@ -75,6 +93,7 @@ export const SubmissionsTable = ({
   const { user } = useAuth();
 
   const [filter, setFilter] = useState<string>('mine');
+  const [openRow, setOpenRow] = useState<string | false>(false);
 
   const filteredSubmissions =
     filter === 'mine'
@@ -108,6 +127,8 @@ export const SubmissionsTable = ({
             <SubmissionRow
               submission={submission}
               key={submission.submissionId}
+              openRow={openRow}
+              setOpenRow={setOpenRow}
             />
           ))}
       </ul>
