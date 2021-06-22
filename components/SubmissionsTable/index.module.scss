@@ -1,0 +1,46 @@
+@import 'lbh-frontend/lbh/base';
+
+.row {
+  position: relative;
+  // force chrome to respect position: relative on table row
+  transform: scale(1);
+
+  a {
+    position: relative;
+    z-index: 2;
+  }
+}
+
+.expanderButton {
+  // make whole row clickable
+  &:after {
+    content: '';
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+  }
+}
+
+.dl {
+  background: lbh-colour('lbh-grey-4');
+  padding: 1.5rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+
+  div {
+    margin-top: 0;
+  }
+
+  dt {
+    margin-top: 5px;
+  }
+
+  dd {
+    margin-top: 0rem;
+  }
+}
