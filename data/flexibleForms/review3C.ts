@@ -503,6 +503,7 @@ const form: Form = {
             value: 'Unplanned',
           },
           type: 'radios',
+          required: true,
           choices: [
             {
               value: 'Planned or unplanned hospital episode',
