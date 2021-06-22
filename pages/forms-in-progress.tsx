@@ -4,6 +4,7 @@ import DashboardWrapper from 'components/Dashboard/DashboardWrapper';
 import { GetServerSideProps } from 'next';
 import { getUnfinishedSubmissions } from 'lib/submissions';
 import { Submission } from 'data/flexibleForms/forms.types';
+import SubmissionsTable from 'components/SubmissionsTable';
 
 interface Props {
   submissions: Submission[];
@@ -13,7 +14,10 @@ const UnfinishedSubmissions = ({ submissions }: Props): React.ReactElement => (
   <>
     <Seo title="Unfinished submissions" />
     <DashboardWrapper>
-      <SavedForms />
+      <>
+        <SubmissionsTable submissions={submissions} />
+        <SavedForms />
+      </>
     </DashboardWrapper>
   </>
 );
