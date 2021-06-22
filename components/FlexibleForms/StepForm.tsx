@@ -39,19 +39,17 @@ const StepForm = ({
   fields,
   person,
   onSubmit,
-}: Props): React.ReactElement => {
-  return (
-    <Formik
-      initialValues={initialValues || generateInitialValues(fields, person)}
-      validationSchema={generateFlexibleSchema(fields)}
-      validate={(values) => validateConditionalFields(values, fields)}
-      onSubmit={onSubmit}
-      validateOnMount={true}
-    >
-      {(formikProps) => <StepFormInner {...formikProps} fields={fields} />}
-    </Formik>
-  );
-};
+}: Props): React.ReactElement => (
+  <Formik
+    initialValues={initialValues || generateInitialValues(fields, person)}
+    validationSchema={generateFlexibleSchema(fields)}
+    validate={(values) => validateConditionalFields(values, fields)}
+    onSubmit={onSubmit}
+    validateOnMount={true}
+  >
+    {(formikProps) => <StepFormInner {...formikProps} fields={fields} />}
+  </Formik>
+);
 
 interface InnerProps {
   fields: Field[];
