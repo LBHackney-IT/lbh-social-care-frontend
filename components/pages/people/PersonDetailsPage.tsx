@@ -5,11 +5,7 @@ import AllocatedWorkers from 'components/AllocatedWorkers/AllocatedWorkers';
 import Relationships from 'components/Relationships/Relationships';
 import WarningNotes from 'components/WarningNote/WarningNotes';
 import Stack from 'components/Stack/Stack';
-import {
-  canManageCases,
-  canUserViewWarningNotes,
-  canViewRelationships,
-} from 'lib/permissions';
+import { canManageCases, canViewRelationships } from 'lib/permissions';
 import { useAuth } from '../../UserContext/UserContext';
 import { User } from '../../../types';
 
