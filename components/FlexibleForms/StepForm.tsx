@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import {
   Formik,
   Form,
@@ -8,7 +8,10 @@ import {
   FormikErrors,
 } from 'formik';
 import { Field } from 'data/flexibleForms/forms.types';
-import { generateFlexibleSchema } from 'lib/validators';
+import {
+  generateFlexibleSchema,
+  validateConditionalFields,
+} from 'lib/validators';
 import FlexibleField from './FlexibleFields';
 import { Resident } from 'types';
 import Banner from './Banner';
@@ -36,16 +39,19 @@ const StepForm = ({
   fields,
   person,
   onSubmit,
-}: Props): React.ReactElement => (
-  <Formik
-    initialValues={initialValues || generateInitialValues(fields, person)}
-    validationSchema={generateFlexibleSchema(fields)}
-    onSubmit={onSubmit}
-    validateOnMount={true}
-  >
-    {(formikProps) => <StepFormInner {...formikProps} fields={fields} />}
-  </Formik>
-);
+}: Props): React.ReactElement => {
+  return (
+    <Formik
+      initialValues={initialValues || generateInitialValues(fields, person)}
+      validationSchema={generateFlexibleSchema(fields)}
+      validate={(values) => validateConditionalFields(values, fields)}
+      onSubmit={onSubmit}
+      validateOnMount={true}
+    >
+      {(formikProps) => <StepFormInner {...formikProps} fields={fields} />}
+    </Formik>
+  );
+};
 
 interface InnerProps {
   fields: Field[];
@@ -104,8 +110,8 @@ const StepFormInner = ({
         disabled={isSubmitting}
         onClick={async () => {
           await submitForm();
-          setGoBackToTaskList(true);
-          setSaved(true);
+          // setGoBackToTaskList(true);
+          // setSaved(true);
         }}
       >
         Save and continue
