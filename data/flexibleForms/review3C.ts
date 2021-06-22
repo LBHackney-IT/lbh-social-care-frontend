@@ -122,6 +122,10 @@ const form: Form = {
               label: 'Lives with others',
             },
             {
+              value: 'Shared housing',
+              label: 'Shared housing',
+            },
+            {
               value: 'Unknown',
               label: 'Unknown',
             },
@@ -359,6 +363,7 @@ const form: Form = {
           id: 'Mental capacity assessment completed?',
           question: 'Has a mental capacity assessment been completed?',
           type: 'radios',
+          required: true,
           choices: [
             {
               value: 'Yes',
@@ -383,6 +388,7 @@ const form: Form = {
           id: 'Mental capacity assessment required?',
           question: 'Is a mental capacity assessment required?',
           type: 'radios',
+          required: true,
           condition: {
             id: 'Mental capacity assessment completed?',
             value: 'No',
@@ -484,6 +490,7 @@ const form: Form = {
           id: 'Review type',
           question: 'What kind of review is this?',
           type: 'radios',
+          required: true,
           choices: [
             {
               value: 'Planned',
@@ -536,6 +543,7 @@ const form: Form = {
           question: 'What is the current setting for the person?',
           hint: 'If the person is in a hospital, give the most recent setting before going to hospital.',
           type: 'radios',
+          required: true,
           choices: [
             {
               value: 'Community',
@@ -556,6 +564,7 @@ const form: Form = {
           question:
             'Is there an increase or decrease in the services provided?',
           type: 'radios',
+          required: true,
           choices: [
             {
               value: 'Increase',
@@ -1161,6 +1170,7 @@ const form: Form = {
           id: 'What next?',
           question: 'What next?',
           type: 'radios',
+          required: true,
           choices: [
             {
               value: 'Schedule next review',
@@ -1177,6 +1187,7 @@ const form: Form = {
           id: 'Next review date',
           question: 'Date of next review',
           type: 'date',
+          required: true,
           condition: {
             id: 'What next?',
             value: 'Schedule next review',
@@ -1187,6 +1198,7 @@ const form: Form = {
           id: 'Outcomes for review',
           question: 'Outcomes for review',
           type: 'radios',
+          required: true,
           choices: [
             {
               value:
@@ -1245,6 +1257,7 @@ const form: Form = {
           question: 'Who will approve this review?',
           hint: 'Provide the email address of a social care manager',
           type: 'text',
+          required: true,
         },
       ],
     },
