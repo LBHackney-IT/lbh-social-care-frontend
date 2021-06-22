@@ -71,13 +71,17 @@ const Filter = ({
 }: FilterProps): React.ReactElement => (
   <div className="govuk-radios__item">
     <input
+      name="filter"
       type="radio"
       className="govuk-radios__input"
       onChange={() => setFilter(value)}
       checked={filter === value}
       id={`filter-${value}`}
     />
-    <label htmlFor="filter-mine" className="govuk-label govuk-radios__label">
+    <label
+      htmlFor={`filter-${value}`}
+      className="govuk-label govuk-radios__label"
+    >
       {children}
     </label>
   </div>
