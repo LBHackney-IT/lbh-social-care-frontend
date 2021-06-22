@@ -128,7 +128,7 @@ describe('generateFlexibleSchema', () => {
       schema.validate({
         foo: [],
       })
-    ).rejects.toThrowError('Please add at least one item');
+    ).rejects.toThrowError('Add at least one item');
 
     await expect(
       schema.validate({
@@ -143,26 +143,48 @@ describe('generateFlexibleSchema', () => {
 });
 
 describe('validateConditionalFields', () => {
-  it('validates a basic required field when the condition is met', () => {
+  it('validates required fields when the condition is met', () => {
     const result = validateConditionalFields(
       {
-        bar: 'my-value',
+        foo: 'my-value',
       },
       [
         {
-          id: 'foo',
+          id: 'one',
           type: 'text',
-          question: 'Foo',
+          question: '',
           required: true,
           condition: {
-            id: 'bar',
+            id: 'foo',
+            value: 'my-value',
+          },
+        },
+        {
+          id: 'two',
+          type: 'checkboxes',
+          question: '',
+          required: true,
+          condition: {
+            id: 'foo',
+            value: 'my-value',
+          },
+        },
+        {
+          id: 'three',
+          type: 'repeater',
+          question: '',
+          required: true,
+          condition: {
+            id: 'foo',
             value: 'my-value',
           },
         },
       ]
     );
     expect(result).toMatchObject({
-      foo: 'This question is required',
+      one: 'This question is required',
+      two: 'Choose at least one item',
+      three: 'Add at least one item',
     });
   });
 

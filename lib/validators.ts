@@ -11,6 +11,15 @@ export const startSchema = Yup.object().shape({
   formId: Yup.string().required('Please choose a form'),
 });
 
+const getErrorMessage = (field: Field) => {
+  if (field.error) return field.error;
+  if (field.type === `checkboxes`) return `Choose at least one item`;
+  if (field.type === 'repeater' || field.type === `repeaterGroup`)
+    return `Add at least one ${field.itemName || 'item'}`;
+  return `This question is required`;
+};
+
+/** create a validation schema for a flexible form, ignoring conditional fields */
 export const generateFlexibleSchema = (
   fields: Field[]
 ): OptionalObjectSchema<
@@ -37,17 +46,15 @@ export const generateFlexibleSchema = (
       if (field.type === 'checkboxes') {
         shape[field.id] = (shape[field.id] as Yup.NumberSchema).min(
           1,
-          field.error || 'Please choose at least one option'
+          getErrorMessage(field)
         );
       } else if (field.type === 'repeater' || field.type === 'repeaterGroup') {
         shape[field.id] = (shape[field.id] as Yup.NumberSchema).min(
           1,
-          field.error || `Please add at least one ${field.itemName || 'item'}`
+          getErrorMessage(field)
         );
       } else {
-        shape[field.id] = shape[field.id].required(
-          field.error || 'This question is required'
-        );
+        shape[field.id] = shape[field.id].required(getErrorMessage(field));
       }
     }
   });
@@ -68,13 +75,7 @@ export const validateConditionalFields = (
       field.required &&
       !values[field.id]
     ) {
-      if (field.type === true) {
-        // handle array type fields
-        errors[field.id] = 'This question is required';
-      } else {
-        // handle string type fields
-        errors[field.id] = 'This question is required';
-      }
+      errors[field.id] = getErrorMessage(field);
     }
   });
   return errors;
