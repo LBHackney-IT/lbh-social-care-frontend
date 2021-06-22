@@ -89,7 +89,7 @@ describe('AddForm component', () => {
     expect(autocompleteInput.value).toBe('Foo - Child');
   });
 
-  it('should render Warning Note for a developer user', async () => {
+  it('should render Warning Note for an adults user', async () => {
     const props = {
       person: residentFactory.build({ contextFlag: 'A' }),
     };
@@ -98,9 +98,9 @@ describe('AddForm component', () => {
         value={{
           user: userFactory.build({
             hasAdminPermissions: false,
-            hasDevPermissions: true,
+            hasDevPermissions: false,
             hasUnrestrictedPermissions: false,
-            hasAdultPermissions: false,
+            hasAdultPermissions: true,
             hasChildrenPermissions: false,
           }),
         }}
@@ -149,36 +149,5 @@ describe('AddForm component', () => {
       fireEvent.click(getByRole('option', { name: 'Warning Note' }));
     });
     expect(autocompleteInput.value).toBe('Warning Note');
-  });
-
-  it('should not render Warning Note for an adults user', async () => {
-    const props = {
-      person: residentFactory.build({ contextFlag: 'A' }),
-    };
-    const { queryAllByRole, getByTestId } = render(
-      <UserContext.Provider
-        value={{
-          user: userFactory.build({
-            hasAdminPermissions: false,
-            hasDevPermissions: false,
-            hasUnrestrictedPermissions: false,
-            hasAdultPermissions: true,
-            hasChildrenPermissions: false,
-          }),
-        }}
-      >
-        <AddForm {...props} />
-      </UserContext.Provider>
-    );
-
-    const autocompleteInput = getByTestId('formList') as HTMLInputElement;
-
-    await act(async () => {
-      fireEvent.click(autocompleteInput);
-    });
-
-    const matches = queryAllByRole('option', { name: 'Warning Note' });
-
-    expect(matches.length).toBe(0);
   });
 });
