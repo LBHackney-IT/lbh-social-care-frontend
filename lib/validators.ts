@@ -73,6 +73,7 @@ export const validateConditionalFields = (
       field.condition &&
       values[field.condition.id] === field.condition.value &&
       field.required &&
+      // is the current value an empty string or array?
       !values[field.id]?.length
     ) {
       errors[field.id] = getErrorMessage(field);
