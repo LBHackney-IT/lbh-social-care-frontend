@@ -15,7 +15,9 @@ const UnfinishedSubmissions = ({ submissions }: Props): React.ReactElement => (
     <Seo title="Unfinished submissions" />
     <DashboardWrapper>
       <>
-        <SubmissionsTable submissions={submissions} />
+        {submissions?.length > 0 && (
+          <SubmissionsTable submissions={submissions} />
+        )}
         <SavedForms />
       </>
     </DashboardWrapper>
