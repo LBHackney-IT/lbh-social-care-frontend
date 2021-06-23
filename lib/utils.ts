@@ -40,6 +40,65 @@ const initiallyNull = new Set(['file']);
 const initiallyFirstChoice = new Set(['select']);
 const initiallyArray = new Set(['checkboxes', 'repeater']);
 
+const initialTimetableValues = {
+  Mon: {
+    Morning: 0,
+    Afternoon: 0,
+    Evening: 0,
+    Night: 0,
+    'Any time': 0,
+  },
+  Tue: {
+    Morning: 0,
+    Afternoon: 0,
+    Evening: 0,
+    Night: 0,
+    'Any time': 0,
+  },
+  Wed: {
+    Morning: 0,
+    Afternoon: 0,
+    Evening: 0,
+    Night: 0,
+    'Any time': 0,
+  },
+  Thu: {
+    Morning: 0,
+    Afternoon: 0,
+    Evening: 0,
+    Night: 0,
+    'Any time': 0,
+  },
+  Fri: {
+    Morning: 0,
+    Afternoon: 0,
+    Evening: 0,
+    Night: 0,
+    'Any time': 0,
+  },
+  Sat: {
+    Morning: 0,
+    Afternoon: 0,
+    Evening: 0,
+    Night: 0,
+    'Any time': 0,
+  },
+  Sun: {
+    Morning: 0,
+    Afternoon: 0,
+    Evening: 0,
+    Night: 0,
+    'Any time': 0,
+  },
+  'Any day': {
+    Morning: 0,
+    Afternoon: 0,
+    Evening: 0,
+    Night: 0,
+    'Any time': 0,
+  },
+};
+
 /** Generate flexible initial values for a flexible schema */
 export const generateInitialValues = (
   fields: Field[],
@@ -53,7 +112,7 @@ export const generateInitialValues = (
         generateInitialValues(field.subfields || [], person),
       ];
     } else if (field.type === 'timetable') {
-      initialValues[field.id] = null;
+      initialValues[field.id] = initialTimetableValues;
     } else if (initiallyArray.has(field.type)) {
       initialValues[field.id] = [];
     } else if (initiallyNull.has(field.type)) {
