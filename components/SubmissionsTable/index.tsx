@@ -4,56 +4,19 @@ import SubmissionRow from './SubmissionRow';
 import { useAuth } from 'components/UserContext/UserContext';
 import { User } from 'types';
 import s from './index.module.scss';
+import Filter from './Filter';
+import SearchBox from './SearchBox';
 
-interface FilterProps {
-  value: string;
-  children: React.ReactChild;
-  filter: string;
-  setFilter: (value: string) => void;
+interface ResultsProps {
+  filteredSubmissions: Submission[];
+  user: User;
 }
 
-const Filter = ({
-  value,
-  children,
-  filter,
-  setFilter,
-}: FilterProps): React.ReactElement => (
-  <div className="govuk-radios__item">
-    <input
-      name="filter"
-      type="radio"
-      className="govuk-radios__input"
-      onChange={() => setFilter(value)}
-      checked={filter === value}
-      id={`filter-${value}`}
-    />
-    <label
-      htmlFor={`filter-${value}`}
-      className="govuk-label govuk-radios__label"
-    >
-      {children}
-    </label>
-  </div>
-);
-
-interface Props {
-  submissions: Submission[];
-}
-
-export const SubmissionsTable = ({
-  submissions,
-}: Props): React.ReactElement => {
-  const { user } = useAuth();
-
-  const [filter, setFilter] = useState<string>('mine');
+const Results = ({
+  filteredSubmissions,
+  user,
+}: ResultsProps): React.ReactElement => {
   const [openRow, setOpenRow] = useState<string | false>(false);
-
-  const filteredSubmissions =
-    filter === 'mine'
-      ? submissions.filter(
-          (submission) => submission.createdBy.email === user?.email
-        )
-      : submissions;
 
   if (!filteredSubmissions || filteredSubmissions.length === 0)
     return <p>No unfinished submissions to show.</p>;
@@ -64,15 +27,6 @@ export const SubmissionsTable = ({
         Showing {filteredSubmissions.length} unfinished{' '}
         {filteredSubmissions.length > 1 ? 'submissions' : 'submission'}
       </p>
-
-      <fieldset className="govuk-radios govuk-radios--inline lbh-radios">
-        <Filter value="mine" filter={filter} setFilter={setFilter}>
-          Just mine
-        </Filter>
-        <Filter value="all" filter={filter} setFilter={setFilter}>
-          All
-        </Filter>
-      </fieldset>
 
       <ul className={`lbh-list govuk-!-margin-bottom-8 ${s.list}`}>
         {filteredSubmissions?.length > 0 &&
@@ -86,6 +40,43 @@ export const SubmissionsTable = ({
             />
           ))}
       </ul>
+    </>
+  );
+};
+
+interface Props {
+  submissions: Submission[];
+}
+
+export const SubmissionsTable = ({
+  submissions,
+}: Props): React.ReactElement => {
+  const { user } = useAuth();
+
+  const [filter, setFilter] = useState<string>('mine');
+  const [searchQuery, setSearchQuery] = useState<string>('');
+
+  const filteredSubmissions =
+    filter === 'mine'
+      ? submissions.filter(
+          (submission) => submission.createdBy.email === user?.email
+        )
+      : submissions;
+
+  return (
+    <>
+      <SearchBox searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
+
+      <fieldset className="govuk-radios govuk-radios--inline lbh-radios">
+        <Filter value="mine" filter={filter} setFilter={setFilter}>
+          Just mine
+        </Filter>
+        <Filter value="all" filter={filter} setFilter={setFilter}>
+          All
+        </Filter>
+      </fieldset>
+
+      <Results user={user as User} filteredSubmissions={filteredSubmissions} />
     </>
   );
 };
