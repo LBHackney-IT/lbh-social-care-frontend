@@ -18,6 +18,7 @@ interface FieldProps {
   className?: string;
   as?: string;
   rows?: number;
+  required?: boolean;
 }
 
 const Field = ({
@@ -30,14 +31,21 @@ const Field = ({
   className,
   as,
   rows,
+  required,
 }: FieldProps): React.ReactElement => (
   <div
     className={`govuk-form-group lbh-form-group ${
       getIn(touched, name) && getIn(errors, name) && 'govuk-form-group--error'
     }`}
   >
-    <label htmlFor={name} className="govuk-label lbh-label">
-      {label}
+    <label htmlFor={name} data-testid={name} className="govuk-label lbh-label">
+      {label}{' '}
+      {required && (
+        <span className="govuk-required">
+          <span aria-hidden="true">*</span>
+          <span className="govuk-visually-hidden">required</span>
+        </span>
+      )}
     </label>
 
     {hint && (

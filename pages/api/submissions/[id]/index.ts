@@ -1,44 +1,41 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import forms from 'data/flexibleForms';
-import { Submission } from 'data/flexibleForms/forms.types';
-import { getResident } from 'lib/residents';
+import StatusCodes from 'http-status-codes';
+import { getSubmissionById, finishSubmission } from 'lib/submissions';
 import { isAuthorised } from 'utils/auth';
-import { getPermissionFlag } from 'utils/user';
 
 const handler = async (
   req: NextApiRequest,
   res: NextApiResponse
 ): Promise<void> => {
-  let permissionFlag;
-  const user = isAuthorised(req);
-  if (user) permissionFlag = getPermissionFlag(user);
-
   const { id } = req.query;
 
-  // TODO: use a real api call here
-  const submission: Submission = {
-    id: String(id),
-    socialCareId: 1,
-    formId: 'review-of-care-and-support-plan-3c',
-    answers: {},
-    completedSteps: [],
-    editedBy: [],
-    createdBy: 'test.user@hackney.gov.uk',
-    createdAt: '2021-05-17T10:48:12.880Z',
-    updatedAt: '2021-05-17T10:48:12.892Z',
-    submittedAt: null,
-    discardedAt: null,
-  };
+  switch (req.method) {
+    case 'POST':
+      {
+        const user = isAuthorised(req);
+        const status = await finishSubmission(String(id), String(user?.email));
 
-  const person = await getResident(submission.socialCareId);
+        res.status(status).end();
+      }
+      break;
+    case 'GET':
+      {
+        const submission = await getSubmissionById(String(id));
+        const form = forms.find((form) => form.id === submission.formId);
 
-  const form = forms.find((form) => form.id === submission.formId);
-
-  res.json({
-    ...submission,
-    person,
-    form,
-  });
+        res.json({
+          ...submission,
+          form,
+        });
+      }
+      break;
+    default:
+      res
+        .status(StatusCodes.BAD_REQUEST)
+        .json({ message: 'Invalid request method' });
+      break;
+  }
 };
 
 export default handler;

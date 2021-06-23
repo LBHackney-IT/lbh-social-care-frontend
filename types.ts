@@ -169,6 +169,11 @@ export interface Resident {
   preferredMethodOfContact?: string;
   restricted?: 'Y' | 'N';
   dateOfDeath?: string;
+  addresses?: {
+    addressLines: string;
+    postCode: string;
+    uprn?: string;
+  }[];
   address?: {
     address: string;
     postcode: string;

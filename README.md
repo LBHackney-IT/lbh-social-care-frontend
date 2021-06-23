@@ -1,38 +1,68 @@
-# lbh-social-care-frontend
+# Social Care Tools for Hackney
 
-The Social Care Frontend allows Social Care Practitioners to edit cases and residents information.
+> A web front end and API for managing social care services at the London Borough of Hackney
 
-It is a part of the Social Care system (see [Social Care System Architecture](https://github.com/LBHackney-IT/social-care-architecture/tree/main) for more details).
+This service allows social care practitioners to:
 
-It makes use of the [Hackney Design System](https://design-system.hackney.gov.uk/).
+- Create and manage residents
+- Create and manage cases and case notes against residents
+- Create and manage workers and their resident assignments
+
+It is a part of the broader social care system, which is documented in the [Social Care System Architecture](https://github.com/LBHackney-IT/social-care-architecture/tree/main).
 
 ## Getting Started
 
-The app needs Node 14, if you have [NVM](https://github.com/nvm-sh/nvm) installed just run `nvm use` in your terminal.
+This app has the following requirements:
 
-Install the dependencies:
+- Node.js >v14 (run `$ nvm use` to install it – [see `nvm` docs](https://github.com/nvm-sh/nvm))
+- Yarn v1.x ([see installation instructions](https://classic.yarnpkg.com/en/docs/install))
 
-    yarn install
+To get the app running locally:
 
-Create your `.env` file from `.env.sample`. You will need to grab some secrets from (TBC, it's not clear at the time of writing).
+1.  Clone this repository and `cd` into it
 
-So that the auth token from using Staging/Production can work with your local dev environment and you will be able to access the application, add the following to your `/etc/hosts` file...
+2.  Install the dependencies
 
-    127.0.0.1       dev.hackney.gov.uk
+        yarn
 
-Run the development server:
+3.  Make a copy of `.env.sample` called `.env.local` and complete as per the comments in the file.
 
-    yarn dev
+4.  Make a copy of `cypress.env.json.sample` called `cypress.env.json` and complete as per the comments in the file.
 
-Open [http://dev.hackney.gov.uk:3000](http://dev.hackney.gov.uk:3000) with your browser to see the result.
+    > ⚠️ Note! Remember to remove the commented lines from the file, as they are not valid JSON!
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
+5.  The Hackney authentication service requires the application to run on a `hackney.gov.uk` subdomain. To be able to access the application, add the following to your `/etc/hosts` file:
 
-## Learn More
+        # Hackney Social Care Frontend
+        127.0.0.1       dev.hackney.gov.uk
 
-To learn more about Next.js, take a look at the following resources:
+### Run the tests
+
+1.  Once you're set up, verify the app is working by running the unit test suites:
+
+        yarn test
+
+2.  You can then run the end to end Cypress tests with:
+
+        yarn e2e
+
+    > Note! It's possible Cypress will fail the first time you try to run it, with an error similar to `Cypress verification time out`. If this happens, just run the command again, and it should start working!
+
+### Launch the local development server
+
+1.  If all the tests pass, you should be able to safely launch the application server by running:
+
+        yarn dev
+
+2.  Open [http://dev.hackney.gov.uk:3000](http://dev.hackney.gov.uk:3000) with your browser to see the result.
+
+## Design and UI
+
+The application makes use the [Hackney Design System](https://design-system.hackney.gov.uk/).
+
+## Next.js
+
+The application is built using Next.js. To learn more about Next.js, take a look at the following resources:
 
 - [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
 - [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/zeit/next.js/) - your feedback and contributions are welcome!

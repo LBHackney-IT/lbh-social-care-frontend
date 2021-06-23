@@ -145,6 +145,11 @@ describe('residents APIs', () => {
           { number: '12321', type: 'qwe' },
           { number: '321321', type: 'main' },
         ],
+        address: {
+          address: 'sjakdjlk',
+          postcode: 'hdsadjk',
+        },
+        addresses: [],
         contextFlag: 'A',
         createdBy: 'foo@bar.com',
         dateOfBirth: '2020-11-13',

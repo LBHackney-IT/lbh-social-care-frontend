@@ -1,5 +1,5 @@
 import PersonWidget from './PersonWidget';
-import { render, screen, fireEvent } from '@testing-library/react';
+import { render } from '@testing-library/react';
 import { residentFactory } from 'factories/residents';
 
 describe('PersonWidget', () => {
@@ -12,10 +12,14 @@ describe('PersonWidget', () => {
   it('renders correctly when there is a person', () => {
     const resident = residentFactory.build();
 
-    const { getByText } = render(<PersonWidget person={resident} />);
+    const { getByText, queryByText } = render(
+      <PersonWidget person={resident} />
+    );
 
     expect(getByText('Foo Bar'));
     expect(getByText('Born 13 Nov 2020'));
+    expect(queryByText('FLAT 10, GEORGE LEYBOURNE HOUSE, FLETCHER STREET'));
+    expect(queryByText('E1 8HW'));
   });
 
   it('renders correctly when there is no person', () => {
@@ -28,11 +32,8 @@ describe('PersonWidget', () => {
     const resident = residentFactory.build();
     resident.dateOfBirth = '';
 
-    const { getByText, queryByText } = render(
-      <PersonWidget person={resident} />
-    );
+    const { queryByText } = render(<PersonWidget person={resident} />);
 
-    expect(getByText('Foo Bar'));
     expect(queryByText('Born')).toBeNull();
   });
 
@@ -46,5 +47,16 @@ describe('PersonWidget', () => {
 
     expect(getByText('Foo Bar'));
     expect(queryByText('Born')).toBeNull();
+  });
+
+  it('should handle when there is no address', () => {
+    const resident = residentFactory.build();
+    resident.addresses = [];
+
+    const { queryByText } = render(<PersonWidget person={resident} />);
+
+    expect(
+      queryByText('FLAT 10, GEORGE LEYBOURNE HOUSE, FLETCHER STREET')
+    ).toBeNull();
   });
 });

@@ -1,5 +1,15 @@
 import axios from 'axios';
-import { Submission, StepAnswers } from 'data/flexibleForms/forms.types';
+import {
+  Submission,
+  StepAnswers,
+  FlexibleAnswers,
+} from 'data/flexibleForms/forms.types';
+
+type RawSubmission = Omit<Submission, 'formAnswers'> & {
+  formAnswers: {
+    [key: string]: string;
+  };
+};
 
 const { ENDPOINT_API, AWS_KEY } = process.env;
 
@@ -7,6 +17,7 @@ const headersWithKey = {
   'x-api-key': AWS_KEY,
 };
 
+/** create a new submission for the given form, resident and worker  */
 export const startSubmission = async (
   formId: string,
   socialCareId: number,
@@ -16,7 +27,7 @@ export const startSubmission = async (
     `${ENDPOINT_API}/submissions`,
     {
       formId,
-      socialCareId,
+      socialCareId: Number(socialCareId),
       createdBy,
     },
     {
@@ -26,6 +37,18 @@ export const startSubmission = async (
   return data;
 };
 
+const deserialiseAnswers = (data: RawSubmission): Submission => {
+  const deserialisedAnswers: FlexibleAnswers = {};
+  Object.keys(data.formAnswers).map(
+    (step) => (deserialisedAnswers[step] = JSON.parse(data.formAnswers[step]))
+  );
+  return {
+    ...data,
+    formAnswers: deserialisedAnswers,
+  };
+};
+
+/** get an existing submission by its id */
 export const getSubmissionById = async (
   submissionId: string
 ): Promise<Submission> => {
@@ -35,9 +58,10 @@ export const getSubmissionById = async (
       headers: headersWithKey,
     }
   );
-  return data;
+  return deserialiseAnswers(data);
 };
 
+/** update the answers for a given step on a submission, providing the submission id, step id, editor's name and the answers to update */
 export const patchSubmissionForStep = async (
   submissionId: string,
   stepId: string,
@@ -47,27 +71,29 @@ export const patchSubmissionForStep = async (
   const { data } = await axios.patch(
     `${ENDPOINT_API}/submissions/${submissionId}/steps/${stepId}`,
     {
-      stepAnswers,
+      stepAnswers: JSON.stringify(stepAnswers),
       editedBy,
     },
     {
       headers: headersWithKey,
     }
   );
-  return data;
+  return deserialiseAnswers(data);
 };
 
+/** mark an existing submission as finished, providing its id  */
 export const finishSubmission = async (
-  submissionId: string
-): Promise<Submission> => {
-  const { data } = await axios.patch(
+  submissionId: string,
+  finishedBy: string
+): Promise<number> => {
+  const { status } = await axios.patch(
     `${ENDPOINT_API}/submissions/${submissionId}`,
     {
-      submittedAt: new Date().toISOString(),
+      createdBy: finishedBy,
     },
     {
       headers: headersWithKey,
     }
   );
-  return data;
+  return status;
 };

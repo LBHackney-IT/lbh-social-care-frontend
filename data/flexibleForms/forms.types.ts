@@ -1,4 +1,4 @@
-import { Resident } from 'types';
+import { Resident, User, Worker } from 'types';
 
 export interface Choice {
   value: string;
@@ -67,15 +67,16 @@ export interface FlexibleAnswers {
 }
 
 export interface Submission {
-  id: string;
-  socialCareId: number;
+  submissionId: string;
   formId: string;
-  answers: FlexibleAnswers;
-  completedSteps: string[];
-  createdBy: string;
-  editedBy: string[];
+  createdBy: User;
   createdAt: string;
-  updatedAt: string;
-  submittedAt: string | null;
-  discardedAt: string | null;
+  residents: Resident[];
+  workers: Worker[];
+  editHistory: {
+    worker: Worker;
+    editTime: string;
+  }[];
+  submissionState: number;
+  formAnswers: FlexibleAnswers;
 }
