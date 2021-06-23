@@ -7,6 +7,7 @@ import {
 } from 'formik';
 import { TimetableAnswer } from 'data/flexibleForms/forms.types';
 import s from './TimetableField.module.scss';
+import { getTotalHours } from 'lib/utils';
 
 interface Props {
   name: string;
@@ -40,13 +41,7 @@ const TimetableField = ({ name, hint, label }: Props): React.ReactElement => {
     touched: FormikTouched<FormikValues>;
   } = useFormikContext();
 
-  const totalHours: number = Object.values(
-    values[name] as TimetableAnswer
-  ).reduce(
-    (sum, day) =>
-      sum + Object.values(day).reduce((sum, time) => sum + Number(time), 0),
-    0
-  );
+  const totalHours = getTotalHours(values[name]);
 
   return (
     <div

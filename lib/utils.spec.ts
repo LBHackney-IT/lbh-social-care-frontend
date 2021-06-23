@@ -4,6 +4,7 @@ import {
   groupByTheme,
   pushUnique,
   generateInitialValues,
+  getTotalHours,
 } from './utils';
 
 describe('truncate', () => {
@@ -140,5 +141,20 @@ describe('generateInitialValues', () => {
       bar: 'example value',
       su: '',
     });
+  });
+});
+
+describe('getTotalHours', () => {
+  it('correctly calculates hours', () => {
+    const result = getTotalHours({
+      foo: {
+        foo: '1',
+        bar: '3',
+      },
+      bar: {
+        foo: '5',
+      },
+    });
+    expect(result).toBe(9);
   });
 });

@@ -1,5 +1,11 @@
-import { Form, Step, Field } from '../data/flexibleForms/forms.types';
+import {
+  Form,
+  Step,
+  Field,
+  TimetableAnswer,
+} from '../data/flexibleForms/forms.types';
 import { Resident } from 'types';
+import RepeaterGroupField from 'components/FlexibleForms/RepeaterGroupField';
 
 export interface Theme {
   name: string;
@@ -134,3 +140,11 @@ export const generateInitialValues = (
 /** Push an element into an array, without duplicates */
 export const pushUnique = <T>(array: T[], newElement: T): T[] =>
   Array.from(new Set(array).add(newElement));
+
+/** Take the values of a timetable question and get the sum total hours */
+export const getTotalHours = (values: TimetableAnswer): number =>
+  Object.values(values).reduce(
+    (sum, day) =>
+      sum + Object.values(day).reduce((sum, time) => sum + Number(time), 0),
+    0
+  );
