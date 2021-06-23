@@ -7,7 +7,7 @@ const SearchBox = ({
   searchQuery,
   setSearchQuery,
 }: Props): React.ReactElement => (
-  <div className="govuk-form-group lbh-form-group lbh-search-box">
+  <div className="govuk-form-group lbh-form-group lbh-search-box govuk-!-margin-top-3">
     <label className="govuk-visually-hidden" htmlFor="search">
       Search by name or ID
     </label>
