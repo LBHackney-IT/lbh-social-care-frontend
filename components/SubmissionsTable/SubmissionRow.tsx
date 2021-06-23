@@ -117,7 +117,7 @@ const SubmissionRow = ({
           {editors?.length > 0 && (
             <div>
               <dd>
-                <ul>
+                <ul className="lbh-list govuk-!-margin-top-0">
                   {editors.map((editor) => (
                     <li key={editor}>{editor}</li>
                   ))}

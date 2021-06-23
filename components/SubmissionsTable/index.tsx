@@ -23,7 +23,7 @@ const Results = ({
 
   return (
     <>
-      <p>
+      <p className="lbh-body-xs">
         Showing {filteredSubmissions.length} unfinished{' '}
         {filteredSubmissions.length > 1 ? 'submissions' : 'submission'}
       </p>
