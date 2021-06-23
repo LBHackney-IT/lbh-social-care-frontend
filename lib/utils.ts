@@ -74,6 +74,7 @@ export const generateInitialValues = (
       ];
     } else if (field.type === 'timetable') {
       initialValues[field.id] = {};
+      initialValues[`${field.id} total hours`] = '';
     } else if (initiallyArray.has(field.type)) {
       initialValues[field.id] = [];
     } else if (initiallyNull.has(field.type)) {

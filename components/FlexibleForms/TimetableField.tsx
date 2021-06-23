@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import {
   Field,
   useFormikContext,
@@ -18,13 +19,20 @@ const TimetableField = ({ name, hint, label }: Props): React.ReactElement => {
     values,
     touched,
     errors,
+    setFieldValue,
   }: {
     values: FormikValues;
-    errors: FormikErrors<FormikValues>;
     touched: FormikTouched<FormikValues>;
+    errors: FormikErrors<FormikValues>;
+    setFieldValue: (name: string, value: string) => void;
   } = useFormikContext();
 
   const totalHours = getTotalHours(values[name]);
+
+  // save the total hours as its own value
+  useEffect(() => {
+    setFieldValue(`${name} total hours`, totalHours.toString());
+  }, [totalHours, name, setFieldValue]);
 
   return (
     <div
@@ -36,6 +44,8 @@ const TimetableField = ({ name, hint, label }: Props): React.ReactElement => {
         'govuk-form-group--error'
       }`}
     >
+      {JSON.stringify(values)}
+
       <fieldset
         className="govuk-fieldset"
         aria-describedby={hint && `${name}-hint`}
@@ -98,7 +108,6 @@ const TimetableField = ({ name, hint, label }: Props): React.ReactElement => {
       <p>
         <strong>{totalHours || 0}</strong> hours total
       </p>
-      <Field type="hidden" name="Total hours" value={totalHours} />
     </div>
   );
 };
