@@ -217,44 +217,13 @@ export interface RelationshipPerson {
 }
 
 export interface Relationship {
-  greatGrandchild: RelationshipPerson[];
-  greatGrandparent: RelationshipPerson[];
-  grandchild: RelationshipPerson[];
-  grandparent: RelationshipPerson[];
-  stepParent: RelationshipPerson[];
-  auntUncle: RelationshipPerson[];
-  stepChild: RelationshipPerson[];
-  unbornChild: RelationshipPerson[];
-  partner: RelationshipPerson[];
-  exPartner: RelationshipPerson[];
-  halfSibling: RelationshipPerson[];
-  stepSibling: RelationshipPerson[];
-  unbornSibling: RelationshipPerson[];
-  spouse: RelationshipPerson[];
-  cousin: RelationshipPerson[];
-  nieceNephew: RelationshipPerson[];
-  fosterCarer: RelationshipPerson[];
-  friend: RelationshipPerson[];
-  exSpouse: RelationshipPerson[];
-  parentOfUnbornChild: RelationshipPerson[];
-  siblingOfUnbornChild: RelationshipPerson[];
-  fosterCarerSupportCarer: RelationshipPerson[];
-  privateFosterCarer: RelationshipPerson[];
-  privateFosterChild: RelationshipPerson[];
-  fosterChild: RelationshipPerson[];
-  supportCarerFosterCarer: RelationshipPerson[];
-  neighbour: RelationshipPerson[];
-  inContactWith: RelationshipPerson[];
-  acquaintance: RelationshipPerson[];
-  parent: RelationshipPerson[];
-  sibling: RelationshipPerson[];
-  child: RelationshipPerson[];
-  other: RelationshipPerson[];
+  type: string;
+  persons: RelationshipPerson[];
 }
 
 export interface RelationshipData {
   personId: number;
-  personalRelationships: Relationship;
+  personalRelationships: Relationship[];
 }
 
 interface BaseNote {

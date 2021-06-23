@@ -18,8 +18,8 @@ const Relationships = ({ id }: Props): React.ReactElement => {
   }
 
   let shouldAppear = false;
-  Object.values(personalRelationships).map((val) => {
-    shouldAppear = shouldAppear || val.length > 0;
+  personalRelationships.map((elm) => {
+    shouldAppear = shouldAppear || elm.persons.length > 0;
   });
 
   if (!shouldAppear) {
@@ -37,15 +37,15 @@ const Relationships = ({ id }: Props): React.ReactElement => {
         <hr className="govuk-divider" />
         {
           <dl className="govuk-summary-list lbh-summary-list">
-            {Object.entries(personalRelationships)
-              .sort((a, b) => b[1] - a[1])
-              .map(([key, value]) => {
-                if (value.length > 0) {
+            {personalRelationships
+              .sort((a, b) => b.type.localeCompare(a.type))
+              .map((elm) => {
+                if (elm.persons.length > 0) {
                   return (
                     <RelationshipElement
-                      title={key}
-                      data={value}
-                      key={`rel_${key}`}
+                      type={elm.type}
+                      persons={elm.persons}
+                      key={`rel_${elm.type}`}
                     />
                   );
                 }

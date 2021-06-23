@@ -2,29 +2,35 @@ import Link from 'next/link';
 import { RelationshipPerson } from 'types';
 
 interface Props {
-  title: string;
-  data: RelationshipPerson[];
+  type: string;
+  persons: RelationshipPerson[];
 }
 
-const RelationshipElement = ({ title, data }: Props): React.ReactElement => {
+const RelationshipElement = ({ type, persons }: Props): React.ReactElement => {
   return (
     <div className="govuk-summary-list__row">
-      <dt className="govuk-summary-list__key">{renderTitle(title)}</dt>
+      <dt className="govuk-summary-list__key">{renderTitle(type)}</dt>
       <dd className="govuk-summary-list__value">
         <ul className="govuk-list">
-          {data.map((person, i) => {
-            return (
-              <li className="lbh-link" key={`rel_${i}`}>
-                {person.id ? (
-                  <Link href={`/people/${person.id}`}>
-                    {`${person.firstName} ${person.lastName}`}
-                  </Link>
-                ) : (
-                  `${person.firstName} ${person.lastName}`
-                )}
-              </li>
-            );
-          })}
+          {persons
+            .sort(
+              (a, b) =>
+                b.lastName.localeCompare(a.lastName) ||
+                b.firstName.localeCompare(a.firstName)
+            )
+            .map((person, i) => {
+              return (
+                <li className="lbh-link" key={`rel_${i}`}>
+                  {person.id ? (
+                    <Link href={`/people/${person.id}`}>
+                      {`${person.firstName} ${person.lastName}`}
+                    </Link>
+                  ) : (
+                    `${person.firstName} ${person.lastName}`
+                  )}
+                </li>
+              );
+            })}
         </ul>
       </dd>
     </div>
