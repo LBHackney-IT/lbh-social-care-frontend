@@ -35,24 +35,29 @@ const SubmissionRow = ({
   return (
     <>
       <li className={s.row}>
-        <Link href={`/people/${submission.residents[0].id}`}>
-          <a className="lbh-link">
-            <h3>
-              {submission.residents?.[0]?.firstName}{' '}
-              {submission.residents?.[0]?.lastName}
-            </h3>
-          </a>
-        </Link>
-        <p>{submission.residents[0].id}</p>
+        <div className={s.person}>
+          <h3 className={s.name}>
+            <Link href={`/people/${submission.residents[0].id}`}>
+              <a className="lbh-link lbh-link--no-visited-state">
+                {submission.residents?.[0]?.firstName}{' '}
+                {submission.residents?.[0]?.lastName}
+              </a>
+            </Link>
+          </h3>
+          <p className={`lbh-body-xs govuk-!-margin-top-1`}>
+            #{submission.residents[0].id}
+          </p>
+        </div>
 
-        <dl>
-          <dt>Form</dt>
+        <dl className={`lbh-body-s ${s.meta}`}>
+          <dt>Form</dt>{' '}
           <dd>
             <Link href={`/submissions/${submission.submissionId}`}>
               <a className="lbh-link">{form?.name}</a>
             </Link>
           </dd>
-          <dt>Last edited</dt>
+          <br />
+          <dt>Last edited</dt>{' '}
           <dd>{format(new Date(submission.createdAt), 'dd MMM yyyy')}</dd>
         </dl>
 
@@ -60,7 +65,7 @@ const SubmissionRow = ({
           className={s.expanderButton}
           onClick={() => setOpenRow(open ? false : submission.submissionId)}
         >
-          <svg width="13" height="13" viewBox="0 0 13 13" fill="none">
+          <svg width="15" height="15" viewBox="0 0 13 13" fill="none">
             <rect y="5.41675" width="13" height="2.16667" fill="#0B0C0C" />
             {!open && (
               <rect
@@ -81,7 +86,7 @@ const SubmissionRow = ({
       </li>
 
       {open && (
-        <dl className={`${s.dl}`}>
+        <dl className={`${s.detailsPanel}`}>
           <div>
             <dd>{format(new Date(lastEdited), 'dd MMM yyyy K.mm aaa')}</dd>
             <dt className="lbh-body-s">Last edited</dt>

@@ -3,6 +3,7 @@ import { Submission } from 'data/flexibleForms/forms.types';
 import SubmissionRow from './SubmissionRow';
 import { useAuth } from 'components/UserContext/UserContext';
 import { User } from 'types';
+import s from './index.module.scss';
 
 interface FilterProps {
   value: string;
@@ -73,7 +74,7 @@ export const SubmissionsTable = ({
         </Filter>
       </fieldset>
 
-      <ul className="lbh-list">
+      <ul className={`lbh-list govuk-!-margin-bottom-8 ${s.list}`}>
         {filteredSubmissions?.length > 0 &&
           filteredSubmissions.map((submission) => (
             <SubmissionRow
