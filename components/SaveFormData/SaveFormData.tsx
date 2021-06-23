@@ -22,6 +22,7 @@ export const SavedForms = (): React.ReactElement | null => {
   const standardData = sortData.filter((item) => !item.personDetails);
   return (
     <>
+      <h3>Forms saved to your browser</h3>
       {standardData.length > 0 && (
         <SavedDataTable
           tableHeader={standardHeader}

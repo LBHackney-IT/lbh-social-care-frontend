@@ -8,6 +8,7 @@
   position: relative;
   border-bottom: 1px solid lbh-colour('lbh-grey-3');
   padding: 15px 2rem 15px 1rem;
+  margin-top: 0;
   // force chrome to respect position: relative on table row
   transform: scale(1);
 
@@ -16,7 +17,7 @@
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    padding: 17px 1rem;
+    padding: 20px 1rem;
   }
 
   * {
