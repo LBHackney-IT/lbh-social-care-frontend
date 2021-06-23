@@ -26,11 +26,11 @@ const SubmissionRow = ({
   const totalSteps = form?.steps?.length;
 
   const lastEdited =
-    submission.editHistory[submission.editHistory.length - 1].editTime;
+    submission.editHistory[submission.editHistory.length - 1]?.editTime;
 
-  const editors = [
-    ...new Set(submission.editHistory.map((edit) => edit.worker.email)),
-  ].filter((editor) => editor !== user.email);
+  const editors = submission.workers
+    .map((worker) => worker.email)
+    .filter((editor) => editor !== user.email);
 
   return (
     <>
@@ -116,7 +116,7 @@ const SubmissionRow = ({
 
           {editors?.length > 0 && (
             <div>
-              <dt className="lbh-body-s">Edited by</dt>
+              <dt className="lbh-bodyf-s">Edited by</dt>
               <dd>
                 <ul className="lbh-list govuk-!-margin-top-0">
                   {editors.map((editor) => (
