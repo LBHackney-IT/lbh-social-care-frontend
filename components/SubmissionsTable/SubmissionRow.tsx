@@ -65,7 +65,7 @@ const SubmissionRow = ({
           className={s.expanderButton}
           onClick={() => setOpenRow(open ? false : submission.submissionId)}
         >
-          <svg width="13" height="13" viewBox="0 0 13 13" fill="none">
+          <svg width="15" height="15" viewBox="0 0 13 13" fill="none">
             <rect y="5.41675" width="13" height="2.16667" fill="#0B0C0C" />
             {!open && (
               <rect
