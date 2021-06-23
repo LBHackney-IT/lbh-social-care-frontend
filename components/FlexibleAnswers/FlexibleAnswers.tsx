@@ -3,8 +3,11 @@ import {
   StepAnswers,
   FlexibleAnswers as FlexibleAnswersT,
   RepeaterGroupAnswer as RepeaterGroupAnswerT,
+  TimetableAnswer as TimetableAnswerT,
 } from 'data/flexibleForms/forms.types';
 import DownArrow from '../Icons/DownArrow';
+import { days, times } from 'lib/utils';
+import s from './FlexibleAnswers.module.scss';
 
 const RepeaterGroupAnswer = ({
   answers,
@@ -40,6 +43,35 @@ const RepeaterGroupAnswers = ({
   </ul>
 );
 
+const TimetableAnswer = ({
+  answers,
+}: {
+  answers: TimetableAnswerT;
+}): React.ReactElement => (
+  <table className={`lbh-body-s ${s.timetable}`}>
+    <thead>
+      <tr>
+        <td></td>
+        {times.map((time) => (
+          <th scope="col" key={time}>
+            {time}
+          </th>
+        ))}
+      </tr>
+    </thead>
+    <tbody>
+      {Object.entries(days).map(([shortDay, longDay]) => (
+        <tr key={shortDay}>
+          <td scope="row">{shortDay}</td>
+          {times.map((time) => (
+            <td key={time}>{answers?.[shortDay]?.[time]}</td>
+          ))}
+        </tr>
+      ))}
+    </tbody>
+  </table>
+);
+
 const FlexibleAnswersStep = ({
   stepName,
   stepAnswers,
@@ -65,11 +97,12 @@ const FlexibleAnswersStep = ({
           {Object.entries(stepAnswers).map(([questionName, answerGroup]) => (
             <div className="govuk-summary-list__row" key={questionName}>
               <dt className="govuk-summary-list__key">{questionName}</dt>
-              <dd className="govuk-summary-list__value">
+              <dd className={`govuk-summary-list__value ${s.dd}`}>
                 {typeof answerGroup === 'string' ? (
                   answerGroup
                 ) : (
-                  <RepeaterGroupAnswers answers={answerGroup} />
+                  <TimetableAnswer answers={answerGroup} />
+                  // <RepeaterGroupAnswers answers={answerGroup} />
                 )}
               </dd>
             </div>
