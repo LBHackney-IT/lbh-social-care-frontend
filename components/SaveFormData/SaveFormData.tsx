@@ -23,6 +23,7 @@ export const SavedForms = (): React.ReactElement | null => {
   return (
     <>
       <h3>Forms saved to this browser</h3>
+      <p>These forms won&apos;t be available to you on other computers.</p>
       {standardData.length > 0 && (
         <SavedDataTable
           tableHeader={standardHeader}

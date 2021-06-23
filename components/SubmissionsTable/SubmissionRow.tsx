@@ -88,18 +88,19 @@ const SubmissionRow = ({
       {open && (
         <dl className={`${s.detailsPanel}`}>
           <div>
-            <dd>{format(new Date(lastEdited), 'dd MMM yyyy K.mm aaa')}</dd>
             <dt className="lbh-body-s">Last edited</dt>
+            <dd>{format(new Date(lastEdited), 'dd MMM yyyy K.mm aaa')}</dd>
           </div>
 
           <div>
+            <dt className="lbh-body-s">Started</dt>
             <dd>
               {format(new Date(submission.createdAt), 'dd MMM yyyy K.mm aaa')}
             </dd>
-            <dt className="lbh-body-s">Started</dt>
           </div>
 
           <div>
+            <dt className="lbh-body-s">Progress</dt>
             <dd>
               {completedSteps === totalSteps ? (
                 'Ready to finish'
@@ -111,11 +112,11 @@ const SubmissionRow = ({
                 </>
               )}
             </dd>
-            <dt className="lbh-body-s">Progress</dt>
           </div>
 
           {editors?.length > 0 && (
             <div>
+              <dt className="lbh-body-s">Edited by</dt>
               <dd>
                 <ul className="lbh-list govuk-!-margin-top-0">
                   {editors.map((editor) => (
@@ -123,7 +124,6 @@ const SubmissionRow = ({
                   ))}
                 </ul>
               </dd>
-              <dt className="lbh-body-s">Edited by</dt>
             </div>
           )}
         </dl>
