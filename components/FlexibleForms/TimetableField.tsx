@@ -1,12 +1,11 @@
 import {
-  FieldArray,
+  Field,
   useFormikContext,
   FormikValues,
   FormikErrors,
   FormikTouched,
 } from 'formik';
-// import { Field } from 'data/flexibleForms/forms.types';
-// import { generateInitialValues } from 'lib/utils';
+import { TimetableAnswer } from 'data/flexibleForms/forms.types';
 import s from './TimetableField.module.scss';
 
 interface Props {
@@ -41,6 +40,14 @@ const TimetableField = ({ name, hint, label }: Props): React.ReactElement => {
     touched: FormikTouched<FormikValues>;
   } = useFormikContext();
 
+  const totalHours: number = Object.values(
+    values[name] as TimetableAnswer
+  ).reduce(
+    (sum, day) =>
+      sum + Object.values(day).reduce((sum, time) => sum + Number(time), 0),
+    0
+  );
+
   return (
     <div
       // see https://formik.org/docs/api/fieldarray#fieldarray-validation-gotchas
@@ -51,6 +58,8 @@ const TimetableField = ({ name, hint, label }: Props): React.ReactElement => {
         'govuk-form-group--error'
       }`}
     >
+      {JSON.stringify(values)}
+
       <fieldset
         className="govuk-fieldset"
         aria-describedby={hint && `${name}-hint`}
@@ -70,51 +79,52 @@ const TimetableField = ({ name, hint, label }: Props): React.ReactElement => {
           </p>
         )}
 
-        <FieldArray name={name}>
-          {() => (
-            <table className={`govuk-table lbh-table ${s.table}`}>
-              <thead>
-                <tr>
-                  <td className="govuk-table__header"></td>
-                  {times.map((time) => (
-                    <th
-                      className="govuk-table__header govuk-body-s"
-                      key={time}
-                      scope="col"
-                    >
-                      {time}
-                    </th>
-                  ))}
-                </tr>
-              </thead>
-              <tbody className="govuk-table__body">
-                {Object.keys(days).map((shortDay) => (
-                  <tr key={shortDay} className="govuk-table__row">
-                    <th
-                      className="govuk-table__header govuk-body-s"
-                      scope="row"
-                    >
-                      <span aria-hidden="true">{shortDay}</span>
-                      <span className="govuk-visually-hidden">
-                        {days[shortDay]}
-                      </span>
-                    </th>
-                    {times.map((time) => (
-                      <td className="govuk-table__cell" key={time}>
-                        <input type="number" min="0" max="24" step="0.5" />
-                      </td>
-                    ))}
-                  </tr>
+        <table className={`govuk-table lbh-table ${s.table}`}>
+          <thead>
+            <tr>
+              <td className="govuk-table__header"></td>
+              {times.map((time) => (
+                <th
+                  className="govuk-table__header govuk-body-s"
+                  key={time}
+                  scope="col"
+                >
+                  {time}
+                </th>
+              ))}
+            </tr>
+          </thead>
+          <tbody className="govuk-table__body">
+            {Object.keys(days).map((shortDay) => (
+              <tr key={shortDay} className="govuk-table__row">
+                <th className="govuk-table__header govuk-body-s" scope="row">
+                  <span aria-hidden="true">{shortDay}</span>
+                  <span className="govuk-visually-hidden">
+                    {days[shortDay]}
+                  </span>
+                </th>
+                {times.map((time) => (
+                  <td className="govuk-table__cell" key={time}>
+                    <Field
+                      type="number"
+                      min="0"
+                      max="24"
+                      step="0.5"
+                      name={`${name}.${shortDay}.${time}`}
+                    />
+                  </td>
                 ))}
-              </tbody>
-            </table>
-          )}
-        </FieldArray>
+              </tr>
+            ))}
+          </tbody>
+        </table>
       </fieldset>
 
       <p>
-        <strong>00</strong> hours total
+        <strong>{totalHours}</strong> hours total
       </p>
+
+      <Field type="hidden" name="Total hours" value={totalHours} />
     </div>
   );
 };

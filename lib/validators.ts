@@ -13,6 +13,7 @@ export const startSchema = Yup.object().shape({
 
 const getErrorMessage = (field: Field) => {
   if (field.error) return field.error;
+  if (field.type === `timetable`) return `Total hours can't be zero`;
   if (field.type === `checkboxes`) return `Choose at least one item`;
   if (field.type === 'repeater' || field.type === `repeaterGroup`)
     return `Add at least one ${field.itemName || 'item'}`;
@@ -35,6 +36,8 @@ export const generateFlexibleSchema = (
       shape[field.id] = Yup.array().of(
         generateFlexibleSchema(field.subfields || [])
       );
+    } else if (field.type === 'timetable') {
+      shape[field.id] = Yup.object();
     } else if (field.type === 'checkboxes' || field.type === 'repeater') {
       shape[field.id] = Yup.array().of(Yup.string());
     } else {

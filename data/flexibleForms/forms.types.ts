@@ -56,6 +56,12 @@ export interface RepeaterGroupAnswer {
   [key: string]: string | string[];
 }
 
+export interface TimetableAnswer {
+  [key: string]: {
+    [key: string]: string;
+  };
+}
+
 export interface StepAnswers {
   // questions and answers
   [key: string]: string | (string | RepeaterGroupAnswer)[];
