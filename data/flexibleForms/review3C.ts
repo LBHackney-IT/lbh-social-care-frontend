@@ -1133,6 +1133,7 @@ const form: Form = {
           id: 'Weekly timetable',
           question: 'What weekly support is needed?',
           type: 'timetable',
+          required: true,
         },
         {
           id: 'Estimated weekly cost',

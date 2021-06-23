@@ -5,14 +5,13 @@ import {
   TimetableAnswer,
 } from '../data/flexibleForms/forms.types';
 import { Resident } from 'types';
-import RepeaterGroupField from 'components/FlexibleForms/RepeaterGroupField';
 
 export interface Theme {
   name: string;
   steps: Step[];
 }
 
-type InitialValue = null | string | string[] | InitialValues[];
+type InitialValue = null | string | string[] | InitialValues[] | unknown;
 
 export interface InitialValues {
   [key: string]: InitialValue;
@@ -46,64 +45,20 @@ const initiallyNull = new Set(['file']);
 const initiallyFirstChoice = new Set(['select']);
 const initiallyArray = new Set(['checkboxes', 'repeater']);
 
-const initialTimetableValues = {
-  Mon: {
-    Morning: 0,
-    Afternoon: 0,
-    Evening: 0,
-    Night: 0,
-    'Any time': 0,
-  },
-  Tue: {
-    Morning: 0,
-    Afternoon: 0,
-    Evening: 0,
-    Night: 0,
-    'Any time': 0,
-  },
-  Wed: {
-    Morning: 0,
-    Afternoon: 0,
-    Evening: 0,
-    Night: 0,
-    'Any time': 0,
-  },
-  Thu: {
-    Morning: 0,
-    Afternoon: 0,
-    Evening: 0,
-    Night: 0,
-    'Any time': 0,
-  },
-  Fri: {
-    Morning: 0,
-    Afternoon: 0,
-    Evening: 0,
-    Night: 0,
-    'Any time': 0,
-  },
-  Sat: {
-    Morning: 0,
-    Afternoon: 0,
-    Evening: 0,
-    Night: 0,
-    'Any time': 0,
-  },
-  Sun: {
-    Morning: 0,
-    Afternoon: 0,
-    Evening: 0,
-    Night: 0,
-    'Any time': 0,
-  },
-  'Any day': {
-    Morning: 0,
-    Afternoon: 0,
-    Evening: 0,
-    Night: 0,
-    'Any time': 0,
-  },
+export const days: {
+  [key: string]: string;
+} = {
+  Mon: 'Monday',
+  Tue: 'Tuesday',
+  Wed: 'Wednesday',
+  Thu: 'Thursday',
+  Fri: 'Friday',
+  Sat: 'Saturday',
+  Sun: 'Sunday',
+  'Any day': 'Any day',
 };
+
+export const times = ['Morning', 'Afternoon', 'Evening', 'Night', 'Any time'];
 
 /** Generate flexible initial values for a flexible schema */
 export const generateInitialValues = (
@@ -118,7 +73,7 @@ export const generateInitialValues = (
         generateInitialValues(field.subfields || [], person),
       ];
     } else if (field.type === 'timetable') {
-      initialValues[field.id] = initialTimetableValues;
+      initialValues[field.id] = {};
     } else if (initiallyArray.has(field.type)) {
       initialValues[field.id] = [];
     } else if (initiallyNull.has(field.type)) {
@@ -143,8 +98,8 @@ export const pushUnique = <T>(array: T[], newElement: T): T[] =>
 
 /** Take the values of a timetable question and get the sum total hours */
 export const getTotalHours = (values: TimetableAnswer): number =>
-  Object.values(values).reduce(
+  Object.values(values)?.reduce(
     (sum, day) =>
-      sum + Object.values(day).reduce((sum, time) => sum + Number(time), 0),
+      sum + Object.values(day)?.reduce((sum, time) => sum + Number(time), 0),
     0
   );

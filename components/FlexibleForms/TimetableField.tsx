@@ -5,31 +5,14 @@ import {
   FormikErrors,
   FormikTouched,
 } from 'formik';
-import { TimetableAnswer } from 'data/flexibleForms/forms.types';
 import s from './TimetableField.module.scss';
-import { getTotalHours } from 'lib/utils';
+import { getTotalHours, days, times } from 'lib/utils';
 
 interface Props {
   name: string;
   label: string;
   hint?: string;
 }
-
-const days: {
-  [key: string]: string;
-} = {
-  Mon: 'Monday',
-  Tue: 'Tuesday',
-  Wed: 'Wednesday',
-  Thur: 'Thursday',
-  Fri: 'Friday',
-  Sat: 'Saturday',
-  Sun: 'Sunday',
-  'Any day': 'Any day',
-};
-
-const times = ['Morning', 'Afternoon', 'Evening', 'Night', 'Any time'];
-
 const TimetableField = ({ name, hint, label }: Props): React.ReactElement => {
   const {
     values,
@@ -53,8 +36,6 @@ const TimetableField = ({ name, hint, label }: Props): React.ReactElement => {
         'govuk-form-group--error'
       }`}
     >
-      {JSON.stringify(values)}
-
       <fieldset
         className="govuk-fieldset"
         aria-describedby={hint && `${name}-hint`}
@@ -114,11 +95,9 @@ const TimetableField = ({ name, hint, label }: Props): React.ReactElement => {
           </tbody>
         </table>
       </fieldset>
-
       <p>
-        <strong>{totalHours}</strong> hours total
+        <strong>{totalHours || 0}</strong> hours total
       </p>
-
       <Field type="hidden" name="Total hours" value={totalHours} />
     </div>
   );
