@@ -17,14 +17,12 @@ const SubmissionRow = ({
   openRow,
   setOpenRow,
   user,
-}: Props): React.ReactElement => {
+}: Props): React.ReactElement | null => {
   const open = openRow === submission.submissionId;
 
   const form = forms.find((form) => form.id === submission.formId);
-  
-  if(!form) {
-    return null;
-  }
+
+  if (!form) return null;
 
   const completedSteps = Object.keys(submission.formAnswers).length;
   const totalSteps = form?.steps?.length;
