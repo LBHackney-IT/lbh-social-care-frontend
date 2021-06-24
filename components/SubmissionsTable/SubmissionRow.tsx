@@ -22,8 +22,6 @@ const SubmissionRow = ({
 
   const form = forms.find((form) => form.id === submission.formId);
 
-  if (!form) return null;
-
   const completedSteps = Object.keys(submission.formAnswers).length;
   const totalSteps = form?.steps?.length;
 
@@ -55,7 +53,7 @@ const SubmissionRow = ({
           <dt>Form</dt>{' '}
           <dd>
             <Link href={`/submissions/${submission.submissionId}`}>
-              <a className="lbh-link">{form?.name}</a>
+              <a className="lbh-link">{form?.name || submission.formId}</a>
             </Link>
           </dd>
           <br />
