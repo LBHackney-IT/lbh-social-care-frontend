@@ -8,6 +8,7 @@ import {
 } from 'formik';
 import s from './TimetableField.module.scss';
 import { getTotalHours, days, times } from 'lib/utils';
+import { TimetableAnswer } from 'data/flexibleForms/forms.types';
 
 interface Props {
   name: string;
@@ -25,7 +26,7 @@ const TimetableField = ({ name, hint, label }: Props): React.ReactElement => {
     touched: FormikTouched<FormikValues>;
     errors: FormikErrors<FormikValues>;
     setFieldValue: (name: string, value: string) => void;
-  } = useFormikContext();
+  } = useFormikContext<TimetableAnswer>();
 
   const totalHours = getTotalHours(values[name]);
 

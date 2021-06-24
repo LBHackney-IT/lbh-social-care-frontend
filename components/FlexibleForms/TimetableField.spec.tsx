@@ -52,12 +52,16 @@ describe('TimetableField', () => {
             },
           },
         }}
-        initialErrors={{
-          foo: 'Example error',
-        }}
-        initialTouched={{
-          foo: true,
-        }}
+        initialErrors={
+          {
+            foo: 'Example error',
+          } as unknown as undefined
+        }
+        initialTouched={
+          {
+            foo: true,
+          } as unknown as undefined
+        }
       >
         <TimetableField name="foo" label="Label text" hint="Hint text" />
       </Formik>

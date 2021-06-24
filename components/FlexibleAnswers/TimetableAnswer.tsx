@@ -1,10 +1,15 @@
-import { TimetableAnswer as TimetableAnswerT } from 'data/flexibleForms/forms.types';
+import {
+  TimetableAnswer as TimetableAnswerT,
+  RepeaterGroupAnswer,
+} from 'data/flexibleForms/forms.types';
 import { days, times } from 'lib/utils';
 import s from './FlexibleAnswers.module.scss';
 
 /** test if the answer group has any keys from the list of days. if so, it's probably timetable data */
-export const isTimetableAnswer = (answerGroup: TimetableAnswerT): boolean =>
-  Object.keys(days).some((day) => Object.keys(answerGroup).includes(day));
+export const isTimetableAnswer = (
+  answerGroup: RepeaterGroupAnswer[] | TimetableAnswerT
+): boolean =>
+  Object.keys(days).every((day) => Object.keys(answerGroup).includes(day));
 
 const TimetableAnswer = ({
   answers,

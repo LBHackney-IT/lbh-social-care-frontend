@@ -3,6 +3,7 @@ import {
   StepAnswers,
   FlexibleAnswers as FlexibleAnswersT,
   RepeaterGroupAnswer as RepeaterGroupAnswerT,
+  TimetableAnswer as TimetableAnswerT,
 } from 'data/flexibleForms/forms.types';
 import DownArrow from '../Icons/DownArrow';
 import TimetableAnswer, { isTimetableAnswer } from './TimetableAnswer';
@@ -70,10 +71,14 @@ const FlexibleAnswersStep = ({
               <dd className={`govuk-summary-list__value ${s.dd}`}>
                 {typeof answerGroup === 'string' ? (
                   answerGroup
-                ) : isTimetableAnswer(answerGroup) ? (
-                  <TimetableAnswer answers={answerGroup} />
+                ) : isTimetableAnswer(
+                    answerGroup as TimetableAnswerT | RepeaterGroupAnswerT[]
+                  ) ? (
+                  <TimetableAnswer answers={answerGroup as TimetableAnswerT} />
                 ) : (
-                  <RepeaterGroupAnswers answers={answerGroup} />
+                  <RepeaterGroupAnswers
+                    answers={answerGroup as RepeaterGroupAnswerT[]}
+                  />
                 )}
               </dd>
             </div>
