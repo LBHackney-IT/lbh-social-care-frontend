@@ -1,37 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import Link from 'next/link';
-import { useRouter } from 'next/router';
 
 import { useAuth } from 'components/UserContext/UserContext';
-import { getData } from 'utils/saveData';
 import { getUserType } from 'utils/user';
 import Logo from './Logo';
-
-const loggedNavLinks = [
-  {
-    name: 'Search',
-    path: '/search',
-    isSelected: (pathname: string) =>
-      pathname === '/search' || pathname === '/cases',
-  },
-
-  {
-    name: 'My work space',
-    path: '/',
-    isSelected: (pathname: string) =>
-      pathname === '/' ||
-      pathname === '/my-records' ||
-      pathname === '/forms-in-progress',
-  },
-  {
-    name: 'Manage workers',
-    path: '/workers',
-  },
-  {
-    name: 'Sign out',
-    path: '/logout',
-  },
-];
 
 const HeaderComponent = ({
   serviceName,
@@ -39,23 +11,6 @@ const HeaderComponent = ({
   serviceName: string;
 }): React.ReactElement => {
   const { user } = useAuth();
-  const { pathname } = useRouter();
-  const [navLinks, setNavLinks] = useState<typeof loggedNavLinks>();
-  useEffect(() => {
-    if (user) {
-      const savedForms = getData();
-      setNavLinks(
-        loggedNavLinks
-          .filter(({ name }) => name !== 'Forms in progress' || savedForms)
-          .filter(
-            ({ name }) =>
-              name !== 'Manage workers' ||
-              user.hasDevPermissions ||
-              user.hasAdminPermissions
-          )
-      );
-    }
-  }, [user, pathname]);
 
   return (
     <header className="lbh-header ">
@@ -75,13 +30,22 @@ const HeaderComponent = ({
           </div>
 
           <nav className="lbh-header__links" aria-label="Navigation menu">
-            {navLinks && (
+            {user && (
               <>
-                {navLinks.map(({ name, path }) => (
-                  <Link href={path} key={path}>
-                    <a className="govuk-header__link">{name}</a>
+                <Link href="/search">
+                  <a className="govuk-header__link">Search</a>
+                </Link>
+                <Link href="/">
+                  <a className="govuk-header__link">My work space</a>
+                </Link>
+                {(user.hasAdminPermissions || user.hasDevPermissions) && (
+                  <Link href="/workers">
+                    <a className="govuk-header__link">Manage workers</a>
                   </Link>
-                ))}
+                )}
+                <Link href="/logout">
+                  <a className="govuk-header__link">Sign out</a>
+                </Link>
               </>
             )}
           </nav>
