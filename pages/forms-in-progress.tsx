@@ -5,6 +5,7 @@ import { GetServerSideProps } from 'next';
 import { getUnfinishedSubmissions } from 'lib/submissions';
 import { Submission } from 'data/flexibleForms/forms.types';
 import SubmissionsTable from 'components/SubmissionsTable';
+import { isAuthorised } from 'utils/auth';
 
 interface Props {
   submissions: Submission[];
@@ -26,8 +27,9 @@ const UnfinishedSubmissions = ({ submissions }: Props): React.ReactElement => (
 
 export default UnfinishedSubmissions;
 
-export const getServerSideProps: GetServerSideProps = async () => {
-  const submissions = await getUnfinishedSubmissions();
+export const getServerSideProps: GetServerSideProps = async ({ req }) => {
+  const user = isAuthorised(req);
+  const submissions = await getUnfinishedSubmissions(user?.permissionFlag);
 
   return {
     props: {

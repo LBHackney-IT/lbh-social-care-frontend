@@ -1,4 +1,4 @@
-import { Resident, User, Worker } from 'types';
+import { LegacyResident, Resident, User, Worker } from 'types';
 
 export interface Choice {
   value: string;
@@ -25,7 +25,7 @@ export interface Field {
   error?: string;
   choices?: Choice[];
   /** Checkbox, file and repeater fields don't support prefilling */
-  prefill?: keyof Resident;
+  prefill?: keyof LegacyResident | keyof Resident;
   className?: string;
   /** For file fields only */
   // multiple?: boolean
@@ -70,7 +70,7 @@ export interface Submission {
   formId: string;
   createdBy: User;
   createdAt: string;
-  residents: Resident[];
+  residents: LegacyResident[];
   workers: Worker[];
   editHistory: {
     worker: Worker;
