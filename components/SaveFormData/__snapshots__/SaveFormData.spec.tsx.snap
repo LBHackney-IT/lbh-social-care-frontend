@@ -2,8 +2,11 @@
 
 exports[`SaveFormData component should render both types of forms 1`] = `
 <DocumentFragment>
+  <h3>
+    Forms saved to this browser
+  </h3>
   <p>
-    Displaying (2) unfinished forms
+    These forms won't be available to you on other computers.
   </p>
   <table
     class="govuk-table"
