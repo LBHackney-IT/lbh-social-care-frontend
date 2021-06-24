@@ -13,7 +13,7 @@ import type { User } from 'types';
 
 import 'stylesheets/all.scss';
 import 'stylesheets/header.scss';
-import { FeatureFlagContext } from '../lib/feature-flags/feature-flags';
+import { FeatureFlagProvider } from '../lib/feature-flags/feature-flags';
 
 interface Props {
   user?: Partial<User>;
@@ -25,37 +25,38 @@ interface ExtendedAppProps extends AppProps<Props> {
   };
 }
 
+const environmentName = process.env.NODE_ENV;
+
+const features = {
+  'feature-flags-implementation-proof': environmentName === 'development',
+};
+
 const CustomApp = ({
   Component,
   pageProps,
 }: ExtendedAppProps): JSX.Element | null => {
   const [user] = useState(pageProps.user);
-  const environmentName = pageProps.environmentName;
-  const features = {
-    'feature-flags-implementation-proof': environmentName !== 'production',
-  };
+
   return (
-    <>
-      <FeatureFlagContext features={features}>
-        <SWRConfig
-          value={{
-            fetcher: (resource, options) =>
-              axios.get(resource, options).then((res) => res.data),
-            onErrorRetry: (error) => {
-              if (error.status === 404) return;
-            },
-          }}
-        >
-          <AuthProvider user={user}>
-            <GoogleAnalytics>
-              <Layout goBackButton={Component.goBackButton}>
-                <Component {...pageProps} />
-              </Layout>
-            </GoogleAnalytics>
-          </AuthProvider>
-        </SWRConfig>
-      </FeatureFlagContext>
-    </>
+    <FeatureFlagProvider features={features}>
+      <SWRConfig
+        value={{
+          fetcher: (resource, options) =>
+            axios.get(resource, options).then((res) => res.data),
+          onErrorRetry: (error) => {
+            if (error.status === 404) return;
+          },
+        }}
+      >
+        <AuthProvider user={user}>
+          <GoogleAnalytics>
+            <Layout goBackButton={Component.goBackButton}>
+              <Component {...pageProps} />
+            </Layout>
+          </GoogleAnalytics>
+        </AuthProvider>
+      </SWRConfig>
+    </FeatureFlagProvider>
   );
 };
 

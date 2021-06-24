@@ -9,7 +9,7 @@ const Context =
     | undefined
   >(undefined);
 
-export const FeatureFlagContext: React.FC<{
+export const FeatureFlagProvider: React.FC<{
   features: {
     [featureName: string]: boolean;
   };
@@ -25,7 +25,7 @@ export const ConditionalFeature: React.FC<{ name: string }> = ({
 
   if (features === undefined) {
     throw new Error(
-      'A <FeatureFlagContext /> must be provided as a parent of this component'
+      'A <FeatureFlagProvider /> must be provided as a parent of this component'
     );
   }
 

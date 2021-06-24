@@ -8,18 +8,18 @@
 
 import { render, screen } from '@testing-library/react';
 
-import { ConditionalFeature, FeatureFlagContext } from './feature-flags';
+import { ConditionalFeature, FeatureFlagProvider } from './feature-flags';
 
 describe('<ConditionalFeature />', () => {
   it('should render nothing if an unknown feature name is provided', () => {
     const features = {};
 
     render(
-      <FeatureFlagContext features={features}>
+      <FeatureFlagProvider features={features}>
         <ConditionalFeature name="some-unknown-feature-name">
           <div data-testid="expectedElement">This should not be visible!</div>
         </ConditionalFeature>
-      </FeatureFlagContext>
+      </FeatureFlagProvider>
     );
 
     const children = screen.queryByTestId('expectedElement');
@@ -33,11 +33,11 @@ describe('<ConditionalFeature />', () => {
     };
 
     render(
-      <FeatureFlagContext features={features}>
+      <FeatureFlagProvider features={features}>
         <ConditionalFeature name="some-known-inactive-feature-name">
           <div data-testid="expectedElement">This should be visible!</div>
         </ConditionalFeature>
-      </FeatureFlagContext>
+      </FeatureFlagProvider>
     );
 
     const children = screen.queryByTestId('expectedElement');
@@ -51,11 +51,11 @@ describe('<ConditionalFeature />', () => {
     };
 
     render(
-      <FeatureFlagContext features={features}>
+      <FeatureFlagProvider features={features}>
         <ConditionalFeature name="some-known-active-feature-name">
           <div data-testid="expectedElement">This should be visible!</div>
         </ConditionalFeature>
-      </FeatureFlagContext>
+      </FeatureFlagProvider>
     );
 
     screen.getByTestId('expectedElement');
@@ -65,7 +65,7 @@ describe('<ConditionalFeature />', () => {
     expect(() => {
       render(<ConditionalFeature name="some-known-active-feature-name" />);
     }).toThrow(
-      'A <FeatureFlagContext /> must be provided as a parent of this component'
+      'A <FeatureFlagProvider /> must be provided as a parent of this component'
     );
   });
 });
