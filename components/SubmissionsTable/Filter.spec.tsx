@@ -4,7 +4,7 @@ import Filter from './Filter';
 describe('Filter', () => {
   it('correctly responds to the current value', () => {
     render(
-      <Filter filter={'foo'} value={'foo'} setFilter={jest.fn()}>
+      <Filter filter={'mine'} value={'mine'} setFilter={jest.fn()}>
         Foo
       </Filter>
     );
@@ -16,12 +16,12 @@ describe('Filter', () => {
   it('calls the change handler', () => {
     const mockHandler = jest.fn();
     render(
-      <Filter filter={'foo'} value={'bar'} setFilter={mockHandler}>
+      <Filter filter={'all'} value={'mine'} setFilter={mockHandler}>
         foo
       </Filter>
     );
     fireEvent.click(screen.getByRole('radio'));
     expect(mockHandler).toBeCalled();
-    expect(mockHandler).toBeCalledWith('bar');
+    expect(mockHandler).toBeCalledWith('mine');
   });
 });

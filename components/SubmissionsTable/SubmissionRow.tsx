@@ -34,7 +34,7 @@ const SubmissionRow = ({
 
   return (
     <>
-      <li className={s.row}>
+      <li className={s.row} aria-expanded={open}>
         <div className={s.person}>
           <h3 className={s.name}>
             <Link href={`/people/${submission.residents[0].id}`}>

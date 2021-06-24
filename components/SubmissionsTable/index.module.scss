@@ -29,11 +29,6 @@
     position: relative;
     z-index: 2;
   }
-
-  button {
-    border: none;
-    background: none;
-  }
 }
 
 .person {
@@ -76,6 +71,9 @@
 }
 
 .expanderButton {
+  border: none;
+  background: none;
+
   svg {
     position: absolute;
     right: 0;

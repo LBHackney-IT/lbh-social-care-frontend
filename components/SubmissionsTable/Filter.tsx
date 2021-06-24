@@ -1,8 +1,8 @@
 interface FilterProps {
-  value: string;
+  value: 'mine' | 'all';
   children: React.ReactChild;
   filter: string;
-  setFilter: (value: string) => void;
+  setFilter: (value: 'mine' | 'all') => void;
 }
 
 const Filter = ({
