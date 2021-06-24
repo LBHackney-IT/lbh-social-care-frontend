@@ -62,9 +62,14 @@ export interface TimetableAnswer {
   };
 }
 
+export type Answer =
+  | string
+  | TimetableAnswer
+  | (string | RepeaterGroupAnswer)[];
+
 export interface StepAnswers {
   // questions and answers
-  [key: string]: string | (string | RepeaterGroupAnswer)[];
+  [key: string]: Answer;
 }
 
 export interface FlexibleAnswers {

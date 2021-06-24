@@ -60,6 +60,15 @@ export const days: {
 
 export const times = ['Morning', 'Afternoon', 'Evening', 'Night', 'Any time'];
 
+const generateInitialTimetableValues = (): TimetableAnswer => {
+  const initialTimetableValues: TimetableAnswer = {};
+  Object.keys(days).map((day) => {
+    initialTimetableValues[day] = {};
+    times.map((time) => (initialTimetableValues[day][time] = ''));
+  });
+  return initialTimetableValues;
+};
+
 /** Generate flexible initial values for a flexible schema */
 export const generateInitialValues = (
   fields: Field[],
@@ -73,7 +82,7 @@ export const generateInitialValues = (
         generateInitialValues(field.subfields || [], person),
       ];
     } else if (field.type === 'timetable') {
-      initialValues[field.id] = {};
+      initialValues[field.id] = generateInitialTimetableValues();
       initialValues[`${field.id} total hours`] = '';
     } else if (initiallyArray.has(field.type)) {
       initialValues[field.id] = [];
