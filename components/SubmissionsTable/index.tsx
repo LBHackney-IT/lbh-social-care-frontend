@@ -80,7 +80,7 @@ export const SubmissionsTable = ({
     }
 
     // If showing only the current user's submissions, then filter out if the emails don't match
-    if (filter === "mine" && submission.createdBy.email !== user?.email) {
+    if (filter === 'mine' && submission.createdBy.email !== user?.email) {
       return false;
     }
 
