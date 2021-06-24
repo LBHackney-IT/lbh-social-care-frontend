@@ -99,12 +99,15 @@ export const pushUnique = <T>(array: T[], newElement: T): T[] =>
 
 /** Take the values of a timetable question and get the sum total hours */
 export const getTotalHours = (values: TimetableAnswer): number => {
+  let total = 0;
   if (typeof values === 'object') {
-    return Object.values(values)?.reduce(
+    total = Object.values(values)?.reduce(
       (sum, day) =>
-        sum + Object.values(day)?.reduce((sum, time) => sum + Number(time), 0),
+        sum +
+        Object.values(day)?.reduce((sum, time) => sum + (Number(time) || 0), 0),
       0
     );
   }
+  if (typeof total === 'number') return total;
   return 0;
 };
