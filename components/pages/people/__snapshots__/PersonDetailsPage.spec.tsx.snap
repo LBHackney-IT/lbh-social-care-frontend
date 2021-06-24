@@ -1,0 +1,290 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<PersonDetailsPage /> for all users should render the details for the person 1`] = `
+<DocumentFragment>
+  <div
+    class="govuk-!-margin-top-7"
+  >
+    <div
+      class=""
+    >
+      <span
+        class="govuk-error-message"
+      >
+        <span
+          class="govuk-visually-hidden"
+        >
+          Error:
+        </span>
+         There was a problem. Please refresh the page or try again later.
+      </span>
+    </div>
+    <div
+      class="govuk-!-margin-top-7"
+    >
+      <div>
+        <div
+          class="lbh-table-header"
+        >
+          <h2
+            class="govuk-fieldset__legend--m govuk-custom-text-color"
+          >
+            PERSON DETAILS
+          </h2>
+        </div>
+        <hr
+          class="govuk-divider"
+        />
+        <dl
+          class="govuk-summary-list"
+        >
+          <div
+            class="govuk-summary-list__row"
+          >
+            <dt
+              class="govuk-summary-list__key"
+            >
+              Person ID
+            </dt>
+            <dd
+              class="govuk-summary-list__value"
+            >
+              #2
+            </dd>
+          </div>
+          <div
+            class="govuk-summary-list__row"
+          >
+            <dt
+              class="govuk-summary-list__key"
+            >
+              Gender
+            </dt>
+            <dd
+              class="govuk-summary-list__value"
+            >
+              F
+            </dd>
+          </div>
+          <div
+            class="govuk-summary-list__row"
+          >
+            <dt
+              class="govuk-summary-list__key"
+            >
+              Date of birth
+            </dt>
+            <dd
+              class="govuk-summary-list__value"
+            >
+              13/11/2020
+            </dd>
+          </div>
+          <div
+            class="govuk-summary-list__row"
+          >
+            <dt
+              class="govuk-summary-list__key"
+            >
+              NHS number
+            </dt>
+            <dd
+              class="govuk-summary-list__value"
+            >
+              12345
+            </dd>
+          </div>
+          <div
+            class="govuk-summary-list__row"
+          >
+            <dt
+              class="govuk-summary-list__key"
+            >
+              Address
+            </dt>
+            <dd
+              class="govuk-summary-list__value"
+            >
+              <div>
+                sjakdjlk
+              </div>
+              <div>
+                hdsadjk
+              </div>
+            </dd>
+          </div>
+          <div
+            class="govuk-summary-list__row"
+          >
+            <dt
+              class="govuk-summary-list__key"
+            >
+              Person type
+            </dt>
+            <dd
+              class="govuk-summary-list__value"
+            >
+              ASC
+            </dd>
+          </div>
+        </dl>
+      </div>
+    </div>
+    <div
+      class="govuk-!-margin-top-7"
+    >
+      <svg
+        height="50"
+        stroke="#00703c"
+        style="display: block; margin: auto;"
+        viewBox="0 0 42 42"
+        width="50"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <g
+          fill="none"
+          fill-rule="evenodd"
+        >
+          <g
+            stroke-width="5"
+            transform="translate(3 3)"
+          >
+            <circle
+              cx="18"
+              cy="18"
+              r="18"
+              stroke-opacity=".5"
+            />
+            <path
+              d="M36 18c0-9.94-8.06-18-18-18"
+              transform="rotate(112.708 18 18)"
+            >
+              <animatetransform
+                attributeName="transform"
+                dur="1s"
+                from="0 18 18"
+                repeatCount="indefinite"
+                to="360 18 18"
+                type="rotate"
+              />
+            </path>
+          </g>
+        </g>
+      </svg>
+    </div>
+    <div
+      class="govuk-!-margin-top-7"
+    >
+      <svg
+        height="50"
+        stroke="#00703c"
+        style="display: block; margin: auto;"
+        viewBox="0 0 42 42"
+        width="50"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <g
+          fill="none"
+          fill-rule="evenodd"
+        >
+          <g
+            stroke-width="5"
+            transform="translate(3 3)"
+          >
+            <circle
+              cx="18"
+              cy="18"
+              r="18"
+              stroke-opacity=".5"
+            />
+            <path
+              d="M36 18c0-9.94-8.06-18-18-18"
+              transform="rotate(112.708 18 18)"
+            >
+              <animatetransform
+                attributeName="transform"
+                dur="1s"
+                from="0 18 18"
+                repeatCount="indefinite"
+                to="360 18 18"
+                type="rotate"
+              />
+            </path>
+          </g>
+        </g>
+      </svg>
+    </div>
+    <div
+      class="govuk-!-margin-top-7"
+    >
+      <div>
+        <div
+          class="lbh-table-header"
+        >
+          <div>
+            <h3
+              class="govuk-fieldset__legend--m govuk-custom-text-color"
+            >
+              RECORDS HISTORY
+            </h3>
+            <span
+              class="govuk-body"
+            >
+              Linked files are read only
+            </span>
+          </div>
+          <button
+            class="lbh-button govuk-button"
+            data-module="govuk-button"
+          >
+            Add a new record
+          </button>
+        </div>
+        <hr
+          class="govuk-divider"
+        />
+        <div>
+          <svg
+            height="50"
+            stroke="#00703c"
+            style="display: block; margin: auto;"
+            viewBox="0 0 42 42"
+            width="50"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <g
+              fill="none"
+              fill-rule="evenodd"
+            >
+              <g
+                stroke-width="5"
+                transform="translate(3 3)"
+              >
+                <circle
+                  cx="18"
+                  cy="18"
+                  r="18"
+                  stroke-opacity=".5"
+                />
+                <path
+                  d="M36 18c0-9.94-8.06-18-18-18"
+                  transform="rotate(112.708 18 18)"
+                >
+                  <animatetransform
+                    attributeName="transform"
+                    dur="1s"
+                    from="0 18 18"
+                    repeatCount="indefinite"
+                    to="360 18 18"
+                    type="rotate"
+                  />
+                </path>
+              </g>
+            </g>
+          </svg>
+        </div>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;

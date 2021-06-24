@@ -42,12 +42,6 @@ export default [
     category: 'Information Assessment',
   },
   {
-    text: 'Review of Care and Support Plan',
-    value:
-      'https://docs.google.com/forms/d/e/1FAIpQLSdfdu9TIGu6KoNFGu9gBlWj170MvoeCNeNay8IHmvBkeffjaA/viewform',
-    category: 'Information Assessment',
-  },
-  {
     text: 'Conversation 1',
     value:
       'https://docs.google.com/forms/d/e/1FAIpQLSdcITf67BouyUDCulb0oaSOyU1vSiqGC2qxmg_4GHBdV7we7A/viewform',
