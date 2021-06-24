@@ -39,8 +39,8 @@ const SubmissionRow = ({
           <h3 className={s.name}>
             <Link href={`/people/${submission.residents[0].id}`}>
               <a className="lbh-link lbh-link--no-visited-state">
-                {submission.residents?.[0]?.firstName}{' '}
-                {submission.residents?.[0]?.lastName}
+                {submission.residents[0].firstName}{' '}
+                {submission.residents[0].lastName}
               </a>
             </Link>
           </h3>
