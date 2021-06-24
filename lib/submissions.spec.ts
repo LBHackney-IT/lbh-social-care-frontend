@@ -14,7 +14,7 @@ const mockedAxios = axios as jest.Mocked<typeof axios>;
 const { ENDPOINT_API, AWS_KEY } = process.env;
 
 describe('getUnfinishedSubmissions', () => {
-  it('should work properly', async () => {
+  it('should return a list of incomplete submissions', async () => {
     mockedAxios.get.mockResolvedValue({
       data: [
         { submissionId: '123', formAnswers: {} },
