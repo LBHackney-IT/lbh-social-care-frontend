@@ -1,27 +1,30 @@
 import React from 'react';
 import { useContext } from 'react';
 
-const Context =
-  React.createContext<
-    | {
-        [featureName: string]: boolean;
-      }
-    | undefined
-  >(undefined);
+export type FeatureSet = {
+  [featureName: string]: {
+    isActive: boolean;
+  };
+};
+
+const FeatureFlagContext =
+  React.createContext<FeatureSet | undefined>(undefined);
 
 export const FeatureFlagProvider: React.FC<{
-  features: {
-    [featureName: string]: boolean;
-  };
+  features: FeatureSet;
 }> = ({ features, children }) => {
-  return <Context.Provider value={features}>{children}</Context.Provider>;
+  return (
+    <FeatureFlagContext.Provider value={features}>
+      {children}
+    </FeatureFlagContext.Provider>
+  );
 };
 
 export const ConditionalFeature: React.FC<{ name: string }> = ({
   name,
   children,
 }) => {
-  const features = useContext(Context);
+  const features = useContext(FeatureFlagContext);
 
   if (features === undefined) {
     throw new Error(
@@ -33,7 +36,7 @@ export const ConditionalFeature: React.FC<{ name: string }> = ({
     return null;
   }
 
-  if (features[name] === false) {
+  if (features[name].isActive === false) {
     return null;
   }
 

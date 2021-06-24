@@ -8,11 +8,15 @@
 
 import { render, screen } from '@testing-library/react';
 
-import { ConditionalFeature, FeatureFlagProvider } from './feature-flags';
+import {
+  ConditionalFeature,
+  FeatureFlagProvider,
+  FeatureSet,
+} from './feature-flags';
 
 describe('<ConditionalFeature />', () => {
   it('should render nothing if an unknown feature name is provided', () => {
-    const features = {};
+    const features: FeatureSet = {};
 
     render(
       <FeatureFlagProvider features={features}>
@@ -28,8 +32,10 @@ describe('<ConditionalFeature />', () => {
   });
 
   it('should render nothing if a known feature name is provided and that feature is inactive', () => {
-    const features = {
-      'some-known-inactive-feature-name': false,
+    const features: FeatureSet = {
+      'some-known-inactive-feature-name': {
+        isActive: false,
+      },
     };
 
     render(
@@ -46,8 +52,10 @@ describe('<ConditionalFeature />', () => {
   });
 
   it('should render the children if a known feature name is provided and that feature is active', () => {
-    const features = {
-      'some-known-active-feature-name': true,
+    const features: FeatureSet = {
+      'some-known-active-feature-name': {
+        isActive: true,
+      },
     };
 
     render(
