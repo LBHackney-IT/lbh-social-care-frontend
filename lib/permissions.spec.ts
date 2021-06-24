@@ -5,7 +5,6 @@ import {
   canUserEditPerson,
   canManageCases,
   canViewRelationships,
-  canUserViewWarningNotes,
   canUserAllocateWorkerToPerson,
 } from './permissions';
 
@@ -395,31 +394,6 @@ describe('permissions', () => {
           residentFactory.build({
             restricted: 'Y',
             contextFlag: 'A',
-          })
-        )
-      ).toEqual(false);
-    });
-  });
-
-  describe('#canUserViewWarningNotes()', () => {
-    it('should return false when the user has no permissions', () => {
-      expect(canUserViewWarningNotes(users.none)).toEqual(false);
-    });
-
-    it('should return true when the user is a dev', () => {
-      expect(canUserViewWarningNotes(users.dev)).toEqual(true);
-    });
-
-    it('should return false when the user is not a dev', () => {
-      expect(
-        canUserViewWarningNotes(
-          userFactory.build({
-            hasAdminPermissions: true,
-            hasAdultPermissions: true,
-            hasChildrenPermissions: true,
-            hasUnrestrictedPermissions: true,
-            hasDevPermissions: false,
-            hasAllocationsPermissions: true,
           })
         )
       ).toEqual(false);
