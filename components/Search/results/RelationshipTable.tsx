@@ -1,14 +1,12 @@
-import Link from 'next/link';
 import cx from 'classnames';
 import { LegacyResident } from 'types';
 
 const ResultEntry = ({
   person,
-  newTab,
-  getValueCallback,
+  callback,
 }: {
   person: LegacyResident;
-  newTab?: boolean;
+  callback: any;
 }): React.ReactElement => {
   const { mosaicId, firstName, lastName, dateOfBirth, address } = person;
 
@@ -17,33 +15,18 @@ const ResultEntry = ({
       <tr className={cx('govuk-table__row')}>
         <td className="govuk-table__cell">
           <input
-            aria-labelledby={`worker_${mosaicId}`}
-            name="workerId"
+            aria-labelledby={`person_${mosaicId}`}
+            name="personId"
             type="radio"
             value={mosaicId}
             onChange={(e) => {
-              getValueCallback(e.target.value);
+              callback(e.target.value);
             }}
           />
         </td>
         <td className="govuk-table__cell">{mosaicId}</td>
         <td className="govuk-table__cell">
-          {newTab ? (
-            <a
-              href={`/people/${mosaicId}`}
-              target="_blank"
-              rel="noreferrer"
-              className="govuk-link govuk-custom-text-color"
-            >
-              {firstName} {lastName}
-            </a>
-          ) : (
-            <Link href={`/people/${mosaicId}`}>
-              <a className="govuk-link govuk-custom-text-color">
-                {firstName} {lastName}
-              </a>
-            </Link>
-          )}
+          {firstName} {lastName}
         </td>
         <td className="govuk-table__cell">
           <span>{(address && address.postcode) || ''}</span>
@@ -58,9 +41,10 @@ const ResultEntry = ({
 
 const RelationshipSearchTable = ({
   records,
-  getValueCallback,
+  callback,
 }: {
   records: LegacyResident[];
+  callback: any;
 }): React.ReactElement => {
   return (
     <table className="govuk-table lbh-table" data-testid="residents-table">
@@ -90,7 +74,7 @@ const RelationshipSearchTable = ({
           <ResultEntry
             key={result.mosaicId}
             person={result}
-            getValueCallback={getValueCallback}
+            callback={callback}
           />
         ))}
       </tbody>

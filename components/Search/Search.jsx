@@ -32,7 +32,7 @@ const Search = ({
   columns,
   showOnlyMyResults = false,
   ctaText = 'Search',
-  getValueCallback = null,
+  callback = null,
 }) => {
   const { query, pathname, replace } = useRouter();
   const { user } = useAuth();
@@ -89,10 +89,19 @@ const Search = ({
       const qs = formData
         ? `?${getQueryString({ ...query, ...formData })}`
         : '';
-      replace(`${pathname}${qs}`, `${pathname}${qs}`, {
-        shallow: true,
-        scroll: false,
-      });
+      !query || !query.id
+        ? replace(`${pathname}${qs}`, `${pathname}${qs}`, {
+            shallow: true,
+            scroll: false,
+          })
+        : replace(
+            `${pathname.replace('[id]', query.id)}${qs}`,
+            `${pathname.replace('[id]', query.id)}${qs}`,
+            {
+              shallow: true,
+              scroll: false,
+            }
+          );
     },
     [pathname, query, replace]
   );
@@ -134,7 +143,7 @@ const Search = ({
             <SearchResults
               records={results.records}
               sort={query}
-              getValueCallback={getValueCallback}
+              callback={callback}
               columns={columns}
               // onSort={onSort} // commented out as the feature is not ready in the BE
             />
@@ -224,7 +233,7 @@ Search.propTypes = {
   showOnlyMyResults: PropTypes.bool,
   columns: PropTypes.array,
   ctaText: PropTypes.string,
-  getValueCallback: PropTypes.func,
+  callback: PropTypes.func,
 };
 
 export default Search;

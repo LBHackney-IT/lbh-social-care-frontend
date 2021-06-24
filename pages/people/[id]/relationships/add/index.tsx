@@ -15,12 +15,7 @@ const AddNewRelationship = (): React.ReactElement => {
         Add a new relationship
       </h1>
       <PersonView personId={personId} expandView>
-        {(person) => (
-          <AddRelationship
-            personId={person.id}
-            ageContext={person.contextFlag}
-          />
-        )}
+        {(person) => <AddRelationship personId={person.id} />}
       </PersonView>
     </>
   );

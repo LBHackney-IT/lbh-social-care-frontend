@@ -1,14 +1,15 @@
 import Search from 'components/Search/Search';
 import Button from 'components/Button/Button';
-import { useCallback } from 'react';
+import { useCallback, useState } from 'react';
 
 interface Props {
   personId: number;
 }
 
 const AddRelationship = ({ personId }: Props): React.ReactElement => {
-  const getValueCallback = useCallback((value) => {
-    console.log(value);
+  const [secondPersonId, setSecondPersonId] = useState('');
+  const callback = useCallback((value) => {
+    setSecondPersonId(value);
   }, []);
 
   return (
@@ -18,13 +19,14 @@ const AddRelationship = ({ personId }: Props): React.ReactElement => {
         subHeader={'Search for a person by any combination of fields below'}
         resultHeader={`SEARCH RESULT`}
         columns={['first_name']}
-        getValueCallback={getValueCallback}
+        callback={callback}
       />
       <Button
         label="Add Relationship (tochange)"
-        onClick={function () {
-          console.log(personId);
-        }}
+        route={`addtype?id=${encodeURIComponent(
+          personId
+        )}&secondPersonId=${encodeURIComponent(secondPersonId)}`}
+        disabled={!secondPersonId || secondPersonId === ''}
       />
     </>
   );
