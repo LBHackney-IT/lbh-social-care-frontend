@@ -69,7 +69,7 @@ describe(`Search`, () => {
     );
     const searchResult = await findByText('PEOPLE SEARCH RESULT');
     expect(searchResult).toBeInTheDocument();
-    expect(queryByText('load more')).not.toBeInTheDocument();
+    expect(queryByText('Load more')).not.toBeInTheDocument();
   });
 
   it('should update the queryString on search and run a new search', async () => {

@@ -18,7 +18,9 @@ exports[`PersonWidget should render properly 1`] = `
     <p
       class="lbh-body-s paragraph"
     >
+      sjakdjlk
       <br />
+      hdsadjk
     </p>
   </aside>
 </DocumentFragment>

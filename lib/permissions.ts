@@ -65,14 +65,6 @@ export const canManageCases = (
   return false;
 };
 
-export const canUserViewWarningNotes = (user: User): boolean => {
-  if (user.hasDevPermissions) {
-    return true;
-  }
-
-  return false;
-};
-
 export const canViewRelationships = (
   user: User,
   person: Pick<Resident, 'restricted' | 'contextFlag'>
@@ -107,6 +99,14 @@ export const canUserAllocateWorkerToPerson = (
     person.contextFlag === 'A' &&
     (user.hasAllocationsPermissions || false)
   ) {
+    return true;
+  }
+
+  return false;
+};
+
+export const canUserManageWorkers = (user: User): boolean => {
+  if (user.hasAdminPermissions || user.hasDevPermissions) {
     return true;
   }
 

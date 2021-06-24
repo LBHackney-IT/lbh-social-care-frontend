@@ -1,4 +1,5 @@
 import * as Yup from 'yup';
+import { FormikValues, FormikErrors } from 'formik';
 import { Field } from 'data/flexibleForms/forms.types';
 import { ObjectShape, OptionalObjectSchema, TypeOfShape } from 'yup/lib/object';
 
@@ -10,6 +11,15 @@ export const startSchema = Yup.object().shape({
   formId: Yup.string().required('Please choose a form'),
 });
 
+const getErrorMessage = (field: Field) => {
+  if (field.error) return field.error;
+  if (field.type === `checkboxes`) return `Choose at least one item`;
+  if (field.type === 'repeater' || field.type === `repeaterGroup`)
+    return `Add at least one ${field.itemName || 'item'}`;
+  return `This question is required`;
+};
+
+/** create a validation schema for a flexible form, ignoring conditional fields */
 export const generateFlexibleSchema = (
   fields: Field[]
 ): OptionalObjectSchema<
@@ -36,20 +46,38 @@ export const generateFlexibleSchema = (
       if (field.type === 'checkboxes') {
         shape[field.id] = (shape[field.id] as Yup.NumberSchema).min(
           1,
-          field.error || 'Please choose at least one option'
+          getErrorMessage(field)
         );
       } else if (field.type === 'repeater' || field.type === 'repeaterGroup') {
         shape[field.id] = (shape[field.id] as Yup.NumberSchema).min(
           1,
-          field.error || `Please add at least one ${field.itemName || 'item'}`
+          getErrorMessage(field)
         );
       } else {
-        shape[field.id] = shape[field.id].required(
-          field.error || 'This question is required'
-        );
+        shape[field.id] = shape[field.id].required(getErrorMessage(field));
       }
     }
   });
 
   return Yup.object().shape(shape);
+};
+
+/** respect the "required" attribute for conditional fields, only when the condition is met */
+export const validateConditionalFields = (
+  values: FormikValues,
+  fields: Field[]
+): FormikErrors<FormikValues> => {
+  const errors: FormikErrors<FormikValues> = {};
+  fields.map((field) => {
+    if (
+      field.condition &&
+      values[field.condition.id] === field.condition.value &&
+      field.required &&
+      // is the current value an empty string or array?
+      !values[field.id]?.length
+    ) {
+      errors[field.id] = getErrorMessage(field);
+    }
+  });
+  return errors;
 };

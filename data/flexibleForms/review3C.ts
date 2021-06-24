@@ -122,6 +122,10 @@ const form: Form = {
               label: 'Lives with others',
             },
             {
+              value: 'Shared housing',
+              label: 'Shared housing',
+            },
+            {
               value: 'Unknown',
               label: 'Unknown',
             },
@@ -359,6 +363,7 @@ const form: Form = {
           id: 'Mental capacity assessment completed?',
           question: 'Has a mental capacity assessment been completed?',
           type: 'radios',
+          required: true,
           choices: [
             {
               value: 'Yes',
@@ -383,6 +388,7 @@ const form: Form = {
           id: 'Mental capacity assessment required?',
           question: 'Is a mental capacity assessment required?',
           type: 'radios',
+          required: true,
           condition: {
             id: 'Mental capacity assessment completed?',
             value: 'No',
@@ -401,7 +407,7 @@ const form: Form = {
       ],
     },
     {
-      id: 'key-contacts',
+      id: 'Key contacts',
       name: 'Key contacts',
       theme: 'About you',
       fields: [
@@ -447,7 +453,7 @@ const form: Form = {
           type: 'text',
         },
         {
-          id: 'gp-practice',
+          id: 'Practice name',
           question: 'Practice name',
           hint: 'For example, Cedar Brook Practice',
           type: 'text',
@@ -458,8 +464,8 @@ const form: Form = {
           type: 'textarea',
         },
         {
-          id: 'Practice postal code',
-          question: 'Postal code',
+          id: 'Postal code',
+          question: 'Practice postal code',
           hint: 'For example, E8 1DY',
           type: 'text',
         },
@@ -484,6 +490,7 @@ const form: Form = {
           id: 'Review type',
           question: 'What kind of review is this?',
           type: 'radios',
+          required: true,
           choices: [
             {
               value: 'Planned',
@@ -503,6 +510,7 @@ const form: Form = {
             value: 'Unplanned',
           },
           type: 'radios',
+          required: true,
           choices: [
             {
               value: 'Planned or unplanned hospital episode',
@@ -535,6 +543,7 @@ const form: Form = {
           question: 'What is the current setting for the person?',
           hint: 'If the person is in a hospital, give the most recent setting before going to hospital.',
           type: 'radios',
+          required: true,
           choices: [
             {
               value: 'Community',
@@ -555,6 +564,7 @@ const form: Form = {
           question:
             'Is there an increase or decrease in the services provided?',
           type: 'radios',
+          required: true,
           choices: [
             {
               value: 'Increase',
@@ -971,7 +981,7 @@ const form: Form = {
           type: 'date',
         },
         {
-          id: 'end-date',
+          id: 'End date',
           question: 'When should this budget end?',
           type: 'date',
         },
@@ -1045,7 +1055,7 @@ const form: Form = {
         },
 
         {
-          id: 'weekly-budget-details',
+          id: 'Weekly budget details',
           question: 'Weekly budget details',
           type: 'text',
         },
@@ -1110,50 +1120,43 @@ const form: Form = {
       ],
     },
     {
-      id: 'weekly-timetable',
+      id: 'Timetable',
       name: 'Weekly timetable',
       theme: 'Reviewing your care',
       fields: [
         {
-          id: 'date-of-timetable-authorised',
-          question: 'Date of Timetable (authorised)',
-          hint: '',
+          id: 'Authorisation date',
+          question: 'Date timetable was authorised',
           type: 'date',
         },
         {
-          id: 'day-',
-          question: 'Day ',
-          hint: '',
+          id: 'Day',
+          question: 'Day',
           type: 'text',
         },
         {
-          id: 'morning',
+          id: 'Morning',
           question: 'Morning',
-          hint: '',
           type: 'text',
         },
         {
-          id: 'afternoon',
+          id: 'Afternoon',
           question: 'Afternoon',
-          hint: '',
           type: 'text',
         },
         {
-          id: 'evening',
+          id: 'Evening',
           question: 'Evening',
-          hint: '',
           type: 'text',
         },
         {
-          id: 'night-',
-          question: 'Night ',
-          hint: '',
+          id: 'Night',
+          question: 'Night',
           type: 'text',
         },
         {
-          id: 'estimated-weekly-cost',
+          id: 'Estimated weekly cost',
           question: 'Estimated weekly cost',
-          hint: '',
           type: 'text',
         },
       ],
@@ -1167,6 +1170,7 @@ const form: Form = {
           id: 'What next?',
           question: 'What next?',
           type: 'radios',
+          required: true,
           choices: [
             {
               value: 'Schedule next review',
@@ -1183,6 +1187,7 @@ const form: Form = {
           id: 'Next review date',
           question: 'Date of next review',
           type: 'date',
+          required: true,
           condition: {
             id: 'What next?',
             value: 'Schedule next review',
@@ -1193,6 +1198,7 @@ const form: Form = {
           id: 'Outcomes for review',
           question: 'Outcomes for review',
           type: 'radios',
+          required: true,
           choices: [
             {
               value:
@@ -1242,15 +1248,16 @@ const form: Form = {
     },
 
     {
-      id: 'manager-approval',
+      id: 'Manager approval',
       name: 'Manager approval',
       theme: 'Next steps',
       fields: [
         {
-          id: 'email-address-of-your-manager',
+          id: "Manager's email address",
           question: 'Who will approve this review?',
           hint: 'Provide the email address of a social care manager',
           type: 'text',
+          required: true,
         },
       ],
     },

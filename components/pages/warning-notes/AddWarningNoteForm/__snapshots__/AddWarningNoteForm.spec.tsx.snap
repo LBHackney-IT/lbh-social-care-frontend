@@ -1383,11 +1383,6 @@ exports[`<AddWarningNoteForm /> for an adults resident should render the warning
                 for="managerName"
               >
                 Manager’s name 
-                <span
-                  class="govuk-required"
-                >
-                  *
-                </span>
               </label>
               <input
                 class="govuk-input lbh-input"
@@ -1409,11 +1404,6 @@ exports[`<AddWarningNoteForm /> for an adults resident should render the warning
                 class="govuk-label"
               >
                 Date discussed with manager 
-                <span
-                  class="govuk-required"
-                >
-                  *
-                </span>
               </legend>
               <span
                 class="lbh-hint"

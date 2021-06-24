@@ -64,7 +64,7 @@ exports[`CasesTable component should render properly 1`] = `
           style="width: 50px; text-align: center;"
         >
           <a
-            class="govuk-link lbh-link"
+            class="lbh-link"
             href="https://foo.bar"
             rel="noreferrer noopener"
             target="_blank"
@@ -97,7 +97,7 @@ exports[`CasesTable component should render properly 1`] = `
           style="width: 50px; text-align: center;"
         >
           <a
-            class="govuk-link lbh-link"
+            class="lbh-link"
             href="/people/123/allocations/321?recordId=2"
           >
             View
@@ -116,10 +116,13 @@ exports[`CasesTable component should render properly 1`] = `
         <td
           class="govuk-table__cell"
         >
-          Case Note - foorm
-          <div>
+          Case note: foorm
+          <br />
+          <p
+            class="lbh-body-s govuk-!-margin-top-2"
+          >
             i am a case title
-          </div>
+          </p>
         </td>
         <td
           class="govuk-table__cell"
@@ -131,7 +134,7 @@ exports[`CasesTable component should render properly 1`] = `
           style="width: 50px; text-align: center;"
         >
           <a
-            class="govuk-link lbh-link"
+            class="lbh-link"
             href="/people/123/records/4"
           >
             View

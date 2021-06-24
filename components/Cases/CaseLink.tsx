@@ -1,5 +1,5 @@
 import Link from 'next/link';
-
+import forms from 'data/flexibleForms';
 import * as form from 'data/forms';
 import {
   AllocationCaseFormData,
@@ -55,20 +55,32 @@ interface Props {
   recordId: string;
   externalUrl?: string;
   caseFormData: CaseFormData;
+  formName: string;
+  personId: number;
 }
 
 const CaseLink = ({
-  recordId,
+  formName,
   externalUrl,
   caseFormData,
+  recordId,
+  personId,
 }: Props): React.ReactElement | null => {
+  const form = forms.find((form) => form.id === formName);
+  if (form)
+    return (
+      <Link href={`/people/${personId}/submissions/${recordId}`}>
+        <a className="lbh-link">View</a>
+      </Link>
+    );
+
   if (externalUrl) {
     return (
       <a
         href={externalUrl}
         target="_blank"
         rel="noreferrer noopener"
-        className="govuk-link lbh-link"
+        className="lbh-link"
       >
         View
       </a>
@@ -77,7 +89,7 @@ const CaseLink = ({
   const internalLink = getLink(recordId, caseFormData);
   return internalLink ? (
     <Link href={internalLink}>
-      <a className="govuk-link lbh-link">View</a>
+      <a className="lbh-link">View</a>
     </Link>
   ) : null;
 };
