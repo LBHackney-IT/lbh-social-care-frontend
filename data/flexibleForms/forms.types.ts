@@ -88,6 +88,6 @@ export interface Submission {
     worker: Worker;
     editTime: string;
   }[];
-  submissionState: number;
+  submissionState: string;
   formAnswers: FlexibleAnswers;
 }

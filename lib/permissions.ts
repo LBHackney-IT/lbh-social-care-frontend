@@ -104,3 +104,11 @@ export const canUserAllocateWorkerToPerson = (
 
   return false;
 };
+
+export const canUserManageWorkers = (user: User): boolean => {
+  if (user.hasAdminPermissions || user.hasDevPermissions) {
+    return true;
+  }
+
+  return false;
+};
