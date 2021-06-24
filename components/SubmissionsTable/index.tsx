@@ -68,7 +68,7 @@ export const SubmissionsTable = ({
 }: Props): React.ReactElement => {
   const { user } = useAuth();
 
-  const [filter, setFilter] = useState<string>('mine');
+  const [filter, setFilter] = useState<'mine' | 'all'>('mine');
   const [searchQuery, setSearchQuery] = useState<string>('');
 
   let filteredSubmissions =
