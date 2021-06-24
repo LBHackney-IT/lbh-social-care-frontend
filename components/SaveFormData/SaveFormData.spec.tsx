@@ -27,15 +27,12 @@ describe('SaveFormData component', () => {
         data: { id: '54321' },
       },
     }));
-    const { queryByText, asFragment } = render(<SavedForms />);
+    const { asFragment } = render(<SavedForms />);
     expect(asFragment()).toMatchSnapshot();
-    expect(queryByText('Displaying (2) unfinished forms')).toBeInTheDocument();
   });
 
-  it('should display no forms in progress message', () => {
+  it('should display nothing if there are no forms in progress', () => {
     const { queryByText } = render(<SavedForms />);
-    expect(
-      queryByText('You have no incomplete forms right now.')
-    ).toBeInTheDocument();
+    expect(queryByText('Forms saved to this browser')).toBeFalsy();
   });
 });

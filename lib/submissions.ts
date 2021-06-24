@@ -17,6 +17,14 @@ const headersWithKey = {
   'x-api-key': AWS_KEY,
 };
 
+/** get a list of all unfinished submissions  */
+export const getUnfinishedSubmissions = async (): Promise<Submission[]> => {
+  const { data } = await axios.get(`${ENDPOINT_API}/submissions`, {
+    headers: headersWithKey,
+  });
+  return data;
+};
+
 /** create a new submission for the given form, resident and worker  */
 export const startSubmission = async (
   formId: string,

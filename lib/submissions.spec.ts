@@ -2,6 +2,7 @@ import axios from 'axios';
 import {
   finishSubmission,
   getSubmissionById,
+  getUnfinishedSubmissions,
   patchSubmissionForStep,
   startSubmission,
 } from './submissions';
@@ -11,6 +12,30 @@ jest.mock('axios');
 const mockedAxios = axios as jest.Mocked<typeof axios>;
 
 const { ENDPOINT_API, AWS_KEY } = process.env;
+
+describe('getUnfinishedSubmissions', () => {
+  it('should return a list of incomplete submissions', async () => {
+    mockedAxios.get.mockResolvedValue({
+      data: [
+        { submissionId: '123', formAnswers: {} },
+        { submissionId: '456', formAnswers: {} },
+      ],
+    });
+    const data = await getUnfinishedSubmissions();
+    expect(mockedAxios.get).toHaveBeenCalled();
+    expect(mockedAxios.get.mock.calls[0][0]).toEqual(
+      `${ENDPOINT_API}/submissions`
+    );
+    expect(mockedAxios.get.mock.calls[0][1]?.headers).toEqual({
+      'x-api-key': AWS_KEY,
+    });
+
+    expect(data).toEqual([
+      { submissionId: '123', formAnswers: {} },
+      { submissionId: '456', formAnswers: {} },
+    ]);
+  });
+});
 
 describe('startSubmission', () => {
   it('should work properly', async () => {
