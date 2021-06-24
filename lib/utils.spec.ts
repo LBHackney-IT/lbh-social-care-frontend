@@ -98,6 +98,11 @@ describe('generateInitialValues', () => {
             },
           ],
         },
+        {
+          id: 'six',
+          question: '',
+          type: 'timetable',
+        },
       ],
       undefined
     );
@@ -108,6 +113,7 @@ describe('generateInitialValues', () => {
       three: [],
       four: null,
       five: 'blah',
+      six: {},
     });
   });
 

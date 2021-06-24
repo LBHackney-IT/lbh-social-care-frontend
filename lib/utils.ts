@@ -98,9 +98,13 @@ export const pushUnique = <T>(array: T[], newElement: T): T[] =>
   Array.from(new Set(array).add(newElement));
 
 /** Take the values of a timetable question and get the sum total hours */
-export const getTotalHours = (values: TimetableAnswer): number =>
-  Object.values(values)?.reduce(
-    (sum, day) =>
-      sum + Object.values(day)?.reduce((sum, time) => sum + Number(time), 0),
-    0
-  );
+export const getTotalHours = (values: TimetableAnswer): number => {
+  if (typeof values === 'object') {
+    return Object.values(values)?.reduce(
+      (sum, day) =>
+        sum + Object.values(day)?.reduce((sum, time) => sum + Number(time), 0),
+      0
+    );
+  }
+  return 0;
+};

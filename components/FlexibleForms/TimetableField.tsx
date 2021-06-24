@@ -44,8 +44,6 @@ const TimetableField = ({ name, hint, label }: Props): React.ReactElement => {
         'govuk-form-group--error'
       }`}
     >
-      {JSON.stringify(values)}
-
       <fieldset
         className="govuk-fieldset"
         aria-describedby={hint && `${name}-hint`}
@@ -105,9 +103,7 @@ const TimetableField = ({ name, hint, label }: Props): React.ReactElement => {
           </tbody>
         </table>
       </fieldset>
-      <p>
-        <strong>{totalHours || 0}</strong> hours total
-      </p>
+      <p>{totalHours || 0} hours total</p>
     </div>
   );
 };
