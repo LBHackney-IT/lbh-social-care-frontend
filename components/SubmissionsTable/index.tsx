@@ -71,22 +71,22 @@ export const SubmissionsTable = ({
   const [filter, setFilter] = useState<'mine' | 'all'>('mine');
   const [searchQuery, setSearchQuery] = useState<string>('');
 
-  let filteredSubmissions =
-    filter === 'mine'
-      ? submissions.filter(
-          (submission) => submission.createdBy.email === user?.email
-        )
-      : submissions;
+  const filteredSubmissions = submissions.filter((submission) => {
+    // Filter out those that don't match the search term
+    const haystack = `${submission.residents[0].id} ${submission.residents[0].firstName} ${submission.residents[0].lastName}`;
 
-  if (searchQuery) {
-    filteredSubmissions = filteredSubmissions.filter((submission) => {
-      const haystack = `${submission.residents[0].id} ${submission.residents[0].firstName} ${submission.residents[0].lastName}`;
-      if (haystack.toLowerCase().includes(searchQuery.toLowerCase()))
-        return submission;
-      return;
-    });
-  }
+    if (!haystack.toLowerCase().includes(searchQuery.toLowerCase())) {
+      return false;
+    }
 
+    // If showing only the current user's submissions, then filter out if the emails don't match
+    if (filter === "mine" && submission.createdBy.email !== user?.email) {
+      return false;
+    }
+
+    // Otherwise, this record is good to show
+    return true;
+  });
   return (
     <>
       <fieldset className="govuk-radios govuk-radios--inline lbh-radios">
