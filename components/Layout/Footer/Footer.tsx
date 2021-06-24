@@ -1,10 +1,12 @@
 import { useRouter } from 'next/router';
 
 import { ConditionalFeature } from '../../../lib/feature-flags/feature-flags';
+import { User } from '../../../types';
+import { useAuth } from '../../UserContext/UserContext';
 import s from './Footer.module.scss';
 
 const Footer = (): React.ReactElement => {
-  const { query } = useRouter();
+  const { user } = useAuth();
 
   return (
     <footer className={`${s.footer}`} role="contentinfo">
@@ -21,7 +23,9 @@ const Footer = (): React.ReactElement => {
         <div className={s.meta}>Built and maintained by HackIT.</div>
 
         <ConditionalFeature name="feature-flags-implementation-proof">
-          <div className={s.meta}>Feature flags are active and working</div>
+          {user?.hasAdminPermissions && (
+            <div className={s.meta}>Feature flags are active and working</div>
+          )}
         </ConditionalFeature>
       </div>
     </footer>
