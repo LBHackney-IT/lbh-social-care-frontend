@@ -1,7 +1,4 @@
-import { useRouter } from 'next/router';
-
 import { ConditionalFeature } from '../../../lib/feature-flags/feature-flags';
-import { User } from '../../../types';
 import { useAuth } from '../../UserContext/UserContext';
 import s from './Footer.module.scss';
 
