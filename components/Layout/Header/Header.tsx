@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { useAuth } from 'components/UserContext/UserContext';
 import { getUserType } from 'utils/user';
 import Logo from './Logo';
+import { canUserManageWorkers } from '../../../lib/permissions';
 
 const HeaderComponent = ({
   serviceName,
@@ -29,26 +30,24 @@ const HeaderComponent = ({
             </a>
           </div>
 
-          <nav className="lbh-header__links" aria-label="Navigation menu">
-            {user && (
-              <>
-                <Link href="/search">
-                  <a className="govuk-header__link">Search</a>
+          {user && (
+            <nav className="lbh-header__links" aria-label="Navigation menu">
+              <Link href="/search">
+                <a className="govuk-header__link">Search</a>
+              </Link>
+              <Link href="/">
+                <a className="govuk-header__link">My work space</a>
+              </Link>
+              {canUserManageWorkers(user) && (
+                <Link href="/workers">
+                  <a className="govuk-header__link">Manage workers</a>
                 </Link>
-                <Link href="/">
-                  <a className="govuk-header__link">My work space</a>
-                </Link>
-                {(user.hasAdminPermissions || user.hasDevPermissions) && (
-                  <Link href="/workers">
-                    <a className="govuk-header__link">Manage workers</a>
-                  </Link>
-                )}
-                <Link href="/logout">
-                  <a className="govuk-header__link">Sign out</a>
-                </Link>
-              </>
-            )}
-          </nav>
+              )}
+              <Link href="/logout">
+                <a className="govuk-header__link">Sign out</a>
+              </Link>
+            </nav>
+          )}
         </div>
       </div>
     </header>
