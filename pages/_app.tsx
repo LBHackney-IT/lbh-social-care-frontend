@@ -13,7 +13,10 @@ import type { User } from 'types';
 
 import 'stylesheets/all.scss';
 import 'stylesheets/header.scss';
-import { FeatureFlagProvider } from '../lib/feature-flags/feature-flags';
+import {
+  FeatureFlagProvider,
+  FeatureSet,
+} from '../lib/feature-flags/feature-flags';
 
 interface Props {
   user?: Partial<User>;
@@ -27,8 +30,10 @@ interface ExtendedAppProps extends AppProps<Props> {
 
 const environmentName = process.env.NODE_ENV;
 
-const features = {
-  'feature-flags-implementation-proof': environmentName === 'development',
+const features: FeatureSet = {
+  'feature-flags-implementation-proof': {
+    isActive: environmentName === 'development',
+  },
 };
 
 const CustomApp = ({
