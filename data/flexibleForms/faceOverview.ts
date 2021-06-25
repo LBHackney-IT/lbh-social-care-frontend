@@ -10,124 +10,6 @@ const form: Form = {
       theme: 'About you',
       fields: [
         {
-          id: 'mosaic-id',
-          question: 'Mosaic ID',
-          hint: "Please enter Mosaic ID below if it is known. If Mosaic ID is NOT known (or if one has nevertheless been created) then please enter an 'Emergency ID (ASC)'",
-          type: 'text',
-        },
-        {
-          id: 'emergency-id-asc',
-          question: 'Emergency ID (ASC)',
-          hint: 'Find or create an emergency ID number for this person in the list of numbers provided to your team, and enter it here',
-          type: 'text',
-        },
-        {
-          id: 'nhs-number',
-          question: 'NHS number',
-          hint: '',
-          type: 'text',
-        },
-        {
-          id: 'title',
-          question: 'Title',
-          hint: '',
-          type: 'radios',
-          choices: [
-            {
-              value: 'mrs',
-              label: 'Mrs',
-            },
-            {
-              value: 'mr',
-              label: 'Mr',
-            },
-            {
-              value: 'miss',
-              label: 'Miss',
-            },
-            {
-              value: 'ms',
-              label: 'Ms',
-            },
-          ],
-        },
-        {
-          id: 'first-name',
-          question: 'First Name',
-          hint: '',
-          type: 'text',
-        },
-        {
-          id: 'last-name',
-          question: 'Last Name',
-          hint: '',
-          type: 'text',
-        },
-        {
-          id: 'preferred-name',
-          question: 'Preferred Name',
-          hint: '',
-          type: 'text',
-        },
-        {
-          id: 'gender',
-          question: 'Gender',
-          hint: '',
-          type: 'radios',
-          choices: [
-            {
-              value: 'female',
-              label: 'Female',
-            },
-            {
-              value: 'male',
-              label: 'Male',
-            },
-            {
-              value: 'not-known',
-              label: 'Not known',
-            },
-          ],
-        },
-        {
-          id: 'sexual-orientation',
-          question: 'Sexual orientation',
-          hint: '',
-          type: 'radios',
-          choices: [
-            {
-              value: 'heterosexual--straight',
-              label: 'Heterosexual / straight',
-            },
-            {
-              value: 'gay',
-              label: 'Gay',
-            },
-            {
-              value: 'lesbian',
-              label: 'Lesbian',
-            },
-            {
-              value: 'bisexual',
-              label: 'Bisexual',
-            },
-            {
-              value: 'prefer-not-to-say',
-              label: 'Prefer not to say',
-            },
-            {
-              value: 'not-known',
-              label: 'Not known',
-            },
-          ],
-        },
-        {
-          id: 'date-of-birth',
-          question: 'Date of birth',
-          hint: '',
-          type: 'date',
-        },
-        {
           id: 'age-band-at-time-of-assessment',
           question: 'Age Band at time of assessment',
           hint: '',
@@ -142,30 +24,6 @@ const form: Form = {
               label: '65 and Over',
             },
           ],
-        },
-        {
-          id: 'address-line-1',
-          question: 'Address Line 1',
-          hint: '',
-          type: 'text',
-        },
-        {
-          id: 'address-line-2',
-          question: 'Address Line 2',
-          hint: '',
-          type: 'text',
-        },
-        {
-          id: 'address-line-3',
-          question: 'Address Line 3',
-          hint: '',
-          type: 'text',
-        },
-        {
-          id: 'postcode',
-          question: 'Postcode',
-          hint: '',
-          type: 'text',
         },
         {
           id: 'i-am-a-british-citizen',
@@ -210,33 +68,6 @@ const form: Form = {
       ],
     },
     {
-      id: 'hidden-question',
-      name: 'Hidden Question',
-      theme: 'About you',
-      fields: [
-        {
-          id: 'is-the-person--no-recourse-to-public-funds',
-          question: 'Is the person  "No Recourse to Public Funds"?',
-          hint: '',
-          type: 'radios',
-          choices: [
-            {
-              value: 'yes',
-              label: 'Yes',
-            },
-            {
-              value: 'no',
-              label: 'No',
-            },
-            {
-              value: 'not-known',
-              label: 'Not known',
-            },
-          ],
-        },
-      ],
-    },
-    {
       id: 'no-recourse-to-public-funds',
       name: 'No Recourse to Public Funds',
       theme: 'About you',
@@ -246,16 +77,19 @@ const form: Form = {
           question: 'Nationality',
           hint: '',
           type: 'text',
+          required: true,
         },
         {
           id: 'national-insurance-number',
           question: 'National Insurance Number',
           hint: 'Please use the correct format:  two prefix letters, six digits and one suffix letter. An example is QQ123456C.',
           type: 'text',
+          required: true,
         },
         {
           id: 'passport-number',
           question: 'Passport Number',
+          required: true,
           hint: 'Please check the correct format is used for passport number (e.g. the UK has a nine ',
           type: 'text',
         },
@@ -264,6 +98,7 @@ const form: Form = {
           question: 'Legal Status - Immigration',
           hint: '',
           type: 'radios',
+          required: true,
           choices: [
             {
               value: 'application-pending',
@@ -297,6 +132,7 @@ const form: Form = {
           id: 'start-date-of-legal-status',
           question: 'Start date of Legal Status',
           hint: '',
+          required: true,
           type: 'date',
         },
         {
@@ -304,6 +140,7 @@ const form: Form = {
           question: 'Legal Documents Seen?',
           hint: '',
           type: 'radios',
+          required: true,
           choices: [
             {
               value: 'yes',
@@ -318,12 +155,14 @@ const form: Form = {
         {
           id: 'date-documents-seen',
           question: 'Date documents seen?',
+          required: true,
           hint: '',
           type: 'date',
         },
         {
           id: 'details-of-documents-seen',
           question: 'Details of Documents seen',
+          required: true,
           hint: '',
           type: 'textarea',
         },
@@ -361,6 +200,7 @@ const form: Form = {
           question: 'Do you consider yourself to be any of the following?',
           hint: '',
           type: 'radios',
+          required: true,
           choices: [
             {
               value: 'deaf',
@@ -385,6 +225,7 @@ const form: Form = {
           question: 'If so, do you have any communication difficulties?',
           hint: '',
           type: 'radios',
+          required: true,
           choices: [
             {
               value: 'yes',
@@ -402,6 +243,7 @@ const form: Form = {
             'Do you have any difficulties with understanding and / or relating information?',
           hint: '',
           type: 'radios',
+          required: true,
           choices: [
             {
               value: 'yes',
@@ -419,6 +261,7 @@ const form: Form = {
             'Do you have any difficulties making decision and / or understanding their impact?',
           hint: '',
           type: 'radios',
+          required: true,
           choices: [
             {
               value: 'yes',
@@ -435,6 +278,7 @@ const form: Form = {
           question: 'Do you require an Advocate?',
           hint: '',
           type: 'radios',
+          required: true,
           choices: [
             {
               value: 'yes',
@@ -500,6 +344,7 @@ const form: Form = {
             'Do you have any concerns about how others treat you? (e.g. neglect, abuse, discrimination)',
           hint: '',
           type: 'radios',
+          required: true,
           choices: [
             {
               value: 'yes',
@@ -529,6 +374,7 @@ const form: Form = {
           question:
             'Are you currently staying in a hospital or other NHS facility?',
           hint: '',
+          required: true,
           type: 'radios',
           choices: [
             {
@@ -545,6 +391,7 @@ const form: Form = {
           id: 'what-is-your-current-living-situation',
           question: 'What is your current living situation?',
           hint: '',
+          required: true,
           type: 'radios',
           choices: [
             {
@@ -561,6 +408,7 @@ const form: Form = {
             },
           ],
         },
+        //missing question current tenure
         {
           id: 'maintaining-your-home-in-a-sufficiently-clean-and-safe-condition-your-situation',
           question:
@@ -579,6 +427,7 @@ const form: Form = {
           id: 'are-you-able-to-manage-your-own-daytoday-paperwork',
           question: 'Are you able to manage your own day-to-day paperwork?',
           hint: '',
+          required: true,
           type: 'radios',
           choices: [
             {
@@ -594,6 +443,7 @@ const form: Form = {
         {
           id: 'are-you-able-to-manage-your-own-finances',
           question: 'Are you able to manage your own finances?',
+          required: true,
           hint: '',
           type: 'radios',
           choices: [
@@ -613,7 +463,7 @@ const form: Form = {
           id: 'provide-details-of-your-needs-and-what-you-would-like-to-achieve-managing-paperwork-managing-finances',
           question:
             'Provide details of your needs and what you would like to achieve (managing paperwork, managing finances):',
-          hint: 'Please include details of any Lasting Power of Attorney, Deputy or Appointee',
+          hint: 'Please include details of any Lasting Power of Attorney, Deputy or Appointee. If appropriate, you may wish to be referred for financial advice and / or maximising your benefits',
           type: 'textarea',
         },
         {
@@ -661,6 +511,7 @@ const form: Form = {
             'Do you have any concerns about your current home living situation? (e.g. tenure, access / hazards, temperature, need for adaptations, smoke / carbon monoxide alarms)',
           hint: '',
           type: 'radios',
+          required: true,
           choices: [
             {
               value: 'yes',
@@ -684,6 +535,8 @@ const form: Form = {
       id: 'eating-healthily-and-safely',
       name: 'Eating healthily and safely',
       theme: 'Your care needs',
+      intro:
+        'Includes the eligibility outcome: Managing and maintaining nutrition.Answer as if there is no support currently in place, but do consider the effect ofexisting equipment, adaptations, or telecare. based ontypical week',
       fields: [
         {
           id: 'shopping-for-food--essentials--your-situation',
@@ -2083,6 +1936,7 @@ const form: Form = {
             'Can you "Be appropriately clothed" alone within a reasonable time and without significant pain, distress, anxiety, or risk to yourself or others?',
           hint: '',
           type: 'radios',
+          required: true,
           choices: [
             {
               value: 'yes',
