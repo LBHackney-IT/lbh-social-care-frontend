@@ -206,7 +206,7 @@ const Search = ({
 
 Search.propTypes = {
   type: PropTypes.oneOf(['people', 'records']).isRequired,
-  subHeader: PropTypes.string.isRequired,
+  subHeader: PropTypes.element.isRequired,
   resultHeader: PropTypes.string.isRequired,
   showOnlyMyResults: PropTypes.bool,
   columns: PropTypes.array,
