@@ -3,16 +3,16 @@ import { RelationshipPerson, RelationshipType } from 'types';
 
 interface Props {
   type: RelationshipType;
-  persons: RelationshipPerson[];
+  people: RelationshipPerson[];
 }
 
-const RelationshipElement = ({ type, persons }: Props): React.ReactElement => {
+const RelationshipElement = ({ type, people }: Props): React.ReactElement => {
   return (
     <div className="govuk-summary-list__row">
       <dt className="govuk-summary-list__key">{getTitleString(type)}</dt>
       <dd className="govuk-summary-list__value">
         <ul className="govuk-list">
-          {persons
+          {people
             .sort(
               (a, b) =>
                 b.lastName.localeCompare(a.lastName) ||

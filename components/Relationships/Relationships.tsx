@@ -14,20 +14,16 @@ const Relationships = ({ id }: Props): React.ReactElement => {
 
   useEffect(() => {
     if (personalRelationships) {
-      const relationshipWithPeople = personalRelationships.filter(
-        (relationship) => {
-          return relationship.persons.length > 0;
-        }
-      );
-      if (relationshipWithPeople.length > 0) {
-        setShouldAppear(true);
-      }
+      personalRelationships.filter((relationship) => {
+        setShouldAppear(relationship.persons.length > 0);
+      });
     }
-  }, []);
+  }, [personalRelationships]);
 
   if (!personalRelationships) {
     return <Spinner />;
   }
+
   if (!shouldAppear) {
     return <></>;
   }
@@ -53,7 +49,7 @@ const Relationships = ({ id }: Props): React.ReactElement => {
                   return (
                     <RelationshipElement
                       type={relationship.type}
-                      persons={relationship.persons}
+                      people={relationship.persons}
                       key={`rel_${relationship.type}`}
                     />
                   );
