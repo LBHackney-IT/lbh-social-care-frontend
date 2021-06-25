@@ -2,7 +2,7 @@ import ErrorMessage from 'components/ErrorMessage/ErrorMessage';
 import Spinner from 'components/Spinner/Spinner';
 import { useRelationships } from 'utils/api/relationships';
 import RelationshipElement from './RelationshipElement';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 interface Props {
   id: number;
@@ -10,32 +10,26 @@ interface Props {
 
 const Relationships = ({ id }: Props): React.ReactElement => {
   const { data: { personalRelationships } = {}, error } = useRelationships(id);
+  const [shouldAppear, setShouldAppear] = useState(false);
+
+  useEffect(() => {
+    personalRelationships &&
+      personalRelationships.filter((relationship) => {
+        setShouldAppear(relationship.persons.length > 0);
+      });
+  });
 
   if (!personalRelationships) {
     return <Spinner />;
   }
-  if (error) {
-    return <ErrorMessage />;
-  }
 
-  let toShow = false;
-  personalRelationships.map((elm) => {
-    toShow = toShow || elm.persons.length > 0;
-  });
-
-  if (!toShow) {
+  if (!shouldAppear) {
     return <></>;
   }
 
-  // const [shouldAppear, setShouldAppear] = useState(false);
-  //
-  // personalRelationships.map((elm) => {
-  //   setShouldAppear (shouldAppear || elm.persons.length > 0)
-  // });
-  //
-  // if (!shouldAppear) {
-  //   return <></>;
-  // }
+  if (error) {
+    return <ErrorMessage />;
+  }
 
   return (
     <div>
