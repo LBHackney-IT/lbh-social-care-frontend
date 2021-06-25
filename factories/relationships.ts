@@ -9,7 +9,7 @@ const mockedRelationshipFactory = Factory.define<RelationshipData>(
 );
 
 const mockedRelationshipData = Factory.define<Relationship>(() => ({
-  type: 'mock_me',
+  type: 'parent',
   persons: [],
 }));
 
