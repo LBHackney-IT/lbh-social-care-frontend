@@ -63,7 +63,9 @@ const AddForm = ({ person }: { person: Resident }): React.ReactElement => {
               )}`
             : url
         }
-        internalQuery={`?id=${person.id}`}
+        internalQuery={
+          url?.includes('/submissions/new?') ? '' : `?id=${person.id}`
+        }
       />
     </>
   );
