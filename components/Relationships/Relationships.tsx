@@ -9,24 +9,28 @@ interface Props {
 }
 
 const Relationships = ({ id }: Props): React.ReactElement => {
-  const { data: { personalRelationships } = {}, error } = useRelationships(id);
   const [shouldAppear, setShouldAppear] = useState(false);
+  const { data: { personalRelationships } = {}, error } = useRelationships(id);
 
   useEffect(() => {
-    personalRelationships &&
-      personalRelationships.filter((relationship) => {
-        setShouldAppear(relationship.persons.length > 0);
-      });
-  });
+    if (personalRelationships) {
+      const relationshipWithPeople = personalRelationships.filter(
+        (relationship) => {
+          return relationship.persons.length > 0;
+        }
+      );
+      if (relationshipWithPeople.length > 0) {
+        setShouldAppear(true);
+      }
+    }
+  }, []);
 
   if (!personalRelationships) {
     return <Spinner />;
   }
-
   if (!shouldAppear) {
     return <></>;
   }
-
   if (error) {
     return <ErrorMessage />;
   }

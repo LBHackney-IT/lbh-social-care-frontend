@@ -28,22 +28,6 @@ describe('Relationships component', () => {
     expect(getByText('MockedSpinner')).toBeInTheDocument();
   });
 
-  it('should call the API', async () => {
-    jest.spyOn(relationshipsAPI, 'useRelationships').mockImplementation(() => ({
-      data: mockedRelationship,
-      isValidating: false,
-      mutate: jest.fn(),
-      revalidate: jest.fn(),
-    }));
-    const props = {
-      id: 33339587,
-    };
-    render(<Relationships {...props} />);
-
-    expect(relationshipsAPI.useRelationships).toHaveBeenCalledTimes(1);
-    expect(mockedRelationship.personalRelationships).not.toBeNull;
-  });
-
   it('should populate the list', async () => {
     jest.spyOn(relationshipsAPI, 'useRelationships').mockImplementation(() => ({
       data: mockedRelationship,
