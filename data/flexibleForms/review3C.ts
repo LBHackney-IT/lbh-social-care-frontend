@@ -1161,8 +1161,6 @@ const form: Form = {
         },
       ],
     },
-
-    //missing checkboxed
     {
       id: 'Other professionals',
       name: 'Other professionals',
