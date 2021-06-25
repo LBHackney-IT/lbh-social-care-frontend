@@ -2,6 +2,7 @@ import { fireEvent, render, screen } from '@testing-library/react';
 import { mockSubmission } from 'factories/submissions';
 import SubmissionsTable from './index';
 import { useAuth } from 'components/UserContext/UserContext';
+import { mockedResident } from 'factories/residents';
 
 jest.mock('components/UserContext/UserContext');
 
@@ -16,6 +17,26 @@ describe('SubmissionsTable', () => {
     render(<SubmissionsTable submissions={[]} />);
     expect(screen.queryAllByRole('listitem').length).toBe(0);
     expect(screen.getByText('No unfinished submissions to show'));
+  });
+
+  it('hides restricted records', () => {
+    render(
+      <SubmissionsTable
+        submissions={[
+          {
+            ...mockSubmission,
+            residents: [
+              {
+                ...mockedResident,
+                restricted: 'Y',
+              },
+            ],
+          },
+        ]}
+      />
+    );
+
+    expect(screen.queryAllByRole('listitem').length).toBe(0);
   });
 
   it("correctly renders user's own submissions", () => {
