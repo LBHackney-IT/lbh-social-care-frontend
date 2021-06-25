@@ -1,4 +1,4 @@
-import { LegacyResident, Resident, User, Worker } from 'types';
+import { Resident, User, Worker } from 'types';
 
 export interface Choice {
   value: string;
@@ -25,7 +25,7 @@ export interface Field {
   error?: string;
   choices?: Choice[];
   /** Checkbox, file and repeater fields don't support prefilling */
-  prefill?: keyof LegacyResident | keyof Resident;
+  prefill?: keyof Resident;
   className?: string;
   /** For file fields only */
   // multiple?: boolean

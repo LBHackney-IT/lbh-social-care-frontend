@@ -4,7 +4,7 @@ import {
   StepAnswers,
   FlexibleAnswers,
 } from 'data/flexibleForms/forms.types';
-import { LegacyResident, AgeContext } from 'types';
+import { Resident, AgeContext } from 'types';
 
 type RawSubmission = Omit<Submission, 'formAnswers'> & {
   formAnswers: {
@@ -28,7 +28,7 @@ export const getUnfinishedSubmissions = async (
   return ageContext
     ? data.filter((submission: Submission) =>
         submission.residents.some(
-          (resident: LegacyResident) => resident.ageContext === ageContext
+          (resident: Resident) => resident.ageContext === ageContext
         )
       )
     : data;
