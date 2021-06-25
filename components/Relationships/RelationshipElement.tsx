@@ -1,15 +1,15 @@
 import Link from 'next/link';
-import { RelationshipPerson } from 'types';
+import { RelationshipPerson, RelationshipType } from 'types';
 
 interface Props {
-  type: string;
+  type: RelationshipType;
   persons: RelationshipPerson[];
 }
 
 const RelationshipElement = ({ type, persons }: Props): React.ReactElement => {
   return (
     <div className="govuk-summary-list__row">
-      <dt className="govuk-summary-list__key">{renderTitle(type)}</dt>
+      <dt className="govuk-summary-list__key">{getTitleString(type)}</dt>
       <dd className="govuk-summary-list__value">
         <ul className="govuk-list">
           {persons
@@ -37,83 +37,47 @@ const RelationshipElement = ({ type, persons }: Props): React.ReactElement => {
   );
 };
 
-function renderTitle(title: string) {
-  switch (title) {
-    case 'parents':
-      return 'Parents';
-    case 'parent':
-      return 'Parent';
-    case 'children':
-      return 'Children';
-    case 'child':
-      return 'Child';
-    case 'other':
-      return 'Other';
-    case 'greatGrandchild':
-      return 'Great grandchild';
-    case 'greatGrandparent':
-      return 'Great grandparent';
-    case 'grandchild':
-      return 'Grandchild';
-    case 'grandparent':
-      return 'Grandparent';
-    case 'stepParent':
-      return 'Step parent';
-    case 'auntUncle':
-      return 'Aunt / Uncle';
-    case 'stepChild':
-      return 'Step child';
-    case 'unbornChild':
-      return 'Unborn child';
-    case 'partner':
-      return 'Partner';
-    case 'exPartner':
-      return 'Ex-partner';
-    case 'sibling':
-      return 'Sibling';
-    case 'siblings':
-      return 'Siblings';
-    case 'halfSibling':
-      return 'Half sibling';
-    case 'stepSibling':
-      return 'Step sibling';
-    case 'unbornSibling':
-      return 'Unborn sibling';
-    case 'spouse':
-      return 'Spouse';
-    case 'cousin':
-      return 'Cousin';
-    case 'nieceNephew':
-      return 'Niece / Nephew';
-    case 'fosterCarer':
-      return 'Foster carer';
-    case 'friend':
-      return 'friend';
-    case 'exSpouse':
-      return 'Ex spouse';
-    case 'parentOfUnbornChild':
-      return 'Parent of unborn child';
-    case 'siblingOfUnbornChild':
-      return 'Sibling of unborn child';
-    case 'fosterCarerSupportCarer':
-      return 'Foster carer';
-    case 'privateFosterCarer':
-      return 'Private foster carer';
-    case 'privateFosterChild':
-      return 'Private foster child';
-    case 'fosterChild':
-      return 'Foster child';
-    case 'supportCarerFosterCarer':
-      return 'Support carer';
-    case 'neighbour':
-      return 'Neighbour';
-    case 'inContactWith':
-      return 'In contact with';
-    case 'acquaintance':
-      return 'Acquaintance';
-    default:
-      return title;
-  }
-}
+const getTitleString = (relationshipType: keyof typeof mappings): string => {
+  return mappings[relationshipType];
+};
+
+const mappings = {
+  parents: 'Parents',
+  parent: 'Parent',
+  children: 'Children',
+  child: 'Child',
+  other: 'Other',
+  greatGrandchild: 'Great grandchild',
+  greatGrandparent: 'Great grandparent',
+  grandchild: 'Grandchild',
+  grandparent: 'Grandparent',
+  stepParent: 'Step parent',
+  auntUncle: 'Aunt / Uncle',
+  stepChild: 'Step child',
+  unbornChild: 'Unborn child',
+  partner: 'Partner',
+  exPartner: 'Ex-partner',
+  sibling: 'Sibling',
+  siblings: 'Siblings',
+  halfSibling: 'Half sibling',
+  stepSibling: 'Step sibling',
+  unbornSibling: 'Unborn sibling',
+  spouse: 'Spouse',
+  cousin: 'Cousin',
+  nieceNephew: 'Niece / Nephew',
+  fosterCarer: 'Foster carer',
+  friend: 'Friend',
+  exSpouse: 'Ex spouse',
+  parentOfUnbornChild: 'Parent of unborn child',
+  siblingOfUnbornChild: 'Sibling of unborn child',
+  fosterCarerSupportCarer: 'Foster carer',
+  privateFosterCarer: 'Private foster carer',
+  privateFosterChild: 'Private foster child',
+  fosterChild: 'Foster child',
+  supportCarerFosterCarer: 'Support carer',
+  neighbour: 'Neighbour',
+  inContactWith: 'In contact with',
+  acquaintance: 'Acquaintance',
+} as const;
 
 export default RelationshipElement;

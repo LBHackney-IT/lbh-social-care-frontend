@@ -217,7 +217,7 @@ export interface RelationshipPerson {
 }
 
 export interface Relationship {
-  type: string;
+  type: RelationshipType;
   persons: RelationshipPerson[];
 }
 
@@ -225,6 +225,44 @@ export interface RelationshipData {
   personId: number;
   personalRelationships: Relationship[];
 }
+
+export type RelationshipType =
+  | 'parents'
+  | 'parent'
+  | 'children'
+  | 'child'
+  | 'other'
+  | 'greatGrandchild'
+  | 'greatGrandparent'
+  | 'grandchild'
+  | 'grandparent'
+  | 'stepParent'
+  | 'auntUncle'
+  | 'stepChild'
+  | 'unbornChild'
+  | 'partner'
+  | 'exPartner'
+  | 'sibling'
+  | 'siblings'
+  | 'halfSibling'
+  | 'stepSibling'
+  | 'unbornSibling'
+  | 'spouse'
+  | 'cousin'
+  | 'nieceNephew'
+  | 'fosterCarer'
+  | 'friend'
+  | 'exSpouse'
+  | 'parentOfUnbornChild'
+  | 'siblingOfUnbornChild'
+  | 'fosterCarerSupportCarer'
+  | 'privateFosterCarer'
+  | 'privateFosterChild'
+  | 'fosterChild'
+  | 'supportCarerFosterCarer'
+  | 'neighbour'
+  | 'inContactWith'
+  | 'acquaintance';
 
 interface BaseNote {
   id: number;

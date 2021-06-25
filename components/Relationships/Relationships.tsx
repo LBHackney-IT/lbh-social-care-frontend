@@ -2,6 +2,7 @@ import ErrorMessage from 'components/ErrorMessage/ErrorMessage';
 import Spinner from 'components/Spinner/Spinner';
 import { useRelationships } from 'utils/api/relationships';
 import RelationshipElement from './RelationshipElement';
+import { useState } from 'react';
 
 interface Props {
   id: number;
@@ -17,14 +18,24 @@ const Relationships = ({ id }: Props): React.ReactElement => {
     return <ErrorMessage />;
   }
 
-  let shouldAppear = false;
+  let toShow = true;
   personalRelationships.map((elm) => {
-    shouldAppear = shouldAppear || elm.persons.length > 0;
+    toShow = toShow || elm.persons.length > 0;
   });
 
-  if (!shouldAppear) {
+  if (!toShow) {
     return <></>;
   }
+
+  // const [shouldAppear, setShouldAppear] = useState(false);
+  //
+  // personalRelationships.map((elm) => {
+  //   setShouldAppear (shouldAppear || elm.persons.length > 0)
+  // });
+  //
+  // if (!shouldAppear) {
+  //   return <></>;
+  // }
 
   return (
     <div>
@@ -39,13 +50,13 @@ const Relationships = ({ id }: Props): React.ReactElement => {
           <dl className="govuk-summary-list lbh-summary-list">
             {personalRelationships
               .sort((a, b) => b.type.localeCompare(a.type))
-              .map((elm) => {
-                if (elm.persons.length > 0) {
+              .map((relationship) => {
+                if (relationship.persons.length > 0) {
                   return (
                     <RelationshipElement
-                      type={elm.type}
-                      persons={elm.persons}
-                      key={`rel_${elm.type}`}
+                      type={relationship.type}
+                      persons={relationship.persons}
+                      key={`rel_${relationship.type}`}
                     />
                   );
                 }
