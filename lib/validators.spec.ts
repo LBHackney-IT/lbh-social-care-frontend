@@ -36,6 +36,11 @@ describe('generateFlexibleSchema', () => {
         id: 'six',
         type: 'radios',
       },
+      {
+        question: 'foo',
+        id: 'seven',
+        type: 'timetable',
+      },
     ]);
 
     const result = await schema.validate({
@@ -45,6 +50,7 @@ describe('generateFlexibleSchema', () => {
       four: ['example', 'example 2'],
       five: 'value',
       six: 'value',
+      seven: {},
     });
 
     expect(result).toBeTruthy();
@@ -84,6 +90,25 @@ describe('generateFlexibleSchema', () => {
     await expect(
       schema2.validate({
         one: [],
+      })
+    ).rejects.toThrow();
+
+    const schema3 = generateFlexibleSchema([
+      {
+        id: 'one',
+        question: 'foo',
+        type: 'timetable',
+        required: true,
+      },
+    ]);
+
+    await expect(
+      schema3.validate({
+        one: {
+          Mon: {
+            Morning: '0',
+          },
+        },
       })
     ).rejects.toThrow();
   });
@@ -179,12 +204,23 @@ describe('validateConditionalFields', () => {
             value: 'my-value',
           },
         },
+        {
+          id: 'four',
+          type: 'timetable',
+          question: '',
+          required: true,
+          condition: {
+            id: 'foo',
+            value: 'my-value',
+          },
+        },
       ]
     );
     expect(result).toMatchObject({
       one: 'This question is required',
       two: 'Choose at least one item',
       three: 'Add at least one item',
+      four: 'Total hours must be more than zero',
     });
   });
 

@@ -1130,29 +1130,10 @@ const form: Form = {
           type: 'date',
         },
         {
-          id: 'Day',
-          question: 'Day',
-          type: 'text',
-        },
-        {
-          id: 'Morning',
-          question: 'Morning',
-          type: 'text',
-        },
-        {
-          id: 'Afternoon',
-          question: 'Afternoon',
-          type: 'text',
-        },
-        {
-          id: 'Evening',
-          question: 'Evening',
-          type: 'text',
-        },
-        {
-          id: 'Night',
-          question: 'Night',
-          type: 'text',
+          id: 'Weekly timetable',
+          question: 'What weekly support is needed?',
+          type: 'timetable',
+          required: true,
         },
         {
           id: 'Estimated weekly cost',
