@@ -149,6 +149,7 @@ export interface Resident {
   lastName: string;
   gender: string;
   contextFlag: AgeContext;
+  ageContext?: AgeContext;
   createdBy: string;
   otherNames: Array<{
     firstName: string;
