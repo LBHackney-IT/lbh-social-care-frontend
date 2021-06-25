@@ -18,7 +18,7 @@ const Relationships = ({ id }: Props): React.ReactElement => {
     return <ErrorMessage />;
   }
 
-  let toShow = true;
+  let toShow = false;
   personalRelationships.map((elm) => {
     toShow = toShow || elm.persons.length > 0;
   });
