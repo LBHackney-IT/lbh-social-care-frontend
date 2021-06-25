@@ -13,10 +13,13 @@ const Relationships = ({ id }: Props): React.ReactElement => {
   const { data: { personalRelationships } = {}, error } = useRelationships(id);
 
   useEffect(() => {
-    if (personalRelationships) {
-      personalRelationships.filter((relationship) => {
-        setShouldAppear(relationship.persons.length > 0);
-      });
+    const relationshipWithPeople = personalRelationships
+      ? personalRelationships.filter((relationship) => {
+          setShouldAppear(relationship.persons.length > 0);
+        })
+      : [];
+    if (relationshipWithPeople.length > 0) {
+      setShouldAppear(true);
     }
   }, [personalRelationships]);
 
