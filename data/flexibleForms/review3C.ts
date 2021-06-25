@@ -1161,9 +1161,61 @@ const form: Form = {
         },
       ],
     },
+
+    //missing checkboxed
     {
-      id: 'Completion details',
-      name: 'Completion details',
+      id: 'Other professionals',
+      name: 'Other professionals',
+      theme: 'Next steps',
+      fields: [
+        {
+          type: 'checkboxes',
+          question: 'Other professionals involved',
+          id: 'Other professionals involved',
+          choices: [
+            { value: 'GP', label: 'GP' },
+            {
+              value: 'Modern matron',
+              label: 'Modern matron',
+            },
+            { value: 'District nurse', label: 'District nurse' },
+
+            { value: 'Secondary Health', label: 'Secondary Health' },
+            {
+              value: 'Secondary Health (ACRT)',
+              label: 'Secondary Health (ACRT)',
+            },
+            { value: 'OT', label: 'OT' },
+            { value: 'Social Worker', label: 'Social Worker' },
+            { value: 'Sensory', label: 'Sensory' },
+            {
+              value: 'Alcohol and drug services',
+              label: 'Alcohol and drug services',
+            },
+            { value: 'Children services', label: 'Children services' },
+            {
+              value: 'Mental health services',
+              label: 'Mental health services',
+            },
+            { value: 'LBH housing services', label: 'LBH housing services' },
+            {
+              value: 'Voluntary and community services',
+              label: 'Voluntary and community services',
+            },
+            { value: 'Direct payments team', label: 'Direct payments team' },
+            {
+              value: 'Domiciliary / Homecare Agency',
+              label: 'Domiciliary / Homecare Agency',
+            },
+            { value: 'Other', label: 'Other' },
+          ],
+        },
+      ],
+    },
+
+    {
+      id: 'Completion Details',
+      name: 'Completion Details',
       theme: 'Next steps',
       fields: [
         {
