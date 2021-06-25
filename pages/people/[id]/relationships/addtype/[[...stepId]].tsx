@@ -1,10 +1,14 @@
+import { useRouter } from 'next/router';
+
 import Seo from 'components/Layout/Seo/Seo';
 import PersonView from 'components/PersonView/PersonView';
 import FormWizard from 'components/FormWizard/FormWizard';
 import formSteps from 'data/forms/add-relationship';
 import RelationshipConfirmation from 'components/Steps/RelationshipConfirmation';
 
-const addType = (): React.ReactElement => {
+const AddTypeForm = (): React.ReactElement => {
+  const { query } = useRouter();
+
   return (
     <>
       <Seo title={`Person Details - #${query.id}`} />
@@ -22,6 +26,6 @@ const addType = (): React.ReactElement => {
   );
 };
 
-addType.goBackButton = true;
+AddTypeForm.goBackButton = true;
 
-export default addType;
+export default AddTypeForm;

@@ -102,6 +102,10 @@ const Search = ({
               scroll: false,
             }
           );
+      // replace(`${pathname}${qs}`, `${pathname}${qs}`, {
+      //     shallow: true,
+      //     scroll: false,
+      //   })
     },
     [pathname, query, replace]
   );

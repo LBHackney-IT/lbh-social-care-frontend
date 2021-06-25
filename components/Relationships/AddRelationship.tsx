@@ -8,6 +8,7 @@ interface Props {
 
 const AddRelationship = ({ personId }: Props): React.ReactElement => {
   const [secondPersonId, setSecondPersonId] = useState('');
+
   const callback = useCallback((value) => {
     setSecondPersonId(value);
   }, []);
