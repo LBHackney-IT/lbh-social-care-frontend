@@ -52,7 +52,7 @@ const Relationships = ({ id }: Props): React.ReactElement => {
                   return (
                     <RelationshipElement
                       type={relationship.type}
-                      people={relationship.persons}
+                      persons={relationship.persons}
                       key={`rel_${relationship.type}`}
                     />
                   );
