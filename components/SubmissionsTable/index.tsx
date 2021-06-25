@@ -72,6 +72,13 @@ export const SubmissionsTable = ({
   const [searchQuery, setSearchQuery] = useState<string>('');
 
   const filteredSubmissions = submissions.filter((submission) => {
+    // hide any restricted records unless the user has permission to see them
+    if (
+      !user?.hasUnrestrictedPermissions &&
+      submission.residents.every((resident) => resident.restricted === 'Y')
+    )
+      return false;
+
     // Filter out those that don't match the search term
     const haystack = `${submission.residents[0].id} ${submission.residents[0].firstName} ${submission.residents[0].lastName}`;
 
