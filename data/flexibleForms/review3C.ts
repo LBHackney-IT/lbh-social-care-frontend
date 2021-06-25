@@ -1214,8 +1214,8 @@ const form: Form = {
     },
 
     {
-      id: 'Completion Details',
-      name: 'Completion Details',
+      id: 'Completion details',
+      name: 'Completion details',
       theme: 'Next steps',
       fields: [
         {
