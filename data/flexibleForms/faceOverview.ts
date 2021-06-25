@@ -68,6 +68,7 @@ const form: Form = {
       ],
     },
     {
+      //add conditional
       id: 'no-recourse-to-public-funds',
       name: 'No Recourse to Public Funds',
       theme: 'About you',
@@ -169,9 +170,12 @@ const form: Form = {
       ],
     },
     {
+      //add conditional
       id: 'supporting-you-in-your-assessment',
       name: 'Supporting you in your assessment',
       theme: 'About you',
+      intro:
+        'If you have difficulties in communication, understanding or decision-making, you may need support for your involvement in your assessment, an advocate to represent you and help you explain your views, or a mental capacity assessment.',
       fields: [
         {
           id: 'preferred-language',
@@ -310,6 +314,8 @@ const form: Form = {
       id: 'about-you',
       name: 'About you',
       theme: 'About you',
+      intro:
+        'If appropriate, you may wish to be referred for financial advice and / or maximising your benefits',
       fields: [
         {
           id: 'your-personal-family-background-include-important-recent-events-or-changes-in-your-life',
@@ -488,6 +494,7 @@ const form: Form = {
             'Are you using specialist technology to help you manage at home? (e.g. telecare)',
           hint: '',
           type: 'radios',
+          required: true,
           choices: [
             {
               value: 'yes',
@@ -536,7 +543,7 @@ const form: Form = {
       name: 'Eating healthily and safely',
       theme: 'Your care needs',
       intro:
-        'Includes the eligibility outcome: Managing and maintaining nutrition.Answer as if there is no support currently in place, but do consider the effect ofexisting equipment, adaptations, or telecare. based ontypical week',
+        'The assessment is based on a typical week. It includes the eligibility outcome: Managing and maintaining nutrition. Answer as if there is no support currently in place, but do consider the effect of existing equipment, adaptations, or telecare.',
       fields: [
         {
           id: 'shopping-for-food--essentials--your-situation',
@@ -575,6 +582,7 @@ const form: Form = {
           question:
             'If you need someone else to feed you, are you able to have food and drink by mouth?',
           hint: '',
+          required: true,
           type: 'radios',
           choices: [
             {
@@ -599,6 +607,7 @@ const form: Form = {
           question:
             'Do you have any dietary or eating difficulties that put you at risk or require skilled support?',
           hint: '',
+          required: true,
           type: 'radios',
           choices: [
             {
@@ -702,6 +711,8 @@ const form: Form = {
       id: 'your-mobility',
       name: 'Your mobility',
       theme: 'Your care needs',
+      intro:
+        'Answer as if there is no support currently in place, but do consider the effect of existing equipment, adaptations, or telecare. This should be based on a typical week',
       fields: [
         {
           id: 'moving-around-your-home--your-situation',
@@ -727,6 +738,7 @@ const form: Form = {
           question:
             'Is there a risk of harm to others when assisting with your mobility / transfers?',
           hint: '',
+          required: true,
           type: 'radios',
           choices: [
             {
@@ -777,6 +789,7 @@ const form: Form = {
           question:
             'If pressure ulcer(s) are present, is treatment currently working?',
           hint: '',
+          required: true,
           type: 'radios',
           choices: [
             {
@@ -805,6 +818,8 @@ const form: Form = {
       id: 'social-relationships-and-activities',
       name: 'Social relationships and activities',
       theme: 'Your care needs',
+      intro:
+        'Includes the eligibility outcomes: - Developing and maintaining family or other personal relationships - Making use of necessary facilities or services in the local community, including public transport and recreational facilities or services. Answer as if there is no support currently in place, but do consider the effect of existing equipment, adaptations, or telecare. This is based on a typical week',
       fields: [
         {
           id: 'provide-details-of-your-needs-and-what-you-would-like-to-achieve-maintaining-relationships-that-are-important-to-you',
@@ -818,6 +833,7 @@ const form: Form = {
           question: 'Are you able to access the community?',
           hint: '',
           type: 'radios',
+          required: true,
           choices: [
             {
               value: 'yes-independently',
@@ -873,6 +889,8 @@ const form: Form = {
       id: 'work-training-education-and-volunteering',
       name: 'Work, training, education and volunteering',
       theme: 'Your care needs',
+      intro:
+        'Includes the eligibility outcomes: Accessing and engaging in work, training, education or volunteering. Answer as if there is no support currently in place, but do consider the effect of existing equipment, adaptations, or telecare. This is based on a typical week',
       fields: [
         {
           id: 'current-paid-employment-or-voluntary-work-situation',
@@ -913,12 +931,15 @@ const form: Form = {
       id: 'caring-for-others',
       name: 'Caring for others',
       theme: 'Your care needs',
+      intro:
+        'Includes the eligibility outcome: Carrying out any caring responsibilities for a child.Answer as if there is no support currently in place, but do consider the effect of existing equipment, adaptations, or telecare. This is based on a typical week',
       fields: [
         {
           id: 'do-you-have-any-children-that-are-dependent-on-you',
           question: 'Do you have any children that are dependent on you?',
           hint: '',
           type: 'radios',
+          required: true,
           choices: [
             {
               value: 'yes',
@@ -962,6 +983,7 @@ const form: Form = {
           id: 'do-you-have-any-other-caring-responsibilities',
           question: 'Do you have any other caring responsibilities?',
           hint: '',
+          required: true,
           type: 'radios',
           choices: [
             {
@@ -977,7 +999,7 @@ const form: Form = {
         {
           id: 'details-of-your-needs-caring-for-other-adults',
           question: 'Details of your needs (caring for other adults):',
-          hint: '',
+          hint: "If you are providing care or support to other adults, you should be offered a Carer's assessment to discuss your caring role.",
           type: 'textarea',
         },
       ],
@@ -986,6 +1008,8 @@ const form: Form = {
       id: 'staying-safe-at-home',
       name: 'Staying safe at home',
       theme: 'Your care needs',
+      intro:
+        'Includes the eligibility outcome: Being able to make use of your home safely. Answer as if there is no support currently in place, but do consider the effect of existing equipment, adaptations, or telecare. This is based on a typical week',
       fields: [
         {
           id: 'the-support-you-need-to-stay-safe-at-home-during-the-day-consider-risk-of-falls-and--or-wandering-and-responding-to-emergencies',
@@ -1014,10 +1038,13 @@ const form: Form = {
       id: 'risks',
       name: 'Risks',
       theme: 'Your care needs',
+      intro:
+        'Answer as if there is no support currently in place, but do consider the effect of existing equipment, adaptations, or telecare. This is based on a typical week.',
       fields: [
         {
           id: 'is-there-a-current-risk-of-falls',
           question: 'Is there a current risk of falls?',
+          required: true,
           hint: '',
           type: 'radios',
           choices: [
@@ -1037,6 +1064,7 @@ const form: Form = {
             'Is there a current risk of self-neglect causing deterioration to health or safety?',
           hint: '',
           type: 'radios',
+          required: true,
           choices: [
             {
               value: 'yes',
@@ -1054,6 +1082,7 @@ const form: Form = {
             'Is there a current risk of self harm to self (e.g. self-injury)?',
           hint: '',
           type: 'radios',
+          required: true,
           choices: [
             {
               value: 'yes',
@@ -1071,6 +1100,7 @@ const form: Form = {
             'Is there a current risk of harm or injury to your carer, if you have one?',
           hint: '',
           type: 'radios',
+          required: true,
           choices: [
             {
               value: 'yes',
@@ -1087,6 +1117,7 @@ const form: Form = {
           question: 'Is there a current risk of harm to others or property?',
           hint: '',
           type: 'radios',
+          required: true,
           choices: [
             {
               value: 'yes',
@@ -1110,12 +1141,15 @@ const form: Form = {
       id: 'your-mental-health-and-wellbeing',
       name: 'Your Mental Health and Wellbeing',
       theme: 'Your care needs',
+      intro:
+        'Answer as if there is no support currently in place, but do consider the effect of existing equipment, adaptations, or telecare. This should including mental wellbeing issues arising from physical conditions.',
       fields: [
         {
           id: 'do-you-or-have-you-ever-suffered-from-a-serious-mental-health-issue',
           question:
             'Do you or have you ever suffered from a serious mental health issue?',
           hint: '',
+          required: true,
           type: 'radios',
           choices: [
             {
@@ -1133,6 +1167,7 @@ const form: Form = {
           question:
             'Have you had contact with mental health services in the past year?',
           hint: '',
+          required: true,
           type: 'radios',
           choices: [
             {
@@ -1216,6 +1251,8 @@ const form: Form = {
       id: 'health-conditions-and-disabilities-that-impact-your-wellbeing',
       name: 'Health conditions and disabilities that impact your wellbeing',
       theme: 'Your care needs',
+      intro:
+        'List your disabilities, impairments and health conditions in order of most to least impact on your daily life and wellbeing:',
       fields: [
         {
           id: 'list-your-disabilities-impairments-and-health-conditions-in-order-of-most-to-least-impact-on-your-daily-life-and-wellbeing',
@@ -1252,7 +1289,7 @@ const form: Form = {
         {
           id: 'details-of-your-needs-sensory-impairment',
           question: 'Details of your needs (sensory impairment):',
-          hint: '',
+          hint: 'If you have a significant sensory impairment, you may need to be referred for a specialist sensory assessment.',
           type: 'textarea',
         },
       ],
@@ -1261,10 +1298,13 @@ const form: Form = {
       id: 'your-medication-and-symptoms',
       name: 'Your medication and symptoms',
       theme: 'Your care needs',
+      intro:
+        'Answer as if there is no support currently in place, but do consider the effect of existing equipment, adaptations, or telecare. This is based on a typical week',
       fields: [
         {
           id: 'are-you-currently-taking-any-prescribed-medication',
           question: 'Are you currently taking any prescribed medication?',
+          required: true,
           hint: '',
           type: 'radios',
           choices: [
@@ -1342,6 +1382,7 @@ const form: Form = {
           id: 'do-you-have-any-difficulties-with-breathing',
           question: 'Do you have any difficulties with breathing?',
           hint: '',
+          required: true,
           type: 'radios',
           choices: [
             {
@@ -1358,6 +1399,7 @@ const form: Form = {
           id: 'do-you-need-equipment-to-help-you-breathe',
           question: 'Do you need equipment to help you breathe?',
           hint: '',
+          required: true,
           type: 'radios',
           choices: [
             {
@@ -1405,6 +1447,7 @@ const form: Form = {
       id: 'support-you-will-receive-on-an-ongoing-basis-from-family--friends--volunteers',
       name: 'Support you will receive on an ongoing basis from family / friends / volunteers',
       theme: 'Your care needs',
+      intro: 'This is based on a typical week',
       fields: [
         {
           id: 'details-of-support-you-currently-receive-from-family-friends-or-volunteers-including-whats-working-well-and-not-so-well',
@@ -1414,10 +1457,12 @@ const form: Form = {
           type: 'textarea',
         },
         {
+          //add conditional to go to section 20 if answer no
           id: 'will-you-receive-ongoing-support-from-family-friends-or-volunteers',
           question:
             'Will you receive ongoing support from family, friends or volunteers?',
           hint: '',
+          required: true,
           type: 'radios',
           choices: [
             {
@@ -1436,6 +1481,8 @@ const form: Form = {
       id: 'receiving-ongoing-support',
       name: 'Receiving ongoing support',
       theme: 'Your care needs',
+      intro:
+        'Detail the ongoing support received from family, friends or volunteers',
       fields: [
         {
           id: 'keeping-your-home-safe-and-clean',
@@ -1455,6 +1502,8 @@ const form: Form = {
           hint: '',
           type: 'textarea',
         },
+        //missing: Preparing your meals / snacks / drinks and helping you to eat and drink:
+        //,issing: Managing your personal care tasks(using toilet / managing continence, washing, dressing / undressing):
         {
           id: 'social-leisure-education-and-spiritual-activities',
           question: 'Social, leisure, education and spiritual activities:',

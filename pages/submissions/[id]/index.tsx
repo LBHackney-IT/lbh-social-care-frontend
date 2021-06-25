@@ -9,7 +9,7 @@ import { Resident } from '../../../types';
 import { getProtocol } from 'utils/urls';
 import s from 'stylesheets/Sidebar.module.scss';
 import axios from 'axios';
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { useRouter } from 'next/router';
 
 interface Props {
@@ -103,15 +103,6 @@ export const getServerSideProps: GetServerSideProps = async ({ params }) => {
         destination: '/404',
       },
     };
-
-  if (data.submissionState !== 'In progress') {
-    return {
-      props: {},
-      redirect: {
-        destination: `/people/${data.residents[0].id}/submissions/${data.submissionId}`,
-      },
-    };
-  }
 
   return {
     props: {
