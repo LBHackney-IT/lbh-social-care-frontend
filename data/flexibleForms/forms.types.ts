@@ -70,7 +70,7 @@ export interface Submission {
   formId: string;
   createdBy: User;
   createdAt: string;
-  residents: LegacyResident[];
+  residents: Resident[];
   workers: Worker[];
   editHistory: {
     worker: Worker;
