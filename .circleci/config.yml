@@ -80,6 +80,22 @@ jobs:
           name: deploy
           command: yarn build && yarn --production=true && sudo npm i -g serverless && sls deploy -s production
 
+  generate-draft-github-release:
+    executor: aws-cli/default
+    steps:
+      - *attach_workspace
+      - run:
+          name: generate draft GitHub release
+          command: yarn release --no-git.push --github.draft
+
+  generate-github-release:
+    executor: aws-cli/default
+    steps:
+      - *attach_workspace
+      - run:
+          name: generate release
+          command: yarn release --no-github.draft
+
   assume-role-staging:
     executor: docker-python
     steps:
@@ -117,6 +133,13 @@ workflows:
       - e2e:
           requires:
             - install-dependencies
+      - generate-draft-github-release:
+          requires:
+            - tests
+            - e2e
+          filters:
+            branches:
+              only: main
       - assume-role-staging:
           context: api-assume-role-staging-context
           requires:
@@ -148,3 +171,12 @@ workflows:
       - build-deploy-production:
           requires:
             - assume-role-production
+          filters:
+            branches:
+              only: main
+      - generate-github-release:
+          requires:
+            - build-deploy-production
+          filters:
+            branches:
+              only: main
