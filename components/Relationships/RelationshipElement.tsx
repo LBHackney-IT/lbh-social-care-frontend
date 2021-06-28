@@ -42,9 +42,7 @@ const getTitleString = (relationshipType: keyof typeof mappings): string => {
 };
 
 const mappings = {
-  parents: 'Parents',
   parent: 'Parent',
-  children: 'Children',
   child: 'Child',
   other: 'Other',
   greatGrandchild: 'Great grandchild',

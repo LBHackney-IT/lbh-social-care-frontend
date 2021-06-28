@@ -228,9 +228,7 @@ export interface RelationshipData {
 }
 
 export type RelationshipType =
-  | 'parents'
   | 'parent'
-  | 'children'
   | 'child'
   | 'other'
   | 'greatGrandchild'
