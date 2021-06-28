@@ -54,13 +54,23 @@ export const mockedOrderedRelationship = mockedRelationshipData.build({
   persons: [
     mockedRelationPerson.build({
       id: 111,
+      firstName: 'Neil',
+      lastName: 'Muciaccia',
+    }),
+    mockedRelationPerson.build({
+      id: 123,
       firstName: 'Giovanni',
       lastName: 'Muciaccia',
     }),
     mockedRelationPerson.build({
       id: 123,
-      firstName: 'Neil',
-      lastName: 'Muciaccia',
+      firstName: 'Francesco',
+      lastName: 'Rostrini',
+    }),
+    mockedRelationPerson.build({
+      id: 123,
+      firstName: 'Michele',
+      lastName: 'Giuppone',
     }),
   ],
 });

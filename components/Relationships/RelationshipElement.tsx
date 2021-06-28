@@ -20,7 +20,11 @@ const RelationshipElement = ({ type, persons }: Props): React.ReactElement => {
             )
             .map((person, i) => {
               return (
-                <li className="lbh-link" key={`rel_${i}`}>
+                <li
+                  className="lbh-link"
+                  aria-label={`rel_${i}`}
+                  key={`rel_${i}`}
+                >
                   {person.id ? (
                     <Link href={`/people/${person.id}`}>
                       {`${person.firstName} ${person.lastName}`}
