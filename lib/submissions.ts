@@ -101,21 +101,20 @@ export const patchSubmissionForStep = async (
 /** pass in a string of resident ids to replace the existing ones associated with the submission */
 export const patchResidents = async (
   submissionId: string,
+  editedBy: string,
   residentIds: number[]
 ): Promise<Submission> => {
-  console.log(`UPDATING RESIDENTS:`, residentIds);
-  return true;
-
-  // const { data } = await axios.patch(
-  //   `${ENDPOINT_API}/submissions/${submissionId}`,
-  //   {
-  //     residents: residentIds,
-  //   },
-  //   {
-  //     headers: headersWithKey,
-  //   }
-  // );
-  // return data;
+  const { data } = await axios.patch(
+    `${ENDPOINT_API}/submissions/${submissionId}`,
+    {
+      residents: residentIds,
+      editedBy,
+    },
+    {
+      headers: headersWithKey,
+    }
+  );
+  return data;
 };
 
 /** mark an existing submission as finished, providing its id  */
@@ -123,14 +122,14 @@ export const finishSubmission = async (
   submissionId: string,
   finishedBy: string
 ): Promise<number> => {
-  const { status } = await axios.patch(
+  const { data } = await axios.patch(
     `${ENDPOINT_API}/submissions/${submissionId}`,
     {
-      createdBy: finishedBy,
+      editedBy: finishedBy,
     },
     {
       headers: headersWithKey,
     }
   );
-  return status;
+  return data;
 };

@@ -37,7 +37,7 @@ const TaskListPage = ({
 
   const handleFinish = async (): Promise<void> => {
     try {
-      await axios.post(`/api/submissions/${params.id}`);
+      await axios.patch(`/api/submissions/${params.id}`);
       router.push(`/people/${person.id}/submissions/${params.id}`);
     } catch (e) {
       setStatus(e.toString());

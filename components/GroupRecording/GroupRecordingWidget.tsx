@@ -5,7 +5,7 @@ import PersonWidget from './../PersonWidget/PersonWidget';
 import Dialog from './../Dialog/Dialog';
 import s from './GroupRecordingWidget.module.scss';
 import PersonSelect from './../PersonSelect/PersonSelect';
-import { patchResidents } from 'lib/submissions';
+import axios from 'axios';
 import { useResidents } from 'utils/api/residents';
 
 interface Props {
@@ -13,9 +13,10 @@ interface Props {
 }
 
 const GroupRecordingWidget = ({ initialPeople }: Props): React.ReactElement => {
-  // const { query } = useRouter();
+  const { query } = useRouter();
 
-  const [people, setPeople] = useState<Resident[]>(initialPeople);
+  const [people, setPeople] =
+    useState<(Resident | LegacyResident)[]>(initialPeople);
   const [open, setOpen] = useState<number | false>(0);
   const [dialogOpen, setDialogOpen] = useState<boolean>(false);
   const [idToAdd, setIdToAdd] = useState<number | false>(false);
@@ -38,12 +39,11 @@ const GroupRecordingWidget = ({ initialPeople }: Props): React.ReactElement => {
     // only show six max
     .slice(0, 5);
 
-  // useEffect(() => {
-  //   patchResidents(
-  //     String(query.id),
-  //     people.map((person) => person.id)
-  //   );
-  // }, [people, query.id]);
+  useEffect(() => {
+    axios.patch(`/api/submissions/${query.id}`, {
+      residents: people.map((person) => person.id || person.mosaicId),
+    });
+  }, [people, query.id]);
 
   const handleAdd = (): void => {
     if (idToAdd) {
@@ -56,6 +56,8 @@ const GroupRecordingWidget = ({ initialPeople }: Props): React.ReactElement => {
       setSearchQuery('');
     }
   };
+
+  console.log(people);
 
   const handleRemove = (idToRemove: number): void => {
     setPeople(people.filter((person) => person.mosaicId !== idToRemove));

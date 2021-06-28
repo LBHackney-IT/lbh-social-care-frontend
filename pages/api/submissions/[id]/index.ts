@@ -1,7 +1,11 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import forms from 'data/flexibleForms';
 import StatusCodes from 'http-status-codes';
-import { getSubmissionById, finishSubmission } from 'lib/submissions';
+import {
+  getSubmissionById,
+  finishSubmission,
+  patchResidents,
+} from 'lib/submissions';
 import { isAuthorised } from 'utils/auth';
 
 const handler = async (
@@ -11,12 +15,21 @@ const handler = async (
   const { id } = req.query;
 
   switch (req.method) {
-    case 'POST':
+    case 'PATCH':
       {
         const user = isAuthorised(req);
-        const status = await finishSubmission(String(id), String(user?.email));
-
-        res.status(status).end();
+        let submission;
+        if (req.body.residents) {
+          console.log(req.body.residents);
+          // submission = await patchResidents(
+          //   String(id),
+          //   String(user?.email),
+          //   req.body.residents
+          // );
+        } else {
+          submission = await finishSubmission(String(id), String(user?.email));
+        }
+        res.status(StatusCodes.ACCEPTED).json(submission);
       }
       break;
     case 'GET':
