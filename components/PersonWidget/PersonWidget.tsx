@@ -14,6 +14,11 @@ const prettyDate = (isoDateString: string): string => {
 
 interface Props {
   person?: Resident;
+  grouped?: boolean;
+  index?: number;
+  onRemove?: (value: string) => void;
+  open?: boolean;
+  setOpen?: (value: number) => void;
 }
 
 const PersonWidget = ({ person }: Props): React.ReactElement => {

@@ -1,5 +1,6 @@
 import PersonSelect from './../PersonSelect/PersonSelect';
 import { render, screen } from '@testing-library/react';
+import { mockedResident } from 'factories/residents';
 
 describe('PersonSelect', () => {
   it("correctly formats a person's details", () => {
@@ -7,23 +8,11 @@ describe('PersonSelect', () => {
       <PersonSelect
         name="person"
         label="Matching people"
-        people={[
-          {
-            mosaicId: '0',
-            firstName: 'foo',
-            lastName: 'bar',
-            dateOfBirth: '1990-04-10T00:00:00.0000000',
-            addressList: [
-              {
-                addressLine1: 'Example address',
-              },
-            ],
-          },
-        ]}
+        people={[mockedResident]}
       />
     );
     expect(screen.getByText('foo bar'));
-    expect(screen.getByText('Born 10 Apr 1990 · Example address'));
+    expect(screen.getByText('Born 13 Nov 2020 · Example address'));
     expect(screen.getAllByRole('radio').length).toBe(1);
   });
 

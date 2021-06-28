@@ -1,10 +1,10 @@
 import React from 'react';
 import s from '../styles/PersonSelect.module.scss';
 import { Resident } from 'types';
-// import { prettyDate } from "../lib/formatters"
+import { format } from 'date-fns';
 
 interface ChoiceProps {
-  value: string;
+  value: string | number;
   name: string;
   label: string;
   hint: string;
@@ -42,7 +42,7 @@ const Choice = ({
 interface Props {
   label: string;
   name: string;
-  people: Person[];
+  people: Resident[];
 }
 
 const PersonSelect = ({ label, people }: Props): React.ReactElement => (
@@ -56,11 +56,12 @@ const PersonSelect = ({ label, people }: Props): React.ReactElement => (
           <Choice
             name="person"
             label={`${person.firstName} ${person.lastName}`}
-            value={person.mosaicId}
-            key={person.mosaicId}
-            hint={`Born ${prettyDate(person.dateOfBirth)} · ${
-              person.addressList[0]?.addressLine1
-            }`}
+            value={person.id}
+            key={person.id}
+            hint={`Born ${format(
+              new Date(String(person.dateOfBirth)),
+              'd MMM yyyy'
+            )} · ${person.addresses?.[0]?.addressLines}`}
             {...people}
           />
         ))}

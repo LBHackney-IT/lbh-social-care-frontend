@@ -6,13 +6,13 @@ import s from '../styles/PersonWidget.module.scss';
 import PersonSelect from './../PersonSelect/PersonSelect';
 
 interface Props {
-  initialPerson: Resident;
+  initialPeople: Resident[];
 }
 
-const GroupRecordingWidget = ({ initialPerson }: Props): React.ReactElement => {
-  const [people, setPeople] = useState([].concat(initialPerson));
-  const [open, setOpen] = useState(0);
-  const [dialogOpen, setDialogOpen] = useState(false);
+const GroupRecordingWidget = ({ initialPeople }: Props): React.ReactElement => {
+  const [people, setPeople] = useState<Resident[]>(initialPeople);
+  const [open, setOpen] = useState<number>(0);
+  const [dialogOpen, setDialogOpen] = useState<boolean>(false);
 
   const [query, setQuery] = useState('');
 
@@ -37,7 +37,6 @@ const GroupRecordingWidget = ({ initialPerson }: Props): React.ReactElement => {
         <PersonWidget
           person={person}
           key={i}
-          index={i}
           grouped={people.length > 1}
           onRemove={handleRemove}
           open={open === i}
@@ -109,64 +108,10 @@ const GroupRecordingWidget = ({ initialPerson }: Props): React.ReactElement => {
         </div>
 
         {query && (
-          <PersonSelect
-            name="person"
-            label="Matching people"
-            people={[
-              {
-                mosaicId: '0',
-                firstName: 'Firstname',
-                lastName: 'Surname',
-                dateOfBirth: '1990-04-10T00:00:00.0000000',
-                addressList: [
-                  {
-                    addressLine1: '123 Town St, Citythorpe, AB1 23C',
-                  },
-                ],
-              },
-            ]}
-          />
+          <PersonSelect name="person" label="Matching people" people={[]} />
         )}
 
-        <PersonSelect
-          name="person"
-          label="Or choose a relative"
-          people={[
-            {
-              mosaicId: '1',
-              firstName: 'Bart',
-              lastName: 'Simpson',
-              dateOfBirth: '1990-04-10T00:00:00.0000000',
-              addressList: [
-                {
-                  addressLine1: '123 Town St, Citythorpe, AB1 23C',
-                },
-              ],
-            },
-            {
-              mosaicId: '2',
-              firstName: 'Lisa',
-              lastName: 'Simpson',
-              dateOfBirth: '1990-04-10T00:00:00.0000000',
-              addressList: [
-                {
-                  addressLine1: '123 Town St, Citythorpe, AB1 23C',
-                },
-              ],
-            },
-            {
-              mosaicId: '3',
-              firstName: 'Maggie',
-              lastName: 'Simpson',
-              dateOfBirth: '1990-04-10T00:00:00.0000000',
-              addressList: [
-                {
-                  addressLine1: '123 Town St, Citythorpe, AB1 23C',
-                },
-              ],
-            },
-          ]}
-        />
+        <PersonSelect name="person" label="Or choose a relative" people={[]} />
 
         <button className="govuk-button lbh-button" onClick={handleAdd}>
           Add person

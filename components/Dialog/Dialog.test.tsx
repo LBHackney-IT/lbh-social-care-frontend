@@ -6,7 +6,7 @@ const mockHandler = jest.fn();
 describe('Layout', () => {
   it('renders correctly when open', () => {
     render(
-      <Dialog onDismiss={null} isOpen={true} title="Example title">
+      <Dialog onDismiss={jest.fn()} isOpen={true} title="Example title">
         Foo
       </Dialog>
     );
