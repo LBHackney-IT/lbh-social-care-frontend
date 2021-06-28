@@ -1,5 +1,5 @@
 import React from 'react';
-import { Resident } from 'types';
+import { LegacyResident } from 'types';
 import s from './PersonWidget.module.scss';
 import { format } from 'date-fns';
 
@@ -13,7 +13,7 @@ const prettyDate = (isoDateString: string): string => {
 };
 
 interface Props {
-  person: Resident | false;
+  person: LegacyResident;
   grouped?: boolean;
   index?: number;
   onRemove?: (value: number) => void;
@@ -29,7 +29,11 @@ const PersonWidget = ({
   open,
   setOpen,
 }: Props): React.ReactElement => {
-  if (grouped && person && onRemove && setOpen && index)
+  const dateOfBirth = prettyDate(person?.dateOfBirth ?? '');
+  const displayAddress = person?.address;
+  const firstAddress = person?.addresses?.[0];
+
+  if (grouped)
     return (
       <aside className={s.aside}>
         <details className={s.details} open={open}>
@@ -48,20 +52,28 @@ const PersonWidget = ({
               <path d="M2 1.5L8.5 7.5L15 1.5" strokeWidth="3" />
             </svg>
           </summary>
-          <p className={`lbh-body-s ${s.paragraph}`}>Referred 12 Feb 2021</p>
-          <p className={`lbh-body-s ${s.paragraph}`}>
-            Born {String(person.dateOfBirth)}
-          </p>
-          <p className={`lbh-body-s ${s.paragraph}`}>
-            Allocated to Namey McName
-          </p>
 
-          <p className={`lbh-body-s ${s.important}`}>
-            <strong>1 warning</strong> <span>2 open actions</span>
-          </p>
+          {dateOfBirth && (
+            <p className={`lbh-body-s ${s.paragraph}`}>Born {dateOfBirth}</p>
+          )}
+          {displayAddress && (
+            <p className={`lbh-body-s ${s.paragraph}`}>
+              {displayAddress?.address}
+              <br />
+              {displayAddress?.postcode}
+            </p>
+          )}
+          {firstAddress && (
+            <p className={`lbh-body-s ${s.paragraph}`}>
+              {firstAddress?.addressLines}
+              <br />
+              {firstAddress?.postCode}
+            </p>
+          )}
+
           <button
             className="lbh-link lbh-body-s"
-            onClick={() => onRemove(index)}
+            onClick={() => onRemove(person.mosaicId)}
           >
             Remove
           </button>
@@ -69,28 +81,29 @@ const PersonWidget = ({
       </aside>
     );
 
-  if (person)
-    return (
-      <aside className={s.aside}>
-        <h2 className={`lbh-heading-h3 ${s.title}`}>
-          {person.firstName} {person.lastName}
-        </h2>
-
-        <p className={`lbh-body-s ${s.paragraph}`}>Referred 12 Feb 2021</p>
-        <p className={`lbh-body-s ${s.paragraph}`}>
-          Born {prettyDate(String(person.dateOfBirth))}
-        </p>
-        <p className={`lbh-body-s ${s.paragraph}`}>Allocated to Namey McName</p>
-
-        <p className={`lbh-body-s ${s.important}`}>
-          <strong>1 warning</strong> <span>2 open actions</span>
-        </p>
-      </aside>
-    );
-
   return (
     <aside className={s.aside}>
-      <p className="lbh-body">Person not found</p>
+      <h2 className={`lbh-heading-h3 ${s.title}`}>
+        {person.firstName} {person.lastName}
+      </h2>
+
+      {dateOfBirth && (
+        <p className={`lbh-body-s ${s.paragraph}`}>Born {dateOfBirth}</p>
+      )}
+      {displayAddress && (
+        <p className={`lbh-body-s ${s.paragraph}`}>
+          {displayAddress?.address}
+          <br />
+          {displayAddress?.postcode}
+        </p>
+      )}
+      {firstAddress && (
+        <p className={`lbh-body-s ${s.paragraph}`}>
+          {firstAddress?.addressLines}
+          <br />
+          {firstAddress?.postCode}
+        </p>
+      )}
     </aside>
   );
 };

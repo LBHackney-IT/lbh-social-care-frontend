@@ -36,7 +36,7 @@ const GroupRecordingWidget = ({ initialPeople }: Props): React.ReactElement => {
   //   );
   // }, [people, query.id]);
 
-  const handleAdd = () => {
+  const handleAdd = (): void => {
     if (idToAdd) {
       setPeople([
         ...people,
@@ -48,21 +48,19 @@ const GroupRecordingWidget = ({ initialPeople }: Props): React.ReactElement => {
     }
   };
 
-  const handleRemove = () => {
-    const newArray = people.slice();
-    newArray.pop();
-    setPeople(newArray);
+  const handleRemove = (idToRemove: number): void => {
+    setPeople(people.filter((person) => person.mosaicId !== idToRemove));
     setOpen(people.length - 1);
   };
 
   return (
     <section>
-      {/* {query.id} */}
       <h3 className="govuk-visually-hidden">People</h3>
       {people.map((person, i) => (
         <PersonWidget
           person={person}
           key={i}
+          index={i}
           grouped={people.length > 1}
           onRemove={handleRemove}
           open={open === i}

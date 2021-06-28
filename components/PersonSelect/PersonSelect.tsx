@@ -39,7 +39,7 @@ const Choice = ({
       {label}
     </label>
 
-    <p id={`${name}=${value}-hint`} className={`lbh-body-xs ${s.meta}`}>
+    <p id={`${name}-${value}-hint`} className={`lbh-body-xs ${s.meta}`}>
       {hint}
     </p>
   </div>
@@ -60,7 +60,7 @@ const PersonSelect = ({
 }: Props): React.ReactElement => (
   <div className="govuk-form-group lbh-form-group">
     {console.log(people)}
-    <fieldset className="govuk-fieldset" aria-describedby="example-hint">
+    <fieldset className="govuk-fieldset">
       <legend className="govuk-label lbh-label">{label}</legend>
       <div
         className={`govuk-radios govuk-radios--small lbh-radios ${s.personList}`}
