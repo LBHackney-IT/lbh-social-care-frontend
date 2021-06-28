@@ -2,32 +2,36 @@ import ErrorMessage from 'components/ErrorMessage/ErrorMessage';
 import Spinner from 'components/Spinner/Spinner';
 import { useRelationships } from 'utils/api/relationships';
 import RelationshipElement from './RelationshipElement';
+import { useState, useEffect } from 'react';
 
 interface Props {
   id: number;
 }
 
 const Relationships = ({ id }: Props): React.ReactElement => {
+  const [shouldAppear, setShouldAppear] = useState(false);
   const { data: { personalRelationships } = {}, error } = useRelationships(id);
+
+  useEffect(() => {
+    const relationshipWithPeople = personalRelationships
+      ? personalRelationships.filter((relationship) => {
+          setShouldAppear(relationship.persons.length > 0);
+        })
+      : [];
+    if (relationshipWithPeople.length > 0) {
+      setShouldAppear(true);
+    }
+  }, [personalRelationships]);
 
   if (!personalRelationships) {
     return <Spinner />;
   }
-  if (error) {
-    return <ErrorMessage />;
-  }
-
-  const shouldAppear =
-    (personalRelationships.parents &&
-      personalRelationships.parents.length > 0) ||
-    (personalRelationships.children &&
-      personalRelationships.children.length > 0) ||
-    (personalRelationships.siblings &&
-      personalRelationships.siblings.length > 0) ||
-    (personalRelationships.other && personalRelationships.other.length > 0);
 
   if (!shouldAppear) {
     return <></>;
+  }
+  if (error) {
+    return <ErrorMessage />;
   }
 
   return (
@@ -41,30 +45,19 @@ const Relationships = ({ id }: Props): React.ReactElement => {
         <hr className="govuk-divider" />
         {
           <dl className="govuk-summary-list lbh-summary-list">
-            {
-              <RelationshipElement
-                title="Parents"
-                data={personalRelationships.parents}
-              />
-            }
-            {
-              <RelationshipElement
-                title="Children"
-                data={personalRelationships.children}
-              />
-            }
-            {
-              <RelationshipElement
-                title="Siblings"
-                data={personalRelationships.siblings}
-              />
-            }
-            {
-              <RelationshipElement
-                title="Other"
-                data={personalRelationships.other}
-              />
-            }
+            {personalRelationships
+              .sort((a, b) => b.type.localeCompare(a.type))
+              .map((relationship) => {
+                if (relationship.persons.length > 0) {
+                  return (
+                    <RelationshipElement
+                      type={relationship.type}
+                      persons={relationship.persons}
+                      key={`rel_${relationship.type}`}
+                    />
+                  );
+                }
+              })}
           </dl>
         }
       </div>

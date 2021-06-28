@@ -42,8 +42,8 @@ const StepForm = ({
 }: Props): React.ReactElement => (
   <Formik
     initialValues={initialValues || generateInitialValues(fields, person)}
-    validationSchema={generateFlexibleSchema(fields)}
     validate={(values) => validateConditionalFields(values, fields)}
+    validationSchema={generateFlexibleSchema(fields)}
     onSubmit={onSubmit}
     validateOnMount={true}
   >
@@ -112,8 +112,10 @@ const StepFormInner = ({
         disabled={isSubmitting}
         onClick={async () => {
           await submitForm();
-          setGoBackToTaskList(true);
-          setSaved(true);
+          if (isValid) {
+            setGoBackToTaskList(true);
+            setSaved(true);
+          }
         }}
       >
         Save and continue

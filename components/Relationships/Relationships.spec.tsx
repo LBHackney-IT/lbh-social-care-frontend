@@ -28,22 +28,6 @@ describe('Relationships component', () => {
     expect(getByText('MockedSpinner')).toBeInTheDocument();
   });
 
-  it('should call the API', async () => {
-    jest.spyOn(relationshipsAPI, 'useRelationships').mockImplementation(() => ({
-      data: mockedRelationship,
-      isValidating: false,
-      mutate: jest.fn(),
-      revalidate: jest.fn(),
-    }));
-    const props = {
-      id: 33339587,
-    };
-    render(<Relationships {...props} />);
-
-    expect(relationshipsAPI.useRelationships).toHaveBeenCalledTimes(1);
-    expect(mockedRelationship.personalRelationships).not.toBeNull;
-  });
-
   it('should populate the list', async () => {
     jest.spyOn(relationshipsAPI, 'useRelationships').mockImplementation(() => ({
       data: mockedRelationship,
@@ -55,12 +39,16 @@ describe('Relationships component', () => {
       id: 33339587,
     };
     const { getByText } = render(<Relationships {...props} />);
-    expect(getByText('Parents')).toBeInTheDocument();
-    expect(getByText('Children')).toBeInTheDocument();
+    expect(getByText('Parent')).toBeInTheDocument();
+    expect(getByText('Child')).toBeInTheDocument();
     expect(getByText('Other')).toBeInTheDocument();
-    expect(getByText('Siblings')).toBeInTheDocument();
+    expect(getByText('Sibling')).toBeInTheDocument();
+    expect(getByText('Unborn sibling')).toBeInTheDocument();
+    expect(getByText('Sibling of unborn child')).toBeInTheDocument();
 
     expect(getByText('Giovanni Muciaccia')).toBeInTheDocument();
+    expect(getByText('Jambi Neverborn')).toBeInTheDocument();
+    expect(getByText('Cento Neverborn')).toBeInTheDocument();
   });
 
   it('should populate partially the list', async () => {
@@ -74,10 +62,11 @@ describe('Relationships component', () => {
       id: 33339587,
     };
     const { getByText, queryByText } = render(<Relationships {...props} />);
-    expect(queryByText('Parents')).toBeInTheDocument();
-    expect(queryByText('Children')).toBeInTheDocument();
+    expect(queryByText('Parent')).toBeInTheDocument();
+    expect(queryByText('Child')).toBeInTheDocument();
     expect(queryByText('Other')).not.toBeInTheDocument();
-    expect(queryByText('Siblings')).not.toBeInTheDocument();
+    expect(queryByText('Sibling')).not.toBeInTheDocument();
+    expect(queryByText('Sibling of unborn child')).not.toBeInTheDocument();
 
     expect(getByText('Mastro Geppetto')).toBeInTheDocument();
     expect(getByText('Pinocchio Geppetto')).toBeInTheDocument();
@@ -93,7 +82,7 @@ describe('Relationships component', () => {
     const props = {
       id: 33339587,
     };
-    const { getByText, queryByText } = render(<Relationships {...props} />);
+    const { queryByText } = render(<Relationships {...props} />);
     expect(queryByText('RELATIONSHIPS')).not.toBeInTheDocument();
   });
 
@@ -107,7 +96,7 @@ describe('Relationships component', () => {
     const props = {
       id: 33339587,
     };
-    const { getByText, queryByText } = render(<Relationships {...props} />);
+    const { queryByText } = render(<Relationships {...props} />);
 
     expect(queryByText('RELATIONSHIPS')).not.toBeInTheDocument();
   });
