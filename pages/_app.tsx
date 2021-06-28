@@ -29,19 +29,16 @@ interface ExtendedAppProps extends AppProps<Props> {
   };
 }
 
-const environmentName = process.env.NODE_ENV;
-
-const features: FeatureSet = {
-  'feature-flags-implementation-proof': {
-    isActive: environmentName === 'development',
-  },
-};
-
 const CustomApp = ({
   Component,
   pageProps,
 }: ExtendedAppProps): JSX.Element | null => {
   const [user] = useState(pageProps.user);
+  const features: FeatureSet = {
+    'feature-flags-implementation-proof': {
+      isActive: pageProps.environmentName === 'development',
+    },
+  };
 
   return (
     <FeatureFlagProvider features={features}>
@@ -72,6 +69,7 @@ CustomApp.getInitialProps = async (
   appContext: AppContext
 ): Promise<AppInitialProps & Props> => {
   let user;
+
   if (appContext.ctx.req && appContext.ctx.res) {
     user = isAuthorised(appContext.ctx.req) ?? user;
     const redirect =
@@ -83,11 +81,14 @@ CustomApp.getInitialProps = async (
       appContext.ctx.res.end();
     }
   }
+
   const appProps = await App.getInitialProps(appContext);
+
   const environmentName =
     process.env.REDIRECT_URL === 'social-care-service.hackney.gov.uk'
       ? 'production'
       : 'development';
+
   return {
     ...appProps,
     pageProps: { ...appProps.pageProps, user, environmentName },
