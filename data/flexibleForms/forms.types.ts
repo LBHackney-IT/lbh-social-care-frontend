@@ -42,6 +42,7 @@ export interface Field {
 export interface Step {
   id: string;
   name: string;
+  intro?: string;
   theme: string;
   fields: Field[];
 }
