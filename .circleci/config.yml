@@ -86,7 +86,7 @@ jobs:
       - *attach_workspace
       - run:
           name: generate release
-          commant: yarn release --dry-run
+          command: yarn release --dry-run
 
   generate-github-release:
     executor: aws-cli/default
@@ -94,7 +94,7 @@ jobs:
       - *attach_workspace
       - run:
           name: generate release
-          commant: yarn release
+          command: yarn release
 
   assume-role-staging:
     executor: docker-python
