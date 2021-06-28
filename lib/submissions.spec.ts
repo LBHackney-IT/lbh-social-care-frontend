@@ -3,6 +3,7 @@ import {
   finishSubmission,
   getSubmissionById,
   getUnfinishedSubmissions,
+  patchResidents,
   patchSubmissionForStep,
   startSubmission,
 } from './submissions';
@@ -107,6 +108,25 @@ describe('getSubmissionById', () => {
     });
 
     expect(data).toEqual({ submissionId: '123', formAnswers: {} });
+  });
+});
+
+describe('patchResidents', () => {
+  it('should work properly', async () => {
+    mockedAxios.patch.mockResolvedValue({
+      data: { submissionId: '123' },
+    });
+    await patchResidents('123', ['foo', 'bar']);
+    expect(mockedAxios.patch).toHaveBeenCalled();
+    expect(mockedAxios.patch.mock.calls[0][0]).toEqual(
+      `${ENDPOINT_API}/submissions/123`
+    );
+    expect(mockedAxios.patch.mock.calls[0][1]).toEqual({
+      residents: ['foo', 'bar'],
+    });
+    expect(mockedAxios.patch.mock.calls[0][2]?.headers).toEqual({
+      'x-api-key': AWS_KEY,
+    });
   });
 });
 
