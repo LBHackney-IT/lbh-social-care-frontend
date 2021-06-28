@@ -15,8 +15,8 @@ const RelationshipElement = ({ type, persons }: Props): React.ReactElement => {
           {persons
             .sort(
               (a, b) =>
-                b.lastName.localeCompare(a.lastName) ||
-                b.firstName.localeCompare(a.firstName)
+                a.lastName.localeCompare(b.lastName) ||
+                a.firstName.localeCompare(b.firstName)
             )
             .map((person, i) => {
               return (
