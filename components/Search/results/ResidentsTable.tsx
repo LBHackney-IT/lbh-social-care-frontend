@@ -4,9 +4,14 @@ import { LegacyResident, User } from 'types';
 import { canManageCases } from '../../../lib/permissions';
 import { useAuth } from '../../UserContext/UserContext';
 import styles from './ResidentsTable.module.scss';
-import { truncate } from 'lib/utils';
 
-const ResultEntry = (person: LegacyResident): React.ReactElement => {
+const ResultEntry = ({
+  person,
+  newTab,
+}: {
+  person: LegacyResident;
+  newTab?: boolean;
+}): React.ReactElement => {
   const { user } = useAuth() as { user: User };
   const { mosaicId, firstName, lastName, dateOfBirth, address, ageContext } =
     person;
@@ -25,17 +30,25 @@ const ResultEntry = (person: LegacyResident): React.ReactElement => {
     >
       <td className="govuk-table__cell">{mosaicId}</td>
       <td className="govuk-table__cell">
-        <Link href={`/people/${mosaicId}`}>
-          <a className="govuk-link govuk-custom-text-color">
+        {newTab ? (
+          <a
+            href={`/people/${mosaicId}`}
+            target="_blank"
+            rel="noreferrer"
+            className="govuk-link govuk-custom-text-color"
+          >
             {firstName} {lastName}
           </a>
-        </Link>
+        ) : (
+          <Link href={`/people/${mosaicId}`}>
+            <a className="govuk-link govuk-custom-text-color">
+              {firstName} {lastName}
+            </a>
+          </Link>
+        )}
       </td>
       <td className="govuk-table__cell">
         {dateOfBirth && new Date(dateOfBirth).toLocaleDateString('en-GB')}
-      </td>
-      <td className="govuk-table__cell">
-        {address?.address && truncate(address.address || '', 4)}
       </td>
       <td className="govuk-table__cell">
         <span className={styles.uppercase}>
@@ -57,8 +70,11 @@ const ResultEntry = (person: LegacyResident): React.ReactElement => {
 
 const ResultTable = ({
   records,
+  newTab,
 }: {
   records: LegacyResident[];
+  /** whether to open residents in a new tab? */
+  newTab?: boolean;
 }): React.ReactElement => (
   <table className="govuk-table lbh-table" data-testid="residents-table">
     <thead className="govuk-table__head">
@@ -73,16 +89,14 @@ const ResultTable = ({
           Date of birth
         </th>
         <th scope="col" className="govuk-table__header">
-          Address
+          Postcode
         </th>
-        <th scope="col" className="govuk-table__header">
-          Post code
-        </th>
+        <th scope="col" className="govuk-table__header" />
       </tr>
     </thead>
     <tbody className="govuk-table__body">
       {records.map((result) => (
-        <ResultEntry key={result.mosaicId} {...result} />
+        <ResultEntry key={result.mosaicId} person={result} newTab={newTab} />
       ))}
     </tbody>
   </table>

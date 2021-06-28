@@ -19,7 +19,7 @@ const DashboardWrapper = ({ children }: Props): React.ReactElement => (
         },
         {
           url: '/forms-in-progress',
-          text: 'Forms to complete',
+          text: 'Unfinished submissions',
         },
         {
           url: '/my-records',

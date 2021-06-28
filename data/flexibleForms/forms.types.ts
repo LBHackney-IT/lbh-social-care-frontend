@@ -1,4 +1,4 @@
-import { Resident } from 'types';
+import { Resident, User, Worker } from 'types';
 
 export interface Choice {
   value: string;
@@ -17,6 +17,7 @@ export interface Field {
     | 'select'
     | 'repeater'
     | 'repeaterGroup'
+    | 'timetable'
     | 'combobox'
     | 'file';
   /** Required value is always ignored on fields with a condition */
@@ -51,13 +52,24 @@ export interface Form {
   steps: Step[];
 }
 
-interface RepeaterGroupAnswer {
+export interface RepeaterGroupAnswer {
   [key: string]: string | string[];
 }
 
+export interface TimetableAnswer {
+  [key: string]: {
+    [key: string]: string;
+  };
+}
+
+export type Answer =
+  | string
+  | TimetableAnswer
+  | (string | RepeaterGroupAnswer)[];
+
 export interface StepAnswers {
   // questions and answers
-  [key: string]: string | (string | RepeaterGroupAnswer)[];
+  [key: string]: Answer;
 }
 
 export interface FlexibleAnswers {
@@ -66,15 +78,16 @@ export interface FlexibleAnswers {
 }
 
 export interface Submission {
-  id: string;
-  socialCareId: number;
+  submissionId: string;
   formId: string;
-  answers: FlexibleAnswers;
-  completedSteps: string[];
-  createdBy: string;
-  editedBy: string[];
+  createdBy: User;
   createdAt: string;
-  updatedAt: string;
-  submittedAt: string | null;
-  discardedAt: string | null;
+  residents: Resident[];
+  workers: Worker[];
+  editHistory: {
+    worker: Worker;
+    editTime: string;
+  }[];
+  submissionState: string;
+  formAnswers: FlexibleAnswers;
 }

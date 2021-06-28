@@ -2,15 +2,70 @@ import axios from 'axios';
 import {
   finishSubmission,
   getSubmissionById,
+  getUnfinishedSubmissions,
   patchSubmissionForStep,
   startSubmission,
 } from './submissions';
 import MockDate from 'mockdate';
+import { mockedLegacyResident } from 'factories/residents';
 
 jest.mock('axios');
 const mockedAxios = axios as jest.Mocked<typeof axios>;
 
 const { ENDPOINT_API, AWS_KEY } = process.env;
+
+describe('getUnfinishedSubmissions', () => {
+  it('should return a list of incomplete submissions', async () => {
+    mockedAxios.get.mockResolvedValue({
+      data: [
+        { submissionId: '123', formAnswers: {} },
+        { submissionId: '456', formAnswers: {} },
+      ],
+    });
+    const data = await getUnfinishedSubmissions();
+    expect(mockedAxios.get).toHaveBeenCalled();
+    expect(mockedAxios.get.mock.calls[0][0]).toEqual(
+      `${ENDPOINT_API}/submissions`
+    );
+    expect(mockedAxios.get.mock.calls[0][1]?.headers).toEqual({
+      'x-api-key': AWS_KEY,
+    });
+    expect(data).toEqual([
+      { submissionId: '123', formAnswers: {} },
+      { submissionId: '456', formAnswers: {} },
+    ]);
+  });
+
+  it('only returns submissions in the requested age context', async () => {
+    mockedAxios.get.mockResolvedValue({
+      data: [
+        {
+          submissionId: '123',
+          formAnswers: {},
+          residents: [mockedLegacyResident],
+        },
+        {
+          submissionId: '456',
+          formAnswers: {},
+          residents: [
+            {
+              ...mockedLegacyResident,
+              ageContext: 'C',
+            },
+          ],
+        },
+      ],
+    });
+    const data = await getUnfinishedSubmissions('A');
+    expect(data).toEqual([
+      {
+        submissionId: '123',
+        formAnswers: {},
+        residents: [mockedLegacyResident],
+      },
+    ]);
+  });
+});
 
 describe('startSubmission', () => {
   it('should work properly', async () => {
@@ -39,7 +94,7 @@ describe('startSubmission', () => {
 describe('getSubmissionById', () => {
   it('should work properly', async () => {
     mockedAxios.get.mockResolvedValue({
-      data: { submissionId: '123' },
+      data: { submissionId: '123', formAnswers: {} },
     });
     const data = await getSubmissionById('123');
     expect(mockedAxios.get).toHaveBeenCalled();
@@ -51,7 +106,7 @@ describe('getSubmissionById', () => {
       'x-api-key': AWS_KEY,
     });
 
-    expect(data).toEqual({ submissionId: '123' });
+    expect(data).toEqual({ submissionId: '123', formAnswers: {} });
   });
 });
 
@@ -62,20 +117,20 @@ describe('finishSubmission', () => {
     });
     MockDate.set('2000-11-22');
 
-    const data = await finishSubmission('foo');
+    await finishSubmission('foo', 'bar');
     expect(mockedAxios.patch).toHaveBeenCalled();
     expect(mockedAxios.patch.mock.calls[0][0]).toEqual(
       `${ENDPOINT_API}/submissions/foo`
     );
     expect(mockedAxios.patch.mock.calls[0][1]).toEqual({
-      submittedAt: new Date().toISOString(),
+      createdBy: 'bar',
     });
     expect(mockedAxios.patch.mock.calls[0][2]?.headers).toEqual({
       'x-api-key': AWS_KEY,
     });
-    expect(data).toEqual({
-      submissionId: '123',
-    });
+    // expect(data).toEqual({
+    //   submissionId: '123',
+    // });
   });
 });
 
@@ -87,7 +142,7 @@ const mockAnswers = {
 describe('patchSubmissionForStep', () => {
   it('should work properly', async () => {
     mockedAxios.patch.mockResolvedValue({
-      data: { submissionId: '123' },
+      data: { submissionId: '123', formAnswers: {} },
     });
     const data = await patchSubmissionForStep('123', '456', 'foo', mockAnswers);
     expect(mockedAxios.patch).toHaveBeenCalled();
@@ -95,7 +150,7 @@ describe('patchSubmissionForStep', () => {
       `${ENDPOINT_API}/submissions/123/steps/456`
     );
     expect(mockedAxios.patch.mock.calls[0][1]).toEqual({
-      stepAnswers: mockAnswers,
+      stepAnswers: JSON.stringify(mockAnswers),
       editedBy: 'foo',
     });
     expect(mockedAxios.patch.mock.calls[0][2]?.headers).toEqual({
@@ -103,6 +158,7 @@ describe('patchSubmissionForStep', () => {
     });
     expect(data).toEqual({
       submissionId: '123',
+      formAnswers: {},
     });
   });
 });

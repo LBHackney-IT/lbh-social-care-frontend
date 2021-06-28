@@ -1,9 +1,8 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import forms from 'data/flexibleForms';
-import { Submission } from 'data/flexibleForms/forms.types';
-import { getResident } from 'lib/residents';
 import { isAuthorised } from 'utils/auth';
-import { getPermissionFlag } from 'utils/user';
+import { getSubmissionById, patchSubmissionForStep } from 'lib/submissions';
+import statusCodes from 'http-status-codes';
 
 const handler = async (
   req: NextApiRequest,
@@ -11,54 +10,34 @@ const handler = async (
 ): Promise<void> => {
   const { id, stepId } = req.query;
 
-  let permissionFlag;
-  const user = isAuthorised(req);
-  if (user) permissionFlag = getPermissionFlag(user);
-
-  // 1. grab submission
-  // TODO: replace with real api call
-  const submission: Submission = {
-    id: String(id),
-    socialCareId: 1,
-    formId: 'review-of-care-and-support-plan-3c',
-    answers: {},
-    completedSteps: [],
-    editedBy: [],
-    createdBy: 'test.user@hackney.gov.uk',
-    createdAt: '2021-05-17T10:48:12.880Z',
-    updatedAt: '2021-05-17T10:48:12.892Z',
-    submittedAt: null,
-    discardedAt: null,
-  };
-
-  // 2. grab this particular step from the form
+  const submission = await getSubmissionById(String(id));
   const form = forms.find((form) => form.id === submission.formId);
   const step = form?.steps.find((step) => step.id === stepId);
 
   if (!step)
-    res.status(404).json({
+    res.status(statusCodes.NOT_FOUND).json({
       error: 'Step not found',
     });
 
   if (req.method === 'PATCH') {
-    // TODO: replace with real logic to reconcile the old submission with the new
+    const values = req.body;
+    const user = isAuthorised(req);
 
-    res.json({
-      ...submission,
-    });
+    patchSubmissionForStep(
+      String(id),
+      String(stepId),
+      String(user?.email),
+      values
+    );
+
+    res.json(submission);
   } else {
-    // 3. grab person
-    const person = await getResident(submission.socialCareId, {
-      context_flag: permissionFlag,
-    });
-
     res.json({
       ...submission,
       // include the answers for this step only
-      stepAnswers: submission.answers[stepId.toString()],
+      stepAnswers: submission.formAnswers[stepId.toString()],
       form,
       step,
-      person,
     });
   }
 };

@@ -34,14 +34,12 @@ exports[`ResidentsTable component should render a list of residents 1`] = `
           class="govuk-table__header"
           scope="col"
         >
-          Address
+          Postcode
         </th>
         <th
           class="govuk-table__header"
           scope="col"
-        >
-          Post code
-        </th>
+        />
       </tr>
     </thead>
     <tbody
@@ -70,9 +68,6 @@ exports[`ResidentsTable component should render a list of residents 1`] = `
         >
           13/11/2020
         </td>
-        <td
-          class="govuk-table__cell"
-        />
         <td
           class="govuk-table__cell"
         >
@@ -123,14 +118,12 @@ exports[`ResidentsTable component should render a resident without a postcode 1`
           class="govuk-table__header"
           scope="col"
         >
-          Address
+          Postcode
         </th>
         <th
           class="govuk-table__header"
           scope="col"
-        >
-          Post code
-        </th>
+        />
       </tr>
     </thead>
     <tbody
@@ -158,11 +151,6 @@ exports[`ResidentsTable component should render a resident without a postcode 1`
           class="govuk-table__cell"
         >
           13/11/2020
-        </td>
-        <td
-          class="govuk-table__cell"
-        >
-          some address
         </td>
         <td
           class="govuk-table__cell"

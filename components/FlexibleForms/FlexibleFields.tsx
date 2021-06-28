@@ -7,6 +7,7 @@ import RepeaterGroupField from './RepeaterGroupField';
 import ComboboxField from './ComboboxField';
 import { FormikValues, FormikTouched, FormikErrors } from 'formik';
 import { Field } from 'data/flexibleForms/forms.types';
+import TimetableField from './TimetableField';
 
 interface Props {
   values: FormikValues;
@@ -127,6 +128,9 @@ const FlexibleField = ({
         {...field}
       />
     );
+
+  if (field.type === 'timetable')
+    return <TimetableField name={field.id} label={field.question} {...field} />;
 
   return <p>Unsupported field</p>;
 };

@@ -69,7 +69,7 @@ describe(`Search`, () => {
     );
     const searchResult = await findByText('PEOPLE SEARCH RESULT');
     expect(searchResult).toBeInTheDocument();
-    expect(queryByText('load more')).not.toBeInTheDocument();
+    expect(queryByText('Load more')).not.toBeInTheDocument();
   });
 
   it('should update the queryString on search and run a new search', async () => {
@@ -123,7 +123,9 @@ describe(`Search`, () => {
         <Search {...props} type="people" />
       </UserContext.Provider>
     );
-    const errorLabel = await findByText('Oops an error occurred');
+    const errorLabel = await findByText(
+      'There was a problem. Please refresh the page or try again later.'
+    );
     expect(errorLabel).toBeInTheDocument();
   });
 
