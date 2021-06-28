@@ -120,6 +120,7 @@ export const ASCRoles = [
 ];
 
 export const CSFRoles = [
+  'Administrator', // Note to team: this is distinct from the concept of an 'admin' user in our system – watch out!
   'Allocated Worker',
   'Allocated Worker (ASC)',
   'Assistant Psychologist',
@@ -139,6 +140,9 @@ export const CSFRoles = [
   'Couples Therapist',
   'Early Help Practitioner',
   'Family Therapist',
+  'FLIP Operations Manager',
+  'FLIP Practitioner Role',
+  'FLIP House Keeper',
   'Independent Reviewing Officer',
   'Independent Reviewing Officer (Annual Review)',
   'Information Officer',
@@ -156,6 +160,7 @@ export const CSFRoles = [
   'Senior Youth Support and Development Worker',
   'Social Worker (ASC)',
   'Social Worker (CFS)',
+  'Student Social Worker',
   'Substance Misuse Worker',
   'Therapist (ASC)',
   'Trainee Child and Adolescent Psychotherapist',
@@ -165,4 +170,5 @@ export const CSFRoles = [
   'Young Hackney Youth and Development Worker',
   'Youth Justice Practitioner',
   'Youth Offending Team',
+  'Youth Support Development Worker',
 ];
