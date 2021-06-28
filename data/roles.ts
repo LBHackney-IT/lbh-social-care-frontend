@@ -141,7 +141,7 @@ export const CSFRoles = [
   'Early Help Practitioner',
   'Family Therapist',
   'FLIP Operations Manager',
-  'FLIP Practitioner Role',
+  'FLIP Practitioner',
   'FLIP House Keeper',
   'Independent Reviewing Officer',
   'Independent Reviewing Officer (Annual Review)',
