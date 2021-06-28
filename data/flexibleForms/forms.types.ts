@@ -17,6 +17,7 @@ export interface Field {
     | 'select'
     | 'repeater'
     | 'repeaterGroup'
+    | 'timetable'
     | 'combobox'
     | 'file';
   /** Required value is always ignored on fields with a condition */
@@ -56,9 +57,20 @@ export interface RepeaterGroupAnswer {
   [key: string]: string | string[];
 }
 
+export interface TimetableAnswer {
+  [key: string]: {
+    [key: string]: string;
+  };
+}
+
+export type Answer =
+  | string
+  | TimetableAnswer
+  | (string | RepeaterGroupAnswer)[];
+
 export interface StepAnswers {
   // questions and answers
-  [key: string]: string | (string | RepeaterGroupAnswer)[];
+  [key: string]: Answer;
 }
 
 export interface FlexibleAnswers {
