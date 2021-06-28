@@ -57,32 +57,35 @@ const PersonSelect = ({
   people,
   idToAdd,
   setIdToAdd,
-}: Props): React.ReactElement => (
-  <div className="govuk-form-group lbh-form-group">
-    {console.log(people)}
-    <fieldset className="govuk-fieldset">
-      <legend className="govuk-label lbh-label">{label}</legend>
-      <div
-        className={`govuk-radios govuk-radios--small lbh-radios ${s.personList}`}
-      >
-        {people.map((person) => (
-          <Choice
-            name="person"
-            label={`${person.firstName} ${person.lastName}`}
-            value={person.mosaicId}
-            idToAdd={idToAdd}
-            setIdToAdd={setIdToAdd}
-            key={person.mosaicId}
-            hint={`#${person.mosaicId} · Born ${format(
-              new Date(String(person.dateOfBirth)),
-              'd MMM yyyy'
-            )} · ${person.address?.address}`}
-            {...people}
-          />
-        ))}
-      </div>
-    </fieldset>
-  </div>
-);
+}: Props): React.ReactElement => {
+  if (people.length === 0) return <p>No results</p>;
+
+  return (
+    <div className="govuk-form-group lbh-form-group">
+      <fieldset className="govuk-fieldset">
+        <legend className="govuk-label lbh-label">{label}</legend>
+        <div
+          className={`govuk-radios govuk-radios--small lbh-radios ${s.personList}`}
+        >
+          {people.map((person) => (
+            <Choice
+              name="person"
+              label={`${person.firstName} ${person.lastName}`}
+              value={person.mosaicId}
+              idToAdd={idToAdd}
+              setIdToAdd={setIdToAdd}
+              key={person.mosaicId}
+              hint={`#${person.mosaicId} · Born ${format(
+                new Date(String(person.dateOfBirth)),
+                'd MMM yyyy'
+              )} · ${person.address?.address}`}
+              {...people}
+            />
+          ))}
+        </div>
+      </fieldset>
+    </div>
+  );
+};
 
 export default PersonSelect;

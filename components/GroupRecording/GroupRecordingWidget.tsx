@@ -1,4 +1,4 @@
-import { LegacyResident } from './../../types';
+import { Resident, LegacyResident } from './../../types';
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import PersonWidget from './../PersonWidget/PersonWidget';
@@ -9,13 +9,13 @@ import { patchResidents } from 'lib/submissions';
 import { useResidents } from 'utils/api/residents';
 
 interface Props {
-  initialPeople: LegacyResident[];
+  initialPeople: Resident[];
 }
 
 const GroupRecordingWidget = ({ initialPeople }: Props): React.ReactElement => {
   // const { query } = useRouter();
 
-  const [people, setPeople] = useState<LegacyResident[]>(initialPeople);
+  const [people, setPeople] = useState<Resident[]>(initialPeople);
   const [open, setOpen] = useState<number | false>(0);
   const [dialogOpen, setDialogOpen] = useState<boolean>(false);
   const [idToAdd, setIdToAdd] = useState<number | false>(false);
@@ -26,7 +26,16 @@ const GroupRecordingWidget = ({ initialPeople }: Props): React.ReactElement => {
   });
 
   const results: LegacyResident[] = data
+    // flatten pagination
     ?.reduce((acc, page) => acc.concat(page.residents), [])
+    // don't show anyone already on the list
+    .filter(
+      (person) =>
+        !people
+          .map((existingPerson) => existingPerson.id)
+          .includes(parseInt(person.mosaicId))
+    )
+    // only show six max
     .slice(0, 5);
 
   // useEffect(() => {
