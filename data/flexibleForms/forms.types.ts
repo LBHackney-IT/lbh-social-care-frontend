@@ -50,6 +50,7 @@ export interface Form {
   id: string;
   name: string;
   steps: Step[];
+  groupRecordable?: boolean;
 }
 
 export interface RepeaterGroupAnswer {
