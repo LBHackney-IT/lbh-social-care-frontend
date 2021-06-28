@@ -24,7 +24,6 @@ jobs:
     steps:
       - *attach_workspace
       - checkout
-      - setup_remote_docker
       - restore_cache:
           key: dependency-cache-{{ checksum "yarn.lock" }}
       - run:
@@ -72,6 +71,7 @@ jobs:
     executor: node-executor
     steps:
       - *attach_workspace
+      - setup_remote_docker
 
       - run:
           name: Build application
