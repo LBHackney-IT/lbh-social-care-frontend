@@ -16,7 +16,8 @@
     "e2e": "PORT=3000 start-server-and-test start http://localhost:3000 cy:run",
     "cy:run": "cypress run",
     "cy:open": "cypress open",
-    "build-storybook": "build-storybook"
+    "build-storybook": "build-storybook",
+    "release": "release-it"
   },
   "dependencies": {
     "axios": "^0.21.1",
@@ -49,6 +50,7 @@
   },
   "devDependencies": {
     "@babel/core": "^7.14.0",
+    "@release-it/conventional-changelog": "^3.0.1",
     "@storybook/addon-actions": "^6.1.21",
     "@storybook/addon-essentials": "^6.1.21",
     "@storybook/addon-links": "^6.1.21",
@@ -90,6 +92,7 @@
     "prettier": "^2.2.1",
     "prop-types": "^15.7.2",
     "react-is": "^17.0.2",
+    "release-it": "^14.10.0",
     "sass": "^1.32.12",
     "sass-loader": "10",
     "start-server-and-test": "^1.12.1",

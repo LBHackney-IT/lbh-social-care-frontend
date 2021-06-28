@@ -27,7 +27,7 @@ jest.mock('utils/api/cases', () => ({
 describe(`Search`, () => {
   const props = {
     onFormSubmit: jest.fn(),
-    subHeader: 'Filter results by (any combination)',
+    subHeader: <>Filter results by (any combination)</>,
     resultHeader: 'PEOPLE SEARCH RESULT',
   };
 
