@@ -9,7 +9,7 @@ import { Resident } from '../../../types';
 import { getProtocol } from 'utils/urls';
 import s from 'stylesheets/Sidebar.module.scss';
 import axios from 'axios';
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { useRouter } from 'next/router';
 
 interface Props {
