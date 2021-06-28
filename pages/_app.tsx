@@ -84,10 +84,12 @@ CustomApp.getInitialProps = async (
 
   const appProps = await App.getInitialProps(appContext);
 
-  const environmentName =
-    process.env.REDIRECT_URL === 'social-care-service.hackney.gov.uk'
-      ? 'production'
-      : 'development';
+  const environmentName = [
+    'social-care-service-staging.hackney.gov.uk',
+    'dev.hackney.gov.uk:3000',
+  ].includes(process.env.REDIRECT_URL || '')
+    ? 'development'
+    : 'production';
 
   return {
     ...appProps,
