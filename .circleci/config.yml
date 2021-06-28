@@ -133,7 +133,7 @@ workflows:
       - e2e:
           requires:
             - install-dependencies
-      - dry-run-generate-github-release
+      - dry-run-generate-github-release:
           requires:
             - e2e
       - assume-role-staging:
