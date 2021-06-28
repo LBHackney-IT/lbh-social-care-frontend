@@ -29,6 +29,9 @@ jobs:
       - run:
           name: Install Dependencies
           command: yarn
+      - run:
+          name: Set GitHub username and email
+          command: git config user.email "ci@hackney.gov.uk" && git config user.name "lbhackney-automation"
       - save_cache:
           key: dependency-cache-{{ checksum "yarn.lock" }}
           paths:
