@@ -7,6 +7,7 @@ import {
   startSubmission,
 } from './submissions';
 import MockDate from 'mockdate';
+import { mockedLegacyResident } from 'factories/residents';
 
 jest.mock('axios');
 const mockedAxios = axios as jest.Mocked<typeof axios>;
@@ -29,10 +30,39 @@ describe('getUnfinishedSubmissions', () => {
     expect(mockedAxios.get.mock.calls[0][1]?.headers).toEqual({
       'x-api-key': AWS_KEY,
     });
-
     expect(data).toEqual([
       { submissionId: '123', formAnswers: {} },
       { submissionId: '456', formAnswers: {} },
+    ]);
+  });
+
+  it('only returns submissions in the requested age context', async () => {
+    mockedAxios.get.mockResolvedValue({
+      data: [
+        {
+          submissionId: '123',
+          formAnswers: {},
+          residents: [mockedLegacyResident],
+        },
+        {
+          submissionId: '456',
+          formAnswers: {},
+          residents: [
+            {
+              ...mockedLegacyResident,
+              ageContext: 'C',
+            },
+          ],
+        },
+      ],
+    });
+    const data = await getUnfinishedSubmissions('A');
+    expect(data).toEqual([
+      {
+        submissionId: '123',
+        formAnswers: {},
+        residents: [mockedLegacyResident],
+      },
     ]);
   });
 });
