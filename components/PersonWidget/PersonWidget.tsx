@@ -13,45 +13,80 @@ const prettyDate = (isoDateString: string): string => {
 };
 
 interface Props {
-  person?: Resident;
+  person: Resident | false;
   grouped?: boolean;
   index?: number;
-  onRemove?: (value: string) => void;
+  onRemove?: (value: number) => void;
   open?: boolean;
-  setOpen?: (value: number) => void;
+  setOpen?: (value: number | false) => void;
 }
 
-const PersonWidget = ({ person }: Props): React.ReactElement => {
-  const dateOfBirth = prettyDate(person?.dateOfBirth ?? '');
-  const displayAddress = person?.address;
-  const firstAddress = person?.addresses?.[0];
+const PersonWidget = ({
+  person,
+  grouped,
+  onRemove,
+  index,
+  open,
+  setOpen,
+}: Props): React.ReactElement => {
+  if (grouped && person && onRemove && setOpen && index)
+    return (
+      <aside className={s.aside}>
+        <details className={s.details} open={open}>
+          <summary
+            className={s.summary}
+            onClick={(e) => {
+              e.preventDefault();
+              open ? setOpen(false) : setOpen(index);
+            }}
+          >
+            <h2 className={`lbh-heading-h3 ${s.title}`}>
+              {person.firstName} {person.lastName}
+            </h2>
 
-  if (person) {
+            <svg width="17" height="10" viewBox="0 0 17 10">
+              <path d="M2 1.5L8.5 7.5L15 1.5" strokeWidth="3" />
+            </svg>
+          </summary>
+          <p className={`lbh-body-s ${s.paragraph}`}>Referred 12 Feb 2021</p>
+          <p className={`lbh-body-s ${s.paragraph}`}>
+            Born {String(person.dateOfBirth)}
+          </p>
+          <p className={`lbh-body-s ${s.paragraph}`}>
+            Allocated to Namey McName
+          </p>
+
+          <p className={`lbh-body-s ${s.important}`}>
+            <strong>1 warning</strong> <span>2 open actions</span>
+          </p>
+          <button
+            className="lbh-link lbh-body-s"
+            onClick={() => onRemove(index)}
+          >
+            Remove
+          </button>
+        </details>
+      </aside>
+    );
+
+  if (person)
     return (
       <aside className={s.aside}>
         <h2 className={`lbh-heading-h3 ${s.title}`}>
           {person.firstName} {person.lastName}
         </h2>
-        {dateOfBirth && (
-          <p className={`lbh-body-s ${s.paragraph}`}>Born {dateOfBirth}</p>
-        )}
-        {displayAddress && (
-          <p className={`lbh-body-s ${s.paragraph}`}>
-            {displayAddress?.address}
-            <br />
-            {displayAddress?.postcode}
-          </p>
-        )}
-        {firstAddress && (
-          <p className={`lbh-body-s ${s.paragraph}`}>
-            {firstAddress?.addressLines}
-            <br />
-            {firstAddress?.postCode}
-          </p>
-        )}
+
+        <p className={`lbh-body-s ${s.paragraph}`}>Referred 12 Feb 2021</p>
+        <p className={`lbh-body-s ${s.paragraph}`}>
+          Born {prettyDate(String(person.dateOfBirth))}
+        </p>
+        <p className={`lbh-body-s ${s.paragraph}`}>Allocated to Namey McName</p>
+
+        <p className={`lbh-body-s ${s.important}`}>
+          <strong>1 warning</strong> <span>2 open actions</span>
+        </p>
       </aside>
     );
-  }
 
   return (
     <aside className={s.aside}>

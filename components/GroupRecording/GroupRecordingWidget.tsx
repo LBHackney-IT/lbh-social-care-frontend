@@ -1,26 +1,51 @@
-import { Resident } from './../../types';
-import { useState } from 'react';
+import { LegacyResident } from './../../types';
+import { useState, useEffect } from 'react';
+import { useRouter } from 'next/router';
 import PersonWidget from './../PersonWidget/PersonWidget';
 import Dialog from './../Dialog/Dialog';
 import s from './GroupRecordingWidget.module.scss';
 import PersonSelect from './../PersonSelect/PersonSelect';
+import { patchResidents } from 'lib/submissions';
+import { useResidents } from 'utils/api/residents';
 
 interface Props {
-  initialPeople: Resident[];
+  initialPeople: LegacyResident[];
 }
 
 const GroupRecordingWidget = ({ initialPeople }: Props): React.ReactElement => {
-  const [people, setPeople] = useState<Resident[]>(initialPeople);
-  const [open, setOpen] = useState<number>(0);
-  const [dialogOpen, setDialogOpen] = useState<boolean>(false);
+  const { query } = useRouter();
 
-  const [query, setQuery] = useState('');
+  const [people, setPeople] = useState<LegacyResident[]>(initialPeople);
+  const [open, setOpen] = useState<number | false>(0);
+  const [dialogOpen, setDialogOpen] = useState<boolean>(false);
+  const [IdToAdd, setIdToAdd] = useState<number | false>(false);
+
+  const [searchQuery, setSearchQuery] = useState('');
+  const { data } = useResidents({
+    mosaic_id: searchQuery,
+  });
+
+  const results: LegacyResident[] = data
+    ?.reduce((acc, page) => acc.concat(page.residents), [])
+    .slice(0, 5);
+
+  // useEffect(() => {
+  //   patchResidents(
+  //     String(query.id),
+  //     people.map((person) => person.id)
+  //   );
+  // }, [people, query.id]);
 
   const handleAdd = () => {
-    setPeople(people.concat(people[0]));
-    setOpen(people.length);
-    setDialogOpen(false);
-    setQuery('');
+    if (idToAdd) {
+      setPeople([
+        ...people,
+        results.find((resident) => resident.mosaicId === idToAdd),
+      ]);
+      setOpen(people.length);
+      setDialogOpen(false);
+      setSearchQuery('');
+    }
   };
 
   const handleRemove = () => {
@@ -32,6 +57,7 @@ const GroupRecordingWidget = ({ initialPeople }: Props): React.ReactElement => {
 
   return (
     <section>
+      {/* {query.id} */}
       <h3 className="govuk-visually-hidden">People</h3>
       {people.map((person, i) => (
         <PersonWidget
@@ -74,14 +100,13 @@ const GroupRecordingWidget = ({ initialPeople }: Props): React.ReactElement => {
       >
         <div className="govuk-form-group lbh-form-group">
           <label className="govuk-label lbh-label" htmlFor="query">
-            {/* Search by name, contact detail or social care ID */}
             Search by social care ID
           </label>
           <div className="lbh-search-box" style={{ marginTop: 0 }}>
             <input
               className="govuk-input lbh-input"
-              value={query}
-              onChange={(e) => setQuery(e.target.value)}
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
               id="query"
               name="query"
               type="search"
@@ -107,13 +132,21 @@ const GroupRecordingWidget = ({ initialPeople }: Props): React.ReactElement => {
           </div>
         </div>
 
-        {query && (
-          <PersonSelect name="person" label="Matching people" people={[]} />
+        {searchQuery && results && (
+          <PersonSelect
+            people={results}
+            label="Matching people"
+            name="foo"
+            selectedPerson={selectedPerson}
+            setSelectedPerson={setSelectedPerson}
+          />
         )}
 
-        <PersonSelect name="person" label="Or choose a relative" people={[]} />
-
-        <button className="govuk-button lbh-button" onClick={handleAdd}>
+        <button
+          className="govuk-button lbh-button"
+          onClick={handleAdd}
+          disabled={!selectedPerson}
+        >
           Add person
         </button>
       </Dialog>
