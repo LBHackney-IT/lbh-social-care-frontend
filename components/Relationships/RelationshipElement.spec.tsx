@@ -4,6 +4,7 @@ import RelationshipElement from './RelationshipElement';
 import {
   mockedParentRelationship,
   mockedUnbornSiblingRelationship,
+  mockedOrderedRelationship,
 } from 'factories/relationships';
 
 jest.mock('next/router', () => ({
@@ -31,5 +32,15 @@ describe('Relationships component', () => {
 
     expect(getByText('Unborn sibling')).toBeInTheDocument();
     expect(getByText('Jambi Neverborn')).toBeInTheDocument();
+  });
+  it('should populate the list in alphabetical order', async () => {
+    const { queryAllByText } = render(
+      <RelationshipElement {...mockedOrderedRelationship} />
+    );
+
+    const names = queryAllByText(/Muciaccia/);
+
+    expect(names[0]).toHaveTextContent('Giovanni Muciaccia');
+    expect(names[1]).toHaveTextContent('Neil Muciaccia');
   });
 });
