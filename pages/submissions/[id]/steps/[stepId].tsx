@@ -13,6 +13,7 @@ import { getProtocol } from 'utils/urls';
 import { FormikValues, FormikHelpers } from 'formik';
 import { InitialValues } from 'lib/utils';
 import { AutosaveProvider, AutosaveIndicator } from 'contexts/autosaveContext';
+import GroupRecordingWidget from 'components/GroupRecording/GroupRecordingWidget';
 
 interface Props {
   params: {
@@ -109,7 +110,11 @@ const StepPage = ({
             <div className={s.sticky}>
               <AutosaveIndicator />
               <p className="lbh-body">This is for:</p>
-              <PersonWidget person={person} />
+              {form.groupRecordable ? (
+                <GroupRecordingWidget initialPeople={residents} />
+              ) : (
+                <PersonWidget person={residents[0]} />
+              )}
             </div>
           </div>
         </div>

@@ -11,6 +11,7 @@ import s from 'stylesheets/Sidebar.module.scss';
 import axios from 'axios';
 import { useState } from 'react';
 import { useRouter } from 'next/router';
+import GroupRecordingWidget from 'components/GroupRecording/GroupRecordingWidget';
 
 interface Props {
   params: {
@@ -78,7 +79,11 @@ const TaskListPage = ({
         <div className="govuk-grid-column-one-third">
           <div className={s.sticky}>
             <p className="lbh-body">This is for:</p>
-            <PersonWidget person={person} />
+            {form.groupRecordable ? (
+              <GroupRecordingWidget initialPeople={residents} />
+            ) : (
+              <PersonWidget person={residents[0]} />
+            )}
           </div>
         </div>
       </div>

@@ -1,5 +1,5 @@
 import React from 'react';
-import s from '../styles/PersonSelect.module.scss';
+import s from './PersonSelect.module.scss';
 import { Resident } from 'types';
 import { format } from 'date-fns';
 

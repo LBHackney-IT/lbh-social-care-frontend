@@ -2,7 +2,7 @@ import { Resident } from './../../types';
 import { useState } from 'react';
 import PersonWidget from './../PersonWidget/PersonWidget';
 import Dialog from './../Dialog/Dialog';
-import s from '../styles/PersonWidget.module.scss';
+import s from './GroupRecordingWidget.module.scss';
 import PersonSelect from './../PersonSelect/PersonSelect';
 
 interface Props {

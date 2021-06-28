@@ -173,3 +173,14 @@ input[type='date'] {
 .govuk-checkboxes__label:before {
   background: lbh-colour('lbh-white');
 }
+
+// make reach portal'd components (eg. dialogs, overlays) appear on top of others, like they should be
+reach-portal {
+  position: relative;
+  z-index: 4;
+}
+
+// fix appearence of close button on dialog
+.lbh-dialog__close {
+  margin-top: 0;
+}
