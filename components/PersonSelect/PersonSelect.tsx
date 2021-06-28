@@ -4,12 +4,12 @@ import { LegacyResident } from 'types';
 import { format } from 'date-fns';
 
 interface ChoiceProps {
-  value: string | number;
+  value: number;
   name: string;
   label: string;
   hint: string;
-  selectedPerson: LegacyResident;
-  setSelectedPerson: (value: LegacyResident) => void;
+  idToAdd: number | false;
+  setIdToAdd: (value: number) => void;
 }
 
 const Choice = ({
@@ -17,8 +17,8 @@ const Choice = ({
   name,
   label,
   hint,
-  selectedPerson,
-  setSelectedPerson,
+  idToAdd,
+  setIdToAdd,
 }: ChoiceProps): React.ReactElement => (
   <div className={`govuk-radios__item ${s.personResult}`}>
     <input
@@ -28,8 +28,8 @@ const Choice = ({
       type="radio"
       value={value}
       aria-describedby={`${name}-${value}-hint`}
-      checked={selectedPerson.mosaicId === value}
-      onChange={(e) => setSelectedPerson()}
+      checked={idToAdd === value}
+      onChange={() => setIdToAdd(value)}
     />
 
     <label
@@ -47,13 +47,17 @@ const Choice = ({
 
 interface Props {
   label: string;
-  name: string;
   people: LegacyResident[];
-  selectedPerson: LegacyResident;
-  setSelectedPerson: (value: LegacyResident) => void;
+  idToAdd: number | false;
+  setIdToAdd: (value: number) => void;
 }
 
-const PersonSelect = ({ label, people }: Props): React.ReactElement => (
+const PersonSelect = ({
+  label,
+  people,
+  idToAdd,
+  setIdToAdd,
+}: Props): React.ReactElement => (
   <div className="govuk-form-group lbh-form-group">
     {console.log(people)}
     <fieldset className="govuk-fieldset" aria-describedby="example-hint">
@@ -66,6 +70,8 @@ const PersonSelect = ({ label, people }: Props): React.ReactElement => (
             name="person"
             label={`${person.firstName} ${person.lastName}`}
             value={person.mosaicId}
+            idToAdd={idToAdd}
+            setIdToAdd={setIdToAdd}
             key={person.mosaicId}
             hint={`#${person.mosaicId} · Born ${format(
               new Date(String(person.dateOfBirth)),

@@ -13,12 +13,12 @@ interface Props {
 }
 
 const GroupRecordingWidget = ({ initialPeople }: Props): React.ReactElement => {
-  const { query } = useRouter();
+  // const { query } = useRouter();
 
   const [people, setPeople] = useState<LegacyResident[]>(initialPeople);
   const [open, setOpen] = useState<number | false>(0);
   const [dialogOpen, setDialogOpen] = useState<boolean>(false);
-  const [IdToAdd, setIdToAdd] = useState<number | false>(false);
+  const [idToAdd, setIdToAdd] = useState<number | false>(false);
 
   const [searchQuery, setSearchQuery] = useState('');
   const { data } = useResidents({
@@ -136,16 +136,15 @@ const GroupRecordingWidget = ({ initialPeople }: Props): React.ReactElement => {
           <PersonSelect
             people={results}
             label="Matching people"
-            name="foo"
-            selectedPerson={selectedPerson}
-            setSelectedPerson={setSelectedPerson}
+            idToAdd={idToAdd}
+            setIdToAdd={setIdToAdd}
           />
         )}
 
         <button
           className="govuk-button lbh-button"
           onClick={handleAdd}
-          disabled={!selectedPerson}
+          disabled={!idToAdd}
         >
           Add person
         </button>
