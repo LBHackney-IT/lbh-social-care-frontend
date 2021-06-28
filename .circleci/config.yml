@@ -24,6 +24,7 @@ jobs:
     steps:
       - *attach_workspace
       - checkout
+      - setup_remote_docker
       - restore_cache:
           key: dependency-cache-{{ checksum "yarn.lock" }}
       - run:
@@ -167,8 +168,9 @@ workflows:
             - install-dependencies
       - security-scan:
           requires:
-            - tests
-            - e2e
+            - install-dependencies
+            # - tests
+            # - e2e
       - generate-draft-github-release:
           requires:
             - tests
