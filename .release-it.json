@@ -3,7 +3,7 @@
     "publish": false
   },
   "git": {
-    "commitMessage": "chore: release v${version}"
+    "commitMessage": "chore: release v${version} [skip ci]"
   },
   "github": {
     "release": true
