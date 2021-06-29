@@ -10,6 +10,7 @@ import {
 } from 'formik';
 import s from './Repeater.module.scss';
 import cx from 'classnames';
+import caseNoteTags from 'data/caseNoteTags';
 
 interface FieldProps {
   touched: FormikTouched<FormikValues>;
@@ -33,9 +34,7 @@ const RepeaterField = ({
   itemName,
   required,
 }: FieldProps): React.ReactElement => {
-  const { values } = useFormikContext();
-
-  const repeaterValues = [].concat(getIn(values, name));
+  const { values, setFieldValue } = useFormikContext<FormikValues>();
 
   return (
     <div
@@ -43,25 +42,30 @@ const RepeaterField = ({
         getIn(touched, name) && getIn(errors, name) && 'govuk-form-group--error'
       }`}
     >
-      <fieldset
-        className="govuk-fieldset"
-        aria-describedby={hint && `${name}-hint`}
-      >
-        <legend className="govuk-label lbh-label" data-testid={name}>
-          {label}{' '}
+      <div className="govuk-fieldset" aria-describedby={hint && `${name}-hint`}>
+        <label
+          htmlFor={name}
+          data-testid={name}
+          className="govuk-label lbh-label"
+        >
+          {label}
           {required && (
             <span className="govuk-required">
               <span aria-hidden="true">*</span>
               <span className="govuk-visually-hidden">required</span>
             </span>
           )}
-        </legend>
+        </label>
 
         {hint && (
           <span id={`${name}-hint`} className="govuk-hint lbh-hint">
             {hint}
           </span>
         )}
+
+        <span id={`${name}-hint`} className="govuk-hint lbh-hint">
+          Separate tags with a comma
+        </span>
 
         <ErrorMessage name={name}>
           {(msg) => (
@@ -72,51 +76,16 @@ const RepeaterField = ({
           )}
         </ErrorMessage>
 
-        <FieldArray name={name}>
-          {({ remove, push }) => (
-            <>
-              {repeaterValues.map((item, i) => (
-                <div className={s.row} key={i}>
-                  <label
-                    className="govuk-visually-hidden"
-                    htmlFor={`${name}.${i}`}
-                  >
-                    {label}
-                  </label>
-
-                  <RawField
-                    name={`${name}.${i}`}
-                    id={`${name}.${i}`}
-                    className={cx(`govuk-input lbh-input`, className)}
-                  />
-
-                  <button
-                    type="button"
-                    className="lbh-link"
-                    onClick={() => remove(i)}
-                  >
-                    Remove
-                  </button>
-                </div>
-              ))}
-
-              <button
-                type="button"
-                onClick={() => push('')}
-                className={`govuk-button lbh-button lbh-button--add ${s.addAnother}`}
-              >
-                <svg width="12" height="12" viewBox="0 0 12 12">
-                  <path d="M6.94 0L5 0V12H6.94V0Z" />
-                  <path d="M12 5H0V7H12V5Z" />
-                </svg>
-                {repeaterValues.length > 0
-                  ? `Add another ${itemName || 'item'}`
-                  : `Add ${itemName || 'item'}`}
-              </button>
-            </>
-          )}
-        </FieldArray>
-      </fieldset>
+        <RawField
+          name={`${name}`}
+          id={`${name}`}
+          className={cx(`govuk-input lbh-input`, className)}
+          value={values[name].join(',')}
+          onChange={(e: Event) =>
+            setFieldValue(name, (e.target as HTMLInputElement).value.split(','))
+          }
+        />
+      </div>
     </div>
   );
 };

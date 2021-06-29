@@ -9,7 +9,6 @@ import { FormikValues, FormikTouched, FormikErrors } from 'formik';
 import { Field } from 'data/flexibleForms/forms.types';
 import TimetableField from './TimetableField';
 import TagsField from './TagsField';
-import caseNoteTags from 'data/caseNoteTags';
 
 interface Props {
   values: FormikValues;
