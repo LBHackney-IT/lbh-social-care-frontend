@@ -72,6 +72,22 @@ Releases and corresponding release notes are automatically generated when code i
 
 We use a tool called [`release-it`](https://github.com/release-it/release-it) to automate this process.
 
+If PR titles (and their associated squash commit title) follows the patterns set out in [conventional commits](https://www.conventionalcommits.org/en/v1.0.0/), then your change will be included in the release notes. Some examples can be found below:
+
+> **A feature, with an associated JIRA ticket**
+>
+> `feat(SCT-123): adds a new way to view users`
+
+> **A fix, without an associated JIRA ticket**
+>
+> `fix: correct button size in Safari`
+
+> **A chore, with multiple associated JIRA tickets**
+>
+> `chore(SCT-123, SCT-456): correct button size in Safari`
+
+> ⚠️ Note! If your PR title doesn't follow this pattern, your change will still go to production when released, but it won't be in the release notes!
+
 #### Configuration
 
 Our release tool is configured via the `.release-it.json` file in the repo, alongside the two release jobs in our CircleCI config (at `.circleci/config.yml`).
