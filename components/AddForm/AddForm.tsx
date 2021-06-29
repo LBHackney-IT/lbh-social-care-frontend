@@ -30,7 +30,7 @@ const AddForm = ({ person }: { person: Resident }): React.ReactElement => {
   }[];
 
   // handle new flexible forms
-  if (ageContext === 'A') {
+  if (ageContext === 'A' && (user.hasDevPermissions || user.hasAdminPermissions)) {
     internalForms = internalForms.concat(
       flexibleForms.map((form) => ({
         text: form.name,
