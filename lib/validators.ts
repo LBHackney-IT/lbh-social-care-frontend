@@ -16,7 +16,11 @@ const getErrorMessage = (field: Field) => {
   if (field.error) return field.error;
   if (field.type === `timetable`) return `Total hours must be more than zero`;
   if (field.type === `checkboxes`) return `Choose at least one item`;
-  if (field.type === 'repeater' || field.type === `repeaterGroup`)
+  if (
+    field.type === 'tags' ||
+    field.type === 'repeater' ||
+    field.type === `repeaterGroup`
+  )
     return `Add at least one ${field.itemName || 'item'}`;
   return `This question is required`;
 };
@@ -39,7 +43,11 @@ export const generateFlexibleSchema = (
       );
     } else if (field.type === 'timetable') {
       shape[field.id] = Yup.object();
-    } else if (field.type === 'checkboxes' || field.type === 'repeater') {
+    } else if (
+      field.type === 'checkboxes' ||
+      field.type === 'repeater' ||
+      field.type === 'tags'
+    ) {
       shape[field.id] = Yup.array().of(Yup.string());
     } else {
       shape[field.id] = Yup.string();
