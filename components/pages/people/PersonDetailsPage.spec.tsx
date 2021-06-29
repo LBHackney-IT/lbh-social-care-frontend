@@ -55,6 +55,13 @@ describe('<PersonDetailsPage />', () => {
       mutate: jest.fn(),
       revalidate: jest.fn(),
     }));
+
+    jest.spyOn(warningNotes, 'useWarningNotes').mockImplementation(() => ({
+      data: mockedWarningNote,
+      mutate: jest.fn(),
+      revalidate: jest.fn(),
+      isValidating: false,
+    }));
   });
 
   describe('for all users', () => {
@@ -82,13 +89,6 @@ describe('<PersonDetailsPage />', () => {
         createMockedPersonView(mockedAdultsResident)
       );
 
-      jest.spyOn(warningNotes, 'useWarningNotes').mockImplementation(() => ({
-        data: mockedWarningNote,
-        mutate: jest.fn(),
-        revalidate: jest.fn(),
-        isValidating: false,
-      }));
-
       render(
         <AuthProvider user={mockedAdultsUser}>
           <PersonDetailsPage personId={100} />
@@ -98,17 +98,10 @@ describe('<PersonDetailsPage />', () => {
       screen.getByText('WARNING NOTE');
     });
 
-    it('should not show any active warning notes for the person if the person is a child', () => {
+    it('should show any active warning notes for the person if the person is a child', () => {
       (PersonView as jest.Mock).mockImplementationOnce(
         createMockedPersonView(mockedChildrensResident)
       );
-
-      jest.spyOn(warningNotes, 'useWarningNotes').mockImplementation(() => ({
-        data: mockedWarningNote,
-        mutate: jest.fn(),
-        revalidate: jest.fn(),
-        isValidating: false,
-      }));
 
       render(
         <AuthProvider user={mockedAdultsUser}>
@@ -116,7 +109,7 @@ describe('<PersonDetailsPage />', () => {
         </AuthProvider>
       );
 
-      expect(screen.queryByText('WARNING NOTE')).toBeNull();
+      screen.getByText('WARNING NOTE');
     });
 
     it('should show a restricted banner for a childrens person', () => {
@@ -142,13 +135,6 @@ describe('<PersonDetailsPage />', () => {
         createMockedPersonView(mockedChildrensResident)
       );
 
-      jest.spyOn(warningNotes, 'useWarningNotes').mockImplementation(() => ({
-        data: mockedWarningNote,
-        mutate: jest.fn(),
-        revalidate: jest.fn(),
-        isValidating: false,
-      }));
-
       render(
         <AuthProvider user={mockedChildrensUser}>
           <PersonDetailsPage personId={100} />
@@ -158,17 +144,10 @@ describe('<PersonDetailsPage />', () => {
       screen.getByText('WARNING NOTE');
     });
 
-    it('should not show any active warning notes for the person if the person is an adult', () => {
+    it('should show any active warning notes for the person if the person is an adult', () => {
       (PersonView as jest.Mock).mockImplementationOnce(
         createMockedPersonView(mockedAdultsResident)
       );
-
-      jest.spyOn(warningNotes, 'useWarningNotes').mockImplementation(() => ({
-        data: mockedWarningNote,
-        mutate: jest.fn(),
-        revalidate: jest.fn(),
-        isValidating: false,
-      }));
 
       render(
         <AuthProvider user={mockedChildrensUser}>
@@ -176,7 +155,7 @@ describe('<PersonDetailsPage />', () => {
         </AuthProvider>
       );
 
-      expect(screen.queryByText('WARNING NOTE')).toBeNull();
+      screen.getByText('WARNING NOTE');
     });
 
     it('should show a restricted banner for an adult person', () => {
