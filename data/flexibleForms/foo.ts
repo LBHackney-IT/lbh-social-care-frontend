@@ -11,7 +11,9 @@ const form: Form = {
       fields: [
         {
           id: 'Primary address tenure type',
-          question: 'Primary address tenure type',
+          question: 'Topics',
+          hint: 'Add as many as you need',
+
           type: 'tags',
           required: true,
         },
