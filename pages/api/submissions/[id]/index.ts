@@ -20,12 +20,11 @@ const handler = async (
         const user = isAuthorised(req);
         let submission;
         if (req.body.residents) {
-          console.log(req.body.residents);
-          // submission = await patchResidents(
-          //   String(id),
-          //   String(user?.email),
-          //   req.body.residents
-          // );
+          submission = await patchResidents(
+            String(id),
+            String(user?.email),
+            req.body.residents
+          );
         } else {
           submission = await finishSubmission(String(id), String(user?.email));
         }

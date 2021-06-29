@@ -41,7 +41,7 @@ const GroupRecordingWidget = ({ initialPeople }: Props): React.ReactElement => {
 
   useEffect(() => {
     axios.patch(`/api/submissions/${query.id}`, {
-      residents: people.map((person) => person.id || person.mosaicId),
+      residents: people.map((person) => parseInt(person.id || person.mosaicId)),
     });
   }, [people, query.id]);
 
