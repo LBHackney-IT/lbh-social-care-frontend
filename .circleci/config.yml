@@ -75,10 +75,10 @@ jobs:
       #  command: zap.sh -daemon -host 0.0.0.0 -port 3000 -config api.disablekey=true -config api.addrs.addr.name=.* -config api.addrs.addr.regex=true
     steps:
       - checkout
-      - run:
-        name: Node version
-        command: |
+      - run: |
           node --version
+
+
     #executor: node-executor
     #steps:
     #  - *attach_workspace
