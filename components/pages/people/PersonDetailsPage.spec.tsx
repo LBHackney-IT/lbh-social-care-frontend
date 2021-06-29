@@ -1,5 +1,6 @@
 import { render, RenderResult, screen } from '@testing-library/react';
 
+import * as residentsAPI from '../../../utils/api/residents';
 import { residentFactory } from '../../../factories/residents';
 import { AuthProvider } from '../../UserContext/UserContext';
 import PersonView from '../../PersonView/PersonView';
@@ -71,6 +72,14 @@ describe('<PersonDetailsPage />', () => {
       (PersonView as jest.Mock).mockImplementationOnce(
         createMockedPersonView(mockedAdultsResident)
       );
+
+      jest.spyOn(residentsAPI, 'useResident').mockImplementation(() => ({
+        data: mockedAdultsResident,
+        isValidating: false,
+        mutate: jest.fn(),
+        revalidate: jest.fn(),
+      }));
+
       renderResult = render(
         <AuthProvider user={mockedAdultsUser}>
           <PersonDetailsPage personId={100} />
@@ -89,6 +98,13 @@ describe('<PersonDetailsPage />', () => {
         createMockedPersonView(mockedAdultsResident)
       );
 
+      jest.spyOn(residentsAPI, 'useResident').mockImplementation(() => ({
+        data: mockedAdultsResident,
+        isValidating: false,
+        mutate: jest.fn(),
+        revalidate: jest.fn(),
+      }));
+
       render(
         <AuthProvider user={mockedAdultsUser}>
           <PersonDetailsPage personId={100} />
@@ -102,6 +118,13 @@ describe('<PersonDetailsPage />', () => {
       (PersonView as jest.Mock).mockImplementationOnce(
         createMockedPersonView(mockedChildrensResident)
       );
+
+      jest.spyOn(residentsAPI, 'useResident').mockImplementation(() => ({
+        data: mockedChildrensResident,
+        isValidating: false,
+        mutate: jest.fn(),
+        revalidate: jest.fn(),
+      }));
 
       render(
         <AuthProvider user={mockedAdultsUser}>
@@ -117,6 +140,13 @@ describe('<PersonDetailsPage />', () => {
         createMockedPersonView(mockedChildrensResident)
       );
 
+      jest.spyOn(residentsAPI, 'useResident').mockImplementation(() => ({
+        data: mockedChildrensResident,
+        isValidating: false,
+        mutate: jest.fn(),
+        revalidate: jest.fn(),
+      }));
+
       render(
         <AuthProvider user={mockedAdultsUser}>
           <PersonDetailsPage personId={100} />
@@ -127,6 +157,48 @@ describe('<PersonDetailsPage />', () => {
         'Some details for this person are restricted due to your permissions.'
       );
     });
+
+    it('should show an edit link on active warning notes if the person is an adult', () => {
+      (PersonView as jest.Mock).mockImplementationOnce(
+        createMockedPersonView(mockedAdultsResident)
+      );
+
+      jest.spyOn(residentsAPI, 'useResident').mockImplementation(() => ({
+        data: mockedAdultsResident,
+        isValidating: false,
+        mutate: jest.fn(),
+        revalidate: jest.fn(),
+      }));
+
+      render(
+        <AuthProvider user={mockedAdultsUser}>
+          <PersonDetailsPage personId={100} />
+        </AuthProvider>
+      );
+
+      screen.getAllByText('Review / end');
+    });
+
+    it('should not show an edit link on active warning notes if the person is a child', () => {
+      (PersonView as jest.Mock).mockImplementationOnce(
+        createMockedPersonView(mockedChildrensResident)
+      );
+
+      jest.spyOn(residentsAPI, 'useResident').mockImplementation(() => ({
+        data: mockedChildrensResident,
+        isValidating: false,
+        mutate: jest.fn(),
+        revalidate: jest.fn(),
+      }));
+
+      render(
+        <AuthProvider user={mockedAdultsUser}>
+          <PersonDetailsPage personId={100} />
+        </AuthProvider>
+      );
+
+      expect(screen.queryByText('Review / end')).toBeNull();
+    });
   });
 
   describe('as a childrens user', () => {
@@ -134,6 +206,13 @@ describe('<PersonDetailsPage />', () => {
       (PersonView as jest.Mock).mockImplementationOnce(
         createMockedPersonView(mockedChildrensResident)
       );
+
+      jest.spyOn(residentsAPI, 'useResident').mockImplementation(() => ({
+        data: mockedChildrensResident,
+        isValidating: false,
+        mutate: jest.fn(),
+        revalidate: jest.fn(),
+      }));
 
       render(
         <AuthProvider user={mockedChildrensUser}>
@@ -149,6 +228,13 @@ describe('<PersonDetailsPage />', () => {
         createMockedPersonView(mockedAdultsResident)
       );
 
+      jest.spyOn(residentsAPI, 'useResident').mockImplementation(() => ({
+        data: mockedAdultsResident,
+        isValidating: false,
+        mutate: jest.fn(),
+        revalidate: jest.fn(),
+      }));
+
       render(
         <AuthProvider user={mockedChildrensUser}>
           <PersonDetailsPage personId={100} />
@@ -163,6 +249,13 @@ describe('<PersonDetailsPage />', () => {
         createMockedPersonView(mockedAdultsResident)
       );
 
+      jest.spyOn(residentsAPI, 'useResident').mockImplementation(() => ({
+        data: mockedAdultsResident,
+        isValidating: false,
+        mutate: jest.fn(),
+        revalidate: jest.fn(),
+      }));
+
       render(
         <AuthProvider user={mockedChildrensUser}>
           <PersonDetailsPage personId={100} />
@@ -172,6 +265,48 @@ describe('<PersonDetailsPage />', () => {
       screen.getByText(
         'Some details for this person are restricted due to your permissions.'
       );
+    });
+
+    it('should show an edit link on active warning notes if the person is a child', () => {
+      (PersonView as jest.Mock).mockImplementationOnce(
+        createMockedPersonView(mockedChildrensResident)
+      );
+
+      jest.spyOn(residentsAPI, 'useResident').mockImplementation(() => ({
+        data: mockedChildrensResident,
+        isValidating: false,
+        mutate: jest.fn(),
+        revalidate: jest.fn(),
+      }));
+
+      render(
+        <AuthProvider user={mockedChildrensUser}>
+          <PersonDetailsPage personId={100} />
+        </AuthProvider>
+      );
+
+      screen.getAllByText('Review / end');
+    });
+
+    it('should not show an edit link on active warning notes if the person is an adult', () => {
+      (PersonView as jest.Mock).mockImplementationOnce(
+        createMockedPersonView(mockedAdultsResident)
+      );
+
+      jest.spyOn(residentsAPI, 'useResident').mockImplementation(() => ({
+        data: mockedAdultsResident,
+        isValidating: false,
+        mutate: jest.fn(),
+        revalidate: jest.fn(),
+      }));
+
+      render(
+        <AuthProvider user={mockedChildrensUser}>
+          <PersonDetailsPage personId={100} />
+        </AuthProvider>
+      );
+
+      expect(screen.queryByText('Review / end')).toBeNull();
     });
   });
 });
