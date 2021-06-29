@@ -24,7 +24,7 @@ interface FieldProps {
   itemName?: string;
 }
 
-const RepeaterField = ({
+const TagsField = ({
   touched,
   errors,
   name,
@@ -80,7 +80,7 @@ const RepeaterField = ({
           name={`${name}`}
           id={`${name}`}
           className={cx(`govuk-input lbh-input`, className)}
-          value={values[name].join(',')}
+          value={values[name]?.join(',')}
           onChange={(e: Event) =>
             setFieldValue(name, (e.target as HTMLInputElement).value.split(','))
           }
@@ -90,4 +90,4 @@ const RepeaterField = ({
   );
 };
 
-export default RepeaterField;
+export default TagsField;
