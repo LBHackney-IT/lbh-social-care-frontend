@@ -14,6 +14,10 @@ import type { User } from 'types';
 
 import 'stylesheets/all.scss';
 import 'stylesheets/header.scss';
+import {
+  FeatureFlagProvider,
+  FeatureSet,
+} from '../lib/feature-flags/feature-flags';
 
 interface Props {
   user?: Partial<User>;
@@ -30,8 +34,14 @@ const CustomApp = ({
   pageProps,
 }: ExtendedAppProps): JSX.Element | null => {
   const [user] = useState(pageProps.user);
+  const features: FeatureSet = {
+    'feature-flags-implementation-proof': {
+      isActive: pageProps.environmentName === 'development',
+    },
+  };
+
   return (
-    <>
+    <FeatureFlagProvider features={features}>
       <SWRConfig
         value={{
           fetcher: (resource, options) =>
@@ -51,7 +61,7 @@ const CustomApp = ({
           </GoogleAnalytics>
         </AuthProvider>
       </SWRConfig>
-    </>
+    </FeatureFlagProvider>
   );
 };
 
@@ -59,6 +69,7 @@ CustomApp.getInitialProps = async (
   appContext: AppContext
 ): Promise<AppInitialProps & Props> => {
   let user;
+
   if (appContext.ctx.req && appContext.ctx.res) {
     user = isAuthorised(appContext.ctx.req) ?? user;
     const redirect =
@@ -70,8 +81,20 @@ CustomApp.getInitialProps = async (
       appContext.ctx.res.end();
     }
   }
+
   const appProps = await App.getInitialProps(appContext);
-  return { ...appProps, pageProps: { ...appProps.pageProps, user } };
+
+  const environmentName = [
+    'social-care-service-staging.hackney.gov.uk',
+    'dev.hackney.gov.uk:3000',
+  ].includes(process.env.REDIRECT_URL || '')
+    ? 'development'
+    : 'production';
+
+  return {
+    ...appProps,
+    pageProps: { ...appProps.pageProps, user, environmentName },
+  };
 };
 
 export default CustomApp;
