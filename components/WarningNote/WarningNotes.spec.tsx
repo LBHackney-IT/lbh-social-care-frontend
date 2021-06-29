@@ -4,7 +4,7 @@ import * as residentsAPI from 'utils/api/residents';
 import * as warningNotes from 'utils/api/warningNotes';
 import WarningNotes from './WarningNotes';
 
-import { mockedWarningNote, warningNoteFactory } from 'factories/warningNotes';
+import { warningNoteFactory } from 'factories/warningNotes';
 import { AuthProvider } from '../UserContext/UserContext';
 import { userFactory } from '../../factories/users';
 import { residentFactory } from '../../factories/residents';
