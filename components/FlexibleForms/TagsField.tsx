@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import {
   useFormikContext,
   getIn,
@@ -7,7 +7,7 @@ import {
   FormikTouched,
   FormikValues,
 } from 'formik';
-import { useMultipleSelection, useCombobox } from 'downshift';
+import { useCombobox } from 'downshift';
 import s from './ComboboxField.module.scss';
 import cx from 'classnames';
 import caseNoteTags from 'data/caseNoteTags';
@@ -33,28 +33,15 @@ const Field = ({
   required,
 }: FieldProps): React.ReactElement => {
   const { values, setFieldValue } = useFormikContext<FormikValues>();
-
   const [inputValue, setInputValue] = useState<string>('');
 
-  const {
-    getSelectedItemProps,
-    getDropdownProps,
-    addSelectedItem,
-    removeSelectedItem,
-    selectedItems,
-  } = useMultipleSelection({ initialSelectedItems: values[name] });
+  const tags: string[] = values[name];
 
-  useEffect(() => {
-    setFieldValue(name, selectedItems);
-    // setInputValue('');
-  }, [selectedItems, name, setFieldValue]);
-
-  const items = caseNoteTags.filter((tag) => !values[name].includes(tag));
-
-  const getFilteredItems = (items: string[]) =>
-    items.filter(
+  const items = caseNoteTags
+    .filter((tag) => !values[name].includes(tag))
+    .filter(
       (item) =>
-        selectedItems.indexOf(item) < 0 &&
+        tags.indexOf(item) < 0 &&
         item.toLowerCase().startsWith(inputValue.toLowerCase())
     );
 
@@ -70,7 +57,7 @@ const Field = ({
     inputValue,
     defaultHighlightedIndex: 0, // after selection, highlight the first item.
     selectedItem: null,
-    items: getFilteredItems(items),
+    items: items.length > 0 ? items : [inputValue],
     onStateChange: ({ inputValue, type, selectedItem }) => {
       switch (type) {
         case useCombobox.stateChangeTypes.InputChange:
@@ -79,8 +66,10 @@ const Field = ({
         case useCombobox.stateChangeTypes.InputKeyDownEnter:
         case useCombobox.stateChangeTypes.ItemClick:
         case useCombobox.stateChangeTypes.InputBlur:
-          console.log(inputValue, type, selectedItem);
-          addSelectedItem(inputValue);
+          if (selectedItem) {
+            setFieldValue(name, [...tags, selectedItem]);
+            setInputValue('');
+          }
           break;
         default:
           break;
@@ -123,27 +112,23 @@ const Field = ({
         )}
       </ErrorMessage>
 
-      {JSON.stringify(selectedItems)}
-
       <ul
-        className="lbh-list lbh-body-s govuk-!-margin-bottom-4"
+        className="lbh-body-s govuk-!-margin-bottom-4"
         aria-live="polite"
         aria-relevant="additions"
       >
-        {selectedItems.map((selectedItem, index) => (
-          <li
-            className={s.tag}
-            key={`selected-item-${index}`}
-            {...getSelectedItemProps({ selectedItem, index })}
-          >
-            {selectedItem}{' '}
+        {tags.map((tag, i) => (
+          <li className={s.tag} key={i}>
+            {tag}{' '}
             <button
-              onClick={(e) => {
-                e.stopPropagation();
-                removeSelectedItem(selectedItem);
+              onClick={() => {
+                setFieldValue(
+                  name,
+                  tags.filter((existingTag) => existingTag !== tag)
+                );
               }}
             >
-              <span className="govuk-visually-hidden">Clear search</span>
+              <span className="govuk-visually-hidden">Remove</span>
               <svg width="13" height="13" viewBox="0 0 13 13" fill="none">
                 <path
                   d="M-0.0501709 1.36379L1.36404 -0.050415L12.6778 11.2633L11.2635 12.6775L-0.0501709 1.36379Z"
@@ -163,7 +148,7 @@ const Field = ({
         <input
           className={cx(`govuk-input lbh-input`, s.input, className)}
           aria-describedby={hint ? `${name}-hint` : undefined}
-          {...getInputProps(getDropdownProps({ preventKeyAction: isOpen }))}
+          {...getInputProps()}
         />
         <button
           {...getToggleButtonProps()}
@@ -176,16 +161,28 @@ const Field = ({
         </button>
 
         <ul {...getMenuProps()} className={s.list}>
-          {isOpen &&
-            getFilteredItems(items).map((item, index) => (
-              <li
-                className={`${s.option} govuk-!-margin-top-1`}
-                key={`${item}${index}`}
-                {...getItemProps({ item, index })}
-              >
-                {item}
-              </li>
-            ))}
+          {isOpen && (
+            <>
+              {items.length > 0 ? (
+                items.map((item, index) => (
+                  <li
+                    className={s.option}
+                    key={`${item}${index}`}
+                    {...getItemProps({ item, index })}
+                  >
+                    {item}
+                  </li>
+                ))
+              ) : (
+                <li
+                  className={s.option}
+                  {...getItemProps({ item: inputValue, index: 0 })}
+                >
+                  <span className={s.createPrompt}>Creating</span> {inputValue}
+                </li>
+              )}
+            </>
+          )}
         </ul>
       </div>
     </div>
