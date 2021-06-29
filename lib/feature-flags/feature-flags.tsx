@@ -7,8 +7,9 @@ export type FeatureSet = {
   };
 };
 
-const FeatureFlagContext =
-  React.createContext<FeatureSet | undefined>(undefined);
+const FeatureFlagContext = React.createContext<FeatureSet | undefined>(
+  undefined
+);
 
 export const FeatureFlagProvider: React.FC<{
   features: FeatureSet;
