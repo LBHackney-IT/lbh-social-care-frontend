@@ -92,8 +92,9 @@ jobs:
             (
             docker pull owasp/zap2docker-stable && \
             docker run -t owasp/zap2docker-stable zap-baseline.py \
+                -host 0.0.0.0 -port 3000 \
                 -u https://raw.githubusercontent.com/${CIRCLE_PROJECT_USERNAME}/${CIRCLE_PROJECT_REPONAME}/${CIRCLE_BRANCH}/zap-baseline.conf \
-                -t http://localhost:3000/ || \
+                -t http://0.0.0.0:3000/ || \
             if [ $? -ne 1 ]; then exit 0; else exit 1; fi;
             )
 
