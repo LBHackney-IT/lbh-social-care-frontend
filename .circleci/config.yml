@@ -69,7 +69,7 @@ jobs:
 
   security-scan:
     docker:
-      - image: cimg/14.17.1 #-browsers
+      - image: cimg/node:14.17.1 #-browsers
       #- image: owasp/zap2docker-stable
       #  name: zap
       #  command: zap.sh -daemon -host 0.0.0.0 -port 3000 -config api.disablekey=true -config api.addrs.addr.name=.* -config api.addrs.addr.regex=true
