@@ -8,7 +8,7 @@ import ComboboxField from './ComboboxField';
 import { FormikValues, FormikTouched, FormikErrors } from 'formik';
 import { Field } from 'data/flexibleForms/forms.types';
 import TimetableField from './TimetableField';
-
+import TagsField from './TagsField';
 interface Props {
   values: FormikValues;
   field: Field;
@@ -62,6 +62,17 @@ const FlexibleField = ({
   if (field.type === 'text')
     return (
       <TextField
+        name={field.id}
+        label={field.question}
+        touched={touched}
+        errors={errors}
+        {...field}
+      />
+    );
+
+  if (field.type === 'tags')
+    return (
+      <TagsField
         name={field.id}
         label={field.question}
         touched={touched}
