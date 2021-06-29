@@ -77,7 +77,8 @@ jobs:
       - checkout
       - run:
         name: Node version
-        run: node --version
+        command: |
+          node --version
     #executor: node-executor
     #steps:
     #  - *attach_workspace
