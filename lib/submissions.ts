@@ -106,7 +106,8 @@ export const finishSubmission = async (
   const { status } = await axios.patch(
     `${ENDPOINT_API}/submissions/${submissionId}`,
     {
-      createdBy: finishedBy,
+      editedBy: finishedBy,
+      submissionState: 'submitted',
     },
     {
       headers: headersWithKey,
