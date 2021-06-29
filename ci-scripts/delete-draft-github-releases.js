@@ -29,7 +29,7 @@ const deleteDraftGitHubReleases = async () => {
 
 async function getDraftReleases(token) {
   const res = await fetch(
-    `https://api.github.com/repos/chrishutchinson/test-release-it/releases`,
+    `https://api.github.com/repos/LBHackney-IT/lbh-social-care-frontend/releases`,
     {
       headers: {
         Authorization: `Bearer ${token}`,
@@ -49,7 +49,7 @@ async function getDraftReleases(token) {
 
 async function deleteRelease(token, releaseId) {
   return fetch(
-    `https://api.github.com/repos/chrishutchinson/test-release-it/releases/${releaseId}`,
+    `https://api.github.com/repos/LBHackney-IT/lbh-social-care-frontend/releases/${releaseId}`,
     {
       method: 'delete',
       headers: {
