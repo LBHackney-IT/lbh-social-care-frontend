@@ -27,7 +27,7 @@ const Relationships = ({ id }: Props): React.ReactElement => {
 
           <Button
             label="Add a new relationships"
-            route={`${id}/relationships/add`}
+            route={`${id}/relationships/`}
           />
         </div>
 

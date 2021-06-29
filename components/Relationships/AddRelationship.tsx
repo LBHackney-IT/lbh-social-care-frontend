@@ -23,7 +23,7 @@ const AddRelationship = ({ personId }: Props): React.ReactElement => {
       />
       <Button
         label="Add Relationship"
-        route={`add/form?id=${encodeURIComponent(
+        route={`/people/${personId}/relationships/add?id=${encodeURIComponent(
           personId
         )}&otherPersonId=${encodeURIComponent(otherPersonId)}`}
         disabled={!otherPersonId || otherPersonId === ''}
