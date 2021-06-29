@@ -88,16 +88,22 @@ jobs:
     steps:
       - *attach_workspace
       - run:
+          name: delete stale draft GitHub releases
+          command: yarn delete-draft-github-releases
+      - run:
           name: generate draft GitHub release
-          command: yarn release --no-git.push --github.draft
+          command: yarn release --github.draft --no-git.push --no-git.tag
 
   generate-github-release:
     executor: aws-cli/default
     steps:
       - *attach_workspace
       - run:
+          name: delete stale draft GitHub releases
+          command: yarn delete-draft-github-releases
+      - run:
           name: generate release
-          command: yarn release --no-github.draft
+          command: yarn release
 
   assume-role-staging:
     executor: docker-python
