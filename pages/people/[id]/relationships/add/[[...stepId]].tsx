@@ -37,6 +37,6 @@ const AddRelationshipForm = (): React.ReactElement => {
   );
 };
 
-AddRelationshipForm.goBackButton = true;
+// AddRelationshipForm.goBackButton = false;
 
 export default AddRelationshipForm;
