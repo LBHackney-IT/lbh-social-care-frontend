@@ -77,9 +77,6 @@ jobs:
       #- checkout
       - *attach_workspace
 
-      - run: |
-        node --version
-
       - run:
         name: Build application
         command: |
