@@ -55,18 +55,18 @@ export const generateFlexibleSchema = (
 
     // add a required attribute if a field is required and not conditional
     if (field.required && !field.condition) {
-      if (field.type === 'checkboxes') {
-        shape[field.id] = (shape[field.id] as Yup.NumberSchema).min(
-          1,
-          getErrorMessage(field)
-        );
-      } else if (field.type === 'timetable') {
+      if (field.type === 'timetable') {
         shape[field.id] = shape[field.id].test(
           'total',
           getErrorMessage(field),
           (value) => getTotalHours(value) !== 0
         );
-      } else if (field.type === 'repeater' || field.type === 'repeaterGroup') {
+      } else if (
+        field.type === 'checkboxes' ||
+        field.type === 'tags' ||
+        field.type === 'repeater' ||
+        field.type === 'repeaterGroup'
+      ) {
         shape[field.id] = (shape[field.id] as Yup.NumberSchema).min(
           1,
           getErrorMessage(field)
