@@ -98,6 +98,9 @@ jobs:
     executor: aws-cli/default
     steps:
       - *attach_workspace
+      - add_ssh_keys:
+          fingerprints:
+            - 'd0:bd:5a:9f:c3:17:88:3a:df:03:42:7b:f6:f7:3c:72'
       - run:
           name: delete stale draft GitHub releases
           command: yarn delete-draft-github-releases
