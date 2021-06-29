@@ -2,33 +2,16 @@ import ErrorMessage from 'components/ErrorMessage/ErrorMessage';
 import Spinner from 'components/Spinner/Spinner';
 import { useRelationships } from 'utils/api/relationships';
 import RelationshipElement from './RelationshipElement';
-import { useState, useEffect } from 'react';
+import Button from 'components/Button/Button';
 
 interface Props {
   id: number;
 }
 
 const Relationships = ({ id }: Props): React.ReactElement => {
-  const [shouldAppear, setShouldAppear] = useState(false);
   const { data: { personalRelationships } = {}, error } = useRelationships(id);
-
-  useEffect(() => {
-    const relationshipWithPeople = personalRelationships
-      ? personalRelationships.filter((relationship) => {
-          setShouldAppear(relationship.persons.length > 0);
-        })
-      : [];
-    if (relationshipWithPeople.length > 0) {
-      setShouldAppear(true);
-    }
-  }, [personalRelationships]);
-
   if (!personalRelationships) {
     return <Spinner />;
-  }
-
-  if (!shouldAppear) {
-    return <></>;
   }
   if (error) {
     return <ErrorMessage />;

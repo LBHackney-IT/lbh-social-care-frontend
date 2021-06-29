@@ -1,4 +1,5 @@
 import { FormStep } from 'components/Form/types';
+import RELATIONSHIPS from 'data/relationships';
 
 const formSteps: FormStep[] = [
   {
@@ -18,10 +19,7 @@ const formSteps: FormStep[] = [
         label: 'Type',
         width: 20,
         rules: { required: true },
-        options: [
-          { value: 'A', text: 'AAA' },
-          { value: 'C', text: 'BBB' },
-        ],
+        options: RELATIONSHIPS,
       },
       {
         component: 'TextInput',

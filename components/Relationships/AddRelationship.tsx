@@ -7,27 +7,26 @@ interface Props {
 }
 
 const AddRelationship = ({ personId }: Props): React.ReactElement => {
-  const [secondPersonId, setSecondPersonId] = useState('');
+  const [otherPersonId, setOtherPersonId] = useState('');
 
   const callback = useCallback((value) => {
-    setSecondPersonId(value);
+    setOtherPersonId(value);
   }, []);
 
   return (
     <>
       <Search
         type="relationship"
-        subHeader={'Search for a person by any combination of fields below'}
+        subHeader={<>Search for a person by any combination of fields below</>}
         resultHeader={`SEARCH RESULT`}
-        columns={['first_name']}
         callback={callback}
       />
       <Button
-        label="Add Relationship (tochange)"
-        route={`addtype?id=${encodeURIComponent(
+        label="Add Relationship"
+        route={`add/form?id=${encodeURIComponent(
           personId
-        )}&secondPersonId=${encodeURIComponent(secondPersonId)}`}
-        disabled={!secondPersonId || secondPersonId === ''}
+        )}&otherPersonId=${encodeURIComponent(otherPersonId)}`}
+        disabled={!otherPersonId || otherPersonId === ''}
       />
     </>
   );
