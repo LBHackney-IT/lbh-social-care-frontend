@@ -87,14 +87,8 @@ jobs:
       - *attach_workspace
 
       - run:
-          name: Build application
-          command: |
-            yarn build
-
-      - run:
           name: Run application in background
-          command: |
-            PORT=3000 yarn start
+          command: PORT=3000 yarn start
           background: true
 
       - run:
@@ -197,10 +191,12 @@ workflows:
       - owasp-zap-baseline-scan:
           requires:
             - install-dependencies
+            - build
       - generate-draft-github-release:
           requires:
             - unit-tests
             - e2e
+            - owasp-zap-baseline-scan
             - build
           filters:
             branches:
