@@ -4,7 +4,6 @@ import Seo from 'components/Layout/Seo/Seo';
 import PersonView from 'components/PersonView/PersonView';
 import FormWizard from 'components/FormWizard/FormWizard';
 import formSteps from 'data/forms/add-relationship';
-import PersonLinkConfirmation from 'components/Steps/PersonLinkConfirmation';
 import { addRelationships } from 'utils/api/relationships';
 
 const AddRelationshipForm = (): React.ReactElement => {
@@ -12,6 +11,7 @@ const AddRelationshipForm = (): React.ReactElement => {
 
   const personId = query.id as string;
   const otherPersonId = query.otherPersonId as string;
+  const router = useRouter();
 
   interface FormData {
     type: string;
@@ -26,14 +26,17 @@ const AddRelationshipForm = (): React.ReactElement => {
     if (formData.type === 'Sibling' && formData.ofUnbornChild == 'Yes') {
       formData.type = 'siblingOfUnbornChild';
     }
+
     delete formData.ofUnbornChild;
 
-    const ref = await addRelationships({
+    const { error } = await addRelationships({
       ...formData,
       personId: personId,
       otherPersonId: otherPersonId,
     });
-    return ref;
+    if (error) throw error;
+
+    router.push(`/people/${personId}?relationshipSuccess=true`);
   };
 
   return (
@@ -44,7 +47,6 @@ const AddRelationshipForm = (): React.ReactElement => {
           formPath={`/people/${personId}/relationships/add/`}
           formSteps={formSteps}
           title="Add relationship"
-          customConfirmation={PersonLinkConfirmation}
           onFormSubmit={onFormSubmit}
           hideBackButton
           successMessage="Relationship has been added"

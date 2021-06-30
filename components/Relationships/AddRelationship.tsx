@@ -22,11 +22,15 @@ const AddRelationship = ({ personId }: Props): React.ReactElement => {
         callback={callback}
       />
       <Button
-        label="Choose Relationship"
+        label="Choose relationship"
         route={`/people/${personId}/relationships/add?id=${encodeURIComponent(
           personId
         )}&otherPersonId=${encodeURIComponent(otherPersonId)}`}
-        disabled={!otherPersonId || otherPersonId === ''}
+        disabled={
+          !otherPersonId ||
+          otherPersonId === '' ||
+          otherPersonId === personId.toString()
+        }
       />
     </>
   );

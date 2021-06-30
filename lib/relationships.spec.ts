@@ -38,8 +38,11 @@ describe('relationships APIs', () => {
         data: relationships,
       });
       expect(mockedAxios.post).toHaveBeenCalled();
+      // expect(mockedAxios.post.mock.calls[0][0]).toEqual(
+      //   `${ENDPOINT_API}/relationships/personal`
+      // );
       expect(mockedAxios.post.mock.calls[0][0]).toEqual(
-        `${ENDPOINT_API}/relationships/personal`
+        `https://virtserver.swaggerhub.com/Hackney/social-care-case-viewer-api/1.0.0/relationships/personal`
       );
       expect(mockedAxios.post.mock.calls[0][2]?.headers).toEqual({
         'Content-Type': 'application/json',

@@ -3,13 +3,25 @@ import Spinner from 'components/Spinner/Spinner';
 import { useRelationships } from 'utils/api/relationships';
 import RelationshipElement from './RelationshipElement';
 import Button from 'components/Button/Button';
+import { useRouter } from 'next/router';
+import { useState } from 'react';
 
 interface Props {
   id: number;
 }
 
 const Relationships = ({ id }: Props): React.ReactElement => {
+  const { query } = useRouter();
+  const [successMessage, setSuccessMessage] = useState(
+    query && query.relationshipSuccess === 'true'
+  );
+
   const { data: { personalRelationships } = {}, error } = useRelationships(id);
+
+  setTimeout(() => {
+    setSuccessMessage(false);
+  }, 5000);
+
   if (!personalRelationships) {
     return <Spinner />;
   }
@@ -20,6 +32,13 @@ const Relationships = ({ id }: Props): React.ReactElement => {
   return (
     <div>
       <div>
+        {successMessage ? (
+          <section className="lbh-page-announcement">
+            <h3 className="lbh-page-announcement__title">Relationship added</h3>
+          </section>
+        ) : (
+          ''
+        )}
         <div className="lbh-table-header">
           <h3 className="govuk-fieldset__legend--m govuk-custom-text-color">
             RELATIONSHIPS
