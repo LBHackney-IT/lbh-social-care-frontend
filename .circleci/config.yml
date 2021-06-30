@@ -67,7 +67,7 @@ jobs:
       - store_artifacts:
           path: ~/project/cypress/videos
 
-  owasp-zap-scan:
+  owasp-zap-baseline-scan:
     machine:
       image: ubuntu-2004:202104-01
     steps:
@@ -100,71 +100,6 @@ jobs:
                 -t http://$(ip -f inet -o addr show docker0 | awk '{print $4}' | cut -d '/' -f 1):3000 || \
                 if [ $? -ne 1 ]; then exit 0; else exit 1; fi;
               )
-
-  security-scan:
-    docker:
-      - image: cimg/node:14.17.1 #-browsers
-      #- image: owasp/zap2docker-stable
-      #  name: zap
-      #  command: zap.sh -daemon -host 0.0.0.0 -port 3000 -config api.disablekey=true -config api.addrs.addr.name=.* -config api.addrs.addr.regex=true
-    steps:
-      #- checkout
-      - *attach_workspace
-
-      - run:
-          name: Build application
-          command: |
-            yarn build
-
-      - run:
-          name: Run application in background
-          command: |
-            PORT=3000 yarn start
-          background: true
-
-      - run:
-          name: ZAP baseline test of application
-          # Only fail on error code 1, which indicates at least one FAIL was found.
-          # error codes 2 & 3 indicate WARN or other, and should not break the run
-          command: |
-              (
-                docker pull owasp/zap2docker-stable && \
-                docker run -t owasp/zap2docker-stable zap-baseline.py \
-                    -host 0.0.0.0 -port 3000 \
-                    -u https://raw.githubusercontent.com/${CIRCLE_PROJECT_USERNAME}/${CIRCLE_PROJECT_REPONAME}/${CIRCLE_BRANCH}/zap-baseline.conf
-                    -t http://0.0.0.0:3000/ || \
-                if [ $? -ne 1 ]; then exit 0; else exit 1; fi;
-              )
-
-    #executor: node-executor
-    #steps:
-    #  - *attach_workspace
-    #  - setup_remote_docker
-#
-    #  - run:
-    #      name: Build application
-    #      command: |
-    #        yarn build
-#
-    #  - run:
-    #      name: Run application in background
-    #      command: |
-    #        PORT=3000 yarn start
-    #      background: true
-#
-    #  - run:
-    #      name: ZAP baseline test of application
-    #      # Only fail on error code 1, which indicates at least one FAIL was found.
-    #      # error codes 2 & 3 indicate WARN or other, and should not break the run
-    #      command: |
-    #        (
-    #        docker pull owasp/zap2docker-stable && \
-    #        docker run -t owasp/zap2docker-stable zap-baseline.py \
-    #            -host 0.0.0.0 -port 3000 \
-    #            -u https://raw.githubusercontent.com/${CIRCLE_PROJECT_USERNAME}/${CIRCLE_PROJECT_REPONAME}/${CIRCLE_BRANCH}/zap-baseline.conf \
-    #            -t http://0.0.0.0:3000/ || \
-    #        if [ $? -ne 1 ]; then exit 0; else exit 1; fi;
-    #        )
 
   build-deploy-staging:
     executor: aws-cli/default
@@ -244,11 +179,9 @@ workflows:
       - e2e:
           requires:
             - install-dependencies
-      - owasp-zap-scan:
+      - owasp-zap-baseline-scan:
           requires:
             - install-dependencies
-            # - tests
-            # - e2e
       - generate-draft-github-release:
           requires:
             - tests
