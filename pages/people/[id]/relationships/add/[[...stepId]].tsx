@@ -5,26 +5,32 @@ import PersonView from 'components/PersonView/PersonView';
 import FormWizard from 'components/FormWizard/FormWizard';
 import formSteps from 'data/forms/add-relationship';
 import PersonLinkConfirmation from 'components/Steps/PersonLinkConfirmation';
+import { addRelationships } from 'utils/api/relationships';
 
 const AddRelationshipForm = (): React.ReactElement => {
   const { query } = useRouter();
-  const onFormSubmit = async (formData: FormData) => {
-    // const ref = await updateResident(personId, {
-    //   ...formData,
-    //   contextFlag: formData.contextFlag || user.permissionFlag,
-    //   nhsNumber: Number(formData.nhsNumber),
-    //   createdBy: user.email,
-    //   restricted: formData.restricted || person?.restricted,
 
-    alert('Relationship add ' + formData);
+  const personId = query.id as string;
+  const otherPersonId = query.otherPersonId as string;
+
+  const onFormSubmit = async (formData: FormData) => {
+    const ref = await addRelationships({
+      ...formData,
+      personId: personId,
+      otherPersonId: otherPersonId,
+      isMainCarer: 'N',
+      isInformalCarer: 'N',
+      details: 'formData.details',
+    });
+    return ref;
   };
 
   return (
     <>
-      <Seo title={`Person Details - #${query.id}`} />
-      <PersonView personId={Number(query.id as string)} expandView>
+      <Seo title={`Person Details - #${personId}`} />
+      <PersonView personId={Number(personId as string)} expandView>
         <FormWizard
-          formPath={`/people/${query.id}/relationships/add/`}
+          formPath={`/people/${personId}/relationships/add/`}
           formSteps={formSteps}
           title="Add relationship"
           customConfirmation={PersonLinkConfirmation}
