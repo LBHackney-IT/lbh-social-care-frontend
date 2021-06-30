@@ -21,6 +21,7 @@ interface FieldProps {
   hint?: string;
   className?: string;
   required?: boolean;
+  itemName?: string;
 }
 
 const Field = ({
@@ -31,6 +32,7 @@ const Field = ({
   hint,
   className,
   required,
+  itemName,
 }: FieldProps): React.ReactElement => {
   const { values, setFieldValue } = useFormikContext<FormikValues>();
   const [inputValue, setInputValue] = useState<string>('');
@@ -121,6 +123,7 @@ const Field = ({
           <li className={s.tag} key={i}>
             {tag}{' '}
             <button
+              type="button"
               onClick={() => {
                 setFieldValue(
                   name,
@@ -178,7 +181,11 @@ const Field = ({
                   className={s.option}
                   {...getItemProps({ item: inputValue, index: 0 })}
                 >
-                  <span className={s.createPrompt}>Creating</span> {inputValue}
+                  <span className={s.createPrompt}>
+                    Create {itemName} &quot;
+                  </span>
+                  {inputValue}
+                  <span className={s.createPrompt}>&quot;</span>
                 </li>
               )}
             </>

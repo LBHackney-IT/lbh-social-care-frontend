@@ -16,6 +16,7 @@ const form: Form = {
 
           type: 'tags',
           required: true,
+          itemName: 'topic',
         },
       ],
     },

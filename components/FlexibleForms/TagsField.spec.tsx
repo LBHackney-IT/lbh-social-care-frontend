@@ -1,6 +1,6 @@
 import TagsField from './TagsField';
 import { Formik, Form } from 'formik';
-import { render, screen } from '@testing-library/react';
+import { render, screen, fireEvent } from '@testing-library/react';
 
 const mockSubmit = jest.fn();
 
@@ -10,7 +10,7 @@ describe('TagsField', () => {
       <Formik
         onSubmit={mockSubmit}
         initialValues={{
-          foo: false,
+          foo: [],
         }}
       >
         {({ touched, errors }) => (
@@ -27,16 +27,16 @@ describe('TagsField', () => {
       </Formik>
     );
     expect(screen.getByRole('textbox'));
-    expect(screen.getByLabelText('Label text'));
+    expect(screen.getByText('Label text'));
     expect(screen.getByText('Hint text'));
   });
 
-  it('accepts an initial value', () => {
+  it('lets you add a tag', () => {
     render(
       <Formik
         onSubmit={mockSubmit}
         initialValues={{
-          foo: 'example initial value',
+          foo: [],
         }}
       >
         {({ touched, errors }) => (
@@ -46,13 +46,43 @@ describe('TagsField', () => {
               errors={errors}
               name="foo"
               label="Label text"
-              hint="Hint text"
             />
           </Form>
         )}
       </Formik>
     );
-    expect(screen.getByDisplayValue('example initial value'));
+    expect(screen.getByRole('textbox'));
+    fireEvent.change(screen.getByRole('textbox'), {
+      target: { value: 'Correspondance' },
+    });
+    fireEvent.click(screen.getByText('Correspondance'));
+    expect(screen.getByText('Correspondance'));
+    expect(screen.getByText('Remove'));
+  });
+
+  it('lets you remove a tag', () => {
+    render(
+      <Formik
+        onSubmit={mockSubmit}
+        initialValues={{
+          foo: ['bar'],
+        }}
+      >
+        {({ touched, errors }) => (
+          <Form>
+            <TagsField
+              touched={touched}
+              errors={errors}
+              name="foo"
+              label="Label text"
+            />
+          </Form>
+        )}
+      </Formik>
+    );
+    expect(screen.getByText('bar'));
+    fireEvent.click(screen.getByText('Remove'));
+    expect(screen.queryAllByText('bar').length).toBe(0);
   });
 
   it('renders errors', () => {
@@ -60,13 +90,13 @@ describe('TagsField', () => {
       <Formik
         onSubmit={mockSubmit}
         initialValues={{
-          foo: '',
+          foo: [],
         }}
         initialErrors={{
           foo: 'Example error',
         }}
         initialTouched={{
-          foo: true,
+          foo: true as unknown as never[],
         }}
       >
         {({ touched, errors }) => (
@@ -75,7 +105,6 @@ describe('TagsField', () => {
             errors={errors}
             name="foo"
             label="Label text"
-            hint="Hint text"
           />
         )}
       </Formik>
