@@ -11,33 +11,33 @@ const form: Form = {
       theme: 'foo',
       fields: [
         {
-          id: 'type',
+          id: 'Type',
           question: 'What kind of note is this?',
           type: 'radios',
           required: true,
           choices: [
             {
-              value: 'visit',
+              value: 'Visit',
               label: 'Visit',
             },
             {
-              value: 'correspondence',
+              value: 'Correspondence',
               label: 'Correspondence',
             },
             {
-              value: 'something-else',
+              value: 'Something else',
               label: 'Something else',
             },
           ],
         },
         {
-          id: 'correspondence-type',
+          id: 'Correspondence type',
           question: 'What kind of correspondence?',
           type: 'radios',
           required: true,
           condition: {
-            id: 'type',
-            value: 'correspondence',
+            id: 'Type',
+            value: 'Correspondence',
           },
           choices: [
             {
@@ -51,13 +51,13 @@ const form: Form = {
           ],
         },
         {
-          id: 'visit-type',
+          id: 'Visit type',
           question: 'What kind of visit?',
           type: 'radios',
           required: true,
           condition: {
-            id: 'type',
-            value: 'visit',
+            id: 'Type',
+            value: 'Visit',
           },
           choices: [
             {
@@ -76,13 +76,21 @@ const form: Form = {
         },
 
         {
-          id: 'body',
+          id: 'What happened?',
           question: 'What happened?',
           type: 'textarea',
+          required: true,
         },
 
         {
-          id: 'actions',
+          id: 'Date of event',
+          question: 'When did this happen?',
+          type: 'date',
+          className: 'govuk-input--width-10',
+        },
+
+        {
+          id: 'Actions',
           question: 'Actions',
           type: 'repeaterGroup',
           hint: 'eg. Dave to contact landlord',
@@ -102,14 +110,14 @@ const form: Form = {
             {
               id: 'due',
               question: 'Due',
-              type: 'text',
+              type: 'date',
               className: 'govuk-input--width-10',
             },
           ],
         },
 
         {
-          id: 'topics',
+          id: 'Topics',
           question: 'Topics',
           hint: 'Help colleagues find this note. Add all that apply.',
           // type: 'tags',
