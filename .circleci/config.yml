@@ -41,7 +41,7 @@ jobs:
           root: *workspace_root
           paths: .
 
-  tests:
+  unit-tests:
     executor: node-executor
     steps:
       - *attach_workspace
@@ -64,7 +64,8 @@ jobs:
           command: yarn build
       - persist_to_workspace:
           root: *workspace_root
-          paths: .
+          paths:
+            - build/*
 
   e2e:
     executor: node-executor
@@ -150,18 +151,18 @@ workflows:
   continuous-delivery:
     jobs:
       - install-dependencies
-      - tests:
+      - unit-tests:
           requires:
             - install-dependencies
       - build:
           requires:
-            - tests
+            - unit-tests
       - e2e:
           requires:
             - build
       - generate-draft-github-release:
           requires:
-            - tests
+            - unit-tests
             - e2e
             - build
           filters:
@@ -170,8 +171,9 @@ workflows:
       - assume-role-staging:
           context: api-assume-role-staging-context
           requires:
-            - tests
+            - unit-tests
             - e2e
+            - build
           filters:
             branches:
               only: main
