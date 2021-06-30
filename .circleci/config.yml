@@ -55,6 +55,14 @@ jobs:
           name: Run tests
           command: yarn test -w 2
 
+  build:
+    executor: node-executor
+    steps:
+      - *attach_workspace
+      - run:
+          name: Build app
+          command: yarn build
+
   e2e:
     executor: node-executor
     steps:
@@ -73,7 +81,7 @@ jobs:
       - *attach_workspace
       - run:
           name: deploy
-          command: yarn build && yarn --production=true && sudo npm i -g serverless && sls deploy --stage staging
+          command: yarn --production=true && sudo npm i -g serverless && sls deploy --stage staging
 
   build-deploy-production:
     executor: aws-cli/default
@@ -81,7 +89,7 @@ jobs:
       - *attach_workspace
       - run:
           name: deploy
-          command: yarn build && yarn --production=true && sudo npm i -g serverless && sls deploy -s production
+          command: yarn --production=true && sudo npm i -g serverless && sls deploy -s production
 
   generate-draft-github-release:
     executor: aws-cli/default
@@ -142,13 +150,17 @@ workflows:
       - tests:
           requires:
             - install-dependencies
+      - build:
+          requires:
+            - tests
       - e2e:
           requires:
-            - install-dependencies
+            - build
       - generate-draft-github-release:
           requires:
             - tests
             - e2e
+            - build
           filters:
             branches:
               only: main
