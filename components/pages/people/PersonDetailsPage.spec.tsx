@@ -1,5 +1,6 @@
 import { render, RenderResult, screen } from '@testing-library/react';
 
+import * as residentsAPI from '../../../utils/api/residents';
 import { residentFactory } from '../../../factories/residents';
 import { AuthProvider } from '../../UserContext/UserContext';
 import PersonView from '../../PersonView/PersonView';
@@ -55,6 +56,13 @@ describe('<PersonDetailsPage />', () => {
       mutate: jest.fn(),
       revalidate: jest.fn(),
     }));
+
+    jest.spyOn(warningNotes, 'useWarningNotes').mockImplementation(() => ({
+      data: mockedWarningNote,
+      mutate: jest.fn(),
+      revalidate: jest.fn(),
+      isValidating: false,
+    }));
   });
 
   describe('for all users', () => {
@@ -64,6 +72,14 @@ describe('<PersonDetailsPage />', () => {
       (PersonView as jest.Mock).mockImplementationOnce(
         createMockedPersonView(mockedAdultsResident)
       );
+
+      jest.spyOn(residentsAPI, 'useResident').mockImplementation(() => ({
+        data: mockedAdultsResident,
+        isValidating: false,
+        mutate: jest.fn(),
+        revalidate: jest.fn(),
+      }));
+
       renderResult = render(
         <AuthProvider user={mockedAdultsUser}>
           <PersonDetailsPage personId={100} />
@@ -82,11 +98,11 @@ describe('<PersonDetailsPage />', () => {
         createMockedPersonView(mockedAdultsResident)
       );
 
-      jest.spyOn(warningNotes, 'useWarningNotes').mockImplementation(() => ({
-        data: mockedWarningNote,
+      jest.spyOn(residentsAPI, 'useResident').mockImplementation(() => ({
+        data: mockedAdultsResident,
+        isValidating: false,
         mutate: jest.fn(),
         revalidate: jest.fn(),
-        isValidating: false,
       }));
 
       render(
@@ -98,16 +114,16 @@ describe('<PersonDetailsPage />', () => {
       screen.getByText('WARNING NOTE');
     });
 
-    it('should not show any active warning notes for the person if the person is a child', () => {
+    it('should show any active warning notes for the person if the person is a child', () => {
       (PersonView as jest.Mock).mockImplementationOnce(
         createMockedPersonView(mockedChildrensResident)
       );
 
-      jest.spyOn(warningNotes, 'useWarningNotes').mockImplementation(() => ({
-        data: mockedWarningNote,
+      jest.spyOn(residentsAPI, 'useResident').mockImplementation(() => ({
+        data: mockedChildrensResident,
+        isValidating: false,
         mutate: jest.fn(),
         revalidate: jest.fn(),
-        isValidating: false,
       }));
 
       render(
@@ -116,13 +132,20 @@ describe('<PersonDetailsPage />', () => {
         </AuthProvider>
       );
 
-      expect(screen.queryByText('WARNING NOTE')).toBeNull();
+      screen.getByText('WARNING NOTE');
     });
 
     it('should show a restricted banner for a childrens person', () => {
       (PersonView as jest.Mock).mockImplementationOnce(
         createMockedPersonView(mockedChildrensResident)
       );
+
+      jest.spyOn(residentsAPI, 'useResident').mockImplementation(() => ({
+        data: mockedChildrensResident,
+        isValidating: false,
+        mutate: jest.fn(),
+        revalidate: jest.fn(),
+      }));
 
       render(
         <AuthProvider user={mockedAdultsUser}>
@@ -133,6 +156,48 @@ describe('<PersonDetailsPage />', () => {
       screen.getByText(
         'Some details for this person are restricted due to your permissions.'
       );
+    });
+
+    it('should show an edit link on active warning notes if the person is an adult', () => {
+      (PersonView as jest.Mock).mockImplementationOnce(
+        createMockedPersonView(mockedAdultsResident)
+      );
+
+      jest.spyOn(residentsAPI, 'useResident').mockImplementation(() => ({
+        data: mockedAdultsResident,
+        isValidating: false,
+        mutate: jest.fn(),
+        revalidate: jest.fn(),
+      }));
+
+      render(
+        <AuthProvider user={mockedAdultsUser}>
+          <PersonDetailsPage personId={100} />
+        </AuthProvider>
+      );
+
+      screen.getAllByText('Review / end');
+    });
+
+    it('should not show an edit link on active warning notes if the person is a child', () => {
+      (PersonView as jest.Mock).mockImplementationOnce(
+        createMockedPersonView(mockedChildrensResident)
+      );
+
+      jest.spyOn(residentsAPI, 'useResident').mockImplementation(() => ({
+        data: mockedChildrensResident,
+        isValidating: false,
+        mutate: jest.fn(),
+        revalidate: jest.fn(),
+      }));
+
+      render(
+        <AuthProvider user={mockedAdultsUser}>
+          <PersonDetailsPage personId={100} />
+        </AuthProvider>
+      );
+
+      expect(screen.queryByText('Review / end')).toBeNull();
     });
   });
 
@@ -142,11 +207,11 @@ describe('<PersonDetailsPage />', () => {
         createMockedPersonView(mockedChildrensResident)
       );
 
-      jest.spyOn(warningNotes, 'useWarningNotes').mockImplementation(() => ({
-        data: mockedWarningNote,
+      jest.spyOn(residentsAPI, 'useResident').mockImplementation(() => ({
+        data: mockedChildrensResident,
+        isValidating: false,
         mutate: jest.fn(),
         revalidate: jest.fn(),
-        isValidating: false,
       }));
 
       render(
@@ -158,16 +223,16 @@ describe('<PersonDetailsPage />', () => {
       screen.getByText('WARNING NOTE');
     });
 
-    it('should not show any active warning notes for the person if the person is an adult', () => {
+    it('should show any active warning notes for the person if the person is an adult', () => {
       (PersonView as jest.Mock).mockImplementationOnce(
         createMockedPersonView(mockedAdultsResident)
       );
 
-      jest.spyOn(warningNotes, 'useWarningNotes').mockImplementation(() => ({
-        data: mockedWarningNote,
+      jest.spyOn(residentsAPI, 'useResident').mockImplementation(() => ({
+        data: mockedAdultsResident,
+        isValidating: false,
         mutate: jest.fn(),
         revalidate: jest.fn(),
-        isValidating: false,
       }));
 
       render(
@@ -176,13 +241,20 @@ describe('<PersonDetailsPage />', () => {
         </AuthProvider>
       );
 
-      expect(screen.queryByText('WARNING NOTE')).toBeNull();
+      screen.getByText('WARNING NOTE');
     });
 
     it('should show a restricted banner for an adult person', () => {
       (PersonView as jest.Mock).mockImplementationOnce(
         createMockedPersonView(mockedAdultsResident)
       );
+
+      jest.spyOn(residentsAPI, 'useResident').mockImplementation(() => ({
+        data: mockedAdultsResident,
+        isValidating: false,
+        mutate: jest.fn(),
+        revalidate: jest.fn(),
+      }));
 
       render(
         <AuthProvider user={mockedChildrensUser}>
@@ -193,6 +265,48 @@ describe('<PersonDetailsPage />', () => {
       screen.getByText(
         'Some details for this person are restricted due to your permissions.'
       );
+    });
+
+    it('should show an edit link on active warning notes if the person is a child', () => {
+      (PersonView as jest.Mock).mockImplementationOnce(
+        createMockedPersonView(mockedChildrensResident)
+      );
+
+      jest.spyOn(residentsAPI, 'useResident').mockImplementation(() => ({
+        data: mockedChildrensResident,
+        isValidating: false,
+        mutate: jest.fn(),
+        revalidate: jest.fn(),
+      }));
+
+      render(
+        <AuthProvider user={mockedChildrensUser}>
+          <PersonDetailsPage personId={100} />
+        </AuthProvider>
+      );
+
+      screen.getAllByText('Review / end');
+    });
+
+    it('should not show an edit link on active warning notes if the person is an adult', () => {
+      (PersonView as jest.Mock).mockImplementationOnce(
+        createMockedPersonView(mockedAdultsResident)
+      );
+
+      jest.spyOn(residentsAPI, 'useResident').mockImplementation(() => ({
+        data: mockedAdultsResident,
+        isValidating: false,
+        mutate: jest.fn(),
+        revalidate: jest.fn(),
+      }));
+
+      render(
+        <AuthProvider user={mockedChildrensUser}>
+          <PersonDetailsPage personId={100} />
+        </AuthProvider>
+      );
+
+      expect(screen.queryByText('Review / end')).toBeNull();
     });
   });
 });
