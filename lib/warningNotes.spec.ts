@@ -84,7 +84,6 @@ describe('warningNotesAPI', () => {
       await warningNotesAPI.updateWarningNote({
         status: 'Closed',
         endedBy: 'foo@bar.com',
-        endedDate: '2021-04-29',
       });
       expect(mockedAxios.patch).toHaveBeenCalled();
       expect(mockedAxios.patch.mock.calls[0][0]).toEqual(
@@ -93,7 +92,6 @@ describe('warningNotesAPI', () => {
       expect(mockedAxios.patch.mock.calls[0][1]).toEqual({
         status: 'Closed',
         endedBy: 'foo@bar.com',
-        endedDate: '2021-04-29',
       });
       expect(mockedAxios.patch.mock.calls[0][2]?.headers).toEqual({
         'Content-Type': 'application/json',
