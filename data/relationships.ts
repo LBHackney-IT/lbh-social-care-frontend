@@ -22,8 +22,6 @@ export default [
   { value: 'fosterCarer', text: 'Foster carer' },
   { value: 'friend', text: 'Friend' },
   { value: 'exSpouse', text: 'Ex spouse' },
-  { value: 'parentOfUnbornChild', text: 'Parent of unborn child (tochange)' },
-  { value: 'siblingOfUnbornChild', text: 'Sibling of unborn child (tochange)' },
   { value: 'fosterCarerSupportCarer', text: 'Foster carer / Support carer' },
   { value: 'privateFosterCarer', text: 'Private foster carer' },
   { value: 'privateFosterChild', text: 'Private foster child' },

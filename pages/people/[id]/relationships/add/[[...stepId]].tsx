@@ -13,14 +13,25 @@ const AddRelationshipForm = (): React.ReactElement => {
   const personId = query.id as string;
   const otherPersonId = query.otherPersonId as string;
 
+  interface FormData {
+    type: string;
+    ofUnbornChild?: string;
+    [key: string]: unknown;
+  }
+
   const onFormSubmit = async (formData: FormData) => {
+    if (formData.type === 'Parent' && formData.ofUnbornChild == 'Yes') {
+      formData.type = 'parentOfUnbornChild';
+    }
+    if (formData.type === 'Sibling' && formData.ofUnbornChild == 'Yes') {
+      formData.type = 'siblingOfUnbornChild';
+    }
+    delete formData.ofUnbornChild;
+
     const ref = await addRelationships({
       ...formData,
       personId: personId,
       otherPersonId: otherPersonId,
-      isMainCarer: 'N',
-      isInformalCarer: 'N',
-      details: 'formData.details',
     });
     return ref;
   };

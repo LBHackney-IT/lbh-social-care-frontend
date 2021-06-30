@@ -26,13 +26,13 @@ const Relationships = ({ id }: Props): React.ReactElement => {
           </h3>
 
           <Button
-            label="Add a new relationships"
+            label="Add a new relationship"
             route={`${id}/relationships/`}
           />
         </div>
 
         <hr className="govuk-divider" />
-        {
+        {personalRelationships && personalRelationships.length > 0 ? (
           <dl className="govuk-summary-list lbh-summary-list">
             {personalRelationships
               .sort((a, b) => b.type.localeCompare(a.type))
@@ -48,7 +48,11 @@ const Relationships = ({ id }: Props): React.ReactElement => {
                 }
               })}
           </dl>
-        }
+        ) : (
+          <p>
+            <i>No relationship found</i>
+          </p>
+        )}
       </div>
       {error && <ErrorMessage />}
     </div>

@@ -22,7 +22,7 @@ const AddRelationship = ({ personId }: Props): React.ReactElement => {
         callback={callback}
       />
       <Button
-        label="Add Relationship"
+        label="Choose Relationship"
         route={`/people/${personId}/relationships/add?id=${encodeURIComponent(
           personId
         )}&otherPersonId=${encodeURIComponent(otherPersonId)}`}
