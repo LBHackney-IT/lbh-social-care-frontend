@@ -187,17 +187,15 @@ workflows:
             - unit-tests
       - e2e:
           requires:
-            - install-dependencies
+            - build
       - owasp-zap-baseline-scan:
           requires:
-            - install-dependencies
             - build
       - generate-draft-github-release:
           requires:
             - unit-tests
             - e2e
             - owasp-zap-baseline-scan
-            - build
           filters:
             branches:
               only: main
@@ -206,7 +204,7 @@ workflows:
           requires:
             - unit-tests
             - e2e
-            - build
+            - owasp-zap-baseline-scan
           filters:
             branches:
               only: main
