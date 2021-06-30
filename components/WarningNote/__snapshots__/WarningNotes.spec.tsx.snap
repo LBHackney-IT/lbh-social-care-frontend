@@ -44,7 +44,7 @@ exports[`useWarningNotes should render a list of warning notes 1`] = `
               Next review date
             </dt>
             <dd>
-              30/12/2020 
+              12/11/2020 
             </dd>
           </dl>
           <a

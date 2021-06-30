@@ -32,7 +32,7 @@ describe(`useWarningNotes`, () => {
     jest.spyOn(warningNotes, 'useWarningNotes').mockImplementation(() => ({
       data: [
         warningNoteFactory.build({
-          nextReviewDate: '2020-12-30',
+          nextReviewDate: '2020-11-12',
         }),
       ],
       mutate: jest.fn(),
