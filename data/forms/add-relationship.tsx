@@ -28,21 +28,30 @@ const formSteps: FormStep[] = [
         conditionalRender: ({ type }) =>
           type === 'parent' || type === 'sibling',
         rules: { required: true },
-        options: ['Yes', 'No'],
+        options: [
+          { value: 'Y', text: 'Yes' },
+          { value: 'N', text: 'No' },
+        ],
       },
       {
         component: 'Radios',
         name: 'isMainCarer',
         label: 'Main carer',
         rules: { required: true },
-        options: ['Yes', 'No'],
+        options: [
+          { value: 'Y', text: 'Yes' },
+          { value: 'N', text: 'No' },
+        ],
       },
       {
         component: 'Radios',
         name: 'isInformalCarer',
         label: 'Informal carer',
         rules: { required: true },
-        options: ['Yes', 'No'],
+        options: [
+          { value: 'Y', text: 'Yes' },
+          { value: 'N', text: 'No' },
+        ],
       },
       {
         component: 'TextInput',

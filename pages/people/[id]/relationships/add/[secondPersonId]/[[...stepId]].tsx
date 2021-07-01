@@ -10,12 +10,12 @@ const AddRelationshipForm = (): React.ReactElement => {
   const { query } = useRouter();
 
   const personId = query.id as string;
-  const otherPersonId = query.otherPersonId as string;
-  const router = useRouter();
+  const secondPersonId = query.secondPersonId as string;
 
   interface FormData {
     type: string;
     ofUnbornChild?: string;
+    isMainCarer?: string;
     [key: string]: unknown;
   }
 
@@ -26,12 +26,15 @@ const AddRelationshipForm = (): React.ReactElement => {
     if (formData.type === 'Sibling' && formData.ofUnbornChild == 'Yes') {
       formData.type = 'siblingOfUnbornChild';
     }
+
+    // formData.isMainCarer === "Yes"
+
     delete formData.ofUnbornChild;
 
     const { data, error } = await addRelationships({
       ...formData,
       personId: personId,
-      otherPersonId: otherPersonId,
+      otherPersonId: secondPersonId,
     });
     if (error) throw error;
 
@@ -44,7 +47,7 @@ const AddRelationshipForm = (): React.ReactElement => {
       <Seo title={`Person Details - #${personId}`} />
       <PersonView personId={Number(personId as string)} expandView>
         <FormWizard
-          formPath={`/people/${personId}/relationships/add/${otherPersonId}/`}
+          formPath={`/people/${personId}/relationships/add/${secondPersonId}/`}
           formSteps={formSteps}
           title="Add relationship"
           onFormSubmit={onFormSubmit}
