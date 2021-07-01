@@ -9,6 +9,10 @@ interface Props {
 const AddRelationship = ({ personId }: Props): React.ReactElement => {
   const [otherPersonId, setOtherPersonId] = useState('');
 
+  //use React context instead of props
+  // see _app.tsx FeatureFlagComponent
+
+  // lib/featureflags
   const callback = useCallback((value) => {
     setOtherPersonId(value);
   }, []);
@@ -23,9 +27,7 @@ const AddRelationship = ({ personId }: Props): React.ReactElement => {
       />
       <Button
         label="Choose relationship"
-        route={`/people/${personId}/relationships/add?id=${encodeURIComponent(
-          personId
-        )}&otherPersonId=${encodeURIComponent(otherPersonId)}`}
+        route={`/people/${personId}/relationships/add/${otherPersonId}`}
         disabled={
           !otherPersonId ||
           otherPersonId === '' ||

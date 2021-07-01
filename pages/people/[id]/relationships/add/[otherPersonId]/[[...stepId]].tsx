@@ -26,7 +26,6 @@ const AddRelationshipForm = (): React.ReactElement => {
     if (formData.type === 'Sibling' && formData.ofUnbornChild == 'Yes') {
       formData.type = 'siblingOfUnbornChild';
     }
-
     delete formData.ofUnbornChild;
 
     const { error } = await addRelationships({
@@ -44,7 +43,7 @@ const AddRelationshipForm = (): React.ReactElement => {
       <Seo title={`Person Details - #${personId}`} />
       <PersonView personId={Number(personId as string)} expandView>
         <FormWizard
-          formPath={`/people/${personId}/relationships/add/`}
+          formPath={`/people/${personId}/relationships/add/${otherPersonId}/`}
           formSteps={formSteps}
           title="Add relationship"
           onFormSubmit={onFormSubmit}
