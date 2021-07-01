@@ -86,29 +86,19 @@ const Search = ({
       nextCursor: data[data.length - 1].nextCursor,
     };
 
-  //ReviewWarningNoteForm.spec.ts
   const onFormSubmit = useCallback(
     (formData) => {
       const qs = formData
         ? `?${getQueryString({ ...query, ...formData })}`
         : '';
-      !query || !query.id
-        ? replace(`${pathname}${qs}`, `${pathname}${qs}`, {
-            shallow: true,
-            scroll: false,
-          })
-        : replace(
-            `${pathname.replace('[id]', query.id)}${qs}`,
-            `${pathname.replace('[id]', query.id)}${qs}`,
-            {
-              shallow: true,
-              scroll: false,
-            }
-          );
-      // replace(`${pathname}${qs}`, `${pathname}${qs}`, {
-      //     shallow: true,
-      //     scroll: false,
-      //   })
+      replace(
+        `${pathname.replace('[id]', query.id)}${qs}`,
+        `${pathname.replace('[id]', query.id)}${qs}`,
+        {
+          shallow: true,
+          scroll: false,
+        }
+      );
     },
     [pathname, query, replace]
   );

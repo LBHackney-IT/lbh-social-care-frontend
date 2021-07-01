@@ -48,7 +48,6 @@ const AddRelationshipForm = (): React.ReactElement => {
           formSteps={formSteps}
           title="Add relationship"
           onFormSubmit={onFormSubmit}
-          hideBackButton
           successMessage="Relationship has been added"
         />
       </PersonView>
