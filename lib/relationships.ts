@@ -18,12 +18,7 @@ export const getRelationshipByResident = async (
 export const addRelationship = async (
   params: Record<string, unknown>
 ): Promise<void> => {
-  // await axios.post(`${ENDPOINT_API}/relationships/personal`, params, {
-  await axios.post(
-    `https://virtserver.swaggerhub.com/Hackney/social-care-case-viewer-api/1.0.0/relationships/personal`,
-    params,
-    {
-      headers: { ...headers, 'Content-Type': 'application/json' },
-    }
-  );
+  await axios.post(`${ENDPOINT_API}/relationships/personal`, params, {
+    headers: { ...headers, 'Content-Type': 'application/json' },
+  });
 };
