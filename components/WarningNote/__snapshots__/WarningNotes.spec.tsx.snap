@@ -28,42 +28,6 @@ exports[`useWarningNotes should render a list of warning notes 1`] = `
               Type
             </dt>
             <dd>
-              Risk to Adults
-            </dd>
-            <dt>
-              Start date
-            </dt>
-            <dd>
-              13/11/2020 
-              <i>
-                created by
-              </i>
-               Foo
-            </dd>
-            <dt>
-              Review date
-            </dt>
-            <dd>
-              01/12/2020 
-            </dd>
-          </dl>
-          <a
-            class="govuk-link govuk-link-underline"
-            href="/people/123/warning-notes/1"
-          >
-            Review / end
-          </a>
-        </div>
-        <div
-          class="note"
-        >
-          <dl
-            class="noteDetails"
-          >
-            <dt>
-              Type
-            </dt>
-            <dd>
               Risk to Staff
             </dd>
             <dt>
@@ -77,15 +41,15 @@ exports[`useWarningNotes should render a list of warning notes 1`] = `
                Foo
             </dd>
             <dt>
-              Review date
+              Next review date
             </dt>
             <dd>
-              01/01/2021 
+              12/11/2020 
             </dd>
           </dl>
           <a
             class="govuk-link govuk-link-underline"
-            href="/people/123/warning-notes/2"
+            href="/people/123/warning-notes/3"
           >
             Review / end
           </a>

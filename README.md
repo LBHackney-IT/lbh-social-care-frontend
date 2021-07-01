@@ -115,6 +115,10 @@ In order to push to the repo, CircleCI has a read/write deploy key configured. T
 
 The application makes use the [Hackney Design System](https://design-system.hackney.gov.uk/).
 
+## Feature flags
+
+Take a look at our [CONTRIBUTING](.github/CONTRIBUTING.md) documentation for details on how to use feature flags.
+
 ## Next.js
 
 The application is built using Next.js. To learn more about Next.js, take a look at the following resources:
