@@ -91,6 +91,18 @@ describe('feature flags', () => {
       return ContextWrapper;
     };
 
+    it('should throw an exception if feature flag context is not provided', () => {
+      const { result } = renderHook(() => useFeatureFlags(), {
+        wrapper: undefined,
+      });
+
+      expect(result.error).toEqual(
+        new Error(
+          'A <FeatureFlagProvider /> must be provided as a parent of this component'
+        )
+      );
+    });
+
     it('should return a method to check if a named hook is active and return true if it is', () => {
       const { result } = renderHook(() => useFeatureFlags(), {
         wrapper: getContextWrapper({
