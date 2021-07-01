@@ -113,7 +113,7 @@ const GroupRecordingWidget = ({ initialPeople }: Props): React.ReactElement => {
     );
 
     setPeople(newPeople);
-    setOpen(newPeople.length);
+    setOpen(newPeople.length - 1);
   };
 
   return (

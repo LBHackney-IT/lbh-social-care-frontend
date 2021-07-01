@@ -40,7 +40,8 @@ const PersonWidget = ({
             className={s.summary}
             onClick={(e) => {
               e.preventDefault();
-              setOpen && (open ? setOpen(false) : index && setOpen(index));
+              setOpen &&
+                (open ? setOpen(false) : index !== undefined && setOpen(index));
             }}
           >
             <h2 className={`lbh-heading-h3 ${s.title}`}>
