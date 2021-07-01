@@ -28,14 +28,15 @@ const AddRelationshipForm = (): React.ReactElement => {
     }
     delete formData.ofUnbornChild;
 
-    const { error } = await addRelationships({
+    const { data, error } = await addRelationships({
       ...formData,
       personId: personId,
       otherPersonId: otherPersonId,
     });
     if (error) throw error;
 
-    router.push(`/people/${personId}?relationshipSuccess=true`);
+    // router.push(`/people/${personId}?relationshipSuccess=true`);
+    return data;
   };
 
   return (
