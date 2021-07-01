@@ -1,4 +1,4 @@
-import PersonSelect from './../PersonSelect/PersonSelect';
+import PersonSelect from './PersonSelect';
 import { render, screen } from '@testing-library/react';
 import { mockedResident } from 'factories/residents';
 
