@@ -33,8 +33,8 @@ const AddRelationshipForm = (): React.ReactElement => {
 
     const { data, error } = await addRelationships({
       ...formData,
-      personId: personId,
-      otherPersonId: secondPersonId,
+      personId: Number(personId),
+      otherPersonId: Number(secondPersonId),
     });
     if (error) throw error;
 
