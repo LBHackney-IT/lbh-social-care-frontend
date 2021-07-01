@@ -5,10 +5,7 @@ import RelationshipElement from './RelationshipElement';
 import Button from 'components/Button/Button';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
-import {
-  ConditionalFeature,
-  FeatureSet,
-} from 'lib/feature-flags/feature-flags';
+import { ConditionalFeature } from 'lib/feature-flags/feature-flags';
 
 interface Props {
   id: number;
