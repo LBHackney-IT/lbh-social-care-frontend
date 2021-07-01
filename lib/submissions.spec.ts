@@ -123,7 +123,8 @@ describe('finishSubmission', () => {
       `${ENDPOINT_API}/submissions/foo`
     );
     expect(mockedAxios.patch.mock.calls[0][1]).toEqual({
-      createdBy: 'bar',
+      editedBy: 'bar',
+      submissionState: 'submitted',
     });
     expect(mockedAxios.patch.mock.calls[0][2]?.headers).toEqual({
       'x-api-key': AWS_KEY,

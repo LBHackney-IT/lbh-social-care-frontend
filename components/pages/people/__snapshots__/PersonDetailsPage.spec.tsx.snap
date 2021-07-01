@@ -8,16 +8,100 @@ exports[`<PersonDetailsPage /> for all users should render the details for the p
     <div
       class=""
     >
-      <span
-        class="govuk-error-message"
+      <div
+        aria-labelledby="warning-note-title"
+        class="govuk-error-summary container"
+        role="complementary"
+        tabindex="-1"
       >
-        <span
-          class="govuk-visually-hidden"
+        <h2
+          class="govuk-error-summary__title"
+          id="warning-note-title"
         >
-          Error:
-        </span>
-         There was a problem. Please refresh the page or try again later.
-      </span>
+          WARNING NOTE
+        </h2>
+        <div>
+          <div
+            class="govuk-error-summary__body"
+          >
+            <div
+              class="note"
+            >
+              <dl
+                class="noteDetails"
+              >
+                <dt>
+                  Type
+                </dt>
+                <dd>
+                  Risk to Adults
+                </dd>
+                <dt>
+                  Start date
+                </dt>
+                <dd>
+                  13/11/2020 
+                  <i>
+                    created by
+                  </i>
+                   Foo
+                </dd>
+                <dt>
+                  Review date
+                </dt>
+                <dd>
+                  01/12/2020 
+                </dd>
+              </dl>
+              <a
+                class="govuk-link govuk-link-underline"
+                href="/people/100/warning-notes/1"
+              >
+                Review / end
+              </a>
+            </div>
+            <div
+              class="note"
+            >
+              <dl
+                class="noteDetails"
+              >
+                <dt>
+                  Type
+                </dt>
+                <dd>
+                  Risk to Staff
+                </dd>
+                <dt>
+                  Start date
+                </dt>
+                <dd>
+                  22/11/2020 
+                  <i>
+                    created by
+                  </i>
+                   Foo
+                </dd>
+                <dt>
+                  Review date
+                </dt>
+                <dd>
+                  01/01/2021 
+                </dd>
+              </dl>
+              <a
+                class="govuk-link govuk-link-underline"
+                href="/people/100/warning-notes/2"
+              >
+                Review / end
+              </a>
+            </div>
+            <p>
+              For further information see Warning Note in Records History
+            </p>
+          </div>
+        </div>
+      </div>
     </div>
     <div
       class="govuk-!-margin-top-7"

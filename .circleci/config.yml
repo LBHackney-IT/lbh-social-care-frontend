@@ -41,7 +41,7 @@ jobs:
           root: *workspace_root
           paths: .
 
-  tests:
+  unit-tests:
     executor: node-executor
     steps:
       - *attach_workspace
@@ -54,6 +54,18 @@ jobs:
       - run:
           name: Run tests
           command: yarn test -w 2
+
+  build:
+    executor: node-executor
+    steps:
+      - *attach_workspace
+      - run:
+          name: Build app
+          command: yarn build
+      - persist_to_workspace:
+          root: *workspace_root
+          paths:
+            - project/build
 
   e2e:
     executor: node-executor
@@ -73,7 +85,7 @@ jobs:
       - *attach_workspace
       - run:
           name: deploy
-          command: yarn build && yarn --production=true && sudo npm i -g serverless && sls deploy --stage staging
+          command: yarn --production=true && sudo npm i -g serverless && sls deploy --stage staging
 
   build-deploy-production:
     executor: aws-cli/default
@@ -81,7 +93,7 @@ jobs:
       - *attach_workspace
       - run:
           name: deploy
-          command: yarn build && yarn --production=true && sudo npm i -g serverless && sls deploy -s production
+          command: yarn --production=true && sudo npm i -g serverless && sls deploy -s production
 
   generate-draft-github-release:
     executor: aws-cli/default
@@ -139,24 +151,29 @@ workflows:
   continuous-delivery:
     jobs:
       - install-dependencies
-      - tests:
+      - unit-tests:
           requires:
             - install-dependencies
+      - build:
+          requires:
+            - unit-tests
       - e2e:
           requires:
-            - install-dependencies
+            - build
       - generate-draft-github-release:
           requires:
-            - tests
+            - unit-tests
             - e2e
+            - build
           filters:
             branches:
               only: main
       - assume-role-staging:
           context: api-assume-role-staging-context
           requires:
-            - tests
+            - unit-tests
             - e2e
+            - build
           filters:
             branches:
               only: main
