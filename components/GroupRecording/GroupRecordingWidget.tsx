@@ -19,7 +19,7 @@ const GroupRecordingWidget = ({ initialPeople }: Props): React.ReactElement => {
     useState<(Resident | LegacyResident)[]>(initialPeople);
   const [open, setOpen] = useState<number | false>(0);
   const [dialogOpen, setDialogOpen] = useState<boolean>(false);
-  const [idToAdd, setIdToAdd] = useState<number | false>(false);
+  const [idToAdd, setIdToAdd] = useState<number>(-1);
 
   const [searchQuery, setSearchQuery] = useState('');
   const { data } = useResidents({

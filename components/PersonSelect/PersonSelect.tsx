@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Dispatch, SetStateAction } from 'react';
 import s from './PersonSelect.module.scss';
 import { LegacyResident, Resident } from 'types';
 import { format } from 'date-fns';
@@ -8,8 +8,8 @@ interface ChoiceProps {
   name: string;
   label: string;
   hint: string;
-  idToAdd: number | false;
-  setIdToAdd: (value: number) => void;
+  idToAdd: number;
+  setIdToAdd: Dispatch<SetStateAction<number>>;
 }
 
 const Choice = ({
@@ -48,8 +48,8 @@ const Choice = ({
 interface Props {
   label: string;
   people: (Resident | LegacyResident)[];
-  idToAdd: number | false;
-  setIdToAdd: (value: number) => void;
+  idToAdd: number;
+  setIdToAdd: Dispatch<SetStateAction<number>>;
 }
 
 const PersonSelect = ({
