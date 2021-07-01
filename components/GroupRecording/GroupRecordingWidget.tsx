@@ -80,15 +80,18 @@ const GroupRecordingWidget = ({ initialPeople }: Props): React.ReactElement => {
     if (idToAdd) {
       const result =
         results &&
-        results.find((resident) =>
-          'id' in resident
-            ? resident.id === idToAdd
-            : resident.mosaicId === idToAdd
-        );
+        results.find((resident) => {
+          if ('id' in resident) {
+            return resident.id === idToAdd;
+          } else {
+            return String(resident.mosaicId) === String(idToAdd);
+          }
+        });
 
-      if (result) {
+      if (result !== undefined) {
         setPeople([...people, result]);
       } else {
+        console.log('fail: ' + result);
         setPeople([...people]);
       }
       setOpen(people.length);
