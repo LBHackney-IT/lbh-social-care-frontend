@@ -77,13 +77,16 @@ const PersonSelect = ({
               idToAdd={idToAdd}
               setIdToAdd={setIdToAdd}
               key={'id' in person ? person.id : person.mosaicId}
-              hint={`#${
-                'id' in person ? person.id : person.mosaicId
-              } · Born ${format(
-                new Date(String(person.dateOfBirth)),
-                'd MMM yyyy'
-              )} · ${person.address?.address}`}
-              {...people}
+              hint={`#${'id' in person ? person.id : person.mosaicId} ${
+                person.dateOfBirth
+                  ? `· Born ${format(
+                      new Date(String(person.dateOfBirth)),
+                      'd MMM yyyy'
+                    )} `
+                  : ''
+              }${
+                person.address?.address ? `· ${person.address?.address}` : ''
+              }`}
             />
           ))}
         </div>
