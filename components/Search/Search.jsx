@@ -71,7 +71,7 @@ const Search = ({
   //this is to prevent a search if the parameter "ID" comes from the URL (not as a parameter)
   //example: people/43/relationships/add, will ignore the "43"
   //this way the search will be clear and not filled with results
-  console.log(JSON.stringify(query));
+  // console.log(JSON.stringify(query));
   if (Object.keys(query).length == 1 && query.id) {
     hasQuery = false;
   }

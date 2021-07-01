@@ -5,6 +5,10 @@ import RelationshipElement from './RelationshipElement';
 import Button from 'components/Button/Button';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
+import {
+  ConditionalFeature,
+  FeatureSet,
+} from 'lib/feature-flags/feature-flags';
 
 interface Props {
   id: number;
@@ -43,11 +47,12 @@ const Relationships = ({ id }: Props): React.ReactElement => {
           <h3 className="govuk-fieldset__legend--m govuk-custom-text-color">
             RELATIONSHIPS
           </h3>
-
-          <Button
-            label="Add a new relationship"
-            route={`${id}/relationships/add`}
-          />
+          <ConditionalFeature name="add-relationships">
+            <Button
+              label="Add a new relationship"
+              route={`${id}/relationships/add`}
+            />
+          </ConditionalFeature>
         </div>
 
         <hr className="govuk-divider" />
