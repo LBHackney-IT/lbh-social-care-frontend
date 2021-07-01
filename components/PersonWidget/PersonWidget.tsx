@@ -1,5 +1,5 @@
 import React from 'react';
-import { LegacyResident } from 'types';
+import { LegacyResident, Resident } from 'types';
 import s from './PersonWidget.module.scss';
 import { format } from 'date-fns';
 
@@ -13,7 +13,7 @@ const prettyDate = (isoDateString: string): string => {
 };
 
 interface Props {
-  person: LegacyResident;
+  person: Resident | LegacyResident;
   grouped?: boolean;
   index?: number;
   onRemove?: (value: number) => void;
@@ -31,8 +31,7 @@ const PersonWidget = ({
 }: Props): React.ReactElement => {
   const dateOfBirth = prettyDate(person?.dateOfBirth ?? '');
   const displayAddress = person?.address;
-  const firstAddress = person?.addresses?.[0];
-
+  const firstAddress = 'id' in person ? person?.addresses?.[0] : person.address;
   if (grouped)
     return (
       <aside className={s.aside}>
@@ -41,7 +40,7 @@ const PersonWidget = ({
             className={s.summary}
             onClick={(e) => {
               e.preventDefault();
-              open ? setOpen(false) : setOpen(index);
+              setOpen && (open ? setOpen(false) : index && setOpen(index));
             }}
           >
             <h2 className={`lbh-heading-h3 ${s.title}`}>
@@ -65,15 +64,24 @@ const PersonWidget = ({
           )}
           {firstAddress && (
             <p className={`lbh-body-s ${s.paragraph}`}>
-              {firstAddress?.addressLines}
+              {'address' in firstAddress
+                ? firstAddress.address
+                : firstAddress.addressLines}
               <br />
-              {firstAddress?.postCode}
+              {'postcode' in firstAddress
+                ? firstAddress.postcode
+                : firstAddress.postCode}
             </p>
           )}
 
           <button
             className="lbh-link lbh-body-s"
-            onClick={() => onRemove(person.mosaicId)}
+            onClick={() =>
+              onRemove &&
+              onRemove(
+                'id' in person ? person.id : parseInt(String(person.mosaicId))
+              )
+            }
           >
             Remove
           </button>
@@ -99,9 +107,13 @@ const PersonWidget = ({
       )}
       {firstAddress && (
         <p className={`lbh-body-s ${s.paragraph}`}>
-          {firstAddress?.addressLines}
+          {'address' in firstAddress
+            ? firstAddress.address
+            : firstAddress.addressLines}
           <br />
-          {firstAddress?.postCode}
+          {'postcode' in firstAddress
+            ? firstAddress.postcode
+            : firstAddress.postCode}
         </p>
       )}
     </aside>

@@ -26,42 +26,92 @@ const GroupRecordingWidget = ({ initialPeople }: Props): React.ReactElement => {
     mosaic_id: searchQuery,
   });
 
-  const results: LegacyResident[] = data
+  const results: (Resident | LegacyResident)[] | undefined = data
     // flatten pagination
-    ?.reduce((acc, page) => acc.concat(page.residents), [])
-    // don't show anyone already on the list
-    .filter(
-      (person) =>
-        !people
-          .map((existingPerson) => existingPerson.id)
-          .includes(parseInt(person.mosaicId))
+    ?.reduce(
+      (acc, page) =>
+        acc.concat(page.residents as (Resident | LegacyResident)[]),
+      [] as (Resident | LegacyResident)[]
     )
+    // don't show anyone already on the list
+    .filter((person) => {
+      if ('id' in person) {
+        return !people
+          .map((existingPerson) => {
+            if ('id' in existingPerson) {
+              return existingPerson.id;
+            } else {
+              return parseInt(String(existingPerson.mosaicId));
+            }
+          })
+          .includes(person.id);
+      } else {
+        return !people
+          .map((existingPerson) => {
+            if ('id' in existingPerson) {
+              return existingPerson.id;
+            } else {
+              return parseInt(String(existingPerson.mosaicId));
+            }
+          })
+          .includes(parseInt(String(person.mosaicId)));
+      }
+    })
     // only show six max
     .slice(0, 5);
 
+  function mapPeopleToIds(person: LegacyResident | Resident) {
+    if ('id' in person) {
+      return person.id;
+    } else {
+      return parseInt(String(person.mosaicId));
+    }
+  }
+
   useEffect(() => {
+    const residents = people.map((person) => mapPeopleToIds(person));
+
     axios.patch(`/api/submissions/${query.id}`, {
-      residents: people.map((person) => parseInt(person.id || person.mosaicId)),
+      residents,
     });
   }, [people, query.id]);
 
   const handleAdd = (): void => {
     if (idToAdd) {
-      setPeople([
-        ...people,
-        results.find((resident) => resident.mosaicId === idToAdd),
-      ]);
+      const result =
+        results &&
+        results.find((resident) =>
+          'id' in resident
+            ? resident.id === idToAdd
+            : resident.mosaicId === idToAdd
+        );
+
+      if (result) {
+        setPeople([...people, result]);
+      } else {
+        setPeople([...people]);
+      }
       setOpen(people.length);
       setDialogOpen(false);
       setSearchQuery('');
     }
   };
 
-  console.log(people);
-
   const handleRemove = (idToRemove: number): void => {
-    setPeople(people.filter((person) => person.mosaicId !== idToRemove));
-    setOpen(people.length - 1);
+    function filterPeople(person: Resident | LegacyResident) {
+      if ('id' in person) {
+        return person.id !== idToRemove;
+      } else {
+        return person.mosaicId !== idToRemove;
+      }
+    }
+
+    const newPeople: (Resident | LegacyResident)[] = people.filter((person) =>
+      filterPeople(person)
+    );
+
+    setPeople(newPeople);
+    setOpen(newPeople.length);
   };
 
   return (
@@ -141,13 +191,15 @@ const GroupRecordingWidget = ({ initialPeople }: Props): React.ReactElement => {
           </div>
         </div>
 
-        {searchQuery && results && (
+        {searchQuery && results ? (
           <PersonSelect
             people={results}
             label="Matching people"
             idToAdd={idToAdd}
             setIdToAdd={setIdToAdd}
           />
+        ) : (
+          <></>
         )}
 
         <button

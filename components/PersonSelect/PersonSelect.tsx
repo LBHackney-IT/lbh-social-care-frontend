@@ -1,6 +1,6 @@
 import React from 'react';
 import s from './PersonSelect.module.scss';
-import { LegacyResident } from 'types';
+import { LegacyResident, Resident } from 'types';
 import { format } from 'date-fns';
 
 interface ChoiceProps {
@@ -47,7 +47,7 @@ const Choice = ({
 
 interface Props {
   label: string;
-  people: LegacyResident[];
+  people: (Resident | LegacyResident)[];
   idToAdd: number | false;
   setIdToAdd: (value: number) => void;
 }
@@ -71,11 +71,15 @@ const PersonSelect = ({
             <Choice
               name="person"
               label={`${person.firstName} ${person.lastName}`}
-              value={person.mosaicId}
+              value={
+                'id' in person ? person.id : parseInt(String(person.mosaicId))
+              }
               idToAdd={idToAdd}
               setIdToAdd={setIdToAdd}
-              key={person.mosaicId}
-              hint={`#${person.mosaicId} · Born ${format(
+              key={'id' in person ? person.id : person.mosaicId}
+              hint={`#${
+                'id' in person ? person.id : person.mosaicId
+              } · Born ${format(
                 new Date(String(person.dateOfBirth)),
                 'd MMM yyyy'
               )} · ${person.address?.address}`}

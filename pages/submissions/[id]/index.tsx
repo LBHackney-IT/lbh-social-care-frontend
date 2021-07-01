@@ -31,7 +31,6 @@ const TaskListPage = ({
 }: Props): React.ReactElement => {
   const router = useRouter();
   const [status, setStatus] = useState<string | false>(false);
-
   const completedSteps = Object.keys(formAnswers);
   const person = residents[0];
 
