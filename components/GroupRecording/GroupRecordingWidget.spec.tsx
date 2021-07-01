@@ -10,7 +10,8 @@ describe('GroupRecordingWidget', () => {
     expect(screen.getByText('Bart Simpson'));
     expect(screen.getByText('Link another person'));
   });
-  //   testing around the API call
+  //   testing around the API call (adding, removing)
+  //   test selecting a resident checks the resident
   //   test works with both a legacy or a mocked resident
   //   it("allows people to be added and removed", () => {})
   //   it("allows widgets to be expanded and collapsed when there are more than one", () => {})

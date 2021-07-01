@@ -1,0 +1,48 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`PersonSelect should render properly 1`] = `
+<DocumentFragment>
+  <div
+    class="govuk-form-group lbh-form-group"
+  >
+    <fieldset
+      class="govuk-fieldset"
+    >
+      <legend
+        class="govuk-label lbh-label"
+      >
+        Matching people
+      </legend>
+      <div
+        class="govuk-radios govuk-radios--small lbh-radios personList"
+      >
+        <div
+          class="govuk-radios__item personResult"
+        >
+          <input
+            aria-describedby="person-1-hint"
+            checked=""
+            class="govuk-radios__input"
+            id="person-1"
+            name="person"
+            type="radio"
+            value="1"
+          />
+          <label
+            class="govuk-radios__label lbh-body-s name"
+            for="person-1"
+          >
+            Foo Bar
+          </label>
+          <p
+            class="lbh-body-xs meta"
+            id="person-1-hint"
+          >
+            #1 · Born 13 Nov 2020 · sjakdjlk
+          </p>
+        </div>
+      </div>
+    </fieldset>
+  </div>
+</DocumentFragment>
+`;

@@ -8,6 +8,18 @@ import {
 } from 'factories/residents';
 
 describe('PersonSelect', () => {
+  it('should render properly', () => {
+    const { asFragment } = render(
+      <PersonSelect
+        label="Matching people"
+        people={[mockedResident]}
+        idToAdd={mockedResident.id}
+        setIdToAdd={jest.fn()}
+      />
+    );
+    expect(asFragment()).toMatchSnapshot();
+  });
+
   it('handles when no people are found', () => {
     render(
       <PersonSelect
