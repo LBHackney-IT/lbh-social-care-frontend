@@ -35,7 +35,6 @@ describe('PersonSelect', () => {
 
   it('should call the setIdToAdd callback with the id of the selected resident', () => {
     const mockSetIdToAdd = jest.fn();
-    mockSetIdToAdd.mockReturnValue(mockedResident.id);
 
     const { container } = render(
       <PersonSelect
