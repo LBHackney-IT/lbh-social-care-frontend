@@ -38,9 +38,6 @@ const CustomApp = ({
     'feature-flags-implementation-proof': {
       isActive: pageProps.environmentName === 'development',
     },
-    'add-relationships': {
-      isActive: pageProps.environmentName === 'development',
-    },
   };
 
   return (
