@@ -84,14 +84,13 @@ const GroupRecordingWidget = ({ initialPeople }: Props): React.ReactElement => {
           if ('id' in resident) {
             return resident.id === idToAdd;
           } else {
-            return String(resident.mosaicId) === String(idToAdd);
+            return resident.mosaicId === String(idToAdd);
           }
         });
 
       if (result !== undefined) {
         setPeople([...people, result]);
       } else {
-        console.log('fail: ' + result);
         setPeople([...people]);
       }
       setOpen(people.length);
@@ -105,7 +104,7 @@ const GroupRecordingWidget = ({ initialPeople }: Props): React.ReactElement => {
       if ('id' in person) {
         return person.id !== idToRemove;
       } else {
-        return person.mosaicId !== idToRemove;
+        return person.mosaicId !== String(idToRemove);
       }
     }
 
