@@ -11,6 +11,7 @@ In order to add a feature flag for your new feature, look for the `<FeatureFlagP
 
 ```tsx
 const features = {
+  // FEATURE-FLAG-EXPIRES [3000-12-32]: name of the feature flag e.g feature-name
   'feature-name': {
     isActive: someConditionThatReturnsABoolean,
   },
@@ -24,6 +25,8 @@ You can add a new feature to it following this structure:
   isActive: Boolean;
 }
 ```
+
+> ⚠️ **Warning**: Make sure to add an expiry date comment to the feature flag as shown above.
 
 To then use your feature flag in your React code, a component – `<ConditionalFeature />` is available. This component will render its children if the feature is active, otherwise it will return nothing. Use it as follows:
 
