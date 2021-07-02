@@ -17,9 +17,7 @@ describe('CaseLink component', () => {
       <DocumentFragment>
         <a
           class="lbh-link"
-          href="https://foo.bar"
-          rel="noreferrer noopener"
-          target="_blank"
+          href="/people/1/submissions/123"
         >
           View
         </a>
@@ -39,7 +37,7 @@ describe('CaseLink component', () => {
       <DocumentFragment>
         <a
           class="lbh-link"
-          href="/people/123/allocations/321?recordId=123"
+          href="/people/1/submissions/123"
         >
           View
         </a>
@@ -58,7 +56,16 @@ describe('CaseLink component', () => {
       formName: 'foo',
     };
     const { asFragment } = render(<CaseLink {...props} />);
-    expect(asFragment()).toMatchInlineSnapshot(`<DocumentFragment />`);
+    expect(asFragment()).toMatchInlineSnapshot(`
+      <DocumentFragment>
+        <a
+          class="lbh-link"
+          href="/people/1/submissions/123"
+        >
+          View
+        </a>
+      </DocumentFragment>
+    `);
   });
 
   it('should render properly - with handled link for viewing warning notes', () => {
