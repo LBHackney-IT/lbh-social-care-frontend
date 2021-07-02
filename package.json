@@ -1,11 +1,10 @@
 {
   "name": "lbh-social-care",
-  "version": "0.2.0",
+  "version": "0.3.1",
   "private": true,
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "prestart": "next build",
     "start": "next start -p $PORT",
     "test": "jest",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx && echo 'Lint complete.'",
