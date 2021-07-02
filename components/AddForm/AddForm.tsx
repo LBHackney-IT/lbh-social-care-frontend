@@ -6,6 +6,7 @@ import { Autocomplete } from 'components/Form/Autocomplete/Autocomplete';
 import { populateChildForm } from 'utils/populate';
 import ADULT_FORMS from 'data/googleForms/adultForms';
 import CHILD_FORMS from 'data/googleForms/childForms';
+import flexibleForms from 'data/flexibleForms';
 import { Resident, User } from 'types';
 
 const AddForm = ({ person }: { person: Resident }): React.ReactElement => {
@@ -27,6 +28,22 @@ const AddForm = ({ person }: { person: Resident }): React.ReactElement => {
     text: string;
     value: string;
   }[];
+
+  // handle new flexible forms
+  if (ageContext === 'A') {
+    for (let i = 0; i < flexibleForms.length; i++) {
+      const form = flexibleForms[i];
+      if (
+        form.name === 'FACE Overview Assessment (Social Care)' &&
+        !(user.hasAdminPermissions || user.hasDevPermissions)
+      )
+        continue;
+      internalForms.push({
+        text: form.name,
+        value: `/submissions/new?social_care_id=${person.id}&form_id=${form.id}`,
+      });
+    }
+  }
 
   return (
     <>
@@ -52,7 +69,9 @@ const AddForm = ({ person }: { person: Resident }): React.ReactElement => {
               )}`
             : url
         }
-        internalQuery={`?id=${person.id}`}
+        internalQuery={
+          url?.includes('/submissions/new?') ? '' : `?id=${person.id}`
+        }
       />
     </>
   );

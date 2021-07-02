@@ -10,7 +10,7 @@ const MyCasesPage = (): React.ReactElement => (
         <p className="govuk-body">All records you have added</p>
         <Search
           type="records"
-          subHeader="Filter results by (any combination)"
+          subHeader={<>Filter results by (any combination)</>}
           resultHeader="All records you have added"
           showOnlyMyResults
           columns={[

@@ -4,6 +4,7 @@ import {
   StepAnswers,
   FlexibleAnswers,
 } from 'data/flexibleForms/forms.types';
+import { Resident, AgeContext } from 'types';
 
 type RawSubmission = Omit<Submission, 'formAnswers'> & {
   formAnswers: {
@@ -15,6 +16,22 @@ const { ENDPOINT_API, AWS_KEY } = process.env;
 
 const headersWithKey = {
   'x-api-key': AWS_KEY,
+};
+
+/** get a list of all unfinished submissions in the current social care service context  */
+export const getUnfinishedSubmissions = async (
+  ageContext?: AgeContext
+): Promise<Submission[]> => {
+  const { data } = await axios.get(`${ENDPOINT_API}/submissions`, {
+    headers: headersWithKey,
+  });
+  return ageContext
+    ? data.filter((submission: Submission) =>
+        submission.residents.some(
+          (resident: Resident) => resident.ageContext === ageContext
+        )
+      )
+    : data;
 };
 
 /** create a new submission for the given form, resident and worker  */
@@ -89,7 +106,8 @@ export const finishSubmission = async (
   const { status } = await axios.patch(
     `${ENDPOINT_API}/submissions/${submissionId}`,
     {
-      createdBy: finishedBy,
+      editedBy: finishedBy,
+      submissionState: 'submitted',
     },
     {
       headers: headersWithKey,

@@ -1,4 +1,5 @@
 import { render } from '@testing-library/react';
+import { FeatureFlagProvider } from '../../lib/feature-flags/feature-flags';
 
 import Layout from './index';
 
@@ -14,9 +15,11 @@ jest.mock('./PhaseBanner/PhaseBanner', () => () => 'MockedPhaseBanner');
 describe('Layout component', () => {
   it('should render properly', async () => {
     const { asFragment } = render(
-      <Layout>
-        <p>I am the children</p>
-      </Layout>
+      <FeatureFlagProvider features={{}}>
+        <Layout>
+          <p>I am the children</p>
+        </Layout>
+      </FeatureFlagProvider>
     );
     expect(asFragment()).toMatchSnapshot();
   });

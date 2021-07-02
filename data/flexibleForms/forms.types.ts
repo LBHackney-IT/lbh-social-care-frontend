@@ -17,6 +17,8 @@ export interface Field {
     | 'select'
     | 'repeater'
     | 'repeaterGroup'
+    | 'timetable'
+    | 'tags'
     | 'combobox'
     | 'file';
   /** Required value is always ignored on fields with a condition */
@@ -41,6 +43,7 @@ export interface Field {
 export interface Step {
   id: string;
   name: string;
+  intro?: string;
   theme: string;
   fields: Field[];
 }
@@ -55,9 +58,20 @@ export interface RepeaterGroupAnswer {
   [key: string]: string | string[];
 }
 
+export interface TimetableAnswer {
+  [key: string]: {
+    [key: string]: string;
+  };
+}
+
+export type Answer =
+  | string
+  | TimetableAnswer
+  | (string | RepeaterGroupAnswer)[];
+
 export interface StepAnswers {
   // questions and answers
-  [key: string]: string | (string | RepeaterGroupAnswer)[];
+  [key: string]: Answer;
 }
 
 export interface FlexibleAnswers {
@@ -76,6 +90,6 @@ export interface Submission {
     worker: Worker;
     editTime: string;
   }[];
-  submissionState: number;
+  submissionState: string;
   formAnswers: FlexibleAnswers;
 }

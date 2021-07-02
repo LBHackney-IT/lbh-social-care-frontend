@@ -2,15 +2,70 @@ import axios from 'axios';
 import {
   finishSubmission,
   getSubmissionById,
+  getUnfinishedSubmissions,
   patchSubmissionForStep,
   startSubmission,
 } from './submissions';
 import MockDate from 'mockdate';
+import { mockedLegacyResident } from 'factories/residents';
 
 jest.mock('axios');
 const mockedAxios = axios as jest.Mocked<typeof axios>;
 
 const { ENDPOINT_API, AWS_KEY } = process.env;
+
+describe('getUnfinishedSubmissions', () => {
+  it('should return a list of incomplete submissions', async () => {
+    mockedAxios.get.mockResolvedValue({
+      data: [
+        { submissionId: '123', formAnswers: {} },
+        { submissionId: '456', formAnswers: {} },
+      ],
+    });
+    const data = await getUnfinishedSubmissions();
+    expect(mockedAxios.get).toHaveBeenCalled();
+    expect(mockedAxios.get.mock.calls[0][0]).toEqual(
+      `${ENDPOINT_API}/submissions`
+    );
+    expect(mockedAxios.get.mock.calls[0][1]?.headers).toEqual({
+      'x-api-key': AWS_KEY,
+    });
+    expect(data).toEqual([
+      { submissionId: '123', formAnswers: {} },
+      { submissionId: '456', formAnswers: {} },
+    ]);
+  });
+
+  it('only returns submissions in the requested age context', async () => {
+    mockedAxios.get.mockResolvedValue({
+      data: [
+        {
+          submissionId: '123',
+          formAnswers: {},
+          residents: [mockedLegacyResident],
+        },
+        {
+          submissionId: '456',
+          formAnswers: {},
+          residents: [
+            {
+              ...mockedLegacyResident,
+              ageContext: 'C',
+            },
+          ],
+        },
+      ],
+    });
+    const data = await getUnfinishedSubmissions('A');
+    expect(data).toEqual([
+      {
+        submissionId: '123',
+        formAnswers: {},
+        residents: [mockedLegacyResident],
+      },
+    ]);
+  });
+});
 
 describe('startSubmission', () => {
   it('should work properly', async () => {
@@ -68,7 +123,8 @@ describe('finishSubmission', () => {
       `${ENDPOINT_API}/submissions/foo`
     );
     expect(mockedAxios.patch.mock.calls[0][1]).toEqual({
-      createdBy: 'bar',
+      editedBy: 'bar',
+      submissionState: 'submitted',
     });
     expect(mockedAxios.patch.mock.calls[0][2]?.headers).toEqual({
       'x-api-key': AWS_KEY,

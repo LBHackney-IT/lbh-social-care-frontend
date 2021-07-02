@@ -6,7 +6,7 @@ import {
   waitFor,
 } from '@testing-library/react';
 import React from 'react';
-import { addYears, subMonths } from 'date-fns';
+import { addYears, subMonths, addMonths } from 'date-fns';
 import Router from 'next/router';
 
 import { residentFactory } from 'factories/residents';
@@ -226,48 +226,98 @@ describe('<ReviewWarningNoteForm />', () => {
       });
     });
 
-    it('should push to the summary route when the form is submitted with valid data', async () => {
-      // Review date
-      setDateFieldValue('reviewDate', new Date());
+    describe('when the form is submitted with valid data', () => {
+      it('should push to the summary route to renew a warning note', async () => {
+        // Review date
+        setDateFieldValue('reviewDate', new Date());
 
-      // Discussed with individual
-      fireEvent.click(
-        screen.getByText('Yes', {
-          selector: "[for='disclosedWithIndividual_Yes']",
-        })
-      );
-
-      // Details of review
-      fireEvent.change(screen.getByLabelText(/Details of review/), {
-        target: {
-          value: 'Some details',
-        },
-      });
-
-      // Manager's name
-      fireEvent.change(screen.getByLabelText(/Manager’s name/), {
-        target: {
-          value: 'First Last',
-        },
-      });
-
-      // Date discussed with manager
-      setDateFieldValue('discussedWithManagerDate', new Date());
-
-      // Next steps
-      fireEvent.click(
-        screen.getByText('End Warning Note', {
-          selector: "[for='reviewDecision_No']",
-        })
-      );
-
-      fireEvent.submit(screen.getByRole('form'));
-
-      await waitFor(() => {
-        expect(Router.push).toHaveBeenCalledWith(
-          '/people/100/warning-notes/10/[step]',
-          '/people/100/warning-notes/10/summary'
+        // Discussed with individual
+        fireEvent.click(
+          screen.getByText('Yes', {
+            selector: "[for='disclosedWithIndividual_Yes']",
+          })
         );
+
+        // Details of review
+        fireEvent.change(screen.getByLabelText(/Details of review/), {
+          target: {
+            value: 'Some details',
+          },
+        });
+
+        // Manager's name
+        fireEvent.change(screen.getByLabelText(/Manager’s name/), {
+          target: {
+            value: 'First Last',
+          },
+        });
+
+        // Date discussed with manager
+        setDateFieldValue('discussedWithManagerDate', new Date());
+
+        // Renew warning note
+        fireEvent.click(
+          screen.getByText('Renew Warning Note', {
+            selector: "[for='reviewDecision_Yes']",
+          })
+        );
+
+        // Next review date
+        setDateFieldValue('nextReviewDate', addMonths(new Date(), 11));
+
+        fireEvent.submit(screen.getByRole('form'));
+
+        await waitFor(() => {
+          expect(Router.push).toHaveBeenCalledWith(
+            '/people/100/warning-notes/10/[step]',
+            '/people/100/warning-notes/10/summary'
+          );
+        });
+      });
+
+      it('should push to the summary route to end a warning note', async () => {
+        // Review date
+        setDateFieldValue('reviewDate', new Date());
+
+        // Discussed with individual
+        fireEvent.click(
+          screen.getByText('Yes', {
+            selector: "[for='disclosedWithIndividual_Yes']",
+          })
+        );
+
+        // Details of review
+        fireEvent.change(screen.getByLabelText(/Details of review/), {
+          target: {
+            value: 'Some details',
+          },
+        });
+
+        // Manager's name
+        fireEvent.change(screen.getByLabelText(/Manager’s name/), {
+          target: {
+            value: 'First Last',
+          },
+        });
+
+        // Date discussed with manager
+        setDateFieldValue('discussedWithManagerDate', new Date());
+
+        // End warning note
+        fireEvent.click(
+          screen.getByText('End Warning Note', {
+            selector: "[for='reviewDecision_No']",
+          })
+        );
+
+        fireEvent.submit(screen.getByRole('form'));
+
+        await waitFor(() => {
+          expect(Router.push).toHaveBeenCalledWith(
+            '/people/100/warning-notes/10/[step]',
+            '/people/100/warning-notes/10/summary'
+          );
+        });
       });
     });
 
