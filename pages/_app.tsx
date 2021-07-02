@@ -35,7 +35,7 @@ const CustomApp = ({
 }: ExtendedAppProps): JSX.Element | null => {
   const [user] = useState(pageProps.user);
   const features: FeatureSet = {
-    // FEATURE-FLAG-EXPIRES [3000-12-32]: feature-flags-implementation-proof
+    // FEATURE-FLAG-EXPIRES [3000-12-31]: feature-flags-implementation-proof
     'feature-flags-implementation-proof': {
       isActive: pageProps.environmentName === 'development',
     },
