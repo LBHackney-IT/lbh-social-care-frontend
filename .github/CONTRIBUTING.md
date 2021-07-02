@@ -11,7 +11,7 @@ In order to add a feature flag for your new feature, look for the `<FeatureFlagP
 
 ```tsx
 const features = {
-  // FEATURE-FLAG-EXPIRES [3000-12-32]: name of the feature flag e.g feature-name
+  // FEATURE-FLAG-EXPIRES [3000-12-31]: name of the feature flag e.g feature-name
   'feature-name': {
     isActive: someConditionThatReturnsABoolean,
   },
