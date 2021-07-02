@@ -1,4 +1,4 @@
-import AddRelationshipForm from 'components/pages/people/relationships/AddRelationshipForm/AddRelationshipForm';
+import AddRelationshipForm from 'components/pages/people/relationships/add/AddRelationshipForm';
 
 const AddRelationshipPage: React.FC = () => {
   return <AddRelationshipForm />;

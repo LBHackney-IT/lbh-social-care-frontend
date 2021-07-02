@@ -27,8 +27,6 @@ const AddRelationshipForm = (): React.ReactElement => {
       formData.type = 'siblingOfUnbornChild';
     }
 
-    // formData.isMainCarer === "Yes"
-
     delete formData.ofUnbornChild;
 
     const { data, error } = await addRelationships({
@@ -36,9 +34,9 @@ const AddRelationshipForm = (): React.ReactElement => {
       personId: Number(personId),
       otherPersonId: Number(secondPersonId),
     });
+
     if (error) throw error;
 
-    // router.push(`/people/${personId}?relationshipSuccess=true`);
     return data;
   };
 
@@ -57,7 +55,5 @@ const AddRelationshipForm = (): React.ReactElement => {
     </>
   );
 };
-
-// AddRelationshipForm.goBackButton = false;
 
 export default AddRelationshipForm;
