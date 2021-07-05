@@ -2,7 +2,7 @@ import PersonView from 'components/PersonView/PersonView';
 import PersonDetails from 'components/PersonView/PersonDetails';
 import Cases from 'components/Cases/Cases';
 import AllocatedWorkers from 'components/AllocatedWorkers/AllocatedWorkers';
-import Relationships from 'components/Relationships/Relationships';
+import Relationships from 'components/pages/people/relationships/view/Relationships';
 import WarningNotes from 'components/WarningNote/WarningNotes';
 import Stack from 'components/Stack/Stack';
 import { canViewRelationships } from 'lib/permissions';
