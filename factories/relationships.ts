@@ -75,6 +75,15 @@ export const mockedOrderedRelationship = mockedRelationshipData.build({
   ],
 });
 
+export const mockedAddRelationship = {
+  personId: 123,
+  otherPersonId: 456,
+  type: 'sibling',
+  isMainCarer: 'Y',
+  isInformalCarer: 'N',
+  details: 'Emergency contact',
+};
+
 export const mockedRelationship = mockedRelationshipFactory.build({
   personId: 123,
   personalRelationships: [

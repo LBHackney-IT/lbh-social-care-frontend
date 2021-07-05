@@ -43,7 +43,7 @@ export const truncate = (str: string, noWords: number): string => {
 
 const initiallyNull = new Set(['file']);
 const initiallyFirstChoice = new Set(['select']);
-const initiallyArray = new Set(['checkboxes', 'repeater']);
+const initiallyArray = new Set(['checkboxes', 'repeater', 'tags']);
 
 export const days: {
   [key: string]: string;

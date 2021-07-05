@@ -18,6 +18,7 @@ export interface Field {
     | 'repeater'
     | 'repeaterGroup'
     | 'timetable'
+    | 'tags'
     | 'combobox'
     | 'file';
   /** Required value is always ignored on fields with a condition */
@@ -42,6 +43,7 @@ export interface Field {
 export interface Step {
   id: string;
   name: string;
+  intro?: string;
   theme: string;
   fields: Field[];
 }

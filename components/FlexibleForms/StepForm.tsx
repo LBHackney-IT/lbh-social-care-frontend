@@ -93,7 +93,6 @@ const StepFormInner = ({
           <p className="lbh-body-xs">{status}</p>
         </Banner>
       )}
-
       {fields.map((field) => (
         <FlexibleField
           key={field.id}
