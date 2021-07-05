@@ -162,6 +162,35 @@ describe('TextField', () => {
     expect(screen.queryByRole('textbox')).toBeNull();
   });
 
+  it('supports arrays of multiple conditions', () => {
+    render(
+      <Formik onSubmit={mockSubmit} initialValues={{}}>
+        <FlexibleFields
+          field={{
+            id: 'foo',
+            question: 'foo',
+            type: 'text',
+            condition: [
+              {
+                id: 'bar',
+                value: 'yes',
+              },
+              {
+                id: 'su',
+                value: 'yes',
+              },
+            ],
+          }}
+          values={{ bar: 'yes', su: 'yes' }}
+          touched={{}}
+          errors={{}}
+        />
+      </Formik>
+    );
+
+    expect(screen.getByRole('textbox'));
+  });
+
   it('renders nothing for an unsupported field type', () => {
     render(
       <Formik onSubmit={mockSubmit} initialValues={{}}>
