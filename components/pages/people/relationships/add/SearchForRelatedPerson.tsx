@@ -6,7 +6,7 @@ interface Props {
   personId: number;
 }
 
-const AddRelationship = ({ personId }: Props): React.ReactElement => {
+const SearchForRelatedPerson = ({ personId }: Props): React.ReactElement => {
   const [otherPersonId, setOtherPersonId] = useState('');
 
   //use React context instead of props
@@ -38,4 +38,4 @@ const AddRelationship = ({ personId }: Props): React.ReactElement => {
   );
 };
 
-export default AddRelationship;
+export default SearchForRelatedPerson;
