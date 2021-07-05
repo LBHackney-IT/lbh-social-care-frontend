@@ -22,7 +22,7 @@ const MainSearchWrapper = ({ type, columns }: Props): React.ReactElement => (
         },
         {
           url: '/cases',
-          text: 'Search for records by person',
+          text: 'Search for records',
         },
       ]}
     >
