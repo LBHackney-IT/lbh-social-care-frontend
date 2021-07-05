@@ -40,7 +40,7 @@ exports[`MainSearchWrapper should render properly 1`] = `
           class="lbh-tabs govuk-tabs__tab"
           href="/cases"
         >
-          Search for records by person
+          Search for records
         </a>
       </li>
     </ul>

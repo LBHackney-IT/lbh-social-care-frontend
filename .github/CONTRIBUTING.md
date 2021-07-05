@@ -11,6 +11,7 @@ In order to add a feature flag for your new feature, look for the `<FeatureFlagP
 
 ```tsx
 const features = {
+  // FEATURE-FLAG-EXPIRES [3000-12-31]: name of the feature flag e.g feature-name
   'feature-name': {
     isActive: someConditionThatReturnsABoolean,
   },
@@ -25,6 +26,12 @@ You can add a new feature to it following this structure:
 }
 ```
 
+> ⚠️ **Warning**: Make sure to add an expiry date comment to the feature flag as shown above.
+
+### Using the feature flag
+
+#### React component
+
 To then use your feature flag in your React code, a component – `<ConditionalFeature />` is available. This component will render its children if the feature is active, otherwise it will return nothing. Use it as follows:
 
 ```tsx
@@ -37,3 +44,23 @@ To then use your feature flag in your React code, a component – `<ConditionalF
 ```
 
 In the above scenario, if the feature `some-awesome-feature` is active, the child component (`<AwesomeFeature />`) will be rendered below the heading. Otherwise, it'll be hidden.
+
+#### React hook
+
+You can also get the status of a feature flag by using the `useFeatureFlags()` React hook. This is useful if you need it inside other scripted code, such as a `useEffect()` or `useCallback()`. For example:
+
+```tsx
+const SomeComponent = () => {
+  const { isFeatureActive } = useFeatureFlags();
+
+  const handleClick = useCallback(() => {
+    if (isFeatureActive('some-awesome-feature')) {
+      // The feature is active, do something..!
+    } else {
+      // The feature isn't active, maybe do something else?
+    }
+  }, []);
+
+  return <button onClick={handleClick}>Click here</button>;
+};
+```
