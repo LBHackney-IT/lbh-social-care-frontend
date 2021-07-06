@@ -1,4 +1,9 @@
-import { Form, Step, Field } from '../data/flexibleForms/forms.types';
+import {
+  Form,
+  Step,
+  Field,
+  TimetableAnswer,
+} from '../data/flexibleForms/forms.types';
 import { Resident } from 'types';
 
 export interface Theme {
@@ -6,7 +11,7 @@ export interface Theme {
   steps: Step[];
 }
 
-type InitialValue = null | string | string[] | InitialValues[];
+type InitialValue = null | string | string[] | InitialValues[] | unknown;
 
 export interface InitialValues {
   [key: string]: InitialValue;
@@ -38,7 +43,31 @@ export const truncate = (str: string, noWords: number): string => {
 
 const initiallyNull = new Set(['file']);
 const initiallyFirstChoice = new Set(['select']);
-const initiallyArray = new Set(['checkboxes', 'repeater']);
+const initiallyArray = new Set(['checkboxes', 'repeater', 'tags']);
+
+export const days: {
+  [key: string]: string;
+} = {
+  Mon: 'Monday',
+  Tue: 'Tuesday',
+  Wed: 'Wednesday',
+  Thu: 'Thursday',
+  Fri: 'Friday',
+  Sat: 'Saturday',
+  Sun: 'Sunday',
+  'Any day': 'Any day',
+};
+
+export const times = ['Morning', 'Afternoon', 'Evening', 'Night', 'Any time'];
+
+const generateInitialTimetableValues = (): TimetableAnswer => {
+  const initialTimetableValues: TimetableAnswer = {};
+  Object.keys(days).map((day) => {
+    initialTimetableValues[day] = {};
+    times.map((time) => (initialTimetableValues[day][time] = ''));
+  });
+  return initialTimetableValues;
+};
 
 /** Generate flexible initial values for a flexible schema */
 export const generateInitialValues = (
@@ -52,6 +81,9 @@ export const generateInitialValues = (
       initialValues[field.id] = [
         generateInitialValues(field.subfields || [], person),
       ];
+    } else if (field.type === 'timetable') {
+      initialValues[field.id] = generateInitialTimetableValues();
+      initialValues[`${field.id} total hours`] = '';
     } else if (initiallyArray.has(field.type)) {
       initialValues[field.id] = [];
     } else if (initiallyNull.has(field.type)) {
@@ -73,3 +105,18 @@ export const generateInitialValues = (
 /** Push an element into an array, without duplicates */
 export const pushUnique = <T>(array: T[], newElement: T): T[] =>
   Array.from(new Set(array).add(newElement));
+
+/** Take the values of a timetable question and get the sum total hours */
+export const getTotalHours = (values: TimetableAnswer): number => {
+  let total = 0;
+  if (typeof values === 'object') {
+    total = Object.values(values)?.reduce(
+      (sum, day) =>
+        sum +
+        Object.values(day)?.reduce((sum, time) => sum + (Number(time) || 0), 0),
+      0
+    );
+  }
+  if (typeof total === 'number') return total;
+  return 0;
+};

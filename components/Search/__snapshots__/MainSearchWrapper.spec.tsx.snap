@@ -10,7 +10,7 @@ exports[`MainSearchWrapper should render properly 1`] = `
   <p
     class="lbh-body govuk-!-margin-bottom-3"
   >
-    Use search to find a person before adding a new person or record. Records will need to be linked to person.
+    Use search to find a person before adding a new person or record.
   </p>
   <div
     class="lbh-tabs govuk-tabs"
@@ -40,7 +40,7 @@ exports[`MainSearchWrapper should render properly 1`] = `
           class="lbh-tabs govuk-tabs__tab"
           href="/cases"
         >
-          Search for records by person
+          Search for records
         </a>
       </li>
     </ul>

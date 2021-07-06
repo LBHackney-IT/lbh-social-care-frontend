@@ -29,6 +29,9 @@ jobs:
       - run:
           name: Install Dependencies
           command: yarn
+      - run:
+          name: Set GitHub username and email
+          command: git config user.email "ci@hackney.gov.uk" && git config user.name "lbhackney-automation"
       - save_cache:
           key: dependency-cache-{{ checksum "yarn.lock" }}
           paths:
@@ -38,7 +41,7 @@ jobs:
           root: *workspace_root
           paths: .
 
-  tests:
+  unit-tests:
     executor: node-executor
     steps:
       - *attach_workspace
@@ -51,6 +54,18 @@ jobs:
       - run:
           name: Run tests
           command: yarn test -w 2
+
+  build:
+    executor: node-executor
+    steps:
+      - *attach_workspace
+      - run:
+          name: Build app
+          command: yarn build
+      - persist_to_workspace:
+          root: *workspace_root
+          paths:
+            - project/build
 
   e2e:
     executor: node-executor
@@ -70,7 +85,7 @@ jobs:
       - *attach_workspace
       - run:
           name: deploy
-          command: yarn build && yarn --production=true && sudo npm i -g serverless && sls deploy --stage staging
+          command: yarn --production=true && sudo npm i -g serverless && sls deploy --stage staging
 
   build-deploy-production:
     executor: aws-cli/default
@@ -78,7 +93,32 @@ jobs:
       - *attach_workspace
       - run:
           name: deploy
-          command: yarn build && yarn --production=true && sudo npm i -g serverless && sls deploy -s production
+          command: yarn --production=true && sudo npm i -g serverless && sls deploy -s production
+
+  generate-draft-github-release:
+    executor: aws-cli/default
+    steps:
+      - *attach_workspace
+      - run:
+          name: delete stale draft GitHub releases
+          command: yarn delete-draft-github-releases
+      - run:
+          name: generate draft GitHub release
+          command: yarn release --github.draft --no-git.push --no-git.tag
+
+  generate-github-release:
+    executor: aws-cli/default
+    steps:
+      - *attach_workspace
+      - add_ssh_keys:
+          fingerprints:
+            - 'd0:bd:5a:9f:c3:17:88:3a:df:03:42:7b:f6:f7:3c:72'
+      - run:
+          name: delete stale draft GitHub releases
+          command: yarn delete-draft-github-releases
+      - run:
+          name: generate release
+          command: yarn release
 
   assume-role-staging:
     executor: docker-python
@@ -111,17 +151,29 @@ workflows:
   continuous-delivery:
     jobs:
       - install-dependencies
-      - tests:
+      - unit-tests:
           requires:
             - install-dependencies
+      - build:
+          requires:
+            - unit-tests
       - e2e:
           requires:
-            - install-dependencies
+            - build
+      - generate-draft-github-release:
+          requires:
+            - unit-tests
+            - e2e
+            - build
+          filters:
+            branches:
+              only: main
       - assume-role-staging:
           context: api-assume-role-staging-context
           requires:
-            - tests
+            - unit-tests
             - e2e
+            - build
           filters:
             branches:
               only: main
@@ -148,3 +200,12 @@ workflows:
       - build-deploy-production:
           requires:
             - assume-role-production
+          filters:
+            branches:
+              only: main
+      - generate-github-release:
+          requires:
+            - build-deploy-production
+          filters:
+            branches:
+              only: main

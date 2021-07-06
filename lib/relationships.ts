@@ -7,10 +7,18 @@ export const getRelationshipByResident = async (
   personId: number
 ): Promise<RelationshipData[] | []> => {
   const { data }: { data: RelationshipData[] } = await axios.get(
-    `${ENDPOINT_API}/residents/${personId}/relationships-v1`,
+    `${ENDPOINT_API}/residents/${personId}/relationships`,
     {
       headers,
     }
   );
   return data;
+};
+
+export const addRelationship = async (
+  params: Record<string, unknown>
+): Promise<void> => {
+  await axios.post(`${ENDPOINT_API}/relationships/personal`, params, {
+    headers: { ...headers, 'Content-Type': 'application/json' },
+  });
 };

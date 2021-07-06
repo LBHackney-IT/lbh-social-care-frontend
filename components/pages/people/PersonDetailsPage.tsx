@@ -5,7 +5,7 @@ import AllocatedWorkers from 'components/AllocatedWorkers/AllocatedWorkers';
 import Relationships from 'components/Relationships/Relationships';
 import WarningNotes from 'components/WarningNote/WarningNotes';
 import Stack from 'components/Stack/Stack';
-import { canManageCases, canViewRelationships } from 'lib/permissions';
+import { canViewRelationships } from 'lib/permissions';
 import { useAuth } from '../../UserContext/UserContext';
 import { User } from '../../../types';
 
@@ -18,11 +18,7 @@ export const PersonDetailsPage: React.FC<{ personId: number }> = ({
     <PersonView personId={personId} showPersonDetails={false}>
       {(person) => (
         <Stack space={7} className="govuk-!-margin-top-7">
-          {canManageCases(user, person) ? (
-            <WarningNotes id={personId} />
-          ) : (
-            <></>
-          )}
+          <WarningNotes id={personId} />
           <PersonDetails person={person} />
           <AllocatedWorkers person={person} />
           {canViewRelationships(user, person) ? (

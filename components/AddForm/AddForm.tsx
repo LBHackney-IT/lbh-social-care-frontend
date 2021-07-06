@@ -15,7 +15,7 @@ const AddForm = ({ person }: { person: Resident }): React.ReactElement => {
   const ageContext = person && person.contextFlag;
   const forms = ageContext === 'C' ? CHILD_FORMS : ADULT_FORMS;
 
-  let internalForms = [
+  const internalForms = [
     ageContext === 'A' && {
       text: 'Case Note Recording',
       value: `/people/${person.id}/records/case-notes-recording`,
@@ -31,12 +31,18 @@ const AddForm = ({ person }: { person: Resident }): React.ReactElement => {
 
   // handle new flexible forms
   if (ageContext === 'A') {
-    internalForms = internalForms.concat(
-      flexibleForms.map((form) => ({
+    for (let i = 0; i < flexibleForms.length; i++) {
+      const form = flexibleForms[i];
+      if (
+        form.name === 'FACE Overview Assessment (Social Care)' &&
+        !(user.hasAdminPermissions || user.hasDevPermissions)
+      )
+        continue;
+      internalForms.push({
         text: form.name,
         value: `/submissions/new?social_care_id=${person.id}&form_id=${form.id}`,
-      }))
-    );
+      });
+    }
   }
 
   return (
@@ -63,7 +69,9 @@ const AddForm = ({ person }: { person: Resident }): React.ReactElement => {
               )}`
             : url
         }
-        internalQuery={`?id=${person.id}`}
+        internalQuery={
+          url?.includes('/submissions/new?') ? '' : `?id=${person.id}`
+        }
       />
     </>
   );
