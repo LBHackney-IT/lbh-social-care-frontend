@@ -87,51 +87,51 @@ const SubmissionRow = ({
       </li>
 
       {open && (
-        <div>
-          <dl className={`${s.detailsPanel}`}>
-            <div>
-              <dt className="lbh-body-s">Last edited</dt>
-              <dd>{format(new Date(lastEdited), 'dd MMM yyyy K.mm aaa')}</dd>
-            </div>
+        <dl className={`${s.detailsPanel}`}>
+          <div>
+            <dt className="lbh-body-s">Last edited</dt>
+            <dd>{format(new Date(lastEdited), 'dd MMM yyyy K.mm aaa')}</dd>
+          </div>
 
+          <div>
+            <dt className="lbh-body-s">Started</dt>
+            <dd>
+              {format(new Date(submission.createdAt), 'dd MMM yyyy K.mm aaa')}
+            </dd>
+          </div>
+
+          <div>
+            <dt className="lbh-body-s">Progress</dt>
+            <dd>
+              {completedSteps === totalSteps ? (
+                'Ready to finish'
+              ) : (
+                <>
+                  {completedSteps || '0'} of {totalSteps} sections (
+                  {Math.round((completedSteps / Number(totalSteps)) * 100)}
+                  %)
+                </>
+              )}
+            </dd>
+          </div>
+
+          {editors?.length > 0 && (
             <div>
-              <dt className="lbh-body-s">Started</dt>
+              <dt className="lbh-bodyf-s">Edited by</dt>
               <dd>
-                {format(new Date(submission.createdAt), 'dd MMM yyyy K.mm aaa')}
+                <ul className="lbh-list govuk-!-margin-top-0">
+                  {editors.map((editor) => (
+                    <li key={editor}>{editor}</li>
+                  ))}
+                </ul>
               </dd>
             </div>
+          )}
 
-            <div>
-              <dt className="lbh-body-s">Progress</dt>
-              <dd>
-                {completedSteps === totalSteps ? (
-                  'Ready to finish'
-                ) : (
-                  <>
-                    {completedSteps || '0'} of {totalSteps} sections (
-                    {Math.round((completedSteps / Number(totalSteps)) * 100)}
-                    %)
-                  </>
-                )}
-              </dd>
-            </div>
-
-            {editors?.length > 0 && (
-              <div>
-                <dt className="lbh-bodyf-s">Edited by</dt>
-                <dd>
-                  <ul className="lbh-list govuk-!-margin-top-0">
-                    {editors.map((editor) => (
-                      <li key={editor}>{editor}</li>
-                    ))}
-                  </ul>
-                </dd>
-              </div>
-            )}
-          </dl>
-
-          <DiscardDialog submissionId={submission.submissionId} />
-        </div>
+          <div>
+            <DiscardDialog submissionId={submission.submissionId} />
+          </div>
+        </dl>
       )}
     </>
   );

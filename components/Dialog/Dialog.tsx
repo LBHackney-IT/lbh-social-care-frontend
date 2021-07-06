@@ -1,6 +1,5 @@
 import React from 'react';
 import { Dialog as ReachDialog } from '@reach/dialog';
-import '@reach/dialog/styles.css';
 
 interface Props {
   isOpen: boolean;
