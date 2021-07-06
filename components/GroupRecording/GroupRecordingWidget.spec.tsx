@@ -182,9 +182,32 @@ describe('GroupRecordingWidget', () => {
 
     fireEvent.click(screen.getByText('Add person'));
 
-    expect(mockedAxios.patch).toHaveBeenCalledWith('/api/submissions/1', {
+    expect(mockedAxios.patch).toHaveBeenLastCalledWith('/api/submissions/1', {
       residents: [mockedResident1.id, mockedResident2.id],
     });
+  });
+
+  it('displays the newly added resident', () => {
+    render(<GroupRecordingWidget initialPeople={[mockedResident1]} />);
+
+    fireEvent.click(screen.getByText('Link another person'));
+
+    fireEvent.change(screen.getByPlaceholderText('eg. 123456'), {
+      target: { value: mockedResident2.id },
+    });
+    fireEvent.click(
+      screen.getByLabelText(
+        `${mockedResident2.firstName} ${mockedResident2.lastName}`
+      )
+    );
+
+    fireEvent.click(screen.getByText('Add person'));
+
+    expect(
+      screen.getByText(
+        `${mockedResident2.firstName} ${mockedResident2.lastName}`
+      )
+    ).toBeTruthy();
   });
 
   it('makes a PATCH request with our new resident IDs after removing a resident', () => {
@@ -196,8 +219,24 @@ describe('GroupRecordingWidget', () => {
 
     fireEvent.click(screen.getAllByText('Remove')[0]);
 
-    expect(mockedAxios.patch).toHaveBeenCalledWith('/api/submissions/1', {
+    expect(mockedAxios.patch).toHaveBeenLastCalledWith('/api/submissions/1', {
       residents: [mockedResident2.id],
     });
+  });
+
+  it('removes the removed resident from the group recording display', () => {
+    render(
+      <GroupRecordingWidget
+        initialPeople={[mockedResident1, mockedResident2]}
+      />
+    );
+
+    fireEvent.click(screen.getAllByText('Remove')[0]);
+
+    expect(
+      screen.queryByText(
+        `${mockedResident1.firstName} ${mockedResident1.lastName}`
+      )
+    ).toBeNull();
   });
 });
