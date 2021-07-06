@@ -1,0 +1,61 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`GroupRecordingWidget should render properly 1`] = `
+<DocumentFragment>
+  <section>
+    <h3
+      class="govuk-visually-hidden"
+    >
+      People
+    </h3>
+    <aside
+      class="aside"
+    >
+      <h2
+        class="lbh-heading-h3 title"
+      >
+        Foo Bar
+      </h2>
+      <p
+        class="lbh-body-s paragraph"
+      >
+        Born 13 Nov 2020
+      </p>
+      <p
+        class="lbh-body-s paragraph"
+      >
+        sjakdjlk
+        <br />
+        hdsadjk
+      </p>
+    </aside>
+    <button
+      class="lbh-link addPersonLink"
+    >
+      <svg
+        fill="none"
+        height="15"
+        viewBox="0 0 15 15"
+        width="15"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <rect
+          fill="#025EA6"
+          height="15"
+          width="1"
+          x="7"
+        />
+        <rect
+          fill="#025EA6"
+          height="15"
+          transform="rotate(90 15 7)"
+          width="1"
+          x="15"
+          y="7"
+        />
+      </svg>
+      Link another person
+    </button>
+  </section>
+</DocumentFragment>
+`;

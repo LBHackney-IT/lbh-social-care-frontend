@@ -207,7 +207,7 @@ const GroupRecordingWidget = ({ initialPeople }: Props): React.ReactElement => {
         <button
           className="govuk-button lbh-button"
           onClick={handleAdd}
-          disabled={!idToAdd}
+          disabled={idToAdd === -1}
         >
           Add person
         </button>
