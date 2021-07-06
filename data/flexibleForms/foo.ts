@@ -3,6 +3,8 @@ import { Form } from './forms.types';
 const form: Form = {
   id: 'foo',
   name: 'Foo',
+  isViewableByAdults: false,
+  isViewableByChildrens: false,
   steps: [
     {
       id: 'Living situation',

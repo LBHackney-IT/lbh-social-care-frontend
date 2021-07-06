@@ -55,6 +55,12 @@ export interface Form {
   name: string;
   steps: Step[];
   groupRecordable?: boolean;
+  isViewableByChildrens: boolean;
+  isViewableByAdults: boolean;
+  // children
+  // adults
+  // children staging
+  // adults staging
 }
 
 export interface RepeaterGroupAnswer {
