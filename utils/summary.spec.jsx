@@ -88,6 +88,24 @@ describe('Summary utils', () => {
       expect(formatData(componentProps, formData)).toMatchSnapshot();
     });
 
+    it('should format "Checkbox" properly if options is a function', () => {
+      const componentProps = {
+        component: 'Checkbox',
+        label: 'I am checkbox component',
+        name: 'checkbox',
+        options: () => [
+          { text: 'Foo', value: 'foo' },
+          { text: 'Bar', value: 'bar' },
+          { text: 'Foobar', value: 'foobar' },
+          { text: 'Barfoo', value: 'barfoo' },
+        ],
+      };
+      const formData = {
+        checkbox: ['foo', 'bar', 'foobar'],
+      };
+      expect(formatData(componentProps, formData)).toMatchSnapshot();
+    });
+
     it('should format "Select" properly', () => {
       const SelectProps = {
         component: 'Select',

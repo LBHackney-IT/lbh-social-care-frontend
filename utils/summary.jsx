@@ -47,19 +47,22 @@ export const formatData = (componentProps, formData) => {
     return formatAddress(formData[name], name, label);
   }
   if (component === 'Checkbox' && options) {
+    const stepOptions =
+      typeof options === 'function' ? options(formData) : options;
+
     return {
       key: name,
       title: label,
       value:
-        typeof options[0] === 'string'
+        typeof stepOptions[0] === 'string'
           ? formData[name]
-          : formData[name]?.map((data) =>
-              multiValue(
+          : formData[name]?.map((data) => {
+              return multiValue(
                 data,
-                options.find((o) => o.value === data)?.text,
+                stepOptions.find((o) => o.value === data)?.text,
                 summaryInline
-              )
-            ),
+              );
+            }),
     };
   }
   if (component === 'Radios' || component === 'Select') {
