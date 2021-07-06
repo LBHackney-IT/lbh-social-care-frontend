@@ -31,13 +31,15 @@ export interface Field {
   className?: string;
   /** For file fields only */
   // multiple?: boolean
-  condition?: {
-    id: string;
-    value: string | boolean;
-  };
+  condition?: Condition | Condition[];
   subfields?: Field[];
   /** Singular item name for more descriptive buttons and legends  */
   itemName?: string;
+}
+
+interface Condition {
+  id: string;
+  value: string | boolean;
 }
 
 export interface Step {
