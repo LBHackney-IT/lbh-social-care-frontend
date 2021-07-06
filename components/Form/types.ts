@@ -41,7 +41,10 @@ export interface GenericField {
   label?: string;
   rules?: RegisterOptions;
   register?: UseFormMethods['register'];
-  error?: { message?: string };
+  error?: {
+    message?: string;
+    type?: string;
+  };
   required?: boolean | string;
   hint?: string;
   labelSize?: LabelSize;

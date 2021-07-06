@@ -5,9 +5,16 @@ import { canManageCases } from '../../../lib/permissions';
 import { useAuth } from '../../UserContext/UserContext';
 import styles from './ResidentsTable.module.scss';
 
-const ResultEntry = (person: LegacyResident): React.ReactElement => {
+const ResultEntry = ({
+  person,
+  newTab,
+}: {
+  person: LegacyResident;
+  newTab?: boolean;
+}): React.ReactElement => {
   const { user } = useAuth() as { user: User };
-  const { mosaicId, firstName, lastName, dateOfBirth, ageContext } = person;
+  const { mosaicId, firstName, lastName, dateOfBirth, address, ageContext } =
+    person;
 
   const isRecordRestricted = !canManageCases(user, {
     contextFlag: ageContext,
@@ -23,23 +30,39 @@ const ResultEntry = (person: LegacyResident): React.ReactElement => {
     >
       <td className="govuk-table__cell">{mosaicId}</td>
       <td className="govuk-table__cell">
-        {firstName} {lastName}
+        {newTab ? (
+          <a
+            href={`/people/${mosaicId}`}
+            target="_blank"
+            rel="noreferrer"
+            className="govuk-link govuk-custom-text-color"
+          >
+            {firstName} {lastName}
+          </a>
+        ) : (
+          <Link href={`/people/${mosaicId}`}>
+            <a className="govuk-link govuk-custom-text-color">
+              {firstName} {lastName}
+            </a>
+          </Link>
+        )}
       </td>
       <td className="govuk-table__cell">
         {dateOfBirth && new Date(dateOfBirth).toLocaleDateString('en-GB')}
       </td>
       <td className="govuk-table__cell">
-        {ageContext === 'A' ? 'ACS' : ageContext === 'C' ? 'CFS' : 'Both'}
+        <span className={styles.uppercase}>
+          {(address && address.postcode) || ''}
+        </span>
       </td>
       <td className="govuk-table__cell govuk-table__cell--numeric">
         {isRecordRestricted && (
-          <span className="govuk-tag lbh-tag lbh-tag--grey">RESTRICTED</span>
+          <span
+            className={cx('govuk-tag lbh-tag lbh-tag--grey', styles.uppercase)}
+          >
+            Restricted
+          </span>
         )}
-      </td>
-      <td className="govuk-table__cell">
-        <Link href={`/people/${mosaicId}`}>
-          <a className="govuk-link govuk-custom-text-color">View</a>
-        </Link>
       </td>
     </tr>
   );
@@ -47,30 +70,33 @@ const ResultEntry = (person: LegacyResident): React.ReactElement => {
 
 const ResultTable = ({
   records,
+  newTab,
 }: {
   records: LegacyResident[];
+  /** whether to open residents in a new tab? */
+  newTab?: boolean;
 }): React.ReactElement => (
   <table className="govuk-table lbh-table" data-testid="residents-table">
     <thead className="govuk-table__head">
       <tr className="govuk-table__row">
         <th scope="col" className="govuk-table__header">
-          Mosaic ID
+          Social care ID
         </th>
         <th scope="col" className="govuk-table__header">
-          Client Name
+          Person
         </th>
         <th scope="col" className="govuk-table__header">
           Date of birth
         </th>
         <th scope="col" className="govuk-table__header">
-          Service
+          Postcode
         </th>
-        <th scope="col" className="govuk-table__header" colSpan={2}></th>
+        <th scope="col" className="govuk-table__header" />
       </tr>
     </thead>
     <tbody className="govuk-table__body">
       {records.map((result) => (
-        <ResultEntry key={result.mosaicId} {...result} />
+        <ResultEntry key={result.mosaicId} person={result} newTab={newTab} />
       ))}
     </tbody>
   </table>

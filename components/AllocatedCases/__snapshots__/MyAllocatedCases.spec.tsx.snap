@@ -20,7 +20,7 @@ exports[`MyAllocatedCases should render an error if the API returns a 500 1`] = 
     >
       Error:
     </span>
-     Oops an error occurred
+     There was a problem. Please refresh the page or try again later.
   </span>
 </DocumentFragment>
 `;

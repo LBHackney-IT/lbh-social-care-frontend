@@ -5,7 +5,7 @@ const BackButton = (): React.ReactElement => (
     <a
       className="govuk-back-link lbh-back-link lbh-link--no-visited-state"
       href="#"
-      onClick={() => Router.back()}
+      onClick={() => window.history.back()}
     >
       Go back
     </a>

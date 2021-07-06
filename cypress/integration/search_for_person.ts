@@ -33,6 +33,18 @@ describe('Search for a person', () => {
         Cypress.env('ADULT_RECORD_FULL_NAME')
       );
     });
+
+    it('should not redirect to login page after clicking "clear search" twice', () => {
+      cy.visitAs('/search', AuthRoles.ChildrensGroup);
+
+      cy.contains('First name').type(Cypress.env('ADULT_RECORD_FIRST_NAME'));
+      cy.contains('Last name').type(Cypress.env('ADULT_RECORD_LAST_NAME'));
+
+      cy.get('#clear-link').click();
+      cy.get('#clear-link').click();
+
+      cy.url().should('include', '/search');
+    });
   });
 
   describe('As a user in the Adults group', () => {
@@ -75,7 +87,7 @@ describe('Search for a person', () => {
 
       cy.get('[data-testid="mosaic_id"]').type(Cypress.env('MOSAIC_ID_TEST'));
       cy.get('[type="submit"]').click();
-      cy.contains('View').click();
+      cy.get('td a').click();
       cy.contains(Cypress.env('NAME_FOR_MOSAIC_ID_TEST')).should('be.visible');
     });
 
@@ -94,7 +106,11 @@ describe('Search for a person', () => {
       cy.contains('First name').type(Cypress.env('CHILDREN_RECORD_FIRST_NAME'));
       cy.contains('Last name').type(Cypress.env('CHILDREN_RECORD_LAST_NAME'));
       cy.get('[type="submit"]').click();
-      cy.contains('View').click();
+      cy.contains(
+        `${Cypress.env('CHILDREN_RECORD_FIRST_NAME')} ${Cypress.env(
+          'CHILDREN_RECORD_LAST_NAME'
+        )}`
+      ).click();
       cy.contains(Cypress.env('CHILDREN_RECORD_FULL_NAME')).should(
         'be.visible'
       );

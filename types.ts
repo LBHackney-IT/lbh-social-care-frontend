@@ -124,8 +124,8 @@ export interface LegacyResident {
   nhsNumber: string;
   restricted?: 'Y' | 'N';
   address?: {
-    address: string;
-    postcode: string;
+    address: string | null;
+    postcode: string | null;
     uprn?: string;
   };
   phoneNumber?: Array<{
@@ -149,6 +149,7 @@ export interface Resident {
   lastName: string;
   gender: string;
   contextFlag: AgeContext;
+  ageContext?: AgeContext;
   createdBy: string;
   otherNames: Array<{
     firstName: string;
@@ -169,6 +170,11 @@ export interface Resident {
   preferredMethodOfContact?: string;
   restricted?: 'Y' | 'N';
   dateOfDeath?: string;
+  addresses?: {
+    addressLines: string;
+    postCode: string;
+    uprn?: string;
+  }[];
   address?: {
     address: string;
     postcode: string;
@@ -208,19 +214,54 @@ export interface RelationshipPerson {
   id: number;
   firstName: string;
   lastName: string;
+  gender?: string;
 }
 
 export interface Relationship {
-  parents: Array<RelationshipPerson>;
-  siblings: Array<RelationshipPerson>;
-  children: Array<RelationshipPerson>;
-  other: Array<RelationshipPerson>;
+  type: RelationshipType;
+  persons: RelationshipPerson[];
 }
 
 export interface RelationshipData {
   personId: number;
-  personalRelationships: Relationship;
+  personalRelationships: Relationship[];
 }
+
+export type RelationshipType =
+  | 'parent'
+  | 'child'
+  | 'other'
+  | 'greatGrandchild'
+  | 'greatGrandparent'
+  | 'grandchild'
+  | 'grandparent'
+  | 'stepParent'
+  | 'auntUncle'
+  | 'stepChild'
+  | 'unbornChild'
+  | 'partner'
+  | 'exPartner'
+  | 'sibling'
+  | 'siblings'
+  | 'halfSibling'
+  | 'stepSibling'
+  | 'unbornSibling'
+  | 'spouse'
+  | 'cousin'
+  | 'nieceNephew'
+  | 'fosterCarer'
+  | 'friend'
+  | 'exSpouse'
+  | 'parentOfUnbornChild'
+  | 'siblingOfUnbornChild'
+  | 'fosterCarerSupportCarer'
+  | 'privateFosterCarer'
+  | 'privateFosterChild'
+  | 'fosterChild'
+  | 'supportCarerFosterCarer'
+  | 'neighbour'
+  | 'inContactWith'
+  | 'acquaintance';
 
 interface BaseNote {
   id: number;
@@ -257,7 +298,7 @@ interface ReviewedNote {
   warningNoteId: number;
   reviewDate: string;
   disclosedWithIndividual: boolean;
-  notes: string;
+  reviewNotes: string;
   managerName: string;
   discussedWithManagerDate: string;
   createdAt: string;

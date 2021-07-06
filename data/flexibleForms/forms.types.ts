@@ -1,4 +1,4 @@
-import { Resident } from 'types';
+import { Resident, User, Worker } from 'types';
 
 export interface Choice {
   value: string;
@@ -17,6 +17,8 @@ export interface Field {
     | 'select'
     | 'repeater'
     | 'repeaterGroup'
+    | 'timetable'
+    | 'tags'
     | 'combobox'
     | 'file';
   /** Required value is always ignored on fields with a condition */
@@ -29,18 +31,21 @@ export interface Field {
   className?: string;
   /** For file fields only */
   // multiple?: boolean
-  condition?: {
-    id: string;
-    value: string | boolean;
-  };
+  condition?: Condition | Condition[];
   subfields?: Field[];
   /** Singular item name for more descriptive buttons and legends  */
   itemName?: string;
 }
 
+interface Condition {
+  id: string;
+  value: string | boolean;
+}
+
 export interface Step {
   id: string;
   name: string;
+  intro?: string;
   theme: string;
   fields: Field[];
 }
@@ -55,9 +60,20 @@ export interface RepeaterGroupAnswer {
   [key: string]: string | string[];
 }
 
+export interface TimetableAnswer {
+  [key: string]: {
+    [key: string]: string;
+  };
+}
+
+export type Answer =
+  | string
+  | TimetableAnswer
+  | (string | RepeaterGroupAnswer)[];
+
 export interface StepAnswers {
   // questions and answers
-  [key: string]: string | (string | RepeaterGroupAnswer)[];
+  [key: string]: Answer;
 }
 
 export interface FlexibleAnswers {
@@ -66,17 +82,16 @@ export interface FlexibleAnswers {
 }
 
 export interface Submission {
-  id: string;
-  socialCareId: number;
+  submissionId: string;
   formId: string;
-  answers: FlexibleAnswers;
-  completedSteps: string[];
-  createdBy: string;
-  editedBy: string[];
-  approvedBy: string;
+  createdBy: User;
   createdAt: string;
-  updatedAt: string;
-  submittedAt: string | null;
-  discardedAt: string | null;
-  approvedAt: string | null;
+  residents: Resident[];
+  workers: Worker[];
+  editHistory: {
+    worker: Worker;
+    editTime: string;
+  }[];
+  submissionState: string;
+  formAnswers: FlexibleAnswers;
 }

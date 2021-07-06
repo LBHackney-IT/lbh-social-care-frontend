@@ -1,8 +1,8 @@
-import { render } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 
 import Header from './Header';
 import { UserContext } from 'components/UserContext/UserContext';
-import { mockedUser } from 'factories/users';
+import { mockedUser, userFactory } from 'factories/users';
 import * as saveData from 'utils/saveData';
 
 let mockedUseRouter = { pathname: 'pathname' };
@@ -71,8 +71,58 @@ describe('Header component', () => {
         <Header {...props} />
       </UserContext.Provider>
     );
-    // TODO: uncomment when dashboard is back
-    // expect(getByText('My work space')).toBeInTheDocument();
+    expect(getByText('My work space')).toBeInTheDocument();
     expect(asFragment()).toMatchSnapshot();
+  });
+
+  it('should show the "Manage workers" navigation item for admins', () => {
+    render(
+      <UserContext.Provider
+        value={{
+          user: userFactory.build({
+            hasAdminPermissions: true,
+            hasDevPermissions: false,
+          }),
+        }}
+      >
+        <Header {...props} />
+      </UserContext.Provider>
+    );
+
+    screen.getByText('Manage workers');
+  });
+
+  it('should show the "Manage workers" navigation item for developers', () => {
+    render(
+      <UserContext.Provider
+        value={{
+          user: userFactory.build({
+            hasAdminPermissions: false,
+            hasDevPermissions: true,
+          }),
+        }}
+      >
+        <Header {...props} />
+      </UserContext.Provider>
+    );
+
+    screen.getByText('Manage workers');
+  });
+
+  it('should not show the "Manage workers" navigation item for regular users', () => {
+    render(
+      <UserContext.Provider
+        value={{
+          user: userFactory.build({
+            hasAdminPermissions: false,
+            hasDevPermissions: false,
+          }),
+        }}
+      >
+        <Header {...props} />
+      </UserContext.Provider>
+    );
+
+    expect(screen.queryByText('Manage workers')).toBeNull();
   });
 });

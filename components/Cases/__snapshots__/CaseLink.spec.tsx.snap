@@ -3,8 +3,8 @@
 exports[`CaseLink component should render properly - with handled link for viewing warning notes 1`] = `
 <DocumentFragment>
   <a
-    class="govuk-link lbh-link"
-    href="/people/123/warning-notes/456/view/note-created"
+    class="lbh-link"
+    href="/people/1/submissions/123"
   >
     View
   </a>

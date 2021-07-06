@@ -9,15 +9,15 @@ describe('CaseLink component', () => {
       recordId: '123',
       externalUrl: 'https://foo.bar',
       caseFormData: mockedDeallocationNote.caseFormData,
+      personId: 1,
+      formName: 'foo',
     };
     const { asFragment } = render(<CaseLink {...props} />);
     expect(asFragment()).toMatchInlineSnapshot(`
       <DocumentFragment>
         <a
-          class="govuk-link lbh-link"
-          href="https://foo.bar"
-          rel="noreferrer noopener"
-          target="_blank"
+          class="lbh-link"
+          href="/people/1/submissions/123"
         >
           View
         </a>
@@ -29,13 +29,15 @@ describe('CaseLink component', () => {
     const props = {
       recordId: '123',
       caseFormData: mockedDeallocationNote.caseFormData,
+      personId: 1,
+      formName: 'foo',
     };
     const { asFragment } = render(<CaseLink {...props} />);
     expect(asFragment()).toMatchInlineSnapshot(`
       <DocumentFragment>
         <a
-          class="govuk-link lbh-link"
-          href="/people/123/allocations/321?recordId=123"
+          class="lbh-link"
+          href="/people/1/submissions/123"
         >
           View
         </a>
@@ -50,9 +52,20 @@ describe('CaseLink component', () => {
         ...mockedDeallocationNote.caseFormData,
         form_name_overall: '',
       },
+      personId: 1,
+      formName: 'foo',
     };
     const { asFragment } = render(<CaseLink {...props} />);
-    expect(asFragment()).toMatchInlineSnapshot(`<DocumentFragment />`);
+    expect(asFragment()).toMatchInlineSnapshot(`
+      <DocumentFragment>
+        <a
+          class="lbh-link"
+          href="/people/1/submissions/123"
+        >
+          View
+        </a>
+      </DocumentFragment>
+    `);
   });
 
   it('should render properly - with handled link for viewing warning notes', () => {
@@ -62,6 +75,8 @@ describe('CaseLink component', () => {
         ...mockedWarningNoteCase.caseFormData,
         form_name: 'Warning Note Created',
       },
+      personId: 1,
+      formName: 'foo',
     };
     const { asFragment } = render(<CaseLink {...props} />);
     expect(asFragment()).toMatchSnapshot();

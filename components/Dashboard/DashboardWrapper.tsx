@@ -14,12 +14,12 @@ const DashboardWrapper = ({ children }: Props): React.ReactElement => (
       title="Dashboard"
       tabs={[
         {
-          url: '/__dashboard',
+          url: '/',
           text: 'Clients allocated',
         },
         {
           url: '/forms-in-progress',
-          text: 'Forms to complete',
+          text: 'Unfinished submissions',
         },
         {
           url: '/my-records',

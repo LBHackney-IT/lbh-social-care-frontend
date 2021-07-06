@@ -12,6 +12,7 @@ import axios from 'axios';
 import { getProtocol } from 'utils/urls';
 import { FormikValues, FormikHelpers } from 'formik';
 import { InitialValues } from 'lib/utils';
+import { AutosaveProvider, AutosaveIndicator } from 'contexts/autosaveContext';
 
 interface Props {
   params: {
@@ -19,7 +20,7 @@ interface Props {
     stepId: string;
   };
   stepAnswers: InitialValues;
-  person: Resident;
+  residents: Resident[];
   step: Step;
   form: Form;
 }
@@ -27,11 +28,13 @@ interface Props {
 const StepPage = ({
   params,
   stepAnswers,
-  person,
+  residents,
   step,
   form,
 }: Props): React.ReactElement => {
   const router = useRouter();
+
+  const person = residents[0];
 
   const handleSubmit = async (
     values: FormikValues,
@@ -39,10 +42,8 @@ const StepPage = ({
   ): Promise<void> => {
     try {
       const { data } = await axios.patch(
-        `${process.env.NEXT_PUBLIC_API_ENDPOINT}/api/submissions/${params.id}/steps/${params.stepId}`,
-        {
-          data: values,
-        }
+        `/api/submissions/${params.id}/steps/${params.stepId}`,
+        values
       );
       if (data.error) throw data.error;
     } catch (e) {
@@ -55,12 +56,9 @@ const StepPage = ({
     setStatus: (message: string) => void
   ): Promise<void> => {
     try {
-      const { data } = await axios.post(
-        `${process.env.NEXT_PUBLIC_API_ENDPOINT}/api/submissions/${params.id}`,
-        {
-          data: person,
-        }
-      );
+      const { data } = await axios.post(`/api/submissions/${params.id}`, {
+        data: person,
+      });
       if (data.error) throw data.error;
       router.push('/');
     } catch (e) {
@@ -93,26 +91,30 @@ const StepPage = ({
         </div>
       </div>
 
-      <div className={`govuk-grid-row ${s.outer}`}>
-        <div className="govuk-grid-column-two-thirds">
-          {step.fields && (
-            <StepForm
-              person={person}
-              initialValues={stepAnswers}
-              fields={step.fields}
-              onSubmit={handleSubmit}
-              onFinish={handleFinish}
-              singleStep={form.steps.length === 1}
-            />
-          )}
-        </div>
-        <div className="govuk-grid-column-one-third">
-          <div className={s.sticky}>
-            <p className="lbh-body">This is for:</p>
-            <PersonWidget person={person} />
+      <AutosaveProvider>
+        <div className={`govuk-grid-row ${s.outer}`}>
+          <div className="govuk-grid-column-two-thirds">
+            {step?.intro && <p>{step.intro}</p>}
+            {step.fields && (
+              <StepForm
+                person={person}
+                initialValues={stepAnswers}
+                fields={step.fields}
+                onSubmit={handleSubmit}
+                onFinish={handleFinish}
+                singleStep={form.steps.length === 1}
+              />
+            )}
+          </div>
+          <div className="govuk-grid-column-one-third">
+            <div className={s.sticky}>
+              <AutosaveIndicator />
+              <p className="lbh-body">This is for:</p>
+              <PersonWidget person={person} />
+            </div>
           </div>
         </div>
-      </div>
+      </AutosaveProvider>
     </>
   );
 };
@@ -132,6 +134,15 @@ export const getServerSideProps: GetServerSideProps = async ({ params }) => {
       props: {},
       redirect: {
         destination: '/404',
+      },
+    };
+  }
+
+  if (data.submissionState !== 'In progress') {
+    return {
+      props: {},
+      redirect: {
+        destination: `/people/${data.residents[0].id}/submissions/${data.submissionId}`,
       },
     };
   }

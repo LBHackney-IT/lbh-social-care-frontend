@@ -24,7 +24,9 @@ describe(`MyAllocatedCases`, () => {
       isValidating: false,
     }));
     const { asFragment, getByText } = render(<MyAllocatedCases />);
-    getByText('Oops an error occurred');
+    getByText(
+      'There was a problem. Please refresh the page or try again later.'
+    );
     expect(asFragment()).toMatchSnapshot();
   });
   it('should render a message when there is no worker for the current user', async () => {

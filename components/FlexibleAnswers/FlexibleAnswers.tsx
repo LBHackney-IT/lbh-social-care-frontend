@@ -3,8 +3,11 @@ import {
   StepAnswers,
   FlexibleAnswers as FlexibleAnswersT,
   RepeaterGroupAnswer as RepeaterGroupAnswerT,
+  TimetableAnswer as TimetableAnswerT,
 } from 'data/flexibleForms/forms.types';
 import DownArrow from '../Icons/DownArrow';
+import TimetableAnswer, { isTimetableAnswer } from './TimetableAnswer';
+import s from './FlexibleAnswers.module.scss';
 
 const RepeaterGroupAnswer = ({
   answers,
@@ -65,11 +68,17 @@ const FlexibleAnswersStep = ({
           {Object.entries(stepAnswers).map(([questionName, answerGroup]) => (
             <div className="govuk-summary-list__row" key={questionName}>
               <dt className="govuk-summary-list__key">{questionName}</dt>
-              <dd className="govuk-summary-list__value">
+              <dd className={`govuk-summary-list__value ${s.dd}`}>
                 {typeof answerGroup === 'string' ? (
                   answerGroup
+                ) : isTimetableAnswer(
+                    answerGroup as TimetableAnswerT | RepeaterGroupAnswerT[]
+                  ) ? (
+                  <TimetableAnswer answers={answerGroup as TimetableAnswerT} />
                 ) : (
-                  <RepeaterGroupAnswers answers={answerGroup} />
+                  <RepeaterGroupAnswers
+                    answers={answerGroup as RepeaterGroupAnswerT[]}
+                  />
                 )}
               </dd>
             </div>

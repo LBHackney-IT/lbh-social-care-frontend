@@ -2,6 +2,7 @@ module.exports = {
   collectCoverageFrom: [
     'components/**/*.{js,jsx,ts,tsx}',
     'utils/**/*.{js,jsx,ts,tsx}',
+    'data/**/*.{js,jsx,ts,tsx}',
     '!**/*.d.ts',
     '!**/node_modules/**',
     '!components/**/*.stories.{js,jsx,ts,tsx}',
@@ -21,5 +22,5 @@ module.exports = {
   moduleNameMapper: {
     '^.+\\.module\\.(css|sass|scss)$': 'identity-obj-proxy',
   },
-  moduleDirectories: ['node_modules', '.'],
+  moduleDirectories: ['node_modules', '<rootDir>/node_modules', '.'],
 };

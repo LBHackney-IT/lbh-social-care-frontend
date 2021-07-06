@@ -31,6 +31,7 @@ const RepeaterField = ({
   hint,
   className,
   itemName,
+  required,
 }: FieldProps): React.ReactElement => {
   const { values } = useFormikContext();
 
@@ -46,7 +47,15 @@ const RepeaterField = ({
         className="govuk-fieldset"
         aria-describedby={hint && `${name}-hint`}
       >
-        <legend className="govuk-label lbh-label">{label}</legend>
+        <legend className="govuk-label lbh-label" data-testid={name}>
+          {label}{' '}
+          {required && (
+            <span className="govuk-required">
+              <span aria-hidden="true">*</span>
+              <span className="govuk-visually-hidden">required</span>
+            </span>
+          )}
+        </legend>
 
         {hint && (
           <span id={`${name}-hint`} className="govuk-hint lbh-hint">

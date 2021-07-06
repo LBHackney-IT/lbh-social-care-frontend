@@ -2,10 +2,13 @@ import { useMemo, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
+import s from './Search.module.scss';
+import cx from 'classnames';
 
 import SearchResidentsForm from './forms/SearchResidentsForm';
 import SearchCasesForm from './forms/SearchCasesForm';
 import ResidentsTable from './results/ResidentsTable';
+import RelationshipTable from './results//RelationshipTable';
 import CasesTable from 'components/Cases/CasesTable';
 
 import Button from 'components/Button/Button';
@@ -29,55 +32,73 @@ const Search = ({
   columns,
   showOnlyMyResults = false,
   ctaText = 'Search',
+  callback = null,
 }) => {
   const { query, pathname, replace } = useRouter();
   const { user } = useAuth();
-  const { SearchForm, SearchResults, useSearch } = useMemo(
-    () =>
-      type === 'records'
-        ? {
-            SearchForm: SearchCasesForm,
-            SearchResults: CasesTable,
-            useSearch: (
-              { my_notes_only, worker_email, ...formData },
-              ...args
-            ) =>
-              useCases(
-                {
-                  ...formData,
-                  worker_email:
-                    showOnlyMyResults || my_notes_only
-                      ? user.email
-                      : worker_email,
-                },
-                ...args
-              ),
-          }
-        : {
-            SearchForm: SearchResidentsForm,
-            SearchResults: ResidentsTable,
-            useSearch: useResidents,
-          },
-    [type, showOnlyMyResults, user.email]
-  );
-  const hasQuery = Boolean(Object.keys(query).length);
+
+  const { SearchForm, SearchResults, useSearch } = useMemo(() => {
+    if (type === 'records') {
+      return {
+        SearchForm: SearchCasesForm,
+        SearchResults: CasesTable,
+        useSearch: ({ my_notes_only, worker_email, ...formData }, ...args) =>
+          useCases(
+            {
+              ...formData,
+              worker_email:
+                showOnlyMyResults || my_notes_only ? user.email : worker_email,
+            },
+            ...args
+          ),
+      };
+    } else if (type === 'people')
+      return {
+        SearchForm: SearchResidentsForm,
+        SearchResults: ResidentsTable,
+        useSearch: useResidents,
+      };
+    else if (type === 'relationship')
+      return {
+        SearchForm: SearchResidentsForm,
+        SearchResults: RelationshipTable,
+        useSearch: useResidents,
+      };
+  }, [type, showOnlyMyResults, user.email]);
+
+  let hasQuery = Boolean(Object.keys(query).length);
+
+  //this is to prevent a search if the parameter "ID" comes from the URL (not as a parameter)
+  //example: people/43/relationships/add, will ignore the "43"
+  //this way the search will be clear and not filled with results
+  // console.log(JSON.stringify(query));
+  if (Object.keys(query).length == 1 && query.id) {
+    hasQuery = false;
+  }
+
   const { data, error, size, setSize } = useSearch(
     query,
     hasQuery || showOnlyMyResults
   );
-  const results = data && {
-    records: data.reduce((acc, d) => [...acc, ...getRecords(d)], []),
-    nextCursor: data[data.length - 1].nextCursor,
-  };
+  const results = data &&
+    data !== 1 && {
+      records: data?.reduce((acc, d) => [...acc, ...getRecords(d)], []),
+      nextCursor: data[data.length - 1].nextCursor,
+    };
+
   const onFormSubmit = useCallback(
     (formData) => {
       const qs = formData
         ? `?${getQueryString({ ...query, ...formData })}`
         : '';
-      replace(`${pathname}${qs}`, `${pathname}${qs}`, {
-        shallow: true,
-        scroll: false,
-      });
+      replace(
+        `${pathname.replace('[id]', query.id)}${qs}`,
+        `${pathname.replace('[id]', query.id)}${qs}`,
+        {
+          shallow: true,
+          scroll: false,
+        }
+      );
     },
     [pathname, query, replace]
   );
@@ -96,14 +117,7 @@ const Search = ({
     },
     [onFormSubmit, query]
   );
-  const addNewPerson = type === 'people' && (
-    <>
-      Results don&apos;t match?{' '}
-      <Link href="/people/add">
-        <a className="govuk-link govuk-link--underline">Add New Person</a>
-      </Link>
-    </>
-  );
+
   return (
     <>
       <p className="govuk-body govuk-!-margin-bottom-5">{subHeader}</p>
@@ -120,26 +134,26 @@ const Search = ({
             <h2 className="govuk-fieldset__legend--m govuk-custom-text-color">
               {resultHeader}
             </h2>
-            <div style={{ textAlign: 'right' }}>{addNewPerson}</div>
           </div>
           <hr className="govuk-divider" />
           {results.records?.length > 0 ? (
             <SearchResults
               records={results.records}
               sort={query}
+              callback={callback}
               columns={columns}
               // onSort={onSort} // commented out as the feature is not ready in the BE
             />
           ) : (
             <>
-              <p className="lbh-body govuk-body govuk-!-margin-top-5">
-                {type.charAt(0).toUpperCase() + type.slice(1)} not found
+              <p className="lbh-body">
+                No {type.charAt(0) + type.slice(1)} match your criteria.
               </p>
             </>
           )}
         </>
       )}
-      <div style={{ height: '50px', textAlign: 'center' }}>
+      <div className={s.actions}>
         {(hasQuery && !data) || size > data?.length ? (
           <Spinner />
         ) : (
@@ -148,18 +162,75 @@ const Search = ({
           )
         )}
       </div>
-      {error && <ErrorMessage />}
+      {error && data !== 1 && <ErrorMessage />}
+
+      {type === 'people' && results && !results?.nextCursor && (
+        <>
+          {results?.records?.length > 0 ? (
+            <>
+              <p>Can&apos;t find a match?</p>
+              <p>
+                Try narrowing your search, or{' '}
+                <Link href={`/people/add?${getQueryString(query)}`}>
+                  <a className="lbh-link lbh-link--no-visited-state">
+                    add a new person
+                  </a>
+                </Link>
+                .
+              </p>
+            </>
+          ) : (
+            <p>
+              Try widening your search, or{' '}
+              <Link href={`/people/add?${getQueryString(query)}`}>
+                <a className="lbh-link lbh-link--no-visited-state">
+                  add a new person
+                </a>
+              </Link>
+              .
+            </p>
+          )}
+
+          <div className={s.mutedPanel}>
+            <div
+              className={cx(
+                'govuk-warning-text lbh-warning-text',
+                s.warningText
+              )}
+            >
+              <span
+                className={cx('govuk-warning-text__icon', s.icon)}
+                aria-hidden="true"
+              >
+                !
+              </span>
+              <strong className={cx('govuk-warning-text__text', s.text)}>
+                <h2>Prevent duplicate people</h2>
+                <p>Before adding a new person, try:</p>
+                <ul className="lbh-list lbh-list--bullet">
+                  <li>alternate spellings or variations of the same name</li>
+                  <li>
+                    different combinations of names, date of birth or postcode
+                  </li>
+                  <li>using just the first part of the postcode</li>
+                </ul>
+              </strong>
+            </div>
+          </div>
+        </>
+      )}
     </>
   );
 };
 
 Search.propTypes = {
-  type: PropTypes.oneOf(['people', 'records']).isRequired,
-  subHeader: PropTypes.string.isRequired,
+  type: PropTypes.oneOf(['people', 'records', 'relationship']).isRequired,
+  subHeader: PropTypes.element.isRequired,
   resultHeader: PropTypes.string.isRequired,
   showOnlyMyResults: PropTypes.bool,
   columns: PropTypes.array,
   ctaText: PropTypes.string,
+  callback: PropTypes.func,
 };
 
 export default Search;

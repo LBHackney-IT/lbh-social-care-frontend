@@ -1,38 +1,127 @@
-# lbh-social-care-frontend
+# Social Care Tools for Hackney
 
-The Social Care Frontend allows Social Care Practitioners to edit cases and residents information.
+> A web front end and API for managing social care services at the London Borough of Hackney
 
-It is a part of the Social Care system (see [Social Care System Architecture](https://github.com/LBHackney-IT/social-care-architecture/tree/main) for more details).
+This service allows social care practitioners to:
 
-It makes use of the [Hackney Design System](https://design-system.hackney.gov.uk/).
+- Create and manage residents
+- Create and manage cases and case notes against residents
+- Create and manage workers and their resident assignments
+
+It is a part of the broader social care system, which is documented in the [Social Care System Architecture](https://github.com/LBHackney-IT/social-care-architecture/tree/main).
 
 ## Getting Started
 
-The app needs Node 14, if you have [NVM](https://github.com/nvm-sh/nvm) installed just run `nvm use` in your terminal.
+This app has the following requirements:
 
-Install the dependencies:
+- Node.js >v14 (run `$ nvm use` to install it – [see `nvm` docs](https://github.com/nvm-sh/nvm))
+- Yarn v1.x ([see installation instructions](https://classic.yarnpkg.com/en/docs/install))
 
-    yarn install
+To get the app running locally:
 
-Create your `.env` file from `.env.sample`. You will need to grab some secrets from (TBC, it's not clear at the time of writing).
+1.  Clone this repository and `cd` into it
 
-So that the auth token from using Staging/Production can work with your local dev environment and you will be able to access the application, add the following to your `/etc/hosts` file...
+2.  Install the dependencies
 
-    127.0.0.1       dev.hackney.gov.uk
+        yarn
 
-Run the development server:
+3.  Make a copy of `.env.sample` called `.env.local` and complete as per the comments in the file.
 
-    yarn dev
+4.  Make a copy of `cypress.env.json.sample` called `cypress.env.json` and complete as per the comments in the file.
 
-Open [http://dev.hackney.gov.uk:3000](http://dev.hackney.gov.uk:3000) with your browser to see the result.
+    > ⚠️ Note! Remember to remove the commented lines from the file, as they are not valid JSON!
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
+5.  The Hackney authentication service requires the application to run on a `hackney.gov.uk` subdomain. To be able to access the application, add the following to your `/etc/hosts` file:
 
-## Learn More
+        # Hackney Social Care Frontend
+        127.0.0.1       dev.hackney.gov.uk
 
-To learn more about Next.js, take a look at the following resources:
+### Run the tests
+
+1.  Once you're set up, verify the app is working by running the unit test suites:
+
+        yarn test
+
+2.  You can then run the end to end Cypress tests with:
+
+        yarn e2e
+
+    > Note! It's possible Cypress will fail the first time you try to run it, with an error similar to `Cypress verification time out`. If this happens, just run the command again, and it should start working!
+
+### Launch the local development server
+
+1.  If all the tests pass, you should be able to safely launch the application server by running:
+
+        yarn dev
+
+2.  Open [http://dev.hackney.gov.uk:3000](http://dev.hackney.gov.uk:3000) with your browser to see the result.
+
+## Releasing
+
+### Staging
+
+When branches are merged into the `main` branch, a CircleCI job is started which automatically tests, builds and releases the application to our staging environment.
+
+### Production
+
+If the above staging deployment is successful, a "hold" job is available in CircleCI which allows us to push the latest build to production.
+
+### Releases and release notes
+
+Releases and corresponding release notes are automatically generated when code is merged into the `main` branch and released to production. The application's latest releases can be found [here](https://github.com/LBHackney-IT/lbh-social-care-frontend/releases).
+
+We use a tool called [`release-it`](https://github.com/release-it/release-it) to automate this process.
+
+If PR titles (and their associated squash commit title) follows the patterns set out in [conventional commits](https://www.conventionalcommits.org/en/v1.0.0/), then your change will be included in the release notes. Some examples can be found below:
+
+> **A feature, with an associated JIRA ticket**
+>
+> `feat(SCT-123): adds a new way to view users`
+
+> **A fix, without an associated JIRA ticket**
+>
+> `fix: correct button size in Safari`
+
+> **A chore, with multiple associated JIRA tickets**
+>
+> `chore(SCT-123, SCT-456): correct button size in Safari`
+
+> ⚠️ Note! If your PR title doesn't follow this pattern, your change will still go to production when released, but it won't be in the release notes!
+
+#### Configuration
+
+Our release tool is configured via the `.release-it.json` file in the repo, alongside the two release jobs in our CircleCI config (at `.circleci/config.yml`).
+
+In order to push to the repo, CircleCI has a read/write deploy key configured. This is explicitly referenced when needed using the `add_ssh_keys` option in our CircleCI config file. The process for generating this key and associating it with the repo and CircleCI can be found [here](https://circleci.com/docs/2.0/gh-bb-integration/#creating-a-github-deploy-key).
+
+> ⚠️ Note! This deploy key can push to `main`, which is a protected branch. GitHub doesn't currently have a formal process for allowing CI deploy keys to bypass checks for protected branches, which means the key needs to be generated by someone who is an admin on the repo, as we allow admins to bypass checks. _To repo admins: remember, with great power comes great responsibility!_
+
+#### Release documentation actions
+
+**On merge to `main`:**
+
+1. Deletes any existing "draft" releases associated with the repo
+2. Calculates the next app version number (using [semver](https://semver.org/), following [conventional commits](https://www.conventionalcommits.org/en/v1.0.0/))
+3. Creates a new "draft" release using the version number from step 2 as the title, with notes containing all the changes made since the last "published" release (this will be the last release to production)
+
+**On deployment to production:**
+
+1. Deletes any existing "draft" releases associated with the repo
+2. Calculates the next app version number (using [semver](https://semver.org/), following [conventional commits](https://www.conventionalcommits.org/en/v1.0.0/))
+3. Create a new "published" release using the version number from step 2 as the title, with notes containing all the changes made since the last "published" release (this will be the last release to production)
+4. Pushes a change to the `main` branch which increments the `"version"` key in our `package.json` file with the version number from step 2
+
+## Design and UI
+
+The application makes use the [Hackney Design System](https://design-system.hackney.gov.uk/).
+
+## Feature flags
+
+Take a look at our [CONTRIBUTING](.github/CONTRIBUTING.md) documentation for details on how to use feature flags.
+
+## Next.js
+
+The application is built using Next.js. To learn more about Next.js, take a look at the following resources:
 
 - [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
 - [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/zeit/next.js/) - your feedback and contributions are welcome!
