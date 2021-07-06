@@ -1,7 +1,7 @@
 import { Form } from './forms.types';
 
 const form: Form = {
-  id: 'safeguarding-adult-manager-decision-on-concern',
+  id: 'Safeguarding Adult Manager Decision on Concern',
   name: 'Safeguarding Adult Manager Decision on Concern',
   steps: [
     {
