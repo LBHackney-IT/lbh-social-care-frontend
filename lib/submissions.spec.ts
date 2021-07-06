@@ -6,6 +6,7 @@ import {
   patchResidents,
   patchSubmissionForStep,
   startSubmission,
+  discardSubmission,
 } from './submissions';
 import { mockedLegacyResident } from 'factories/residents';
 
@@ -120,6 +121,21 @@ describe('finishSubmission', () => {
     expect(mockedAxios.patch).toHaveBeenCalledWith(
       `${ENDPOINT_API}/submissions/foo`,
       { editedBy: 'bar', submissionState: 'submitted' },
+      { headers: { 'x-api-key': AWS_KEY } }
+    );
+  });
+});
+
+describe('discardSubmission', () => {
+  it('should work properly', async () => {
+    mockedAxios.patch.mockResolvedValue({
+      data: { submissionId: '123' },
+    });
+
+    await discardSubmission('foo', 'bar');
+    expect(mockedAxios.patch).toHaveBeenCalledWith(
+      `${ENDPOINT_API}/submissions/foo`,
+      { editedBy: 'bar', submissionState: 'discarded' },
       { headers: { 'x-api-key': AWS_KEY } }
     );
   });

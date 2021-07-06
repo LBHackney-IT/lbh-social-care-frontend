@@ -134,3 +134,21 @@ export const finishSubmission = async (
   );
   return data;
 };
+
+/** mark an existing submission as discarded, providing its id  */
+export const discardSubmission = async (
+  submissionId: string,
+  discardedBy: string
+): Promise<number> => {
+  const { status } = await axios.patch(
+    `${ENDPOINT_API}/submissions/${submissionId}`,
+    {
+      editedBy: discardedBy,
+      submissionState: 'discarded',
+    },
+    {
+      headers: headersWithKey,
+    }
+  );
+  return status;
+};

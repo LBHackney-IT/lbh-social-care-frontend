@@ -5,6 +5,7 @@ import {
   getSubmissionById,
   finishSubmission,
   patchResidents,
+  discardSubmission,
 } from 'lib/submissions';
 import { isAuthorised } from 'utils/auth';
 
@@ -29,6 +30,14 @@ const handler = async (
           submission = await finishSubmission(String(id), String(user?.email));
         }
         res.status(StatusCodes.ACCEPTED).json(submission);
+      }
+      break;
+    case 'DELETE':
+      {
+        const user = isAuthorised(req);
+        const status = await discardSubmission(String(id), String(user?.email));
+
+        res.status(status).end();
       }
       break;
     case 'GET':

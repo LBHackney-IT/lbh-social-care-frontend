@@ -175,13 +175,23 @@ input[type='date'] {
   background: lbh-colour('lbh-white');
 }
 
-// make reach portal'd components (eg. dialogs, overlays) appear on top of others, like they should be
-reach-portal {
-  position: relative;
-  z-index: 4;
+// dialog styles
+:root {
+  --reach-dialog: 1;
 }
-
-// fix appearence of close button on dialog
-.lbh-dialog__close {
-  margin-top: 0;
+[data-reach-dialog-overlay] {
+  background: hsla(0, 0%, 0%, 0.33);
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  overflow: auto;
+}
+[data-reach-dialog-content] {
+  width: 50vw;
+  margin: 10vh auto;
+  background: white;
+  padding: 2rem;
+  outline: none;
 }

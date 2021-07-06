@@ -4,6 +4,7 @@ import { format } from 'date-fns';
 import forms from 'data/flexibleForms';
 import { User } from 'types';
 import s from './index.module.scss';
+import DiscardDialog from './DiscardDialog';
 
 interface Props {
   submission: Submission;
@@ -126,6 +127,10 @@ const SubmissionRow = ({
               </dd>
             </div>
           )}
+
+          <div>
+            <DiscardDialog submissionId={submission.submissionId} />
+          </div>
         </dl>
       )}
     </>
