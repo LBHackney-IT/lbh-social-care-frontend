@@ -86,12 +86,13 @@ export interface Submission {
   formId: string;
   createdBy: User;
   createdAt: string;
+
   residents: Resident[];
   workers: Worker[];
   editHistory: {
     worker: Worker;
     editTime: string;
   }[];
-  submissionState: string;
+  submissionState: 'in_progress' | 'approved' | 'discarded' | 'submitted';
   formAnswers: FlexibleAnswers;
 }

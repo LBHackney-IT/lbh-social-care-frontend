@@ -5,6 +5,7 @@ import {
   getUnfinishedSubmissions,
   patchSubmissionForStep,
   startSubmission,
+  discardSubmission,
 } from './submissions';
 import MockDate from 'mockdate';
 import { mockedLegacyResident } from 'factories/residents';
@@ -132,6 +133,28 @@ describe('finishSubmission', () => {
     // expect(data).toEqual({
     //   submissionId: '123',
     // });
+  });
+});
+
+describe('discardSubmission', () => {
+  it('should work properly', async () => {
+    mockedAxios.patch.mockResolvedValue({
+      data: { submissionId: '123' },
+    });
+    MockDate.set('2000-11-22');
+
+    await discardSubmission('foo', 'bar');
+    expect(mockedAxios.patch).toHaveBeenCalled();
+    expect(mockedAxios.patch.mock.calls[0][0]).toEqual(
+      `${ENDPOINT_API}/submissions/foo`
+    );
+    expect(mockedAxios.patch.mock.calls[0][1]).toEqual({
+      editedBy: 'bar',
+      submissionState: 'discarded',
+    });
+    expect(mockedAxios.patch.mock.calls[0][2]?.headers).toEqual({
+      'x-api-key': AWS_KEY,
+    });
   });
 });
 
