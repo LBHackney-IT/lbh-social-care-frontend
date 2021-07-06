@@ -2,6 +2,7 @@ import { NextApiRequest, NextApiResponse } from 'next';
 import StatusCodes from 'http-status-codes';
 import { approveSubmission, returnForEdits } from 'lib/submissions';
 import { isAuthorised } from 'utils/auth';
+import { notifyReturnedForEdits } from 'lib/notify';
 
 const handler = async (
   req: NextApiRequest,
@@ -14,14 +15,22 @@ const handler = async (
   switch (req.method) {
     case 'POST':
       {
-        const status = await approveSubmission(String(id), String(user?.email));
-        res.status(status).end();
+        const submission = await approveSubmission(
+          String(id),
+          String(user?.email)
+        );
+        res.json(submission);
       }
       break;
     case 'DELETE':
       {
-        const status = await returnForEdits(String(id), String(user?.email));
-        res.status(status).end();
+        const submission = await returnForEdits(
+          String(id),
+          String(user?.email)
+        );
+        res.json(submission);
+        // send an email notification to the creator
+        return notifyReturnedForEdits(submission, String(user?.email));
       }
       break;
     default:

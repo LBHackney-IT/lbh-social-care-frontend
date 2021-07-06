@@ -120,8 +120,8 @@ export const finishSubmission = async (
 export const approveSubmission = async (
   submissionId: string,
   approvedBy: string
-): Promise<number> => {
-  const { status } = await axios.patch(
+): Promise<Submission> => {
+  const { data } = await axios.patch(
     `${ENDPOINT_API}/submissions/${submissionId}`,
     {
       editedBy: approvedBy,
@@ -131,15 +131,15 @@ export const approveSubmission = async (
       headers: headersWithKey,
     }
   );
-  return status;
+  return data;
 };
 
 /** return a submitted submission for edits, providing a reason and its id  */
 export const returnForEdits = async (
   submissionId: string,
   editedBy: string
-): Promise<number> => {
-  const { status } = await axios.patch(
+): Promise<Submission> => {
+  const { data } = await axios.patch(
     `${ENDPOINT_API}/submissions/${submissionId}`,
     {
       editedBy,
@@ -149,5 +149,5 @@ export const returnForEdits = async (
       headers: headersWithKey,
     }
   );
-  return status;
+  return data;
 };
