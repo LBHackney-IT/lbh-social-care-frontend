@@ -54,6 +54,7 @@ export interface Form {
   id: string;
   name: string;
   steps: Step[];
+  approvable?: boolean;
 }
 
 export interface RepeaterGroupAnswer {
@@ -84,8 +85,12 @@ export interface FlexibleAnswers {
 export interface Submission {
   submissionId: string;
   formId: string;
-  createdBy: User;
+  createdBy: Worker;
   createdAt: string;
+  submittedBy: Worker | null;
+  submittedAt: string | null;
+  approvedBy: Worker | null;
+  approvedAt: string | null;
   residents: Resident[];
   workers: Worker[];
   editHistory: {
