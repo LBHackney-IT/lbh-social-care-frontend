@@ -126,6 +126,7 @@ export const finishSubmission = async (
     `${ENDPOINT_API}/submissions/${submissionId}`,
     {
       editedBy: finishedBy,
+      submissionState: 'submitted',
     },
     {
       headers: headersWithKey,

@@ -15,12 +15,16 @@ const RelationshipElement = ({ type, persons }: Props): React.ReactElement => {
           {persons
             .sort(
               (a, b) =>
-                b.lastName.localeCompare(a.lastName) ||
-                b.firstName.localeCompare(a.firstName)
+                a.lastName.localeCompare(b.lastName) ||
+                a.firstName.localeCompare(b.firstName)
             )
             .map((person, i) => {
               return (
-                <li className="lbh-link" key={`rel_${i}`}>
+                <li
+                  className="lbh-link"
+                  aria-label={`rel_${i}`}
+                  key={`rel_${i}`}
+                >
                   {person.id ? (
                     <Link href={`/people/${person.id}`}>
                       {`${person.firstName} ${person.lastName}`}

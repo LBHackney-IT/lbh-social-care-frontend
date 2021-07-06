@@ -34,10 +34,6 @@ export const ReviewWarningNoteForm: React.FC<{
         warningNoteId,
         reviewedBy: user.email,
         endedBy: formData.reviewDecision === 'No' ? user.email : undefined,
-        endedDate:
-          formData.reviewDecision === 'No'
-            ? new Date().toISOString()
-            : undefined,
         status: formData.reviewDecision === 'No' ? 'closed' : 'open',
         ...formData,
       });

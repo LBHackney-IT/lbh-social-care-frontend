@@ -3,9 +3,12 @@ import Link from 'next/link';
 
 import { useWarningNotes } from 'utils/api/warningNotes';
 import ErrorMessage from 'components/ErrorMessage/ErrorMessage';
-import { WarningNote } from 'types';
+import { User, WarningNote } from 'types';
 
 import styles from './WarningNotes.module.scss';
+import { useResident } from '../../utils/api/residents';
+import { canManageCases } from '../../lib/permissions';
+import { useAuth } from '../UserContext/UserContext';
 
 export interface Props {
   personId: number;
@@ -13,6 +16,13 @@ export interface Props {
 }
 
 export const WarningBox = ({ notes, personId }: Props): React.ReactElement => {
+  const { data: resident } = useResident(personId);
+  const { user } = useAuth() as { user: User };
+
+  if (!resident) {
+    return <></>;
+  }
+
   return (
     <div
       className={cx('govuk-error-summary', styles.container)}
@@ -68,9 +78,13 @@ export const WarningBox = ({ notes, personId }: Props): React.ReactElement => {
                   </>
                 )}
               </dl>
-              <Link href={`/people/${personId}/warning-notes/${note.id}`}>
-                <a className="govuk-link govuk-link-underline">Review / end</a>
-              </Link>
+              {canManageCases(user, resident) && (
+                <Link href={`/people/${personId}/warning-notes/${note.id}`}>
+                  <a className="govuk-link govuk-link-underline">
+                    Review / end
+                  </a>
+                </Link>
+              )}
             </div>
           ))}
           <p>For further information see Warning Note in Records History</p>

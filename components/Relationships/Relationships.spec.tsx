@@ -83,7 +83,7 @@ describe('Relationships component', () => {
       id: 33339587,
     };
     const { queryByText } = render(<Relationships {...props} />);
-    expect(queryByText('RELATIONSHIPS')).not.toBeInTheDocument();
+    expect(queryByText('No relationship found')).toBeInTheDocument();
   });
 
   it('should return an error if malformed data', async () => {
@@ -98,6 +98,6 @@ describe('Relationships component', () => {
     };
     const { queryByText } = render(<Relationships {...props} />);
 
-    expect(queryByText('RELATIONSHIPS')).not.toBeInTheDocument();
+    expect(queryByText('No relationship found')).toBeInTheDocument();
   });
 });

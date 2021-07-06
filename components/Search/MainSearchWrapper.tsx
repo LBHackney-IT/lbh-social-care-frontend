@@ -11,8 +11,7 @@ const MainSearchWrapper = ({ type, columns }: Props): React.ReactElement => (
   <>
     <h1 className="lbh-heading-l">Search</h1>
     <p className="lbh-body govuk-!-margin-bottom-3">
-      Use search to find a person before adding a new person or record. Records
-      will need to be linked to person.
+      Use search to find a person before adding a new person or record.
     </p>
     <Tabs
       title="Contents"
@@ -30,9 +29,16 @@ const MainSearchWrapper = ({ type, columns }: Props): React.ReactElement => (
       <Search
         type={type}
         subHeader={
-          type === 'records'
-            ? 'Search and filter by any combination of fields'
-            : 'Search for a person by any combination of fields below'
+          type === 'records' ? (
+            <>
+              Here you can search for{' '}
+              <span className="lbh-!-font-weight-bold">all</span> records that
+              have been created for a person. This search will also find records
+              that have not been linked to a person’s profile yet.
+            </>
+          ) : (
+            <>Search for a person by any combination of the fields below</>
+          )
         }
         resultHeader={`${type.toUpperCase()} SEARCH RESULT`}
         // @ts-expect-error TODO: fixed when search.jsx is migrated */}

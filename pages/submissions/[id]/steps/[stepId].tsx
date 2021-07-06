@@ -95,6 +95,7 @@ const StepPage = ({
       <AutosaveProvider>
         <div className={`govuk-grid-row ${s.outer}`}>
           <div className="govuk-grid-column-two-thirds">
+            {step?.intro && <p>{step.intro}</p>}
             {step.fields && (
               <StepForm
                 person={person}
