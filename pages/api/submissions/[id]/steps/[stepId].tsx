@@ -15,7 +15,7 @@ const handler = async (
   const step = form?.steps.find((step) => step.id === stepId);
 
   if (!step)
-    res.status(statusCodes.NOT_FOUND).json({
+    return res.status(statusCodes.NOT_FOUND).json({
       error: 'Step not found',
     });
 
@@ -30,9 +30,9 @@ const handler = async (
       values
     );
 
-    res.json(submission);
+    return res.json(submission);
   } else {
-    res.json({
+    return res.json({
       ...submission,
       // include the answers for this step only
       stepAnswers: submission.formAnswers[stepId.toString()],

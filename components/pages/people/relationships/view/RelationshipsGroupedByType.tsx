@@ -6,7 +6,10 @@ interface Props {
   persons: RelationshipPerson[];
 }
 
-const RelationshipElement = ({ type, persons }: Props): React.ReactElement => {
+const RelationshipsGroupedByType = ({
+  type,
+  persons,
+}: Props): React.ReactElement => {
   return (
     <div className="govuk-summary-list__row">
       <dt className="govuk-summary-list__key">{getTitleString(type)}</dt>
@@ -82,4 +85,4 @@ const mappings = {
   acquaintance: 'Acquaintance',
 } as const;
 
-export default RelationshipElement;
+export default RelationshipsGroupedByType;

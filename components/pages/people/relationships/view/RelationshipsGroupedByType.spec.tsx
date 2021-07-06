@@ -1,5 +1,5 @@
 import { render } from '@testing-library/react';
-import RelationshipElement from './RelationshipElement';
+import RelationshipsGroupedByType from './RelationshipsGroupedByType';
 
 import {
   mockedParentRelationship,
@@ -14,10 +14,10 @@ jest.mock('next/router', () => ({
   }),
 }));
 
-describe('Relationships component', () => {
+describe('RelationshipsGroupedByType component', () => {
   it('should populate the list converting the type to display name', async () => {
     const { getByText } = render(
-      <RelationshipElement {...mockedParentRelationship} />
+      <RelationshipsGroupedByType {...mockedParentRelationship} />
     );
 
     expect(getByText('Parent')).toBeInTheDocument();
@@ -27,7 +27,7 @@ describe('Relationships component', () => {
 
   it('should populate the list converting the type to display name', async () => {
     const { getByText } = render(
-      <RelationshipElement {...mockedUnbornSiblingRelationship} />
+      <RelationshipsGroupedByType {...mockedUnbornSiblingRelationship} />
     );
 
     expect(getByText('Unborn sibling')).toBeInTheDocument();
@@ -35,7 +35,7 @@ describe('Relationships component', () => {
   });
   it('should populate the list in alphabetical order (by surname/name) with same surname', async () => {
     const { queryAllByText } = render(
-      <RelationshipElement {...mockedOrderedRelationship} />
+      <RelationshipsGroupedByType {...mockedOrderedRelationship} />
     );
 
     const names = queryAllByText(/Muciaccia/);
@@ -46,7 +46,7 @@ describe('Relationships component', () => {
 
   it('should populate the list in alphabetical order (by surname/name) different people', async () => {
     const { queryByLabelText } = render(
-      <RelationshipElement {...mockedOrderedRelationship} />
+      <RelationshipsGroupedByType {...mockedOrderedRelationship} />
     );
 
     const first = queryByLabelText('rel_0');

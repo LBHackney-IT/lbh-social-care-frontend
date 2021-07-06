@@ -1,7 +1,7 @@
 import ErrorMessage from 'components/ErrorMessage/ErrorMessage';
 import Spinner from 'components/Spinner/Spinner';
 import { useRelationships } from 'utils/api/relationships';
-import RelationshipElement from './RelationshipElement';
+import RelationshipsGroupedByType from './RelationshipsGroupedByType';
 import Button from 'components/Button/Button';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
@@ -73,7 +73,7 @@ const Relationships = ({ id }: Props): React.ReactElement => {
               .map((relationship) => {
                 if (relationship.persons.length > 0) {
                   return (
-                    <RelationshipElement
+                    <RelationshipsGroupedByType
                       type={relationship.type}
                       persons={relationship.persons}
                       key={`rel_${relationship.type}`}
