@@ -1,7 +1,11 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import forms from 'data/flexibleForms';
 import StatusCodes from 'http-status-codes';
-import { getSubmissionById, finishSubmission } from 'lib/submissions';
+import {
+  getSubmissionById,
+  finishSubmission,
+  discardSubmission,
+} from 'lib/submissions';
 import { isAuthorised } from 'utils/auth';
 
 const handler = async (
@@ -15,6 +19,14 @@ const handler = async (
       {
         const user = isAuthorised(req);
         const status = await finishSubmission(String(id), String(user?.email));
+
+        res.status(status).end();
+      }
+      break;
+    case 'DELETE':
+      {
+        const user = isAuthorised(req);
+        const status = await discardSubmission(String(id), String(user?.email));
 
         res.status(status).end();
       }
