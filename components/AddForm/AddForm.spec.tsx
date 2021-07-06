@@ -4,7 +4,6 @@ import AddForm from './AddForm';
 import { UserContext } from 'components/UserContext/UserContext';
 import { mockedUser, userFactory } from 'factories/users';
 import { residentFactory } from 'factories/residents';
-import { Form } from 'data/flexibleForms/forms.types';
 
 jest.mock('data/googleForms/adultForms', () => [
   {
@@ -33,43 +32,13 @@ jest.mock('data/googleForms/childForms', () => [
   },
 ]);
 
-const flexibleForms: Form[] = [
-  {
-    id: 'foo',
-    isViewableByAdults: false,
-    isViewableByChildrens: false,
-    name: 'Foo',
-    steps: [],
-  },
-  {
-    id: 'review-3c',
-    isViewableByAdults: true,
-    isViewableByChildrens: false,
-    name: 'Review of Care and Support Plan (3C)',
-    steps: [],
-  },
-  {
-    id: 'FACE overview assessment',
-    isViewableByAdults: true,
-    isViewableByChildrens: false,
-    name: 'FACE overview assessment',
-    steps: [],
-  },
-  {
-    id: 'safeguarding-adult-concern-form',
-    isViewableByAdults: true,
-    isViewableByChildrens: false,
-    name: 'Safeguarding Adult Concern Form',
-    steps: [],
-  },
-  {
-    groupRecordable: true,
-    id: 'child-case-note',
-    isViewableByAdults: false,
-    isViewableByChildrens: false,
-    name: 'Case note',
-    steps: [],
-  },
+// [formName, isViewableByAdults, isViewableByChildrens]
+const flexibleForms: [string, boolean, boolean][] = [
+  ['Foo', false, false],
+  ['Review of Care and Support Plan (3C)', true, false],
+  ['FACE overview assessment', true, false],
+  ['Safeguarding Adult Concern Form', true, false],
+  ['Case note', false, false],
 ];
 
 describe('AddForm component', () => {
@@ -199,8 +168,8 @@ describe('AddForm component', () => {
 
   describe('displaying of flexible forms', () => {
     test.each(flexibleForms)(
-      'Forms viewed as childrens worker',
-      async (form) => {
+      `Form %s viewed as childrens worker should display correctly`,
+      async (formName, _, isViewableByChildrens) => {
         const props = {
           person: residentFactory.build({ contextFlag: 'C' }),
         };
@@ -226,53 +195,91 @@ describe('AddForm component', () => {
           fireEvent.click(autocompleteInput);
         });
 
-        if (form.isViewableByChildrens) {
+        if (isViewableByChildrens) {
           await act(async () => {
-            fireEvent.click(getByRole('option', { name: form.name }));
+            fireEvent.click(getByRole('option', { name: formName as string }));
           });
-          expect(autocompleteInput.value).toBe(form.name);
+          expect(autocompleteInput.value).toBe(formName);
         } else {
-          console.log('hit');
-          expect(queryByRole('option', { name: form.name })).toBeNull();
+          expect(
+            queryByRole('option', { name: formName as string })
+          ).toBeNull();
         }
       }
     );
   });
 
-  test.each(flexibleForms)('Forms viewed as adults worker', async (form) => {
-    const props = {
-      person: residentFactory.build({ contextFlag: 'C' }),
-    };
-    const { getByRole, getByTestId, queryByRole } = render(
-      <UserContext.Provider
-        value={{
-          user: userFactory.build({
-            hasAdminPermissions: false,
-            hasDevPermissions: false,
-            hasUnrestrictedPermissions: false,
-            hasAdultPermissions: true,
-            hasChildrenPermissions: false,
-          }),
-        }}
-      >
-        <AddForm {...props} />
-      </UserContext.Provider>
-    );
+  test.each(flexibleForms)(
+    `Form %s viewed as adults worker should display correctly`,
+    async (formName, isViewableByAdults) => {
+      const props = {
+        person: residentFactory.build({ contextFlag: 'A' }),
+      };
+      const { getByRole, getByTestId, queryByRole } = render(
+        <UserContext.Provider
+          value={{
+            user: userFactory.build({
+              hasAdminPermissions: false,
+              hasDevPermissions: false,
+              hasUnrestrictedPermissions: false,
+              hasAdultPermissions: true,
+              hasChildrenPermissions: false,
+            }),
+          }}
+        >
+          <AddForm {...props} />
+        </UserContext.Provider>
+      );
 
-    const autocompleteInput = getByTestId('formList') as HTMLInputElement;
+      const autocompleteInput = getByTestId('formList') as HTMLInputElement;
 
-    await act(async () => {
-      fireEvent.click(autocompleteInput);
-    });
-
-    if (form.isViewableByChildrens) {
       await act(async () => {
-        fireEvent.click(getByRole('option', { name: form.name }));
+        fireEvent.click(autocompleteInput);
       });
-      expect(autocompleteInput.value).toBe(form.name);
-    } else {
-      console.log('hit');
-      expect(queryByRole('option', { name: form.name })).toBeNull();
+
+      if (isViewableByAdults) {
+        await act(async () => {
+          fireEvent.click(getByRole('option', { name: formName }));
+        });
+        expect(autocompleteInput.value).toBe(formName);
+      } else {
+        expect(queryByRole('option', { name: formName })).toBeNull();
+      }
     }
-  });
+  );
+
+  test.each(flexibleForms)(
+    `Form %s always displayed on staging if user is admin or dev`,
+    async (formName) => {
+      const props = {
+        person: residentFactory.build({ contextFlag: 'A' }),
+      };
+      const { getByRole, getByTestId } = render(
+        <UserContext.Provider
+          value={{
+            user: userFactory.build({
+              hasAdminPermissions: true,
+              hasDevPermissions: true,
+              hasUnrestrictedPermissions: false,
+              hasAdultPermissions: true,
+              hasChildrenPermissions: false,
+            }),
+          }}
+        >
+          <AddForm {...props} />
+        </UserContext.Provider>
+      );
+
+      const autocompleteInput = getByTestId('formList') as HTMLInputElement;
+
+      await act(async () => {
+        fireEvent.click(autocompleteInput);
+      });
+
+      await act(async () => {
+        fireEvent.click(getByRole('option', { name: formName }));
+      });
+      expect(autocompleteInput.value).toBe(formName);
+    }
+  );
 });
