@@ -5,6 +5,8 @@ import {
   getUnfinishedSubmissions,
   patchSubmissionForStep,
   startSubmission,
+  approveSubmission,
+  returnForEdits,
 } from './submissions';
 import MockDate from 'mockdate';
 import { mockedLegacyResident } from 'factories/residents';
@@ -160,6 +162,48 @@ describe('patchSubmissionForStep', () => {
     expect(data).toEqual({
       submissionId: '123',
       formAnswers: {},
+    });
+  });
+});
+
+describe('approveSubmission', () => {
+  it('should work properly', async () => {
+    mockedAxios.patch.mockResolvedValue({
+      data: { submissionId: '123' },
+    });
+
+    await approveSubmission('foo', 'bar');
+    expect(mockedAxios.patch).toHaveBeenCalled();
+    expect(mockedAxios.patch.mock.calls[0][0]).toEqual(
+      `${ENDPOINT_API}/submissions/foo`
+    );
+    expect(mockedAxios.patch.mock.calls[0][1]).toEqual({
+      editedBy: 'bar',
+      submissionState: 'approved',
+    });
+    expect(mockedAxios.patch.mock.calls[0][2]?.headers).toEqual({
+      'x-api-key': AWS_KEY,
+    });
+  });
+});
+
+describe('returnForEdits', () => {
+  it('should work properly', async () => {
+    mockedAxios.patch.mockResolvedValue({
+      data: { submissionId: '123' },
+    });
+
+    await returnForEdits('foo', 'bar');
+    expect(mockedAxios.patch).toHaveBeenCalled();
+    expect(mockedAxios.patch.mock.calls[0][0]).toEqual(
+      `${ENDPOINT_API}/submissions/foo`
+    );
+    expect(mockedAxios.patch.mock.calls[0][1]).toEqual({
+      editedBy: 'bar',
+      submissionState: 'in_progress',
+    });
+    expect(mockedAxios.patch.mock.calls[0][2]?.headers).toEqual({
+      'x-api-key': AWS_KEY,
     });
   });
 });

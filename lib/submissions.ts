@@ -115,3 +115,39 @@ export const finishSubmission = async (
   );
   return status;
 };
+
+/** mark an existing submission as approved, providing its id  */
+export const approveSubmission = async (
+  submissionId: string,
+  approvedBy: string
+): Promise<number> => {
+  const { status } = await axios.patch(
+    `${ENDPOINT_API}/submissions/${submissionId}`,
+    {
+      editedBy: approvedBy,
+      submissionState: 'approved',
+    },
+    {
+      headers: headersWithKey,
+    }
+  );
+  return status;
+};
+
+/** return a submitted submission for edits, providing a reason and its id  */
+export const returnForEdits = async (
+  submissionId: string,
+  editedBy: string
+): Promise<number> => {
+  const { status } = await axios.patch(
+    `${ENDPOINT_API}/submissions/${submissionId}`,
+    {
+      editedBy,
+      submissionState: 'in_progress',
+    },
+    {
+      headers: headersWithKey,
+    }
+  );
+  return status;
+};
