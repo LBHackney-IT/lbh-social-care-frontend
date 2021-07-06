@@ -65,10 +65,16 @@ describe('AddForm component', () => {
     const props = {
       person: residentFactory.build({ contextFlag: 'C' }),
     };
-    const { getByRole, asFragment, getByTestId } = render(
+    const { getByRole, getByTestId, asFragment } = render(
       <UserContext.Provider
         value={{
-          user: mockedUser,
+          user: userFactory.build({
+            hasAdminPermissions: false,
+            hasDevPermissions: false,
+            hasUnrestrictedPermissions: false,
+            hasAdultPermissions: false,
+            hasChildrenPermissions: true,
+          }),
         }}
       >
         <AddForm {...props} />
