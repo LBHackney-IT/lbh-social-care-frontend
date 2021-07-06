@@ -116,17 +116,8 @@ describe('patchResidents', () => {
     mockedAxios.patch.mockResolvedValue({
       data: { submissionId: '123' },
     });
-    await patchResidents('123', ['foo', 'bar']);
-    expect(mockedAxios.patch).toHaveBeenCalled();
-    expect(mockedAxios.patch.mock.calls[0][0]).toEqual(
-      `${ENDPOINT_API}/submissions/123`
-    );
-    expect(mockedAxios.patch.mock.calls[0][1]).toEqual({
-      residents: ['foo', 'bar'],
-    });
-    expect(mockedAxios.patch.mock.calls[0][2]?.headers).toEqual({
-      'x-api-key': AWS_KEY,
-    });
+    await patchResidents('123', "foo@example.com", [1, 2]);
+    expect(mockedAxios.patch).toHaveBeenCalledWith(`${ENDPOINT_API}/submissions/123`, {editedBy: "foo@example.com", residents: [1, 2]}, {"headers": {"x-api-key": AWS_KEY}});
   });
 });
 
@@ -138,20 +129,7 @@ describe('finishSubmission', () => {
     MockDate.set('2000-11-22');
 
     await finishSubmission('foo', 'bar');
-    expect(mockedAxios.patch).toHaveBeenCalled();
-    expect(mockedAxios.patch.mock.calls[0][0]).toEqual(
-      `${ENDPOINT_API}/submissions/foo`
-    );
-    expect(mockedAxios.patch.mock.calls[0][1]).toEqual({
-      editedBy: 'bar',
-      submissionState: 'submitted',
-    });
-    expect(mockedAxios.patch.mock.calls[0][2]?.headers).toEqual({
-      'x-api-key': AWS_KEY,
-    });
-    // expect(data).toEqual({
-    //   submissionId: '123',
-    // });
+    expect(mockedAxios.patch).toHaveBeenCalledWith(`${ENDPOINT_API}/submissions/foo`, {editedBy: "bar", submissionState: "submitted"}, {"headers": {"x-api-key": AWS_KEY}});
   });
 });
 
