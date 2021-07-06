@@ -86,7 +86,7 @@ export const SubmissionsTable = ({
     }
 
     // hide discarded submissions
-    if (submission.submissionState.toLowerCase() === 'discarded') return false;
+    if (submission.submissionState === 'Discarded') return false;
 
     // Otherwise, this record is good to show
     return true;

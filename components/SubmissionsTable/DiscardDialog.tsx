@@ -38,32 +38,34 @@ const DiscardDialog = ({ submissionId }: Props): React.ReactElement => {
         isOpen={open}
         onDismiss={() => setOpen(false)}
       >
-        {status && (
-          <Banner
-            title="There was a problem discarding this submission"
-            className="lbh-page-announcement--warning"
-          >
-            <p>Please refresh the page or try again later.</p>
-            <p className="lbh-body-xs">{status}</p>
-          </Banner>
-        )}
+        <>
+          {status && (
+            <Banner
+              title="There was a problem discarding this submission"
+              className="lbh-page-announcement--warning"
+            >
+              <p>Please refresh the page or try again later.</p>
+              <p className="lbh-body-xs">{status}</p>
+            </Banner>
+          )}
 
-        <p className="lbh-body">
-          This will remove it for you and your colleagues.
-        </p>
+          <p className="lbh-body">
+            This will remove it for you and your colleagues.
+          </p>
 
-        <div className="lbh-dialog__actions">
-          <button className="govuk-button lbh-button" onClick={handleDiscard}>
-            Yes, discard
-          </button>
+          <div className="lbh-dialog__actions">
+            <button className="govuk-button lbh-button" onClick={handleDiscard}>
+              Yes, discard
+            </button>
 
-          <button
-            className="govuk-link lbh-link"
-            onClick={() => setOpen(false)}
-          >
-            No, cancel
-          </button>
-        </div>
+            <button
+              className="govuk-link lbh-link"
+              onClick={() => setOpen(false)}
+            >
+              No, cancel
+            </button>
+          </div>
+        </>
       </Dialog>
     </>
   );

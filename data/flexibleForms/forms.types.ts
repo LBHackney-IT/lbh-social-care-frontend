@@ -93,6 +93,6 @@ export interface Submission {
     worker: Worker;
     editTime: string;
   }[];
-  submissionState: 'in_progress' | 'approved' | 'discarded' | 'submitted';
+  submissionState: 'In progress' | 'Approved' | 'Discarded' | 'Submitted';
   formAnswers: FlexibleAnswers;
 }
