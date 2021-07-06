@@ -4,7 +4,7 @@ import { Dialog as ReachDialog } from '@reach/dialog';
 interface Props {
   isOpen: boolean;
   onDismiss: () => void;
-  children: React.ReactChild;
+  children: React.ReactChild | React.ReactChild[];
   title: string;
 }
 
