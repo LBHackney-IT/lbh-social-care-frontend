@@ -3,6 +3,8 @@ import { Form } from './forms.types';
 const form: Form = {
   id: 'Safeguarding Adult Manager Decision on Concern',
   name: 'Safeguarding Adult Manager Decision on Concern',
+  isViewableByAdults: true,
+  isViewableByChildrens: false,
   steps: [
     {
       intro:
