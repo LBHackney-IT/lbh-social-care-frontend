@@ -9,14 +9,9 @@ const form: Form = {
   steps: [
     {
       id: 'Case note',
-      name: 'Case Note',
+      name: 'Case note',
       theme: 'Case note',
       fields: [
-        {
-          id: 'Case note title',
-          question: 'Case Note Title',
-          type: 'textarea',
-        },
         {
           id: 'Type',
           question: 'What kind of note is this?',
@@ -35,33 +30,23 @@ const form: Form = {
               value: 'Management oversight',
               label: 'Management oversight',
             },
+            // {
+            //   value: 'Independent reviewing officer oversight',
+            //   label: 'Independent reviewing officer oversight',
+            // },
+            // {
+            //   value: 'Unit meeting note',
+            //   label: 'Unit meeting note',
+            // },
+            // {
+            //   label: 'PMU',
+            //   value: 'PMU',
+            // },
             {
-              value: 'Independent reviewing officer oversight',
-              label: 'Independent reviewing officer oversight',
-            },
-            {
-              value: 'Unit meeting note',
-              label: 'Unit meeting note',
-            },
-            {
-              label: 'PMU',
-              value: 'PMU',
-            },
-            {
-              value: 'Other',
-              label: 'Other',
+              value: 'Something else',
+              label: 'Something else',
             },
           ],
-        },
-        {
-          id: 'Other type',
-          question: "If 'Other' please provide case note type",
-          type: 'textarea',
-          required: true,
-          condition: {
-            id: 'Type',
-            value: 'Other',
-          },
         },
         {
           id: 'Correspondence type',
@@ -74,11 +59,11 @@ const form: Form = {
           },
           choices: [
             {
-              value: 'phone-call',
+              value: 'Phone call',
               label: 'Phone call',
             },
             {
-              value: 'email-letter-text-message',
+              value: 'Email, letter or text message',
               label: 'Email, letter or text message',
             },
           ],
@@ -94,23 +79,23 @@ const form: Form = {
           },
           choices: [
             {
-              value: 'home',
+              value: 'Home',
               label: 'Home visit',
             },
             {
-              value: 'office',
+              value: 'Office',
               label: 'Office visit',
             },
             {
-              value: 'no-reply',
+              value: 'No reply to home visit',
               label: 'No reply to home visit',
             },
           ],
         },
 
         {
-          id: 'Case note description?',
-          question: 'Case note description?',
+          id: 'Body',
+          question: 'What happened?',
           type: 'textarea',
           required: true,
         },
@@ -133,6 +118,7 @@ const form: Form = {
               id: 'text',
               question: 'What needs to be done?',
               type: 'text',
+              required: true,
             },
             {
               id: 'assignee',
@@ -147,6 +133,12 @@ const form: Form = {
               className: 'govuk-input--width-10',
             },
           ],
+        },
+        {
+          id: 'Topics',
+          question: 'Topics',
+          hint: 'Help colleagues find this note',
+          type: 'tags',
         },
       ],
     },
