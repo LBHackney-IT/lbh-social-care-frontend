@@ -98,12 +98,31 @@ export const patchSubmissionForStep = async (
   return deserialiseAnswers(data);
 };
 
+/** pass in a string of resident ids to replace the existing ones associated with the submission */
+export const patchResidents = async (
+  submissionId: string,
+  editedBy: string,
+  residentIds: number[]
+): Promise<Submission> => {
+  const { data } = await axios.patch(
+    `${ENDPOINT_API}/submissions/${submissionId}`,
+    {
+      residents: residentIds,
+      editedBy,
+    },
+    {
+      headers: headersWithKey,
+    }
+  );
+  return data;
+};
+
 /** mark an existing submission as finished, providing its id  */
 export const finishSubmission = async (
   submissionId: string,
   finishedBy: string
 ): Promise<number> => {
-  const { status } = await axios.patch(
+  const { data } = await axios.patch(
     `${ENDPOINT_API}/submissions/${submissionId}`,
     {
       editedBy: finishedBy,
@@ -113,7 +132,7 @@ export const finishSubmission = async (
       headers: headersWithKey,
     }
   );
-  return status;
+  return data;
 };
 
 /** mark an existing submission as discarded, providing its id  */

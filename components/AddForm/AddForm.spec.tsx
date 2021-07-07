@@ -32,6 +32,15 @@ jest.mock('data/googleForms/childForms', () => [
   },
 ]);
 
+// [formName, isViewableByAdults, isViewableByChildrens]
+const flexibleForms: [string, boolean, boolean][] = [
+  ['Foo', false, false],
+  ['Review of Care and Support Plan (3C)', true, false],
+  ['FACE overview assessment', true, false],
+  ['Safeguarding Adult Concern Form', true, false],
+  ['Case note', false, false],
+];
+
 describe('AddForm component', () => {
   it('should render adult forms', async () => {
     const props = {
@@ -65,10 +74,16 @@ describe('AddForm component', () => {
     const props = {
       person: residentFactory.build({ contextFlag: 'C' }),
     };
-    const { getByRole, asFragment, getByTestId } = render(
+    const { getByRole, getByTestId, asFragment } = render(
       <UserContext.Provider
         value={{
-          user: mockedUser,
+          user: userFactory.build({
+            hasAdminPermissions: false,
+            hasDevPermissions: false,
+            hasUnrestrictedPermissions: false,
+            hasAdultPermissions: false,
+            hasChildrenPermissions: true,
+          }),
         }}
       >
         <AddForm {...props} />
@@ -150,4 +165,121 @@ describe('AddForm component', () => {
     });
     expect(autocompleteInput.value).toBe('Warning Note');
   });
+
+  describe('displaying of flexible forms', () => {
+    test.each(flexibleForms)(
+      `Form %s viewed as childrens worker should display correctly`,
+      async (formName, _, isViewableByChildrens) => {
+        const props = {
+          person: residentFactory.build({ contextFlag: 'C' }),
+        };
+        const { getByRole, getByTestId, queryByRole } = render(
+          <UserContext.Provider
+            value={{
+              user: userFactory.build({
+                hasAdminPermissions: false,
+                hasDevPermissions: false,
+                hasUnrestrictedPermissions: false,
+                hasAdultPermissions: false,
+                hasChildrenPermissions: true,
+              }),
+            }}
+          >
+            <AddForm {...props} />
+          </UserContext.Provider>
+        );
+
+        const autocompleteInput = getByTestId('formList') as HTMLInputElement;
+
+        await act(async () => {
+          fireEvent.click(autocompleteInput);
+        });
+
+        if (isViewableByChildrens) {
+          await act(async () => {
+            fireEvent.click(getByRole('option', { name: formName as string }));
+          });
+          expect(autocompleteInput.value).toBe(formName);
+        } else {
+          expect(
+            queryByRole('option', { name: formName as string })
+          ).toBeNull();
+        }
+      }
+    );
+  });
+
+  test.each(flexibleForms)(
+    `Form %s viewed as adults worker should display correctly`,
+    async (formName, isViewableByAdults) => {
+      const props = {
+        person: residentFactory.build({ contextFlag: 'A' }),
+      };
+      const { getByRole, getByTestId, queryByRole } = render(
+        <UserContext.Provider
+          value={{
+            user: userFactory.build({
+              hasAdminPermissions: false,
+              hasDevPermissions: false,
+              hasUnrestrictedPermissions: false,
+              hasAdultPermissions: true,
+              hasChildrenPermissions: false,
+            }),
+          }}
+        >
+          <AddForm {...props} />
+        </UserContext.Provider>
+      );
+
+      const autocompleteInput = getByTestId('formList') as HTMLInputElement;
+
+      await act(async () => {
+        fireEvent.click(autocompleteInput);
+      });
+
+      if (isViewableByAdults) {
+        await act(async () => {
+          fireEvent.click(getByRole('option', { name: formName }));
+        });
+        expect(autocompleteInput.value).toBe(formName);
+      } else {
+        expect(queryByRole('option', { name: formName })).toBeNull();
+      }
+    }
+  );
+
+  test.each(flexibleForms)(
+    `Form %s always displayed on staging if user is admin or dev`,
+    async (formName) => {
+      const props = {
+        person: residentFactory.build({ contextFlag: 'A' }),
+      };
+      const { getByRole, getByTestId } = render(
+        <UserContext.Provider
+          value={{
+            user: userFactory.build({
+              hasAdminPermissions: true,
+              hasDevPermissions: true,
+              hasUnrestrictedPermissions: false,
+              hasAdultPermissions: true,
+              hasChildrenPermissions: false,
+            }),
+          }}
+        >
+          <AddForm {...props} />
+        </UserContext.Provider>
+      );
+
+      const autocompleteInput = getByTestId('formList') as HTMLInputElement;
+
+      await act(async () => {
+        fireEvent.click(autocompleteInput);
+      });
+
+      await act(async () => {
+        fireEvent.click(getByRole('option', { name: formName }));
+      });
+      expect(autocompleteInput.value).toBe(formName);
+    }
+  );
 });

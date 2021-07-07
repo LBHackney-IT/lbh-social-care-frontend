@@ -20,6 +20,7 @@
     "delete-draft-github-releases": "node ./ci-scripts/delete-draft-github-releases.js"
   },
   "dependencies": {
+    "@reach/dialog": "^0.15.0",
     "axios": "^0.21.1",
     "body-parser": "^1.19.0",
     "classnames": "^2.3.1",
