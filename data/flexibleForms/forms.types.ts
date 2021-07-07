@@ -18,7 +18,7 @@ export interface Field {
     | 'repeater'
     | 'repeaterGroup'
     | 'timetable'
-    | 'tags'
+    | 'Tags'
     | 'combobox'
     | 'file';
   /** Required value is always ignored on fields with a condition */

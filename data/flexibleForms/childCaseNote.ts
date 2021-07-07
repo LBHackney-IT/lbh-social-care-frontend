@@ -126,11 +126,10 @@ const form: Form = {
           id: 'Topics',
           question: 'Topics',
           hint: 'Help colleagues find this note. Add as many as you need.',
-          type: 'tags',
+          type: 'Tags',
         },
       ],
     },
   ],
 };
-
 export default form;
