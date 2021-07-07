@@ -146,6 +146,7 @@ describe('patchSubmissionForStep', () => {
     const mockAnswers = {
       'question one': 'answer one',
       'question two': 'answer two',
+      Tags: ['foo', 'bar'],
     };
 
     mockedAxios.patch.mockResolvedValue({
@@ -154,7 +155,11 @@ describe('patchSubmissionForStep', () => {
     const data = await patchSubmissionForStep('123', '456', 'foo', mockAnswers);
     expect(mockedAxios.patch).toHaveBeenCalledWith(
       `${ENDPOINT_API}/submissions/123/steps/456`,
-      { editedBy: 'foo', stepAnswers: JSON.stringify(mockAnswers) },
+      {
+        editedBy: 'foo',
+        stepAnswers: JSON.stringify(mockAnswers),
+        tags: ['foo', 'bar'],
+      },
       { headers: { 'x-api-key': AWS_KEY } }
     );
     expect(data).toEqual({
