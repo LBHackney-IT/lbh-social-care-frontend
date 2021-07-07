@@ -4,7 +4,6 @@ const form: Form = {
   id: 'Child Case Note',
   name: 'Child Case Note',
   groupRecordable: true,
-  taggable: true,
   isViewableByAdults: false,
   isViewableByChildrens: false,
   steps: [
@@ -31,18 +30,6 @@ const form: Form = {
               value: 'Management oversight',
               label: 'Management oversight',
             },
-            // {
-            //   value: 'Independent reviewing officer oversight',
-            //   label: 'Independent reviewing officer oversight',
-            // },
-            // {
-            //   value: 'Unit meeting note',
-            //   label: 'Unit meeting note',
-            // },
-            // {
-            //   label: 'PMU',
-            //   value: 'PMU',
-            // },
             {
               value: 'Something else',
               label: 'Something else',

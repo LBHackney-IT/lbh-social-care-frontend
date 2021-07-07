@@ -57,7 +57,6 @@ export interface Form {
   groupRecordable?: boolean;
   isViewableByChildrens: boolean;
   isViewableByAdults: boolean;
-  taggable?: boolean;
 }
 
 export interface RepeaterGroupAnswer {
