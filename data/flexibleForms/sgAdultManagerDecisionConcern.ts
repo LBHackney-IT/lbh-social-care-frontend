@@ -9,7 +9,7 @@ const form: Form = {
         'The following section is to be completed by the appropriate Safeguarding Adult Manager (SAM) who has the responsibility to determine whether the safeguarding concern is to be addressed in line with the Care Act and safeguarding adult procedures.',
       id: 'communication',
       name: 'Communication',
-      theme: 'About you',
+      theme: 'About the person',
       fields: [
         {
           id: 'Preferred method of communication',
@@ -60,8 +60,8 @@ const form: Form = {
           ],
         },
         {
-          id: 'Further details on Communication Support',
-          question: 'Further details on Communication Support',
+          id: 'Further details on communication support',
+          question: 'Further details on communication support',
           hint: '',
           type: 'text',
         },
@@ -133,9 +133,9 @@ const form: Form = {
       ],
     },
     {
-      id: 'Primary Support Reason',
-      name: 'Primary Support Reason',
-      theme: 'About you',
+      id: 'Primary support reason',
+      name: 'Primary support reason',
+      theme: 'About the person',
       fields: [
         {
           id: 'PSR group',
@@ -195,13 +195,13 @@ const form: Form = {
       ],
     },
     {
-      id: 'Health Conditions',
-      name: 'Health Conditions',
-      theme: 'About you',
+      id: 'Health conditions',
+      name: 'Health conditions',
+      theme: 'About the person',
       fields: [
         {
-          id: 'Health Condition Question',
-          question: 'Health Conditions',
+          id: 'Health condition question',
+          question: 'Health conditions',
           hint: "(Two SAC mandatory collection options listed, or else choose 'Neither...'. But if you wish to report other items in the full SAC (voluntary) collection you may use 'Other' and enter manually)",
           required: true,
           type: 'radios',
@@ -227,7 +227,7 @@ const form: Form = {
     {
       id: 'Concerns',
       name: 'Concerns',
-      theme: 'About you',
+      theme: 'About the person',
       fields: [
         {
           id: 'Does the adult at risk have any previous safeguarding concerns?',
@@ -319,7 +319,7 @@ const form: Form = {
     {
       id: 'Mental capacity',
       name: 'Mental capacity',
-      theme: 'Mental Capacity',
+      theme: 'About the person',
       fields: [
         {
           id: 'Has a mental capacity act assessment taken place?',
@@ -442,7 +442,7 @@ const form: Form = {
     {
       id: 'Decision on the concern',
       name: 'Decision on the concern',
-      theme: 'Decision on the concern',
+      theme: 'Decision',
       fields: [
         {
           id: 'Date of Decision (on the Safeguarding Adults Concern)',
@@ -476,13 +476,6 @@ const form: Form = {
             },
           ],
         },
-      ],
-    },
-    {
-      id: 'Section 42 Criteria Not Met',
-      name: 'Section 42 Criteria Not Met',
-      theme: 'Decision on the concern',
-      fields: [
         {
           id: 'Why does this case not meet the S42 criteria? Please select all the reason(s) which apply',
           question:
@@ -490,6 +483,10 @@ const form: Form = {
           required: true,
           hint: '',
           type: 'checkboxes',
+          condition: {
+            id: 'Does the adult at risk meet the 3 key S42 Enquiry Criteria?',
+            value: 'No',
+          },
           choices: [
             {
               value: 'The adult does not have needs for Care AND Support',
@@ -515,6 +512,10 @@ const form: Form = {
             'If this is NOT a Section 42 concern, will a safeguarding enquiry still go ahead?',
           hint: '',
           type: 'radios',
+          condition: {
+            id: 'Does the adult at risk meet the 3 key S42 Enquiry Criteria?',
+            value: 'No',
+          },
           choices: [
             {
               value: 'Yes',
@@ -526,13 +527,6 @@ const form: Form = {
             },
           ],
         },
-      ],
-    },
-    {
-      id: 'Outcome if no safeguarding enquiry',
-      name: 'Outcome if no safeguarding enquiry',
-      theme: 'Decision on the concern',
-      fields: [
         {
           id: 'If this concern will not progress to a Section 42 enquiry it will be dealt with as',
           question:
@@ -540,6 +534,10 @@ const form: Form = {
           hint: "(Choose whichever will apply - but 'No action to be taken' should be the only selection if chosen)",
           required: true,
           type: 'checkboxes',
+          condition: {
+            id: 'If this is NOT a Section 42 concern, will a safeguarding enquiry still go ahead?',
+            value: 'No',
+          },
           choices: [
             {
               value: 'No action to be taken (sole selection)',
@@ -584,14 +582,17 @@ const form: Form = {
           question: 'Additional Details',
           hint: '',
           type: 'text',
+          condition: {
+            id: 'If this is NOT a Section 42 concern, will a safeguarding enquiry still go ahead?',
+            value: 'No',
+          },
         },
       ],
     },
     {
-      id: 'Case details (risks) table - Details of the safeguarding concern and any conclusions on allegations',
+      id: 'Risks and allegations',
       name: 'Case details (risks) table',
-      theme:
-        'Case details (risks) table - Details of the safeguarding concern and any conclusions on allegations',
+      theme: 'Risks and allegations',
       fields: [
         {
           id: 'Primary allegation: Source of Risk ',
@@ -1427,8 +1428,8 @@ const form: Form = {
           ],
         },
         {
-          id: 'Further Allegations (Risks Table)',
-          question: 'Further Allegations (Risks Table)',
+          id: 'Further allegations (Risks Table)',
+          question: 'Further allegations (Risks Table)',
           hint: 'If there are more than three allegations then please add those further allegations as free text here. Include Source of Risk, Type of Risk, Location, Risk Assessment Outcomes and Risk Outcomes in respect of each additional allegation',
           type: 'textarea',
         },
@@ -1437,7 +1438,7 @@ const form: Form = {
     {
       id: 'Service provider allegations',
       name: 'Service provider allegations',
-      theme: 'Service provider allegations',
+      theme: 'Risks and allegations',
       fields: [
         {
           id: 'Does the Concern include allegation(s) made against a service provider or their worker(s)?',
@@ -1493,7 +1494,7 @@ const form: Form = {
     {
       id: 'Feedback to referrer',
       name: 'Feedback to referrer',
-      theme: 'Feedback to referrer',
+      theme: 'Feedback and next steps',
       fields: [
         {
           id: 'Have you provided information on the outcome of this safeguarding referral to the referrer?',
@@ -1538,7 +1539,7 @@ const form: Form = {
     {
       id: 'Consideration of Safeguarding Adults Review (SAR)',
       name: 'Consideration of Safeguarding Adults Review (SAR)',
-      theme: 'Consideration of Safeguarding Adults Review (SAR)',
+      theme: 'Feedback and next steps',
       fields: [
         {
           id: 'Is this case going to be referred to the Safeguarding Adult Board?',
@@ -1571,9 +1572,9 @@ const form: Form = {
       ],
     },
     {
-      id: 'Completion Details (SAM Decision)',
-      name: 'Completion Details (SAM Decision)',
-      theme: 'Completion Details (SAM Decision)',
+      id: 'Completion details (SAM Decision)',
+      name: 'Completion details (SAM Decision)',
+      theme: 'Feedback and next steps',
       fields: [
         {
           id: 'Next Actions',
