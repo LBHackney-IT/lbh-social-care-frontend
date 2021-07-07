@@ -32,9 +32,9 @@ const CustomApp = ({
   pageProps,
 }: ExtendedAppProps): JSX.Element | null => {
   const [user] = useState(pageProps.user);
-  const features = getFeatureFlags();
-  features['feature-flags-implementation-proof'].isActive =
-    pageProps.environmentName === 'development';
+  const features = getFeatureFlags({
+    environmentName: pageProps.environmentName,
+  });
 
   return (
     <FeatureFlagProvider features={features}>
