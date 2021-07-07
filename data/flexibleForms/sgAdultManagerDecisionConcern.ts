@@ -1,8 +1,8 @@
 import { Form } from './forms.types';
 
 const form: Form = {
-  id: 'Safeguarding Adult Manager Decision on Concern',
-  name: 'Safeguarding Adult Manager Decision on Concern',
+  id: 'Safeguarding adult manager decision on concern',
+  name: 'Safeguarding adult manager decision on concern',
   isViewableByAdults: true,
   isViewableByChildrens: false,
   steps: [
@@ -22,6 +22,7 @@ const form: Form = {
         {
           id: 'Preferred language',
           question: 'Preferred language',
+          className: 'govuk-input--width-20',
           hint: '',
           type: 'text',
         },
@@ -95,6 +96,10 @@ const form: Form = {
           required: true,
           hint: '',
           type: 'radios',
+          condition: {
+            id: 'Is the adult at risk already known to the local authority?',
+            value: 'Yes',
+          },
           choices: [
             {
               value: 'Yes',
@@ -117,6 +122,10 @@ const form: Form = {
           required: true,
           hint: '',
           type: 'radios',
+          condition: {
+            id: 'Is the adult at risk already known to the local authority?',
+            value: 'Yes',
+          },
           choices: [
             {
               value: 'Yes',
@@ -414,34 +423,56 @@ const form: Form = {
           question: 'Advocate name',
           hint: '',
           type: 'text',
+          condition: {
+            id: 'Has advocacy been offered as a result of this concern?',
+            value: 'Yes',
+          },
         },
         {
           id: 'Advocate relationship',
           question: 'Advocate relationship',
+          className: 'govuk-input--width-20',
           hint: '',
           type: 'text',
+          condition: {
+            id: 'Has advocacy been offered as a result of this concern?',
+            value: 'Yes',
+          },
         },
         {
           id: 'Advocate address',
           question: 'Advocate address',
           hint: '',
           type: 'textarea',
+          condition: {
+            id: 'Has advocacy been offered as a result of this concern?',
+            value: 'Yes',
+          },
         },
         {
           id: 'Advocate telephone number',
           question: 'Advocate telephone number',
+          className: 'govuk-input--width-20',
           hint: '',
           type: 'text',
+          condition: {
+            id: 'Has advocacy been offered as a result of this concern?',
+            value: 'Yes',
+          },
         },
         {
           id: 'Advocate email address',
           question: 'Advocate email address',
           hint: '',
           type: 'text',
+          className: 'govuk-input--width-20',
+          condition: {
+            id: 'Has advocacy been offered as a result of this concern?',
+            value: 'Yes',
+          },
         },
       ],
     },
-
     {
       id: 'Decision on the concern',
       name: 'Decision on the concern',
@@ -599,7 +630,6 @@ const form: Form = {
         },
       ],
     },
-
     {
       id: 'Risks and allegations',
       name: 'Case details (risks) table',
@@ -610,7 +640,7 @@ const form: Form = {
           question: 'Primary allegation: Source of Risk ',
           required: true,
           hint: '',
-          type: 'radios',
+          type: 'combobox',
           choices: [
             {
               value: 'Social Care Support or Service Provider - public sector',
@@ -725,7 +755,7 @@ const form: Form = {
           question: 'Primary allegation: Type of Risk',
           required: true,
           hint: '',
-          type: 'radios',
+          type: 'combobox',
           choices: [
             {
               value: 'Physical',
@@ -778,7 +808,7 @@ const form: Form = {
           question: 'Primary allegation: Location',
           required: true,
           hint: '',
-          type: 'radios',
+          type: 'combobox',
           choices: [
             {
               value: 'Own Home',
@@ -819,7 +849,7 @@ const form: Form = {
           question: 'Primary allegation: Risk Assessment Outcomes',
           required: true,
           hint: '',
-          type: 'radios',
+          type: 'combobox',
           choices: [
             {
               value: 'Risk identified and action taken (Choose Outcome below)',
@@ -890,7 +920,7 @@ const form: Form = {
           id: 'Second allegation: Source of Risk ',
           question: 'Second allegation: Source of Risk ',
           hint: '',
-          type: 'radios',
+          type: 'combobox',
           choices: [
             {
               value: 'Social Care Support or Service Provider - public sector',
@@ -1004,7 +1034,7 @@ const form: Form = {
           id: 'Second allegation: Type of Risk',
           question: 'Second allegation: Type of Risk',
           hint: '',
-          type: 'radios',
+          type: 'combobox',
           choices: [
             {
               value: 'Physical',
@@ -1056,7 +1086,7 @@ const form: Form = {
           id: 'Second allegation: Location',
           question: 'Second allegation: Location',
           hint: '',
-          type: 'radios',
+          type: 'combobox',
           choices: [
             {
               value: 'Own Home',
@@ -1096,7 +1126,7 @@ const form: Form = {
           id: 'Second allegation: Risk Assessment Outcomes',
           question: 'Second allegation: Risk Assessment Outcomes',
           hint: '',
-          type: 'radios',
+          type: 'combobox',
           choices: [
             {
               value: 'Risk identified and action taken (Choose Outcome below)',
@@ -1166,7 +1196,7 @@ const form: Form = {
           id: 'Third allegation: Source of Risk ',
           question: 'Third allegation: Source of Risk ',
           hint: '',
-          type: 'radios',
+          type: 'combobox',
           choices: [
             {
               value: 'Social Care Support or Service Provider - public sector',
@@ -1280,7 +1310,7 @@ const form: Form = {
           id: 'Third allegation: Type of Risk',
           question: 'Third allegation: Type of Risk',
           hint: '',
-          type: 'radios',
+          type: 'combobox',
           choices: [
             {
               value: 'Physical',
@@ -1332,7 +1362,7 @@ const form: Form = {
           id: 'Third allegation: Location',
           question: 'Third allegation: Location',
           hint: '',
-          type: 'radios',
+          type: 'combobox',
           choices: [
             {
               value: 'Own Home',
@@ -1372,7 +1402,7 @@ const form: Form = {
           id: 'Third allegation: Risk Assessment Outcomes',
           question: 'Third allegation: Risk Assessment Outcomes',
           hint: '',
-          type: 'radios',
+          type: 'combobox',
           choices: [
             {
               value: 'Risk identified and action taken (Choose Outcome below)',
@@ -1481,10 +1511,11 @@ const form: Form = {
           },
         },
         {
-          id: 'Secondary Service Provider Details',
-          question: 'Secondary Service Provider Details',
-          hint: '(If there is more than one service provider to consider please give details of other organisations here)',
-          type: 'textarea',
+          id: 'Primary Service Provider Adress',
+          question: 'Primary Service Provider Name',
+          required: true,
+          hint: '',
+          type: 'text',
           condition: {
             id: 'Does the Concern include allegation(s) made against a service provider or their worker(s)?',
             value: 'Yes',
@@ -1617,7 +1648,6 @@ const form: Form = {
         {
           id: 'Email address of worker responsible for next episode',
           question: 'Email address of worker responsible for next episode',
-          hint: "(Who will carry out the Enquiry or complete the Conclusion? You need to forward the 'receipt' copy of this form to them once you receive it)",
           required: true,
           type: 'text',
         },

@@ -5,5 +5,11 @@ import foo from './foo';
 import sgAdultConcern from './sgAdultConcern';
 import sgAdultManagerDecisionConcern from './sgAdultManagerDecisionConcern';
 
-export default [foo, review3c, faceOverview, sgAdultConcern, sgAdultManagerDecisionConcern, childCaseNote];
-
+export default [
+  foo,
+  review3c,
+  faceOverview,
+  sgAdultConcern,
+  sgAdultManagerDecisionConcern,
+  childCaseNote,
+];
