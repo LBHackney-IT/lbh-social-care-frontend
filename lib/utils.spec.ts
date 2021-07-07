@@ -1,3 +1,4 @@
+import { Form } from 'data/flexibleForms/forms.types';
 import { Resident } from 'types';
 import {
   truncate,
@@ -16,9 +17,11 @@ describe('truncate', () => {
   });
 });
 
-const form = {
+const form: Form = {
   id: '1',
   name: 'Example form',
+  isViewableByAdults: true,
+  isViewableByChildrens: true,
   steps: [
     {
       id: '1',
