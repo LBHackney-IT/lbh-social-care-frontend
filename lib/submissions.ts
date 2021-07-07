@@ -90,8 +90,8 @@ export const patchSubmissionForStep = async (
     {
       stepAnswers: JSON.stringify(stepAnswers),
       editedBy,
-      tags: Object.keys(stepAnswers).includes('Tags')
-        ? stepAnswers.Tags
+      tags: Object.keys(stepAnswers).includes('tags')
+        ? stepAnswers.tags
         : undefined,
     },
     {

@@ -89,7 +89,6 @@ export interface Submission {
   formId: string;
   createdBy: User;
   createdAt: string;
-
   residents: Resident[];
   workers: Worker[];
   editHistory: {
@@ -98,4 +97,5 @@ export interface Submission {
   }[];
   submissionState: 'In progress' | 'Approved' | 'Discarded' | 'Submitted';
   formAnswers: FlexibleAnswers;
+  tags?: string[];
 }
