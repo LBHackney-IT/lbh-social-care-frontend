@@ -1,12 +1,15 @@
 import TaskList from './TaskList';
 import { render, screen } from '@testing-library/react';
 import { useRouter } from 'next/router';
+import { Form } from 'data/flexibleForms/forms.types';
 
 jest.mock('next/router');
 
-const form = {
+const form: Form = {
   id: '1',
   name: 'Example form',
+  isViewableByAdults: true,
+  isViewableByChildrens: true,
   steps: [
     {
       id: '1',

@@ -29,15 +29,21 @@ const AddForm = ({ person }: { person: Resident }): React.ReactElement => {
     value: string;
   }[];
 
-  // handle new flexible forms
-  if (ageContext === 'A') {
-    for (let i = 0; i < flexibleForms.length; i++) {
-      const form = flexibleForms[i];
-      if (
-        form.name === 'FACE Overview Assessment (Social Care)' &&
-        !(user.hasAdminPermissions || user.hasDevPermissions)
-      )
-        continue;
+  // add new flexible forms
+  for (let i = 0; i < flexibleForms.length; i++) {
+    const form = flexibleForms[i];
+
+    if (form.isViewableByAdults && ageContext === 'A') {
+      internalForms.push({
+        text: form.name,
+        value: `/submissions/new?social_care_id=${person.id}&form_id=${form.id}`,
+      });
+    } else if (form.isViewableByChildrens && ageContext === 'C') {
+      internalForms.push({
+        text: form.name,
+        value: `/submissions/new?social_care_id=${person.id}&form_id=${form.id}`,
+      });
+    } else if (user.hasAdminPermissions || user.hasDevPermissions) {
       internalForms.push({
         text: form.name,
         value: `/submissions/new?social_care_id=${person.id}&form_id=${form.id}`,

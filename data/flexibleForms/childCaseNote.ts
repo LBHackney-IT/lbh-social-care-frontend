@@ -4,6 +4,8 @@ const form: Form = {
   id: 'child-case-note',
   name: 'Case note',
   groupRecordable: true,
+  isViewableByAdults: false,
+  isViewableByChildrens: false,
   steps: [
     {
       id: 'foo',
@@ -120,7 +122,6 @@ const form: Form = {
           id: 'Topics',
           question: 'Topics',
           hint: 'Help colleagues find this note. Add all that apply.',
-          // type: 'tags',
           type: 'text',
           required: true,
         },
