@@ -17,11 +17,15 @@ describe('StartForm', () => {
           {
             id: 'foo',
             name: 'Foo',
+            isViewableByAdults: true,
+            isViewableByChildrens: true,
             steps: [],
           },
           {
             id: 'bar',
             name: 'Bar',
+            isViewableByAdults: true,
+            isViewableByChildrens: true,
             steps: [],
           },
         ]}
@@ -46,6 +50,8 @@ describe('StartForm', () => {
           {
             id: 'foo',
             name: 'Foo',
+            isViewableByAdults: true,
+            isViewableByChildrens: true,
             steps: [],
           },
         ]}
@@ -77,11 +83,15 @@ describe('StartForm', () => {
           {
             id: 'foo',
             name: 'Foo',
+            isViewableByAdults: true,
+            isViewableByChildrens: true,
             steps: [],
           },
           {
             id: 'bar',
             name: 'Bar',
+            isViewableByAdults: true,
+            isViewableByChildrens: true,
             steps: [],
           },
         ]}
