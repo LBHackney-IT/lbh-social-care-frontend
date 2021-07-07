@@ -441,29 +441,32 @@ const form: Form = {
         },
       ],
     },
+
     {
       id: 'Decision on the concern',
       name: 'Decision on the concern',
       theme: 'Decision',
       fields: [
         {
-          id: 'Date of Decision (on the Safeguarding Adults Concern)',
-          question: 'Date of Decision (on the Safeguarding Adults Concern)',
+          id: 'Date of decision',
+          question: 'Date of decision ',
+          hint: 'On the safeguarding adults concern',
           required: true,
-          hint: '',
+          className: 'govuk-input--width-10',
           type: 'date',
         },
         {
-          id: 'Date of Concern (to which this Decision relates)',
-          question: 'Date of Concern (to which this Decision relates)',
+          id: 'Date of concern',
+          question: 'Date of concern',
+          hint: 'To which this decison relates',
           required: true,
-          hint: '',
+          className: 'govuk-input--width-10',
           type: 'date',
         },
         {
-          id: 'Does the adult at risk meet the 3 key S42 Enquiry Criteria?',
+          id: 'Meets three key S42 enquiry criteria?',
           question:
-            'Does the adult at risk meet the 3 key S42 Enquiry Criteria?',
+            'Does the adult at risk meet the three key S42 enquiry criteria?',
           required: true,
           hint: '',
           type: 'radios',
@@ -479,20 +482,19 @@ const form: Form = {
           ],
         },
         {
-          id: 'Why does this case not meet the S42 criteria? Please select all the reason(s) which apply',
-          question:
-            'Why does this case not meet the S42 criteria? Please select all the reason(s) which apply',
+          id: 'Why does this case not meet the S42 criteria?',
+          question: 'Why does this case not meet the S42 criteria?',
           required: true,
-          hint: '',
+          hint: 'Choose all the reasons which apply',
           type: 'checkboxes',
           condition: {
-            id: 'Does the adult at risk meet the 3 key S42 Enquiry Criteria?',
+            id: 'Meets three key S42 enquiry criteria?',
             value: 'No',
           },
           choices: [
             {
-              value: 'The adult does not have needs for Care AND Support',
-              label: 'The adult does not have needs for Care AND Support',
+              value: 'The adult does not have needs for care AND support',
+              label: 'The adult does not have needs for care AND support',
             },
             {
               value:
@@ -502,20 +504,19 @@ const form: Form = {
             },
             {
               value:
-                'The adult is able to protect himself or herself against the abuse or neglect or the risk of it.',
+                'The adult is able to protect themself against the abuse or neglect or the risk of it.',
               label:
-                'The adult is able to protect himself or herself against the abuse or neglect or the risk of it.',
+                'The adult is able to protect themself against the abuse or neglect or the risk of it.',
             },
           ],
         },
         {
-          id: 'If this is NOT a Section 42 concern, will a safeguarding enquiry still go ahead?',
-          question:
-            'If this is NOT a Section 42 concern, will a safeguarding enquiry still go ahead?',
+          id: 'Will a safeguarding enquiry still go ahead?',
+          question: 'Will a safeguarding enquiry still go ahead?',
           hint: '',
           type: 'radios',
           condition: {
-            id: 'Does the adult at risk meet the 3 key S42 Enquiry Criteria?',
+            id: 'Meets three key S42 enquiry criteria?',
             value: 'No',
           },
           choices: [
@@ -536,10 +537,16 @@ const form: Form = {
           hint: "(Choose whichever will apply - but 'No action to be taken' should be the only selection if chosen)",
           required: true,
           type: 'checkboxes',
-          condition: {
-            id: 'If this is NOT a Section 42 concern, will a safeguarding enquiry still go ahead?',
-            value: 'No',
-          },
+          condition: [
+            {
+              id: 'Meets three key S42 enquiry criteria?',
+              value: 'No',
+            },
+            {
+              id: 'Will a safeguarding enquiry still go ahead?',
+              value: 'No',
+            },
+          ],
           choices: [
             {
               value: 'No action to be taken (sole selection)',
@@ -550,47 +557,49 @@ const form: Form = {
               label: 'Advice and guidance',
             },
             {
-              value: 'Care Act Assessment',
-              label: 'Care Act Assessment',
+              value: 'Care Act assessment',
+              label: 'Care Act assessment',
             },
             {
               value: 'ASC case management',
               label: 'ASC case management',
             },
             {
-              value: 'ASC Review',
-              label: 'ASC Review',
+              value: 'ASC review',
+              label: 'ASC review',
             },
             {
-              value: 'Passed to other Hackney Council Service',
-              label: 'Passed to other Hackney Council Service',
+              value: 'Passed to other Hackney Council service',
+              label: 'Passed to other Hackney Council service',
             },
             {
-              value:
-                "Signposted to external agency – insert agency in 'Additional Details' below",
-              label:
-                "Signposted to external agency – insert agency in 'Additional Details' below",
+              value: 'Signposted to external agency',
+              label: 'Signposted to external agency',
             },
             {
-              value:
-                "Passed to another LA – insert LA name in 'Additional Details' below",
-              label:
-                "Passed to another LA – insert LA name in 'Additional Details' below",
+              value: 'Passed to another local authority',
+              label: 'Passed to another local authority',
             },
           ],
         },
         {
-          id: 'Additional Details',
-          question: 'Additional Details',
-          hint: '',
+          id: 'Agency or local authority name',
+          question: 'Agency or local authority name',
           type: 'text',
-          condition: {
-            id: 'If this is NOT a Section 42 concern, will a safeguarding enquiry still go ahead?',
-            value: 'No',
-          },
+          condition: [
+            {
+              id: 'Meets three key S42 enquiry criteria?',
+              value: 'No',
+            },
+            {
+              id: 'Will a safeguarding enquiry still go ahead?',
+              value: 'No',
+            },
+          ],
         },
       ],
     },
+
     {
       id: 'Risks and allegations',
       name: 'Case details (risks) table',
