@@ -1,9 +1,10 @@
 import { Form } from './forms.types';
 
 const form: Form = {
-  id: 'child-case-note',
-  name: 'Case note',
+  id: 'Child Case Note',
+  name: 'Child Case Note',
   groupRecordable: true,
+  taggable: true,
   isViewableByAdults: false,
   isViewableByChildrens: false,
   steps: [
