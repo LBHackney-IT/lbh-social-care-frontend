@@ -123,7 +123,7 @@ const form: Form = {
           ],
         },
         {
-          id: 'Topics',
+          id: 'Topics (tags)',
           question: 'Topics',
           hint: 'Help colleagues find this note. Add as many as you need.',
           type: 'tags',
