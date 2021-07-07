@@ -12,8 +12,16 @@ import {
   ConditionalFeature,
   FeatureFlagProvider,
   FeatureSet,
+  isFeatureFlagActive,
   useFeatureFlags,
 } from './feature-flags';
+
+import { getFeatureFlags } from 'features';
+
+jest.mock('features');
+const mockedGetFeatureFlags = getFeatureFlags as jest.Mocked<
+  typeof getFeatureFlags
+>;
 
 describe('feature flags', () => {
   describe('<ConditionalFeature />', () => {
@@ -139,6 +147,36 @@ describe('feature flags', () => {
       expect(result.current.isFeatureActive('non-existant-feature')).toBe(
         false
       );
+    });
+  });
+
+  describe('isFeatureFlagActive() helper function', () => {
+    it('should return true if the feature is active', () => {
+      const stubbedFeatures: FeatureSet = {
+        'test-feature': {
+          isActive: true,
+        },
+      };
+
+      (mockedGetFeatureFlags as jest.Mock).mockReturnValueOnce(stubbedFeatures);
+
+      const someFeatureIsActive = isFeatureFlagActive('test-feature');
+
+      expect(someFeatureIsActive).toBe(true);
+    });
+
+    it('should return false if the feature is not active', () => {
+      const stubbedFeatures: FeatureSet = {
+        'test-feature': {
+          isActive: false,
+        },
+      };
+
+      (mockedGetFeatureFlags as jest.Mock).mockReturnValueOnce(stubbedFeatures);
+
+      const someFeatureIsActive = isFeatureFlagActive('test-feature');
+
+      expect(someFeatureIsActive).toBe(false);
     });
   });
 });

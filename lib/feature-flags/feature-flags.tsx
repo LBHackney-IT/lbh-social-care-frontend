@@ -1,3 +1,4 @@
+import { getFeatureFlags } from 'features';
 import React from 'react';
 import { useContext } from 'react';
 
@@ -7,8 +8,9 @@ export type FeatureSet = {
   };
 };
 
-const FeatureFlagContext =
-  React.createContext<FeatureSet | undefined>(undefined);
+const FeatureFlagContext = React.createContext<FeatureSet | undefined>(
+  undefined
+);
 
 export const FeatureFlagProvider: React.FC<{
   features: FeatureSet;
@@ -64,4 +66,13 @@ export const ConditionalFeature: React.FC<{ name: string }> = ({
   }
 
   return <>{children}</>;
+};
+
+/**
+ * Typescript helper function for checking whether a given feature is active or inactive
+ */
+export const isFeatureFlagActive = (featureName: string) => {
+  const features = getFeatureFlags();
+
+  return features[featureName].isActive;
 };
