@@ -8,10 +8,15 @@ const form: Form = {
   isViewableByChildrens: false,
   steps: [
     {
-      id: 'foo',
-      name: 'foo',
-      theme: 'foo',
+      id: 'Case note',
+      name: 'Case Note',
+      theme: 'Case note',
       fields: [
+        {
+          id: 'Case note title',
+          question: 'Case Note Title',
+          type: 'textarea',
+        },
         {
           id: 'Type',
           question: 'What kind of note is this?',
@@ -27,10 +32,36 @@ const form: Form = {
               label: 'Correspondence',
             },
             {
-              value: 'Something else',
-              label: 'Something else',
+              value: 'Management oversight',
+              label: 'Management oversight',
+            },
+            {
+              value: 'Independent reviewing officer oversight',
+              label: 'Independent reviewing officer oversight',
+            },
+            {
+              value: 'Unit meeting note',
+              label: 'Unit meeting note',
+            },
+            {
+              label: 'PMU',
+              value: 'PMU',
+            },
+            {
+              value: 'Other',
+              label: 'Other',
             },
           ],
+        },
+        {
+          id: 'Other type',
+          question: "If 'Other' please provide case note type",
+          type: 'textarea',
+          required: true,
+          condition: {
+            id: 'Type',
+            value: 'Other',
+          },
         },
         {
           id: 'Correspondence type',
@@ -78,8 +109,8 @@ const form: Form = {
         },
 
         {
-          id: 'What happened?',
-          question: 'What happened?',
+          id: 'Case note description?',
+          question: 'Case note description?',
           type: 'textarea',
           required: true,
         },
@@ -116,14 +147,6 @@ const form: Form = {
               className: 'govuk-input--width-10',
             },
           ],
-        },
-
-        {
-          id: 'Topics',
-          question: 'Topics',
-          hint: 'Help colleagues find this note. Add all that apply.',
-          type: 'text',
-          required: true,
         },
       ],
     },
