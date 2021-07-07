@@ -113,7 +113,7 @@ export interface CaseData {
 }
 
 export interface LegacyResident {
-  mosaicId: number;
+  mosaicId: string;
   firstName: string;
   lastName: string;
   uprn?: string;

@@ -1,5 +1,5 @@
 import PersonWidget from './PersonWidget';
-import { render } from '@testing-library/react';
+import { render, fireEvent } from '@testing-library/react';
 import { residentFactory } from 'factories/residents';
 
 describe('PersonWidget', () => {
@@ -20,12 +20,6 @@ describe('PersonWidget', () => {
     expect(getByText('Born 13 Nov 2020'));
     expect(queryByText('FLAT 10, GEORGE LEYBOURNE HOUSE, FLETCHER STREET'));
     expect(queryByText('E1 8HW'));
-  });
-
-  it('renders correctly when there is no person', () => {
-    const { getByText } = render(<PersonWidget />);
-
-    expect(getByText('Person not found'));
   });
 
   it('should handle when there is no date of birth', () => {
@@ -59,4 +53,73 @@ describe('PersonWidget', () => {
       queryByText('FLAT 10, GEORGE LEYBOURNE HOUSE, FLETCHER STREET')
     ).toBeNull();
   });
+
+  it('should call the setOpen callback with the id of the selected resident if the widget is not open', () => {
+    const resident = residentFactory.build();
+    const mockSetOpen = jest.fn();
+
+    const index = 1;
+
+    const { container } = render(
+      <PersonWidget
+        person={resident}
+        grouped={true}
+        onRemove={jest.fn()}
+        index={index}
+        open={false}
+        setOpen={mockSetOpen}
+      />
+    );
+
+    const input = container.querySelector('summary');
+    input && fireEvent.click(input);
+
+    expect(mockSetOpen).toBeCalledWith(index);
+  });
+
+  it('should call the setOpen callback with false when closing a widget', () => {
+    const resident = residentFactory.build();
+    const mockSetOpen = jest.fn();
+
+    const { container } = render(
+      <PersonWidget
+        person={resident}
+        grouped={true}
+        onRemove={jest.fn()}
+        index={1}
+        open={true}
+        setOpen={mockSetOpen}
+      />
+    );
+
+    const input = container.querySelector('summary');
+    input && fireEvent.click(input);
+
+    expect(mockSetOpen).toBeCalledWith(false);
+  });
+
+  it('should call the onRemove callback with the id of the resident', () => {
+    const resident = residentFactory.build();
+    const mockRemove = jest.fn();
+
+    const index = 1;
+
+    const { queryByText } = render(
+      <PersonWidget
+        person={resident}
+        grouped={true}
+        onRemove={mockRemove}
+        index={index}
+        open={false}
+        setOpen={jest.fn()}
+      />
+    );
+
+    const removeButton = queryByText('Remove');
+    removeButton && fireEvent.click(removeButton);
+
+    expect(mockRemove).toBeCalledWith(resident.id);
+  });
+
+  // calling onRemove
 });

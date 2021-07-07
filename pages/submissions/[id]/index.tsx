@@ -11,6 +11,7 @@ import s from 'stylesheets/Sidebar.module.scss';
 import axios from 'axios';
 import React, { useState } from 'react';
 import { useRouter } from 'next/router';
+import GroupRecordingWidget from 'components/GroupRecording/GroupRecordingWidget';
 
 interface Props {
   params: {
@@ -30,13 +31,12 @@ const TaskListPage = ({
 }: Props): React.ReactElement => {
   const router = useRouter();
   const [status, setStatus] = useState<string | false>(false);
-
   const completedSteps = Object.keys(formAnswers);
   const person = residents[0];
 
   const handleFinish = async (): Promise<void> => {
     try {
-      await axios.post(`/api/submissions/${params.id}`);
+      await axios.patch(`/api/submissions/${params.id}`);
       router.push(`/people/${person.id}/submissions/${params.id}`);
     } catch (e) {
       setStatus(e.toString());
@@ -78,7 +78,11 @@ const TaskListPage = ({
         <div className="govuk-grid-column-one-third">
           <div className={s.sticky}>
             <p className="lbh-body">This is for:</p>
-            <PersonWidget person={person} />
+            {form.groupRecordable ? (
+              <GroupRecordingWidget initialPeople={residents} />
+            ) : (
+              <PersonWidget person={residents[0]} />
+            )}
           </div>
         </div>
       </div>
