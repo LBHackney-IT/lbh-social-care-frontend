@@ -22,7 +22,8 @@ const ApproveDialog = ({
     try {
       setLoading(true);
       await axios.post(`/api/submissions/${submission.submissionId}/approvals`);
-      window.location.reload;
+      setLoading(false);
+      setOpen(false);
     } catch (e) {
       setStatus(e.toString());
     }
