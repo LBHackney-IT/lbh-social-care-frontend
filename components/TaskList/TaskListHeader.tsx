@@ -2,7 +2,6 @@ import { Step } from '../../data/flexibleForms/forms.types';
 import TextField from 'components/FlexibleForms/TextField';
 import { Formik, Form } from 'formik';
 import { submitSchema } from 'lib/validators';
-import s from './TaskList.module.scss';
 
 interface Props {
   approvable?: boolean;
@@ -44,7 +43,7 @@ const TaskListHeader = ({
           validationSchema={submitSchema}
         >
           {({ touched, errors, isSubmitting }) => (
-            <Form className={s.submitForm}>
+            <Form>
               <TextField
                 name="approverEmail"
                 touched={touched}
