@@ -30,60 +30,6 @@ Object {
 }
 `;
 
-exports[`Summary utils formatData should format "Checkbox" properly 1`] = `
-Object {
-  "key": "checkbox",
-  "title": "I am checkbox component",
-  "value": Array [
-    <div>
-      <span>
-        Foo
-      </span>
-      <br />
-    </div>,
-    <div>
-      <span>
-        Bar
-      </span>
-      <br />
-    </div>,
-    <div>
-      <span>
-        Foobar
-      </span>
-      <br />
-    </div>,
-  ],
-}
-`;
-
-exports[`Summary utils formatData should format "Checkbox" properly if options is a function 1`] = `
-Object {
-  "key": "checkbox",
-  "title": "I am checkbox component",
-  "value": Array [
-    <div>
-      <span>
-        Foo
-      </span>
-      <br />
-    </div>,
-    <div>
-      <span>
-        Bar
-      </span>
-      <br />
-    </div>,
-    <div>
-      <span>
-        Foobar
-      </span>
-      <br />
-    </div>,
-  ],
-}
-`;
-
 exports[`Summary utils formatData should format "ObjectInput" properly 1`] = `
 Object {
   "key": "oo",
@@ -153,5 +99,59 @@ Object {
       text
     </div>
   </React.Fragment>,
+}
+`;
+
+exports[`Summary utils formatData when the component is a Checkbox should format "Checkbox" properly 1`] = `
+Object {
+  "key": "checkbox",
+  "title": "I am checkbox component",
+  "value": Array [
+    <div>
+      <span>
+        Foo
+      </span>
+      <br />
+    </div>,
+    <div>
+      <span>
+        Bar
+      </span>
+      <br />
+    </div>,
+    <div>
+      <span>
+        Foobar
+      </span>
+      <br />
+    </div>,
+  ],
+}
+`;
+
+exports[`Summary utils formatData when the component is a Checkbox should format "Checkbox" properly if options is a function 1`] = `
+Object {
+  "key": "checkbox",
+  "title": "I am checkbox component",
+  "value": Array [
+    <div>
+      <span>
+        Foo
+      </span>
+      <br />
+    </div>,
+    <div>
+      <span>
+        Bar
+      </span>
+      <br />
+    </div>,
+    <div>
+      <span>
+        Foobar
+      </span>
+      <br />
+    </div>,
+  ],
 }
 `;

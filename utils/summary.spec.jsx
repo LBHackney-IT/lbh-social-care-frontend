@@ -70,40 +70,125 @@ describe('Summary utils', () => {
       expect(formatData(componentPropsInline, formData)).toMatchSnapshot();
     });
 
-    it('should format "Checkbox" properly', () => {
-      const componentProps = {
-        component: 'Checkbox',
-        label: 'I am checkbox component',
-        name: 'checkbox',
-        options: [
-          { text: 'Foo', value: 'foo' },
-          { text: 'Bar', value: 'bar' },
-          { text: 'Foobar', value: 'foobar' },
-          { text: 'Barfoo', value: 'barfoo' },
-        ],
-      };
-      const formData = {
-        checkbox: ['foo', 'bar', 'foobar'],
-      };
-      expect(formatData(componentProps, formData)).toMatchSnapshot();
-    });
+    describe('when the component is a Checkbox', () => {
+      it('should format "Checkbox" properly', () => {
+        const componentProps = {
+          component: 'Checkbox',
+          label: 'I am checkbox component',
+          name: 'checkbox',
+          options: [
+            { text: 'Foo', value: 'foo' },
+            { text: 'Bar', value: 'bar' },
+            { text: 'Foobar', value: 'foobar' },
+            { text: 'Barfoo', value: 'barfoo' },
+          ],
+        };
+        const formData = {
+          checkbox: ['foo', 'bar', 'foobar'],
+        };
+        expect(formatData(componentProps, formData)).toMatchSnapshot();
+      });
 
-    it('should format "Checkbox" properly if options is a function', () => {
-      const componentProps = {
-        component: 'Checkbox',
-        label: 'I am checkbox component',
-        name: 'checkbox',
-        options: () => [
-          { text: 'Foo', value: 'foo' },
-          { text: 'Bar', value: 'bar' },
-          { text: 'Foobar', value: 'foobar' },
-          { text: 'Barfoo', value: 'barfoo' },
-        ],
-      };
-      const formData = {
-        checkbox: ['foo', 'bar', 'foobar'],
-      };
-      expect(formatData(componentProps, formData)).toMatchSnapshot();
+      it('should format "Checkbox" properly if options is a function', () => {
+        const componentProps = {
+          component: 'Checkbox',
+          label: 'I am checkbox component',
+          name: 'checkbox',
+          options: () => [
+            { text: 'Foo', value: 'foo' },
+            { text: 'Bar', value: 'bar' },
+            { text: 'Foobar', value: 'foobar' },
+            { text: 'Barfoo', value: 'barfoo' },
+          ],
+        };
+        const formData = {
+          checkbox: ['foo', 'bar', 'foobar'],
+        };
+
+        expect(formatData(componentProps, formData)).toMatchSnapshot();
+      });
+
+      it('displays checked options if options is an array of strings and form data is a string', () => {
+        const componentProps = {
+          component: 'Checkbox',
+          label: 'I am checkbox component',
+          name: 'checkbox',
+          options: ['Option 1', 'Option 2'],
+        };
+        const formData = {
+          checkbox: 'Option 1',
+        };
+
+        const summaryRow = formatData(componentProps, formData);
+        const summaryRowValueForOption1 = summaryRow.value[0].props.children;
+
+        expect(summaryRow.value).toHaveLength(1);
+        expect(summaryRowValueForOption1).toContainEqual(<span>Option 1</span>);
+      });
+
+      it('displays checked options if options is an array of strings and form data is a array of strings', () => {
+        const componentProps = {
+          component: 'Checkbox',
+          label: 'I am checkbox component',
+          name: 'checkbox',
+          options: ['Option 1', 'Option 2'],
+        };
+        const formData = {
+          checkbox: ['Option 1', 'Option 2'],
+        };
+
+        const summaryRow = formatData(componentProps, formData);
+        const summaryRowValueForOption1 = summaryRow.value[0].props.children;
+        const summaryRowValueForOption2 = summaryRow.value[1].props.children;
+
+        expect(summaryRow.value).toHaveLength(2);
+        expect(summaryRowValueForOption1).toContainEqual(<span>Option 1</span>);
+        expect(summaryRowValueForOption2).toContainEqual(<span>Option 2</span>);
+      });
+
+      it('displays checked options if options is an array of objects and form data is a string', () => {
+        const componentProps = {
+          component: 'Checkbox',
+          label: 'I am checkbox component',
+          name: 'checkbox',
+          options: [
+            { text: 'Option 1', value: 'option1' },
+            { text: 'Option 2', value: 'option2' },
+          ],
+        };
+        const formData = {
+          checkbox: 'option1',
+        };
+
+        const summaryRow = formatData(componentProps, formData);
+        const summaryRowValueForOption1 = summaryRow.value[0].props.children;
+
+        expect(summaryRow.value).toHaveLength(1);
+        expect(summaryRowValueForOption1).toContainEqual(<span>Option 1</span>);
+      });
+
+      it('displays checked options if options is an array of objects and form data is a string', () => {
+        const componentProps = {
+          component: 'Checkbox',
+          label: 'I am checkbox component',
+          name: 'checkbox',
+          options: [
+            { text: 'Option 1', value: 'option1' },
+            { text: 'Option 2', value: 'option2' },
+          ],
+        };
+        const formData = {
+          checkbox: ['option1', 'option2'],
+        };
+
+        const summaryRow = formatData(componentProps, formData);
+        const summaryRowValueForOption1 = summaryRow.value[0].props.children;
+        const summaryRowValueForOption2 = summaryRow.value[1].props.children;
+
+        expect(summaryRow.value).toHaveLength(2);
+        expect(summaryRowValueForOption1).toContainEqual(<span>Option 1</span>);
+        expect(summaryRowValueForOption2).toContainEqual(<span>Option 2</span>);
+      });
     });
 
     it('should format "Select" properly', () => {
