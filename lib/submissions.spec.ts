@@ -179,16 +179,18 @@ describe('approveSubmission', () => {
 
     await approveSubmission('foo', 'bar');
     expect(mockedAxios.patch).toHaveBeenCalled();
-    expect(mockedAxios.patch.mock.calls[0][0]).toEqual(
-      `${ENDPOINT_API}/submissions/foo`
+    expect(mockedAxios.patch).toBeCalledWith(
+      `${ENDPOINT_API}/submissions/foo`,
+      {
+        editedBy: 'bar',
+        submissionState: 'approved',
+      },
+      {
+        headers: {
+          'x-api-key': AWS_KEY,
+        },
+      }
     );
-    expect(mockedAxios.patch.mock.calls[0][1]).toEqual({
-      editedBy: 'bar',
-      submissionState: 'approved',
-    });
-    expect(mockedAxios.patch.mock.calls[0][2]?.headers).toEqual({
-      'x-api-key': AWS_KEY,
-    });
   });
 });
 
@@ -200,16 +202,18 @@ describe('returnForEdits', () => {
 
     await returnForEdits('foo', 'bar', 'test reason');
     expect(mockedAxios.patch).toHaveBeenCalled();
-    expect(mockedAxios.patch.mock.calls[0][0]).toEqual(
-      `${ENDPOINT_API}/submissions/foo`
+    expect(mockedAxios.patch).toBeCalledWith(
+      `${ENDPOINT_API}/submissions/foo`,
+      {
+        editedBy: 'bar',
+        submissionState: 'in_progress',
+        rejectionReason: 'test reason',
+      },
+      {
+        headers: {
+          'x-api-key': AWS_KEY,
+        },
+      }
     );
-    expect(mockedAxios.patch.mock.calls[0][1]).toEqual({
-      editedBy: 'bar',
-      submissionState: 'in_progress',
-      rejectionReason: 'test reason',
-    });
-    expect(mockedAxios.patch.mock.calls[0][2]?.headers).toEqual({
-      'x-api-key': AWS_KEY,
-    });
   });
 });
