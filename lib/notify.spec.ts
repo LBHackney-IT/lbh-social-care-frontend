@@ -19,7 +19,7 @@ beforeEach(() => {
 
 describe('notifyApprover', () => {
   it('correctly calls the notify client', async () => {
-    await notifyApprover(mockSubmission, 'bar');
+    await notifyApprover(mockSubmission, 'bar', 'http://example.com');
     await waitFor(() => {
       expect(mockSend).toBeCalledTimes(1);
       expect(mockSend).toBeCalledWith(
@@ -30,7 +30,7 @@ describe('notifyApprover', () => {
             form_name: 'Foo',
             resident_name: 'Foo Bar',
             started_by: 'foo@bar.com',
-            url: '/people/1/submissions/123',
+            url: 'http://example.com/people/1/submissions/123',
           },
           reference: '123-bar',
         }
@@ -41,7 +41,12 @@ describe('notifyApprover', () => {
 
 describe('notifyReturnedForEdits', () => {
   it('correctly calls the notify client', async () => {
-    await notifyReturnedForEdits(mockSubmission, 'bar', 'my reason');
+    await notifyReturnedForEdits(
+      mockSubmission,
+      'bar',
+      'http://example.com',
+      'my reason'
+    );
     await waitFor(() => {
       expect(mockSend).toBeCalledTimes(1);
       expect(mockSend).toBeCalledWith(
@@ -54,7 +59,7 @@ describe('notifyReturnedForEdits', () => {
             reason: 'my reason',
             resident_name: 'Foo Bar',
             started_by: 'foo@bar.com',
-            url: '/submissions/123',
+            url: 'http://example.com/submissions/123',
           },
           reference: '123-bar',
         }
