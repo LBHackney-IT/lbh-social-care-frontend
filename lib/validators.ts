@@ -12,6 +12,16 @@ export const startSchema = Yup.object().shape({
   formId: Yup.string().required('Please choose a form'),
 });
 
+export const submitSchema = Yup.object().shape({
+  approverEmail: Yup.string()
+    .required('You must provide an email address')
+    .matches(
+      /hackney.gov.uk$/,
+      'You must provide a valid Hackney Council email address'
+    )
+    .email('You must provide a valid Hackney Council email address'),
+});
+
 export const rejectionSchema = Yup.object().shape({
   rejectionReason: Yup.string()
     .required('You must provide a reason')

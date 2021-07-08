@@ -1,5 +1,5 @@
 import TaskListHeader from './TaskListHeader';
-import { render, screen, fireEvent } from '@testing-library/react';
+import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 
 const steps = [
   {
@@ -57,5 +57,46 @@ describe('TaskList', () => {
 
     fireEvent.click(screen.getByText('Finish and send'));
     expect(mockHandler).toHaveBeenCalled();
+  });
+
+  it('renders correctly when a form is approvable', () => {
+    render(
+      <TaskListHeader
+        onFinish={() => true}
+        completedSteps={['1', '2']}
+        steps={steps}
+        approvable={true}
+      />
+    );
+
+    expect(screen.getByText('You can now submit for approval.'));
+    expect(screen.getByLabelText('Who should approve this?', { exact: false }));
+  });
+
+  it("accepts an approver's email", async () => {
+    const mockFinish = jest.fn();
+
+    render(
+      <TaskListHeader
+        onFinish={mockFinish}
+        completedSteps={['1', '2']}
+        steps={steps}
+        approvable={true}
+      />
+    );
+
+    fireEvent.change(screen.getByRole('textbox'), {
+      target: { value: 'foo.bar@hackney.gov.uk' },
+    });
+    fireEvent.click(screen.getByRole('button'));
+    await waitFor(() => {
+      expect(mockFinish).toBeCalled();
+      expect(mockFinish).toBeCalledWith(
+        {
+          approverEmail: 'foo.bar@hackney.gov.uk',
+        },
+        expect.anything()
+      );
+    });
   });
 });

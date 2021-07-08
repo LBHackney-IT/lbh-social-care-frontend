@@ -126,7 +126,7 @@ export const patchResidents = async (
 export const finishSubmission = async (
   submissionId: string,
   finishedBy: string
-): Promise<number> => {
+): Promise<Submission> => {
   const { data } = await axios.patch(
     `${ENDPOINT_API}/submissions/${submissionId}`,
     {
