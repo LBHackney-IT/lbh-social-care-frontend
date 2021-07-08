@@ -206,7 +206,7 @@ describe('returnForEdits', () => {
     expect(mockedAxios.patch.mock.calls[0][1]).toEqual({
       editedBy: 'bar',
       submissionState: 'in_progress',
-      reason: 'test reason',
+      rejectionReason: 'test reason',
     });
     expect(mockedAxios.patch.mock.calls[0][2]?.headers).toEqual({
       'x-api-key': AWS_KEY,

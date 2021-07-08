@@ -29,7 +29,7 @@ describe('notifyApprover', () => {
           personalisation: {
             form_name: 'Foo',
             resident_name: 'Foo Bar',
-            started_by: 'foo@bar.com',
+            started_by: 'foo.bar@hackney.gov.uk',
             url: 'http://example.com/people/1/submissions/123',
           },
           reference: '123-bar',
@@ -51,15 +51,16 @@ describe('notifyReturnedForEdits', () => {
       expect(mockSend).toBeCalledTimes(1);
       expect(mockSend).toBeCalledWith(
         process.env.NOTIFY_RETURN_FOR_EDITS_TEMPLATE_ID,
-        'foo@bar.com',
+        'foo.bar@hackney.gov.uk',
         {
           personalisation: {
             rejecter_email: 'bar',
             form_name: 'Foo',
             reason: 'my reason',
             resident_name: 'Foo Bar',
-            started_by: 'foo@bar.com',
+            started_by: 'foo.bar@hackney.gov.uk',
             url: 'http://example.com/submissions/123',
+            resident_social_care_id: '#1',
           },
           reference: '123-bar',
         }

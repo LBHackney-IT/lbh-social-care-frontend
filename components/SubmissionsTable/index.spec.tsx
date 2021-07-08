@@ -8,7 +8,7 @@ jest.mock('components/UserContext/UserContext');
 
 (useAuth as jest.Mock).mockReturnValue({
   user: {
-    email: 'foo@bar.com',
+    email: 'foo.bar@hackney.gov.uk',
   },
 });
 
