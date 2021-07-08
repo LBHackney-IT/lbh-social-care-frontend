@@ -178,5 +178,19 @@ describe('feature flags', () => {
 
       expect(someFeatureIsActive).toBe(false);
     });
+
+    it('should return false if the feature is not defined', () => {
+      const stubbedFeatures: FeatureSet = {
+        'test-feature': {
+          isActive: false,
+        },
+      };
+
+      (mockedGetFeatureFlags as jest.Mock).mockReturnValueOnce(stubbedFeatures);
+
+      const someFeatureIsActive = isFeatureFlagActive('undefined-test-feature');
+
+      expect(someFeatureIsActive).toBe(false);
+    });
   });
 });
