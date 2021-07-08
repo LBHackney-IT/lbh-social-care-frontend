@@ -92,11 +92,13 @@ export interface Submission {
   createdAt: string;
   residents: Resident[];
   workers: Worker[];
-  editHistory: {
-    worker: Worker;
-    editTime: string;
-  }[];
+  editHistory: Revision[];
   submissionState: 'In progress' | 'Approved' | 'Discarded' | 'Submitted';
   formAnswers: FlexibleAnswers;
   tags?: string[];
+}
+
+export interface Revision {
+  worker: Worker;
+  editTime: string;
 }
