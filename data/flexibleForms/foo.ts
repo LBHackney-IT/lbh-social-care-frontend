@@ -3,6 +3,8 @@ import { Form } from './forms.types';
 const form: Form = {
   id: 'foo',
   name: 'Foo',
+  isViewableByAdults: false,
+  isViewableByChildrens: false,
   steps: [
     {
       id: 'Living situation',
@@ -14,7 +16,7 @@ const form: Form = {
           question: 'Topics',
           hint: 'Add as many as you need',
 
-          type: 'tags',
+          type: 'Tags',
           required: true,
           itemName: 'topic',
         },

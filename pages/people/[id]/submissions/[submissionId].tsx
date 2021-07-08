@@ -1,7 +1,6 @@
 import { GetServerSideProps } from 'next';
 import { Submission } from 'data/flexibleForms/forms.types';
 import { getSubmissionById } from 'lib/submissions';
-import { getResident } from 'lib/residents';
 import FlexibleAnswers from 'components/FlexibleAnswers/FlexibleAnswers';
 import Head from 'next/head';
 import s from 'stylesheets/Sidebar.module.scss';
@@ -58,7 +57,9 @@ SubmissionPage.goBackButton = true;
 
 export const getServerSideProps: GetServerSideProps = async ({ params }) => {
   const submission = await getSubmissionById(String(params?.submissionId));
-  const person = await getResident(Number(params?.id));
+  const person = submission.residents.find(
+    (p) => p.id === parseInt(params?.id as string)
+  ) as Resident;
 
   return {
     props: {

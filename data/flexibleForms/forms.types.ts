@@ -18,7 +18,7 @@ export interface Field {
     | 'repeater'
     | 'repeaterGroup'
     | 'timetable'
-    | 'tags'
+    | 'Tags'
     | 'combobox'
     | 'file';
   /** Required value is always ignored on fields with a condition */
@@ -55,6 +55,10 @@ export interface Form {
   name: string;
   steps: Step[];
   approvable?: boolean;
+  groupRecordable?: boolean;
+  isViewableByChildrens: boolean;
+  isViewableByAdults: boolean;
+  tags?: string[];
 }
 
 export interface RepeaterGroupAnswer {
@@ -97,6 +101,7 @@ export interface Submission {
     worker: Worker;
     editTime: string;
   }[];
-  submissionState: string;
+  submissionState: 'In progress' | 'Approved' | 'Discarded' | 'Submitted';
   formAnswers: FlexibleAnswers;
+  tags?: string[];
 }

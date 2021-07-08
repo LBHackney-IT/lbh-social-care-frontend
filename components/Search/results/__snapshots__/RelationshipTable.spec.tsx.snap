@@ -77,7 +77,9 @@ exports[`Relationshiptable component should render a list of residents 1`] = `
         <td
           class="govuk-table__cell"
         >
-          <span />
+          <span>
+            hdsadjk
+          </span>
         </td>
         <td
           class="govuk-table__cell"
