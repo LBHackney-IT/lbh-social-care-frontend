@@ -33,7 +33,7 @@ describe('ApprovalWidget', () => {
     );
   });
 
-  it("doesn't let a user edit their own submissions", () => {
+  it('otherwise, it shows the correct two actions', () => {
     render(
       <ApprovalWidget
         user={mockedUser}
