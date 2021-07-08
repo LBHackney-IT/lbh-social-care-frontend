@@ -3,7 +3,7 @@ import { Form } from './forms.types';
 const form: Form = {
   id: 'FACE overview assessment',
   name: 'FACE overview assessment',
-  isViewableByAdults: true,
+  isViewableByAdults: false,
   isViewableByChildrens: false,
   steps: [
     {
