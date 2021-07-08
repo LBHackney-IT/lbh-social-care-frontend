@@ -29,6 +29,7 @@ describe('notifyApprover', () => {
           personalisation: {
             form_name: 'Foo',
             resident_name: 'Foo Bar',
+            resident_social_care_id: '1',
             started_by: 'foo.bar@hackney.gov.uk',
             url: 'http://example.com/people/1/submissions/123',
           },
@@ -60,7 +61,7 @@ describe('notifyReturnedForEdits', () => {
             resident_name: 'Foo Bar',
             started_by: 'foo.bar@hackney.gov.uk',
             url: 'http://example.com/submissions/123',
-            resident_social_care_id: '#1',
+            resident_social_care_id: '1',
           },
           reference: '123-bar',
         }
