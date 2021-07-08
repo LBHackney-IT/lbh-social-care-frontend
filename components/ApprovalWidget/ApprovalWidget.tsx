@@ -20,17 +20,17 @@ const ApprovalWidget = ({
 
   if (submission.submissionState !== 'Submitted') return null;
 
-  // if (submission.createdBy.email === user.email) {
-  //   return (
-  //     <Banner
-  //       title="This submission needs approval"
-  //       className="lbh-page-announcement--info"
-  //     >
-  //       You cannot approve your own submissions. Ask a manager or colleague for
-  //       help.
-  //     </Banner>
-  //   );
-  // }
+  if (submission.createdBy.email === user.email) {
+    return (
+      <Banner
+        title="This submission needs approval"
+        className="lbh-page-announcement--info"
+      >
+        You cannot approve your own submissions. Ask a manager or colleague for
+        help.
+      </Banner>
+    );
+  }
 
   return (
     <>
