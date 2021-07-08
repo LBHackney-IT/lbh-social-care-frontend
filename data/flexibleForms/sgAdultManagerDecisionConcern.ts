@@ -1511,8 +1511,8 @@ const form: Form = {
           },
         },
         {
-          id: 'Primary Service Provider Adress',
-          question: 'Primary Service Provider Name',
+          id: 'Primary Service Provider Address',
+          question: 'Primary Service Provider Address',
           required: true,
           hint: '',
           type: 'text',
