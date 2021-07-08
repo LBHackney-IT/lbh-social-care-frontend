@@ -14,10 +14,8 @@ import type { User } from 'types';
 
 import 'stylesheets/all.scss';
 import 'stylesheets/header.scss';
-import {
-  FeatureFlagProvider,
-  FeatureSet,
-} from '../lib/feature-flags/feature-flags';
+import { FeatureFlagProvider } from '../lib/feature-flags/feature-flags';
+import { getFeatureFlags } from 'features';
 
 interface Props {
   user?: Partial<User>;
@@ -34,18 +32,9 @@ const CustomApp = ({
   pageProps,
 }: ExtendedAppProps): JSX.Element | null => {
   const [user] = useState(pageProps.user);
-  const features: FeatureSet = {
-    // FEATURE-FLAG-EXPIRES [3000-12-31]: feature-flags-implementation-proof
-    'feature-flags-implementation-proof': {
-      isActive: pageProps.environmentName === 'development',
-    },
-
-    /*
-    The feature-flags-implementation-proof has been setup to have an expiry date in the far future.
-    The FEATURE-FLAG-EXPIRES comment above will cause ESLint errors once the date in the square brackets has passed.
-    Add feature flags below following the format in the example shown.
-    */
-  };
+  const features = getFeatureFlags({
+    environmentName: pageProps.environmentName,
+  });
 
   return (
     <FeatureFlagProvider features={features}>
