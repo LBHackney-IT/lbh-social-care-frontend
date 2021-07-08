@@ -198,7 +198,7 @@ describe('returnForEdits', () => {
       data: { submissionId: '123' },
     });
 
-    await returnForEdits('foo', 'bar');
+    await returnForEdits('foo', 'bar', 'test reason');
     expect(mockedAxios.patch).toHaveBeenCalled();
     expect(mockedAxios.patch.mock.calls[0][0]).toEqual(
       `${ENDPOINT_API}/submissions/foo`
@@ -206,6 +206,7 @@ describe('returnForEdits', () => {
     expect(mockedAxios.patch.mock.calls[0][1]).toEqual({
       editedBy: 'bar',
       submissionState: 'in_progress',
+      reason: 'test reason',
     });
     expect(mockedAxios.patch.mock.calls[0][2]?.headers).toEqual({
       'x-api-key': AWS_KEY,

@@ -179,13 +179,15 @@ export const approveSubmission = async (
 /** return a submitted submission for edits, providing a reason and its id  */
 export const returnForEdits = async (
   submissionId: string,
-  editedBy: string
+  editedBy: string,
+  rejectionReason?: string
 ): Promise<Submission> => {
   const { data } = await axios.patch(
     `${ENDPOINT_API}/submissions/${submissionId}`,
     {
       editedBy,
       submissionState: 'in_progress',
+      rejectionReason,
     },
     {
       headers: headersWithKey,

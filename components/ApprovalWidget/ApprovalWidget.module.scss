@@ -1,0 +1,17 @@
+@import 'lbh-frontend/lbh/base';
+
+.actions {
+  margin-top: 0.75rem;
+
+  button {
+    margin-right: 15px;
+    margin-top: 0;
+
+    &:last-of-type {
+      color: lbh-colour('lbh-error');
+      &:focus {
+        color: lbh-colour('lbh-text');
+      }
+    }
+  }
+}

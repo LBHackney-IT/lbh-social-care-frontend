@@ -26,11 +26,17 @@ const handler = async (
       {
         const submission = await returnForEdits(
           String(id),
-          String(user?.email)
+          String(user?.email),
+          req.body.rejectionReason
         );
         res.json(submission);
         // send an email notification to the creator
-        return notifyReturnedForEdits(submission, String(user?.email));
+        return notifyReturnedForEdits(
+          submission,
+          String(user?.email),
+          req.body.rejectionReason,
+          req.headers.host
+        );
       }
       break;
     default:

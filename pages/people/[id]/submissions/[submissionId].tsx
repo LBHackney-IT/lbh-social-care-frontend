@@ -29,7 +29,9 @@ const SubmissionPage = ({ submission, person }: Props): React.ReactElement => {
         </title>
       </Head>
 
-      <ApprovalWidget user={user} submission={submission} />
+      {form?.approvable && (
+        <ApprovalWidget user={user} submission={submission} />
+      )}
 
       <div className="govuk-grid-row">
         <div className="govuk-grid-column-two-thirds">

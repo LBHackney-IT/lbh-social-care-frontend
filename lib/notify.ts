@@ -5,7 +5,8 @@ import forms from 'data/flexibleForms';
 /** send an email notification to someone that a submission needs their approval */
 export const notifyApprover = async (
   submission: Submission,
-  approverEmail: string
+  approverEmail: string,
+  host: string
 ): Promise<void> => {
   const notifyClient = new NotifyClient(process.env.NOTIFY_API_KEY);
 
@@ -14,7 +15,7 @@ export const notifyApprover = async (
     approverEmail,
     {
       personalisation: {
-        url: `/people/${submission.residents[0].id}/submissions/${submission.submissionId}`,
+        url: `${host}/people/${submission.residents[0].id}/submissions/${submission.submissionId}`,
         form_name: forms.find((form) => form.id === submission.formId)?.name,
         resident_name: submission.residents
           .map((res) => `${res.firstName} ${res.lastName}`)
@@ -30,23 +31,26 @@ export const notifyApprover = async (
 export const notifyReturnedForEdits = async (
   submission: Submission,
   rejecterEmail: string,
-  reason?: string
+  host: string,
+  rejectionReason?: string
 ): Promise<void> => {
   const notifyClient = new NotifyClient(process.env.NOTIFY_API_KEY);
-
   return await notifyClient.sendEmail(
     process.env.NOTIFY_RETURN_FOR_EDITS_TEMPLATE_ID,
     submission.createdBy.email,
     {
       personalisation: {
-        url: `/submissions/${submission.submissionId}`,
+        url: `${host}/submissions/${submission.submissionId}`,
         form_name: forms.find((form) => form.id === submission.formId)?.name,
         resident_name: submission.residents
           .map((res) => `${res.firstName} ${res.lastName}`)
           .join(', '),
+        resident_social_care_id: submission.residents
+          .map((res) => `#${res.id}`)
+          .join(', '),
         started_by: submission.createdBy.email,
         rejecter_email: rejecterEmail,
-        reason,
+        reason: rejectionReason,
       },
       reference: `${submission.submissionId}-${rejecterEmail}`,
     }
