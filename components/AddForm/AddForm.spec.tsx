@@ -38,7 +38,7 @@ const flexibleForms: [string, boolean, boolean][] = [
   ['Review of Care and Support Plan (3C)', true, false],
   ['FACE overview assessment', true, false],
   ['Safeguarding Adult Concern Form', true, false],
-  ['Case note', false, false],
+  ['Child Case Note', false, false],
 ];
 
 describe('AddForm component', () => {

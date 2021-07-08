@@ -17,7 +17,7 @@ const getErrorMessage = (field: Field) => {
   if (field.type === `timetable`) return `Total hours must be more than zero`;
   if (field.type === `checkboxes`) return `Choose at least one item`;
   if (
-    field.type === 'tags' ||
+    field.type === 'Tags' ||
     field.type === 'repeater' ||
     field.type === `repeaterGroup`
   )
@@ -46,7 +46,7 @@ export const generateFlexibleSchema = (
     } else if (
       field.type === 'checkboxes' ||
       field.type === 'repeater' ||
-      field.type === 'tags'
+      field.type === 'Tags'
     ) {
       shape[field.id] = Yup.array().of(Yup.string());
     } else {
@@ -63,7 +63,7 @@ export const generateFlexibleSchema = (
         );
       } else if (
         field.type === 'checkboxes' ||
-        field.type === 'tags' ||
+        field.type === 'Tags' ||
         field.type === 'repeater' ||
         field.type === 'repeaterGroup'
       ) {

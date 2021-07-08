@@ -53,10 +53,10 @@ describe('TagsField', () => {
     );
     expect(screen.getByRole('textbox'));
     fireEvent.change(screen.getByRole('textbox'), {
-      target: { value: 'Correspondance' },
+      target: { value: 'Correspondence' },
     });
-    fireEvent.click(screen.getByText('Correspondance'));
-    expect(screen.getByText('Correspondance'));
+    fireEvent.click(screen.getByText('Correspondence'));
+    expect(screen.getByText('Correspondence'));
     expect(screen.getByText('Remove'));
   });
 

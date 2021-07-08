@@ -1,16 +1,16 @@
 import { Form } from './forms.types';
 
 const form: Form = {
-  id: 'child-case-note',
-  name: 'Case note',
+  id: 'Child Case Note',
+  name: 'Child Case Note',
   groupRecordable: true,
   isViewableByAdults: false,
   isViewableByChildrens: false,
   steps: [
     {
-      id: 'foo',
-      name: 'foo',
-      theme: 'foo',
+      id: 'Case note',
+      name: 'Case note',
+      theme: 'Case note',
       fields: [
         {
           id: 'Type',
@@ -25,6 +25,10 @@ const form: Form = {
             {
               value: 'Correspondence',
               label: 'Correspondence',
+            },
+            {
+              value: 'Management oversight',
+              label: 'Management oversight',
             },
             {
               value: 'Something else',
@@ -43,11 +47,11 @@ const form: Form = {
           },
           choices: [
             {
-              value: 'phone-call',
+              value: 'Phone call',
               label: 'Phone call',
             },
             {
-              value: 'email-letter-text-message',
+              value: 'Email, letter or text message',
               label: 'Email, letter or text message',
             },
           ],
@@ -63,22 +67,22 @@ const form: Form = {
           },
           choices: [
             {
-              value: 'home',
+              value: 'Home',
               label: 'Home visit',
             },
             {
-              value: 'office',
+              value: 'Office',
               label: 'Office visit',
             },
             {
-              value: 'no-reply',
+              value: 'No reply to home visit',
               label: 'No reply to home visit',
             },
           ],
         },
 
         {
-          id: 'What happened?',
+          id: 'Body',
           question: 'What happened?',
           type: 'textarea',
           required: true,
@@ -102,6 +106,7 @@ const form: Form = {
               id: 'text',
               question: 'What needs to be done?',
               type: 'text',
+              required: true,
             },
             {
               id: 'assignee',
@@ -117,17 +122,14 @@ const form: Form = {
             },
           ],
         },
-
         {
-          id: 'Topics',
+          id: 'Topics (tags)',
           question: 'Topics',
-          hint: 'Help colleagues find this note. Add all that apply.',
-          type: 'text',
-          required: true,
+          hint: 'Help colleagues find this note. Add as many as you need.',
+          type: 'Tags',
         },
       ],
     },
   ],
 };
-
 export default form;

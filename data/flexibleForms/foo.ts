@@ -16,7 +16,7 @@ const form: Form = {
           question: 'Topics',
           hint: 'Add as many as you need',
 
-          type: 'tags',
+          type: 'Tags',
           required: true,
           itemName: 'topic',
         },

@@ -85,11 +85,16 @@ export const patchSubmissionForStep = async (
   editedBy: string,
   stepAnswers: StepAnswers
 ): Promise<Submission> => {
+  const tags = Object.keys(stepAnswers).find((step) =>
+    step.toLowerCase().includes('tags')
+  );
+
   const { data } = await axios.patch(
     `${ENDPOINT_API}/submissions/${submissionId}/steps/${stepId}`,
     {
       stepAnswers: JSON.stringify(stepAnswers),
       editedBy,
+      tags: tags ? stepAnswers[tags] : undefined,
     },
     {
       headers: headersWithKey,
