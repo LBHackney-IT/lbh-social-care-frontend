@@ -20,6 +20,9 @@ export const notifyApprover = async (
         resident_name: submission.residents
           .map((res) => `${res.firstName} ${res.lastName}`)
           .join(', '),
+        resident_social_care_id: submission.residents
+          .map((res) => res.id)
+          .join(', '),
         started_by: submission.createdBy.email,
       },
       reference: `${submission.submissionId}-${approverEmail}`,
@@ -46,7 +49,7 @@ export const notifyReturnedForEdits = async (
           .map((res) => `${res.firstName} ${res.lastName}`)
           .join(', '),
         resident_social_care_id: submission.residents
-          .map((res) => `#${res.id}`)
+          .map((res) => res.id)
           .join(', '),
         started_by: submission.createdBy.email,
         rejecter_email: rejecterEmail,

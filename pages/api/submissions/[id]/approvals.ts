@@ -34,8 +34,8 @@ const handler = async (
         return notifyReturnedForEdits(
           submission,
           String(user?.email),
-          req.body.rejectionReason,
-          req.headers.host
+          String(req.headers.host),
+          req.body.rejectionReason
         );
       }
       break;
