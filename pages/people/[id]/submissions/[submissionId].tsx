@@ -7,6 +7,7 @@ import s from 'stylesheets/Sidebar.module.scss';
 import PersonWidget from 'components/PersonWidget/PersonWidget';
 import { Resident } from 'types';
 import forms from 'data/flexibleForms';
+import RevisionTimeline from 'components/RevisionTimeline/RevisionTimeline';
 
 interface Props {
   submission: Submission;
@@ -39,6 +40,7 @@ const SubmissionPage = ({ submission, person }: Props): React.ReactElement => {
           <div className={s.sticky}>
             <p className="lbh-body">This is for:</p>
             <PersonWidget person={person} />
+            <RevisionTimeline submission={submission} />
           </div>
         </div>
       </div>
