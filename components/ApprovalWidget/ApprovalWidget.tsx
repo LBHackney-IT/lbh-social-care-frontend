@@ -1,49 +1,68 @@
+import { useState } from 'react';
 import { Submission } from 'data/flexibleForms/forms.types';
 import type { User } from 'types';
 import Banner from 'components/FlexibleForms/Banner';
+import ApproveDialog from './ApproveDialog';
+import RejectDialog from './RejectDialog';
 
 interface Props {
   submission: Submission;
   user: User;
 }
 
-const ApprovalWidget = ({ user, submission }: Props): React.ReactElement => {
-  // if (submission.createdBy.email === user.email) {
-  //   return (
-  //     <Banner
-  //       title="This submission needs approval"
-  //       className="lbh-page-announcement--info"
-  //     >
-  //       You cannot approve your own submissions. Ask a manager or colleague for
-  //       help.
-  //     </Banner>
-  //   );
-  // }
+const ApprovalWidget = ({
+  user,
+  submission,
+}: Props): React.ReactElement | null => {
+  const [approvalDialogOpen, setApprovalDialogOpen] = useState<boolean>(false);
+  const [rejectDialogOpen, setRejectDialogOpen] = useState<boolean>(false);
 
-  const handleApprove = () => {
-    // TODO: handle approve operation
-  };
+  if (submission.submissionState !== 'Submitted') return null;
 
-  const handleReturnForEdits = () => {
-    // TODO: handle operation
-  };
+  if (submission.createdBy.email === user.email) {
+    return (
+      <Banner
+        title="This submission needs approval"
+        className="lbh-page-announcement--info"
+      >
+        You cannot approve your own submissions. Ask a manager or colleague for
+        help.
+      </Banner>
+    );
+  }
 
   return (
-    <Banner
-      title="This submission needs approval"
-      className="lbh-page-announcement--info"
-    >
-      <p>Do you want to approve it?</p>
-      <button className="lbh-link" onClick={handleApprove}>
-        Yes, approve
-      </button>{' '}
-      <button
-        className="lbh-link lbh-link--danger"
-        onClick={handleReturnForEdits}
+    <>
+      <Banner
+        title="This submission needs approval"
+        className="lbh-page-announcement--info"
       >
-        No, return for edits
-      </button>
-    </Banner>
+        <p>Do you want to approve it?</p>
+        <button
+          className="lbh-link"
+          onClick={() => setApprovalDialogOpen(true)}
+        >
+          Yes, approve
+        </button>{' '}
+        <button
+          className="lbh-link lbh-link--danger"
+          onClick={() => setRejectDialogOpen(true)}
+        >
+          No, return for edits
+        </button>
+      </Banner>
+
+      <ApproveDialog
+        isOpen={approvalDialogOpen}
+        setOpen={setApprovalDialogOpen}
+        submission={submission}
+      />
+      <RejectDialog
+        isOpen={rejectDialogOpen}
+        setOpen={setRejectDialogOpen}
+        submission={submission}
+      />
+    </>
   );
 };
 
