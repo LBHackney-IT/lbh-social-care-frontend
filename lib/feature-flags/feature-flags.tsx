@@ -8,9 +8,8 @@ export type FeatureSet = {
   };
 };
 
-const FeatureFlagContext = React.createContext<FeatureSet | undefined>(
-  undefined
-);
+const FeatureFlagContext =
+  React.createContext<FeatureSet | undefined>(undefined);
 
 export const FeatureFlagProvider: React.FC<{
   features: FeatureSet;
@@ -72,7 +71,14 @@ export const ConditionalFeature: React.FC<{ name: string }> = ({
  * Typescript helper function for checking whether a given feature is active or inactive
  */
 export const isFeatureFlagActive = (featureName: string) => {
-  const features = getFeatureFlags();
+  const environmentName = [
+    'social-care-service-staging.hackney.gov.uk',
+    'dev.hackney.gov.uk:3000',
+  ].includes(process.env.REDIRECT_URL || '')
+    ? 'development'
+    : 'production';
 
-  return features[featureName].isActive;
+  const features = getFeatureFlags({ environmentName });
+
+  return isFeatureActive(features)(featureName);
 };
