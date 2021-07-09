@@ -1,3 +1,4 @@
+import { getFeatureFlags } from 'features';
 import React from 'react';
 import { useContext } from 'react';
 
@@ -64,4 +65,20 @@ export const ConditionalFeature: React.FC<{ name: string }> = ({
   }
 
   return <>{children}</>;
+};
+
+/**
+ * Typescript helper function for checking whether a given feature is active or inactive
+ */
+export const isFeatureFlagActive = (featureName: string) => {
+  const environmentName = [
+    'social-care-service-staging.hackney.gov.uk',
+    'dev.hackney.gov.uk:3000',
+  ].includes(process.env.REDIRECT_URL || '')
+    ? 'development'
+    : 'production';
+
+  const features = getFeatureFlags({ environmentName });
+
+  return isFeatureActive(features)(featureName);
 };
