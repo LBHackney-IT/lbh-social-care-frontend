@@ -5,6 +5,7 @@ import forms from 'data/flexibleForms';
 import { User } from 'types';
 import s from './index.module.scss';
 import DiscardDialog from './DiscardDialog';
+import MiniRevisionTimeline from 'components/RevisionTimeline/MiniRevisionTimeline';
 
 interface Props {
   submission: Submission;
@@ -117,7 +118,7 @@ const SubmissionRow = ({
 
           {editors?.length > 0 && (
             <div>
-              <dt className="lbh-bodyf-s">Edited by</dt>
+              <dt className="lbh-body-s">Edited by</dt>
               <dd>
                 <ul className="lbh-list govuk-!-margin-top-0">
                   {editors.map((editor) => (
@@ -127,6 +128,13 @@ const SubmissionRow = ({
               </dd>
             </div>
           )}
+
+          <div className={s.timeline}>
+            <dt className="lbh-body-s">Recent revisions</dt>
+            <dd>
+              <MiniRevisionTimeline submission={submission} />
+            </dd>
+          </div>
 
           <div>
             <DiscardDialog submissionId={submission.submissionId} />

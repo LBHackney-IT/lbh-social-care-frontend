@@ -106,9 +106,16 @@
   border-bottom: 1px solid lbh-colour('lbh-grey-3');
   padding: 1.5rem 1rem;
   display: grid;
-  grid-template-columns: 1fr 1fr;
   gap: 1.5rem;
   margin-top: 0;
+
+  @include govuk-media-query($from: tablet) {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  @include govuk-media-query($from: desktop) {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
 
   div {
     margin-top: 0;
@@ -118,4 +125,9 @@
     margin-top: 0rem;
     margin-top: 5px;
   }
+}
+
+.timeline {
+  grid-column: 3/4;
+  grid-row: 1/6;
 }

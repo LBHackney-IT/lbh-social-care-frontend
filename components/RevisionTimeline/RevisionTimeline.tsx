@@ -7,7 +7,7 @@ interface Props {
 
 const RevisionTimeline = ({ submission }: Props): React.ReactElement | null => {
   // reverse the array so it's in reverse-chronological order and take the three most recent events
-  const revisions = submission.editHistory.concat([]).reverse().slice(0, 3);
+  const revisions = Array.from(submission.editHistory).reverse().slice(0, 3);
 
   return (
     <>
@@ -29,7 +29,7 @@ const RevisionTimeline = ({ submission }: Props): React.ReactElement | null => {
         ))}
 
         <li className="lbh-timeline__event">
-          <h3 className="lbh-body">Created by {submission.createdBy.email}</h3>
+          <h3 className="lbh-body">Started by {submission.createdBy.email}</h3>
           <p className="lbh-body-xs">
             {format(new Date(submission.createdAt), 'dd MMM yyyy K.mm aaa')}
           </p>
