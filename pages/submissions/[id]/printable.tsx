@@ -7,7 +7,7 @@ interface Props {
   form: Form;
 }
 
-const TaskListPage = ({ form }: Props): React.ReactElement => {
+const PrintableFormPage = ({ form }: Props): React.ReactElement => {
   return <>test</>;
 };
 
@@ -35,4 +35,6 @@ export const getServerSideProps: GetServerSideProps = async ({ params }) => {
   };
 };
 
-export default TaskListPage;
+PrintableFormPage.noLayout = true;
+
+export default PrintableFormPage;
