@@ -105,16 +105,19 @@
   background: lbh-colour('lbh-grey-4');
   border-bottom: 1px solid lbh-colour('lbh-grey-3');
   padding: 1.5rem 1rem;
-  display: grid;
-  gap: 1.5rem;
   margin-top: 0;
 
-  @include govuk-media-query($from: tablet) {
-    grid-template-columns: 1fr 1fr;
-  }
+  dl {
+    display: grid;
+    gap: 1.5rem;
 
-  @include govuk-media-query($from: desktop) {
-    grid-template-columns: 1fr 1fr 1fr;
+    @include govuk-media-query($from: tablet) {
+      grid-template-columns: 1fr 1fr;
+    }
+
+    @include govuk-media-query($from: desktop) {
+      grid-template-columns: 1fr 1fr 1fr;
+    }
   }
 
   div {
@@ -128,6 +131,12 @@
 }
 
 .timeline {
-  grid-column: 3/4;
-  grid-row: 1/6;
+  @include govuk-media-query($from: tablet) {
+    grid-column: 2/3;
+    grid-row: 1 / 4;
+  }
+
+  @include govuk-media-query($from: desktop) {
+    grid-column: 3/4;
+  }
 }
