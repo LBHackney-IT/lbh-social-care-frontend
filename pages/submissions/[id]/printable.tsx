@@ -2,13 +2,19 @@ import { GetServerSideProps } from 'next';
 import { Form } from '../../../data/flexibleForms/forms.types';
 import { getProtocol } from 'utils/urls';
 import axios from 'axios';
+import { useEffect } from 'react';
+import PrintableForm from 'components/PrintableForm/PrintableForm';
 
 interface Props {
   form: Form;
 }
 
 const PrintableFormPage = ({ form }: Props): React.ReactElement => {
-  return <>test</>;
+  useEffect(() => {
+    window.print();
+  }, []);
+
+  return <PrintableForm form={form} />;
 };
 
 export const getServerSideProps: GetServerSideProps = async ({ params }) => {
