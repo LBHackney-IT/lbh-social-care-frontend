@@ -23,8 +23,8 @@ interface Props {
 
 interface ExtendedAppProps extends AppProps<Props> {
   Component: NextComponentType & {
-    goBackButton?: boolean;
-    noLayout?: boolean;
+    goBackButton: boolean;
+    noLayout: boolean;
   };
 }
 

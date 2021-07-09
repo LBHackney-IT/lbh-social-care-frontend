@@ -7,14 +7,14 @@ import Footer from './Footer/Footer';
 
 export interface Props {
   children: React.ReactChild;
-  goBackButton?: boolean;
-  noLayout?: boolean;
+  goBackButton: boolean;
+  noLayout: boolean;
 }
 
 const Layout = ({
-  goBackButton,
   children,
-  noLayout,
+  goBackButton = false,
+  noLayout = false,
 }: Props): React.ReactElement => {
   if (noLayout) return <>{children}</>;
 
