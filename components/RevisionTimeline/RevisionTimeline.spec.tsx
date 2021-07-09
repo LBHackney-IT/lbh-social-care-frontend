@@ -28,7 +28,7 @@ describe('RevisionTimeline', () => {
       screen.queryAllByText('Edited by foo.bar@hackney.gov.uk').length
     ).toBe(2);
     expect(screen.getByText('28 Jul 2021', { exact: false }));
-    expect(screen.getByText('Started by foo@bar.com'));
+    expect(screen.getByText('Started by foo.bar@hackney.gov.uk'));
     expect(screen.getByText('23 Jun 2021', { exact: false }));
     expect(screen.getByText('21 Jun 2021', { exact: false }));
   });
