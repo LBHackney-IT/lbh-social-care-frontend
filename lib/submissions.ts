@@ -126,7 +126,7 @@ export const patchResidents = async (
 export const finishSubmission = async (
   submissionId: string,
   finishedBy: string
-): Promise<number> => {
+): Promise<Submission> => {
   const { data } = await axios.patch(
     `${ENDPOINT_API}/submissions/${submissionId}`,
     {
@@ -156,4 +156,42 @@ export const discardSubmission = async (
     }
   );
   return status;
+};
+
+/** mark an existing submission as approved, providing its id  */
+export const approveSubmission = async (
+  submissionId: string,
+  approvedBy: string
+): Promise<Submission> => {
+  const { data } = await axios.patch(
+    `${ENDPOINT_API}/submissions/${submissionId}`,
+    {
+      editedBy: approvedBy,
+      submissionState: 'approved',
+    },
+    {
+      headers: headersWithKey,
+    }
+  );
+  return data;
+};
+
+/** return a submitted submission for edits, providing a reason and its id  */
+export const returnForEdits = async (
+  submissionId: string,
+  editedBy: string,
+  rejectionReason?: string
+): Promise<Submission> => {
+  const { data } = await axios.patch(
+    `${ENDPOINT_API}/submissions/${submissionId}`,
+    {
+      editedBy,
+      submissionState: 'in_progress',
+      rejectionReason,
+    },
+    {
+      headers: headersWithKey,
+    }
+  );
+  return data;
 };

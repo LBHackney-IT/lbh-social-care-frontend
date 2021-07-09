@@ -8,6 +8,7 @@ import {
   discardSubmission,
 } from 'lib/submissions';
 import { isAuthorised } from 'utils/auth';
+import { notifyApprover } from 'lib/notify';
 
 const handler = async (
   req: NextApiRequest,
@@ -30,6 +31,11 @@ const handler = async (
           submission = await finishSubmission(String(id), String(user?.email));
         }
         res.status(StatusCodes.ACCEPTED).json(submission);
+        notifyApprover(
+          submission,
+          req.body.approverEmail,
+          String(req.headers.host)
+        );
       }
       break;
     case 'DELETE':
