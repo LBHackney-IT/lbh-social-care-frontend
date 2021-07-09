@@ -3,6 +3,10 @@
   padding: 20px;
   max-width: 900px;
   page-break-inside: avoid;
+
+  p {
+    margin-top: 0.7rem;
+  }
 }
 
 .step {
@@ -13,6 +17,8 @@
 
 .text,
 .textarea {
+  margin-top: 1rem;
+
   &:after {
     content: '';
     display: block;
@@ -30,6 +36,7 @@
 .round,
 .square {
   display: flex;
+  margin-top: 1rem;
 
   &:before {
     content: '';

@@ -31,9 +31,7 @@ const PrintableForm = ({ form }: Props): React.ReactElement => (
             )}
             {['radios', 'select', 'combobox'].includes(field.type) && (
               <>
-                <p>
-                  <em>Choose one</em>
-                </p>
+                <p>Choose one</p>
                 {field?.choices?.map((choice) => (
                   <div key={choice.label} className={s.round}>
                     {choice.label}
@@ -43,9 +41,7 @@ const PrintableForm = ({ form }: Props): React.ReactElement => (
             )}
             {['checkboxes', 'Tags'].includes(field.type) && (
               <>
-                <p>
-                  <em>Choose all that apply</em>
-                </p>
+                <p>Choose all that apply</p>
                 {field?.choices?.map((choice) => (
                   <div key={choice.label} className={s.square}>
                     {choice.label}
