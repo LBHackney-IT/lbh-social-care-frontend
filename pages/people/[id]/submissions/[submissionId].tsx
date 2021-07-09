@@ -63,6 +63,24 @@ export const getServerSideProps: GetServerSideProps = async ({ params }) => {
     (p) => p.id === parseInt(params?.id as string)
   ) as Resident;
 
+  if (!submission.submissionId || submission.submissionState === 'Discarded') {
+    return {
+      props: {},
+      redirect: {
+        destination: `/404`,
+      },
+    };
+  }
+
+  if (submission.submissionState === 'In progress') {
+    return {
+      props: {},
+      redirect: {
+        destination: `/submissions/${submission.submissionId}`,
+      },
+    };
+  }
+
   return {
     props: {
       submission,
