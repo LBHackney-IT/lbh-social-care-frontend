@@ -5,6 +5,7 @@ const form: Form = {
   name: 'Foo',
   isViewableByAdults: false,
   isViewableByChildrens: false,
+  approvable: true,
   steps: [
     {
       id: 'Living situation',

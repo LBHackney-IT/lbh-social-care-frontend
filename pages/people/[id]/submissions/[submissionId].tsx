@@ -5,17 +5,21 @@ import FlexibleAnswers from 'components/FlexibleAnswers/FlexibleAnswers';
 import Head from 'next/head';
 import s from 'stylesheets/Sidebar.module.scss';
 import PersonWidget from 'components/PersonWidget/PersonWidget';
-import { Resident } from 'types';
+import { Resident, User } from 'types';
 import forms from 'data/flexibleForms';
 import RevisionTimeline from 'components/RevisionTimeline/RevisionTimeline';
+import ApprovalWidget from 'components/ApprovalWidget/ApprovalWidget';
+import { useAuth } from 'components/UserContext/UserContext';
 
 interface Props {
   submission: Submission;
   person: Resident;
+  user: User;
 }
 
 const SubmissionPage = ({ submission, person }: Props): React.ReactElement => {
   const form = forms.find((form) => form.id === submission.formId);
+  const { user } = useAuth() as { user: User };
 
   return (
     <>
@@ -25,6 +29,11 @@ const SubmissionPage = ({ submission, person }: Props): React.ReactElement => {
           Hackney Council
         </title>
       </Head>
+
+      {form?.approvable && (
+        <ApprovalWidget user={user} submission={submission} />
+      )}
+
       <div className="govuk-grid-row">
         <div className="govuk-grid-column-two-thirds">
           <h1 className="lbh-heading-h1 govuk-!-margin-bottom-8">
@@ -55,6 +64,24 @@ export const getServerSideProps: GetServerSideProps = async ({ params }) => {
   const person = submission.residents.find(
     (p) => p.id === parseInt(params?.id as string)
   ) as Resident;
+
+  if (!submission.submissionId || submission.submissionState === 'Discarded') {
+    return {
+      props: {},
+      redirect: {
+        destination: `/404`,
+      },
+    };
+  }
+
+  if (submission.submissionState === 'In progress') {
+    return {
+      props: {},
+      redirect: {
+        destination: `/submissions/${submission.submissionId}`,
+      },
+    };
+  }
 
   return {
     props: {

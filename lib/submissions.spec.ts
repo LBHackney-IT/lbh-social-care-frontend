@@ -6,6 +6,8 @@ import {
   patchResidents,
   patchSubmissionForStep,
   startSubmission,
+  approveSubmission,
+  returnForEdits,
   discardSubmission,
 } from './submissions';
 import { mockedLegacyResident } from 'factories/residents';
@@ -166,5 +168,52 @@ describe('patchSubmissionForStep', () => {
       submissionId: '123',
       formAnswers: {},
     });
+  });
+});
+
+describe('approveSubmission', () => {
+  it('should work properly', async () => {
+    mockedAxios.patch.mockResolvedValue({
+      data: { submissionId: '123' },
+    });
+
+    await approveSubmission('foo', 'bar');
+    expect(mockedAxios.patch).toHaveBeenCalled();
+    expect(mockedAxios.patch).toBeCalledWith(
+      `${ENDPOINT_API}/submissions/foo`,
+      {
+        editedBy: 'bar',
+        submissionState: 'approved',
+      },
+      {
+        headers: {
+          'x-api-key': AWS_KEY,
+        },
+      }
+    );
+  });
+});
+
+describe('returnForEdits', () => {
+  it('should work properly', async () => {
+    mockedAxios.patch.mockResolvedValue({
+      data: { submissionId: '123' },
+    });
+
+    await returnForEdits('foo', 'bar', 'test reason');
+    expect(mockedAxios.patch).toHaveBeenCalled();
+    expect(mockedAxios.patch).toBeCalledWith(
+      `${ENDPOINT_API}/submissions/foo`,
+      {
+        editedBy: 'bar',
+        submissionState: 'in_progress',
+        rejectionReason: 'test reason',
+      },
+      {
+        headers: {
+          'x-api-key': AWS_KEY,
+        },
+      }
+    );
   });
 });
