@@ -26,9 +26,9 @@ const PrintableForm = ({ form }: Props): React.ReactElement => (
             {['text', 'date'].includes(field.type) && (
               <div className={s.text}></div>
             )}
-            {['textarea', 'repeater', 'timetable'].includes(field.type) && (
-              <div className={s.textarea}></div>
-            )}
+            {['textarea', 'repeater', 'timetable', 'repeaterGroup'].includes(
+              field.type
+            ) && <div className={s.textarea}></div>}
             {['radios', 'select', 'combobox'].includes(field.type) && (
               <>
                 <p>Choose one</p>
