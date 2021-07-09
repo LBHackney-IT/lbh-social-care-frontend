@@ -64,3 +64,12 @@ const SomeComponent = () => {
   return <button onClick={handleClick}>Click here</button>;
 };
 ```
+
+#### Helper function
+
+You can call `isFeatureFlagActive('feature-name')` to check whether the feature is set to active or inactive from within an API / Node.js file.
+For example:
+
+```ts
+const shouldSomeThingHappen = isFeatureFlagActive('some-awesome-feature'); // true or false
+```

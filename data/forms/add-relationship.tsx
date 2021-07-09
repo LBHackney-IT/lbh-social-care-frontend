@@ -1,4 +1,4 @@
-import { FormStep } from 'components/Form/types';
+import { FormStep, Option } from 'components/Form/types';
 import RELATIONSHIPS from 'data/relationships';
 
 const formSteps: FormStep[] = [
@@ -16,42 +16,42 @@ const formSteps: FormStep[] = [
         component: 'Select',
         placeHolder: 'Relationship type',
         name: 'type',
-        label: 'Type',
+        label: 'Relationship type',
+        labelSize: 's',
         width: 20,
         rules: { required: true },
-        options: RELATIONSHIPS,
+        options: RELATIONSHIPS.sort((a, b) => a.text.localeCompare(b.text)),
       },
       {
-        component: 'Radios',
-        name: 'ofUnbornChild',
-        label: 'Of an unborn child',
         conditionalRender: ({ type }) =>
-          type === 'parent' || type === 'sibling',
-        rules: { required: true },
-        options: [
-          { value: 'Y', text: 'Yes' },
-          { value: 'N', text: 'No' },
-        ],
-      },
-      {
-        component: 'Radios',
-        name: 'isMainCarer',
-        label: 'Main carer',
-        rules: { required: true },
-        options: [
-          { value: 'Y', text: 'Yes' },
-          { value: 'N', text: 'No' },
-        ],
-      },
-      {
-        component: 'Radios',
-        name: 'isInformalCarer',
-        label: 'Informal carer',
-        rules: { required: true },
-        options: [
-          { value: 'Y', text: 'Yes' },
-          { value: 'N', text: 'No' },
-        ],
+          type !== 'unbornSibling' &&
+          type !== 'unbornChild' &&
+          type !== '' &&
+          type !== undefined,
+        component: 'Checkbox',
+        name: 'additionalOptions',
+        label: 'Select all that apply',
+        labelSize: 's',
+        options: ({ type }) => {
+          const typeOptions: Option[] = [
+            { value: 'isMainCarer', text: 'Is a main carer' },
+          ];
+
+          if (type === 'parent') {
+            typeOptions.push({
+              value: 'isParentOfUnbornChild',
+              text: 'Parent of an unborn child',
+            });
+          }
+          if (type === 'sibling') {
+            typeOptions.push({
+              value: 'isSiblingOfUnbornChild',
+              text: 'Sibling of an unborn child',
+            });
+          }
+
+          return typeOptions;
+        },
       },
       {
         component: 'TextInput',
