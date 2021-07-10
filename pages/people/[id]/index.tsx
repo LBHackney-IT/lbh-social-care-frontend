@@ -1,10 +1,12 @@
 import { getResident } from 'lib/residents';
 import { GetServerSideProps } from 'next';
-import { Resident } from 'types';
+import { CaseData, Resident } from 'types';
 import Head from 'next/head';
 import Link from 'next/link';
 import { format } from 'date-fns';
 import { useRouter } from 'next/router';
+import { useCasesByResident } from 'utils/api/cases';
+import { Case } from 'types';
 
 interface Props {
   person: Resident;
@@ -34,11 +36,21 @@ const NavLink = ({ href, children }: NavLinkProps) => {
 };
 
 const PersonPage = ({ person }: Props): React.ReactElement => {
+  const { data, error } = useCasesByResident(person.id);
+
+  // flatten pagination
+  const events: Case[] = data?.reduce(
+    (acc, page) => acc.concat(page.cases as Cases[]),
+    []
+  );
+
   const navigation = {
     Timeline: `/people/${person.id}`,
     Relationships: `/people/${person.id}/relationships`,
     Details: `/people/${person.id}/details`,
   };
+
+  console.log(events);
 
   return (
     <>
@@ -87,6 +99,22 @@ const PersonPage = ({ person }: Props): React.ReactElement => {
               Add something else
             </a>
           </Link>
+
+          {events?.length > 0 && (
+            <ol className="lbh-timeline">
+              {events?.map((event) => (
+                <li className="lbh-timeline__event" key={event.recordId}>
+                  <h3 className="lbh-heading-h3">{event.formName}</h3>
+                  <p className="lbh-body">
+                    {format(
+                      new Date(event.caseFormTimestamp),
+                      'dd MMM yyyy K.mm aaa'
+                    )}
+                  </p>
+                </li>
+              ))}
+            </ol>
+          )}
         </div>
       </div>
     </>
