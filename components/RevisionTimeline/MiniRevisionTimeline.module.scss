@@ -1,0 +1,26 @@
+@import 'lbh-frontend/lbh/base';
+
+.timeline {
+  position: relative;
+
+  &:after {
+    content: '';
+    display: block;
+    position: absolute;
+    bottom: 0px;
+    left: 3px;
+    width: 16px;
+    border-bottom: 3px solid lbh-colour('lbh-text');
+  }
+}
+
+.event {
+  &:after {
+    background-color: lbh-colour('lbh-grey-4');
+  }
+
+  &:last-of-type:before {
+    content: '';
+    bottom: 0px;
+  }
+}
