@@ -6,6 +6,18 @@ export default [
     category: 'General',
   },
   {
+    text: 'Safeguarding Concern',
+    value:
+      'https://docs.google.com/forms/d/e/1FAIpQLSdZWi80TowC6YleevxmnBYc10vQyIsAST9fFueas_Huz3X8FQ/viewform',
+    category: 'Safeguarding',
+  },
+  {
+    text: 'Safeguarding Manager Decision on Concern',
+    value:
+      'https://docs.google.com/forms/d/e/1FAIpQLSd1mEy3eKWxYQswNnqg4kQ0NkNY68LTdGI9n21LBgoe9p6CXw/viewform',
+    category: 'Safeguarding',
+  },
+  {
     text: 'Safeguarding Conclusion',
     value:
       'https://docs.google.com/forms/d/e/1FAIpQLSe8tImjpvyrSHzzWrYkwSfYH789sZMlhTOeVl8VJzENBubayQ/viewform',
