@@ -16,13 +16,16 @@ const formSteps = (
         >
           Add new relationship
         </h1>,
-        <h2
-          className="lbh-heading-h2 lbh-!-font-weight-light"
+        <p
+          className="lbh-body govuk-!-font-size-27"
           key="define-relationship-for"
         >
           Define a relationship for
-        </h2>,
-        <h3 className="lbh-heading-h3" key="selected-person-name">
+        </p>,
+        <h3
+          className="lbh-body lbh-!-font-weight-bold govuk-!-font-size-24"
+          key="selected-person-name"
+        >
           {`${secondPerson.firstName} ${secondPerson.lastName}`}
         </h3>,
         {
