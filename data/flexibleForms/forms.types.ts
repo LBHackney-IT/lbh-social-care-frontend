@@ -54,6 +54,7 @@ export interface Form {
   id: string;
   name: string;
   steps: Step[];
+  approvable?: boolean;
   groupRecordable?: boolean;
   isViewableByChildrens: boolean;
   isViewableByAdults: boolean;
@@ -88,15 +89,21 @@ export interface FlexibleAnswers {
 export interface Submission {
   submissionId: string;
   formId: string;
-  createdBy: User;
+  createdBy: Worker;
   createdAt: string;
+  submittedBy: Worker | null;
+  submittedAt: string | null;
+  approvedBy: Worker | null;
+  approvedAt: string | null;
   residents: Resident[];
   workers: Worker[];
-  editHistory: {
-    worker: Worker;
-    editTime: string;
-  }[];
+  editHistory: Revision[];
   submissionState: 'In progress' | 'Approved' | 'Discarded' | 'Submitted';
   formAnswers: FlexibleAnswers;
   tags?: string[];
+}
+
+export interface Revision {
+  worker: Worker;
+  editTime: string;
 }

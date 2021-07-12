@@ -195,3 +195,15 @@ input[type='date'] {
   padding: 2rem;
   outline: none;
 }
+
+// fix header z-index so it plays nice with dialogs
+.lbh-header {
+  z-index: inherit;
+}
+
+// fix placement of dialog close button
+.lbh-dialog {
+  &__close {
+    margin-top: 0;
+  }
+}

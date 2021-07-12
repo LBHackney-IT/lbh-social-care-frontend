@@ -34,9 +34,14 @@ const TaskListPage = ({
   const completedSteps = Object.keys(formAnswers);
   const person = residents[0];
 
-  const handleFinish = async (): Promise<void> => {
+  const handleFinish = async (values?: {
+    approverEmail: string;
+  }): Promise<void> => {
     try {
-      await axios.patch(`/api/submissions/${params.id}`);
+      await axios.patch(
+        `/api/submissions/${params.id}`,
+        values?.approverEmail ? values : null
+      );
       router.push(`/people/${person.id}/submissions/${params.id}`);
     } catch (e) {
       setStatus(e.toString());
@@ -71,6 +76,7 @@ const TaskListPage = ({
             steps={form.steps}
             completedSteps={completedSteps}
             onFinish={handleFinish}
+            approvable={form.approvable}
           />
 
           <TaskList form={form} completedSteps={completedSteps} />
