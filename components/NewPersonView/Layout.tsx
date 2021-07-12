@@ -18,7 +18,7 @@ const NavLink = ({ href, children }: NavLinkProps) => {
     <li>
       <Link href={href}>
         <a
-          className={`lbh-link lbh-link--no-visited-state ${
+          className={`lbh-link lbh-link--no-visited-state lbh-body-l ${
             router.asPath === href && `govuk-!-font-weight-bold`
           }`}
         >
@@ -116,6 +116,19 @@ const Layout = ({ person, children }: Props): React.ReactElement => {
                   {link.text}
                 </NavLink>
               ))}
+            </ul>
+
+            <ul className={`lbh-list ${s.secondaryNav}`}>
+              <li>
+                <a href="#" className="lbh-link lbh-body-s">
+                  Example action link
+                </a>
+              </li>
+              <li>
+                <a href="#" className="lbh-link lbh-body-s">
+                  Another example action
+                </a>
+              </li>
             </ul>
           </nav>
         </div>

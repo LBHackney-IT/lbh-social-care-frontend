@@ -17,6 +17,21 @@
   margin-right: 10px;
 }
 
+.secondaryNav {
+  border-top: 1px solid lbh-colour('lbh-grey-3');
+  padding-top: 20px;
+
+  li + li {
+    margin-top: 0.5rem;
+  }
+}
+
+.loadMoreButton {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
 // // make grid rows work with position: sticky
 .outer {
   @include govuk-media-query($from: tablet) {

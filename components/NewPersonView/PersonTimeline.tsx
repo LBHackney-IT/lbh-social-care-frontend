@@ -98,7 +98,7 @@ const PersonTimeline = ({
         )}
 
         <button
-          className="govuk-button lbh-button lbh-button--secondary govuk-!-margin-top-8"
+          className={`govuk-button lbh-button lbh-button--secondary govuk-!-margin-top-8 ${s.loadMoreButton}`}
           onClick={() => setSize(size + 1)}
         >
           Load older events
