@@ -66,7 +66,7 @@ const CaseLink = ({
   recordId,
   personId,
 }: Props): React.ReactElement | null => {
-  const form = forms.find((form) => form.id === formName);
+  const form = formName ? forms?.find((form) => form.id === formName) : false;
   if (form)
     return (
       <Link href={`/people/${personId}/submissions/${recordId}`}>
