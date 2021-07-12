@@ -2,6 +2,7 @@ import Seo from 'components/Layout/Seo/Seo';
 import PersonView from 'components/PersonView/PersonView';
 import FormWizard from 'components/FormWizard/FormWizard';
 import formSteps from 'data/forms/add-relationship';
+import { useResident } from 'utils/api/residents';
 import { addRelationships, useRelationships } from 'utils/api/relationships';
 import PersonLinkConfirmation from 'components/Steps/PersonLinkConfirmation';
 import RELATIONSHIP_TYPE_OPTIONS from 'data/relationships';
@@ -31,11 +32,20 @@ const AddRelationshipForm: React.FC<{
     return data;
   };
 
-  const { data: relationships, error } = useRelationships(personId);
+  const { data: secondPerson, error: secondPersonError } =
+    useResident(secondPersonId);
 
-  if (!relationships && !error) return <Spinner />;
+  const { data: relationships, error: relationshipsError } =
+    useRelationships(personId);
 
-  if (error || relationships === undefined) return <ErrorMessage />;
+  if (!secondPerson && !secondPersonError) return <Spinner />;
+
+  if (secondPersonError || secondPerson === undefined) return <ErrorMessage />;
+
+  if (!relationships && !relationshipsError) return <Spinner />;
+
+  if (relationshipsError || relationships === undefined)
+    return <ErrorMessage />;
 
   const existingRelationshipTypes = relationships.personalRelationships.map(
     (relationship) => {
@@ -66,7 +76,7 @@ const AddRelationshipForm: React.FC<{
         {() => (
           <FormWizard
             formPath={`/people/${personId}/relationships/add/${secondPersonId}/`}
-            formSteps={formSteps(sortedRelationshipTypeOptions)}
+            formSteps={formSteps(sortedRelationshipTypeOptions, secondPerson)}
             title="Add new relationship"
             onFormSubmit={onFormSubmit}
             successMessage="Relationship has been added"

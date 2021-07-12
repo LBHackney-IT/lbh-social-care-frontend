@@ -13,6 +13,7 @@ import { AuthProvider } from '../../../../UserContext/UserContext';
 import { mockedUser } from '../../../../../factories/users';
 import { createMockedPersonView } from '../../../../../test/helpers';
 import * as relationshipsAPI from 'utils/api/relationships';
+import * as residentsAPI from 'utils/api/residents';
 import { mockedAPIservererror } from 'factories/APIerrors';
 
 jest.mock('../../../../PersonView/PersonView');
@@ -40,6 +41,15 @@ const selectedRelatedResident = residentFactory.build();
 
 describe('<AddRelationshipForm />', () => {
   describe('Relationship types', () => {
+    beforeEach(() => {
+      jest.spyOn(residentsAPI, 'useResident').mockImplementation(() => ({
+        data: residentFactory.build(),
+        isValidating: false,
+        mutate: jest.fn(),
+        revalidate: jest.fn(),
+      }));
+    });
+
     it('sorts by alphabetical order', async () => {
       jest
         .spyOn(relationshipsAPI, 'useRelationships')
@@ -188,6 +198,12 @@ describe('<AddRelationshipForm />', () => {
           mutate: jest.fn(),
           revalidate: jest.fn(),
         }));
+      jest.spyOn(residentsAPI, 'useResident').mockImplementation(() => ({
+        data: residentFactory.build(),
+        isValidating: false,
+        mutate: jest.fn(),
+        revalidate: jest.fn(),
+      }));
 
       render(
         <AuthProvider user={mockedUser}>
@@ -257,5 +273,52 @@ describe('<AddRelationshipForm />', () => {
         screen.getByText(/Sibling of an unborn child/)
       ).toBeInTheDocument();
     });
+  });
+
+  it('shows the name of selected person', () => {
+    jest.spyOn(relationshipsAPI, 'useRelationships').mockImplementation(() => ({
+      data: mockedRelationshipFactory.build(),
+      isValidating: false,
+      mutate: jest.fn(),
+      revalidate: jest.fn(),
+    }));
+    jest.spyOn(residentsAPI, 'useResident').mockImplementation(() => ({
+      data: residentFactory.build({ firstName: 'Chloe', lastName: 'Price' }),
+      isValidating: false,
+      mutate: jest.fn(),
+      revalidate: jest.fn(),
+    }));
+
+    render(
+      <AuthProvider user={mockedUser}>
+        <AddRelationshipForm
+          personId={mockedResident.id}
+          secondPersonId={selectedRelatedResident.id}
+        />
+      </AuthProvider>
+    );
+
+    expect(screen.queryByText(/Chloe Price/)).toBeInTheDocument();
+  });
+
+  it('shows an error message if error when getting other person', () => {
+    jest.spyOn(residentsAPI, 'useResident').mockImplementation(() => ({
+      data: undefined,
+      error: mockedAPIservererror,
+      revalidate: jest.fn(),
+      mutate: jest.fn(),
+      isValidating: false,
+    }));
+
+    render(
+      <AuthProvider user={mockedUser}>
+        <AddRelationshipForm
+          personId={mockedResident.id}
+          secondPersonId={selectedRelatedResident.id}
+        />
+      </AuthProvider>
+    );
+
+    expect(screen.queryByText(/There was a problem./)).toBeInTheDocument();
   });
 });
