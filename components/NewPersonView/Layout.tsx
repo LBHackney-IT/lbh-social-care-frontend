@@ -45,11 +45,17 @@ const Layout = ({ person, children }: Props): React.ReactElement => {
   const navigation = [
     { text: 'Timeline', href: `/people/${person.id}` },
     {
-      text: `Allocations (${allocations?.allocations?.length})`,
+      text: `Allocations ${
+        allocations?.allocations ? `(${allocations?.allocations?.length})` : ''
+      }`,
       href: `/people/${person.id}/allocations`,
     },
     {
-      text: `Relationships (${relationships?.personalRelationships?.length})`,
+      text: `Relationships ${
+        relationships?.personalRelationships
+          ? `(${relationships?.personalRelationships?.length})`
+          : ''
+      }`,
       href: `/people/${person.id}/relationships`,
     },
     { text: 'Details', href: `/people/${person.id}/details` },
