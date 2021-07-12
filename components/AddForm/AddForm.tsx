@@ -65,7 +65,7 @@ const AddForm = ({ person }: { person: Resident }): React.ReactElement => {
       <Button
         label="Load form"
         route={
-          ageContext === 'C'
+          ageContext === 'C' && url?.includes('docs.google.com')
             ? `${url}${populateChildForm(
                 person.firstName,
                 person.lastName,
