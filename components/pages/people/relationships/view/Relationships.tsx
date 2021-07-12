@@ -10,6 +10,7 @@ import {
   FeatureSet,
 } from 'lib/feature-flags/feature-flags';
 import Link from 'next/link';
+import style from './Relationships.module.scss';
 
 interface Props {
   id: number;
@@ -67,51 +68,66 @@ const Relationships = ({ id }: Props): React.ReactElement => {
 
         <hr className="govuk-divider" />
         {personalRelationships && personalRelationships.length > 0 ? (
-          <dl className="govuk-summary-list lbh-summary-list">
-            {personalRelationships
-              .sort((a, b) => b.type.localeCompare(a.type))
-              .map((relationship) => {
-                if (relationship.persons.length > 0) {
-                  return (
-                    <div
-                      className="govuk-summary-list__row"
-                      key={relationship.type}
-                    >
-                      <dt className="govuk-summary-list__key">
-                        {getTitleString(relationship.type)}
-                      </dt>
-                      <dd className="govuk-summary-list__value">
-                        <ul className="govuk-list">
-                          {relationship.persons
-                            .sort(
-                              (a, b) =>
-                                a.lastName.localeCompare(b.lastName) ||
-                                a.firstName.localeCompare(b.firstName)
-                            )
-                            .map((person, i) => {
-                              return (
-                                <li
-                                  className="lbh-link"
-                                  aria-label={`rel_${i}`}
-                                  key={`rel_${i}`}
-                                >
-                                  {person.id ? (
-                                    <Link href={`/people/${person.id}`}>
-                                      {`${person.firstName} ${person.lastName}`}
-                                    </Link>
-                                  ) : (
-                                    `${person.firstName} ${person.lastName}`
-                                  )}
-                                </li>
-                              );
-                            })}
-                        </ul>
-                      </dd>
-                    </div>
-                  );
-                }
-              })}
-          </dl>
+          <table className="govuk-table lbh-table">
+            <thead className="govuk-table__head govuk-visually-hidden">
+              <tr className="govuk-table__row">
+                <th scope="col" className="govuk-table__header">
+                  Relationship type
+                </th>
+                <th scope="col" className="govuk-table__header">
+                  Name
+                </th>
+              </tr>
+            </thead>
+            <tbody className="govuk-table__body">
+              {personalRelationships
+                .sort((a, b) => b.type.localeCompare(a.type))
+                .map((relationship) => {
+                  return relationship.persons
+                    .sort(
+                      (a, b) =>
+                        a.lastName.localeCompare(b.lastName) ||
+                        a.firstName.localeCompare(b.firstName)
+                    )
+                    .map((person, personRowIndex) => (
+                      <tr
+                        className="govuk-table__row"
+                        key={`${relationship.type}-${personRowIndex}`}
+                      >
+                        {personRowIndex === 0 && (
+                          <th
+                            scope="row"
+                            className="govuk-table__header govuk-!-width-one-quarter"
+                            rowSpan={relationship.persons.length}
+                          >
+                            {getTitleString(
+                              relationship.type as keyof typeof relationshipTypeMappings
+                            )}
+                          </th>
+                        )}
+                        <td
+                          data-testid={`related-person-name-${personRowIndex}`}
+                          key={`related-person-name-${personRowIndex}`}
+                          className={`${
+                            relationship.persons.length > 1 &&
+                            personRowIndex !== relationship.persons.length - 1
+                              ? `govuk-table__cell govuk-!-width-three-quarters ${style.noBorder}`
+                              : 'govuk-table__cell govuk-!-width-three-quarters'
+                          }`}
+                        >
+                          {person.id ? (
+                            <Link href={`/people/${person.id}`}>
+                              {`${person.firstName} ${person.lastName}`}
+                            </Link>
+                          ) : (
+                            `${person.firstName} ${person.lastName}`
+                          )}
+                        </td>
+                      </tr>
+                    ));
+                })}
+            </tbody>
+          </table>
         ) : (
           <p>
             <i>No relationship found</i>
@@ -123,11 +139,13 @@ const Relationships = ({ id }: Props): React.ReactElement => {
   );
 };
 
-const getTitleString = (relationshipType: keyof typeof mappings): string => {
-  return mappings[relationshipType];
+const getTitleString = (
+  relationshipType: keyof typeof relationshipTypeMappings
+): string => {
+  return relationshipTypeMappings[relationshipType];
 };
 
-const mappings = {
+const relationshipTypeMappings = {
   parent: 'Parent(s)',
   child: 'Children',
   other: 'Other',

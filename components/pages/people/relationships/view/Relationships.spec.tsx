@@ -194,12 +194,12 @@ describe('Relationships component', () => {
       id: 33339587,
     };
 
-    const { queryByLabelText } = render(<Relationships {...props} />);
+    const { queryByTestId } = render(<Relationships {...props} />);
 
-    const first = queryByLabelText('rel_0');
-    const second = queryByLabelText('rel_1');
-    const third = queryByLabelText('rel_2');
-    const fourth = queryByLabelText('rel_3');
+    const first = queryByTestId('related-person-name-0');
+    const second = queryByTestId('related-person-name-1');
+    const third = queryByTestId('related-person-name-2');
+    const fourth = queryByTestId('related-person-name-3');
 
     expect(first).toHaveTextContent('Michele Giuppone');
     expect(second).toHaveTextContent('Giovanni Muciaccia');
