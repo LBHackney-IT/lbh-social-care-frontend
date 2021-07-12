@@ -1,9 +1,9 @@
 import { Form } from './forms.types';
 
 const form: Form = {
-  id: 'safeguarding-adult-concern-form',
-  name: 'Safeguarding Adult Concern Form',
-  isViewableByAdults: false,
+  id: 'safeguarding-concern',
+  name: 'Safeguarding concern',
+  isViewableByAdults: true,
   isViewableByChildrens: false,
   steps: [
     {
