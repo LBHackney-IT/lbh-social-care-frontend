@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { format, formatDistanceToNow } from 'date-fns';
+import { format, formatDistance, formatDistanceToNow } from 'date-fns';
 import { formatDate } from 'utils/date';
 import { Case } from 'types';
 import useSearch from 'hooks/useSearch';
@@ -7,11 +7,18 @@ import CaseLink from 'components/Cases/CaseLink';
 import s from './index.module.scss';
 
 /** convert our weird date format into an iso-compatible string, return null if unparseable */
-const formatWeirdDateTime = (rawString: string): string | null => {
+const formatWeirdDateTime = (
+  rawString: string,
+  toNow?: boolean
+): string | null => {
   try {
-    return format(new Date(rawString), 'dd MMM yyyy');
+    if (toNow) {
+      return formatDistanceToNow(new Date(rawString));
+    } else {
+      return format(new Date(rawString), 'dd MMM yyyy');
+    }
   } catch (e) {
-    return null;
+    return rawString;
   }
 };
 
@@ -55,7 +62,7 @@ interface EventProps {
 
 const Event = ({ event }: EventProps): React.ReactElement => {
   const displayDate = formatWeirdDateTime(
-    event?.dateOfEvent || event?.caseFormTimestamp
+    String(event?.dateOfEvent || event?.caseFormTimestamp)
   );
 
   return (
@@ -76,12 +83,7 @@ const Event = ({ event }: EventProps): React.ReactElement => {
         </CaseLink>
       </h3>
       {}
-      <p className="lbh-body">
-        {displayDate}
-        {/* {time} */}
-        {/* {(event.dateOfEvent && formatDate(event.dateOfEvent)) ||
-          (event.caseFormTimestamp && formatDate(event.caseFormTimestamp))} */}
-      </p>
+      <p className="lbh-body">{displayDate}</p>
       <p className="lbh-body">{event.officerEmail}</p>
     </li>
   );
@@ -110,9 +112,11 @@ const PersonTimeline = ({
     ['formName', 'officerEmail']
   );
 
-  //   const oldestResult = results?.[results.length - 1];
-  //   const oldestTimestamp =
-  //     oldestResult?.dateOfEvent || oldestResult?.caseFormTimestamp;
+  const oldestResult = results?.[results.length - 1];
+  const oldestTimestamp = formatWeirdDateTime(
+    String(oldestResult?.dateOfEvent || oldestResult?.caseFormTimestamp),
+    true
+  );
 
   return (
     <div className={`govuk-grid-row`}>
@@ -135,8 +139,7 @@ const PersonTimeline = ({
       <div className="govuk-grid-column-one-third">
         <aside className={s.sticky}>
           <p className="lbh-body-xs">
-            Showing {results?.length} events over{' '}
-            {/* {oldestTimestamp && formatDistanceToNow(new Date(oldestTimestamp))} */}
+            Showing {results?.length} events over {oldestTimestamp}
           </p>
 
           <div className="govuk-form-group lbh-form-group">
