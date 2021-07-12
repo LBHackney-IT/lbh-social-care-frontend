@@ -44,18 +44,18 @@ describe('Relationships component', () => {
       id: 33339587,
     };
 
-    const { getByText } = render(<Relationships {...props} />);
+    const { queryByText } = render(<Relationships {...props} />);
 
-    expect(getByText('Parent')).toBeInTheDocument();
-    expect(getByText('Child')).toBeInTheDocument();
-    expect(getByText('Other')).toBeInTheDocument();
-    expect(getByText('Sibling')).toBeInTheDocument();
-    expect(getByText('Unborn sibling')).toBeInTheDocument();
-    expect(getByText('Sibling of unborn child')).toBeInTheDocument();
+    expect(queryByText('Parent(s)')).toBeInTheDocument();
+    expect(queryByText('Children')).toBeInTheDocument();
+    expect(queryByText('Other')).toBeInTheDocument();
+    expect(queryByText('Sibling(s)')).toBeInTheDocument();
+    expect(queryByText('Unborn sibling(s)')).toBeInTheDocument();
+    expect(queryByText('Sibling of unborn child')).toBeInTheDocument();
 
-    expect(getByText('Giovanni Muciaccia')).toBeInTheDocument();
-    expect(getByText('Jambi Neverborn')).toBeInTheDocument();
-    expect(getByText('Cento Neverborn')).toBeInTheDocument();
+    expect(queryByText('Giovanni Muciaccia')).toBeInTheDocument();
+    expect(queryByText('Jambi Neverborn')).toBeInTheDocument();
+    expect(queryByText('Cento Neverborn')).toBeInTheDocument();
   });
 
   it('should populate partially the list', async () => {
@@ -71,10 +71,10 @@ describe('Relationships component', () => {
 
     const { getByText, queryByText } = render(<Relationships {...props} />);
 
-    expect(queryByText('Parent')).toBeInTheDocument();
-    expect(queryByText('Child')).toBeInTheDocument();
+    expect(queryByText('Parent(s)')).toBeInTheDocument();
+    expect(queryByText('Children')).toBeInTheDocument();
     expect(queryByText('Other')).not.toBeInTheDocument();
-    expect(queryByText('Sibling')).not.toBeInTheDocument();
+    expect(queryByText('Sibling(s)')).not.toBeInTheDocument();
     expect(queryByText('Sibling of unborn child')).not.toBeInTheDocument();
 
     expect(getByText('Mastro Geppetto')).toBeInTheDocument();
@@ -128,11 +128,11 @@ describe('Relationships component', () => {
       id: 33339587,
     };
 
-    const { getByText } = render(<Relationships {...props} />);
+    const { queryByText } = render(<Relationships {...props} />);
 
-    expect(getByText('Parent')).toBeInTheDocument();
-    expect(getByText('Giovanni Muciaccia')).toBeInTheDocument();
-    expect(getByText('Neil GrandeArtista')).toBeInTheDocument();
+    expect(queryByText('Parent(s)')).toBeInTheDocument();
+    expect(queryByText('Giovanni Muciaccia')).toBeInTheDocument();
+    expect(queryByText('Neil GrandeArtista')).toBeInTheDocument();
   });
 
   it('should populate the list converting the type to display name', async () => {
@@ -150,10 +150,10 @@ describe('Relationships component', () => {
       id: 33339587,
     };
 
-    const { getByText } = render(<Relationships {...props} />);
+    const { queryByText } = render(<Relationships {...props} />);
 
-    expect(getByText('Unborn sibling')).toBeInTheDocument();
-    expect(getByText('Jambi Neverborn')).toBeInTheDocument();
+    expect(queryByText('Unborn sibling(s)')).toBeInTheDocument();
+    expect(queryByText('Jambi Neverborn')).toBeInTheDocument();
   });
 
   it('should populate the list in alphabetical order (by surname/name) with same surname', async () => {
