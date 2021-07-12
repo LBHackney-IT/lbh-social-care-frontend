@@ -184,7 +184,11 @@ describe('<AddRelationshipForm />', () => {
         </AuthProvider>
       );
 
-      expect(screen.queryByText(/There was a problem./)).toBeInTheDocument();
+      expect(
+        screen.queryByText(
+          /There was a problem with getting current personal relationships./
+        )
+      ).toBeInTheDocument();
     });
   });
 
@@ -319,6 +323,10 @@ describe('<AddRelationshipForm />', () => {
       </AuthProvider>
     );
 
-    expect(screen.queryByText(/There was a problem./)).toBeInTheDocument();
+    expect(
+      screen.queryByText(
+        /There was a problem with getting the details of the selected resident./
+      )
+    ).toBeInTheDocument();
   });
 });

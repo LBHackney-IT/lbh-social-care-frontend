@@ -40,12 +40,17 @@ const AddRelationshipForm: React.FC<{
 
   if (!secondPerson && !secondPersonError) return <Spinner />;
 
-  if (secondPersonError || secondPerson === undefined) return <ErrorMessage />;
+  if (secondPersonError || secondPerson === undefined)
+    return (
+      <ErrorMessage label="There was a problem with getting the details of the selected resident. Please refresh the page or try again later." />
+    );
 
   if (!relationships && !relationshipsError) return <Spinner />;
 
   if (relationshipsError || relationships === undefined)
-    return <ErrorMessage />;
+    return (
+      <ErrorMessage label="There was a problem with getting current personal relationships. Please refresh the page or try again later." />
+    );
 
   const existingRelationshipTypes = relationships.personalRelationships.map(
     (relationship) => {
