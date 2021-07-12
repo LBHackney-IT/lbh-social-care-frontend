@@ -10,8 +10,8 @@ export const mockSubmission: Submission = {
   createdAt: '2021-06-21T12:00:00.000Z',
   submittedBy: mockedWorker,
   submittedAt: '2021-07-21T12:00:00.000Z',
-  approvedBy: mockedWorker,
-  approvedAt: '2021-08-21T12:00:00.000Z',
+  approvedBy: null,
+  approvedAt: null,
   workers: [],
   editHistory: [
     {
