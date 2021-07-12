@@ -1,67 +1,31 @@
 import { useState } from 'react';
-import { format, formatDistance, formatDistanceToNow } from 'date-fns';
-import { formatDate } from 'utils/date';
+import { format, formatDistanceToNow } from 'date-fns';
 import { Case } from 'types';
 import useSearch from 'hooks/useSearch';
 import CaseLink from 'components/Cases/CaseLink';
 import s from './index.module.scss';
+import FilterButton, { Filter } from './FilterButton';
 
-/** convert our weird date format into an iso-compatible string, return null if unparseable */
-const formatWeirdDateTime = (
-  rawString: string,
-  toNow?: boolean
-): string | null => {
-  try {
-    if (toNow) {
-      return formatDistanceToNow(new Date(rawString));
-    } else {
-      return format(new Date(rawString), 'dd MMM yyyy');
-    }
-  } catch (e) {
-    return rawString;
+/** convert all our weird date formats into iso-compatible strings */
+const normaliseDateToISO = (str: string): string => {
+  if (/[0-9]{1,2}\/[0-9]{1,2}\/[0-9]{4} [0-9]{1,2}:[0-9:]{1,5}/.test(str)) {
+    const [date, time] = str.split(' ');
+    const [days, month, year] = date.split('/');
+    const [hours, minutes, seconds] = time.split(':');
+    return `${year}-${month}-${days}T${hours.padStart(2, '0')}:${minutes}${
+      seconds ? `:${seconds}` : ''
+    }`;
+  } else {
+    return str;
   }
 };
-
-type Filter = 'all' | 'major';
-
-interface FilterButtonProps {
-  value: Filter;
-  children: React.ReactChild;
-  filter: Filter;
-  setFilter: (value: Filter) => void;
-}
-
-const FilterButton = ({
-  value,
-  children,
-  filter,
-  setFilter,
-}: FilterButtonProps): React.ReactElement => (
-  <div className="govuk-radios__item">
-    <input
-      className="govuk-radios__input"
-      id={`filter-${value}`}
-      name="filter"
-      type="radio"
-      value="all"
-      checked={filter === value}
-      onChange={() => setFilter(value)}
-    />
-    <label
-      className="govuk-radios__label lbh-body-s"
-      htmlFor={`filter-${value}`}
-    >
-      {children}
-    </label>
-  </div>
-);
 
 interface EventProps {
   event: Case;
 }
 
 const Event = ({ event }: EventProps): React.ReactElement => {
-  const displayDate = formatWeirdDateTime(
+  const displayDate = normaliseDateToISO(
     String(event?.dateOfEvent || event?.caseFormTimestamp)
   );
 
@@ -83,7 +47,12 @@ const Event = ({ event }: EventProps): React.ReactElement => {
         </CaseLink>
       </h3>
       {}
-      <p className="lbh-body">{displayDate}</p>
+      <p className="lbh-body">
+        {format(
+          new Date(displayDate),
+          displayDate.includes('T') ? 'dd MMM yyyy K.mm aaa' : 'dd MMM yyyy'
+        )}
+      </p>
       <p className="lbh-body">{event.officerEmail}</p>
     </li>
   );
@@ -113,13 +82,12 @@ const PersonTimeline = ({
   );
 
   const oldestResult = results?.[results.length - 1];
-  const oldestTimestamp = formatWeirdDateTime(
-    String(oldestResult?.dateOfEvent || oldestResult?.caseFormTimestamp),
-    true
+  const oldestTimestamp = normaliseDateToISO(
+    String(oldestResult?.dateOfEvent || oldestResult?.caseFormTimestamp)
   );
 
   return (
-    <div className={`govuk-grid-row`}>
+    <div className={`govuk-grid-row ${s.outer}`}>
       <div className="govuk-grid-column-two-thirds">
         {events?.length > 0 && (
           <ol className="lbh-timeline">
@@ -139,7 +107,8 @@ const PersonTimeline = ({
       <div className="govuk-grid-column-one-third">
         <aside className={s.sticky}>
           <p className="lbh-body-xs">
-            Showing {results?.length} events over {oldestTimestamp}
+            Showing {results?.length} events over{' '}
+            {oldestTimestamp && formatDistanceToNow(new Date(oldestTimestamp))}
           </p>
 
           <div className="govuk-form-group lbh-form-group">
