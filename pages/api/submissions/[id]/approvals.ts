@@ -29,14 +29,14 @@ const handler = async (
           String(user?.email),
           req.body.rejectionReason
         );
-        res.json(submission);
         // send an email notification to the creator
-        return notifyReturnedForEdits(
+        await notifyReturnedForEdits(
           submission,
           String(user?.email),
           String(req.headers.host),
           req.body.rejectionReason
         );
+        res.json(submission);
       }
       break;
     default:
