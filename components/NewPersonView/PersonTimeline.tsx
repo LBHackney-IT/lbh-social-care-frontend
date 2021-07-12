@@ -1,9 +1,19 @@
 import { useState } from 'react';
-import { format, formatDistanceToNow, parseISO } from 'date-fns';
+import { format, formatDistanceToNow } from 'date-fns';
+import { formatDate } from 'utils/date';
 import { Case } from 'types';
 import useSearch from 'hooks/useSearch';
 import CaseLink from 'components/Cases/CaseLink';
 import s from './index.module.scss';
+
+/** convert our weird date format into an iso-compatible string, return null if unparseable */
+const formatWeirdDateTime = (rawString: string): string | null => {
+  try {
+    return format(new Date(rawString), 'dd MMM yyyy');
+  } catch (e) {
+    return null;
+  }
+};
 
 type Filter = 'all' | 'major';
 
@@ -44,7 +54,10 @@ interface EventProps {
 }
 
 const Event = ({ event }: EventProps): React.ReactElement => {
-  const displayDate = event?.dateOfEvent || event?.caseFormTimestamp;
+  const displayDate = formatWeirdDateTime(
+    event?.dateOfEvent || event?.caseFormTimestamp
+  );
+
   return (
     <li
       className={`lbh-timeline__event ${
@@ -63,7 +76,12 @@ const Event = ({ event }: EventProps): React.ReactElement => {
         </CaseLink>
       </h3>
       {}
-      <p className="lbh-body">{displayDate}</p>
+      <p className="lbh-body">
+        {displayDate}
+        {/* {time} */}
+        {/* {(event.dateOfEvent && formatDate(event.dateOfEvent)) ||
+          (event.caseFormTimestamp && formatDate(event.caseFormTimestamp))} */}
+      </p>
       <p className="lbh-body">{event.officerEmail}</p>
     </li>
   );
@@ -98,8 +116,6 @@ const PersonTimeline = ({
 
   return (
     <div className={`govuk-grid-row`}>
-      {format(new Date('24/06/2021 8:11:26'), 'dd MMM yyyy')}
-
       <div className="govuk-grid-column-two-thirds">
         {events?.length > 0 && (
           <ol className="lbh-timeline">
