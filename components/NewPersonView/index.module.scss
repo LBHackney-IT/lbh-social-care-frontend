@@ -1,0 +1,32 @@
+@import 'lbh-frontend/lbh/base';
+
+.action {
+  @include govuk-media-query($from: tablet) {
+    margin-top: 0px;
+  }
+
+  & + .action {
+    @include govuk-media-query($from: tablet) {
+      margin-left: 15px;
+    }
+  }
+}
+
+.primaryAction svg {
+  fill: white;
+  margin-right: 10px;
+}
+
+// // make grid rows work with position: sticky
+.outer {
+  @include govuk-media-query($from: tablet) {
+    display: flex;
+  }
+}
+
+.sticky {
+  @include govuk-media-query($from: tablet) {
+    position: sticky;
+    top: 25px;
+  }
+}

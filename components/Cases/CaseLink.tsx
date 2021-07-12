@@ -57,6 +57,7 @@ interface Props {
   caseFormData: CaseFormData;
   formName: string;
   personId: number;
+  children?: React.ReactChild;
 }
 
 const CaseLink = ({
@@ -65,12 +66,13 @@ const CaseLink = ({
   caseFormData,
   recordId,
   personId,
+  children,
 }: Props): React.ReactElement | null => {
   const form = formName ? forms?.find((form) => form.id === formName) : false;
   if (form)
     return (
       <Link href={`/people/${personId}/submissions/${recordId}`}>
-        <a className="lbh-link">View</a>
+        <a className="lbh-link">{children || 'View'}</a>
       </Link>
     );
 
@@ -89,7 +91,7 @@ const CaseLink = ({
   const internalLink = getLink(recordId, caseFormData);
   return internalLink ? (
     <Link href={internalLink}>
-      <a className="lbh-link">View</a>
+      <a className="lbh-link">{children || 'View'}</a>
     </Link>
   ) : null;
 };
