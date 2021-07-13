@@ -1,17 +1,33 @@
 import { FormStep, Option, Options } from 'components/Form/types';
+import { Resident } from 'types';
 
-const formSteps = (relationshipTypeOptions: Options): FormStep[] => {
+const formSteps = (
+  relationshipTypeOptions: Options,
+  secondPerson: Resident
+): FormStep[] => {
   return [
     {
       id: 'add-relationship',
       title: 'Add Relationship',
       components: [
-        <h2
+        <h1
           key="subtitle-details"
           className="govuk-fieldset__legend--l gov-weight-lighter govuk-!-margin-bottom-5"
         >
           Add new relationship
-        </h2>,
+        </h1>,
+        <p
+          className="lbh-body govuk-!-font-size-27"
+          key="define-relationship-for"
+        >
+          Define a relationship for
+        </p>,
+        <h3
+          className="lbh-body lbh-!-font-weight-bold govuk-!-font-size-24"
+          key="selected-person-name"
+        >
+          {`${secondPerson.firstName} ${secondPerson.lastName}`}
+        </h3>,
         {
           component: 'Select',
           placeHolder: 'Relationship type',

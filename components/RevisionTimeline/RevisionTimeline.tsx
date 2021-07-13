@@ -1,5 +1,6 @@
 import { format } from 'date-fns';
 import { Submission } from 'data/flexibleForms/forms.types';
+import s from './MiniRevisionTimeline.module.scss';
 
 interface Props {
   submission: Submission;
@@ -13,6 +14,23 @@ const RevisionTimeline = ({ submission }: Props): React.ReactElement | null => {
     <>
       <h2>History</h2>
       <ol className="lbh-timeline">
+        {submission.approvedAt && (
+          <li className={`lbh-timeline__event ${s.approvalEvent}`}>
+            <svg width="34" height="30" viewBox="0 0 34 30" fill="none">
+              <path
+                d="M3 16.4167L10.4286 24L31 3"
+                stroke="white"
+                strokeWidth="8"
+              />
+            </svg>
+            <h3 className="lbh-body">
+              Approved by {submission.approvedBy?.email}
+            </h3>
+            <p className="lbh-body-xs">
+              {format(new Date(submission.approvedAt), 'dd MMM yyyy K.mm aaa')}
+            </p>
+          </li>
+        )}
         {revisions.map((revision, i) => (
           <li
             className={`lbh-timeline__event lbh-timeline__event--minor ${

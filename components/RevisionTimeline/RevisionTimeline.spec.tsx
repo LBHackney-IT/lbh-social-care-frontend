@@ -66,4 +66,19 @@ describe('RevisionTimeline', () => {
 
     expect(screen.getAllByRole('listitem').length).toBe(4);
   });
+
+  it('correctly renders an approval', () => {
+    render(
+      <RevisionTimeline
+        submission={{
+          ...mockSubmission,
+          approvedAt: '2021-07-28T11:00:00.000Z',
+          approvedBy: mockedWorker,
+        }}
+      />
+    );
+
+    expect(screen.getByText(`Approved by ${mockedWorker.email}`));
+    expect(screen.getByText('28 Jul 2021', { exact: false }));
+  });
 });
