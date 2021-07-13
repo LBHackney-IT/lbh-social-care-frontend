@@ -39,7 +39,7 @@ const flexibleForms: [string, boolean, boolean][] = [
   ['FACE overview assessment', false, false],
   ['Safeguarding Adult Concern Form', false, false],
   ['Safeguarding adult manager decision on concern', false, false],
-  ['Child Case Note', false, false],
+  ['Case note', false, false],
 ];
 
 describe('AddForm component', () => {
