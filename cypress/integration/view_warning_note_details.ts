@@ -46,14 +46,11 @@ describe('Viewing a created warning note', () => {
 
     it('should show the details of all submitted reviews and the initial note when a warning note has been ended', () => {
       cy.visitAs(
-        `/people/${Cypress.env('ADULT_RECORD_PERSON_ID')}/details`,
+        `/people/${Cypress.env('ADULT_RECORD_PERSON_ID')}`,
         AuthRoles.AdultsGroup
       );
 
-      cy.contains('td', 'Warning Note Ended')
-        .siblings()
-        .contains('a', 'View')
-        .click();
+      cy.contains('Warning Note Ended').click();
 
       cy.contains(Cypress.env('ADULT_RECORD_FULL_NAME')).should('be.visible');
       cy.contains('Show details').click();
@@ -72,14 +69,11 @@ describe('Viewing a created warning note', () => {
   describe('As a user in the Children group and records are not restricted', () => {
     it('should show only the initial details of a warning note when created', () => {
       cy.visitAs(
-        `/people/${Cypress.env('CHILDREN_RECORD_PERSON_ID')}/details`,
+        `/people/${Cypress.env('CHILDREN_RECORD_PERSON_ID')}`,
         AuthRoles.ChildrensGroup
       );
 
-      cy.contains('td', 'Warning Note Created')
-        .siblings()
-        .contains('a', 'View')
-        .click();
+      cy.contains('Warning Note Created').click();
 
       cy.contains(Cypress.env('CHILDREN_RECORD_FULL_NAME')).should(
         'be.visible'
@@ -98,14 +92,11 @@ describe('Viewing a created warning note', () => {
 
     it('should show the details of all submitted reviews and the initial note when a warning note has been reviewed', () => {
       cy.visitAs(
-        `/people/${Cypress.env('CHILDREN_RECORD_PERSON_ID')}/details`,
+        `/people/${Cypress.env('CHILDREN_RECORD_PERSON_ID')}`,
         AuthRoles.ChildrensGroup
       );
 
-      cy.contains('td', 'Warning Note Reviewed')
-        .siblings()
-        .contains('a', 'View')
-        .click();
+      cy.contains('Warning Note Reviewed').click();
 
       cy.contains(Cypress.env('CHILDREN_RECORD_FULL_NAME')).should(
         'be.visible'
@@ -124,14 +115,11 @@ describe('Viewing a created warning note', () => {
 
     it('should show the details of all submitted reviews and the initial note when a warning note has been ended', () => {
       cy.visitAs(
-        `/people/${Cypress.env('CHILDREN_RECORD_PERSON_ID')}/details`,
+        `/people/${Cypress.env('CHILDREN_RECORD_PERSON_ID')}`,
         AuthRoles.ChildrensGroup
       );
 
-      cy.contains('td', 'Warning Note Ended')
-        .siblings()
-        .contains('a', 'View')
-        .click();
+      cy.contains('Warning Note Ended').click();
 
       cy.contains(Cypress.env('CHILDREN_RECORD_FULL_NAME')).should(
         'be.visible'

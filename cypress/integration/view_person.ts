@@ -20,7 +20,7 @@ describe('Viewing a resident', () => {
         AuthRoles.ChildrensGroup
       );
 
-      cy.contains('.lbh-timeline');
+      cy.contains('ol');
     });
 
     it('should allow allocation of workers against child residents', () => {
@@ -72,7 +72,7 @@ describe('Viewing a resident', () => {
         AuthRoles.AdultsGroup
       );
 
-      cy.contains('.lbh-timeline');
+      cy.contains('ol');
     });
 
     it('should redirect from timeline of a restricted adult resident', () => {
@@ -106,7 +106,7 @@ describe('Viewing a resident', () => {
         AuthRoles.AdultsUnrestrictedGroup
       );
 
-      cy.contains('.lbh-timeline');
+      cy.contains('ol');
     });
   });
 
