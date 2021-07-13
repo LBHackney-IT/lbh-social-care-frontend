@@ -4,6 +4,7 @@ import { GetServerSideProps } from 'next';
 import { Resident } from 'types';
 import AllocatedWorkers from 'components/AllocatedWorkers/AllocatedWorkers';
 import PersonDetails from 'components/PersonView/PersonDetails';
+import { canUserEditPerson } from 'lib/permissions';
 
 interface Props {
   person: Resident;

@@ -8,6 +8,7 @@ import PersonTimeline from 'components/NewPersonView/PersonTimeline';
 import Spinner from 'components/Spinner/Spinner';
 import ErrorMessage from 'components/ErrorMessage/ErrorMessage';
 import { useUnfinishedSubmissions } from 'utils/api/submissions';
+import { canManageCases } from 'lib/permissions';
 
 interface Props {
   person: Resident;
@@ -34,6 +35,8 @@ const PersonPage = ({ person }: Props): React.ReactElement => {
   const submissions = submissionsData?.submissions.filter((sub) =>
     sub.residents.some((resident) => resident.id === person.id)
   );
+
+  const userCanManageCases = canManageCases(user, person);
 
   return (
     <Layout person={person}>
