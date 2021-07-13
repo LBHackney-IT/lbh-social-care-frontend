@@ -7,6 +7,7 @@ import s from './index.module.scss';
 import { useRelationships } from 'utils/api/relationships';
 import { useAllocatedWorkers } from 'utils/api/allocatedWorkers';
 import React from 'react';
+import WarningNotes from 'components/WarningNote/WarningNotes';
 
 interface NavLinkProps {
   href: string;
@@ -86,6 +87,8 @@ const Layout = ({ person, children }: Props): React.ReactElement => {
           {person.firstName} {person.lastName} | Social care | Hackney Council
         </title>
       </Head>
+
+      <WarningNotes id={person.id} />
 
       <div
         className={`govuk-grid-row govuk-!-margin-bottom-8 ${s.personHeader}`}
