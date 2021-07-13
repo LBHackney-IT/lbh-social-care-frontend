@@ -4,9 +4,7 @@ import { useRelationships } from 'utils/api/relationships';
 import Button from 'components/Button/Button';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
-import {
-  ConditionalFeature
-} from 'lib/feature-flags/feature-flags';
+import { ConditionalFeature } from 'lib/feature-flags/feature-flags';
 import Link from 'next/link';
 import style from './Relationships.module.scss';
 import { RelationshipType } from 'types';

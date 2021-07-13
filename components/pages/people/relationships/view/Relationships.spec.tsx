@@ -505,10 +505,10 @@ describe('Relationships component', () => {
       };
 
       const { queryByTestId } = render(
-      <FeatureFlagProvider features={{}}>
-        <Relationships {...props} />
-      </FeatureFlagProvider>
-    );
+        <FeatureFlagProvider features={{}}>
+          <Relationships {...props} />
+        </FeatureFlagProvider>
+      );
 
       const first = queryByTestId('related-person-name-0');
       const second = queryByTestId('related-person-name-1');
@@ -519,22 +519,21 @@ describe('Relationships component', () => {
     });
   });
 
-
   it('should display the "add a new relationship" button if the feature flag is active', async () => {
-      const features: FeatureSet = {
-        'add-relationships': {
-          isActive: true,
-        },
-      };
-      const props = {
-        id: 33339587,
-      };
-      const { queryByText } = render(
-        <FeatureFlagProvider features={features}>
-          <Relationships {...props} />
-        </FeatureFlagProvider>
-      );
+    const features: FeatureSet = {
+      'add-relationships': {
+        isActive: true,
+      },
+    };
+    const props = {
+      id: 33339587,
+    };
+    const { queryByText } = render(
+      <FeatureFlagProvider features={features}>
+        <Relationships {...props} />
+      </FeatureFlagProvider>
+    );
 
-      expect(queryByText('Add a new relationship')).toBeInTheDocument();
+    expect(queryByText('Add a new relationship')).toBeInTheDocument();
   });
 });
