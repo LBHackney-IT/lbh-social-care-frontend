@@ -1,0 +1,66 @@
+@import 'lbh-frontend/lbh/base';
+
+.resultsList {
+  border: 1px solid lbh-colour('lbh-grey-3');
+  height: 300px;
+  overflow-y: auto;
+}
+
+.result {
+  margin-top: 0;
+  position: relative;
+  border-bottom: 1px solid lbh-colour('lbh-grey-4');
+  padding: 15px 45px 15px 20px;
+
+  &:hover svg path {
+    stroke: lbh-colour('lbh-grey-2');
+  }
+
+  &:focus-within {
+    background: lbh-colour('lbh-primary-focus');
+
+    svg path {
+      stroke: lbh-colour('lbh-text');
+    }
+  }
+
+  a {
+    margin-top: 0;
+    font-weight: 600;
+    text-decoration: none;
+    &:after {
+      content: '';
+      display: block;
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+    }
+
+    &:focus {
+      outline: none;
+      background: none;
+      box-shadow: none;
+    }
+  }
+
+  p {
+    margin-top: 7px;
+  }
+
+  svg {
+    margin-top: 0;
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    path {
+      stroke: lbh-colour('lbh-grey-3');
+    }
+  }
+}
+
+.meta {
+  color: lbh-colour('lbh-secondary-text');
+}

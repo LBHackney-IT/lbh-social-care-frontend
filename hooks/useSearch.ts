@@ -6,6 +6,7 @@ const useSearch = <Haystack>(
   needle: string,
   haystack: Haystack[],
   keysToSearch: string[],
+  options?: any,
   minimumCharacters?: number
 ): Haystack[] => {
   const index = useMemo(
@@ -13,8 +14,9 @@ const useSearch = <Haystack>(
       new Fuse(haystack, {
         includeScore: true,
         keys: keysToSearch,
+        ...options,
       }),
-    [haystack, keysToSearch]
+    [haystack, keysToSearch, options]
   );
 
   if (needle.length > (minimumCharacters || 2)) {

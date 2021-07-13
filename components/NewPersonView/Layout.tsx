@@ -99,6 +99,7 @@ const Layout = ({ person, children }: Props): React.ReactElement => {
       </Head>
 
       <AddFormDialog
+        person={person}
         isOpen={addFormOpen}
         onDismiss={() => setAddFormOpen(false)}
       />
