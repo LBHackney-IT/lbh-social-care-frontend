@@ -67,7 +67,7 @@ const CaseLink = ({
   recordId,
   personId,
   children,
-}: Props): React.ReactElement | null => {
+}: Props): React.ReactElement => {
   const form = formName ? forms?.find((form) => form.id === formName) : false;
   if (form)
     return (
@@ -94,7 +94,7 @@ const CaseLink = ({
       <a className="lbh-link">{children || 'View'}</a>
     </Link>
   ) : (
-    formName
+    <>{formName}</>
   );
 };
 

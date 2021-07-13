@@ -54,10 +54,8 @@ const Layout = ({ person, children }: Props): React.ReactElement => {
   const { data: allocations } = useAllocatedWorkers(person.id);
   const { data: relationships } = useRelationships(person.id);
   const { user } = useAuth() as { user: User };
-  const navigation = [
-    canManageCases(user, person)
-      ? { text: 'Timeline', href: `/people/${person.id}` }
-      : undefined,
+
+  const navigation: { text: string; href: string }[] = [
     {
       text: `Allocations ${
         allocations?.allocations ? `(${allocations?.allocations?.length})` : ''
@@ -74,6 +72,12 @@ const Layout = ({ person, children }: Props): React.ReactElement => {
     },
     { text: 'Details', href: `/people/${person.id}/details` },
   ];
+
+  if (canManageCases(user, person))
+    navigation.unshift({
+      text: 'Timeline',
+      href: `/people/${person.id}`,
+    });
 
   const secondaryNavigation = [
     {
