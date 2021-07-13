@@ -23,16 +23,16 @@ const handler = async (
         let submission;
         if (req.body.residents) {
           submission = await patchResidents(
-            String(id),
-            String(user?.email),
+            id as string,
+            user?.email ?? '',
             req.body.residents
           );
         } else {
-          submission = await finishSubmission(String(id), String(user?.email));
+          submission = await finishSubmission(id as string, user?.email ?? '');
           await notifyApprover(
             submission,
             req.body.approverEmail,
-            String(req.headers.host)
+            req.headers.host ?? ''
           );
         }
         res.status(StatusCodes.ACCEPTED).json(submission);
@@ -41,14 +41,14 @@ const handler = async (
     case 'DELETE':
       {
         const user = isAuthorised(req);
-        const status = await discardSubmission(String(id), String(user?.email));
+        const status = await discardSubmission(id as string, user?.email ?? '');
 
         res.status(status).end();
       }
       break;
     case 'GET':
       {
-        const submission = await getSubmissionById(String(id));
+        const submission = await getSubmissionById(id as string);
         const form = forms.find((form) => form.id === submission.formId);
 
         res.json({
