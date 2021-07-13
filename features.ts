@@ -12,6 +12,10 @@ export const getFeatureFlags = ({
     'feature-flags-implementation-proof': {
       isActive: environmentName === 'development',
     },
+    // FEATURE-FLAG-EXPIRES [2021-08-13]: add-relationships
+    'add-relationships': {
+      isActive: environmentName === 'development',
+    },
 
     /*
       The feature-flags-implementation-proof has been setup to have an expiry date in the far future.

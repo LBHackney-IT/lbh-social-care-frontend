@@ -33,6 +33,7 @@ const CustomApp = ({
   pageProps,
 }: ExtendedAppProps): JSX.Element | null => {
   const [user] = useState(pageProps.user);
+
   const features = getFeatureFlags({
     environmentName: pageProps.environmentName,
   });
@@ -84,10 +85,9 @@ CustomApp.getInitialProps = async (
 
   const appProps = await App.getInitialProps(appContext);
 
-  const environmentName = [
-    'social-care-service-staging.hackney.gov.uk',
-    'dev.hackney.gov.uk:3000',
-  ].includes(process.env.REDIRECT_URL || '')
+  const environmentName = ['development', 'staging'].includes(
+    process.env.NEXT_PUBLIC_ENV || ''
+  )
     ? 'development'
     : 'production';
 

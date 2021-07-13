@@ -1,5 +1,9 @@
 import { render } from '@testing-library/react';
 import Relationships from './Relationships';
+import {
+  FeatureFlagProvider,
+  FeatureSet,
+} from 'lib/feature-flags/feature-flags';
 
 import * as relationshipsAPI from 'utils/api/relationships';
 
@@ -30,9 +34,11 @@ describe('Relationships component', () => {
     const props = {
       id: 33339587,
     };
-
-    const { getByText } = render(<Relationships {...props} />);
-
+    const { getByText } = render(
+      <FeatureFlagProvider features={{}}>
+        <Relationships {...props} />
+      </FeatureFlagProvider>
+    );
     expect(getByText('MockedSpinner')).toBeInTheDocument();
   });
 
@@ -47,7 +53,11 @@ describe('Relationships component', () => {
       id: 33339587,
     };
 
-    const { queryByText } = render(<Relationships {...props} />);
+    const { queryByText } = render(
+      <FeatureFlagProvider features={{}}>
+        <Relationships {...props} />
+      </FeatureFlagProvider>
+    );
 
     expect(queryByText('Parent(s)')).toBeInTheDocument();
     expect(queryByText('Children')).toBeInTheDocument();
@@ -70,9 +80,11 @@ describe('Relationships component', () => {
     const props = {
       id: 33339587,
     };
-
-    const { getByText, queryByText } = render(<Relationships {...props} />);
-
+    const { getByText, queryByText } = render(
+      <FeatureFlagProvider features={{}}>
+        <Relationships {...props} />
+      </FeatureFlagProvider>
+    );
     expect(queryByText('Parent(s)')).toBeInTheDocument();
     expect(queryByText('Children')).toBeInTheDocument();
     expect(queryByText('Other')).not.toBeInTheDocument();
@@ -92,9 +104,11 @@ describe('Relationships component', () => {
     const props = {
       id: 33339587,
     };
-
-    const { queryByText } = render(<Relationships {...props} />);
-
+    const { queryByText } = render(
+      <FeatureFlagProvider features={{}}>
+        <Relationships {...props} />
+      </FeatureFlagProvider>
+    );
     expect(queryByText('No relationship found')).toBeInTheDocument();
   });
 
@@ -108,8 +122,11 @@ describe('Relationships component', () => {
     const props = {
       id: 33339587,
     };
-
-    const { queryByText } = render(<Relationships {...props} />);
+    const { queryByText } = render(
+      <FeatureFlagProvider features={{}}>
+        <Relationships {...props} />
+      </FeatureFlagProvider>
+    );
 
     expect(queryByText('No relationship found')).toBeInTheDocument();
   });
@@ -129,7 +146,11 @@ describe('Relationships component', () => {
       id: 33339587,
     };
 
-    const { queryByText } = render(<Relationships {...props} />);
+    const { queryByText } = render(
+      <FeatureFlagProvider features={{}}>
+        <Relationships {...props} />
+      </FeatureFlagProvider>
+    );
 
     expect(queryByText('Parent(s)')).toBeInTheDocument();
     expect(queryByText('Giovanni Muciaccia')).toBeInTheDocument();
@@ -151,7 +172,11 @@ describe('Relationships component', () => {
       id: 33339587,
     };
 
-    const { queryByText } = render(<Relationships {...props} />);
+    const { queryByText } = render(
+      <FeatureFlagProvider features={{}}>
+        <Relationships {...props} />
+      </FeatureFlagProvider>
+    );
 
     expect(queryByText('Unborn sibling(s)')).toBeInTheDocument();
     expect(queryByText('Jambi Neverborn')).toBeInTheDocument();
@@ -172,7 +197,11 @@ describe('Relationships component', () => {
       id: 33339587,
     };
 
-    const { queryAllByText } = render(<Relationships {...props} />);
+    const { queryAllByText } = render(
+      <FeatureFlagProvider features={{}}>
+        <Relationships {...props} />
+      </FeatureFlagProvider>
+    );
 
     const names = queryAllByText(/Muciaccia/);
 
@@ -195,7 +224,11 @@ describe('Relationships component', () => {
       id: 33339587,
     };
 
-    const { queryByTestId } = render(<Relationships {...props} />);
+    const { queryByTestId } = render(
+      <FeatureFlagProvider features={{}}>
+        <Relationships {...props} />
+      </FeatureFlagProvider>
+    );
 
     const first = queryByTestId('related-person-name-0');
     const second = queryByTestId('related-person-name-1');
@@ -232,7 +265,11 @@ describe('Relationships component', () => {
       id: 33339587,
     };
 
-    const { queryByTestId } = render(<Relationships {...props} />);
+    const { queryByTestId } = render(
+      <FeatureFlagProvider features={{}}>
+        <Relationships {...props} />
+      </FeatureFlagProvider>
+    );
 
     const first = queryByTestId('related-person-gender-0');
     const second = queryByTestId('related-person-gender-1');
@@ -268,7 +305,11 @@ describe('Relationships component', () => {
       id: 33339587,
     };
 
-    const { queryByTestId } = render(<Relationships {...props} />);
+    const { queryByTestId } = render(
+      <FeatureFlagProvider features={{}}>
+        <Relationships {...props} />
+      </FeatureFlagProvider>
+    );
 
     const first = queryByTestId('related-person-additional-options-0');
     const second = queryByTestId('related-person-additional-options-1');
@@ -301,7 +342,11 @@ describe('Relationships component', () => {
       id: 33339587,
     };
 
-    const { queryByTestId } = render(<Relationships {...props} />);
+    const { queryByTestId } = render(
+      <FeatureFlagProvider features={{}}>
+        <Relationships {...props} />
+      </FeatureFlagProvider>
+    );
 
     expect(queryByTestId('related-person-details-0')).toHaveTextContent(
       'Emergency contact'
@@ -331,7 +376,11 @@ describe('Relationships component', () => {
         id: 33339587,
       };
 
-      const { queryByTestId } = render(<Relationships {...props} />);
+      const { queryByTestId } = render(
+        <FeatureFlagProvider features={{}}>
+          <Relationships {...props} />
+        </FeatureFlagProvider>
+      );
 
       expect(queryByTestId('parent')).toHaveTextContent('Parent(s)');
     });
@@ -372,7 +421,11 @@ describe('Relationships component', () => {
         id: 33339587,
       };
 
-      const { queryByTestId } = render(<Relationships {...props} />);
+      const { queryByTestId } = render(
+        <FeatureFlagProvider features={{}}>
+          <Relationships {...props} />
+        </FeatureFlagProvider>
+      );
 
       const first = queryByTestId('related-person-name-0');
       const second = queryByTestId('related-person-name-1');
@@ -406,7 +459,11 @@ describe('Relationships component', () => {
         id: 33339587,
       };
 
-      const { queryByTestId } = render(<Relationships {...props} />);
+      const { queryByTestId } = render(
+        <FeatureFlagProvider features={{}}>
+          <Relationships {...props} />
+        </FeatureFlagProvider>
+      );
 
       expect(queryByTestId('sibling')).toHaveTextContent('Sibling(s)');
     });
@@ -447,7 +504,11 @@ describe('Relationships component', () => {
         id: 33339587,
       };
 
-      const { queryByTestId } = render(<Relationships {...props} />);
+      const { queryByTestId } = render(
+      <FeatureFlagProvider features={{}}>
+        <Relationships {...props} />
+      </FeatureFlagProvider>
+    );
 
       const first = queryByTestId('related-person-name-0');
       const second = queryByTestId('related-person-name-1');
@@ -456,5 +517,24 @@ describe('Relationships component', () => {
       expect(first).toHaveTextContent('Foo Bar');
       expect(second).toHaveTextContent('Fizz Buzz');
     });
+  });
+
+
+  it('should display the "add a new relationship" button if the feature flag is active', async () => {
+      const features: FeatureSet = {
+        'add-relationships': {
+          isActive: true,
+        },
+      };
+      const props = {
+        id: 33339587,
+      };
+      const { queryByText } = render(
+        <FeatureFlagProvider features={features}>
+          <Relationships {...props} />
+        </FeatureFlagProvider>
+      );
+
+      expect(queryByText('Add a new relationship')).toBeInTheDocument();
   });
 });

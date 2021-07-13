@@ -5,9 +5,7 @@ import Button from 'components/Button/Button';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
 import {
-  FeatureFlagProvider,
-  ConditionalFeature,
-  FeatureSet,
+  ConditionalFeature
 } from 'lib/feature-flags/feature-flags';
 import Link from 'next/link';
 import style from './Relationships.module.scss';
@@ -31,12 +29,6 @@ const Relationships = ({ id }: Props): React.ReactElement => {
   setTimeout(() => {
     setSuccessMessage(false);
   }, 5000);
-
-  const features: FeatureSet = {
-    'add-relationships': {
-      isActive: process.env.NODE_ENV === 'development',
-    },
-  };
 
   if (!personalRelationshipsApiResponse) {
     return <Spinner />;
@@ -94,14 +86,12 @@ const Relationships = ({ id }: Props): React.ReactElement => {
             RELATIONSHIPS
           </h3>
 
-          <FeatureFlagProvider features={features}>
-            <ConditionalFeature name="add-relationships">
-              <Button
-                label="Add a new relationship"
-                route={`${id}/relationships/add`}
-              />
-            </ConditionalFeature>
-          </FeatureFlagProvider>
+          <ConditionalFeature name="add-relationships">
+            <Button
+              label="Add a new relationship"
+              route={`${id}/relationships/add`}
+            />
+          </ConditionalFeature>
         </div>
 
         <hr className="govuk-divider" />
