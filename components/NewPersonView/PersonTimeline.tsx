@@ -121,8 +121,7 @@ const PersonTimeline = ({
           </p>
 
           <SearchBox
-            label="Search"
-            placeholder="eg. assessment"
+            label="Search for matching events and records"
             searchQuery={searchQuery}
             setSearchQuery={setSearchQuery}
           />

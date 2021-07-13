@@ -1,20 +1,31 @@
 @import 'lbh-frontend/lbh/base';
 
-.action {
+.personHeader {
   @include govuk-media-query($from: tablet) {
-    margin-top: 0px;
-  }
-
-  & + .action {
-    @include govuk-media-query($from: tablet) {
-      margin-left: 15px;
-    }
+    display: flex;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
   }
 }
 
-.primaryAction svg {
-  fill: white;
-  margin-right: 10px;
+.actionsArea {
+  @include govuk-media-query($from: tablet) {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+  }
+}
+
+.primaryAction {
+  @include govuk-media-query($from: tablet) {
+    margin-top: 0px;
+  }
+  svg {
+    fill: white;
+    margin-right: 10px;
+  }
 }
 
 .secondaryNav {
@@ -48,7 +59,8 @@
 
 .unfinishedSubmissionsPanel {
   display: block;
-
+  background: lbh-colour('lbh-grey-4');
+  border: 1px solid lbh-colour('lbh-grey-3');
   li p {
     margin-top: 0;
   }

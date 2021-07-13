@@ -16,7 +16,12 @@ const Sub = ({ sub }: SubProps): React.ReactElement => {
         {sub?.form?.name || sub.formId}
       </Link>{' '}
       <p className="lbh-body-xs">
-        {Math.round((completedSteps / Number(totalSteps)) * 100)}% complete ·{' '}
+        {!isNaN(completedSteps) &&
+          !isNaN(totalSteps as number) &&
+          `${Math.round(
+            (completedSteps / Number(totalSteps)) * 100
+          )}% complete · `}
+
         {sub.createdBy.email}
       </p>
     </li>
@@ -33,14 +38,16 @@ const UnfinishedSubmissionsEvent = ({
   <li
     className={`lbh-timeline__event lbh-timeline__event--action-needed ${s.unfinishedSubmissionsPanel}`}
   >
-    <h3 className="lbh-heading-h3">Unfinished submissions</h3>
+    <h3 className="govuk-!-margin-bottom-4">Unfinished submissions</h3>
     <ul className="lbh-list lbh-body-s">
       {submissions.slice(0, 4).map((sub) => (
         <Sub sub={sub} key={sub.submissionId} />
       ))}
     </ul>
     {submissions.length > 4 && (
-      <p className="lbh-body-s">and {submissions.length - 4} more</p>
+      <p className="lbh-body-s govuk-!-margin-top-4">
+        and {submissions.length - 4} more
+      </p>
     )}
   </li>
 );
