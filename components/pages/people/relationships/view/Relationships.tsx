@@ -11,6 +11,7 @@ import {
 } from 'lib/feature-flags/feature-flags';
 import Link from 'next/link';
 import style from './Relationships.module.scss';
+import { RelationshipType } from 'types';
 
 interface Props {
   id: number;
@@ -22,7 +23,10 @@ const Relationships = ({ id }: Props): React.ReactElement => {
     query && query.relationshipSuccess === 'true'
   );
 
-  const { data: { personalRelationships } = {}, error } = useRelationships(id);
+  const {
+    data: { personalRelationships: personalRelationshipsApiResponse } = {},
+    error,
+  } = useRelationships(id);
 
   setTimeout(() => {
     setSuccessMessage(false);
@@ -34,12 +38,46 @@ const Relationships = ({ id }: Props): React.ReactElement => {
     },
   };
 
-  if (!personalRelationships) {
+  if (!personalRelationshipsApiResponse) {
     return <Spinner />;
   }
   if (error) {
     return <ErrorMessage />;
   }
+
+  const personalRelationships = personalRelationshipsApiResponse.filter(
+    (relationship) =>
+      relationship.type !== 'parentOfUnbornChild' &&
+      relationship.type !== 'siblingOfUnbornChild'
+  );
+
+  const combineOfUnbornChildForType = (type: RelationshipType) => {
+    const relationshipsOfUnbornChild = personalRelationshipsApiResponse.filter(
+      (relationship) => relationship.type === `${type}OfUnbornChild`
+    );
+
+    if (
+      relationshipsOfUnbornChild.length > 0 &&
+      personalRelationships.some((relationship) => relationship.type === type)
+    ) {
+      const relationshipTypeIndex = personalRelationships.findIndex(
+        (relationship) => relationship.type === type
+      );
+
+      personalRelationships[relationshipTypeIndex].persons =
+        personalRelationships[relationshipTypeIndex].persons.concat(
+          relationshipsOfUnbornChild[0].persons
+        );
+    } else if (relationshipsOfUnbornChild.length > 0) {
+      personalRelationships.push({
+        type: type,
+        persons: relationshipsOfUnbornChild[0].persons,
+      });
+    }
+  };
+
+  combineOfUnbornChildForType('parent');
+  combineOfUnbornChildForType('sibling');
 
   return (
     <div>
@@ -96,6 +134,7 @@ const Relationships = ({ id }: Props): React.ReactElement => {
                       >
                         {personRowIndex === 0 && (
                           <th
+                            data-testid={`${relationship.type}`}
                             scope="row"
                             className="govuk-table__header govuk-!-width-one-quarter"
                             rowSpan={relationship.persons.length}
@@ -111,8 +150,8 @@ const Relationships = ({ id }: Props): React.ReactElement => {
                           className={`${
                             relationship.persons.length > 1 &&
                             personRowIndex !== relationship.persons.length - 1
-                              ? `govuk-table__cell govuk-!-width-three-quarters ${style.noBorder}`
-                              : 'govuk-table__cell govuk-!-width-three-quarters'
+                              ? `govuk-table__cell govuk-!-width-one-quarter ${style.noBorder}`
+                              : 'govuk-table__cell govuk-!-width-one-quarter'
                           }`}
                         >
                           {person.id ? (
@@ -122,6 +161,44 @@ const Relationships = ({ id }: Props): React.ReactElement => {
                           ) : (
                             `${person.firstName} ${person.lastName}`
                           )}
+                        </td>
+                        <td
+                          data-testid={`related-person-additional-options-${personRowIndex}`}
+                          key={`related-person-additional-options-${personRowIndex}`}
+                          className={`${
+                            relationship.persons.length > 1 &&
+                            personRowIndex !== relationship.persons.length - 1
+                              ? `govuk-table__cell ${style.noBorder}`
+                              : 'govuk-table__cell'
+                          }`}
+                        >
+                          {person.isMainCarer === 'Y' && 'Main carer'}
+                        </td>
+                        <td
+                          data-testid={`related-person-gender-${personRowIndex}`}
+                          key={`related-person-gender-${personRowIndex}`}
+                          className={`${
+                            relationship.persons.length > 1 &&
+                            personRowIndex !== relationship.persons.length - 1
+                              ? `govuk-table__cell ${style.noBorder}`
+                              : 'govuk-table__cell'
+                          }`}
+                        >
+                          {getGenderString(
+                            person.gender as keyof typeof genderMappings
+                          )}
+                        </td>
+                        <td
+                          data-testid={`related-person-details-${personRowIndex}`}
+                          key={`related-person-details-${personRowIndex}`}
+                          className={`${
+                            relationship.persons.length > 1 &&
+                            personRowIndex !== relationship.persons.length - 1
+                              ? `govuk-table__cell ${style.noBorder}`
+                              : 'govuk-table__cell'
+                          }`}
+                        >
+                          {person.details}
                         </td>
                       </tr>
                     ));
@@ -137,6 +214,17 @@ const Relationships = ({ id }: Props): React.ReactElement => {
       {error && <ErrorMessage />}
     </div>
   );
+};
+
+const getGenderString = (gender: keyof typeof genderMappings): string => {
+  return genderMappings[gender];
+};
+
+const genderMappings = {
+  M: 'Male',
+  F: 'Female',
+  U: 'Unknown',
+  I: 'Indeterminate',
 };
 
 const getTitleString = (
