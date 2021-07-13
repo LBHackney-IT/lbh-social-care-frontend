@@ -1,7 +1,6 @@
 import { format } from 'date-fns';
 import { Case } from 'types';
 import CaseLink from 'components/Cases/CaseLink';
-import s from './index.module.scss';
 import { normaliseDateToISO } from 'utils/date';
 import { isMajorEvent } from './PersonTimeline';
 

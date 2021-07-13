@@ -9,6 +9,7 @@ import SearchBox from 'components/SubmissionsTable/SearchBox';
 import UnfinishedSubmissionsEvent from './UnfinishedSubmissions';
 import { normaliseDateToISO } from 'utils/date';
 import Event from './Event';
+import { mockSubmission } from 'factories/submissions';
 
 const minorForms = ['ASC_case_note', 'Child Case Note'];
 
@@ -56,7 +57,7 @@ const PersonTimeline = ({
       <div className="govuk-grid-column-two-thirds">
         {events?.length > 0 && (
           <ol className="lbh-timeline">
-            {unfinishedSubmissions && (
+            {unfinishedSubmissions && unfinishedSubmissions.length > 0 && (
               <UnfinishedSubmissionsEvent submissions={unfinishedSubmissions} />
             )}
 
