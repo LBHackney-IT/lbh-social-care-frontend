@@ -35,6 +35,8 @@ export interface Field {
   subfields?: Field[];
   /** Singular item name for more descriptive buttons and legends  */
   itemName?: string;
+  /** Option to start with repeater group not open by default */
+  hiddenRepeater?: boolean;
 }
 
 interface Condition {

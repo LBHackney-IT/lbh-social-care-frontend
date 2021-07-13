@@ -6,6 +6,7 @@ const form: Form = {
   groupRecordable: true,
   isViewableByAdults: false,
   isViewableByChildrens: false,
+  hiddenRepeater: true,
   steps: [
     {
       id: 'Case note',
@@ -109,6 +110,7 @@ const form: Form = {
           type: 'repeaterGroup',
           hint: 'eg. Dave to contact landlord',
           itemName: 'action',
+          hiddenRepeater: true,
           subfields: [
             {
               id: 'text',

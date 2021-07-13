@@ -17,7 +17,7 @@ interface Props {
   subfields: Field[];
   label: string;
   hint?: string;
-  minimize?: boolean;
+  hiddenOnStart?: boolean;
 }
 
 const RepeaterGroupField = ({
@@ -26,7 +26,7 @@ const RepeaterGroupField = ({
   subfields,
   hint,
   label,
-  minimize,
+  hiddenOnStart,
 }: Props): React.ReactElement => {
   const {
     values,
@@ -38,13 +38,9 @@ const RepeaterGroupField = ({
     touched: FormikTouched<FormikValues>;
   } = useFormikContext();
 
-  const [minimizeActions, setMinimizeActions] = useState(minimize ?? false);
+  const [hidden, setHidden] = useState(hiddenOnStart ?? false);
 
   const repeaterValues = [].concat(values[name]);
-  console.log(
-    '🚀 ~ file: RepeaterGroupField.tsx ~ line 39 ~ repeaterValues',
-    repeaterValues
-  );
 
   return (
     <div
@@ -78,7 +74,7 @@ const RepeaterGroupField = ({
         <FieldArray name={name}>
           {({ remove, push }) => (
             <>
-              {(repeaterValues.length > 1 || !minimizeActions) &&
+              {(repeaterValues.length > 1 || !hidden) &&
                 repeaterValues.map((item, i) => (
                   <div key={i} className={s.repeaterGroup}>
                     {subfields.map((subfield) => (
@@ -123,8 +119,8 @@ const RepeaterGroupField = ({
               <button
                 type="button"
                 onClick={() => {
-                  if (minimizeActions) {
-                    setMinimizeActions(false);
+                  if (hidden) {
+                    setHidden(false);
                   } else {
                     push(generateInitialValues(subfields));
                   }
@@ -135,7 +131,7 @@ const RepeaterGroupField = ({
                   <path d="M6.94 0L5 0V12H6.94V0Z" />
                   <path d="M12 5H0V7H12V5Z" />
                 </svg>
-                {repeaterValues.length > 0 && !minimizeActions
+                {repeaterValues.length > 0 && !hidden
                   ? `Add another ${itemName || 'item'}`
                   : `Add ${itemName || 'item'}`}
               </button>
