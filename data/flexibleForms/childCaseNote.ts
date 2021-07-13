@@ -1,8 +1,8 @@
 import { Form } from './forms.types';
 
 const form: Form = {
-  id: 'Child Case Note',
-  name: 'Child Case Note',
+  id: 'child-case-note',
+  name: 'Case note',
   groupRecordable: true,
   isViewableByAdults: false,
   isViewableByChildrens: false,
