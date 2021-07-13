@@ -11,19 +11,19 @@ type Data = {
 export const useUnfinishedSubmissions = (
   socialCareId?: number
 ): SWRResponse<Data, ErrorAPI> => {
-  const { data, ...others }: SWRResponse<Data, ErrorAPI> = useSWR(
+  const res: SWRResponse<Data, ErrorAPI> = useSWR(
     `/api/submissions?includeSubmissions=true`
   );
 
   return {
+    ...res,
     data: {
-      forms: data?.forms || [],
+      forms: res?.data?.forms || [],
       submissions: socialCareId
-        ? data?.submissions.filter((sub) =>
+        ? res?.data?.submissions.filter((sub) =>
             sub.residents.some((resident) => resident.id === socialCareId)
           ) || []
-        : data?.submissions || [],
+        : res?.data?.submissions || [],
     },
-    ...others,
   };
 };

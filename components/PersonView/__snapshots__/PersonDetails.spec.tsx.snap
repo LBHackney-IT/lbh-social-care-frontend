@@ -262,6 +262,12 @@ exports[`PersonDetails component should render properly 1`] = `
       >
         PERSON DETAILS
       </h2>
+      <a
+        class="lbh-link"
+        href="/people/2/edit"
+      >
+        Edit details
+      </a>
     </div>
     <hr
       class="govuk-divider"
