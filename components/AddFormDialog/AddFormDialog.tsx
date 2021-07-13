@@ -5,12 +5,12 @@ import { useState } from 'react';
 import { Resident, User } from 'types';
 import s from './AddFormDialog.module.scss';
 import Link from 'next/link';
+import { useMemo, useEffect } from 'react';
+import { useAuth } from 'components/UserContext/UserContext';
 
 import ADULT_GFORMS from 'data/googleForms/adultForms';
 import CHILD_GFORMS from 'data/googleForms/childForms';
 import flexibleForms from 'data/flexibleForms';
-import { useEffect } from 'react';
-import { useAuth } from 'components/UserContext/UserContext';
 
 interface Props {
   isOpen: boolean;
@@ -41,31 +41,35 @@ const AddFormDialog = ({
     approvable: boolean;
   }
 
-  const allForms: Option[] = flexibleForms
-    .filter((f) => {
-      // if user has elevated permissions, show all forms
-      if (user.hasAdminPermissions || user.hasDevPermissions) return true;
-      // otherwise, only show those relevant to current person's context
-      return serviceContext === 'A'
-        ? f.isViewableByAdults
-        : f.isViewableByChildrens;
-    })
-    .map((f) => ({
-      label: f.name,
-      href: f.id,
-      system: true,
-      groupRecordable: !!f.groupRecordable,
-      approvable: !!f.approvable,
-    }))
-    .concat(
-      gForms.map((f) => ({
-        label: f.text,
-        href: f.value,
-        system: false,
-        groupRecordable: false,
-        approvable: false,
-      }))
-    );
+  const allForms: Option[] = useMemo(
+    () =>
+      flexibleForms
+        .filter((f) => {
+          // if user has elevated permissions, show all forms
+          if (user.hasAdminPermissions || user.hasDevPermissions) return true;
+          // otherwise, only show those relevant to current person's context
+          return serviceContext === 'A'
+            ? f.isViewableByAdults
+            : f.isViewableByChildrens;
+        })
+        .map((f) => ({
+          label: f.name,
+          href: f.id,
+          system: true,
+          groupRecordable: !!f.groupRecordable,
+          approvable: !!f.approvable,
+        }))
+        .concat(
+          gForms.map((f) => ({
+            label: f.text,
+            href: f.value,
+            system: false,
+            groupRecordable: false,
+            approvable: false,
+          }))
+        ),
+    [gForms, serviceContext, user.hasAdminPermissions, user.hasDevPermissions]
+  );
 
   const results = useSearch(
     searchQuery,
