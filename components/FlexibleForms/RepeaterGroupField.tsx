@@ -9,6 +9,7 @@ import { Field } from 'data/flexibleForms/forms.types';
 import s from './Repeater.module.scss';
 import FlexibleField from './FlexibleFields';
 import { generateInitialValues } from 'lib/utils';
+import { useState } from 'react';
 
 interface Props {
   name: string;
@@ -16,6 +17,7 @@ interface Props {
   subfields: Field[];
   label: string;
   hint?: string;
+  minimize?: boolean;
 }
 
 const RepeaterGroupField = ({
@@ -24,6 +26,7 @@ const RepeaterGroupField = ({
   subfields,
   hint,
   label,
+  minimize,
 }: Props): React.ReactElement => {
   const {
     values,
@@ -35,7 +38,13 @@ const RepeaterGroupField = ({
     touched: FormikTouched<FormikValues>;
   } = useFormikContext();
 
+  const [minimizeActions, setMinimizeActions] = useState(minimize ?? false);
+
   const repeaterValues = [].concat(values[name]);
+  console.log(
+    '🚀 ~ file: RepeaterGroupField.tsx ~ line 39 ~ repeaterValues',
+    repeaterValues
+  );
 
   return (
     <div
@@ -69,52 +78,64 @@ const RepeaterGroupField = ({
         <FieldArray name={name}>
           {({ remove, push }) => (
             <>
-              {repeaterValues.map((item, i) => (
-                <div key={i} className={s.repeaterGroup}>
-                  {subfields.map((subfield) => (
-                    <FlexibleField
-                      values={values}
-                      field={{
-                        ...subfield,
-                        id: `${name}.${i}.${subfield.id}`,
-                      }}
-                      touched={touched}
-                      errors={errors}
-                      key={subfield.id}
-                    />
-                  ))}
-
-                  <button
-                    type="button"
-                    onClick={() => remove(i)}
-                    className={s.close}
-                  >
-                    <span className="govuk-visually-hidden">Remove</span>
-
-                    <svg width="18" height="18" viewBox="0 0 13 13" fill="none">
-                      <path
-                        d="M-0.0501709 1.36379L1.36404 -0.050415L12.6778 11.2633L11.2635 12.6775L-0.0501709 1.36379Z"
-                        fill="#0B0C0C"
+              {(repeaterValues.length > 1 || !minimizeActions) &&
+                repeaterValues.map((item, i) => (
+                  <div key={i} className={s.repeaterGroup}>
+                    {subfields.map((subfield) => (
+                      <FlexibleField
+                        values={values}
+                        field={{
+                          ...subfield,
+                          id: `${name}.${i}.${subfield.id}`,
+                        }}
+                        touched={touched}
+                        errors={errors}
+                        key={subfield.id}
                       />
-                      <path
-                        d="M11.2635 -0.050293L12.6778 1.36392L1.36404 12.6776L-0.0501709 11.2634L11.2635 -0.050293Z"
-                        fill="#0B0C0C"
-                      />
-                    </svg>
-                  </button>
-                </div>
-              ))}
+                    ))}
+
+                    <button
+                      type="button"
+                      onClick={() => remove(i)}
+                      className={s.close}
+                    >
+                      <span className="govuk-visually-hidden">Remove</span>
+
+                      <svg
+                        width="18"
+                        height="18"
+                        viewBox="0 0 13 13"
+                        fill="none"
+                      >
+                        <path
+                          d="M-0.0501709 1.36379L1.36404 -0.050415L12.6778 11.2633L11.2635 12.6775L-0.0501709 1.36379Z"
+                          fill="#0B0C0C"
+                        />
+                        <path
+                          d="M11.2635 -0.050293L12.6778 1.36392L1.36404 12.6776L-0.0501709 11.2634L11.2635 -0.050293Z"
+                          fill="#0B0C0C"
+                        />
+                      </svg>
+                    </button>
+                  </div>
+                ))}
 
               <button
                 type="button"
-                onClick={() => push(generateInitialValues(subfields))}
+                onClick={() => {
+                  if (minimizeActions) {
+                    setMinimizeActions(false);
+                  } else {
+                    push(generateInitialValues(subfields));
+                  }
+                }}
                 className={`govuk-button lbh-button lbh-button--add ${s.addAnother}`}
               >
                 <svg width="12" height="12" viewBox="0 0 12 12">
                   <path d="M6.94 0L5 0V12H6.94V0Z" />
                   <path d="M12 5H0V7H12V5Z" />
                 </svg>
-                {repeaterValues.length > 0
+                {repeaterValues.length > 0 && !minimizeActions
                   ? `Add another ${itemName || 'item'}`
                   : `Add ${itemName || 'item'}`}
               </button>
