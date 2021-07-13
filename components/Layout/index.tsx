@@ -7,10 +7,17 @@ import Footer from './Footer/Footer';
 
 export interface Props {
   children: React.ReactChild;
-  goBackButton?: boolean;
+  goBackButton: boolean;
+  noLayout: boolean;
 }
 
-const Layout = ({ goBackButton, children }: Props): React.ReactElement => {
+const Layout = ({
+  children,
+  goBackButton = false,
+  noLayout = false,
+}: Props): React.ReactElement => {
+  if (noLayout) return <>{children}</>;
+
   const feedbackLink = process.env.NEXT_PUBLIC_FEEDBACK_LINK || '';
   return (
     <>

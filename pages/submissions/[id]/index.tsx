@@ -1,5 +1,6 @@
 import { GetServerSideProps } from 'next';
 import Head from 'next/head';
+import Link from 'next/link';
 import PersonWidget from 'components/PersonWidget/PersonWidget';
 import TaskList from 'components/TaskList/TaskList';
 import TaskListHeader from 'components/TaskList/TaskListHeader';
@@ -83,6 +84,12 @@ const TaskListPage = ({
         </div>
         <div className="govuk-grid-column-one-third">
           <div className={s.sticky}>
+            <Link href={`/submissions/${params.id}/printable`}>
+              <a className="lbh-link lbh-link--no-visited-state lbh-body-s">
+                See printable version
+              </a>
+            </Link>
+
             <p className="lbh-body">This is for:</p>
             {form.groupRecordable ? (
               <GroupRecordingWidget initialPeople={residents} />
