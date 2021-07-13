@@ -8,6 +8,9 @@ import {
   mockedRelationshipPartialData,
   mockedRelationshipNoData,
   mockRelationshipEmptyData,
+  mockedParentRelationship,
+  mockedUnbornSiblingRelationship,
+  mockedOrderedRelationship,
 } from 'factories/relationships';
 
 jest.mock('next/router', () => ({
@@ -24,7 +27,9 @@ describe('Relationships component', () => {
     const props = {
       id: 33339587,
     };
+
     const { getByText } = render(<Relationships {...props} />);
+
     expect(getByText('MockedSpinner')).toBeInTheDocument();
   });
 
@@ -38,17 +43,19 @@ describe('Relationships component', () => {
     const props = {
       id: 33339587,
     };
-    const { getByText } = render(<Relationships {...props} />);
-    expect(getByText('Parent')).toBeInTheDocument();
-    expect(getByText('Child')).toBeInTheDocument();
-    expect(getByText('Other')).toBeInTheDocument();
-    expect(getByText('Sibling')).toBeInTheDocument();
-    expect(getByText('Unborn sibling')).toBeInTheDocument();
-    expect(getByText('Sibling of unborn child')).toBeInTheDocument();
 
-    expect(getByText('Giovanni Muciaccia')).toBeInTheDocument();
-    expect(getByText('Jambi Neverborn')).toBeInTheDocument();
-    expect(getByText('Cento Neverborn')).toBeInTheDocument();
+    const { queryByText } = render(<Relationships {...props} />);
+
+    expect(queryByText('Parent(s)')).toBeInTheDocument();
+    expect(queryByText('Children')).toBeInTheDocument();
+    expect(queryByText('Other')).toBeInTheDocument();
+    expect(queryByText('Sibling(s)')).toBeInTheDocument();
+    expect(queryByText('Unborn sibling(s)')).toBeInTheDocument();
+    expect(queryByText('Sibling of unborn child')).toBeInTheDocument();
+
+    expect(queryByText('Giovanni Muciaccia')).toBeInTheDocument();
+    expect(queryByText('Jambi Neverborn')).toBeInTheDocument();
+    expect(queryByText('Cento Neverborn')).toBeInTheDocument();
   });
 
   it('should populate partially the list', async () => {
@@ -61,11 +68,13 @@ describe('Relationships component', () => {
     const props = {
       id: 33339587,
     };
+
     const { getByText, queryByText } = render(<Relationships {...props} />);
-    expect(queryByText('Parent')).toBeInTheDocument();
-    expect(queryByText('Child')).toBeInTheDocument();
+
+    expect(queryByText('Parent(s)')).toBeInTheDocument();
+    expect(queryByText('Children')).toBeInTheDocument();
     expect(queryByText('Other')).not.toBeInTheDocument();
-    expect(queryByText('Sibling')).not.toBeInTheDocument();
+    expect(queryByText('Sibling(s)')).not.toBeInTheDocument();
     expect(queryByText('Sibling of unborn child')).not.toBeInTheDocument();
 
     expect(getByText('Mastro Geppetto')).toBeInTheDocument();
@@ -82,7 +91,9 @@ describe('Relationships component', () => {
     const props = {
       id: 33339587,
     };
+
     const { queryByText } = render(<Relationships {...props} />);
+
     expect(queryByText('No relationship found')).toBeInTheDocument();
   });
 
@@ -96,8 +107,103 @@ describe('Relationships component', () => {
     const props = {
       id: 33339587,
     };
+
     const { queryByText } = render(<Relationships {...props} />);
 
     expect(queryByText('No relationship found')).toBeInTheDocument();
+  });
+
+  it('should populate the list converting the type to display name', async () => {
+    jest.spyOn(relationshipsAPI, 'useRelationships').mockImplementation(() => ({
+      data: {
+        personId: 33339587,
+        personalRelationships: [mockedParentRelationship],
+      },
+      isValidating: false,
+      mutate: jest.fn(),
+      revalidate: jest.fn(),
+    }));
+
+    const props = {
+      id: 33339587,
+    };
+
+    const { queryByText } = render(<Relationships {...props} />);
+
+    expect(queryByText('Parent(s)')).toBeInTheDocument();
+    expect(queryByText('Giovanni Muciaccia')).toBeInTheDocument();
+    expect(queryByText('Neil GrandeArtista')).toBeInTheDocument();
+  });
+
+  it('should populate the list converting the type to display name', async () => {
+    jest.spyOn(relationshipsAPI, 'useRelationships').mockImplementation(() => ({
+      data: {
+        personId: 33339587,
+        personalRelationships: [mockedUnbornSiblingRelationship],
+      },
+      isValidating: false,
+      mutate: jest.fn(),
+      revalidate: jest.fn(),
+    }));
+
+    const props = {
+      id: 33339587,
+    };
+
+    const { queryByText } = render(<Relationships {...props} />);
+
+    expect(queryByText('Unborn sibling(s)')).toBeInTheDocument();
+    expect(queryByText('Jambi Neverborn')).toBeInTheDocument();
+  });
+
+  it('should populate the list in alphabetical order (by surname/name) with same surname', async () => {
+    jest.spyOn(relationshipsAPI, 'useRelationships').mockImplementation(() => ({
+      data: {
+        personId: 33339587,
+        personalRelationships: [mockedOrderedRelationship],
+      },
+      isValidating: false,
+      mutate: jest.fn(),
+      revalidate: jest.fn(),
+    }));
+
+    const props = {
+      id: 33339587,
+    };
+
+    const { queryAllByText } = render(<Relationships {...props} />);
+
+    const names = queryAllByText(/Muciaccia/);
+
+    expect(names[0]).toHaveTextContent('Giovanni Muciaccia');
+    expect(names[1]).toHaveTextContent('Neil Muciaccia');
+  });
+
+  it('should populate the list in alphabetical order (by surname/name) different people', async () => {
+    jest.spyOn(relationshipsAPI, 'useRelationships').mockImplementation(() => ({
+      data: {
+        personId: 33339587,
+        personalRelationships: [mockedOrderedRelationship],
+      },
+      isValidating: false,
+      mutate: jest.fn(),
+      revalidate: jest.fn(),
+    }));
+
+    const props = {
+      id: 33339587,
+    };
+
+    const { queryByTestId } = render(<Relationships {...props} />);
+
+    const first = queryByTestId('related-person-name-0');
+    const second = queryByTestId('related-person-name-1');
+    const third = queryByTestId('related-person-name-2');
+    const fourth = queryByTestId('related-person-name-3');
+
+    expect(first).toHaveTextContent('Michele Giuppone');
+    expect(second).toHaveTextContent('Giovanni Muciaccia');
+    expect(third).toHaveTextContent('Neil Muciaccia');
+    expect(fourth).toHaveTextContent('Francesco Rostrini');
   });
 });
