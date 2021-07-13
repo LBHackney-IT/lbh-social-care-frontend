@@ -20,7 +20,8 @@ const useSearch = <Haystack>(
   );
 
   if (needle.length > (minimumCharacters || 2)) {
-    return index.search(needle).map((result) => result.item);
+    const results = index.search(needle);
+    return results.map((result) => result.item);
   }
 
   return haystack;

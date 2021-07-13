@@ -3,7 +3,6 @@ import SearchBox from 'components/SubmissionsTable/SearchBox';
 import useSearch from 'hooks/useSearch';
 import { useState } from 'react';
 import { Resident } from 'types';
-import { Form } from 'data/flexibleForms/forms.types';
 import s from './AddFormDialog.module.scss';
 import Link from 'next/link';
 
@@ -23,46 +22,49 @@ const AddFormDialog = ({
   isOpen,
   onDismiss,
 }: Props): React.ReactElement => {
-  const serviceContext = person.contextFlag;
-
-  const gForms = serviceContext === 'A' ? ADULT_GFORMS : CHILD_GFORMS;
-
   const [searchQuery, setSearchQuery] = useState<string>('');
 
   useEffect(() => {
     setSearchQuery('');
   }, [isOpen]);
 
-  // interface Option {
-  //   label: string;
-  //   href: string;
-  //   system?: boolean;
-  //   approvable?: boolean;
-  //   groupRecordable?: boolean;
-  // }
+  const serviceContext = person.contextFlag;
+  const gForms = serviceContext === 'A' ? ADULT_GFORMS : CHILD_GFORMS;
 
-  const options = flexibleForms
-    .map((form) => ({
-      label: form.name,
-      href: `/submissions/new?form_id=${form.id}&social_care_id=${person.id}`,
+  interface Option {
+    label: string;
+    href: string;
+    system: boolean;
+    groupRecordable: boolean;
+    approvable: boolean;
+  }
+
+  const allForms: Option[] = flexibleForms
+    .filter((f) =>
+      serviceContext === 'A' ? f.isViewableByAdults : f.isViewableByChildrens
+    )
+    .map((f) => ({
+      label: f.name,
+      href: f.id,
       system: true,
-      approvable: form.approvable,
-      groupRecordable: form.groupRecordable,
+      groupRecordable: !!f.groupRecordable,
+      approvable: !!f.approvable,
     }))
     .concat(
-      gForms.map((form) => ({
-        label: form.text,
-        href: form.value,
+      gForms.map((f) => ({
+        label: f.text,
+        href: f.value,
+        system: false,
+        groupRecordable: false,
+        approvable: false,
       }))
     );
 
   const results = useSearch(
     searchQuery,
-    options,
+    allForms,
     ['label'],
-    {
-      threshold: 0.3,
-    },
+    { threshold: 0.3 },
     1
   );
 
@@ -75,15 +77,15 @@ const AddFormDialog = ({
           label="Search for a form"
           placeholder="Search forms..."
         />
-
         <p className="lbh-body-xs">{results.length} matches</p>
       </div>
+
       <ul className={s.resultsList}>
-        {results.map((result) => (
-          <li className={s.result} key={result.href}>
+        {results.map((result, i) => (
+          <li className={s.result} key={i}>
             <Link href={result.href}>
               <a
-                target={!result.system && '_blank'}
+                target={result.system ? '' : '_blank'}
                 className="lbh-link lbh-link--no-visited-state"
               >
                 {result.label}
