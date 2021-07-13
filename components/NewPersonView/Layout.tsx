@@ -2,10 +2,11 @@ import Head from 'next/head';
 import Link from 'next/link';
 import { format } from 'date-fns';
 import { useRouter } from 'next/router';
-import { Resident } from 'types';
+import { AllocationData, Resident } from 'types';
 import s from './index.module.scss';
 import { useRelationships } from 'utils/api/relationships';
 import { useAllocatedWorkers } from 'utils/api/allocatedWorkers';
+import React from 'react';
 
 interface NavLinkProps {
   href: string;
@@ -33,6 +34,16 @@ interface Props {
   person: Resident;
   children: React.ReactChild;
 }
+
+const summariseAllocations = (allocations): string | null => {
+  if (allocations?.length === 1)
+    return ` · Allocated to ${allocations[0].allocatedWorker}`;
+  if (allocations?.length > 1)
+    return ` · Allocated to ${allocations[0].allocatedWorker} and ${
+      allocations?.length - 1
+    } others`;
+  return null;
+};
 
 const Layout = ({ person, children }: Props): React.ReactElement => {
   const { data: allocations, error: allocationError } = useAllocatedWorkers(
@@ -62,8 +73,10 @@ const Layout = ({ person, children }: Props): React.ReactElement => {
   ];
 
   const secondaryNavigation = [
-    { text: 'Add warning note', href: `/people/${person.id}` },
-    { text: 'Example link', href: `/people/${person.id}` },
+    {
+      text: 'Add warning note',
+      href: `/people/${person.id}/warning-notes/add?id=${person.id}`,
+    },
   ];
 
   return (
@@ -81,10 +94,14 @@ const Layout = ({ person, children }: Props): React.ReactElement => {
           <h1 className="lbh-heading-h1">
             {person.firstName} {person.lastName}
           </h1>
-          <p className="govuk-caption-m govuk-!-margin-top-3">
+          <p
+            className={`govuk-caption-m govuk-!-margin-top-3 ${s.personCaption}`}
+          >
             #{person.id}
             {person.dateOfBirth &&
               ` · Born ${format(new Date(person.dateOfBirth), 'dd MMM yyyy')}`}
+            {allocations?.allocations &&
+              summariseAllocations(allocations.allocations)}
           </p>
         </div>
 

@@ -1,52 +1,23 @@
 import React, { useState } from 'react';
-import { format, formatDistanceToNow } from 'date-fns';
+import { formatDistanceToNow } from 'date-fns';
 import { Case } from 'types';
 import useSearch from 'hooks/useSearch';
-import CaseLink from 'components/Cases/CaseLink';
 import s from './index.module.scss';
 import FilterButton, { Filter } from './FilterButton';
 import { Submission } from 'data/flexibleForms/forms.types';
 import SearchBox from 'components/SubmissionsTable/SearchBox';
 import UnfinishedSubmissionsEvent from './UnfinishedSubmissions';
 import { normaliseDateToISO } from 'utils/date';
+import Event from './Event';
 
-interface EventProps {
-  event: Case;
-}
+const minorForms = ['ASC_case_note', 'Child Case Note'];
 
-const Event = ({ event }: EventProps): React.ReactElement => {
-  const displayDate = normaliseDateToISO(
-    String(event?.dateOfEvent || event?.caseFormTimestamp)
+/** for all possible kinds of submission/case/record, see if it's major or not */
+export const isMajorEvent = (event: Case): boolean =>
+  !(
+    minorForms.includes(event?.formName) ||
+    minorForms.includes(event?.caseFormData?.form_name_overall)
   );
-
-  return (
-    <li
-      className={`lbh-timeline__event ${
-        event.formName === 'Child Case Note' && `lbh-timeline__event--minor`
-      }`}
-    >
-      <h3 className="lbh-heading-h3">
-        <CaseLink
-          formName={event.formName}
-          externalUrl={event.caseFormUrl}
-          caseFormData={event.caseFormData}
-          recordId={event.recordId}
-          personId={event.personId}
-        >
-          {event.formName}
-        </CaseLink>
-      </h3>
-      {}
-      <p className="lbh-body">
-        {format(
-          new Date(displayDate),
-          displayDate.includes('T') ? 'dd MMM yyyy K.mm aaa' : 'dd MMM yyyy'
-        )}
-      </p>
-      <p className="lbh-body">{event.officerEmail}</p>
-    </li>
-  );
-};
 
 interface Props {
   events: Case[];
@@ -68,7 +39,7 @@ const PersonTimeline = ({
   const results = useSearch(
     searchQuery,
     events?.filter((event) =>
-      filter === 'major' ? event.formName !== 'Child Case Note' : true
+      filter === 'major' ? isMajorEvent(event) : true
     ),
     ['formName', 'officerEmail']
   );

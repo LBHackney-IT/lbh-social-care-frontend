@@ -9,6 +9,10 @@
   }
 }
 
+.personCaption {
+  font-size: 1rem;
+}
+
 .actionsArea {
   @include govuk-media-query($from: tablet) {
     display: flex;
@@ -58,9 +62,10 @@
 }
 
 .unfinishedSubmissionsPanel {
-  display: block;
   background: lbh-colour('lbh-grey-4');
   border: 1px solid lbh-colour('lbh-grey-3');
+  padding: 20px 30px;
+
   li p {
     margin-top: 0;
   }
