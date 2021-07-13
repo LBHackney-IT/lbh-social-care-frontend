@@ -36,6 +36,7 @@ functions:
       securityGroupIds: ${self:custom.securityGroups.${self:provider.stage}}
       subnetIds: ${self:custom.subnets.${self:provider.stage}}
     environment:
+      NEXT_PUBLIC_ENV: ${opt:stage}
       AWS_KEY: ${ssm:/lbh-social-care/${self:provider.stage}/aws-key}
       NEXT_PUBLIC_ENV: ${opt:stage}
       ENDPOINT_API: ${ssm:/lbh-social-care/${self:provider.stage}/endpoint-case-viewer}
