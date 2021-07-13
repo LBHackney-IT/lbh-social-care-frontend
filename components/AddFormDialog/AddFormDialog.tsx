@@ -2,7 +2,7 @@ import Dialog from 'components/Dialog/Dialog';
 import SearchBox from 'components/SubmissionsTable/SearchBox';
 import useSearch from 'hooks/useSearch';
 import { useState } from 'react';
-import { Resident } from 'types';
+import { Resident, User } from 'types';
 import s from './AddFormDialog.module.scss';
 import Link from 'next/link';
 
@@ -10,6 +10,7 @@ import ADULT_GFORMS from 'data/googleForms/adultForms';
 import CHILD_GFORMS from 'data/googleForms/childForms';
 import flexibleForms from 'data/flexibleForms';
 import { useEffect } from 'react';
+import { useAuth } from 'components/UserContext/UserContext';
 
 interface Props {
   isOpen: boolean;
@@ -22,6 +23,7 @@ const AddFormDialog = ({
   isOpen,
   onDismiss,
 }: Props): React.ReactElement => {
+  const { user } = useAuth() as { user: User };
   const [searchQuery, setSearchQuery] = useState<string>('');
 
   useEffect(() => {
@@ -40,9 +42,14 @@ const AddFormDialog = ({
   }
 
   const allForms: Option[] = flexibleForms
-    .filter((f) =>
-      serviceContext === 'A' ? f.isViewableByAdults : f.isViewableByChildrens
-    )
+    .filter((f) => {
+      // if user has elevated permissions, show all forms
+      if (user.hasAdminPermissions || user.hasDevPermissions) return true;
+      // otherwise, only show those relevant to current person's context
+      return serviceContext === 'A'
+        ? f.isViewableByAdults
+        : f.isViewableByChildrens;
+    })
     .map((f) => ({
       label: f.name,
       href: f.id,
@@ -64,6 +71,7 @@ const AddFormDialog = ({
     searchQuery,
     allForms,
     ['label'],
+    // more precise threshold gives better results
     { threshold: 0.3 },
     1
   );
