@@ -45,3 +45,11 @@
     top: 25px;
   }
 }
+
+.unfinishedSubmissionsPanel {
+  display: block;
+
+  li p {
+    margin-top: 0;
+  }
+}

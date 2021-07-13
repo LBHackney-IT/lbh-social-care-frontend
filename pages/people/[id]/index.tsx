@@ -7,6 +7,7 @@ import { Case } from 'types';
 import PersonTimeline from 'components/NewPersonView/PersonTimeline';
 import Spinner from 'components/Spinner/Spinner';
 import ErrorMessage from 'components/ErrorMessage/ErrorMessage';
+import { useUnfinishedSubmissions } from 'utils/api/submissions';
 
 interface Props {
   person: Resident;
@@ -17,8 +18,11 @@ const PersonPage = ({ person }: Props): React.ReactElement => {
     data: casesData,
     size,
     setSize,
-    error,
+    error: casesError,
   } = useCasesByResident(person.id);
+
+  const { data: submissionsData, error: submissionsError } =
+    useUnfinishedSubmissions(person.id);
 
   // flatten pagination
   const events = casesData?.reduce(
@@ -26,12 +30,22 @@ const PersonPage = ({ person }: Props): React.ReactElement => {
     [] as Case[]
   );
 
+  // grab submissions for this resident only
+  const submissions = submissionsData?.submissions.filter((sub) =>
+    sub.residents.some((resident) => resident.id === person.id)
+  );
+
   return (
     <Layout person={person}>
       {events ? (
-        <PersonTimeline events={events} size={size} setSize={setSize} />
-      ) : error ? (
-        <ErrorMessage label={error.message} />
+        <PersonTimeline
+          unfinishedSubmissions={submissions}
+          events={events}
+          size={size}
+          setSize={setSize}
+        />
+      ) : casesError ? (
+        <ErrorMessage label={casesError.message} />
       ) : (
         <Spinner />
       )}

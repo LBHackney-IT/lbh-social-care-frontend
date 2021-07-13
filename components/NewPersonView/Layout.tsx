@@ -18,7 +18,7 @@ const NavLink = ({ href, children }: NavLinkProps) => {
     <li>
       <Link href={href}>
         <a
-          className={`lbh-link lbh-link--no-visited-state lbh-body-l ${
+          className={`lbh-link lbh-link--no-visited-state ${
             router.asPath === href && `govuk-!-font-weight-bold`
           }`}
         >
@@ -90,19 +90,7 @@ const Layout = ({ person, children }: Props): React.ReactElement => {
                 <path d="M6.94 0L5 0V12H6.94V0Z" />
                 <path d="M12 5H0V7H12V5Z" />
               </svg>
-              Add case note
-            </a>
-          </Link>
-
-          <Link href={`/people/${person.id}/records`}>
-            <a
-              className={`govuk-button lbh-button lbh-button--secondary lbh-button--add  ${s.action}`}
-            >
-              <svg width="12" height="12" viewBox="0 0 12 12">
-                <path d="M6.94 0L5 0V12H6.94V0Z" />
-                <path d="M12 5H0V7H12V5Z" />
-              </svg>
-              Add something else
+              Add something new
             </a>
           </Link>
         </div>

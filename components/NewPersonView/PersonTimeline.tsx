@@ -1,10 +1,13 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { format, formatDistanceToNow } from 'date-fns';
 import { Case } from 'types';
 import useSearch from 'hooks/useSearch';
 import CaseLink from 'components/Cases/CaseLink';
 import s from './index.module.scss';
 import FilterButton, { Filter } from './FilterButton';
+import { Submission } from 'data/flexibleForms/forms.types';
+import SearchBox from 'components/SubmissionsTable/SearchBox';
+import UnfinishedSubmissionsEvent from './UnfinishedSubmissions';
 
 /** convert all our weird date formats into iso-compatible strings */
 const normaliseDateToISO = (str: string): string => {
@@ -60,12 +63,14 @@ const Event = ({ event }: EventProps): React.ReactElement => {
 
 interface Props {
   events: Case[];
+  unfinishedSubmissions?: Submission[];
   size: number;
   setSize: (size: number) => void;
 }
 
 const PersonTimeline = ({
   events,
+  unfinishedSubmissions,
   size,
   setSize,
 }: Props): React.ReactElement => {
@@ -91,6 +96,10 @@ const PersonTimeline = ({
       <div className="govuk-grid-column-two-thirds">
         {events?.length > 0 && (
           <ol className="lbh-timeline">
+            {unfinishedSubmissions && (
+              <UnfinishedSubmissionsEvent submissions={unfinishedSubmissions} />
+            )}
+
             {results?.map((event) => (
               <Event event={event} key={event.recordId} />
             ))}
@@ -111,40 +120,12 @@ const PersonTimeline = ({
             {oldestTimestamp && formatDistanceToNow(new Date(oldestTimestamp))}
           </p>
 
-          <div className="govuk-form-group lbh-form-group">
-            <label className="govuk-label lbh-label" htmlFor="query">
-              Search
-            </label>
-            <div className="lbh-search-box" style={{ marginTop: 0 }}>
-              <input
-                className="govuk-input lbh-input"
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                id="query"
-                name="query"
-                type="search"
-                placeholder="eg. assessment"
-              />
-              {searchQuery.length > 0 && (
-                <button
-                  className="lbh-search-box__action"
-                  onClick={() => setSearchQuery('')}
-                >
-                  <span className="govuk-visually-hidden">Clear search</span>
-                  <svg width="13" height="13" viewBox="0 0 13 13" fill="none">
-                    <path
-                      d="M-0.0501709 1.36379L1.36404 -0.050415L12.6778 11.2633L11.2635 12.6775L-0.0501709 1.36379Z"
-                      fill="#0B0C0C"
-                    />
-                    <path
-                      d="M11.2635 -0.050293L12.6778 1.36392L1.36404 12.6776L-0.0501709 11.2634L11.2635 -0.050293Z"
-                      fill="#0B0C0C"
-                    />
-                  </svg>
-                </button>
-              )}
-            </div>
-          </div>
+          <SearchBox
+            label="Search"
+            placeholder="eg. assessment"
+            searchQuery={searchQuery}
+            setSearchQuery={setSearchQuery}
+          />
 
           <div className="govuk-radios govuk-radios--small lbh-radios">
             <FilterButton filter={filter} setFilter={setFilter} value="all">
