@@ -2,7 +2,7 @@ import Head from 'next/head';
 import Link from 'next/link';
 import { format } from 'date-fns';
 import { useRouter } from 'next/router';
-import { AllocationData, Resident } from 'types';
+import { Allocation, Resident } from 'types';
 import s from './index.module.scss';
 import { useRelationships } from 'utils/api/relationships';
 import { useAllocatedWorkers } from 'utils/api/allocatedWorkers';
@@ -21,7 +21,7 @@ const NavLink = ({ href, children }: NavLinkProps) => {
       <Link href={href}>
         <a
           className={`lbh-link lbh-link--no-visited-state ${
-            router.asPath === href && `govuk-!-font-weight-bold`
+            router.asPath === href && s.navLinkActive
           }`}
         >
           {children}
@@ -36,9 +36,11 @@ interface Props {
   children: React.ReactChild;
 }
 
-const summariseAllocations = (allocations): string | null => {
+const summariseAllocations = (allocations: Allocation[]): string | null => {
   if (allocations?.length === 1)
     return ` · Allocated to ${allocations[0].allocatedWorker}`;
+  if (allocations?.length === 2)
+    return ` · Allocated to ${allocations[0].allocatedWorker} and 1 other`;
   if (allocations?.length > 1)
     return ` · Allocated to ${allocations[0].allocatedWorker} and ${
       allocations?.length - 1
@@ -47,12 +49,8 @@ const summariseAllocations = (allocations): string | null => {
 };
 
 const Layout = ({ person, children }: Props): React.ReactElement => {
-  const { data: allocations, error: allocationError } = useAllocatedWorkers(
-    person.id
-  );
-  const { data: relationships, error: relationshipsError } = useRelationships(
-    person.id
-  );
+  const { data: allocations } = useAllocatedWorkers(person.id);
+  const { data: relationships } = useRelationships(person.id);
 
   const navigation = [
     { text: 'Timeline', href: `/people/${person.id}` },

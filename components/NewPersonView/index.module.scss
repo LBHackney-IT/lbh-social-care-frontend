@@ -32,6 +32,10 @@
   }
 }
 
+.navLinkActive {
+  font-weight: $lbh-font-weight-bold;
+}
+
 .secondaryNav {
   border-top: 1px solid lbh-colour('lbh-grey-3');
   padding-top: 20px;

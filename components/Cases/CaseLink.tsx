@@ -93,7 +93,9 @@ const CaseLink = ({
     <Link href={internalLink}>
       <a className="lbh-link">{children || 'View'}</a>
     </Link>
-  ) : null;
+  ) : (
+    formName
+  );
 };
 
 export default CaseLink;

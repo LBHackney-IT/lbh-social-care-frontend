@@ -1,7 +1,7 @@
 import { getResident } from 'lib/residents';
 import Layout from 'components/NewPersonView/Layout';
 import { GetServerSideProps } from 'next';
-import { Resident } from 'types';
+import { Resident, User } from 'types';
 import { useCasesByResident } from 'utils/api/cases';
 import { Case } from 'types';
 import PersonTimeline from 'components/NewPersonView/PersonTimeline';
@@ -9,21 +9,21 @@ import Spinner from 'components/Spinner/Spinner';
 import ErrorMessage from 'components/ErrorMessage/ErrorMessage';
 import { useUnfinishedSubmissions } from 'utils/api/submissions';
 import { canManageCases } from 'lib/permissions';
+import { useAuth } from 'components/UserContext/UserContext';
 
 interface Props {
   person: Resident;
 }
 
 const PersonPage = ({ person }: Props): React.ReactElement => {
+  const { user } = useAuth() as { user: User };
   const {
     data: casesData,
     size,
     setSize,
     error: casesError,
   } = useCasesByResident(person.id);
-
-  const { data: submissionsData, error: submissionsError } =
-    useUnfinishedSubmissions(person.id);
+  const { data: submissionsData } = useUnfinishedSubmissions(person.id);
 
   // flatten pagination
   const events = casesData?.reduce(
@@ -31,18 +31,11 @@ const PersonPage = ({ person }: Props): React.ReactElement => {
     [] as Case[]
   );
 
-  // grab submissions for this resident only
-  const submissions = submissionsData?.submissions.filter((sub) =>
-    sub.residents.some((resident) => resident.id === person.id)
-  );
-
-  const userCanManageCases = canManageCases(user, person);
-
   return (
     <Layout person={person}>
-      {events ? (
+      {events && canManageCases(user, person) ? (
         <PersonTimeline
-          unfinishedSubmissions={submissions}
+          unfinishedSubmissions={submissionsData?.submissions}
           events={events}
           size={size}
           setSize={setSize}
