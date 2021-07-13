@@ -3,6 +3,7 @@ import SearchBox from 'components/SubmissionsTable/SearchBox';
 import useSearch from 'hooks/useSearch';
 import { useState } from 'react';
 import { Resident } from 'types';
+import { Form } from 'data/flexibleForms/forms.types';
 import s from './AddFormDialog.module.scss';
 import Link from 'next/link';
 
@@ -32,10 +33,33 @@ const AddFormDialog = ({
     setSearchQuery('');
   }, [isOpen]);
 
+  // interface Option {
+  //   label: string;
+  //   href: string;
+  //   system?: boolean;
+  //   approvable?: boolean;
+  //   groupRecordable?: boolean;
+  // }
+
+  const options = flexibleForms
+    .map((form) => ({
+      label: form.name,
+      href: `/submissions/new?form_id=${form.id}&social_care_id=${person.id}`,
+      system: true,
+      approvable: form.approvable,
+      groupRecordable: form.groupRecordable,
+    }))
+    .concat(
+      gForms.map((form) => ({
+        label: form.text,
+        href: form.value,
+      }))
+    );
+
   const results = useSearch(
     searchQuery,
-    gForms.concat(flexibleForms),
-    ['text', 'name'],
+    options,
+    ['label'],
     {
       threshold: 0.3,
     },
@@ -56,22 +80,17 @@ const AddFormDialog = ({
       </div>
       <ul className={s.resultsList}>
         {results.map((result) => (
-          <li className={s.result} key={result.text}>
-            <Link
-              href={
-                result.value ||
-                `/submissions/new?form_id=${result.id}&social_care_id=${person.id}`
-              }
-            >
+          <li className={s.result} key={result.href}>
+            <Link href={result.href}>
               <a
-                target={result.text && '_blank'}
+                target={!result.system && '_blank'}
                 className="lbh-link lbh-link--no-visited-state"
               >
-                {result.text || result.name}
+                {result.label}
               </a>
             </Link>
             <p className={`lbh-body-xs ${s.meta}`}>
-              {result.text ? 'Google form' : 'System form'}
+              {result.system ? 'System form' : 'Google form'}
               {result.approvable && ' · Needs manager approval'}
               {result.groupRecordable && ' · Allows group recording'}
             </p>
