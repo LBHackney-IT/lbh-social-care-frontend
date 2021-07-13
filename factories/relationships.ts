@@ -19,6 +19,8 @@ export const mockedRelationPerson = Factory.define<RelationshipPerson>(
     firstName: 'mock_me',
     lastName: 'mock_me',
     gender: 'M',
+    isMainCarer: 'N',
+    details: 'Some context of relationship',
   })
 );
 

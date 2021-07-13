@@ -215,6 +215,8 @@ export interface RelationshipPerson {
   firstName: string;
   lastName: string;
   gender?: string;
+  isMainCarer?: string;
+  details?: string;
 }
 
 export interface Relationship {
