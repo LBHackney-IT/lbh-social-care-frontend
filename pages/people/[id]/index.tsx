@@ -31,6 +31,8 @@ const PersonPage = ({ person }: Props): React.ReactElement => {
     [] as Case[]
   );
 
+  const onLastPage = !casesData?.[casesData.length - 1].nextCursor;
+
   return (
     <Layout person={person}>
       {events ? (
@@ -39,6 +41,7 @@ const PersonPage = ({ person }: Props): React.ReactElement => {
           events={events}
           size={size}
           setSize={setSize}
+          onLastPage={onLastPage}
         />
       ) : casesError ? (
         <ErrorMessage label={casesError.message} />

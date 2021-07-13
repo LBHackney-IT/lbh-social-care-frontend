@@ -24,6 +24,7 @@ interface Props {
   unfinishedSubmissions?: Submission[];
   size: number;
   setSize: (size: number) => void;
+  onLastPage: boolean;
 }
 
 const PersonTimeline = ({
@@ -31,6 +32,7 @@ const PersonTimeline = ({
   unfinishedSubmissions,
   size,
   setSize,
+  onLastPage,
 }: Props): React.ReactElement => {
   const [filter, setFilter] = useState<Filter>('all');
   const [searchQuery, setSearchQuery] = useState<string>('');
@@ -64,12 +66,14 @@ const PersonTimeline = ({
           </ol>
         )}
 
-        <button
-          className={`govuk-button lbh-button lbh-button--secondary govuk-!-margin-top-8 ${s.loadMoreButton}`}
-          onClick={() => setSize(size + 1)}
-        >
-          Load older events
-        </button>
+        {!onLastPage && (
+          <button
+            className={`govuk-button lbh-button lbh-button--secondary govuk-!-margin-top-8 ${s.loadMoreButton}`}
+            onClick={() => setSize(size + 1)}
+          >
+            Load older events
+          </button>
+        )}
       </div>
       <div className="govuk-grid-column-one-third">
         <aside className={s.sticky}>
