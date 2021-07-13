@@ -36,13 +36,17 @@ const PersonPage = ({ person }: Props): React.ReactElement => {
   return (
     <Layout person={person}>
       {events ? (
-        <PersonTimeline
-          unfinishedSubmissions={submissionsData?.submissions}
-          events={events}
-          size={size}
-          setSize={setSize}
-          onLastPage={onLastPage}
-        />
+        events.length > 0 ? (
+          <PersonTimeline
+            unfinishedSubmissions={submissionsData?.submissions}
+            events={events}
+            size={size}
+            setSize={setSize}
+            onLastPage={onLastPage}
+          />
+        ) : (
+          <p>No events to show</p>
+        )
       ) : casesError ? (
         <ErrorMessage label={casesError.message} />
       ) : (
