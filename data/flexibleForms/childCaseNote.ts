@@ -13,6 +13,11 @@ const form: Form = {
       theme: 'Case note',
       fields: [
         {
+          id: 'Title',
+          question: 'Title',
+          type: 'textarea',
+        },
+        {
           id: 'Type',
           question: 'What kind of note is this?',
           type: 'radios',
