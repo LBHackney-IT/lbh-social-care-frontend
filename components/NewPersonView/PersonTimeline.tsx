@@ -8,20 +8,7 @@ import FilterButton, { Filter } from './FilterButton';
 import { Submission } from 'data/flexibleForms/forms.types';
 import SearchBox from 'components/SubmissionsTable/SearchBox';
 import UnfinishedSubmissionsEvent from './UnfinishedSubmissions';
-
-/** convert all our weird date formats into iso-compatible strings */
-const normaliseDateToISO = (str: string): string => {
-  if (/[0-9]{1,2}\/[0-9]{1,2}\/[0-9]{4} [0-9]{1,2}:[0-9:]{1,5}/.test(str)) {
-    const [date, time] = str.split(' ');
-    const [days, month, year] = date.split('/');
-    const [hours, minutes, seconds] = time.split(':');
-    return `${year}-${month}-${days}T${hours.padStart(2, '0')}:${minutes}${
-      seconds ? `:${seconds}` : ''
-    }`;
-  } else {
-    return str;
-  }
-};
+import { normaliseDateToISO } from 'utils/date';
 
 interface EventProps {
   event: Case;
