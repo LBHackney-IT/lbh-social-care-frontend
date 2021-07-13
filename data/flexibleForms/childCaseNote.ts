@@ -85,21 +85,24 @@ const form: Form = {
             },
           ],
         },
-
+        {
+          id: 'Topics (tags)',
+          question: 'Topics',
+          hint: 'Help colleagues find this note. Add as many as you need.',
+          type: 'Tags',
+        },
         {
           id: 'Body',
           question: 'What happened?',
           type: 'textarea',
           required: true,
         },
-
         {
           id: 'Date of event',
           question: 'When did this happen?',
           type: 'date',
           className: 'govuk-input--width-10',
         },
-
         {
           id: 'Actions',
           question: 'Actions',
@@ -126,12 +129,6 @@ const form: Form = {
               className: 'govuk-input--width-10',
             },
           ],
-        },
-        {
-          id: 'Topics (tags)',
-          question: 'Topics',
-          hint: 'Help colleagues find this note. Add as many as you need.',
-          type: 'Tags',
         },
       ],
     },
