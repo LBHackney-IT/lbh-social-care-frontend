@@ -2,12 +2,14 @@ import Head from 'next/head';
 import Link from 'next/link';
 import { format } from 'date-fns';
 import { useRouter } from 'next/router';
-import { Allocation, Resident } from 'types';
+import { Allocation, Resident, User } from 'types';
 import s from './index.module.scss';
 import { useRelationships } from 'utils/api/relationships';
 import { useAllocatedWorkers } from 'utils/api/allocatedWorkers';
 import React from 'react';
 import WarningNotes from 'components/WarningNote/WarningNotes';
+import { useAuth } from 'components/UserContext/UserContext';
+import { canManageCases } from 'lib/permissions';
 
 interface NavLinkProps {
   href: string;
@@ -51,9 +53,11 @@ const summariseAllocations = (allocations: Allocation[]): string | null => {
 const Layout = ({ person, children }: Props): React.ReactElement => {
   const { data: allocations } = useAllocatedWorkers(person.id);
   const { data: relationships } = useRelationships(person.id);
-
+  const { user } = useAuth() as { user: User };
   const navigation = [
-    { text: 'Timeline', href: `/people/${person.id}` },
+    canManageCases(user, person)
+      ? { text: 'Timeline', href: `/people/${person.id}` }
+      : undefined,
     {
       text: `Allocations ${
         allocations?.allocations ? `(${allocations?.allocations?.length})` : ''

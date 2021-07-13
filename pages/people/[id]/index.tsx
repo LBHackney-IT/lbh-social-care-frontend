@@ -10,13 +10,13 @@ import ErrorMessage from 'components/ErrorMessage/ErrorMessage';
 import { useUnfinishedSubmissions } from 'utils/api/submissions';
 import { canManageCases } from 'lib/permissions';
 import { useAuth } from 'components/UserContext/UserContext';
+import { isAuthorised } from 'utils/auth';
 
 interface Props {
   person: Resident;
 }
 
 const PersonPage = ({ person }: Props): React.ReactElement => {
-  const { user } = useAuth() as { user: User };
   const {
     data: casesData,
     size,
@@ -33,7 +33,7 @@ const PersonPage = ({ person }: Props): React.ReactElement => {
 
   return (
     <Layout person={person}>
-      {events && canManageCases(user, person) ? (
+      {events ? (
         <PersonTimeline
           unfinishedSubmissions={submissionsData?.submissions}
           events={events}
@@ -51,8 +51,21 @@ const PersonPage = ({ person }: Props): React.ReactElement => {
 
 PersonPage.goBackButton = true;
 
-export const getServerSideProps: GetServerSideProps = async ({ params }) => {
+export const getServerSideProps: GetServerSideProps = async ({
+  params,
+  req,
+}) => {
   const person = await getResident(Number(params?.id));
+  const user = await isAuthorised(req);
+
+  if (user && !canManageCases(user, person)) {
+    return {
+      props: {},
+      redirect: {
+        destination: `/people/${person.id}/details`,
+      },
+    };
+  }
 
   if (!person.id) {
     return {

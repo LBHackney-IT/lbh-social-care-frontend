@@ -43,7 +43,7 @@ const PersonDetails = ({
         <h2 className="govuk-fieldset__legend--m govuk-custom-text-color">
           {expandView ? `${firstName} ${lastName}` : 'PERSON DETAILS'}
         </h2>
-        {expandView && (
+        {expandView ? (
           <button
             className="govuk-link"
             onClick={(e) => {
@@ -53,11 +53,12 @@ const PersonDetails = ({
           >
             {expandDetails ? 'Hide' : 'Show'} details
           </button>
-        )}
-        {canUserEditPerson(user, person) && (
-          <Link href={`/people/${id}/edit`}>
-            <a className="lbh-link">Edit details</a>
-          </Link>
+        ) : (
+          canUserEditPerson(user, person) && (
+            <Link href={`/people/${id}/edit`}>
+              <a className="lbh-link">Edit details</a>
+            </Link>
+          )
         )}
       </div>
       <hr className="govuk-divider" />
