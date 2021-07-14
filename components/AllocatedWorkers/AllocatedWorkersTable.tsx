@@ -78,7 +78,7 @@ const AllocatedWorkersTable = ({
           key={record.id}
           index={index}
           showDeallocateButton={hasAllocationsPermissions}
-          deallocationUrl={`${asPath}/allocations/${record.id}/remove`}
+          deallocationUrl={`${asPath}/${record.id}/remove`}
           {...record}
         />
       ))}
