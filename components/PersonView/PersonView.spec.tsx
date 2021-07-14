@@ -19,7 +19,7 @@ describe('PersonView component', () => {
   };
 
   it('should render properly', async () => {
-    const { getByText, queryByText } = render(
+    const { getByText } = render(
       <UserContext.Provider
         value={{
           user: userFactory.build(),
@@ -31,23 +31,6 @@ describe('PersonView component', () => {
     await waitFor(() => {
       expect(getByText('13/11/2020')).toBeInTheDocument();
     });
-    expect(queryByText('Show details')).not.toBeInTheDocument();
-  });
-
-  it('should render person view', async () => {
-    const { getByText, queryByText } = render(
-      <UserContext.Provider
-        value={{
-          user: userFactory.build(),
-        }}
-      >
-        <PersonView {...props} expandView={true} />
-      </UserContext.Provider>
-    );
-    await waitFor(() => {
-      expect(getByText('Show details')).toBeInTheDocument();
-    });
-    expect(queryByText('13/11/2020')).not.toBeInTheDocument();
   });
 
   it('should render properly with node children', async () => {

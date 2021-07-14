@@ -2,25 +2,234 @@
 
 exports[`PersonDetails component should render properly - expanded 1`] = `
 <DocumentFragment>
-  <div>
+  <section
+    class="govuk-!-margin-bottom-8"
+  >
     <div
-      class="lbh-table-header"
+      class="heading"
     >
-      <h2
-        class="govuk-fieldset__legend--m govuk-custom-text-color"
-      >
-        i am the first i am the last
+      <h2>
+        Personal details
       </h2>
-      <button
-        class="govuk-link"
+      <a
+        class="lbh-link lbh-link--no-visited-state"
+        href="/people/2/edit"
       >
-        Show details
-      </button>
+        Edit details
+      </a>
     </div>
-    <hr
-      class="govuk-divider"
-    />
-  </div>
+    <dl
+      class="govuk-summary-list lbh-summary-list"
+    >
+      <div
+        class="govuk-summary-list__row"
+      >
+        <dt
+          class="govuk-summary-list__key"
+        >
+          Other names
+        </dt>
+        <dd
+          class="govuk-summary-list__value"
+        >
+          <ul
+            class="govuk-list"
+          >
+            <li>
+              asd qwe
+            </li>
+          </ul>
+        </dd>
+      </div>
+      <div
+        class="govuk-summary-list__row"
+      >
+        <dt
+          class="govuk-summary-list__key"
+        >
+          Social care ID
+        </dt>
+        <dd
+          class="govuk-summary-list__value"
+        >
+          #2
+        </dd>
+      </div>
+      <div
+        class="govuk-summary-list__row"
+      >
+        <dt
+          class="govuk-summary-list__key"
+        >
+          Gender
+        </dt>
+        <dd
+          class="govuk-summary-list__value"
+        >
+          U
+        </dd>
+      </div>
+      <div
+        class="govuk-summary-list__row"
+      >
+        <dt
+          class="govuk-summary-list__key"
+        >
+          Date of birth
+        </dt>
+        <dd
+          class="govuk-summary-list__value"
+        >
+          23/02/1978
+        </dd>
+      </div>
+      <div
+        class="govuk-summary-list__row"
+      >
+        <dt
+          class="govuk-summary-list__key"
+        >
+          Date of death
+        </dt>
+        <dd
+          class="govuk-summary-list__value"
+        >
+          23/02/1998
+        </dd>
+      </div>
+      <div
+        class="govuk-summary-list__row"
+      >
+        <dt
+          class="govuk-summary-list__key"
+        >
+          Ethnicity
+        </dt>
+        <dd
+          class="govuk-summary-list__value"
+        >
+          White and Black African
+        </dd>
+      </div>
+      <div
+        class="govuk-summary-list__row"
+      >
+        <dt
+          class="govuk-summary-list__key"
+        >
+          Sexual orientation
+        </dt>
+        <dd
+          class="govuk-summary-list__value"
+        >
+          straight
+        </dd>
+      </div>
+      <div
+        class="govuk-summary-list__row"
+      >
+        <dt
+          class="govuk-summary-list__key"
+        >
+          Address
+        </dt>
+        <dd
+          class="govuk-summary-list__value"
+        >
+          new adress
+          <br />
+          E5 0PU
+        </dd>
+      </div>
+      <div
+        class="govuk-summary-list__row"
+      >
+        <dt
+          class="govuk-summary-list__key"
+        >
+          Phone number
+        </dt>
+        <dd
+          class="govuk-summary-list__value"
+        >
+          <ul
+            class="lbh-list"
+          >
+            <li>
+              02123 - Home
+            </li>
+          </ul>
+        </dd>
+      </div>
+      <div
+        class="govuk-summary-list__row"
+      >
+        <dt
+          class="govuk-summary-list__key"
+        >
+          Email
+        </dt>
+        <dd
+          class="govuk-summary-list__value"
+        >
+          test@test.com
+        </dd>
+      </div>
+      <div
+        class="govuk-summary-list__row"
+      >
+        <dt
+          class="govuk-summary-list__key"
+        >
+          Preferred method of contact
+        </dt>
+        <dd
+          class="govuk-summary-list__value"
+        >
+          email
+        </dd>
+      </div>
+      <div
+        class="govuk-summary-list__row"
+      >
+        <dt
+          class="govuk-summary-list__key"
+        >
+          Service area
+        </dt>
+        <dd
+          class="govuk-summary-list__value"
+        >
+          ASC
+        </dd>
+      </div>
+    </dl>
+  </section>
+  <section>
+    <h2
+      class="heading"
+    >
+      Medical and health
+    </h2>
+    <dl
+      class="govuk-summary-list lbh-summary-list"
+    >
+      <div
+        class="govuk-summary-list__row"
+      >
+        <dt
+          class="govuk-summary-list__key"
+        >
+          NHS number
+        </dt>
+        <dd
+          class="govuk-summary-list__value"
+        >
+          123
+        </dd>
+      </div>
+    </dl>
+  </section>
 </DocumentFragment>
 `;
 
@@ -253,27 +462,24 @@ exports[`PersonDetails component should render properly - expanded 2`] = `
 
 exports[`PersonDetails component should render properly 1`] = `
 <DocumentFragment>
-  <div>
+  <section
+    class="govuk-!-margin-bottom-8"
+  >
     <div
-      class="lbh-table-header"
+      class="heading"
     >
-      <h2
-        class="govuk-fieldset__legend--m govuk-custom-text-color"
-      >
-        PERSON DETAILS
+      <h2>
+        Personal details
       </h2>
       <a
-        class="lbh-link"
+        class="lbh-link lbh-link--no-visited-state"
         href="/people/2/edit"
       >
         Edit details
       </a>
     </div>
-    <hr
-      class="govuk-divider"
-    />
     <dl
-      class="govuk-summary-list"
+      class="govuk-summary-list lbh-summary-list"
     >
       <div
         class="govuk-summary-list__row"
@@ -281,7 +487,7 @@ exports[`PersonDetails component should render properly 1`] = `
         <dt
           class="govuk-summary-list__key"
         >
-          Other Names
+          Other names
         </dt>
         <dd
           class="govuk-summary-list__value"
@@ -301,7 +507,7 @@ exports[`PersonDetails component should render properly 1`] = `
         <dt
           class="govuk-summary-list__key"
         >
-          Person ID
+          Social care ID
         </dt>
         <dd
           class="govuk-summary-list__value"
@@ -343,7 +549,7 @@ exports[`PersonDetails component should render properly 1`] = `
         <dt
           class="govuk-summary-list__key"
         >
-          Date Of Death
+          Date of death
         </dt>
         <dd
           class="govuk-summary-list__value"
@@ -385,31 +591,14 @@ exports[`PersonDetails component should render properly 1`] = `
         <dt
           class="govuk-summary-list__key"
         >
-          NHS number
-        </dt>
-        <dd
-          class="govuk-summary-list__value"
-        >
-          123
-        </dd>
-      </div>
-      <div
-        class="govuk-summary-list__row"
-      >
-        <dt
-          class="govuk-summary-list__key"
-        >
           Address
         </dt>
         <dd
           class="govuk-summary-list__value"
         >
-          <div>
-            new adress
-          </div>
-          <div>
-            E5 0PU
-          </div>
+          new adress
+          <br />
+          E5 0PU
         </dd>
       </div>
       <div
@@ -418,13 +607,13 @@ exports[`PersonDetails component should render properly 1`] = `
         <dt
           class="govuk-summary-list__key"
         >
-          Phone Number
+          Phone number
         </dt>
         <dd
           class="govuk-summary-list__value"
         >
           <ul
-            class="govuk-list"
+            class="lbh-list"
           >
             <li>
               02123 - Home
@@ -452,7 +641,7 @@ exports[`PersonDetails component should render properly 1`] = `
         <dt
           class="govuk-summary-list__key"
         >
-          Preferred Method Of Contact
+          Preferred method of contact
         </dt>
         <dd
           class="govuk-summary-list__value"
@@ -466,7 +655,7 @@ exports[`PersonDetails component should render properly 1`] = `
         <dt
           class="govuk-summary-list__key"
         >
-          Person type
+          Service area
         </dt>
         <dd
           class="govuk-summary-list__value"
@@ -475,6 +664,31 @@ exports[`PersonDetails component should render properly 1`] = `
         </dd>
       </div>
     </dl>
-  </div>
+  </section>
+  <section>
+    <h2
+      class="heading"
+    >
+      Medical and health
+    </h2>
+    <dl
+      class="govuk-summary-list lbh-summary-list"
+    >
+      <div
+        class="govuk-summary-list__row"
+      >
+        <dt
+          class="govuk-summary-list__key"
+        >
+          NHS number
+        </dt>
+        <dd
+          class="govuk-summary-list__value"
+        >
+          123
+        </dd>
+      </div>
+    </dl>
+  </section>
 </DocumentFragment>
 `;

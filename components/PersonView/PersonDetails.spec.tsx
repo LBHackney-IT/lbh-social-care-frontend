@@ -1,4 +1,4 @@
-import { render, fireEvent } from '@testing-library/react';
+import { render } from '@testing-library/react';
 
 import PersonDetails from './PersonDetails';
 
@@ -53,17 +53,6 @@ describe('PersonDetails component', () => {
         <PersonDetails {...props} />
       </AuthProvider>
     );
-    expect(asFragment()).toMatchSnapshot();
-  });
-
-  it('should render properly - expanded', async () => {
-    const { asFragment, getByRole } = render(
-      <AuthProvider user={{ ...mockedUser }}>
-        <PersonDetails {...props} expandView />
-      </AuthProvider>
-    );
-    expect(asFragment()).toMatchSnapshot();
-    fireEvent.click(getByRole('button'));
     expect(asFragment()).toMatchSnapshot();
   });
 });
