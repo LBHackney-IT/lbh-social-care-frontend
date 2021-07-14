@@ -4,7 +4,7 @@ import * as SWR from 'swr';
 jest.mock('swr');
 
 describe('residents APIs', () => {
-  describe('useResident', () => {
+  describe('useUnfinishedSubmissions', () => {
     it('should work properly', () => {
       jest.spyOn(SWR, 'default');
       useUnfinishedSubmissions();
