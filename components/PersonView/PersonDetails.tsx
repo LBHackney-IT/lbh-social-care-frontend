@@ -163,17 +163,17 @@ const PersonDetails = ({ person }: Props): React.ReactElement => {
         </dl>
       </section>
 
-      <section>
-        <h2 className={s.heading}>Medical and health</h2>
-        <dl className="govuk-summary-list lbh-summary-list">
-          {nhsNumber && (
+      {nhsNumber && (
+        <section>
+          <h2 className={s.heading}>Medical and health</h2>
+          <dl className="govuk-summary-list lbh-summary-list">
             <div className="govuk-summary-list__row">
               <dt className="govuk-summary-list__key">NHS number</dt>
               <dd className="govuk-summary-list__value">{nhsNumber}</dd>
             </div>
-          )}
-        </dl>
-      </section>
+          </dl>
+        </section>
+      )}
     </>
   );
 };
