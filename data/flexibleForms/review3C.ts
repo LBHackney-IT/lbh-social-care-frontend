@@ -3,7 +3,7 @@ import { Form } from './forms.types';
 const form: Form = {
   id: 'review-3c',
   name: 'Review of Care and Support Plan (3C)',
-  isViewableByAdults: true,
+  isViewableByAdults: false,
   isViewableByChildrens: false,
   steps: [
     {

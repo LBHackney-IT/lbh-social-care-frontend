@@ -35,7 +35,7 @@ jest.mock('data/googleForms/childForms', () => [
 // [formName, isViewableByAdults, isViewableByChildrens]
 const flexibleForms: [string, boolean, boolean][] = [
   ['Foo', false, false],
-  ['Review of Care and Support Plan (3C)', true, false],
+  ['Review of Care and Support Plan (3C)', false, false],
   ['FACE overview assessment', false, false],
   ['Safeguarding Adult Concern Form', false, false],
   ['Safeguarding adult manager decision on concern', false, false],
