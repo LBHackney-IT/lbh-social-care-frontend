@@ -12,6 +12,10 @@ export const getFeatureFlags = ({
     'feature-flags-implementation-proof': {
       isActive: environmentName === 'development',
     },
+    // FEATURE-FLAG-EXPIRES [2021-08-13]: add-relationships
+    'add-relationships': {
+      isActive: environmentName === 'development',
+    },
     // FEATURE-FLAG-EXPIRES [2021-08-31]: person-timeline
     'person-timeline': {
       isActive: environmentName === 'development',
