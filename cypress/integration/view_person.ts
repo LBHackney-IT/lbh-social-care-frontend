@@ -2,14 +2,15 @@ import { AuthRoles } from '../support/commands';
 
 describe('Viewing a resident', () => {
   describe('As a user in the Childrens group', () => {
-    it('should show the records as restricted when the current user does not have access to them because they are in the wrong user group', () => {
+    it('should redirect from the timeline when the current user does not have access to them because they are in the wrong user group', () => {
       cy.visitAs(
         `/people/${Cypress.env('ADULT_RECORD_PERSON_ID')}`,
         AuthRoles.ChildrensGroup
       );
 
-      cy.contains(
-        'Some details for this person are restricted due to your permissions.'
+      cy.location('pathname').should(
+        'eq',
+        `/people/${Cypress.env('ADULT_RECORD_PERSON_ID')}/details`
       );
     });
 
@@ -19,13 +20,12 @@ describe('Viewing a resident', () => {
         AuthRoles.ChildrensGroup
       );
 
-      cy.contains('Date created');
-      cy.contains('Record type');
+      cy.get('.lbh-timeline');
     });
 
     it('should allow allocation of workers against child residents', () => {
       cy.visitAs(
-        `/people/${Cypress.env('CHILDREN_RECORD_PERSON_ID')}`,
+        `/people/${Cypress.env('CHILDREN_RECORD_PERSON_ID')}/allocations`,
         AuthRoles.ChildrensGroup
       );
 
@@ -49,19 +49,20 @@ describe('Viewing a resident', () => {
 
       cy.wait('@apiGetResident');
 
-      cy.contains('Records not found');
+      cy.contains('No events to show');
     });
   });
 
   describe('As a user in the Adults group', () => {
-    it('should show the records as restricted when the current user does not have access to them because they are in the wrong user group', () => {
+    it('should redirect from the timeline when the current user does not have access to them because they are in the wrong user group', () => {
       cy.visitAs(
         `/people/${Cypress.env('CHILDREN_RECORD_PERSON_ID')}`,
         AuthRoles.AdultsGroup
       );
 
-      cy.contains(
-        'Some details for this person are restricted due to your permissions.'
+      cy.location('pathname').should(
+        'eq',
+        `/people/${Cypress.env('CHILDREN_RECORD_PERSON_ID')}/details`
       );
     });
 
@@ -71,18 +72,18 @@ describe('Viewing a resident', () => {
         AuthRoles.AdultsGroup
       );
 
-      cy.contains('Date created');
-      cy.contains('Record type');
+      cy.get('.lbh-timeline');
     });
 
-    it('should hide records of a restricted adult resident', () => {
+    it('should redirect from timeline of a restricted adult resident', () => {
       cy.visitAs(
         `/people/${Cypress.env('ADULT_RESTRICTED_RECORD_PERSON_ID')}`,
         AuthRoles.AdultsAllocatorGroup
       );
 
-      cy.contains(
-        'Some details for this person are restricted due to your permissions.'
+      cy.location('pathname').should(
+        'eq',
+        `/people/${Cypress.env('ADULT_RESTRICTED_RECORD_PERSON_ID')}/details`
       );
     });
   });
@@ -90,7 +91,7 @@ describe('Viewing a resident', () => {
   describe('As a user in the Adults Allocators group', () => {
     it('should allow allocation of workers against adult residents', () => {
       cy.visitAs(
-        `/people/${Cypress.env('ADULT_RECORD_PERSON_ID')}`,
+        `/people/${Cypress.env('ADULT_RECORD_PERSON_ID')}/allocations`,
         AuthRoles.AdultsAllocatorGroup
       );
 
@@ -105,20 +106,20 @@ describe('Viewing a resident', () => {
         AuthRoles.AdultsUnrestrictedGroup
       );
 
-      cy.contains('Date created');
-      cy.contains('Record type');
+      cy.get('.lbh-timeline');
     });
   });
 
   describe('As a user in the Admin group', () => {
-    it('should hide records of a restricted resident', () => {
+    it('should redirect from timeline of a restricted resident', () => {
       cy.visitAs(
         `/people/${Cypress.env('ADULT_RESTRICTED_RECORD_PERSON_ID')}`,
         AuthRoles.AdultsAllocatorGroup
       );
 
-      cy.contains(
-        'Some details for this person are restricted due to your permissions.'
+      cy.location('pathname').should(
+        'eq',
+        `/people/${Cypress.env('ADULT_RESTRICTED_RECORD_PERSON_ID')}/details`
       );
     });
   });

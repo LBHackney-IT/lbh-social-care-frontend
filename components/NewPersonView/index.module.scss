@@ -1,0 +1,76 @@
+@import 'lbh-frontend/lbh/base';
+
+.personHeader {
+  @include govuk-media-query($from: tablet) {
+    display: flex;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }
+}
+
+.personCaption {
+  font-size: 1rem;
+}
+
+.actionsArea {
+  @include govuk-media-query($from: tablet) {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+  }
+}
+
+.primaryAction {
+  @include govuk-media-query($from: tablet) {
+    margin-top: 0px;
+  }
+  svg {
+    fill: white;
+    margin-right: 10px;
+  }
+}
+
+.navLinkActive {
+  font-weight: $lbh-font-weight-bold;
+}
+
+.secondaryNav {
+  border-top: 1px solid lbh-colour('lbh-grey-3');
+  padding-top: 20px;
+
+  li + li {
+    margin-top: 0.5rem;
+  }
+}
+
+.loadMoreButton {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+// // make grid rows work with position: sticky
+.outer {
+  @include govuk-media-query($from: tablet) {
+    display: flex;
+  }
+}
+
+.sticky {
+  @include govuk-media-query($from: tablet) {
+    position: sticky;
+    top: 25px;
+  }
+}
+
+.unfinishedSubmissionsPanel {
+  background: lbh-colour('lbh-grey-4');
+  border: 1px solid lbh-colour('lbh-grey-3');
+  padding: 20px 30px;
+
+  li p {
+    margin-top: 0;
+  }
+}

@@ -8,8 +8,7 @@ describe('Adding records', () => {
         AuthRoles.AdultsGroup
       );
 
-      cy.contains('ASC');
-      cy.contains('Add a new record').click();
+      cy.contains('Add something new').click();
       cy.contains('Add a new record for').should('be.visible');
       cy.contains('Show details').click();
       cy.contains('Hide details').should('be.visible');
@@ -38,11 +37,10 @@ describe('Adding records', () => {
         AuthRoles.ChildrensGroup
       );
 
-      cy.contains('CFS');
       cy.contains(Cypress.env('CHILDREN_RECORD_FULL_NAME')).should(
         'be.visible'
       );
-      cy.contains('Add a new record').click();
+      cy.contains('Add something new').click();
       cy.contains('Add a new record for').should('be.visible');
       cy.contains('Show details').click();
       cy.contains('Hide details').should('be.visible');
