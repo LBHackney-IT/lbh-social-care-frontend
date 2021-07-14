@@ -14,12 +14,11 @@ describe('Adding records', () => {
       cy.contains('Document Upload').should('be.visible');
       cy.contains('Safeguarding Concern').should('be.visible');
       cy.get("input[placeholder='Search forms...']").type(
-        'Review of Care and Support Plan (3C)'
+        'FACE Care and Support Plan'
       );
-      cy.contains('Review of Care and Support Plan (3C)').should('be.visible');
+      cy.contains('FACE Care and Support Plan').should('be.visible');
       cy.contains('Appointeeship').should('not.exist');
-      cy.contains('Review of Care and Support Plan (3C)').click();
-      cy.url().should('include', `/submissions`);
+      cy.contains('FACE Care and Support Plan');
       cy.contains('Case note for').should('be.visible');
     });
   });
