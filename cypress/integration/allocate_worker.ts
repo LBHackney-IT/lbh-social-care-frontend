@@ -8,7 +8,7 @@ describe('Allocating workers', () => {
         AuthRoles.AdultsAllocatorGroup
       );
 
-      cy.contains('Allocate worker').should('be.visible');
+      cy.contains('Allocate someone else').should('be.visible');
     });
 
     it('should not show the allocate worker button on an adult resident if the user does not have allocator permissions', () => {
