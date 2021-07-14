@@ -1,24 +1,26 @@
 import { Factory } from 'fishery';
 import { RelationshipData, RelationshipPerson, Relationship } from 'types';
 
-const mockedRelationshipFactory = Factory.define<RelationshipData>(
+export const mockedRelationshipFactory = Factory.define<RelationshipData>(
   ({ sequence }) => ({
     personId: sequence,
     personalRelationships: [],
   })
 );
 
-const mockedRelationshipData = Factory.define<Relationship>(() => ({
+export const mockedRelationshipData = Factory.define<Relationship>(() => ({
   type: 'parent',
   persons: [],
 }));
 
-const mockedRelationPerson = Factory.define<RelationshipPerson>(
+export const mockedRelationPerson = Factory.define<RelationshipPerson>(
   ({ sequence }) => ({
     id: sequence,
     firstName: 'mock_me',
     lastName: 'mock_me',
     gender: 'M',
+    isMainCarer: 'N',
+    details: 'Some context of relationship',
   })
 );
 

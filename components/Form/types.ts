@@ -28,7 +28,11 @@ type GovGrid =
   | 'one-quarter'
   | 'three-quarters';
 
-export type ObjectOption = { text: string; value: string | number };
+export type ObjectOption = {
+  text: string;
+  value: string | number;
+  disabled?: boolean;
+};
 
 export type Option = string | ObjectOption;
 

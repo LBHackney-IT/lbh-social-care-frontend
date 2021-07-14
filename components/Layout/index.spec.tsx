@@ -16,7 +16,7 @@ describe('Layout component', () => {
   it('should render properly', async () => {
     const { asFragment } = render(
       <FeatureFlagProvider features={{}}>
-        <Layout>
+        <Layout goBackButton={false} noLayout={false}>
           <p>I am the children</p>
         </Layout>
       </FeatureFlagProvider>

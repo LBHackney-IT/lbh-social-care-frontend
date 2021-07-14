@@ -69,12 +69,13 @@ const Select = ({
             </option>
           )}
           {options.map((option) => {
-            const { value, text } =
+            const { value, text, disabled } =
               typeof option === 'string'
-                ? { value: option, text: option }
+                ? { value: option, text: option, disabled: false }
                 : option;
+
             return (
-              <option key={value} value={value}>
+              <option key={value} value={value} disabled={disabled}>
                 {text}
               </option>
             );

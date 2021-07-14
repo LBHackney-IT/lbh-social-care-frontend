@@ -23,7 +23,8 @@ interface Props {
 
 interface ExtendedAppProps extends AppProps<Props> {
   Component: NextComponentType & {
-    goBackButton?: boolean;
+    goBackButton: boolean;
+    noLayout: boolean;
   };
 }
 
@@ -49,7 +50,10 @@ const CustomApp = ({
       >
         <AuthProvider user={user}>
           <GoogleAnalytics>
-            <Layout goBackButton={Component.goBackButton}>
+            <Layout
+              goBackButton={Component.goBackButton}
+              noLayout={Component.noLayout}
+            >
               <ErrorBoundary>
                 <Component {...pageProps} />
               </ErrorBoundary>

@@ -1,4 +1,4 @@
-import { render, fireEvent } from '@testing-library/react';
+import { render, fireEvent, screen } from '@testing-library/react';
 import Select from './Select';
 
 describe('Select component', () => {
@@ -26,5 +26,37 @@ describe('Select component', () => {
     expect(
       (getByRole('option', { name: 'bar' }) as HTMLOptionElement).selected
     ).toBeFalsy();
+  });
+
+  it('enables an option when disabled is false', () => {
+    const props = {
+      label: 'Foo',
+      name: 'foo_select',
+      options: [
+        { value: 'foo', text: 'bar', disabled: false },
+        { value: 'fizz', text: 'buzz' },
+      ],
+    };
+
+    render(<Select {...props} />);
+
+    expect(screen.getByRole('option', { name: 'bar' })).not.toBeDisabled();
+    expect(screen.getByRole('option', { name: 'buzz' })).not.toBeDisabled();
+  });
+
+  it('disables an option when disabled is true', () => {
+    const props = {
+      label: 'Foo',
+      name: 'foo_select',
+      options: [
+        { value: 'foo', text: 'bar', disabled: true },
+        { value: 'fizz', text: 'buzz' },
+      ],
+    };
+
+    render(<Select {...props} />);
+
+    expect(screen.getByRole('option', { name: 'bar' })).toBeDisabled();
+    expect(screen.getByRole('option', { name: 'buzz' })).not.toBeDisabled();
   });
 });
