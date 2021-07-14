@@ -16,8 +16,8 @@ const Sub = ({ sub }: SubProps): React.ReactElement => {
         {sub?.form?.name || sub.formId}
       </Link>{' '}
       <p className="lbh-body-xs">
-        {!isNaN(completedSteps) &&
-          !isNaN(totalSteps as number) &&
+        {!Number.isNaN(completedSteps) &&
+          !Number.isNaN(totalSteps) &&
           `${Math.round(
             (completedSteps / Number(totalSteps)) * 100
           )}% complete · `}

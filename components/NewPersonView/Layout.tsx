@@ -10,8 +10,6 @@ import React from 'react';
 import WarningNotes from 'components/WarningNote/WarningNotes';
 import { useAuth } from 'components/UserContext/UserContext';
 import { canManageCases } from 'lib/permissions';
-import { useState } from 'react';
-import AddFormDialog from 'components/AddFormDialog/AddFormDialog';
 
 interface NavLinkProps {
   href: string;
@@ -45,7 +43,7 @@ const summariseAllocations = (allocations: Allocation[]): string | null => {
     return ` · Allocated to ${allocations[0].allocatedWorker}`;
   if (allocations?.length === 2)
     return ` · Allocated to ${allocations[0].allocatedWorker} and 1 other`;
-  if (allocations?.length > 1)
+  if (allocations?.length > 2)
     return ` · Allocated to ${allocations[0].allocatedWorker} and ${
       allocations?.length - 1
     } others`;
@@ -56,8 +54,6 @@ const Layout = ({ person, children }: Props): React.ReactElement => {
   const { data: allocations } = useAllocatedWorkers(person.id);
   const { data: relationships } = useRelationships(person.id);
   const { user } = useAuth() as { user: User };
-
-  const [addFormOpen, setAddFormOpen] = useState<boolean>(false);
 
   const navigation: { text: string; href: string }[] = [
     {
@@ -98,12 +94,6 @@ const Layout = ({ person, children }: Props): React.ReactElement => {
         </title>
       </Head>
 
-      <AddFormDialog
-        person={person}
-        isOpen={addFormOpen}
-        onDismiss={() => setAddFormOpen(false)}
-      />
-
       <WarningNotes id={person.id} />
 
       <div
@@ -125,16 +115,15 @@ const Layout = ({ person, children }: Props): React.ReactElement => {
         </div>
 
         <div className={`govuk-grid-column-one-third ${s.actionsArea}`}>
-          <button
-            onClick={() => setAddFormOpen(true)}
-            className={`govuk-button lbh-button ${s.primaryAction}`}
-          >
-            <svg width="12" height="12" viewBox="0 0 12 12">
-              <path d="M6.94 0L5 0V12H6.94V0Z" />
-              <path d="M12 5H0V7H12V5Z" />
-            </svg>
-            Add something new
-          </button>
+          <Link href={`/people/${person.id}/records`}>
+            <a className={`govuk-button lbh-button ${s.primaryAction}`}>
+              <svg width="12" height="12" viewBox="0 0 12 12">
+                <path d="M6.94 0L5 0V12H6.94V0Z" />
+                <path d="M12 5H0V7H12V5Z" />
+              </svg>
+              Add something new
+            </a>
+          </Link>
         </div>
       </div>
 
