@@ -54,7 +54,7 @@ const AddFormDialog = ({
         })
         .map((f) => ({
           label: f.name,
-          href: f.id,
+          href: `/submissions/new?form_id=${f.id}&social_care_id=${person.id}`,
           system: true,
           groupRecordable: !!f.groupRecordable,
           approvable: !!f.approvable,
@@ -68,7 +68,13 @@ const AddFormDialog = ({
             approvable: false,
           }))
         ),
-    [gForms, serviceContext, user.hasAdminPermissions, user.hasDevPermissions]
+    [
+      gForms,
+      serviceContext,
+      user.hasAdminPermissions,
+      user.hasDevPermissions,
+      person.id,
+    ]
   );
 
   const results = useSearch(
