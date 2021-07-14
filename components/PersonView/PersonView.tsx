@@ -1,12 +1,8 @@
-import Link from 'next/link';
-
 import ErrorMessage from 'components/ErrorMessage/ErrorMessage';
 import Spinner from 'components/Spinner/Spinner';
-import PersonDetails from './PersonDetails';
 import { useResident } from 'utils/api/residents';
-import { Resident, User } from 'types';
-import { useAuth } from '../UserContext/UserContext';
-import { canUserEditPerson } from '../../lib/permissions';
+import { Resident } from 'types';
+import PersonWidget from 'components/PersonWidget/PersonWidget';
 
 interface Props {
   personId: number;
@@ -17,11 +13,9 @@ interface Props {
 
 const PersonView = ({
   personId,
-  expandView,
   children,
   showPersonDetails = true,
 }: Props): React.ReactElement => {
-  const { user } = useAuth() as { user: User };
   const { data: person, error } = useResident(personId);
   if (error) {
     return <ErrorMessage />;
@@ -30,22 +24,15 @@ const PersonView = ({
     return <Spinner />;
   }
   return (
-    <>
-      {!expandView && (
-        <div className="lbh-table-header">
-          <h1 className="govuk-fieldset__legend--l gov-weight-lighter">
-            {person.firstName} {person.lastName}
-          </h1>
-
-          {canUserEditPerson(user, person) && (
-            <Link href={`/people/${person.id}/edit`}>
-              <a className="govuk-link">Update person</a>
-            </Link>
-          )}
-        </div>
-      )}
-      {typeof children === 'function' ? children(person) : children}
-    </>
+    <div className="govuk-grid-row">
+      <div className="govuk-grid-column-two-thirds">
+        {typeof children === 'function' ? children(person) : children}
+      </div>
+      <div className="govuk-grid-column-one-third">
+        <p className="lbh-body">This is for:</p>
+        {showPersonDetails && <PersonWidget person={person} />}
+      </div>
+    </div>
   );
 };
 
