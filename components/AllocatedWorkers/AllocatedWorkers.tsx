@@ -45,7 +45,7 @@ const AllocatedWorkers = ({ person }: Props): React.ReactElement => {
             <Button
               label="Allocate worker"
               isSecondary
-              route={`${asPath}/allocations/add`}
+              route={`${asPath}/add`}
             />
           )}
         </div>
