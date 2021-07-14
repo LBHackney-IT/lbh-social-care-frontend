@@ -39,7 +39,7 @@ const AllocatedWorkers = ({ person }: Props): React.ReactElement => {
       )}
 
       {canUserAllocateWorkerToPerson(user, person) && (
-        <Link href={`/${asPath}/add`}>
+        <Link href={`${asPath}/add`}>
           <a className="govuk-button lbh-button lbh-button--secondary lbh-button--add">
             <svg width="12" height="12" viewBox="0 0 12 12">
               <path d="M6.94 0L5 0V12H6.94V0Z" />
