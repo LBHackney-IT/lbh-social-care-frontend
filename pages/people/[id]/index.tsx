@@ -1,7 +1,7 @@
 import { getResident } from 'lib/residents';
 import Layout from 'components/NewPersonView/Layout';
 import { GetServerSideProps } from 'next';
-import { Resident, User } from 'types';
+import { Resident } from 'types';
 import { useCasesByResident } from 'utils/api/cases';
 import { Case } from 'types';
 import PersonTimeline from 'components/NewPersonView/PersonTimeline';
@@ -9,8 +9,9 @@ import Spinner from 'components/Spinner/Spinner';
 import ErrorMessage from 'components/ErrorMessage/ErrorMessage';
 import { useUnfinishedSubmissions } from 'utils/api/submissions';
 import { canManageCases } from 'lib/permissions';
-import { useAuth } from 'components/UserContext/UserContext';
 import { isAuthorised } from 'utils/auth';
+import { ConditionalFeature } from '../../../lib/feature-flags/feature-flags';
+import Cases from 'components/Cases/Cases';
 
 interface Props {
   person: Resident;
@@ -37,13 +38,21 @@ const PersonPage = ({ person }: Props): React.ReactElement => {
     <Layout person={person}>
       {events ? (
         events.length > 0 ? (
-          <PersonTimeline
-            unfinishedSubmissions={submissionsData?.submissions}
-            events={events}
-            size={size}
-            setSize={setSize}
-            onLastPage={onLastPage}
-          />
+          <>
+            <ConditionalFeature name="person-timeline">
+              <PersonTimeline
+                unfinishedSubmissions={submissionsData?.submissions}
+                events={events}
+                size={size}
+                setSize={setSize}
+                onLastPage={onLastPage}
+              />
+            </ConditionalFeature>
+
+            <ConditionalFeature name="person-cases">
+              <Cases id={person.id} person={person} />
+            </ConditionalFeature>
+          </>
         ) : (
           <p>No events to show</p>
         )
@@ -63,7 +72,7 @@ export const getServerSideProps: GetServerSideProps = async ({
   req,
 }) => {
   const person = await getResident(Number(params?.id));
-  const user = await isAuthorised(req);
+  const user = isAuthorised(req);
 
   if (user && !canManageCases(user, person)) {
     return {

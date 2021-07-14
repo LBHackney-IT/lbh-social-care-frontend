@@ -10,8 +10,8 @@ import React from 'react';
 import WarningNotes from 'components/WarningNote/WarningNotes';
 import { useAuth } from 'components/UserContext/UserContext';
 import { canManageCases } from 'lib/permissions';
-import { useState } from 'react';
 import AddFormDialog from 'components/AddFormDialog/AddFormDialog';
+import { useState } from 'react';
 
 interface NavLinkProps {
   href: string;
@@ -45,7 +45,7 @@ const summariseAllocations = (allocations: Allocation[]): string | null => {
     return ` · Allocated to ${allocations[0].allocatedWorker}`;
   if (allocations?.length === 2)
     return ` · Allocated to ${allocations[0].allocatedWorker} and 1 other`;
-  if (allocations?.length > 1)
+  if (allocations?.length > 2)
     return ` · Allocated to ${allocations[0].allocatedWorker} and ${
       allocations?.length - 1
     } others`;
@@ -99,9 +99,9 @@ const Layout = ({ person, children }: Props): React.ReactElement => {
       </Head>
 
       <AddFormDialog
-        person={person}
         isOpen={addFormOpen}
         onDismiss={() => setAddFormOpen(false)}
+        person={person}
       />
 
       <WarningNotes id={person.id} />

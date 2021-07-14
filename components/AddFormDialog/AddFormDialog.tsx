@@ -89,10 +89,15 @@ const AddFormDialog = ({
           label="Search for a form"
           placeholder="Search forms..."
         />
-        <p className="lbh-body-xs">{results.length} matches</p>
+        <p className="lbh-body-xs">
+          {results.length} {results.length === 1 ? 'match' : 'matches'}
+        </p>
       </div>
 
       <ul className={s.resultsList}>
+        {results.length === 0 && (
+          <p className={`lbh-body-l ${s.noMatches}`}>No matches</p>
+        )}
         {results.map((result, i) => (
           <li className={s.result} key={i}>
             <Link href={result.href}>

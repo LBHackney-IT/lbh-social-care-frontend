@@ -9,7 +9,7 @@
 .result {
   margin-top: 0;
   position: relative;
-  border-bottom: 1px solid lbh-colour('lbh-grey-4');
+  border-bottom: 1px solid lbh-colour('lbh-grey-3');
   padding: 15px 45px 15px 20px;
 
   &:hover svg path {
@@ -63,4 +63,13 @@
 
 .meta {
   color: lbh-colour('lbh-secondary-text');
+}
+
+.noMatches {
+  margin-top: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  color: lbh-colour('lbh-grey-2');
 }
