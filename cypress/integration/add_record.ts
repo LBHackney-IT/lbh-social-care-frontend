@@ -12,7 +12,7 @@ describe('Adding records', () => {
       cy.contains('Add something new').should('be.visible');
 
       cy.contains('Document Upload').should('be.visible');
-      cy.contains('Safeguarding concern').should('be.visible');
+      cy.contains('Safeguarding Concern').should('be.visible');
       cy.get("input[placeholder='Search forms...']").type(
         'Review of Care and Support Plan (3C)'
       );
