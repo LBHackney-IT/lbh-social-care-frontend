@@ -1,7 +1,7 @@
 import { getResident } from 'lib/residents';
 import Layout from 'components/NewPersonView/Layout';
 import { GetServerSideProps } from 'next';
-import { Resident, User } from 'types';
+import { Resident } from 'types';
 import { useCasesByResident } from 'utils/api/cases';
 import { Case } from 'types';
 import PersonTimeline from 'components/NewPersonView/PersonTimeline';
@@ -9,7 +9,6 @@ import Spinner from 'components/Spinner/Spinner';
 import ErrorMessage from 'components/ErrorMessage/ErrorMessage';
 import { useUnfinishedSubmissions } from 'utils/api/submissions';
 import { canManageCases } from 'lib/permissions';
-import { useAuth } from 'components/UserContext/UserContext';
 import { isAuthorised } from 'utils/auth';
 
 interface Props {
@@ -63,7 +62,7 @@ export const getServerSideProps: GetServerSideProps = async ({
   req,
 }) => {
   const person = await getResident(Number(params?.id));
-  const user = await isAuthorised(req);
+  const user = isAuthorised(req);
 
   if (user && !canManageCases(user, person)) {
     return {

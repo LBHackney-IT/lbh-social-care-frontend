@@ -9,15 +9,13 @@ import SearchBox from 'components/SubmissionsTable/SearchBox';
 import UnfinishedSubmissionsEvent from './UnfinishedSubmissions';
 import { normaliseDateToISO } from 'utils/date';
 import Event from './Event';
-import { mockSubmission } from 'factories/submissions';
-
-const minorForms = ['ASC_case_note', 'Child Case Note'];
+import MINOR_FORMS from 'data/minorForms';
 
 /** for all possible kinds of submission/case/record, see if it's major or not */
 export const isMajorEvent = (event: Case): boolean =>
   !(
-    minorForms.includes(event?.formName) ||
-    minorForms.includes(event?.caseFormData?.form_name_overall)
+    MINOR_FORMS.includes(event?.formName) ||
+    MINOR_FORMS.includes(event?.caseFormData?.form_name_overall)
   );
 
 interface Props {
