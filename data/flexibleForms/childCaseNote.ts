@@ -115,8 +115,8 @@ const form: Form = {
           type: 'radios',
           required: true,
           condition: {
-            id: 'Type',
-            value: 'Visit',
+            id: 'Were the child/children seen',
+            value: 'Yes',
           },
           choices: [
             {

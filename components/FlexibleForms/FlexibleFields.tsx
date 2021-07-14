@@ -39,7 +39,6 @@ const FlexibleField = ({
         name={field.id}
         subfields={field.subfields}
         label={field.question}
-        hiddenOnStart={field.hiddenRepeater}
         {...field}
       />
     );

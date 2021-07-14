@@ -176,38 +176,4 @@ describe('RepeaterGroupField', () => {
     fireEvent.click(screen.getAllByText('Remove')[0]);
     expect(screen.queryAllByRole('textbox').length).toBe(1);
   });
-
-  it('renders no groups correctly', () => {
-    render(
-      <Formik
-        onSubmit={mockSubmit}
-        initialValues={{
-          foo: [
-            {
-              bar: 'example value',
-            },
-          ],
-        }}
-      >
-        <RepeaterGroupField
-          name="foo"
-          label="Label text"
-          hint="Hint text"
-          hiddenOnStart={true}
-          subfields={[
-            {
-              id: 'bar',
-              question: 'bar',
-              type: 'text',
-            },
-          ]}
-        />
-      </Formik>
-    );
-    expect(screen.queryByRole('textbox')).toBeNull();
-    expect(screen.queryByRole('bar')).toBeNull();
-    expect(screen.getAllByText('Label text'));
-    expect(screen.getByText('Hint text'));
-    expect(screen.getByText('Add item'));
-  });
 });
