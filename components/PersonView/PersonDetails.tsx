@@ -1,7 +1,9 @@
 import { useState } from 'react';
-
 import { getEthnicityName } from 'utils/person';
-import { Resident } from 'types';
+import { Resident, User } from 'types';
+import { useAuth } from 'components/UserContext/UserContext';
+import { canUserEditPerson } from 'lib/permissions';
+import Link from 'next/link';
 
 interface Props {
   person: Resident;
@@ -9,7 +11,10 @@ interface Props {
 }
 
 const PersonDetails = ({
-  person: {
+  person,
+  expandView = false,
+}: Props): React.ReactElement => {
+  const {
     otherNames,
     contextFlag,
     firstName,
@@ -27,17 +32,18 @@ const PersonDetails = ({
     phoneNumbers,
     emailAddress,
     preferredMethodOfContact,
-  },
-  expandView = false,
-}: Props): React.ReactElement => {
+  } = person;
+
   const [expandDetails, setExpandDetails] = useState(false);
+  const { user } = useAuth() as { user: User };
+
   return (
     <div>
       <div className="lbh-table-header">
         <h2 className="govuk-fieldset__legend--m govuk-custom-text-color">
           {expandView ? `${firstName} ${lastName}` : 'PERSON DETAILS'}
         </h2>
-        {expandView && (
+        {expandView ? (
           <button
             className="govuk-link"
             onClick={(e) => {
@@ -47,6 +53,12 @@ const PersonDetails = ({
           >
             {expandDetails ? 'Hide' : 'Show'} details
           </button>
+        ) : (
+          canUserEditPerson(user, person) && (
+            <Link href={`/people/${id}/edit`}>
+              <a className="lbh-link">Edit details</a>
+            </Link>
+          )
         )}
       </div>
       <hr className="govuk-divider" />

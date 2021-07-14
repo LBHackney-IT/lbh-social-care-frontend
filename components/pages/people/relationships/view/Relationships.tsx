@@ -98,7 +98,7 @@ const Relationships = ({ id }: Props): React.ReactElement => {
             <ConditionalFeature name="add-relationships">
               <Button
                 label="Add a new relationship"
-                route={`${id}/relationships/add`}
+                route={`/people/${id}/relationships/add`}
               />
             </ConditionalFeature>
           </FeatureFlagProvider>

@@ -63,3 +63,17 @@ export const objectDateToString = (
     : format === 'ISO'
     ? `${year}-${month}-${day}`
     : `${day}-${month}-${year}`;
+
+/** convert all our weird date formats on the /cases api endpoint into iso-compatible strings */
+export const normaliseDateToISO = (str: string): string => {
+  if (/[0-9]{1,2}\/[0-9]{1,2}\/[0-9]{4} [0-9]{1,2}:[0-9:]{1,5}/.test(str)) {
+    const [date, time] = str.split(' ');
+    const [days, month, year] = date.split('/');
+    const [hours, minutes, seconds] = time.split(':');
+    return `${year}-${month}-${days}T${hours.padStart(2, '0')}:${minutes}${
+      seconds ? `:${seconds}` : ''
+    }`;
+  } else {
+    return str;
+  }
+};

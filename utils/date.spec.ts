@@ -5,6 +5,7 @@ import {
   convertFormat,
   stringDateToObject,
   objectDateToString,
+  normaliseDateToISO,
 } from './date';
 
 describe('date util', () => {
@@ -95,6 +96,18 @@ describe('date util', () => {
           year: '',
         })
       ).toEqual(null);
+    });
+  });
+
+  describe('normaliseDateToISO', () => {
+    it('should work properly', () => {
+      expect(normaliseDateToISO('1941-09-22')).toEqual('1941-09-22');
+      expect(normaliseDateToISO('22/09/1941 13:49:43')).toEqual(
+        '1941-09-22T13:49:43'
+      );
+      expect(normaliseDateToISO('22/09/1941 3:49:43')).toEqual(
+        '1941-09-22T03:49:43'
+      );
     });
   });
 });
