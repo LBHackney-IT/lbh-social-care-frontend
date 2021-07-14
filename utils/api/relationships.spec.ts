@@ -23,6 +23,7 @@ describe('relationships APIs', () => {
       const formData = {
         personId: 123,
         otherPersonId: 456,
+        createdBy: 'test@hackney.gov.uk',
         type: 'parent',
       };
       jest.spyOn(axios, 'post');
@@ -36,6 +37,7 @@ describe('relationships APIs', () => {
       const formData = {
         personId: 123,
         otherPersonId: 456,
+        createdBy: 'test@hackney.gov.uk',
         type: 'parent',
         details: 'emergency contact',
       };
@@ -52,6 +54,7 @@ describe('relationships APIs', () => {
         const formData = {
           personId: 123,
           otherPersonId: 456,
+          createdBy: 'test@hackney.gov.uk',
           type: 'parent',
           additionalOptions: ['isMainCarer'],
         };
@@ -70,6 +73,7 @@ describe('relationships APIs', () => {
           const formData = {
             personId: 123,
             otherPersonId: 456,
+            createdBy: 'test@hackney.gov.uk',
             type: 'parent',
             additionalOptions: ['isMainCarer'],
           };
@@ -89,6 +93,7 @@ describe('relationships APIs', () => {
           const formData = {
             personId: 123,
             otherPersonId: 456,
+            createdBy: 'test@hackney.gov.uk',
             type: 'parent',
             additionalOptions: ['isParentOfUnbornChild'],
           };
@@ -106,6 +111,7 @@ describe('relationships APIs', () => {
           const formData = {
             personId: 123,
             otherPersonId: 456,
+            createdBy: 'test@hackney.gov.uk',
             type: 'sibling',
             additionalOptions: ['isSiblingOfUnbornChild'],
           };
