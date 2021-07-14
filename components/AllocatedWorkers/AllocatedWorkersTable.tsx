@@ -1,7 +1,5 @@
 import { useRouter } from 'next/router';
-
-import Button from 'components/Button/Button';
-
+import Link from 'next/link';
 import { Allocation } from 'types';
 
 interface EntryProps extends Allocation {
@@ -16,31 +14,23 @@ const AllocatedWorkersEntry = ({
   allocationStartDate,
   allocationEndDate,
   workerType,
-  index,
   showDeallocateButton,
   deallocationUrl,
 }: EntryProps): React.ReactElement => (
-  <>
-    <div className="lbh-table-header">
-      <h3 className="govuk-fieldset__legend--m govuk-custom-text-color govuk-!-margin-top-0">
-        ALLOCATED WORKER {index + 1}
-      </h3>
+  <section>
+    <div>
+      <h3>{allocatedWorker}</h3>
       {showDeallocateButton && (
-        <Button isSecondary label="Deallocate Worker" route={deallocationUrl} />
+        <Link href={deallocationUrl}>
+          <a className="lbh-link">Deallocate</a>
+        </Link>
       )}
     </div>
-    <hr className="govuk-divider" />
-    <div></div>
+
     <dl className="govuk-summary-list">
-      {allocatedWorker && (
-        <div className="govuk-summary-list__row">
-          <dt className="govuk-summary-list__key">Allocated worker:</dt>
-          <dd className="govuk-summary-list__value">{allocatedWorker}</dd>
-        </div>
-      )}
       {allocatedWorkerTeam && (
         <div className="govuk-summary-list__row">
-          <dt className="govuk-summary-list__key">Allocated team</dt>
+          <dt className="govuk-summary-list__key">Team</dt>
           <dd className="govuk-summary-list__value">{allocatedWorkerTeam}</dd>
         </div>
       )}
@@ -67,7 +57,7 @@ const AllocatedWorkersEntry = ({
         </div>
       )}
     </dl>
-  </>
+  </section>
 );
 
 export interface Props {
