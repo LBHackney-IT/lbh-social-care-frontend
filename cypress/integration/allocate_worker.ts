@@ -4,7 +4,7 @@ describe('Allocating workers', () => {
   describe('As a user in the Adults group', () => {
     it('should show the allocate worker button on an adult resident if the user has allocator permissions', () => {
       cy.visitAs(
-        `/people/${Cypress.env('ADULT_RECORD_PERSON_ID')}`,
+        `/people/${Cypress.env('ADULT_RECORD_PERSON_ID')}/allocations`,
         AuthRoles.AdultsAllocatorGroup
       );
 
@@ -57,7 +57,7 @@ describe('Allocating workers', () => {
 
       cy.location('pathname').should(
         'eq',
-        `/people/${Cypress.env('CHILDREN_RECORD_PERSON_ID')}`
+        `/people/${Cypress.env('CHILDREN_RECORD_PERSON_ID')}/details`
       );
     });
   });
@@ -65,7 +65,7 @@ describe('Allocating workers', () => {
   describe('As a user in the Childrens group', () => {
     it('should show the allocate worker button on a child resident', () => {
       cy.visitAs(
-        `/people/${Cypress.env('CHILDREN_RECORD_PERSON_ID')}`,
+        `/people/${Cypress.env('CHILDREN_RECORD_PERSON_ID')}/allocations`,
         AuthRoles.ChildrensGroup
       );
 
@@ -89,7 +89,7 @@ describe('Allocating workers', () => {
 
       cy.location('pathname').should(
         'eq',
-        `/people/${Cypress.env('ADULT_RECORD_PERSON_ID')}`
+        `/people/${Cypress.env('ADULT_RECORD_PERSON_ID')}/details`
       );
     });
   });

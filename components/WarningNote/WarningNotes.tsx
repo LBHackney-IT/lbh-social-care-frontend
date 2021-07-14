@@ -25,7 +25,10 @@ export const WarningBox = ({ notes, personId }: Props): React.ReactElement => {
 
   return (
     <div
-      className={cx('govuk-error-summary', styles.container)}
+      className={cx(
+        'govuk-error-summary govuk-!-margin-bottom-8',
+        styles.container
+      )}
       aria-labelledby="warning-note-title"
       role="complementary"
       tabIndex={-1}

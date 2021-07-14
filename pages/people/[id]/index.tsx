@@ -1,21 +1,102 @@
-import { useRouter } from 'next/router';
+import { getResident } from 'lib/residents';
+import Layout from 'components/NewPersonView/Layout';
+import { GetServerSideProps } from 'next';
+import { Resident } from 'types';
+import { useCasesByResident } from 'utils/api/cases';
+import { Case } from 'types';
+import PersonTimeline from 'components/NewPersonView/PersonTimeline';
+import Spinner from 'components/Spinner/Spinner';
+import ErrorMessage from 'components/ErrorMessage/ErrorMessage';
+import { useUnfinishedSubmissions } from 'utils/api/submissions';
+import { canManageCases } from 'lib/permissions';
+import { isAuthorised } from 'utils/auth';
+import { ConditionalFeature } from '../../../lib/feature-flags/feature-flags';
+import Cases from 'components/Cases/Cases';
 
-import Seo from 'components/Layout/Seo/Seo';
-import { PersonDetailsPage } from 'components/pages/people/PersonDetailsPage';
+interface Props {
+  person: Resident;
+}
 
-const PersonPage = (): React.ReactElement => {
-  const { query } = useRouter();
+const PersonPage = ({ person }: Props): React.ReactElement => {
+  const {
+    data: casesData,
+    size,
+    setSize,
+    error: casesError,
+  } = useCasesByResident(person.id);
+  const { data: submissionsData } = useUnfinishedSubmissions(person.id);
 
-  const personId = Number(query.id as string);
+  // flatten pagination
+  const events = casesData?.reduce(
+    (acc, page) => acc.concat(page.cases as Case[]),
+    [] as Case[]
+  );
+
+  const onLastPage = !casesData?.[casesData.length - 1].nextCursor;
 
   return (
-    <>
-      <Seo title={`Person Details - #${query.id}`} />
-      <PersonDetailsPage personId={personId} />
-    </>
+    <Layout person={person}>
+      {events ? (
+        events.length > 0 ? (
+          <>
+            <ConditionalFeature name="person-timeline">
+              <PersonTimeline
+                unfinishedSubmissions={submissionsData?.submissions}
+                events={events}
+                size={size}
+                setSize={setSize}
+                onLastPage={onLastPage}
+              />
+            </ConditionalFeature>
+
+            <ConditionalFeature name="person-cases">
+              <Cases id={person.id} person={person} />
+            </ConditionalFeature>
+          </>
+        ) : (
+          <p>No events to show</p>
+        )
+      ) : casesError ? (
+        <ErrorMessage label={casesError.message} />
+      ) : (
+        <Spinner />
+      )}
+    </Layout>
   );
 };
 
 PersonPage.goBackButton = true;
+
+export const getServerSideProps: GetServerSideProps = async ({
+  params,
+  req,
+}) => {
+  const person = await getResident(Number(params?.id));
+  const user = isAuthorised(req);
+
+  if (user && !canManageCases(user, person)) {
+    return {
+      props: {},
+      redirect: {
+        destination: `/people/${person.id}/details`,
+      },
+    };
+  }
+
+  if (!person.id) {
+    return {
+      props: {},
+      redirect: {
+        destination: `/404`,
+      },
+    };
+  }
+
+  return {
+    props: {
+      person,
+    },
+  };
+};
 
 export default PersonPage;
