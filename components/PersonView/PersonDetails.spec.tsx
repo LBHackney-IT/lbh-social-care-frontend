@@ -3,6 +3,25 @@ import { render, fireEvent } from '@testing-library/react';
 import PersonDetails from './PersonDetails';
 
 import { residentFactory } from 'factories/residents';
+import { AuthProvider } from 'components/UserContext/UserContext';
+import { mockedUser } from 'factories/users';
+
+import Router from 'next/router';
+
+jest.mock('next/router', () => ({
+  __esModule: true,
+  default: {
+    events: {
+      on: jest.fn(),
+    },
+    push: jest.fn(),
+  },
+  useRouter: () => ({
+    query: { foo: 'bar' },
+    replace: jest.fn(),
+    pathname: 'foopath',
+  }),
+}));
 
 describe('PersonDetails component', () => {
   const props = {
@@ -29,13 +48,19 @@ describe('PersonDetails component', () => {
   };
 
   it('should render properly', () => {
-    const { asFragment } = render(<PersonDetails {...props} />);
+    const { asFragment } = render(
+      <AuthProvider user={{ ...mockedUser }}>
+        <PersonDetails {...props} />
+      </AuthProvider>
+    );
     expect(asFragment()).toMatchSnapshot();
   });
 
   it('should render properly - expanded', async () => {
     const { asFragment, getByRole } = render(
-      <PersonDetails {...props} expandView />
+      <AuthProvider user={{ ...mockedUser }}>
+        <PersonDetails {...props} expandView />
+      </AuthProvider>
     );
     expect(asFragment()).toMatchSnapshot();
     fireEvent.click(getByRole('button'));

@@ -1,8 +1,8 @@
 import { Form } from './forms.types';
 
 const form: Form = {
-  id: 'Child Case Note',
-  name: 'Child Case Note',
+  id: 'child-case-note',
+  name: 'Case note',
   groupRecordable: true,
   isViewableByAdults: false,
   isViewableByChildrens: false,
@@ -12,6 +12,11 @@ const form: Form = {
       name: 'Case note',
       theme: 'Case note',
       fields: [
+        {
+          id: 'Title',
+          question: 'Title',
+          type: 'textarea',
+        },
         {
           id: 'Type',
           question: 'What kind of note is this?',
@@ -75,32 +80,80 @@ const form: Form = {
               label: 'Office visit',
             },
             {
+              value: 'Virtual',
+              label: 'Virtual visit',
+            },
+            {
               value: 'No reply to home visit',
               label: 'No reply to home visit',
             },
           ],
         },
-
+        {
+          id: 'Were the child/children seen',
+          question: 'Were the child/children seen?',
+          type: 'radios',
+          required: true,
+          condition: {
+            id: 'Type',
+            value: 'Visit',
+          },
+          choices: [
+            {
+              value: 'Yes',
+              label: 'Yes',
+            },
+            {
+              value: 'No',
+              label: 'No',
+            },
+          ],
+        },
+        {
+          id: 'Were the child/children seen alone',
+          question: 'Were the child/children seen alone?',
+          type: 'radios',
+          required: true,
+          condition: {
+            id: 'Were the child/children seen',
+            value: 'Yes',
+          },
+          choices: [
+            {
+              value: 'Yes',
+              label: 'Yes',
+            },
+            {
+              value: 'No',
+              label: 'No',
+            },
+          ],
+        },
+        {
+          id: 'Topics (tags)',
+          question: 'Topics',
+          hint: 'Help colleagues find this note. Add as many as you need.',
+          type: 'Tags',
+        },
         {
           id: 'Body',
           question: 'What happened?',
           type: 'textarea',
           required: true,
         },
-
         {
           id: 'Date of event',
           question: 'When did this happen?',
           type: 'date',
           className: 'govuk-input--width-10',
         },
-
         {
           id: 'Actions',
           question: 'Actions',
           type: 'repeaterGroup',
           hint: 'eg. Dave to contact landlord',
           itemName: 'action',
+          hiddenRepeater: true,
           subfields: [
             {
               id: 'text',
@@ -121,12 +174,6 @@ const form: Form = {
               className: 'govuk-input--width-10',
             },
           ],
-        },
-        {
-          id: 'Topics (tags)',
-          question: 'Topics',
-          hint: 'Help colleagues find this note. Add as many as you need.',
-          type: 'Tags',
         },
       ],
     },
