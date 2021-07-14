@@ -46,7 +46,7 @@ describe('Viewing a created warning note', () => {
 
     it('should show the details of all submitted reviews and the initial note when a warning note has been ended', () => {
       cy.visitAs(
-        `/people/${Cypress.env('ADULT_RECORD_PERSON_ID')}/details`,
+        `/people/${Cypress.env('ADULT_RECORD_PERSON_ID')}`,
         AuthRoles.AdultsGroup
       );
 
@@ -69,7 +69,7 @@ describe('Viewing a created warning note', () => {
   describe('As a user in the Children group and records are not restricted', () => {
     it('should show only the initial details of a warning note when created', () => {
       cy.visitAs(
-        `/people/${Cypress.env('CHILDREN_RECORD_PERSON_ID')}/details`,
+        `/people/${Cypress.env('CHILDREN_RECORD_PERSON_ID')}`,
         AuthRoles.ChildrensGroup
       );
 
@@ -92,7 +92,7 @@ describe('Viewing a created warning note', () => {
 
     it('should show the details of all submitted reviews and the initial note when a warning note has been reviewed', () => {
       cy.visitAs(
-        `/people/${Cypress.env('CHILDREN_RECORD_PERSON_ID')}/details`,
+        `/people/${Cypress.env('CHILDREN_RECORD_PERSON_ID')}`,
         AuthRoles.ChildrensGroup
       );
 
@@ -115,7 +115,7 @@ describe('Viewing a created warning note', () => {
 
     it('should show the details of all submitted reviews and the initial note when a warning note has been ended', () => {
       cy.visitAs(
-        `/people/${Cypress.env('CHILDREN_RECORD_PERSON_ID')}/details`,
+        `/people/${Cypress.env('CHILDREN_RECORD_PERSON_ID')}`,
         AuthRoles.ChildrensGroup
       );
 

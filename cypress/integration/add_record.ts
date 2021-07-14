@@ -9,17 +9,14 @@ describe('Adding records', () => {
       );
 
       cy.contains('Add something new').click();
-      cy.contains('Add a new record for').should('be.visible');
-      cy.contains('Show details').click();
-      cy.contains('Hide details').should('be.visible');
-      cy.get('[data-testid="formList"]').click();
+      cy.contains('Add something new').should('be.visible');
+
       cy.contains('Blue Badge').should('be.visible');
       cy.contains('Case Note Recording').should('be.visible');
-      cy.get('[data-testid="formList"]').type('Case Note Recording');
+      cy.get('input[type="search"]').type('Case Note Recording');
       cy.contains('Case Note Recording').should('be.visible');
       cy.contains('Appointeeship').should('not.exist');
       cy.contains('Case Note Recording').click();
-      cy.get('[data-module="govuk-button"]').click();
       cy.url().should(
         'include',
         `/people/${Cypress.env(
@@ -41,13 +38,11 @@ describe('Adding records', () => {
         'be.visible'
       );
       cy.contains('Add something new').click();
-      cy.contains('Add a new record for').should('be.visible');
-      cy.contains('Show details').click();
-      cy.contains('Hide details').should('be.visible');
-      cy.get('[data-testid="formList"]').click();
+      cy.contains('Add something new').should('be.visible');
+
       cy.contains('CFS Case Note').should('be.visible');
       cy.contains('CFS Visit').should('be.visible');
-      cy.get('[data-testid="formList"]').type('CFS Visit');
+      cy.get('input[type="search"]').type('CFS Visit');
       cy.contains('CFS Visit').should('be.visible');
       cy.contains('CFS Case Note').should('not.exist');
     });
