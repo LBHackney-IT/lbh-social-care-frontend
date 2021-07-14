@@ -10,8 +10,6 @@ describe('Adding records', () => {
 
       cy.contains('Add something new').click();
       cy.contains('Add a new record for').should('be.visible');
-      cy.contains('Show details').click();
-      cy.contains('Hide details').should('be.visible');
       cy.get('[data-testid="formList"]').click();
       cy.contains('Blue Badge').should('be.visible');
       cy.contains('Case Note Recording').should('be.visible');
@@ -42,8 +40,6 @@ describe('Adding records', () => {
       );
       cy.contains('Add something new').click();
       cy.contains('Add a new record for').should('be.visible');
-      cy.contains('Show details').click();
-      cy.contains('Hide details').should('be.visible');
       cy.get('[data-testid="formList"]').click();
       cy.contains('CFS Case Note').should('be.visible');
       cy.contains('CFS Visit').should('be.visible');
