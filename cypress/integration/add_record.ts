@@ -2,7 +2,7 @@ import { AuthRoles } from '../support/commands';
 
 describe('Adding records', () => {
   describe('As a user in the Adults group', () => {
-    it('should go to the submission when a system form is selected', () => {
+    it('should show the correct, searchable, form options', () => {
       cy.visitAs(
         `/people/${Cypress.env('ADULT_RECORD_PERSON_ID')}`,
         AuthRoles.AdultsGroup
@@ -19,7 +19,6 @@ describe('Adding records', () => {
       cy.contains('FACE Care and Support Plan').should('be.visible');
       cy.contains('Appointeeship').should('not.exist');
       cy.contains('FACE Care and Support Plan');
-      cy.contains('Case note for').should('be.visible');
     });
   });
 
