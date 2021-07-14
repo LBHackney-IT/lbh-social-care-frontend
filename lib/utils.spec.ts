@@ -106,6 +106,18 @@ describe('generateInitialValues', () => {
           question: '',
           type: 'timetable',
         },
+        {
+          id: 'seven',
+          question: '',
+          type: 'repeaterGroup',
+          subfields: [
+            {
+              id: 'eight',
+              question: 'repeater group',
+              type: 'text',
+            },
+          ],
+        },
       ],
       undefined
     );
@@ -117,6 +129,11 @@ describe('generateInitialValues', () => {
       four: null,
       five: 'blah',
       six: {},
+      seven: [
+        {
+          eight: '',
+        },
+      ],
     });
   });
 
@@ -150,6 +167,30 @@ describe('generateInitialValues', () => {
       bar: 'example value',
       su: '',
     });
+  });
+
+  it('generates an empty array if the repeater field is to start hidden', () => {
+    const result = generateInitialValues(
+      [
+        {
+          id: 'one',
+          question: '',
+          type: 'repeaterGroup',
+          hiddenRepeater: true,
+          subfields: [
+            {
+              id: 'two',
+              question: '',
+              type: 'text',
+            },
+          ],
+        },
+      ],
+      undefined
+    );
+    console.log('🚀 ~ file: utils.spec.ts ~ line 173 ~ it ~ result', result);
+
+    expect(result).toMatchObject({ one: [] });
   });
 });
 
