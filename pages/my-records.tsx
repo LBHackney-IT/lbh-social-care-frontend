@@ -7,7 +7,7 @@ const MyCasesPage = (): React.ReactElement => (
     <Seo title="My records notes" />
     <DashboardWrapper>
       <>
-        <p className="govuk-body">All records you have added</p>
+        <h1 className="lbh-heading-h2 govuk-!-margin-bottom-6">Your records</h1>
         <Search
           type="records"
           subHeader={<>Filter results by (any combination)</>}

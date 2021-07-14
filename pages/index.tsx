@@ -7,7 +7,7 @@ const MyCasesPage = (): React.ReactElement => (
     <Seo title="My Work Space" />
     <DashboardWrapper>
       <>
-        <p className="govuk-body">People you are working with</p>
+        <h1 className="lbh-heading-h2 govuk-!-margin-bottom-6">Allocations</h1>
         <MyAllocatedCases />
       </>
     </DashboardWrapper>

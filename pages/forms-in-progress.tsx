@@ -16,6 +16,9 @@ const UnfinishedSubmissions = ({ submissions }: Props): React.ReactElement => (
     <Seo title="Unfinished submissions" />
     <DashboardWrapper>
       <>
+        <h1 className="lbh-heading-h2 govuk-!-margin-bottom-6">
+          Unfinished submissions
+        </h1>
         {submissions?.length > 0 && (
           <SubmissionsTable submissions={submissions} />
         )}

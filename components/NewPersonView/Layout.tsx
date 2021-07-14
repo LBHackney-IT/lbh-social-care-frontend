@@ -23,7 +23,7 @@ const NavLink = ({ href, children }: NavLinkProps) => {
       <Link href={href}>
         <a
           className={`lbh-link lbh-link--no-visited-state ${
-            router.asPath === href && s.navLinkActive
+            router.asPath === href ? s.navLinkActive : s.navLink
           }`}
         >
           {children}

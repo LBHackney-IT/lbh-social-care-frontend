@@ -1,35 +1,67 @@
-import Stack from 'components/Stack/Stack';
-import Tabs from 'components/Tabs/Tabs';
-import MyData from './MyData';
+import Head from 'next/head';
+import { useRouter } from 'next/router';
+import Link from 'next/link';
+import s from './DashboardWrapper.module.scss';
+
+interface NavLinkProps {
+  href: string;
+  children: React.ReactChild;
+}
+
+const NavLink = ({ href, children }: NavLinkProps) => {
+  const router = useRouter();
+  return (
+    <li>
+      <Link href={href}>
+        <a
+          className={`lbh-link lbh-link--no-visited-state ${
+            router.asPath === href ? s.navLinkActive : s.navLink
+          }`}
+        >
+          {children}
+        </a>
+      </Link>
+    </li>
+  );
+};
+
+const navigation: { text: string; href: string }[] = [
+  {
+    text: `Allocations`,
+    href: `/`,
+  },
+  {
+    text: `Submissions`,
+    href: `/forms-in-progress`,
+  },
+  { text: 'Records', href: '/my-records' },
+];
 
 interface Props {
   children: React.ReactChild;
 }
 
 const DashboardWrapper = ({ children }: Props): React.ReactElement => (
-  <Stack space={7}>
-    <h1 className="lbh-heading-l">My work space</h1>
-    <MyData />
-    <Tabs
-      title="Dashboard"
-      tabs={[
-        {
-          url: '/',
-          text: 'Clients allocated',
-        },
-        {
-          url: '/forms-in-progress',
-          text: 'Unfinished submissions',
-        },
-        {
-          url: '/my-records',
-          text: "Records I've added",
-        },
-      ]}
-    >
-      {children}
-    </Tabs>
-  </Stack>
+  <>
+    <Head>
+      <title>Dashboard | Social care | Hackney Council</title>
+    </Head>
+
+    <div className={`govuk-grid-row ${s.outer}`}>
+      <div className="govuk-grid-column-one-quarter">
+        <nav className={s.sticky}>
+          <ul className="lbh-list">
+            {navigation.map((link) => (
+              <NavLink href={link.href} key={link.href}>
+                {link.text}
+              </NavLink>
+            ))}
+          </ul>
+        </nav>
+      </div>
+      <div className="govuk-grid-column-three-quarters">{children}</div>
+    </div>
+  </>
 );
 
 export default DashboardWrapper;
