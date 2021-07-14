@@ -30,3 +30,17 @@
     top: 25px;
   }
 }
+
+.myData {
+  border-top: 1px solid lbh-colour('lbh-grey-3');
+  padding-top: 20px;
+
+  p {
+    margin-top: 0.25rem;
+    color: lbh-colour('lbh-secondary-text');
+  }
+
+  p:last-of-type {
+    margin-top: 0.75rem;
+  }
+}

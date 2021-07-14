@@ -2,6 +2,7 @@ import Head from 'next/head';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 import s from './DashboardWrapper.module.scss';
+import MyData from './MyData';
 
 interface NavLinkProps {
   href: string;
@@ -49,15 +50,18 @@ const DashboardWrapper = ({ children }: Props): React.ReactElement => (
 
     <div className={`govuk-grid-row ${s.outer}`}>
       <div className="govuk-grid-column-one-quarter">
-        <nav className={s.sticky}>
-          <ul className="lbh-list">
-            {navigation.map((link) => (
-              <NavLink href={link.href} key={link.href}>
-                {link.text}
-              </NavLink>
-            ))}
-          </ul>
-        </nav>
+        <div className={s.sticky}>
+          <nav>
+            <ul className="lbh-list">
+              {navigation.map((link) => (
+                <NavLink href={link.href} key={link.href}>
+                  {link.text}
+                </NavLink>
+              ))}
+            </ul>
+          </nav>
+          <MyData />
+        </div>
       </div>
       <div className="govuk-grid-column-three-quarters">{children}</div>
     </div>
