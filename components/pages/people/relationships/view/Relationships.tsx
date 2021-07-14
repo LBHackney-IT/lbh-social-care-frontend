@@ -83,7 +83,6 @@ const Relationships = ({ id }: Props): React.ReactElement => {
           <h3 className="govuk-fieldset__legend--m govuk-custom-text-color">
             RELATIONSHIPS
           </h3>
-
           <ConditionalFeature name="add-relationships">
             <Button
               label="Add a new relationship"

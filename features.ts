@@ -16,6 +16,14 @@ export const getFeatureFlags = ({
     'add-relationships': {
       isActive: environmentName === 'development',
     },
+    // FEATURE-FLAG-EXPIRES [2021-08-31]: person-timeline
+    'person-timeline': {
+      isActive: environmentName === 'development',
+    },
+    // FEATURE-FLAG-EXPIRES [2021-08-31]: person-cases
+    'person-cases': {
+      isActive: environmentName === 'production',
+    },
 
     /*
       The feature-flags-implementation-proof has been setup to have an expiry date in the far future.

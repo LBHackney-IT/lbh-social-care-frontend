@@ -8,12 +8,7 @@ describe('Viewing a created warning note', () => {
         AuthRoles.AdultsGroup
       );
 
-      cy.contains('td', 'Warning Note Created')
-        .siblings()
-        .contains('a', 'View')
-        .click();
-
-      cy.contains('RECORDS HISTORY').should('not.exist');
+      cy.contains('Warning Note Created').click();
 
       cy.contains(Cypress.env('ADULT_RECORD_FULL_NAME')).should('be.visible');
       cy.contains('Show details').click();
@@ -23,7 +18,7 @@ describe('Viewing a created warning note', () => {
       cy.contains('WARNING REVIEW DETAILS').should('not.exist');
 
       cy.contains('a', 'Go back').click();
-      cy.contains('RECORDS HISTORY').should('be.visible');
+      cy.get('.lbh-timeline');
       cy.contains('Warning Note Details').should('not.exist');
       cy.contains('WARNING DETAILS').should('not.exist');
     });
@@ -34,12 +29,7 @@ describe('Viewing a created warning note', () => {
         AuthRoles.AdultsGroup
       );
 
-      cy.contains('td', 'Warning Note Reviewed')
-        .siblings()
-        .contains('a', 'View')
-        .click();
-
-      cy.contains('RECORDS HISTORY').should('not.exist');
+      cy.contains('Warning Note Reviewed').click();
 
       cy.contains(Cypress.env('ADULT_RECORD_FULL_NAME')).should('be.visible');
       cy.contains('Show details').click();
@@ -60,12 +50,7 @@ describe('Viewing a created warning note', () => {
         AuthRoles.AdultsGroup
       );
 
-      cy.contains('td', 'Warning Note Ended')
-        .siblings()
-        .contains('a', 'View')
-        .click();
-
-      cy.contains('RECORDS HISTORY').should('not.exist');
+      cy.contains('Warning Note Ended').click();
 
       cy.contains(Cypress.env('ADULT_RECORD_FULL_NAME')).should('be.visible');
       cy.contains('Show details').click();
@@ -88,12 +73,7 @@ describe('Viewing a created warning note', () => {
         AuthRoles.ChildrensGroup
       );
 
-      cy.contains('td', 'Warning Note Created')
-        .siblings()
-        .contains('a', 'View')
-        .click();
-
-      cy.contains('RECORDS HISTORY').should('not.exist');
+      cy.contains('Warning Note Created').click();
 
       cy.contains(Cypress.env('CHILDREN_RECORD_FULL_NAME')).should(
         'be.visible'
@@ -105,7 +85,7 @@ describe('Viewing a created warning note', () => {
       cy.contains('WARNING REVIEW DETAILS').should('not.exist');
 
       cy.contains('a', 'Go back').click();
-      cy.contains('RECORDS HISTORY').should('be.visible');
+      cy.get('.lbh-timeline');
       cy.contains('Warning Note Details').should('not.exist');
       cy.contains('WARNING DETAILS').should('not.exist');
     });
@@ -116,12 +96,7 @@ describe('Viewing a created warning note', () => {
         AuthRoles.ChildrensGroup
       );
 
-      cy.contains('td', 'Warning Note Reviewed')
-        .siblings()
-        .contains('a', 'View')
-        .click();
-
-      cy.contains('RECORDS HISTORY').should('not.exist');
+      cy.contains('Warning Note Reviewed').click();
 
       cy.contains(Cypress.env('CHILDREN_RECORD_FULL_NAME')).should(
         'be.visible'
@@ -144,12 +119,7 @@ describe('Viewing a created warning note', () => {
         AuthRoles.ChildrensGroup
       );
 
-      cy.contains('td', 'Warning Note Ended')
-        .siblings()
-        .contains('a', 'View')
-        .click();
-
-      cy.contains('RECORDS HISTORY').should('not.exist');
+      cy.contains('Warning Note Ended').click();
 
       cy.contains(Cypress.env('CHILDREN_RECORD_FULL_NAME')).should(
         'be.visible'
