@@ -6,7 +6,6 @@ const form: Form = {
   groupRecordable: true,
   isViewableByAdults: false,
   isViewableByChildrens: false,
-  hiddenRepeater: true,
   steps: [
     {
       id: 'Case note',
