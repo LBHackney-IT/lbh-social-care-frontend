@@ -7,7 +7,7 @@ const MyCasesPage = (): React.ReactElement => (
     <Seo title="Allocations" />
     <DashboardWrapper>
       <>
-        <h1 className="lbh-heading-h2 govuk-!-margin-bottom-6">Allocations</h1>
+        <h1 className="govuk-!-margin-bottom-8">Allocations</h1>
         <MyAllocatedCases />
       </>
     </DashboardWrapper>

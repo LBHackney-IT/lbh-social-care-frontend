@@ -31,14 +31,6 @@ exports[`DashboardWrapper should render properly 1`] = `
                 Submissions
               </a>
             </li>
-            <li>
-              <a
-                class="lbh-link lbh-link--no-visited-state navLink"
-                href="/my-records"
-              >
-                Records
-              </a>
-            </li>
           </ul>
         </nav>
       </div>

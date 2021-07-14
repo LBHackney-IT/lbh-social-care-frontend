@@ -6,6 +6,7 @@ import { getUnfinishedSubmissions } from 'lib/submissions';
 import { Submission } from 'data/flexibleForms/forms.types';
 import SubmissionsTable from 'components/SubmissionsTable';
 import { isAuthorised } from 'utils/auth';
+import Tabs from 'components/Tabs/Tabs';
 
 interface Props {
   submissions: Submission[];
@@ -16,13 +17,28 @@ const UnfinishedSubmissions = ({ submissions }: Props): React.ReactElement => (
     <Seo title="Unfinished submissions" />
     <DashboardWrapper>
       <>
-        <h1 className="lbh-heading-h2 govuk-!-margin-bottom-6">
-          Unfinished submissions
-        </h1>
-        {submissions?.length > 0 && (
-          <SubmissionsTable submissions={submissions} />
-        )}
-        <SavedForms />
+        <h1 className="govuk-!-margin-bottom-8">Submissions</h1>
+
+        <Tabs
+          title="foo"
+          tabs={[
+            {
+              url: '/forms-in-progress',
+              text: 'Unfinished',
+            },
+            {
+              url: '/my-records',
+              text: 'Submitted',
+            },
+          ]}
+        >
+          <>
+            {submissions?.length > 0 && (
+              <SubmissionsTable submissions={submissions} />
+            )}
+            <SavedForms />
+          </>
+        </Tabs>
       </>
     </DashboardWrapper>
   </>
