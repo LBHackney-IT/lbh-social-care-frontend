@@ -1,7 +1,7 @@
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 import { Allocation } from 'types';
-
+import s from 'stylesheets/Section.module.scss';
 interface EntryProps extends Allocation {
   deallocationUrl: string;
   index: number;
@@ -17,8 +17,8 @@ const AllocatedWorkersEntry = ({
   showDeallocateButton,
   deallocationUrl,
 }: EntryProps): React.ReactElement => (
-  <section>
-    <div>
+  <section className="govuk-!-margin-bottom-8">
+    <div className={s.heading}>
       <h3>{allocatedWorker}</h3>
       {showDeallocateButton && (
         <Link href={deallocationUrl}>

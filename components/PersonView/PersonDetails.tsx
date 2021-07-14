@@ -3,7 +3,7 @@ import { Resident, User } from 'types';
 import { useAuth } from 'components/UserContext/UserContext';
 import { canUserEditPerson } from 'lib/permissions';
 import Link from 'next/link';
-import s from './PersonDetails.module.scss';
+import s from 'stylesheets/Section.module.scss';
 
 interface Props {
   person: Resident;

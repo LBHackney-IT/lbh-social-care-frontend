@@ -1,12 +1,9 @@
 import { useRouter } from 'next/router';
-
 import AllocatedWorkersTable from 'components/AllocatedWorkers/AllocatedWorkersTable';
 import ErrorMessage from 'components/ErrorMessage/ErrorMessage';
 import Spinner from 'components/Spinner/Spinner';
-import Button from 'components/Button/Button';
 import { useAuth } from 'components/UserContext/UserContext';
 import { useAllocatedWorkers } from 'utils/api/allocatedWorkers';
-
 import { Resident, User } from 'types';
 import { canUserAllocateWorkerToPerson } from '../../lib/permissions';
 import Link from 'next/link';
@@ -28,7 +25,7 @@ const AllocatedWorkers = ({ person }: Props): React.ReactElement => {
 
   return (
     <div>
-      {allocations && (
+      {allocations && allocations.length > 0 ? (
         <AllocatedWorkersTable
           records={allocations}
           hasAllocationsPermissions={canUserAllocateWorkerToPerson(
@@ -36,6 +33,8 @@ const AllocatedWorkers = ({ person }: Props): React.ReactElement => {
             person
           )}
         />
+      ) : (
+        <p>No one is allocated to this person</p>
       )}
 
       {canUserAllocateWorkerToPerson(user, person) && (
@@ -45,7 +44,7 @@ const AllocatedWorkers = ({ person }: Props): React.ReactElement => {
               <path d="M6.94 0L5 0V12H6.94V0Z" />
               <path d="M12 5H0V7H12V5Z" />
             </svg>
-            {allocations.length > 1 ? 'Add another worker' : 'Add a worker'}
+            {allocations.length > 0 ? 'Add another worker' : 'Add a worker'}
           </a>
         </Link>
       )}
