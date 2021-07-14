@@ -107,7 +107,9 @@ const RepeaterGroupField = ({
 
               <button
                 type="button"
-                onClick={() => push(generateInitialValues(subfields))}
+                onClick={() => {
+                  push(generateInitialValues(subfields));
+                }}
                 className={`govuk-button lbh-button lbh-button--add ${s.addAnother}`}
               >
                 <svg width="12" height="12" viewBox="0 0 12 12">
