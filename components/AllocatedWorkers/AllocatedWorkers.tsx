@@ -44,7 +44,9 @@ const AllocatedWorkers = ({ person }: Props): React.ReactElement => {
               <path d="M6.94 0L5 0V12H6.94V0Z" />
               <path d="M12 5H0V7H12V5Z" />
             </svg>
-            {allocations.length > 0 ? 'Add another worker' : 'Add a worker'}
+            {allocations.length > 0
+              ? 'Allocate someone else'
+              : 'Allocate someone'}
           </a>
         </Link>
       )}
