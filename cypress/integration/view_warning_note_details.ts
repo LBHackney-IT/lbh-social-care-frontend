@@ -18,7 +18,7 @@ describe('Viewing a created warning note', () => {
       cy.contains('WARNING REVIEW DETAILS').should('not.exist');
 
       cy.contains('a', 'Go back').click();
-      cy.contains('Load older events').should('be.visible');
+      cy.get('.lbh-timeline');
       cy.contains('Warning Note Details').should('not.exist');
       cy.contains('WARNING DETAILS').should('not.exist');
     });
@@ -85,7 +85,7 @@ describe('Viewing a created warning note', () => {
       cy.contains('WARNING REVIEW DETAILS').should('not.exist');
 
       cy.contains('a', 'Go back').click();
-      cy.contains('Load older events').should('be.visible');
+      cy.get('.lbh-timeline');
       cy.contains('Warning Note Details').should('not.exist');
       cy.contains('WARNING DETAILS').should('not.exist');
     });
