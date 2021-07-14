@@ -112,6 +112,18 @@ export const getServerSideProps: GetServerSideProps = async ({ params }) => {
     `${protocol}://${process.env.REDIRECT_URL}/api/submissions/${params?.id}`
   );
 
+  const isSingleStepForm = data.form.steps.length === 1;
+  if (isSingleStepForm) {
+    return {
+      props: {},
+      redirect: {
+        destination: `/submissions/${data.submissionId}/steps/${data.form.steps[0].id}?isSingleStep=true`,
+      },
+    };
+  }
+  // so we could redirect to the step, however how do this handle the submission
+  // what about if we need an approval etc.
+
   // redirect if submission or form doesn't exist
   if (!data.submissionId || !data.form)
     return {
