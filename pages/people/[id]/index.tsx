@@ -10,6 +10,8 @@ import ErrorMessage from 'components/ErrorMessage/ErrorMessage';
 import { useUnfinishedSubmissions } from 'utils/api/submissions';
 import { canManageCases } from 'lib/permissions';
 import { isAuthorised } from 'utils/auth';
+import { ConditionalFeature } from '../../../lib/feature-flags/feature-flags';
+import Cases from 'components/Cases/Cases';
 
 interface Props {
   person: Resident;
@@ -36,13 +38,21 @@ const PersonPage = ({ person }: Props): React.ReactElement => {
     <Layout person={person}>
       {events ? (
         events.length > 0 ? (
-          <PersonTimeline
-            unfinishedSubmissions={submissionsData?.submissions}
-            events={events}
-            size={size}
-            setSize={setSize}
-            onLastPage={onLastPage}
-          />
+          <>
+            <ConditionalFeature name="person-timeline">
+              <PersonTimeline
+                unfinishedSubmissions={submissionsData?.submissions}
+                events={events}
+                size={size}
+                setSize={setSize}
+                onLastPage={onLastPage}
+              />
+            </ConditionalFeature>
+
+            <ConditionalFeature name="person-cases">
+              <Cases id={person.id} person={person} />
+            </ConditionalFeature>
+          </>
         ) : (
           <p>No events to show</p>
         )
