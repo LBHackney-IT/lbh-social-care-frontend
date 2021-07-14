@@ -44,9 +44,6 @@ const PersonView = ({
           )}
         </div>
       )}
-      {showPersonDetails && (
-        <PersonDetails person={person} expandView={expandView} />
-      )}
       {typeof children === 'function' ? children(person) : children}
     </>
   );
