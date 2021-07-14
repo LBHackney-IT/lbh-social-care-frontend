@@ -80,8 +80,52 @@ const form: Form = {
               label: 'Office visit',
             },
             {
+              value: 'Virtual',
+              label: 'Virtual visit',
+            },
+            {
               value: 'No reply to home visit',
               label: 'No reply to home visit',
+            },
+          ],
+        },
+        {
+          id: 'Were the child/children seen',
+          question: 'Were the child/children seen?',
+          type: 'radios',
+          required: true,
+          condition: {
+            id: 'Type',
+            value: 'Visit',
+          },
+          choices: [
+            {
+              value: 'Yes',
+              label: 'Yes',
+            },
+            {
+              value: 'No',
+              label: 'No',
+            },
+          ],
+        },
+        {
+          id: 'Were the child/children seen alone',
+          question: 'Were the child/children seen alone?',
+          type: 'radios',
+          required: true,
+          condition: {
+            id: 'Type',
+            value: 'Visit',
+          },
+          choices: [
+            {
+              value: 'Yes',
+              label: 'Yes',
+            },
+            {
+              value: 'No',
+              label: 'No',
             },
           ],
         },
