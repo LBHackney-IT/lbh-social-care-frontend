@@ -8,6 +8,7 @@ import { ConditionalFeature } from 'lib/feature-flags/feature-flags';
 import Link from 'next/link';
 import style from './Relationships.module.scss';
 import { RelationshipType } from 'types';
+import { RELATIONSHIP_TYPES } from 'data/relationships';
 
 interface Props {
   id: number;
@@ -126,9 +127,7 @@ const Relationships = ({ id }: Props): React.ReactElement => {
                             className="govuk-table__header govuk-!-width-one-quarter"
                             rowSpan={relationship.relationships.length}
                           >
-                            {getTitleString(
-                              relationship.type as keyof typeof relationshipTypeMappings
-                            )}
+                            {RELATIONSHIP_TYPES[relationship.type]}
                           </th>
                         )}
                         <td
@@ -217,47 +216,5 @@ const genderMappings = {
   U: 'Unknown',
   I: 'Indeterminate',
 };
-
-const getTitleString = (
-  relationshipType: keyof typeof relationshipTypeMappings
-): string => {
-  return relationshipTypeMappings[relationshipType];
-};
-
-const relationshipTypeMappings = {
-  parent: 'Parent(s)',
-  child: 'Children',
-  other: 'Other',
-  greatGrandchild: 'Great-grandchildren',
-  greatGrandparent: 'Great-grandparent',
-  grandchild: 'Grandchildren',
-  grandparent: 'Grandparent(s)',
-  stepParent: 'Step-parent(s)',
-  auntUncle: 'Aunt / uncle',
-  stepChild: 'Step-children',
-  unbornChild: 'Unborn children',
-  partner: 'Partner',
-  exPartner: 'Ex-partner(s)',
-  sibling: 'Sibling(s)',
-  halfSibling: 'Half-sibling(s)',
-  stepSibling: 'Step-sibling(s)',
-  unbornSibling: 'Unborn sibling(s)',
-  spouse: 'Spouse',
-  cousin: 'Cousin(s)',
-  nieceNephew: 'Niece / nephew',
-  fosterCarer: 'Foster carer(s)',
-  friend: 'Friend(s)',
-  exSpouse: 'Ex-spouse',
-  parentOfUnbornChild: 'Parent of unborn child',
-  siblingOfUnbornChild: 'Sibling of unborn child',
-  fosterCarerSupportCarer: 'Foster carer(s)',
-  privateFosterCarer: 'Private foster carer(s)',
-  privateFosterChild: 'Private foster children',
-  fosterChild: 'Foster children',
-  supportCarerFosterCarer: 'Support carer(s)',
-  neighbour: 'Neighbour(s)',
-  inContactWith: 'In contact with',
-  acquaintance: 'Acquaintance(s)',
-} as const;
 
 export default Relationships;

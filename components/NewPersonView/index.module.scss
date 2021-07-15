@@ -74,3 +74,10 @@
     margin-top: 0;
   }
 }
+
+.timelineContinues {
+  & > li:last-child:before {
+    content: '';
+    border-left: 3px dashed lbh-colour('lbh-text');
+  }
+}

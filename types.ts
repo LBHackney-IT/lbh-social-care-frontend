@@ -245,7 +245,6 @@ export type RelationshipType =
   | 'partner'
   | 'exPartner'
   | 'sibling'
-  | 'siblings'
   | 'halfSibling'
   | 'stepSibling'
   | 'unbornSibling'
