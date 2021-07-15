@@ -123,8 +123,9 @@ const form: Form = {
         {
           id: 'Topics',
           question: 'Topics',
-          hint: 'Help colleagues find this note. Add as many as you need, or create new ones',
-          type: 'Tags',
+          hint: 'Help colleagues find this note. Add as many as you need, or create new ones.',
+          type: 'tags',
+          className: 'govuk-input--width-20',
         },
 
         {

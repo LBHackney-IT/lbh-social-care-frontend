@@ -78,7 +78,7 @@ const FlexibleField = ({
       />
     );
 
-  if (field.type === 'Tags')
+  if (field.type === 'tags')
     return (
       <TagsField
         name={field.id}

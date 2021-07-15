@@ -152,9 +152,9 @@ const Field = ({
         )}
       </div>
 
-      <div {...getComboboxProps()} className={s.combobox}>
+      <div {...getComboboxProps()} className={cx(s.combobox, className)}>
         <input
-          className={cx(`govuk-input lbh-input`, s.input, className)}
+          className={cx(`govuk-input lbh-input`, s.input)}
           aria-describedby={hint ? `${name}-hint` : undefined}
           onClick={() => toggleMenu()}
           {...getInputProps()}
