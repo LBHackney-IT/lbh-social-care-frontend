@@ -4,14 +4,13 @@ import {
   FlexibleAnswers as FlexibleAnswersT,
   RepeaterGroupAnswer as RepeaterGroupAnswerT,
   TimetableAnswer as TimetableAnswerT,
+  Answer,
 } from 'data/flexibleForms/forms.types';
 import DownArrow from '../Icons/DownArrow';
 import TimetableAnswer, { isTimetableAnswer } from './TimetableAnswer';
 import s from './FlexibleAnswers.module.scss';
 
-const shouldShow = (
-  answerGroup: string | TimetableAnswerT | RepeaterGroupAnswerT[]
-): boolean => {
+const shouldShow = (answerGroup: Answer): boolean => {
   if (Array.isArray(answerGroup)) {
     if (answerGroup.length > 0) return true;
   } else {
