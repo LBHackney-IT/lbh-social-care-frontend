@@ -13,11 +13,6 @@ const form: Form = {
       theme: 'Case note',
       fields: [
         {
-          id: 'Title',
-          question: 'Title',
-          type: 'textarea',
-        },
-        {
           id: 'Type',
           question: 'What kind of note is this?',
           type: 'radios',
@@ -30,10 +25,6 @@ const form: Form = {
             {
               value: 'Correspondence',
               label: 'Correspondence',
-            },
-            {
-              value: 'Management oversight',
-              label: 'Management oversight',
             },
             {
               value: 'Something else',
@@ -130,10 +121,16 @@ const form: Form = {
           ],
         },
         {
-          id: 'Topics (tags)',
+          id: 'Topics',
           question: 'Topics',
-          hint: 'Help colleagues find this note. Add as many as you need.',
+          hint: 'Help colleagues find this note. Add as many as you need, or create new ones',
           type: 'Tags',
+        },
+
+        {
+          id: 'Title',
+          question: 'Title',
+          type: 'text',
         },
         {
           id: 'Body',
