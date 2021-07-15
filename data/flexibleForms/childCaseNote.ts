@@ -1,5 +1,5 @@
 import { Form } from './forms.types';
-import tags from 'data/caseNoteTags';
+import tags from 'data/childCaseNoteTags';
 import { format } from 'date-fns';
 
 const form: Form = {
