@@ -59,7 +59,11 @@ const AddRelationshipForm: React.FC<{
 
   const existingRelationshipTypes = relationships.personalRelationships.map(
     (relationship) => {
-      if (relationship.persons.some((person) => person.id === secondPersonId)) {
+      if (
+        relationship.relationships.some(
+          (person) => person.personId === secondPersonId
+        )
+      ) {
         return relationship.type;
       }
     }
