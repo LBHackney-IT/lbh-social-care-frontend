@@ -105,6 +105,7 @@ describe('TagsField', () => {
       >
         {({ touched, errors }) => (
           <TagsField
+            choices={choices}
             touched={touched}
             errors={errors}
             name="foo"
