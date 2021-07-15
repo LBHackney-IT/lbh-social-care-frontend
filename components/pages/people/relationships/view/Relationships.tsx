@@ -55,14 +55,14 @@ const Relationships = ({ id }: Props): React.ReactElement => {
         (relationship) => relationship.type === type
       );
 
-      personalRelationships[relationshipTypeIndex].persons =
-        personalRelationships[relationshipTypeIndex].persons.concat(
-          relationshipsOfUnbornChild[0].persons
+      personalRelationships[relationshipTypeIndex].relationships =
+        personalRelationships[relationshipTypeIndex].relationships.concat(
+          relationshipsOfUnbornChild[0].relationships
         );
     } else if (relationshipsOfUnbornChild.length > 0) {
       personalRelationships.push({
         type: type,
-        persons: relationshipsOfUnbornChild[0].persons,
+        relationships: relationshipsOfUnbornChild[0].relationships,
       });
     }
   };
@@ -109,7 +109,7 @@ const Relationships = ({ id }: Props): React.ReactElement => {
               {personalRelationships
                 .sort((a, b) => b.type.localeCompare(a.type))
                 .map((relationship) => {
-                  return relationship.persons
+                  return relationship.relationships
                     .sort(
                       (a, b) =>
                         a.lastName.localeCompare(b.lastName) ||
@@ -125,7 +125,7 @@ const Relationships = ({ id }: Props): React.ReactElement => {
                             data-testid={`${relationship.type}`}
                             scope="row"
                             className="govuk-table__header govuk-!-width-one-quarter"
-                            rowSpan={relationship.persons.length}
+                            rowSpan={relationship.relationships.length}
                           >
                             {RELATIONSHIP_TYPES[relationship.type]}
                           </th>
@@ -134,14 +134,15 @@ const Relationships = ({ id }: Props): React.ReactElement => {
                           data-testid={`related-person-name-${personRowIndex}`}
                           key={`related-person-name-${personRowIndex}`}
                           className={`${
-                            relationship.persons.length > 1 &&
-                            personRowIndex !== relationship.persons.length - 1
+                            relationship.relationships.length > 1 &&
+                            personRowIndex !==
+                              relationship.relationships.length - 1
                               ? `govuk-table__cell govuk-!-width-one-quarter ${style.noBorder}`
                               : 'govuk-table__cell govuk-!-width-one-quarter'
                           }`}
                         >
-                          {person.id ? (
-                            <Link href={`/people/${person.id}`}>
+                          {person.personId ? (
+                            <Link href={`/people/${person.personId}`}>
                               {`${person.firstName} ${person.lastName}`}
                             </Link>
                           ) : (
@@ -152,8 +153,9 @@ const Relationships = ({ id }: Props): React.ReactElement => {
                           data-testid={`related-person-additional-options-${personRowIndex}`}
                           key={`related-person-additional-options-${personRowIndex}`}
                           className={`${
-                            relationship.persons.length > 1 &&
-                            personRowIndex !== relationship.persons.length - 1
+                            relationship.relationships.length > 1 &&
+                            personRowIndex !==
+                              relationship.relationships.length - 1
                               ? `govuk-table__cell ${style.noBorder}`
                               : 'govuk-table__cell'
                           }`}
@@ -164,8 +166,9 @@ const Relationships = ({ id }: Props): React.ReactElement => {
                           data-testid={`related-person-gender-${personRowIndex}`}
                           key={`related-person-gender-${personRowIndex}`}
                           className={`${
-                            relationship.persons.length > 1 &&
-                            personRowIndex !== relationship.persons.length - 1
+                            relationship.relationships.length > 1 &&
+                            personRowIndex !==
+                              relationship.relationships.length - 1
                               ? `govuk-table__cell ${style.noBorder}`
                               : 'govuk-table__cell'
                           }`}
@@ -178,8 +181,9 @@ const Relationships = ({ id }: Props): React.ReactElement => {
                           data-testid={`related-person-details-${personRowIndex}`}
                           key={`related-person-details-${personRowIndex}`}
                           className={`${
-                            relationship.persons.length > 1 &&
-                            personRowIndex !== relationship.persons.length - 1
+                            relationship.relationships.length > 1 &&
+                            personRowIndex !==
+                              relationship.relationships.length - 1
                               ? `govuk-table__cell ${style.noBorder}`
                               : 'govuk-table__cell'
                           }`}

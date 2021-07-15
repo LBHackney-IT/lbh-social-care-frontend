@@ -5,7 +5,7 @@ import { residentFactory } from 'factories/residents';
 import {
   mockedRelationshipFactory,
   mockedRelationshipData,
-  mockedRelationPerson,
+  mockedExistingRelationship,
 } from 'factories/relationships';
 import AddRelationshipForm from './AddRelationshipForm';
 import PersonView from '../../../../PersonView/PersonView';
@@ -80,7 +80,11 @@ describe('<AddRelationshipForm />', () => {
     });
 
     it('disables an option where a relationship type for selected person already exists', async () => {
-      const someOtherResident = mockedRelationPerson.build();
+      const selectedRelatedResidentRelationship =
+        mockedExistingRelationship.build({
+          personId: selectedRelatedResident.id,
+        });
+      const someOtherResidentRelationship = mockedExistingRelationship.build();
 
       jest
         .spyOn(relationshipsAPI, 'useRelationships')
@@ -90,7 +94,10 @@ describe('<AddRelationshipForm />', () => {
             personalRelationships: [
               mockedRelationshipData.build({
                 type: 'acquaintance',
-                persons: [selectedRelatedResident, someOtherResident],
+                relationships: [
+                  selectedRelatedResidentRelationship,
+                  someOtherResidentRelationship,
+                ],
               }),
             ],
           }),
@@ -119,7 +126,11 @@ describe('<AddRelationshipForm />', () => {
     });
 
     it('disables all the options where the relationship types for selected person already exists', async () => {
-      const someOtherResident = mockedRelationPerson.build();
+      const selectedRelatedResidentRelationship =
+        mockedExistingRelationship.build({
+          personId: selectedRelatedResident.id,
+        });
+      const someOtherResidentRelationship = mockedExistingRelationship.build();
 
       jest
         .spyOn(relationshipsAPI, 'useRelationships')
@@ -129,11 +140,14 @@ describe('<AddRelationshipForm />', () => {
             personalRelationships: [
               mockedRelationshipData.build({
                 type: 'acquaintance',
-                persons: [selectedRelatedResident, someOtherResident],
+                relationships: [
+                  selectedRelatedResidentRelationship,
+                  someOtherResidentRelationship,
+                ],
               }),
               mockedRelationshipData.build({
                 type: 'other',
-                persons: [selectedRelatedResident],
+                relationships: [selectedRelatedResidentRelationship],
               }),
             ],
           }),
