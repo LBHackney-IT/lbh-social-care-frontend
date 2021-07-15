@@ -55,6 +55,7 @@ const Field = ({
     getInputProps,
     getComboboxProps,
     getItemProps,
+    toggleMenu,
   } = useCombobox({
     inputValue,
     defaultHighlightedIndex: 0, // after selection, highlight the first item.
@@ -114,44 +115,48 @@ const Field = ({
         )}
       </ErrorMessage>
 
-      <ul
-        className="lbh-body-s govuk-!-margin-bottom-4"
+      <div
+        className="govuk-!-margin-top-0 govuk-!-margin-bottom-0"
         aria-live="polite"
         aria-relevant="additions"
       >
-        {tags &&
-          tags.map((tag, i) => (
-            <li className={s.tag} key={i}>
-              {tag}{' '}
-              <button
-                type="button"
-                onClick={() => {
-                  setFieldValue(
-                    name,
-                    tags.filter((existingTag) => existingTag !== tag)
-                  );
-                }}
-              >
-                <span className="govuk-visually-hidden">Remove</span>
-                <svg width="13" height="13" viewBox="0 0 13 13" fill="none">
-                  <path
-                    d="M-0.0501709 1.36379L1.36404 -0.050415L12.6778 11.2633L11.2635 12.6775L-0.0501709 1.36379Z"
-                    fill="#0B0C0C"
-                  />
-                  <path
-                    d="M11.2635 -0.050293L12.6778 1.36392L1.36404 12.6776L-0.0501709 11.2634L11.2635 -0.050293Z"
-                    fill="#0B0C0C"
-                  />
-                </svg>
-              </button>
-            </li>
-          ))}
-      </ul>
+        {tags && (
+          <ul className="lbh-body-s govuk-!-margin-bottom-4">
+            {tags.map((tag, i) => (
+              <li className={s.tag} key={i}>
+                {tag}{' '}
+                <button
+                  type="button"
+                  onClick={() => {
+                    setFieldValue(
+                      name,
+                      tags.filter((existingTag) => existingTag !== tag)
+                    );
+                  }}
+                >
+                  <span className="govuk-visually-hidden">Remove</span>
+                  <svg width="13" height="13" viewBox="0 0 13 13" fill="none">
+                    <path
+                      d="M-0.0501709 1.36379L1.36404 -0.050415L12.6778 11.2633L11.2635 12.6775L-0.0501709 1.36379Z"
+                      fill="#0B0C0C"
+                    />
+                    <path
+                      d="M11.2635 -0.050293L12.6778 1.36392L1.36404 12.6776L-0.0501709 11.2634L11.2635 -0.050293Z"
+                      fill="#0B0C0C"
+                    />
+                  </svg>
+                </button>
+              </li>
+            ))}
+          </ul>
+        )}
+      </div>
 
       <div {...getComboboxProps()} className={s.combobox}>
         <input
           className={cx(`govuk-input lbh-input`, s.input, className)}
           aria-describedby={hint ? `${name}-hint` : undefined}
+          onClick={() => toggleMenu()}
           {...getInputProps()}
         />
         <button
