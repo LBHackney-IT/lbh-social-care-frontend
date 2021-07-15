@@ -4,13 +4,17 @@ import { LegacyResident, Resident } from 'types';
 
 export const legacyResidentFactory = Factory.define<LegacyResident>(
   ({ sequence }) => ({
-    mosaicId: sequence,
+    mosaicId: String(sequence),
     dateOfBirth: '2020-11-13',
     firstName: 'Foo',
     lastName: 'Bar',
     nhsNumber: '12345',
     ageContext: 'A',
     gender: 'F',
+    address: {
+      address: 'sjakdjlk',
+      postcode: 'hdsadjk',
+    },
   })
 );
 

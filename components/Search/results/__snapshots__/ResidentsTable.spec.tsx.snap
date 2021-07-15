@@ -73,7 +73,9 @@ exports[`ResidentsTable component should render a list of residents 1`] = `
         >
           <span
             class="uppercase"
-          />
+          >
+            hdsadjk
+          </span>
         </td>
         <td
           class="govuk-table__cell govuk-table__cell--numeric"

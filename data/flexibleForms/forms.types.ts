@@ -18,6 +18,7 @@ export interface Field {
     | 'repeater'
     | 'repeaterGroup'
     | 'timetable'
+    | 'Tags'
     | 'combobox'
     | 'file';
   /** Required value is always ignored on fields with a condition */
@@ -30,13 +31,17 @@ export interface Field {
   className?: string;
   /** For file fields only */
   // multiple?: boolean
-  condition?: {
-    id: string;
-    value: string | boolean;
-  };
+  condition?: Condition | Condition[];
   subfields?: Field[];
   /** Singular item name for more descriptive buttons and legends  */
   itemName?: string;
+  /** Option to start with repeater group not open by default */
+  hiddenRepeater?: boolean;
+}
+
+interface Condition {
+  id: string;
+  value: string | boolean;
 }
 
 export interface Step {
@@ -51,6 +56,11 @@ export interface Form {
   id: string;
   name: string;
   steps: Step[];
+  approvable?: boolean;
+  groupRecordable?: boolean;
+  isViewableByChildrens: boolean;
+  isViewableByAdults: boolean;
+  tags?: string[];
 }
 
 export interface RepeaterGroupAnswer {
@@ -81,14 +91,22 @@ export interface FlexibleAnswers {
 export interface Submission {
   submissionId: string;
   formId: string;
-  createdBy: User;
+  form?: Form;
+  createdBy: Worker;
   createdAt: string;
+  submittedBy: Worker | null;
+  submittedAt: string | null;
+  approvedBy: Worker | null;
+  approvedAt: string | null;
   residents: Resident[];
   workers: Worker[];
-  editHistory: {
-    worker: Worker;
-    editTime: string;
-  }[];
-  submissionState: string;
+  editHistory: Revision[];
+  submissionState: 'In progress' | 'Approved' | 'Discarded' | 'Submitted';
   formAnswers: FlexibleAnswers;
+  tags?: string[];
+}
+
+export interface Revision {
+  worker: Worker;
+  editTime: string;
 }

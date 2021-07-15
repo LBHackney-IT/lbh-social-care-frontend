@@ -14,3 +14,11 @@ export const getRelationshipByResident = async (
   );
   return data;
 };
+
+export const addRelationship = async (
+  params: Record<string, unknown>
+): Promise<void> => {
+  await axios.post(`${ENDPOINT_API}/relationships/personal`, params, {
+    headers: { ...headers, 'Content-Type': 'application/json' },
+  });
+};

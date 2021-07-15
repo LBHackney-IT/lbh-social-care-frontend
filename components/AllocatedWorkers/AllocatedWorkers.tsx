@@ -1,14 +1,12 @@
 import { useRouter } from 'next/router';
-
 import AllocatedWorkersTable from 'components/AllocatedWorkers/AllocatedWorkersTable';
 import ErrorMessage from 'components/ErrorMessage/ErrorMessage';
 import Spinner from 'components/Spinner/Spinner';
-import Button from 'components/Button/Button';
 import { useAuth } from 'components/UserContext/UserContext';
 import { useAllocatedWorkers } from 'utils/api/allocatedWorkers';
-
 import { Resident, User } from 'types';
 import { canUserAllocateWorkerToPerson } from '../../lib/permissions';
+import Link from 'next/link';
 
 interface Props {
   person: Resident;
@@ -27,7 +25,7 @@ const AllocatedWorkers = ({ person }: Props): React.ReactElement => {
 
   return (
     <div>
-      {allocations && (
+      {allocations && allocations.length > 0 ? (
         <AllocatedWorkersTable
           records={allocations}
           hasAllocationsPermissions={canUserAllocateWorkerToPerson(
@@ -35,27 +33,24 @@ const AllocatedWorkers = ({ person }: Props): React.ReactElement => {
             person
           )}
         />
+      ) : (
+        <p>No one is allocated to this person</p>
       )}
-      <div>
-        <div className="lbh-table-header">
-          <h3 className="govuk-fieldset__legend--m govuk-custom-text-color">
-            ALLOCATED WORKER {allocations.length + 1}
-          </h3>
-          {canUserAllocateWorkerToPerson(user, person) && (
-            <Button
-              label="Allocate worker"
-              isSecondary
-              route={`${asPath}/allocations/add`}
-            />
-          )}
-        </div>
-        <hr className="govuk-divider" />
-        <p>
-          <i>
-            {allocations.length === 0 ? 'Currently unallocated' : 'Optional'}
-          </i>
-        </p>
-      </div>
+
+      {canUserAllocateWorkerToPerson(user, person) && (
+        <Link href={`${asPath}/add`}>
+          <a className="govuk-button lbh-button lbh-button--secondary lbh-button--add">
+            <svg width="12" height="12" viewBox="0 0 12 12">
+              <path d="M6.94 0L5 0V12H6.94V0Z" />
+              <path d="M12 5H0V7H12V5Z" />
+            </svg>
+            {allocations.length > 0
+              ? 'Allocate someone else'
+              : 'Allocate someone'}
+          </a>
+        </Link>
+      )}
+
       {error && <ErrorMessage />}
     </div>
   );

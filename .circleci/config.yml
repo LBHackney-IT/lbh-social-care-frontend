@@ -28,7 +28,7 @@ jobs:
           key: dependency-cache-{{ checksum "yarn.lock" }}
       - run:
           name: Install Dependencies
-          command: yarn
+          command: yarn --frozen-lockfile
       - run:
           name: Set GitHub username and email
           command: git config user.email "ci@hackney.gov.uk" && git config user.name "lbhackney-automation"
@@ -113,7 +113,7 @@ jobs:
       - *attach_workspace
       - run:
           name: deploy
-          command: yarn --production=true && sudo npm i -g serverless && sls deploy --stage staging
+          command: yarn --frozen-lockfile --production=true && sudo npm i -g serverless && sls deploy --stage staging
 
   build-deploy-production:
     executor: aws-cli/default
@@ -121,7 +121,7 @@ jobs:
       - *attach_workspace
       - run:
           name: deploy
-          command: yarn --production=true && sudo npm i -g serverless && sls deploy -s production
+          command: yarn --frozen-lockfile --production=true && sudo npm i -g serverless && sls deploy -s production
 
   generate-draft-github-release:
     executor: aws-cli/default

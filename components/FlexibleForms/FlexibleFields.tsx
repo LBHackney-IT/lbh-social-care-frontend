@@ -8,6 +8,7 @@ import ComboboxField from './ComboboxField';
 import { FormikValues, FormikTouched, FormikErrors } from 'formik';
 import { Field } from 'data/flexibleForms/forms.types';
 import TimetableField from './TimetableField';
+import TagsField from './TagsField';
 
 interface Props {
   values: FormikValues;
@@ -22,8 +23,15 @@ const FlexibleField = ({
   touched,
   errors,
 }: Props): React.ReactElement | null => {
-  if (field.condition && values[field.condition.id] !== field.condition.value)
-    return null;
+  if (field.condition) {
+    // check if there's more than one condition
+    if (Array.isArray(field.condition)) {
+      if (!field.condition.every((cond) => values[cond.id] === cond.value))
+        return null;
+    } else {
+      if (values[field.condition.id] !== field.condition.value) return null;
+    }
+  }
 
   if (field.type === 'repeaterGroup' && field.subfields)
     return (
@@ -62,6 +70,17 @@ const FlexibleField = ({
   if (field.type === 'text')
     return (
       <TextField
+        name={field.id}
+        label={field.question}
+        touched={touched}
+        errors={errors}
+        {...field}
+      />
+    );
+
+  if (field.type === 'Tags')
+    return (
+      <TagsField
         name={field.id}
         label={field.question}
         touched={touched}

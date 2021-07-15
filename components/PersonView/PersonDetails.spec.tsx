@@ -1,44 +1,93 @@
-import { render, fireEvent } from '@testing-library/react';
-
+import { render, screen } from '@testing-library/react';
 import PersonDetails from './PersonDetails';
+import { AuthProvider } from 'components/UserContext/UserContext';
+import { mockedUser } from 'factories/users';
+import { mockedResident } from 'factories/residents';
 
-import { residentFactory } from 'factories/residents';
+import Router from 'next/router';
+
+jest.mock('next/router', () => ({
+  __esModule: true,
+  default: {
+    events: {
+      on: jest.fn(),
+    },
+    push: jest.fn(),
+  },
+  useRouter: () => ({
+    query: { foo: 'bar' },
+    replace: jest.fn(),
+    pathname: 'foopath',
+  }),
+}));
 
 describe('PersonDetails component', () => {
-  const props = {
-    person: residentFactory.build({
-      firstName: 'i am the first',
-      lastName: 'i am the last',
-      otherNames: [{ firstName: 'asd', lastName: 'qwe' }],
-      dateOfBirth: '1978-02-23T00:00:00',
-      dateOfDeath: '1998-02-23T00:00:00',
-      nhsNumber: 123,
-      ethnicity: 'B.B2',
-      gender: 'U',
-      address: { address: 'new adress', postcode: 'E5 0PU' },
-      sexualOrientation: 'straight',
-      emailAddress: 'test@test.com',
-      preferredMethodOfContact: 'email',
-      phoneNumbers: [
-        {
-          number: '02123',
-          type: 'Home',
-        },
-      ],
-    }),
-  };
-
   it('should render properly', () => {
-    const { asFragment } = render(<PersonDetails {...props} />);
-    expect(asFragment()).toMatchSnapshot();
+    render(
+      <AuthProvider user={mockedUser}>
+        <PersonDetails person={mockedResident} />
+      </AuthProvider>
+    );
+    expect(screen.getByText('Personal details'));
+    expect(screen.getAllByRole('heading').length).toBe(2);
+    expect(screen.getAllByRole('definition').length).toBe(6);
   });
 
-  it('should render properly - expanded', async () => {
-    const { asFragment, getByRole } = render(
-      <PersonDetails {...props} expandView />
+  it('only shows health info if there is data to show', () => {
+    render(
+      <AuthProvider user={mockedUser}>
+        <PersonDetails person={{ ...mockedResident, nhsNumber: undefined }} />
+      </AuthProvider>
     );
-    expect(asFragment()).toMatchSnapshot();
-    fireEvent.click(getByRole('button'));
-    expect(asFragment()).toMatchSnapshot();
+    expect(screen.queryByText('Medical and health')).toBeNull();
+  });
+
+  it('should not render the "Edit" button if the current user is of a different type to the resident', async () => {
+    render(
+      <AuthProvider
+        user={{
+          ...mockedUser,
+          hasAdultPermissions: false,
+          hasAdminPermissions: false,
+        }}
+      >
+        <PersonDetails person={mockedResident} />
+      </AuthProvider>
+    );
+    expect(screen.queryByText('Edit details')).toBeNull();
+  });
+
+  it('should not render the "Edit" button if the current user is of the same context type as the resident, but the resident is restricted and the user does not have unrestricted access', async () => {
+    render(
+      <AuthProvider
+        user={{
+          ...mockedUser,
+          hasUnrestrictedPermissions: false,
+          hasDevPermissions: false,
+          hasAdminPermissions: false,
+        }}
+      >
+        <PersonDetails person={{ ...mockedResident, restricted: 'Y' }} />
+      </AuthProvider>
+    );
+    expect(screen.queryByText('Edit details')).toBeNull();
+  });
+
+  it('should render the "Edit" button if the resident is an adult and the user is in ASC', async () => {
+    render(
+      <AuthProvider user={mockedUser}>
+        <PersonDetails person={mockedResident} />
+      </AuthProvider>
+    );
+    expect(screen.getByText('Edit details'));
+  });
+
+  it('should render the "Edit" button if the resident is a child and the user is in CFS', async () => {
+    render(
+      <AuthProvider user={mockedUser}>
+        <PersonDetails person={{ ...mockedResident, contextFlag: 'C' }} />
+      </AuthProvider>
+    );
+    expect(screen.getByText('Edit details'));
   });
 });

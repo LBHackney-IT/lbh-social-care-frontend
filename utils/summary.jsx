@@ -46,22 +46,37 @@ export const formatData = (componentProps, formData) => {
   if (component === 'AddressLookup') {
     return formatAddress(formData[name], name, label);
   }
+
   if (component === 'Checkbox' && options) {
+    const stepOptions =
+      typeof options === 'function' ? options(formData) : options;
+    const checkedOptions =
+      typeof formData[name] === 'string' ? [formData[name]] : formData[name];
+    const isStepOptionsIsArrayOfStrings = typeof stepOptions[0] === 'string';
+
+    let checkedOptionsText = isStepOptionsIsArrayOfStrings
+      ? checkedOptions?.map((checkedOption) =>
+          multiValue(
+            checkedOption,
+            stepOptions.find((option) => option === checkedOption),
+            summaryInline
+          )
+        )
+      : checkedOptions?.map((checkedOption) =>
+          multiValue(
+            checkedOption,
+            stepOptions.find((option) => option.value === checkedOption).text,
+            summaryInline
+          )
+        );
+
     return {
       key: name,
       title: label,
-      value:
-        typeof options[0] === 'string'
-          ? formData[name]
-          : formData[name]?.map((data) =>
-              multiValue(
-                data,
-                options.find((o) => o.value === data)?.text,
-                summaryInline
-              )
-            ),
+      value: checkedOptionsText,
     };
   }
+
   if (component === 'Radios' || component === 'Select') {
     const stepOptions =
       typeof options === 'function' ? options(formData) : options;
