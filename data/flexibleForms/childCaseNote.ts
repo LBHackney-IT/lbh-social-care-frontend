@@ -131,6 +131,7 @@ const form: Form = {
           id: 'Title',
           question: 'Title',
           type: 'text',
+          className: 'govuk-input--width-20',
         },
         {
           id: 'Body',
