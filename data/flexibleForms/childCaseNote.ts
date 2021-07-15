@@ -1,5 +1,6 @@
 import { Form } from './forms.types';
 import tags from 'data/caseNoteTags';
+import { format } from 'date-fns';
 
 const form: Form = {
   id: 'child-case-note',
@@ -153,6 +154,7 @@ const form: Form = {
           question: 'When did this happen?',
           type: 'date',
           className: 'govuk-input--width-10',
+          default: format(new Date(), 'yyyy-MM-dd'),
         },
         {
           id: 'Actions',

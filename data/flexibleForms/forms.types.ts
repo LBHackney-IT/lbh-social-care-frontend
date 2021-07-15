@@ -1,4 +1,4 @@
-import { Resident, User, Worker } from 'types';
+import { Resident, Worker } from 'types';
 
 export interface Choice {
   value: string;
@@ -21,22 +21,26 @@ export interface Field {
     | 'tags'
     | 'combobox'
     | 'file';
-  /** Required value is always ignored on fields with a condition */
-  required?: boolean;
   hint?: string;
   error?: string;
-  choices?: Choice[];
-  /** Checkbox, file and repeater fields don't support prefilling */
-  prefill?: keyof Resident;
-  className?: string;
-  /** For file fields only */
-  // multiple?: boolean
   condition?: Condition | Condition[];
+  className?: string;
+  /** on conditional fields, required value is only respected when all conditions are met */
+  required?: boolean;
+  /** give an initial, default value for string-type fields */
+  default?: string;
+  /** for select, radio, checkboxes, tags and combobox fields */
+  choices?: Choice[];
+  /** checkbox, file and repeater fields don't support prefilling */
+  prefill?: keyof Resident;
+  /** for repeater groups only */
   subfields?: Field[];
-  /** Singular item name for more descriptive buttons and legends  */
-  itemName?: string;
-  /** Option to start with repeater group not open by default */
+  /** option to start with repeater group not open by default */
   hiddenRepeater?: boolean;
+  /** for repeater and repeater groups, a singular item name for more descriptive buttons and legends  */
+  itemName?: string;
+  /** for file fields only */
+  // multiple?: boolean
 }
 
 interface Condition {
