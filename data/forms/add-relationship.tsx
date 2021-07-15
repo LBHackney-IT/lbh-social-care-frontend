@@ -73,8 +73,15 @@ const formSteps = (
           component: 'TextInput',
           name: 'details',
           width: 20,
-          label: 'Details',
-          rules: { required: false },
+          label: 'Context of relationship',
+          rules: {
+            required: false,
+            validate: {
+              moreThan64Characters: (value) =>
+                value.length <= 64 ||
+                'Enter a context of relationship that is 64 characters or fewer',
+            },
+          },
         },
       ],
     },
