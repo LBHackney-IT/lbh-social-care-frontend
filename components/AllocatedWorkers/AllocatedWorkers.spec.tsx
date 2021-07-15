@@ -57,7 +57,7 @@ describe(`AddAllocatedWorker`, () => {
     const allocateTable = await findByText('MockedAllocatedWorkersTable');
     expect(allocateTable).toBeInTheDocument();
 
-    expect(queryByText('Allocate worker')).not.toBeInTheDocument();
+    expect(queryByText('Allocate someone else')).not.toBeInTheDocument();
   });
 
   it('should render everything if allocator', async () => {
@@ -74,7 +74,7 @@ describe(`AddAllocatedWorker`, () => {
     );
     const allocateTable = await findByText('MockedAllocatedWorkersTable');
     expect(allocateTable).toBeInTheDocument();
-    const addAllocate = queryByText('Allocate worker');
+    const addAllocate = queryByText('Allocate someone else');
     expect(addAllocate).toBeInTheDocument();
   });
 });

@@ -10,6 +10,7 @@ import UnfinishedSubmissionsEvent from './UnfinishedSubmissions';
 import { normaliseDateToISO } from 'utils/date';
 import Event from './Event';
 import MINOR_FORMS from 'data/minorForms';
+import cx from 'classnames';
 
 /** for all possible kinds of submission/case/record, see if it's major or not */
 export const isMajorEvent = (event: Case): boolean =>
@@ -54,7 +55,11 @@ const PersonTimeline = ({
     <div className={`govuk-grid-row ${s.outer}`}>
       <div className="govuk-grid-column-two-thirds">
         {events?.length > 0 && (
-          <ol className="lbh-timeline">
+          <ol
+            className={cx('lbh-timeline', {
+              [s.timelineContinues]: !onLastPage,
+            })}
+          >
             {unfinishedSubmissions && unfinishedSubmissions.length > 0 && (
               <UnfinishedSubmissionsEvent submissions={unfinishedSubmissions} />
             )}
@@ -76,10 +81,15 @@ const PersonTimeline = ({
       </div>
       <div className="govuk-grid-column-one-third">
         <aside className={s.sticky}>
-          <p className="lbh-body-xs">
-            Showing {results?.length} events over{' '}
-            {oldestTimestamp && formatDistanceToNow(new Date(oldestTimestamp))}
-          </p>
+          {results.length > 0 ? (
+            <p className="lbh-body-xs">
+              Showing {results?.length} events over{' '}
+              {oldestTimestamp &&
+                formatDistanceToNow(new Date(oldestTimestamp))}
+            </p>
+          ) : (
+            <p className="lbh-body-xs">No events match your search</p>
+          )}
 
           <SearchBox
             label="Search for matching events and records"
