@@ -58,7 +58,7 @@ exports[`Relationshiptable component should render a list of residents 1`] = `
           class="govuk-table__cell"
         >
           <input
-            aria-labelledby="person_1"
+            id="1"
             name="personId"
             type="radio"
             value="1"
@@ -72,7 +72,11 @@ exports[`Relationshiptable component should render a list of residents 1`] = `
         <td
           class="govuk-table__cell"
         >
-          Foo Bar
+          <label
+            for="1"
+          >
+            Foo Bar
+          </label>
         </td>
         <td
           class="govuk-table__cell"
@@ -150,7 +154,7 @@ exports[`Relationshiptable component should render a resident without a postcode
           class="govuk-table__cell"
         >
           <input
-            aria-labelledby="person_2"
+            id="2"
             name="personId"
             type="radio"
             value="2"
@@ -164,7 +168,11 @@ exports[`Relationshiptable component should render a resident without a postcode
         <td
           class="govuk-table__cell"
         >
-          Foo Bar
+          <label
+            for="2"
+          >
+            Foo Bar
+          </label>
         </td>
         <td
           class="govuk-table__cell"
