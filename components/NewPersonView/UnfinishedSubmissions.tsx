@@ -36,7 +36,7 @@ const UnfinishedSubmissionsEvent = ({
   submissions,
 }: Props): React.ReactElement => (
   <li
-    className={`lbh-timeline__event lbh-timeline__event--action-needed ${s.unfinishedSubmissionsPanel}`}
+    className={`lbh-timeline__event lbh-timeline__event--action-needed  ${s.unfinishedSubmissionsPanel}`}
   >
     <h3 className="govuk-!-margin-bottom-4">Unfinished submissions</h3>
     <ul className="lbh-list lbh-body-s">
