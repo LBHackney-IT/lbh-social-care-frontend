@@ -9,6 +9,17 @@ import DownArrow from '../Icons/DownArrow';
 import TimetableAnswer, { isTimetableAnswer } from './TimetableAnswer';
 import s from './FlexibleAnswers.module.scss';
 
+const shouldShow = (
+  answerGroup: string | TimetableAnswerT | RepeaterGroupAnswerT[]
+): boolean => {
+  if (Array.isArray(answerGroup)) {
+    if (answerGroup.length > 0) return true;
+  } else {
+    if (answerGroup) return true;
+  }
+  return false;
+};
+
 const RepeaterGroupAnswer = ({
   answers,
 }: {
@@ -67,7 +78,7 @@ const FlexibleAnswersStep = ({
         <dl className="govuk-summary-list lbh-summary-list lbh-collapsible__content">
           {Object.entries(stepAnswers).map(
             ([questionName, answerGroup]) =>
-              answerGroup && (
+              shouldShow(answerGroup) && (
                 <div className="govuk-summary-list__row" key={questionName}>
                   <dt className="govuk-summary-list__key">{questionName}</dt>
                   <dd className={`govuk-summary-list__value ${s.dd}`}>
