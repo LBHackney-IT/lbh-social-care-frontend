@@ -5,7 +5,7 @@ import formSteps from 'data/forms/add-relationship';
 import { useResident } from 'utils/api/residents';
 import { addRelationships, useRelationships } from 'utils/api/relationships';
 import PersonLinkConfirmation from 'components/Steps/PersonLinkConfirmation';
-import RELATIONSHIP_TYPE_OPTIONS from 'data/relationships';
+import { RELATIONSHIP_TYPE_OPTIONS } from 'data/relationships';
 import { ObjectOption } from 'components/Form/types';
 import ErrorMessage from 'components/ErrorMessage/ErrorMessage';
 import Spinner from 'components/Spinner/Spinner';
@@ -59,7 +59,11 @@ const AddRelationshipForm: React.FC<{
 
   const existingRelationshipTypes = relationships.personalRelationships.map(
     (relationship) => {
-      if (relationship.persons.some((person) => person.id === secondPersonId)) {
+      if (
+        relationship.relationships.some(
+          (person) => person.personId === secondPersonId
+        )
+      ) {
         return relationship.type;
       }
     }

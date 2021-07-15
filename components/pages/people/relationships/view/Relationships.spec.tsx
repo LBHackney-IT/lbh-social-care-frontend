@@ -10,7 +10,7 @@ import * as relationshipsAPI from 'utils/api/relationships';
 import {
   mockedRelationshipFactory,
   mockedRelationshipData,
-  mockedRelationPerson,
+  mockedExistingRelationship,
   mockedRelationship,
   mockedRelationshipPartialData,
   mockedRelationshipNoData,
@@ -247,11 +247,11 @@ describe('Relationships component', () => {
         personId: 33339587,
         personalRelationships: [
           mockedRelationshipData.build({
-            persons: [
-              mockedRelationPerson.build({ gender: 'M' }),
-              mockedRelationPerson.build({ gender: 'F' }),
-              mockedRelationPerson.build({ gender: 'I' }),
-              mockedRelationPerson.build({ gender: 'U' }),
+            relationships: [
+              mockedExistingRelationship.build({ gender: 'M' }),
+              mockedExistingRelationship.build({ gender: 'F' }),
+              mockedExistingRelationship.build({ gender: 'I' }),
+              mockedExistingRelationship.build({ gender: 'U' }),
             ],
           }),
         ],
@@ -288,10 +288,10 @@ describe('Relationships component', () => {
         personId: 33339587,
         personalRelationships: [
           mockedRelationshipData.build({
-            persons: [
-              mockedRelationPerson.build({ isMainCarer: 'Y' }),
-              mockedRelationPerson.build({ isMainCarer: 'N' }),
-              mockedRelationPerson.build({ isMainCarer: undefined }),
+            relationships: [
+              mockedExistingRelationship.build({ isMainCarer: 'Y' }),
+              mockedExistingRelationship.build({ isMainCarer: 'N' }),
+              mockedExistingRelationship.build({ isMainCarer: undefined }),
             ],
           }),
         ],
@@ -326,9 +326,11 @@ describe('Relationships component', () => {
         personId: 33339587,
         personalRelationships: [
           mockedRelationshipData.build({
-            persons: [
-              mockedRelationPerson.build({ details: 'Emergency contact' }),
-              mockedRelationPerson.build({ details: undefined }),
+            relationships: [
+              mockedExistingRelationship.build({
+                details: 'Emergency contact',
+              }),
+              mockedExistingRelationship.build({ details: undefined }),
             ],
           }),
         ],
@@ -363,7 +365,7 @@ describe('Relationships component', () => {
             personalRelationships: [
               mockedRelationshipData.build({
                 type: 'parentOfUnbornChild',
-                persons: [mockedRelationPerson.build()],
+                relationships: [mockedExistingRelationship.build()],
               }),
             ],
           }),
@@ -394,8 +396,8 @@ describe('Relationships component', () => {
             personalRelationships: [
               mockedRelationshipData.build({
                 type: 'parentOfUnbornChild',
-                persons: [
-                  mockedRelationPerson.build({
+                relationships: [
+                  mockedExistingRelationship.build({
                     firstName: 'Foo',
                     lastName: 'Bar',
                   }),
@@ -403,8 +405,8 @@ describe('Relationships component', () => {
               }),
               mockedRelationshipData.build({
                 type: 'parent',
-                persons: [
-                  mockedRelationPerson.build({
+                relationships: [
+                  mockedExistingRelationship.build({
                     firstName: 'Fizz',
                     lastName: 'Buzz',
                   }),
@@ -446,7 +448,7 @@ describe('Relationships component', () => {
             personalRelationships: [
               mockedRelationshipData.build({
                 type: 'siblingOfUnbornChild',
-                persons: [mockedRelationPerson.build()],
+                relationships: [mockedExistingRelationship.build()],
               }),
             ],
           }),
@@ -477,8 +479,8 @@ describe('Relationships component', () => {
             personalRelationships: [
               mockedRelationshipData.build({
                 type: 'siblingOfUnbornChild',
-                persons: [
-                  mockedRelationPerson.build({
+                relationships: [
+                  mockedExistingRelationship.build({
                     firstName: 'Foo',
                     lastName: 'Bar',
                   }),
@@ -486,8 +488,8 @@ describe('Relationships component', () => {
               }),
               mockedRelationshipData.build({
                 type: 'sibling',
-                persons: [
-                  mockedRelationPerson.build({
+                relationships: [
+                  mockedExistingRelationship.build({
                     firstName: 'Fizz',
                     lastName: 'Buzz',
                   }),
@@ -535,5 +537,39 @@ describe('Relationships component', () => {
     );
 
     expect(queryByText('Add a new relationship')).toBeInTheDocument();
+  });
+
+  it('displays link to related person', async () => {
+    const existingRelationship = mockedExistingRelationship.build({
+      firstName: 'Foo',
+      lastName: 'Bar',
+    });
+    jest.spyOn(relationshipsAPI, 'useRelationships').mockImplementation(() => ({
+      data: mockedRelationshipFactory.build({
+        personId: 33339587,
+        personalRelationships: [
+          mockedRelationshipData.build({
+            relationships: [existingRelationship],
+          }),
+        ],
+      }),
+      isValidating: false,
+      mutate: jest.fn(),
+      revalidate: jest.fn(),
+    }));
+
+    const props = {
+      id: 33339587,
+    };
+    const { queryByText } = render(
+      <FeatureFlagProvider features={{}}>
+        <Relationships {...props} />
+      </FeatureFlagProvider>
+    );
+
+    expect(queryByText(/Foo Bar/)?.closest('a')).toHaveAttribute(
+      'href',
+      `/people/${existingRelationship.personId}`
+    );
   });
 });

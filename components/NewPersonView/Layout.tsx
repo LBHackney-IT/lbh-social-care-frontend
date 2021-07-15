@@ -10,6 +10,8 @@ import React from 'react';
 import WarningNotes from 'components/WarningNote/WarningNotes';
 import { useAuth } from 'components/UserContext/UserContext';
 import { canManageCases } from 'lib/permissions';
+import AddFormDialog from 'components/AddFormDialog/AddFormDialog';
+import { useState } from 'react';
 
 interface NavLinkProps {
   href: string;
@@ -55,6 +57,8 @@ const Layout = ({ person, children }: Props): React.ReactElement => {
   const { data: relationships } = useRelationships(person.id);
   const { user } = useAuth() as { user: User };
 
+  const [addFormOpen, setAddFormOpen] = useState<boolean>(false);
+
   const navigation: { text: string; href: string }[] = [
     {
       text: `Allocations ${
@@ -94,6 +98,12 @@ const Layout = ({ person, children }: Props): React.ReactElement => {
         </title>
       </Head>
 
+      <AddFormDialog
+        isOpen={addFormOpen}
+        onDismiss={() => setAddFormOpen(false)}
+        person={person}
+      />
+
       <WarningNotes id={person.id} />
 
       <div
@@ -115,15 +125,16 @@ const Layout = ({ person, children }: Props): React.ReactElement => {
         </div>
 
         <div className={`govuk-grid-column-one-third ${s.actionsArea}`}>
-          <Link href={`/people/${person.id}/records`}>
-            <a className={`govuk-button lbh-button ${s.primaryAction}`}>
-              <svg width="12" height="12" viewBox="0 0 12 12">
-                <path d="M6.94 0L5 0V12H6.94V0Z" />
-                <path d="M12 5H0V7H12V5Z" />
-              </svg>
-              Add something new
-            </a>
-          </Link>
+          <button
+            onClick={() => setAddFormOpen(true)}
+            className={`govuk-button lbh-button ${s.primaryAction}`}
+          >
+            <svg width="12" height="12" viewBox="0 0 12 12">
+              <path d="M6.94 0L5 0V12H6.94V0Z" />
+              <path d="M12 5H0V7H12V5Z" />
+            </svg>
+            Add something new
+          </button>
         </div>
       </div>
 
