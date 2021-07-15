@@ -25,6 +25,6 @@ describe('FilterButton', () => {
 
     fireEvent.click(screen.getByLabelText('Blah'));
     expect(mockHandler).toBeCalled();
-    expect(mockHandler).toBeCalledWith('case-notes');
+    expect(mockHandler).toBeCalledWith('case-note');
   });
 });
