@@ -9,14 +9,12 @@ import SearchBox from 'components/SubmissionsTable/SearchBox';
 import UnfinishedSubmissionsEvent from './UnfinishedSubmissions';
 import { normaliseDateToISO } from 'utils/date';
 import Event from './Event';
-import MINOR_FORMS from 'data/minorForms';
+import MAJOR_FORMS from 'data/majorForms';
 
 /** for all possible kinds of submission/case/record, see if it's major or not */
 export const isMajorEvent = (event: Case): boolean =>
-  !(
-    MINOR_FORMS.includes(event?.formName) ||
-    MINOR_FORMS.includes(event?.caseFormData?.form_name_overall)
-  );
+  MAJOR_FORMS.includes(event?.formName) ||
+  MAJOR_FORMS.includes(event?.caseFormData?.form_name_overall);
 
 interface Props {
   events: Case[];
@@ -40,7 +38,7 @@ const PersonTimeline = ({
   const results = useSearch(
     searchQuery,
     events?.filter((event) =>
-      filter === 'major' ? isMajorEvent(event) : true
+      filter === 'case-note' ? isMajorEvent(event) : true
     ),
     ['formName', 'officerEmail']
   );
@@ -91,8 +89,12 @@ const PersonTimeline = ({
             <FilterButton filter={filter} setFilter={setFilter} value="all">
               All events
             </FilterButton>
-            <FilterButton filter={filter} setFilter={setFilter} value="major">
-              Major events only
+            <FilterButton
+              filter={filter}
+              setFilter={setFilter}
+              value="case-note"
+            >
+              Case notes only
             </FilterButton>
           </div>
         </aside>
