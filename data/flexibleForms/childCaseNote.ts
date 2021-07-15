@@ -1,4 +1,5 @@
 import { Form } from './forms.types';
+import tags from 'data/caseNoteTags';
 
 const form: Form = {
   id: 'child-case-note',
@@ -105,10 +106,16 @@ const form: Form = {
           question: 'Were the child/children seen alone?',
           type: 'radios',
           required: true,
-          condition: {
-            id: 'Were the child/children seen',
-            value: 'Yes',
-          },
+          condition: [
+            {
+              id: 'Type',
+              value: 'Visit',
+            },
+            {
+              id: 'Were the child/children seen',
+              value: 'Yes',
+            },
+          ],
           choices: [
             {
               value: 'Yes',
@@ -126,6 +133,7 @@ const form: Form = {
           hint: 'Help colleagues find this note. Add as many as you need, or create new ones.',
           type: 'tags',
           className: 'govuk-input--width-20',
+          choices: tags,
         },
 
         {

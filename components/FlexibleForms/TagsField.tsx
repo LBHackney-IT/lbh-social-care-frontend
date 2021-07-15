@@ -10,7 +10,7 @@ import {
 import { useCombobox } from 'downshift';
 import s from './ComboboxField.module.scss';
 import cx from 'classnames';
-import caseNoteTags from 'data/caseNoteTags';
+import { Choice } from 'data/flexibleForms/forms.types';
 
 interface FieldProps {
   touched: FormikTouched<FormikValues>;
@@ -22,6 +22,7 @@ interface FieldProps {
   className?: string;
   required?: boolean;
   itemName?: string;
+  choices: Choice[];
 }
 
 const Field = ({
@@ -33,13 +34,15 @@ const Field = ({
   className,
   required,
   itemName,
+  choices,
 }: FieldProps): React.ReactElement => {
   const { values, setFieldValue } = useFormikContext<FormikValues>();
   const [inputValue, setInputValue] = useState<string>('');
 
   const tags: string[] = values[name];
 
-  const items = caseNoteTags
+  const items = choices
+    .map((choice) => choice.label)
     .filter((tag) => !values[name].includes(tag))
     .filter(
       (item) =>

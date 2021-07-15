@@ -78,13 +78,14 @@ const FlexibleField = ({
       />
     );
 
-  if (field.type === 'tags')
+  if (field.type === 'tags' && field.choices)
     return (
       <TagsField
         name={field.id}
         label={field.question}
         touched={touched}
         errors={errors}
+        choices={field.choices}
         {...field}
       />
     );
