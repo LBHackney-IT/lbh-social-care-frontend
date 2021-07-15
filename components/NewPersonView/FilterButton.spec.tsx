@@ -18,13 +18,13 @@ describe('FilterButton', () => {
 
   it('fires the handler when clicked', () => {
     render(
-      <FilterButton filter="all" value="major" setFilter={mockHandler}>
-        Major
+      <FilterButton filter="all" value="case-note" setFilter={mockHandler}>
+        Blah
       </FilterButton>
     );
 
-    fireEvent.click(screen.getByLabelText('Major'));
+    fireEvent.click(screen.getByLabelText('Blah'));
     expect(mockHandler).toBeCalled();
-    expect(mockHandler).toBeCalledWith('major');
+    expect(mockHandler).toBeCalledWith('case-notes');
   });
 });
