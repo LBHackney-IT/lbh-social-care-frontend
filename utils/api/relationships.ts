@@ -10,6 +10,7 @@ export const useRelationships = (
 interface addRelationshipFormData {
   personId: number;
   otherPersonId: number;
+  createdBy: string;
   type: string;
   additionalOptions?: string[] | boolean;
   isMainCarer?: string;

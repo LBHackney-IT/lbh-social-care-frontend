@@ -78,9 +78,13 @@ export const generateInitialValues = (
 
   fields.map((field) => {
     if (field.type === 'repeaterGroup') {
-      initialValues[field.id] = [
-        generateInitialValues(field.subfields || [], person),
-      ];
+      if (field.hiddenRepeater) {
+        initialValues[field.id] = [];
+      } else {
+        initialValues[field.id] = [
+          generateInitialValues(field.subfields || [], person),
+        ];
+      }
     } else if (field.type === 'timetable') {
       initialValues[field.id] = generateInitialTimetableValues();
       initialValues[`${field.id} total hours`] = '';

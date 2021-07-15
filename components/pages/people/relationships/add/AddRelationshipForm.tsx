@@ -9,6 +9,8 @@ import RELATIONSHIP_TYPE_OPTIONS from 'data/relationships';
 import { ObjectOption } from 'components/Form/types';
 import ErrorMessage from 'components/ErrorMessage/ErrorMessage';
 import Spinner from 'components/Spinner/Spinner';
+import { useAuth } from 'components/UserContext/UserContext';
+import type { User } from 'types';
 
 interface FormData {
   type: string;
@@ -20,11 +22,14 @@ const AddRelationshipForm: React.FC<{
   personId: number;
   secondPersonId: number;
 }> = ({ personId, secondPersonId }) => {
+  const { user } = useAuth() as { user: User };
+
   const onFormSubmit = async (formData: FormData) => {
     const { data, error } = await addRelationships({
       ...formData,
       personId: Number(personId),
       otherPersonId: Number(secondPersonId),
+      createdBy: user.email,
     });
 
     if (error) throw error;
