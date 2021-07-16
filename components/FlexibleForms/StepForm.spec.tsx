@@ -86,24 +86,4 @@ describe('StepForm', () => {
       expect(mockPush).toBeCalledWith(`/submissions/foo`);
     });
   });
-
-  it("also triggers the finish event if it's the only step", async () => {
-    render(
-      <StepForm
-        fields={mockFields}
-        onSubmit={() => true}
-        finishForm={mockFinish}
-        singleStep={true}
-      />
-    );
-
-    fireEvent.change(screen.getByRole('textbox'), {
-      target: { value: 'test value' },
-    });
-    fireEvent.click(screen.getByText('Save and finish'));
-
-    await waitFor(() => {
-      expect(mockFinish).toBeCalledTimes(1);
-    });
-  });
 });

@@ -34,7 +34,6 @@ const StepPage = ({
   form,
 }: Props): React.ReactElement => {
   const router = useRouter();
-  const singleStep = form.steps.length === 1;
 
   const handleSubmit = async (
     values: FormikValues,
@@ -97,8 +96,6 @@ const StepPage = ({
                 initialValues={stepAnswers}
                 fields={step.fields}
                 onSubmit={handleSubmit}
-                finishForm={handleFinish}
-                singleStep={singleStep}
               />
             )}
           </div>

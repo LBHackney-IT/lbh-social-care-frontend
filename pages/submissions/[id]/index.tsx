@@ -129,16 +129,6 @@ export const getServerSideProps: GetServerSideProps = async ({ params }) => {
     };
   }
 
-  // redirect to the step if the form only has a single step
-  if (data.form.steps.length === 1) {
-    return {
-      props: {},
-      redirect: {
-        destination: `/submissions/${data.submissionId}/steps/${data.form.steps[0].id}`,
-      },
-    };
-  }
-
   return {
     props: {
       params,
