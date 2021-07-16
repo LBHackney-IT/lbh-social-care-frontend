@@ -1,6 +1,7 @@
 import cx from 'classnames';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
+import s from './Tabs.module.scss';
 
 interface Tab {
   url: string;
@@ -16,23 +17,25 @@ export interface Props {
 const Tabs = ({ title, tabs, children }: Props): React.ReactElement => {
   const { pathname, query } = useRouter();
   return (
-    <div className="lbh-tabs govuk-tabs">
+    <div className="govuk-tabs lbh-tabs">
       <h2 className="govuk-tabs__title">{title}</h2>
-      <ul className="govuk-tabs__list">
+      <ul className={s.tabList}>
         {tabs.map(({ url, text }) => (
           <li
             key={text}
-            className={cx('lbh-tabs govuk-tabs__list-item', {
-              'govuk-tabs__list-item--selected': pathname === url,
+            className={cx('lbh-body', s.tab, {
+              [s.active]: pathname === url,
             })}
           >
             <Link href={{ pathname: url, query: query }} scroll={false}>
-              <a className="lbh-tabs govuk-tabs__tab">{text}</a>
+              <a className={`lbh-link lbh-link--no-visited-state ${s.link}`}>
+                {text}
+              </a>
             </Link>
           </li>
         ))}
       </ul>
-      <div className="lbh-tabs govuk-tabs__panel">{children}</div>
+      {children}
     </div>
   );
 };

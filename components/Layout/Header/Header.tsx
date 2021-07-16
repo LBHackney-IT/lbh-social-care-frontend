@@ -35,9 +35,6 @@ const HeaderComponent = ({
               <Link href="/search">
                 <a className="govuk-header__link">Search</a>
               </Link>
-              <Link href="/">
-                <a className="govuk-header__link">My work space</a>
-              </Link>
               {canUserManageWorkers(user) && (
                 <Link href="/workers">
                   <a className="govuk-header__link">Manage workers</a>
