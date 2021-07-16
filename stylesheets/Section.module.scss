@@ -1,0 +1,25 @@
+@import 'lbh-frontend/lbh/base';
+
+.heading {
+  border-bottom: 3px solid lbh-colour('lbh-text');
+  padding-bottom: 15px;
+  margin-bottom: 10px;
+
+  a,
+  button {
+    display: block;
+    margin-top: 1rem;
+  }
+
+  @include govuk-media-query(400px) {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+
+    a,
+    button {
+      margin-top: 0;
+    }
+  }
+}

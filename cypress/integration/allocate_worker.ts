@@ -8,7 +8,7 @@ describe('Allocating workers', () => {
         AuthRoles.AdultsAllocatorGroup
       );
 
-      cy.contains('Allocate worker').should('be.visible');
+      cy.contains('Allocate someone else').should('be.visible');
     });
 
     it('should not show the allocate worker button on an adult resident if the user does not have allocator permissions', () => {
@@ -25,7 +25,7 @@ describe('Allocating workers', () => {
 
       cy.wait('@getAllocations');
 
-      cy.contains('Allocate worker').should('not.exist');
+      cy.contains('Allocate someone else').should('not.exist');
     });
 
     it('should show the allocate worker form for an adult resident if the user has allocator permissions', () => {
@@ -69,7 +69,7 @@ describe('Allocating workers', () => {
         AuthRoles.ChildrensGroup
       );
 
-      cy.contains('Allocate worker').should('be.visible');
+      cy.contains('Allocate someone else').should('be.visible');
     });
 
     it('should show the allocate worker form for an child resident', () => {

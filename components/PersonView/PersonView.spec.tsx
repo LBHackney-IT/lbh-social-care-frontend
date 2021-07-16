@@ -19,7 +19,7 @@ describe('PersonView component', () => {
   };
 
   it('should render properly', async () => {
-    const { getByText, queryByText } = render(
+    const { getByText } = render(
       <UserContext.Provider
         value={{
           user: userFactory.build(),
@@ -29,25 +29,10 @@ describe('PersonView component', () => {
       </UserContext.Provider>
     );
     await waitFor(() => {
-      expect(getByText('13/11/2020')).toBeInTheDocument();
+      expect(
+        getByText('Born 13 Nov 2020', { exact: false })
+      ).toBeInTheDocument();
     });
-    expect(queryByText('Show details')).not.toBeInTheDocument();
-  });
-
-  it('should render person view', async () => {
-    const { getByText, queryByText } = render(
-      <UserContext.Provider
-        value={{
-          user: userFactory.build(),
-        }}
-      >
-        <PersonView {...props} expandView={true} />
-      </UserContext.Provider>
-    );
-    await waitFor(() => {
-      expect(getByText('Show details')).toBeInTheDocument();
-    });
-    expect(queryByText('13/11/2020')).not.toBeInTheDocument();
   });
 
   it('should render properly with node children', async () => {
@@ -78,171 +63,5 @@ describe('PersonView component', () => {
     );
     const children = await findByText('fooFoo');
     expect(children).toBeDefined();
-  });
-
-  it('should render the "Edit" button if the resident is a Child and the user is in CFS', async () => {
-    jest.spyOn(residentsAPI, 'useResident').mockImplementation(() => ({
-      data: residentFactory.build({
-        contextFlag: 'C',
-      }),
-      isValidating: false,
-      mutate: jest.fn(),
-      revalidate: jest.fn(),
-    }));
-
-    const { getByText } = render(
-      <UserContext.Provider
-        value={{
-          user: userFactory.build({
-            hasAdminPermissions: false,
-            hasChildrenPermissions: true,
-            hasAdultPermissions: false,
-          }),
-        }}
-      >
-        <PersonView {...props} />
-      </UserContext.Provider>
-    );
-
-    getByText('Update person');
-  });
-
-  it('should render the "Edit" button if the resident is an Adult and the user is in ASC', async () => {
-    jest.spyOn(residentsAPI, 'useResident').mockImplementation(() => ({
-      data: residentFactory.build({
-        contextFlag: 'A',
-      }),
-      isValidating: false,
-      mutate: jest.fn(),
-      revalidate: jest.fn(),
-    }));
-
-    const { getByText } = render(
-      <UserContext.Provider
-        value={{
-          user: userFactory.build({
-            hasAdminPermissions: false,
-            hasAdultPermissions: true,
-            hasChildrenPermissions: false,
-          }),
-        }}
-      >
-        <PersonView {...props} />
-      </UserContext.Provider>
-    );
-
-    getByText('Update person');
-  });
-
-  it('should not render the "Edit" button if the current user is of a different type to the resident', async () => {
-    jest.spyOn(residentsAPI, 'useResident').mockImplementation(() => ({
-      data: residentFactory.build({
-        contextFlag: 'C',
-      }),
-      isValidating: false,
-      mutate: jest.fn(),
-      revalidate: jest.fn(),
-    }));
-
-    const { queryByText } = render(
-      <UserContext.Provider
-        value={{
-          user: userFactory.build({
-            hasAdminPermissions: false,
-            hasAdultPermissions: true,
-            hasChildrenPermissions: false,
-          }),
-        }}
-      >
-        <PersonView {...props} />
-      </UserContext.Provider>
-    );
-
-    expect(queryByText('Update person')).toBeNull();
-  });
-
-  it('should not render the "Edit" button if the current user is of the same context type as the resident, but the resident is restricted and the user does not have unrestricted access', async () => {
-    jest.spyOn(residentsAPI, 'useResident').mockImplementation(() => ({
-      data: residentFactory.build({
-        contextFlag: 'C',
-        restricted: 'Y',
-      }),
-      isValidating: false,
-      mutate: jest.fn(),
-      revalidate: jest.fn(),
-    }));
-
-    const { queryByText } = render(
-      <UserContext.Provider
-        value={{
-          user: userFactory.build({
-            hasAdminPermissions: false,
-            hasAdultPermissions: false,
-            hasChildrenPermissions: true,
-            hasUnrestrictedPermissions: false,
-          }),
-        }}
-      >
-        <PersonView {...props} />
-      </UserContext.Provider>
-    );
-
-    expect(queryByText('Update person')).toBeNull();
-  });
-
-  it('should not render the "Edit" button if the current user is of a different type to the resident (adult resident)', async () => {
-    jest.spyOn(residentsAPI, 'useResident').mockImplementation(() => ({
-      data: residentFactory.build({
-        contextFlag: 'A',
-      }),
-      isValidating: false,
-      mutate: jest.fn(),
-      revalidate: jest.fn(),
-    }));
-
-    const { queryByText } = render(
-      <UserContext.Provider
-        value={{
-          user: userFactory.build({
-            hasAdminPermissions: false,
-            hasAdultPermissions: false,
-            hasChildrenPermissions: true,
-          }),
-        }}
-      >
-        <PersonView {...props} />
-      </UserContext.Provider>
-    );
-
-    expect(queryByText('Update person')).toBeNull();
-  });
-
-  it('should not render the "Edit" button if the current user is of the same context type as the resident, but the resident is restricted and the user does not have unrestricted access (adult resident)', async () => {
-    jest.spyOn(residentsAPI, 'useResident').mockImplementation(() => ({
-      data: residentFactory.build({
-        contextFlag: 'A',
-        restricted: 'Y',
-      }),
-      isValidating: false,
-      mutate: jest.fn(),
-      revalidate: jest.fn(),
-    }));
-
-    const { queryByText } = render(
-      <UserContext.Provider
-        value={{
-          user: userFactory.build({
-            hasAdminPermissions: false,
-            hasAdultPermissions: true,
-            hasChildrenPermissions: false,
-            hasUnrestrictedPermissions: false,
-          }),
-        }}
-      >
-        <PersonView {...props} />
-      </UserContext.Provider>
-    );
-
-    expect(queryByText('Update person')).toBeNull();
   });
 });
