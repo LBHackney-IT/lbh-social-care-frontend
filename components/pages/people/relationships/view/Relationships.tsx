@@ -26,11 +26,14 @@ const Relationships = ({ person }: Props): React.ReactElement => {
     error,
   } = useRelationships(person.id);
 
+  if (error) {
+    return (
+      <ErrorMessage label="There was a problem with getting current personal relationships." />
+    );
+  }
+
   if (!personalRelationshipsApiResponse) {
     return <Spinner />;
-  }
-  if (error) {
-    return <ErrorMessage />;
   }
 
   const personalRelationships = personalRelationshipsApiResponse.filter(
@@ -238,9 +241,7 @@ const Relationships = ({ person }: Props): React.ReactElement => {
             </tbody>
           </table>
         ) : (
-          <p>
-            <i>No relationship found</i>
-          </p>
+          <p className="lbh-body">No relationships found for this person</p>
         )}
       </div>
       {error && <ErrorMessage />}
