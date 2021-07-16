@@ -14,15 +14,23 @@ const ResultEntry = ({
     <>
       <tr className={cx('govuk-table__row')}>
         <td className="govuk-table__cell">
-          <input
-            id={mosaicId}
-            name="personId"
-            type="radio"
-            value={mosaicId}
-            onChange={(e) => {
-              callback(e.target.value);
-            }}
-          />
+          <div className="govuk-radios__item">
+            <input
+              id={mosaicId}
+              name="personId"
+              type="radio"
+              value={mosaicId}
+              onChange={(e) => {
+                callback(e.target.value);
+              }}
+              className={`govuk-radios__input`}
+            />
+            <label className="govuk-label govuk-radios__label">
+              <span className="govuk-visually-hidden">
+                {firstName} {lastName}
+              </span>
+            </label>
+          </div>
         </td>
         <td className="govuk-table__cell">{mosaicId}</td>
         <td className="govuk-table__cell">
