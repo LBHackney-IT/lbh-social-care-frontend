@@ -1,32 +1,28 @@
 import ErrorMessage from 'components/ErrorMessage/ErrorMessage';
 import Spinner from 'components/Spinner/Spinner';
-import { useRelationships } from 'utils/api/relationships';
+import { removeRelationship, useRelationships } from 'utils/api/relationships';
 import Button from 'components/Button/Button';
-import { useRouter } from 'next/router';
 import { useState } from 'react';
 import { ConditionalFeature } from 'lib/feature-flags/feature-flags';
 import Link from 'next/link';
 import style from './Relationships.module.scss';
-import { RelationshipType } from 'types';
+import { RelationshipType, Resident } from 'types';
+import { RELATIONSHIP_TYPES } from 'data/relationships';
+import RemoveRelationshipDialog from '../remove/RemoveRelationshipDialog';
 
 interface Props {
-  id: number;
+  person: Resident;
 }
 
-const Relationships = ({ id }: Props): React.ReactElement => {
-  const { query } = useRouter();
-  const [successMessage, setSuccessMessage] = useState(
-    query && query.relationshipSuccess === 'true'
-  );
+const Relationships = ({ person }: Props): React.ReactElement => {
+  const [isRemoveRelationshipDialogOpen, setIsRemoveRelationshipDialogOpen] =
+    useState<boolean>(false);
+  const [relationshipToRemoveId, setRelationshipToRemoveId] = useState('');
 
   const {
     data: { personalRelationships: personalRelationshipsApiResponse } = {},
     error,
-  } = useRelationships(id);
-
-  setTimeout(() => {
-    setSuccessMessage(false);
-  }, 5000);
+  } = useRelationships(person.id);
 
   if (!personalRelationshipsApiResponse) {
     return <Spinner />;
@@ -54,14 +50,14 @@ const Relationships = ({ id }: Props): React.ReactElement => {
         (relationship) => relationship.type === type
       );
 
-      personalRelationships[relationshipTypeIndex].persons =
-        personalRelationships[relationshipTypeIndex].persons.concat(
-          relationshipsOfUnbornChild[0].persons
+      personalRelationships[relationshipTypeIndex].relationships =
+        personalRelationships[relationshipTypeIndex].relationships.concat(
+          relationshipsOfUnbornChild[0].relationships
         );
     } else if (relationshipsOfUnbornChild.length > 0) {
       personalRelationships.push({
         type: type,
-        persons: relationshipsOfUnbornChild[0].persons,
+        relationships: relationshipsOfUnbornChild[0].relationships,
       });
     }
   };
@@ -71,14 +67,16 @@ const Relationships = ({ id }: Props): React.ReactElement => {
 
   return (
     <div>
+      <RemoveRelationshipDialog
+        person={person}
+        isOpen={isRemoveRelationshipDialogOpen}
+        onDismiss={() => setIsRemoveRelationshipDialogOpen(false)}
+        onFormSubmit={() => {
+          removeRelationship(relationshipToRemoveId);
+          setIsRemoveRelationshipDialogOpen(false);
+        }}
+      />
       <div>
-        {successMessage ? (
-          <section className="lbh-page-announcement">
-            <h3 className="lbh-page-announcement__title">Relationship added</h3>
-          </section>
-        ) : (
-          ''
-        )}
         <div className="lbh-table-header">
           <h3 className="govuk-fieldset__legend--m govuk-custom-text-color">
             RELATIONSHIPS
@@ -86,7 +84,7 @@ const Relationships = ({ id }: Props): React.ReactElement => {
           <ConditionalFeature name="add-relationships">
             <Button
               label="Add a new relationship"
-              route={`/people/${id}/relationships/add`}
+              route={`/people/${person.id}/relationships/add`}
             />
           </ConditionalFeature>
         </div>
@@ -102,13 +100,25 @@ const Relationships = ({ id }: Props): React.ReactElement => {
                 <th scope="col" className="govuk-table__header">
                   Name
                 </th>
+                <th scope="col" className="govuk-table__header">
+                  Main carer
+                </th>
+                <th scope="col" className="govuk-table__header">
+                  Gender
+                </th>
+                <th scope="col" className="govuk-table__header">
+                  Context of relationship
+                </th>
+                <th scope="col" className="govuk-table__header">
+                  Action
+                </th>
               </tr>
             </thead>
             <tbody className="govuk-table__body">
               {personalRelationships
                 .sort((a, b) => b.type.localeCompare(a.type))
                 .map((relationship) => {
-                  return relationship.persons
+                  return relationship.relationships
                     .sort(
                       (a, b) =>
                         a.lastName.localeCompare(b.lastName) ||
@@ -124,25 +134,24 @@ const Relationships = ({ id }: Props): React.ReactElement => {
                             data-testid={`${relationship.type}`}
                             scope="row"
                             className="govuk-table__header govuk-!-width-one-quarter"
-                            rowSpan={relationship.persons.length}
+                            rowSpan={relationship.relationships.length}
                           >
-                            {getTitleString(
-                              relationship.type as keyof typeof relationshipTypeMappings
-                            )}
+                            {RELATIONSHIP_TYPES[relationship.type]}
                           </th>
                         )}
                         <td
                           data-testid={`related-person-name-${personRowIndex}`}
                           key={`related-person-name-${personRowIndex}`}
                           className={`${
-                            relationship.persons.length > 1 &&
-                            personRowIndex !== relationship.persons.length - 1
+                            relationship.relationships.length > 1 &&
+                            personRowIndex !==
+                              relationship.relationships.length - 1
                               ? `govuk-table__cell govuk-!-width-one-quarter ${style.noBorder}`
                               : 'govuk-table__cell govuk-!-width-one-quarter'
                           }`}
                         >
-                          {person.id ? (
-                            <Link href={`/people/${person.id}`}>
+                          {person.personId ? (
+                            <Link href={`/people/${person.personId}`}>
                               {`${person.firstName} ${person.lastName}`}
                             </Link>
                           ) : (
@@ -153,8 +162,9 @@ const Relationships = ({ id }: Props): React.ReactElement => {
                           data-testid={`related-person-additional-options-${personRowIndex}`}
                           key={`related-person-additional-options-${personRowIndex}`}
                           className={`${
-                            relationship.persons.length > 1 &&
-                            personRowIndex !== relationship.persons.length - 1
+                            relationship.relationships.length > 1 &&
+                            personRowIndex !==
+                              relationship.relationships.length - 1
                               ? `govuk-table__cell ${style.noBorder}`
                               : 'govuk-table__cell'
                           }`}
@@ -165,8 +175,9 @@ const Relationships = ({ id }: Props): React.ReactElement => {
                           data-testid={`related-person-gender-${personRowIndex}`}
                           key={`related-person-gender-${personRowIndex}`}
                           className={`${
-                            relationship.persons.length > 1 &&
-                            personRowIndex !== relationship.persons.length - 1
+                            relationship.relationships.length > 1 &&
+                            personRowIndex !==
+                              relationship.relationships.length - 1
                               ? `govuk-table__cell ${style.noBorder}`
                               : 'govuk-table__cell'
                           }`}
@@ -179,14 +190,43 @@ const Relationships = ({ id }: Props): React.ReactElement => {
                           data-testid={`related-person-details-${personRowIndex}`}
                           key={`related-person-details-${personRowIndex}`}
                           className={`${
-                            relationship.persons.length > 1 &&
-                            personRowIndex !== relationship.persons.length - 1
+                            relationship.relationships.length > 1 &&
+                            personRowIndex !==
+                              relationship.relationships.length - 1
                               ? `govuk-table__cell ${style.noBorder}`
                               : 'govuk-table__cell'
                           }`}
                         >
                           {person.details}
                         </td>
+                        <ConditionalFeature name="remove-relationship">
+                          <td
+                            data-testid={`related-person-remove-${personRowIndex}`}
+                            key={`related-person-remove-${personRowIndex}`}
+                            className={`${
+                              relationship.relationships.length > 1 &&
+                              personRowIndex !==
+                                relationship.relationships.length - 1
+                                ? `govuk-table__cell ${style.noBorder}`
+                                : 'govuk-table__cell'
+                            }`}
+                          >
+                            <a
+                              className="lbh-link lbh-link--no-visited-state"
+                              href="#"
+                              onClick={() => {
+                                setIsRemoveRelationshipDialogOpen(true);
+                                setRelationshipToRemoveId(person.id.toString());
+                              }}
+                            >
+                              Remove{' '}
+                              <span className="govuk-visually-hidden">
+                                relationship with {person.firstName}{' '}
+                                {person.lastName}
+                              </span>
+                            </a>
+                          </td>
+                        </ConditionalFeature>
                       </tr>
                     ));
                 })}
@@ -213,47 +253,5 @@ const genderMappings = {
   U: 'Unknown',
   I: 'Indeterminate',
 };
-
-const getTitleString = (
-  relationshipType: keyof typeof relationshipTypeMappings
-): string => {
-  return relationshipTypeMappings[relationshipType];
-};
-
-const relationshipTypeMappings = {
-  parent: 'Parent(s)',
-  child: 'Children',
-  other: 'Other',
-  greatGrandchild: 'Great-grandchildren',
-  greatGrandparent: 'Great-grandparent',
-  grandchild: 'Grandchildren',
-  grandparent: 'Grandparent(s)',
-  stepParent: 'Step-parent(s)',
-  auntUncle: 'Aunt / uncle',
-  stepChild: 'Step-children',
-  unbornChild: 'Unborn children',
-  partner: 'Partner',
-  exPartner: 'Ex-partner(s)',
-  sibling: 'Sibling(s)',
-  halfSibling: 'Half-sibling(s)',
-  stepSibling: 'Step-sibling(s)',
-  unbornSibling: 'Unborn sibling(s)',
-  spouse: 'Spouse',
-  cousin: 'Cousin(s)',
-  nieceNephew: 'Niece / nephew',
-  fosterCarer: 'Foster carer(s)',
-  friend: 'Friend(s)',
-  exSpouse: 'Ex-spouse',
-  parentOfUnbornChild: 'Parent of unborn child',
-  siblingOfUnbornChild: 'Sibling of unborn child',
-  fosterCarerSupportCarer: 'Foster carer(s)',
-  privateFosterCarer: 'Private foster carer(s)',
-  privateFosterChild: 'Private foster children',
-  fosterChild: 'Foster children',
-  supportCarerFosterCarer: 'Support carer(s)',
-  neighbour: 'Neighbour(s)',
-  inContactWith: 'In contact with',
-  acquaintance: 'Acquaintance(s)',
-} as const;
 
 export default Relationships;
