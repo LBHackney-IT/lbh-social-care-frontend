@@ -37,7 +37,6 @@ describe('StepForm', () => {
         onSubmit={(values, { setStatus }) =>
           setStatus('Example status message')
         }
-        finishForm={() => true}
       />
     );
 
@@ -52,7 +51,6 @@ describe('StepForm', () => {
         onSubmit={(values, { setStatus }) =>
           setStatus('Example status message')
         }
-        finishForm={() => true}
       />
     );
 
@@ -68,13 +66,7 @@ describe('StepForm', () => {
   });
 
   it('returns to the task list if submission succeeds', async () => {
-    render(
-      <StepForm
-        fields={mockFields}
-        onSubmit={() => true}
-        finishForm={() => true}
-      />
-    );
+    render(<StepForm fields={mockFields} onSubmit={() => true} />);
 
     fireEvent.change(screen.getByRole('textbox'), {
       target: { value: 'test value' },

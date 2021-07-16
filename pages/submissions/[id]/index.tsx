@@ -91,7 +91,10 @@ const TaskListPage = ({
 
             <p className="lbh-body">This is for:</p>
             {form.groupRecordable ? (
-              <GroupRecordingWidget initialPeople={residents} />
+              <GroupRecordingWidget
+                submissionId={params.id}
+                initialPeople={residents}
+              />
             ) : (
               <PersonWidget person={residents[0]} />
             )}
