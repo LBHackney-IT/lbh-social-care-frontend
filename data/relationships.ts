@@ -1,3 +1,5 @@
+import { ObjectOption } from 'components/Form/types';
+
 export const RELATIONSHIP_TYPES = {
   parent: 'Parent(s)',
   child: 'Children',
@@ -42,9 +44,15 @@ const convertRelationshipTypeToSingular = (text: string) => {
   }
 };
 
-export const RELATIONSHIP_TYPE_OPTIONS = Object.entries(RELATIONSHIP_TYPES).map(
-  ([key, value]) => ({
-    value: key,
-    text: convertRelationshipTypeToSingular(value),
+export const RELATIONSHIP_TYPE_OPTIONS: ObjectOption[] = Object.entries(
+  RELATIONSHIP_TYPES
+)
+  .map(([key, value]) => {
+    if (key !== 'parentOfUnbornChild' && key !== 'siblingOfUnbornChild') {
+      return {
+        value: key,
+        text: convertRelationshipTypeToSingular(value),
+      };
+    }
   })
-);
+  .filter((option) => option) as ObjectOption[];
