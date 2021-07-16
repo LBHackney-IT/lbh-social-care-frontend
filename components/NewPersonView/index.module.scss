@@ -32,6 +32,19 @@
   }
 }
 
+.navLink,
+.navLinkActive {
+  display: inline-block;
+  margin-bottom: 0.25rem;
+  text-decoration: none;
+  &:hover {
+    text-decoration: underline;
+  }
+  @include govuk-media-query($from: tablet) {
+    font-size: 1.2rem;
+  }
+}
+
 .navLinkActive {
   font-weight: $lbh-font-weight-bold;
 }

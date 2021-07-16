@@ -1,12 +1,15 @@
 @import 'lbh-frontend/lbh/base';
 
 .list {
-  border-top: 1px solid lbh-colour('lbh-grey-3');
+  *:first-child {
+    margin-top: 0;
+  }
 }
 
 .row {
   position: relative;
-  border-bottom: 1px solid lbh-colour('lbh-grey-3');
+  margin-top: 10px;
+  background: lbh-colour('lbh-grey-4');
   padding: 15px 2rem 15px 1rem;
   margin-top: 0;
   // force chrome to respect position: relative on table row
@@ -51,7 +54,6 @@
 
 .meta {
   color: lbh-colour('lbh-text');
-
   margin-top: 10px;
 
   @include govuk-media-query($from: tablet) {
@@ -102,8 +104,8 @@
 }
 
 .detailsPanel {
-  background: lbh-colour('lbh-grey-4');
-  border-bottom: 1px solid lbh-colour('lbh-grey-3');
+  // background: lbh-colour('lbh-grey-4');
+  // border-bottom: 1px solid lbh-colour('lbh-grey-3');
   padding: 1.5rem 1rem;
   margin-top: 0;
 

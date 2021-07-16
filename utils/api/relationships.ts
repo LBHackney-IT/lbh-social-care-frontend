@@ -46,3 +46,11 @@ export const addRelationships = async (
 
   return data;
 };
+
+export const removeRelationship = async (
+  relationshipId: string
+): Promise<Record<string, unknown>> => {
+  const { data } = await axios.delete(`/api/relationships/${relationshipId}`);
+
+  return data;
+};

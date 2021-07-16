@@ -4,10 +4,10 @@ import DashboardWrapper from 'components/Dashboard/DashboardWrapper';
 
 const MyCasesPage = (): React.ReactElement => (
   <div>
-    <Seo title="My Work Space" />
+    <Seo title="Allocations" />
     <DashboardWrapper>
       <>
-        <p className="govuk-body">People you are working with</p>
+        <h1 className="govuk-!-margin-bottom-8">Allocations</h1>
         <MyAllocatedCases />
       </>
     </DashboardWrapper>
