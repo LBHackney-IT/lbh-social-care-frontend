@@ -25,7 +25,10 @@ const ResultEntry = ({
               }}
               className={`govuk-radios__input`}
             />
-            <label className="govuk-label govuk-radios__label">
+            <label
+              className="govuk-label govuk-radios__label"
+              htmlFor={mosaicId}
+            >
               <span className="govuk-visually-hidden">
                 {firstName} {lastName}
               </span>

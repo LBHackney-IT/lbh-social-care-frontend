@@ -69,6 +69,7 @@ exports[`Relationshiptable component should render a list of residents 1`] = `
             />
             <label
               class="govuk-label govuk-radios__label"
+              for="1"
             >
               <span
                 class="govuk-visually-hidden"
@@ -179,6 +180,7 @@ exports[`Relationshiptable component should render a resident without a postcode
             />
             <label
               class="govuk-label govuk-radios__label"
+              for="2"
             >
               <span
                 class="govuk-visually-hidden"
