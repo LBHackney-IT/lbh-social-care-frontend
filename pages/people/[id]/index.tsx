@@ -71,7 +71,17 @@ export const getServerSideProps: GetServerSideProps = async ({
   params,
   req,
 }) => {
-  const user = isAuthorised(req) as User;
+  const user = isAuthorised(req);
+
+  if (!user) {
+    return {
+      props: {},
+      redirect: {
+        destination: `/login`,
+      },
+    };
+  }
+
   const person = await getResident(Number(params?.id), user);
 
   if (!person.id) {
