@@ -19,7 +19,7 @@ const MockComponent = ({
   query: string;
   minChar?: number;
 }): React.ReactElement => {
-  const results = useSearch(query, documents, ['id', 'name'], minChar);
+  const results = useSearch(query, documents, ['id', 'name'], {}, minChar);
   return <>{JSON.stringify(results)}</>;
 };
 

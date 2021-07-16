@@ -1,11 +1,11 @@
-import { render, screen, waitFor } from '@testing-library/react';
+import { render, screen, waitFor, fireEvent } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import React from 'react';
 import { residentFactory } from 'factories/residents';
 import {
   mockedRelationshipFactory,
   mockedRelationshipData,
-  mockedRelationPerson,
+  mockedExistingRelationship,
 } from 'factories/relationships';
 import AddRelationshipForm from './AddRelationshipForm';
 import PersonView from '../../../../PersonView/PersonView';
@@ -79,8 +79,39 @@ describe('<AddRelationshipForm />', () => {
       expect(dropdownOptions[3]).toHaveValue('child');
     });
 
+    it('does not show "Parent of unborn child" and "Sibling of unborn child"', async () => {
+      jest
+        .spyOn(relationshipsAPI, 'useRelationships')
+        .mockImplementation(() => ({
+          data: mockedRelationshipFactory.build(),
+          isValidating: false,
+          mutate: jest.fn(),
+          revalidate: jest.fn(),
+        }));
+
+      render(
+        <AuthProvider user={mockedUser}>
+          <AddRelationshipForm
+            personId={mockedResident.id}
+            secondPersonId={selectedRelatedResident.id}
+          />
+        </AuthProvider>
+      );
+
+      expect(
+        screen.queryByText('Parent of unborn child')
+      ).not.toBeInTheDocument();
+      expect(
+        screen.queryByText('Sibling of unborn child')
+      ).not.toBeInTheDocument();
+    });
+
     it('disables an option where a relationship type for selected person already exists', async () => {
-      const someOtherResident = mockedRelationPerson.build();
+      const selectedRelatedResidentRelationship =
+        mockedExistingRelationship.build({
+          personId: selectedRelatedResident.id,
+        });
+      const someOtherResidentRelationship = mockedExistingRelationship.build();
 
       jest
         .spyOn(relationshipsAPI, 'useRelationships')
@@ -90,7 +121,10 @@ describe('<AddRelationshipForm />', () => {
             personalRelationships: [
               mockedRelationshipData.build({
                 type: 'acquaintance',
-                persons: [selectedRelatedResident, someOtherResident],
+                relationships: [
+                  selectedRelatedResidentRelationship,
+                  someOtherResidentRelationship,
+                ],
               }),
             ],
           }),
@@ -119,7 +153,11 @@ describe('<AddRelationshipForm />', () => {
     });
 
     it('disables all the options where the relationship types for selected person already exists', async () => {
-      const someOtherResident = mockedRelationPerson.build();
+      const selectedRelatedResidentRelationship =
+        mockedExistingRelationship.build({
+          personId: selectedRelatedResident.id,
+        });
+      const someOtherResidentRelationship = mockedExistingRelationship.build();
 
       jest
         .spyOn(relationshipsAPI, 'useRelationships')
@@ -129,11 +167,14 @@ describe('<AddRelationshipForm />', () => {
             personalRelationships: [
               mockedRelationshipData.build({
                 type: 'acquaintance',
-                persons: [selectedRelatedResident, someOtherResident],
+                relationships: [
+                  selectedRelatedResidentRelationship,
+                  someOtherResidentRelationship,
+                ],
               }),
               mockedRelationshipData.build({
                 type: 'other',
-                persons: [selectedRelatedResident],
+                relationships: [selectedRelatedResidentRelationship],
               }),
             ],
           }),
@@ -328,5 +369,75 @@ describe('<AddRelationshipForm />', () => {
         /There was a problem with getting the details of the selected resident./
       )
     ).toBeInTheDocument();
+  });
+
+  describe('Context of relationship', () => {
+    beforeEach(() => {
+      jest.spyOn(residentsAPI, 'useResident').mockImplementation(() => ({
+        data: residentFactory.build(),
+        isValidating: false,
+        mutate: jest.fn(),
+        revalidate: jest.fn(),
+      }));
+      jest
+        .spyOn(relationshipsAPI, 'useRelationships')
+        .mockImplementation(() => ({
+          data: mockedRelationshipFactory.build(),
+          isValidating: false,
+          mutate: jest.fn(),
+          revalidate: jest.fn(),
+        }));
+
+      render(
+        <AuthProvider user={mockedUser}>
+          <AddRelationshipForm
+            personId={mockedResident.id}
+            secondPersonId={selectedRelatedResident.id}
+          />
+        </AuthProvider>
+      );
+    });
+
+    it('displays an error message if over 64 characters', async () => {
+      const context = screen.getByLabelText('Context of relationship');
+      const textMoreThan64Characters = 'A'.repeat(65);
+
+      fireEvent.change(context, {
+        target: { value: textMoreThan64Characters },
+      });
+      fireEvent.submit(screen.getByRole('form'));
+
+      await waitFor(() => {
+        const errorMessage = screen.queryByText(
+          'Enter a context of relationship that is 64 characters or fewer',
+          {
+            selector: '.govuk-error-message',
+          }
+        );
+
+        expect(errorMessage).toBeInTheDocument();
+      });
+    });
+
+    it('does not display an error message if 64 characters', async () => {
+      const context = screen.getByLabelText('Context of relationship');
+      const textExactly64Characters = 'A'.repeat(64);
+
+      fireEvent.change(context, {
+        target: { value: textExactly64Characters },
+      });
+      fireEvent.submit(screen.getByRole('form'));
+
+      await waitFor(() => {
+        const errorMessage = screen.queryByText(
+          'Enter a context of relationship that is 64 characters or fewer',
+          {
+            selector: '.govuk-error-message',
+          }
+        );
+
+        expect(errorMessage).toBeNull();
+      });
+    });
   });
 });

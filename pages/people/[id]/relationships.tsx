@@ -2,7 +2,6 @@ import { getResident } from 'lib/residents';
 import Layout from 'components/NewPersonView/Layout';
 import { GetServerSideProps } from 'next';
 import { Resident, User } from 'types';
-import { isAuthorised } from 'utils/auth';
 import { canViewRelationships } from 'lib/permissions';
 import Relationships from 'components/pages/people/relationships/view/Relationships';
 import { useAuth } from 'components/UserContext/UserContext';
@@ -17,7 +16,7 @@ const PersonAllocationsPage = ({ person }: Props): React.ReactElement => {
   return (
     <Layout person={person}>
       {canViewRelationships(user, person) ? (
-        <Relationships id={person.id} />
+        <Relationships person={person} />
       ) : (
         "You don't have permission to see this person's relationships"
       )}

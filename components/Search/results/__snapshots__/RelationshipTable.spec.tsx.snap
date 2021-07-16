@@ -57,12 +57,27 @@ exports[`Relationshiptable component should render a list of residents 1`] = `
         <td
           class="govuk-table__cell"
         >
-          <input
-            aria-labelledby="person_1"
-            name="personId"
-            type="radio"
-            value="1"
-          />
+          <div
+            class="govuk-radios__item"
+          >
+            <input
+              class="govuk-radios__input"
+              id="1"
+              name="personId"
+              type="radio"
+              value="1"
+            />
+            <label
+              class="govuk-label govuk-radios__label"
+              for="1"
+            >
+              <span
+                class="govuk-visually-hidden"
+              >
+                Foo Bar
+              </span>
+            </label>
+          </div>
         </td>
         <td
           class="govuk-table__cell"
@@ -72,7 +87,11 @@ exports[`Relationshiptable component should render a list of residents 1`] = `
         <td
           class="govuk-table__cell"
         >
-          Foo Bar
+          <label
+            for="1"
+          >
+            Foo Bar
+          </label>
         </td>
         <td
           class="govuk-table__cell"
@@ -149,12 +168,27 @@ exports[`Relationshiptable component should render a resident without a postcode
         <td
           class="govuk-table__cell"
         >
-          <input
-            aria-labelledby="person_2"
-            name="personId"
-            type="radio"
-            value="2"
-          />
+          <div
+            class="govuk-radios__item"
+          >
+            <input
+              class="govuk-radios__input"
+              id="2"
+              name="personId"
+              type="radio"
+              value="2"
+            />
+            <label
+              class="govuk-label govuk-radios__label"
+              for="2"
+            >
+              <span
+                class="govuk-visually-hidden"
+              >
+                Foo Bar
+              </span>
+            </label>
+          </div>
         </td>
         <td
           class="govuk-table__cell"
@@ -164,7 +198,11 @@ exports[`Relationshiptable component should render a resident without a postcode
         <td
           class="govuk-table__cell"
         >
-          Foo Bar
+          <label
+            for="2"
+          >
+            Foo Bar
+          </label>
         </td>
         <td
           class="govuk-table__cell"

@@ -1,33 +1,58 @@
-export default [
-  { value: 'parent', text: 'Parent' },
-  { value: 'child', text: 'Child' },
-  { value: 'other', text: 'Other' },
-  { value: 'greatGrandchild', text: 'Great Grandchild' },
-  { value: 'greatGrandparent', text: 'Great Grandparent' },
-  { value: 'grandchild', text: 'Grandchild' },
-  { value: 'grandparent', text: 'Grandparent' },
-  { value: 'stepParent', text: 'Step parent' },
-  { value: 'auntUncle', text: 'Aunt / Uncle' },
-  { value: 'stepChild', text: 'Step Child' },
-  { value: 'unbornChild', text: 'Unborn child' },
-  { value: 'partner', text: 'Partner' },
-  { value: 'exPartner', text: 'Ex-partner(s)' },
-  { value: 'sibling', text: 'Sibling' },
-  { value: 'halfSibling', text: 'Half sibling' },
-  { value: 'stepSibling', text: 'Step sibling' },
-  { value: 'unbornSibling', text: 'Unborn sibling' },
-  { value: 'spouse', text: 'Spouse' },
-  { value: 'cousin', text: 'Cousin' },
-  { value: 'nieceNephew', text: 'Niece / Nephew' },
-  { value: 'fosterCarer', text: 'Foster carer' },
-  { value: 'friend', text: 'Friend' },
-  { value: 'exSpouse', text: 'Ex spouse' },
-  { value: 'fosterCarerSupportCarer', text: 'Foster carer / Support carer' },
-  { value: 'privateFosterCarer', text: 'Private foster carer' },
-  { value: 'privateFosterChild', text: 'Private foster child' },
-  { value: 'fosterChild', text: 'Foster child' },
-  { value: 'supportCarerFosterCarer', text: 'Support carer / Foster carer' },
-  { value: 'neighbour', text: 'Neighbour' },
-  { value: 'inContactWith', text: 'In contact with' },
-  { value: 'acquaintance', text: 'Acquaintance' },
-];
+import { ObjectOption } from 'components/Form/types';
+
+export const RELATIONSHIP_TYPES = {
+  parent: 'Parent(s)',
+  child: 'Children',
+  other: 'Other',
+  greatGrandchild: 'Great-grandchildren',
+  greatGrandparent: 'Great-grandparent',
+  grandchild: 'Grandchildren',
+  grandparent: 'Grandparent(s)',
+  stepParent: 'Step-parent(s)',
+  auntUncle: 'Aunt / uncle',
+  stepChild: 'Step-children',
+  unbornChild: 'Unborn children',
+  partner: 'Partner',
+  exPartner: 'Ex-partner(s)',
+  sibling: 'Sibling(s)',
+  halfSibling: 'Half-sibling(s)',
+  stepSibling: 'Step-sibling(s)',
+  unbornSibling: 'Unborn sibling(s)',
+  spouse: 'Spouse',
+  cousin: 'Cousin(s)',
+  nieceNephew: 'Niece / nephew',
+  fosterCarer: 'Foster carer(s)',
+  friend: 'Friend(s)',
+  exSpouse: 'Ex-spouse',
+  parentOfUnbornChild: 'Parent of unborn child',
+  siblingOfUnbornChild: 'Sibling of unborn child',
+  fosterCarerSupportCarer: 'Foster carer(s)',
+  privateFosterCarer: 'Private foster carer(s)',
+  privateFosterChild: 'Private foster children',
+  fosterChild: 'Foster children',
+  supportCarerFosterCarer: 'Support carer(s)',
+  neighbour: 'Neighbour(s)',
+  inContactWith: 'In contact with',
+  acquaintance: 'Acquaintance(s)',
+};
+
+const convertRelationshipTypeToSingular = (text: string) => {
+  if (text.toLowerCase().includes('children')) {
+    return text.replace('ren', '');
+  } else {
+    return text.replace('(s)', '');
+  }
+};
+
+export const RELATIONSHIP_TYPE_OPTIONS: ObjectOption[] = Object.entries(
+  RELATIONSHIP_TYPES
+)
+  .map(([key, value]) => {
+    if (key !== 'parentOfUnbornChild' && key !== 'siblingOfUnbornChild') {
+      return {
+        value: key,
+        text: convertRelationshipTypeToSingular(value),
+      };
+    }
+  })
+  .filter((option) => option) as ObjectOption[];

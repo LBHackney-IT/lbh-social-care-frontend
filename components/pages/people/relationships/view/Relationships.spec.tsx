@@ -1,4 +1,4 @@
-import { render } from '@testing-library/react';
+import { fireEvent, render, waitFor } from '@testing-library/react';
 import Relationships from './Relationships';
 import {
   FeatureFlagProvider,
@@ -10,7 +10,7 @@ import * as relationshipsAPI from 'utils/api/relationships';
 import {
   mockedRelationshipFactory,
   mockedRelationshipData,
-  mockedRelationPerson,
+  mockedExistingRelationship,
   mockedRelationship,
   mockedRelationshipPartialData,
   mockedRelationshipNoData,
@@ -19,6 +19,7 @@ import {
   mockedUnbornSiblingRelationship,
   mockedOrderedRelationship,
 } from 'factories/relationships';
+import { mockedResident } from 'factories/residents';
 
 jest.mock('next/router', () => ({
   useRouter: () => ({
@@ -29,16 +30,16 @@ jest.mock('next/router', () => ({
 
 jest.mock('components/Spinner/Spinner', () => () => 'MockedSpinner');
 
+const person = mockedResident;
+
 describe('Relationships component', () => {
   it('should display properly', () => {
-    const props = {
-      id: 33339587,
-    };
     const { getByText } = render(
       <FeatureFlagProvider features={{}}>
-        <Relationships {...props} />
+        <Relationships person={person} />
       </FeatureFlagProvider>
     );
+
     expect(getByText('MockedSpinner')).toBeInTheDocument();
   });
 
@@ -49,13 +50,10 @@ describe('Relationships component', () => {
       mutate: jest.fn(),
       revalidate: jest.fn(),
     }));
-    const props = {
-      id: 33339587,
-    };
 
     const { queryByText } = render(
       <FeatureFlagProvider features={{}}>
-        <Relationships {...props} />
+        <Relationships person={person} />
       </FeatureFlagProvider>
     );
 
@@ -77,14 +75,13 @@ describe('Relationships component', () => {
       mutate: jest.fn(),
       revalidate: jest.fn(),
     }));
-    const props = {
-      id: 33339587,
-    };
+
     const { getByText, queryByText } = render(
       <FeatureFlagProvider features={{}}>
-        <Relationships {...props} />
+        <Relationships person={person} />
       </FeatureFlagProvider>
     );
+
     expect(queryByText('Parent(s)')).toBeInTheDocument();
     expect(queryByText('Children')).toBeInTheDocument();
     expect(queryByText('Other')).not.toBeInTheDocument();
@@ -101,14 +98,13 @@ describe('Relationships component', () => {
       mutate: jest.fn(),
       revalidate: jest.fn(),
     }));
-    const props = {
-      id: 33339587,
-    };
+
     const { queryByText } = render(
       <FeatureFlagProvider features={{}}>
-        <Relationships {...props} />
+        <Relationships person={person} />
       </FeatureFlagProvider>
     );
+
     expect(queryByText('No relationship found')).toBeInTheDocument();
   });
 
@@ -119,12 +115,10 @@ describe('Relationships component', () => {
       mutate: jest.fn(),
       revalidate: jest.fn(),
     }));
-    const props = {
-      id: 33339587,
-    };
+
     const { queryByText } = render(
       <FeatureFlagProvider features={{}}>
-        <Relationships {...props} />
+        <Relationships person={person} />
       </FeatureFlagProvider>
     );
 
@@ -134,7 +128,7 @@ describe('Relationships component', () => {
   it('should populate the list converting the type to display name', async () => {
     jest.spyOn(relationshipsAPI, 'useRelationships').mockImplementation(() => ({
       data: {
-        personId: 33339587,
+        personId: person.id,
         personalRelationships: [mockedParentRelationship],
       },
       isValidating: false,
@@ -142,13 +136,9 @@ describe('Relationships component', () => {
       revalidate: jest.fn(),
     }));
 
-    const props = {
-      id: 33339587,
-    };
-
     const { queryByText } = render(
       <FeatureFlagProvider features={{}}>
-        <Relationships {...props} />
+        <Relationships person={person} />
       </FeatureFlagProvider>
     );
 
@@ -160,7 +150,7 @@ describe('Relationships component', () => {
   it('should populate the list converting the type to display name', async () => {
     jest.spyOn(relationshipsAPI, 'useRelationships').mockImplementation(() => ({
       data: {
-        personId: 33339587,
+        personId: person.id,
         personalRelationships: [mockedUnbornSiblingRelationship],
       },
       isValidating: false,
@@ -168,13 +158,9 @@ describe('Relationships component', () => {
       revalidate: jest.fn(),
     }));
 
-    const props = {
-      id: 33339587,
-    };
-
     const { queryByText } = render(
       <FeatureFlagProvider features={{}}>
-        <Relationships {...props} />
+        <Relationships person={person} />
       </FeatureFlagProvider>
     );
 
@@ -185,7 +171,7 @@ describe('Relationships component', () => {
   it('should populate the list in alphabetical order (by surname/name) with same surname', async () => {
     jest.spyOn(relationshipsAPI, 'useRelationships').mockImplementation(() => ({
       data: {
-        personId: 33339587,
+        personId: person.id,
         personalRelationships: [mockedOrderedRelationship],
       },
       isValidating: false,
@@ -193,13 +179,9 @@ describe('Relationships component', () => {
       revalidate: jest.fn(),
     }));
 
-    const props = {
-      id: 33339587,
-    };
-
     const { queryAllByText } = render(
       <FeatureFlagProvider features={{}}>
-        <Relationships {...props} />
+        <Relationships person={person} />
       </FeatureFlagProvider>
     );
 
@@ -212,7 +194,7 @@ describe('Relationships component', () => {
   it('should populate the list in alphabetical order (by surname/name) different people', async () => {
     jest.spyOn(relationshipsAPI, 'useRelationships').mockImplementation(() => ({
       data: {
-        personId: 33339587,
+        personId: person.id,
         personalRelationships: [mockedOrderedRelationship],
       },
       isValidating: false,
@@ -220,13 +202,9 @@ describe('Relationships component', () => {
       revalidate: jest.fn(),
     }));
 
-    const props = {
-      id: 33339587,
-    };
-
     const { queryByTestId } = render(
       <FeatureFlagProvider features={{}}>
-        <Relationships {...props} />
+        <Relationships person={person} />
       </FeatureFlagProvider>
     );
 
@@ -244,14 +222,14 @@ describe('Relationships component', () => {
   it('displays the gender of the related people', async () => {
     jest.spyOn(relationshipsAPI, 'useRelationships').mockImplementation(() => ({
       data: mockedRelationshipFactory.build({
-        personId: 33339587,
+        personId: person.id,
         personalRelationships: [
           mockedRelationshipData.build({
-            persons: [
-              mockedRelationPerson.build({ gender: 'M' }),
-              mockedRelationPerson.build({ gender: 'F' }),
-              mockedRelationPerson.build({ gender: 'I' }),
-              mockedRelationPerson.build({ gender: 'U' }),
+            relationships: [
+              mockedExistingRelationship.build({ gender: 'M' }),
+              mockedExistingRelationship.build({ gender: 'F' }),
+              mockedExistingRelationship.build({ gender: 'I' }),
+              mockedExistingRelationship.build({ gender: 'U' }),
             ],
           }),
         ],
@@ -261,13 +239,9 @@ describe('Relationships component', () => {
       revalidate: jest.fn(),
     }));
 
-    const props = {
-      id: 33339587,
-    };
-
     const { queryByTestId } = render(
       <FeatureFlagProvider features={{}}>
-        <Relationships {...props} />
+        <Relationships person={person} />
       </FeatureFlagProvider>
     );
 
@@ -285,13 +259,13 @@ describe('Relationships component', () => {
   it('displays if related person is a main carer', async () => {
     jest.spyOn(relationshipsAPI, 'useRelationships').mockImplementation(() => ({
       data: mockedRelationshipFactory.build({
-        personId: 33339587,
+        personId: person.id,
         personalRelationships: [
           mockedRelationshipData.build({
-            persons: [
-              mockedRelationPerson.build({ isMainCarer: 'Y' }),
-              mockedRelationPerson.build({ isMainCarer: 'N' }),
-              mockedRelationPerson.build({ isMainCarer: undefined }),
+            relationships: [
+              mockedExistingRelationship.build({ isMainCarer: 'Y' }),
+              mockedExistingRelationship.build({ isMainCarer: 'N' }),
+              mockedExistingRelationship.build({ isMainCarer: undefined }),
             ],
           }),
         ],
@@ -301,13 +275,9 @@ describe('Relationships component', () => {
       revalidate: jest.fn(),
     }));
 
-    const props = {
-      id: 33339587,
-    };
-
     const { queryByTestId } = render(
       <FeatureFlagProvider features={{}}>
-        <Relationships {...props} />
+        <Relationships person={person} />
       </FeatureFlagProvider>
     );
 
@@ -323,12 +293,14 @@ describe('Relationships component', () => {
   it('displays the details of the relationship', async () => {
     jest.spyOn(relationshipsAPI, 'useRelationships').mockImplementation(() => ({
       data: mockedRelationshipFactory.build({
-        personId: 33339587,
+        personId: person.id,
         personalRelationships: [
           mockedRelationshipData.build({
-            persons: [
-              mockedRelationPerson.build({ details: 'Emergency contact' }),
-              mockedRelationPerson.build({ details: undefined }),
+            relationships: [
+              mockedExistingRelationship.build({
+                details: 'Emergency contact',
+              }),
+              mockedExistingRelationship.build({ details: undefined }),
             ],
           }),
         ],
@@ -338,13 +310,9 @@ describe('Relationships component', () => {
       revalidate: jest.fn(),
     }));
 
-    const props = {
-      id: 33339587,
-    };
-
     const { queryByTestId } = render(
       <FeatureFlagProvider features={{}}>
-        <Relationships {...props} />
+        <Relationships person={person} />
       </FeatureFlagProvider>
     );
 
@@ -359,11 +327,11 @@ describe('Relationships component', () => {
         .spyOn(relationshipsAPI, 'useRelationships')
         .mockImplementation(() => ({
           data: mockedRelationshipFactory.build({
-            personId: 33339587,
+            personId: person.id,
             personalRelationships: [
               mockedRelationshipData.build({
                 type: 'parentOfUnbornChild',
-                persons: [mockedRelationPerson.build()],
+                relationships: [mockedExistingRelationship.build()],
               }),
             ],
           }),
@@ -372,13 +340,9 @@ describe('Relationships component', () => {
           revalidate: jest.fn(),
         }));
 
-      const props = {
-        id: 33339587,
-      };
-
       const { queryByTestId } = render(
         <FeatureFlagProvider features={{}}>
-          <Relationships {...props} />
+          <Relationships person={person} />
         </FeatureFlagProvider>
       );
 
@@ -390,12 +354,12 @@ describe('Relationships component', () => {
         .spyOn(relationshipsAPI, 'useRelationships')
         .mockImplementation(() => ({
           data: mockedRelationshipFactory.build({
-            personId: 33339587,
+            personId: person.id,
             personalRelationships: [
               mockedRelationshipData.build({
                 type: 'parentOfUnbornChild',
-                persons: [
-                  mockedRelationPerson.build({
+                relationships: [
+                  mockedExistingRelationship.build({
                     firstName: 'Foo',
                     lastName: 'Bar',
                   }),
@@ -403,8 +367,8 @@ describe('Relationships component', () => {
               }),
               mockedRelationshipData.build({
                 type: 'parent',
-                persons: [
-                  mockedRelationPerson.build({
+                relationships: [
+                  mockedExistingRelationship.build({
                     firstName: 'Fizz',
                     lastName: 'Buzz',
                   }),
@@ -417,13 +381,9 @@ describe('Relationships component', () => {
           revalidate: jest.fn(),
         }));
 
-      const props = {
-        id: 33339587,
-      };
-
       const { queryByTestId } = render(
         <FeatureFlagProvider features={{}}>
-          <Relationships {...props} />
+          <Relationships person={person} />
         </FeatureFlagProvider>
       );
 
@@ -442,11 +402,11 @@ describe('Relationships component', () => {
         .spyOn(relationshipsAPI, 'useRelationships')
         .mockImplementation(() => ({
           data: mockedRelationshipFactory.build({
-            personId: 33339587,
+            personId: person.id,
             personalRelationships: [
               mockedRelationshipData.build({
                 type: 'siblingOfUnbornChild',
-                persons: [mockedRelationPerson.build()],
+                relationships: [mockedExistingRelationship.build()],
               }),
             ],
           }),
@@ -455,13 +415,9 @@ describe('Relationships component', () => {
           revalidate: jest.fn(),
         }));
 
-      const props = {
-        id: 33339587,
-      };
-
       const { queryByTestId } = render(
         <FeatureFlagProvider features={{}}>
-          <Relationships {...props} />
+          <Relationships person={person} />
         </FeatureFlagProvider>
       );
 
@@ -473,12 +429,12 @@ describe('Relationships component', () => {
         .spyOn(relationshipsAPI, 'useRelationships')
         .mockImplementation(() => ({
           data: mockedRelationshipFactory.build({
-            personId: 33339587,
+            personId: person.id,
             personalRelationships: [
               mockedRelationshipData.build({
                 type: 'siblingOfUnbornChild',
-                persons: [
-                  mockedRelationPerson.build({
+                relationships: [
+                  mockedExistingRelationship.build({
                     firstName: 'Foo',
                     lastName: 'Bar',
                   }),
@@ -486,8 +442,8 @@ describe('Relationships component', () => {
               }),
               mockedRelationshipData.build({
                 type: 'sibling',
-                persons: [
-                  mockedRelationPerson.build({
+                relationships: [
+                  mockedExistingRelationship.build({
                     firstName: 'Fizz',
                     lastName: 'Buzz',
                   }),
@@ -500,13 +456,9 @@ describe('Relationships component', () => {
           revalidate: jest.fn(),
         }));
 
-      const props = {
-        id: 33339587,
-      };
-
       const { queryByTestId } = render(
         <FeatureFlagProvider features={{}}>
-          <Relationships {...props} />
+          <Relationships person={person} />
         </FeatureFlagProvider>
       );
 
@@ -525,15 +477,225 @@ describe('Relationships component', () => {
         isActive: true,
       },
     };
-    const props = {
-      id: 33339587,
-    };
+
     const { queryByText } = render(
       <FeatureFlagProvider features={features}>
-        <Relationships {...props} />
+        <Relationships person={person} />
       </FeatureFlagProvider>
     );
 
     expect(queryByText('Add a new relationship')).toBeInTheDocument();
+  });
+
+  it('displays link to related person', async () => {
+    const existingRelationship = mockedExistingRelationship.build({
+      firstName: 'Foo',
+      lastName: 'Bar',
+    });
+    jest.spyOn(relationshipsAPI, 'useRelationships').mockImplementation(() => ({
+      data: mockedRelationshipFactory.build({
+        personId: person.id,
+        personalRelationships: [
+          mockedRelationshipData.build({
+            relationships: [existingRelationship],
+          }),
+        ],
+      }),
+      isValidating: false,
+      mutate: jest.fn(),
+      revalidate: jest.fn(),
+    }));
+
+    const { queryByText } = render(
+      <FeatureFlagProvider features={{}}>
+        <Relationships person={person} />
+      </FeatureFlagProvider>
+    );
+
+    expect(queryByText(/Foo Bar/)?.closest('a')).toHaveAttribute(
+      'href',
+      `/people/${existingRelationship.personId}`
+    );
+  });
+
+  describe('Remove a relationship', () => {
+    beforeEach(() => {
+      jest
+        .spyOn(relationshipsAPI, 'useRelationships')
+        .mockImplementation(() => ({
+          data: mockedRelationshipFactory.build({
+            personId: person.id,
+            personalRelationships: [
+              mockedRelationshipData.build({
+                relationships: [mockedExistingRelationship.build()],
+              }),
+            ],
+          }),
+          isValidating: false,
+          mutate: jest.fn(),
+          revalidate: jest.fn(),
+        }));
+    });
+
+    it('displays "Remove" if the feature flag is active', async () => {
+      const features: FeatureSet = {
+        'remove-relationship': {
+          isActive: true,
+        },
+      };
+
+      const { queryByText } = render(
+        <FeatureFlagProvider features={features}>
+          <Relationships person={person} />
+        </FeatureFlagProvider>
+      );
+
+      expect(queryByText(/Remove/)).toBeInTheDocument();
+    });
+
+    it('does not display "Remove" if the feature flag is inactive', async () => {
+      const features: FeatureSet = {
+        'remove-relationship': {
+          isActive: false,
+        },
+      };
+
+      const { queryByText } = render(
+        <FeatureFlagProvider features={features}>
+          <Relationships person={person} />
+        </FeatureFlagProvider>
+      );
+
+      expect(queryByText(/Remove/)).not.toBeInTheDocument();
+    });
+
+    it('displays dialog if "Remove" is clicked', async () => {
+      jest
+        .spyOn(relationshipsAPI, 'useRelationships')
+        .mockImplementation(() => ({
+          data: mockedRelationshipFactory.build({
+            personId: person.id,
+            personalRelationships: [
+              mockedRelationshipData.build({
+                relationships: [
+                  mockedExistingRelationship.build({
+                    firstName: 'Foo',
+                    lastName: 'Bar',
+                  }),
+                ],
+              }),
+            ],
+          }),
+          isValidating: false,
+          mutate: jest.fn(),
+          revalidate: jest.fn(),
+        }));
+
+      const features: FeatureSet = {
+        'remove-relationship': {
+          isActive: true,
+        },
+      };
+
+      const { getByText, queryByText } = render(
+        <FeatureFlagProvider features={features}>
+          <Relationships person={person} />
+        </FeatureFlagProvider>
+      );
+
+      fireEvent.click(getByText(/Remove/));
+
+      expect(
+        queryByText(/You are about to remove Foo Bar/)
+      ).toBeInTheDocument();
+    });
+
+    it('hides dialog if cross is clicked', async () => {
+      const features: FeatureSet = {
+        'remove-relationship': {
+          isActive: true,
+        },
+      };
+
+      const { getByText, queryByText } = render(
+        <FeatureFlagProvider features={features}>
+          <Relationships person={person} />
+        </FeatureFlagProvider>
+      );
+
+      fireEvent.click(getByText(/Remove/));
+      fireEvent.click(getByText(/Close/));
+
+      expect(
+        queryByText(/You are about to remove Foo Bar/)
+      ).not.toBeInTheDocument();
+    });
+
+    it('calls removeRelationship with ID of relationship when remove confirmed', async () => {
+      const existingRelationship = mockedExistingRelationship.build();
+
+      jest
+        .spyOn(relationshipsAPI, 'useRelationships')
+        .mockImplementation(() => ({
+          data: mockedRelationshipFactory.build({
+            personId: person.id,
+            personalRelationships: [
+              mockedRelationshipData.build({
+                relationships: [existingRelationship],
+              }),
+            ],
+          }),
+          isValidating: false,
+          mutate: jest.fn(),
+          revalidate: jest.fn(),
+        }));
+      jest.spyOn(relationshipsAPI, 'removeRelationship');
+
+      const features: FeatureSet = {
+        'remove-relationship': {
+          isActive: true,
+        },
+      };
+
+      const { getByText } = render(
+        <FeatureFlagProvider features={features}>
+          <Relationships person={person} />
+        </FeatureFlagProvider>
+      );
+
+      fireEvent.click(getByText(/Remove/));
+      fireEvent.click(getByText(/Yes/));
+
+      expect(relationshipsAPI.removeRelationship).toHaveBeenCalledWith(
+        existingRelationship.id.toString()
+      );
+    });
+
+    it('hides dialog after remove confirmed', async () => {
+      jest
+        .spyOn(relationshipsAPI, 'removeRelationship')
+        .mockImplementation(jest.fn());
+
+      const features: FeatureSet = {
+        'remove-relationship': {
+          isActive: true,
+        },
+      };
+
+      const { getByText, queryByText } = render(
+        <FeatureFlagProvider features={features}>
+          <Relationships person={person} />
+        </FeatureFlagProvider>
+      );
+
+      await waitFor(() => {
+        fireEvent.click(getByText(/Remove/));
+        fireEvent.click(getByText(/Yes/));
+
+        expect(
+          queryByText(/You are about to remove Foo Bar/)
+        ).not.toBeInTheDocument();
+      });
+    });
   });
 });
