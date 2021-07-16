@@ -18,6 +18,7 @@ describe('relationships APIs', () => {
       });
 
       const data = await relationshipsAPI.getRelationshipByResident(123);
+
       expect(mockedAxios.get).toHaveBeenCalled();
       expect(mockedAxios.get.mock.calls[0][0]).toEqual(
         `${ENDPOINT_API}/residents/123/relationships`
@@ -54,6 +55,24 @@ describe('relationships APIs', () => {
       } catch (e) {
         expect(e.name).toEqual('ValidationError');
       }
+    });
+  });
+
+  describe('removeRelationship', () => {
+    it("calls the service API's relationships endpoint", async () => {
+      const relationshipId = '123456789';
+      mockedAxios.delete.mockResolvedValue({ data: {} });
+
+      await relationshipsAPI.removeRelationship(relationshipId);
+
+      expect(mockedAxios.delete).toHaveBeenCalled();
+      expect(mockedAxios.delete.mock.calls[0][0]).toEqual(
+        // `${ENDPOINT_API}/relationships/personal/${relationshipId}`
+        `https://virtserver.swaggerhub.com/Hackney/social-care-case-viewer-api/1.0.0/relationships/personal/${relationshipId}`
+      );
+      expect(mockedAxios.delete.mock.calls[0][1]?.headers).toEqual({
+        'x-api-key': AWS_KEY,
+      });
     });
   });
 });
