@@ -1,33 +1,28 @@
 import ErrorMessage from 'components/ErrorMessage/ErrorMessage';
 import Spinner from 'components/Spinner/Spinner';
-import { useRelationships } from 'utils/api/relationships';
+import { removeRelationship, useRelationships } from 'utils/api/relationships';
 import Button from 'components/Button/Button';
-import { useRouter } from 'next/router';
 import { useState } from 'react';
 import { ConditionalFeature } from 'lib/feature-flags/feature-flags';
 import Link from 'next/link';
 import style from './Relationships.module.scss';
-import { RelationshipType } from 'types';
+import { RelationshipType, Resident } from 'types';
 import { RELATIONSHIP_TYPES } from 'data/relationships';
+import RemoveRelationshipDialog from '../remove/RemoveRelationshipDialog';
 
 interface Props {
-  id: number;
+  person: Resident;
 }
 
-const Relationships = ({ id }: Props): React.ReactElement => {
-  const { query } = useRouter();
-  const [successMessage, setSuccessMessage] = useState(
-    query && query.relationshipSuccess === 'true'
-  );
+const Relationships = ({ person }: Props): React.ReactElement => {
+  const [isRemoveRelationshipDialogOpen, setIsRemoveRelationshipDialogOpen] =
+    useState<boolean>(false);
+  const [relationshipToRemoveId, setRelationshipToRemoveId] = useState('');
 
   const {
     data: { personalRelationships: personalRelationshipsApiResponse } = {},
     error,
-  } = useRelationships(id);
-
-  setTimeout(() => {
-    setSuccessMessage(false);
-  }, 5000);
+  } = useRelationships(person.id);
 
   if (!personalRelationshipsApiResponse) {
     return <Spinner />;
@@ -72,14 +67,16 @@ const Relationships = ({ id }: Props): React.ReactElement => {
 
   return (
     <div>
+      <RemoveRelationshipDialog
+        person={person}
+        isOpen={isRemoveRelationshipDialogOpen}
+        onDismiss={() => setIsRemoveRelationshipDialogOpen(false)}
+        onFormSubmit={() => {
+          removeRelationship(relationshipToRemoveId);
+          setIsRemoveRelationshipDialogOpen(false);
+        }}
+      />
       <div>
-        {successMessage ? (
-          <section className="lbh-page-announcement">
-            <h3 className="lbh-page-announcement__title">Relationship added</h3>
-          </section>
-        ) : (
-          ''
-        )}
         <div className="lbh-table-header">
           <h3 className="govuk-fieldset__legend--m govuk-custom-text-color">
             RELATIONSHIPS
@@ -87,7 +84,7 @@ const Relationships = ({ id }: Props): React.ReactElement => {
           <ConditionalFeature name="add-relationships">
             <Button
               label="Add a new relationship"
-              route={`/people/${id}/relationships/add`}
+              route={`/people/${person.id}/relationships/add`}
             />
           </ConditionalFeature>
         </div>
@@ -102,6 +99,18 @@ const Relationships = ({ id }: Props): React.ReactElement => {
                 </th>
                 <th scope="col" className="govuk-table__header">
                   Name
+                </th>
+                <th scope="col" className="govuk-table__header">
+                  Main carer
+                </th>
+                <th scope="col" className="govuk-table__header">
+                  Gender
+                </th>
+                <th scope="col" className="govuk-table__header">
+                  Context of relationship
+                </th>
+                <th scope="col" className="govuk-table__header">
+                  Action
                 </th>
               </tr>
             </thead>
@@ -190,6 +199,34 @@ const Relationships = ({ id }: Props): React.ReactElement => {
                         >
                           {person.details}
                         </td>
+                        <ConditionalFeature name="remove-relationship">
+                          <td
+                            data-testid={`related-person-remove-${personRowIndex}`}
+                            key={`related-person-remove-${personRowIndex}`}
+                            className={`${
+                              relationship.relationships.length > 1 &&
+                              personRowIndex !==
+                                relationship.relationships.length - 1
+                                ? `govuk-table__cell ${style.noBorder}`
+                                : 'govuk-table__cell'
+                            }`}
+                          >
+                            <a
+                              className="lbh-link lbh-link--no-visited-state"
+                              href="#"
+                              onClick={() => {
+                                setIsRemoveRelationshipDialogOpen(true);
+                                setRelationshipToRemoveId(person.id.toString());
+                              }}
+                            >
+                              Remove{' '}
+                              <span className="govuk-visually-hidden">
+                                relationship with {person.firstName}{' '}
+                                {person.lastName}
+                              </span>
+                            </a>
+                          </td>
+                        </ConditionalFeature>
                       </tr>
                     ));
                 })}
