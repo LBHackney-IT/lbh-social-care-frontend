@@ -1,4 +1,4 @@
-export type Filter = 'all' | 'major';
+export type Filter = 'all' | 'case-note';
 
 interface FilterButtonProps {
   value: Filter;

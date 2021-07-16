@@ -1,0 +1,17 @@
+@import 'lbh-frontend/lbh/base';
+
+.actions {
+  @include govuk-media-query($from: tablet) {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+
+    * {
+      margin-top: 0;
+    }
+    *:last-child {
+      margin-left: 1.5rem;
+    }
+  }
+}
