@@ -2,34 +2,28 @@ import { AuthRoles } from '../support/commands';
 
 describe('Adding records', () => {
   describe('As a user in the Adults group', () => {
-    it('should go to the add case note form when "Case Note Recording" is selected', () => {
+    it('should show the correct, searchable, form options', () => {
       cy.visitAs(
         `/people/${Cypress.env('ADULT_RECORD_PERSON_ID')}`,
         AuthRoles.AdultsGroup
       );
 
       cy.contains('Add something new').click();
-      cy.contains('Add a new record for').should('be.visible');
-      cy.get('[data-testid="formList"]').click();
-      cy.contains('Blue Badge').should('be.visible');
-      cy.contains('Case Note Recording').should('be.visible');
-      cy.get('[data-testid="formList"]').type('Case Note Recording');
-      cy.contains('Case Note Recording').should('be.visible');
-      cy.contains('Appointeeship').should('not.exist');
-      cy.contains('Case Note Recording').click();
-      cy.get('[data-module="govuk-button"]').click();
-      cy.url().should(
-        'include',
-        `/people/${Cypress.env(
-          'ADULT_RECORD_PERSON_ID'
-        )}/records/case-notes-recording`
+      cy.contains('Add something new').should('be.visible');
+
+      cy.contains('Document Upload').should('be.visible');
+      cy.contains('Safeguarding Concern').should('be.visible');
+      cy.get("input[placeholder='Search forms...']").type(
+        'FACE Care and Support Plan'
       );
-      cy.contains('Case note for').should('be.visible');
+      cy.contains('FACE Care and Support Plan').should('be.visible');
+      cy.contains('Appointeeship').should('not.exist');
+      cy.contains('FACE Care and Support Plan');
     });
   });
 
   describe('As a user in the Childrens group', () => {
-    it('should go to the add case note form when "Case Note Recording" is selected', () => {
+    it('should show the correct, searchable, form options', () => {
       cy.visitAs(
         `/people/${Cypress.env('CHILDREN_RECORD_PERSON_ID')}`,
         AuthRoles.ChildrensGroup
@@ -39,11 +33,11 @@ describe('Adding records', () => {
         'be.visible'
       );
       cy.contains('Add something new').click();
-      cy.contains('Add a new record for').should('be.visible');
-      cy.get('[data-testid="formList"]').click();
+      cy.contains('Add something new').should('be.visible');
+
       cy.contains('CFS Case Note').should('be.visible');
       cy.contains('CFS Visit').should('be.visible');
-      cy.get('[data-testid="formList"]').type('CFS Visit');
+      cy.get("input[placeholder='Search forms...']").type('CFS Visit');
       cy.contains('CFS Visit').should('be.visible');
       cy.contains('CFS Case Note').should('not.exist');
     });

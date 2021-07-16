@@ -29,7 +29,7 @@ describe('Viewing a resident', () => {
         AuthRoles.ChildrensGroup
       );
 
-      cy.contains('Allocate worker');
+      cy.contains('Allocate someone else');
     });
   });
 
@@ -95,7 +95,7 @@ describe('Viewing a resident', () => {
         AuthRoles.AdultsAllocatorGroup
       );
 
-      cy.contains('Allocate worker');
+      cy.contains('Allocate someone else');
     });
   });
 

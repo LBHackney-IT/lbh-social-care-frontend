@@ -32,6 +32,18 @@ describe('PersonTimeline', () => {
     expect(screen.getByText('Load older events'));
   });
 
+  it('can cope when there are no events to show', () => {
+    render(
+      <PersonTimeline
+        setSize={jest.fn()}
+        onLastPage={false}
+        size={1}
+        events={[]}
+      />
+    );
+    expect(screen.getByText('No events match your search'));
+  });
+
   it('hides the pagination button on the last page', () => {
     render(
       <PersonTimeline
