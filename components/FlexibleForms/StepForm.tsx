@@ -27,11 +27,8 @@ interface Props {
     values: FormikValues,
     { setStatus }: FormikHelpers<FormikValues>
   ) => void;
-  onFinish: (
-    values: FormikValues,
-    setStatus: (message: string) => void
-  ) => void;
   singleStep: boolean;
+  finishForm: (setStatus: (message: string) => void) => void;
 }
 
 const StepForm = ({
@@ -40,6 +37,7 @@ const StepForm = ({
   person,
   onSubmit,
   singleStep,
+  finishForm,
 }: Props): React.ReactElement => (
   <Formik
     initialValues={initialValues || generateInitialValues(fields, person)}
@@ -49,7 +47,12 @@ const StepForm = ({
     validateOnMount={true}
   >
     {(formikProps) => (
-      <StepFormInner {...formikProps} fields={fields} singleStep={singleStep} />
+      <StepFormInner
+        {...formikProps}
+        fields={fields}
+        singleStep={singleStep}
+        finishForm={finishForm}
+      />
     )}
   </Formik>
 );
@@ -64,6 +67,8 @@ interface InnerProps {
   submitForm: () => Promise<void>;
   status?: string;
   singleStep: boolean;
+  finishForm: (setStatus: (message: string) => void) => void;
+  setStatus: (message: string) => void;
 }
 
 const StepFormInner = ({
@@ -74,8 +79,10 @@ const StepFormInner = ({
   isValid,
   isSubmitting,
   submitForm,
+  finishForm,
   status,
   singleStep,
+  setStatus,
 }: InnerProps): React.ReactElement => {
   const [goBackToTaskList, setGoBackToTaskList] = useState<boolean>(false);
   const { saved, setSaved } = useAutosave();
@@ -117,8 +124,12 @@ const StepFormInner = ({
         onClick={async () => {
           await submitForm();
           if (isValid) {
-            setGoBackToTaskList(true);
             setSaved(true);
+            if (singleStep) {
+              await finishForm(setStatus);
+            } else {
+              setGoBackToTaskList(true);
+            }
           }
         }}
       >
