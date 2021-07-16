@@ -12,7 +12,7 @@ declare global {
       AUTHORISED_CHILD_GROUP: string;
       AUTHORISED_ALLOCATORS_GROUP: string;
       AUTHORISED_UNRESTRICTED_GROUP: string;
-      AUDITABLE_GROUP: string;
+      AUTHORISED_AUDITABLE_GROUP: string;
     }
   }
 
