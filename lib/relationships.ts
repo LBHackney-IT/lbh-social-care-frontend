@@ -22,3 +22,15 @@ export const addRelationship = async (
     headers: { ...headers, 'Content-Type': 'application/json' },
   });
 };
+
+export const removeRelationship = async (
+  relationshipId: string
+): Promise<void> => {
+  // `${ENDPOINT_API}/relationships/personal/${relationshipId}`,
+  await axios.delete(
+    `https://virtserver.swaggerhub.com/Hackney/social-care-case-viewer-api/1.0.0/relationships/personal/${relationshipId}`,
+    {
+      headers,
+    }
+  );
+};

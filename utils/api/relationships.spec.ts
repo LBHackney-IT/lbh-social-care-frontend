@@ -127,4 +127,18 @@ describe('relationships APIs', () => {
       });
     });
   });
+
+  describe('removeRelationship', () => {
+    it('calls the DELETE /api/relationships endpoint', () => {
+      jest.spyOn(axios, 'delete');
+
+      const relationshipId = '123456789';
+
+      relationshipsAPI.removeRelationship(relationshipId);
+
+      expect(axios.delete).toHaveBeenCalledWith(
+        `/api/relationships/${relationshipId}`
+      );
+    });
+  });
 });
