@@ -1,7 +1,7 @@
 import { getResident } from 'lib/residents';
 import Layout from 'components/NewPersonView/Layout';
 import { GetServerSideProps } from 'next';
-import { Resident, User } from 'types';
+import { Resident } from 'types';
 import { useCasesByResident } from 'utils/api/cases';
 import { Case } from 'types';
 import PersonTimeline from 'components/NewPersonView/PersonTimeline';
