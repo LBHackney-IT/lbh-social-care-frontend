@@ -112,17 +112,6 @@ export const getServerSideProps: GetServerSideProps = async ({ params }) => {
     `${protocol}://${process.env.REDIRECT_URL}/api/submissions/${params?.id}`
   );
 
-  // redirect to the step if the form only has a single step
-  const isSingleStepForm = data.form.steps.length === 1;
-  if (isSingleStepForm) {
-    return {
-      props: {},
-      redirect: {
-        destination: `/submissions/${data.submissionId}/steps/${data.form.steps[0].id}`,
-      },
-    };
-  }
-
   // redirect if submission or form doesn't exist
   if (!data.submissionId || !data.form)
     return {
@@ -137,6 +126,16 @@ export const getServerSideProps: GetServerSideProps = async ({ params }) => {
       props: {},
       redirect: {
         destination: `/people/${data.residents[0].id}/submissions/${data.submissionId}`,
+      },
+    };
+  }
+
+  // redirect to the step if the form only has a single step
+  if (data.form.steps.length === 1) {
+    return {
+      props: {},
+      redirect: {
+        destination: `/submissions/${data.submissionId}/steps/${data.form.steps[0].id}`,
       },
     };
   }
