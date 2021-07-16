@@ -1,5 +1,6 @@
 import { GetServerSideProps } from 'next';
 import Head from 'next/head';
+import Link from 'next/link';
 import PersonWidget from 'components/PersonWidget/PersonWidget';
 import TaskList from 'components/TaskList/TaskList';
 import TaskListHeader from 'components/TaskList/TaskListHeader';
@@ -11,6 +12,7 @@ import s from 'stylesheets/Sidebar.module.scss';
 import axios from 'axios';
 import React, { useState } from 'react';
 import { useRouter } from 'next/router';
+import GroupRecordingWidget from 'components/GroupRecording/GroupRecordingWidget';
 
 interface Props {
   params: {
@@ -30,13 +32,17 @@ const TaskListPage = ({
 }: Props): React.ReactElement => {
   const router = useRouter();
   const [status, setStatus] = useState<string | false>(false);
-
   const completedSteps = Object.keys(formAnswers);
   const person = residents[0];
 
-  const handleFinish = async (): Promise<void> => {
+  const handleFinish = async (values?: {
+    approverEmail: string;
+  }): Promise<void> => {
     try {
-      await axios.post(`/api/submissions/${params.id}`);
+      await axios.patch(
+        `/api/submissions/${params.id}`,
+        values?.approverEmail ? values : null
+      );
       router.push(`/people/${person.id}/submissions/${params.id}`);
     } catch (e) {
       setStatus(e.toString());
@@ -71,14 +77,25 @@ const TaskListPage = ({
             steps={form.steps}
             completedSteps={completedSteps}
             onFinish={handleFinish}
+            approvable={form.approvable}
           />
 
           <TaskList form={form} completedSteps={completedSteps} />
         </div>
         <div className="govuk-grid-column-one-third">
           <div className={s.sticky}>
+            <Link href={`/submissions/${params.id}/printable`}>
+              <a className="lbh-link lbh-link--no-visited-state lbh-body-s">
+                See printable version
+              </a>
+            </Link>
+
             <p className="lbh-body">This is for:</p>
-            <PersonWidget person={person} />
+            {form.groupRecordable ? (
+              <GroupRecordingWidget initialPeople={residents} />
+            ) : (
+              <PersonWidget person={residents[0]} />
+            )}
           </div>
         </div>
       </div>

@@ -43,7 +43,7 @@ export const truncate = (str: string, noWords: number): string => {
 
 const initiallyNull = new Set(['file']);
 const initiallyFirstChoice = new Set(['select']);
-const initiallyArray = new Set(['checkboxes', 'repeater']);
+const initiallyArray = new Set(['checkboxes', 'repeater', 'tags']);
 
 export const days: {
   [key: string]: string;
@@ -78,9 +78,13 @@ export const generateInitialValues = (
 
   fields.map((field) => {
     if (field.type === 'repeaterGroup') {
-      initialValues[field.id] = [
-        generateInitialValues(field.subfields || [], person),
-      ];
+      if (field.hiddenRepeater) {
+        initialValues[field.id] = [];
+      } else {
+        initialValues[field.id] = [
+          generateInitialValues(field.subfields || [], person),
+        ];
+      }
     } else if (field.type === 'timetable') {
       initialValues[field.id] = generateInitialTimetableValues();
       initialValues[`${field.id} total hours`] = '';

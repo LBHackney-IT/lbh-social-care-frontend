@@ -113,7 +113,7 @@ export interface CaseData {
 }
 
 export interface LegacyResident {
-  mosaicId: number;
+  mosaicId: string;
   firstName: string;
   lastName: string;
   uprn?: string;
@@ -210,16 +210,19 @@ export interface Worker {
   teams: Team[];
 }
 
-export interface RelationshipPerson {
+export interface ExistingRelationship {
   id: number;
+  personId: number;
   firstName: string;
   lastName: string;
   gender?: string;
+  isMainCarer?: string;
+  details?: string;
 }
 
 export interface Relationship {
   type: RelationshipType;
-  persons: RelationshipPerson[];
+  relationships: ExistingRelationship[];
 }
 
 export interface RelationshipData {
@@ -242,7 +245,6 @@ export type RelationshipType =
   | 'partner'
   | 'exPartner'
   | 'sibling'
-  | 'siblings'
   | 'halfSibling'
   | 'stepSibling'
   | 'unbornSibling'

@@ -6,6 +6,7 @@ import { User } from 'types';
 import s from './index.module.scss';
 import Filter from './Filter';
 import SearchBox from './SearchBox';
+import useSearch from 'hooks/useSearch';
 
 interface ResultsProps {
   filteredSubmissions: Submission[];
@@ -79,21 +80,32 @@ export const SubmissionsTable = ({
     )
       return false;
 
-    // Filter out those that don't match the search term
-    const haystack = `${submission.residents[0].id} ${submission.residents[0].firstName} ${submission.residents[0].lastName}`;
-
-    if (!haystack.toLowerCase().includes(searchQuery.toLowerCase())) {
-      return false;
-    }
-
     // If showing only the current user's submissions, then filter out if the emails don't match
     if (filter === 'mine' && submission.createdBy.email !== user?.email) {
       return false;
     }
 
+    // hide discarded submissions
+    if (submission.submissionState === 'Discarded') return false;
+
     // Otherwise, this record is good to show
     return true;
   });
+
+  const results = useSearch(
+    searchQuery,
+    filteredSubmissions,
+    [
+      'createdBy.email',
+      'createdBy.firstName',
+      'createdBy.lastName',
+      'residents.fullName',
+      'residents.id',
+      'formName',
+    ],
+    1
+  );
+
   return (
     <>
       <fieldset className="govuk-radios govuk-radios--inline lbh-radios">
@@ -109,7 +121,7 @@ export const SubmissionsTable = ({
 
       <Results
         user={user as User}
-        filteredSubmissions={filteredSubmissions}
+        filteredSubmissions={results}
         searchQuery={searchQuery}
       />
     </>

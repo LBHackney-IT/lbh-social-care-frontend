@@ -61,6 +61,7 @@ describe('RepeaterGroupField', () => {
       </Formik>
     );
 
+    expect(screen.getByText('bar'));
     expect(screen.getAllByRole('textbox').length).toBe(1);
     expect(screen.getByDisplayValue('example value'));
   });

@@ -62,7 +62,7 @@ describe('Header component', () => {
     mockedUseRouter = {
       pathname: '/my-records',
     };
-    const { getByText, asFragment } = render(
+    const { asFragment } = render(
       <UserContext.Provider
         value={{
           user: mockedUser,
@@ -71,7 +71,6 @@ describe('Header component', () => {
         <Header {...props} />
       </UserContext.Provider>
     );
-    expect(getByText('My work space')).toBeInTheDocument();
     expect(asFragment()).toMatchSnapshot();
   });
 

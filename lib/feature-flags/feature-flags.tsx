@@ -1,3 +1,4 @@
+import { getFeatureFlags } from 'features';
 import React from 'react';
 import { useContext } from 'react';
 
@@ -7,9 +8,8 @@ export type FeatureSet = {
   };
 };
 
-const FeatureFlagContext = React.createContext<FeatureSet | undefined>(
-  undefined
-);
+const FeatureFlagContext =
+  React.createContext<FeatureSet | undefined>(undefined);
 
 export const FeatureFlagProvider: React.FC<{
   features: FeatureSet;
@@ -20,11 +20,24 @@ export const FeatureFlagProvider: React.FC<{
     </FeatureFlagContext.Provider>
   );
 };
+const isFeatureActive = (features: FeatureSet) => (featureName: string) => {
+  if (features[featureName] === undefined) {
+    return false;
+  }
 
-export const ConditionalFeature: React.FC<{ name: string }> = ({
-  name,
-  children,
-}) => {
+  if (features[featureName].isActive === false) {
+    return false;
+  }
+
+  return true;
+};
+
+/**
+ * React hook for accessing feature flags
+ */
+export const useFeatureFlags: () => {
+  isFeatureActive: (featureName: string) => boolean;
+} = () => {
   const features = useContext(FeatureFlagContext);
 
   if (features === undefined) {
@@ -33,13 +46,38 @@ export const ConditionalFeature: React.FC<{ name: string }> = ({
     );
   }
 
-  if (features[name] === undefined) {
-    return null;
-  }
+  return {
+    isFeatureActive: isFeatureActive(features),
+  };
+};
 
-  if (features[name].isActive === false) {
+/**
+ * React component for conditional rendering based on the active state of a feature flag
+ */
+export const ConditionalFeature: React.FC<{ name: string }> = ({
+  name,
+  children,
+}) => {
+  const { isFeatureActive } = useFeatureFlags();
+
+  if (!isFeatureActive(name)) {
     return null;
   }
 
   return <>{children}</>;
+};
+
+/**
+ * Typescript helper function for checking whether a given feature is active or inactive
+ */
+export const isFeatureFlagActive = (featureName: string) => {
+  const environmentName = ['development', 'staging'].includes(
+    process.env.NEXT_PUBLIC_ENV || ''
+  )
+    ? 'development'
+    : 'production';
+
+  const features = getFeatureFlags({ environmentName });
+
+  return isFeatureActive(features)(featureName);
 };

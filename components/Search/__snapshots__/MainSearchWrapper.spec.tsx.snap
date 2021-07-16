@@ -13,7 +13,7 @@ exports[`MainSearchWrapper should render properly 1`] = `
     Use search to find a person before adding a new person or record.
   </p>
   <div
-    class="lbh-tabs govuk-tabs"
+    class="govuk-tabs lbh-tabs"
   >
     <h2
       class="govuk-tabs__title"
@@ -21,34 +21,30 @@ exports[`MainSearchWrapper should render properly 1`] = `
       Contents
     </h2>
     <ul
-      class="govuk-tabs__list"
+      class="tabList"
     >
       <li
-        class="lbh-tabs govuk-tabs__list-item"
+        class="lbh-body tab"
       >
         <a
-          class="lbh-tabs govuk-tabs__tab"
+          class="lbh-link lbh-link--no-visited-state link"
           href="/search"
         >
           Search for a person
         </a>
       </li>
       <li
-        class="lbh-tabs govuk-tabs__list-item"
+        class="lbh-body tab"
       >
         <a
-          class="lbh-tabs govuk-tabs__tab"
+          class="lbh-link lbh-link--no-visited-state link"
           href="/cases"
         >
-          Search for records by person
+          Search for records
         </a>
       </li>
     </ul>
-    <div
-      class="lbh-tabs govuk-tabs__panel"
-    >
-      MockedSearch
-    </div>
+    MockedSearch
   </div>
 </DocumentFragment>
 `;

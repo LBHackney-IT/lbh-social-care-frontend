@@ -14,10 +14,8 @@ import type { User } from 'types';
 
 import 'stylesheets/all.scss';
 import 'stylesheets/header.scss';
-import {
-  FeatureFlagProvider,
-  FeatureSet,
-} from '../lib/feature-flags/feature-flags';
+import { FeatureFlagProvider } from '../lib/feature-flags/feature-flags';
+import { getFeatureFlags } from 'features';
 
 interface Props {
   user?: Partial<User>;
@@ -25,7 +23,8 @@ interface Props {
 
 interface ExtendedAppProps extends AppProps<Props> {
   Component: NextComponentType & {
-    goBackButton?: boolean;
+    goBackButton: boolean;
+    noLayout: boolean;
   };
 }
 
@@ -34,11 +33,10 @@ const CustomApp = ({
   pageProps,
 }: ExtendedAppProps): JSX.Element | null => {
   const [user] = useState(pageProps.user);
-  const features: FeatureSet = {
-    'feature-flags-implementation-proof': {
-      isActive: pageProps.environmentName === 'development',
-    },
-  };
+
+  const features = getFeatureFlags({
+    environmentName: pageProps.environmentName,
+  });
 
   return (
     <FeatureFlagProvider features={features}>
@@ -53,7 +51,10 @@ const CustomApp = ({
       >
         <AuthProvider user={user}>
           <GoogleAnalytics>
-            <Layout goBackButton={Component.goBackButton}>
+            <Layout
+              goBackButton={Component.goBackButton}
+              noLayout={Component.noLayout}
+            >
               <ErrorBoundary>
                 <Component {...pageProps} />
               </ErrorBoundary>
@@ -84,10 +85,9 @@ CustomApp.getInitialProps = async (
 
   const appProps = await App.getInitialProps(appContext);
 
-  const environmentName = [
-    'social-care-service-staging.hackney.gov.uk',
-    'dev.hackney.gov.uk:3000',
-  ].includes(process.env.REDIRECT_URL || '')
+  const environmentName = ['development', 'staging'].includes(
+    process.env.NEXT_PUBLIC_ENV || ''
+  )
     ? 'development'
     : 'production';
 

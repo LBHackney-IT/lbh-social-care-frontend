@@ -4,7 +4,7 @@ exports[`useWarningNotes should render a list of warning notes 1`] = `
 <DocumentFragment>
   <div
     aria-labelledby="warning-note-title"
-    class="govuk-error-summary container"
+    class="govuk-error-summary govuk-!-margin-bottom-8 container"
     role="complementary"
     tabindex="-1"
   >

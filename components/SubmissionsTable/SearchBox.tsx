@@ -1,23 +1,28 @@
 interface Props {
   searchQuery: string;
   setSearchQuery: (value: string) => void;
+  label?: string;
+  placeholder?: string;
 }
 
 const SearchBox = ({
   searchQuery,
   setSearchQuery,
+  placeholder = 'Search...',
+  label = 'Search by name or ID',
 }: Props): React.ReactElement => (
-  <div className="govuk-form-group lbh-form-group lbh-search-box govuk-!-margin-top-3">
+  <div className="govuk-form-group lbh-form-group govuk-!-margin-top-3 lbh-search-box">
     <label className="govuk-visually-hidden" htmlFor="search">
-      Search by name or ID
+      {label}
     </label>
+
     <input
       className="govuk-input lbh-input govuk-input--width-10"
       id="search"
       value={searchQuery}
       onChange={(e) => setSearchQuery(e.target.value)}
       type="search"
-      placeholder="Search..."
+      placeholder={placeholder}
     />
 
     {searchQuery.length > 0 && (
