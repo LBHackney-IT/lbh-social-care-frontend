@@ -27,8 +27,22 @@ const PersonAllocationsPage = ({ person }: Props): React.ReactElement => {
 
 PersonAllocationsPage.goBackButton = true;
 
-export const getServerSideProps: GetServerSideProps = async ({ params }) => {
-  const person = await getResident(Number(params?.id));
+export const getServerSideProps: GetServerSideProps = async ({
+  params,
+  req,
+}) => {
+  const user = isAuthorised(req);
+
+  if (!user) {
+    return {
+      props: {},
+      redirect: {
+        destination: '/login',
+      },
+    };
+  }
+
+  const person = await getResident(Number(params?.id), user);
 
   if (!person.id) {
     return {

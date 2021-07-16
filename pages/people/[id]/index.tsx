@@ -1,7 +1,7 @@
 import { getResident } from 'lib/residents';
 import Layout from 'components/NewPersonView/Layout';
 import { GetServerSideProps } from 'next';
-import { Resident } from 'types';
+import { Resident, User } from 'types';
 import { useCasesByResident } from 'utils/api/cases';
 import { Case } from 'types';
 import PersonTimeline from 'components/NewPersonView/PersonTimeline';
@@ -71,23 +71,23 @@ export const getServerSideProps: GetServerSideProps = async ({
   params,
   req,
 }) => {
-  const person = await getResident(Number(params?.id));
-  const user = isAuthorised(req);
-
-  if (user && !canManageCases(user, person)) {
-    return {
-      props: {},
-      redirect: {
-        destination: `/people/${person.id}/details`,
-      },
-    };
-  }
+  const user = isAuthorised(req) as User;
+  const person = await getResident(Number(params?.id), user);
 
   if (!person.id) {
     return {
       props: {},
       redirect: {
         destination: `/404`,
+      },
+    };
+  }
+
+  if (!canManageCases(user, person)) {
+    return {
+      props: {},
+      redirect: {
+        destination: `/people/${person.id}/details`,
       },
     };
   }

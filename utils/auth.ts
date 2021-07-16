@@ -61,6 +61,7 @@ export const isAuthorised = (
     AUTHORISED_CHILD_GROUP,
     AUTHORISED_ALLOCATORS_GROUP,
     AUTHORISED_UNRESTRICTED_GROUP,
+    AUDITABLE_GROUP,
   } = process.env;
   const cookies = cookie.parse(req.headers.cookie ?? '');
   const parsedToken = cookies[GSSO_TOKEN_NAME]
@@ -85,6 +86,7 @@ export const isAuthorised = (
       // children users don't need to be part of allocator group to be able to allocate
       groups.includes(AUTHORISED_CHILD_GROUP),
     hasUnrestrictedPermissions: groups.includes(AUTHORISED_UNRESTRICTED_GROUP),
+    isAuditable: groups.includes(AUDITABLE_GROUP),
   };
   return {
     ...gssUser,
