@@ -1,0 +1,47 @@
+@import 'lbh-frontend/lbh/base';
+
+.navLink,
+.navLinkActive {
+  display: inline-block;
+  margin-bottom: 0.25rem;
+  text-decoration: none;
+  &:hover {
+    text-decoration: underline;
+  }
+  @include govuk-media-query($from: tablet) {
+    font-size: 1.2rem;
+  }
+}
+
+.navLinkActive {
+  font-weight: $lbh-font-weight-bold;
+}
+
+// make grid rows work with position: sticky
+.outer {
+  @include govuk-media-query($from: tablet) {
+    display: flex;
+  }
+}
+
+.sticky {
+  @include govuk-media-query($from: tablet) {
+    position: sticky;
+    top: 25px;
+  }
+}
+
+.myData {
+  border-top: 1px solid lbh-colour('lbh-grey-3');
+  padding-top: 20px;
+
+  p {
+    margin-top: 0.25rem;
+    color: lbh-colour('lbh-secondary-text');
+    word-wrap: break-word;
+  }
+
+  p:last-of-type {
+    margin-top: 0.75rem;
+  }
+}

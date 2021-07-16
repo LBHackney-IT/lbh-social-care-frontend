@@ -79,6 +79,33 @@ describe('<AddRelationshipForm />', () => {
       expect(dropdownOptions[3]).toHaveValue('child');
     });
 
+    it('does not show "Parent of unborn child" and "Sibling of unborn child"', async () => {
+      jest
+        .spyOn(relationshipsAPI, 'useRelationships')
+        .mockImplementation(() => ({
+          data: mockedRelationshipFactory.build(),
+          isValidating: false,
+          mutate: jest.fn(),
+          revalidate: jest.fn(),
+        }));
+
+      render(
+        <AuthProvider user={mockedUser}>
+          <AddRelationshipForm
+            personId={mockedResident.id}
+            secondPersonId={selectedRelatedResident.id}
+          />
+        </AuthProvider>
+      );
+
+      expect(
+        screen.queryByText('Parent of unborn child')
+      ).not.toBeInTheDocument();
+      expect(
+        screen.queryByText('Sibling of unborn child')
+      ).not.toBeInTheDocument();
+    });
+
     it('disables an option where a relationship type for selected person already exists', async () => {
       const selectedRelatedResidentRelationship =
         mockedExistingRelationship.build({
