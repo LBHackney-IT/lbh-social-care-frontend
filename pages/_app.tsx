@@ -9,13 +9,14 @@ import GoogleAnalytics from 'components/GoogleAnalytics/GoogleAnalytics';
 import { AuthProvider } from 'components/UserContext/UserContext';
 import { ErrorBoundary } from 'components/ErrorBoundary/ErrorBoundary';
 import { isAuthorised, shouldRedirect } from 'utils/auth';
+import { FeatureFlagProvider } from '../lib/feature-flags/feature-flags';
+import { getFeatureFlags } from 'features';
+import { BreadcrumbProvider } from 'contexts/breadcrumbContext';
 
 import type { User } from 'types';
 
 import 'stylesheets/all.scss';
 import 'stylesheets/header.scss';
-import { FeatureFlagProvider } from '../lib/feature-flags/feature-flags';
-import { getFeatureFlags } from 'features';
 
 interface Props {
   user?: Partial<User>;
@@ -51,14 +52,17 @@ const CustomApp = ({
       >
         <AuthProvider user={user}>
           <GoogleAnalytics>
-            <Layout
-              goBackButton={Component.goBackButton}
-              noLayout={Component.noLayout}
-            >
-              <ErrorBoundary>
+            <BreadcrumbProvider>
+              {Component.noLayout ? (
                 <Component {...pageProps} />
-              </ErrorBoundary>
-            </Layout>
+              ) : (
+                <Layout>
+                  <ErrorBoundary>
+                    <Component {...pageProps} />
+                  </ErrorBoundary>
+                </Layout>
+              )}
+            </BreadcrumbProvider>
           </GoogleAnalytics>
         </AuthProvider>
       </SWRConfig>

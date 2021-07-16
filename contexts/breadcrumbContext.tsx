@@ -1,13 +1,11 @@
-import React, { useContext, createContext, useState } from 'react';
+import React, { useContext, createContext } from 'react';
 
 interface ContextType {
   goBackUrl: string | false;
-  //   setGoBackUrl: (newVal: string | false) => void;
 }
 
 const BreadcrumbContext = createContext<ContextType>({
   goBackUrl: false,
-  //   setGoBackUrl: () => null,
 });
 
 export const BreadcrumbProvider = ({
@@ -26,6 +24,7 @@ export const BreadcrumbProvider = ({
   );
 };
 
-export const useBreadcrumb = (): ContextType => useContext(BreadcrumbContext);
+export const useBreadcrumb = (goBackUrl: string): ContextType =>
+  useContext(BreadcrumbContext);
 
 export default BreadcrumbContext;
