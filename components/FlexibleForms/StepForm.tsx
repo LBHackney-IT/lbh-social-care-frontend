@@ -27,7 +27,7 @@ interface Props {
     values: FormikValues,
     { setStatus }: FormikHelpers<FormikValues>
   ) => void;
-  singleStep: boolean;
+  singleStep?: boolean;
   finishForm: (setStatus: (message: string) => void) => void;
 }
 
@@ -66,7 +66,7 @@ interface InnerProps {
   isSubmitting: boolean;
   submitForm: () => Promise<void>;
   status?: string;
-  singleStep: boolean;
+  singleStep?: boolean;
   finishForm: (setStatus: (message: string) => void) => void;
   setStatus: (message: string) => void;
 }

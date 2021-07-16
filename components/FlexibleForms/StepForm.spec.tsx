@@ -37,7 +37,7 @@ describe('StepForm', () => {
         onSubmit={(values, { setStatus }) =>
           setStatus('Example status message')
         }
-        onFinish={() => true}
+        finishForm={() => true}
       />
     );
 
@@ -52,7 +52,7 @@ describe('StepForm', () => {
         onSubmit={(values, { setStatus }) =>
           setStatus('Example status message')
         }
-        onFinish={() => true}
+        finishForm={() => true}
       />
     );
 
@@ -72,7 +72,7 @@ describe('StepForm', () => {
       <StepForm
         fields={mockFields}
         onSubmit={() => true}
-        onFinish={() => true}
+        finishForm={() => true}
       />
     );
 
@@ -87,12 +87,12 @@ describe('StepForm', () => {
     });
   });
 
-  it.skip("also triggers the finish event if it's the only step", async () => {
+  it("also triggers the finish event if it's the only step", async () => {
     render(
       <StepForm
         fields={mockFields}
         onSubmit={() => true}
-        onFinish={mockFinish}
+        finishForm={mockFinish}
         singleStep={true}
       />
     );
