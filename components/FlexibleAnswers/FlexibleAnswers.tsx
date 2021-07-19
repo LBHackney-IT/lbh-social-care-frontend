@@ -59,24 +59,27 @@ const SummaryList = ({
   stepAnswers: StepAnswers;
 }): React.ReactElement => (
   <dl className="govuk-summary-list lbh-summary-list">
-    {Object.entries(stepAnswers).map(([questionName, answerGroup]) => (
-      <div className="govuk-summary-list__row" key={questionName}>
-        <dt className="govuk-summary-list__key">{questionName}</dt>
-        <dd className={`govuk-summary-list__value ${s.dd}`}>
-          {typeof answerGroup === 'string' ? (
-            answerGroup
-          ) : isTimetableAnswer(
-              answerGroup as TimetableAnswerT | RepeaterGroupAnswerT[]
-            ) ? (
-            <TimetableAnswer answers={answerGroup as TimetableAnswerT} />
-          ) : (
-            <RepeaterGroupAnswers
-              answers={answerGroup as RepeaterGroupAnswerT[]}
-            />
-          )}
-        </dd>
-      </div>
-    ))}
+    {Object.entries(stepAnswers).map(
+      ([questionName, answerGroup]) =>
+        shouldShow(answerGroup) && (
+          <div className="govuk-summary-list__row" key={questionName}>
+            <dt className="govuk-summary-list__key">{questionName}</dt>
+            <dd className={`govuk-summary-list__value ${s.dd}`}>
+              {typeof answerGroup === 'string' ? (
+                answerGroup
+              ) : isTimetableAnswer(
+                  answerGroup as TimetableAnswerT | RepeaterGroupAnswerT[]
+                ) ? (
+                <TimetableAnswer answers={answerGroup as TimetableAnswerT} />
+              ) : (
+                <RepeaterGroupAnswers
+                  answers={answerGroup as RepeaterGroupAnswerT[]}
+                />
+              )}
+            </dd>
+          </div>
+        )
+    )}
   </dl>
 );
 
