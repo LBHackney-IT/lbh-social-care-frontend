@@ -6,7 +6,7 @@ import { useState } from 'react';
 import { ConditionalFeature } from 'lib/feature-flags/feature-flags';
 import Link from 'next/link';
 import style from './Relationships.module.scss';
-import { RelationshipType, Resident } from 'types';
+import { RelationshipType, Resident, ExistingRelationship } from 'types';
 import { RELATIONSHIP_TYPES } from 'data/relationships';
 import RemoveRelationshipDialog from '../remove/RemoveRelationshipDialog';
 
@@ -17,6 +17,8 @@ interface Props {
 const Relationships = ({ person }: Props): React.ReactElement => {
   const [isRemoveRelationshipDialogOpen, setIsRemoveRelationshipDialogOpen] =
     useState<boolean>(false);
+  const [personToRemove, setPersonToRemove] = useState<ExistingRelationship>();
+
   const [relationshipToRemoveId, setRelationshipToRemoveId] = useState('');
 
   const {
@@ -68,12 +70,14 @@ const Relationships = ({ person }: Props): React.ReactElement => {
   return (
     <div>
       <RemoveRelationshipDialog
-        person={person}
+        person={personToRemove}
         isOpen={isRemoveRelationshipDialogOpen}
         onDismiss={() => setIsRemoveRelationshipDialogOpen(false)}
         onFormSubmit={() => {
           removeRelationship(relationshipToRemoveId);
           setIsRemoveRelationshipDialogOpen(false);
+
+          window.location.reload();
         }}
       />
       <div>
@@ -215,6 +219,7 @@ const Relationships = ({ person }: Props): React.ReactElement => {
                               className="lbh-link lbh-link--no-visited-state"
                               href="#"
                               onClick={() => {
+                                setPersonToRemove(person);
                                 setIsRemoveRelationshipDialogOpen(true);
                                 setRelationshipToRemoveId(person.id.toString());
                               }}
