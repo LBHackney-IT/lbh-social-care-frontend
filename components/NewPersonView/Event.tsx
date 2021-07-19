@@ -32,7 +32,7 @@ const Event = ({ event }: Props): React.ReactElement => {
           {displayName}
         </CaseLink>
       </h3>
-      {}
+
       <p className="lbh-body">
         {format(
           new Date(displayDate),

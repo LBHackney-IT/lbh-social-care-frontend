@@ -69,10 +69,11 @@ const CaseLink = ({
   children,
 }: Props): React.ReactElement => {
   const form = formName ? forms?.find((form) => form.id === formName) : false;
+
   if (form)
     return (
       <Link href={`/people/${personId}/submissions/${recordId}`}>
-        <a className="lbh-link">{children || 'View'}</a>
+        <a className="lbh-link">{form?.name || 'Other event'}</a>
       </Link>
     );
 
@@ -84,14 +85,14 @@ const CaseLink = ({
         rel="noreferrer noopener"
         className="lbh-link"
       >
-        View
+        Other event
       </a>
     );
   }
   const internalLink = getLink(recordId, caseFormData);
   return internalLink ? (
     <Link href={internalLink}>
-      <a className="lbh-link">{children || 'View'}</a>
+      <a className="lbh-link">{children || 'Other event'}</a>
     </Link>
   ) : (
     <>{formName}</>
