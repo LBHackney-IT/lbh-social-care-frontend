@@ -5,7 +5,6 @@ module.exports = {
     webpack5: true,
   },
 
-  /*
   async headers() {
     return [
       {
@@ -17,7 +16,8 @@ module.exports = {
           },
           {
             key: 'Content-Security-Policy',
-            value: "default-src 'self'",
+            value:
+              "default-src 'self';font-src fonts.gstatic.com;style-src 'self' fonts.googleapis.com",
           },
           {
             key: 'X-XSS-Protection',
@@ -27,5 +27,4 @@ module.exports = {
       },
     ];
   },
-  */
 };
