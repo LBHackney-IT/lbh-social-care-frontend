@@ -44,14 +44,19 @@ describe('GroupRecordingWidget', () => {
 
   it('should render properly', () => {
     const { asFragment } = render(
-      <GroupRecordingWidget initialPeople={[mockedResident]} />
+      <GroupRecordingWidget submissionId="1" initialPeople={[mockedResident]} />
     );
 
     expect(asFragment()).toMatchSnapshot();
   });
 
   it('shows one person initially', () => {
-    render(<GroupRecordingWidget initialPeople={[mockedResident1]} />);
+    render(
+      <GroupRecordingWidget
+        submissionId="1"
+        initialPeople={[mockedResident1]}
+      />
+    );
 
     expect(
       screen.getByText(
@@ -63,6 +68,7 @@ describe('GroupRecordingWidget', () => {
   it('can show multiple people', () => {
     render(
       <GroupRecordingWidget
+        submissionId="1"
         initialPeople={[mockedResident1, mockedResident2]}
       />
     );
@@ -82,6 +88,7 @@ describe('GroupRecordingWidget', () => {
   it('shows an option to remove a person if multiple people are assigned to the group', () => {
     render(
       <GroupRecordingWidget
+        submissionId="1"
         initialPeople={[mockedResident1, mockedResident2]}
       />
     );
@@ -90,13 +97,23 @@ describe('GroupRecordingWidget', () => {
   });
 
   it('does not show an option to remove a person if a single person is assigned to the group', () => {
-    render(<GroupRecordingWidget initialPeople={[mockedResident1]} />);
+    render(
+      <GroupRecordingWidget
+        submissionId="1"
+        initialPeople={[mockedResident1]}
+      />
+    );
 
     expect(screen.queryByText('Remove')).toBeFalsy();
   });
 
   it('does not show a resident can be added if they already belong to the group', () => {
-    render(<GroupRecordingWidget initialPeople={[mockedResident1]} />);
+    render(
+      <GroupRecordingWidget
+        submissionId="1"
+        initialPeople={[mockedResident1]}
+      />
+    );
 
     fireEvent.click(screen.getByText('Link another person'));
 
@@ -110,7 +127,12 @@ describe('GroupRecordingWidget', () => {
   });
 
   it('shows a resident can be added if they do not belong to the group', () => {
-    render(<GroupRecordingWidget initialPeople={[mockedResident1]} />);
+    render(
+      <GroupRecordingWidget
+        submissionId="1"
+        initialPeople={[mockedResident1]}
+      />
+    );
 
     fireEvent.click(screen.getByText('Link another person'));
 
@@ -124,7 +146,12 @@ describe('GroupRecordingWidget', () => {
   });
 
   it('sets checked to true after selecting a resident to add', () => {
-    render(<GroupRecordingWidget initialPeople={[mockedResident1]} />);
+    render(
+      <GroupRecordingWidget
+        submissionId="1"
+        initialPeople={[mockedResident1]}
+      />
+    );
 
     fireEvent.click(screen.getByText('Link another person'));
 
@@ -141,7 +168,12 @@ describe('GroupRecordingWidget', () => {
   });
 
   it('add person button disabled if no resident is selected', () => {
-    render(<GroupRecordingWidget initialPeople={[mockedResident1]} />);
+    render(
+      <GroupRecordingWidget
+        submissionId="1"
+        initialPeople={[mockedResident1]}
+      />
+    );
 
     fireEvent.click(screen.getByText('Link another person'));
 
@@ -150,7 +182,12 @@ describe('GroupRecordingWidget', () => {
   });
 
   it('add person button enabled if a resident is selected', () => {
-    render(<GroupRecordingWidget initialPeople={[mockedResident1]} />);
+    render(
+      <GroupRecordingWidget
+        submissionId="1"
+        initialPeople={[mockedResident1]}
+      />
+    );
 
     fireEvent.click(screen.getByText('Link another person'));
     fireEvent.change(screen.getByPlaceholderText('eg. 123456'), {
@@ -167,7 +204,12 @@ describe('GroupRecordingWidget', () => {
   });
 
   it('makes a PATCH request with our new resident IDs after adding a resident', () => {
-    render(<GroupRecordingWidget initialPeople={[mockedResident1]} />);
+    render(
+      <GroupRecordingWidget
+        submissionId="1"
+        initialPeople={[mockedResident1]}
+      />
+    );
 
     fireEvent.click(screen.getByText('Link another person'));
 
@@ -188,7 +230,12 @@ describe('GroupRecordingWidget', () => {
   });
 
   it('displays the newly added resident', () => {
-    render(<GroupRecordingWidget initialPeople={[mockedResident1]} />);
+    render(
+      <GroupRecordingWidget
+        submissionId="1"
+        initialPeople={[mockedResident1]}
+      />
+    );
 
     fireEvent.click(screen.getByText('Link another person'));
 
@@ -213,6 +260,7 @@ describe('GroupRecordingWidget', () => {
   it('makes a PATCH request with our new resident IDs after removing a resident', () => {
     render(
       <GroupRecordingWidget
+        submissionId="1"
         initialPeople={[mockedResident1, mockedResident2]}
       />
     );
@@ -227,6 +275,7 @@ describe('GroupRecordingWidget', () => {
   it('removes the removed resident from the group recording display', () => {
     render(
       <GroupRecordingWidget
+        submissionId="1"
         initialPeople={[mockedResident1, mockedResident2]}
       />
     );

@@ -35,8 +35,6 @@ const StepPage = ({
 }: Props): React.ReactElement => {
   const router = useRouter();
 
-  const person = residents[0];
-
   const handleSubmit = async (
     values: FormikValues,
     { setStatus }: FormikHelpers<FormikValues>
@@ -53,15 +51,11 @@ const StepPage = ({
   };
 
   const handleFinish = async (
-    values: FormikValues,
     setStatus: (message: string) => void
   ): Promise<void> => {
     try {
-      const { data } = await axios.post(`/api/submissions/${params.id}`, {
-        data: person,
-      });
-      if (data.error) throw data.error;
-      router.push('/');
+      await axios.post(`/api/submissions/${params.id}`);
+      router.push(`/people/${residents[0].id}/submissions/${params.id}`);
     } catch (e) {
       setStatus(e.toString());
     }
@@ -98,12 +92,10 @@ const StepPage = ({
             {step?.intro && <p>{step.intro}</p>}
             {step.fields && (
               <StepForm
-                person={person}
+                person={residents[0]}
                 initialValues={stepAnswers}
                 fields={step.fields}
                 onSubmit={handleSubmit}
-                onFinish={handleFinish}
-                singleStep={form.steps.length === 1}
               />
             )}
           </div>
@@ -112,7 +104,10 @@ const StepPage = ({
               <AutosaveIndicator />
               <p className="lbh-body">This is for:</p>
               {form.groupRecordable ? (
-                <GroupRecordingWidget initialPeople={residents} />
+                <GroupRecordingWidget
+                  submissionId={params.id}
+                  initialPeople={residents}
+                />
               ) : (
                 <PersonWidget person={residents[0]} />
               )}

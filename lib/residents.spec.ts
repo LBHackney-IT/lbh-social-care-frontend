@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { mockedResident, residentFactory } from 'factories/residents';
+import { userFactory } from '../factories/users';
 
 import * as residentsAPI from './residents';
 
@@ -77,7 +78,8 @@ describe('residents APIs', () => {
           restricted: 'Y',
         },
       });
-      const data = await residentsAPI.getResident(123);
+      const user = userFactory.build();
+      const data = await residentsAPI.getResident(123, user);
       expect(mockedAxios.get).toHaveBeenCalled();
       expect(mockedAxios.get.mock.calls[0][0]).toEqual(
         `${ENDPOINT_API}/residents/123`
@@ -89,6 +91,46 @@ describe('residents APIs', () => {
         name: 'foobar',
         restricted: 'Y',
         address: undefined,
+      });
+    });
+
+    it("should pass the auditingEnabled flag as true, along with the user's ID if the user is in the auditable group", async () => {
+      mockedAxios.get.mockResolvedValue({
+        data: {
+          name: 'foobar',
+          restricted: 'Y',
+        },
+      });
+
+      const user = userFactory.build({
+        isAuditable: true,
+      });
+
+      await residentsAPI.getResident(123, user);
+
+      expect(mockedAxios.get.mock.calls[0][1]?.params).toEqual({
+        auditingEnabled: true,
+        userId: user.email,
+      });
+    });
+
+    it('should pass the auditingEnabled flag as false and an undefined email if the user is not in the auditable group', async () => {
+      mockedAxios.get.mockResolvedValue({
+        data: {
+          name: 'foobar',
+          restricted: 'Y',
+        },
+      });
+
+      const user = userFactory.build({
+        isAuditable: false,
+      });
+
+      await residentsAPI.getResident(123, user);
+
+      expect(mockedAxios.get.mock.calls[0][1]?.params).toEqual({
+        auditingEnabled: false,
+        userId: undefined,
       });
     });
   });

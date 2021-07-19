@@ -8,6 +8,7 @@ export const userFactory = Factory.define<User>(() => ({
   hasChildrenPermissions: true,
   hasAdultPermissions: true,
   hasDevPermissions: false,
+  isAuditable: false,
   email: 'foo@bar.com',
   permissionFlag: 'A',
   isAuthorised: true,

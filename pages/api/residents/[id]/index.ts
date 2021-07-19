@@ -20,7 +20,7 @@ const endpoint: NextApiHandler = async (
   switch (req.method) {
     case 'GET':
       try {
-        const data = await getResident(id);
+        const data = await getResident(id, user);
         data
           ? res.status(StatusCodes.OK).json(data)
           : res
