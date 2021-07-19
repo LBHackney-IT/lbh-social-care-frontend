@@ -39,7 +39,7 @@ const PrintableForm = ({ form }: Props): React.ReactElement => (
                 ))}
               </>
             )}
-            {['checkboxes', 'Tags'].includes(field.type) && (
+            {['checkboxes', 'tags'].includes(field.type) && (
               <>
                 <p>Choose all that apply</p>
                 {field?.choices?.map((choice) => (

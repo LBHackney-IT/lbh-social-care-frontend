@@ -1,4 +1,6 @@
 import { Form } from './forms.types';
+import tags from 'data/childCaseNoteTags';
+import { format } from 'date-fns';
 
 const form: Form = {
   id: 'child-case-note',
@@ -13,11 +15,6 @@ const form: Form = {
       theme: 'Case note',
       fields: [
         {
-          id: 'Title',
-          question: 'Title',
-          type: 'textarea',
-        },
-        {
           id: 'Type',
           question: 'What kind of note is this?',
           type: 'radios',
@@ -30,10 +27,6 @@ const form: Form = {
             {
               value: 'Correspondence',
               label: 'Correspondence',
-            },
-            {
-              value: 'Management oversight',
-              label: 'Management oversight',
             },
             {
               value: 'Something else',
@@ -114,10 +107,16 @@ const form: Form = {
           question: 'Were the child/children seen alone?',
           type: 'radios',
           required: true,
-          condition: {
-            id: 'Were the child/children seen',
-            value: 'Yes',
-          },
+          condition: [
+            {
+              id: 'Type',
+              value: 'Visit',
+            },
+            {
+              id: 'Were the child/children seen',
+              value: 'Yes',
+            },
+          ],
           choices: [
             {
               value: 'Yes',
@@ -130,10 +129,19 @@ const form: Form = {
           ],
         },
         {
-          id: 'Topics (tags)',
+          id: 'Topics',
           question: 'Topics',
-          hint: 'Help colleagues find this note. Add as many as you need.',
-          type: 'Tags',
+          hint: 'Help colleagues find this note. Add as many as you need, or create new ones.',
+          type: 'tags',
+          className: 'govuk-input--width-20',
+          choices: tags,
+        },
+
+        {
+          id: 'Title',
+          question: 'Title',
+          type: 'text',
+          className: 'govuk-input--width-20',
         },
         {
           id: 'Body',
@@ -146,6 +154,7 @@ const form: Form = {
           question: 'When did this happen?',
           type: 'date',
           className: 'govuk-input--width-10',
+          default: format(new Date(), 'yyyy-MM-dd'),
         },
         {
           id: 'Actions',
