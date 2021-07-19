@@ -73,7 +73,7 @@ const CaseLink = ({
   if (form)
     return (
       <Link href={`/people/${personId}/submissions/${recordId}`}>
-        <a className="lbh-link">{form?.name || 'Other event'}</a>
+        <a className="lbh-link">{form?.name || 'View'}</a>
       </Link>
     );
 
@@ -85,14 +85,14 @@ const CaseLink = ({
         rel="noreferrer noopener"
         className="lbh-link"
       >
-        Other event
+        View
       </a>
     );
   }
   const internalLink = getLink(recordId, caseFormData);
   return internalLink ? (
     <Link href={internalLink}>
-      <a className="lbh-link">{children || 'Other event'}</a>
+      <a className="lbh-link">{children || 'View'}</a>
     </Link>
   ) : (
     <>{formName}</>
