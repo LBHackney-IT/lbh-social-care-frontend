@@ -7,7 +7,7 @@ const form: Form = {
   name: 'Case note',
   groupRecordable: true,
   isViewableByAdults: false,
-  isViewableByChildrens: false,
+  isViewableByChildrens: true,
   steps: [
     {
       id: 'Case note',
