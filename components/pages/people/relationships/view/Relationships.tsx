@@ -6,9 +6,15 @@ import { useState } from 'react';
 import { ConditionalFeature } from 'lib/feature-flags/feature-flags';
 import Link from 'next/link';
 import style from './Relationships.module.scss';
-import { RelationshipType, Resident, ExistingRelationship } from 'types';
+import {
+  RelationshipType,
+  Resident,
+  ExistingRelationship,
+  Relationship,
+} from 'types';
 import { RELATIONSHIP_TYPES } from 'data/relationships';
 import RemoveRelationshipDialog from '../remove/RemoveRelationshipDialog';
+import { useEffect } from 'react';
 
 interface Props {
   person: Resident;
@@ -17,30 +23,34 @@ interface Props {
 const Relationships = ({ person }: Props): React.ReactElement => {
   const [isRemoveRelationshipDialogOpen, setIsRemoveRelationshipDialogOpen] =
     useState<boolean>(false);
-  const [personToRemove, setPersonToRemove] = useState<ExistingRelationship>();
-
-  const [relationshipToRemoveId, setRelationshipToRemoveId] = useState('');
+  const [relationshipToRemove, setRelationshipToRemove] =
+    useState<ExistingRelationship>();
+  const [relationships, setRelationships] = useState<Relationship[]>();
 
   const {
     data: { personalRelationships: personalRelationshipsApiResponse } = {},
     error,
   } = useRelationships(person.id);
 
-  if (!personalRelationshipsApiResponse) {
+  useEffect(() => {
+    setRelationships(personalRelationshipsApiResponse);
+  }, [personalRelationshipsApiResponse]);
+
+  if (!relationships) {
     return <Spinner />;
   }
   if (error) {
     return <ErrorMessage />;
   }
 
-  const personalRelationships = personalRelationshipsApiResponse.filter(
+  const personalRelationships = relationships.filter(
     (relationship) =>
       relationship.type !== 'parentOfUnbornChild' &&
       relationship.type !== 'siblingOfUnbornChild'
   );
 
   const combineOfUnbornChildForType = (type: RelationshipType) => {
-    const relationshipsOfUnbornChild = personalRelationshipsApiResponse.filter(
+    const relationshipsOfUnbornChild = relationships.filter(
       (relationship) => relationship.type === `${type}OfUnbornChild`
     );
 
@@ -70,14 +80,24 @@ const Relationships = ({ person }: Props): React.ReactElement => {
   return (
     <div>
       <RemoveRelationshipDialog
-        person={personToRemove}
+        person={relationshipToRemove}
         isOpen={isRemoveRelationshipDialogOpen}
         onDismiss={() => setIsRemoveRelationshipDialogOpen(false)}
         onFormSubmit={() => {
-          removeRelationship(relationshipToRemoveId);
           setIsRemoveRelationshipDialogOpen(false);
 
-          window.location.reload();
+          if (relationshipToRemove) {
+            removeRelationship(relationshipToRemove.id.toString());
+
+            relationships.forEach((element) => {
+              const rel_array = element.relationships;
+              const removeIndex = rel_array
+                .map((item) => item.id)
+                .indexOf(relationshipToRemove.id);
+              ~removeIndex && rel_array.splice(removeIndex, 1);
+            });
+          }
+          setRelationships(relationships);
         }}
       />
       <div>
@@ -219,9 +239,8 @@ const Relationships = ({ person }: Props): React.ReactElement => {
                               className="lbh-link lbh-link--no-visited-state"
                               href="#"
                               onClick={() => {
-                                setPersonToRemove(person);
+                                setRelationshipToRemove(person);
                                 setIsRemoveRelationshipDialogOpen(true);
-                                setRelationshipToRemoveId(person.id.toString());
                               }}
                             >
                               Remove{' '}
