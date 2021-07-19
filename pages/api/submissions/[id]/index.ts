@@ -29,11 +29,12 @@ const handler = async (
           );
         } else {
           submission = await finishSubmission(id as string, user?.email ?? '');
-          await notifyApprover(
-            submission,
-            req.body.approverEmail,
-            req.headers.host ?? ''
-          );
+          if (req.body.approverEmail)
+            await notifyApprover(
+              submission,
+              req.body.approverEmail,
+              req.headers.host ?? ''
+            );
         }
         res.status(StatusCodes.ACCEPTED).json(submission);
       }
