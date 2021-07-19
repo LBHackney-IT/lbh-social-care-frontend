@@ -5,6 +5,7 @@ import { AuthProvider } from 'components/UserContext/UserContext';
 import { mockedUser } from 'factories/users';
 import ADULT_GFORMS from 'data/googleForms/adultForms';
 import CHILD_GFORMS from 'data/googleForms/childForms';
+import flexibleForms from 'data/flexibleForms';
 
 import 'next/router';
 
@@ -60,6 +61,24 @@ describe('AddFormDialog', () => {
     );
     expect(screen.getByText(CHILD_GFORMS[0].text));
     expect(screen.queryByText(ADULT_GFORMS[0].text)).toBeNull();
+  });
+
+  it('supports canonical urls', () => {
+    render(
+      <AuthProvider user={mockedUser}>
+        <AddFormDialog
+          isOpen={true}
+          onDismiss={jest.fn()}
+          person={{ ...mockedResident, contextFlag: 'C' }}
+        />
+      </AuthProvider>
+    );
+    fireEvent.change(screen.getByLabelText('Search for a form'), {
+      target: { value: 'Case note' },
+    });
+    expect((screen.getByText('Case note') as HTMLLinkElement).href).toContain(
+      `/people/1/case-note`
+    );
   });
 
   it('allows searching for a form', () => {
