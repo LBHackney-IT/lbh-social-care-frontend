@@ -27,11 +27,6 @@ interface Props {
     values: FormikValues,
     { setStatus }: FormikHelpers<FormikValues>
   ) => void;
-  onFinish: (
-    values: FormikValues,
-    setStatus: (message: string) => void
-  ) => void;
-  singleStep?: boolean;
 }
 
 const StepForm = ({
@@ -112,8 +107,9 @@ const StepFormInner = ({
         onClick={async () => {
           await submitForm();
           if (isValid) {
-            setGoBackToTaskList(true);
             setSaved(true);
+
+            setGoBackToTaskList(true);
           }
         }}
       >

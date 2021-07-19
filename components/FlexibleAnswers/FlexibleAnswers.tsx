@@ -53,6 +53,36 @@ const RepeaterGroupAnswers = ({
   </ul>
 );
 
+const SummaryList = ({
+  stepAnswers,
+}: {
+  stepAnswers: StepAnswers;
+}): React.ReactElement => (
+  <dl className="govuk-summary-list lbh-summary-list">
+    {Object.entries(stepAnswers).map(
+      ([questionName, answerGroup]) =>
+        shouldShow(answerGroup) && (
+          <div className="govuk-summary-list__row" key={questionName}>
+            <dt className="govuk-summary-list__key">{questionName}</dt>
+            <dd className={`govuk-summary-list__value ${s.dd}`}>
+              {typeof answerGroup === 'string' ? (
+                answerGroup
+              ) : isTimetableAnswer(
+                  answerGroup as TimetableAnswerT | RepeaterGroupAnswerT[]
+                ) ? (
+                <TimetableAnswer answers={answerGroup as TimetableAnswerT} />
+              ) : (
+                <RepeaterGroupAnswers
+                  answers={answerGroup as RepeaterGroupAnswerT[]}
+                />
+              )}
+            </dd>
+          </div>
+        )
+    )}
+  </dl>
+);
+
 const FlexibleAnswersStep = ({
   stepName,
   stepAnswers,
@@ -74,31 +104,9 @@ const FlexibleAnswersStep = ({
       </button>
 
       {open && (
-        <dl className="govuk-summary-list lbh-summary-list lbh-collapsible__content">
-          {Object.entries(stepAnswers).map(
-            ([questionName, answerGroup]) =>
-              shouldShow(answerGroup) && (
-                <div className="govuk-summary-list__row" key={questionName}>
-                  <dt className="govuk-summary-list__key">{questionName}</dt>
-                  <dd className={`govuk-summary-list__value ${s.dd}`}>
-                    {typeof answerGroup === 'string' ? (
-                      answerGroup
-                    ) : isTimetableAnswer(
-                        answerGroup as TimetableAnswerT | RepeaterGroupAnswerT[]
-                      ) ? (
-                      <TimetableAnswer
-                        answers={answerGroup as TimetableAnswerT}
-                      />
-                    ) : (
-                      <RepeaterGroupAnswers
-                        answers={answerGroup as RepeaterGroupAnswerT[]}
-                      />
-                    )}
-                  </dd>
-                </div>
-              )
-          )}
-        </dl>
+        <div className="lbh-collapsible__content">
+          <SummaryList stepAnswers={stepAnswers} />
+        </div>
       )}
     </section>
   );
@@ -109,9 +117,13 @@ interface Props {
 }
 
 const FlexibleAnswers = ({ answers }: Props): React.ReactElement => {
+  const steps = Object.entries(answers);
+
+  if (steps.length === 1) return <SummaryList stepAnswers={steps[0][1]} />;
+
   return (
     <div>
-      {Object.entries(answers).map(([stepName, stepAnswers]) => (
+      {steps.map(([stepName, stepAnswers]) => (
         <FlexibleAnswersStep
           key={stepName}
           stepName={stepName}

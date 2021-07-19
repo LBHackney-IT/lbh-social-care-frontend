@@ -37,7 +37,6 @@ describe('StepForm', () => {
         onSubmit={(values, { setStatus }) =>
           setStatus('Example status message')
         }
-        onFinish={() => true}
       />
     );
 
@@ -52,7 +51,6 @@ describe('StepForm', () => {
         onSubmit={(values, { setStatus }) =>
           setStatus('Example status message')
         }
-        onFinish={() => true}
       />
     );
 
@@ -68,13 +66,7 @@ describe('StepForm', () => {
   });
 
   it('returns to the task list if submission succeeds', async () => {
-    render(
-      <StepForm
-        fields={mockFields}
-        onSubmit={() => true}
-        onFinish={() => true}
-      />
-    );
+    render(<StepForm fields={mockFields} onSubmit={() => true} />);
 
     fireEvent.change(screen.getByRole('textbox'), {
       target: { value: 'test value' },
@@ -84,26 +76,6 @@ describe('StepForm', () => {
     await waitFor(() => {
       expect(mockPush).toBeCalled();
       expect(mockPush).toBeCalledWith(`/submissions/foo`);
-    });
-  });
-
-  it.skip("also triggers the finish event if it's the only step", async () => {
-    render(
-      <StepForm
-        fields={mockFields}
-        onSubmit={() => true}
-        onFinish={mockFinish}
-        singleStep={true}
-      />
-    );
-
-    fireEvent.change(screen.getByRole('textbox'), {
-      target: { value: 'test value' },
-    });
-    fireEvent.click(screen.getByText('Save and finish'));
-
-    await waitFor(() => {
-      expect(mockFinish).toBeCalledTimes(1);
     });
   });
 });
