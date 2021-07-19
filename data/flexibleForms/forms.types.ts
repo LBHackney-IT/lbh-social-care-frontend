@@ -65,6 +65,8 @@ export interface Form {
   isViewableByChildrens: boolean;
   isViewableByAdults: boolean;
   tags?: string[];
+  /** override the automatically generated /submissions/new... url, for edge case forms */
+  canonicalUrl?: (socialCareId: number) => string;
 }
 
 export interface RepeaterGroupAnswer {
