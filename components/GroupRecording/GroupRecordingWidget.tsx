@@ -1,6 +1,5 @@
 import { Resident, LegacyResident } from './../../types';
 import { useState, useEffect } from 'react';
-import { useRouter } from 'next/router';
 import PersonWidget from './../PersonWidget/PersonWidget';
 import Dialog from './../Dialog/Dialog';
 import s from './GroupRecordingWidget.module.scss';
@@ -10,11 +9,13 @@ import { useResidents } from 'utils/api/residents';
 
 interface Props {
   initialPeople: Resident[];
+  submissionId: string;
 }
 
-const GroupRecordingWidget = ({ initialPeople }: Props): React.ReactElement => {
-  const { query } = useRouter();
-
+const GroupRecordingWidget = ({
+  initialPeople,
+  submissionId,
+}: Props): React.ReactElement => {
   const [people, setPeople] =
     useState<(Resident | LegacyResident)[]>(initialPeople);
   const [open, setOpen] = useState<number | false>(0);
@@ -71,10 +72,10 @@ const GroupRecordingWidget = ({ initialPeople }: Props): React.ReactElement => {
   useEffect(() => {
     const residents = people.map((person) => mapPeopleToIds(person));
 
-    axios.patch(`/api/submissions/${query.id}`, {
+    axios.patch(`/api/submissions/${submissionId}`, {
       residents,
     });
-  }, [people, query.id]);
+  }, [people, submissionId]);
 
   const handleAdd = (): void => {
     if (idToAdd) {

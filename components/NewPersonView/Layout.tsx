@@ -85,6 +85,10 @@ const Layout = ({ person, children }: Props): React.ReactElement => {
 
   const secondaryNavigation = [
     {
+      text: 'Add case note',
+      href: `/people/${person.id}/case-note`,
+    },
+    {
       text: 'Add warning note',
       href: `/people/${person.id}/warning-notes/add?id=${person.id}`,
     },
