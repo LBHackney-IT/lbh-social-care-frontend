@@ -55,7 +55,7 @@ const GroupRecordingWidget = ({
     .reduce((unique, p1) => {
       if (!unique.some((p2) => safeId(p1) === safeId(p2))) unique.push(p1);
       return unique;
-    }, [])
+    }, [] as (Resident | LegacyResident)[])
     // don't show anyone already on the list
     .filter((person) => {
       if ('id' in person) {
