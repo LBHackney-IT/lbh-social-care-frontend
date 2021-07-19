@@ -9,7 +9,6 @@ import { addCase } from 'utils/api/cases';
 import PersonLinkConfirmation from 'components/Steps/PersonLinkConfirmation';
 
 import formStepsAdult from 'data/forms/asc-case-notes-recording';
-import formStepsChild from 'data/forms/cfs-case-notes-recording';
 
 import type { Resident, User } from 'types';
 
@@ -47,9 +46,7 @@ const CaseNotesRecording = (): React.ReactElement => {
             <div className="govuk-!-margin-top-7">
               <FormWizard
                 formPath={`/people/${personId}/records/case-notes-recording/`}
-                formSteps={
-                  person.contextFlag === 'A' ? formStepsAdult : formStepsChild
-                }
+                formSteps={formStepsAdult}
                 title="Case Notes Recording"
                 onFormSubmit={onFormSubmit(person)}
                 personDetails={{ ...person }}
