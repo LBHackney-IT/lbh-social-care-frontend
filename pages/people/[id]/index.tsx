@@ -71,23 +71,33 @@ export const getServerSideProps: GetServerSideProps = async ({
   params,
   req,
 }) => {
-  const person = await getResident(Number(params?.id));
   const user = isAuthorised(req);
 
-  if (user && !canManageCases(user, person)) {
+  if (!user) {
     return {
       props: {},
       redirect: {
-        destination: `/people/${person.id}/details`,
+        destination: `/login`,
       },
     };
   }
+
+  const person = await getResident(Number(params?.id), user);
 
   if (!person.id) {
     return {
       props: {},
       redirect: {
         destination: `/404`,
+      },
+    };
+  }
+
+  if (!canManageCases(user, person)) {
+    return {
+      props: {},
+      redirect: {
+        destination: `/people/${person.id}/details`,
       },
     };
   }
