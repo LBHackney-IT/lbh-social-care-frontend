@@ -26,6 +26,7 @@ jest.mock('next/router', () => ({
     asPath: 'path',
     push: jest.fn(),
   }),
+  reload: jest.fn(),
 }));
 
 jest.mock('components/Spinner/Spinner', () => () => 'MockedSpinner');
@@ -65,7 +66,6 @@ describe('Relationships component', () => {
 
     expect(queryByText('Giovanni Muciaccia')).toBeInTheDocument();
     expect(queryByText('Jambi Neverborn')).toBeInTheDocument();
-    expect(queryByText('Cento Neverborn')).toBeInTheDocument();
   });
 
   it('should populate partially the list', async () => {
