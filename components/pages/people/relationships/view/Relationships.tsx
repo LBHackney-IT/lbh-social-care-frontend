@@ -34,7 +34,7 @@ const Relationships = ({ person }: Props): React.ReactElement => {
 
   useEffect(() => {
     setRelationships(personalRelationshipsApiResponse);
-  }, [personalRelationshipsApiResponse]);
+  }, []);
 
   if (!relationships) {
     return <Spinner />;
