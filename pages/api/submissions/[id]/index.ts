@@ -17,25 +17,36 @@ const handler = async (
   const { id } = req.query;
 
   switch (req.method) {
+    case 'POST':
+      {
+        const user = isAuthorised(req);
+        const submission = await finishSubmission(
+          id as string,
+          user?.email ?? '',
+          {
+            foo: {
+              bar: 'booooo',
+            },
+          }
+        );
+        if (req.body.approverEmail)
+          await notifyApprover(
+            submission,
+            req.body.approverEmail,
+            req.headers.host ?? ''
+          );
+        res.status(StatusCodes.CREATED).json(submission);
+      }
+      break;
     case 'PATCH':
       {
         const user = isAuthorised(req);
-        let submission;
-        if (req.body.residents) {
-          submission = await patchResidents(
-            id as string,
-            user?.email ?? '',
-            req.body.residents
-          );
-        } else {
-          submission = await finishSubmission(id as string, user?.email ?? '');
-          if (req.body.approverEmail)
-            await notifyApprover(
-              submission,
-              req.body.approverEmail,
-              req.headers.host ?? ''
-            );
-        }
+        const submission = await patchResidents(
+          id as string,
+          user?.email ?? '',
+          req.body.residents
+        );
+
         res.status(StatusCodes.ACCEPTED).json(submission);
       }
       break;
