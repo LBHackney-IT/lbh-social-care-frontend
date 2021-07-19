@@ -54,7 +54,9 @@ const AddFormDialog = ({
         })
         .map((f) => ({
           label: f.name,
-          href: `/submissions/new?form_id=${f.id}&social_care_id=${person.id}`,
+          href: f.canonicalUrl
+            ? f.canonicalUrl(person.id)
+            : `/submissions/new?form_id=${f.id}&social_care_id=${person.id}`,
           system: true,
           groupRecordable: !!f.groupRecordable,
           approvable: !!f.approvable,
