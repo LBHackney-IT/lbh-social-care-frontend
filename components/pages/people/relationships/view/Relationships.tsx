@@ -36,21 +36,21 @@ const Relationships = ({ person }: Props): React.ReactElement => {
     setRelationships(personalRelationshipsApiResponse);
   }, []);
 
-  if (!relationships) {
+  if (!personalRelationshipsApiResponse) {
     return <Spinner />;
   }
   if (error) {
     return <ErrorMessage />;
   }
 
-  const personalRelationships = relationships.filter(
+  const personalRelationships = personalRelationshipsApiResponse.filter(
     (relationship) =>
       relationship.type !== 'parentOfUnbornChild' &&
       relationship.type !== 'siblingOfUnbornChild'
   );
 
   const combineOfUnbornChildForType = (type: RelationshipType) => {
-    const relationshipsOfUnbornChild = relationships.filter(
+    const relationshipsOfUnbornChild = personalRelationshipsApiResponse.filter(
       (relationship) => relationship.type === `${type}OfUnbornChild`
     );
 
@@ -89,7 +89,7 @@ const Relationships = ({ person }: Props): React.ReactElement => {
           if (relationshipToRemove) {
             removeRelationship(relationshipToRemove.id.toString());
 
-            relationships.forEach((element) => {
+            personalRelationshipsApiResponse.forEach((element) => {
               const rel_array = element.relationships;
               const removeIndex = rel_array
                 .map((item) => item.id)
@@ -97,7 +97,9 @@ const Relationships = ({ person }: Props): React.ReactElement => {
               ~removeIndex && rel_array.splice(removeIndex, 1);
             });
           }
-          setRelationships(relationships);
+          setRelationships(personalRelationshipsApiResponse);
+
+          window.location.reload();
         }}
       />
       <div>
