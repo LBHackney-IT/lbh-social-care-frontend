@@ -63,12 +63,6 @@ exports[`Cases component should render no records  1`] = `
           Linked files are read only
         </span>
       </div>
-      <button
-        class="lbh-button govuk-button"
-        data-module="govuk-button"
-      >
-        Add a new record
-      </button>
     </div>
     <hr
       class="govuk-divider"
@@ -110,12 +104,6 @@ exports[`Cases component should render records properly 1`] = `
           Linked files are read only
         </span>
       </div>
-      <button
-        class="lbh-button govuk-button"
-        data-module="govuk-button"
-      >
-        Add a new record
-      </button>
     </div>
     <hr
       class="govuk-divider"
@@ -256,12 +244,6 @@ exports[`Cases component should work properly if person is restricted but user.h
           Linked files are read only
         </span>
       </div>
-      <button
-        class="lbh-button govuk-button"
-        data-module="govuk-button"
-      >
-        Add a new record
-      </button>
     </div>
     <hr
       class="govuk-divider"
