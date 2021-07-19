@@ -80,7 +80,7 @@ const GroupRecordingWidget = ({
           .includes(parseInt(String(person.mosaicId)));
       }
     })
-    // // only show six max
+    // only show nine max
     .slice(0, 9);
 
   function mapPeopleToIds(person: LegacyResident | Resident) {
