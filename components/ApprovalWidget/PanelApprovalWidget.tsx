@@ -18,7 +18,7 @@ const PanelApprovalWidget = ({
   const [approvalDialogOpen, setApprovalDialogOpen] = useState<boolean>(false);
   const [rejectDialogOpen, setRejectDialogOpen] = useState<boolean>(false);
 
-  if (submission.submissionState !== 'Submitted') return null;
+  if (submission.submissionState !== 'Approved') return null;
 
   if (submission.createdBy.email === user.email) {
     return (
@@ -26,8 +26,8 @@ const PanelApprovalWidget = ({
         title="This submission needs approval"
         className="lbh-page-announcement--info"
       >
-        You cannot approve your own submissions. Ask a manager or colleague for
-        help.
+        You cannot panel approve a submission that has not been approved by a
+        manager first. Ask a manager or colleague for help.
       </Banner>
     );
   }
@@ -38,14 +38,14 @@ const PanelApprovalWidget = ({
         title="This submission needs approval"
         className="lbh-page-announcement--info"
       >
-        <p>Do you want to approve it?</p>
+        <p>Is this ready for panel approval?</p>
 
         <div className={s.actions}>
           <button
             className="lbh-link"
             onClick={() => setApprovalDialogOpen(true)}
           >
-            Yes, approve
+            Yes, panel approves
           </button>
           <button
             className="lbh-link lbh-link--danger"
