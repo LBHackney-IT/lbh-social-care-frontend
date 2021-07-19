@@ -6,6 +6,7 @@ const form: Form = {
   isViewableByAdults: false,
   isViewableByChildrens: false,
   approvable: true,
+  panelApprovable: true,
   steps: [
     {
       id: 'Living situation',

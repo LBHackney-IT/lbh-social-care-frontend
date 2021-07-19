@@ -57,6 +57,7 @@ export interface Form {
   name: string;
   steps: Step[];
   approvable?: boolean;
+  panelApprovable?: boolean;
   groupRecordable?: boolean;
   isViewableByChildrens: boolean;
   isViewableByAdults: boolean;
