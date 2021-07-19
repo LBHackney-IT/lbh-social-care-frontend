@@ -26,6 +26,7 @@ jest.mock('next/router', () => ({
     asPath: 'path',
     push: jest.fn(),
   }),
+  reload: jest.fn(),
 }));
 
 jest.mock('components/Spinner/Spinner', () => () => 'MockedSpinner');

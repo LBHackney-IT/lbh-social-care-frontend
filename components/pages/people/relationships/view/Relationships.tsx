@@ -6,15 +6,10 @@ import { useState } from 'react';
 import { ConditionalFeature } from 'lib/feature-flags/feature-flags';
 import Link from 'next/link';
 import style from './Relationships.module.scss';
-import {
-  RelationshipType,
-  Resident,
-  ExistingRelationship,
-  Relationship,
-} from 'types';
+import { RelationshipType, Resident, ExistingRelationship } from 'types';
 import { RELATIONSHIP_TYPES } from 'data/relationships';
 import RemoveRelationshipDialog from '../remove/RemoveRelationshipDialog';
-import { useEffect } from 'react';
+import Router from 'next/router';
 
 interface Props {
   person: Resident;
@@ -25,16 +20,11 @@ const Relationships = ({ person }: Props): React.ReactElement => {
     useState<boolean>(false);
   const [relationshipToRemove, setRelationshipToRemove] =
     useState<ExistingRelationship>();
-  const [relationships, setRelationships] = useState<Relationship[]>();
 
   const {
     data: { personalRelationships: personalRelationshipsApiResponse } = {},
     error,
   } = useRelationships(person.id);
-
-  useEffect(() => {
-    setRelationships(personalRelationshipsApiResponse);
-  }, []);
 
   if (!personalRelationshipsApiResponse) {
     return <Spinner />;
@@ -83,23 +73,12 @@ const Relationships = ({ person }: Props): React.ReactElement => {
         person={relationshipToRemove}
         isOpen={isRemoveRelationshipDialogOpen}
         onDismiss={() => setIsRemoveRelationshipDialogOpen(false)}
-        onFormSubmit={() => {
+        onFormSubmit={async () => {
           setIsRemoveRelationshipDialogOpen(false);
-
           if (relationshipToRemove) {
-            removeRelationship(relationshipToRemove.id.toString());
-
-            personalRelationshipsApiResponse.forEach((element) => {
-              const rel_array = element.relationships;
-              const removeIndex = rel_array
-                .map((item) => item.id)
-                .indexOf(relationshipToRemove.id);
-              ~removeIndex && rel_array.splice(removeIndex, 1);
-            });
+            await removeRelationship(relationshipToRemove.id.toString());
+            Router.reload();
           }
-          setRelationships(personalRelationshipsApiResponse);
-
-          window.location.reload();
         }}
       />
       <div>
