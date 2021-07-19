@@ -192,6 +192,7 @@ export interface User {
   hasChildrenPermissions: boolean;
   hasAllocationsPermissions?: boolean;
   hasUnrestrictedPermissions?: boolean;
+  isAuditable: boolean;
   isAuthorised: boolean;
 }
 

@@ -20,6 +20,7 @@ const Template: Story<Props> = (args) => (
         email: 'foo@bar.com',
         permissionFlag: 'A',
         isAuthorised: true,
+        isAuditable: false,
       },
     }}
   >

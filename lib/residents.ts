@@ -1,6 +1,7 @@
 import axios from 'axios';
 
-import type { LegacyResident, Resident, ResidentsAPI, AgeContext } from 'types';
+import type { LegacyResident, Resident, ResidentsAPI, User } from 'types';
+import { getAuditingParams } from '../utils/auditing';
 
 const { ENDPOINT_API, AWS_KEY } = process.env;
 
@@ -40,9 +41,13 @@ export const getResidents = async (
   return { ...data, residents: sanitiseResidentData(data.residents) };
 };
 
-export const getResident = async (personId: number): Promise<Resident> => {
+export const getResident = async (
+  personId: number,
+  user: User
+): Promise<Resident> => {
   const { data } = await axios.get(`${ENDPOINT_API}/residents/${personId}`, {
     headers,
+    params: getAuditingParams(user),
   });
   return data;
 };
