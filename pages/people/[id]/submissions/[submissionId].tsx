@@ -34,6 +34,10 @@ const SubmissionPage = ({ submission, person }: Props): React.ReactElement => {
         <ApprovalWidget user={user} submission={submission} />
       )}
 
+      {form?.panelApprovable && (
+        <PanelApprovalWidget user={user} submission={submission} />
+      )}
+
       <div className="govuk-grid-row">
         <div className="govuk-grid-column-two-thirds">
           <h1 className="lbh-heading-h1 govuk-!-margin-bottom-8">
