@@ -192,6 +192,18 @@ describe('generateInitialValues', () => {
 
     expect(result).toMatchObject({ one: [] });
   });
+
+  it('applies a default value to a string-type field', () => {
+    const result = generateInitialValues([
+      {
+        id: 'foo',
+        question: '',
+        type: 'text',
+        default: 'bar',
+      },
+    ]);
+    expect(result).toMatchObject({ foo: 'bar' });
+  });
 });
 
 describe('getTotalHours', () => {

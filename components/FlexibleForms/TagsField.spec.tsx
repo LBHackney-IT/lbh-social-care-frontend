@@ -1,6 +1,7 @@
 import TagsField from './TagsField';
 import { Formik, Form } from 'formik';
 import { render, screen, fireEvent } from '@testing-library/react';
+import choices from 'data/childCaseNoteTags';
 
 const mockSubmit = jest.fn();
 
@@ -16,6 +17,7 @@ describe('TagsField', () => {
         {({ touched, errors }) => (
           <Form>
             <TagsField
+              choices={choices}
               touched={touched}
               errors={errors}
               name="foo"
@@ -42,6 +44,7 @@ describe('TagsField', () => {
         {({ touched, errors }) => (
           <Form>
             <TagsField
+              choices={choices}
               touched={touched}
               errors={errors}
               name="foo"
@@ -71,6 +74,7 @@ describe('TagsField', () => {
         {({ touched, errors }) => (
           <Form>
             <TagsField
+              choices={choices}
               touched={touched}
               errors={errors}
               name="foo"
@@ -101,6 +105,7 @@ describe('TagsField', () => {
       >
         {({ touched, errors }) => (
           <TagsField
+            choices={choices}
             touched={touched}
             errors={errors}
             name="foo"

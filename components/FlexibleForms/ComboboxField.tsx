@@ -65,6 +65,7 @@ const Field = ({
         isOpen,
         inputValue,
         getRootProps,
+        toggleMenu,
       }) => (
         <div
           className={`govuk-form-group lbh-form-group ${
@@ -110,6 +111,7 @@ const Field = ({
               {...getInputProps()}
               className={cx(`govuk-input lbh-input`, s.input, className)}
               aria-describedby={hint ? `${name}-hint` : undefined}
+              onClick={() => toggleMenu()}
             />
             <button
               {...getToggleButtonProps()}
