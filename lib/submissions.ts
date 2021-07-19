@@ -125,13 +125,15 @@ export const patchResidents = async (
 /** mark an existing submission as finished, providing its id  */
 export const finishSubmission = async (
   submissionId: string,
-  finishedBy: string
+  finishedBy: string,
+  formAnswers?: FlexibleAnswers
 ): Promise<Submission> => {
   const { data } = await axios.patch(
     `${ENDPOINT_API}/submissions/${submissionId}`,
     {
       editedBy: finishedBy,
       submissionState: 'submitted',
+      formAnswers,
     },
     {
       headers: headersWithKey,

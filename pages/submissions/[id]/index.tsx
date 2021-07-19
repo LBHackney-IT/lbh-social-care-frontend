@@ -25,7 +25,6 @@ interface Props {
 
 const TaskListPage = ({
   params,
-  // completedSteps,
   formAnswers,
   residents,
   form,
@@ -39,7 +38,7 @@ const TaskListPage = ({
     approverEmail: string;
   }): Promise<void> => {
     try {
-      await axios.patch(
+      await axios.post(
         `/api/submissions/${params.id}`,
         values?.approverEmail ? values : null
       );
@@ -92,7 +91,10 @@ const TaskListPage = ({
 
             <p className="lbh-body">This is for:</p>
             {form.groupRecordable ? (
-              <GroupRecordingWidget initialPeople={residents} />
+              <GroupRecordingWidget
+                submissionId={params.id}
+                initialPeople={residents}
+              />
             ) : (
               <PersonWidget person={residents[0]} />
             )}

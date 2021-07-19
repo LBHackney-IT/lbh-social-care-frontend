@@ -19,6 +19,9 @@ describe(`ExpandDetails`, () => {
     const headings = await screen.findAllByRole('heading');
     expect(headings.length).toBe(2);
 
+    const buttons = await screen.findAllByRole('button');
+    expect(buttons.length).toBe(2);
+
     expect(screen.findByText('bar'));
     expect(screen.findByText('example question'));
     expect(screen.findByText('red'));
@@ -52,5 +55,19 @@ describe(`ExpandDetails`, () => {
     expect(screen.findByText('bar: choice-one'));
     expect(screen.findByText('blah: 2021-05-21'));
     expect(screen.findByText('foo: blah, blaah'));
+  });
+
+  it('renders expandable sections only if there is more than one step', async () => {
+    render(
+      <FlexibleAnswers
+        answers={{
+          foo: {
+            'Key contacts': 'blah',
+          },
+        }}
+      />
+    );
+    expect(screen.queryByText('foo')).toBeNull();
+    expect(screen.queryByRole('button')).toBeNull();
   });
 });
