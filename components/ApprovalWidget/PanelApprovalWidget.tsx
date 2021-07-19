@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Submission } from 'data/flexibleForms/forms.types';
 import type { User } from 'types';
 import Banner from 'components/FlexibleForms/Banner';
-import ApproveDialog from './ApproveDialog';
+import PanelApproveDialogue from './PanelApproveDialogue';
 import RejectDialog from './RejectDialog';
 import s from './ApprovalWidget.module.scss';
 
@@ -26,8 +26,8 @@ const PanelApprovalWidget = ({
         title="This submission needs approval"
         className="lbh-page-announcement--info"
       >
-        You cannot panel approve a submission that has not been approved by a
-        manager first. Ask a manager or colleague for help.
+        You cannot panel approve your own submission. Ask a manager or colleague
+        for help.
       </Banner>
     );
   }
@@ -56,7 +56,7 @@ const PanelApprovalWidget = ({
         </div>
       </Banner>
 
-      <ApproveDialog
+      <PanelApproveDialogue
         isOpen={approvalDialogOpen}
         setOpen={setApprovalDialogOpen}
         submission={submission}
