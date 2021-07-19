@@ -33,13 +33,13 @@ const Event = ({ event }: Props): React.ReactElement => {
         </CaseLink>
       </h3>
 
-      <p className="lbh-body">
+      <p className="lbh-body govuk-!-margin-top-1">
         {format(
           new Date(displayDate),
           displayDate.includes('T') ? 'dd MMM yyyy K.mm aaa' : 'dd MMM yyyy'
         )}
       </p>
-      <p className="lbh-body">{event.officerEmail}</p>
+      <p className="lbh-body govuk-!-margin-top-1">{event.officerEmail}</p>
     </li>
   );
 };
