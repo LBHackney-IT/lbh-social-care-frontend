@@ -131,9 +131,12 @@ const form: Form = {
         {
           id: 'Topics',
           question: 'Topics',
-          hint: 'Help colleagues find this note. Add as many as you need, or create new ones.',
-          type: 'tags',
-          className: 'govuk-input--width-20',
+          hint: 'Help colleagues find this note. Add as many as you need.',
+          type: 'checkboxes',
+          condition: {
+            id: 'Type',
+            value: 'Something else',
+          },
           choices: tags,
         },
 
