@@ -1,11 +1,11 @@
 import Dialog from 'components/Dialog/Dialog';
-import { Resident } from 'types';
+import { ExistingRelationship } from 'types';
 import style from './RemoveRelationshipDialog.module.scss';
 
 interface Props {
   isOpen: boolean;
   onDismiss: () => void;
-  person: Resident;
+  person?: ExistingRelationship;
   onFormSubmit: () => void;
 }
 
@@ -17,18 +17,17 @@ const RemoveRelationshipDialog = ({
 }: Props): React.ReactElement => {
   return (
     <Dialog
-      title={`You are about to remove ${person.firstName} ${person.lastName}`}
+      title={
+        person
+          ? `You are about to remove ${person.firstName} ${person.lastName}`
+          : ''
+      }
       isOpen={isOpen}
       onDismiss={onDismiss}
+      aria-label="remove_relationship_dialog"
     >
       <p className="lbh-body">
         Are you sure you want to remove this relationship?
-      </p>
-      <p className="lbh-body">
-        <u>
-          This feature is currently under development and does not actually
-          remove a relationship yet. It&apos;s not visible on production.
-        </u>
       </p>
       <div className={style.actions}>
         <button onClick={onFormSubmit} className="govuk-button lbh-button">

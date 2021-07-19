@@ -67,8 +67,7 @@ describe('relationships APIs', () => {
 
       expect(mockedAxios.delete).toHaveBeenCalled();
       expect(mockedAxios.delete.mock.calls[0][0]).toEqual(
-        // `${ENDPOINT_API}/relationships/personal/${relationshipId}`
-        `https://virtserver.swaggerhub.com/Hackney/social-care-case-viewer-api/1.0.0/relationships/personal/${relationshipId}`
+        `${ENDPOINT_API}/relationships/personal/${relationshipId}`
       );
       expect(mockedAxios.delete.mock.calls[0][1]?.headers).toEqual({
         'x-api-key': AWS_KEY,
