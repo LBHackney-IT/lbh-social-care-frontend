@@ -82,8 +82,6 @@ const CaseNote = ({
         </div>
       </div>
 
-      {JSON.stringify(residents[0])}
-
       <AutosaveProvider>
         <div className={`govuk-grid-row ${s.outer}`}>
           <div className="govuk-grid-column-two-thirds">
