@@ -192,14 +192,14 @@ workflows:
       - e2e:
           requires:
             - build
-      #- owasp-zap-baseline-scan:
-      #    requires:
-      #      - build
+      - owasp-zap-baseline-scan:
+          requires:
+            - build
       - generate-draft-github-release:
           requires:
             - unit-tests
             - e2e
-      #      - owasp-zap-baseline-scan
+            - owasp-zap-baseline-scan
           filters:
             branches:
               only: main
@@ -208,7 +208,7 @@ workflows:
           requires:
             - unit-tests
             - e2e
-      #      - owasp-zap-baseline-scan
+            - owasp-zap-baseline-scan
           filters:
             branches:
               only: main

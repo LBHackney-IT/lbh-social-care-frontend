@@ -5,7 +5,6 @@ module.exports = {
     webpack5: true,
   },
 
-  /*
   async headers() {
     return [
       {
@@ -23,5 +22,4 @@ module.exports = {
       },
     ];
   },
-  */
 };
