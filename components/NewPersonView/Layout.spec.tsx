@@ -41,7 +41,7 @@ describe('Layout', () => {
   it("hides the timeline link if the user isn't authorised", () => {
     render(
       <AuthProvider user={mockedOnlyChildUser}>
-        <Layout person={mockedResident} />
+        <Layout person={mockedResident}>Foo</Layout>
       </AuthProvider>
     );
     expect(screen.queryByText('Timeline')).toBe(null);
