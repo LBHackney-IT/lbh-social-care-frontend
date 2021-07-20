@@ -69,7 +69,10 @@ const Layout = ({ person, children }: Props): React.ReactElement => {
     {
       text: `Relationships ${
         relationships?.personalRelationships
-          ? `(${relationships?.personalRelationships?.length})`
+          ? `(${relationships?.personalRelationships.reduce(
+              (count, current) => count + current.relationships.length,
+              0
+            )})`
           : ''
       }`,
       href: `/people/${person.id}/relationships`,
