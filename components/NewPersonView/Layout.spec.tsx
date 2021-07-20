@@ -60,16 +60,6 @@ describe('Layout', () => {
                 firstName: 'Giovanni',
                 lastName: 'Muciaccia',
               }),
-              mockedExistingRelationship.build({
-                personId: 123,
-                firstName: 'Francesco',
-                lastName: 'Rostrini',
-              }),
-              mockedExistingRelationship.build({
-                personId: 123,
-                firstName: 'Michele',
-                lastName: 'Giuppone',
-              }),
             ],
           }),
           mockedRelationshipData.build({
@@ -93,7 +83,7 @@ describe('Layout', () => {
       </AuthProvider>
     );
 
-    const parentsRow = screen.queryByText('Relationships (5)');
+    const parentsRow = screen.queryByText('Relationships (3)');
     expect(parentsRow).not.toBeNull();
   });
 
