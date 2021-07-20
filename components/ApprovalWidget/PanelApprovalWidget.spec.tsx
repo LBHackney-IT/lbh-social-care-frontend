@@ -47,7 +47,6 @@ describe('PanelApprovalWidget', () => {
     );
     expect(screen.getByText('This submission needs panel approval'));
     expect(screen.getAllByRole('button').length).toBe(2);
-    expect(screen.getByText('Yes, panel has approved'));
     expect(screen.getByText('No, return for edits'));
   });
 });
