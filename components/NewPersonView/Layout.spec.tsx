@@ -87,6 +87,26 @@ describe('Layout', () => {
     expect(parentsRow).not.toBeNull();
   });
 
+  it('displays no relationship count where the received object is empty', () => {
+    jest.spyOn(relationshipsAPI, 'useRelationships').mockImplementation(() => ({
+      data: {
+        personId: mockedResident.id,
+        personalRelationships: [],
+      },
+      isValidating: false,
+      mutate: jest.fn(),
+      revalidate: jest.fn(),
+    }));
+    render(
+      <AuthProvider user={mockedOnlyChildUser}>
+        <Layout person={mockedResident}>Foo</Layout>
+      </AuthProvider>
+    );
+
+    const parentsRow = screen.queryByText('Relationships');
+    expect(parentsRow).not.toBeNull();
+  });
+
   it("hides the timeline link if the user isn't authorised", () => {
     render(
       <AuthProvider user={mockedOnlyChildUser}>
