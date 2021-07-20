@@ -26,7 +26,7 @@ export const RELATIONSHIP_TYPES = {
   exSpouse: 'Ex-spouse',
   parentOfUnbornChild: 'Parent of unborn child',
   siblingOfUnbornChild: 'Sibling of unborn child',
-  fosterCarerSupportCarer: 'Foster carer(s)',
+  fosterCarerSupportCarer: 'Foster / support carer(s)',
   privateFosterCarer: 'Private foster carer(s)',
   privateFosterChild: 'Private foster children',
   fosterChild: 'Foster children',

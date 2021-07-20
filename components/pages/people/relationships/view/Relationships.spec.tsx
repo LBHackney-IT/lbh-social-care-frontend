@@ -1,23 +1,16 @@
-import { fireEvent, render, waitFor } from '@testing-library/react';
+import { fireEvent, render, waitFor, within } from '@testing-library/react';
 import Relationships from './Relationships';
 import {
   FeatureFlagProvider,
   FeatureSet,
 } from 'lib/feature-flags/feature-flags';
-
 import * as relationshipsAPI from 'utils/api/relationships';
+import { mockedAPIservererror } from 'factories/APIerrors';
 
 import {
   mockedRelationshipFactory,
   mockedRelationshipData,
   mockedExistingRelationship,
-  mockedRelationship,
-  mockedRelationshipPartialData,
-  mockedRelationshipNoData,
-  mockRelationshipEmptyData,
-  mockedParentRelationship,
-  mockedUnbornSiblingRelationship,
-  mockedOrderedRelationship,
 } from 'factories/relationships';
 import { mockedResident } from 'factories/residents';
 
@@ -26,6 +19,7 @@ jest.mock('next/router', () => ({
     asPath: 'path',
     push: jest.fn(),
   }),
+  reload: jest.fn(),
 }));
 
 jest.mock('components/Spinner/Spinner', () => () => 'MockedSpinner');
@@ -33,19 +27,138 @@ jest.mock('components/Spinner/Spinner', () => () => 'MockedSpinner');
 const person = mockedResident;
 
 describe('Relationships component', () => {
-  it('should display properly', () => {
+  it('displays the relationships of a person', async () => {
+    jest.spyOn(relationshipsAPI, 'useRelationships').mockImplementation(() => ({
+      data: mockedRelationshipFactory.build({
+        personId: person.id,
+        personalRelationships: [
+          mockedRelationshipData.build({
+            type: 'parent',
+            relationships: [
+              mockedExistingRelationship.build({
+                firstName: 'Giovanni',
+                lastName: 'Muciaccia',
+              }),
+            ],
+          }),
+          mockedRelationshipData.build({
+            type: 'child',
+            relationships: [
+              mockedExistingRelationship.build({
+                firstName: 'Giuseppe',
+                lastName: 'Geppetto',
+              }),
+            ],
+          }),
+          mockedRelationshipData.build({
+            type: 'unbornSibling',
+            relationships: [
+              mockedExistingRelationship.build({
+                firstName: 'Jambi',
+                lastName: 'Neverborn',
+              }),
+            ],
+          }),
+          mockedRelationshipData.build({
+            type: 'siblingOfUnbornChild',
+            relationships: [
+              mockedExistingRelationship.build({
+                firstName: 'Cento',
+                lastName: 'Neverborn',
+              }),
+            ],
+          }),
+        ],
+      }),
+      isValidating: false,
+      mutate: jest.fn(),
+      revalidate: jest.fn(),
+    }));
+
     const { getByText } = render(
       <FeatureFlagProvider features={{}}>
         <Relationships person={person} />
       </FeatureFlagProvider>
     );
 
-    expect(getByText('MockedSpinner')).toBeInTheDocument();
+    const parentsRow = getByText('Parent(s)').closest('tr');
+    const childrenRow = getByText('Children').closest('tr');
+    const unbornSiblingsRow = getByText('Unborn sibling(s)').closest('tr');
+    const siblingsRow = getByText('Sibling(s)').closest('tr');
+
+    expect(
+      within(parentsRow as HTMLElement).queryByText('Giovanni Muciaccia')
+    ).toBeInTheDocument();
+    expect(
+      within(childrenRow as HTMLElement).queryByText('Giuseppe Geppetto')
+    ).toBeInTheDocument();
+    expect(
+      within(unbornSiblingsRow as HTMLElement).queryByText('Jambi Neverborn')
+    ).toBeInTheDocument();
+    expect(
+      within(siblingsRow as HTMLElement).queryByText('Cento Neverborn')
+    ).toBeInTheDocument();
   });
 
-  it('should populate the list', async () => {
+  it('displays "No relationships found for this person" if no relationships', async () => {
     jest.spyOn(relationshipsAPI, 'useRelationships').mockImplementation(() => ({
-      data: mockedRelationship,
+      data: mockedRelationshipFactory.build({
+        personId: person.id,
+        personalRelationships: [],
+      }),
+      isValidating: false,
+      mutate: jest.fn(),
+      revalidate: jest.fn(),
+    }));
+
+    const { queryByText } = render(
+      <FeatureFlagProvider features={{}}>
+        <Relationships person={person} />
+      </FeatureFlagProvider>
+    );
+
+    expect(
+      queryByText('No relationships found for this person')
+    ).toBeInTheDocument();
+  });
+
+  it('displays an error if API error', async () => {
+    jest.spyOn(relationshipsAPI, 'useRelationships').mockImplementation(() => ({
+      data: undefined,
+      error: mockedAPIservererror,
+      revalidate: jest.fn(),
+      mutate: jest.fn(),
+      isValidating: false,
+    }));
+
+    const { queryByText } = render(
+      <FeatureFlagProvider features={{}}>
+        <Relationships person={person} />
+      </FeatureFlagProvider>
+    );
+
+    expect(
+      queryByText(
+        /There was a problem with getting current personal relationships./
+      )
+    ).toBeInTheDocument();
+  });
+
+  it('converts relationship type to readable format', async () => {
+    jest.spyOn(relationshipsAPI, 'useRelationships').mockImplementation(() => ({
+      data: {
+        personId: person.id,
+        personalRelationships: [
+          mockedRelationshipData.build({
+            type: 'parent',
+            relationships: [mockedExistingRelationship.build()],
+          }),
+          mockedRelationshipData.build({
+            type: 'child',
+            relationships: [mockedExistingRelationship.build()],
+          }),
+        ],
+      },
       isValidating: false,
       mutate: jest.fn(),
       revalidate: jest.fn(),
@@ -59,143 +172,37 @@ describe('Relationships component', () => {
 
     expect(queryByText('Parent(s)')).toBeInTheDocument();
     expect(queryByText('Children')).toBeInTheDocument();
-    expect(queryByText('Other')).toBeInTheDocument();
-    expect(queryByText('Sibling(s)')).toBeInTheDocument();
-    expect(queryByText('Unborn sibling(s)')).toBeInTheDocument();
-
-    expect(queryByText('Giovanni Muciaccia')).toBeInTheDocument();
-    expect(queryByText('Jambi Neverborn')).toBeInTheDocument();
-    expect(queryByText('Cento Neverborn')).toBeInTheDocument();
   });
 
-  it('should populate partially the list', async () => {
-    jest.spyOn(relationshipsAPI, 'useRelationships').mockImplementation(() => ({
-      data: mockedRelationshipPartialData,
-      isValidating: false,
-      mutate: jest.fn(),
-      revalidate: jest.fn(),
-    }));
-
-    const { getByText, queryByText } = render(
-      <FeatureFlagProvider features={{}}>
-        <Relationships person={person} />
-      </FeatureFlagProvider>
-    );
-
-    expect(queryByText('Parent(s)')).toBeInTheDocument();
-    expect(queryByText('Children')).toBeInTheDocument();
-    expect(queryByText('Other')).not.toBeInTheDocument();
-    expect(queryByText('Sibling(s)')).not.toBeInTheDocument();
-
-    expect(getByText('Mastro Geppetto')).toBeInTheDocument();
-    expect(getByText('Pinocchio Geppetto')).toBeInTheDocument();
-  });
-
-  it('should render with no data', async () => {
-    jest.spyOn(relationshipsAPI, 'useRelationships').mockImplementation(() => ({
-      data: mockedRelationshipNoData,
-      isValidating: false,
-      mutate: jest.fn(),
-      revalidate: jest.fn(),
-    }));
-
-    const { queryByText } = render(
-      <FeatureFlagProvider features={{}}>
-        <Relationships person={person} />
-      </FeatureFlagProvider>
-    );
-
-    expect(queryByText('No relationship found')).toBeInTheDocument();
-  });
-
-  it('should return an error if malformed data', async () => {
-    jest.spyOn(relationshipsAPI, 'useRelationships').mockImplementation(() => ({
-      data: mockRelationshipEmptyData,
-      isValidating: false,
-      mutate: jest.fn(),
-      revalidate: jest.fn(),
-    }));
-
-    const { queryByText } = render(
-      <FeatureFlagProvider features={{}}>
-        <Relationships person={person} />
-      </FeatureFlagProvider>
-    );
-
-    expect(queryByText('No relationship found')).toBeInTheDocument();
-  });
-
-  it('should populate the list converting the type to display name', async () => {
+  it('displays related people in alphabetical order (by surname/name)', async () => {
     jest.spyOn(relationshipsAPI, 'useRelationships').mockImplementation(() => ({
       data: {
         personId: person.id,
-        personalRelationships: [mockedParentRelationship],
-      },
-      isValidating: false,
-      mutate: jest.fn(),
-      revalidate: jest.fn(),
-    }));
-
-    const { queryByText } = render(
-      <FeatureFlagProvider features={{}}>
-        <Relationships person={person} />
-      </FeatureFlagProvider>
-    );
-
-    expect(queryByText('Parent(s)')).toBeInTheDocument();
-    expect(queryByText('Giovanni Muciaccia')).toBeInTheDocument();
-    expect(queryByText('Neil GrandeArtista')).toBeInTheDocument();
-  });
-
-  it('should populate the list converting the type to display name', async () => {
-    jest.spyOn(relationshipsAPI, 'useRelationships').mockImplementation(() => ({
-      data: {
-        personId: person.id,
-        personalRelationships: [mockedUnbornSiblingRelationship],
-      },
-      isValidating: false,
-      mutate: jest.fn(),
-      revalidate: jest.fn(),
-    }));
-
-    const { queryByText } = render(
-      <FeatureFlagProvider features={{}}>
-        <Relationships person={person} />
-      </FeatureFlagProvider>
-    );
-
-    expect(queryByText('Unborn sibling(s)')).toBeInTheDocument();
-    expect(queryByText('Jambi Neverborn')).toBeInTheDocument();
-  });
-
-  it('should populate the list in alphabetical order (by surname/name) with same surname', async () => {
-    jest.spyOn(relationshipsAPI, 'useRelationships').mockImplementation(() => ({
-      data: {
-        personId: person.id,
-        personalRelationships: [mockedOrderedRelationship],
-      },
-      isValidating: false,
-      mutate: jest.fn(),
-      revalidate: jest.fn(),
-    }));
-
-    const { queryAllByText } = render(
-      <FeatureFlagProvider features={{}}>
-        <Relationships person={person} />
-      </FeatureFlagProvider>
-    );
-
-    const names = queryAllByText(/Muciaccia/);
-
-    expect(names[0]).toHaveTextContent('Giovanni Muciaccia');
-    expect(names[1]).toHaveTextContent('Neil Muciaccia');
-  });
-
-  it('should populate the list in alphabetical order (by surname/name) different people', async () => {
-    jest.spyOn(relationshipsAPI, 'useRelationships').mockImplementation(() => ({
-      data: {
-        personId: person.id,
-        personalRelationships: [mockedOrderedRelationship],
+        personalRelationships: [
+          mockedRelationshipData.build({
+            type: 'parent',
+            relationships: [
+              mockedExistingRelationship.build({
+                firstName: 'Neil',
+                lastName: 'Muciaccia',
+              }),
+              mockedExistingRelationship.build({
+                firstName: 'Giovanni',
+                lastName: 'Muciaccia',
+              }),
+              mockedExistingRelationship.build({
+                personId: 123,
+                firstName: 'Francesco',
+                lastName: 'Rostrini',
+              }),
+              mockedExistingRelationship.build({
+                personId: 123,
+                firstName: 'Michele',
+                lastName: 'Giuppone',
+              }),
+            ],
+          }),
+        ],
       },
       isValidating: false,
       mutate: jest.fn(),
@@ -290,7 +297,7 @@ describe('Relationships component', () => {
     expect(third).not.toHaveTextContent('Main carer');
   });
 
-  it('displays the details of the relationship', async () => {
+  it('displays the context of the relationship', async () => {
     jest.spyOn(relationshipsAPI, 'useRelationships').mockImplementation(() => ({
       data: mockedRelationshipFactory.build({
         personId: person.id,
@@ -322,7 +329,7 @@ describe('Relationships component', () => {
   });
 
   describe('when there are relationships with parent of unborn child', () => {
-    it('displays under "Parent(s)" if only relationship', async () => {
+    it('displays under "Parent(s)" if it is the only existing relationship', async () => {
       jest
         .spyOn(relationshipsAPI, 'useRelationships')
         .mockImplementation(() => ({
@@ -349,7 +356,7 @@ describe('Relationships component', () => {
       expect(queryByTestId('parent')).toHaveTextContent('Parent(s)');
     });
 
-    it('displays "Parent(s)" if existing parent relationship', async () => {
+    it('displays "Parent(s)" if there is an existing parent relationship', async () => {
       jest
         .spyOn(relationshipsAPI, 'useRelationships')
         .mockImplementation(() => ({
@@ -397,7 +404,7 @@ describe('Relationships component', () => {
   });
 
   describe('when there are relationships with sibling of unborn child', () => {
-    it('displays under "Sibling(s)" if only relationship', async () => {
+    it('displays under "Sibling(s)" if it is the only existing relationship', async () => {
       jest
         .spyOn(relationshipsAPI, 'useRelationships')
         .mockImplementation(() => ({
@@ -424,7 +431,7 @@ describe('Relationships component', () => {
       expect(queryByTestId('sibling')).toHaveTextContent('Sibling(s)');
     });
 
-    it('displays "Sibling(s)" if existing parent relationship', async () => {
+    it('displays "Sibling(s)" if there is an existing sibling relationship', async () => {
       jest
         .spyOn(relationshipsAPI, 'useRelationships')
         .mockImplementation(() => ({
@@ -471,7 +478,7 @@ describe('Relationships component', () => {
     });
   });
 
-  it('should display the "add a new relationship" button if the feature flag is active', async () => {
+  it('displays the "Add a new relationship" button if the feature flag is active', async () => {
     const features: FeatureSet = {
       'add-relationships': {
         isActive: true,
@@ -487,17 +494,35 @@ describe('Relationships component', () => {
     expect(queryByText('Add a new relationship')).toBeInTheDocument();
   });
 
-  it('displays link to related person', async () => {
-    const existingRelationship = mockedExistingRelationship.build({
-      firstName: 'Foo',
-      lastName: 'Bar',
-    });
+  it('does not display the "Add a new relationship" button if the feature flag is inactive', async () => {
+    const features: FeatureSet = {
+      'add-relationships': {
+        isActive: false,
+      },
+    };
+
+    const { queryByText } = render(
+      <FeatureFlagProvider features={features}>
+        <Relationships person={person} />
+      </FeatureFlagProvider>
+    );
+
+    expect(queryByText('Add a new relationship')).not.toBeInTheDocument();
+  });
+
+  it('displays a link for the related person', async () => {
     jest.spyOn(relationshipsAPI, 'useRelationships').mockImplementation(() => ({
       data: mockedRelationshipFactory.build({
         personId: person.id,
         personalRelationships: [
           mockedRelationshipData.build({
-            relationships: [existingRelationship],
+            relationships: [
+              mockedExistingRelationship.build({
+                personId: 987654321,
+                firstName: 'Foo',
+                lastName: 'Bar',
+              }),
+            ],
           }),
         ],
       }),
@@ -514,7 +539,7 @@ describe('Relationships component', () => {
 
     expect(queryByText(/Foo Bar/)?.closest('a')).toHaveAttribute(
       'href',
-      `/people/${existingRelationship.personId}`
+      '/people/987654321'
     );
   });
 
@@ -537,39 +562,46 @@ describe('Relationships component', () => {
         }));
     });
 
-    it('displays "Remove" if the feature flag is active', async () => {
-      const features: FeatureSet = {
-        'remove-relationship': {
-          isActive: true,
-        },
-      };
+    describe('Feature flag', () => {
+      it('displays "Remove" when active', async () => {
+        const features: FeatureSet = {
+          'remove-relationship': {
+            isActive: true,
+          },
+        };
+        const { queryByText } = render(
+          <FeatureFlagProvider features={features}>
+            <Relationships person={person} />
+          </FeatureFlagProvider>
+        );
 
-      const { queryByText } = render(
-        <FeatureFlagProvider features={features}>
-          <Relationships person={person} />
-        </FeatureFlagProvider>
-      );
+        expect(queryByText(/Remove/)).toBeInTheDocument();
+      });
 
-      expect(queryByText(/Remove/)).toBeInTheDocument();
+      it('does not display "Remove" when inactive', async () => {
+        const features: FeatureSet = {
+          'remove-relationship': {
+            isActive: false,
+          },
+        };
+
+        const { queryByText } = render(
+          <FeatureFlagProvider features={features}>
+            <Relationships person={person} />
+          </FeatureFlagProvider>
+        );
+
+        expect(queryByText(/Remove/)).not.toBeInTheDocument();
+      });
     });
 
-    it('does not display "Remove" if the feature flag is inactive', async () => {
-      const features: FeatureSet = {
-        'remove-relationship': {
-          isActive: false,
-        },
-      };
+    const features: FeatureSet = {
+      'remove-relationship': {
+        isActive: true,
+      },
+    };
 
-      const { queryByText } = render(
-        <FeatureFlagProvider features={features}>
-          <Relationships person={person} />
-        </FeatureFlagProvider>
-      );
-
-      expect(queryByText(/Remove/)).not.toBeInTheDocument();
-    });
-
-    it('displays dialog if "Remove" is clicked', async () => {
+    it('displays dialog when "Remove" is clicked', async () => {
       jest
         .spyOn(relationshipsAPI, 'useRelationships')
         .mockImplementation(() => ({
@@ -591,12 +623,6 @@ describe('Relationships component', () => {
           revalidate: jest.fn(),
         }));
 
-      const features: FeatureSet = {
-        'remove-relationship': {
-          isActive: true,
-        },
-      };
-
       const { getByText, queryByText } = render(
         <FeatureFlagProvider features={features}>
           <Relationships person={person} />
@@ -610,13 +636,7 @@ describe('Relationships component', () => {
       ).toBeInTheDocument();
     });
 
-    it('hides dialog if cross is clicked', async () => {
-      const features: FeatureSet = {
-        'remove-relationship': {
-          isActive: true,
-        },
-      };
-
+    it('hides dialog when cross is clicked', async () => {
       const { getByText, queryByText } = render(
         <FeatureFlagProvider features={features}>
           <Relationships person={person} />
@@ -651,12 +671,6 @@ describe('Relationships component', () => {
         }));
       jest.spyOn(relationshipsAPI, 'removeRelationship');
 
-      const features: FeatureSet = {
-        'remove-relationship': {
-          isActive: true,
-        },
-      };
-
       const { getByText } = render(
         <FeatureFlagProvider features={features}>
           <Relationships person={person} />
@@ -671,16 +685,10 @@ describe('Relationships component', () => {
       );
     });
 
-    it('hides dialog after remove confirmed', async () => {
+    it('hides dialog after confirming relationship removal', async () => {
       jest
         .spyOn(relationshipsAPI, 'removeRelationship')
         .mockImplementation(jest.fn());
-
-      const features: FeatureSet = {
-        'remove-relationship': {
-          isActive: true,
-        },
-      };
 
       const { getByText, queryByText } = render(
         <FeatureFlagProvider features={features}>
