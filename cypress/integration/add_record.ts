@@ -35,11 +35,13 @@ describe('Adding records', () => {
       cy.contains('Add something new').click();
       cy.contains('Add something new').should('be.visible');
 
-      cy.contains('CFS Case Note').should('be.visible');
-      cy.contains('CFS Visit').should('be.visible');
-      cy.get("input[placeholder='Search forms...']").type('CFS Visit');
-      cy.contains('CFS Visit').should('be.visible');
-      cy.contains('CFS Case Note').should('not.exist');
+      cy.contains('FAST Telephone Referrals').should('be.visible');
+      cy.contains('FAST Web Referrals').should('be.visible');
+      cy.get("input[placeholder='Search forms...']").type(
+        'FAST Telephone Referrals'
+      );
+      cy.contains('FAST Telephone Referrals').should('be.visible');
+      cy.contains('FAST TW bReferrals').should('not.exist');
     });
   });
 });

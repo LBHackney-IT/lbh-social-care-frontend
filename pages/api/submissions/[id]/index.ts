@@ -22,12 +22,7 @@ const handler = async (
         const user = isAuthorised(req);
         const submission = await finishSubmission(
           id as string,
-          user?.email ?? '',
-          {
-            foo: {
-              bar: 'booooo',
-            },
-          }
+          user?.email ?? ''
         );
         if (req.body.approverEmail)
           await notifyApprover(
