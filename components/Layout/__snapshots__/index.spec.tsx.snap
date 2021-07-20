@@ -33,7 +33,7 @@ exports[`Layout component should render properly 1`] = `
         class="links"
       >
         <a
-          href="https://sites.google.com/hackney.gov.uk/moderntoolsforsocialcare/home"
+          href="https://sites.google.com/hackney.gov.uk/moderntoolsforsocialcare"
         >
           Roadmap
         </a>
