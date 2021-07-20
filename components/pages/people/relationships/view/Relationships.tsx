@@ -134,7 +134,7 @@ const Relationships = ({ person }: Props): React.ReactElement => {
                     )
                     .map((person, personRowIndex) => (
                       <tr
-                        className="govuk-table__row"
+                        className="govuk-table__row lbh-list"
                         key={`${relationship.type}-${personRowIndex}`}
                       >
                         {personRowIndex === 0 && (
