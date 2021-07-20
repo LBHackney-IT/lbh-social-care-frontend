@@ -1,6 +1,7 @@
 import axios from 'axios';
 
-import type { Case, CaseData, HistoricCaseData } from 'types';
+import type { Case, CaseData, HistoricCaseData, User } from 'types';
+import { getAuditingParams } from '../utils/auditing';
 
 const { ENDPOINT_API, AWS_KEY } = process.env;
 
@@ -36,11 +37,15 @@ export const getCasesByResident = (
 
 export const getCase = async (
   case_id: string,
-  params: Record<string, unknown>
+  params: Record<string, unknown>,
+  user: User
 ): Promise<Case | undefined> => {
   const { data } = await axios.get(`${ENDPOINT_API}/cases/${case_id}`, {
     headers: headersWithKey,
-    params,
+    params: {
+      ...params,
+      ...getAuditingParams(user),
+    },
   });
   return (
     data && { ...data, caseFormData: sanitiseCaseFormData(data.caseFormData) }

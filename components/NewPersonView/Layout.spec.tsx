@@ -2,8 +2,14 @@ import { render, screen } from '@testing-library/react';
 import { AuthProvider } from 'components/UserContext/UserContext';
 import { mockedResident } from 'factories/residents';
 import { mockedOnlyChildUser, mockedUser } from 'factories/users';
+import * as relationshipsAPI from 'utils/api/relationships';
 import Layout from './Layout';
 import 'next/router';
+
+import {
+  mockedRelationshipData,
+  mockedExistingRelationship,
+} from 'factories/relationships';
 
 const mockedUseRouter = {
   query: { foo: 'bar' },
@@ -36,6 +42,69 @@ describe('Layout', () => {
     );
     expect(screen.getByText('Foo Bar'));
     expect(screen.getByText('#1 · Born 13 Nov 2020'));
+  });
+
+  it('displays correctly the number of relationships', () => {
+    jest.spyOn(relationshipsAPI, 'useRelationships').mockImplementation(() => ({
+      data: {
+        personId: mockedResident.id,
+        personalRelationships: [
+          mockedRelationshipData.build({
+            type: 'parent',
+            relationships: [
+              mockedExistingRelationship.build({
+                firstName: 'Neil',
+                lastName: 'Muciaccia',
+              }),
+              mockedExistingRelationship.build({
+                firstName: 'Giovanni',
+                lastName: 'Muciaccia',
+              }),
+            ],
+          }),
+          mockedRelationshipData.build({
+            type: 'child',
+            relationships: [
+              mockedExistingRelationship.build({
+                firstName: 'Oppo',
+                lastName: 'Muciaccia',
+              }),
+            ],
+          }),
+        ],
+      },
+      isValidating: false,
+      mutate: jest.fn(),
+      revalidate: jest.fn(),
+    }));
+    render(
+      <AuthProvider user={mockedOnlyChildUser}>
+        <Layout person={mockedResident}>Foo</Layout>
+      </AuthProvider>
+    );
+
+    const parentsRow = screen.queryByText('Relationships (3)');
+    expect(parentsRow).not.toBeNull();
+  });
+
+  it('displays no relationship count where the received object is empty', () => {
+    jest.spyOn(relationshipsAPI, 'useRelationships').mockImplementation(() => ({
+      data: {
+        personId: mockedResident.id,
+        personalRelationships: [],
+      },
+      isValidating: false,
+      mutate: jest.fn(),
+      revalidate: jest.fn(),
+    }));
+    render(
+      <AuthProvider user={mockedOnlyChildUser}>
+        <Layout person={mockedResident}>Foo</Layout>
+      </AuthProvider>
+    );
+
+    const parentsRow = screen.queryByText('Relationships');
+    expect(parentsRow).not.toBeNull();
   });
 
   it("hides the timeline link if the user isn't authorised", () => {
