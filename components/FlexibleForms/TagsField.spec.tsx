@@ -1,7 +1,13 @@
 import TagsField from './TagsField';
 import { Formik, Form } from 'formik';
 import { render, screen, fireEvent } from '@testing-library/react';
-import choices from 'data/childCaseNoteTags';
+
+const choices = [
+  { label: 'Unit meeting note', value: 'Unit meeting note' },
+  { label: 'Allocation record', value: 'Allocation record' },
+  { label: 'Case audit', value: 'Case audit' },
+  { label: 'Clinical input', value: 'Clinical input' },
+];
 
 const mockSubmit = jest.fn();
 
