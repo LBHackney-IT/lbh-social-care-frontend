@@ -1,6 +1,7 @@
 import RemoveRelationshipDialog from './RemoveRelationshipDialog';
 import { render, screen, fireEvent } from '@testing-library/react';
-import { residentFactory } from 'factories/residents';
+// import { residentFactory } from 'factories/residents';
+import { mockedExistingRelationship } from 'factories/relationships';
 
 describe('RemoveRelationshipDialog', () => {
   it('displays the name of the person as part of the title', () => {
@@ -9,7 +10,10 @@ describe('RemoveRelationshipDialog', () => {
         isOpen={true}
         onDismiss={jest.fn()}
         onFormSubmit={jest.fn()}
-        person={residentFactory.build({ firstName: 'Foo', lastName: 'Bar' })}
+        person={mockedExistingRelationship.build({
+          firstName: 'Foo',
+          lastName: 'Bar',
+        })}
       />
     );
 
@@ -24,7 +28,7 @@ describe('RemoveRelationshipDialog', () => {
         isOpen={true}
         onDismiss={jest.fn()}
         onFormSubmit={onFormSubmit}
-        person={residentFactory.build()}
+        person={mockedExistingRelationship.build()}
       />
     );
 
@@ -41,7 +45,7 @@ describe('RemoveRelationshipDialog', () => {
         isOpen={true}
         onDismiss={onDismiss}
         onFormSubmit={jest.fn()}
-        person={residentFactory.build()}
+        person={mockedExistingRelationship.build()}
       />
     );
 

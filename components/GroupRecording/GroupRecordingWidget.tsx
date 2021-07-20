@@ -1,20 +1,27 @@
 import { Resident, LegacyResident } from './../../types';
 import { useState, useEffect } from 'react';
-import { useRouter } from 'next/router';
 import PersonWidget from './../PersonWidget/PersonWidget';
 import Dialog from './../Dialog/Dialog';
 import s from './GroupRecordingWidget.module.scss';
 import PersonSelect from './../PersonSelect/PersonSelect';
 import axios from 'axios';
-import { useResidents } from 'utils/api/residents';
+
+import { useResidents as useIDSearch } from 'utils/api/residents';
+import { useResidents as useFirstNameSearch } from 'utils/api/residents';
+import { useResidents as useLastNameSearch } from 'utils/api/residents';
 
 interface Props {
   initialPeople: Resident[];
+  submissionId: string;
 }
 
-const GroupRecordingWidget = ({ initialPeople }: Props): React.ReactElement => {
-  const { query } = useRouter();
+const safeId = (person: { id?: number; mosaicId?: string }): number =>
+  person?.id ? person.id : parseInt(String(person.mosaicId));
 
+const GroupRecordingWidget = ({
+  initialPeople,
+  submissionId,
+}: Props): React.ReactElement => {
   const [people, setPeople] =
     useState<(Resident | LegacyResident)[]>(initialPeople);
   const [open, setOpen] = useState<number | false>(0);
@@ -22,17 +29,33 @@ const GroupRecordingWidget = ({ initialPeople }: Props): React.ReactElement => {
   const [idToAdd, setIdToAdd] = useState<number>(-1);
 
   const [searchQuery, setSearchQuery] = useState('');
-  const { data } = useResidents({
+
+  const { data: idResults } = useIDSearch({
     mosaic_id: searchQuery,
   });
+  const { data: firstNameResults } = useFirstNameSearch({
+    first_name: searchQuery,
+  });
+  const { data: lastNameResults } = useLastNameSearch({
+    last_name: searchQuery,
+  });
 
-  const results: (Resident | LegacyResident)[] | undefined = data
-    // flatten pagination
-    ?.reduce(
-      (acc, page) =>
-        acc.concat(page.residents as (Resident | LegacyResident)[]),
-      [] as (Resident | LegacyResident)[]
-    )
+  const results: (Resident | LegacyResident)[] = [
+    ...((lastNameResults?.[0]?.residents || []) as (
+      | Resident
+      | LegacyResident
+    )[]),
+    ...((idResults?.[0]?.residents || []) as (Resident | LegacyResident)[]),
+    ...((firstNameResults?.[0]?.residents || []) as (
+      | Resident
+      | LegacyResident
+    )[]),
+  ]
+    // remove duplicates
+    .reduce((unique, p1) => {
+      if (!unique.some((p2) => safeId(p1) === safeId(p2))) unique.push(p1);
+      return unique;
+    }, [] as (Resident | LegacyResident)[])
     // don't show anyone already on the list
     .filter((person) => {
       if ('id' in person) {
@@ -57,8 +80,8 @@ const GroupRecordingWidget = ({ initialPeople }: Props): React.ReactElement => {
           .includes(parseInt(String(person.mosaicId)));
       }
     })
-    // only show six max
-    .slice(0, 5);
+    // only show nine max
+    .slice(0, 9);
 
   function mapPeopleToIds(person: LegacyResident | Resident) {
     if ('id' in person) {
@@ -71,10 +94,10 @@ const GroupRecordingWidget = ({ initialPeople }: Props): React.ReactElement => {
   useEffect(() => {
     const residents = people.map((person) => mapPeopleToIds(person));
 
-    axios.patch(`/api/submissions/${query.id}`, {
+    axios.patch(`/api/submissions/${submissionId}`, {
       residents,
     });
-  }, [people, query.id]);
+  }, [people, submissionId]);
 
   const handleAdd = (): void => {
     if (idToAdd) {
@@ -161,7 +184,7 @@ const GroupRecordingWidget = ({ initialPeople }: Props): React.ReactElement => {
       >
         <div className="govuk-form-group lbh-form-group">
           <label className="govuk-label lbh-label" htmlFor="query">
-            Search by social care ID
+            Search by name or social care ID
           </label>
           <div className="lbh-search-box" style={{ marginTop: 0 }}>
             <input

@@ -69,10 +69,11 @@ const CaseLink = ({
   children,
 }: Props): React.ReactElement => {
   const form = formName ? forms?.find((form) => form.id === formName) : false;
+
   if (form)
     return (
       <Link href={`/people/${personId}/submissions/${recordId}`}>
-        <a className="lbh-link">{children || 'View'}</a>
+        <a className="lbh-link">{form?.name || 'View'}</a>
       </Link>
     );
 

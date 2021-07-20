@@ -94,25 +94,6 @@ $screen-sm-min: 576px;
   cursor: pointer;
 }
 
-.ReactModal__Body--open {
-  overflow: hidden;
-}
-
-.govuk-back-link,
-.govuk-link {
-  color: $govuk-link-colour;
-}
-
-.govuk-back-link:hover,
-.govuk-link:hover {
-  text-decoration: underline;
-  color: $govuk-link-hover-colour;
-}
-
-.govuk-link--underline {
-  text-decoration: underline;
-}
-
 #clear-link {
   margin-left: 1rem;
   padding-top: 1rem;
@@ -157,10 +138,14 @@ html {
 }
 
 // space out form groups a little more
-.lbh-form-group + .lbh-form-group,
-.lbh-form-group + .lbh-button {
+.lbh-form-group + .lbh-form-group {
   @include govuk-media-query($from: tablet) {
     margin-top: 2rem;
+  }
+}
+.lbh-form-group + .lbh-button {
+  @include govuk-media-query($from: tablet) {
+    margin-top: 2.5rem;
   }
 }
 
@@ -206,4 +191,17 @@ input[type='date'] {
   &__close {
     margin-top: 0;
   }
+}
+
+// fix behaviour of width override classes on combobox and tags fields
+.govuk-input--width-20 {
+  max-width: 26rem;
+}
+.govuk-input--width-10 {
+  max-width: 14.5rem;
+}
+
+// better clumping of timeline events
+.lbh-timeline__event {
+  padding-bottom: 25px;
 }

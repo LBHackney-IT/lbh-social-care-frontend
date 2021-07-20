@@ -19,7 +19,7 @@ describe('CaseLink component', () => {
           class="lbh-link"
           href="/people/1/submissions/123"
         >
-          View
+          Foo
         </a>
       </DocumentFragment>
     `);
@@ -39,7 +39,7 @@ describe('CaseLink component', () => {
           class="lbh-link"
           href="/people/1/submissions/123"
         >
-          View
+          Foo
         </a>
       </DocumentFragment>
     `);
@@ -62,7 +62,7 @@ describe('CaseLink component', () => {
           class="lbh-link"
           href="/people/1/submissions/123"
         >
-          View
+          Foo
         </a>
       </DocumentFragment>
     `);

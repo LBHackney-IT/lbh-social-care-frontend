@@ -99,7 +99,9 @@ export const generateInitialValues = (
       );
     } else {
       initialValues[field.id] = String(
-        (person && field.prefill && person[field.prefill]) || ''
+        (person && field.prefill && person[field.prefill]) ||
+          field.default ||
+          ''
       );
     }
   });

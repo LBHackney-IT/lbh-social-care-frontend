@@ -68,8 +68,12 @@ const Layout = ({ person, children }: Props): React.ReactElement => {
     },
     {
       text: `Relationships ${
-        relationships?.personalRelationships
-          ? `(${relationships?.personalRelationships?.length})`
+        relationships?.personalRelationships &&
+        relationships?.personalRelationships.length > 0
+          ? `(${relationships?.personalRelationships.reduce(
+              (count, current) => count + current.relationships.length,
+              0
+            )})`
           : ''
       }`,
       href: `/people/${person.id}/relationships`,
@@ -89,6 +93,18 @@ const Layout = ({ person, children }: Props): React.ReactElement => {
       href: `/people/${person.id}/warning-notes/add?id=${person.id}`,
     },
   ];
+
+  if (person.contextFlag === 'C')
+    secondaryNavigation.unshift({
+      text: 'Add case note',
+      href: `/people/${person.id}/case-note`,
+    });
+
+  if (person.contextFlag === 'A')
+    secondaryNavigation.unshift({
+      text: 'Add case note',
+      href: `/people/${person.id}/records/case-note-recording`,
+    });
 
   return (
     <>

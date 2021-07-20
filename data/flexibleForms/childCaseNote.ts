@@ -1,22 +1,19 @@
 import { Form } from './forms.types';
+import { format } from 'date-fns';
 
 const form: Form = {
   id: 'child-case-note',
   name: 'Case note',
   groupRecordable: true,
   isViewableByAdults: false,
-  isViewableByChildrens: false,
+  isViewableByChildrens: true,
+  canonicalUrl: (socialCareId) => `/people/${socialCareId}/case-note`,
   steps: [
     {
       id: 'Case note',
       name: 'Case note',
       theme: 'Case note',
       fields: [
-        {
-          id: 'Title',
-          question: 'Title',
-          type: 'textarea',
-        },
         {
           id: 'Type',
           question: 'What kind of note is this?',
@@ -30,10 +27,6 @@ const form: Form = {
             {
               value: 'Correspondence',
               label: 'Correspondence',
-            },
-            {
-              value: 'Management oversight',
-              label: 'Management oversight',
             },
             {
               value: 'Something else',
@@ -114,10 +107,16 @@ const form: Form = {
           question: 'Were the child/children seen alone?',
           type: 'radios',
           required: true,
-          condition: {
-            id: 'Were the child/children seen',
-            value: 'Yes',
-          },
+          condition: [
+            {
+              id: 'Type',
+              value: 'Visit',
+            },
+            {
+              id: 'Were the child/children seen',
+              value: 'Yes',
+            },
+          ],
           choices: [
             {
               value: 'Yes',
@@ -130,10 +129,68 @@ const form: Form = {
           ],
         },
         {
-          id: 'Topics (tags)',
+          id: 'Topics',
           question: 'Topics',
           hint: 'Help colleagues find this note. Add as many as you need.',
-          type: 'Tags',
+          type: 'checkboxes',
+          condition: {
+            id: 'Type',
+            value: 'Something else',
+          },
+          choices: [
+            { label: 'Unit meeting note', value: 'Unit meeting note' },
+            { label: 'Allocation record', value: 'Allocation record' },
+            { label: 'Case audit', value: 'Case audit' },
+            { label: 'Clinical input', value: 'Clinical input' },
+            {
+              label: 'Consultation with service manager',
+              value: 'Consultation with service manager',
+            },
+            {
+              label: 'Consultation with head of service',
+              value: 'Consultation with head of service',
+            },
+            {
+              label: 'Consultation with independent reviewing officer',
+              value: 'Consultation with independent reviewing officer',
+            },
+            {
+              label: 'Independent reviewing officer oversight',
+              value: 'Independent reviewing officer oversight',
+            },
+            { label: 'Management oversight', value: 'Management oversight' },
+            { label: 'MARAC', value: 'MARAC' },
+            { label: 'MAPPA', value: 'MAPPA' },
+            { label: 'PMU', value: 'PMU' },
+            {
+              label: 'Extra-familial risk panel',
+              value: 'Extra-familial risk panel',
+            },
+            {
+              label: 'Escalation with independent chair',
+              value: 'Escalation with independent chair',
+            },
+            {
+              label: 'Escalation with service manager',
+              value: 'Escalation with service manager',
+            },
+            { label: 'Record of meeting', value: 'Record of meeting' },
+            {
+              label: 'Safe and together consultation',
+              value: 'Safe and together consultation',
+            },
+            {
+              label: 'Out of hours',
+              value: 'Out of hours',
+            },
+          ],
+        },
+
+        {
+          id: 'Title',
+          question: 'Title',
+          type: 'text',
+          className: 'govuk-input--width-20',
         },
         {
           id: 'Body',
@@ -146,6 +203,7 @@ const form: Form = {
           question: 'When did this happen?',
           type: 'date',
           className: 'govuk-input--width-10',
+          default: format(new Date(), 'yyyy-MM-dd'),
         },
         {
           id: 'Actions',

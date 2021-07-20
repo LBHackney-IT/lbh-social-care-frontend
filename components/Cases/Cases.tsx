@@ -77,9 +77,6 @@ const CasesWrapper = ({ id, person }: WrapperProps): React.ReactElement => {
           </h3>
           <span className="govuk-body">Linked files are read only</span>
         </div>
-        {userCanManageCases && (
-          <Button label="Add a new record" route={`${id}/records`} />
-        )}
       </div>
       <hr className="govuk-divider" />
       {userCanManageCases ? (
