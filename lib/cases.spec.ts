@@ -1,5 +1,6 @@
 import axios from 'axios';
 import MockDate from 'mockdate';
+import { userFactory } from '../factories/users';
 
 import * as casesAPI from './cases';
 
@@ -109,6 +110,71 @@ describe('cases APIs', () => {
       });
       expect(data).toEqual({ _id: 'foobar' });
       MockDate.reset();
+    });
+  });
+
+  describe('getCase', () => {
+    it('should call the API passing the correct headers', async () => {
+      mockedAxios.get.mockResolvedValue({
+        data: { foo: 'bar' },
+      });
+      const mockedUser = userFactory.build();
+      await casesAPI.getCase('case-id-123', {}, mockedUser);
+
+      expect(mockedAxios.get).toHaveBeenCalled();
+      expect(mockedAxios.get.mock.calls[0][0]).toEqual(
+        `${ENDPOINT_API}/cases/case-id-123`
+      );
+      expect(mockedAxios.get.mock.calls[0][1]?.headers).toEqual({
+        'x-api-key': AWS_KEY,
+      });
+    });
+
+    it('should return the data from the API response', async () => {
+      mockedAxios.get.mockResolvedValue({
+        data: { foo: 'bar' },
+      });
+
+      const mockedUser = userFactory.build();
+      const data = await casesAPI.getCase('case-id-123', {}, mockedUser);
+
+      expect(data).toEqual({ foo: 'bar' });
+    });
+
+    it('should call the API passing through the provided params and the default auditing params', async () => {
+      mockedAxios.get.mockResolvedValue({
+        data: { foo: 'bar' },
+      });
+      const mockedUser = userFactory.build();
+      await casesAPI.getCase(
+        'case-id-123',
+        {
+          some: 'param',
+          other: 'value',
+        },
+        mockedUser
+      );
+
+      expect(mockedAxios.get.mock.calls[0][1]?.params).toEqual({
+        some: 'param',
+        other: 'value',
+        auditingEnabled: false,
+      });
+    });
+
+    it('should call the API passing through the auditing params as enabled when the user is in the auditable group', async () => {
+      mockedAxios.get.mockResolvedValue({
+        data: { foo: 'bar' },
+      });
+      const mockedUser = userFactory.build({
+        isAuditable: true,
+      });
+      await casesAPI.getCase('case-id-123', {}, mockedUser);
+
+      expect(mockedAxios.get.mock.calls[0][1]?.params).toEqual({
+        auditingEnabled: true,
+        userId: mockedUser.email,
+      });
     });
   });
 });
