@@ -23,7 +23,7 @@ const PanelApproveDialog = ({
     try {
       setLoading(true);
       await axios.post(
-        `/api/submissions/${submission.submissionId}/panelApprovals`
+        `/api/submissions/${submission.submissionId}/panelApproveSubmission`
       );
       setLoading(false);
       setOpen(false);
@@ -49,23 +49,29 @@ const PanelApproveDialog = ({
       )}
 
       <div className="govuk-checkboxes lbh-checkboxes">
-        <div className="govuk-checkboxes__item">
-          <input
-            className="govuk-checkboxes__input"
-            id="panel-approval"
-            name="panel-approval"
-            type="checkbox"
-            value="panel-approved"
-            checked={confirmed}
-            onChange={(e) => setConfirmed(e.target.checked)}
-          ></input>
-          <label
-            className="govuk-label govuk-checkboxes__label"
-            htmlFor="panel-approval"
-          >
-            The panel met and approved this work
-          </label>
-        </div>
+        <fieldset
+          className="govuk-fieldset"
+          aria-describedby="nationality-hint"
+        >
+          <legend className="govuk-fieldset__legend">Panel approved?</legend>
+          <div className="govuk-checkboxes__item">
+            <input
+              className="govuk-checkboxes__input"
+              id="panel-approval"
+              name="panel-approval"
+              type="checkbox"
+              value="panel-approved"
+              checked={confirmed}
+              onChange={(e) => setConfirmed(e.target.checked)}
+            ></input>
+            <label
+              className="govuk-label govuk-checkboxes__label"
+              htmlFor="panel-approval"
+            >
+              The panel met and approved this work
+            </label>
+          </div>
+        </fieldset>
       </div>
       <button
         className="govuk-button lbh-button"

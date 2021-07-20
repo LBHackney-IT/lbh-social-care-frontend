@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Submission } from 'data/flexibleForms/forms.types';
 import type { User } from 'types';
 import Banner from 'components/FlexibleForms/Banner';
-import PanelApproveDialogue from './PanelApproveDialogue';
+import PanelApproveDialog from './PanelApproveDialog';
 import RejectDialog from './RejectDialog';
 import s from './ApprovalWidget.module.scss';
 
@@ -45,7 +45,7 @@ const PanelApprovalWidget = ({
             className="lbh-link"
             onClick={() => setApprovalDialogOpen(true)}
           >
-            Yes, panel has approved
+            c
           </button>
           <button
             className="lbh-link lbh-link--danger"
@@ -56,7 +56,7 @@ const PanelApprovalWidget = ({
         </div>
       </Banner>
 
-      <PanelApproveDialogue
+      <PanelApproveDialog
         isOpen={approvalDialogOpen}
         setOpen={setApprovalDialogOpen}
         submission={submission}
