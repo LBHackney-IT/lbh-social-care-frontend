@@ -1,7 +1,7 @@
 import axios from 'axios';
 import * as relationshipsAPI from './relationships';
 import {
-  mockedRelationship,
+  mockedRelationshipFactory,
   mockedAddRelationship,
 } from 'factories/relationships';
 
@@ -12,7 +12,7 @@ jest.mock('axios');
 describe('relationships APIs', () => {
   describe('getRelationshipByResident', () => {
     it("calls the service API's relationships endpoint", async () => {
-      const relationships = mockedRelationship;
+      const relationships = mockedRelationshipFactory.build();
       mockedAxios.get.mockResolvedValue({
         data: relationships,
       });
