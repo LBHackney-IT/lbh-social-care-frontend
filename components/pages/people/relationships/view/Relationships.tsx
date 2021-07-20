@@ -6,9 +6,10 @@ import { useState } from 'react';
 import { ConditionalFeature } from 'lib/feature-flags/feature-flags';
 import Link from 'next/link';
 import style from './Relationships.module.scss';
-import { RelationshipType, Resident } from 'types';
+import { RelationshipType, Resident, ExistingRelationship } from 'types';
 import { RELATIONSHIP_TYPES } from 'data/relationships';
 import RemoveRelationshipDialog from '../remove/RemoveRelationshipDialog';
+import Router from 'next/router';
 
 interface Props {
   person: Resident;
@@ -17,18 +18,22 @@ interface Props {
 const Relationships = ({ person }: Props): React.ReactElement => {
   const [isRemoveRelationshipDialogOpen, setIsRemoveRelationshipDialogOpen] =
     useState<boolean>(false);
-  const [relationshipToRemoveId, setRelationshipToRemoveId] = useState('');
+  const [relationshipToRemove, setRelationshipToRemove] =
+    useState<ExistingRelationship>();
 
   const {
     data: { personalRelationships: personalRelationshipsApiResponse } = {},
     error,
   } = useRelationships(person.id);
 
+  if (error) {
+    return (
+      <ErrorMessage label="There was a problem with getting current personal relationships." />
+    );
+  }
+
   if (!personalRelationshipsApiResponse) {
     return <Spinner />;
-  }
-  if (error) {
-    return <ErrorMessage />;
   }
 
   const personalRelationships = personalRelationshipsApiResponse.filter(
@@ -68,12 +73,15 @@ const Relationships = ({ person }: Props): React.ReactElement => {
   return (
     <div>
       <RemoveRelationshipDialog
-        person={person}
+        person={relationshipToRemove}
         isOpen={isRemoveRelationshipDialogOpen}
         onDismiss={() => setIsRemoveRelationshipDialogOpen(false)}
-        onFormSubmit={() => {
-          removeRelationship(relationshipToRemoveId);
+        onFormSubmit={async () => {
           setIsRemoveRelationshipDialogOpen(false);
+          if (relationshipToRemove) {
+            await removeRelationship(relationshipToRemove.id.toString());
+            Router.reload();
+          }
         }}
       />
       <div>
@@ -215,8 +223,8 @@ const Relationships = ({ person }: Props): React.ReactElement => {
                               className="lbh-link lbh-link--no-visited-state"
                               href="#"
                               onClick={() => {
+                                setRelationshipToRemove(person);
                                 setIsRemoveRelationshipDialogOpen(true);
-                                setRelationshipToRemoveId(person.id.toString());
                               }}
                             >
                               Remove{' '}
@@ -233,9 +241,7 @@ const Relationships = ({ person }: Props): React.ReactElement => {
             </tbody>
           </table>
         ) : (
-          <p>
-            <i>No relationship found</i>
-          </p>
+          <p className="lbh-body">No relationships found for this person</p>
         )}
       </div>
       {error && <ErrorMessage />}
