@@ -26,8 +26,8 @@ const PanelApprovalWidget = ({
         title="This submission needs approval"
         className="lbh-page-announcement--info"
       >
-        You cannot panel approve your own submission. Ask a manager or colleague
-        for help.
+        You cannot approve your own submissions. Ask a manager or colleague for
+        help.
       </Banner>
     );
   }
@@ -35,17 +35,17 @@ const PanelApprovalWidget = ({
   return (
     <>
       <Banner
-        title="This submission needs approval"
+        title="This submission needs panel approval"
         className="lbh-page-announcement--info"
       >
-        <p>Is this ready for panel approval?</p>
+        <p>Has the panel approved this work?</p>
 
         <div className={s.actions}>
           <button
             className="lbh-link"
             onClick={() => setApprovalDialogOpen(true)}
           >
-            Yes, panel approves
+            Yes, panel has approved
           </button>
           <button
             className="lbh-link lbh-link--danger"
