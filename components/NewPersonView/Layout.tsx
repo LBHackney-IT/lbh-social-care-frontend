@@ -94,6 +94,12 @@ const Layout = ({ person, children }: Props): React.ReactElement => {
     },
   ];
 
+  if (person.contextFlag === 'C')
+    secondaryNavigation.unshift({
+      text: 'Add case note',
+      href: `/people/${person.id}/case-note`,
+    });
+
   if (person.contextFlag === 'A')
     secondaryNavigation.unshift({
       text: 'Add case note',

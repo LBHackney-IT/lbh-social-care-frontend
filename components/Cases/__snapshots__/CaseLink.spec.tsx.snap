@@ -6,7 +6,7 @@ exports[`CaseLink component should render properly - with handled link for viewi
     class="lbh-link"
     href="/people/1/submissions/123"
   >
-    View
+    Foo
   </a>
 </DocumentFragment>
 `;
