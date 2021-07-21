@@ -39,6 +39,7 @@ const form: Form = {
           id: 'Correspondence type',
           question: 'What kind of correspondence?',
           type: 'radios',
+          error: 'You must choose a correspondance type',
           required: true,
           condition: {
             id: 'Type',
@@ -58,8 +59,10 @@ const form: Form = {
         {
           id: 'Visit type',
           question: 'What kind of visit?',
-          type: 'radios',
+          type: 'checkboxes',
+          hint: 'Choose all that apply',
           required: true,
+          error: 'You must choose a visit type',
           condition: {
             id: 'Type',
             value: 'Visit',
@@ -77,58 +80,39 @@ const form: Form = {
               value: 'Unsuccessful',
               label: 'Unsuccessful visit',
             },
-          ],
-        },
-        {
-          id: 'Child/children seen?',
-          question: 'Were the child/children seen?',
-          type: 'radios',
-          required: true,
-          condition: {
-            id: 'Type',
-            value: 'Visit',
-          },
-          choices: [
+            { label: 'Child in need visit', value: 'Child in need' },
+            { label: 'CFS assessment visit', value: 'CFS assessment' },
             {
-              value: 'Yes',
-              label: 'Yes',
+              label: 'Child protection visit',
+              value: 'Child protection',
+            },
+            { label: 'Clinical visit', value: 'Clinical' },
+            { label: 'Early help visit', value: 'Early help' },
+            { label: 'Looked-after child visit', value: 'Looked-after child' },
+            { label: 'Leaving care visit', value: 'Leaving care' },
+            { label: 'Parenting support visit', value: 'Parenting support' },
+            { label: 'Private fostering visit', value: 'Private fostering' },
+            { label: 'Young Hackney visit ', value: 'Young Hackney ' },
+            { label: 'P&D triage visit', value: 'P&D triage' },
+            {
+              label: 'P&D YH targeted support visit',
+              value: 'P&D YH targeted support',
             },
             {
-              value: 'No',
-              label: 'No',
+              label: 'Fostering supervision visit',
+              value: 'Fostering supervision',
             },
-          ],
-        },
-        {
-          id: 'Child/children seen alone?',
-          question: 'Were the child/children seen alone?',
-          type: 'radios',
-          required: true,
-          condition: [
+            { label: 'Fostering support visit', value: 'Fostering support' },
             {
-              id: 'No',
-              value: 'No',
-            },
-            {
-              id: 'Yes',
-              value: 'Yes',
-            },
-          ],
-          choices: [
-            {
-              value: 'Yes',
-              label: 'Yes',
-            },
-            {
-              value: 'No',
-              label: 'No',
+              label: 'Fostering unannounced visit',
+              value: 'Fostering unannounced',
             },
           ],
         },
         {
           id: 'Topics',
-          question: 'Topics',
-          hint: 'Help colleagues find this note. Add as many as you need.',
+          question: 'What kind of note is this?',
+          hint: 'Choose all that apply',
           type: 'checkboxes',
           condition: {
             id: 'Type',
