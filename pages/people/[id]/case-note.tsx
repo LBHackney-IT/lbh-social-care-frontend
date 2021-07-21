@@ -92,7 +92,7 @@ const CaseNote = ({
               validationSchema={generateFlexibleSchema(fields)}
               onSubmit={handleSubmit}
             >
-              {({ touched, errors, values, isSubmitting, status }) => (
+              {({ touched, errors, values, isSubmitting, status, isValid }) => (
                 <Form>
                   {status && (
                     <Banner
@@ -117,7 +117,7 @@ const CaseNote = ({
                   ))}
 
                   <button
-                    onClick={() => setFinished(true)}
+                    onClick={() => isValid && setFinished(true)}
                     className="govuk-button lbh-button"
                     disabled={isSubmitting}
                   >
