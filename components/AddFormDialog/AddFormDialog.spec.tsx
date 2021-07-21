@@ -2,11 +2,10 @@ import AddFormDialog from './AddFormDialog';
 import { render, screen, fireEvent } from '@testing-library/react';
 import { mockedResident } from 'factories/residents';
 import { AuthProvider } from 'components/UserContext/UserContext';
-import { mockedUser } from 'factories/users';
+import { mockedUser, mockedAdminUser } from 'factories/users';
 import ADULT_GFORMS from 'data/googleForms/adultForms';
 import CHILD_GFORMS from 'data/googleForms/childForms';
-import flexibleForms from 'data/flexibleForms';
-
+import 'data/flexibleForms';
 import 'next/router';
 
 jest.mock('next/router', () => ({
@@ -16,6 +15,10 @@ jest.mock('next/router', () => ({
     pathname: 'foopath',
   }),
 }));
+
+beforeEach(() => {
+  jest.resetModules();
+});
 
 describe('AddFormDialog', () => {
   it('shows forms from two sources', () => {
@@ -30,8 +33,12 @@ describe('AddFormDialog', () => {
     );
     expect(screen.getAllByRole('listitem').length).toBeGreaterThan(1);
     expect(screen.getAllByRole('link').length).toBeGreaterThan(1);
-    expect(screen.getAllByText('System form').length).toBeGreaterThan(1);
-    expect(screen.getAllByText('Google form').length).toBeGreaterThan(1);
+    expect(
+      screen.getAllByText('System form', { exact: false }).length
+    ).toBeGreaterThan(1);
+    expect(
+      screen.getAllByText('Google form', { exact: false }).length
+    ).toBeGreaterThan(1);
   });
 
   it('only shows forms appropriate to the adult service context', () => {
@@ -96,5 +103,47 @@ describe('AddFormDialog', () => {
       target: { value: 'conversation' },
     });
     expect(screen.getAllByRole('listitem').length).toBeLessThan(10);
+  });
+
+  it('correctly shows and marks preview forms for users with elevated permissions', () => {
+    jest.doMock('data/flexibleForms', () => [
+      {
+        id: 'bar',
+        name: 'bar',
+        isViewableByAdults: false,
+        isViewableByChildren: false,
+      },
+    ]);
+
+    render(
+      <AuthProvider
+        user={{
+          ...mockedUser,
+          hasAdminPermissions: false,
+        }}
+      >
+        <AddFormDialog
+          isOpen={true}
+          onDismiss={jest.fn()}
+          person={mockedResident}
+        />
+      </AuthProvider>
+    );
+    expect(screen.queryAllByText('In preview', { exact: false }).length).toBe(
+      0
+    );
+
+    render(
+      <AuthProvider user={mockedAdminUser}>
+        <AddFormDialog
+          isOpen={true}
+          onDismiss={jest.fn()}
+          person={mockedResident}
+        />
+      </AuthProvider>
+    );
+    expect(
+      screen.getAllByText('In preview', { exact: false }).length
+    ).toBeGreaterThan(0);
   });
 });
