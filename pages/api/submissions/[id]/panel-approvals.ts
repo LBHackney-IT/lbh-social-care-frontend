@@ -1,8 +1,7 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import StatusCodes from 'http-status-codes';
-import { panelApproveSubmission, returnForEdits } from 'lib/submissions';
+import { panelApproveSubmission } from 'lib/submissions';
 import { isAuthorised } from 'utils/auth';
-import { notifyReturnedForEdits } from 'lib/notify';
 
 const handler = async (
   req: NextApiRequest,
@@ -18,16 +17,6 @@ const handler = async (
         const submission = await panelApproveSubmission(
           String(id),
           String(user?.email)
-        );
-        res.json(submission);
-      }
-      break;
-    case 'DELETE':
-      {
-        const submission = await returnForEdits(
-          String(id),
-          String(user?.email),
-          req.body.rejectionReason
         );
         res.json(submission);
       }
