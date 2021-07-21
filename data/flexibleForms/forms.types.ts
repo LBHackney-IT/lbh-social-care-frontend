@@ -71,7 +71,7 @@ export interface Form {
 }
 
 export interface RepeaterGroupAnswer {
-  [key: string]: string | string[];
+  [key: string]: string | [string, string];
 }
 
 export interface TimetableAnswer {
