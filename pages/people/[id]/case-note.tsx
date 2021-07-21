@@ -158,7 +158,7 @@ export const getServerSideProps: GetServerSideProps = async ({
   let submission: Submission;
 
   if (query.submissionId) {
-    submission = await getSubmissionById(String(query.submissionId));
+    submission = await getSubmissionById(query.submissionId as string);
 
     if (submission.submissionState !== 'In progress')
       return {
