@@ -166,19 +166,19 @@ const form: Form = {
           hiddenRepeater: true,
           subfields: [
             {
-              id: 'text',
+              id: 'Action',
               question: 'What needs to be done?',
               type: 'text',
               required: true,
             },
             {
-              id: 'assignee',
+              id: 'Assignee',
               question: 'Assigned to',
               type: 'text',
               className: 'govuk-input--width-10',
             },
             {
-              id: 'due',
+              id: 'Due',
               question: 'Due',
               type: 'date',
               className: 'govuk-input--width-10',

@@ -80,7 +80,7 @@ const form: Form = {
           ],
         },
         {
-          id: 'Were the child/children seen',
+          id: 'Child/children seen?',
           question: 'Were the child/children seen?',
           type: 'radios',
           required: true,
@@ -100,17 +100,17 @@ const form: Form = {
           ],
         },
         {
-          id: 'Were the child/children seen alone',
+          id: 'Child/children seen alone?',
           question: 'Were the child/children seen alone?',
           type: 'radios',
           required: true,
           condition: [
             {
-              id: 'Type',
-              value: 'Visit',
+              id: 'No',
+              value: 'No',
             },
             {
-              id: 'Were the child/children seen',
+              id: 'Yes',
               value: 'Yes',
             },
           ],
@@ -215,19 +215,19 @@ const form: Form = {
           hiddenRepeater: true,
           subfields: [
             {
-              id: 'text',
+              id: 'Action',
               question: 'What needs to be done?',
               type: 'text',
               required: true,
             },
             {
-              id: 'assignee',
+              id: 'Assignee',
               question: 'Assigned to',
               type: 'text',
               className: 'govuk-input--width-10',
             },
             {
-              id: 'due',
+              id: 'Due',
               question: 'Due',
               type: 'date',
               className: 'govuk-input--width-10',
