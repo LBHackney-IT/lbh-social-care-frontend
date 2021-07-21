@@ -187,7 +187,7 @@ export const panelApproveSubmission = async (
     `${ENDPOINT_API}/submissions/${submissionId}`,
     {
       editedBy: approvedBy,
-      submissionState: 'panelApproved',
+      submissionState: 'panel_approved',
     },
     {
       headers: headersWithKey,
