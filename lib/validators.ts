@@ -12,6 +12,13 @@ export const startSchema = Yup.object().shape({
   formId: Yup.string().required('Please choose a form'),
 });
 
+export const panelApproveSchema = Yup.object().shape({
+  confirmed: Yup.boolean().oneOf(
+    [true],
+    'You must confirm the panel has reviewed this work'
+  ),
+});
+
 export const generateSubmitSchema = (
   currentUserEmail: string
 ): OptionalObjectSchema<

@@ -201,7 +201,7 @@ describe('approveSubmission', () => {
       data: { submissionId: '123' },
     });
 
-    await approveSubmission('foo', 'bar');
+    await panelApproveSubmission('foo', 'bar');
     expect(mockedAxios.patch).toHaveBeenCalled();
     expect(mockedAxios.patch).toBeCalledWith(
       `${ENDPOINT_API}/submissions/foo`,

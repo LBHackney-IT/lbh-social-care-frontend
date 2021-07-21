@@ -29,7 +29,7 @@ describe('PanelApproveDialog', () => {
           submission={mockSubmission}
         />
       );
-      expect(screen.getAllByRole('dialog').length).toBe(1);
+      expect(screen.getAllByRole('checkbox').length).toBe(1);
       expect(screen.getByText('The panel met and approved this work'));
     });
   });
@@ -46,9 +46,7 @@ describe('PanelApproveDialog', () => {
     fireEvent.click(screen.getByText('Yes, approve'));
     await waitFor(() => {
       expect(axios.post).toBeCalledTimes(1);
-      expect(axios.post).toBeCalledWith(
-        '/api/submissions/123/panelApproveSubmission'
-      );
+      expect(axios.post).toBeCalledWith('/api/submissions/123/panel-approvals');
     });
   });
 
