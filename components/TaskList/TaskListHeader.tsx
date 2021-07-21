@@ -55,7 +55,7 @@ const TaskListHeader = ({
                 label="Who should approve this?"
                 hint="Enter the email address of a manager or colleague"
                 required
-                className="govuk-input--length-20"
+                className="govuk-input--width-20"
               />
               <button
                 className="govuk-button lbh-button"
