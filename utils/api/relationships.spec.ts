@@ -69,13 +69,31 @@ describe('relationships APIs', () => {
       });
 
       describe('and it has main carer', () => {
-        it('adds isMainCarer as "Y" to request', () => {
+        it('adds isMainCarer as "Y" to request if an array', () => {
           const formData = {
             personId: 123,
             otherPersonId: 456,
             createdBy: 'test@hackney.gov.uk',
             type: 'parent',
             additionalOptions: ['isMainCarer'],
+          };
+          jest.spyOn(axios, 'post');
+
+          relationshipsAPI.addRelationships(formData);
+
+          expect(axios.post).toHaveBeenCalledWith(
+            '/api/relationships',
+            expect.objectContaining({ isMainCarer: 'Y' })
+          );
+        });
+
+        it('adds isMainCarer as "Y" to request if a string', () => {
+          const formData = {
+            personId: 123,
+            otherPersonId: 456,
+            createdBy: 'test@hackney.gov.uk',
+            type: 'acquaintance',
+            additionalOptions: 'isMainCarer',
           };
           jest.spyOn(axios, 'post');
 
