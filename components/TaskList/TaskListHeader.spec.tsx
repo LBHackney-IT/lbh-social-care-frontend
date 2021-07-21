@@ -1,5 +1,16 @@
 import TaskListHeader from './TaskListHeader';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
+import { mockedUser } from 'factories/users';
+import { AuthProvider } from 'components/UserContext/UserContext';
+import 'next/router';
+
+jest.mock('next/router', () => ({
+  useRouter: () => ({
+    query: { foo: 'bar' },
+    replace: jest.fn(),
+    pathname: 'foopath',
+  }),
+}));
 
 const steps = [
   {
@@ -61,12 +72,14 @@ describe('TaskList', () => {
 
   it('renders correctly when a form is approvable', () => {
     render(
-      <TaskListHeader
-        onFinish={() => true}
-        completedSteps={['1', '2']}
-        steps={steps}
-        approvable={true}
-      />
+      <AuthProvider user={mockedUser}>
+        <TaskListHeader
+          onFinish={() => true}
+          completedSteps={['1', '2']}
+          steps={steps}
+          approvable={true}
+        />
+      </AuthProvider>
     );
 
     expect(screen.getByText('You can now submit for approval.'));
@@ -77,12 +90,14 @@ describe('TaskList', () => {
     const mockFinish = jest.fn();
 
     render(
-      <TaskListHeader
-        onFinish={mockFinish}
-        completedSteps={['1', '2']}
-        steps={steps}
-        approvable={true}
-      />
+      <AuthProvider user={mockedUser}>
+        <TaskListHeader
+          onFinish={mockFinish}
+          completedSteps={['1', '2']}
+          steps={steps}
+          approvable={true}
+        />
+      </AuthProvider>
     );
 
     fireEvent.change(screen.getByRole('textbox'), {

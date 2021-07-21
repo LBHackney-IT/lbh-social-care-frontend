@@ -178,6 +178,23 @@ export const approveSubmission = async (
   return data;
 };
 
+/** mark an approved submission as panal approved passing in the id and approved by  */
+export const panelApproveSubmission = async (
+  submissionId: string,
+  approvedBy: string
+): Promise<Submission> => {
+  const { data } = await axios.patch(
+    `${ENDPOINT_API}/submissions/${submissionId}`,
+    {
+      editedBy: approvedBy,
+      submissionState: 'panel_approved',
+    },
+    {
+      headers: headersWithKey,
+    }
+  );
+  return data;
+};
 /** return a submitted submission for edits, providing a reason and its id  */
 export const returnForEdits = async (
   submissionId: string,
