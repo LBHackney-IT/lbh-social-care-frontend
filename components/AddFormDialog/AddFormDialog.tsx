@@ -39,6 +39,7 @@ const AddFormDialog = ({
     system: boolean;
     groupRecordable: boolean;
     approvable: boolean;
+    inPreview: boolean;
   }
 
   const allForms: Option[] = useMemo(
@@ -60,6 +61,7 @@ const AddFormDialog = ({
           system: true,
           groupRecordable: !!f.groupRecordable,
           approvable: !!f.approvable,
+          inPreview: !f.isViewableByAdults && !f.isViewableByChildrens,
         }))
         .concat(
           gForms.map((f) => ({
@@ -68,6 +70,7 @@ const AddFormDialog = ({
             system: false,
             groupRecordable: false,
             approvable: false,
+            inPreview: false,
           }))
         ),
     [
@@ -118,6 +121,7 @@ const AddFormDialog = ({
             </Link>
             <p className={`lbh-body-xs ${s.meta}`}>
               {result.system ? 'System form' : 'Google form'}
+              {result.inPreview && ' · In preview'}
               {result.approvable && ' · Needs manager approval'}
               {result.groupRecordable && ' · Allows group recording'}
             </p>
