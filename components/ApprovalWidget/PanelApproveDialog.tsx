@@ -45,7 +45,7 @@ const PanelApproveDialog = ({
         initialValues={{ confirmed: false }}
         onSubmit={handleSubmit}
       >
-        {({ status, isSubmitting }) => (
+        {({ status, isSubmitting, isValid }) => (
           <Form>
             {status && (
               <Banner
@@ -84,7 +84,10 @@ const PanelApproveDialog = ({
               )}
             </ErrorMessage>
 
-            <button className="govuk-button lbh-button" disabled={isSubmitting}>
+            <button
+              className="govuk-button lbh-button"
+              disabled={isSubmitting || !isValid}
+            >
               Yes, approve
             </button>
           </Form>

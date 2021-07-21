@@ -16,7 +16,7 @@ interface FormValues {
   rejectionReason: string;
 }
 
-const ApproveDialog = ({
+const RejectDialog = ({
   submission,
   isOpen,
   setOpen,
@@ -87,4 +87,4 @@ const ApproveDialog = ({
   );
 };
 
-export default ApproveDialog;
+export default RejectDialog;
