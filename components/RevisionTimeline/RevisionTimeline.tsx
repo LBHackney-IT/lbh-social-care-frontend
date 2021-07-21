@@ -14,6 +14,27 @@ const RevisionTimeline = ({ submission }: Props): React.ReactElement | null => {
     <>
       <h2>History</h2>
       <ol className="lbh-timeline">
+        {submission.panelApprovedAt && (
+          <li className={`lbh-timeline__event ${s.approvalEvent}`}>
+            <svg width="34" height="30" viewBox="0 0 34 30" fill="none">
+              <path
+                d="M3 16.4167L10.4286 24L31 3"
+                stroke="white"
+                strokeWidth="8"
+              />
+            </svg>
+            <h3 className="lbh-body">
+              Approved on behalf of panel by {submission.panelApprovedBy?.email}
+            </h3>
+            <p className="lbh-body-xs">
+              {format(
+                new Date(submission.panelApprovedAt),
+                'dd MMM yyyy K.mm aaa'
+              )}
+            </p>
+          </li>
+        )}
+
         {submission.approvedAt && (
           <li className={`lbh-timeline__event ${s.approvalEvent}`}>
             <svg width="34" height="30" viewBox="0 0 34 30" fill="none">
