@@ -45,7 +45,7 @@ const PanelApprovalWidget = ({
             className="lbh-link"
             onClick={() => setApprovalDialogOpen(true)}
           >
-            c
+            Yes, panel has approved
           </button>
           <button
             className="lbh-link lbh-link--danger"
