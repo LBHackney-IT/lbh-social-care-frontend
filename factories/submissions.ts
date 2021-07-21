@@ -12,6 +12,8 @@ export const mockSubmission: Submission = {
   submittedAt: '2021-07-21T12:00:00.000Z',
   approvedBy: null,
   approvedAt: null,
+  panelApprovedBy: null,
+  panelApprovedAt: null,
   workers: [],
   editHistory: [
     {

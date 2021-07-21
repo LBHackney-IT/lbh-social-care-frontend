@@ -7,6 +7,7 @@ import {
   patchSubmissionForStep,
   startSubmission,
   approveSubmission,
+  panelApproveSubmission,
   returnForEdits,
   discardSubmission,
 } from './submissions';
@@ -184,6 +185,29 @@ describe('approveSubmission', () => {
       {
         editedBy: 'bar',
         submissionState: 'approved',
+      },
+      {
+        headers: {
+          'x-api-key': AWS_KEY,
+        },
+      }
+    );
+  });
+});
+
+describe('approveSubmission', () => {
+  it('should work properly', async () => {
+    mockedAxios.patch.mockResolvedValue({
+      data: { submissionId: '123' },
+    });
+
+    await panelApproveSubmission('foo', 'bar');
+    expect(mockedAxios.patch).toHaveBeenCalled();
+    expect(mockedAxios.patch).toBeCalledWith(
+      `${ENDPOINT_API}/submissions/foo`,
+      {
+        editedBy: 'bar',
+        submissionState: 'panel_approved',
       },
       {
         headers: {
