@@ -1,6 +1,7 @@
 import { Formik, Form, FormikValues, FormikHelpers } from 'formik';
 import FlexibleField from 'components/FlexibleForms/FlexibleFields';
 import CHILD_CASE_NOTE from 'data/flexibleForms/childCaseNote';
+import ADULT_CASE_NOTE from 'data/flexibleForms/adultCaseNote';
 import { generateInitialValues } from 'lib/utils';
 import { generateFlexibleSchema } from 'lib/validators';
 import axios from 'axios';
@@ -21,9 +22,8 @@ import {
   AutosaveIndicator,
 } from 'contexts/autosaveContext';
 import { useState } from 'react';
-
-const form = CHILD_CASE_NOTE;
-const fields = form.steps[0].fields;
+import { getResident } from 'lib/residents';
+import { User } from 'types';
 
 interface Props extends Submission {
   params: {
@@ -37,6 +37,10 @@ const CaseNote = ({
   formAnswers,
   residents,
 }: Props): React.ReactElement => {
+  const form =
+    residents[0].ageContext === 'A' ? ADULT_CASE_NOTE : CHILD_CASE_NOTE;
+  const fields = form.steps[0].fields;
+
   const router = useRouter();
   const [finished, setFinished] = useState<boolean>(false);
 
@@ -44,7 +48,7 @@ const CaseNote = ({
   useEffect(() => {
     if (!router.query.submissionId)
       router.replace({
-        pathname: `/people/${params.id}/case-note`,
+        pathname: router.asPath,
         query: { submissionId },
       });
   }, [router, submissionId, params.id]);
@@ -88,7 +92,7 @@ const CaseNote = ({
               validationSchema={generateFlexibleSchema(fields)}
               onSubmit={handleSubmit}
             >
-              {({ touched, errors, values, isSubmitting, status }) => (
+              {({ touched, errors, values, isSubmitting, status, isValid }) => (
                 <Form>
                   {status && (
                     <Banner
@@ -113,7 +117,7 @@ const CaseNote = ({
                   ))}
 
                   <button
-                    onClick={() => setFinished(true)}
+                    onClick={() => isValid && setFinished(true)}
                     className="govuk-button lbh-button"
                     disabled={isSubmitting}
                   >
@@ -151,9 +155,10 @@ export const getServerSideProps: GetServerSideProps = async ({
   params,
   query,
 }) => {
-  let submission;
+  let submission: Submission;
+
   if (query.submissionId) {
-    submission = await getSubmissionById(String(query.submissionId));
+    submission = await getSubmissionById(query.submissionId as string);
 
     if (submission.submissionState !== 'In progress')
       return {
@@ -164,8 +169,12 @@ export const getServerSideProps: GetServerSideProps = async ({
       };
   } else {
     const user = isAuthorised(req);
+    const resident = await getResident(Number(params?.id), user as User);
+    const form =
+      resident.ageContext === 'A' ? ADULT_CASE_NOTE : CHILD_CASE_NOTE;
+
     submission = await startSubmission(
-      CHILD_CASE_NOTE.id,
+      form.id,
       Number(params?.id),
       String(user?.email)
     );

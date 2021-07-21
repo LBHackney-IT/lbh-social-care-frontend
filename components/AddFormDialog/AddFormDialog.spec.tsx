@@ -76,9 +76,9 @@ describe('AddFormDialog', () => {
     fireEvent.change(screen.getByLabelText('Search for a form'), {
       target: { value: 'Case note' },
     });
-    expect((screen.getByText('Case note') as HTMLLinkElement).href).toContain(
-      `/people/1/case-note`
-    );
+    expect(
+      (screen.getAllByText('Case note') as HTMLLinkElement[])[0].href
+    ).toContain(`/people/1/case-note`);
   });
 
   it('allows searching for a form', () => {

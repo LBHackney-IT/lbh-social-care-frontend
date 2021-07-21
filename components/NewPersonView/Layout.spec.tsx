@@ -115,33 +115,4 @@ describe('Layout', () => {
     );
     expect(screen.queryByText('Timeline')).toBe(null);
   });
-
-  it('shows the correct case note link for a child resident', () => {
-    render(
-      <AuthProvider user={mockedOnlyChildUser}>
-        <Layout
-          person={{
-            ...mockedResident,
-            contextFlag: 'C',
-          }}
-        >
-          Foo
-        </Layout>
-      </AuthProvider>
-    );
-    expect(
-      (screen.queryByText('Add case note') as HTMLLinkElement).href
-    ).toContain(`/people/${mockedResident.id}/case-note`);
-  });
-
-  it('shows the correct case note link for an adult resident', () => {
-    render(
-      <AuthProvider user={mockedOnlyChildUser}>
-        <Layout person={mockedResident}>Foo</Layout>
-      </AuthProvider>
-    );
-    expect(
-      (screen.queryByText('Add case note') as HTMLLinkElement).href
-    ).toContain(`/people/${mockedResident.id}/records/case-note-recording`);
-  });
 });
