@@ -61,10 +61,13 @@ export const generateFlexibleSchema = (
       shape[field.id] = Yup.object();
     } else if (
       field.type === 'checkboxes' ||
+      field.type === 'datetime' ||
       field.type === 'repeater' ||
       field.type === 'tags'
     ) {
-      shape[field.id] = Yup.array().of(Yup.string());
+      shape[field.id] = Yup.array().of(
+        Yup.string().required(getErrorMessage(field))
+      );
     } else {
       shape[field.id] = Yup.string();
     }
@@ -76,6 +79,11 @@ export const generateFlexibleSchema = (
           'total',
           getErrorMessage(field),
           (value) => getTotalHours(value) !== 0
+        );
+      } else if (field.type === 'datetime') {
+        shape[field.id] = (shape[field.id] as Yup.NumberSchema).min(
+          2,
+          getErrorMessage(field)
         );
       } else if (
         field.type === 'checkboxes' ||

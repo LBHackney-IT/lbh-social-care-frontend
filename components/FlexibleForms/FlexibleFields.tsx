@@ -5,6 +5,7 @@ import SelectField from './SelectField';
 import RepeaterField from './RepeaterField';
 import RepeaterGroupField from './RepeaterGroupField';
 import ComboboxField from './ComboboxField';
+import DateTimeField from './DateTimeField';
 import { FormikValues, FormikTouched, FormikErrors } from 'formik';
 import { Field } from 'data/flexibleForms/forms.types';
 import TimetableField from './TimetableField';
@@ -59,6 +60,17 @@ const FlexibleField = ({
   if (field.type === 'date')
     return (
       <TextField
+        name={field.id}
+        label={field.question}
+        touched={touched}
+        errors={errors}
+        {...field}
+      />
+    );
+
+  if (field.type === 'datetime')
+    return (
+      <DateTimeField
         name={field.id}
         label={field.question}
         touched={touched}
