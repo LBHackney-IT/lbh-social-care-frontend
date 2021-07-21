@@ -1,7 +1,9 @@
 import { Step } from '../../data/flexibleForms/forms.types';
 import TextField from 'components/FlexibleForms/TextField';
 import { Formik, Form } from 'formik';
-import { submitSchema } from 'lib/validators';
+import { generateSubmitSchema } from 'lib/validators';
+import { useAuth } from 'components/UserContext/UserContext';
+import { User } from 'types';
 
 interface Props {
   approvable?: boolean;
@@ -16,6 +18,8 @@ const TaskListHeader = ({
   completedSteps,
   onFinish,
 }: Props): React.ReactElement => {
+  const { user } = useAuth() as { user: User };
+
   if (completedSteps.length < steps.length)
     return (
       <>
@@ -40,7 +44,7 @@ const TaskListHeader = ({
           initialValues={{
             approverEmail: '',
           }}
-          validationSchema={submitSchema}
+          validationSchema={generateSubmitSchema(user.email)}
         >
           {({ touched, errors, isSubmitting }) => (
             <Form>
@@ -51,6 +55,7 @@ const TaskListHeader = ({
                 label="Who should approve this?"
                 hint="Enter the email address of a manager or colleague"
                 required
+                className="govuk-input--length-20"
               />
               <button
                 className="govuk-button lbh-button"
