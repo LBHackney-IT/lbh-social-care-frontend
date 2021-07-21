@@ -1,6 +1,7 @@
 import {
   generateFlexibleSchema,
   validateConditionalFields,
+  generateSubmitSchema,
 } from './validators';
 
 describe('generateFlexibleSchema', () => {
@@ -259,5 +260,17 @@ describe('validateConditionalFields', () => {
       },
     ]);
     expect(result).toMatchObject({});
+  });
+});
+
+describe('generateSubmitSchema', () => {
+  it("doesn't allow the user to put themselves down as approver", async () => {
+    const schema = generateSubmitSchema('foo@hackney.gov.uk');
+
+    await expect(
+      schema.validate({
+        approverEmail: 'foo@hackney.gov.uk',
+      })
+    ).rejects.toThrowError(`You can't approve your own submissions`);
   });
 });

@@ -81,4 +81,21 @@ describe('RevisionTimeline', () => {
     expect(screen.getByText(`Approved by ${mockedWorker.email}`));
     expect(screen.getByText('28 Jul 2021', { exact: false }));
   });
+
+  it('correctly renders a panel approval', () => {
+    render(
+      <RevisionTimeline
+        submission={{
+          ...mockSubmission,
+          panelApprovedAt: '2021-07-28T11:00:00.000Z',
+          panelApprovedBy: mockedWorker,
+        }}
+      />
+    );
+
+    expect(
+      screen.getByText(`Approved on behalf of panel by ${mockedWorker.email}`)
+    );
+    expect(screen.getByText('28 Jul 2021', { exact: false }));
+  });
 });

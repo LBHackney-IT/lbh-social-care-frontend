@@ -62,6 +62,7 @@ export interface Form {
   name: string;
   steps: Step[];
   approvable?: boolean;
+  panelApprovable?: boolean;
   groupRecordable?: boolean;
   isViewableByChildrens: boolean;
   isViewableByAdults: boolean;
@@ -105,6 +106,8 @@ export interface Submission {
   submittedAt: string | null;
   approvedBy: Worker | null;
   approvedAt: string | null;
+  panelApprovedBy: Worker | null;
+  panelApprovedAt: string | null;
   residents: Resident[];
   workers: Worker[];
   editHistory: Revision[];

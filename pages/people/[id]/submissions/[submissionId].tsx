@@ -8,6 +8,7 @@ import PersonWidget from 'components/PersonWidget/PersonWidget';
 import { Resident, User } from 'types';
 import forms from 'data/flexibleForms';
 import RevisionTimeline from 'components/RevisionTimeline/RevisionTimeline';
+import PanelApprovalWidget from 'components/ApprovalWidget/PanelApprovalWidget';
 import ApprovalWidget from 'components/ApprovalWidget/ApprovalWidget';
 import { useAuth } from 'components/UserContext/UserContext';
 
@@ -32,6 +33,10 @@ const SubmissionPage = ({ submission, person }: Props): React.ReactElement => {
 
       {form?.approvable && (
         <ApprovalWidget user={user} submission={submission} />
+      )}
+
+      {form?.panelApprovable && (
+        <PanelApprovalWidget user={user} submission={submission} />
       )}
 
       <div className="govuk-grid-row">
