@@ -200,9 +200,11 @@ const form: Form = {
         {
           id: 'Date of event',
           question: 'When did this happen?',
-          type: 'date',
-          className: 'govuk-input--width-10',
-          default: format(new Date(), 'yyyy-MM-dd'),
+          type: 'datetime',
+          default: [
+            format(new Date(), 'yyyy-MM-dd'),
+            format(new Date(), 'HH:00'),
+          ],
         },
         {
           id: 'Actions',
