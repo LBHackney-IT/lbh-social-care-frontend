@@ -19,6 +19,7 @@ const form: Form = {
           question: 'What kind of note is this?',
           type: 'radios',
           required: true,
+          error: 'You must give this note a type',
           choices: [
             {
               value: 'Visit',
@@ -65,20 +66,16 @@ const form: Form = {
           },
           choices: [
             {
-              value: 'Home',
-              label: 'Home visit',
+              value: 'Face to face',
+              label: 'Face to face visit',
             },
             {
               value: 'Office',
               label: 'Office visit',
             },
             {
-              value: 'Virtual',
-              label: 'Virtual visit',
-            },
-            {
-              value: 'No reply to home visit',
-              label: 'No reply to home visit',
+              value: 'Unsuccessful',
+              label: 'Unsuccessful visit',
             },
           ],
         },
@@ -191,6 +188,8 @@ const form: Form = {
           question: 'Title',
           type: 'text',
           className: 'govuk-input--width-20',
+          required: true,
+          error: 'You must give this note a title',
         },
         {
           id: 'Body',
