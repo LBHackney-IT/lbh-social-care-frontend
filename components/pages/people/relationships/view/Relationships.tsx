@@ -100,7 +100,7 @@ const Relationships = ({ person }: Props): React.ReactElement => {
         <hr className="govuk-divider" />
         {personalRelationships && personalRelationships.length > 0 ? (
           <table className="govuk-table lbh-table">
-            <thead className="govuk-table__head govuk-visually-hidden">
+            <thead className="govuk-table__head">
               <tr className="govuk-table__row">
                 <th scope="col" className="govuk-table__header">
                   Relationship type
@@ -109,13 +109,13 @@ const Relationships = ({ person }: Props): React.ReactElement => {
                   Name
                 </th>
                 <th scope="col" className="govuk-table__header">
-                  Main carer
+                  Role
                 </th>
                 <th scope="col" className="govuk-table__header">
                   Gender
                 </th>
                 <th scope="col" className="govuk-table__header">
-                  Context of relationship
+                  Context
                 </th>
                 <th scope="col" className="govuk-table__header">
                   Action
@@ -141,8 +141,9 @@ const Relationships = ({ person }: Props): React.ReactElement => {
                           <th
                             data-testid={`${relationship.type}`}
                             scope="row"
-                            className="govuk-table__header govuk-!-width-one-quarter"
+                            className="govuk-table__header"
                             rowSpan={relationship.relationships.length}
+                            style={{ width: '15%' }}
                           >
                             {RELATIONSHIP_TYPES[relationship.type]}
                           </th>
