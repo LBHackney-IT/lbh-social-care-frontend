@@ -115,7 +115,9 @@ describe('TextField', () => {
 
     expect(screen.getAllByRole('textbox').length).toBe(5);
 
-    expect(screen.getAllByRole('textbox').length).toBe(7);
+    expect(screen.getAllByLabelText('Date').length).toBe(1);
+    expect(screen.getAllByLabelText('Time').length).toBe(1);
+
     expect(screen.getAllByRole('radio').length).toBe(1);
     expect(screen.getAllByRole('checkbox').length).toBe(1);
     expect(screen.getAllByRole('combobox').length).toBe(2);

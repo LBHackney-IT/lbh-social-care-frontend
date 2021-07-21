@@ -113,10 +113,15 @@ describe('generateInitialValues', () => {
           subfields: [
             {
               id: 'eight',
-              question: 'repeater group',
+              question: '',
               type: 'text',
             },
           ],
+        },
+        {
+          id: 'nine',
+          question: '',
+          type: 'datetime',
         },
       ],
       undefined
@@ -134,6 +139,7 @@ describe('generateInitialValues', () => {
           eight: '',
         },
       ],
+      nine: [],
     });
   });
 
@@ -193,7 +199,7 @@ describe('generateInitialValues', () => {
     expect(result).toMatchObject({ one: [] });
   });
 
-  it('applies a default value to a string-type field', () => {
+  it('applies a default value to a string-type or a datetime field', () => {
     const result = generateInitialValues([
       {
         id: 'foo',
@@ -201,8 +207,14 @@ describe('generateInitialValues', () => {
         type: 'text',
         default: 'bar',
       },
+      {
+        id: 'one',
+        question: '',
+        type: 'datetime',
+        default: 'two',
+      },
     ]);
-    expect(result).toMatchObject({ foo: 'bar' });
+    expect(result).toMatchObject({ foo: 'bar', one: 'two' });
   });
 });
 

@@ -21,7 +21,7 @@ interface FieldProps {
   required?: boolean;
 }
 
-const Field = ({
+const DateTimeField = ({
   touched,
   errors,
   name,
@@ -29,12 +29,12 @@ const Field = ({
   hint,
   required,
 }: FieldProps): React.ReactElement => (
-  <div
+  <fieldset
     className={`govuk-form-group lbh-form-group ${
       getIn(touched, name) && getIn(errors, name) && 'govuk-form-group--error'
     }`}
   >
-    <label htmlFor={name} data-testid={name} className="govuk-label lbh-label">
+    <legend className="govuk-label lbh-label">
       {label}
       {required && (
         <span className="govuk-required">
@@ -42,7 +42,7 @@ const Field = ({
           <span className="govuk-visually-hidden">required</span>
         </span>
       )}
-    </label>
+    </legend>
 
     {hint && (
       <span id={`${name}-hint`} className="govuk-hint lbh-hint">
@@ -54,26 +54,35 @@ const Field = ({
       {(msg) => (
         <p className="govuk-error-message lbh-error-message" role="alert">
           <span className="govuk-visually-hidden">Error:</span>
-          {msg[0] || msg[1]}
+          {Array.isArray(msg) ? msg[0] || msg[1] : msg}
         </p>
       )}
     </ErrorMessage>
 
+    <label htmlFor={`${name}-date`} className="govuk-visually-hidden">
+      Date
+    </label>
     <RawField
+      data-testId="datetime-box"
       name={`${name}.0`}
-      id={name}
+      id={`${name}-date`}
       className={`govuk-input lbh-input ${s.date}`}
       aria-describedby={hint && `${name}-hint`}
       type="date"
     />
+
+    <label htmlFor={`${name}-time`} className="govuk-visually-hidden">
+      Time
+    </label>
     <RawField
+      data-testId="datetime-box"
       name={`${name}.1`}
-      id={name}
+      id={`${name}-time`}
       className={'govuk-input lbh-input govuk-input--width-5'}
       aria-describedby={hint && `${name}-hint`}
       type="time"
     />
-  </div>
+  </fieldset>
 );
 
-export default Field;
+export default DateTimeField;
