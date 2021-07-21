@@ -16,7 +16,7 @@ const endpoint: NextApiHandler = async (
   if (!user.isAuthorised) {
     return res.status(StatusCodes.FORBIDDEN).end();
   }
-  const { caseId, ...params } = req.query;
+  const { caseId, residentId, ...params } = req.query;
   switch (req.method) {
     case 'GET':
       try {
@@ -24,6 +24,7 @@ const endpoint: NextApiHandler = async (
           caseId as string,
           {
             ...params,
+            residentId: Number(residentId),
             context_flag: user.permissionFlag,
           },
           user

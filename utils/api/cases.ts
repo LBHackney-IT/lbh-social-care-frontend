@@ -25,8 +25,11 @@ export const useCasesByResident = (
   // @ts-ignore
   useSWRInfinite(getInfiniteKey(`/api/residents/${id}/cases`, 'cases', params));
 
-export const useCase = (caseId: string): SWRResponse<Case, ErrorAPI> =>
-  useSWR(`/api/cases/${caseId}`);
+export const useCase = (
+  caseId: string,
+  residentId: number
+): SWRResponse<Case, ErrorAPI> =>
+  useSWR(`/api/cases/${caseId}?residentId=${residentId}`);
 
 export const useHistoricCaseNote = (
   caseId: string

@@ -38,7 +38,10 @@ const AllocationRecap = ({
     personId,
     allocationId
   );
-  const { data: { caseFormData } = {}, error: recordError } = useCase(recordId);
+  const { data: { caseFormData } = {}, error: recordError } = useCase(
+    recordId,
+    personId
+  );
   if (recordError || allocationError) {
     return <ErrorMessage />;
   }
