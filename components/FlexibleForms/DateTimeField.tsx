@@ -63,7 +63,6 @@ const DateTimeField = ({
       Date
     </label>
     <RawField
-      data-testId="datetime-box"
       name={`${name}.0`}
       id={`${name}-date`}
       className={`govuk-input lbh-input ${s.date}`}
@@ -75,7 +74,6 @@ const DateTimeField = ({
       Time
     </label>
     <RawField
-      data-testId="datetime-box"
       name={`${name}.1`}
       id={`${name}-time`}
       className={'govuk-input lbh-input govuk-input--width-5'}
