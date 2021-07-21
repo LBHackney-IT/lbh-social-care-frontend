@@ -12,6 +12,7 @@ export interface Field {
     | 'text'
     | 'textarea'
     | 'date'
+    | 'datetime'
     | 'radios'
     | 'checkboxes'
     | 'select'
@@ -27,8 +28,8 @@ export interface Field {
   className?: string;
   /** on conditional fields, required value is only respected when all conditions are met */
   required?: boolean;
-  /** give an initial, default value for string-type fields */
-  default?: string;
+  /** give an initial, default value for datetime and string-type fields */
+  default?: string | string[];
   /** for select, radio, checkboxes, tags and combobox fields */
   choices?: Choice[];
   /** checkbox, file and repeater fields don't support prefilling */
