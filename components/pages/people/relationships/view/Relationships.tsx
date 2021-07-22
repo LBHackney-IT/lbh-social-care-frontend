@@ -1,7 +1,6 @@
 import ErrorMessage from 'components/ErrorMessage/ErrorMessage';
 import Spinner from 'components/Spinner/Spinner';
 import { removeRelationship, useRelationships } from 'utils/api/relationships';
-import Button from 'components/Button/Button';
 import { useState } from 'react';
 import { ConditionalFeature } from 'lib/feature-flags/feature-flags';
 import Link from 'next/link';
@@ -10,6 +9,7 @@ import { RelationshipType, Resident, ExistingRelationship } from 'types';
 import { RELATIONSHIP_TYPES } from 'data/relationships';
 import RemoveRelationshipDialog from '../remove/RemoveRelationshipDialog';
 import Router from 'next/router';
+import s from 'stylesheets/Section.module.scss';
 
 interface Props {
   person: Resident;
@@ -71,7 +71,7 @@ const Relationships = ({ person }: Props): React.ReactElement => {
   combineOfUnbornChildForType('sibling');
 
   return (
-    <div>
+    <>
       <RemoveRelationshipDialog
         person={relationshipToRemove}
         isOpen={isRemoveRelationshipDialogOpen}
@@ -84,26 +84,26 @@ const Relationships = ({ person }: Props): React.ReactElement => {
           }
         }}
       />
-      <div>
-        <div className="lbh-table-header">
-          <h3 className="govuk-fieldset__legend--m govuk-custom-text-color">
-            RELATIONSHIPS
-          </h3>
+
+      <section className="govuk-!-margin-bottom-8">
+        <div className={s.heading}>
+          <h2>Relationships</h2>
+
           <ConditionalFeature name="add-relationships">
-            <Button
-              label="Add a new relationship"
-              route={`/people/${person.id}/relationships/add`}
-            />
+            <Link href={`/people/${person.id}/relationships/add`}>
+              <a className="lbh-link lbh-link--no-visited-state">
+                Add a new relationship
+              </a>
+            </Link>
           </ConditionalFeature>
         </div>
 
-        <hr className="govuk-divider" />
         {personalRelationships && personalRelationships.length > 0 ? (
           <table className="govuk-table lbh-table">
             <thead className="govuk-table__head">
               <tr className="govuk-table__row">
                 <th scope="col" className="govuk-table__header">
-                  Relationship type
+                  Type
                 </th>
                 <th scope="col" className="govuk-table__header">
                   Name
@@ -244,9 +244,9 @@ const Relationships = ({ person }: Props): React.ReactElement => {
         ) : (
           <p className="lbh-body">No relationships found for this person</p>
         )}
-      </div>
+      </section>
       {error && <ErrorMessage />}
-    </div>
+    </>
   );
 };
 

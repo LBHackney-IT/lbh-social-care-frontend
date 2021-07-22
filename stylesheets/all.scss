@@ -206,3 +206,8 @@ input[type='time'] {
 .lbh-timeline__event {
   padding-bottom: 25px;
 }
+
+// fix ugly line breaks on person details
+.govuk-summary-list__value br {
+  margin: 0;
+}

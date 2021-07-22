@@ -60,7 +60,7 @@ const SubmissionRow = ({
           </dd>
           <br />
           <dt>Last edited</dt>{' '}
-          <dd>{format(new Date(submission.createdAt), 'dd MMM yyyy')}</dd>
+          <dd>{format(new Date(submission.createdAt), 'd MMM yyyy')}</dd>
         </dl>
 
         <button
@@ -92,13 +92,13 @@ const SubmissionRow = ({
           <dl>
             <div>
               <dt className="lbh-body-s">Last edited</dt>
-              <dd>{format(new Date(lastEdited), 'dd MMM yyyy K.mm aaa')}</dd>
+              <dd>{format(new Date(lastEdited), 'd MMM yyyy K.mm aaa')}</dd>
             </div>
 
             <div>
               <dt className="lbh-body-s">Started</dt>
               <dd>
-                {format(new Date(submission.createdAt), 'dd MMM yyyy K.mm aaa')}
+                {format(new Date(submission.createdAt), 'd MMM yyyy K.mm aaa')}
               </dd>
             </div>
 
