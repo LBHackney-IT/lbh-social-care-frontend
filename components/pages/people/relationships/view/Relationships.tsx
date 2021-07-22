@@ -1,7 +1,6 @@
 import ErrorMessage from 'components/ErrorMessage/ErrorMessage';
 import Spinner from 'components/Spinner/Spinner';
 import { removeRelationship, useRelationships } from 'utils/api/relationships';
-import Button from 'components/Button/Button';
 import { useState } from 'react';
 import { ConditionalFeature } from 'lib/feature-flags/feature-flags';
 import Link from 'next/link';
@@ -93,7 +92,7 @@ const Relationships = ({ person }: Props): React.ReactElement => {
           <ConditionalFeature name="add-relationships">
             <Link href={`/people/${person.id}/relationships/add`}>
               <a className="lbh-link lbh-link--no-visited-state">
-                Add a relationship
+                Add a new relationship
               </a>
             </Link>
           </ConditionalFeature>

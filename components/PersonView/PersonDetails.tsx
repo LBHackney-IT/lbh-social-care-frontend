@@ -75,7 +75,7 @@ const PersonDetails = ({ person }: Props): React.ReactElement => {
             <div className="govuk-summary-list__row">
               <dt className="govuk-summary-list__key">Date of birth</dt>
               <dd className="govuk-summary-list__value">
-                {format(new Date(dateOfBirth), 'dd MMM yyyy')}
+                {format(new Date(dateOfBirth), 'd MMM yyyy')}
               </dd>
             </div>
           )}
@@ -83,7 +83,7 @@ const PersonDetails = ({ person }: Props): React.ReactElement => {
             <div className="govuk-summary-list__row">
               <dt className="govuk-summary-list__key">Date of death</dt>
               <dd className="govuk-summary-list__value">
-                {format(new Date(dateOfDeath), 'dd MMM yyyy')}
+                {format(new Date(dateOfDeath), 'd MMM yyyy')}
               </dd>
             </div>
           )}

@@ -29,7 +29,7 @@ const RevisionTimeline = ({ submission }: Props): React.ReactElement | null => {
             <p className="lbh-body-xs">
               {format(
                 new Date(submission.panelApprovedAt),
-                'dd MMM yyyy K.mm aaa'
+                'd MMM yyyy K.mm aaa'
               )}
             </p>
           </li>
@@ -48,7 +48,7 @@ const RevisionTimeline = ({ submission }: Props): React.ReactElement | null => {
               Approved by {submission.approvedBy?.email}
             </h3>
             <p className="lbh-body-xs">
-              {format(new Date(submission.approvedAt), 'dd MMM yyyy K.mm aaa')}
+              {format(new Date(submission.approvedAt), 'd MMM yyyy K.mm aaa')}
             </p>
           </li>
         )}
@@ -62,7 +62,7 @@ const RevisionTimeline = ({ submission }: Props): React.ReactElement | null => {
             <h3 className="lbh-body">Edited by {revision.worker.email}</h3>
 
             <p className="lbh-body-xs">
-              {format(new Date(revision.editTime), 'dd MMM yyyy K.mm aaa')}
+              {format(new Date(revision.editTime), 'd MMM yyyy K.mm aaa')}
             </p>
           </li>
         ))}
@@ -70,7 +70,7 @@ const RevisionTimeline = ({ submission }: Props): React.ReactElement | null => {
         <li className="lbh-timeline__event">
           <h3 className="lbh-body">Started by {submission.createdBy.email}</h3>
           <p className="lbh-body-xs">
-            {format(new Date(submission.createdAt), 'dd MMM yyyy K.mm aaa')}
+            {format(new Date(submission.createdAt), 'd MMM yyyy K.mm aaa')}
           </p>
         </li>
       </ol>
