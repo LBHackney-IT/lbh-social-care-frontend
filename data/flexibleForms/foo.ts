@@ -1,4 +1,5 @@
 import { Form } from './forms.types';
+import { format } from 'date-fns';
 
 const form: Form = {
   id: 'foo',
@@ -14,13 +15,20 @@ const form: Form = {
       theme: 'About you',
       fields: [
         {
-          id: 'Primary address tenure type',
-          question: 'Topics',
-          hint: 'Add as many as you need',
-
-          type: 'text',
+          id: 'Date of event',
+          question: 'When did this happen?',
+          type: 'datetime',
           required: true,
-          itemName: 'topic',
+          default: [
+            format(new Date(), 'yyyy-MM-dd'),
+            format(new Date(), 'HH:00'),
+          ],
+        },
+        {
+          id: 'Test',
+          question: 'Example question',
+          type: 'repeater',
+          required: true,
         },
       ],
     },

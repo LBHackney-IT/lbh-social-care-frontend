@@ -6,7 +6,7 @@ const form: Form = {
   name: 'Case note',
   groupRecordable: true,
   isViewableByAdults: false,
-  isViewableByChildrens: true,
+  isViewableByChildrens: false,
   canonicalUrl: (socialCareId) => `/people/${socialCareId}/case-note`,
   steps: [
     {
