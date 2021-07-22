@@ -4,6 +4,17 @@ import CaseLink from 'components/Cases/CaseLink';
 import { normaliseDateToISO } from 'utils/date';
 import { isMajorEvent } from './PersonTimeline';
 
+const safelyFormat = (rawDate: string): string => {
+  try {
+    return format(
+      new Date(rawDate),
+      rawDate.includes('T') ? 'dd MMM yyyy K.mm aaa' : 'dd MMM yyyy'
+    );
+  } catch (e) {
+    return rawDate;
+  }
+};
+
 interface Props {
   event: Case;
 }
@@ -34,10 +45,7 @@ const Event = ({ event }: Props): React.ReactElement => {
       </h3>
 
       <p className="lbh-body govuk-!-margin-top-1">
-        {format(
-          new Date(displayDate),
-          displayDate.includes('T') ? 'dd MMM yyyy K.mm aaa' : 'dd MMM yyyy'
-        )}
+        {safelyFormat(displayDate)}
       </p>
       <p className="lbh-body govuk-!-margin-top-1">{event.officerEmail}</p>
     </li>

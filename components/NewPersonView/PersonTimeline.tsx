@@ -17,6 +17,14 @@ export const isMajorEvent = (event: Case): boolean =>
   MAJOR_FORMS.includes(event?.formName) ||
   MAJOR_FORMS.includes(event?.caseFormData?.form_name_overall);
 
+const safelyFormatDistanceToNow = (rawDate: string): string => {
+  try {
+    return formatDistanceToNow(new Date(rawDate));
+  } catch (e) {
+    return rawDate;
+  }
+};
+
 interface Props {
   events: Case[];
   unfinishedSubmissions?: Submission[];
@@ -82,8 +90,7 @@ const PersonTimeline = ({
           {results.length > 0 ? (
             <p className="lbh-body-xs">
               Showing {results?.length} events over{' '}
-              {oldestTimestamp &&
-                formatDistanceToNow(new Date(oldestTimestamp))}
+              {oldestTimestamp && safelyFormatDistanceToNow(oldestTimestamp)}
             </p>
           ) : (
             <p className="lbh-body-xs">No events match your search</p>
