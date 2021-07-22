@@ -100,8 +100,9 @@ describe('date util', () => {
   });
 
   describe('normaliseDateToISO', () => {
-    it('should work properly', () => {
+    it('should handle all likely date formats', () => {
       expect(normaliseDateToISO('1941-09-22')).toEqual('1941-09-22');
+      expect(normaliseDateToISO('22/09/1941')).toEqual('1941-09-22');
       expect(normaliseDateToISO('22/09/1941 13:49:43')).toEqual(
         '1941-09-22T13:49:43'
       );
