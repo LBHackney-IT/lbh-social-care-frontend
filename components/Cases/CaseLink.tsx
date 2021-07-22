@@ -40,7 +40,12 @@ const CaseLink = ({
       </a>
     );
   }
-  const internalLink = generateInternalLink(recordId, caseFormData);
+  const internalLink = generateInternalLink({
+    recordId,
+    caseFormData,
+    personId,
+    formName,
+  });
   return internalLink ? (
     <Link href={internalLink}>
       <a className="lbh-link">{children || 'View'}</a>

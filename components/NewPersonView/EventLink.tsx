@@ -35,7 +35,7 @@ const EventLink = ({ event }: Props): React.ReactElement => {
     );
 
   // 3. handle legacy forms
-  const legacyUrl = generateLegacyUrl(event.recordId, event.caseFormData);
+  const legacyUrl = generateLegacyUrl(event);
   if (legacyUrl)
     return (
       <Link href={legacyUrl}>
