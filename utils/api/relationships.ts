@@ -12,7 +12,7 @@ interface addRelationshipFormData {
   otherPersonId: number;
   createdBy: string;
   type: string;
-  additionalOptions?: string[] | boolean;
+  additionalOptions?: string | string[] | boolean;
   isMainCarer?: string;
   details?: string;
 }
@@ -20,8 +20,9 @@ interface addRelationshipFormData {
 export const addRelationships = async (
   formData: addRelationshipFormData
 ): Promise<Record<string, unknown>> => {
-  if (formData.additionalOptions && Array.isArray(formData.additionalOptions)) {
+  if (formData.additionalOptions) {
     if (
+      Array.isArray(formData.additionalOptions) &&
       formData.type === 'parent' &&
       formData.additionalOptions?.includes('isParentOfUnbornChild')
     ) {
@@ -29,13 +30,18 @@ export const addRelationships = async (
     }
 
     if (
+      Array.isArray(formData.additionalOptions) &&
       formData.type === 'sibling' &&
       formData.additionalOptions?.includes('isSiblingOfUnbornChild')
     ) {
       formData.type = 'siblingOfUnbornChild';
     }
 
-    if (formData.additionalOptions?.includes('isMainCarer')) {
+    if (
+      (Array.isArray(formData.additionalOptions) &&
+        formData.additionalOptions?.includes('isMainCarer')) ||
+      formData.additionalOptions == 'isMainCarer'
+    ) {
       formData.isMainCarer = 'Y';
     }
 

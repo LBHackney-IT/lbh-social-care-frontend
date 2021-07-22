@@ -150,7 +150,8 @@ html {
 }
 
 // fix vertical padding on date input
-input[type='date'] {
+input[type='date'],
+input[type='time'] {
   padding: 0 5px;
 }
 
