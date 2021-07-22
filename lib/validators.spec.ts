@@ -42,6 +42,11 @@ describe('generateFlexibleSchema', () => {
         id: 'seven',
         type: 'timetable',
       },
+      {
+        question: 'foo',
+        id: 'eight',
+        type: 'datetime',
+      },
     ]);
 
     const result = await schema.validate({
@@ -52,6 +57,7 @@ describe('generateFlexibleSchema', () => {
       five: 'value',
       six: 'value',
       seven: {},
+      eight: [],
     });
 
     expect(result).toBeTruthy();
@@ -110,6 +116,21 @@ describe('generateFlexibleSchema', () => {
             Morning: '0',
           },
         },
+      })
+    ).rejects.toThrow();
+
+    const schema4 = generateFlexibleSchema([
+      {
+        id: 'one',
+        question: 'foo',
+        type: 'datetime',
+        required: true,
+      },
+    ]);
+
+    await expect(
+      schema4.validate({
+        one: ['test'],
       })
     ).rejects.toThrow();
   });
