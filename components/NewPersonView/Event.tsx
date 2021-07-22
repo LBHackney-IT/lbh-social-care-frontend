@@ -1,7 +1,7 @@
 import { format } from 'date-fns';
 import { Case } from 'types';
-import CaseLink from 'components/Cases/CaseLink';
 import { normaliseDateToISO } from 'utils/date';
+import EventLink from './EventLink';
 import { isMajorEvent } from './PersonTimeline';
 
 const safelyFormat = (rawDate: string): string => {
@@ -24,8 +24,6 @@ const Event = ({ event }: Props): React.ReactElement => {
     String(event?.dateOfEvent || event?.caseFormTimestamp)
   );
 
-  const displayName = event?.formName || event?.caseFormData?.form_name_overall;
-
   return (
     <li
       className={`lbh-timeline__event ${
@@ -33,15 +31,7 @@ const Event = ({ event }: Props): React.ReactElement => {
       }`}
     >
       <h3 className="lbh-heading-h3">
-        <CaseLink
-          formName={event.formName}
-          externalUrl={event.caseFormUrl}
-          caseFormData={event.caseFormData}
-          recordId={event.recordId}
-          personId={event.personId}
-        >
-          {displayName}
-        </CaseLink>
+        <EventLink event={event} />
       </h3>
 
       <p className="lbh-body govuk-!-margin-top-1">
