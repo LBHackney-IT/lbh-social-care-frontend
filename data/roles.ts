@@ -138,6 +138,7 @@ export const CSFRoles = [
   'Consultant Social Worker',
   'Consultant Social Worker Unit 18',
   'Couples Therapist',
+  'DCS Level 1 Care Package',
   'Early Help Practitioner',
   'Family Therapist',
   'FLIP Operations Manager',
