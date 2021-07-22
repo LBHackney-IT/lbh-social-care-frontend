@@ -43,6 +43,7 @@ const CustomApp = ({
 
   useEffect(() => {
     const environmentName = [
+      'localhost:3000',
       'dev.hackney.gov.uk:3000',
       'social-care-service-staging.hackney.gov.uk',
     ].includes(window.location.host)
