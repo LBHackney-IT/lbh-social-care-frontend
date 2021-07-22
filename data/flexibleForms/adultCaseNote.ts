@@ -150,10 +150,13 @@ const form: Form = {
         {
           id: 'Date of event',
           question: 'When did this happen?',
-          type: 'date',
-          className: 'govuk-input--width-10',
-          default: format(new Date(), 'yyyy-MM-dd'),
+          type: 'datetime',
+          default: [
+            format(new Date(), 'yyyy-MM-dd'),
+            format(new Date(), 'HH:00'),
+          ],
         },
+
         {
           id: 'Actions',
           question: 'Actions',
@@ -163,19 +166,19 @@ const form: Form = {
           hiddenRepeater: true,
           subfields: [
             {
-              id: 'text',
+              id: 'Action',
               question: 'What needs to be done?',
               type: 'text',
               required: true,
             },
             {
-              id: 'assignee',
+              id: 'Assignee',
               question: 'Assigned to',
               type: 'text',
               className: 'govuk-input--width-10',
             },
             {
-              id: 'due',
+              id: 'Due',
               question: 'Due',
               type: 'date',
               className: 'govuk-input--width-10',
