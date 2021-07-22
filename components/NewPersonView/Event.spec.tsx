@@ -10,6 +10,7 @@ describe('Event', () => {
     expect(screen.getAllByRole('link').length).toBe(1);
 
     expect(screen.getByText('foorm'));
+    expect(screen.getByText('i am a case title', { exact: false }));
     expect(screen.getByText('25 Oct 2020 1.49 pm', { exact: false }));
     expect(screen.getByText('Fname.Lname@hackney.gov.uk', { exact: false }));
   });
@@ -23,5 +24,41 @@ describe('Event', () => {
     expect(screen.getByText('Warning Note'));
     expect(screen.getByText('25 Oct 2020 1.49 pm', { exact: false }));
     expect(screen.getByText('Fname.Lname@hackney.gov.uk', { exact: false }));
+  });
+
+  it('generates and truncates a snippet for form wizard case notes', () => {
+    render(
+      <Event
+        event={{
+          ...mockedWarningNoteCase,
+          caseFormData: {
+            ...mockedWarningNoteCase.caseFormData,
+            case_note_title: 'my title here',
+            case_note_description:
+              'my description here my description here my description here',
+          },
+        }}
+      />
+    );
+    expect(
+      screen.getByText(
+        'my title here: my description here my description here my...',
+        {
+          exact: false,
+        }
+      )
+    );
+  });
+
+  it('marks google docs', () => {
+    render(
+      <Event
+        event={{
+          ...mockedWarningNoteCase,
+          caseFormUrl: 'google.com/123',
+        }}
+      />
+    );
+    expect(screen.getByText('Google document', { exact: false }));
   });
 });

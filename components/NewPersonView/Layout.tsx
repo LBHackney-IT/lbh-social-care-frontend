@@ -9,7 +9,7 @@ import { useAllocatedWorkers } from 'utils/api/allocatedWorkers';
 import React from 'react';
 import WarningNotes from 'components/WarningNote/WarningNotes';
 import { useAuth } from 'components/UserContext/UserContext';
-import { canManageCases, canUserEditPerson } from 'lib/permissions';
+import { canManageCases } from 'lib/permissions';
 import AddFormDialog from 'components/AddFormDialog/AddFormDialog';
 import { useState } from 'react';
 import Banner from 'components/FlexibleForms/Banner';

@@ -135,4 +135,25 @@ describe('Layout', () => {
     );
     expect(screen.getByText('This person is restricted'));
   });
+
+  it("doesn't bother to tell authorised users when a resident is restricted", () => {
+    render(
+      <AuthProvider
+        user={{
+          ...mockedUser,
+          hasUnrestrictedPermissions: true,
+        }}
+      >
+        <Layout
+          person={{
+            ...mockedResident,
+            restricted: 'Y',
+          }}
+        >
+          Foo
+        </Layout>
+      </AuthProvider>
+    );
+    expect(screen.queryByText('This person is restricted')).toBeNull();
+  });
 });
