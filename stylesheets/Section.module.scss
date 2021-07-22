@@ -5,10 +5,14 @@
   padding-bottom: 15px;
   margin-bottom: 10px;
 
+  a {
+  }
+
   a,
   button {
     display: block;
     margin-top: 1rem;
+    @include lbh-body-m;
   }
 
   @include govuk-media-query(400px) {

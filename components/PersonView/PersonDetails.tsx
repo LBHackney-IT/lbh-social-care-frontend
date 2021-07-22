@@ -4,6 +4,7 @@ import { useAuth } from 'components/UserContext/UserContext';
 import { canUserEditPerson } from 'lib/permissions';
 import Link from 'next/link';
 import s from 'stylesheets/Section.module.scss';
+import { format } from 'date-fns';
 
 interface Props {
   person: Resident;
@@ -74,7 +75,7 @@ const PersonDetails = ({ person }: Props): React.ReactElement => {
             <div className="govuk-summary-list__row">
               <dt className="govuk-summary-list__key">Date of birth</dt>
               <dd className="govuk-summary-list__value">
-                {new Date(dateOfBirth).toLocaleDateString('en-GB')}
+                {format(new Date(dateOfBirth), 'dd MMM yyyy')}
               </dd>
             </div>
           )}
@@ -82,7 +83,7 @@ const PersonDetails = ({ person }: Props): React.ReactElement => {
             <div className="govuk-summary-list__row">
               <dt className="govuk-summary-list__key">Date of death</dt>
               <dd className="govuk-summary-list__value">
-                {new Date(dateOfDeath).toLocaleDateString('en-GB')}
+                {format(new Date(dateOfDeath), 'dd MMM yyyy')}
               </dd>
             </div>
           )}
@@ -119,6 +120,15 @@ const PersonDetails = ({ person }: Props): React.ReactElement => {
                 {address.address}
                 <br />
                 {address.postcode}
+                <br />
+                <a
+                  className="lbh-link lbh-link--no-visited-state"
+                  target="_blank"
+                  rel="noreferrer"
+                  href={`https://www.google.com/maps/dir//${address.address} ${address.postcode}`}
+                >
+                  Get directions
+                </a>
               </dd>
             </div>
           )}
@@ -129,7 +139,13 @@ const PersonDetails = ({ person }: Props): React.ReactElement => {
                 <ul className="lbh-list">
                   {phoneNumbers.map(({ number, type }) => (
                     <li key={number}>
-                      {number} - {type}
+                      <strong>{type}:</strong>{' '}
+                      <a
+                        href={`tel:${number}`}
+                        className="lbh-link lbh-link--no-visited-state"
+                      >
+                        {number}
+                      </a>
                     </li>
                   ))}
                 </ul>
@@ -139,7 +155,11 @@ const PersonDetails = ({ person }: Props): React.ReactElement => {
           {emailAddress && (
             <div className="govuk-summary-list__row">
               <dt className="govuk-summary-list__key">Email</dt>
-              <dd className="govuk-summary-list__value">{emailAddress}</dd>
+              <dd className="govuk-summary-list__value">
+                {emailAddress}
+                <br />
+                <a href={`mailto:${emailAddress}`}>Send email</a>
+              </dd>
             </div>
           )}
           {preferredMethodOfContact && (
@@ -156,7 +176,7 @@ const PersonDetails = ({ person }: Props): React.ReactElement => {
             <div className="govuk-summary-list__row">
               <dt className="govuk-summary-list__key">Service area</dt>
               <dd className="govuk-summary-list__value">
-                {contextFlag === 'C' ? 'CFS' : 'ASC'}
+                {contextFlag === 'C' ? 'Children' : 'Adults'}
               </dd>
             </div>
           )}
