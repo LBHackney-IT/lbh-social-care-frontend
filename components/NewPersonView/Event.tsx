@@ -10,7 +10,7 @@ const safelyFormat = (rawDate: string): string => {
   try {
     return format(
       new Date(rawDate),
-      rawDate.includes('T') ? 'dd MMM yyyy K.mm aaa' : 'dd MMM yyyy'
+      rawDate.includes('T') ? 'd MMM yyyy K.mm aaa' : 'd MMM yyyy'
     );
   } catch (e) {
     return rawDate;
@@ -40,13 +40,14 @@ const Event = ({ event }: Props): React.ReactElement => {
         <EventLink event={event} />
       </h3>
 
-      <p className="lbh-body govuk-!-margin-top-1">
+      <p className="lbh-body-s govuk-!-margin-top-2">
         {safelyFormat(displayDate)}
+        {event.caseFormUrl?.includes('google') && ` · Google document`}
         {event.officerEmail && ` · ${event.officerEmail}`}
       </p>
 
       {displaySnippet && (
-        <p className={`lbh-body-s govuk-!-margin-top-1 ${s.snippet}`}>
+        <p className={`lbh-body-s govuk-!-margin-top-2 ${s.snippet}`}>
           {truncate(displaySnippet, 10)}
         </p>
       )}
