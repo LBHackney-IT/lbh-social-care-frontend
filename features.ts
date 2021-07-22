@@ -22,7 +22,7 @@ export const getFeatureFlags = ({
     },
     // FEATURE-FLAG-EXPIRES [2021-08-31]: person-cases
     'person-cases': {
-      isActive: environmentName === 'production',
+      isActive: true,
     },
     // FEATURE-FLAG-EXPIRES [2021-08-15]: remove-relationship
     'remove-relationship': {
