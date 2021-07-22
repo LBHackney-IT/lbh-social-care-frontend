@@ -37,7 +37,7 @@ describe(`AllocationRecap`, () => {
       123,
       321
     );
-    expect(caseAPI.useCase).toHaveBeenCalledWith('r_123');
+    expect(caseAPI.useCase).toHaveBeenCalledWith('r_123', 123);
     expect(asFragment()).toMatchSnapshot();
   });
 
@@ -53,7 +53,7 @@ describe(`AllocationRecap`, () => {
       123,
       321
     );
-    expect(caseAPI.useCase).toHaveBeenCalledWith('r_123');
+    expect(caseAPI.useCase).toHaveBeenCalledWith('r_123', 123);
     expect(asFragment()).toMatchSnapshot();
   });
 });

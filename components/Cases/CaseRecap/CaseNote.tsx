@@ -10,7 +10,7 @@ interface Props {
 }
 
 const CaseNote = ({ personId, recordId }: Props): React.ReactElement => {
-  const { data: record, error: recordError } = useCase(recordId);
+  const { data: record, error: recordError } = useCase(recordId, personId);
 
   const recordData = record?.caseFormData?.form_name_overall;
 
