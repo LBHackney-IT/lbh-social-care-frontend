@@ -70,6 +70,25 @@ describe('AddFormDialog', () => {
     expect(screen.queryByText(ADULT_GFORMS[0].text)).toBeNull();
   });
 
+  it('adds prefill parameters to google forms', () => {
+    render(
+      <AuthProvider user={mockedUser}>
+        <AddFormDialog
+          isOpen={true}
+          onDismiss={jest.fn()}
+          person={mockedResident}
+        />
+      </AuthProvider>
+    );
+    expect(
+      screen
+        .getAllByText('Google form', { exact: false })[0]
+        .parentElement?.querySelector('a')?.href
+    ).toContain(
+      '?entry.323945892=1&entry.91559572=Foo&entry.1999530701=Bar&entry.432615953=Foo&entry.809765129=Bar&entry.1802043044=1&entry.787982027=Foo&entry.926422462=Bar&entry.2022397649=1&entry.529016216=foo@bar.com&entry.360061230=foo@bar.com'
+    );
+  });
+
   it('supports canonical urls', () => {
     render(
       <AuthProvider user={mockedUser}>
