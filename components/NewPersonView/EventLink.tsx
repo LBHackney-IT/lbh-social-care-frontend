@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import { Case } from 'types';
 import forms from 'data/flexibleForms';
-import { getLink as generateLegacyUrl } from 'components/Cases/CaseLink';
+import { generateInternalLink as generateLegacyUrl } from 'utils/urls';
 import s from './index.module.scss';
 
 interface Props {

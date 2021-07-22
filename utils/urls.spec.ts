@@ -1,7 +1,13 @@
-import { getQueryString, parseQueryString } from './urls';
+import {
+  mockedAllocationNote,
+  mockedCaseNote,
+  mockedWarningNoteCase,
+} from 'factories/cases';
+import { Case } from 'types';
+import { generateInternalLink, getQueryString, parseQueryString } from './urls';
 
 describe('urls', () => {
-  describe('getQueryStrin', () => {
+  describe('getQueryString', () => {
     it('should return empty string on empty object', () => {
       expect(getQueryString({})).toEqual('');
     });
@@ -30,6 +36,45 @@ describe('urls', () => {
         barfoo: 'yo',
         yo: 'true',
       });
+    });
+  });
+
+  describe('generateInternalUrl', () => {
+    it('correctly handles all legacy form-wizard forms', () => {
+      expect(generateInternalLink(mockedCaseNote)).toBe(
+        `/people/123/records/4`
+      );
+      expect(generateInternalLink(mockedAllocationNote)).toBe(
+        `/people/123/allocations/321?recordId=2`
+      );
+      expect(
+        generateInternalLink({
+          ...mockedWarningNoteCase,
+          caseFormData: {
+            ...mockedWarningNoteCase.caseFormData,
+            form_name: 'Warning Note Created',
+          },
+        })
+      ).toBe(`/people/123/warning-notes/456/view/note-created`);
+      expect(
+        generateInternalLink({
+          ...mockedCaseNote,
+          caseFormData: {
+            ...mockedCaseNote.caseFormData,
+            form_name_overall: 'Historical_Case_Note',
+            is_historical: true,
+          },
+        })
+      ).toBe(`/people/123/records/4?is_historical=true`);
+    });
+
+    it('returns nothing for an unrecognised form', () => {
+      const result = generateInternalLink({
+        caseFormData: {
+          form_name_overall: 'ffff',
+        },
+      } as Case);
+      expect(result).toBeNull();
     });
   });
 });
