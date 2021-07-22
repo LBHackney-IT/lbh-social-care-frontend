@@ -40,7 +40,7 @@ const RepeaterGroupAnswers = ({
   answers: (string | RepeaterGroupAnswerT)[];
 }): React.ReactElement => (
   <ul className="govuk-list lbh-list">
-    {answers.length > 1 &&
+    {answers.length > 0 &&
       answers.map((item, i) => (
         <li key={i}>
           {typeof item === 'string' ? (
