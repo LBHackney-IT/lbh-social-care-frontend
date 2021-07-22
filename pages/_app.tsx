@@ -16,6 +16,8 @@ import 'stylesheets/all.scss';
 import 'stylesheets/header.scss';
 import { FeatureFlagProvider } from '../lib/feature-flags/feature-flags';
 import { getFeatureFlags } from 'features';
+import { useRouter } from 'next/router';
+import { useEffect } from 'react';
 
 interface Props {
   user?: Partial<User>;
@@ -33,10 +35,26 @@ const CustomApp = ({
   pageProps,
 }: ExtendedAppProps): JSX.Element | null => {
   const [user] = useState(pageProps.user);
+  const [features, setFeatures] = useState(
+    getFeatureFlags({
+      environmentName: pageProps.environmentName,
+    })
+  );
 
-  const features = getFeatureFlags({
-    environmentName: pageProps.environmentName,
-  });
+  useEffect(() => {
+    const environmentName = [
+      'dev.hackney.gov.uk:3000',
+      'social-care-service-staging.hackney.gov.uk',
+    ].includes(window.location.host)
+      ? 'development'
+      : 'production';
+
+    const featureSet = getFeatureFlags({
+      environmentName,
+    });
+
+    setFeatures(featureSet);
+  }, []);
 
   return (
     <FeatureFlagProvider features={features}>
