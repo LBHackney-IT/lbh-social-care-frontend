@@ -1,8 +1,10 @@
 import { format } from 'date-fns';
+import { truncate } from 'lib/utils';
 import { Case } from 'types';
 import { normaliseDateToISO } from 'utils/date';
 import EventLink from './EventLink';
 import { isMajorEvent } from './PersonTimeline';
+import s from './index.module.scss';
 
 const safelyFormat = (rawDate: string): string => {
   try {
@@ -24,6 +26,10 @@ const Event = ({ event }: Props): React.ReactElement => {
     String(event?.dateOfEvent || event?.caseFormTimestamp)
   );
 
+  const displaySnippet = event?.caseFormData?.case_note_title
+    ? `${event?.caseFormData?.case_note_title}: ${event?.caseFormData?.case_note_description}`
+    : false;
+
   return (
     <li
       className={`lbh-timeline__event ${
@@ -36,8 +42,14 @@ const Event = ({ event }: Props): React.ReactElement => {
 
       <p className="lbh-body govuk-!-margin-top-1">
         {safelyFormat(displayDate)}
+        {event.officerEmail && ` · ${event.officerEmail}`}
       </p>
-      <p className="lbh-body govuk-!-margin-top-1">{event.officerEmail}</p>
+
+      {displaySnippet && (
+        <p className={`lbh-body-s govuk-!-margin-top-1 ${s.snippet}`}>
+          {truncate(displaySnippet, 10)}
+        </p>
+      )}
     </li>
   );
 };
