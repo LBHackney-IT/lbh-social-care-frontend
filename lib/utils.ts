@@ -88,6 +88,8 @@ export const generateInitialValues = (
     } else if (field.type === 'timetable') {
       initialValues[field.id] = generateInitialTimetableValues();
       initialValues[`${field.id} total hours`] = '';
+    } else if (field.type === 'datetime') {
+      initialValues[field.id] = field.default || [];
     } else if (initiallyArray.has(field.type)) {
       initialValues[field.id] = [];
     } else if (initiallyNull.has(field.type)) {

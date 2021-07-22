@@ -108,7 +108,6 @@ const StepFormInner = ({
           await submitForm();
           if (isValid) {
             setSaved(true);
-
             setGoBackToTaskList(true);
           }
         }}
