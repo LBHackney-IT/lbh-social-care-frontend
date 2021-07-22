@@ -2,6 +2,7 @@ import Link from 'next/link';
 import { Case } from 'types';
 import forms from 'data/flexibleForms';
 import { getLink as generateLegacyUrl } from 'components/Cases/CaseLink';
+import s from './index.module.scss';
 
 interface Props {
   event: Case;
@@ -16,7 +17,7 @@ const EventLink = ({ event }: Props): React.ReactElement => {
   if (flexibleForm)
     return (
       <Link href={`/people/${event.personId}/submissions/${event.recordId}`}>
-        <a className="lbh-link">{flexibleForm.name}</a>
+        <a className={`lbh-link ${s.eventLink}`}>{flexibleForm.name}</a>
       </Link>
     );
 
@@ -27,7 +28,7 @@ const EventLink = ({ event }: Props): React.ReactElement => {
         href={event.caseFormUrl}
         target="_blank"
         rel="noreferrer noopener"
-        className="lbh-link"
+        className={`lbh-link ${s.eventLink}`}
       >
         {event.formName}
       </a>
@@ -38,7 +39,7 @@ const EventLink = ({ event }: Props): React.ReactElement => {
   if (legacyUrl)
     return (
       <Link href={legacyUrl}>
-        <a className="lbh-link">{event.formName}</a>
+        <a className={`lbh-link ${s.eventLink}`}>{event.formName}</a>
       </Link>
     );
 

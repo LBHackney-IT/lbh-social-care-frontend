@@ -95,6 +95,13 @@
   }
 }
 
+.eventLink {
+  text-decoration: none;
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
 .snippet {
   color: lbh-colour('lbh-secondary-text');
 }
