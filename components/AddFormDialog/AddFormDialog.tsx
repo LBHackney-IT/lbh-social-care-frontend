@@ -11,6 +11,7 @@ import { useAuth } from 'components/UserContext/UserContext';
 import ADULT_GFORMS from 'data/googleForms/adultForms';
 import CHILD_GFORMS from 'data/googleForms/childForms';
 import flexibleForms from 'data/flexibleForms';
+import { populateChildForm } from 'utils/populate';
 
 interface Props {
   isOpen: boolean;
@@ -66,20 +67,20 @@ const AddFormDialog = ({
         .concat(
           gForms.map((f) => ({
             label: f.text,
-            href: f.value,
+            href: `${f.value}${populateChildForm(
+              person.firstName,
+              person.lastName,
+              person.id,
+              user.email,
+              f.value
+            )}`,
             system: false,
             groupRecordable: false,
             approvable: false,
             inPreview: false,
           }))
         ),
-    [
-      gForms,
-      serviceContext,
-      user.hasAdminPermissions,
-      user.hasDevPermissions,
-      person.id,
-    ]
+    [gForms, serviceContext, user, person]
   );
 
   const results = useSearch(
