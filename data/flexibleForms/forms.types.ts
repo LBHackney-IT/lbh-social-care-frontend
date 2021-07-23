@@ -38,7 +38,7 @@ export interface Field {
   subfields?: Field[];
   /** option to start with repeater group not open by default */
   hiddenRepeater?: boolean;
-  /** for repeater and repeater groups, a singular item name for more descriptive buttons and legends  */
+  /** for πer and repeater groups, a singular item name for more descriptive buttons and legends  */
   itemName?: string;
   /** for file fields only */
   // multiple?: boolean
