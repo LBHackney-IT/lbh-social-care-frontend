@@ -1,12 +1,12 @@
 import { fireEvent, render, screen } from '@testing-library/react';
 import { mockSubmission } from 'factories/submissions';
 import { mockedUser } from 'factories/users';
-import SubmissionRow from './SubmissionRow';
+import SubmissionPanel from './SubmissionPanel';
 
 describe('SearchBox', () => {
   it('renders correctly when closed', () => {
     render(
-      <SubmissionRow
+      <SubmissionPanel
         submission={mockSubmission}
         openRow={false}
         setOpenRow={jest.fn()}
@@ -20,7 +20,7 @@ describe('SearchBox', () => {
 
   it('renders correctly when open', () => {
     render(
-      <SubmissionRow
+      <SubmissionPanel
         submission={mockSubmission}
         openRow={'123'}
         setOpenRow={jest.fn()}
@@ -35,7 +35,7 @@ describe('SearchBox', () => {
   it('correctly fires the change handler', () => {
     const mockHandler = jest.fn();
     render(
-      <SubmissionRow
+      <SubmissionPanel
         submission={mockSubmission}
         openRow={false}
         setOpenRow={mockHandler}

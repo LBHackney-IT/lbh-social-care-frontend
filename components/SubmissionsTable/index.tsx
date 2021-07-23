@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Submission } from 'data/flexibleForms/forms.types';
-import SubmissionRow from './SubmissionRow';
+import SubmissionRow from './SubmissionPanel';
 import { useAuth } from 'components/UserContext/UserContext';
 import { User } from 'types';
 import s from './index.module.scss';
@@ -108,17 +108,7 @@ export const SubmissionsTable = ({
 
   return (
     <>
-      <fieldset className="govuk-radios govuk-radios--inline lbh-radios">
-        <Filter value="mine" filter={filter} setFilter={setFilter}>
-          Just mine
-        </Filter>
-        <Filter value="all" filter={filter} setFilter={setFilter}>
-          All
-        </Filter>
-      </fieldset>
-
       <SearchBox searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
-
       <Results
         user={user as User}
         filteredSubmissions={results}
