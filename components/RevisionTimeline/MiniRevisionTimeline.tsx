@@ -20,7 +20,7 @@ const RevisionTimeline = ({ submission }: Props): React.ReactElement | null => {
           <h3 className="lbh-body-s">{revision.worker.email}</h3>
 
           <p className="lbh-body-xs">
-            {format(new Date(revision.editTime), 'dd MMM yyyy K.mm aaa')}
+            {format(new Date(revision.editTime), 'd MMM yyyy K.mm aaa')}
           </p>
         </li>
       ))}

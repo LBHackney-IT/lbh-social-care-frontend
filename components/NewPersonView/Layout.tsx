@@ -138,7 +138,7 @@ const Layout = ({ person, children }: Props): React.ReactElement => {
           >
             #{person.id}
             {person.dateOfBirth &&
-              ` · Born ${format(new Date(person.dateOfBirth), 'dd MMM yyyy')}`}
+              ` · Born ${format(new Date(person.dateOfBirth), 'd MMM yyyy')}`}
             {allocations?.allocations &&
               summariseAllocations(allocations.allocations)}
           </p>
