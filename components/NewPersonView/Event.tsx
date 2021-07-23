@@ -35,7 +35,7 @@ const Event = ({ event }: Props): React.ReactElement => {
 
   return (
     <li
-      className={`lbh-timeline__event ${
+      className={`lbh-timeline__event ${s.event} ${
         !isMajorEvent(event) && `lbh-timeline__event--minor`
       }`}
     >

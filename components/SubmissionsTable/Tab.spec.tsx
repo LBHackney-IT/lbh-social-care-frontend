@@ -1,12 +1,12 @@
 import { fireEvent, render, screen } from '@testing-library/react';
-import Filter from './Filter';
+import Tab from './Tab';
 
-describe('Filter', () => {
+describe('Tab', () => {
   it('correctly responds to the current value', () => {
     render(
-      <Filter filter={'mine'} value={'mine'} setFilter={jest.fn()}>
+      <Tab filter={'mine'} value={'mine'} setFilter={jest.fn()}>
         Foo
-      </Filter>
+      </Tab>
     );
     expect(
       (screen.getByLabelText('Foo') as HTMLInputElement).checked
@@ -16,9 +16,9 @@ describe('Filter', () => {
   it('calls the change handler', () => {
     const mockHandler = jest.fn();
     render(
-      <Filter filter={'all'} value={'mine'} setFilter={mockHandler}>
+      <Tab filter={'all'} value={'mine'} setFilter={mockHandler}>
         foo
-      </Filter>
+      </Tab>
     );
     fireEvent.click(screen.getByRole('radio'));
     expect(mockHandler).toBeCalled();

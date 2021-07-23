@@ -4,61 +4,10 @@ import SubmissionRow from './SubmissionPanel';
 import { useAuth } from 'components/UserContext/UserContext';
 import { User } from 'types';
 import s from './index.module.scss';
-import Filter from './Filter';
+import st from 'components/Tabs/Tabs.module.scss';
+import Tab from './Tab';
 import SearchBox from './SearchBox';
 import useSearch from 'hooks/useSearch';
-
-interface ResultsProps {
-  filteredSubmissions: Submission[];
-  user: User;
-  searchQuery: string;
-}
-
-const Results = ({
-  filteredSubmissions,
-  user,
-  searchQuery,
-}: ResultsProps): React.ReactElement => {
-  const [openRow, setOpenRow] = useState<string | false>(false);
-
-  if (filteredSubmissions.length === 0 && searchQuery)
-    return (
-      <p className="lbh-body-xs">No unfinished submissions match your search</p>
-    );
-
-  if (!filteredSubmissions || filteredSubmissions.length === 0)
-    return <p className="lbh-body-xs">No unfinished submissions to show</p>;
-
-  return (
-    <>
-      {searchQuery ? (
-        <p className="lbh-body-xs">
-          {filteredSubmissions.length} unfinished{' '}
-          {filteredSubmissions.length > 1 ? 'submissions' : 'submission'} match
-          your search
-        </p>
-      ) : (
-        <p className="lbh-body-xs">
-          Showing {filteredSubmissions.length} unfinished{' '}
-          {filteredSubmissions.length > 1 ? 'submissions' : 'submission'}
-        </p>
-      )}
-
-      <ul className={`lbh-list govuk-!-margin-bottom-8 ${s.list}`}>
-        {filteredSubmissions?.length > 0 &&
-          filteredSubmissions.map((submission) => (
-            <SubmissionRow
-              submission={submission}
-              key={submission.submissionId}
-              openRow={openRow}
-              setOpenRow={setOpenRow}
-              user={user as User}
-            />
-          ))}
-      </ul>
-    </>
-  );
-};
 
 interface Props {
   submissions: Submission[];
@@ -72,18 +21,13 @@ export const SubmissionsTable = ({
   const [filter, setFilter] = useState<'mine' | 'all'>('mine');
   const [searchQuery, setSearchQuery] = useState<string>('');
 
-  const filteredSubmissions = submissions.filter((submission) => {
+  const searchableSubmissions = submissions.filter((submission) => {
     // hide any restricted records unless the user has permission to see them
     if (
       !user?.hasUnrestrictedPermissions &&
       submission.residents.every((resident) => resident.restricted === 'Y')
     )
       return false;
-
-    // If showing only the current user's submissions, then filter out if the emails don't match
-    if (filter === 'mine' && submission.createdBy.email !== user?.email) {
-      return false;
-    }
 
     // hide discarded submissions
     if (submission.submissionState === 'Discarded') return false;
@@ -92,9 +36,9 @@ export const SubmissionsTable = ({
     return true;
   });
 
-  const results = useSearch(
+  const searchResults = useSearch(
     searchQuery,
-    filteredSubmissions,
+    searchableSubmissions,
     [
       'createdBy.email',
       'createdBy.firstName',
@@ -106,14 +50,39 @@ export const SubmissionsTable = ({
     1
   );
 
+  const justMyResults = searchResults.filter(
+    (submission) => submission.createdBy.email === user?.email
+  );
+
+  const results = filter === 'mine' ? justMyResults : searchResults;
+
   return (
     <>
       <SearchBox searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
-      <Results
-        user={user as User}
-        filteredSubmissions={results}
-        searchQuery={searchQuery}
-      />
+
+      <fieldset className="govuk-tabs lbh-tabs govuk-!-margin-top-8">
+        <ul className={st.tabList}>
+          <Tab filter={filter} setFilter={setFilter} value="mine">
+            <>Just mine ({justMyResults.length})</>
+          </Tab>
+          <Tab filter={filter} setFilter={setFilter} value="all">
+            <>Everyone ({searchResults.length})</>
+          </Tab>
+        </ul>
+      </fieldset>
+
+      <ul className={`lbh-list govuk-!-margin-bottom-8 ${s.list}`}>
+        {results?.length > 0 ? (
+          results.map((submission) => (
+            <SubmissionRow
+              submission={submission}
+              key={submission.submissionId}
+            />
+          ))
+        ) : (
+          <p>No results to show.</p>
+        )}
+      </ul>
     </>
   );
 };

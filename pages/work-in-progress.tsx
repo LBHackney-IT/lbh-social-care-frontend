@@ -13,10 +13,10 @@ interface Props {
 
 const UnfinishedSubmissions = ({ submissions }: Props): React.ReactElement => (
   <>
-    <Seo title="Unfinished submissions" />
+    <Seo title="Work in progress" />
     <DashboardWrapper>
       <>
-        <h1 className="govuk-!-margin-bottom-8">Submissions</h1>
+        <h1 className="govuk-!-margin-bottom-8">Work in progress</h1>
 
         {submissions?.length > 0 && (
           <SubmissionsTable submissions={submissions} />
