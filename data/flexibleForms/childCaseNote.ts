@@ -57,12 +57,12 @@ const form: Form = {
           ],
         },
         {
-          id: 'Visit type',
-          question: 'What kind of visit?',
-          type: 'checkboxes',
-          hint: 'Choose all that apply',
+          id: 'Visit occurance',
+          question: 'How did the visit occur?',
+          type: 'radios',
+          hint: 'Choose one',
           required: true,
-          error: 'You must choose a visit type',
+          error: 'You must choose an option',
           condition: {
             id: 'Type',
             value: 'Visit',
@@ -73,13 +73,27 @@ const form: Form = {
               label: 'Face to face visit',
             },
             {
-              value: 'Office',
-              label: 'Office visit',
+              value: 'Virtual',
+              label: 'Virtual visit',
             },
             {
               value: 'Unsuccessful',
               label: 'Unsuccessful visit',
             },
+          ],
+        },
+        {
+          id: 'Visit type',
+          question: 'What kind of visit?',
+          type: 'radios',
+          hint: 'Choose one option',
+          required: true,
+          error: 'You must choose a visit type',
+          condition: {
+            id: 'Type',
+            value: 'Visit',
+          },
+          choices: [
             { label: 'Child in need visit', value: 'Child in need' },
             { label: 'CFS assessment visit', value: 'CFS assessment' },
             {
