@@ -169,6 +169,7 @@ const form: Form = {
           question: 'Is anyone else involved in your assessment?',
           hint: 'For example, advocate, carer, family, friend, other professionals',
           type: 'repeaterGroup',
+          hiddenRepeater: true,
           itemName: 'person',
           subfields: [
             {
@@ -2526,9 +2527,9 @@ const form: Form = {
             },
             {
               value:
-                'Change in setting - nove to residential care (from community)',
+                'Change in setting - move to residential care (from community)',
               label:
-                'Change in setting - nove to residential care (from community)',
+                'Change in setting - move to residential care (from community)',
             },
             {
               value:
