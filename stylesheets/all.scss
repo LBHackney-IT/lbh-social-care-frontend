@@ -202,12 +202,11 @@ input[type='time'] {
   max-width: 14.5rem;
 }
 
-// better clumping of timeline events
-.lbh-timeline__event {
-  padding-bottom: 25px;
-}
-
-// fix ugly line breaks on person details
-.govuk-summary-list__value br {
-  margin: 0;
+// fix ugly line breaks on person details and submission panels
+.govuk-summary-list__value {
+  br,
+  a,
+  button {
+    margin: 0;
+  }
 }

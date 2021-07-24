@@ -32,10 +32,10 @@ const navigation: { text: string; href: string }[] = [
     href: `/`,
   },
   {
-    text: `Submissions`,
-    href: `/forms-in-progress`,
+    text: `Work in progress`,
+    href: `/work-in-progress`,
   },
-  // { text: 'Records', href: '/my-records' },
+  { text: 'My work', href: '/my-work' },
 ];
 
 interface Props {
