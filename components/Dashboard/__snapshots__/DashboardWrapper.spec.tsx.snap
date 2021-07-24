@@ -26,9 +26,9 @@ exports[`DashboardWrapper should render properly 1`] = `
             <li>
               <a
                 class="lbh-link lbh-link--no-visited-state navLink"
-                href="/forms-in-progress"
+                href="/work-in-progress"
               >
-                Submissions
+                Work in progress
               </a>
             </li>
           </ul>

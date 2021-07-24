@@ -1,6 +1,6 @@
 import { fireEvent, render, screen } from '@testing-library/react';
-import EmailInputStories from 'components/Form/EmailInput/EmailInput.stories';
 import { mockSubmission } from 'factories/submissions';
+import { mockedWorker } from 'factories/workers';
 import SubmissionDetailDialog from './SubmissionDetailDialog';
 
 const mockHandler = jest.fn();
@@ -15,11 +15,11 @@ describe('SubmissionDetailDialog', () => {
       />
     );
     expect(screen.getAllByRole('heading').length).toBe(2);
-    expect(screen.getAllByRole('list').length).toBe(2);
+    expect(screen.getAllByRole('list').length).toBe(3);
     expect(screen.getAllByRole('button').length).toBe(2);
   });
 
-  it('correctly calculates the last edited date', () => {
+  it('correctly formats important dates', () => {
     render(
       <SubmissionDetailDialog
         submission={mockSubmission}
@@ -27,30 +27,21 @@ describe('SubmissionDetailDialog', () => {
         onDismiss={jest.fn()}
       />
     );
-    expect(screen.getByText('21 Jun 2021 1.00 pm'));
+    expect(screen.getAllByText('21 Jun 2021 1.00 pm').length).toBe(3);
   });
 
   it('correctly shows a list of editors', () => {
     render(
       <SubmissionDetailDialog
-        submission={{
-          ...mockSubmission,
-          editHistory: [
-            {
-              editTime: '2021-06-21T12:00:00.000Z',
-              worker: {
-                email: 'example@email.com',
-              },
-            },
-          ],
-        }}
+        submission={mockSubmission}
         isOpen={true}
         onDismiss={jest.fn()}
       />
     );
+
     expect(screen.getByText('Editors'));
     expect(screen.getAllByRole('list').length).toBe(3);
-    expect(screen.getByText('example@email.com'));
+    expect(screen.getAllByText('foo.bar@hackney.gov.uk').length).toBe(2);
   });
 
   it('fires the dismiss handler', () => {

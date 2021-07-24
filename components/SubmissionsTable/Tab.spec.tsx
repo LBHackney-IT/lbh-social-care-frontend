@@ -8,9 +8,9 @@ describe('Tab', () => {
         Foo
       </Tab>
     );
-    expect(
-      (screen.getByLabelText('Foo') as HTMLInputElement).checked
-    ).toBeTruthy();
+    expect(screen.getByText('Foo').parentElement?.className).toContain(
+      'active'
+    );
   });
 
   it('calls the change handler', () => {
@@ -20,7 +20,7 @@ describe('Tab', () => {
         foo
       </Tab>
     );
-    fireEvent.click(screen.getByRole('radio'));
+    fireEvent.click(screen.getByRole('button'));
     expect(mockHandler).toBeCalled();
     expect(mockHandler).toBeCalledWith('mine');
   });

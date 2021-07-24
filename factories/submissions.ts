@@ -14,7 +14,7 @@ export const mockSubmission: Submission = {
   approvedAt: null,
   panelApprovedBy: null,
   panelApprovedAt: null,
-  workers: [],
+  workers: [mockedWorker],
   editHistory: [
     {
       worker: mockedWorker,
