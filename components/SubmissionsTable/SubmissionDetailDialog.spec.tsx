@@ -1,6 +1,5 @@
 import { fireEvent, render, screen } from '@testing-library/react';
 import { mockSubmission } from 'factories/submissions';
-import { mockedWorker } from 'factories/workers';
 import SubmissionDetailDialog from './SubmissionDetailDialog';
 
 const mockHandler = jest.fn();
@@ -17,17 +16,6 @@ describe('SubmissionDetailDialog', () => {
     expect(screen.getAllByRole('heading').length).toBe(2);
     expect(screen.getAllByRole('list').length).toBe(3);
     expect(screen.getAllByRole('button').length).toBe(2);
-  });
-
-  it('correctly formats important dates', () => {
-    render(
-      <SubmissionDetailDialog
-        submission={mockSubmission}
-        isOpen={true}
-        onDismiss={jest.fn()}
-      />
-    );
-    expect(screen.getAllByText('21 Jun 2021 1.00 pm').length).toBe(3);
   });
 
   it('correctly shows a list of editors', () => {
