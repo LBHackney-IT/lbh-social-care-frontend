@@ -4,6 +4,7 @@ import Dialog from 'components/Dialog/Dialog';
 import { Form, Submission } from 'data/flexibleForms/forms.types';
 import { format } from 'date-fns';
 import Link from 'next/link';
+import s from './index.module.scss';
 
 interface Props {
   submission: Submission;
@@ -35,7 +36,7 @@ const SubmissionDetailDialog = ({
       onDismiss={onDismiss}
       title={`${form?.name || 'Unknown form'} details`}
     >
-      <dl className="govuk-summary-list lbh-summary-list">
+      <dl className={`govuk-summary-list lbh-summary-list ${s.dl}`}>
         <div className="govuk-summary-list__row">
           <dt className="govuk-summary-list__key">Progress</dt>
           <dd className="govuk-summary-list__value">
@@ -98,7 +99,7 @@ const SubmissionDetailDialog = ({
           </div>
         )}
 
-        <div className="govuk-summary-list__row">
+        <div className="govuk-summary-list__row govuk-summary-list__row--no-border">
           <dt className="govuk-summary-list__key">Recent revisions</dt>
           <dd className="govuk-summary-list__value">
             <MiniRevisionTimeline submission={submission} />

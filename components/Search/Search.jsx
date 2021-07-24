@@ -120,7 +120,9 @@ const Search = ({
 
   return (
     <>
-      <p className="govuk-body govuk-!-margin-bottom-5">{subHeader}</p>
+      <p className="govuk-body govuk-!-margin-top-5 govuk-!-margin-bottom-5">
+        {subHeader}
+      </p>
       <SearchForm
         onFormSubmit={onFormSubmit}
         defaultValues={query}

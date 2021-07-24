@@ -103,3 +103,16 @@
     background: lbh-colour('lbh-primary-button');
   }
 }
+
+// detail dialog content
+.dl {
+  dd {
+    padding-top: 20px;
+    padding-bottom: 20px;
+  }
+
+  // space out resume and discard actions
+  a + button {
+    margin-left: 5px;
+  }
+}
