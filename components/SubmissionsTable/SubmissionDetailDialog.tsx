@@ -3,17 +3,16 @@ import MiniRevisionTimeline from 'components/RevisionTimeline/MiniRevisionTimeli
 import Dialog from 'components/Dialog/Dialog';
 import { Form, Submission } from 'data/flexibleForms/forms.types';
 import { format } from 'date-fns';
-import forms from 'data/flexibleForms';
 import Link from 'next/link';
 
 interface Props {
   submission: Submission;
   isOpen: boolean;
   onDismiss: () => void;
-  form: Form;
-  completedSteps: number;
-  totalSteps: number;
-  completion: number;
+  form?: Form;
+  completedSteps?: number;
+  totalSteps?: number;
+  completion?: number;
 }
 
 const SubmissionDetailDialog = ({

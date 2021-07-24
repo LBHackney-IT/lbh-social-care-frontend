@@ -2,7 +2,7 @@
 
 .tabList {
   border-bottom: 1px solid lbh-colour('lbh-border');
-  margin-bottom: 1rem;
+  margin-bottom: 2rem;
 }
 
 .tab {
@@ -15,13 +15,16 @@
   }
 }
 
-.link {
+.link,
+button.link {
+  border: none;
   text-decoration: none;
   color: lbh-colour('lbh-link');
 }
 
 .active {
-  a {
+  a,
+  button {
     font-weight: 600;
   }
   border-bottom: 4px solid lbh-colour('lbh-link');

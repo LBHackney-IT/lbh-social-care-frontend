@@ -19,14 +19,12 @@ const Filter = ({
       [s.active]: value === filter,
     })}
   >
-    <a
+    <button
       onClick={() => setFilter(value)}
-      // className={s.link}
-      href="#"
       className={`lbh-link lbh-link--no-visited-state ${s.link}`}
     >
       {children}
-    </a>
+    </button>
   </li>
 );
 
