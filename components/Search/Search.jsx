@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import s from './Search.module.scss';
+import ss from 'stylesheets/Section.module.scss';
 import cx from 'classnames';
 
 import SearchResidentsForm from './forms/SearchResidentsForm';
@@ -132,12 +133,10 @@ const Search = ({
       />
       {results && (
         <>
-          <div className="lbh-table-header">
-            <h2 className="govuk-fieldset__legend--m govuk-custom-text-color">
-              {resultHeader}
-            </h2>
+          <div className={`${ss.heading} govuk-!-margin-top-8`}>
+            <h2> {resultHeader}</h2>
           </div>
-          <hr className="govuk-divider" />
+
           {results.records?.length > 0 ? (
             <SearchResults
               records={results.records}
