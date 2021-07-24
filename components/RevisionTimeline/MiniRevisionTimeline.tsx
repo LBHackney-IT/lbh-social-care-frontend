@@ -17,7 +17,7 @@ const RevisionTimeline = ({ submission }: Props): React.ReactElement | null => {
           className={`lbh-timeline__event lbh-timeline__event--minor ${s.event}`}
           key={i}
         >
-          <h3 className="lbh-body-xs">Edited by {revision.worker.email}</h3>
+          <h3 className="lbh-body-s">{revision.worker.email}</h3>
 
           <p className="lbh-body-xs">
             {format(new Date(revision.editTime), 'd MMM yyyy K.mm aaa')}

@@ -15,8 +15,9 @@ jest.mock('components/UserContext/UserContext');
 describe('SubmissionsTable', () => {
   it('renders correctly when there are no submissions', () => {
     render(<SubmissionsTable submissions={[]} />);
-    expect(screen.queryAllByRole('listitem').length).toBe(0);
-    expect(screen.getByText('No unfinished submissions to show'));
+    expect(screen.getByText('Just mine (0)'));
+    expect(screen.getByText('Everyone (0)'));
+    expect(screen.getByText('No results to show.'));
   });
 
   it('hides restricted records', () => {
@@ -36,18 +37,18 @@ describe('SubmissionsTable', () => {
       />
     );
 
-    expect(screen.queryAllByRole('listitem').length).toBe(0);
+    expect(screen.getByText('Just mine (0)'));
+    expect(screen.getByText('Everyone (0)'));
+    expect(screen.getByText('No results to show.'));
   });
 
   it("correctly renders user's own submissions", () => {
     render(<SubmissionsTable submissions={[mockSubmission]} />);
 
-    expect(screen.queryAllByRole('listitem').length).toBe(1);
-    expect(
-      (screen.getByLabelText('Just mine') as HTMLInputElement).checked
-    ).toBeTruthy();
-    fireEvent.click(screen.getByLabelText('All'));
-    expect(screen.queryAllByRole('listitem').length).toBe(1);
+    fireEvent.click(screen.getByText('Just mine (1)'));
+    expect(screen.queryAllByRole('listitem').length).toBe(3);
+    fireEvent.click(screen.getByText('Everyone (1)'));
+    expect(screen.queryAllByRole('listitem').length).toBe(3);
   });
 
   it("correctly renders another user's submissions", () => {
@@ -59,8 +60,9 @@ describe('SubmissionsTable', () => {
 
     render(<SubmissionsTable submissions={[mockSubmission]} />);
 
-    expect(screen.queryAllByRole('listitem').length).toBe(0);
-    fireEvent.click(screen.getByLabelText('All'));
-    expect(screen.queryAllByRole('listitem').length).toBe(1);
+    fireEvent.click(screen.getByText('Just mine (0)'));
+    expect(screen.getByText('No results to show.'));
+    fireEvent.click(screen.getByText('Everyone (1)'));
+    expect(screen.queryAllByRole('listitem').length).toBe(3);
   });
 });
