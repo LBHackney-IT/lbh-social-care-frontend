@@ -1,5 +1,4 @@
 import * as Yup from 'yup';
-import { FormikValues, FormikErrors } from 'formik';
 import { Field } from 'data/flexibleForms/forms.types';
 import { ObjectShape, OptionalObjectSchema, TypeOfShape } from 'yup/lib/object';
 import { getTotalHours } from './utils';
@@ -94,14 +93,14 @@ export const generateFlexibleSchema = (
     if (field.required) {
       if (field.condition) {
         // handle conditional required fields
-        shape[field.id] = (shape[field.id] as Yup.StringSchema).when('foo', {
-          is: (args) => {
-            console.log(args);
-            return true;
-          },
-          then: shape[field.id].required(),
-          otherwise: shape[field.id],
-        });
+        shape[field.id] = (shape[field.id] as Yup.StringSchema).when(
+          field?.condition[0]?.id,
+          {
+            is: field?.condition[0]?.value,
+            then: shape[field.id].required(),
+            otherwise: shape[field.id],
+          }
+        );
       } else {
         // handle basic required fields
         if (field.type === 'timetable') {
@@ -135,31 +134,31 @@ export const generateFlexibleSchema = (
   return Yup.object().shape(shape);
 };
 
-/** respect the "required" attribute for conditional fields, only when the condition is met */
-export const validateConditionalFields = (
-  values: FormikValues,
-  fields: Field[]
-): FormikErrors<FormikValues> => {
-  const errors: FormikErrors<FormikValues> = {};
-  fields.map((field) => {
-    if (field.condition) {
-      if (
-        Array.isArray(field.condition)
-          ? !field.condition.every((cond) => values[cond.id] === cond.value) &&
-            field.required
-          : values[field.condition.id] === field.condition.value &&
-            field.required
-      ) {
-        if (field.type === 'timetable') {
-          // handle timetable fields specially
-          if (getTotalHours(values[field.id]) === 0)
-            errors[field.id] = getErrorMessage(field);
-        } else {
-          if (!values[field.id]?.length)
-            errors[field.id] = getErrorMessage(field);
-        }
-      }
-    }
-  });
-  return errors;
-};
+// /** respect the "required" attribute for conditional fields, only when the condition is met */
+// export const validateConditionalFields = (
+//   values: FormikValues,
+//   fields: Field[]
+// ): FormikErrors<FormikValues> => {
+//   const errors: FormikErrors<FormikValues> = {};
+//   fields.map((field) => {
+//     if (field.condition) {
+//       if (
+//         Array.isArray(field.condition)
+//           ? !field.condition.every((cond) => values[cond.id] === cond.value) &&
+//             field.required
+//           : values[field.condition.id] === field.condition.value &&
+//             field.required
+//       ) {
+//         if (field.type === 'timetable') {
+//           // handle timetable fields specially
+//           if (getTotalHours(values[field.id]) === 0)
+//             errors[field.id] = getErrorMessage(field);
+//         } else {
+//           if (!values[field.id]?.length)
+//             errors[field.id] = getErrorMessage(field);
+//         }
+//       }
+//     }
+//   });
+//   return errors;
+// };

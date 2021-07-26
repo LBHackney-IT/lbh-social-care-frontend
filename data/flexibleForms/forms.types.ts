@@ -24,7 +24,7 @@ export interface Field {
     | 'file';
   hint?: string;
   error?: string;
-  condition?: Condition | Condition[];
+  condition?: Condition[];
   className?: string;
   /** on conditional fields, required value is only respected when all conditions are met */
   required?: boolean;
