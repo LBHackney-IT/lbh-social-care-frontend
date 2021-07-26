@@ -1,7 +1,8 @@
 import * as Yup from 'yup';
-import { Field } from 'data/flexibleForms/forms.types';
+import { Answer, Field } from 'data/flexibleForms/forms.types';
 import { ObjectShape, OptionalObjectSchema, TypeOfShape } from 'yup/lib/object';
 import { getTotalHours } from './utils';
+import RepeaterField from 'components/FlexibleForms/RepeaterField';
 
 export const startSchema = Yup.object().shape({
   socialCareId: Yup.number()
@@ -92,17 +93,17 @@ export const generateFlexibleSchema = (
 
     if (field.required) {
       if (field.conditions) {
-        // handle conditional required fields
-        field?.conditions.map((condition) => {
-          shape[field.id] = (shape[field.id] as Yup.StringSchema).when(
-            condition?.id,
-            {
-              is: condition.value,
-              then: shape[field.id].required(getErrorMessage(field)),
-              otherwise: shape[field.id],
-            }
-          );
-        });
+        shape[field.id] = (shape[field.id] as Yup.StringSchema).when(
+          field.conditions.map((c) => c.id),
+          {
+            is: (...valuesToTest: Answer[]) =>
+              field.conditions?.every((condition, i) => {
+                return valuesToTest[i] === condition.value;
+              }),
+            then: shape[field.id].required(getErrorMessage(field)),
+            otherwise: shape[field.id],
+          }
+        );
       } else {
         // handle basic required fields
         if (field.type === 'timetable') {
@@ -135,32 +136,3 @@ export const generateFlexibleSchema = (
 
   return Yup.object().shape(shape);
 };
-
-// /** respect the "required" attribute for conditional fields, only when the condition is met */
-// export const validateConditionalFields = (
-//   values: FormikValues,
-//   fields: Field[]
-// ): FormikErrors<FormikValues> => {
-//   const errors: FormikErrors<FormikValues> = {};
-//   fields.map((field) => {
-//     if (field.condition) {
-//       if (
-//         Array.isArray(field.condition)
-//           ? !field.condition.every((cond) => values[cond.id] === cond.value) &&
-//             field.required
-//           : values[field.condition.id] === field.condition.value &&
-//             field.required
-//       ) {
-//         if (field.type === 'timetable') {
-//           // handle timetable fields specially
-//           if (getTotalHours(values[field.id]) === 0)
-//             errors[field.id] = getErrorMessage(field);
-//         } else {
-//           if (!values[field.id]?.length)
-//             errors[field.id] = getErrorMessage(field);
-//         }
-//       }
-//     }
-//   });
-//   return errors;
-// };
