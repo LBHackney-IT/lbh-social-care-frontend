@@ -12,10 +12,6 @@ export const getFeatureFlags = ({
     'feature-flags-implementation-proof': {
       isActive: environmentName === 'development',
     },
-    // FEATURE-FLAG-EXPIRES [2021-08-13]: add-relationships
-    'add-relationships': {
-      isActive: environmentName === 'development',
-    },
     // FEATURE-FLAG-EXPIRES [2021-08-31]: person-timeline
     'person-timeline': {
       isActive: environmentName === 'development',
@@ -23,10 +19,6 @@ export const getFeatureFlags = ({
     // FEATURE-FLAG-EXPIRES [2021-08-31]: person-cases
     'person-cases': {
       isActive: environmentName === 'production',
-    },
-    // FEATURE-FLAG-EXPIRES [2021-08-15]: remove-relationship
-    'remove-relationship': {
-      isActive: environmentName === 'development',
     },
 
     /*
