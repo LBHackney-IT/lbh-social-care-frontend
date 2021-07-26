@@ -1,4 +1,5 @@
 import { AxiosError } from 'axios';
+import { Submission } from 'data/flexibleForms/forms.types';
 
 export type ErrorAPI = AxiosError;
 
@@ -322,5 +323,9 @@ export interface Media {
   title: string;
   uploadedAt: string | null;
   uploadedBy: Worker | null;
-  files: unknown;
+  // might also house preview images/renditions for different sizes?
+  files: unknown[];
+  // optional relation
+  submissionId: string | null;
+  submission: Submission | null;
 }
