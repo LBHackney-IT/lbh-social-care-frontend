@@ -79,6 +79,10 @@ const Layout = ({ person, children }: Props): React.ReactElement => {
       }`,
       href: `/people/${person.id}/relationships`,
     },
+    {
+      text: `Media`,
+      href: `/people/${person.id}/media`,
+    },
     { text: 'Details', href: `/people/${person.id}/details` },
   ];
 
