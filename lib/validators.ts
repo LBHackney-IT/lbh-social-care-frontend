@@ -91,16 +91,18 @@ export const generateFlexibleSchema = (
     }
 
     if (field.required) {
-      if (field.condition) {
+      if (field.conditions) {
         // handle conditional required fields
-        shape[field.id] = (shape[field.id] as Yup.StringSchema).when(
-          field?.condition[0]?.id,
-          {
-            is: field?.condition[0]?.value,
-            then: shape[field.id].required(),
-            otherwise: shape[field.id],
-          }
-        );
+        field?.conditions.map((condition) => {
+          shape[field.id] = (shape[field.id] as Yup.StringSchema).when(
+            condition?.id,
+            {
+              is: condition.value,
+              then: shape[field.id].required(getErrorMessage(field)),
+              otherwise: shape[field.id],
+            }
+          );
+        });
       } else {
         // handle basic required fields
         if (field.type === 'timetable') {
