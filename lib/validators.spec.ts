@@ -221,11 +221,23 @@ describe('generateFlexibleSchema', () => {
         three: '',
       })
     ).rejects.toThrowError('This question is required');
+
+    await expect(
+      schema.validate({
+        one: 'yes',
+        two: 'no',
+        three: '',
+      })
+    );
+
+    await expect(
+      schema.validate({
+        one: 'yes',
+        two: 'yes',
+        three: 'yes',
+      })
+    );
   });
-
-  // it('is not required when some conditions are met', () => {
-
-  // });
 });
 
 describe('generateSubmitSchema', () => {
