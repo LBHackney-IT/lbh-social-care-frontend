@@ -183,6 +183,49 @@ describe('generateFlexibleSchema', () => {
       })
     ).rejects.toThrowError('This question is required');
   });
+
+  it('becomes required when all conditions are met', async () => {
+    const schema = generateFlexibleSchema([
+      {
+        id: 'one',
+        type: 'text',
+        question: 'First question',
+      },
+      {
+        id: 'two',
+        type: 'text',
+        question: 'Second question',
+      },
+      {
+        id: 'three',
+        type: 'text',
+        question: 'Third question',
+        required: true,
+        conditions: [
+          {
+            id: 'one',
+            value: 'yes',
+          },
+          {
+            id: 'two',
+            value: 'yes',
+          },
+        ],
+      },
+    ]);
+
+    await expect(
+      schema.validate({
+        one: 'yes',
+        two: 'yes',
+        three: '',
+      })
+    ).rejects.toThrowError('This question is required');
+  });
+
+  // it('is not required when some conditions are met', () => {
+
+  // });
 });
 
 describe('generateSubmitSchema', () => {
