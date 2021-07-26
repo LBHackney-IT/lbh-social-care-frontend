@@ -380,10 +380,12 @@ const form: Form = {
         {
           id: 'Mental capacity assessment outcome',
           question: 'What was the outcome of the Mental Capacity Assessment?',
-          condition: {
-            id: 'Mental capacity assessment completed?',
-            value: 'Yes',
-          },
+          conditions: [
+            {
+              id: 'Mental capacity assessment completed?',
+              value: 'Yes',
+            },
+          ],
           type: 'textarea',
         },
         {
@@ -391,10 +393,12 @@ const form: Form = {
           question: 'Is a mental capacity assessment required?',
           type: 'radios',
           required: true,
-          condition: {
-            id: 'Mental capacity assessment completed?',
-            value: 'No',
-          },
+          conditions: [
+            {
+              id: 'Mental capacity assessment completed?',
+              value: 'No',
+            },
+          ],
           choices: [
             {
               value: 'Yes',
@@ -507,10 +511,12 @@ const form: Form = {
         {
           id: 'Reason for unplanned review',
           question: 'Why is this review needed?',
-          condition: {
-            id: 'Review type',
-            value: 'Unplanned',
-          },
+          conditions: [
+            {
+              id: 'Review type',
+              value: 'Unplanned',
+            },
+          ],
           type: 'radios',
           required: true,
           choices: [
@@ -656,10 +662,12 @@ const form: Form = {
         {
           id: 'Habitable home environment details',
           question: 'Details',
-          condition: {
-            id: 'Can you "maintain a habitable home environment" alone within a reasonable time and without significant pain, distress, anxiety, or risk to yourself or others?',
-            value: 'No',
-          },
+          conditions: [
+            {
+              id: 'Can you "maintain a habitable home environment" alone within a reasonable time and without significant pain, distress, anxiety, or risk to yourself or others?',
+              value: 'No',
+            },
+          ],
           type: 'textarea',
         },
         {
@@ -682,10 +690,12 @@ const form: Form = {
           id: 'Nutrition details',
           question: 'Details',
           type: 'textarea',
-          condition: {
-            id: 'Can you "manage and maintain nutrition" alone within a reasonable time and without significant pain, distress, anxiety, or risk to yourself or others?',
-            value: 'No',
-          },
+          conditions: [
+            {
+              id: 'Can you "manage and maintain nutrition" alone within a reasonable time and without significant pain, distress, anxiety, or risk to yourself or others?',
+              value: 'No',
+            },
+          ],
         },
         {
           id: 'Can you "manage toilet needs" alone within a reasonable time and without significant pain, distress, anxiety, or risk to yourself or others?',
@@ -707,10 +717,12 @@ const form: Form = {
           id: 'Toilet needs details',
           question: 'Details',
           type: 'textarea',
-          condition: {
-            id: 'Can you "manage toilet needs" alone within a reasonable time and without significant pain, distress, anxiety, or risk to yourself or others?',
-            value: 'No',
-          },
+          conditions: [
+            {
+              id: 'Can you "manage toilet needs" alone within a reasonable time and without significant pain, distress, anxiety, or risk to yourself or others?',
+              value: 'No',
+            },
+          ],
         },
         {
           id: 'Can you "maintain personal hygiene" alone within a reasonable time and without significant pain, distress, anxiety, or risk to yourself or others?',
@@ -731,10 +743,12 @@ const form: Form = {
         {
           id: 'Personal hygiene details',
           question: 'Details',
-          condition: {
-            id: 'Can you "maintain personal hygiene" alone within a reasonable time and without significant pain, distress, anxiety, or risk to yourself or others?',
-            value: 'No',
-          },
+          conditions: [
+            {
+              id: 'Can you "maintain personal hygiene" alone within a reasonable time and without significant pain, distress, anxiety, or risk to yourself or others?',
+              value: 'No',
+            },
+          ],
           type: 'textarea',
         },
         {
@@ -756,10 +770,12 @@ const form: Form = {
         {
           id: 'Appropriately clothed details',
           question: 'Details',
-          condition: {
-            id: 'Can you "be appropriately clothed" alone within a reasonable time and without significant pain, distress, anxiety, or risk to yourself or others?',
-            value: 'No',
-          },
+          conditions: [
+            {
+              id: 'Can you "be appropriately clothed" alone within a reasonable time and without significant pain, distress, anxiety, or risk to yourself or others?',
+              value: 'No',
+            },
+          ],
           type: 'textarea',
         },
         {
@@ -782,10 +798,12 @@ const form: Form = {
           id: 'Family and relationships details',
           question: 'Details',
           type: 'textarea',
-          condition: {
-            id: 'Can you "develop and maintain family or other personal relationships" alone within a reasonable time and without significant pain, distress, anxiety, or risk to yourself or others?',
-            value: 'No',
-          },
+          conditions: [
+            {
+              id: 'Can you "develop and maintain family or other personal relationships" alone within a reasonable time and without significant pain, distress, anxiety, or risk to yourself or others?',
+              value: 'No',
+            },
+          ],
         },
         {
           id: 'Can you "make use of necessary facilities or services in local community (including public transport and recreational facilities/services)" alone within a reasonable time and without significant pain, distress, anxiety, or risk to yourself or others?',
@@ -807,10 +825,12 @@ const form: Form = {
           id: 'Community details',
           question: 'Detail',
           type: 'textarea',
-          condition: {
-            id: 'Can you "make use of necessary facilities or services in local community (including public transport and recreational facilities/services)" alone within a reasonable time and without significant pain, distress, anxiety, or risk to yourself or others?',
-            value: 'No',
-          },
+          conditions: [
+            {
+              id: 'Can you "make use of necessary facilities or services in local community (including public transport and recreational facilities/services)" alone within a reasonable time and without significant pain, distress, anxiety, or risk to yourself or others?',
+              value: 'No',
+            },
+          ],
         },
         {
           id: 'Can you "access and engage in work, training, education or volunteering" alone within a reasonable time and without significant pain, distress, anxiety, or risk to yourself or others?',
@@ -832,10 +852,12 @@ const form: Form = {
           id: 'Work, training, education or volunteering details',
           question: 'Details',
           type: 'textarea',
-          condition: {
-            id: 'Can you "access and engage in work, training, education or volunteering" alone within a reasonable time and without significant pain, distress, anxiety, or risk to yourself or others?',
-            value: 'No',
-          },
+          conditions: [
+            {
+              id: 'Can you "access and engage in work, training, education or volunteering" alone within a reasonable time and without significant pain, distress, anxiety, or risk to yourself or others?',
+              value: 'No',
+            },
+          ],
         },
         {
           id: 'Can you "carry out any caring responsibilities for a child" alone within a reasonable time and without significant pain, distress, anxiety, or risk to yourself or others?',
@@ -860,10 +882,12 @@ const form: Form = {
         {
           id: 'Childcare details',
           question: 'Details',
-          condition: {
-            id: 'Can you "carry out any caring responsibilities for a child" alone within a reasonable time and without significant pain, distress, anxiety, or risk to yourself or others?',
-            value: 'No',
-          },
+          conditions: [
+            {
+              id: 'Can you "carry out any caring responsibilities for a child" alone within a reasonable time and without significant pain, distress, anxiety, or risk to yourself or others?',
+              value: 'No',
+            },
+          ],
           type: 'textarea',
         },
         {
@@ -886,10 +910,12 @@ const form: Form = {
           id: 'Safe home details',
           question: 'Details',
           type: 'textarea',
-          condition: {
-            id: 'Can you "be able to make use of your home safely" alone within a reasonable time and without significant pain, distress, anxiety, or risk to yourself or others?',
-            value: 'No',
-          },
+          conditions: [
+            {
+              id: 'Can you "be able to make use of your home safely" alone within a reasonable time and without significant pain, distress, anxiety, or risk to yourself or others?',
+              value: 'No',
+            },
+          ],
         },
         {
           id: '3. As a result of being unable to achieve these outcomes is there, or is there likely to be, significant impact on your well-being?',
@@ -1014,10 +1040,12 @@ const form: Form = {
           id: 'Representatives',
           question: 'About your representative(s)',
           type: 'repeaterGroup',
-          condition: {
-            id: 'Managed by',
-            value: 'My representative',
-          },
+          conditions: [
+            {
+              id: 'Managed by',
+              value: 'My representative',
+            },
+          ],
           subfields: [
             {
               id: 'Name',
@@ -1221,10 +1249,12 @@ const form: Form = {
           question: 'Date of next review',
           type: 'date',
           required: true,
-          condition: {
-            id: 'What next?',
-            value: 'Schedule next review',
-          },
+          conditions: [
+            {
+              id: 'What next?',
+              value: 'Schedule next review',
+            },
+          ],
         },
 
         {

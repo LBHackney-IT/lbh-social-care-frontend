@@ -35,30 +35,30 @@ const form: Form = {
           question: 'Second question',
           choices,
           required: true,
-          condition: [
+          conditions: [
             {
               id: 'one',
               value: 'yes',
             },
           ],
         },
-        // {
-        //   id: 'three',
-        //   type: 'radios',
-        //   question: 'Third question',
-        //   choices,
-        //   required: true,
-        //   condition: [
-        //     {
-        //       id: 'one',
-        //       value: 'yes',
-        //     },
-        //     {
-        //       id: 'two',
-        //       value: 'yes',
-        //     },
-        //   ],
-        // },
+        {
+          id: 'three',
+          type: 'radios',
+          question: 'Third question',
+          choices,
+          required: true,
+          conditions: [
+            {
+              id: 'one',
+              value: 'yes',
+            },
+            {
+              id: 'two',
+              value: 'yes',
+            },
+          ],
+        },
       ],
     },
   ],
