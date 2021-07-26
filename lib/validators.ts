@@ -2,7 +2,6 @@ import * as Yup from 'yup';
 import { Answer, Field } from 'data/flexibleForms/forms.types';
 import { ObjectShape, OptionalObjectSchema, TypeOfShape } from 'yup/lib/object';
 import { getTotalHours } from './utils';
-import RepeaterField from 'components/FlexibleForms/RepeaterField';
 
 export const startSchema = Yup.object().shape({
   socialCareId: Yup.number()
@@ -60,6 +59,29 @@ const getErrorMessage = (field: Field) => {
   return `This question is required`;
 };
 
+type Shape = { [key: string]: Yup.AnySchema | Yup.ArraySchema<any> };
+
+const applyRequired = (field: Field, shape: Shape): Yup.AnySchema => {
+  if (field.type === 'timetable') {
+    return shape[field.id].test(
+      'total',
+      getErrorMessage(field),
+      (value) => getTotalHours(value) !== 0
+    );
+  } else if (field.type === 'datetime') {
+    return (shape[field.id] as Yup.NumberSchema).min(2, getErrorMessage(field));
+  } else if (
+    field.type === 'checkboxes' ||
+    field.type === 'tags' ||
+    field.type === 'repeater' ||
+    field.type === 'repeaterGroup'
+  ) {
+    return (shape[field.id] as Yup.NumberSchema).min(1, getErrorMessage(field));
+  } else {
+    return shape[field.id].required(getErrorMessage(field));
+  }
+};
+
 /** create a validation schema for a flexible form, ignoring conditional fields */
 export const generateFlexibleSchema = (
   fields: Field[]
@@ -68,7 +90,7 @@ export const generateFlexibleSchema = (
   Record<string, unknown>,
   TypeOfShape<ObjectShape>
 > => {
-  const shape: { [key: string]: Yup.AnySchema | Yup.ArraySchema<any> } = {};
+  const shape: Shape = {};
 
   fields.map((field) => {
     if (field.type === 'repeaterGroup') {
@@ -100,36 +122,13 @@ export const generateFlexibleSchema = (
               field.conditions?.every((condition, i) => {
                 return valuesToTest[i] === condition.value;
               }),
-            then: shape[field.id].required(getErrorMessage(field)),
+            then: applyRequired(field, shape),
             otherwise: shape[field.id],
           }
         );
       } else {
         // handle basic required fields
-        if (field.type === 'timetable') {
-          shape[field.id] = shape[field.id].test(
-            'total',
-            getErrorMessage(field),
-            (value) => getTotalHours(value) !== 0
-          );
-        } else if (field.type === 'datetime') {
-          shape[field.id] = (shape[field.id] as Yup.NumberSchema).min(
-            2,
-            getErrorMessage(field)
-          );
-        } else if (
-          field.type === 'checkboxes' ||
-          field.type === 'tags' ||
-          field.type === 'repeater' ||
-          field.type === 'repeaterGroup'
-        ) {
-          shape[field.id] = (shape[field.id] as Yup.NumberSchema).min(
-            1,
-            getErrorMessage(field)
-          );
-        } else {
-          shape[field.id] = shape[field.id].required(getErrorMessage(field));
-        }
+        shape[field.id] = applyRequired(field, shape);
       }
     }
   });
