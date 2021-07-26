@@ -317,15 +317,26 @@ export interface WarningNotes {
   notes: Array<WarningNote>;
 }
 
+interface File {
+  // mime type
+  type: 'image/png' | 'image/jpg' | 'image/jpeg' | 'application/pdf';
+  // filesize in bytes
+  size: number;
+  // s3 url
+  url: string;
+}
+
 export interface Media {
   mediaId: string;
   resident: Resident;
   title: string;
   uploadedAt: string | null;
   uploadedBy: Worker | null;
-  // might also house preview images/renditions for different sizes?
-  files: unknown[];
+  files: {
+    original: File;
+    medium?: File;
+    thumbnail?: File;
+  };
   // optional relation
-  submissionId: string | null;
   submission: Submission | null;
 }
