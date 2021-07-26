@@ -89,13 +89,11 @@ const Relationships = ({ person }: Props): React.ReactElement => {
         <div className={s.heading}>
           <h2>Relationships</h2>
 
-          <ConditionalFeature name="add-relationships">
-            <Link href={`/people/${person.id}/relationships/add`}>
-              <a className="lbh-link lbh-link--no-visited-state">
-                Add a new relationship
-              </a>
-            </Link>
-          </ConditionalFeature>
+          <Link href={`/people/${person.id}/relationships/add`}>
+            <a className="lbh-link lbh-link--no-visited-state">
+              Add a new relationship
+            </a>
+          </Link>
         </div>
 
         {personalRelationships && personalRelationships.length > 0 ? (

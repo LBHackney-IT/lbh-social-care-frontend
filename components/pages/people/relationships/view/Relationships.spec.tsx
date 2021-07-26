@@ -478,38 +478,6 @@ describe('Relationships component', () => {
     });
   });
 
-  it('displays the "Add a new relationship" button if the feature flag is active', async () => {
-    const features: FeatureSet = {
-      'add-relationships': {
-        isActive: true,
-      },
-    };
-
-    const { queryByText } = render(
-      <FeatureFlagProvider features={features}>
-        <Relationships person={person} />
-      </FeatureFlagProvider>
-    );
-
-    expect(queryByText('Add a new relationship')).toBeInTheDocument();
-  });
-
-  it('does not display the "Add a new relationship" button if the feature flag is inactive', async () => {
-    const features: FeatureSet = {
-      'add-relationships': {
-        isActive: false,
-      },
-    };
-
-    const { queryByText } = render(
-      <FeatureFlagProvider features={features}>
-        <Relationships person={person} />
-      </FeatureFlagProvider>
-    );
-
-    expect(queryByText('Add a new relationship')).not.toBeInTheDocument();
-  });
-
   it('displays a link for the related person', async () => {
     jest.spyOn(relationshipsAPI, 'useRelationships').mockImplementation(() => ({
       data: mockedRelationshipFactory.build({
