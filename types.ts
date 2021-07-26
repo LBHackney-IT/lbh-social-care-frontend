@@ -318,7 +318,7 @@ export interface WarningNotes {
 }
 
 export interface Media {
-  mediaId: number;
+  mediaId: string;
   resident: Resident;
   title: string;
   uploadedAt: string | null;
