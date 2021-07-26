@@ -91,36 +91,43 @@ export const generateFlexibleSchema = (
       shape[field.id] = Yup.string();
     }
 
-    // add a required attribute if a field is required and not conditional
     if (field.required) {
-      if (field.type === 'timetable') {
-        shape[field.id] = shape[field.id].test(
-          'total',
-          getErrorMessage(field),
-          (value) => getTotalHours(value) !== 0
-        );
-      } else if (field.type === 'datetime') {
-        shape[field.id] = (shape[field.id] as Yup.NumberSchema).min(
-          2,
-          getErrorMessage(field)
-        );
-      } else if (
-        field.type === 'checkboxes' ||
-        field.type === 'tags' ||
-        field.type === 'repeater' ||
-        field.type === 'repeaterGroup'
-      ) {
-        shape[field.id] = (shape[field.id] as Yup.NumberSchema).min(
-          1,
-          getErrorMessage(field)
-        );
+      if (field.condition) {
+        // handle conditional required fields
+        shape[field.id] = (shape[field.id] as Yup.StringSchema).when('foo', {
+          is: (args) => {
+            console.log(args);
+            return true;
+          },
+          then: shape[field.id].required(),
+          otherwise: shape[field.id],
+        });
       } else {
-        shape[field.id] = shape[field.id]
-          .required(getErrorMessage(field))
-          .when(Array.isArray(field.condition) ? '' : field.condition?.id, {
-            is: (test: unknown) => console.log(test),
-            then: Yup.string().required(getErrorMessage(field)),
-          });
+        // handle basic required fields
+        if (field.type === 'timetable') {
+          shape[field.id] = shape[field.id].test(
+            'total',
+            getErrorMessage(field),
+            (value) => getTotalHours(value) !== 0
+          );
+        } else if (field.type === 'datetime') {
+          shape[field.id] = (shape[field.id] as Yup.NumberSchema).min(
+            2,
+            getErrorMessage(field)
+          );
+        } else if (
+          field.type === 'checkboxes' ||
+          field.type === 'tags' ||
+          field.type === 'repeater' ||
+          field.type === 'repeaterGroup'
+        ) {
+          shape[field.id] = (shape[field.id] as Yup.NumberSchema).min(
+            1,
+            getErrorMessage(field)
+          );
+        } else {
+          shape[field.id] = shape[field.id].required(getErrorMessage(field));
+        }
       }
     }
   });
