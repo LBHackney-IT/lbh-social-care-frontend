@@ -37,7 +37,7 @@ const StepForm = ({
 }: Props): React.ReactElement => (
   <Formik
     initialValues={initialValues || generateInitialValues(fields, person)}
-    validate={(values) => validateConditionalFields(values, fields)}
+    // validate={(values) => validateConditionalFields(values, fields)}
     validationSchema={generateFlexibleSchema(fields)}
     onSubmit={onSubmit}
     validateOnMount={true}

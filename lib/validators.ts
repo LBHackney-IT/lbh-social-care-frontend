@@ -72,7 +72,7 @@ export const generateFlexibleSchema = (
 
   fields.map((field) => {
     if (field.type === 'repeaterGroup') {
-      // recursively generate a schema for subfields of a repeater geoup
+      // recursively generate a schema for subfields of a repeater group
       shape[field.id] = Yup.array().of(
         generateFlexibleSchema(field.subfields || [])
       );
@@ -92,7 +92,7 @@ export const generateFlexibleSchema = (
     }
 
     // add a required attribute if a field is required and not conditional
-    if (field.required && !field.condition) {
+    if (field.required) {
       if (field.type === 'timetable') {
         shape[field.id] = shape[field.id].test(
           'total',
@@ -115,7 +115,12 @@ export const generateFlexibleSchema = (
           getErrorMessage(field)
         );
       } else {
-        shape[field.id] = shape[field.id].required(getErrorMessage(field));
+        shape[field.id] = shape[field.id]
+          .required(getErrorMessage(field))
+          .when(Array.isArray(field.condition) ? '' : field.condition?.id, {
+            is: (test: unknown) => console.log(test),
+            then: Yup.string().required(getErrorMessage(field)),
+          });
       }
     }
   });
