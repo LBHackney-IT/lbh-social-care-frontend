@@ -315,3 +315,12 @@ export type WarningNote = DisclosedNote | UndisclosedNote;
 export interface WarningNotes {
   notes: Array<WarningNote>;
 }
+
+export interface Media {
+  mediaId: number;
+  resident: Resident;
+  title: string;
+  uploadedAt: string | null;
+  uploadedBy: Worker | null;
+  files: unknown;
+}
