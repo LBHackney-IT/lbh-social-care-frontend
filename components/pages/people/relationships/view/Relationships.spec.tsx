@@ -1,9 +1,5 @@
 import { fireEvent, render, waitFor, within } from '@testing-library/react';
 import Relationships from './Relationships';
-import {
-  FeatureFlagProvider,
-  FeatureSet,
-} from 'lib/feature-flags/feature-flags';
 import * as relationshipsAPI from 'utils/api/relationships';
 import { mockedAPIservererror } from 'factories/APIerrors';
 
@@ -75,11 +71,7 @@ describe('Relationships component', () => {
       revalidate: jest.fn(),
     }));
 
-    const { getByText } = render(
-      <FeatureFlagProvider features={{}}>
-        <Relationships person={person} />
-      </FeatureFlagProvider>
-    );
+    const { getByText } = render(<Relationships person={person} />);
 
     const parentsRow = getByText('Parent(s)').closest('tr');
     const childrenRow = getByText('Children').closest('tr');
@@ -111,11 +103,7 @@ describe('Relationships component', () => {
       revalidate: jest.fn(),
     }));
 
-    const { queryByText } = render(
-      <FeatureFlagProvider features={{}}>
-        <Relationships person={person} />
-      </FeatureFlagProvider>
-    );
+    const { queryByText } = render(<Relationships person={person} />);
 
     expect(
       queryByText('No relationships found for this person')
@@ -131,11 +119,7 @@ describe('Relationships component', () => {
       isValidating: false,
     }));
 
-    const { queryByText } = render(
-      <FeatureFlagProvider features={{}}>
-        <Relationships person={person} />
-      </FeatureFlagProvider>
-    );
+    const { queryByText } = render(<Relationships person={person} />);
 
     expect(
       queryByText(
@@ -164,11 +148,7 @@ describe('Relationships component', () => {
       revalidate: jest.fn(),
     }));
 
-    const { queryByText } = render(
-      <FeatureFlagProvider features={{}}>
-        <Relationships person={person} />
-      </FeatureFlagProvider>
-    );
+    const { queryByText } = render(<Relationships person={person} />);
 
     expect(queryByText('Parent(s)')).toBeInTheDocument();
     expect(queryByText('Children')).toBeInTheDocument();
@@ -209,11 +189,7 @@ describe('Relationships component', () => {
       revalidate: jest.fn(),
     }));
 
-    const { queryByTestId } = render(
-      <FeatureFlagProvider features={{}}>
-        <Relationships person={person} />
-      </FeatureFlagProvider>
-    );
+    const { queryByTestId } = render(<Relationships person={person} />);
 
     const first = queryByTestId('related-person-name-0');
     const second = queryByTestId('related-person-name-1');
@@ -246,11 +222,7 @@ describe('Relationships component', () => {
       revalidate: jest.fn(),
     }));
 
-    const { queryByTestId } = render(
-      <FeatureFlagProvider features={{}}>
-        <Relationships person={person} />
-      </FeatureFlagProvider>
-    );
+    const { queryByTestId } = render(<Relationships person={person} />);
 
     const first = queryByTestId('related-person-gender-0');
     const second = queryByTestId('related-person-gender-1');
@@ -282,11 +254,7 @@ describe('Relationships component', () => {
       revalidate: jest.fn(),
     }));
 
-    const { queryByTestId } = render(
-      <FeatureFlagProvider features={{}}>
-        <Relationships person={person} />
-      </FeatureFlagProvider>
-    );
+    const { queryByTestId } = render(<Relationships person={person} />);
 
     const first = queryByTestId('related-person-additional-options-0');
     const second = queryByTestId('related-person-additional-options-1');
@@ -317,11 +285,7 @@ describe('Relationships component', () => {
       revalidate: jest.fn(),
     }));
 
-    const { queryByTestId } = render(
-      <FeatureFlagProvider features={{}}>
-        <Relationships person={person} />
-      </FeatureFlagProvider>
-    );
+    const { queryByTestId } = render(<Relationships person={person} />);
 
     expect(queryByTestId('related-person-details-0')).toHaveTextContent(
       'Emergency contact'
@@ -347,11 +311,7 @@ describe('Relationships component', () => {
           revalidate: jest.fn(),
         }));
 
-      const { queryByTestId } = render(
-        <FeatureFlagProvider features={{}}>
-          <Relationships person={person} />
-        </FeatureFlagProvider>
-      );
+      const { queryByTestId } = render(<Relationships person={person} />);
 
       expect(queryByTestId('parent')).toHaveTextContent('Parent(s)');
     });
@@ -388,11 +348,7 @@ describe('Relationships component', () => {
           revalidate: jest.fn(),
         }));
 
-      const { queryByTestId } = render(
-        <FeatureFlagProvider features={{}}>
-          <Relationships person={person} />
-        </FeatureFlagProvider>
-      );
+      const { queryByTestId } = render(<Relationships person={person} />);
 
       const first = queryByTestId('related-person-name-0');
       const second = queryByTestId('related-person-name-1');
@@ -422,11 +378,7 @@ describe('Relationships component', () => {
           revalidate: jest.fn(),
         }));
 
-      const { queryByTestId } = render(
-        <FeatureFlagProvider features={{}}>
-          <Relationships person={person} />
-        </FeatureFlagProvider>
-      );
+      const { queryByTestId } = render(<Relationships person={person} />);
 
       expect(queryByTestId('sibling')).toHaveTextContent('Sibling(s)');
     });
@@ -463,11 +415,7 @@ describe('Relationships component', () => {
           revalidate: jest.fn(),
         }));
 
-      const { queryByTestId } = render(
-        <FeatureFlagProvider features={{}}>
-          <Relationships person={person} />
-        </FeatureFlagProvider>
-      );
+      const { queryByTestId } = render(<Relationships person={person} />);
 
       const first = queryByTestId('related-person-name-0');
       const second = queryByTestId('related-person-name-1');
@@ -476,6 +424,12 @@ describe('Relationships component', () => {
       expect(first).toHaveTextContent('Foo Bar');
       expect(second).toHaveTextContent('Fizz Buzz');
     });
+  });
+
+  it('displays the "Add a new relationship" button', async () => {
+    const { queryByText } = render(<Relationships person={person} />);
+
+    expect(queryByText('Add a new relationship')).toBeInTheDocument();
   });
 
   it('displays a link for the related person', async () => {
@@ -499,13 +453,9 @@ describe('Relationships component', () => {
       revalidate: jest.fn(),
     }));
 
-    const { queryByText } = render(
-      <FeatureFlagProvider features={{}}>
-        <Relationships person={person} />
-      </FeatureFlagProvider>
-    );
+    const { queryByText } = render(<Relationships person={person} />);
 
-    expect(queryByText(/Foo Bar/)?.closest('a')).toHaveAttribute(
+    expect(queryByText('Foo Bar')?.closest('a')).toHaveAttribute(
       'href',
       '/people/987654321'
     );
@@ -530,44 +480,11 @@ describe('Relationships component', () => {
         }));
     });
 
-    describe('Feature flag', () => {
-      it('displays "Remove" when active', async () => {
-        const features: FeatureSet = {
-          'remove-relationship': {
-            isActive: true,
-          },
-        };
-        const { queryByText } = render(
-          <FeatureFlagProvider features={features}>
-            <Relationships person={person} />
-          </FeatureFlagProvider>
-        );
+    it('displays "Remove" when active', async () => {
+      const { queryByText } = render(<Relationships person={person} />);
 
-        expect(queryByText(/Remove/)).toBeInTheDocument();
-      });
-
-      it('does not display "Remove" when inactive', async () => {
-        const features: FeatureSet = {
-          'remove-relationship': {
-            isActive: false,
-          },
-        };
-
-        const { queryByText } = render(
-          <FeatureFlagProvider features={features}>
-            <Relationships person={person} />
-          </FeatureFlagProvider>
-        );
-
-        expect(queryByText(/Remove/)).not.toBeInTheDocument();
-      });
+      expect(queryByText(/Remove/)).toBeInTheDocument();
     });
-
-    const features: FeatureSet = {
-      'remove-relationship': {
-        isActive: true,
-      },
-    };
 
     it('displays dialog when "Remove" is clicked', async () => {
       jest
@@ -592,9 +509,7 @@ describe('Relationships component', () => {
         }));
 
       const { getByText, queryByText } = render(
-        <FeatureFlagProvider features={features}>
-          <Relationships person={person} />
-        </FeatureFlagProvider>
+        <Relationships person={person} />
       );
 
       fireEvent.click(getByText(/Remove/));
@@ -606,9 +521,7 @@ describe('Relationships component', () => {
 
     it('hides dialog when cross is clicked', async () => {
       const { getByText, queryByText } = render(
-        <FeatureFlagProvider features={features}>
-          <Relationships person={person} />
-        </FeatureFlagProvider>
+        <Relationships person={person} />
       );
 
       fireEvent.click(getByText(/Remove/));
@@ -639,11 +552,7 @@ describe('Relationships component', () => {
         }));
       jest.spyOn(relationshipsAPI, 'removeRelationship');
 
-      const { getByText } = render(
-        <FeatureFlagProvider features={features}>
-          <Relationships person={person} />
-        </FeatureFlagProvider>
-      );
+      const { getByText } = render(<Relationships person={person} />);
 
       fireEvent.click(getByText(/Remove/));
       fireEvent.click(getByText(/Yes/));
@@ -659,9 +568,7 @@ describe('Relationships component', () => {
         .mockImplementation(jest.fn());
 
       const { getByText, queryByText } = render(
-        <FeatureFlagProvider features={features}>
-          <Relationships person={person} />
-        </FeatureFlagProvider>
+        <Relationships person={person} />
       );
 
       await waitFor(() => {
