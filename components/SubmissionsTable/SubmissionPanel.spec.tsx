@@ -15,11 +15,11 @@ describe('SubmissionPanel', () => {
   it('can launch and close the dialog', () => {
     render(<SubmissionPanel submission={mockSubmission} />);
     fireEvent.click(screen.getByText('Details'));
-    expect(screen.getByText('Foo details'));
+    expect(screen.getByText('Unknown form details'));
     expect(screen.getByRole('dialog'));
 
     fireEvent.click(screen.getByText('Close'));
-    expect(screen.queryByText('Foo details')).toBeNull();
+    expect(screen.queryByText('Unknown form details')).toBeNull();
     expect(screen.queryByRole('dialog')).toBeNull();
   });
 });

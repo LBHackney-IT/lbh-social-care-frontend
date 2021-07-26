@@ -1,8 +1,9 @@
-import { fireEvent, render, screen } from '@testing-library/react';
+import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { mockSubmission } from 'factories/submissions';
 import SubmissionsTable from './index';
 import { useAuth } from 'components/UserContext/UserContext';
 import { mockedResident } from 'factories/residents';
+import { Form } from 'data/flexibleForms/forms.types';
 
 jest.mock('components/UserContext/UserContext');
 
@@ -40,6 +41,16 @@ describe('SubmissionsTable', () => {
     expect(screen.getByText('Just mine (0)'));
     expect(screen.getByText('Everyone (0)'));
     expect(screen.getByText('No results to show.'));
+  });
+
+  it('lets you search for a submission by form name', async () => {
+    render(<SubmissionsTable submissions={[mockSubmission]} />);
+
+    fireEvent.change(screen.getByRole('searchbox'), {
+      target: { value: 'Sandbox form' },
+    });
+    expect(screen.getByText('Just mine (1)'));
+    expect(screen.queryAllByRole('listitem').length).toBe(3);
   });
 
   it("correctly renders user's own submissions", () => {
