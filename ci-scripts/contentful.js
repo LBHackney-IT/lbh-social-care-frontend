@@ -58,7 +58,7 @@ const run = async () => {
     }));
 
     fs.writeFileSync(
-      __dirname + '/data/flexibleForms/contentfulForms.ts',
+      'data/flexibleForms/contentfulForms.ts',
       template(JSON.stringify(processedForms, null, 2))
     );
   } catch (e) {

@@ -4,7 +4,7 @@ const forms: Form[] = [
   {
     id: '21hsfQuDZQjNEvikC9QRzf',
     name: 'Social care assessment (sandbox form)',
-    isViewableByChildrens: true,
+    isViewableByChildrens: false,
     isViewableByAdults: false,
     groupRecordable: true,
     approvable: true,
@@ -13,7 +13,6 @@ const forms: Form[] = [
       {
         id: 'Health and wellbeing',
         name: 'Health and wellbeing',
-        theme: 'About you',
         fields: [
           {
             id: 'Are you taking any prescription medication?',
@@ -48,11 +47,11 @@ const forms: Form[] = [
             ],
           },
         ],
+        theme: 'About you',
       },
       {
         id: 'Test step 1',
         name: 'Test step 1',
-        theme: 'About you',
         fields: [
           {
             id: 'How many needles are in this haystack?',
@@ -85,11 +84,11 @@ const forms: Form[] = [
             error: 'That is not a number of pins',
           },
         ],
+        theme: 'About you',
       },
       {
         id: 'The best step',
         name: 'The best step',
-        theme: 'About you',
         fields: [
           {
             id: 'How many needles are in this haystack?',
@@ -142,6 +141,37 @@ const forms: Form[] = [
             ],
           },
         ],
+        theme: 'About you',
+      },
+      {
+        id: 'Your care history',
+        name: 'Your care history',
+        intro: 'Here we will describe the purpose of the step.',
+        fields: [
+          {
+            id: 'What is your history?',
+            question: 'What is your history?',
+            hint: 'It happened in the past.',
+            type: 'checkboxes',
+            choices: [
+              {
+                label: 'A good history',
+                value: 'A good history',
+              },
+              {
+                label: 'An ok history',
+                value: 'An ok history',
+              },
+              {
+                label: 'A bad history',
+                value: 'A bad history',
+              },
+            ],
+            required: true,
+            error: 'That is not a history',
+          },
+        ],
+        theme: 'Your care',
       },
     ],
   },
