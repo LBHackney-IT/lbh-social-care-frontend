@@ -4,6 +4,7 @@ import { Submission } from 'data/flexibleForms/forms.types';
 import Banner from 'components/FlexibleForms/Banner';
 import { Form, Formik, Field, ErrorMessage, FormikHelpers } from 'formik';
 import { panelApproveSchema } from 'lib/validators';
+import { useRouter } from 'next/router';
 
 interface Props {
   isOpen: boolean;
@@ -20,6 +21,8 @@ const PanelApproveDialog = ({
   isOpen,
   setOpen,
 }: Props): React.ReactElement => {
+  const router = useRouter();
+
   const handleSubmit = async (
     values: FormValues,
     { setStatus }: FormikHelpers<FormValues>
@@ -29,6 +32,7 @@ const PanelApproveDialog = ({
         `/api/submissions/${submission.submissionId}/panel-approvals`
       );
       setOpen(false);
+      router.reload();
     } catch (e) {
       setStatus(e.toString());
     }

@@ -2,8 +2,16 @@ import RejectDialog from './RejectDialog';
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { mockSubmission } from 'factories/submissions';
 import axios from 'axios';
+import { useRouter } from 'next/router';
 
 jest.mock('axios');
+
+const mockHandler = jest.fn();
+jest.mock('next/router', () => ({
+  useRouter: () => ({
+    reload: mockHandler,
+  }),
+}));
 
 beforeEach(() => jest.resetAllMocks());
 
@@ -21,7 +29,7 @@ describe('RejectDialog', () => {
     expect(screen.getByText('Submit'));
   });
 
-  it('makes a request to the right api route', async () => {
+  it('makes a request to the right api route, then reloads the page', async () => {
     render(
       <RejectDialog
         isOpen={true}
@@ -41,6 +49,7 @@ describe('RejectDialog', () => {
       expect(axios.delete).toBeCalledWith('/api/submissions/123/approvals', {
         data: { rejectionReason: 'This is a test reason' },
       });
+      expect(useRouter().reload).toBeCalledTimes(1);
     });
   });
 
