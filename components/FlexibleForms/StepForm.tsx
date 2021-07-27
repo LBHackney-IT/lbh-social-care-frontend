@@ -8,10 +8,7 @@ import {
   FormikErrors,
 } from 'formik';
 import { Field } from 'data/flexibleForms/forms.types';
-import {
-  generateFlexibleSchema,
-  validateConditionalFields,
-} from 'lib/validators';
+import { generateFlexibleSchema } from 'lib/validators';
 import FlexibleField from './FlexibleFields';
 import { Resident } from 'types';
 import Banner from './Banner';
@@ -37,7 +34,6 @@ const StepForm = ({
 }: Props): React.ReactElement => (
   <Formik
     initialValues={initialValues || generateInitialValues(fields, person)}
-    validate={(values) => validateConditionalFields(values, fields)}
     validationSchema={generateFlexibleSchema(fields)}
     onSubmit={onSubmit}
     validateOnMount={true}
@@ -88,6 +84,7 @@ const StepFormInner = ({
           <p className="lbh-body-xs">{status}</p>
         </Banner>
       )}
+
       {fields.map((field) => (
         <FlexibleField
           key={field.id}

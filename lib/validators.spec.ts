@@ -1,8 +1,4 @@
-import {
-  generateFlexibleSchema,
-  validateConditionalFields,
-  generateSubmitSchema,
-} from './validators';
+import { generateFlexibleSchema, generateSubmitSchema } from './validators';
 
 describe('generateFlexibleSchema', () => {
   it('handles different field types', async () => {
@@ -187,79 +183,60 @@ describe('generateFlexibleSchema', () => {
       })
     ).rejects.toThrowError('This question is required');
   });
-});
 
-describe('validateConditionalFields', () => {
-  it('validates required fields when the condition is met', () => {
-    const result = validateConditionalFields(
+  it('becomes required when all conditions are met', async () => {
+    const schema = generateFlexibleSchema([
       {
-        foo: 'my-value',
-      },
-      [
-        {
-          id: 'one',
-          type: 'text',
-          question: '',
-          required: true,
-          condition: {
-            id: 'foo',
-            value: 'my-value',
-          },
-        },
-        {
-          id: 'two',
-          type: 'checkboxes',
-          question: '',
-          required: true,
-          condition: {
-            id: 'foo',
-            value: 'my-value',
-          },
-        },
-        {
-          id: 'three',
-          type: 'repeater',
-          question: '',
-          required: true,
-          condition: {
-            id: 'foo',
-            value: 'my-value',
-          },
-        },
-        {
-          id: 'four',
-          type: 'timetable',
-          question: '',
-          required: true,
-          condition: {
-            id: 'foo',
-            value: 'my-value',
-          },
-        },
-      ]
-    );
-    expect(result).toMatchObject({
-      one: 'This question is required',
-      two: 'Choose at least one item',
-      three: 'Add at least one item',
-      four: 'Total hours must be more than zero',
-    });
-  });
-
-  it('does nothing when the condition is not met', () => {
-    const result = validateConditionalFields({}, [
-      {
-        id: 'foo',
+        id: 'one',
         type: 'text',
-        question: 'Foo',
+        question: 'First question',
+      },
+      {
+        id: 'two',
+        type: 'text',
+        question: 'Second question',
+      },
+      {
+        id: 'three',
+        type: 'text',
+        question: 'Third question',
         required: true,
-        condition: {
-          id: 'bar',
-          value: 'my-value',
-        },
+        conditions: [
+          {
+            id: 'one',
+            value: 'yes',
+          },
+          {
+            id: 'two',
+            value: 'yes',
+          },
+        ],
       },
     ]);
-    expect(result).toMatchObject({});
+
+    await expect(
+      schema.validate({
+        one: 'yes',
+        two: 'yes',
+        three: '',
+      })
+    ).rejects.toThrowError('This question is required');
+
+    await expect(
+      schema.validate({
+        one: 'yes',
+        two: 'no',
+        three: '',
+      })
+    );
+
+    await expect(
+      schema.validate({
+        one: 'yes',
+        two: 'yes',
+        three: 'yes',
+      })
+    );
   });
 });
 
