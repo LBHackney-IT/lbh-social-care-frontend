@@ -7,7 +7,8 @@ import { warningNoteFactory } from 'factories/warningNotes';
 jest.mock('axios');
 const mockedAxios = axios as jest.Mocked<typeof axios>;
 
-const { ENDPOINT_API, AWS_KEY } = process.env;
+const ENDPOINT_API = process.env.ENDPOINT_API;
+const AWS_KEY = process.env.AWS_KEY;
 
 describe('warningNotesAPI', () => {
   describe('addWarningNote', () => {
