@@ -10,13 +10,16 @@ import {
   panelApproveSubmission,
   returnForEdits,
   discardSubmission,
+  generateSubmissionUrl,
 } from './submissions';
 import { mockedLegacyResident } from 'factories/residents';
+import { mockSubmission } from 'factories/submissions';
 
 jest.mock('axios');
 const mockedAxios = axios as jest.Mocked<typeof axios>;
 
-const { ENDPOINT_API, AWS_KEY } = process.env;
+const ENDPOINT_API = process.env.ENDPOINT_API;
+const AWS_KEY = process.env.AWS_KEY;
 
 describe('getUnfinishedSubmissions', () => {
   it('should return a list of incomplete submissions', async () => {
@@ -239,5 +242,35 @@ describe('returnForEdits', () => {
         },
       }
     );
+  });
+});
+
+describe('generateSubmissionUrl', () => {
+  it('correctly generates a canonical-style url', () => {
+    const result = generateSubmissionUrl({
+      ...mockSubmission,
+      formId: 'adult-case-note',
+    });
+    expect(result).toBe(
+      `/people/${mockSubmission.residents[0].id}/case-note?submissionId=${mockSubmission.submissionId}`
+    );
+  });
+
+  it('accepts a specific social care id', () => {
+    const result = generateSubmissionUrl(
+      {
+        ...mockSubmission,
+        formId: 'adult-case-note',
+      },
+      12345
+    );
+    expect(result).toBe(
+      `/people/12345/case-note?submissionId=${mockSubmission.submissionId}`
+    );
+  });
+
+  it('correctly generates a basic url', () => {
+    const result = generateSubmissionUrl(mockSubmission);
+    expect(result).toBe(`/submissions/${mockSubmission.submissionId}`);
   });
 });

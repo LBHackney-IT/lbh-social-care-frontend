@@ -14,6 +14,7 @@ interface Props {
   completedSteps?: number;
   totalSteps?: number;
   completion?: number;
+  url: string;
 }
 
 const SubmissionDetailDialog = ({
@@ -24,6 +25,7 @@ const SubmissionDetailDialog = ({
   completedSteps,
   totalSteps,
   completion,
+  url,
 }: Props): React.ReactElement => {
   const lastEdited =
     submission.editHistory[submission.editHistory.length - 1]?.editTime;
@@ -48,7 +50,7 @@ const SubmissionDetailDialog = ({
               </>
             )}
             <br />
-            <Link href={`/submissions/${submission.submissionId}`}>
+            <Link href={url}>
               <a className="lbh-link lbh-link--no-visited-state">Resume</a>
             </Link>{' '}
             <DiscardDialog submissionId={submission.submissionId} />
