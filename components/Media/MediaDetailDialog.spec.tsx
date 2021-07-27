@@ -12,7 +12,7 @@ describe('MediaDetailDialog', () => {
       />
     );
     expect(screen.getByText('Example media file'));
-    expect(screen.getByText('19.1 MB', { exact: false }));
+    expect(screen.getByText('20.0 MB', { exact: false }));
   });
 
   it('fires the dismiss handler', () => {
