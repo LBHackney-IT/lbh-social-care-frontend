@@ -37,7 +37,8 @@ const AdminLoginPage = ({ gssoUrl, returnUrl }: Props): React.ReactElement => (
 );
 
 export const getServerSideProps = async () => {
-  const { GSSO_URL, REDIRECT_URL } = process.env;
+  const GSSO_URL = process.env.GSSO_URL;
+  const REDIRECT_URL = process.env.REDIRECT_URL;
   const protocol = getProtocol();
   return {
     props: {

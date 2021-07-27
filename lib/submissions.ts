@@ -5,6 +5,7 @@ import {
   FlexibleAnswers,
 } from 'data/flexibleForms/forms.types';
 import { Resident, AgeContext } from 'types';
+import forms from 'data/flexibleForms';
 
 type RawSubmission = Omit<Submission, 'formAnswers'> & {
   formAnswers: {
@@ -12,7 +13,8 @@ type RawSubmission = Omit<Submission, 'formAnswers'> & {
   };
 };
 
-const { ENDPOINT_API, AWS_KEY } = process.env;
+const ENDPOINT_API = process.env.ENDPOINT_API;
+const AWS_KEY = process.env.AWS_KEY;
 
 const headersWithKey = {
   'x-api-key': AWS_KEY,
@@ -213,4 +215,20 @@ export const returnForEdits = async (
     }
   );
   return data;
+};
+
+/** safely generate a submission url, handling weird cases like case notes, which use a different canonical url structure */
+export const generateSubmissionUrl = (
+  submission: Submission,
+  socialCareId?: number
+): string => {
+  const form = forms.find((form) => form.id === submission.formId);
+  if (form?.canonicalUrl) {
+    return `${form.canonicalUrl(
+      // use the passed in social care id, or default to the first resident on the submission
+      socialCareId || submission.residents[0].id
+    )}?submissionId=${submission.submissionId}`;
+  } else {
+    return `/submissions/${submission.submissionId}`;
+  }
 };

@@ -1,6 +1,5 @@
 import * as Yup from 'yup';
-import { FormikValues, FormikErrors } from 'formik';
-import { Field } from 'data/flexibleForms/forms.types';
+import { Answer, Field } from 'data/flexibleForms/forms.types';
 import { ObjectShape, OptionalObjectSchema, TypeOfShape } from 'yup/lib/object';
 import { getTotalHours } from './utils';
 
@@ -60,6 +59,29 @@ const getErrorMessage = (field: Field) => {
   return `This question is required`;
 };
 
+type Shape = { [key: string]: Yup.AnySchema | Yup.ArraySchema<any> };
+
+const applyRequired = (field: Field, shape: Shape): Yup.AnySchema => {
+  if (field.type === 'timetable') {
+    return shape[field.id].test(
+      'total',
+      getErrorMessage(field),
+      (value) => getTotalHours(value) !== 0
+    );
+  } else if (field.type === 'datetime') {
+    return (shape[field.id] as Yup.NumberSchema).min(2, getErrorMessage(field));
+  } else if (
+    field.type === 'checkboxes' ||
+    field.type === 'tags' ||
+    field.type === 'repeater' ||
+    field.type === 'repeaterGroup'
+  ) {
+    return (shape[field.id] as Yup.NumberSchema).min(1, getErrorMessage(field));
+  } else {
+    return shape[field.id].required(getErrorMessage(field));
+  }
+};
+
 /** create a validation schema for a flexible form, ignoring conditional fields */
 export const generateFlexibleSchema = (
   fields: Field[]
@@ -68,11 +90,11 @@ export const generateFlexibleSchema = (
   Record<string, unknown>,
   TypeOfShape<ObjectShape>
 > => {
-  const shape: { [key: string]: Yup.AnySchema | Yup.ArraySchema<any> } = {};
+  const shape: Shape = {};
 
   fields.map((field) => {
     if (field.type === 'repeaterGroup') {
-      // recursively generate a schema for subfields of a repeater geoup
+      // recursively generate a schema for subfields of a repeater group
       shape[field.id] = Yup.array().of(
         generateFlexibleSchema(field.subfields || [])
       );
@@ -91,63 +113,25 @@ export const generateFlexibleSchema = (
       shape[field.id] = Yup.string();
     }
 
-    // add a required attribute if a field is required and not conditional
-    if (field.required && !field.condition) {
-      if (field.type === 'timetable') {
-        shape[field.id] = shape[field.id].test(
-          'total',
-          getErrorMessage(field),
-          (value) => getTotalHours(value) !== 0
-        );
-      } else if (field.type === 'datetime') {
-        shape[field.id] = (shape[field.id] as Yup.NumberSchema).min(
-          2,
-          getErrorMessage(field)
-        );
-      } else if (
-        field.type === 'checkboxes' ||
-        field.type === 'tags' ||
-        field.type === 'repeater' ||
-        field.type === 'repeaterGroup'
-      ) {
-        shape[field.id] = (shape[field.id] as Yup.NumberSchema).min(
-          1,
-          getErrorMessage(field)
+    if (field.required) {
+      if (field.conditions) {
+        shape[field.id] = (shape[field.id] as Yup.StringSchema).when(
+          field.conditions.map((c) => c.id),
+          {
+            is: (...valuesToTest: Answer[]) =>
+              field.conditions?.every((condition, i) => {
+                return valuesToTest[i] === condition.value;
+              }),
+            then: applyRequired(field, shape),
+            otherwise: shape[field.id],
+          }
         );
       } else {
-        shape[field.id] = shape[field.id].required(getErrorMessage(field));
+        // handle basic required fields
+        shape[field.id] = applyRequired(field, shape);
       }
     }
   });
 
   return Yup.object().shape(shape);
-};
-
-/** respect the "required" attribute for conditional fields, only when the condition is met */
-export const validateConditionalFields = (
-  values: FormikValues,
-  fields: Field[]
-): FormikErrors<FormikValues> => {
-  const errors: FormikErrors<FormikValues> = {};
-  fields.map((field) => {
-    if (field.condition) {
-      if (
-        Array.isArray(field.condition)
-          ? !field.condition.every((cond) => values[cond.id] === cond.value) &&
-            field.required
-          : values[field.condition.id] === field.condition.value &&
-            field.required
-      ) {
-        if (field.type === 'timetable') {
-          // handle timetable fields specially
-          if (getTotalHours(values[field.id]) === 0)
-            errors[field.id] = getErrorMessage(field);
-        } else {
-          if (!values[field.id]?.length)
-            errors[field.id] = getErrorMessage(field);
-        }
-      }
-    }
-  });
-  return errors;
 };

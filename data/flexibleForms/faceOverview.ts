@@ -245,10 +245,12 @@ const form: Form = {
         {
           id: 'More details about how others treat you',
           question: 'Provide more details about how others treat you',
-          condition: {
-            id: 'Any concerns about how others treat you?',
-            value: 'Yes',
-          },
+          conditions: [
+            {
+              id: 'Any concerns about how others treat you?',
+              value: 'Yes',
+            },
+          ],
           required: true,
           type: 'textarea',
         },
@@ -281,10 +283,12 @@ const form: Form = {
         },
         {
           id: 'Nationality',
-          condition: {
-            id: 'Recourse to public funds',
-            value: 'No',
-          },
+          conditions: [
+            {
+              id: 'Recourse to public funds',
+              value: 'No',
+            },
+          ],
           question: 'Nationality',
           type: 'text',
           required: true,
@@ -293,10 +297,12 @@ const form: Form = {
         {
           id: 'National insurance number',
           question: 'National insurance number',
-          condition: {
-            id: 'Recourse to public funds',
-            value: 'No',
-          },
+          conditions: [
+            {
+              id: 'Recourse to public funds',
+              value: 'No',
+            },
+          ],
           hint: 'For example, QQ123456C',
           type: 'text',
           required: true,
@@ -305,10 +311,12 @@ const form: Form = {
         {
           id: 'Passport number',
           question: 'Passport number',
-          condition: {
-            id: 'Recourse to public funds',
-            value: 'No',
-          },
+          conditions: [
+            {
+              id: 'Recourse to public funds',
+              value: 'No',
+            },
+          ],
           required: true,
           hint: 'For example, 7700225VH',
           type: 'text',
@@ -317,10 +325,12 @@ const form: Form = {
         {
           id: 'Legal immigration status',
           question: 'What is your legal immigration status?',
-          condition: {
-            id: 'Recourse to public funds',
-            value: 'No',
-          },
+          conditions: [
+            {
+              id: 'Recourse to public funds',
+              value: 'No',
+            },
+          ],
           type: 'radios',
           required: true,
           choices: [
@@ -355,10 +365,12 @@ const form: Form = {
         {
           id: 'Legal status start date',
           className: 'govuk-input--width-10',
-          condition: {
-            id: 'Recourse to public funds',
-            value: 'No',
-          },
+          conditions: [
+            {
+              id: 'Recourse to public funds',
+              value: 'No',
+            },
+          ],
           question: 'When did this legal status begin?',
           required: true,
           type: 'date',
@@ -366,10 +378,12 @@ const form: Form = {
         {
           id: 'Legal documents seen?',
           question: 'Legal documents seen?',
-          condition: {
-            id: 'Recourse to public funds',
-            value: 'No',
-          },
+          conditions: [
+            {
+              id: 'Recourse to public funds',
+              value: 'No',
+            },
+          ],
           type: 'radios',
           required: true,
           choices: [
@@ -385,7 +399,7 @@ const form: Form = {
         },
         {
           id: 'Date documents seen?',
-          condition: [
+          conditions: [
             {
               id: 'Recourse to public funds',
               value: 'No',
@@ -401,7 +415,7 @@ const form: Form = {
         },
         {
           id: 'Details of documents seen',
-          condition: [
+          conditions: [
             {
               id: 'Recourse to public funds',
               value: 'No',
@@ -595,10 +609,12 @@ const form: Form = {
           hint: 'Include details of any Lasting Power of Attorney, Deputy or Appointee.',
           type: 'textarea',
           required: true,
-          condition: {
-            id: 'Can manage own day-to-day paperwork',
-            value: 'No',
-          },
+          conditions: [
+            {
+              id: 'Can manage own day-to-day paperwork',
+              value: 'No',
+            },
+          ],
         },
 
         {
@@ -625,10 +641,12 @@ const form: Form = {
           hint: 'Include details of any Lasting Power of Attorney, Deputy or Appointee. If appropriate, you may wish to be referred for advice on finances and/or maximising your benefits',
           type: 'textarea',
           required: true,
-          condition: {
-            id: 'Can manage own finances',
-            value: 'No',
-          },
+          conditions: [
+            {
+              id: 'Can manage own finances',
+              value: 'No',
+            },
+          ],
         },
 
         {
@@ -668,10 +686,12 @@ const form: Form = {
           id: 'Details about technology',
           question: 'Provide details about the technology you use',
           required: true,
-          condition: {
-            id: 'Using specialist technology to  manage at home?',
-            value: 'Yes',
-          },
+          conditions: [
+            {
+              id: 'Using specialist technology to  manage at home?',
+              value: 'Yes',
+            },
+          ],
           type: 'textarea',
         },
         {
@@ -696,10 +716,12 @@ const form: Form = {
           id: 'Details about your living situation concerns',
           question: 'Provide details about your living situation concerns',
           required: true,
-          condition: {
-            id: 'Concerns about your current home living situation?',
-            value: 'Yes',
-          },
+          conditions: [
+            {
+              id: 'Concerns about your current home living situation?',
+              value: 'Yes',
+            },
+          ],
           type: 'textarea',
         },
       ],
@@ -783,10 +805,12 @@ const form: Form = {
           question: 'Provide details of these difficulties',
           type: 'textarea',
           required: true,
-          condition: {
-            id: 'Other dietary or eating difficulties?',
-            value: 'Yes',
-          },
+          conditions: [
+            {
+              id: 'Other dietary or eating difficulties?',
+              value: 'Yes',
+            },
+          ],
         },
       ],
     },
@@ -1087,10 +1111,12 @@ const form: Form = {
             'Do you need support with your parenting or caring responsibilities?',
           type: 'radios',
           required: true,
-          condition: {
-            id: 'Any dependent children?',
-            value: 'Yes',
-          },
+          conditions: [
+            {
+              id: 'Any dependent children?',
+              value: 'Yes',
+            },
+          ],
           choices: [
             {
               value: 'Yes',
@@ -1108,10 +1134,12 @@ const form: Form = {
             'Details of your needs and what you would like to achieve (caring for children)',
           type: 'textarea',
           required: true,
-          condition: {
-            id: 'Any dependent children?',
-            value: 'Yes',
-          },
+          conditions: [
+            {
+              id: 'Any dependent children?',
+              value: 'Yes',
+            },
+          ],
         },
         {
           id: 'Any other caring responsibilities?',
@@ -1134,10 +1162,12 @@ const form: Form = {
           question: 'Details of your needs (caring for other adults):',
           hint: "If you are providing care or support to other adults, you should be offered a Carer's assessment to discuss your caring role.",
           type: 'textarea',
-          condition: {
-            id: 'Any other caring responsibilities?',
-            value: 'Yes',
-          },
+          conditions: [
+            {
+              id: 'Any other caring responsibilities?',
+              value: 'Yes',
+            },
+          ],
         },
       ],
     },
@@ -1295,10 +1325,12 @@ const form: Form = {
             'Have you had contact with mental health services in the past year?',
           required: true,
           type: 'radios',
-          condition: {
-            id: 'Have or have ever suffered from a serious mental health issue?',
-            value: 'Yes',
-          },
+          conditions: [
+            {
+              id: 'Have or have ever suffered from a serious mental health issue?',
+              value: 'Yes',
+            },
+          ],
           choices: [
             {
               value: 'Yes',
@@ -1315,10 +1347,12 @@ const form: Form = {
           question: 'Provide details about the serious mental health issue',
           type: 'textarea',
           required: true,
-          condition: {
-            id: 'Have or have ever suffered from a serious mental health issue?',
-            value: 'Yes',
-          },
+          conditions: [
+            {
+              id: 'Have or have ever suffered from a serious mental health issue?',
+              value: 'Yes',
+            },
+          ],
         },
         {
           id: 'provide details of your needs emotional wellbeing',
@@ -1443,10 +1477,12 @@ const form: Form = {
             'What support do you need with taking or applying medication?',
           type: 'textarea',
           required: true,
-          condition: {
-            id: 'Any prescribed medication?',
-            value: 'Yes',
-          },
+          conditions: [
+            {
+              id: 'Any prescribed medication?',
+              value: 'Yes',
+            },
+          ],
         },
         {
           id: 'How often do you need support with medication and symptoms?',
@@ -1482,10 +1518,12 @@ const form: Form = {
             'Are you getting adequate relief from pain or other distressing physical symptoms?',
           type: 'radios',
           required: true,
-          condition: {
-            id: 'Does your physical condition or any medication that you are taking cause you pain or distress?',
-            value: 'Yes',
-          },
+          conditions: [
+            {
+              id: 'Does your physical condition or any medication that you are taking cause you pain or distress?',
+              value: 'Yes',
+            },
+          ],
           choices: [
             {
               value: 'Yes',
@@ -1502,10 +1540,12 @@ const form: Form = {
           question: 'Provide details of your managing pain and distress needs',
           type: 'textarea',
           required: true,
-          condition: {
-            id: 'Does your physical condition or any medication that you are taking cause you pain or distress?',
-            value: 'Yes',
-          },
+          conditions: [
+            {
+              id: 'Does your physical condition or any medication that you are taking cause you pain or distress?',
+              value: 'Yes',
+            },
+          ],
         },
         {
           id: 'Any difficulties with breathing?',
@@ -1528,10 +1568,12 @@ const form: Form = {
           question: 'Do you need equipment to help you breathe?',
           required: true,
           type: 'radios',
-          condition: {
-            id: 'Any difficulties with breathing?',
-            value: 'Yes',
-          },
+          conditions: [
+            {
+              id: 'Any difficulties with breathing?',
+              value: 'Yes',
+            },
+          ],
           choices: [
             {
               value: 'Yes',
@@ -1548,10 +1590,12 @@ const form: Form = {
           required: true,
           question: 'Provide details of your breathing needs',
           type: 'textarea',
-          condition: {
-            id: 'Any difficulties with breathing?',
-            value: 'Yes',
-          },
+          conditions: [
+            {
+              id: 'Any difficulties with breathing?',
+              value: 'Yes',
+            },
+          ],
         },
 
         {
@@ -1576,10 +1620,12 @@ const form: Form = {
           question: 'Provide details of your maintaining consciousness needs',
           type: 'textarea',
           required: true,
-          condition: {
-            id: 'Any difficulties maintaining consciousness?',
-            value: 'Yes',
-          },
+          conditions: [
+            {
+              id: 'Any difficulties maintaining consciousness?',
+              value: 'Yes',
+            },
+          ],
         },
       ],
     },
@@ -1759,10 +1805,12 @@ const form: Form = {
           question:
             'If assessment is completed with a carer present, does the carer agree this was a joint assessment? ',
           type: 'radios',
-          condition: {
-            id: 'Has carer?',
-            value: 'Yes',
-          },
+          conditions: [
+            {
+              id: 'Has carer?',
+              value: 'Yes',
+            },
+          ],
           choices: [
             {
               value: 'yes',
@@ -1781,10 +1829,12 @@ const form: Form = {
         {
           id: 'carer mosaic id ',
           question: "Carer's social care ID",
-          condition: {
-            id: 'Has carer?',
-            value: 'Yes',
-          },
+          conditions: [
+            {
+              id: 'Has carer?',
+              value: 'Yes',
+            },
+          ],
           hint: 'Also known as a Mosaic ID or emergency ID.',
           type: 'text',
           className: 'govuk-input--width-10',
@@ -1793,10 +1843,12 @@ const form: Form = {
           id: "Carer's NHS number",
           question: "Carer's NHS number",
           type: 'text',
-          condition: {
-            id: 'Has carer?',
-            value: 'Yes',
-          },
+          conditions: [
+            {
+              id: 'Has carer?',
+              value: 'Yes',
+            },
+          ],
           className: 'govuk-input--width-10',
         },
         {
@@ -1804,10 +1856,12 @@ const form: Form = {
           question: "Carer's first name",
           type: 'text',
           required: true,
-          condition: {
-            id: 'Has carer?',
-            value: 'Yes',
-          },
+          conditions: [
+            {
+              id: 'Has carer?',
+              value: 'Yes',
+            },
+          ],
           className: 'govuk-input--width-20',
         },
         {
@@ -1815,10 +1869,12 @@ const form: Form = {
           question: "Carer's last name",
           type: 'text',
           required: true,
-          condition: {
-            id: 'Has carer?',
-            value: 'Yes',
-          },
+          conditions: [
+            {
+              id: 'Has carer?',
+              value: 'Yes',
+            },
+          ],
           className: 'govuk-input--width-20',
         },
         {
@@ -1826,10 +1882,12 @@ const form: Form = {
           question: 'Has information and advice been provided to the carer?',
           type: 'radios',
           required: true,
-          condition: {
-            id: 'Has carer?',
-            value: 'Yes',
-          },
+          conditions: [
+            {
+              id: 'Has carer?',
+              value: 'Yes',
+            },
+          ],
           choices: [
             {
               value: 'Yes',
@@ -1845,10 +1903,12 @@ const form: Form = {
           id: "Impact of caring on your main carer's independence",
           question:
             "What is the impact of caring on your main carer's independence",
-          condition: {
-            id: 'Has carer?',
-            value: 'Yes',
-          },
+          conditions: [
+            {
+              id: 'Has carer?',
+              value: 'Yes',
+            },
+          ],
           required: true,
           type: 'textarea',
         },
@@ -1857,10 +1917,12 @@ const form: Form = {
           question:
             'Are arrangements in place to support you if your main carer(s) are ill or unavailable?',
           required: true,
-          condition: {
-            id: 'Has carer?',
-            value: 'Yes',
-          },
+          conditions: [
+            {
+              id: 'Has carer?',
+              value: 'Yes',
+            },
+          ],
           type: 'radios',
           choices: [
             {
@@ -1877,7 +1939,7 @@ const form: Form = {
           id: 'details of impact and arrangements',
           question: 'Details of impact and arrangements:',
           required: true,
-          condition: [
+          conditions: [
             {
               id: 'Has carer?',
               value: 'Yes',
@@ -2096,10 +2158,12 @@ const form: Form = {
           question: "What is the client's current setting?",
           hint: 'If the person is in a hospital setting, give the most recent setting before going to hospital',
           type: 'radios',
-          condition: {
-            id: 'Is this a review?',
-            value: 'Yes',
-          },
+          conditions: [
+            {
+              id: 'Is this a review?',
+              value: 'Yes',
+            },
+          ],
           required: true,
           choices: [
             {
@@ -2121,10 +2185,12 @@ const form: Form = {
           question: 'What kind of review?',
           type: 'radios',
           required: true,
-          condition: {
-            id: 'Is this a review?',
-            value: 'Yes',
-          },
+          conditions: [
+            {
+              id: 'Is this a review?',
+              value: 'Yes',
+            },
+          ],
           choices: [
             {
               value: 'Planned',
@@ -2141,7 +2207,7 @@ const form: Form = {
           question: 'What was the reason for this unplanned review?',
           type: 'radios',
           required: true,
-          condition: [
+          conditions: [
             {
               id: 'Kind of review',
               value: 'Unplanned',
@@ -2470,7 +2536,7 @@ const form: Form = {
           id: 'Outcome of contact',
           question: 'Outcome of contact',
           required: true,
-          condition: [
+          conditions: [
             {
               id: 'What next?',
               value: 'Continue to support planning',
@@ -2508,7 +2574,7 @@ const form: Form = {
           question: 'Outcome of review',
           type: 'radios',
           required: true,
-          condition: [
+          conditions: [
             {
               id: 'What next?',
               value: 'Continue to support planning',
@@ -2562,7 +2628,7 @@ const form: Form = {
           hint: 'Choose the first which applies',
           type: 'radios',
           required: true,
-          condition: [
+          conditions: [
             {
               id: 'What next?',
               value: 'No further action (close case)',
@@ -2611,7 +2677,7 @@ const form: Form = {
           id: 'Outcome of contact',
           question: 'Outcome of contact',
           required: true,
-          condition: [
+          conditions: [
             {
               id: 'What next?',
               value: 'No further action (close case)',

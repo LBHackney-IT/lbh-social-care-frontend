@@ -11,6 +11,7 @@ describe('SubmissionDetailDialog', () => {
         submission={mockSubmission}
         isOpen={true}
         onDismiss={jest.fn()}
+        url="/foo"
       />
     );
     expect(screen.getAllByRole('heading').length).toBe(2);
@@ -24,6 +25,7 @@ describe('SubmissionDetailDialog', () => {
         submission={mockSubmission}
         isOpen={true}
         onDismiss={jest.fn()}
+        url="/foo"
       />
     );
 
@@ -38,6 +40,7 @@ describe('SubmissionDetailDialog', () => {
         submission={mockSubmission}
         isOpen={true}
         onDismiss={mockHandler}
+        url="/foo"
       />
     );
     fireEvent.click(screen.getByText('Close'));

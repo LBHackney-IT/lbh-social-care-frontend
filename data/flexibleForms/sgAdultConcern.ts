@@ -780,10 +780,12 @@ const form: Form = {
         {
           id: 'Date of Police referral',
           question: 'Date of Police referral',
-          condition: {
-            id: 'incident reported to the police',
-            value: 'Yes, Metropolitan Police.',
-          },
+          conditions: [
+            {
+              id: 'incident reported to the police',
+              value: 'Yes, Metropolitan Police.',
+            },
+          ],
           hint: '',
           type: 'date',
         },
@@ -791,20 +793,24 @@ const form: Form = {
           id: '3) Date of Incident',
           question: '3. Date of Incident',
           hint: '',
-          condition: {
-            id: 'incident reported to the police',
-            value: 'Yes, Metropolitan Police.',
-          },
+          conditions: [
+            {
+              id: 'incident reported to the police',
+              value: 'Yes, Metropolitan Police.',
+            },
+          ],
           type: 'date',
         },
         {
           id: 'Has an incident reference number been provided? (e)g. Merlin No.)',
           question:
             'Has an incident reference number been provided? (e.g. Merlin No.)',
-          condition: {
-            id: 'incident reported to the police',
-            value: 'Yes, Metropolitan Police.',
-          },
+          conditions: [
+            {
+              id: 'incident reported to the police',
+              value: 'Yes, Metropolitan Police.',
+            },
+          ],
           required: true,
           hint: '(If yes, provide below)',
           type: 'radios',
@@ -822,10 +828,12 @@ const form: Form = {
         {
           id: 'Enter Police Reference Code (e)g. Merlin No.)',
           question: 'Enter Police Reference Code (e.g. Merlin No.)',
-          condition: {
-            id: 'incident reported to the police',
-            value: 'Yes, Metropolitan Police.',
-          },
+          conditions: [
+            {
+              id: 'incident reported to the police',
+              value: 'Yes, Metropolitan Police.',
+            },
+          ],
           hint: 'Enter a reference number, if and only if you stated one was provided.  (Enter in full - e.g. 20PAC123456)',
           type: 'text',
         },
@@ -913,10 +921,12 @@ const form: Form = {
           id: 'Date of death',
           question: 'Date of death',
           hint: '',
-          condition: {
-            id: 'Is the adult at risk now deceased?',
-            value: 'Yes',
-          },
+          conditions: [
+            {
+              id: 'Is the adult at risk now deceased?',
+              value: 'Yes',
+            },
+          ],
           type: 'date',
         },
         {
@@ -938,10 +948,12 @@ const form: Form = {
         {
           id: 'Provide placement details and Local authority',
           question: 'If yes, Placement details and Local authority',
-          condition: {
-            id: 'Is the adult at risk in a placement?',
-            value: 'Yes',
-          },
+          conditions: [
+            {
+              id: 'Is the adult at risk in a placement?',
+              value: 'Yes',
+            },
+          ],
           hint: '',
           type: 'textarea',
         },
@@ -949,10 +961,12 @@ const form: Form = {
           id: 'Funded by',
           question: 'Funded by',
           hint: '',
-          condition: {
-            id: 'Is the adult at risk in a placement?',
-            value: 'Yes',
-          },
+          conditions: [
+            {
+              id: 'Is the adult at risk in a placement?',
+              value: 'Yes',
+            },
+          ],
           type: 'text',
         },
         {
@@ -980,10 +994,12 @@ const form: Form = {
           question: 'Please specify details of self funding.',
           hint: '',
           type: 'text',
-          condition: {
-            id: 'Is the adult at risk a self -funder in any way',
-            value: 'Yes',
-          },
+          conditions: [
+            {
+              id: 'Is the adult at risk a self -funder in any way',
+              value: 'Yes',
+            },
+          ],
         },
         {
           id: 'Is the adult at risk already known to the local authority?',
@@ -1733,10 +1749,12 @@ const form: Form = {
         {
           id: 'Other adult(s) at risk in the household',
           question: 'Other adult(s) at risk in the household',
-          condition: {
-            id: 'Any other adult(s) at risk in the household?',
-            value: 'Yes',
-          },
+          conditions: [
+            {
+              id: 'Any other adult(s) at risk in the household?',
+              value: 'Yes',
+            },
+          ],
           hint: "Please give details of both 'Name' and 'Relationship' in each case",
           type: 'textarea',
         },
@@ -1763,10 +1781,12 @@ const form: Form = {
         {
           id: 'Children at risk in the household',
           question: 'Children at risk in the household',
-          condition: {
-            id: 'Any children at risk in the household?',
-            value: 'Yes',
-          },
+          conditions: [
+            {
+              id: 'Any children at risk in the household?',
+              value: 'Yes',
+            },
+          ],
           hint: "Please give details of 'Name', 'Relationship' and if a 'Separate Concern' has been raised in each case",
           type: 'textarea',
         },

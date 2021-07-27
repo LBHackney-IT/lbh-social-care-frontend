@@ -8,7 +8,7 @@ import { getPermissionFlag } from 'utils/user';
 
 export const AUTH_WHITELIST = ['/login', '/access-denied'];
 
-const { GSSO_TOKEN_NAME } = process.env;
+const GSSO_TOKEN_NAME = process.env.GSSO_TOKEN_NAME;
 
 export const deleteSession = (
   res: NonNullable<NextPageContext['res']>
@@ -53,16 +53,16 @@ interface ParsedCookie {
 export const isAuthorised = (
   req: NonNullable<NextPageContext['req']>
 ): User | undefined => {
-  const {
-    HACKNEY_JWT_SECRET,
-    AUTHORISED_DEV_GROUP,
-    AUTHORISED_ADMIN_GROUP,
-    AUTHORISED_ADULT_GROUP,
-    AUTHORISED_CHILD_GROUP,
-    AUTHORISED_ALLOCATORS_GROUP,
-    AUTHORISED_UNRESTRICTED_GROUP,
-    AUTHORISED_AUDITABLE_GROUP,
-  } = process.env;
+  const HACKNEY_JWT_SECRET = process.env.HACKNEY_JWT_SECRET;
+  const AUTHORISED_DEV_GROUP = process.env.AUTHORISED_DEV_GROUP;
+  const AUTHORISED_ADMIN_GROUP = process.env.AUTHORISED_ADMIN_GROUP;
+  const AUTHORISED_ADULT_GROUP = process.env.AUTHORISED_ADULT_GROUP;
+  const AUTHORISED_CHILD_GROUP = process.env.AUTHORISED_CHILD_GROUP;
+  const AUTHORISED_ALLOCATORS_GROUP = process.env.AUTHORISED_ALLOCATORS_GROUP;
+  const AUTHORISED_UNRESTRICTED_GROUP =
+    process.env.AUTHORISED_UNRESTRICTED_GROUP;
+  const AUTHORISED_AUDITABLE_GROUP = process.env.AUTHORISED_AUDITABLE_GROUP;
+
   const cookies = cookie.parse(req.headers.cookie ?? '');
   const parsedToken = cookies[GSSO_TOKEN_NAME]
     ? (jsonwebtoken.verify(

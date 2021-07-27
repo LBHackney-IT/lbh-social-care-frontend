@@ -3,7 +3,8 @@ import axios from 'axios';
 import type { Case, CaseData, HistoricCaseData, User } from 'types';
 import { getAuditingParams } from '../utils/auditing';
 
-const { ENDPOINT_API, AWS_KEY } = process.env;
+const ENDPOINT_API = process.env.ENDPOINT_API;
+const AWS_KEY = process.env.AWS_KEY;
 
 const headersWithKey = {
   'x-api-key': AWS_KEY,
