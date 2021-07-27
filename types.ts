@@ -330,7 +330,7 @@ export interface Media {
   mediaId: string;
   resident: Resident;
   title: string;
-  uploadedAt: string | null;
+  uploadedAt: string;
   uploadedBy: Worker | null;
   files: {
     original: File;
