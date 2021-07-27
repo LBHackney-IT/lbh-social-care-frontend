@@ -10,7 +10,7 @@ interface Props {
 }
 
 const humanFileSize = (bytes: number): string => {
-  if (bytes == 0) {
+  if (bytes === 0) {
     return '0.0 B';
   }
   const e = Math.floor(Math.log(bytes) / Math.log(1024));
