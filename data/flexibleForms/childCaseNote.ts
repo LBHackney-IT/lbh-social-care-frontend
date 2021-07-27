@@ -41,10 +41,12 @@ const form: Form = {
           type: 'radios',
           error: 'You must choose a correspondance type',
           required: true,
-          condition: {
-            id: 'Type',
-            value: 'Correspondence',
-          },
+          conditions: [
+            {
+              id: 'Type',
+              value: 'Correspondence',
+            },
+          ],
           choices: [
             {
               value: 'Phone call',
@@ -63,10 +65,12 @@ const form: Form = {
           hint: 'Choose one',
           required: true,
           error: 'You must choose an option',
-          condition: {
-            id: 'Type',
-            value: 'Visit',
-          },
+          conditions: [
+            {
+              id: 'Type',
+              value: 'Visit',
+            },
+          ],
           choices: [
             {
               value: 'Face to face',
@@ -89,10 +93,12 @@ const form: Form = {
           hint: 'Choose one option',
           required: true,
           error: 'You must choose a visit type',
-          condition: {
-            id: 'Type',
-            value: 'Visit',
-          },
+          conditions: [
+            {
+              id: 'Type',
+              value: 'Visit',
+            },
+          ],
           choices: [
             { label: 'Child in need visit', value: 'Child in need' },
             { label: 'CFS assessment visit', value: 'CFS assessment' },
@@ -128,10 +134,12 @@ const form: Form = {
           question: 'What kind of note is this?',
           hint: 'Choose all that apply',
           type: 'checkboxes',
-          condition: {
-            id: 'Type',
-            value: 'Something else',
-          },
+          conditions: [
+            {
+              id: 'Type',
+              value: 'Something else',
+            },
+          ],
           choices: [
             { label: 'Unit meeting note', value: 'Unit meeting note' },
             { label: 'Allocation record', value: 'Allocation record' },

@@ -24,15 +24,12 @@ const FlexibleField = ({
   touched,
   errors,
 }: Props): React.ReactElement | null => {
-  if (field.condition) {
-    // check if there's more than one condition
-    if (Array.isArray(field.condition)) {
-      if (!field.condition.every((cond) => values[cond.id] === cond.value))
-        return null;
-    } else {
-      if (values[field.condition.id] !== field.condition.value) return null;
-    }
-  }
+  // check if there's more than one condition
+  if (
+    field.conditions &&
+    !field.conditions.every((cond) => values[cond.id] === cond.value)
+  )
+    return null;
 
   if (field.type === 'repeaterGroup' && field.subfields)
     return (
