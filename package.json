@@ -17,7 +17,8 @@
     "cy:open": "cypress open",
     "build-storybook": "build-storybook",
     "release": "release-it",
-    "delete-draft-github-releases": "node ./ci-scripts/delete-draft-github-releases.js"
+    "delete-draft-github-releases": "node ./ci-scripts/delete-draft-github-releases.js",
+    "contentful:import": "node ./ci-scripts/contentful.js"
   },
   "dependencies": {
     "@reach/dialog": "^0.15.0",

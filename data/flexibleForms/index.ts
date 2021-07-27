@@ -5,6 +5,7 @@ import sgAdultConcern from './sgAdultConcern';
 import sgAdultManagerDecisionConcern from './sgAdultManagerDecisionConcern';
 import adultCaseNote from './adultCaseNote';
 import childCaseNote from './childCaseNote';
+import contentfulForms from './contentfulForms';
 
 export default [
   foo,
@@ -14,4 +15,5 @@ export default [
   faceOverview,
   sgAdultConcern,
   sgAdultManagerDecisionConcern,
+  ...contentfulForms,
 ];
