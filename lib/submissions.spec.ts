@@ -16,7 +16,8 @@ import { mockedLegacyResident } from 'factories/residents';
 jest.mock('axios');
 const mockedAxios = axios as jest.Mocked<typeof axios>;
 
-const { ENDPOINT_API, AWS_KEY } = process.env;
+const ENDPOINT_API = process.env.ENDPOINT_API;
+const AWS_KEY = process.env.AWS_KEY;
 
 describe('getUnfinishedSubmissions', () => {
   it('should return a list of incomplete submissions', async () => {

@@ -5,7 +5,8 @@ import parseISO from 'date-fns/parseISO';
 
 import type { Allocation, AllocationData } from 'types';
 
-const { ENDPOINT_API, AWS_KEY } = process.env;
+const ENDPOINT_API = process.env.ENDPOINT_API;
+const AWS_KEY = process.env.AWS_KEY;
 
 interface AllocationsParams {
   mosaic_id?: number;

@@ -1,6 +1,7 @@
 import axios from 'axios';
 
-const { POSTCODE_LOOKUP_URL, POSTCODE_LOOKUP_APIKEY } = process.env;
+const POSTCODE_LOOKUP_URL = process.env.POSTCODE_LOOKUP_URL;
+const POSTCODE_LOOKUP_APIKEY = process.env.POSTCODE_LOOKUP_APIKEY;
 
 interface Address {
   line1: string;
