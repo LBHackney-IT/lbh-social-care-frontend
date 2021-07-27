@@ -2,8 +2,16 @@ import PanelApproveDialog from './PanelApproveDialog';
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { mockSubmission } from 'factories/submissions';
 import axios from 'axios';
+import { useRouter } from 'next/router';
 
 jest.mock('axios');
+
+const mockHandler = jest.fn();
+jest.mock('next/router', () => ({
+  useRouter: () => ({
+    reload: mockHandler,
+  }),
+}));
 
 beforeEach(() => jest.resetAllMocks());
 
@@ -34,7 +42,7 @@ describe('PanelApproveDialog', () => {
     });
   });
 
-  it('makes a request to the right api route', async () => {
+  it('makes a request to the right api route, then reloads the page', async () => {
     render(
       <PanelApproveDialog
         isOpen={true}
@@ -47,6 +55,7 @@ describe('PanelApproveDialog', () => {
     await waitFor(() => {
       expect(axios.post).toBeCalledTimes(1);
       expect(axios.post).toBeCalledWith('/api/submissions/123/panel-approvals');
+      expect(useRouter().reload).toBeCalledTimes(1);
     });
   });
 
