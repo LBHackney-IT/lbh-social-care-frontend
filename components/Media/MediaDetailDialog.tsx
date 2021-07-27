@@ -1,6 +1,7 @@
 import Dialog from 'components/Dialog/Dialog';
 import { Media } from 'types';
 import { format } from 'date-fns';
+import s from './index.module.scss';
 
 interface Props {
   media: Media;
@@ -29,7 +30,7 @@ const MediaDetailDialog = ({
         src={media.files.medium?.url}
         alt={media.title}
         loading="lazy"
-        className="govuk-!-margin-bottom-6"
+        className={`govuk-!-margin-bottom-6 ${s.imgPreview}`}
       />
 
       <dl className={`govuk-summary-list lbh-summary-list`}>
