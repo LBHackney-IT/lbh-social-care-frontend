@@ -1,6 +1,7 @@
 import s from './index.module.scss';
 import { Submission } from 'data/flexibleForms/forms.types';
 import Link from 'next/link';
+import { generateSubmissionUrl } from 'lib/submissions';
 
 interface SubProps {
   sub: Submission;
@@ -12,7 +13,7 @@ const Sub = ({ sub }: SubProps): React.ReactElement => {
 
   return (
     <li key={sub.submissionId}>
-      <Link href={`/submissions/${sub.submissionId}`}>
+      <Link href={generateSubmissionUrl(sub)}>
         {sub?.form?.name || sub.formId}
       </Link>{' '}
       <p className="lbh-body-xs">
