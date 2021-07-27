@@ -254,6 +254,7 @@ describe('generateSubmissionUrl', () => {
       `/people/${mockSubmission.residents[0].id}/case-note?submissionId=${mockSubmission.submissionId}`
     );
   });
+
   it('accepts a specific social care id', () => {
     const result = generateSubmissionUrl(
       {
@@ -266,6 +267,7 @@ describe('generateSubmissionUrl', () => {
       `/people/12345/case-note?submissionId=${mockSubmission.submissionId}`
     );
   });
+
   it('correctly generates a basic url', () => {
     const result = generateSubmissionUrl(mockSubmission);
     expect(result).toBe(`/submissions/${mockSubmission.submissionId}`);
