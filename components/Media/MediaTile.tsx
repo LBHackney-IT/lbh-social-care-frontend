@@ -20,8 +20,8 @@ const MediaTile = ({ media }: Props): React.ReactElement => {
           <h3 className="lbh-heading-h4">{media.title}</h3>
         </button>
         <p className="lbh-body-xs">
-          Uploaded {format(new Date(media.uploadedAt), 'd MMM yyyy')} by{' '}
-          {media.uploadedBy?.email}
+          Uploaded {format(new Date(media.uploadedAt), 'd MMM yyyy')}
+          {media.uploadedBy && ` by ${media.uploadedBy.email}`}
         </p>
       </div>
 

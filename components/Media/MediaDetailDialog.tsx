@@ -1,5 +1,4 @@
 import Dialog from 'components/Dialog/Dialog';
-import s from './index.module.scss';
 import { Media } from 'types';
 import { format } from 'date-fns';
 
