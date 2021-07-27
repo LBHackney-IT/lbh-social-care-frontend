@@ -2,7 +2,6 @@ import ErrorMessage from 'components/ErrorMessage/ErrorMessage';
 import Spinner from 'components/Spinner/Spinner';
 import { removeRelationship, useRelationships } from 'utils/api/relationships';
 import { useState } from 'react';
-import { ConditionalFeature } from 'lib/feature-flags/feature-flags';
 import Link from 'next/link';
 import style from './Relationships.module.scss';
 import { RelationshipType, Resident, ExistingRelationship } from 'types';
@@ -89,13 +88,11 @@ const Relationships = ({ person }: Props): React.ReactElement => {
         <div className={s.heading}>
           <h2>Relationships</h2>
 
-          <ConditionalFeature name="add-relationships">
-            <Link href={`/people/${person.id}/relationships/add`}>
-              <a className="lbh-link lbh-link--no-visited-state">
-                Add a new relationship
-              </a>
-            </Link>
-          </ConditionalFeature>
+          <Link href={`/people/${person.id}/relationships/add`}>
+            <a className="lbh-link lbh-link--no-visited-state">
+              Add a new relationship
+            </a>
+          </Link>
         </div>
 
         {personalRelationships && personalRelationships.length > 0 ? (
@@ -208,34 +205,32 @@ const Relationships = ({ person }: Props): React.ReactElement => {
                         >
                           {person.details}
                         </td>
-                        <ConditionalFeature name="remove-relationship">
-                          <td
-                            data-testid={`related-person-remove-${personRowIndex}`}
-                            key={`related-person-remove-${personRowIndex}`}
-                            className={`${
-                              relationship.relationships.length > 1 &&
-                              personRowIndex !==
-                                relationship.relationships.length - 1
-                                ? `govuk-table__cell ${style.noBorder}`
-                                : 'govuk-table__cell'
-                            }`}
+                        <td
+                          data-testid={`related-person-remove-${personRowIndex}`}
+                          key={`related-person-remove-${personRowIndex}`}
+                          className={`${
+                            relationship.relationships.length > 1 &&
+                            personRowIndex !==
+                              relationship.relationships.length - 1
+                              ? `govuk-table__cell ${style.noBorder}`
+                              : 'govuk-table__cell'
+                          }`}
+                        >
+                          <a
+                            className="lbh-link lbh-link--no-visited-state"
+                            href="#"
+                            onClick={() => {
+                              setRelationshipToRemove(person);
+                              setIsRemoveRelationshipDialogOpen(true);
+                            }}
                           >
-                            <a
-                              className="lbh-link lbh-link--no-visited-state"
-                              href="#"
-                              onClick={() => {
-                                setRelationshipToRemove(person);
-                                setIsRemoveRelationshipDialogOpen(true);
-                              }}
-                            >
-                              Remove{' '}
-                              <span className="govuk-visually-hidden">
-                                relationship with {person.firstName}{' '}
-                                {person.lastName}
-                              </span>
-                            </a>
-                          </td>
-                        </ConditionalFeature>
+                            Remove{' '}
+                            <span className="govuk-visually-hidden">
+                              relationship with {person.firstName}{' '}
+                              {person.lastName}
+                            </span>
+                          </a>
+                        </td>
                       </tr>
                     ));
                 })}
