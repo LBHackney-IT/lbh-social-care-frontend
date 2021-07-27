@@ -2,8 +2,16 @@ import ApproveDialog from './ApproveDialog';
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { mockSubmission } from 'factories/submissions';
 import axios from 'axios';
+import { useRouter } from 'next/router';
 
 jest.mock('axios');
+
+const mockHandler = jest.fn();
+jest.mock('next/router', () => ({
+  useRouter: () => ({
+    reload: mockHandler,
+  }),
+}));
 
 beforeEach(() => jest.resetAllMocks());
 
@@ -20,7 +28,7 @@ describe('ApproveDialog', () => {
     expect(screen.getByText('Yes, approve'));
   });
 
-  it('makes a request to the right api route', async () => {
+  it('makes a request to the right api route, then reloads the page', async () => {
     render(
       <ApproveDialog
         isOpen={true}
@@ -32,6 +40,7 @@ describe('ApproveDialog', () => {
     await waitFor(() => {
       expect(axios.post).toBeCalledTimes(1);
       expect(axios.post).toBeCalledWith('/api/submissions/123/approvals');
+      expect(useRouter().reload).toBeCalledTimes(1);
     });
   });
 

@@ -3,6 +3,7 @@ import Dialog from 'components/Dialog/Dialog';
 import axios from 'axios';
 import { Submission } from 'data/flexibleForms/forms.types';
 import Banner from 'components/FlexibleForms/Banner';
+import { useRouter } from 'next/router';
 
 interface Props {
   isOpen: boolean;
@@ -18,12 +19,15 @@ const ApproveDialog = ({
   const [loading, setLoading] = useState<boolean>(false);
   const [status, setStatus] = useState<string | false>(false);
 
+  const router = useRouter();
+
   const handleApprove = async () => {
     try {
       setLoading(true);
       await axios.post(`/api/submissions/${submission.submissionId}/approvals`);
       setLoading(false);
       setOpen(false);
+      router.reload();
     } catch (e) {
       setStatus(e.toString());
     }

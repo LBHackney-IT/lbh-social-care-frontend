@@ -5,6 +5,7 @@ import { Formik, Form, FormikHelpers } from 'formik';
 import TextField from 'components/FlexibleForms/TextField';
 import Banner from 'components/FlexibleForms/Banner';
 import { rejectionSchema } from 'lib/validators';
+import { useRouter } from 'next/router';
 
 interface Props {
   isOpen: boolean;
@@ -21,6 +22,8 @@ const RejectDialog = ({
   isOpen,
   setOpen,
 }: Props): React.ReactElement => {
+  const router = useRouter();
+
   const handleReject = async (
     values: FormValues,
     { setStatus }: FormikHelpers<FormValues>
@@ -33,6 +36,7 @@ const RejectDialog = ({
         }
       );
       setOpen(false);
+      router.reload();
     } catch (e) {
       setStatus(e.toString);
     }
