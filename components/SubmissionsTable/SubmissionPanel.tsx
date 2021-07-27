@@ -1,10 +1,11 @@
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import { Submission } from 'data/flexibleForms/forms.types';
 import Link from 'next/link';
 import { format } from 'date-fns';
 import forms from 'data/flexibleForms';
 import s from './index.module.scss';
 import SubmissionDetailDialog from './SubmissionDetailDialog';
+import { generateSubmissionUrl } from 'lib/submissions';
 
 interface Props {
   submission: Submission;
@@ -19,6 +20,8 @@ const SubmissionPanel = ({ submission }: Props): React.ReactElement | null => {
   const totalSteps = form?.steps?.length;
   const completion =
     Math.round((completedSteps / Number(totalSteps)) * 100) || 0;
+
+  const url = useMemo(() => generateSubmissionUrl(submission), [submission]);
 
   return (
     <>
@@ -57,7 +60,7 @@ const SubmissionPanel = ({ submission }: Props): React.ReactElement | null => {
           </div>
         </dl>
 
-        <Link href={`/submissions/${submission.submissionId}`}>
+        <Link href={url}>
           <a className="govuk-button lbh-button">Resume</a>
         </Link>
 
@@ -73,6 +76,7 @@ const SubmissionPanel = ({ submission }: Props): React.ReactElement | null => {
           completedSteps={completedSteps}
           totalSteps={totalSteps}
           completion={completion}
+          url={url}
         />
       </li>
     </>
