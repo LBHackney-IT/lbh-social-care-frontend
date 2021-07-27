@@ -2,22 +2,13 @@ import Dialog from 'components/Dialog/Dialog';
 import { Media } from 'types';
 import { format } from 'date-fns';
 import s from './index.module.scss';
+import { humanFileSize } from 'utils/media';
 
 interface Props {
   media: Media;
   isOpen: boolean;
   onDismiss: () => void;
 }
-
-const humanFileSize = (bytes: number): string => {
-  if (bytes === 0) {
-    return '0.0 B';
-  }
-  const e = Math.floor(Math.log(bytes) / Math.log(1024));
-  return (
-    (bytes / Math.pow(1024, e)).toFixed(1) + ' ' + ' KMGTP'.charAt(e) + 'B'
-  );
-};
 
 const MediaDetailDialog = ({
   media,
