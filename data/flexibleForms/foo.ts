@@ -3,7 +3,7 @@ import { format } from 'date-fns';
 
 const form: Form = {
   id: 'foo',
-  name: 'Foo',
+  name: 'Sandbox form',
   isViewableByAdults: false,
   isViewableByChildrens: false,
   approvable: true,
