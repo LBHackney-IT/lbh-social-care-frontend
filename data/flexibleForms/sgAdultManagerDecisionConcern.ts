@@ -96,10 +96,12 @@ const form: Form = {
           required: true,
           hint: '',
           type: 'radios',
-          condition: {
-            id: 'Is the adult at risk already known to the local authority?',
-            value: 'Yes',
-          },
+          conditions: [
+            {
+              id: 'Is the adult at risk already known to the local authority?',
+              value: 'Yes',
+            },
+          ],
           choices: [
             {
               value: 'Yes',
@@ -122,10 +124,12 @@ const form: Form = {
           required: true,
           hint: '',
           type: 'radios',
-          condition: {
-            id: 'Is the adult at risk already known to the local authority?',
-            value: 'Yes',
-          },
+          conditions: [
+            {
+              id: 'Is the adult at risk already known to the local authority?',
+              value: 'Yes',
+            },
+          ],
           choices: [
             {
               value: 'Yes',
@@ -267,10 +271,12 @@ const form: Form = {
             'If yes, please state if relevant to this concern (previous concerns for adult at risk)',
           hint: '',
           type: 'textarea',
-          condition: {
-            id: 'Does the adult at risk have any previous safeguarding concerns?',
-            value: 'Yes',
-          },
+          conditions: [
+            {
+              id: 'Does the adult at risk have any previous safeguarding concerns?',
+              value: 'Yes',
+            },
+          ],
         },
         {
           id: 'Does the alleged person who caused harm have any previous safeguarding concerns?',
@@ -299,10 +305,12 @@ const form: Form = {
             'If yes, please state if relevant to this concern (previous concerns for person who caused harm)',
           hint: '',
           type: 'textarea',
-          condition: {
-            id: 'Does the alleged person who caused harm have any previous safeguarding concerns?',
-            value: 'Yes',
-          },
+          conditions: [
+            {
+              id: 'Does the alleged person who caused harm have any previous safeguarding concerns?',
+              value: 'Yes',
+            },
+          ],
         },
         {
           id: 'Is the person alleged to have caused the harm also an adult at risk?',
@@ -423,10 +431,12 @@ const form: Form = {
           question: 'Advocate name',
           hint: '',
           type: 'text',
-          condition: {
-            id: 'Has advocacy been offered as a result of this concern?',
-            value: 'Yes',
-          },
+          conditions: [
+            {
+              id: 'Has advocacy been offered as a result of this concern?',
+              value: 'Yes',
+            },
+          ],
         },
         {
           id: 'Advocate relationship',
@@ -434,20 +444,24 @@ const form: Form = {
           className: 'govuk-input--width-20',
           hint: '',
           type: 'text',
-          condition: {
-            id: 'Has advocacy been offered as a result of this concern?',
-            value: 'Yes',
-          },
+          conditions: [
+            {
+              id: 'Has advocacy been offered as a result of this concern?',
+              value: 'Yes',
+            },
+          ],
         },
         {
           id: 'Advocate address',
           question: 'Advocate address',
           hint: '',
           type: 'textarea',
-          condition: {
-            id: 'Has advocacy been offered as a result of this concern?',
-            value: 'Yes',
-          },
+          conditions: [
+            {
+              id: 'Has advocacy been offered as a result of this concern?',
+              value: 'Yes',
+            },
+          ],
         },
         {
           id: 'Advocate telephone number',
@@ -455,10 +469,12 @@ const form: Form = {
           className: 'govuk-input--width-20',
           hint: '',
           type: 'text',
-          condition: {
-            id: 'Has advocacy been offered as a result of this concern?',
-            value: 'Yes',
-          },
+          conditions: [
+            {
+              id: 'Has advocacy been offered as a result of this concern?',
+              value: 'Yes',
+            },
+          ],
         },
         {
           id: 'Advocate email address',
@@ -466,10 +482,12 @@ const form: Form = {
           hint: '',
           type: 'text',
           className: 'govuk-input--width-20',
-          condition: {
-            id: 'Has advocacy been offered as a result of this concern?',
-            value: 'Yes',
-          },
+          conditions: [
+            {
+              id: 'Has advocacy been offered as a result of this concern?',
+              value: 'Yes',
+            },
+          ],
         },
       ],
     },
@@ -518,10 +536,12 @@ const form: Form = {
           required: true,
           hint: 'Choose all the reasons which apply',
           type: 'checkboxes',
-          condition: {
-            id: 'Meets three key S42 enquiry criteria?',
-            value: 'No',
-          },
+          conditions: [
+            {
+              id: 'Meets three key S42 enquiry criteria?',
+              value: 'No',
+            },
+          ],
           choices: [
             {
               value: 'The adult does not have needs for care AND support',
@@ -546,10 +566,12 @@ const form: Form = {
           question: 'Will a safeguarding enquiry still go ahead?',
           hint: '',
           type: 'radios',
-          condition: {
-            id: 'Meets three key S42 enquiry criteria?',
-            value: 'No',
-          },
+          conditions: [
+            {
+              id: 'Meets three key S42 enquiry criteria?',
+              value: 'No',
+            },
+          ],
           choices: [
             {
               value: 'Yes',
@@ -568,7 +590,7 @@ const form: Form = {
           hint: "(Choose whichever will apply - but 'No action to be taken' should be the only selection if chosen)",
           required: true,
           type: 'checkboxes',
-          condition: [
+          conditions: [
             {
               id: 'Meets three key S42 enquiry criteria?',
               value: 'No',
@@ -617,7 +639,7 @@ const form: Form = {
           id: 'Agency or local authority name',
           question: 'Agency or local authority name',
           type: 'text',
-          condition: [
+          conditions: [
             {
               id: 'Meets three key S42 enquiry criteria?',
               value: 'No',
@@ -1505,10 +1527,12 @@ const form: Form = {
           required: true,
           hint: '',
           type: 'text',
-          condition: {
-            id: 'Does the Concern include allegation(s) made against a service provider or their worker(s)?',
-            value: 'Yes',
-          },
+          conditions: [
+            {
+              id: 'Does the Concern include allegation(s) made against a service provider or their worker(s)?',
+              value: 'Yes',
+            },
+          ],
         },
         {
           id: 'Primary Service Provider Address',
@@ -1516,20 +1540,24 @@ const form: Form = {
           required: true,
           hint: '',
           type: 'text',
-          condition: {
-            id: 'Does the Concern include allegation(s) made against a service provider or their worker(s)?',
-            value: 'Yes',
-          },
+          conditions: [
+            {
+              id: 'Does the Concern include allegation(s) made against a service provider or their worker(s)?',
+              value: 'Yes',
+            },
+          ],
         },
         {
           id: 'Secondary Service Provider Details',
           question: 'Secondary Service Provider Details',
           hint: '(If there is more than one service provider to consider please give details of other organisations here)',
           type: 'textarea',
-          condition: {
-            id: 'Does the Concern include allegation(s) made against a service provider or their worker(s)?',
-            value: 'Yes',
-          },
+          conditions: [
+            {
+              id: 'Does the Concern include allegation(s) made against a service provider or their worker(s)?',
+              value: 'Yes',
+            },
+          ],
         },
       ],
     },
@@ -1561,20 +1589,24 @@ const form: Form = {
           question: 'If yes, please give details (feedback to referrer)',
           hint: '',
           type: 'textarea',
-          condition: {
-            id: 'Have you provided information on the outcome of this safeguarding referral to the referrer?',
-            value: 'Yes',
-          },
+          conditions: [
+            {
+              id: 'Have you provided information on the outcome of this safeguarding referral to the referrer?',
+              value: 'Yes',
+            },
+          ],
         },
         {
           id: 'If no, why not? (feedback to referrer)',
           question: 'If no, why not? (feedback to referrer)',
           hint: '',
           type: 'textarea',
-          condition: {
-            id: 'Have you provided information on the outcome of this safeguarding referral to the referrer?',
-            value: 'No',
-          },
+          conditions: [
+            {
+              id: 'Have you provided information on the outcome of this safeguarding referral to the referrer?',
+              value: 'No',
+            },
+          ],
         },
       ],
     },
@@ -1606,10 +1638,12 @@ const form: Form = {
           question: 'Name of worker who will complete SAR form',
           hint: '',
           type: 'text',
-          condition: {
-            id: 'Is this case going to be referred to the Safeguarding Adult Board?',
-            value: 'Yes',
-          },
+          conditions: [
+            {
+              id: 'Is this case going to be referred to the Safeguarding Adult Board?',
+              value: 'Yes',
+            },
+          ],
         },
       ],
     },

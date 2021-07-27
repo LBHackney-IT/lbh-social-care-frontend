@@ -39,10 +39,12 @@ const form: Form = {
           question: 'What kind of correspondence?',
           type: 'radios',
           required: true,
-          condition: {
-            id: 'Type',
-            value: 'Correspondence',
-          },
+          conditions: [
+            {
+              id: 'Type',
+              value: 'Correspondence',
+            },
+          ],
           choices: [
             {
               value: 'Phone call',
@@ -59,10 +61,12 @@ const form: Form = {
           question: 'What kind of visit?',
           type: 'radios',
           required: true,
-          condition: {
-            id: 'Type',
-            value: 'Visit',
-          },
+          conditions: [
+            {
+              id: 'Type',
+              value: 'Visit',
+            },
+          ],
           choices: [
             {
               value: 'Home',
@@ -88,10 +92,12 @@ const form: Form = {
           question: 'Topics',
           hint: 'Help colleagues find this note. Add as many as you need.',
           type: 'checkboxes',
-          condition: {
-            id: 'Type',
-            value: 'Something else',
-          },
+          conditions: [
+            {
+              id: 'Type',
+              value: 'Something else',
+            },
+          ],
           choices: [
             {
               label: 'Additional hours requested',

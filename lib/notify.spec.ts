@@ -27,7 +27,7 @@ describe('notifyApprover', () => {
         'bar',
         {
           personalisation: {
-            form_name: 'Foo',
+            form_name: 'Sandbox form',
             resident_name: 'Foo Bar',
             resident_social_care_id: '1',
             started_by: 'foo.bar@hackney.gov.uk',
@@ -56,7 +56,7 @@ describe('notifyReturnedForEdits', () => {
         {
           personalisation: {
             rejecter_email: 'bar',
-            form_name: 'Foo',
+            form_name: 'Sandbox form',
             reason: 'my reason',
             resident_name: 'Foo Bar',
             started_by: 'foo.bar@hackney.gov.uk',

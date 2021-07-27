@@ -1,9 +1,16 @@
 import { Form } from './forms.types';
-import { format } from 'date-fns';
+
+const choices = [
+  {
+    value: 'yes',
+    label: 'Yes',
+  },
+  { value: 'no', label: 'No' },
+];
 
 const form: Form = {
   id: 'foo',
-  name: 'Foo',
+  name: 'Sandbox form',
   isViewableByAdults: false,
   isViewableByChildrens: false,
   approvable: true,
@@ -15,20 +22,41 @@ const form: Form = {
       theme: 'About you',
       fields: [
         {
-          id: 'Date of event',
-          question: 'When did this happen?',
-          type: 'datetime',
+          id: 'one',
+          type: 'radios',
+          question: 'First question',
+          choices,
           required: true,
-          default: [
-            format(new Date(), 'yyyy-MM-dd'),
-            format(new Date(), 'HH:00'),
+        },
+        {
+          id: 'two',
+          type: 'radios',
+          question: 'Second question',
+          choices,
+          required: true,
+          conditions: [
+            {
+              id: 'one',
+              value: 'yes',
+            },
           ],
         },
         {
-          id: 'Test',
-          question: 'Example question',
-          type: 'repeater',
+          id: 'three',
+          type: 'radios',
+          question: 'Third question',
+          choices,
           required: true,
+          conditions: [
+            {
+              id: 'one',
+              value: 'yes',
+            },
+            {
+              id: 'two',
+              value: 'yes',
+            },
+          ],
         },
       ],
     },

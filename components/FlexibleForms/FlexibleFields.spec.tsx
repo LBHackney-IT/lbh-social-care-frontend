@@ -134,10 +134,12 @@ describe('TextField', () => {
             id: 'foo',
             question: 'foo',
             type: 'text',
-            condition: {
-              id: 'bar',
-              value: 'yes',
-            },
+            conditions: [
+              {
+                id: 'bar',
+                value: 'yes',
+              },
+            ],
           }}
           values={{ bar: 'yes' }}
           touched={{}}
@@ -157,10 +159,12 @@ describe('TextField', () => {
             id: 'foo',
             question: 'foo',
             type: 'text',
-            condition: {
-              id: 'bar',
-              value: 'yes',
-            },
+            conditions: [
+              {
+                id: 'bar',
+                value: 'yes',
+              },
+            ],
           }}
           values={{ bar: '' }}
           touched={{}}
@@ -180,7 +184,7 @@ describe('TextField', () => {
             id: 'foo',
             question: 'foo',
             type: 'text',
-            condition: [
+            conditions: [
               {
                 id: 'bar',
                 value: 'yes',
