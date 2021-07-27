@@ -2,7 +2,8 @@ import axios from 'axios';
 
 import { Worker } from 'types';
 
-const { ENDPOINT_API, AWS_KEY } = process.env;
+const ENDPOINT_API = process.env.ENDPOINT_API;
+const AWS_KEY = process.env.AWS_KEY;
 
 const headers = {
   'x-api-key': AWS_KEY,
