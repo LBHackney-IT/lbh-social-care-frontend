@@ -7,7 +7,7 @@ import SubmissionDetailDialog from './SubmissionDetailDialog';
 import { generateSubmissionUrl } from 'lib/submissions';
 
 interface Props {
-  submission: SubmissionWithForm;
+  submission: Submission;
 }
 
 const SubmissionPanel = ({ submission }: Props): React.ReactElement | null => {
