@@ -37,7 +37,7 @@ functions:
       subnetIds: ${self:custom.subnets.${self:provider.stage}}
     environment:
       NEXT_PUBLIC_ENV: ${opt:stage}
-      AWS_KEY: ${ssm:/lbh-social-care/${self:provider.stage}/aws-key}
+      AWS_KEY: ${ssm:/lbh-social-care/${self:provider.stage}/aws-key~true}
       ENDPOINT_API: ${ssm:/lbh-social-care/${self:provider.stage}/endpoint-case-viewer}
       GSSO_URL: ${ssm:/lbh-social-care/${self:provider.stage}/gsso-url}
       GSSO_TOKEN_NAME: ${ssm:/lbh-social-care/${self:provider.stage}/gsso-token-name}
@@ -50,11 +50,11 @@ functions:
       AUTHORISED_UNRESTRICTED_GROUP: ${ssm:/lbh-social-care/${self:provider.stage}/authorised-unrestricted-group}
       AUTHORISED_AUDITABLE_GROUP: ${ssm:/lbh-social-care/${self:provider.stage}/authorised-auditable-group}
       POSTCODE_LOOKUP_URL: ${ssm:/lbh-social-care/${self:provider.stage}/postcode-lookup-url}
-      POSTCODE_LOOKUP_APIKEY: ${ssm:/lbh-social-care/${self:provider.stage}/postcode-lookup-apikey}
+      POSTCODE_LOOKUP_APIKEY: ${ssm:/lbh-social-care/${self:provider.stage}/postcode-lookup-apikey~true}
       NEXT_PUBLIC_FEEDBACK_LINK: ${ssm:/lbh-social-care/${self:provider.stage}/next-public-feedback-link}
       REDIRECT_URL: ${ssm:/lbh-social-care/${self:provider.stage}/redirect_url}
       NEXT_PUBLIC_GOOGLE_ANALYTICS_ID: ${ssm:/lbh-social-care/${self:provider.stage}/next_public_google_analytics_id}
-      NOTIFY_API_KEY: ${ssm:/lbh-social-care/${self:provider.stage}/notify-api-key}
+      NOTIFY_API_KEY: ${ssm:/lbh-social-care/${self:provider.stage}/notify-api-key~true}
       NOTIFY_APPROVER_TEMPLATE_ID: ${ssm:/lbh-social-care/${self:provider.stage}/notify-approver-template-id}
       NOTIFY_RETURN_FOR_EDITS_TEMPLATE_ID: ${ssm:/lbh-social-care/${self:provider.stage}/notify-return-for-edits-template-id}
 resources:
@@ -109,14 +109,18 @@ custom:
   aliases:
     staging: social-care-service-staging.hackney.gov.uk
     production: social-care-service.hackney.gov.uk
+    mosaic-prod: social-care-service-alb-temp.hackney.gov.uk
   certificate-arn:
     staging: arn:aws:acm:us-east-1:715003523189:certificate/8f7fa30c-a4e5-4775-b827-ade824a33c9a
     production: arn:aws:acm:us-east-1:153306643385:certificate/71728a39-cd3e-4570-a440-e87f84ef9a0d
+    mosaic-prod: arn:aws:acm:us-east-1:267112830674:certificate/dae4d0be-8f3a-4512-ba9c-fb80366e77f7
   securityGroups:
     staging:
       - sg-048f0fb9620e30710
     production:
       - sg-082581136513324b1
+    mosaic-prod:
+      - sg-0d92164e9f5d53800
   subnets:
     staging:
       - subnet-06d3de1bd9181b0d7
@@ -124,3 +128,6 @@ custom:
     production:
       - subnet-0b7b8fea07efabf34
       - subnet-01d3657f97a243261
+    mosaic-prod:
+      - subnet-0c39cd286eeaff2b2
+      - subnet-04c42d0aafb3738ad
