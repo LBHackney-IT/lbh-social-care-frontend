@@ -2,8 +2,9 @@ import { NextApiRequest, NextApiResponse } from 'next';
 import forms from 'data/flexibleForms';
 import { isAuthorised } from 'utils/auth';
 import { getSubmissionById, patchSubmissionForStep } from 'lib/submissions';
-import statusCodes, { StatusCodes } from 'http-status-codes';
+import statusCodes from 'http-status-codes';
 import { Submission } from 'data/flexibleForms/forms.types';
+import { FormikValues } from 'formik';
 
 const handler = async (
   req: NextApiRequest,

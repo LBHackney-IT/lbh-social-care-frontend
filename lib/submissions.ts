@@ -6,6 +6,7 @@ import {
 } from 'data/flexibleForms/forms.types';
 import { Resident, AgeContext } from 'types';
 import forms from 'data/flexibleForms';
+import parse from 'date-fns/parse';
 
 type RawSubmission = Omit<Submission, 'formAnswers'> & {
   formAnswers: {
@@ -80,23 +81,39 @@ export const getSubmissionById = async (
   return deserialiseAnswers(data);
 };
 
+const getDateOfEvent = (
+  stepAnswers: StepAnswers,
+  dateOfEventId?: string
+): null | string => {
+  if (!dateOfEventId) return null;
+
+  const dateOfEventFromForm = stepAnswers[dateOfEventId] as string | string[];
+
+  if (typeof dateOfEventFromForm === 'string') {
+    return dateOfEventFromForm;
+  } else {
+    const dateConjoined = `${dateOfEventFromForm[0]} ${dateOfEventFromForm[1]}`;
+
+    return parse(dateConjoined, 'yyyy-MM-dd HH:ss', new Date()).toString();
+  }
+};
+
 /** update the answers for a given step on a submission, providing the submission id, step id, editor's name and the answers to update */
 export const patchSubmissionForStep = async (
   submissionId: string,
   stepId: string,
   editedBy: string,
-  stepAnswers: StepAnswers
+  stepAnswers: StepAnswers,
+  dateOfEventId?: string
 ): Promise<Submission> => {
-  const tags = Object.keys(stepAnswers).find((step) =>
-    step.toLowerCase().includes('tags')
-  );
+  const dateOfEvent = getDateOfEvent(stepAnswers, dateOfEventId);
 
   const { data } = await axios.patch(
     `${ENDPOINT_API}/submissions/${submissionId}/steps/${stepId}`,
     {
       stepAnswers: JSON.stringify(stepAnswers),
       editedBy,
-      tags: tags ? stepAnswers[tags] : undefined,
+      dateOfEvent,
     },
     {
       headers: headersWithKey,
@@ -180,7 +197,7 @@ export const approveSubmission = async (
   return data;
 };
 
-/** mark an approved submission as panal approved passing in the id and approved by  */
+/** mark an approved submission as panel approved passing in the id and approved by  */
 export const panelApproveSubmission = async (
   submissionId: string,
   approvedBy: string
