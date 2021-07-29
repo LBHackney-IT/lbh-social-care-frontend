@@ -1,5 +1,5 @@
 import cx from 'classnames';
-import s from './DuplicateWarningPanel.module.scss';
+import s from 'stylesheets/WarningPanel.module.scss';
 import ResidentsTable from 'components/Search/results/ResidentsTable';
 import { useResidents } from 'utils/api/residents';
 import { LegacyResident } from 'types';
