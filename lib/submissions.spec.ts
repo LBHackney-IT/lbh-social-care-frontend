@@ -152,7 +152,6 @@ describe('patchSubmissionForStep', () => {
     const mockAnswers = {
       'question one': 'answer one',
       'question two': 'answer two',
-      Tags: ['foo', 'bar'],
     };
 
     mockedAxios.patch.mockResolvedValue({
@@ -164,7 +163,7 @@ describe('patchSubmissionForStep', () => {
       {
         editedBy: 'foo',
         stepAnswers: JSON.stringify(mockAnswers),
-        tags: ['foo', 'bar'],
+        dateOfEvent: null,
       },
       { headers: { 'x-api-key': AWS_KEY } }
     );
