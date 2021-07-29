@@ -8,11 +8,13 @@ import { format } from 'date-fns';
 
 interface Props {
   person: Resident;
-  expandView?: boolean;
+  summarised?: boolean;
 }
 
-const PersonDetails = ({ person }: Props): React.ReactElement => {
+const PersonDetails = ({ person, summarised }: Props): React.ReactElement => {
   const {
+    firstName,
+    lastName,
     otherNames,
     contextFlag,
     id,
@@ -34,19 +36,29 @@ const PersonDetails = ({ person }: Props): React.ReactElement => {
 
   return (
     <>
-      <section className="govuk-!-margin-bottom-8">
-        <div className={s.heading}>
-          <h2>Personal details</h2>
-          {canUserEditPerson(user, person) && (
-            <Link href={`/people/${id}/edit`}>
-              <a className="lbh-link lbh-link--no-visited-state">
-                Edit details
-              </a>
-            </Link>
-          )}
-        </div>
+      <section className={summarised ? 'govuk-!-margin-bottom-8' : undefined}>
+        {!summarised && (
+          <div className={s.heading}>
+            <h2>Personal details</h2>
+            {canUserEditPerson(user, person) && (
+              <Link href={`/people/${id}/edit`}>
+                <a className="lbh-link lbh-link--no-visited-state">
+                  Edit details
+                </a>
+              </Link>
+            )}
+          </div>
+        )}
 
         <dl className="govuk-summary-list lbh-summary-list">
+          {summarised && (
+            <div className="govuk-summary-list__row">
+              <dt className="govuk-summary-list__key">Name</dt>
+              <dd className="govuk-summary-list__value">
+                {firstName} {lastName}
+              </dd>
+            </div>
+          )}
           {otherNames && otherNames?.length > 0 && (
             <div className="govuk-summary-list__row">
               <dt className="govuk-summary-list__key">Other names</dt>
@@ -121,14 +133,16 @@ const PersonDetails = ({ person }: Props): React.ReactElement => {
                 <br />
                 {address.postcode}
                 <br />
-                <a
-                  className="lbh-link lbh-link--no-visited-state"
-                  target="_blank"
-                  rel="noreferrer"
-                  href={`https://www.google.com/maps/dir//${address.address} ${address.postcode}`}
-                >
-                  Get directions
-                </a>
+                {!summarised && (
+                  <a
+                    className="lbh-link lbh-link--no-visited-state"
+                    target="_blank"
+                    rel="noreferrer"
+                    href={`https://www.google.com/maps/dir//${address.address} ${address.postcode}`}
+                  >
+                    Get directions
+                  </a>
+                )}
               </dd>
             </div>
           )}
@@ -140,12 +154,16 @@ const PersonDetails = ({ person }: Props): React.ReactElement => {
                   {phoneNumbers.map(({ number, type }) => (
                     <li key={number}>
                       <strong>{type}:</strong>{' '}
-                      <a
-                        href={`tel:${number}`}
-                        className="lbh-link lbh-link--no-visited-state"
-                      >
-                        {number}
-                      </a>
+                      {summarised ? (
+                        number
+                      ) : (
+                        <a
+                          href={`tel:${number}`}
+                          className="lbh-link lbh-link--no-visited-state"
+                        >
+                          {number}
+                        </a>
+                      )}
                     </li>
                   ))}
                 </ul>

@@ -90,4 +90,15 @@ describe('PersonDetails component', () => {
     );
     expect(screen.getByText('Edit details'));
   });
+
+  it('can provide a simplified summary view', () => {
+    render(
+      <AuthProvider user={mockedUser}>
+        <PersonDetails person={mockedResident} summarised />
+      </AuthProvider>
+    );
+    expect(screen.queryByText('Personal details')).toBeNull();
+    expect(screen.queryByText('Get directions')).toBeNull();
+    expect(screen.getByText('Name'));
+  });
 });
