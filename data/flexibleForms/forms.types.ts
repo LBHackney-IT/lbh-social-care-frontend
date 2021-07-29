@@ -64,6 +64,8 @@ export interface Form {
   approvable?: boolean;
   panelApprovable?: boolean;
   groupRecordable?: boolean;
+  /** ask the user to confirm person details before launching */
+  confirmPersonDetails?: boolean;
   isViewableByChildrens: boolean;
   isViewableByAdults: boolean;
   tags?: string[];
