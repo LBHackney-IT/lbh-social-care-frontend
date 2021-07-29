@@ -15,7 +15,7 @@ const form: Form = {
   isViewableByChildrens: false,
   approvable: true,
   panelApprovable: true,
-  confirmPersonDetails: true,
+  confirmResidentDetailsBeforeStart: true,
   steps: [
     {
       id: 'Living situation',

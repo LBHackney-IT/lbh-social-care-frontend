@@ -58,7 +58,9 @@ const AddFormDialog = ({
           label: f.name,
           href: f.canonicalUrl
             ? f.canonicalUrl(person.id)
-            : `/submissions/new?form_id=${f.id}&social_care_id=${person.id}`,
+            : `/submissions/${
+                f.confirmResidentDetailsBeforeStart ? 'confirm-details' : 'new'
+              }?form_id=${f.id}&social_care_id=${person.id}`,
           system: true,
           groupRecordable: !!f.groupRecordable,
           approvable: !!f.approvable,
