@@ -4,7 +4,6 @@ import { isAuthorised } from 'utils/auth';
 import { getSubmissionById, patchSubmissionForStep } from 'lib/submissions';
 import statusCodes from 'http-status-codes';
 import { Submission } from 'data/flexibleForms/forms.types';
-import { FormikValues } from 'formik';
 
 const handler = async (
   req: NextApiRequest,
