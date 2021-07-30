@@ -127,6 +127,14 @@ jobs:
           name: deploy
           command: yarn --frozen-lockfile --production=true && sudo npm i -g serverless && sls deploy -s production
 
+  build-deploy-mosaic-production:
+    executor: aws-cli/default
+    steps:
+      - *attach_workspace
+      - run:
+          name: deploy
+          command: yarn --frozen-lockfile --production=true && sudo npm i -g serverless && sls deploy -s mosaic-prod
+
   generate-draft-github-release:
     executor: aws-cli/default
     steps:
@@ -173,6 +181,19 @@ jobs:
           account: $AWS_ACCOUNT_PRODUCTION
           profile_name: default
           role: 'LBH_Circle_CI_Deployment_Role'
+      - persist_to_workspace:
+          root: *workspace_root
+          paths:
+            - .aws
+
+  assume-role-mosaic-production:
+    executor: docker-python
+    steps:
+      - checkout
+      - aws_assume_role/assume_role:
+          account: $AWS_ACCOUNT_PRODUCTION
+          profile_name: default
+          role: 'circleci-assume-role'
       - persist_to_workspace:
           root: *workspace_root
           paths:
@@ -235,6 +256,26 @@ workflows:
       - build-deploy-production:
           requires:
             - assume-role-production
+          filters:
+            branches:
+              only: main
+      - permit-deploy-mosaic-production:
+          type: approval
+          requires:
+            - build-deploy-staging
+          filters:
+            branches:
+              only: main
+      - assume-role-mosaic-production:
+          context: api-assume-role-social-care-production-context
+          requires:
+            - permit-deploy-mosaic-production
+          filters:
+            branches:
+              only: main
+      - build-deploy-mosaic-production:
+          requires:
+            - assume-role-mosaic-production
           filters:
             branches:
               only: main
