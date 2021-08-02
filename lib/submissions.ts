@@ -96,7 +96,9 @@ const getDateOfEvent = (
 
   try {
     if (typeof dateOfEventFromForm === 'string') {
-      return parse(dateOfEventFromForm, 'yyyy-MM-dd', new Date()).toISOString();
+      const dateMidDay = parse(dateOfEventFromForm, 'yyyy-MM-dd', new Date());
+      dateMidDay.setHours(12);
+      return dateMidDay.toISOString();
     } else {
       const dateConjoined = `${dateOfEventFromForm[0]} ${dateOfEventFromForm[1]}`;
 

@@ -195,7 +195,7 @@ describe('patchSubmissionForStep', () => {
       {
         editedBy: 'foo',
         stepAnswers: JSON.stringify(mockAnswers),
-        dateOfEvent: '2021-08-03T00:00:00.000Z',
+        dateOfEvent: '2021-08-03T12:00:00.000Z',
       },
       { headers: { 'x-api-key': AWS_KEY } }
     );
