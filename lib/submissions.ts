@@ -87,14 +87,23 @@ const getDateOfEvent = (
 ): null | string => {
   if (!dateOfEventId) return null;
 
-  const dateOfEventFromForm = stepAnswers[dateOfEventId] as string | string[];
+  const dateOfEventFromForm = stepAnswers[dateOfEventId] as
+    | string
+    | string[]
+    | undefined;
 
-  if (typeof dateOfEventFromForm === 'string') {
-    return dateOfEventFromForm;
-  } else {
-    const dateConjoined = `${dateOfEventFromForm[0]} ${dateOfEventFromForm[1]}`;
+  if (!dateOfEventFromForm) return null;
 
-    return parse(dateConjoined, 'yyyy-MM-dd HH:ss', new Date()).toString();
+  try {
+    if (typeof dateOfEventFromForm === 'string') {
+      return parse(dateOfEventFromForm, 'yyyy-MM-dd', new Date()).toISOString();
+    } else {
+      const dateConjoined = `${dateOfEventFromForm[0]} ${dateOfEventFromForm[1]}`;
+
+      return parse(dateConjoined, 'yyyy-MM-dd HH:ss', new Date()).toISOString();
+    }
+  } catch {
+    return null;
   }
 };
 
