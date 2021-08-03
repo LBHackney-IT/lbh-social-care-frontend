@@ -68,6 +68,10 @@ const form: Form = {
               id: 'Type',
               value: 'Visit',
             },
+            {
+              id: 'Were the child/children seen',
+              value: 'Yes',
+            },
           ],
           choices: [
             {
