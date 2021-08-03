@@ -3,7 +3,6 @@ import { GetServerSideProps } from 'next';
 import Head from 'next/head';
 import PersonWidget from 'components/PersonWidget/PersonWidget';
 import StepForm from 'components/FlexibleForms/StepForm';
-import { useRouter } from 'next/router';
 import s from 'stylesheets/Sidebar.module.scss';
 import Banner from 'components/FlexibleForms/Banner';
 import { Form, Step, Field } from 'data/flexibleForms/forms.types';
@@ -33,8 +32,6 @@ const StepPage = ({
   step,
   form,
 }: Props): React.ReactElement => {
-  const router = useRouter();
-
   const handleSubmit = async (
     values: FormikValues,
     { setStatus }: FormikHelpers<FormikValues>
@@ -45,17 +42,6 @@ const StepPage = ({
         values
       );
       if (data.error) throw data.error;
-    } catch (e) {
-      setStatus(e.toString());
-    }
-  };
-
-  const handleFinish = async (
-    setStatus: (message: string) => void
-  ): Promise<void> => {
-    try {
-      await axios.post(`/api/submissions/${params.id}`);
-      router.push(`/people/${residents[0].id}/submissions/${params.id}`);
     } catch (e) {
       setStatus(e.toString());
     }
