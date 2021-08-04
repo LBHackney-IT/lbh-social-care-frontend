@@ -20,6 +20,7 @@ import { useAuth } from 'components/UserContext/UserContext';
 import { useResidents } from 'utils/api/residents';
 import { useCases } from 'utils/api/cases';
 import { getQueryString } from 'utils/urls';
+import { convertMonthDayFormat } from 'utils/date';
 
 const getRecords = (data) => [
   ...(data.residents || []),
@@ -89,6 +90,8 @@ const Search = ({
 
   const onFormSubmit = useCallback(
     (formData) => {
+      formData.start_date = convertMonthDayFormat(formData.start_date);
+      formData.end_date = convertMonthDayFormat(formData.end_date);
       const qs = formData
         ? `?${getQueryString({ ...query, ...formData })}`
         : '';
@@ -103,7 +106,6 @@ const Search = ({
     },
     [pathname, query, replace]
   );
-
   // commented out as the feature is not ready in the BE
   // eslint-disable-next-line no-unused-vars
   const onSort = useCallback(

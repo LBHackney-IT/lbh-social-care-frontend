@@ -3,6 +3,7 @@ import {
   formatDate,
   isDateValid,
   convertFormat,
+  convertMonthDayFormat,
   stringDateToObject,
   objectDateToString,
   normaliseDateToISO,
@@ -42,6 +43,12 @@ describe('date util', () => {
   describe('convertFormat', () => {
     it('should work properly', () => {
       expect(convertFormat('2000-12-01')).toBe('01-12-2000');
+    });
+  });
+
+  describe('convertMonthDayFormat', () => {
+    it('should work properly', () => {
+      expect(convertMonthDayFormat('01-12-2000')).toBe('12-01-2000');
     });
   });
 

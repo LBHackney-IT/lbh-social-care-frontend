@@ -38,6 +38,10 @@ export const convertFormat = (date: string): string => {
   return `${values[2]}-${values[1]}-${values[0]}`;
 };
 
+export const convertMonthDayFormat = (date: string): string => {
+  const values = date.split('-');
+  return `${values[1]}-${values[0]}-${values[2]}`;
+};
 interface DateObject {
   day: string;
   month: string;
