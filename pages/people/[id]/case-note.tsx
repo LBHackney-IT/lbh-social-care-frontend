@@ -62,7 +62,10 @@ const CaseNote = ({
         await axios.post(`/api/case-note/${submissionId}`, values);
         router.push(`/people/${params.id}`);
       } else {
-        await axios.patch(`/api/case-note/${submissionId}`, values);
+        await axios.patch(`/api/case-note/${submissionId}`, {
+          values,
+          dateOfEventId: form.dateOfEvent?.associatedId,
+        });
       }
     } catch (e) {
       setStatus(e.toString());

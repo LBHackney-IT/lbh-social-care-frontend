@@ -8,6 +8,9 @@ const form: Form = {
   isViewableByAdults: true,
   isViewableByChildrens: false,
   canonicalUrl: (socialCareId) => `/people/${socialCareId}/case-note`,
+  dateOfEvent: {
+    associatedId: 'Date of event',
+  },
   steps: [
     {
       id: 'Case note',

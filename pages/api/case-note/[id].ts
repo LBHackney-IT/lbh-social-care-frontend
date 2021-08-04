@@ -2,6 +2,7 @@ import { NextApiRequest, NextApiResponse } from 'next';
 import StatusCodes from 'http-status-codes';
 import { finishSubmission, patchSubmissionForStep } from 'lib/submissions';
 import { isAuthorised } from 'utils/auth';
+import { FormikValues } from 'formik';
 
 const handler = async (
   req: NextApiRequest,
@@ -15,21 +16,28 @@ const handler = async (
     switch (req.method) {
       case 'POST':
         {
+          const values = req.body as FormikValues;
           const submission = await finishSubmission(
             String(id),
             String(user?.email),
-            { singleStep: req.body }
+            { singleStep: values }
           );
           res.json(submission);
         }
         break;
       case 'PATCH':
         {
+          const { values, dateOfEventId } = req.body as {
+            values: FormikValues;
+            dateOfEventId?: string;
+          };
+
           const submission = await patchSubmissionForStep(
             String(id),
             'singleStep',
             String(user?.email),
-            req.body
+            values,
+            dateOfEventId
           );
           res.json(submission);
         }

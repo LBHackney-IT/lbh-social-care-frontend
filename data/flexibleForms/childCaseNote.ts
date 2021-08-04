@@ -35,6 +35,55 @@ const form: Form = {
             },
           ],
         },
+
+        {
+          id: 'Were the child/children seen',
+          question: 'Were the child/children seen?',
+          type: 'radios',
+          required: true,
+          conditions: [
+            {
+              id: 'Type',
+              value: 'Visit',
+            },
+          ],
+          choices: [
+            {
+              value: 'Yes',
+              label: 'Yes',
+            },
+            {
+              value: 'No',
+              label: 'No',
+            },
+          ],
+        },
+        {
+          id: 'Were the child/children seen alone',
+          question: 'Were the child/children seen alone?',
+          type: 'radios',
+          required: true,
+          conditions: [
+            {
+              id: 'Type',
+              value: 'Visit',
+            },
+            {
+              id: 'Were the child/children seen',
+              value: 'Yes',
+            },
+          ],
+          choices: [
+            {
+              value: 'Yes',
+              label: 'Yes',
+            },
+            {
+              value: 'No',
+              label: 'No',
+            },
+          ],
+        },
         {
           id: 'Correspondence type',
           question: 'What kind of correspondence?',

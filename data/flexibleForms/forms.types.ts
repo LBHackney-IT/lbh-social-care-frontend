@@ -69,6 +69,9 @@ export interface Form {
   tags?: string[];
   /** override the automatically generated /submissions/new... url, for edge case forms */
   canonicalUrl?: (socialCareId: number) => string;
+  dateOfEvent?: {
+    associatedId: string;
+  };
 }
 
 export interface RepeaterGroupAnswer {
