@@ -72,6 +72,9 @@ export interface Form {
   dateOfEvent?: {
     associatedId: string;
   };
+  title?: {
+    associatedId: string;
+  };
 }
 
 export interface RepeaterGroupAnswer {
