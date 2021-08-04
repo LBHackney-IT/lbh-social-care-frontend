@@ -133,7 +133,6 @@ export const patchSubmissionForStep = async (
 ): Promise<Submission> => {
   const dateOfEvent = getDateOfEvent(stepAnswers, dateOfEventId);
   const title = getTitle(stepAnswers, titleId);
-  console.log('🚀 ~ file: submissions.ts ~ line 136 ~ title', title);
 
   const { data } = await axios.patch(
     `${ENDPOINT_API}/submissions/${submissionId}/steps/${stepId}`,
