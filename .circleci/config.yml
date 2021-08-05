@@ -217,7 +217,7 @@ workflows:
             - install-dependencies
       - validate-pr-title:
           requires:
-            - unit-tests
+            - install-dependencies
       - build:
           requires:
             - unit-tests

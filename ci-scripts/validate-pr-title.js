@@ -1,17 +1,19 @@
 #!/usr/bin/env node
 const fetch = require('cross-fetch');
 
-const fetchPullRequestTitle = (prUrl) => {
-  const { CIRCLE_PROJECT_USERNAME, CIRCLE_PROJECT_REPONAME, GITHUB_TOKEN } =
-    process.env;
-
-  const prNumber = prUrl.split('/').reverse()[0];
+const fetchPullRequestTitle = ({
+  pullRequestUrl,
+  projectUsername,
+  projectRepoName,
+  gitHubToken,
+}) => {
+  const prNumber = pullRequestUrl.split('/').reverse()[0];
 
   return fetch(
-    `https://api.github.com/repos/${CIRCLE_PROJECT_USERNAME}/${CIRCLE_PROJECT_REPONAME}/pulls/${prNumber}`,
+    `https://api.github.com/repos/${projectUsername}/${projectRepoName}/pulls/${prNumber}`,
     {
       headers: {
-        Authorization: `token ${GITHUB_TOKEN}`,
+        Authorization: `token ${gitHubToken}`,
       },
     }
   )
@@ -35,7 +37,12 @@ const validatePrTitle = async ({
     throw new Error('Please provide the required config');
   }
 
-  const title = await fetchPullRequestTitle(pullRequestUrl);
+  const title = await fetchPullRequestTitle({
+    pullRequestUrl,
+    projectUsername,
+    projectRepoName,
+    gitHubToken,
+  });
 
   console.log(`Verifying PR title: "${title}"`);
 
