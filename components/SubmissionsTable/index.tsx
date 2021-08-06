@@ -7,6 +7,7 @@ import st from 'components/Tabs/Tabs.module.scss';
 import Tab from './Tab';
 import SearchBox from './SearchBox';
 import useSearch from 'hooks/useSearch';
+import forms from 'data/flexibleForms';
 
 interface Props {
   submissions: Submission[];
@@ -22,20 +23,28 @@ export const SubmissionsTable = ({
 
   const searchableSubmissions = useMemo(
     () =>
-      submissions.filter((submission) => {
-        // hide any restricted records unless the user has permission to see them
-        if (
-          !user?.hasUnrestrictedPermissions &&
-          submission.residents.every((resident) => resident.restricted === 'Y')
-        )
-          return false;
+      submissions
+        // augment each one with its form
+        .map((submission) => ({
+          ...submission,
+          form: forms.find((form) => form.id === submission.formId),
+        }))
+        .filter((submission) => {
+          // hide any restricted records unless the user has permission to see them
+          if (
+            !user?.hasUnrestrictedPermissions &&
+            submission.residents.every(
+              (resident) => resident.restricted === 'Y'
+            )
+          )
+            return false;
 
-        // hide discarded submissions
-        if (submission.submissionState === 'Discarded') return false;
+          // hide discarded submissions
+          if (submission.submissionState === 'Discarded') return false;
 
-        // Otherwise, this record is good to show
-        return true;
-      }),
+          // Otherwise, this record is good to show
+          return true;
+        }),
     [submissions, user?.hasUnrestrictedPermissions]
   );
 
@@ -48,7 +57,7 @@ export const SubmissionsTable = ({
       'createdBy.lastName',
       'residents.fullName',
       'residents.id',
-      'formName',
+      'form.name',
     ],
     1
   );
