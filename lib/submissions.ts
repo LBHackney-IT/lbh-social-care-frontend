@@ -47,7 +47,7 @@ export const startSubmission = async (
     `${ENDPOINT_API}/submissions`,
     {
       formId,
-      socialCareId: Number(socialCareId),
+      socialCareId: socialCareId,
       createdBy,
     },
     {
