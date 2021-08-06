@@ -17,6 +17,12 @@ const mockEvents = [
 
 describe('PersonTimeline', () => {
   it('renders a list of clickable submissions', () => {
+    jest
+      .spyOn(global.Date, 'now')
+      .mockImplementationOnce(() =>
+        new Date('2021-07-25T00:00:00.000Z').valueOf()
+      );
+
     render(
       <PersonTimeline
         setSize={jest.fn()}
