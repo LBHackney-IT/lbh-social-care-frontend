@@ -54,6 +54,40 @@ describe('PersonWidget', () => {
     ).toBeNull();
   });
 
+  it('should return the last address if there are multiple addresses saved on the person', () => {
+    const firstAddress = {
+      addressLines: '100 Example Street',
+      postCode: 'E1 8HW',
+    };
+
+    const newAddress = {
+      addressLines: '123 TestCode Lane',
+      postCode: 'SE1 7DT',
+    };
+
+    const resident = residentFactory.build();
+    resident.addresses = [firstAddress, newAddress];
+
+    const { getByTestId, asFragment } = render(
+      <PersonWidget person={resident} />
+    );
+
+    expect(getByTestId('resident-last-address')).toHaveTextContent(
+      '123 TestCode Lane'
+    );
+    expect(getByTestId('resident-last-address')).toHaveTextContent('SE1 7DT');
+
+    expect(getByTestId('resident-last-address')).not.toHaveTextContent(
+      '100 Example Street'
+    );
+
+    expect(getByTestId('resident-last-address')).not.toHaveTextContent(
+      'E1 8HW'
+    );
+
+    expect(asFragment()).toMatchSnapshot();
+  });
+
   it('should call the setOpen callback with the id of the selected resident if the widget is not open', () => {
     const resident = residentFactory.build();
     const mockSetOpen = jest.fn();

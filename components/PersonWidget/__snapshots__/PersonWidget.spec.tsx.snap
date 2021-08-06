@@ -17,10 +17,46 @@ exports[`PersonWidget should render properly 1`] = `
     </p>
     <p
       class="lbh-body-s paragraph"
+      data-testid="resident-display-address"
     >
       sjakdjlk
       <br />
       hdsadjk
+    </p>
+  </aside>
+</DocumentFragment>
+`;
+
+exports[`PersonWidget should return the last address if there are multiple addresses saved on the person 1`] = `
+<DocumentFragment>
+  <aside
+    class="aside"
+  >
+    <h2
+      class="lbh-heading-h3 title"
+    >
+      Foo Bar
+    </h2>
+    <p
+      class="lbh-body-s paragraph"
+    >
+      Born 13 Nov 2020
+    </p>
+    <p
+      class="lbh-body-s paragraph"
+      data-testid="resident-display-address"
+    >
+      sjakdjlk
+      <br />
+      hdsadjk
+    </p>
+    <p
+      class="lbh-body-s paragraph"
+      data-testid="resident-last-address"
+    >
+      123 TestCode Lane
+      <br />
+      SE1 7DT
     </p>
   </aside>
 </DocumentFragment>
