@@ -209,7 +209,7 @@ describe('patchSubmissionForStep', () => {
     const mockAnswers = {
       'question one': 'answer one',
       'question two': 'answer two',
-      'date of event': ['2021-08-02', '11:00'],
+      'date of event': ['2021-02-02', '10:30'],
     };
 
     mockedAxios.patch.mockResolvedValue({
@@ -227,7 +227,7 @@ describe('patchSubmissionForStep', () => {
       {
         editedBy: 'foo',
         stepAnswers: JSON.stringify(mockAnswers),
-        dateOfEvent: '2021-08-02T11:00:00.000Z',
+        dateOfEvent: '2021-02-02T10:30:00.000Z',
       },
       { headers: { 'x-api-key': AWS_KEY } }
     );
@@ -241,7 +241,7 @@ describe('patchSubmissionForStep', () => {
     const mockAnswers = {
       'question one': 'answer one',
       'question two': 'answer two',
-      'date of event wrong id': ['2021-08-02', '11:00'],
+      'date of event wrong id': ['2021-08-02', '10:30'],
     };
 
     mockedAxios.patch.mockResolvedValue({
@@ -273,7 +273,7 @@ describe('patchSubmissionForStep', () => {
     const mockAnswers = {
       'question one': 'answer one',
       'question two': 'answer two',
-      'date of event wrong id': ['2021-08-40', '11:00'],
+      'date of event wrong id': ['2021-08-40', '10:30'],
     };
 
     mockedAxios.patch.mockResolvedValue({
