@@ -99,6 +99,12 @@ const Layout = ({ person, children }: Props): React.ReactElement => {
     },
   ];
 
+  if (person.contextFlag === 'C')
+    secondaryNavigation.push({
+      text: 'Add case status',
+      href: ``,
+    });
+
   return (
     <>
       <Head>
