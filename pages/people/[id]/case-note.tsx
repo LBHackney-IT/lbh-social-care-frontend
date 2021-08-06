@@ -174,7 +174,7 @@ export const getServerSideProps: GetServerSideProps = async ({
     const user = isAuthorised(req);
     const resident = await getResident(Number(params?.id), user as User);
     const form =
-      resident.ageContext === 'A' ? ADULT_CASE_NOTE : CHILD_CASE_NOTE;
+      resident.contextFlag === 'A' ? ADULT_CASE_NOTE : CHILD_CASE_NOTE;
 
     submission = await startSubmission(
       form.id,
