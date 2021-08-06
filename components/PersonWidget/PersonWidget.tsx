@@ -31,7 +31,10 @@ const PersonWidget = ({
 }: Props): React.ReactElement => {
   const dateOfBirth = prettyDate(person?.dateOfBirth ?? '');
   const displayAddress = person?.address;
-  const firstAddress = 'id' in person ? person?.addresses?.[0] : person.address;
+  const lastAddress =
+    'id' in person
+      ? person?.addresses?.[person?.addresses.length - 1]
+      : person.address;
   if (grouped)
     return (
       <aside className={s.aside}>
@@ -57,21 +60,27 @@ const PersonWidget = ({
             <p className={`lbh-body-s ${s.paragraph}`}>Born {dateOfBirth}</p>
           )}
           {displayAddress && (
-            <p className={`lbh-body-s ${s.paragraph}`}>
+            <p
+              className={`lbh-body-s ${s.paragraph}`}
+              data-testid="resident-display-address"
+            >
               {displayAddress?.address}
               <br />
               {displayAddress?.postcode}
             </p>
           )}
-          {firstAddress && (
-            <p className={`lbh-body-s ${s.paragraph}`}>
-              {'address' in firstAddress
-                ? firstAddress.address
-                : firstAddress.addressLines}
+          {lastAddress && (
+            <p
+              className={`lbh-body-s ${s.paragraph}`}
+              data-testid="resident-last-address"
+            >
+              {'address' in lastAddress
+                ? lastAddress.address
+                : lastAddress.addressLines}
               <br />
-              {'postcode' in firstAddress
-                ? firstAddress.postcode
-                : firstAddress.postCode}
+              {'postcode' in lastAddress
+                ? lastAddress.postcode
+                : lastAddress.postCode}
             </p>
           )}
 
@@ -100,21 +109,27 @@ const PersonWidget = ({
         <p className={`lbh-body-s ${s.paragraph}`}>Born {dateOfBirth}</p>
       )}
       {displayAddress && (
-        <p className={`lbh-body-s ${s.paragraph}`}>
+        <p
+          className={`lbh-body-s ${s.paragraph}`}
+          data-testid="resident-display-address"
+        >
           {displayAddress?.address}
           <br />
           {displayAddress?.postcode}
         </p>
       )}
-      {firstAddress && (
-        <p className={`lbh-body-s ${s.paragraph}`}>
-          {'address' in firstAddress
-            ? firstAddress.address
-            : firstAddress.addressLines}
+      {lastAddress && (
+        <p
+          className={`lbh-body-s ${s.paragraph}`}
+          data-testid="resident-last-address"
+        >
+          {'address' in lastAddress
+            ? lastAddress.address
+            : lastAddress.addressLines}
           <br />
-          {'postcode' in firstAddress
-            ? firstAddress.postcode
-            : firstAddress.postCode}
+          {'postcode' in lastAddress
+            ? lastAddress.postcode
+            : lastAddress.postCode}
         </p>
       )}
     </aside>

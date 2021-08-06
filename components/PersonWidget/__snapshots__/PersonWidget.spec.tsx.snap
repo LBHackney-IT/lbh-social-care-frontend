@@ -17,6 +17,7 @@ exports[`PersonWidget should render properly 1`] = `
     </p>
     <p
       class="lbh-body-s paragraph"
+      data-testid="resident-display-address"
     >
       sjakdjlk
       <br />
