@@ -102,7 +102,7 @@ const getDateOfEvent = (
     } else {
       const dateConjoined = `${dateOfEventFromForm[0]} ${dateOfEventFromForm[1]}`;
 
-      return parse(dateConjoined, 'yyyy-MM-dd HH:ss', new Date()).toISOString();
+      return parse(dateConjoined, 'yyyy-MM-dd HH:mm', new Date()).toISOString();
     }
   } catch {
     return null;

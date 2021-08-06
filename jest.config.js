@@ -1,4 +1,4 @@
-process.env.TZ = 'UTC';
+process.env.TZ = 'BST';
 
 module.exports = {
   collectCoverageFrom: [
