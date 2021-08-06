@@ -84,8 +84,6 @@ describe('PersonWidget', () => {
     expect(getByTestId('resident-last-address')).not.toHaveTextContent(
       'E1 8HW'
     );
-
-    expect(asFragment()).toMatchSnapshot();
   });
 
   it('should call the setOpen callback with the id of the selected resident if the widget is not open', () => {
