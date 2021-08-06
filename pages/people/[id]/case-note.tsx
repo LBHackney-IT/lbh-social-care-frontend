@@ -179,6 +179,7 @@ export const getServerSideProps: GetServerSideProps = async ({
 
     submission = await startSubmission(
       form.id,
+      form.name,
       Number(params?.id),
       String(user?.email)
     );

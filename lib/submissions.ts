@@ -40,6 +40,7 @@ export const getUnfinishedSubmissions = async (
 /** create a new submission for the given form, resident and worker  */
 export const startSubmission = async (
   formId: string,
+  formName: string,
   socialCareId: number,
   createdBy: string
 ): Promise<Submission> => {
@@ -47,6 +48,7 @@ export const startSubmission = async (
     `${ENDPOINT_API}/submissions`,
     {
       formId,
+      formName,
       socialCareId: Number(socialCareId),
       createdBy,
     },
@@ -133,6 +135,11 @@ export const patchSubmissionForStep = async (
 ): Promise<Submission> => {
   const dateOfEvent = getDateOfEvent(stepAnswers, dateOfEventId);
   const title = getTitle(stepAnswers, titleId);
+
+  // 1. all case notes are submitting as child-case-note (even when it's an adult...)
+  // 2. form name, id, title are too heavily coupled
+  // 3. When we update the title, this breaks how the links work
+  // 4. Real data is wrong essentially, adult case notes will have been submitted with the id child-case-note
 
   const { data } = await axios.patch(
     `${ENDPOINT_API}/submissions/${submissionId}/steps/${stepId}`,
