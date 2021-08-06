@@ -5,11 +5,13 @@ import sgAdultConcern from './sgAdultConcern';
 import sgAdultManagerDecisionConcern from './sgAdultManagerDecisionConcern';
 import adultCaseNote from './adultCaseNote';
 import childCaseNote from './childCaseNote';
+import caseStatus from './caseStatus';
 
 export default [
   foo,
   review3c,
   adultCaseNote,
+  caseStatus,
   childCaseNote,
   faceOverview,
   sgAdultConcern,
