@@ -31,13 +31,10 @@ const PersonWidget = ({
 }: Props): React.ReactElement => {
   const dateOfBirth = prettyDate(person?.dateOfBirth ?? '');
   const displayAddress = person?.address;
-  const mostRecentAddressAdded =
-    'id' in person
+  const lastAddress =
+    person.address !== undefined && 'id' in person
       ? person?.addresses?.[person?.addresses.length - 1]
       : person.address;
-
-  const lastAddress =
-    person.address === undefined ? person.address : mostRecentAddressAdded;
 
   if (grouped)
     return (
