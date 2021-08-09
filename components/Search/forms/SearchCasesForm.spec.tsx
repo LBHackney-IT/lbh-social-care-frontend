@@ -42,8 +42,6 @@ describe(`SearchCasesForm`, () => {
       form_name: '',
       exact_name_match: false,
       my_notes_only: false,
-      end_date: null,
-      start_date: null,
       worker_email: '',
     });
   });
@@ -67,8 +65,6 @@ describe(`SearchCasesForm`, () => {
       form_name: '',
       exact_name_match: false,
       my_notes_only: false,
-      end_date: null,
-      start_date: null,
       worker_email: '',
     });
   });
