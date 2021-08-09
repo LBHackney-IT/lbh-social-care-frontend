@@ -1,5 +1,5 @@
 import PersonWidget from './PersonWidget';
-import { render, fireEvent } from '@testing-library/react';
+import { render, fireEvent, screen } from '@testing-library/react';
 import { residentFactory } from 'factories/residents';
 
 describe('PersonWidget', () => {
@@ -68,9 +68,7 @@ describe('PersonWidget', () => {
     const resident = residentFactory.build();
     resident.addresses = [firstAddress, newAddress];
 
-    const { getByTestId, asFragment } = render(
-      <PersonWidget person={resident} />
-    );
+    const { getByTestId } = render(<PersonWidget person={resident} />);
 
     expect(getByTestId('resident-last-address')).toHaveTextContent(
       '123 TestCode Lane'
@@ -84,6 +82,24 @@ describe('PersonWidget', () => {
     expect(getByTestId('resident-last-address')).not.toHaveTextContent(
       'E1 8HW'
     );
+  });
+
+  it('should not return the last address if the person is later updated to have no address', () => {
+    const lastKnownAddress = {
+      addressLines: '100 Example Street',
+      postCode: 'E1 8HW',
+    };
+
+    const resident = residentFactory.build();
+    resident.addresses = [lastKnownAddress];
+    resident.address = undefined;
+
+    const { getByTestId, getByText } = render(
+      <PersonWidget person={resident} />
+    );
+
+    const widgetAddress = screen.queryByTestId('resident-last-address');
+    expect(widgetAddress).not.toBeInTheDocument();
   });
 
   it('should call the setOpen callback with the id of the selected resident if the widget is not open', () => {
