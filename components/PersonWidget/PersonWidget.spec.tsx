@@ -1,5 +1,5 @@
 import PersonWidget from './PersonWidget';
-import { render, fireEvent } from '@testing-library/react';
+import { render, fireEvent, screen } from '@testing-library/react';
 import { residentFactory } from 'factories/residents';
 
 describe('PersonWidget', () => {
@@ -54,23 +54,23 @@ describe('PersonWidget', () => {
     ).toBeNull();
   });
 
-  it('should return the last address if there are multiple addresses saved on the person', () => {
-    const firstAddress = {
+  it('should return the display address from the addresses list saved on the person', () => {
+    const anotherAddress = {
       addressLines: '100 Example Street',
       postCode: 'E1 8HW',
+      isDisplayAddress: 'N',
     };
 
-    const newAddress = {
+    const displayAddress = {
       addressLines: '123 TestCode Lane',
       postCode: 'SE1 7DT',
+      isDisplayAddress: 'Y',
     };
 
     const resident = residentFactory.build();
-    resident.addresses = [firstAddress, newAddress];
+    resident.addresses = [displayAddress, anotherAddress];
 
-    const { getByTestId, asFragment } = render(
-      <PersonWidget person={resident} />
-    );
+    const { getByTestId } = render(<PersonWidget person={resident} />);
 
     expect(getByTestId('resident-last-address')).toHaveTextContent(
       '123 TestCode Lane'
@@ -84,6 +84,28 @@ describe('PersonWidget', () => {
     expect(getByTestId('resident-last-address')).not.toHaveTextContent(
       'E1 8HW'
     );
+  });
+
+  it('should return no address if no display address is set for the person', () => {
+    const oneAddress = {
+      addressLines: '100 Example Street',
+      postCode: 'E1 8HW',
+      isDisplayAddress: 'N',
+    };
+
+    const anotherAddress = {
+      addressLines: '100 Example Street',
+      postCode: 'E1 8HW',
+      isDisplayAddress: 'N',
+    };
+
+    const resident = residentFactory.build();
+    resident.addresses = [oneAddress, anotherAddress];
+    resident.address = undefined;
+
+    expect(
+      screen.queryByTestId('resident-last-address')
+    ).not.toBeInTheDocument();
   });
 
   it('should call the setOpen callback with the id of the selected resident if the widget is not open', () => {

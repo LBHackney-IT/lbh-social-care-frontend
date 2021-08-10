@@ -31,10 +31,11 @@ const PersonWidget = ({
 }: Props): React.ReactElement => {
   const dateOfBirth = prettyDate(person?.dateOfBirth ?? '');
   const displayAddress = person?.address;
-  const lastAddress =
+  const firstDisplayAddressMatch =
     'id' in person
-      ? person?.addresses?.[person?.addresses.length - 1]
+      ? person?.addresses?.find((address) => address.isDisplayAddress === 'Y')
       : person.address;
+
   if (grouped)
     return (
       <aside className={s.aside}>
@@ -69,18 +70,18 @@ const PersonWidget = ({
               {displayAddress?.postcode}
             </p>
           )}
-          {lastAddress && (
+          {firstDisplayAddressMatch && (
             <p
               className={`lbh-body-s ${s.paragraph}`}
               data-testid="resident-last-address"
             >
-              {'address' in lastAddress
-                ? lastAddress.address
-                : lastAddress.addressLines}
+              {'address' in firstDisplayAddressMatch
+                ? firstDisplayAddressMatch.address
+                : firstDisplayAddressMatch.addressLines}
               <br />
-              {'postcode' in lastAddress
-                ? lastAddress.postcode
-                : lastAddress.postCode}
+              {'postcode' in firstDisplayAddressMatch
+                ? firstDisplayAddressMatch.postcode
+                : firstDisplayAddressMatch.postCode}
             </p>
           )}
 
@@ -118,18 +119,18 @@ const PersonWidget = ({
           {displayAddress?.postcode}
         </p>
       )}
-      {lastAddress && (
+      {firstDisplayAddressMatch && (
         <p
           className={`lbh-body-s ${s.paragraph}`}
           data-testid="resident-last-address"
         >
-          {'address' in lastAddress
-            ? lastAddress.address
-            : lastAddress.addressLines}
+          {'address' in firstDisplayAddressMatch
+            ? firstDisplayAddressMatch.address
+            : firstDisplayAddressMatch.addressLines}
           <br />
-          {'postcode' in lastAddress
-            ? lastAddress.postcode
-            : lastAddress.postCode}
+          {'postcode' in firstDisplayAddressMatch
+            ? firstDisplayAddressMatch.postcode
+            : firstDisplayAddressMatch.postCode}
         </p>
       )}
     </aside>
