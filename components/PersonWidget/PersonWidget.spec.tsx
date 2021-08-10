@@ -54,19 +54,21 @@ describe('PersonWidget', () => {
     ).toBeNull();
   });
 
-  it('should return the last address if there are multiple addresses saved on the person', () => {
-    const firstAddress = {
+  it('should return the display address from the addresses list saved on the person', () => {
+    const anotherAddress = {
       addressLines: '100 Example Street',
       postCode: 'E1 8HW',
+      isDisplayAddress: 'N',
     };
 
-    const newAddress = {
+    const displayAddress = {
       addressLines: '123 TestCode Lane',
       postCode: 'SE1 7DT',
+      isDisplayAddress: 'Y',
     };
 
     const resident = residentFactory.build();
-    resident.addresses = [firstAddress, newAddress];
+    resident.addresses = [displayAddress, anotherAddress];
 
     const { getByTestId } = render(<PersonWidget person={resident} />);
 
@@ -84,22 +86,26 @@ describe('PersonWidget', () => {
     );
   });
 
-  it('should not return the last address if the person is later updated to have no address', () => {
-    const lastKnownAddress = {
+  it('should return no address if no display address is set for the person', () => {
+    const oneAddress = {
       addressLines: '100 Example Street',
       postCode: 'E1 8HW',
+      isDisplayAddress: 'N',
+    };
+
+    const anotherAddress = {
+      addressLines: '100 Example Street',
+      postCode: 'E1 8HW',
+      isDisplayAddress: 'N',
     };
 
     const resident = residentFactory.build();
-    resident.addresses = [lastKnownAddress];
+    resident.addresses = [oneAddress, anotherAddress];
     resident.address = undefined;
 
-    const { getByTestId, getByText } = render(
-      <PersonWidget person={resident} />
-    );
-
-    const widgetAddress = screen.queryByTestId('resident-last-address');
-    expect(widgetAddress).not.toBeInTheDocument();
+    expect(
+      screen.queryByTestId('resident-last-address')
+    ).not.toBeInTheDocument();
   });
 
   it('should call the setOpen callback with the id of the selected resident if the widget is not open', () => {

@@ -32,8 +32,8 @@ const PersonWidget = ({
   const dateOfBirth = prettyDate(person?.dateOfBirth ?? '');
   const displayAddress = person?.address;
   const lastAddress =
-    person.address !== undefined && 'id' in person
-      ? person?.addresses?.[person?.addresses.length - 1]
+    'id' in person
+      ? person?.addresses?.find((address) => address.isDisplayAddress === 'Y')
       : person.address;
 
   if (grouped)

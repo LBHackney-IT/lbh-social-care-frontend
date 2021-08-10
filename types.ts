@@ -174,6 +174,7 @@ export interface Resident {
     addressLines: string;
     postCode: string;
     uprn?: string;
+    isDisplayAddress?: string;
   }[];
   address?: {
     address: string;
