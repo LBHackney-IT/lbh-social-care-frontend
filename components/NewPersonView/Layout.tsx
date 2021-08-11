@@ -5,6 +5,7 @@ import { useRouter } from 'next/router';
 import { Allocation, Resident, User } from 'types';
 import s from './index.module.scss';
 import { useRelationships } from 'utils/api/relationships';
+import { GetCaseStatus } from 'utils/api/caseStatus';
 import { useAllocatedWorkers } from 'utils/api/allocatedWorkers';
 import React from 'react';
 import WarningNotes from 'components/WarningNote/WarningNotes';
@@ -13,6 +14,7 @@ import { canManageCases } from 'lib/permissions';
 import AddFormDialog from 'components/AddFormDialog/AddFormDialog';
 import { useState } from 'react';
 import Banner from 'components/FlexibleForms/Banner';
+import CaseStatusView from 'components/pages/people/case-status/view/case-status';
 
 interface NavLinkProps {
   href: string;
@@ -109,7 +111,9 @@ const Layout = ({ person, children }: Props): React.ReactElement => {
     <>
       <Head>
         <title>
-          {person.firstName} {person.lastName} | Social care | Hackney Council
+          <>
+            {person.firstName} {person.lastName} | Social care | Hackney Council
+          </>
         </title>
       </Head>
 
@@ -146,6 +150,7 @@ const Layout = ({ person, children }: Props): React.ReactElement => {
             {allocations?.allocations &&
               summariseAllocations(allocations.allocations)}
           </p>
+          <CaseStatusView person={person} />
         </div>
 
         <div className={`govuk-grid-column-one-third ${s.actionsArea}`}>
