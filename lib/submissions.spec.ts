@@ -2,7 +2,7 @@ import axios from 'axios';
 import {
   finishSubmission,
   getSubmissionById,
-  getUnfinishedSubmissions,
+  getInProgressSubmissions,
   patchResidents,
   patchSubmissionForStep,
   startSubmission,
@@ -21,17 +21,17 @@ const mockedAxios = axios as jest.Mocked<typeof axios>;
 const ENDPOINT_API = process.env.ENDPOINT_API;
 const AWS_KEY = process.env.AWS_KEY;
 
-describe('getUnfinishedSubmissions', () => {
-  it('should return a list of incomplete submissions', async () => {
+describe('getInProgressSubmissions', () => {
+  it('should return a list of in-progress submissions', async () => {
     mockedAxios.get.mockResolvedValue({
       data: [
         { submissionId: '123', formAnswers: {} },
         { submissionId: '456', formAnswers: {} },
       ],
     });
-    const data = await getUnfinishedSubmissions();
+    const data = await getInProgressSubmissions();
     expect(mockedAxios.get).toHaveBeenCalledWith(
-      `${ENDPOINT_API}/submissions`,
+      `${ENDPOINT_API}/submissions?submissionStates=in_progress`,
       { headers: { 'x-api-key': AWS_KEY } }
     );
     expect(data).toEqual([
@@ -60,7 +60,7 @@ describe('getUnfinishedSubmissions', () => {
         },
       ],
     });
-    const data = await getUnfinishedSubmissions('A');
+    const data = await getInProgressSubmissions('A');
     expect(data).toEqual([
       {
         submissionId: '123',
