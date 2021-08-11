@@ -1,62 +1,162 @@
+import * as relationshipsAPI from './relationships';
+import * as SWR from 'swr';
 import axios from 'axios';
 
-import * as casesAPI from './cases';
-import * as SWR from 'swr';
-
+jest.mock('swr');
 jest.mock('axios');
+
 const mockedAxios = axios as jest.Mocked<typeof axios>;
 
-jest.mock('swr');
-
-const mockSWRInfinite = jest.fn();
-
-describe('cases APIs', () => {
-  describe('useCases', () => {
-    it('should work properly', async () => {
-      jest
-        .spyOn(SWR, 'useSWRInfinite')
-        .mockImplementation(
-          (getKey: (page: number, data: Record<string, unknown>) => string) =>
-            mockSWRInfinite(getKey(0, { cases: [] }))
-        );
-      casesAPI.useCases({
-        foo: 'bar',
-      });
-      expect(mockSWRInfinite).toHaveBeenCalledWith('/api/cases?foo=bar');
-    });
-  });
-
-  describe('useCasesByResident', () => {
+describe('relationships APIs', () => {
+  describe('useRelationships', () => {
     it('should work properly', () => {
-      jest
-        .spyOn(SWR, 'useSWRInfinite')
-        .mockImplementation(
-          (getKey: (page: number, data: Record<string, unknown>) => string) =>
-            mockSWRInfinite(getKey(0, { cases: [] }))
-        );
-      casesAPI.useCasesByResident(123, { bar: 'foobar' });
-      expect(mockSWRInfinite).toHaveBeenCalledWith(
-        '/api/residents/123/cases?bar=foobar'
+      jest.spyOn(SWR, 'default');
+      relationshipsAPI.useRelationships(123);
+      expect(SWR.default).toHaveBeenCalledWith(
+        '/api/residents/123/relationships'
       );
     });
   });
 
-  describe('useCase', () => {
-    it('should work properly', () => {
-      jest.spyOn(SWR, 'default');
-      casesAPI.useCase('123', 456);
-      expect(SWR.default).toHaveBeenCalledWith('/api/cases/123?residentId=456');
+  describe('addRelationships', () => {
+    it('calls the POST /api/relationships endpoint', () => {
+      const formData = {
+        personId: 123,
+        otherPersonId: 456,
+        createdBy: 'test@hackney.gov.uk',
+        type: 'parent',
+      };
+      jest.spyOn(axios, 'post');
+
+      relationshipsAPI.addRelationships(formData);
+
+      expect(axios.post).toHaveBeenCalledWith('/api/relationships', formData);
+    });
+
+    it('returns response from POST /api/relationships endpoint', async () => {
+      const formData = {
+        personId: 123,
+        otherPersonId: 456,
+        createdBy: 'test@hackney.gov.uk',
+        type: 'parent',
+        details: 'emergency contact',
+      };
+      const apiResponse = { data: 'foobar' };
+      mockedAxios.post.mockResolvedValue(apiResponse);
+
+      const response = await relationshipsAPI.addRelationships(formData);
+
+      expect(response).toBe(apiResponse.data);
+    });
+
+    describe('when form data includes additional options', () => {
+      it('does not send "additionalOptions" as part of the request', () => {
+        const formData = {
+          personId: 123,
+          otherPersonId: 456,
+          createdBy: 'test@hackney.gov.uk',
+          type: 'parent',
+          additionalOptions: ['isMainCarer'],
+        };
+        jest.spyOn(axios, 'post');
+
+        relationshipsAPI.addRelationships(formData);
+
+        expect(axios.post).not.toHaveBeenCalledWith(
+          '/api/relationships',
+          expect.objectContaining({ additionalOptions: ['isMainCarer'] })
+        );
+      });
+
+      describe('and it has main carer', () => {
+        it('adds isMainCarer as "Y" to request if an array', () => {
+          const formData = {
+            personId: 123,
+            otherPersonId: 456,
+            createdBy: 'test@hackney.gov.uk',
+            type: 'parent',
+            additionalOptions: ['isMainCarer'],
+          };
+          jest.spyOn(axios, 'post');
+
+          relationshipsAPI.addRelationships(formData);
+
+          expect(axios.post).toHaveBeenCalledWith(
+            '/api/relationships',
+            expect.objectContaining({ isMainCarer: 'Y' })
+          );
+        });
+
+        it('adds isMainCarer as "Y" to request if a string', () => {
+          const formData = {
+            personId: 123,
+            otherPersonId: 456,
+            createdBy: 'test@hackney.gov.uk',
+            type: 'acquaintance',
+            additionalOptions: 'isMainCarer',
+          };
+          jest.spyOn(axios, 'post');
+
+          relationshipsAPI.addRelationships(formData);
+
+          expect(axios.post).toHaveBeenCalledWith(
+            '/api/relationships',
+            expect.objectContaining({ isMainCarer: 'Y' })
+          );
+        });
+      });
+
+      describe('and it has of unborn child', () => {
+        it('changes type to "parentOfUnbornChild" in request if type is "parent"', () => {
+          const formData = {
+            personId: 123,
+            otherPersonId: 456,
+            createdBy: 'test@hackney.gov.uk',
+            type: 'parent',
+            additionalOptions: ['isParentOfUnbornChild'],
+          };
+          jest.spyOn(axios, 'post');
+
+          relationshipsAPI.addRelationships(formData);
+
+          expect(axios.post).toHaveBeenCalledWith(
+            '/api/relationships',
+            expect.objectContaining({ type: 'parentOfUnbornChild' })
+          );
+        });
+
+        it('changes type to "siblingOfUnbornChild" in request if type is "sibling"', () => {
+          const formData = {
+            personId: 123,
+            otherPersonId: 456,
+            createdBy: 'test@hackney.gov.uk',
+            type: 'sibling',
+            additionalOptions: ['isSiblingOfUnbornChild'],
+          };
+          jest.spyOn(axios, 'post');
+
+          relationshipsAPI.addRelationships(formData);
+
+          expect(axios.post).toHaveBeenCalledWith(
+            '/api/relationships',
+            expect.objectContaining({ type: 'siblingOfUnbornChild' })
+          );
+        });
+      });
     });
   });
 
-  describe('addCase', () => {
-    it('should work properly', async () => {
-      mockedAxios.post.mockResolvedValue({ data: 'foobar' });
-      const data = await casesAPI.addCase({ foo: 'bar' });
-      expect(mockedAxios.post).toHaveBeenCalled();
-      expect(mockedAxios.post.mock.calls[0][0]).toEqual('/api/cases');
-      expect(mockedAxios.post.mock.calls[0][1]).toEqual({ foo: 'bar' });
-      expect(data).toEqual('foobar');
+  describe('removeRelationship', () => {
+    it('calls the DELETE /api/relationships endpoint', () => {
+      jest.spyOn(axios, 'delete');
+
+      const relationshipId = '123456789';
+
+      relationshipsAPI.removeRelationship(relationshipId);
+
+      expect(axios.delete).toHaveBeenCalledWith(
+        `/api/relationships/${relationshipId}`
+      );
     });
   });
 });
