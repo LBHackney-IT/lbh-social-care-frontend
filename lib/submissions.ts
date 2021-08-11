@@ -25,8 +25,10 @@ const headersWithKey = {
 export const getInProgressSubmissions = async (
   ageContext?: AgeContext
 ): Promise<Submission[]> => {
+  const dateTwoWeeksAgo = new Date(Date.now());
+  dateTwoWeeksAgo.setDate(dateTwoWeeksAgo.getDate() - 14);
   const { data } = await axios.get(
-    `${ENDPOINT_API}/submissions?submissionStates=in_progress`,
+    `${ENDPOINT_API}/submissions?submissionStates=in_progress&page=1&size=4000&createdAfter=${dateTwoWeeksAgo.toISOString()}`,
     {
       headers: headersWithKey,
     }

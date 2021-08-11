@@ -23,6 +23,12 @@ const AWS_KEY = process.env.AWS_KEY;
 
 describe('getInProgressSubmissions', () => {
   it('should return a list of in-progress submissions', async () => {
+    jest
+      .spyOn(global.Date, 'now')
+      .mockImplementationOnce(() =>
+        new Date('2021-07-25T00:00:00.000Z').valueOf()
+      );
+
     mockedAxios.get.mockResolvedValue({
       data: [
         { submissionId: '123', formAnswers: {} },
@@ -31,7 +37,7 @@ describe('getInProgressSubmissions', () => {
     });
     const data = await getInProgressSubmissions();
     expect(mockedAxios.get).toHaveBeenCalledWith(
-      `${ENDPOINT_API}/submissions?submissionStates=in_progress`,
+      `${ENDPOINT_API}/submissions?submissionStates=in_progress&page=1&size=4000&createdAfter=2021-07-11T00:00:00.000Z`,
       { headers: { 'x-api-key': AWS_KEY } }
     );
     expect(data).toEqual([
