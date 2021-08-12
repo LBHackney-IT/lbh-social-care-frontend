@@ -69,7 +69,7 @@ const form: Form = {
               value: 'Visit',
             },
             {
-              id: 'Were the child/children seen',
+              id: 'Was the child / all of the children seen?',
               value: 'Yes',
             },
           ],
