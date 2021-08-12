@@ -2,6 +2,7 @@ import * as Yup from 'yup';
 import { Answer, Field } from 'data/flexibleForms/forms.types';
 import { ObjectShape, OptionalObjectSchema, TypeOfShape } from 'yup/lib/object';
 import { getTotalHours } from './utils';
+import { format } from 'date-fns';
 
 export const startSchema = Yup.object().shape({
   socialCareId: Yup.number()
@@ -93,6 +94,14 @@ export const generateFlexibleSchema = (
   const shape: Shape = {};
 
   fields.map((field) => {
+    if (field.type === 'datetime' && field.isfutureDateValid === false) {
+      //for those cases that don't allow dates in the future
+      shape[field.id] = Yup.date().max(
+        format(new Date(), 'yyyy-MM-dd'),
+        'This date cannot be in the future'
+      );
+      shape[field.id] = Yup.string().required(getErrorMessage(field));
+    }
     if (field.type === 'repeaterGroup') {
       // recursively generate a schema for subfields of a repeater group
       shape[field.id] = Yup.array().of(
