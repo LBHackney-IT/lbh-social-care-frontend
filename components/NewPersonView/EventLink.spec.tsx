@@ -7,6 +7,8 @@ const mockFlexibleForm = {
   recordId: 'abcd1234',
   formName: 'child-case-note',
   personId: 123,
+  formType: 'flexible-form',
+  title: 'Test title',
 } as Case;
 
 const mockGoogleForm = {
@@ -19,9 +21,9 @@ const mockGoogleForm = {
 describe('EventLink', () => {
   it('correctly handles a flexible form', () => {
     render(<EventLink event={mockFlexibleForm} />);
-    expect((screen.getByText('Case note') as HTMLLinkElement).href).toContain(
-      `/people/123/submissions/abcd1234`
-    );
+    expect(
+      (screen.getByText('Case note - Test title') as HTMLLinkElement).href
+    ).toContain(`/people/123/submissions/abcd1234`);
   });
 
   it('correctly handles a google/external form', () => {
