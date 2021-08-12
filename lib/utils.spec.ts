@@ -194,7 +194,6 @@ describe('generateInitialValues', () => {
       ],
       undefined
     );
-    console.log('🚀 ~ file: utils.spec.ts ~ line 173 ~ it ~ result', result);
 
     expect(result).toMatchObject({ one: [] });
   });
