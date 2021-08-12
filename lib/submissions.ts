@@ -45,7 +45,6 @@ export const getInProgressSubmissions = async (
 /** create a new submission for the given form, resident and worker  */
 export const startSubmission = async (
   formId: string,
-  formName: string,
   socialCareId: number,
   createdBy: string
 ): Promise<Submission> => {
