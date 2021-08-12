@@ -114,15 +114,30 @@ const getDateOfEvent = (
   }
 };
 
+const getTitle = (
+  stepAnswers: StepAnswers,
+  titleId?: string
+): null | string => {
+  if (!titleId) return null;
+
+  const titleFromForm = stepAnswers[titleId] as string | undefined;
+
+  if (!titleFromForm) return null;
+
+  return titleFromForm;
+};
+
 /** update the answers for a given step on a submission, providing the submission id, step id, editor's name and the answers to update */
 export const patchSubmissionForStep = async (
   submissionId: string,
   stepId: string,
   editedBy: string,
   stepAnswers: StepAnswers,
-  dateOfEventId?: string
+  dateOfEventId?: string,
+  titleId?: string
 ): Promise<Submission> => {
   const dateOfEvent = getDateOfEvent(stepAnswers, dateOfEventId);
+  const title = getTitle(stepAnswers, titleId);
 
   const { data } = await axios.patch(
     `${ENDPOINT_API}/submissions/${submissionId}/steps/${stepId}`,
@@ -130,6 +145,7 @@ export const patchSubmissionForStep = async (
       stepAnswers: JSON.stringify(stepAnswers),
       editedBy,
       dateOfEvent,
+      title,
     },
     {
       headers: headersWithKey,

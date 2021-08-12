@@ -65,6 +65,7 @@ const CaseNote = ({
         await axios.patch(`/api/case-note/${submissionId}`, {
           values,
           dateOfEventId: form.dateOfEvent?.associatedId,
+          titleId: form.title?.associatedId,
         });
       }
     } catch (e) {
