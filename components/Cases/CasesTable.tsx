@@ -4,15 +4,15 @@ import { formatDate, isDateValid } from 'utils/date';
 
 import CaseLink from './CaseLink';
 
-const CaseNotePersonId = ({ personId }: Case) => (
-  <td key="personId" className="govuk-table__cell">
+const CaseNotePersonId = ({ recordId, personId }: Case) => (
+  <td key={`${recordId}-personId`} className="govuk-table__cell">
     {personId}
   </td>
 );
 
-const CaseNoteDate = ({ dateOfEvent, caseFormTimestamp }: Case) => (
+const CaseNoteDate = ({ recordId, dateOfEvent, caseFormTimestamp }: Case) => (
   <td
-    key="date"
+    key={`${recordId}-date`}
     className="govuk-table__cell govuk--timestamp"
     style={{ width: '120px' }}
   >
@@ -21,7 +21,7 @@ const CaseNoteDate = ({ dateOfEvent, caseFormTimestamp }: Case) => (
   </td>
 );
 
-const CaseNoteTitle = ({ formName, caseFormData }: Case) => {
+const CaseNoteTitle = ({ recordId, formName, caseFormData }: Case) => {
   // 1. handle case notes
   if (
     ['ASC_case_note', 'CFS_case_note'].includes(
@@ -30,7 +30,7 @@ const CaseNoteTitle = ({ formName, caseFormData }: Case) => {
     'Case Note - '
   )
     return (
-      <td className="govuk-table__cell">
+      <td key={`${recordId}-title`} className="govuk-table__cell">
         Case note: {formName}
         <br />
         <p className="lbh-body-s govuk-!-margin-top-2">
@@ -41,14 +41,23 @@ const CaseNoteTitle = ({ formName, caseFormData }: Case) => {
 
   // 2. handle flexible form submissions
   const form = forms.find((form) => form.id === formName);
-  if (form) return <td className="govuk-table__cell">{form.name}</td>;
+  if (form)
+    return (
+      <td key={`${recordId}-title`} className="govuk-table__cell">
+        {form.name}
+      </td>
+    );
 
   // 3. handle everything else
-  return <td className="govuk-table__cell">{formName}</td>;
+  return (
+    <td key={`${recordId}-title`} className="govuk-table__cell">
+      {formName}
+    </td>
+  );
 };
 
-const CaseNoteOfficer = ({ officerEmail }: Case) => (
-  <td key="officer" className="govuk-table__cell">
+const CaseNoteOfficer = ({ recordId, officerEmail }: Case) => (
+  <td key={`${recordId}-officer`} className="govuk-table__cell">
     {officerEmail}
   </td>
 );
@@ -61,7 +70,7 @@ const CaseNoteAction = ({
   personId,
 }: Case) => (
   <td
-    key="action"
+    key={`${recordId}-action`}
     className="govuk-table__cell govuk-table__cell--numeric"
     style={{ width: '50px', textAlign: 'center' }}
   >
@@ -75,14 +84,14 @@ const CaseNoteAction = ({
   </td>
 );
 
-const CaseNoteName = ({ firstName, lastName }: Case) => (
-  <td key="name" className="govuk-table__cell">
+const CaseNoteName = ({ recordId, firstName, lastName }: Case) => (
+  <td key={`${recordId}-name`} className="govuk-table__cell">
     {firstName} {lastName}
   </td>
 );
 
-const CaseNoteBirthday = ({ dateOfBirth }: Case) => (
-  <td key="birthday" className="govuk-table__cell">
+const CaseNoteBirthday = ({ recordId, dateOfBirth }: Case) => (
+  <td key={`${recordId}-birthday`} className="govuk-table__cell">
     {dateOfBirth && isDateValid(dateOfBirth) && dateOfBirth}
   </td>
 );
