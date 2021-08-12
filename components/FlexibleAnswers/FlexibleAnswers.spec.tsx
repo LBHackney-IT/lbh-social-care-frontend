@@ -1,5 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import FlexibleAnswers from './FlexibleAnswers';
+import { getByTextIgnoringTags } from '../../test/helpers';
 
 describe(`ExpandDetails`, () => {
   it('renders basic answers correctly', async () => {
@@ -22,15 +23,15 @@ describe(`ExpandDetails`, () => {
     const buttons = await screen.findAllByRole('button');
     expect(buttons.length).toBe(2);
 
-    expect(screen.findByText('bar'));
-    expect(screen.findByText('example question'));
-    expect(screen.findByText('red'));
+    expect(await screen.findByText('bar')).toBeVisible();
+    expect(await screen.findByText('example question')).toBeVisible();
+    expect(await screen.findByText('red')).toBeVisible();
 
-    expect(screen.findByText('foo'));
-    expect(screen.findByText('example answer 1'));
-    expect(screen.findByText('example answer 2'));
-    expect(screen.findByText('test 1'));
-    expect(screen.findByText('test 2'));
+    expect(await screen.findByText('foo')).toBeVisible();
+    expect(await screen.findByText('example answer 1')).toBeVisible();
+    expect(await screen.findByText('example answer 2')).toBeVisible();
+    expect(await screen.findByText('test 1')).toBeVisible();
+    expect(await screen.findByText('test 2')).toBeVisible();
   });
 
   it('renders repeater groups correctly', async () => {
@@ -41,7 +42,7 @@ describe(`ExpandDetails`, () => {
             'Key contacts': [
               {
                 su: 'choice-one',
-                bar: ['choice-one'],
+                bar: ['choice-two'],
                 blah: '2021-05-21',
                 foo: ['blah', 'blaah'],
               },
@@ -50,11 +51,11 @@ describe(`ExpandDetails`, () => {
         }}
       />
     );
-    expect(screen.findByText('Key contacts'));
-    expect(screen.findByText('su: choice-one'));
-    expect(screen.findByText('bar: choice-one'));
-    expect(screen.findByText('blah: 2021-05-21'));
-    expect(screen.findByText('foo: blah, blaah'));
+    expect(await screen.findByText('Key contacts')).toBeVisible();
+    expect(getByTextIgnoringTags('su: choice-one')).toBeVisible();
+    expect(getByTextIgnoringTags('bar: choice-two')).toBeVisible();
+    expect(getByTextIgnoringTags('blah: 2021-05-21')).toBeVisible();
+    expect(getByTextIgnoringTags('foo: blah, blaah')).toBeVisible();
   });
 
   it('renders expandable sections only if there is more than one step', async () => {
