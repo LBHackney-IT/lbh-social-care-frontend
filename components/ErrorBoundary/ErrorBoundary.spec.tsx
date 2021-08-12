@@ -23,7 +23,17 @@ const Child: React.FC<{ message?: string }> = ({ message }) => {
   throw new Error(message);
 };
 
+const suppressConsoleErrors = (e: ErrorEvent) => e.preventDefault();
+
 describe('Error Boundary', () => {
+  beforeEach(() => {
+    window.addEventListener('error', suppressConsoleErrors);
+  });
+
+  afterEach(() => {
+    window.removeEventListener('error', suppressConsoleErrors);
+  });
+
   it('should render the error boundary component when there is an error', () => {
     render(
       <ErrorBoundary>
@@ -31,7 +41,7 @@ describe('Error Boundary', () => {
       </ErrorBoundary>
     );
 
-    screen.getByText('A system error has occurred');
+    expect(screen.getByText('A system error has occurred')).toBeVisible();
   });
 
   it('should render the error message when one is provided', () => {
@@ -41,7 +51,7 @@ describe('Error Boundary', () => {
       </ErrorBoundary>
     );
 
-    screen.getByText('Some custom error message');
+    expect(screen.getByText('Some custom error message')).toBeVisible();
   });
 
   it('should render the page path when one is provided', () => {
@@ -51,6 +61,6 @@ describe('Error Boundary', () => {
       </ErrorBoundary>
     );
 
-    screen.getByText('/error-path');
+    expect(screen.getByText('/error-path')).toBeVisible();
   });
 });
