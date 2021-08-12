@@ -2,7 +2,6 @@ import { useState, useMemo } from 'react';
 import { Submission } from 'data/flexibleForms/forms.types';
 import Link from 'next/link';
 import { format } from 'date-fns';
-import forms from 'data/flexibleForms';
 import s from './index.module.scss';
 import SubmissionDetailDialog from './SubmissionDetailDialog';
 import { generateSubmissionUrl } from 'lib/submissions';
@@ -14,7 +13,7 @@ interface Props {
 const SubmissionPanel = ({ submission }: Props): React.ReactElement | null => {
   const [open, setOpen] = useState<boolean>(false);
 
-  const form = forms.find((form) => form.id === submission.formId);
+  const form = submission.form;
 
   const completedSteps = Object.keys(submission.formAnswers).length;
   const totalSteps = form?.steps?.length;

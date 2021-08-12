@@ -31,7 +31,11 @@ const PersonWidget = ({
 }: Props): React.ReactElement => {
   const dateOfBirth = prettyDate(person?.dateOfBirth ?? '');
   const displayAddress = person?.address;
-  const firstAddress = 'id' in person ? person?.addresses?.[0] : person.address;
+  const firstDisplayAddressMatch =
+    'id' in person
+      ? person?.addresses?.find((address) => address.isDisplayAddress === 'Y')
+      : person.address;
+
   if (grouped)
     return (
       <aside className={s.aside}>
@@ -57,21 +61,27 @@ const PersonWidget = ({
             <p className={`lbh-body-s ${s.paragraph}`}>Born {dateOfBirth}</p>
           )}
           {displayAddress && (
-            <p className={`lbh-body-s ${s.paragraph}`}>
+            <p
+              className={`lbh-body-s ${s.paragraph}`}
+              data-testid="resident-display-address"
+            >
               {displayAddress?.address}
               <br />
               {displayAddress?.postcode}
             </p>
           )}
-          {firstAddress && (
-            <p className={`lbh-body-s ${s.paragraph}`}>
-              {'address' in firstAddress
-                ? firstAddress.address
-                : firstAddress.addressLines}
+          {firstDisplayAddressMatch && (
+            <p
+              className={`lbh-body-s ${s.paragraph}`}
+              data-testid="resident-last-address"
+            >
+              {'address' in firstDisplayAddressMatch
+                ? firstDisplayAddressMatch.address
+                : firstDisplayAddressMatch.addressLines}
               <br />
-              {'postcode' in firstAddress
-                ? firstAddress.postcode
-                : firstAddress.postCode}
+              {'postcode' in firstDisplayAddressMatch
+                ? firstDisplayAddressMatch.postcode
+                : firstDisplayAddressMatch.postCode}
             </p>
           )}
 
@@ -100,21 +110,27 @@ const PersonWidget = ({
         <p className={`lbh-body-s ${s.paragraph}`}>Born {dateOfBirth}</p>
       )}
       {displayAddress && (
-        <p className={`lbh-body-s ${s.paragraph}`}>
+        <p
+          className={`lbh-body-s ${s.paragraph}`}
+          data-testid="resident-display-address"
+        >
           {displayAddress?.address}
           <br />
           {displayAddress?.postcode}
         </p>
       )}
-      {firstAddress && (
-        <p className={`lbh-body-s ${s.paragraph}`}>
-          {'address' in firstAddress
-            ? firstAddress.address
-            : firstAddress.addressLines}
+      {firstDisplayAddressMatch && (
+        <p
+          className={`lbh-body-s ${s.paragraph}`}
+          data-testid="resident-last-address"
+        >
+          {'address' in firstDisplayAddressMatch
+            ? firstDisplayAddressMatch.address
+            : firstDisplayAddressMatch.addressLines}
           <br />
-          {'postcode' in firstAddress
-            ? firstAddress.postcode
-            : firstAddress.postCode}
+          {'postcode' in firstDisplayAddressMatch
+            ? firstDisplayAddressMatch.postcode
+            : firstDisplayAddressMatch.postCode}
         </p>
       )}
     </aside>

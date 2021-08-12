@@ -122,6 +122,10 @@ export interface Submission {
   tags?: string[];
 }
 
+export interface SubmissionWithForm extends Submission {
+  form?: Form;
+}
+
 export interface Revision {
   worker: Worker;
   editTime: string;

@@ -22,12 +22,17 @@ const headersWithKey = {
 };
 
 /** get a list of all unfinished submissions in the current social care service context  */
-export const getUnfinishedSubmissions = async (
+export const getInProgressSubmissions = async (
   ageContext?: AgeContext
 ): Promise<Submission[]> => {
-  const { data } = await axios.get(`${ENDPOINT_API}/submissions`, {
-    headers: headersWithKey,
-  });
+  const dateTwoWeeksAgo = new Date(Date.now());
+  dateTwoWeeksAgo.setDate(dateTwoWeeksAgo.getDate() - 14);
+  const { data } = await axios.get(
+    `${ENDPOINT_API}/submissions?submissionStates=in_progress&page=1&size=4000&createdAfter=${dateTwoWeeksAgo.toISOString()}`,
+    {
+      headers: headersWithKey,
+    }
+  );
   return ageContext
     ? data.filter((submission: Submission) =>
         submission.residents.some(
@@ -48,8 +53,7 @@ export const startSubmission = async (
     `${ENDPOINT_API}/submissions`,
     {
       formId,
-      formName,
-      socialCareId: Number(socialCareId),
+      socialCareId: socialCareId,
       createdBy,
     },
     {
@@ -104,7 +108,7 @@ const getDateOfEvent = (
     } else {
       const dateConjoined = `${dateOfEventFromForm[0]} ${dateOfEventFromForm[1]}`;
 
-      return parse(dateConjoined, 'yyyy-MM-dd HH:ss', new Date()).toISOString();
+      return parse(dateConjoined, 'yyyy-MM-dd HH:mm', new Date()).toISOString();
     }
   } catch {
     return null;
@@ -135,11 +139,6 @@ export const patchSubmissionForStep = async (
 ): Promise<Submission> => {
   const dateOfEvent = getDateOfEvent(stepAnswers, dateOfEventId);
   const title = getTitle(stepAnswers, titleId);
-
-  // 1. all case notes are submitting as child-case-note (even when it's an adult...)
-  // 2. form name, id, title are too heavily coupled
-  // 3. When we update the title, this breaks how the links work
-  // 4. Real data is wrong essentially, adult case notes will have been submitted with the id child-case-note
 
   const { data } = await axios.patch(
     `${ENDPOINT_API}/submissions/${submissionId}/steps/${stepId}`,

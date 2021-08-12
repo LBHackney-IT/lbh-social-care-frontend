@@ -2,7 +2,7 @@ import Seo from 'components/Layout/Seo/Seo';
 import SavedForms from 'components/SaveFormData/SaveFormData';
 import DashboardWrapper from 'components/Dashboard/DashboardWrapper';
 import { GetServerSideProps } from 'next';
-import { getUnfinishedSubmissions } from 'lib/submissions';
+import { getInProgressSubmissions } from 'lib/submissions';
 import { Submission } from 'data/flexibleForms/forms.types';
 import SubmissionsTable from 'components/SubmissionsTable';
 import { isAuthorised } from 'utils/auth';
@@ -31,7 +31,7 @@ export default UnfinishedSubmissions;
 
 export const getServerSideProps: GetServerSideProps = async ({ req }) => {
   const user = isAuthorised(req);
-  const submissions = await getUnfinishedSubmissions(user?.permissionFlag);
+  const submissions = await getInProgressSubmissions(user?.permissionFlag);
 
   return {
     props: {

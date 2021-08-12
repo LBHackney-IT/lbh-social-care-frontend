@@ -103,7 +103,6 @@ const Search = ({
     },
     [pathname, query, replace]
   );
-
   // commented out as the feature is not ready in the BE
   // eslint-disable-next-line no-unused-vars
   const onSort = useCallback(
