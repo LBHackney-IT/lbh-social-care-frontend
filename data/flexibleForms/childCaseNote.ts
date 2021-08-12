@@ -8,6 +8,9 @@ const form: Form = {
   isViewableByAdults: false,
   isViewableByChildrens: false,
   canonicalUrl: (socialCareId) => `/people/${socialCareId}/case-note`,
+  dateOfEvent: {
+    associatedId: 'Date of event',
+  },
   steps: [
     {
       id: 'Case note',
@@ -37,8 +40,8 @@ const form: Form = {
         },
 
         {
-          id: 'Were the child/children seen',
-          question: 'Were the child/children seen?',
+          id: 'Was the child / all of the children seen?',
+          question: 'Was the child / all of the children seen?',
           type: 'radios',
           required: true,
           conditions: [
@@ -59,8 +62,8 @@ const form: Form = {
           ],
         },
         {
-          id: 'Were the child/children seen alone',
-          question: 'Were the child/children seen alone?',
+          id: 'Was the child / all of the children seen alone?',
+          question: 'Was the child / all of the children seen alone?',
           type: 'radios',
           required: true,
           conditions: [
@@ -69,7 +72,7 @@ const form: Form = {
               value: 'Visit',
             },
             {
-              id: 'Were the child/children seen',
+              id: 'Was the child / all of the children seen?',
               value: 'Yes',
             },
           ],
