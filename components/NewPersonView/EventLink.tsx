@@ -1,6 +1,5 @@
 import Link from 'next/link';
 import { Case } from 'types';
-import forms from 'data/flexibleForms';
 import { generateInternalLink as generateLegacyUrl } from 'utils/urls';
 import s from './index.module.scss';
 
@@ -8,18 +7,27 @@ interface Props {
   event: Case;
 }
 
+const mapIdToType: Record<string, string> = {
+  'adult-case-note': 'Case note',
+  'child-case-note': 'Case note',
+};
+
 const EventLink = ({ event }: Props): React.ReactElement => {
   // 1. handle flexible forms
-  const flexibleForm = event.formName
-    ? forms?.find((form) => form.id === event.formName)
-    : false;
 
-  if (flexibleForm)
+  if (event.formType === 'flexible-form') {
+    const formName = mapIdToType[event.formName];
+    const formTitle = event.title ? ` - ${event.title}` : '';
+
     return (
       <Link href={`/people/${event.personId}/submissions/${event.recordId}`}>
-        <a className={`lbh-link ${s.eventLink}`}>{flexibleForm.name}</a>
+        <a className={`lbh-link ${s.eventLink}`}>
+          {formName}
+          {formTitle}
+        </a>
       </Link>
     );
+  }
 
   // 2. handle external/google forms
   if (event.caseFormUrl)

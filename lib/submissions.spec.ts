@@ -170,6 +170,7 @@ describe('patchSubmissionForStep', () => {
         editedBy: 'foo',
         stepAnswers: JSON.stringify(mockAnswers),
         dateOfEvent: null,
+        title: null,
       },
       { headers: { 'x-api-key': AWS_KEY } }
     );
@@ -202,6 +203,7 @@ describe('patchSubmissionForStep', () => {
         editedBy: 'foo',
         stepAnswers: JSON.stringify(mockAnswers),
         dateOfEvent: '2021-08-03T12:00:00.000Z',
+        title: null,
       },
       { headers: { 'x-api-key': AWS_KEY } }
     );
@@ -233,6 +235,7 @@ describe('patchSubmissionForStep', () => {
       {
         editedBy: 'foo',
         stepAnswers: JSON.stringify(mockAnswers),
+        title: null,
         dateOfEvent: '2021-02-02T10:30:00.000Z',
       },
       { headers: { 'x-api-key': AWS_KEY } }
@@ -266,6 +269,7 @@ describe('patchSubmissionForStep', () => {
         editedBy: 'foo',
         stepAnswers: JSON.stringify(mockAnswers),
         dateOfEvent: null,
+        title: null,
       },
       { headers: { 'x-api-key': AWS_KEY } }
     );
@@ -298,6 +302,7 @@ describe('patchSubmissionForStep', () => {
         editedBy: 'foo',
         stepAnswers: JSON.stringify(mockAnswers),
         dateOfEvent: null,
+        title: null,
       },
       { headers: { 'x-api-key': AWS_KEY } }
     );
@@ -330,6 +335,117 @@ describe('patchSubmissionForStep', () => {
         editedBy: 'foo',
         stepAnswers: JSON.stringify(mockAnswers),
         dateOfEvent: null,
+        title: null,
+      },
+      { headers: { 'x-api-key': AWS_KEY } }
+    );
+    expect(data).toEqual({
+      submissionId: '123',
+      formAnswers: {},
+    });
+  });
+
+  it('should submit null as title for empty title string', async () => {
+    const titleId = 'titleId';
+    const testTitle = '';
+
+    const mockAnswers = {
+      'question one': 'answer one',
+      'question two': 'answer two',
+      [titleId]: testTitle,
+    };
+
+    mockedAxios.patch.mockResolvedValue({
+      data: { submissionId: '123', formAnswers: {} },
+    });
+    const data = await patchSubmissionForStep(
+      '123',
+      '456',
+      'foo',
+      mockAnswers,
+      undefined,
+      titleId
+    );
+    expect(mockedAxios.patch).toHaveBeenCalledWith(
+      `${ENDPOINT_API}/submissions/123/steps/456`,
+      {
+        editedBy: 'foo',
+        stepAnswers: JSON.stringify(mockAnswers),
+        dateOfEvent: null,
+        title: null,
+      },
+      { headers: { 'x-api-key': AWS_KEY } }
+    );
+    expect(data).toEqual({
+      submissionId: '123',
+      formAnswers: {},
+    });
+  });
+
+  it('should submit be able to submit a valid title', async () => {
+    const titleId = 'titleId';
+    const testTitle = 'testTitle';
+
+    const mockAnswers = {
+      'question one': 'answer one',
+      'question two': 'answer two',
+      [titleId]: testTitle,
+    };
+
+    mockedAxios.patch.mockResolvedValue({
+      data: { submissionId: '123', formAnswers: {} },
+    });
+    const data = await patchSubmissionForStep(
+      '123',
+      '456',
+      'foo',
+      mockAnswers,
+      undefined,
+      titleId
+    );
+    expect(mockedAxios.patch).toHaveBeenCalledWith(
+      `${ENDPOINT_API}/submissions/123/steps/456`,
+      {
+        editedBy: 'foo',
+        stepAnswers: JSON.stringify(mockAnswers),
+        dateOfEvent: null,
+        title: testTitle,
+      },
+      { headers: { 'x-api-key': AWS_KEY } }
+    );
+    expect(data).toEqual({
+      submissionId: '123',
+      formAnswers: {},
+    });
+  });
+
+  it('should submit null title if supplied ID does not match a question', async () => {
+    const titleId = 'titleId';
+    const invalidTitleId = 'invalidTitleId';
+
+    const mockAnswers = {
+      'question one': 'answer one',
+      'question two': 'answer two',
+      titleId,
+    };
+
+    mockedAxios.patch.mockResolvedValue({
+      data: { submissionId: '123', formAnswers: {} },
+    });
+    const data = await patchSubmissionForStep(
+      '123',
+      '456',
+      'foo',
+      mockAnswers,
+      invalidTitleId
+    );
+    expect(mockedAxios.patch).toHaveBeenCalledWith(
+      `${ENDPOINT_API}/submissions/123/steps/456`,
+      {
+        editedBy: 'foo',
+        stepAnswers: JSON.stringify(mockAnswers),
+        dateOfEvent: null,
+        title: null,
       },
       { headers: { 'x-api-key': AWS_KEY } }
     );
