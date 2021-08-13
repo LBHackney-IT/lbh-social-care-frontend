@@ -1,9 +1,6 @@
 module.exports = {
   distDir: 'build/_next',
   target: 'server',
-  future: {
-    webpack5: true,
-  },
   poweredByHeader: false,
 
   async headers() {
