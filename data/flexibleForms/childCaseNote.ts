@@ -260,6 +260,7 @@ const form: Form = {
             format(new Date(), 'yyyy-MM-dd'),
             format(new Date(), 'HH:00'),
           ],
+          isfutureDateValid: false,
         },
         {
           id: 'Actions',

@@ -102,24 +102,20 @@ export const generateFlexibleSchema = (
       );
     } else if (field.type === 'timetable') {
       shape[field.id] = Yup.object();
-    } else if (
-      field.type === 'checkboxes' ||
-      (field.type === 'datetime' && field.isfutureDateValid === true) ||
-      field.type === 'repeater' ||
-      field.type === 'tags'
-    ) {
-      shape[field.id] = Yup.array().of(
-        Yup.string().required(getErrorMessage(field))
-      );
     } else if (field.type === 'datetime' && field.isfutureDateValid === false) {
       //for those cases that don't allow dates in the future
       shape[field.id] = Yup.date().max(
         new Date(),
         'Date cannot be in the future'
       );
-      console.log(
-        format(new Date(), 'yyyy-MM-dd'),
-        format(new Date(), 'HH:00')
+    } else if (
+      field.type === 'checkboxes' ||
+      field.type === 'datetime' ||
+      field.type === 'repeater' ||
+      field.type === 'tags'
+    ) {
+      shape[field.id] = Yup.array().of(
+        Yup.string().required(getErrorMessage(field))
       );
     } else {
       shape[field.id] = Yup.string();
