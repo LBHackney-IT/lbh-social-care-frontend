@@ -73,9 +73,13 @@ describe('RejectDialog', () => {
       }
     );
     fireEvent.click(screen.getByText('Submit'));
+
     await waitFor(() => {
       expect(axios.delete).toBeCalledTimes(1);
-      expect(screen.getByText('There was a problem returning the submission'));
+      expect(
+        screen.getByText('There was a problem returning the submission')
+      ).toBeVisible();
+      expect(screen.getByText('Error: foo')).toBeVisible();
     });
   });
 });
