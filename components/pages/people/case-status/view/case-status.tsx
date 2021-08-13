@@ -24,11 +24,11 @@ const CaseStatusView = ({ person }: Props): React.ReactElement => {
     <>
       {caseStatusData && (
         <section>
-          <span className="govuk-tag lbh-tag">
-            {caseStatusData.caseStatuses
-              .map((status) => status.type)
-              .join(', ')}
-          </span>
+          {caseStatusData.caseStatuses.map((status) => (
+            <span className="govuk-tag lbh-tag" key={status.id}>
+              {status.type}
+            </span>
+          ))}
         </section>
       )}
     </>

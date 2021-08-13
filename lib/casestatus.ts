@@ -7,12 +7,10 @@ const headers = { 'x-api-key': AWS_KEY };
 export const getCaseStatusByPersonId = async (
   personId: number
 ): Promise<PersonCaseStatus> => {
-  const { data }: { data: PersonCaseStatus } = await axios.get(
-    `https://virtserver.swaggerhub.com/Hackney/social-care-case-viewer-api/1.0.0/residents/${personId}/casestatuses`,
-    // `${ENDPOINT_API}/residents/${personId}/casestatus`,
-    {
+  const { data, error }: { data: PersonCaseStatus; error: Error } =
+    await axios.get(`${ENDPOINT_API}/residents/${personId}/casestatuses`, {
       headers,
-    }
-  );
+    });
+  console.log(error);
   return data;
 };

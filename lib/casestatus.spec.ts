@@ -1,10 +1,6 @@
 import axios from 'axios';
 import * as caseStatusAPI from './casestatus';
-import {
-  mockedCaseStatusFactory,
-  mockedPersonCaseStatusFactory,
-} from 'factories/caseStatus';
-import { mockedResident } from 'factories/residents';
+import { mockedCaseStatusFactory } from 'factories/caseStatus';
 
 const ENDPOINT_API = process.env.ENDPOINT_API;
 const AWS_KEY = process.env.AWS_KEY;
@@ -24,8 +20,7 @@ describe('case status APIs', () => {
 
       expect(mockedAxios.get).toHaveBeenCalled();
       expect(mockedAxios.get.mock.calls[0][0]).toEqual(
-        `https://virtserver.swaggerhub.com/Hackney/social-care-case-viewer-api/1.0.0/residents/123/casestatuses`
-        // `${ENDPOINT_API}/residents/123/casestatuses`
+        `${ENDPOINT_API}/residents/123/casestatuses`
       );
       expect(mockedAxios.get.mock.calls[0][1]?.headers).toEqual({
         'x-api-key': AWS_KEY,
