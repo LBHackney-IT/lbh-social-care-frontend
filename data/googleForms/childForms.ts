@@ -1,17 +1,5 @@
 export default [
   {
-    text: 'CFS Case Note',
-    value:
-      'https://docs.google.com/forms/d/e/1FAIpQLSchNVVlwgQwwMHNdmweNPSZUtvKt0hOXFi9lj8na3F-MknFyw/viewform',
-    category: 'General',
-  },
-  {
-    text: 'CFS Visit',
-    value:
-      'https://docs.google.com/forms/d/e/1FAIpQLSdjT-7u08T2Bw3W4pHJYS3MAVdf-YSoZStYX_43w7BZzIPjjg/viewform',
-    category: 'General',
-  },
-  {
     text: 'FAST Telephone Referrals',
     value:
       'https://docs.google.com/forms/d/e/1FAIpQLSf5wGFZjeQo3pgQ2TWTy61zYAHtuv0ubMqQuQX71-4k_4HK6Q/viewform',
