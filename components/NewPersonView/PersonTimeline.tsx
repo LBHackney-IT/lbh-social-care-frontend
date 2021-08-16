@@ -1,11 +1,8 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { formatDistanceToNow } from 'date-fns';
 import { Case } from 'types';
-import useSearch from 'hooks/useSearch';
 import s from './index.module.scss';
-import FilterButton, { Filter } from './FilterButton';
 import { Submission } from 'data/flexibleForms/forms.types';
-import SearchBox from 'components/SubmissionsTable/SearchBox';
 import UnfinishedSubmissionsEvent from './UnfinishedSubmissions';
 import { normaliseDateToISO } from 'utils/date';
 import Event from './Event';
@@ -40,24 +37,7 @@ const PersonTimeline = ({
   setSize,
   onLastPage,
 }: Props): React.ReactElement => {
-  const [filter, setFilter] = useState<Filter>('all');
-  const [searchQuery, setSearchQuery] = useState<string>('');
-
-  // apply filtering and searching
-  const results = useSearch(
-    searchQuery,
-    events?.filter((event) =>
-      filter === 'case-note' ? isMajorEvent(event) : true
-    ),
-    [
-      'formName',
-      'officerEmail',
-      'caseFormData.case_note_title',
-      'caseFormData.case_note_description',
-    ]
-  );
-
-  const oldestResult = results?.[results.length - 1];
+  const oldestResult = events?.[events.length - 1];
   const oldestTimestamp = normaliseDateToISO(
     String(oldestResult?.dateOfEvent || oldestResult?.caseFormTimestamp)
   );
@@ -75,7 +55,7 @@ const PersonTimeline = ({
               <UnfinishedSubmissionsEvent submissions={unfinishedSubmissions} />
             )}
 
-            {results?.map((event) => (
+            {events?.map((event) => (
               <Event event={event} key={event.recordId} />
             ))}
           </ol>
@@ -92,9 +72,9 @@ const PersonTimeline = ({
       </div>
       <div className="govuk-grid-column-one-third">
         <aside className={s.sticky}>
-          {results.length > 0 ? (
+          {events.length > 0 ? (
             <p className="lbh-body-xs">
-              Showing {results?.length} events over{' '}
+              Showing {events?.length} events over{' '}
               {oldestTimestamp && safelyFormatDistanceToNow(oldestTimestamp)}
             </p>
           ) : (
