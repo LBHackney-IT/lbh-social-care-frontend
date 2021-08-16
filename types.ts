@@ -105,6 +105,8 @@ export interface Case {
   caseFormTimestamp?: string;
   dateOfEvent?: string;
   caseFormData: CaseFormData;
+  formType?: string;
+  title?: string;
 }
 
 export interface CaseData {

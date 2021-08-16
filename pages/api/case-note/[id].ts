@@ -27,9 +27,10 @@ const handler = async (
         break;
       case 'PATCH':
         {
-          const { values, dateOfEventId } = req.body as {
+          const { values, dateOfEventId, titleId } = req.body as {
             values: FormikValues;
             dateOfEventId?: string;
+            titleId?: string;
           };
 
           const submission = await patchSubmissionForStep(
@@ -37,7 +38,8 @@ const handler = async (
             'singleStep',
             String(user?.email),
             values,
-            dateOfEventId
+            dateOfEventId,
+            titleId
           );
           res.json(submission);
         }

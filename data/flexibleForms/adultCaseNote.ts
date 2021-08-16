@@ -11,6 +11,9 @@ const form: Form = {
   dateOfEvent: {
     associatedId: 'Date of event',
   },
+  title: {
+    associatedId: 'Title',
+  },
   steps: [
     {
       id: 'Case note',
