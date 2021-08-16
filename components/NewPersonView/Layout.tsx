@@ -144,9 +144,6 @@ const Layout = ({ person, children }: Props): React.ReactElement => {
             {allocations?.allocations &&
               summariseAllocations(allocations.allocations)}
           </p>
-          <ConditionalFeature name="case-status">
-            <CaseStatusView person={person} />
-          </ConditionalFeature>
         </div>
 
         <div className={`govuk-grid-column-one-third ${s.actionsArea}`}>
