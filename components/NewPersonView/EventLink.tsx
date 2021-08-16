@@ -1,3 +1,4 @@
+import { mapIdToType } from 'data/flexibleForms/mapFormIdsToDisplayName';
 import Link from 'next/link';
 import { Case } from 'types';
 import { generateInternalLink as generateLegacyUrl } from 'utils/urls';
@@ -6,11 +7,6 @@ import s from './index.module.scss';
 interface Props {
   event: Case;
 }
-
-const mapIdToType: Record<string, string> = {
-  'adult-case-note': 'Case note',
-  'child-case-note': 'Case note',
-};
 
 const EventLink = ({ event }: Props): React.ReactElement => {
   // 1. handle flexible forms

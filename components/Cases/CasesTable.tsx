@@ -59,6 +59,8 @@ const CaseNoteAction = ({
   caseFormData,
   formName,
   personId,
+  formType,
+  title,
 }: Case) => (
   <td
     key="action"
@@ -71,6 +73,8 @@ const CaseNoteAction = ({
       caseFormData={caseFormData}
       formName={formName}
       personId={personId}
+      formType={formType}
+      title={title}
     />
   </td>
 );
