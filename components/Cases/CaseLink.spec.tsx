@@ -17,9 +17,11 @@ describe('CaseLink component', () => {
       <DocumentFragment>
         <a
           class="lbh-link"
-          href="/people/1/submissions/123"
+          href="https://foo.bar"
+          rel="noreferrer noopener"
+          target="_blank"
         >
-          Sandbox form
+          View
         </a>
       </DocumentFragment>
     `);
@@ -37,9 +39,30 @@ describe('CaseLink component', () => {
       <DocumentFragment>
         <a
           class="lbh-link"
-          href="/people/1/submissions/123"
+          href="/people/123/allocations/321?recordId=123"
         >
-          Sandbox form
+          View
+        </a>
+      </DocumentFragment>
+    `);
+  });
+
+  it('should render properly - with handled link and a form name/title', () => {
+    const props = {
+      recordId: '123',
+      caseFormData: mockedDeallocationNote.caseFormData,
+      personId: 1,
+      formName: 'child-case-note',
+      title: 'test title',
+    };
+    const { asFragment } = render(<CaseLink {...props} />);
+    expect(asFragment()).toMatchInlineSnapshot(`
+      <DocumentFragment>
+        <a
+          class="lbh-link"
+          href="/people/123/allocations/321?recordId=123"
+        >
+          View
         </a>
       </DocumentFragment>
     `);
@@ -56,16 +79,7 @@ describe('CaseLink component', () => {
       formName: 'foo',
     };
     const { asFragment } = render(<CaseLink {...props} />);
-    expect(asFragment()).toMatchInlineSnapshot(`
-      <DocumentFragment>
-        <a
-          class="lbh-link"
-          href="/people/1/submissions/123"
-        >
-          Sandbox form
-        </a>
-      </DocumentFragment>
-    `);
+    expect(asFragment()).toMatchInlineSnapshot(`<DocumentFragment />`);
   });
 
   it('should render properly - with handled link for viewing warning notes', () => {
