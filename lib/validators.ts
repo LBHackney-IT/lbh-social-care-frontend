@@ -104,9 +104,37 @@ export const generateFlexibleSchema = (
       shape[field.id] = Yup.object();
     } else if (field.type === 'datetime' && field.isfutureDateValid === false) {
       //for those cases that don't allow dates in the future
-      shape[field.id] = Yup.date().max(
-        new Date(),
-        'Date cannot be in the future'
+      shape[field.id] = Yup.array().of(
+        Yup.string().test(
+          'Validate date is present or past',
+          'Date cannot be in the future',
+          (dateValue) => {
+            if (!dateValue) return false;
+
+            const dateRegex = /[0-9]{4}-[0-9]{2}-[0-9]{2}/;
+            const timeRegex = /[0-9]{2}:[0-9]{2}/;
+
+            if (dateRegex.test(dateValue)) {
+              const inputDate = new Date(dateValue);
+
+              return inputDate <= new Date();
+            }
+
+            if (timeRegex.test(dateValue)) {
+              const dateWithInputTime = new Date();
+
+              const hours = Number(dateValue.slice(0, 2));
+              const minutes = Number(dateValue.slice(3, 5));
+
+              dateWithInputTime.setHours(hours);
+              dateWithInputTime.setMinutes(minutes);
+
+              return dateWithInputTime <= new Date();
+            }
+
+            return false;
+          }
+        )
       );
     } else if (
       field.type === 'checkboxes' ||
