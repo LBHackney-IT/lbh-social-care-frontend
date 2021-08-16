@@ -6,7 +6,11 @@ describe('UnfinishedSubmissions', () => {
   it('renders a list of clickable submissions', () => {
     render(
       <UnfinishedSubmissions
-        submissions={[mockSubmission, mockSubmission, mockSubmission]}
+        submissions={[
+          { ...mockSubmission, submissionId: '123' },
+          { ...mockSubmission, submissionId: '125' },
+          { ...mockSubmission, submissionId: '126' },
+        ]}
       />
     );
 
@@ -19,12 +23,12 @@ describe('UnfinishedSubmissions', () => {
     render(
       <UnfinishedSubmissions
         submissions={[
-          mockSubmission,
-          mockSubmission,
-          mockSubmission,
-          mockSubmission,
-          mockSubmission,
-          mockSubmission,
+          { ...mockSubmission, submissionId: '123' },
+          { ...mockSubmission, submissionId: '124' },
+          { ...mockSubmission, submissionId: '125' },
+          { ...mockSubmission, submissionId: '126' },
+          { ...mockSubmission, submissionId: '127' },
+          { ...mockSubmission, submissionId: '128' },
         ]}
       />
     );

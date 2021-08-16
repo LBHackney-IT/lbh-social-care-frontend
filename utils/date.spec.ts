@@ -1,3 +1,4 @@
+import { type as osType } from 'os';
 import {
   parseDate,
   formatDate,
@@ -23,8 +24,13 @@ describe('date util', () => {
 
   describe('formatDate', () => {
     it('should work properly', () => {
-      expect(formatDate('22/09/1941')).toEqual('22 Sep 1941');
-      expect(formatDate('22/09/1941 13:49:43')).toEqual('22 Sep 1941');
+      // Allow for MacOS short month output differences from other platforms.
+      const expectedMonth = osType() === 'Darwin' ? 'Sept' : 'Sep';
+
+      expect(formatDate('22/09/1941')).toEqual(`22 ${expectedMonth} 1941`);
+      expect(formatDate('22/09/1941 13:49:43')).toEqual(
+        `22 ${expectedMonth} 1941`
+      );
     });
   });
 
