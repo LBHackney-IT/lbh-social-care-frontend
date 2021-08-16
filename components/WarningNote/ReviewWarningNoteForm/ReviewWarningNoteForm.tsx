@@ -5,13 +5,13 @@ import CustomConfirmation from 'components/Steps/ReviewWarningNoteConfirmation';
 import {
   reviewFormStepsAdult,
   reviewFormStepsChild,
-} from '../../../../data/forms/warning-note-review';
-import { User } from '../../../../types';
-import { updateWarningNote } from '../../../../utils/api/warningNotes';
-import FormWizard from '../../../FormWizard/FormWizard';
-import PersonView from '../../../PersonView/PersonView';
-import { useAuth } from '../../../UserContext/UserContext';
-import WarningNoteRecap from '../../../WarningNote/WarningNoteRecap/WarningNoteRecap';
+} from '../../../data/forms/warning-note-review';
+import { User } from '../../../types';
+import { updateWarningNote } from '../../../utils/api/warningNotes';
+import FormWizard from '../../FormWizard/FormWizard';
+import PersonView from '../../PersonView/PersonView';
+import { useAuth } from '../../UserContext/UserContext';
+import WarningNoteRecap from '../../WarningNote/WarningNoteRecap/WarningNoteRecap';
 
 export const ReviewWarningNoteForm: React.FC<{
   personId: number;

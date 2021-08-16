@@ -11,17 +11,17 @@ import Router from 'next/router';
 
 import { residentFactory } from 'factories/residents';
 import { ReviewWarningNoteForm } from './ReviewWarningNoteForm';
-import PersonView from '../../../PersonView/PersonView';
-import { AuthProvider } from '../../../UserContext/UserContext';
-import { mockedUser } from '../../../../factories/users';
+import PersonView from '../../PersonView/PersonView';
+import { AuthProvider } from '../../UserContext/UserContext';
+import { mockedUser } from '../../../factories/users';
 import {
   createMockedPersonView,
   setDateFieldValue,
-} from '../../../../test/helpers';
-import * as warningNotes from '../../../../utils/api/warningNotes';
-import { mockedWarningNote } from '../../../../factories/warningNotes';
+} from '../../../test/helpers';
+import * as warningNotes from '../../../utils/api/warningNotes';
+import { mockedWarningNote } from '../../../factories/warningNotes';
 
-jest.mock('../../../PersonView/PersonView');
+jest.mock('../../PersonView/PersonView');
 jest.mock('next/router', () => ({
   __esModule: true,
   default: {
@@ -37,7 +37,7 @@ jest.mock('next/router', () => ({
     pathname: 'foopath',
   }),
 }));
-jest.mock('../../../../utils/api/warningNotes');
+jest.mock('../../../utils/api/warningNotes');
 
 const mockedAdultsResident = residentFactory.build({
   contextFlag: 'A',

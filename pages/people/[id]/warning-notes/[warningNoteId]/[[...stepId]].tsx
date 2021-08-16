@@ -1,6 +1,6 @@
 import { useRouter } from 'next/router';
 
-import { ReviewWarningNoteForm } from '../../../../../components/pages/warning-notes/ReviewWarningNoteForm/ReviewWarningNoteForm';
+import { ReviewWarningNoteForm } from '../../../../../components/WarningNote/ReviewWarningNoteForm/ReviewWarningNoteForm';
 
 const ReviewWarningNote = (): React.ReactElement => {
   const { query } = useRouter();

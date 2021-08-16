@@ -1,6 +1,6 @@
 import { useRouter } from 'next/router';
 
-import AddRelationshipForm from 'components/pages/people/relationships/add/AddRelationshipForm';
+import AddRelationshipForm from 'components/Relationships/AddRelationshipForm/AddRelationshipForm';
 
 const AddRelationshipPage: React.FC = () => {
   const { query } = useRouter();
