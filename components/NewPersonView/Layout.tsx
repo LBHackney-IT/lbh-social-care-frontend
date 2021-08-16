@@ -15,6 +15,7 @@ import AddFormDialog from 'components/AddFormDialog/AddFormDialog';
 import { useState } from 'react';
 import Banner from 'components/FlexibleForms/Banner';
 import CaseStatusView from 'components/pages/people/case-status/view/case-status';
+import { ConditionalFeature } from 'lib/feature-flags/feature-flags';
 
 interface NavLinkProps {
   href: string;
@@ -101,12 +102,6 @@ const Layout = ({ person, children }: Props): React.ReactElement => {
     },
   ];
 
-  if (person.contextFlag === 'C')
-    secondaryNavigation.push({
-      text: 'Add case status',
-      href: ``,
-    });
-
   return (
     <>
       <Head>
@@ -150,7 +145,9 @@ const Layout = ({ person, children }: Props): React.ReactElement => {
             {allocations?.allocations &&
               summariseAllocations(allocations.allocations)}
           </p>
-          <CaseStatusView person={person} />
+          <ConditionalFeature name="case-status">
+            <CaseStatusView person={person} />
+          </ConditionalFeature>
         </div>
 
         <div className={`govuk-grid-column-one-third ${s.actionsArea}`}>
