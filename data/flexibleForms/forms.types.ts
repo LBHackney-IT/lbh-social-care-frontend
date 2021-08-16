@@ -42,6 +42,8 @@ export interface Field {
   itemName?: string;
   /** for file fields only */
   // multiple?: boolean
+  /**for date inputs that are not allowed to be set in the future */
+  isfutureDateValid?: boolean;
 }
 
 interface Condition {
