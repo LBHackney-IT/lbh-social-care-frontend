@@ -93,13 +93,11 @@ const Layout = ({ person, children }: Props): React.ReactElement => {
       text: 'Add warning note',
       href: `/people/${person.id}/warning-notes/add?id=${person.id}`,
     },
-  ];
-
-  if (person.contextFlag === 'A')
-    secondaryNavigation.unshift({
+    {
       text: 'Add case note',
       href: `/people/${person.id}/case-note`,
-    });
+    },
+  ];
 
   return (
     <>

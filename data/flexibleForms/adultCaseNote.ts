@@ -11,6 +11,9 @@ const form: Form = {
   dateOfEvent: {
     associatedId: 'Date of event',
   },
+  title: {
+    associatedId: 'Title',
+  },
   steps: [
     {
       id: 'Case note',
@@ -164,6 +167,7 @@ const form: Form = {
             format(new Date(), 'yyyy-MM-dd'),
             format(new Date(), 'HH:00'),
           ],
+          isfutureDateValid: false,
         },
 
         {

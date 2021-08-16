@@ -63,7 +63,7 @@ describe('AutosaveIndicator', () => {
   });
 });
 
-describe('AutosaveTrigger', async () => {
+describe('AutosaveTrigger', () => {
   const mockSubmit = jest.fn();
   jest.useFakeTimers();
 

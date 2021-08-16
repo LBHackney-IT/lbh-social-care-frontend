@@ -1,15 +1,7 @@
 import { useMemo } from 'react';
 import { useForm } from 'react-hook-form';
-import isPast from 'date-fns/isPast';
 
-import { convertFormat } from 'utils/date';
-import {
-  TextInput,
-  EmailInput,
-  Checkbox,
-  DateInput,
-  Autocomplete,
-} from 'components/Form';
+import { TextInput, EmailInput, Checkbox, Autocomplete } from 'components/Form';
 import Button from 'components/Button/Button';
 import { useAuth } from 'components/UserContext/UserContext';
 import { getFormsByUserPermission } from 'utils/forms';
@@ -95,7 +87,8 @@ const SearchCasesForm = ({
           />
         </div>
       </div>
-      <div className="govuk-grid-row">
+      {/* There is a big in date input which swaps the date and month fields. This date input may be swapped for a date picker in the future. */}
+      {/* <div className="govuk-grid-row">
         <div className="govuk-grid-column-one-half">
           <DateInput
             label="Date created from"
@@ -132,7 +125,7 @@ const SearchCasesForm = ({
             }}
           />
         </div>
-      </div>
+      </div> */}
       <div className="govuk-grid-row">
         <div className="govuk-grid-column-one-half">
           <Autocomplete

@@ -2,7 +2,7 @@ import axios from 'axios';
 import {
   finishSubmission,
   getSubmissionById,
-  getUnfinishedSubmissions,
+  getInProgressSubmissions,
   patchResidents,
   patchSubmissionForStep,
   startSubmission,
@@ -21,17 +21,23 @@ const mockedAxios = axios as jest.Mocked<typeof axios>;
 const ENDPOINT_API = process.env.ENDPOINT_API;
 const AWS_KEY = process.env.AWS_KEY;
 
-describe('getUnfinishedSubmissions', () => {
-  it('should return a list of incomplete submissions', async () => {
+describe('getInProgressSubmissions', () => {
+  it('should return a list of in-progress submissions', async () => {
+    jest
+      .spyOn(global.Date, 'now')
+      .mockImplementationOnce(() =>
+        new Date('2021-07-25T00:00:00.000Z').valueOf()
+      );
+
     mockedAxios.get.mockResolvedValue({
       data: [
         { submissionId: '123', formAnswers: {} },
         { submissionId: '456', formAnswers: {} },
       ],
     });
-    const data = await getUnfinishedSubmissions();
+    const data = await getInProgressSubmissions();
     expect(mockedAxios.get).toHaveBeenCalledWith(
-      `${ENDPOINT_API}/submissions`,
+      `${ENDPOINT_API}/submissions?submissionStates=in_progress&page=1&size=4000&createdAfter=2021-07-11T00:00:00.000Z`,
       { headers: { 'x-api-key': AWS_KEY } }
     );
     expect(data).toEqual([
@@ -60,7 +66,7 @@ describe('getUnfinishedSubmissions', () => {
         },
       ],
     });
-    const data = await getUnfinishedSubmissions('A');
+    const data = await getInProgressSubmissions('A');
     expect(data).toEqual([
       {
         submissionId: '123',
@@ -164,6 +170,7 @@ describe('patchSubmissionForStep', () => {
         editedBy: 'foo',
         stepAnswers: JSON.stringify(mockAnswers),
         dateOfEvent: null,
+        title: null,
       },
       { headers: { 'x-api-key': AWS_KEY } }
     );
@@ -196,6 +203,7 @@ describe('patchSubmissionForStep', () => {
         editedBy: 'foo',
         stepAnswers: JSON.stringify(mockAnswers),
         dateOfEvent: '2021-08-03T12:00:00.000Z',
+        title: null,
       },
       { headers: { 'x-api-key': AWS_KEY } }
     );
@@ -209,7 +217,7 @@ describe('patchSubmissionForStep', () => {
     const mockAnswers = {
       'question one': 'answer one',
       'question two': 'answer two',
-      'date of event': ['2021-08-02', '11:00'],
+      'date of event': ['2021-02-02', '10:30'],
     };
 
     mockedAxios.patch.mockResolvedValue({
@@ -227,7 +235,8 @@ describe('patchSubmissionForStep', () => {
       {
         editedBy: 'foo',
         stepAnswers: JSON.stringify(mockAnswers),
-        dateOfEvent: '2021-08-02T11:00:00.000Z',
+        title: null,
+        dateOfEvent: '2021-02-02T10:30:00.000Z',
       },
       { headers: { 'x-api-key': AWS_KEY } }
     );
@@ -241,7 +250,7 @@ describe('patchSubmissionForStep', () => {
     const mockAnswers = {
       'question one': 'answer one',
       'question two': 'answer two',
-      'date of event wrong id': ['2021-08-02', '11:00'],
+      'date of event wrong id': ['2021-08-02', '10:30'],
     };
 
     mockedAxios.patch.mockResolvedValue({
@@ -260,6 +269,7 @@ describe('patchSubmissionForStep', () => {
         editedBy: 'foo',
         stepAnswers: JSON.stringify(mockAnswers),
         dateOfEvent: null,
+        title: null,
       },
       { headers: { 'x-api-key': AWS_KEY } }
     );
@@ -273,7 +283,7 @@ describe('patchSubmissionForStep', () => {
     const mockAnswers = {
       'question one': 'answer one',
       'question two': 'answer two',
-      'date of event wrong id': ['2021-08-40', '11:00'],
+      'date of event wrong id': ['2021-08-40', '10:30'],
     };
 
     mockedAxios.patch.mockResolvedValue({
@@ -292,6 +302,7 @@ describe('patchSubmissionForStep', () => {
         editedBy: 'foo',
         stepAnswers: JSON.stringify(mockAnswers),
         dateOfEvent: null,
+        title: null,
       },
       { headers: { 'x-api-key': AWS_KEY } }
     );
@@ -324,6 +335,117 @@ describe('patchSubmissionForStep', () => {
         editedBy: 'foo',
         stepAnswers: JSON.stringify(mockAnswers),
         dateOfEvent: null,
+        title: null,
+      },
+      { headers: { 'x-api-key': AWS_KEY } }
+    );
+    expect(data).toEqual({
+      submissionId: '123',
+      formAnswers: {},
+    });
+  });
+
+  it('should submit null as title for empty title string', async () => {
+    const titleId = 'titleId';
+    const testTitle = '';
+
+    const mockAnswers = {
+      'question one': 'answer one',
+      'question two': 'answer two',
+      [titleId]: testTitle,
+    };
+
+    mockedAxios.patch.mockResolvedValue({
+      data: { submissionId: '123', formAnswers: {} },
+    });
+    const data = await patchSubmissionForStep(
+      '123',
+      '456',
+      'foo',
+      mockAnswers,
+      undefined,
+      titleId
+    );
+    expect(mockedAxios.patch).toHaveBeenCalledWith(
+      `${ENDPOINT_API}/submissions/123/steps/456`,
+      {
+        editedBy: 'foo',
+        stepAnswers: JSON.stringify(mockAnswers),
+        dateOfEvent: null,
+        title: null,
+      },
+      { headers: { 'x-api-key': AWS_KEY } }
+    );
+    expect(data).toEqual({
+      submissionId: '123',
+      formAnswers: {},
+    });
+  });
+
+  it('should submit be able to submit a valid title', async () => {
+    const titleId = 'titleId';
+    const testTitle = 'testTitle';
+
+    const mockAnswers = {
+      'question one': 'answer one',
+      'question two': 'answer two',
+      [titleId]: testTitle,
+    };
+
+    mockedAxios.patch.mockResolvedValue({
+      data: { submissionId: '123', formAnswers: {} },
+    });
+    const data = await patchSubmissionForStep(
+      '123',
+      '456',
+      'foo',
+      mockAnswers,
+      undefined,
+      titleId
+    );
+    expect(mockedAxios.patch).toHaveBeenCalledWith(
+      `${ENDPOINT_API}/submissions/123/steps/456`,
+      {
+        editedBy: 'foo',
+        stepAnswers: JSON.stringify(mockAnswers),
+        dateOfEvent: null,
+        title: testTitle,
+      },
+      { headers: { 'x-api-key': AWS_KEY } }
+    );
+    expect(data).toEqual({
+      submissionId: '123',
+      formAnswers: {},
+    });
+  });
+
+  it('should submit null title if supplied ID does not match a question', async () => {
+    const titleId = 'titleId';
+    const invalidTitleId = 'invalidTitleId';
+
+    const mockAnswers = {
+      'question one': 'answer one',
+      'question two': 'answer two',
+      titleId,
+    };
+
+    mockedAxios.patch.mockResolvedValue({
+      data: { submissionId: '123', formAnswers: {} },
+    });
+    const data = await patchSubmissionForStep(
+      '123',
+      '456',
+      'foo',
+      mockAnswers,
+      invalidTitleId
+    );
+    expect(mockedAxios.patch).toHaveBeenCalledWith(
+      `${ENDPOINT_API}/submissions/123/steps/456`,
+      {
+        editedBy: 'foo',
+        stepAnswers: JSON.stringify(mockAnswers),
+        dateOfEvent: null,
+        title: null,
       },
       { headers: { 'x-api-key': AWS_KEY } }
     );

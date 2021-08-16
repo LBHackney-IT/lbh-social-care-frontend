@@ -23,8 +23,6 @@ describe('MiniRevisionTimeline', () => {
       />
     );
 
-    screen.debug();
-
     expect(screen.queryAllByText('foo.bar@hackney.gov.uk').length).toBe(2);
     expect(screen.getByText('28 Jul 2021', { exact: false }));
     expect(screen.getByText('23 Jun 2021', { exact: false }));

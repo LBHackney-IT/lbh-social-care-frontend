@@ -42,6 +42,8 @@ export interface Field {
   itemName?: string;
   /** for file fields only */
   // multiple?: boolean
+  /**for date inputs that are not allowed to be set in the future */
+  isfutureDateValid?: boolean;
 }
 
 interface Condition {
@@ -70,6 +72,9 @@ export interface Form {
   /** override the automatically generated /submissions/new... url, for edge case forms */
   canonicalUrl?: (socialCareId: number) => string;
   dateOfEvent?: {
+    associatedId: string;
+  };
+  title?: {
     associatedId: string;
   };
 }
@@ -117,6 +122,10 @@ export interface Submission {
   submissionState: 'In progress' | 'Approved' | 'Discarded' | 'Submitted';
   formAnswers: FlexibleAnswers;
   tags?: string[];
+}
+
+export interface SubmissionWithForm extends Submission {
+  form?: Form;
 }
 
 export interface Revision {

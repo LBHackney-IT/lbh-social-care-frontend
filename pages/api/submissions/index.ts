@@ -1,7 +1,7 @@
 import forms from 'data/flexibleForms';
 import { NextApiRequest, NextApiResponse } from 'next';
 import StatusCodes from 'http-status-codes';
-import { startSubmission, getUnfinishedSubmissions } from 'lib/submissions';
+import { startSubmission, getInProgressSubmissions } from 'lib/submissions';
 import { isAuthorised } from 'utils/auth';
 
 const handler = async (
@@ -23,7 +23,7 @@ const handler = async (
       break;
     case 'GET':
       if (req.query.includeSubmissions) {
-        const submissions = await getUnfinishedSubmissions(
+        const submissions = await getInProgressSubmissions(
           user?.permissionFlag
         );
         res.json({

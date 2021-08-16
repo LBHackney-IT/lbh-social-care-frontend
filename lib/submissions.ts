@@ -22,12 +22,17 @@ const headersWithKey = {
 };
 
 /** get a list of all unfinished submissions in the current social care service context  */
-export const getUnfinishedSubmissions = async (
+export const getInProgressSubmissions = async (
   ageContext?: AgeContext
 ): Promise<Submission[]> => {
-  const { data } = await axios.get(`${ENDPOINT_API}/submissions`, {
-    headers: headersWithKey,
-  });
+  const dateTwoWeeksAgo = new Date(Date.now());
+  dateTwoWeeksAgo.setDate(dateTwoWeeksAgo.getDate() - 14);
+  const { data } = await axios.get(
+    `${ENDPOINT_API}/submissions?submissionStates=in_progress&page=1&size=4000&createdAfter=${dateTwoWeeksAgo.toISOString()}`,
+    {
+      headers: headersWithKey,
+    }
+  );
   return ageContext
     ? data.filter((submission: Submission) =>
         submission.residents.some(
@@ -47,7 +52,7 @@ export const startSubmission = async (
     `${ENDPOINT_API}/submissions`,
     {
       formId,
-      socialCareId: Number(socialCareId),
+      socialCareId: socialCareId,
       createdBy,
     },
     {
@@ -102,11 +107,24 @@ const getDateOfEvent = (
     } else {
       const dateConjoined = `${dateOfEventFromForm[0]} ${dateOfEventFromForm[1]}`;
 
-      return parse(dateConjoined, 'yyyy-MM-dd HH:ss', new Date()).toISOString();
+      return parse(dateConjoined, 'yyyy-MM-dd HH:mm', new Date()).toISOString();
     }
   } catch {
     return null;
   }
+};
+
+const getTitle = (
+  stepAnswers: StepAnswers,
+  titleId?: string
+): null | string => {
+  if (!titleId) return null;
+
+  const titleFromForm = stepAnswers[titleId] as string | undefined;
+
+  if (!titleFromForm) return null;
+
+  return titleFromForm;
 };
 
 /** update the answers for a given step on a submission, providing the submission id, step id, editor's name and the answers to update */
@@ -115,9 +133,11 @@ export const patchSubmissionForStep = async (
   stepId: string,
   editedBy: string,
   stepAnswers: StepAnswers,
-  dateOfEventId?: string
+  dateOfEventId?: string,
+  titleId?: string
 ): Promise<Submission> => {
   const dateOfEvent = getDateOfEvent(stepAnswers, dateOfEventId);
+  const title = getTitle(stepAnswers, titleId);
 
   const { data } = await axios.patch(
     `${ENDPOINT_API}/submissions/${submissionId}/steps/${stepId}`,
@@ -125,6 +145,7 @@ export const patchSubmissionForStep = async (
       stepAnswers: JSON.stringify(stepAnswers),
       editedBy,
       dateOfEvent,
+      title,
     },
     {
       headers: headersWithKey,
