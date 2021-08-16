@@ -5,7 +5,6 @@ import { useRouter } from 'next/router';
 import { Allocation, Resident, User } from 'types';
 import s from './index.module.scss';
 import { useRelationships } from 'utils/api/relationships';
-import { GetCaseStatus } from 'utils/api/caseStatus';
 import { useAllocatedWorkers } from 'utils/api/allocatedWorkers';
 import React from 'react';
 import WarningNotes from 'components/WarningNote/WarningNotes';
