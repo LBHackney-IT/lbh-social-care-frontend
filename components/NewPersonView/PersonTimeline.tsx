@@ -100,25 +100,6 @@ const PersonTimeline = ({
           ) : (
             <p className="lbh-body-xs">No events match your search</p>
           )}
-
-          <SearchBox
-            label="Search for matching events and records"
-            searchQuery={searchQuery}
-            setSearchQuery={setSearchQuery}
-          />
-
-          <div className="govuk-radios govuk-radios--small lbh-radios">
-            <FilterButton filter={filter} setFilter={setFilter} value="all">
-              All events
-            </FilterButton>
-            <FilterButton
-              filter={filter}
-              setFilter={setFilter}
-              value="case-note"
-            >
-              Case notes only
-            </FilterButton>
-          </div>
         </aside>
       </div>
     </div>
