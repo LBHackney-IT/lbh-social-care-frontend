@@ -43,3 +43,6 @@ cypress.env.json
 
 # Storybook
 storybook-static
+
+# owasp
+owasp-report
