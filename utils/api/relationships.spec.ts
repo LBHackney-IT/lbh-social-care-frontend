@@ -19,7 +19,7 @@ describe('relationships APIs', () => {
   });
 
   describe('addRelationships', () => {
-    it('calls the POST /api/relationships endpoint', () => {
+    it('calls the POST /api/relationships endpoint', async () => {
       const formData = {
         personId: 123,
         otherPersonId: 456,
@@ -28,7 +28,7 @@ describe('relationships APIs', () => {
       };
       jest.spyOn(axios, 'post');
 
-      relationshipsAPI.addRelationships(formData);
+      await relationshipsAPI.addRelationships(formData);
 
       expect(axios.post).toHaveBeenCalledWith('/api/relationships', formData);
     });
@@ -50,7 +50,7 @@ describe('relationships APIs', () => {
     });
 
     describe('when form data includes additional options', () => {
-      it('does not send "additionalOptions" as part of the request', () => {
+      it('does not send "additionalOptions" as part of the request', async () => {
         const formData = {
           personId: 123,
           otherPersonId: 456,
@@ -60,7 +60,7 @@ describe('relationships APIs', () => {
         };
         jest.spyOn(axios, 'post');
 
-        relationshipsAPI.addRelationships(formData);
+        await relationshipsAPI.addRelationships(formData);
 
         expect(axios.post).not.toHaveBeenCalledWith(
           '/api/relationships',
@@ -69,7 +69,7 @@ describe('relationships APIs', () => {
       });
 
       describe('and it has main carer', () => {
-        it('adds isMainCarer as "Y" to request if an array', () => {
+        it('adds isMainCarer as "Y" to request if an array', async () => {
           const formData = {
             personId: 123,
             otherPersonId: 456,
@@ -79,7 +79,7 @@ describe('relationships APIs', () => {
           };
           jest.spyOn(axios, 'post');
 
-          relationshipsAPI.addRelationships(formData);
+          await relationshipsAPI.addRelationships(formData);
 
           expect(axios.post).toHaveBeenCalledWith(
             '/api/relationships',
@@ -107,7 +107,7 @@ describe('relationships APIs', () => {
       });
 
       describe('and it has of unborn child', () => {
-        it('changes type to "parentOfUnbornChild" in request if type is "parent"', () => {
+        it('changes type to "parentOfUnbornChild" in request if type is "parent"', async () => {
           const formData = {
             personId: 123,
             otherPersonId: 456,
@@ -117,7 +117,7 @@ describe('relationships APIs', () => {
           };
           jest.spyOn(axios, 'post');
 
-          relationshipsAPI.addRelationships(formData);
+          await relationshipsAPI.addRelationships(formData);
 
           expect(axios.post).toHaveBeenCalledWith(
             '/api/relationships',
@@ -125,7 +125,7 @@ describe('relationships APIs', () => {
           );
         });
 
-        it('changes type to "siblingOfUnbornChild" in request if type is "sibling"', () => {
+        it('changes type to "siblingOfUnbornChild" in request if type is "sibling"', async () => {
           const formData = {
             personId: 123,
             otherPersonId: 456,
@@ -135,7 +135,7 @@ describe('relationships APIs', () => {
           };
           jest.spyOn(axios, 'post');
 
-          relationshipsAPI.addRelationships(formData);
+          await relationshipsAPI.addRelationships(formData);
 
           expect(axios.post).toHaveBeenCalledWith(
             '/api/relationships',
@@ -147,12 +147,12 @@ describe('relationships APIs', () => {
   });
 
   describe('removeRelationship', () => {
-    it('calls the DELETE /api/relationships endpoint', () => {
+    it('calls the DELETE /api/relationships endpoint', async () => {
       jest.spyOn(axios, 'delete');
 
       const relationshipId = '123456789';
 
-      relationshipsAPI.removeRelationship(relationshipId);
+      await relationshipsAPI.removeRelationship(relationshipId);
 
       expect(axios.delete).toHaveBeenCalledWith(
         `/api/relationships/${relationshipId}`

@@ -8,6 +8,13 @@ describe('#deleteDraftGitHubReleases()', () => {
     delete global.process.env.GITHUB_TOKEN;
 
     jest.resetAllMocks();
+
+    jest.spyOn(global.process, 'exit').mockImplementation(jest.fn());
+    jest.spyOn(global.console, 'error').mockImplementation(jest.fn());
+  });
+
+  afterEach(() => {
+    jest.resetAllMocks();
   });
 
   it('should exit the process if no GITHUB_TOKEN environment variable is provided', async () => {
@@ -15,10 +22,12 @@ describe('#deleteDraftGitHubReleases()', () => {
       ok: true,
       json: () => [],
     });
-    global.process.exit = jest.fn();
 
     await deleteDraftGitHubReleases();
 
+    expect(global.console.error).toHaveBeenCalledWith(
+      'Please provide a `GITHUB_TOKEN` environment variable'
+    );
     expect(global.process.exit).toHaveBeenCalled();
   });
 
@@ -28,11 +37,11 @@ describe('#deleteDraftGitHubReleases()', () => {
       statusText: 'Some error',
       json: () => [],
     });
-    global.process.exit = jest.fn();
     global.process.env.GITHUB_TOKEN = 'GITHUB_TOKEN';
 
     await deleteDraftGitHubReleases();
 
+    expect(global.console.error).toHaveBeenCalledWith('Some error');
     expect(global.process.exit).toHaveBeenCalled();
   });
 

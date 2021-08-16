@@ -77,3 +77,15 @@ export const setDateFieldValue = (
     }
   );
 };
+
+export const getByTextIgnoringTags = (text: string): HTMLElement =>
+  screen.getByText((content: string, element: Element | null): boolean => {
+    const hasText = (element: Element | null) =>
+      element && element.textContent === text;
+
+    const childrenDontHaveText =
+      element &&
+      Array.from(element.children).every((child) => !hasText(child as Element));
+
+    return !!(hasText(element) && childrenDontHaveText);
+  });

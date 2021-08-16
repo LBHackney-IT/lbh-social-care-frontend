@@ -48,15 +48,15 @@ export const addRelationships = async (
     delete formData.additionalOptions;
   }
 
-  const { data } = await axios.post(`/api/relationships`, formData);
+  const response = await axios.post(`/api/relationships`, formData);
 
-  return data;
+  return response?.data;
 };
 
 export const removeRelationship = async (
   relationshipId: string
 ): Promise<Record<string, unknown>> => {
-  const { data } = await axios.delete(`/api/relationships/${relationshipId}`);
+  const response = await axios.delete(`/api/relationships/${relationshipId}`);
 
-  return data;
+  return response?.data;
 };
