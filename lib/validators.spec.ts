@@ -251,3 +251,143 @@ describe('generateSubmitSchema', () => {
     ).rejects.toThrowError(`You can't approve your own submissions`);
   });
 });
+
+describe('validate datetime fields correctly', () => {
+  it('when isfutureDateValid set to false the time cannot be in the future for current datetime', async () => {
+    jest
+      .spyOn(global.Date, 'now')
+      .mockImplementationOnce(() =>
+        new Date('2021-08-17T11:30:00.000Z').valueOf()
+      );
+
+    const schema = generateFlexibleSchema([
+      {
+        question: 'foo',
+        id: 'one',
+        type: 'datetime',
+        isfutureDateValid: false,
+      },
+    ]);
+
+    await expect(
+      schema.validate({
+        one: ['2021-08-17', '11:31'],
+      })
+    ).rejects.toThrowError('Date cannot be in the future');
+  });
+
+  it('when isfutureDateValid set to false the time and date cannot be in the future for current datetime', async () => {
+    jest
+      .spyOn(global.Date, 'now')
+      .mockImplementationOnce(() =>
+        new Date('2021-08-17T11:30:00.000Z').valueOf()
+      );
+
+    const schema = generateFlexibleSchema([
+      {
+        question: 'foo',
+        id: 'one',
+        type: 'datetime',
+        isfutureDateValid: false,
+      },
+    ]);
+
+    await expect(
+      schema.validate({
+        one: ['2021-08-18', '11:31'],
+      })
+    ).rejects.toThrowError('Date cannot be in the future');
+  });
+
+  it('when isfutureDateValid set to false the date cannot be in the future for current datetime', async () => {
+    jest
+      .spyOn(global.Date, 'now')
+      .mockImplementationOnce(() =>
+        new Date('2021-08-17T11:30:00.000Z').valueOf()
+      );
+
+    const schema = generateFlexibleSchema([
+      {
+        question: 'foo',
+        id: 'one',
+        type: 'datetime',
+        isfutureDateValid: false,
+      },
+    ]);
+
+    await expect(
+      schema.validate({
+        one: ['2021-08-18', '11:30'],
+      })
+    ).rejects.toThrowError('Date cannot be in the future');
+  });
+
+  it('when isfutureDateValid set to false and date and time are in the past validation passes', async () => {
+    jest
+      .spyOn(global.Date, 'now')
+      .mockImplementationOnce(() =>
+        new Date('2021-08-17T11:30:00.000Z').valueOf()
+      );
+
+    const schema = generateFlexibleSchema([
+      {
+        question: 'foo',
+        id: 'one',
+        type: 'datetime',
+        isfutureDateValid: false,
+      },
+    ]);
+
+    expect(
+      schema.validate({
+        one: ['2021-08-17', '11:29'],
+      })
+    ).resolves.toMatchObject({ one: ['2021-08-17', '11:29'] });
+  });
+
+  it('when isfutureDateValid set to false and date and time are in the present validation passes', async () => {
+    jest
+      .spyOn(global.Date, 'now')
+      .mockImplementationOnce(() =>
+        new Date('2021-08-17T11:30:00.000Z').valueOf()
+      );
+
+    const schema = generateFlexibleSchema([
+      {
+        question: 'foo',
+        id: 'one',
+        type: 'datetime',
+        isfutureDateValid: false,
+      },
+    ]);
+
+    await expect(
+      schema.validate({
+        one: ['2021-08-17', '11:30'],
+      })
+    ).resolves.toMatchObject({ one: ['2021-08-17', '11:30'] });
+  });
+
+  it('when isfutureDateValid set to false the time can be in the future if the date is in the past', async () => {
+    jest
+      .spyOn(global.Date, 'now')
+      .mockImplementationOnce(() =>
+        new Date('2021-08-17T11:30:00.000Z').valueOf()
+      );
+
+    const schema = generateFlexibleSchema([
+      {
+        question: 'foo',
+        id: 'one',
+        type: 'datetime',
+        isfutureDateValid: false,
+      },
+    ]);
+
+    await expect(
+      schema.validate({
+        one: ['2021-08-16', '12:30'],
+      })
+    ).resolves.toMatchObject({ one: ['2021-08-16', '12:30'] });
+  });
+});
