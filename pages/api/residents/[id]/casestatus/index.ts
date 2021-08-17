@@ -1,6 +1,6 @@
 import { StatusCodes } from 'http-status-codes';
 
-import { getCaseStatusByPersonId } from 'lib/casestatus';
+import { getCaseStatusByPersonId } from 'lib/caseStatus';
 import { isAuthorised } from 'utils/auth';
 
 import type { NextApiRequest, NextApiResponse, NextApiHandler } from 'next';

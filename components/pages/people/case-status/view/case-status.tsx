@@ -1,5 +1,4 @@
 import ErrorMessage from 'components/ErrorMessage/ErrorMessage';
-import Spinner from 'components/Spinner/Spinner';
 import { GetCaseStatus } from 'utils/api/caseStatus';
 import { Resident } from 'types';
 
@@ -17,7 +16,7 @@ const CaseStatusView = ({ person }: Props): React.ReactElement => {
   }
 
   if (!caseStatusData) {
-    return <Spinner />;
+    return <ErrorMessage label="No case status found for this person." />;
   }
 
   return (
