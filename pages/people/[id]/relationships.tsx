@@ -3,7 +3,7 @@ import Layout from 'components/NewPersonView/Layout';
 import { GetServerSideProps } from 'next';
 import { Resident, User } from 'types';
 import { canViewRelationships } from 'lib/permissions';
-import Relationships from 'components/pages/people/relationships/view/Relationships';
+import Relationships from 'components/Relationships/Relationships';
 import { useAuth } from 'components/UserContext/UserContext';
 import { isAuthorised } from '../../../utils/auth';
 
