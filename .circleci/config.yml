@@ -218,6 +218,10 @@ workflows:
       - validate-pr-title:
           requires:
             - install-dependencies
+          filters:
+            branches:
+              ignore:
+                - main
       - build:
           requires:
             - unit-tests
