@@ -1,5 +1,5 @@
 import axios from 'axios';
-import * as caseStatusAPI from './casestatus';
+import * as caseStatusAPI from '.caseStatus';
 import { mockedCaseStatusFactory } from 'factories/caseStatus';
 
 const ENDPOINT_API = process.env.ENDPOINT_API;
