@@ -11,7 +11,7 @@ import { updateWarningNote } from '../../../utils/api/warningNotes';
 import FormWizard from '../../FormWizard/FormWizard';
 import PersonView from '../../PersonView/PersonView';
 import { useAuth } from '../../UserContext/UserContext';
-import WarningNoteRecap from '../../WarningNote/WarningNoteRecap/WarningNoteRecap';
+import WarningNoteRecap from '../../WarningNotes/WarningNoteRecap/WarningNoteRecap';
 
 export const ReviewWarningNoteForm: React.FC<{
   personId: number;
