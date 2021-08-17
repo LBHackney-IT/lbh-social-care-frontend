@@ -13,7 +13,7 @@ import { getFormData, saveData } from 'utils/saveData';
 
 const FormWizard = ({
   formPath,
-  stepPath = `${formPath}/[...stepId]`,
+  stepPath = `${formPath}[...stepId]`,
   formSteps,
   stepHeader,
   successMessage,
@@ -144,7 +144,7 @@ const FormWizard = ({
             });
             Router.push('/forms-in-progress');
           }}
-          onFormSubzmit={onFormSubmit}
+          onFormSubmit={onFormSubmit}
           successMessage={successMessage}
           isSummaryCollapsable={steps.length > 3 && isSummaryCollapsable}
         />
