@@ -2,7 +2,6 @@ import * as Yup from 'yup';
 import { Answer, Field } from 'data/flexibleForms/forms.types';
 import { ObjectShape, OptionalObjectSchema, TypeOfShape } from 'yup/lib/object';
 import { getTotalHours } from './utils';
-import { format } from 'date-fns';
 
 export const startSchema = Yup.object().shape({
   socialCareId: Yup.number()
@@ -104,6 +103,9 @@ export const generateFlexibleSchema = (
       shape[field.id] = Yup.object();
     } else if (field.type === 'datetime' && field.isfutureDateValid === false) {
       //for those cases that don't allow dates in the future
+
+      let dateTime: Date;
+
       shape[field.id] = Yup.array().of(
         Yup.string().test(
           'Validate date is present or past',
@@ -115,21 +117,19 @@ export const generateFlexibleSchema = (
             const timeRegex = /[0-9]{2}:[0-9]{2}/;
 
             if (dateRegex.test(dateValue)) {
-              const inputDate = new Date(dateValue);
+              dateTime = new Date(dateValue);
 
-              return inputDate <= new Date();
+              return true;
             }
 
             if (timeRegex.test(dateValue)) {
-              const dateWithInputTime = new Date();
-
               const hours = Number(dateValue.slice(0, 2));
               const minutes = Number(dateValue.slice(3, 5));
 
-              dateWithInputTime.setHours(hours);
-              dateWithInputTime.setMinutes(minutes);
+              dateTime.setHours(hours);
+              dateTime.setMinutes(minutes);
 
-              return dateWithInputTime <= new Date();
+              return dateTime <= new Date(Date.now());
             }
 
             return false;
