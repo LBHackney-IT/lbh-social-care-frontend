@@ -1,4 +1,4 @@
-import { fireEvent, render, waitFor, within } from '@testing-library/react';
+import { fireEvent, render, within } from '@testing-library/react';
 import Relationships from './Relationships';
 import * as relationshipsAPI from 'utils/api/relationships';
 import { mockedAPIservererror } from 'factories/APIerrors';
@@ -571,14 +571,12 @@ describe('Relationships component', () => {
         <Relationships person={person} />
       );
 
-      await waitFor(() => {
-        fireEvent.click(getByText(/Remove/));
-        fireEvent.click(getByText(/Yes/));
+      fireEvent.click(getByText(/Remove/));
+      fireEvent.click(getByText(/Yes/));
 
-        expect(
-          queryByText(/You are about to remove Foo Bar/)
-        ).not.toBeInTheDocument();
-      });
+      expect(
+        queryByText(/You are about to remove Foo Bar/)
+      ).not.toBeInTheDocument();
     });
   });
 });

@@ -1,5 +1,5 @@
+import { mapIdToType } from 'data/flexibleForms/mapFormIdsToDisplayName';
 import Link from 'next/link';
-import forms from 'data/flexibleForms';
 import { CaseFormData } from 'types';
 import { generateInternalLink } from 'utils/urls';
 interface Props {
@@ -8,6 +8,8 @@ interface Props {
   caseFormData: CaseFormData;
   formName: string;
   personId: number;
+  title?: string;
+  formType?: string;
 }
 
 const CaseLink = ({
@@ -16,15 +18,21 @@ const CaseLink = ({
   caseFormData,
   recordId,
   personId,
+  title,
+  formType,
 }: Props): React.ReactElement | null => {
-  const form = formName ? forms?.find((form) => form.id === formName) : false;
+  if (formType === 'flexible-form') {
+    const name = mapIdToType[formName];
 
-  if (form)
     return (
       <Link href={`/people/${personId}/submissions/${recordId}`}>
-        <a className="lbh-link">{form?.name || 'View'}</a>
+        <a className="lbh-link">
+          {name || 'View'}
+          {title ? ` - ${title}` : ''}
+        </a>
       </Link>
     );
+  }
 
   if (externalUrl) {
     return (
