@@ -269,7 +269,7 @@ describe('<ReviewWarningNoteForm />', () => {
 
         await waitFor(() => {
           expect(Router.push).toHaveBeenCalledWith(
-            '/people/100/warning-notes/10/[step]',
+            '/people/[id]/warning-notes/[warningNoteId]/[[...stepId]]',
             '/people/100/warning-notes/10/summary'
           );
         });
@@ -314,7 +314,7 @@ describe('<ReviewWarningNoteForm />', () => {
 
         await waitFor(() => {
           expect(Router.push).toHaveBeenCalledWith(
-            '/people/100/warning-notes/10/[step]',
+            '/people/[id]/warning-notes/[warningNoteId]/[[...stepId]]',
             '/people/100/warning-notes/10/summary'
           );
         });
