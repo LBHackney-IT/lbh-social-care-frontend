@@ -16,7 +16,6 @@ import 'stylesheets/all.scss';
 import 'stylesheets/header.scss';
 import { FeatureFlagProvider } from '../lib/feature-flags/feature-flags';
 import { getFeatureFlags } from 'features';
-import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 
 interface Props {
