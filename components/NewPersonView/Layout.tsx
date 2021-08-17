@@ -103,7 +103,9 @@ const Layout = ({ person, children }: Props): React.ReactElement => {
     <>
       <Head>
         <title>
-          {person.firstName} {person.lastName} | Social care | Hackney Council
+          <>
+            {person.firstName} {person.lastName} | Social care | Hackney Council
+          </>
         </title>
       </Head>
 
