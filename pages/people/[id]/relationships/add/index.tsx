@@ -1,7 +1,7 @@
 import { useRouter } from 'next/router';
 import PersonView from 'components/PersonView/PersonView';
 
-import SearchForRelatedPerson from 'components/pages/people/relationships/add/SearchForRelatedPerson';
+import SearchForRelatedPerson from 'components/Relationships/AddRelationshipForm/SearchForRelatedPerson';
 import Seo from 'components/Layout/Seo/Seo';
 
 const AddNewRelationship = (): React.ReactElement => {

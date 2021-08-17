@@ -1,7 +1,7 @@
 import { render } from '@testing-library/react';
 import * as caseStatusApi from 'utils/api/caseStatus';
 import { mockedAPIservererror } from 'factories/APIerrors';
-import CaseStatusView from './case-status';
+import CaseStatusView from './CaseStatusView';
 
 import {
   mockedCaseStatusFactory,

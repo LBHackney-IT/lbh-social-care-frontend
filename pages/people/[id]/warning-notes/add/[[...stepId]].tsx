@@ -1,6 +1,6 @@
 import { useRouter } from 'next/router';
 
-import { AddWarningNoteForm } from 'components/pages/warning-notes/AddWarningNoteForm/AddWarningNoteForm';
+import { AddWarningNoteForm } from 'components/WarningNotes/AddWarningNoteForm/AddWarningNoteForm';
 
 const AddWarningNotePage: React.FC = () => {
   const { query } = useRouter();
