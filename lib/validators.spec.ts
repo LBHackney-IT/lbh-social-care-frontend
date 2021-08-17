@@ -1,3 +1,4 @@
+import { ObjectShape, OptionalObjectSchema, TypeOfShape } from 'yup/lib/object';
 import { generateFlexibleSchema, generateSubmitSchema } from './validators';
 
 describe('generateFlexibleSchema', () => {
@@ -253,14 +254,20 @@ describe('generateSubmitSchema', () => {
 });
 
 describe('validate datetime fields correctly', () => {
-  it('when isfutureDateValid set to false the time cannot be in the future for current datetime', async () => {
+  let schema: OptionalObjectSchema<
+    ObjectShape,
+    Record<string, unknown>,
+    TypeOfShape<ObjectShape>
+  >;
+
+  beforeEach(() => {
     jest
       .spyOn(global.Date, 'now')
       .mockImplementationOnce(() =>
         new Date('2021-08-17T11:30:00.000Z').valueOf()
       );
 
-    const schema = generateFlexibleSchema([
+    schema = generateFlexibleSchema([
       {
         question: 'foo',
         id: 'one',
@@ -268,7 +275,9 @@ describe('validate datetime fields correctly', () => {
         isfutureDateValid: false,
       },
     ]);
+  });
 
+  it('when isfutureDateValid set to false the time cannot be in the future for current datetime', async () => {
     await expect(
       schema.validate({
         one: ['2021-08-17', '11:31'],
@@ -277,21 +286,6 @@ describe('validate datetime fields correctly', () => {
   });
 
   it('when isfutureDateValid set to false the time and date cannot be in the future for current datetime', async () => {
-    jest
-      .spyOn(global.Date, 'now')
-      .mockImplementationOnce(() =>
-        new Date('2021-08-17T11:30:00.000Z').valueOf()
-      );
-
-    const schema = generateFlexibleSchema([
-      {
-        question: 'foo',
-        id: 'one',
-        type: 'datetime',
-        isfutureDateValid: false,
-      },
-    ]);
-
     await expect(
       schema.validate({
         one: ['2021-08-18', '11:31'],
@@ -300,21 +294,6 @@ describe('validate datetime fields correctly', () => {
   });
 
   it('when isfutureDateValid set to false the date cannot be in the future for current datetime', async () => {
-    jest
-      .spyOn(global.Date, 'now')
-      .mockImplementationOnce(() =>
-        new Date('2021-08-17T11:30:00.000Z').valueOf()
-      );
-
-    const schema = generateFlexibleSchema([
-      {
-        question: 'foo',
-        id: 'one',
-        type: 'datetime',
-        isfutureDateValid: false,
-      },
-    ]);
-
     await expect(
       schema.validate({
         one: ['2021-08-18', '11:30'],
@@ -323,21 +302,6 @@ describe('validate datetime fields correctly', () => {
   });
 
   it('when isfutureDateValid set to false and date and time are in the past validation passes', async () => {
-    jest
-      .spyOn(global.Date, 'now')
-      .mockImplementationOnce(() =>
-        new Date('2021-08-17T11:30:00.000Z').valueOf()
-      );
-
-    const schema = generateFlexibleSchema([
-      {
-        question: 'foo',
-        id: 'one',
-        type: 'datetime',
-        isfutureDateValid: false,
-      },
-    ]);
-
     expect(
       schema.validate({
         one: ['2021-08-17', '11:29'],
@@ -346,21 +310,6 @@ describe('validate datetime fields correctly', () => {
   });
 
   it('when isfutureDateValid set to false and date and time are in the present validation passes', async () => {
-    jest
-      .spyOn(global.Date, 'now')
-      .mockImplementationOnce(() =>
-        new Date('2021-08-17T11:30:00.000Z').valueOf()
-      );
-
-    const schema = generateFlexibleSchema([
-      {
-        question: 'foo',
-        id: 'one',
-        type: 'datetime',
-        isfutureDateValid: false,
-      },
-    ]);
-
     await expect(
       schema.validate({
         one: ['2021-08-17', '11:30'],
@@ -369,21 +318,6 @@ describe('validate datetime fields correctly', () => {
   });
 
   it('when isfutureDateValid set to false the time can be in the future if the date is in the past', async () => {
-    jest
-      .spyOn(global.Date, 'now')
-      .mockImplementationOnce(() =>
-        new Date('2021-08-17T11:30:00.000Z').valueOf()
-      );
-
-    const schema = generateFlexibleSchema([
-      {
-        question: 'foo',
-        id: 'one',
-        type: 'datetime',
-        isfutureDateValid: false,
-      },
-    ]);
-
     await expect(
       schema.validate({
         one: ['2021-08-16', '12:30'],
