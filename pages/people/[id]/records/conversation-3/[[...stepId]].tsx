@@ -48,6 +48,7 @@ const CaseNotesRecording = (): ReactElement => {
             person.contextFlag === 'A' ? (
               <FormWizard
                 formPath={`/people/${query.id}/records/conversation-3/`}
+                stepPath="/people/[id]/records/conversation-3/[[...stepId]]"
                 formSteps={formSteps}
                 title="Case Notes Recording"
                 onFormSubmit={() => onFormSubmit(person)}

@@ -50,6 +50,7 @@ const Referral = (): ReactElement => {
             person.contextFlag === 'A' ? (
               <FormWizard
                 formPath={`/people/${query.id}/records/referral/`}
+                stepPath="/people/[id]/records/referral/[[...stepId]]"
                 formSteps={formSteps}
                 title="Referral"
                 onFormSubmit={onFormSubmit(person)}
