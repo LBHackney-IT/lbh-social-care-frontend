@@ -98,7 +98,11 @@ const Layout = ({ person, children }: Props): React.ReactElement => {
       href: `/people/${person.id}/case-note`,
     },
   ];
-
+  if (person.contextFlag === 'C')
+    secondaryNavigation.push({
+      text: 'Add case status',
+      href: `/people/${person.id}/case-status/add`,
+    });
   return (
     <>
       <Head>
