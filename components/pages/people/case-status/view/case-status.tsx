@@ -16,7 +16,7 @@ const CaseStatusView = ({ person }: Props): React.ReactElement => {
   }
 
   if (!caseStatusData) {
-    return <ErrorMessage label="No case status found for this person." />;
+    return <></>;
   }
 
   return (

@@ -42,7 +42,7 @@ describe('CaseStatusView component', () => {
     expect(getByText('CIN')).toBeInTheDocument();
   });
 
-  it('displays "No case status found for this person" if no case status', async () => {
+  it("displays nothing if there's no case status", async () => {
     jest.spyOn(caseStatusApi, 'GetCaseStatus').mockImplementation(() => ({
       data: mockedPersonCaseStatusFactory.build({
         personId: person.id,
@@ -55,7 +55,7 @@ describe('CaseStatusView component', () => {
 
     const { queryByText } = render(<CaseStatusView person={person} />);
 
-    expect(queryByText(/CIN/)).not.toBeInTheDocument();
+    expect(queryByText('CIN')).not.toBeInTheDocument();
   });
 
   it('displays an error if API error', async () => {

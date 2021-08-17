@@ -11,6 +11,5 @@ export const getCaseStatusByPersonId = async (
     await axios.get(`${ENDPOINT_API}/residents/${personId}/casestatuses`, {
       headers,
     });
-  console.log(error);
   return data;
 };
