@@ -318,3 +318,17 @@ export type WarningNote = DisclosedNote | UndisclosedNote;
 export interface WarningNotes {
   notes: Array<WarningNote>;
 }
+
+export interface PersonCaseStatus {
+  personId: number;
+  caseStatuses: Array<CaseStatus>;
+}
+
+export interface CaseStatus {
+  id: number;
+  type: string;
+  subType: string;
+  StartDate: string;
+  EndDate: string;
+  Notes: string;
+}
