@@ -299,6 +299,17 @@ interface UndisclosedNote extends BaseNote {
   undisclosedDetails: string;
 }
 
+export interface FormValue {
+  name: string;
+  description: string;
+  options: Array<FormStatusValue>;
+}
+
+export interface FormStatusValue {
+  name: string;
+  description: string;
+}
+
 interface ReviewedNote {
   id: number;
   warningNoteId: number;
