@@ -13,8 +13,6 @@ import { canManageCases } from 'lib/permissions';
 import AddFormDialog from 'components/AddFormDialog/AddFormDialog';
 import { useState } from 'react';
 import Banner from 'components/FlexibleForms/Banner';
-import CaseStatusView from 'components/pages/people/case-status/view/case-status';
-import { ConditionalFeature } from 'lib/feature-flags/feature-flags';
 
 interface NavLinkProps {
   href: string;

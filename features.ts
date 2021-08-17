@@ -20,7 +20,7 @@ export const getFeatureFlags = ({
     'person-cases': {
       isActive: environmentName === 'production',
     },
-    // FEATURE-FLAG-EXPIRES [2021-09-31]: person-timeline
+    // FEATURE-FLAG-EXPIRES [2021-09-31]: case-status
     'case-status': {
       isActive: environmentName === 'development',
     },
