@@ -6,7 +6,7 @@ import Link from 'next/link';
 import style from './Relationships.module.scss';
 import { RelationshipType, Resident, ExistingRelationship } from 'types';
 import { RELATIONSHIP_TYPES } from 'data/relationships';
-import RemoveRelationshipDialog from '../remove/RemoveRelationshipDialog';
+import RemoveRelationshipDialog from 'components/Relationships/RemoveRelationshipDialog/RemoveRelationshipDialog';
 import Router from 'next/router';
 import s from 'stylesheets/Section.module.scss';
 

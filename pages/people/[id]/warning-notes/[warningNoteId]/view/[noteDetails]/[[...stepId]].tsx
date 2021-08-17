@@ -1,7 +1,7 @@
 import { useRouter } from 'next/router';
 
 import PersonView from 'components/PersonView/PersonView';
-import WarningNoteRecap from 'components/WarningNote/WarningNoteRecap/WarningNoteRecap';
+import WarningNoteRecap from 'components/WarningNotes/WarningNoteRecap/WarningNoteRecap';
 
 const ViewWarningNote = (): React.ReactElement => {
   const { query } = useRouter();
