@@ -104,37 +104,28 @@ export const generateFlexibleSchema = (
     } else if (field.type === 'datetime' && field.isfutureDateValid === false) {
       //for those cases that don't allow dates in the future
 
-      let dateTime: Date;
+      shape[field.id] = Yup.array().test(
+        'Validate date is present or past',
+        'Date cannot be in the future',
+        (dateValue) => {
+          if (dateValue?.length !== 2) return false;
 
-      shape[field.id] = Yup.array().of(
-        Yup.string().test(
-          'Validate date is present or past',
-          'Date cannot be in the future',
-          (dateValue) => {
-            if (!dateValue) return false;
+          const dateTimeFromForm: [string, string] = Array.from(dateValue) as [
+            string,
+            string
+          ];
 
-            const dateRegex = /[0-9]{4}-[0-9]{2}-[0-9]{2}/;
-            const timeRegex = /[0-9]{2}:[0-9]{2}/;
+          const dateTimeToValidate = new Date(dateTimeFromForm[0]);
+          const timeFromForm = dateTimeFromForm[1];
 
-            if (dateRegex.test(dateValue)) {
-              dateTime = new Date(dateValue);
+          const hours = Number(timeFromForm.slice(0, 2));
+          const minutes = Number(timeFromForm.slice(3, 5));
 
-              return true;
-            }
+          dateTimeToValidate.setHours(hours);
+          dateTimeToValidate.setMinutes(minutes);
 
-            if (timeRegex.test(dateValue)) {
-              const hours = Number(dateValue.slice(0, 2));
-              const minutes = Number(dateValue.slice(3, 5));
-
-              dateTime.setHours(hours);
-              dateTime.setMinutes(minutes);
-
-              return dateTime <= new Date(Date.now());
-            }
-
-            return false;
-          }
-        )
+          return dateTimeToValidate <= new Date(Date.now());
+        }
       );
     } else if (
       field.type === 'checkboxes' ||
