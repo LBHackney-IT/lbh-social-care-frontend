@@ -1,5 +1,5 @@
 import ErrorMessage from 'components/ErrorMessage/ErrorMessage';
-import { GetCaseStatus } from 'utils/api/caseStatus';
+import { getCaseStatus } from 'utils/api/caseStatus';
 import { Resident } from 'types';
 
 interface Props {
@@ -7,7 +7,7 @@ interface Props {
 }
 
 const CaseStatusView = ({ person }: Props): React.ReactElement => {
-  const { data: caseStatusData, error } = GetCaseStatus(person.id);
+  const { data: caseStatusData, error } = getCaseStatus(person.id);
 
   if (error) {
     return (

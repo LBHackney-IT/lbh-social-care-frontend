@@ -1,5 +1,5 @@
 import axios from 'axios';
-import * as caseStatusAPI from '.caseStatus';
+import * as caseStatusAPI from './caseStatus';
 import { mockedCaseStatusFactory } from 'factories/caseStatus';
 
 const ENDPOINT_API = process.env.ENDPOINT_API;
@@ -9,7 +9,7 @@ const mockedAxios = axios as jest.Mocked<typeof axios>;
 jest.mock('axios');
 
 describe('case status APIs', () => {
-  describe('GetCaseStatusByResident', () => {
+  describe('getCaseStatusByResident', () => {
     it("calls the service API's case status endpoint", async () => {
       const caseStatus = mockedCaseStatusFactory.build();
       mockedAxios.get.mockResolvedValue({
@@ -20,7 +20,7 @@ describe('case status APIs', () => {
 
       expect(mockedAxios.get).toHaveBeenCalled();
       expect(mockedAxios.get.mock.calls[0][0]).toEqual(
-        `${ENDPOINT_API}/residents/123/casestatuses`
+        `${ENDPOINT_API}/residents/123/case-statuses`
       );
       expect(mockedAxios.get.mock.calls[0][1]?.headers).toEqual({
         'x-api-key': AWS_KEY,
@@ -29,3 +29,22 @@ describe('case status APIs', () => {
     });
   });
 });
+
+describe('addCaseStatus', () => {
+    it('should posts to the case status endpoint', async () => {
+      const caseStatus = mockedCaseStatusFactory;
+
+      mockedAxios.post.mockResolvedValue({ data: {} });
+      await caseStatusAPI.addCaseStatus({
+        data: caseStatus,
+      });
+      expect(mockedAxios.post).toHaveBeenCalled();
+      expect(mockedAxios.post.mock.calls[0][0]).toEqual(
+        `${ENDPOINT_API}/case-statuses'
+      );
+      expect(mockedAxios.post.mock.calls[0][2]?.headers).toEqual({
+        'Content-Type': 'application/json',
+        'x-api-key': AWS_KEY,
+      });
+    }};
+  });

@@ -8,9 +8,21 @@ export const getCaseStatusByPersonId = async (
   personId: number
 ): Promise<PersonCaseStatus> => {
   const { data, error }: { data: PersonCaseStatus; error: Error } =
-    await axios.get(`${ENDPOINT_API}/residents/${personId}/casestatuses`, {
+    await axios.get(`${ENDPOINT_API}/residents/${personId}/case-statuses`, {
       headers,
     });
   console.log(error);
   return data;
+};
+
+export const addCaseStatus = async (
+  params: Record<string, unknown>
+): Promise<void> => {
+  await axios.post(
+    'https://virtserver.swaggerhub.com/Hackney/social-care-case-viewer-api/1.0.0/casestatuses',
+    params,
+    {
+      headers: { ...headers, 'Content-Type': 'application/json' },
+    }
+  );
 };

@@ -1,8 +1,25 @@
-import useSWR, { SWRResponse } from 'swr';
+import axios from 'axios';
 
-import type { PersonCaseStatus, ErrorAPI } from 'types';
+interface addCaseStatusFormData {
+  personId: number;
+  type: string;
+  fields: [{ name: string; selected: string }];
+  startDate: string;
+  endDate: string;
+  notes: string;
+}
 
-export const GetCaseStatus = (
-  id: number
-): SWRResponse<PersonCaseStatus, ErrorAPI> =>
-  useSWR(`/api/residents/${id}/casestatus`);
+export const getCaseStatus = async (
+  formData: addCaseStatusFormData
+): Promise<Record<string, unknown>> => {
+  const { data } = await axios.post(`/api/residents/`, formData);
+  return data;
+};
+
+export const addCaseStatus = async (
+  formData: addCaseStatusFormData
+): Promise<Record<string, unknown>> => {
+  const { data } = await axios.post(`/api/case-statuses`, formData);
+
+  return data;
+};
