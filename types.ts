@@ -299,17 +299,6 @@ interface UndisclosedNote extends BaseNote {
   undisclosedDetails: string;
 }
 
-export interface FormValue {
-  name: string;
-  description: string;
-  options: Array<FormStatusValue>;
-}
-
-export interface FormStatusValue {
-  name: string;
-  description: string;
-}
-
 interface ReviewedNote {
   id: number;
   warningNoteId: number;
@@ -328,6 +317,21 @@ export type WarningNote = DisclosedNote | UndisclosedNote;
 
 export interface WarningNotes {
   notes: Array<WarningNote>;
+}
+
+export interface CaseStatusFormOption {
+  name: string;
+  description: string;
+}
+
+export interface CaseStatusFormValue {
+  name: string;
+  description: string;
+  options: Array<CaseStatusFormOption>;
+}
+
+export interface CaseStatusFields {
+  fields: Array<CaseStatusFormValue>;
 }
 
 export interface PersonCaseStatus {

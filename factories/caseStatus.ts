@@ -2,8 +2,9 @@ import { Factory } from 'fishery';
 import {
   CaseStatus,
   PersonCaseStatus,
-  FormValue,
-  FormStatusValue,
+  CaseStatusFormValue,
+  CaseStatusFormOption,
+  CaseStatusFields,
 } from 'types';
 
 export const mockedPersonCaseStatusFactory = Factory.define<PersonCaseStatus>(
@@ -24,17 +25,21 @@ export const mockedCaseStatusFactory = Factory.define<CaseStatus>(
   })
 );
 
-export const mockedFormValueFactory = Factory.define<FormValue>(() => ({
-  name: 'test',
-  description: 'description',
-  options: [mockedFormStatusValueFactory.build()],
+export const mockedFormValueFactory = Factory.define<CaseStatusFields>(() => ({
+  fields: [mockedCaseStatusFormValueFactory.build()],
 }));
 
-export const mockedFormStatusValueFactory = Factory.define<FormStatusValue>(
-  () => ({
+export const mockedCaseStatusFormValueFactory =
+  Factory.define<CaseStatusFormValue>(() => ({
+    name: 'test',
+    description: 'description',
+    options: [mockedCaseStatusFormOptionFactory.build()],
+  }));
+
+export const mockedCaseStatusFormOptionFactory =
+  Factory.define<CaseStatusFormOption>(() => ({
     name: 'N1',
     description: 'Noo 1',
-  })
-);
+  }));
 
 export const mockedFormValue = [mockedFormValueFactory.build()];

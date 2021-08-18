@@ -1,6 +1,6 @@
 import useSWR, { SWRResponse } from 'swr';
 
-import type { PersonCaseStatus, ErrorAPI } from 'types';
+import type { PersonCaseStatus, CaseStatusFields, ErrorAPI } from 'types';
 
 export const GetCaseStatus = (
   id: number
@@ -9,5 +9,5 @@ export const GetCaseStatus = (
 
 export const GetFormValues = (
   type: string
-): SWRResponse<PersonCaseStatus, ErrorAPI> =>
+): SWRResponse<CaseStatusFields, ErrorAPI> =>
   useSWR(`/api/casestatuses/form-options?type=${type}`);
