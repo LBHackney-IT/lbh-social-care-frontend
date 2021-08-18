@@ -319,19 +319,19 @@ export interface WarningNotes {
   notes: Array<WarningNote>;
 }
 
-export interface CaseStatusFormOption {
+export interface FormOption {
   name: string;
   description: string;
 }
 
-export interface CaseStatusFormValue {
+export interface FormValue {
   name: string;
   description: string;
-  options: Array<CaseStatusFormOption>;
+  options: Array<FormOption>;
 }
 
-export interface CaseStatusFields {
-  fields: Array<CaseStatusFormValue>;
+export interface FormFields {
+  fields: Array<FormValue>;
 }
 
 export interface PersonCaseStatus {
