@@ -1,6 +1,6 @@
 import { StatusCodes } from 'http-status-codes';
 
-import { GetFormValues } from 'lib/formValues';
+import { GetFormValues } from 'lib/caseStatus';
 import { isAuthorised } from 'utils/auth';
 
 import type { NextApiRequest, NextApiResponse, NextApiHandler } from 'next';
