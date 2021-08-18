@@ -13,3 +13,16 @@ export const getCaseStatusByPersonId = async (
     });
   return data;
 };
+
+export const GetFormValues = async (
+  type: string
+): Promise<PersonCaseStatus> => {
+  const { data }: { data: PersonCaseStatus; error: Error } = await axios.get(
+    `https://virtserver.swaggerhub.com/Hackney/social-care-case-viewer-api/1.0.0/case-status/form-options/${type}`,
+    // `${ENDPOINT_API}/case-status/form-options/${type}`,
+    {
+      headers,
+    }
+  );
+  return data;
+};
