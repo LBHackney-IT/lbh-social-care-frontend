@@ -1,7 +1,5 @@
 import ShowMoreBox from 'components/ShowMoreBox/ShowMoreBox';
 
-import styles from './Summary.module.scss';
-
 interface SummaryElement {
   key: string;
   title: string;

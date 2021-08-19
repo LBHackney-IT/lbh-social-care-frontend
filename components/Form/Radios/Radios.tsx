@@ -1,8 +1,6 @@
 import cx from 'classnames';
 
-import ErrorMessage from 'components/ErrorMessage/ErrorMessage';
-
-import type { GenericField, Radios as Props } from 'components/Form/types';
+import type { Radios as Props } from 'components/Form/types';
 import { FieldErrorMessage } from '../FieldErrorMessage/FieldErrorMessage';
 
 const defaultOptions = ['Yes', 'No'];

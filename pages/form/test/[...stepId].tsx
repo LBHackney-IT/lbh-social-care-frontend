@@ -1,10 +1,8 @@
 import axios from 'axios';
 
 import FormWizard from 'components/FormWizard/FormWizard';
-import PersonWidget from 'components/PersonWidget/PersonWidget';
 
 import form from 'data/forms/test';
-import { residentFactory } from 'factories/residents';
 import React from 'react';
 
 const TestForm = (): React.ReactElement => {
