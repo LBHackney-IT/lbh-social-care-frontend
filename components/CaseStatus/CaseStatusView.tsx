@@ -22,16 +22,27 @@ const CaseStatusView = ({ person }: Props): React.ReactElement => {
   return (
     <>
       {caseStatusData && (
-        <section>
+        <section className="govuk-!-margin-top-0">
           {caseStatusData.caseStatuses.map((status) => (
-            <span className="govuk-tag lbh-tag" key={status.id}>
-              {status.type}
+            <span
+              className="govuk-tag lbh-tag govuk-!-margin-right-1 govuk-!-margin-top-2"
+              key={status.id}
+            >
+              {getTypeString(status.type as keyof typeof valueMapping)} -{' '}
+              {status.subType}
             </span>
           ))}
         </section>
       )}
     </>
   );
+};
+
+const getTypeString = (type: keyof typeof valueMapping): any => {
+  return valueMapping[type];
+};
+const valueMapping = {
+  CIN: 'Child in need',
 };
 
 export default CaseStatusView;
