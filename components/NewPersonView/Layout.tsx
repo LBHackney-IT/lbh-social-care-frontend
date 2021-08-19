@@ -13,6 +13,8 @@ import { canManageCases } from 'lib/permissions';
 import AddFormDialog from 'components/AddFormDialog/AddFormDialog';
 import { useState } from 'react';
 import Banner from 'components/FlexibleForms/Banner';
+import { ConditionalFeature } from 'lib/feature-flags/feature-flags';
+import CaseStatusView from 'components/CaseStatus/CaseStatusView';
 
 interface NavLinkProps {
   href: string;
@@ -142,6 +144,9 @@ const Layout = ({ person, children }: Props): React.ReactElement => {
             {allocations?.allocations &&
               summariseAllocations(allocations.allocations)}
           </p>
+          <ConditionalFeature name="case-status">
+            <CaseStatusView person={person} />
+          </ConditionalFeature>
         </div>
 
         <div className={`govuk-grid-column-one-third ${s.actionsArea}`}>
