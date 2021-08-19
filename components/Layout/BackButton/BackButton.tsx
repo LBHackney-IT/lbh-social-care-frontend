@@ -1,5 +1,3 @@
-import Router from 'next/router';
-
 const BackButton = (): React.ReactElement => (
   <div className="lbh-container">
     <a
