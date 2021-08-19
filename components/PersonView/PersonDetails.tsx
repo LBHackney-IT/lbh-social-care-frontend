@@ -5,6 +5,7 @@ import { canUserEditPerson } from 'lib/permissions';
 import Link from 'next/link';
 import s from 'stylesheets/Section.module.scss';
 import { format } from 'date-fns';
+import CaseStatusDetails from 'components/CaseStatus/CaseStatusDetails';
 
 interface Props {
   person: Resident;
@@ -34,6 +35,7 @@ const PersonDetails = ({ person }: Props): React.ReactElement => {
 
   return (
     <>
+      <CaseStatusDetails person={person} />
       <section className="govuk-!-margin-bottom-8">
         <div className={s.heading}>
           <h2>Personal details</h2>
