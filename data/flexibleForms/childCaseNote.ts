@@ -256,6 +256,7 @@ const form: Form = {
           id: 'Body',
           question: 'What happened?',
           type: 'textarea',
+          rows: 6,
           required: true,
         },
         {
