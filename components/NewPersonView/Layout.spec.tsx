@@ -10,6 +10,8 @@ import * as relationshipsAPI from 'utils/api/relationships';
 import Layout from './Layout';
 import 'next/router';
 
+import { FeatureFlagProvider } from 'lib/feature-flags/feature-flags';
+
 import {
   mockedRelationshipData,
   mockedExistingRelationship,
@@ -29,7 +31,9 @@ describe('Layout', () => {
   it('renders children, navigation and a primary action', () => {
     render(
       <AuthProvider user={mockedUser}>
-        <Layout person={mockedResident}>Foo</Layout>
+        <FeatureFlagProvider features={{}}>
+          <Layout person={mockedResident}>Foo</Layout>
+        </FeatureFlagProvider>
       </AuthProvider>
     );
     expect(screen.getByText('Foo'));
@@ -41,7 +45,9 @@ describe('Layout', () => {
   it("renders the user's name and caption", () => {
     render(
       <AuthProvider user={mockedUser}>
-        <Layout person={mockedResident}>Foo</Layout>
+        <FeatureFlagProvider features={{}}>
+          <Layout person={mockedResident}>Foo</Layout>
+        </FeatureFlagProvider>
       </AuthProvider>
     );
     expect(screen.getByText('Foo Bar'));
@@ -81,9 +87,12 @@ describe('Layout', () => {
       mutate: jest.fn(),
       revalidate: jest.fn(),
     }));
+
     render(
       <AuthProvider user={mockedOnlyChildUser}>
-        <Layout person={mockedResident}>Foo</Layout>
+        <FeatureFlagProvider features={{}}>
+          <Layout person={mockedResident}>Foo</Layout>
+        </FeatureFlagProvider>
       </AuthProvider>
     );
 
@@ -101,9 +110,12 @@ describe('Layout', () => {
       mutate: jest.fn(),
       revalidate: jest.fn(),
     }));
+
     render(
       <AuthProvider user={mockedOnlyChildUser}>
-        <Layout person={mockedResident}>Foo</Layout>
+        <FeatureFlagProvider features={{}}>
+          <Layout person={mockedResident}>Foo</Layout>
+        </FeatureFlagProvider>
       </AuthProvider>
     );
 
@@ -114,7 +126,9 @@ describe('Layout', () => {
   it("hides the timeline link if the user isn't authorised", () => {
     render(
       <AuthProvider user={mockedOnlyChildUser}>
-        <Layout person={mockedResident}>Foo</Layout>
+        <FeatureFlagProvider features={{}}>
+          <Layout person={mockedResident}>Foo</Layout>
+        </FeatureFlagProvider>
       </AuthProvider>
     );
     expect(screen.queryByText('Timeline')).toBe(null);
@@ -123,14 +137,16 @@ describe('Layout', () => {
   it('tells unauthorised users when a resident is restricted', () => {
     render(
       <AuthProvider user={mockedOnlyAdultUser}>
-        <Layout
-          person={{
-            ...mockedResident,
-            restricted: 'Y',
-          }}
-        >
-          Foo
-        </Layout>
+        <FeatureFlagProvider features={{}}>
+          <Layout
+            person={{
+              ...mockedResident,
+              restricted: 'Y',
+            }}
+          >
+            Foo
+          </Layout>
+        </FeatureFlagProvider>
       </AuthProvider>
     );
     expect(screen.getByText('This person is restricted'));
@@ -144,14 +160,16 @@ describe('Layout', () => {
           hasUnrestrictedPermissions: true,
         }}
       >
-        <Layout
-          person={{
-            ...mockedResident,
-            restricted: 'Y',
-          }}
-        >
-          Foo
-        </Layout>
+        <FeatureFlagProvider features={{}}>
+          <Layout
+            person={{
+              ...mockedResident,
+              restricted: 'Y',
+            }}
+          >
+            Foo
+          </Layout>
+        </FeatureFlagProvider>
       </AuthProvider>
     );
     expect(screen.queryByText('This person is restricted')).toBeNull();

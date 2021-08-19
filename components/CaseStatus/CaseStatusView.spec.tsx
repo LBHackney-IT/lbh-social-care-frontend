@@ -29,6 +29,7 @@ describe('CaseStatusView component', () => {
         caseStatuses: [
           mockedCaseStatusFactory.build({
             type: 'CIN',
+            subType: 'N1',
           }),
         ],
       }),
@@ -37,9 +38,9 @@ describe('CaseStatusView component', () => {
       revalidate: jest.fn(),
     }));
 
-    const { getByText } = render(<CaseStatusView person={person} />);
+    const { queryByText } = render(<CaseStatusView person={person} />);
 
-    expect(getByText('CIN')).toBeInTheDocument();
+    expect(queryByText('Child in need - N1')).toBeInTheDocument();
   });
 
   it("displays nothing if there's no case status", async () => {
@@ -55,7 +56,7 @@ describe('CaseStatusView component', () => {
 
     const { queryByText } = render(<CaseStatusView person={person} />);
 
-    expect(queryByText('CIN')).not.toBeInTheDocument();
+    expect(queryByText('Child in need')).not.toBeInTheDocument();
   });
 
   it('displays an error if API error', async () => {
