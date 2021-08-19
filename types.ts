@@ -328,7 +328,7 @@ export interface CaseStatus {
   id: number;
   type: string;
   subType: string;
-  StartDate: string;
-  EndDate: string;
-  Notes: string;
+  startDate: string;
+  endDate: string;
+  notes: string;
 }
