@@ -1,5 +1,4 @@
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
-import { JsonWebTokenError } from 'jsonwebtoken';
 
 import FormWizard from './FormWizard';
 

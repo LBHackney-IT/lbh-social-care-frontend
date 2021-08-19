@@ -1,6 +1,5 @@
 import * as caseStatusAPI from './caseStatus';
 import * as SWR from 'swr';
-import axios from 'axios';
 
 jest.mock('swr');
 jest.mock('axios');

@@ -1,7 +1,5 @@
 import cx from 'classnames';
 
-import ErrorMessage from 'components/ErrorMessage/ErrorMessage';
-
 import type { TextInput as Props } from 'components/Form/types';
 import { FieldErrorMessage } from '../FieldErrorMessage/FieldErrorMessage';
 
