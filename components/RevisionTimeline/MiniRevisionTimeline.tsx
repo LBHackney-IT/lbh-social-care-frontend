@@ -1,14 +1,34 @@
+import axios from 'axios';
+import {
+  InProgressSubmission,
+  Submission,
+} from 'data/flexibleForms/forms.types';
 import { format } from 'date-fns';
-import { Submission } from 'data/flexibleForms/forms.types';
+import { useEffect, useState } from 'react';
 import s from './MiniRevisionTimeline.module.scss';
 
 interface Props {
-  submission: Submission;
+  inProgressSubmission: InProgressSubmission;
 }
 
-const RevisionTimeline = ({ submission }: Props): React.ReactElement | null => {
+const RevisionTimeline = ({
+  inProgressSubmission,
+}: Props): React.ReactElement | null => {
+  const [submission, setSubmission] = useState<Submission>();
+
+  useEffect(() => {
+    (async () => {
+      const { data } = await axios.get<Submission>(
+        `/api/submissions/${inProgressSubmission.submissionId}`
+      );
+      setSubmission(data);
+    })();
+  }, [inProgressSubmission.submissionId]);
+
   // reverse the array so it's in reverse-chronological order and take the three most recent events
-  const revisions = Array.from(submission.editHistory).reverse().slice(0, 3);
+  const revisions = Array.from(submission?.editHistory ?? [])
+    .reverse()
+    .slice(0, 3);
 
   return (
     <ol className={`lbh-timeline ${s.timeline}`}>

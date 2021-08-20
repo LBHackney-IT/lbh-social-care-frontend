@@ -11,7 +11,7 @@ interface Props {
 }
 
 const SubmissionPanel = ({ submission }: Props): React.ReactElement | null => {
-  const [open, setOpen] = useState<boolean>(false);
+  const [open, setOpen] = useState(false);
 
   const form = submission.form;
   const totalSteps = form?.steps?.length;

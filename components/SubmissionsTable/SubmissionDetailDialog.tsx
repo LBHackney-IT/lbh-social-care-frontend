@@ -101,7 +101,7 @@ const SubmissionDetailDialog = ({
         <div className="govuk-summary-list__row govuk-summary-list__row--no-border">
           <dt className="govuk-summary-list__key">Recent revisions</dt>
           <dd className="govuk-summary-list__value">
-            <MiniRevisionTimeline submission={submission} />
+            <MiniRevisionTimeline inProgressSubmission={submission} />
           </dd>
         </div>
       </dl>
