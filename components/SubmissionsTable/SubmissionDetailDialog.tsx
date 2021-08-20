@@ -27,9 +27,6 @@ const SubmissionDetailDialog = ({
   completion,
   url,
 }: Props): React.ReactElement => {
-  const lastEdited =
-    submission.editHistory[submission.editHistory.length - 1]?.editTime;
-
   const editors = submission.workers.map((worker) => worker.email);
 
   return (
@@ -84,7 +81,7 @@ const SubmissionDetailDialog = ({
         <div className="govuk-summary-list__row">
           <dt className="govuk-summary-list__key">Last edited</dt>
           <dd className="govuk-summary-list__value">
-            {format(new Date(lastEdited), 'd MMM yyyy K.mm aaa')}
+            {format(new Date(submission.lastEdited), 'd MMM yyyy K.mm aaa')}
           </dd>
         </div>
 
