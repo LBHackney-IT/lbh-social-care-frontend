@@ -1,6 +1,7 @@
 import {
   InProgressSubmission,
   Submission,
+  SubmissionState,
 } from 'data/flexibleForms/forms.types';
 import { mockedResident } from 'factories/residents';
 import { mockedWorker } from 'factories/workers';
@@ -24,7 +25,7 @@ export const mockSubmission: Submission = {
       editTime: '2021-06-21T12:00:00.000Z',
     },
   ],
-  submissionState: 'In progress',
+  submissionState: SubmissionState.InProgress,
   formAnswers: {},
   lastEdited: '2021-06-21T12:00:00.000Z',
   completedSteps: 0,
@@ -43,7 +44,7 @@ export const mockInProgressSubmission: InProgressSubmission = {
   panelApprovedBy: null,
   panelApprovedAt: null,
   workers: [mockedWorker],
-  submissionState: 'In progress',
+  submissionState: SubmissionState.InProgress,
   lastEdited: '2021-06-21T12:00:00.000Z',
   completedSteps: 1,
 };

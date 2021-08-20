@@ -111,7 +111,7 @@ export type InProgressSubmission = Omit<
   'formAnswers' | 'editHistory'
 >;
 
-enum SubmissionState {
+export enum SubmissionState {
   InProgress = 'In progress',
   Approved = 'Approved',
   Discarded = 'Discarded',
