@@ -22,7 +22,7 @@ const RevisionTimeline = ({
     .reverse()
     .slice(0, 3);
   if (error) {
-    return <p>Error fetching this sumbission edit history</p>;
+    return <p>Error fetching submission edit history</p>;
   }
   if (isValidating) {
     return <Spinner />;
