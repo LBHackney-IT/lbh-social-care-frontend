@@ -6,8 +6,8 @@ import {
   InProgressSubmission,
 } from 'data/flexibleForms/forms.types';
 import { Resident, AgeContext } from 'types';
-import forms from 'data/flexibleForms';
 import parse from 'date-fns/parse';
+import { mapFormIdToForm } from 'data/flexibleForms/mapFormIdToForm';
 
 type RawSubmission = Omit<Submission, 'formAnswers'> & {
   formAnswers: {
@@ -267,10 +267,10 @@ export const returnForEdits = async (
 
 /** safely generate a submission url, handling weird cases like case notes, which use a different canonical url structure */
 export const generateSubmissionUrl = (
-  submission: Submission,
+  submission: Submission | InProgressSubmission,
   socialCareId?: number
 ): string => {
-  const form = forms.find((form) => form.id === submission.formId);
+  const form = mapFormIdToForm[submission.formId];
   if (form?.canonicalUrl) {
     return `${form.canonicalUrl(
       // use the passed in social care id, or default to the first resident on the submission

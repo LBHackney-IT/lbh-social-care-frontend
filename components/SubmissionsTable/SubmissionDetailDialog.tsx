@@ -1,13 +1,13 @@
 import DiscardDialog from './DiscardDialog';
 import MiniRevisionTimeline from 'components/RevisionTimeline/MiniRevisionTimeline';
 import Dialog from 'components/Dialog/Dialog';
-import { Form, Submission } from 'data/flexibleForms/forms.types';
+import { Form, InProgressSubmission } from 'data/flexibleForms/forms.types';
 import { format } from 'date-fns';
 import Link from 'next/link';
 import s from './index.module.scss';
 
 interface Props {
-  submission: Submission;
+  submission: InProgressSubmission;
   isOpen: boolean;
   onDismiss: () => void;
   form?: Form;

@@ -1,5 +1,5 @@
 import { useState, useMemo } from 'react';
-import { Submission } from 'data/flexibleForms/forms.types';
+import { InProgressSubmission } from 'data/flexibleForms/forms.types';
 import Link from 'next/link';
 import { format } from 'date-fns';
 import s from './index.module.scss';
@@ -7,18 +7,16 @@ import SubmissionDetailDialog from './SubmissionDetailDialog';
 import { generateSubmissionUrl } from 'lib/submissions';
 
 interface Props {
-  submission: Submission;
+  submission: InProgressSubmission;
 }
 
 const SubmissionPanel = ({ submission }: Props): React.ReactElement | null => {
   const [open, setOpen] = useState<boolean>(false);
 
   const form = submission.form;
-
-  const completedSteps = Object.keys(submission.formAnswers).length;
   const totalSteps = form?.steps?.length;
   const completion =
-    Math.round((completedSteps / Number(totalSteps)) * 100) || 0;
+    Math.round((submission.completedSteps / Number(totalSteps)) * 100) || 0;
 
   const url = useMemo(() => generateSubmissionUrl(submission), [submission]);
 
@@ -72,7 +70,7 @@ const SubmissionPanel = ({ submission }: Props): React.ReactElement | null => {
           onDismiss={() => setOpen(false)}
           submission={submission}
           form={form}
-          completedSteps={completedSteps}
+          completedSteps={submission.completedSteps}
           totalSteps={totalSteps}
           completion={completion}
           url={url}
