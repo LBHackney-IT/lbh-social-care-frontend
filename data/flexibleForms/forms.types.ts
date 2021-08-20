@@ -111,6 +111,14 @@ export type InProgressSubmission = Omit<
   'formAnswers' | 'editHistory'
 >;
 
+enum SubmissionState {
+  InProgress = 'In progress',
+  Approved = 'Approved',
+  Discarded = 'Discarded',
+  Submitted = 'Submitted',
+  PanelApproved = 'Panel Approved',
+}
+
 export interface Submission {
   submissionId: string;
   formId: string;
@@ -126,12 +134,7 @@ export interface Submission {
   residents: Resident[];
   workers: Worker[];
   editHistory: Revision[];
-  submissionState:
-    | 'In progress'
-    | 'Approved'
-    | 'Discarded'
-    | 'Submitted'
-    | 'Panel Approved';
+  submissionState: SubmissionState;
   formAnswers: FlexibleAnswers;
   tags?: string[];
   lastEdited: string;
