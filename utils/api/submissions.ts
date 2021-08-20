@@ -7,6 +7,16 @@ export type Data = {
   submissions: Submission[];
 };
 
+export const useSubmission = (
+  submissionId: string
+): SWRResponse<Submission, ErrorAPI> => {
+  const res: SWRResponse<Submission, ErrorAPI> = useSWR(
+    `/api/submissions/${submissionId}`
+  );
+
+  return res;
+};
+
 /** fetch unfinished submissions in the user's current service context, either for everyone, or by social care id */
 export const useUnfinishedSubmissions = (
   socialCareId?: number
