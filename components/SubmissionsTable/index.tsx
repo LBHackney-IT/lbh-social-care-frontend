@@ -1,5 +1,5 @@
 import { useState, useMemo } from 'react';
-import { Submission } from 'data/flexibleForms/forms.types';
+import { InProgressSubmission } from 'data/flexibleForms/forms.types';
 import SubmissionRow from './SubmissionPanel';
 import { useAuth } from 'components/UserContext/UserContext';
 import s from './index.module.scss';
@@ -7,10 +7,10 @@ import st from 'components/Tabs/Tabs.module.scss';
 import Tab from './Tab';
 import SearchBox from './SearchBox';
 import useSearch from 'hooks/useSearch';
-import forms from 'data/flexibleForms';
+import { mapFormIdToForm } from 'data/flexibleForms/mapFormIdToForm';
 
 interface Props {
-  submissions: Submission[];
+  submissions: InProgressSubmission[];
 }
 
 export const SubmissionsTable = ({
@@ -27,7 +27,7 @@ export const SubmissionsTable = ({
         // augment each one with its form
         .map((submission) => ({
           ...submission,
-          form: forms.find((form) => form.id === submission.formId),
+          form: mapFormIdToForm[submission.formId],
         }))
         .filter((submission) => {
           // hide any restricted records unless the user has permission to see them
@@ -38,9 +38,6 @@ export const SubmissionsTable = ({
             )
           )
             return false;
-
-          // hide discarded submissions
-          if (submission.submissionState === 'Discarded') return false;
 
           // Otherwise, this record is good to show
           return true;

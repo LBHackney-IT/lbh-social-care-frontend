@@ -3,12 +3,12 @@ import SavedForms from 'components/SaveFormData/SaveFormData';
 import DashboardWrapper from 'components/Dashboard/DashboardWrapper';
 import { GetServerSideProps } from 'next';
 import { getInProgressSubmissions } from 'lib/submissions';
-import { Submission } from 'data/flexibleForms/forms.types';
+import { InProgressSubmission } from 'data/flexibleForms/forms.types';
 import SubmissionsTable from 'components/SubmissionsTable';
 import { isAuthorised } from 'utils/auth';
 
 interface Props {
-  submissions: Submission[];
+  submissions: InProgressSubmission[];
 }
 
 const UnfinishedSubmissions = ({ submissions }: Props): React.ReactElement => (
