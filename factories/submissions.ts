@@ -23,4 +23,6 @@ export const mockSubmission: Submission = {
   ],
   submissionState: 'In progress',
   formAnswers: {},
+  lastEdited: '2021-06-21T12:00:00.000Z',
+  completedSteps: 0,
 };

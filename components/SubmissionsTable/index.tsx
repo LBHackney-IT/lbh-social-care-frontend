@@ -86,14 +86,12 @@ export const SubmissionsTable = ({
 
       <ul className={`lbh-list ${s.list}`}>
         {results?.length > 0 ? (
-          results
-            .slice(0, 20)
-            .map((submission) => (
-              <SubmissionRow
-                submission={submission}
-                key={submission.submissionId}
-              />
-            ))
+          results.map((submission) => (
+            <SubmissionRow
+              submission={submission}
+              key={submission.submissionId}
+            />
+          ))
         ) : (
           <p>No results to show.</p>
         )}
