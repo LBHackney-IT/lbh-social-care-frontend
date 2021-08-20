@@ -1,60 +1,67 @@
-import { render, screen } from '@testing-library/react';
-import { mockSubmission } from 'factories/submissions';
+import { render, screen, waitFor } from '@testing-library/react';
+import axios from 'axios';
+import { Revision, Submission } from 'data/flexibleForms/forms.types';
+import {
+  mockInProgressSubmission,
+  mockSubmission,
+} from 'factories/submissions';
 import { mockedWorker } from 'factories/workers';
 import MiniRevisionTimeline from './MiniRevisionTimeline';
 
+jest.mock('axios');
+const mockedAxios = axios as jest.Mocked<typeof axios>;
+
 describe('MiniRevisionTimeline', () => {
-  it('correctly renders edits and creation', () => {
+  it('correctly renders edits and creation', async () => {
+    mockedAxios.get.mockResolvedValue({
+      data: mockSubmission,
+    });
+
     render(
-      <MiniRevisionTimeline
-        submission={{
-          ...mockSubmission,
-          editHistory: [
-            {
-              worker: mockedWorker,
-              editTime: '2021-06-23T12:00:00.000Z',
-            },
-            {
-              worker: mockedWorker,
-              editTime: '2021-07-28T11:00:00.000Z',
-            },
-          ],
-        }}
-      />
+      <MiniRevisionTimeline inProgressSubmission={mockInProgressSubmission} />
     );
 
-    expect(screen.queryAllByText('foo.bar@hackney.gov.uk').length).toBe(2);
-    expect(screen.getByText('28 Jul 2021', { exact: false }));
-    expect(screen.getByText('23 Jun 2021', { exact: false }));
+    await waitFor(() => {
+      expect(screen.getByText('foo.bar@hackney.gov.uk', { exact: false }));
+      expect(screen.getByText('21 Jun 2021', { exact: false }));
+    });
   });
 
-  it('only shows up to three events', () => {
+  it('only shows up to three events', async () => {
+    const mockSubmissionClone = JSON.parse(
+      JSON.stringify(mockSubmission)
+    ) as Submission;
+
+    const appendedEdits: Revision[] = [
+      {
+        worker: mockedWorker,
+        editTime: '2021-06-21T12:00:00.000Z',
+      },
+      {
+        worker: mockedWorker,
+        editTime: '2021-06-21T12:00:00.000Z',
+      },
+      {
+        worker: mockedWorker,
+        editTime: '2021-06-21T12:00:00.000Z',
+      },
+      {
+        worker: mockedWorker,
+        editTime: '2021-06-21T12:00:00.000Z',
+      },
+    ];
+    mockSubmissionClone.editHistory.push(...appendedEdits);
+
+    mockedAxios.get.mockResolvedValue({
+      data: mockSubmissionClone,
+    });
+
     render(
-      <MiniRevisionTimeline
-        submission={{
-          ...mockSubmission,
-          editHistory: [
-            {
-              worker: mockedWorker,
-              editTime: '2021-06-23T12:00:00.000Z',
-            },
-            {
-              worker: mockedWorker,
-              editTime: '2021-07-28T11:00:00.000Z',
-            },
-            {
-              worker: mockedWorker,
-              editTime: '2021-07-28T11:00:00.000Z',
-            },
-            {
-              worker: mockedWorker,
-              editTime: '2021-07-28T11:00:00.000Z',
-            },
-          ],
-        }}
-      />
+      <MiniRevisionTimeline inProgressSubmission={mockInProgressSubmission} />
     );
 
-    expect(screen.getAllByRole('listitem').length).toBe(3);
+    await waitFor(() => {
+      expect(screen.getAllByRole('listitem').length).toBe(3);
+    });
   });
 });

@@ -14,7 +14,7 @@ describe('SubmissionDetailDialog', () => {
         url="/foo"
       />
     );
-    expect(screen.getAllByRole('heading').length).toBe(2);
+    expect(screen.getAllByRole('heading').length).toBe(1);
     expect(screen.getAllByRole('list').length).toBe(3);
     expect(screen.getAllByRole('button').length).toBe(2);
   });
@@ -31,13 +31,12 @@ describe('SubmissionDetailDialog', () => {
 
     expect(screen.getByText('Editors'));
     expect(screen.getAllByRole('list').length).toBe(3);
-    expect(screen.getAllByText('foo.bar@hackney.gov.uk').length).toBe(2);
   });
 
   it('fires the dismiss handler', () => {
     render(
       <SubmissionDetailDialog
-        submission={mockSubmission}
+        submission={mockInProgressSubmission}
         isOpen={true}
         onDismiss={mockHandler}
         url="/foo"
