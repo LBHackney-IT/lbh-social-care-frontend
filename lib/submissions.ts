@@ -3,6 +3,7 @@ import {
   Submission,
   StepAnswers,
   FlexibleAnswers,
+  InProgressSubmission,
 } from 'data/flexibleForms/forms.types';
 import { Resident, AgeContext } from 'types';
 import forms from 'data/flexibleForms';
@@ -24,17 +25,15 @@ const headersWithKey = {
 /** get a list of all unfinished submissions in the current social care service context  */
 export const getInProgressSubmissions = async (
   ageContext?: AgeContext
-): Promise<Submission[]> => {
-  const dateTwoWeeksAgo = new Date(Date.now());
-  dateTwoWeeksAgo.setDate(dateTwoWeeksAgo.getDate() - 14);
-  const { data } = await axios.get(
-    `${ENDPOINT_API}/submissions?submissionStates=in_progress&page=1&size=4000&createdAfter=${dateTwoWeeksAgo.toISOString()}`,
+): Promise<InProgressSubmission[]> => {
+  const { data } = await axios.get<InProgressSubmission[]>(
+    `${ENDPOINT_API}/submissions?submissionStates=in_progress&page=1&size=1000`,
     {
       headers: headersWithKey,
     }
   );
   return ageContext
-    ? data.filter((submission: Submission) =>
+    ? data.filter((submission) =>
         submission.residents.some(
           (resident: Resident) => resident.ageContext === ageContext
         )

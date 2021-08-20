@@ -106,6 +106,11 @@ export interface FlexibleAnswers {
   [key: string]: StepAnswers;
 }
 
+export type InProgressSubmission = Omit<
+  Submission,
+  'formAnswers' | 'editHistory'
+>;
+
 export interface Submission {
   submissionId: string;
   formId: string;
@@ -121,9 +126,16 @@ export interface Submission {
   residents: Resident[];
   workers: Worker[];
   editHistory: Revision[];
-  submissionState: 'In progress' | 'Approved' | 'Discarded' | 'Submitted';
+  submissionState:
+    | 'In progress'
+    | 'Approved'
+    | 'Discarded'
+    | 'Submitted'
+    | 'Panel Approved';
   formAnswers: FlexibleAnswers;
   tags?: string[];
+  lastEdited: string;
+  completedSteps: number;
 }
 
 export interface SubmissionWithForm extends Submission {
