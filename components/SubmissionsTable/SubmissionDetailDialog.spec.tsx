@@ -1,5 +1,5 @@
 import { fireEvent, render, screen } from '@testing-library/react';
-import { mockSubmission } from 'factories/submissions';
+import { mockInProgressSubmission } from 'factories/submissions';
 import SubmissionDetailDialog from './SubmissionDetailDialog';
 
 const mockHandler = jest.fn();
@@ -8,7 +8,7 @@ describe('SubmissionDetailDialog', () => {
   it('renders the right basic information and controls', () => {
     render(
       <SubmissionDetailDialog
-        submission={mockSubmission}
+        submission={mockInProgressSubmission}
         isOpen={true}
         onDismiss={jest.fn()}
         url="/foo"
@@ -22,7 +22,7 @@ describe('SubmissionDetailDialog', () => {
   it('correctly shows a list of editors', () => {
     render(
       <SubmissionDetailDialog
-        submission={mockSubmission}
+        submission={mockInProgressSubmission}
         isOpen={true}
         onDismiss={jest.fn()}
         url="/foo"
