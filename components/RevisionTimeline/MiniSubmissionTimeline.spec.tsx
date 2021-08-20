@@ -11,6 +11,10 @@ import MiniRevisionTimeline from './MiniRevisionTimeline';
 jest.mock('axios');
 const mockedAxios = axios as jest.Mocked<typeof axios>;
 
+// change mock to SWR
+// test loading state
+// test error handling
+
 describe('MiniRevisionTimeline', () => {
   it('correctly renders edits and creation', async () => {
     mockedAxios.get.mockResolvedValue({
