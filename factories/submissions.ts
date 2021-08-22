@@ -37,8 +37,6 @@ export const mockInProgressSubmission: InProgressSubmission = {
   residents: [mockedResident],
   createdBy: mockedWorker,
   createdAt: '2021-06-21T12:00:00.000Z',
-  submittedBy: mockedWorker,
-  submittedAt: '2021-07-21T12:00:00.000Z',
   approvedBy: null,
   approvedAt: null,
   panelApprovedBy: null,

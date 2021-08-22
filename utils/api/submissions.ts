@@ -1,10 +1,14 @@
-import { Form, Submission } from 'data/flexibleForms/forms.types';
+import {
+  Form,
+  InProgressSubmission,
+  Submission,
+} from 'data/flexibleForms/forms.types';
 import useSWR, { SWRResponse } from 'swr';
 import type { ErrorAPI } from 'types';
 
 export type Data = {
   forms: Form[];
-  submissions: Submission[];
+  submissions: InProgressSubmission[];
 };
 
 export const useSubmission = (

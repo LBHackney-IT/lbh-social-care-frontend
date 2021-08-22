@@ -32,10 +32,12 @@ export const getInProgressSubmissions = async (
       headers: headersWithKey,
     }
   );
+
   return ageContext
     ? data.filter((submission) =>
         submission.residents.some(
-          (resident: Resident) => resident.ageContext === ageContext
+          (resident: Pick<Resident, 'ageContext'>) =>
+            resident.ageContext === ageContext
         )
       )
     : data;
