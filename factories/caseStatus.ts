@@ -18,8 +18,8 @@ export const mockedCaseStatusFactory = Factory.define<CaseStatus>(
     id: sequence,
     type: 'foo',
     fields: [mockedStatusField.build()],
-    startDate: '2021-1-1',
-    endDate: '2021-1-1',
+    startDate: '2021-01-01T02:00:00Z',
+    endDate: '2021-12-01T02:00:00Z',
     notes: 'a lot to note',
   })
 );
