@@ -11,7 +11,6 @@ import { useUnfinishedSubmissions } from 'utils/api/submissions';
 import { canManageCases } from 'lib/permissions';
 import { isAuthorised } from 'utils/auth';
 import { ConditionalFeature } from '../../../lib/feature-flags/feature-flags';
-import CaseStatusView from 'components/CaseStatus/CaseStatusView';
 import Cases from 'components/Cases/Cases';
 
 interface Props {
@@ -40,9 +39,6 @@ const PersonPage = ({ person }: Props): React.ReactElement => {
       {events ? (
         events.length > 0 ? (
           <>
-            <ConditionalFeature name="case-status">
-              <CaseStatusView person={person} />
-            </ConditionalFeature>
             <ConditionalFeature name="person-timeline">
               <PersonTimeline
                 unfinishedSubmissions={submissionsData?.submissions}

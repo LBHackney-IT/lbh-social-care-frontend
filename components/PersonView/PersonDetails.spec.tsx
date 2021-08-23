@@ -4,8 +4,6 @@ import { AuthProvider } from 'components/UserContext/UserContext';
 import { mockedUser } from 'factories/users';
 import { mockedResident } from 'factories/residents';
 
-import Router from 'next/router';
-
 jest.mock('next/router', () => ({
   __esModule: true,
   default: {

@@ -40,6 +40,8 @@ export interface Field {
   hiddenRepeater?: boolean;
   /** for πer and repeater groups, a singular item name for more descriptive buttons and legends  */
   itemName?: string;
+  /** for textareas only*/
+  rows?: number;
   /** for file fields only */
   // multiple?: boolean
   /**for date inputs that are not allowed to be set in the future */

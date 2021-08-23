@@ -4,7 +4,6 @@ import ErrorMessage from 'components/ErrorMessage/ErrorMessage';
 import { useWarningNote } from 'utils/api/warningNotes';
 import { formStepsAdult, formStepsChild } from 'data/forms/warning-note';
 import { Resident } from 'types';
-import SummaryList from '../../Summary/SummaryList';
 import {
   reviewFormStepsAdult,
   reviewFormStepsChild,
