@@ -7,7 +7,7 @@ import st from 'components/Tabs/Tabs.module.scss';
 import Tab from './Tab';
 import SearchBox from './SearchBox';
 import useSearch from 'hooks/useSearch';
-import { mapFormIdToForm } from 'data/flexibleForms/mapFormIdToForm';
+import { mapFormIdToFormDefinition } from 'data/flexibleForms/mapFormIdsToFormDefinition';
 
 interface Props {
   submissions: InProgressSubmission[];
@@ -27,7 +27,7 @@ export const SubmissionsTable = ({
         // augment each one with its form
         .map((submission) => ({
           ...submission,
-          form: mapFormIdToForm[submission.formId],
+          form: mapFormIdToFormDefinition[submission.formId].form,
         }))
         .filter((submission) => {
           // hide any restricted records unless the user has permission to see them

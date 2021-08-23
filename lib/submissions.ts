@@ -7,7 +7,7 @@ import {
 } from 'data/flexibleForms/forms.types';
 import { Resident, AgeContext } from 'types';
 import parse from 'date-fns/parse';
-import { mapFormIdToForm } from 'data/flexibleForms/mapFormIdToForm';
+import { mapFormIdToFormDefinition } from 'data/flexibleForms/mapFormIdsToFormDefinition';
 
 type RawSubmission = Omit<Submission, 'formAnswers'> & {
   formAnswers: {
@@ -270,7 +270,7 @@ export const generateSubmissionUrl = (
   submission: Submission | InProgressSubmission,
   socialCareId?: number
 ): string => {
-  const form = mapFormIdToForm[submission.formId];
+  const form = mapFormIdToFormDefinition[submission.formId].form;
   if (form?.canonicalUrl) {
     return `${form.canonicalUrl(
       // use the passed in social care id, or default to the first resident on the submission

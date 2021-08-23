@@ -3,7 +3,7 @@ import { NextApiRequest, NextApiResponse } from 'next';
 import StatusCodes from 'http-status-codes';
 import { startSubmission, getInProgressSubmissions } from 'lib/submissions';
 import { isAuthorised } from 'utils/auth';
-import { mapFormIdToForm } from 'data/flexibleForms/mapFormIdToForm';
+import { mapFormIdToFormDefinition } from 'data/flexibleForms/mapFormIdsToFormDefinition';
 
 const handler = async (
   req: NextApiRequest,
@@ -31,7 +31,7 @@ const handler = async (
           forms,
           submissions: submissions.map((sub) => ({
             ...sub,
-            form: mapFormIdToForm[sub.formId],
+            form: mapFormIdToFormDefinition[sub.formId].form,
           })),
         });
       } else {
