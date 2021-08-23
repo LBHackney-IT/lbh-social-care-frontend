@@ -319,11 +319,6 @@ export interface WarningNotes {
   notes: Array<WarningNote>;
 }
 
-export interface FormOption {
-  name: string;
-  description: string;
-}
-
 export interface FormValue {
   name: string;
   description: string;
