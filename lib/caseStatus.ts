@@ -17,7 +17,7 @@ export const getCaseStatusByPersonId = async (
 };
 
 export const GetFormValues = async (type: string): Promise<FormFields> => {
-  const { data }: { data: FormFields; error: Error } = await axios.get(
+  const { data }: { data: FormFields } = await axios.get(
     `${ENDPOINT_API}/case-status/form-options/${type}`,
     {
       headers,
