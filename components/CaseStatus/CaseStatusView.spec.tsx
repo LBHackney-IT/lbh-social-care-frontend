@@ -29,7 +29,6 @@ describe('CaseStatusView component', () => {
         caseStatuses: [
           mockedCaseStatusFactory.build({
             type: 'CIN',
-            subType: 'N1',
           }),
         ],
       }),
@@ -40,7 +39,7 @@ describe('CaseStatusView component', () => {
 
     const { queryByText } = render(<CaseStatusView person={person} />);
 
-    expect(queryByText('Child in need - N1')).toBeInTheDocument();
+    expect(queryByText('Child in need - N0')).toBeInTheDocument();
   });
 
   it("displays nothing if there's no case status", async () => {
