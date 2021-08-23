@@ -2,7 +2,7 @@ import { Factory } from 'fishery';
 import {
   CaseStatus,
   PersonCaseStatus,
-  FieldOption,
+  FormOption,
   CaseStatusFields,
 } from 'types';
 
@@ -30,7 +30,7 @@ const mockedStatusField = Factory.define<CaseStatusFields>(() => ({
   selectedOption: mockedFieldsFactory.build(),
 }));
 
-const mockedFieldsFactory = Factory.define<FieldOption>(() => ({
+const mockedFieldsFactory = Factory.define<FormOption>(() => ({
   name: 'N0',
   description: 'Not stated',
 }));

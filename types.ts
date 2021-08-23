@@ -324,7 +324,7 @@ export interface PersonCaseStatus {
   caseStatuses: Array<CaseStatus>;
 }
 
-export interface FieldOption {
+export interface FormOption {
   name: string;
   description: string;
 }
@@ -332,7 +332,7 @@ export interface FieldOption {
 export interface CaseStatusFields {
   name: string;
   description: string;
-  selectedOption: FieldOption;
+  selectedOption: FormOption;
 }
 
 export interface CaseStatus {
