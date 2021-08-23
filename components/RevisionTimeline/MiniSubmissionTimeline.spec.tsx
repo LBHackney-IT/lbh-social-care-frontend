@@ -3,6 +3,7 @@ import { Revision, Submission } from 'data/flexibleForms/forms.types';
 import {
   mockInProgressSubmission,
   mockSubmission,
+  mockSubmissionFactory,
 } from 'factories/submissions';
 import { mockedWorker } from 'factories/workers';
 import MiniRevisionTimeline from './MiniRevisionTimeline';
@@ -40,11 +41,7 @@ describe('MiniRevisionTimeline', () => {
   });
 
   it('only shows up to three events', async () => {
-    const mockSubmissionClone = JSON.parse(
-      JSON.stringify(mockSubmission)
-    ) as Submission;
-
-    const appendedEdits: Revision[] = [
+    const edits: Revision[] = [
       {
         worker: mockedWorker,
         editTime: '2021-06-21T12:00:00.000Z',
@@ -62,11 +59,15 @@ describe('MiniRevisionTimeline', () => {
         editTime: '2021-06-21T12:00:00.000Z',
       },
     ];
-    mockSubmissionClone.editHistory.push(...appendedEdits);
+
+    const mockSubmission = {
+      ...mockSubmissionFactory.build(),
+      editHistory: edits,
+    };
 
     jest.spyOn(submissionHooks, 'useSubmission').mockImplementation(() => {
       const response = {
-        data: mockSubmissionClone,
+        data: mockSubmission,
         error: undefined,
         isValidating: false,
       } as SWRResponse<Submission, ErrorAPI>;
