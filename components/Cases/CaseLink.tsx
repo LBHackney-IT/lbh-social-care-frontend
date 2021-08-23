@@ -1,4 +1,4 @@
-import { mapIdToType } from 'data/flexibleForms/mapFormIdsToDisplayName';
+import { mapFormIdToFormDefinition } from 'data/flexibleForms/mapFormIdsToFormDefinition';
 import Link from 'next/link';
 import { CaseFormData } from 'types';
 import { generateInternalLink } from 'utils/urls';
@@ -22,7 +22,7 @@ const CaseLink = ({
   formType,
 }: Props): React.ReactElement | null => {
   if (formType === 'flexible-form') {
-    const name = mapIdToType[formName];
+    const name = mapFormIdToFormDefinition[formName].displayName;
 
     return (
       <Link href={`/people/${personId}/submissions/${recordId}`}>
