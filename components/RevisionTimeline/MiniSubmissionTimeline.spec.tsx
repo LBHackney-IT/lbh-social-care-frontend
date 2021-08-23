@@ -60,10 +60,7 @@ describe('MiniRevisionTimeline', () => {
       },
     ];
 
-    const mockSubmission = {
-      ...mockSubmissionFactory.build(),
-      editHistory: edits,
-    };
+    const mockSubmission = mockSubmissionFactory.build({ editHistory: edits });
 
     jest.spyOn(submissionHooks, 'useSubmission').mockImplementation(() => {
       const response = {
