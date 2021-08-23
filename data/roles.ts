@@ -159,6 +159,7 @@ export const CSFRoles = [
   'Senior Researcher',
   'Senior Youth Justice Practitioner',
   'Senior Youth Support and Development Worker',
+  'Service Manager',
   'Social Worker (ASC)',
   'Social Worker (CFS)',
   'Student Social Worker',
