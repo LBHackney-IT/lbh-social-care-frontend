@@ -324,11 +324,22 @@ export interface PersonCaseStatus {
   caseStatuses: Array<CaseStatus>;
 }
 
+export interface FieldOption {
+  name: string;
+  description: string;
+}
+
+export interface CaseStatusFields {
+  name: string;
+  description: string;
+  selectedOption: FieldOption;
+}
+
 export interface CaseStatus {
   id: number;
   type: string;
-  subType: string;
-  StartDate: string;
-  EndDate: string;
-  Notes: string;
+  fields: Array<CaseStatusFields>;
+  startDate: string;
+  endDate: string;
+  notes: string;
 }

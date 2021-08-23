@@ -1,5 +1,10 @@
 import { Factory } from 'fishery';
-import { CaseStatus, PersonCaseStatus } from 'types';
+import {
+  CaseStatus,
+  PersonCaseStatus,
+  FieldOption,
+  CaseStatusFields,
+} from 'types';
 
 export const mockedPersonCaseStatusFactory = Factory.define<PersonCaseStatus>(
   ({ sequence }) => ({
@@ -12,9 +17,20 @@ export const mockedCaseStatusFactory = Factory.define<CaseStatus>(
   ({ sequence }) => ({
     id: sequence,
     type: 'foo',
-    subType: 'bar',
-    StartDate: '2021-1-1',
-    EndDate: '2021-1-1',
-    Notes: 'a lot to note',
+    fields: [mockedStatusField.build()],
+    startDate: '2021-1-1',
+    endDate: '2021-1-1',
+    notes: 'a lot to note',
   })
 );
+
+const mockedStatusField = Factory.define<CaseStatusFields>(() => ({
+  name: 'placementReason',
+  description: 'What is the primary reason for placement? (Primary need code)',
+  selectedOption: mockedFieldsFactory.build(),
+}));
+
+const mockedFieldsFactory = Factory.define<FieldOption>(() => ({
+  name: 'N0',
+  description: 'Not stated',
+}));

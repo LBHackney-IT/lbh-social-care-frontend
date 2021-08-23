@@ -29,7 +29,7 @@ const CaseStatusView = ({ person }: Props): React.ReactElement => {
               key={status.id}
             >
               {getTypeString(status.type as keyof typeof valueMapping)} -{' '}
-              {status.subType}
+              {status.fields.map((val) => val.selectedOption.name)}
             </span>
           ))}
         </section>
