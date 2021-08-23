@@ -1,10 +1,10 @@
 import { fireEvent, render, screen } from '@testing-library/react';
-import { mockSubmission } from 'factories/submissions';
+import { mockInProgressSubmission } from 'factories/submissions';
 import SubmissionPanel from './SubmissionPanel';
 
 describe('SubmissionPanel', () => {
   it('renders the right basic information and controls', () => {
-    render(<SubmissionPanel submission={mockSubmission} />);
+    render(<SubmissionPanel submission={mockInProgressSubmission} />);
     expect(screen.queryAllByText('Started').length).toBe(0);
     expect(screen.queryAllByText('Progress').length).toBe(0);
     expect(screen.getByText('Details'));
@@ -13,7 +13,7 @@ describe('SubmissionPanel', () => {
   });
 
   it('can launch and close the dialog', () => {
-    render(<SubmissionPanel submission={mockSubmission} />);
+    render(<SubmissionPanel submission={mockInProgressSubmission} />);
     fireEvent.click(screen.getByText('Details'));
     expect(screen.getByText('Unknown form details'));
     expect(screen.getByRole('dialog'));

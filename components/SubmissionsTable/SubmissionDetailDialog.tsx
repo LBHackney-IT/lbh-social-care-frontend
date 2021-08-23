@@ -1,13 +1,13 @@
 import DiscardDialog from './DiscardDialog';
 import MiniRevisionTimeline from 'components/RevisionTimeline/MiniRevisionTimeline';
 import Dialog from 'components/Dialog/Dialog';
-import { Form, Submission } from 'data/flexibleForms/forms.types';
+import { Form, InProgressSubmission } from 'data/flexibleForms/forms.types';
 import { format } from 'date-fns';
 import Link from 'next/link';
 import s from './index.module.scss';
 
 interface Props {
-  submission: Submission;
+  submission: InProgressSubmission;
   isOpen: boolean;
   onDismiss: () => void;
   form?: Form;
@@ -27,9 +27,6 @@ const SubmissionDetailDialog = ({
   completion,
   url,
 }: Props): React.ReactElement => {
-  const lastEdited =
-    submission.editHistory[submission.editHistory.length - 1]?.editTime;
-
   const editors = submission.workers.map((worker) => worker.email);
 
   return (
@@ -84,7 +81,7 @@ const SubmissionDetailDialog = ({
         <div className="govuk-summary-list__row">
           <dt className="govuk-summary-list__key">Last edited</dt>
           <dd className="govuk-summary-list__value">
-            {format(new Date(lastEdited), 'd MMM yyyy K.mm aaa')}
+            {format(new Date(submission.lastEdited), 'd MMM yyyy K.mm aaa')}
           </dd>
         </div>
 
@@ -104,7 +101,7 @@ const SubmissionDetailDialog = ({
         <div className="govuk-summary-list__row govuk-summary-list__row--no-border">
           <dt className="govuk-summary-list__key">Recent revisions</dt>
           <dd className="govuk-summary-list__value">
-            <MiniRevisionTimeline submission={submission} />
+            <MiniRevisionTimeline inProgressSubmission={submission} />
           </dd>
         </div>
       </dl>
