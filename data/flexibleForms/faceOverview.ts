@@ -1,7 +1,7 @@
 import { Form } from './forms.types';
 
 const form: Form = {
-  id: 'FACE overview assessment',
+  id: 'face-overview-assessment',
   name: 'FACE overview assessment',
   isViewableByAdults: false,
   isViewableByChildrens: false,

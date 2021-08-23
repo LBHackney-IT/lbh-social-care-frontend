@@ -2,6 +2,7 @@ import PanelApprovalWidget from './PanelApprovalWidget';
 import { render, screen } from '@testing-library/react';
 import { mockSubmission } from 'factories/submissions';
 import { mockedUser } from 'factories/users';
+import { SubmissionState } from 'data/flexibleForms/forms.types';
 
 jest.mock('axios');
 
@@ -24,7 +25,7 @@ describe('PanelApprovalWidget', () => {
         }}
         submission={{
           ...mockSubmission,
-          submissionState: 'Approved',
+          submissionState: SubmissionState.Approved,
         }}
       />
     );
@@ -41,7 +42,7 @@ describe('PanelApprovalWidget', () => {
         user={mockedUser}
         submission={{
           ...mockSubmission,
-          submissionState: 'Approved',
+          submissionState: SubmissionState.Approved,
         }}
       />
     );

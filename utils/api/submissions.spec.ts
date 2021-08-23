@@ -1,4 +1,4 @@
-import { useUnfinishedSubmissions } from './submissions';
+import { useSubmission, useUnfinishedSubmissions } from './submissions';
 import * as SWR from 'swr';
 import { mockSubmission } from 'factories/submissions';
 import { mockedResident } from 'factories/residents';
@@ -35,6 +35,14 @@ describe('submissions APIs', () => {
       );
       const result = useUnfinishedSubmissions(1);
       expect(result.data?.submissions.length).toBe(1);
+    });
+  });
+
+  describe('useSubmission', () => {
+    it('should call swr', () => {
+      jest.spyOn(SWR, 'default');
+      useSubmission('foo');
+      expect(SWR.default).toHaveBeenLastCalledWith('/api/submissions/foo');
     });
   });
 });

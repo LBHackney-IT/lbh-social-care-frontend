@@ -15,3 +15,13 @@ export default [
   sgAdultConcern,
   sgAdultManagerDecisionConcern,
 ];
+
+export const formAsObjects = {
+  foo,
+  review3c,
+  adultCaseNote,
+  childCaseNote,
+  faceOverview,
+  sgAdultConcern,
+  sgAdultManagerDecisionConcern,
+};
