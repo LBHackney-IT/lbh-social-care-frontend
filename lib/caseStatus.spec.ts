@@ -1,6 +1,9 @@
 import axios from 'axios';
 import * as caseStatusAPI from './caseStatus';
-import { mockedCaseStatusFactory, mockedFormValue } from 'factories/caseStatus';
+import {
+  mockedCaseStatusFactory,
+  mockedFormValueFactory,
+} from 'factories/caseStatus';
 
 const ENDPOINT_API = process.env.ENDPOINT_API;
 const AWS_KEY = process.env.AWS_KEY;
@@ -33,8 +36,10 @@ describe('case status APIs', () => {
 describe('case form values APIs', () => {
   describe('GetFormValues', () => {
     it("calls the service API's form values endpoint", async () => {
+      const mockedData = mockedFormValueFactory.build();
+
       mockedAxios.get.mockResolvedValue({
-        data: mockedFormValue,
+        data: mockedData,
       });
 
       const data = await caseStatusAPI.GetFormValues('CIN');
@@ -47,7 +52,7 @@ describe('case form values APIs', () => {
         'x-api-key': AWS_KEY,
       });
 
-      expect(data).toEqual(mockedFormValue);
+      expect(data).toEqual(mockedData);
     });
   });
 });
