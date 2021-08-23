@@ -41,8 +41,7 @@ describe('case form values APIs', () => {
 
       expect(mockedAxios.get).toHaveBeenCalled();
       expect(mockedAxios.get.mock.calls[0][0]).toEqual(
-        // `${ENDPOINT_API}/case-status/form-options/CIN`
-        `https://virtserver.swaggerhub.com/Hackney/social-care-case-viewer-api/1.0.0/case-status/form-options/CIN`
+        `${ENDPOINT_API}/case-status/form-options/CIN`
       );
       expect(mockedAxios.get.mock.calls[0][1]?.headers).toEqual({
         'x-api-key': AWS_KEY,
