@@ -8,7 +8,7 @@ interface SubProps {
 }
 
 const Sub = ({ sub }: SubProps): React.ReactElement => {
-  const completedSteps = Object.keys(sub.formAnswers).length;
+  const completedSteps = sub.completedSteps;
   const totalSteps = sub.form?.steps?.length;
 
   return (

@@ -90,6 +90,7 @@ const AddRelationshipForm: React.FC<{
         {() => (
           <FormWizard
             formPath={`/people/${personId}/relationships/add/${secondPersonId}/`}
+            stepPath={`/people/[id]/relationships/add/[secondPersonId]/[[...stepId]]`}
             formSteps={formSteps(sortedRelationshipTypeOptions, secondPerson)}
             title="Add new relationship"
             onFormSubmit={onFormSubmit}

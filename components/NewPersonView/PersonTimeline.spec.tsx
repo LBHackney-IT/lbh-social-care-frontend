@@ -89,21 +89,4 @@ describe('PersonTimeline', () => {
     expect(screen.getByText('Unfinished submissions'));
     expect(screen.getAllByRole('listitem').length).toBe(6);
   });
-
-  it('allows events to be searched', () => {
-    render(
-      <PersonTimeline
-        setSize={jest.fn()}
-        onLastPage={false}
-        size={1}
-        events={mockEvents}
-      />
-    );
-    fireEvent.change(
-      screen.getByLabelText('Search for matching events and records'),
-      { target: { value: 'Warning' } }
-    );
-    expect(screen.getByText('Showing 1 event', { exact: false }));
-    expect(screen.getAllByRole('listitem').length).toBe(1);
-  });
 });

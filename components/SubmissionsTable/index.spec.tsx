@@ -1,9 +1,8 @@
-import { fireEvent, render, screen, waitFor } from '@testing-library/react';
+import { fireEvent, render, screen } from '@testing-library/react';
 import { mockSubmission } from 'factories/submissions';
 import SubmissionsTable from './index';
 import { useAuth } from 'components/UserContext/UserContext';
 import { mockedResident } from 'factories/residents';
-import { Form } from 'data/flexibleForms/forms.types';
 
 jest.mock('components/UserContext/UserContext');
 

@@ -35,6 +35,7 @@ const CreateNewPerson = (): React.ReactElement => {
   return (
     <FormWizard
       formPath="/people/add/"
+      stepPath="/people/add/[[...stepId]]"
       formSteps={formSteps}
       title="Add New Person"
       onFormSubmit={onFormSubmit}

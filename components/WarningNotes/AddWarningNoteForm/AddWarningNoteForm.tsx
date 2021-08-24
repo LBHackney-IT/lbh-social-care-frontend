@@ -38,6 +38,7 @@ export const AddWarningNoteForm: React.FC<{ personId: number }> = ({
       {(person) => (
         <FormWizard
           formPath={`/people/${personId}/warning-notes/add/`}
+          stepPath={`/people/[id]/warning-notes/add/[[...stepId]]`}
           formSteps={
             person.contextFlag === 'A' ? formStepsAdult : formStepsChild
           }
