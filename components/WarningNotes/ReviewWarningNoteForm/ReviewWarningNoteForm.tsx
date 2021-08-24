@@ -90,6 +90,7 @@ export const ReviewWarningNoteForm: React.FC<{
 
             <FormWizard
               formPath={`/people/${personId}/warning-notes/${warningNoteId}/`}
+              stepPath={`/people/[id]/warning-notes/[warningNoteId]/[[...stepId]]`}
               formSteps={
                 person.contextFlag === 'A'
                   ? reviewFormStepsAdult

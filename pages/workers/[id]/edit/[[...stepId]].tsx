@@ -47,6 +47,7 @@ const UpdateWorker = (): React.ReactElement => {
   return (
     <FormWizard
       formPath={`/workers/${workerId}/edit/`}
+      stepPath="/workers/[id]/edit/[[...stepId]]"
       formSteps={formSteps}
       title="Update Worker"
       onFormSubmit={onFormSubmit}
