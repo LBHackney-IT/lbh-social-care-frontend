@@ -2,7 +2,6 @@ import * as Yup from 'yup';
 import { Answer, Field } from 'data/flexibleForms/forms.types';
 import { ObjectShape, OptionalObjectSchema, TypeOfShape } from 'yup/lib/object';
 import { getTotalHours } from './utils';
-import { format } from 'date-fns';
 
 export const startSchema = Yup.object().shape({
   socialCareId: Yup.number()
@@ -104,37 +103,29 @@ export const generateFlexibleSchema = (
       shape[field.id] = Yup.object();
     } else if (field.type === 'datetime' && field.isfutureDateValid === false) {
       //for those cases that don't allow dates in the future
-      shape[field.id] = Yup.array().of(
-        Yup.string().test(
-          'Validate date is present or past',
-          'Date cannot be in the future',
-          (dateValue) => {
-            if (!dateValue) return false;
 
-            const dateRegex = /[0-9]{4}-[0-9]{2}-[0-9]{2}/;
-            const timeRegex = /[0-9]{2}:[0-9]{2}/;
+      shape[field.id] = Yup.array().test(
+        'Validate date is present or past',
+        'Date cannot be in the future',
+        (dateValue) => {
+          if (dateValue?.length !== 2) return false;
 
-            if (dateRegex.test(dateValue)) {
-              const inputDate = new Date(dateValue);
+          const dateTimeFromForm: [string, string] = Array.from(dateValue) as [
+            string,
+            string
+          ];
 
-              return inputDate <= new Date();
-            }
+          const dateTimeToValidate = new Date(dateTimeFromForm[0]);
+          const timeFromForm = dateTimeFromForm[1];
 
-            if (timeRegex.test(dateValue)) {
-              const dateWithInputTime = new Date();
+          const hours = Number(timeFromForm.slice(0, 2));
+          const minutes = Number(timeFromForm.slice(3, 5));
 
-              const hours = Number(dateValue.slice(0, 2));
-              const minutes = Number(dateValue.slice(3, 5));
+          dateTimeToValidate.setHours(hours);
+          dateTimeToValidate.setMinutes(minutes);
 
-              dateWithInputTime.setHours(hours);
-              dateWithInputTime.setMinutes(minutes);
-
-              return dateWithInputTime <= new Date();
-            }
-
-            return false;
-          }
-        )
+          return dateTimeToValidate <= new Date(Date.now());
+        }
       );
     } else if (
       field.type === 'checkboxes' ||

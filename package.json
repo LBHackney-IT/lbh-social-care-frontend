@@ -1,6 +1,6 @@
 {
   "name": "lbh-social-care",
-  "version": "0.17.2",
+  "version": "0.18.0",
   "private": true,
   "scripts": {
     "dev": "next dev",
@@ -17,7 +17,8 @@
     "cy:open": "cypress open",
     "build-storybook": "build-storybook",
     "release": "release-it",
-    "delete-draft-github-releases": "node ./ci-scripts/delete-draft-github-releases.js"
+    "delete-draft-github-releases": "node ./ci-scripts/delete-draft-github-releases.js",
+    "validate-pr-title": "node ./ci-scripts/validate-pr-title.js"
   },
   "dependencies": {
     "@reach/dialog": "^0.15.0",

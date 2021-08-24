@@ -41,6 +41,14 @@ jobs:
           root: *workspace_root
           paths: .
 
+  validate-pr-title:
+    executor: node-executor
+    steps:
+      - *attach_workspace
+      - run:
+          name: Run PR title validator
+          command: yarn validate-pr-title
+
   unit-tests:
     executor: node-executor
     steps:
@@ -104,12 +112,12 @@ jobs:
           # 3: Any other failure
           # Link to above:https://github.com/zaproxy/zaproxy/blob/main/docker/zap-baseline.py#L31-L35
           command: |
-              (
-                docker run -t owasp/zap2docker-stable zap-baseline.py \
-                -u https://raw.githubusercontent.com/${CIRCLE_PROJECT_USERNAME}/${CIRCLE_PROJECT_REPONAME}/${CIRCLE_BRANCH}/zap-baseline.conf \
-                -t http://$(ip -f inet -o addr show docker0 | awk '{print $4}' | cut -d '/' -f 1):3000 || \
-                if [[ $? == 0 || $? == 2 ]]; then exit 0; else exit 1; fi;
-              )
+            (
+              docker run -t owasp/zap2docker-stable zap-baseline.py \
+              -u https://raw.githubusercontent.com/${CIRCLE_PROJECT_USERNAME}/${CIRCLE_PROJECT_REPONAME}/${CIRCLE_BRANCH}/zap-baseline.conf \
+              -t http://$(ip -f inet -o addr show docker0 | awk '{print $4}' | cut -d '/' -f 1):3000 || \
+              if [[ $? == 0 || $? == 2 ]]; then exit 0; else exit 1; fi;
+            )
 
   build-deploy-staging:
     executor: aws-cli/default
@@ -207,6 +215,13 @@ workflows:
       - unit-tests:
           requires:
             - install-dependencies
+      - validate-pr-title:
+          requires:
+            - install-dependencies
+          filters:
+            branches:
+              ignore:
+                - main
       - build:
           requires:
             - unit-tests

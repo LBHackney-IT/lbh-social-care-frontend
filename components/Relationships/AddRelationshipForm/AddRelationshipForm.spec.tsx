@@ -8,15 +8,15 @@ import {
   mockedExistingRelationship,
 } from 'factories/relationships';
 import AddRelationshipForm from './AddRelationshipForm';
-import PersonView from '../../../../PersonView/PersonView';
-import { AuthProvider } from '../../../../UserContext/UserContext';
-import { mockedUser } from '../../../../../factories/users';
-import { createMockedPersonView } from '../../../../../test/helpers';
+import PersonView from '../../PersonView/PersonView';
+import { AuthProvider } from '../../UserContext/UserContext';
+import { mockedUser } from '../../../factories/users';
+import { createMockedPersonView } from '../../../test/helpers';
 import * as relationshipsAPI from 'utils/api/relationships';
 import * as residentsAPI from 'utils/api/residents';
 import { mockedAPIservererror } from 'factories/APIerrors';
 
-jest.mock('../../../../PersonView/PersonView');
+jest.mock('../../PersonView/PersonView');
 jest.mock('next/router', () => ({
   __esModule: true,
   default: {

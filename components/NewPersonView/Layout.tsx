@@ -7,7 +7,7 @@ import s from './index.module.scss';
 import { useRelationships } from 'utils/api/relationships';
 import { useAllocatedWorkers } from 'utils/api/allocatedWorkers';
 import React from 'react';
-import WarningNotes from 'components/WarningNote/WarningNotes';
+import WarningNotes from 'components/WarningNotes/WarningNotes';
 import { useAuth } from 'components/UserContext/UserContext';
 import { canManageCases } from 'lib/permissions';
 import AddFormDialog from 'components/AddFormDialog/AddFormDialog';

@@ -4,9 +4,9 @@ exports[`CaseLink component should render properly - with handled link for viewi
 <DocumentFragment>
   <a
     class="lbh-link"
-    href="/people/1/submissions/123"
+    href="/people/123/warning-notes/456/view/note-created"
   >
-    Sandbox form
+    View
   </a>
 </DocumentFragment>
 `;

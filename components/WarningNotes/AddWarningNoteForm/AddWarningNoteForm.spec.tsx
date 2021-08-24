@@ -11,15 +11,15 @@ import Router from 'next/router';
 
 import { residentFactory } from 'factories/residents';
 import { AddWarningNoteForm } from './AddWarningNoteForm';
-import PersonView from '../../../PersonView/PersonView';
-import { AuthProvider } from '../../../UserContext/UserContext';
-import { mockedUser } from '../../../../factories/users';
+import PersonView from '../../PersonView/PersonView';
+import { AuthProvider } from '../../UserContext/UserContext';
+import { mockedUser } from '../../../factories/users';
 import {
   createMockedPersonView,
   setDateFieldValue,
-} from '../../../../test/helpers';
+} from '../../../test/helpers';
 
-jest.mock('../../../PersonView/PersonView');
+jest.mock('../../PersonView/PersonView');
 jest.mock('next/router', () => ({
   __esModule: true,
   default: {
