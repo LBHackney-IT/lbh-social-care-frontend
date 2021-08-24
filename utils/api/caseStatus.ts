@@ -1,5 +1,8 @@
-<<<<<<< HEAD
 import axios from 'axios';
+
+import useSWR, { SWRResponse } from 'swr';
+
+import type { PersonCaseStatus, ErrorAPI } from 'types';
 
 interface addCaseStatusFormData {
   personId: number;
@@ -10,27 +13,15 @@ interface addCaseStatusFormData {
   notes: string;
 }
 
-export const getCaseStatus = async (
-  formData: addCaseStatusFormData
-): Promise<Record<string, unknown>> => {
-  const { data } = await axios.post(`/api/residents/`, formData);
-  return data;
-};
-
-export const addCaseStatus = async (
+export const AddCaseStatus = async (
   formData: addCaseStatusFormData
 ): Promise<Record<string, unknown>> => {
   const { data } = await axios.post(`/api/case-statuses`, formData);
 
   return data;
 };
-=======
-import useSWR, { SWRResponse } from 'swr';
-
-import type { PersonCaseStatus, ErrorAPI } from 'types';
 
 export const GetCaseStatus = (
   id: number
 ): SWRResponse<PersonCaseStatus, ErrorAPI> =>
   useSWR(`/api/residents/${id}/casestatus`);
->>>>>>> main
