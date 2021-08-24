@@ -28,4 +28,24 @@ describe('case status APIs', () => {
       expect(data).toEqual(caseStatus);
     });
   });
+
+  describe('addCaseStatus', () => {
+    it("calls the service API's case status endpoint", async () => {
+      const caseStatus = mockedCaseStatusFactory.build();
+      mockedAxios.get.mockResolvedValue({
+        data: caseStatus,
+      });
+
+      const data = await caseStatusAPI.addCaseStatus({});
+
+      expect(mockedAxios.get).toHaveBeenCalled();
+      expect(mockedAxios.get.mock.calls[0][0]).toEqual(
+        `https://virtserver.swaggerhub.com/Hackney/social-care-case-viewer-api/1.0.0/casestatuses`
+      );
+      expect(mockedAxios.get.mock.calls[0][1]?.headers).toEqual({
+        'x-api-key': AWS_KEY,
+      });
+      expect(data).toEqual(caseStatus);
+    });
+  });
 });
