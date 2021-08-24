@@ -13,6 +13,7 @@ import { getFormData, saveData } from 'utils/saveData';
 
 const FormWizard = ({
   formPath,
+  stepPath = `${formPath}[...stepId]`,
   formSteps,
   stepHeader,
   successMessage,
@@ -45,7 +46,6 @@ const FormWizard = ({
     summary: customSummary,
   });
 
-  const stepPath = `${formPath}[step]`;
   const step =
     steps.find(
       ({ id }) => id === (Array.isArray(stepId) ? stepId[0] : stepId)
@@ -155,6 +155,7 @@ const FormWizard = ({
 
 FormWizard.propTypes = {
   formPath: PropTypes.string.isRequired,
+  stepPath: PropTypes.string,
   formSteps: PropTypes.arrayOf(
     PropTypes.shape({
       id: PropTypes.string.isRequired,
