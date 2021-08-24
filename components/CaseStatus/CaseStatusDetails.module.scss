@@ -1,0 +1,36 @@
+@import 'node_modules/govuk-frontend/govuk/base';
+
+.container {
+  margin: 0;
+}
+
+.govuk-error-summary {
+  border: 1px solid #672146;
+  border-top-width: 10px;
+  background-color: #f8ecea;
+}
+
+.casenote {
+  margin-bottom: 2rem;
+  @include govuk-media-query($from: tablet) {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+  }
+}
+
+.casenoteDetails {
+  display: grid;
+  grid-template-columns: 14rem 1fr;
+  grid-row-gap: 0.5rem;
+  margin-bottom: 1rem;
+
+  dt {
+    font-weight: bold;
+  }
+
+  dd,
+  dt {
+    margin-top: 0;
+  }
+}
