@@ -30,7 +30,6 @@ export const useUnfinishedSubmissions = (
   const res: SWRResponse<InProgressSubmission[], ErrorAPI> = useSWR(
     `/api/submissions${personIdQuery}`
   );
-  console.log('🚀 ~ file: submissions.ts ~ line 35 ~ res', res.data?.length);
 
   return res;
 };

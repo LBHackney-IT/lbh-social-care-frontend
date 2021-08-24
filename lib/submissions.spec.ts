@@ -52,6 +52,14 @@ describe('getInProgressSubmissions', () => {
       { headers: { 'x-api-key': AWS_KEY } }
     );
   });
+
+  it('only queries for submissions using the requested worker email', async () => {
+    await getInProgressSubmissions(undefined, undefined, 'foo@bar.com');
+    expect(mockedAxios.get).toHaveBeenCalledWith(
+      `${ENDPOINT_API}/submissions?submissionStates=in_progress&page=1&size=1000&workerEmail=foo@bar.com`,
+      { headers: { 'x-api-key': AWS_KEY } }
+    );
+  });
 });
 
 describe('startSubmission', () => {
