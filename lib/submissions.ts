@@ -5,7 +5,7 @@ import {
   FlexibleAnswers,
   InProgressSubmission,
 } from 'data/flexibleForms/forms.types';
-import { Resident, AgeContext } from 'types';
+import { AgeContext } from 'types';
 import parse from 'date-fns/parse';
 import { mapFormIdToFormDefinition } from 'data/flexibleForms/mapFormIdsToFormDefinition';
 
@@ -26,19 +26,17 @@ const headersWithKey = {
 export const getInProgressSubmissions = async (
   ageContext?: AgeContext
 ): Promise<InProgressSubmission[]> => {
+  const ageContextQuery =
+    ageContext !== undefined ? `&ageContext=${ageContext}` : '';
+
   const { data } = await axios.get<InProgressSubmission[]>(
-    `${ENDPOINT_API}/submissions?submissionStates=in_progress&page=1&size=1000`,
+    `${ENDPOINT_API}/submissions?submissionStates=in_progress&page=1&size=1000${ageContextQuery}`,
     {
       headers: headersWithKey,
     }
   );
-  return ageContext
-    ? data.filter((submission) =>
-        submission.residents.some(
-          (resident: Resident) => resident.ageContext === ageContext
-        )
-      )
-    : data;
+
+  return data;
 };
 
 /** create a new submission for the given form, resident and worker  */
