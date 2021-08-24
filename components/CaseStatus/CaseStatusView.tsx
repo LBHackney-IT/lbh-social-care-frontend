@@ -24,7 +24,7 @@ const CaseStatusView = ({ person }: Props): React.ReactElement => {
       {groupByType(caseStatusData.caseStatuses, (data: any) => data.type).map(
         (status) => (
           <span
-            className="govuk-tag lbh-tag govuk-!-margin-right-1 govuk-!-margin-top-2"
+            className="govuk-tag lbh-tag lbh-tag--yellow govuk-!-margin-right-1 govuk-!-margin-top-2"
             key={status}
           >
             {getTypeString(status as keyof typeof valueMapping)}
