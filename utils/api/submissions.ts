@@ -25,11 +25,12 @@ export const useSubmission = (
 export const useUnfinishedSubmissions = (
   socialCareId: number
 ): SWRResponse<InProgressSubmission[], ErrorAPI> => {
-  const personIdQuery = `?personId=${socialCareId}`;
+  const personIdQuery = `?personID=${socialCareId}`;
 
   const res: SWRResponse<InProgressSubmission[], ErrorAPI> = useSWR(
     `/api/submissions${personIdQuery}`
   );
+  console.log('🚀 ~ file: submissions.ts ~ line 35 ~ res', res.data?.length);
 
   return res;
 };

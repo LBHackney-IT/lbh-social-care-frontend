@@ -24,13 +24,16 @@ const headersWithKey = {
 
 /** get a list of all unfinished submissions in the current social care service context  */
 export const getInProgressSubmissions = async (
-  ageContext?: AgeContext
+  ageContext?: AgeContext,
+  personID?: number
 ): Promise<InProgressSubmission[]> => {
   const ageContextQuery =
     ageContext !== undefined ? `&ageContext=${ageContext}` : '';
 
+  const personIdQuery = `&personID=${personID}`;
+
   const { data } = await axios.get<InProgressSubmission[]>(
-    `${ENDPOINT_API}/submissions?submissionStates=in_progress&page=1&size=1000${ageContextQuery}`,
+    `${ENDPOINT_API}/submissions?submissionStates=in_progress&page=1&size=1000${ageContextQuery}${personIdQuery}`,
     {
       headers: headersWithKey,
     }
