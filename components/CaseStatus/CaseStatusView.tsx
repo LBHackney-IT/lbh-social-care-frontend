@@ -27,7 +27,7 @@ const CaseStatusView = ({ person }: Props): React.ReactElement => {
             className="govuk-tag lbh-tag govuk-!-margin-right-1 govuk-!-margin-top-2"
             key={status}
           >
-            {getTypeString(status)}
+            {getTypeString(status as keyof typeof valueMapping)}
           </span>
         )
       )}
@@ -36,7 +36,7 @@ const CaseStatusView = ({ person }: Props): React.ReactElement => {
 };
 
 function groupByType(list: any, keyGetter: any) {
-  const map = [];
+  const map = new Array<string>();
   list.forEach((item: any) => {
     const key = keyGetter(item);
     const collection = map.find((elm) => elm === key);
