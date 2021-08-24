@@ -2,8 +2,6 @@ import ErrorMessage from 'components/ErrorMessage/ErrorMessage';
 import { GetCaseStatus } from 'utils/api/caseStatus';
 import { Resident } from 'types';
 import styles from './CaseStatusDetails.module.scss';
-import cx from 'classnames';
-
 interface Props {
   person: Resident;
 }
@@ -23,18 +21,10 @@ const CaseStatusDetails = ({ person }: Props): React.ReactElement => {
 
   return (
     <>
-      <div
-        className={cx(
-          'govuk-error-summary govuk-!-margin-bottom-8',
-          styles.container
-        )}
-        aria-labelledby="case-note-title"
-        role="complementary"
-        tabIndex={-1}
-      >
+      <div className={styles.container}>
         {caseStatusData.caseStatuses.map((status) => (
-          <div key={status.id} className={styles.container}>
-            <div className={styles.casenote}>
+          <div key={status.id} className={styles.caseStatusDesign}>
+            <div className={styles.casenoteDetails}>
               <dl>
                 {status.notes && (
                   <>
