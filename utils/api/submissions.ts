@@ -4,7 +4,7 @@ import {
   Submission,
 } from 'data/flexibleForms/forms.types';
 import useSWR, { SWRResponse } from 'swr';
-import type { ErrorAPI } from 'types';
+import type { ErrorAPI, Paginated } from 'types';
 
 export type Data = {
   forms: Form[];
@@ -24,10 +24,10 @@ export const useSubmission = (
 /** fetch unfinished submissions in the user's current service context, either for everyone, or by social care id */
 export const useUnfinishedSubmissions = (
   socialCareId: number
-): SWRResponse<InProgressSubmission[], ErrorAPI> => {
+): SWRResponse<Paginated<InProgressSubmission>, ErrorAPI> => {
   const personIdQuery = `?personID=${socialCareId}`;
 
-  const res: SWRResponse<InProgressSubmission[], ErrorAPI> = useSWR(
+  const res: SWRResponse<Paginated<InProgressSubmission>, ErrorAPI> = useSWR(
     `/api/submissions${personIdQuery}`
   );
 

@@ -6,9 +6,10 @@ import { getInProgressSubmissions } from 'lib/submissions';
 import { InProgressSubmission } from 'data/flexibleForms/forms.types';
 import SubmissionsTable from 'components/SubmissionsTable';
 import { isAuthorised } from 'utils/auth';
+import { Paginated } from 'types';
 
 interface Props {
-  submissions: InProgressSubmission[];
+  submissions: Paginated<InProgressSubmission>;
 }
 
 const UnfinishedSubmissions = ({ submissions }: Props): React.ReactElement => (
