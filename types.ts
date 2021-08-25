@@ -347,7 +347,7 @@ export interface CaseStatusFields {
 
 export interface CaseStatus {
   id: number;
-  type: string;
+  type: 'CIN' | 'CPP' | 'LAC';
   fields: Array<CaseStatusFields>;
   startDate: string;
   endDate: string;
