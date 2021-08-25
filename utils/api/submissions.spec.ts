@@ -9,7 +9,7 @@ describe('submissions APIs', () => {
       jest.spyOn(SWR, 'default');
       useUnfinishedSubmissions(1);
       expect(SWR.default).toHaveBeenLastCalledWith(
-        '/api/submissions?personID=1'
+        '/api/submissions?page=1&size=5&personID=1'
       );
     });
   });
