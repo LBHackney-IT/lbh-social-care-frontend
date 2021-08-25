@@ -319,6 +319,16 @@ export interface WarningNotes {
   notes: Array<WarningNote>;
 }
 
+export interface FormValue {
+  name: string;
+  description: string;
+  options: Array<FormOption>;
+}
+
+export interface FormFields {
+  fields: Array<FormValue>;
+}
+
 export interface PersonCaseStatus {
   personId: number;
   caseStatuses: Array<CaseStatus>;
