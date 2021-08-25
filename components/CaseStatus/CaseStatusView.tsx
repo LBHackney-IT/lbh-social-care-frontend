@@ -1,6 +1,6 @@
 import ErrorMessage from 'components/ErrorMessage/ErrorMessage';
 import { GetCaseStatus } from 'utils/api/caseStatus';
-import { Resident } from 'types';
+import { Resident, CaseStatus } from 'types';
 
 interface Props {
   person: Resident;
@@ -21,35 +21,24 @@ const CaseStatusView = ({ person }: Props): React.ReactElement => {
 
   return (
     <>
-      {groupByType(caseStatusData.caseStatuses, (data: any) => data.type).map(
-        (status) => (
-          <span
-            className="govuk-tag lbh-tag lbh-tag--yellow govuk-!-margin-right-1 govuk-!-margin-top-2"
-            key={status}
-          >
-            {getTypeString(status as keyof typeof valueMapping)}
-          </span>
-        )
-      )}
+      {groupByType(caseStatusData.caseStatuses).map((status) => (
+        <span
+          className="govuk-tag lbh-tag lbh-tag--yellow govuk-!-margin-right-1 govuk-!-margin-top-2"
+          key={status}
+        >
+          {valueMapping[status]}
+        </span>
+      ))}
     </>
   );
 };
 
-function groupByType(list: any, keyGetter: any) {
-  const map = new Array<string>();
-  list.forEach((item: any) => {
-    const key = keyGetter(item);
-    const collection = map.find((elm) => elm === key);
-    if (!collection) {
-      map.push(key);
-    }
-  });
-  return map;
+function groupByType(
+  allCasesStatues: CaseStatus[]
+): (keyof typeof valueMapping)[] {
+  return Array.from(new Set(allCasesStatues.map((el) => el.type)));
 }
 
-const getTypeString = (type: keyof typeof valueMapping): any => {
-  return valueMapping[type];
-};
 const valueMapping = {
   CIN: 'Child in need',
   CPP: 'Child protection services',
