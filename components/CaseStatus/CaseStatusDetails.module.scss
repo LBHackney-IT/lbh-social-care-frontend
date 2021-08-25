@@ -10,16 +10,7 @@
   padding: 10px 20px 1px;
 }
 
-.casenote {
-  margin-bottom: 2rem;
-  @include govuk-media-query($from: tablet) {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-  }
-}
-
-.casenoteDetails {
+.caseStatusDetails {
   display: grid;
   grid-template-columns: 14rem 1fr;
   grid-row-gap: 0.5rem;
@@ -32,5 +23,14 @@
   dd,
   dt {
     margin-top: 0;
+  }
+}
+
+.casenote {
+  margin-bottom: 2rem;
+  @include govuk-media-query($from: tablet) {
+    display: inline-flex;
+    justify-content: space-between;
+    align-items: flex-start;
   }
 }
