@@ -28,7 +28,7 @@ const CaseStatusDetails = ({ person }: Props): React.ReactElement => {
               <dl>
                 {status.type && (
                   <>
-                    <dt>Type</dt>
+                    <dt className={styles.type}>Type</dt>
                     <dd>
                       {getTypeString(status.type as keyof typeof valueMapping)}{' '}
                       -{' '}
@@ -67,7 +67,7 @@ const CaseStatusDetails = ({ person }: Props): React.ReactElement => {
 
                 {status.notes && (
                   <>
-                    <dt>Notes</dt>
+                    <dt className={styles.notes}>Notes</dt>
                     <dd>{status.notes}</dd>
                   </>
                 )}
