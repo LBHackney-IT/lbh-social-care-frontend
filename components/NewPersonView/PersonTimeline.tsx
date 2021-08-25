@@ -2,7 +2,7 @@ import React from 'react';
 import { formatDistanceToNow } from 'date-fns';
 import { Case } from 'types';
 import s from './index.module.scss';
-import { Submission } from 'data/flexibleForms/forms.types';
+import { InProgressSubmission } from 'data/flexibleForms/forms.types';
 import UnfinishedSubmissionsEvent from './UnfinishedSubmissions';
 import { normaliseDateToISO } from 'utils/date';
 import Event from './Event';
@@ -24,7 +24,7 @@ const safelyFormatDistanceToNow = (rawDate: string): string => {
 
 interface Props {
   events: Case[];
-  unfinishedSubmissions?: Submission[];
+  unfinishedSubmissions?: InProgressSubmission[];
   size: number;
   setSize: (size: number) => void;
   onLastPage: boolean;
