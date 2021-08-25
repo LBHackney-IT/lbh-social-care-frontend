@@ -28,7 +28,7 @@ export const useUnfinishedSubmissions = (
   const personIdQuery = `&personID=${socialCareId}`;
 
   const res: SWRResponse<Paginated<InProgressSubmission>, ErrorAPI> = useSWR(
-    `/api/submissions?page=1&size=5${personIdQuery}`
+    `/api/submissions?page=1&size=5${personIdQuery}&submissionStates=in_progress`
   );
 
   return res;
