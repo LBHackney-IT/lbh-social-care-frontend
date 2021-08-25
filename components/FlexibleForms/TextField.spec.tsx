@@ -113,4 +113,29 @@ describe('TextField', () => {
     ).toBeTruthy();
     expect(screen.getByLabelText('Label text').closest('input')).toBeNull();
   });
+
+  it('should render a input when the as prop is not specified', () => {
+    render(
+      <Formik
+        onSubmit={mockSubmit}
+        initialValues={{
+          foo: '',
+        }}
+      >
+        {({ touched, errors }) => (
+          <Form>
+            <TextField
+              touched={touched}
+              errors={errors}
+              name="foo"
+              label="Label text"
+              hint="Hint text"
+            />
+          </Form>
+        )}
+      </Formik>
+    );
+
+    expect(screen.getByLabelText('Label text').closest('input')).toBeTruthy();
+  });
 });
