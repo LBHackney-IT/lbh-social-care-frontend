@@ -19,8 +19,11 @@ const UnfinishedSubmissions = ({ submissions }: Props): React.ReactElement => (
       <>
         <h1 className="govuk-!-margin-bottom-8">Work in progress</h1>
 
-        {submissions?.length > 0 && (
-          <SubmissionsTable submissions={submissions} />
+        {submissions.items?.length > 0 && (
+          <SubmissionsTable
+            submissions={submissions.items}
+            everyoneCount={submissions.count}
+          />
         )}
         <SavedForms />
       </>
