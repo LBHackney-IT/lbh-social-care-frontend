@@ -65,7 +65,7 @@ describe('CaseStatusView component', () => {
     expect(queryByText('Child in need')).toBeInTheDocument();
   });
 
-  it('displays only one "CIN" and one "CPP" in case they are multiple', async () => {
+  it('displays only one "CIN", one "CPP" and one "LAC"', async () => {
     jest.spyOn(caseStatusApi, 'GetCaseStatus').mockImplementation(() => ({
       data: mockedPersonCaseStatusFactory.build({
         personId: person.id,
@@ -75,6 +75,9 @@ describe('CaseStatusView component', () => {
           }),
           mockedCaseStatusFactory.build({
             type: 'CPP',
+          }),
+          mockedCaseStatusFactory.build({
+            type: 'LAC',
           }),
         ],
       }),
@@ -87,6 +90,7 @@ describe('CaseStatusView component', () => {
 
     expect(queryByText('Child in need')).toBeInTheDocument();
     expect(queryByText('Child protection services')).toBeInTheDocument();
+    expect(queryByText('Looked after child')).toBeInTheDocument();
   });
 
   it("displays nothing if there's no case status", async () => {

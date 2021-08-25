@@ -53,6 +53,7 @@ const getTypeString = (type: keyof typeof valueMapping): any => {
 const valueMapping = {
   CIN: 'Child in need',
   CPP: 'Child protection services',
+  LAC: 'Looked after child',
 };
 
 export default CaseStatusView;
