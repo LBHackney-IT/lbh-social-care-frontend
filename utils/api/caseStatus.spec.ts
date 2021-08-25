@@ -12,4 +12,15 @@ describe('caseStatusAPI', () => {
       expect(SWR.default).toHaveBeenCalledWith('/api/residents/123/casestatus');
     });
   });
+
+  describe('GetFormValues', () => {
+    it('should get form values from the API', () => {
+      jest.spyOn(SWR, 'default');
+
+      caseStatusAPI.GetFormValues('CIN');
+      expect(SWR.default).toHaveBeenCalledWith(
+        '/api/casestatuses/form-options?type=CIN'
+      );
+    });
+  });
 });

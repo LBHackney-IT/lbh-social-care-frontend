@@ -1,9 +1,7 @@
-import forms from 'data/flexibleForms';
 import { NextApiRequest, NextApiResponse } from 'next';
 import StatusCodes from 'http-status-codes';
 import { startSubmission, getInProgressSubmissions } from 'lib/submissions';
 import { isAuthorised } from 'utils/auth';
-import { mapFormIdToFormDefinition } from 'data/flexibleForms/mapFormIdsToFormDefinition';
 
 const handler = async (
   req: NextApiRequest,
@@ -23,21 +21,14 @@ const handler = async (
       }
       break;
     case 'GET':
-      if (req.query.includeSubmissions) {
+      {
+        const { personID } = req.query;
+
         const submissions = await getInProgressSubmissions(
-          user?.permissionFlag
+          user?.permissionFlag,
+          Number(personID)
         );
-        res.json({
-          forms,
-          submissions: submissions.map((sub) => ({
-            ...sub,
-            form: mapFormIdToFormDefinition[sub.formId].form,
-          })),
-        });
-      } else {
-        res.json({
-          forms,
-        });
+        res.json(submissions);
       }
       break;
     default:

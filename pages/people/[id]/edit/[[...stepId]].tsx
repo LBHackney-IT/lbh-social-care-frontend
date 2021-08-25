@@ -52,6 +52,7 @@ const UpdatePerson = (): ReactElement => {
   return (
     <FormWizard
       formPath={`/people/${personId}/edit/`}
+      stepPath={`/people/[id]/edit/[[...stepId]]`}
       formSteps={formSteps}
       title="Update person"
       defaultValues={{

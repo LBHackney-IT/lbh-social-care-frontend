@@ -40,6 +40,7 @@ const CreateNewWorker = (): React.ReactElement => {
   return (
     <FormWizard
       formPath="/workers/add/"
+      stepPath="/workers/add/[[...stepId]]"
       formSteps={formSteps}
       title="Create New Worker"
       onFormSubmit={onFormSubmit}
