@@ -353,3 +353,8 @@ export interface CaseStatus {
   endDate: string;
   notes: string;
 }
+
+export interface Paginated<T> {
+  items: T[];
+  count: number;
+}
