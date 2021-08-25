@@ -24,33 +24,14 @@ const CaseStatusDetails = ({ person }: Props): React.ReactElement => {
       <div className={styles.container}>
         {caseStatusData.caseStatuses.map((status) => (
           <div key={status.id} className={styles.caseStatusDesign}>
-            <div className={styles.casenoteDetails}>
+            <div className={styles.caseStatusDetails}>
               <dl>
-                {status.notes && (
+                {status.type && (
                   <>
-                    <dt>Notes</dt>
-                    <dd>{status.notes}</dd>
-                  </>
-                )}
-
-                {status.endDate && (
-                  <>
-                    <dt>End Date</dt>
+                    <dt>Type</dt>
                     <dd>
-                      {new Date(status.endDate).toLocaleDateString('en-GB')}{' '}
-                    </dd>
-                  </>
-                )}
-
-                {status.startDate && (
-                  <>
-                    <dt>Start Date</dt>
-                    <dd>
-                      {status.startDate
-                        ? new Date(status.startDate).toLocaleDateString('en-GB')
-                        : new Date(status.endDate).toLocaleDateString(
-                            'en-GB'
-                          )}{' '}
+                      {getTypeString(status.type as keyof typeof valueMapping)}{' '}
+                      -{' '}
                     </dd>
                   </>
                 )}
@@ -62,13 +43,32 @@ const CaseStatusDetails = ({ person }: Props): React.ReactElement => {
                   </>
                 )}
 
-                {status.type && (
+                {status.endDate && (
                   <>
-                    <dt>Type</dt>
+                    <dt>End</dt>
                     <dd>
-                      {getTypeString(status.type as keyof typeof valueMapping)}{' '}
-                      -{' '}
+                      {new Date(status.endDate).toLocaleDateString('en-GB')}{' '}
                     </dd>
+                  </>
+                )}
+
+                {status.startDate && (
+                  <>
+                    <dt>Start</dt>
+                    <dd>
+                      {status.startDate
+                        ? new Date(status.startDate).toLocaleDateString('en-GB')
+                        : new Date(status.endDate).toLocaleDateString(
+                            'en-GB'
+                          )}{' '}
+                    </dd>
+                  </>
+                )}
+
+                {status.notes && (
+                  <>
+                    <dt>Notes</dt>
+                    <dd>{status.notes}</dd>
                   </>
                 )}
               </dl>
