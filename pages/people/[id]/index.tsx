@@ -41,7 +41,7 @@ const PersonPage = ({ person }: Props): React.ReactElement => {
           <>
             <ConditionalFeature name="person-timeline">
               <PersonTimeline
-                unfinishedSubmissions={submissionsData?.submissions}
+                unfinishedSubmissions={submissionsData || []}
                 events={events}
                 size={size}
                 setSize={setSize}
