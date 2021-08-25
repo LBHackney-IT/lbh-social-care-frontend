@@ -83,4 +83,59 @@ describe('TextField', () => {
     );
     expect(screen.getByText('Example error'));
   });
+
+  it('should render a textarea when the as prop is specified', () => {
+    render(
+      <Formik
+        onSubmit={mockSubmit}
+        initialValues={{
+          foo: '',
+        }}
+      >
+        {({ touched, errors }) => (
+          <Form>
+            <TextField
+              touched={touched}
+              errors={errors}
+              name="foo"
+              label="Label text"
+              hint="Hint text"
+              as="textarea"
+              rows={3}
+            />
+          </Form>
+        )}
+      </Formik>
+    );
+
+    expect(
+      screen.getByLabelText('Label text').closest('textarea')
+    ).toBeTruthy();
+    expect(screen.getByLabelText('Label text').closest('input')).toBeNull();
+  });
+
+  it('should render a input when the as prop is not specified', () => {
+    render(
+      <Formik
+        onSubmit={mockSubmit}
+        initialValues={{
+          foo: '',
+        }}
+      >
+        {({ touched, errors }) => (
+          <Form>
+            <TextField
+              touched={touched}
+              errors={errors}
+              name="foo"
+              label="Label text"
+              hint="Hint text"
+            />
+          </Form>
+        )}
+      </Formik>
+    );
+
+    expect(screen.getByLabelText('Label text').closest('input')).toBeTruthy();
+  });
 });
