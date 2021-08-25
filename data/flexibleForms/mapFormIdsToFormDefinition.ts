@@ -23,6 +23,11 @@ export const mapFormIdToFormDefinition: Record<string, FormDefinition> = {
     displayName: 'Sandbox form',
     id: 'foo',
   },
+  'case-status': {
+    form: formAsObjects.caseStatus,
+    displayName: 'Flag Case Status',
+    id: 'case-status',
+  },
   'review-3c': {
     form: formAsObjects.review3c,
     displayName: 'Review of Care and Support Plan (3C)',
