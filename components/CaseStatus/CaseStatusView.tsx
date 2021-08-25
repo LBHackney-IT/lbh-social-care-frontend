@@ -1,6 +1,6 @@
 import ErrorMessage from 'components/ErrorMessage/ErrorMessage';
 import { GetCaseStatus } from 'utils/api/caseStatus';
-import { Resident } from 'types';
+import { Resident, CaseStatus } from 'types';
 
 interface Props {
   person: Resident;
@@ -21,28 +21,28 @@ const CaseStatusView = ({ person }: Props): React.ReactElement => {
 
   return (
     <>
-      {caseStatusData && (
-        <section className="govuk-!-margin-top-0">
-          {caseStatusData.caseStatuses.map((status) => (
-            <span
-              className="govuk-tag lbh-tag govuk-!-margin-right-1 govuk-!-margin-top-2"
-              key={status.id}
-            >
-              {getTypeString(status.type as keyof typeof valueMapping)} -{' '}
-              {status.subType}
-            </span>
-          ))}
-        </section>
-      )}
+      {groupByType(caseStatusData.caseStatuses).map((status) => (
+        <span
+          className="govuk-tag lbh-tag lbh-tag--yellow govuk-!-margin-right-1 govuk-!-margin-top-2"
+          key={status}
+        >
+          {valueMapping[status]}
+        </span>
+      ))}
     </>
   );
 };
 
-const getTypeString = (type: keyof typeof valueMapping): any => {
-  return valueMapping[type];
-};
+function groupByType(
+  allCasesStatues: CaseStatus[]
+): (keyof typeof valueMapping)[] {
+  return Array.from(new Set(allCasesStatues.map((el) => el.type)));
+}
+
 const valueMapping = {
   CIN: 'Child in need',
+  CPP: 'Child protection services',
+  LAC: 'Looked after child',
 };
 
 export default CaseStatusView;
