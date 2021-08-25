@@ -37,7 +37,7 @@ const Field = ({
   const textArea = useRef<HTMLTextAreaElement>(null);
 
   const extendTextarea = () => {
-    const textarea = document.getElementById(name);
+    const textarea = textArea.current;
     textarea &&
       (textarea.oninput = () => {
         textarea.style.height = '';
@@ -84,6 +84,7 @@ const Field = ({
         id={name}
         type={type}
         innerRef={textArea}
+        data-testid="text-raw-field"
         className={cx(
           as === 'textarea'
             ? 'govuk-textarea lbh-textarea'
@@ -93,7 +94,7 @@ const Field = ({
         aria-describedby={hint && `${name}-hint`}
         as={as}
         rows={rows}
-        onInput={extendTextarea}
+        onInput={() => as === 'textarea' && extendTextarea()}
       />
     </div>
   );
