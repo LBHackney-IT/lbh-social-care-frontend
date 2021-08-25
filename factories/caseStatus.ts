@@ -2,6 +2,8 @@ import { Factory } from 'fishery';
 import {
   CaseStatus,
   PersonCaseStatus,
+  FormValue,
+  FormFields,
   FormOption,
   CaseStatusFields,
 } from 'types';
@@ -21,6 +23,18 @@ export const mockedCaseStatusFactory = Factory.define<CaseStatus>(
     startDate: '2021-01-01T02:00:00Z',
     endDate: '2021-12-01T02:00:00Z',
     notes: 'a lot to note',
+  })
+);
+
+export const mockedFormValueFactory = Factory.define<FormFields>(() => ({
+  fields: [mockedCaseStatusFormValueFactory.build()],
+}));
+
+export const mockedCaseStatusFormValueFactory = Factory.define<FormValue>(
+  () => ({
+    name: 'test',
+    description: 'description',
+    options: [mockedFieldsFactory.build()],
   })
 );
 
