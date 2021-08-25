@@ -16,8 +16,14 @@
   grid-row-gap: 0.5rem;
   margin-bottom: 1rem;
 
-  dt {
+  .type {
     font-weight: bold;
+  }
+
+  .notes {
+    font-weight: bold;
+    font-family: 'Times New Roman', Times, serif;
+    font-size: large;
   }
 
   dd,
