@@ -1,6 +1,6 @@
 import React from 'react';
 import { formatDistanceToNow } from 'date-fns';
-import { Case } from 'types';
+import { Case, Paginated } from 'types';
 import s from './index.module.scss';
 import { InProgressSubmission } from 'data/flexibleForms/forms.types';
 import UnfinishedSubmissionsEvent from './UnfinishedSubmissions';
@@ -24,7 +24,7 @@ const safelyFormatDistanceToNow = (rawDate: string): string => {
 
 interface Props {
   events: Case[];
-  unfinishedSubmissions?: InProgressSubmission[];
+  unfinishedSubmissions: Paginated<InProgressSubmission>;
   size: number;
   setSize: (size: number) => void;
   onLastPage: boolean;
@@ -51,7 +51,7 @@ const PersonTimeline = ({
               [s.timelineContinues]: !onLastPage,
             })}
           >
-            {unfinishedSubmissions && unfinishedSubmissions.length > 0 && (
+            {unfinishedSubmissions.items.length > 0 && (
               <UnfinishedSubmissionsEvent submissions={unfinishedSubmissions} />
             )}
 
