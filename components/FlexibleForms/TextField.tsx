@@ -34,16 +34,15 @@ const Field = ({
   rows,
   required,
 }: FieldProps): React.ReactElement => {
-  const textArea = useRef<HTMLTextAreaElement>(null);
+  const textAreaRef = useRef<HTMLTextAreaElement>(null);
+  const textarea = textAreaRef.current;
+  textarea &&
+    as === 'textarea' &&
+    (textarea.oninput = () => {
+      textarea.style.height = '';
+      textarea.style.height = textarea.scrollHeight + 'px';
+    });
 
-  const extendTextarea = () => {
-    const textarea = textArea.current;
-    textarea &&
-      (textarea.oninput = () => {
-        textarea.style.height = '';
-        textarea.style.height = textarea.scrollHeight + 'px';
-      });
-  };
   return (
     <div
       className={`govuk-form-group lbh-form-group ${
@@ -83,7 +82,7 @@ const Field = ({
         name={name}
         id={name}
         type={type}
-        innerRef={textArea}
+        innerRef={textAreaRef}
         data-testid="text-raw-field"
         className={cx(
           as === 'textarea'
@@ -94,7 +93,6 @@ const Field = ({
         aria-describedby={hint && `${name}-hint`}
         as={as}
         rows={rows}
-        onInput={() => as === 'textarea' && extendTextarea()}
       />
     </div>
   );
