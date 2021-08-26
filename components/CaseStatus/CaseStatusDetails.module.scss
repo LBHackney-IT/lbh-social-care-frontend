@@ -8,6 +8,7 @@
   border-top: 10px solid #f8e08e;
   background-color: #f8f9f9;
   padding: 10px 20px 1px;
+  margin-bottom: 2rem;
 }
 
 .caseStatusDetails {
@@ -16,27 +17,31 @@
   grid-row-gap: 0.5rem;
   margin-bottom: 1rem;
 
-  .type {
-    font-weight: bold;
-  }
-
-  .notes {
-    font-weight: bold;
-    font-family: 'Times New Roman', Times, serif;
-    font-size: large;
-  }
-
-  dd,
   dt {
     margin-top: 0;
   }
+
+  dd{
+    margin-top: 0;
+    font-size: 14px;
+  }
 }
 
-.casenote {
-  margin-bottom: 2rem;
-  @include govuk-media-query($from: tablet) {
-    display: inline-flex;
+.selectedTitles {
+  font-weight: bold;
+}
+
+.date {
+  font-size: 14px;
+}
+
+.typeFontSize {
+  font-size: 19px;
+  font-weight: bold;
+}
+
+.align {
+    display: flex;
     justify-content: space-between;
     align-items: flex-start;
-  }
 }
