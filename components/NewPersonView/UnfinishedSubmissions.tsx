@@ -3,6 +3,7 @@ import { InProgressSubmission } from 'data/flexibleForms/forms.types';
 import Link from 'next/link';
 import { generateSubmissionUrl } from 'lib/submissions';
 import { Paginated } from 'types';
+import { mapFormIdToFormDefinition } from 'data/flexibleForms/mapFormIdsToFormDefinition';
 
 interface SubProps {
   sub: InProgressSubmission;
@@ -10,13 +11,13 @@ interface SubProps {
 
 const Sub = ({ sub }: SubProps): React.ReactElement => {
   const completedSteps = sub.completedSteps;
-  const totalSteps = sub.form?.steps?.length;
+
+  const form = mapFormIdToFormDefinition[sub.formId].form;
+  const totalSteps = form.steps.length;
 
   return (
     <li key={sub.submissionId}>
-      <Link href={generateSubmissionUrl(sub)}>
-        {sub?.form?.name || sub.formId}
-      </Link>{' '}
+      <Link href={generateSubmissionUrl(sub)}>{form.name || sub.formId}</Link>{' '}
       <p className="lbh-body-xs">
         {!Number.isNaN(completedSteps) &&
           !Number.isNaN(totalSteps) &&
