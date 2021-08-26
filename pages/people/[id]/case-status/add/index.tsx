@@ -1,6 +1,4 @@
 import { useRouter } from 'next/router';
-import PersonView from 'components/PersonView/PersonView';
-import FormWizard from 'components/FormWizard/FormWizard';
 import { generateInitialValues } from 'lib/utils';
 import { generateFlexibleSchema } from 'lib/validators';
 import React from 'react';
@@ -8,11 +6,40 @@ import { Form, Formik, FormikHelpers, FormikValues } from 'formik';
 import CASE_STATUS from 'data/flexibleForms/caseStatus';
 import Banner from 'components/FlexibleForms/Banner';
 import FlexibleField from 'components/FlexibleForms/FlexibleFields';
+import { GetFormValues } from 'utils/api/caseStatus';
+import PersonWidget from 'components/PersonWidget/PersonWidget';
+import RevisionTimeline from 'components/RevisionTimeline/MiniRevisionTimeline';
+import { Submission } from 'data/flexibleForms/forms.types';
+import { Resident, User } from 'types';
+import residents from 'pages/api/residents';
+import PersonView from 'components/PersonView/PersonView';
+
+interface Props {
+  submission: Submission;
+  person: Resident;
+  user: User;
+}
 
 const AddNewCaseStatus = (): React.ReactElement => {
   const { query } = useRouter();
   const personId = Number(query.id as string);
   const fields = CASE_STATUS.steps[0].fields;
+  const { data: { fields: caseStatuses } = {} } = GetFormValues('CIN');
+  if (caseStatuses) {
+    const stepArray: any = [];
+    caseStatuses[0].options.map((step) => {
+      let stepObject = {
+        value: step.name,
+        label: step.name + ' ' + step.description,
+      };
+      stepArray.push(stepObject);
+    });
+    CASE_STATUS.steps[0].fields.map((field) => {
+      if (field.id === 'reasonForPlacement') {
+        field.choices = stepArray;
+      }
+    });
+  }
   const handleSubmit = async (
     values: FormikValues,
     { setStatus }: FormikHelpers<FormikValues>
@@ -28,6 +55,8 @@ const AddNewCaseStatus = (): React.ReactElement => {
       <h1 className="govuk-fieldset__legend--l gov-weight-lighter">
         Add a flag
       </h1>
+      <PersonView personId={personId} expandView />
+
       <Formik
         initialValues={generateInitialValues(fields)}
         validationSchema={generateFlexibleSchema(fields)}
