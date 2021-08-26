@@ -1,115 +1,126 @@
 import { Form } from './forms.types';
-const choices = [
-  {
-    value: 'CIN - Child in Need',
-    label: 'CIN - Child in Need',
-  },
-  {
-    value: 'CP - Child Protection',
-    label: 'CP - Child Protection',
-  },
-  {
-    value: 'LAC - Looked After Child',
-    label: 'LAC - Looked After Child',
-  },
-];
+import { format } from 'date-fns';
+import { GetFormValues } from 'utils/api/caseStatus';
+
+const { data: { fields: caseStatuses } = {} } = GetFormValues('CIN');
 
 const form: Form = {
   id: 'case-status',
-  name: 'Flag a case status',
-  isViewableByChildrens: true,
+  name: 'Case status',
+  groupRecordable: false,
   isViewableByAdults: false,
-  approvable: false,
-  panelApprovable: false,
+  isViewableByChildrens: true,
+  canonicalUrl: (socialCareId) => `/people/${socialCareId}/case-status/add`,
+
   steps: [
     {
-      id: 'case status types',
-      name: 'What is the case status you would like to add?',
-      theme: 'flag case status',
+      id: 'caseStatus',
+      name: 'Add case status',
+      theme: 'Case status',
       fields: [
         {
-          id: 'flag case status',
+          id: 'Case Status Type',
+          question: 'What is the case status you would like to add?',
           type: 'radios',
-          question: 'Child protection',
-          choices,
+          required: false,
+          choices: [
+            {
+              value: 'CIN',
+              label: 'Child in need',
+            },
+            {
+              value: 'CP',
+              label: 'Child protection',
+            },
+            {
+              value: 'LAC',
+              label: 'Looked after child',
+            },
+          ],
+        },
+        {
+          id: 'reasonForPlacement',
+          question:
+            'What is the latest primary reason for placement? (Primary need code) *',
+          type: 'select',
           required: true,
+          conditions: [
+            {
+              id: 'caseStatusType',
+              value: 'Child in need',
+            },
+          ],
+          choices: [
+            {
+              value: 'N1',
+              label: 'N1 - Abuse or neglect',
+            },
+            {
+              value: 'N2',
+              label: 'N2 - Child’s disability',
+            },
+            {
+              value: 'N3',
+              label: 'N3 - Parental disability or illness',
+            },
+            {
+              value: 'N4',
+              label: 'N4 - Family in acute stress',
+            },
+            {
+              value: 'N5',
+              label: 'N5 - Family dysfunction',
+            },
+            {
+              value: 'N6',
+              label: 'N6 - Socially unacceptable behaviour',
+            },
+            {
+              value: 'N7',
+              label: 'N7 - Low income',
+            },
+            {
+              value: 'N8',
+              label: 'N8 - Absent parenting',
+            },
+            {
+              value: 'N9',
+              label: 'N9 - Cases other than children in need',
+            },
+            {
+              value: 'N0',
+              label: 'N0 - Not stated',
+            },
+          ],
+        },
+        {
+          id: 'startDate',
+          question: 'Start Date',
+          type: 'datetime',
+          required: true,
+          default: [
+            format(new Date(), 'yyyy-MM-dd'),
+            format(new Date(), 'HH:00'),
+          ],
+        },
+        {
+          id: 'endDate',
+          question: 'End Date',
+          type: 'datetime',
+          required: true,
+          default: [
+            format(new Date(), 'yyyy-MM-dd'),
+            format(new Date(), 'HH:00'),
+          ],
+        },
+        {
+          id: 'notes',
+          question: 'Notes',
+          type: 'textarea',
+          required: false,
         },
       ],
     },
   ],
 };
-//   {
-//     name: 'reason for placement?',
-//     label:
-//       'What is the latest primary reason for placement? (Primary need code) *',
-//     component: 'Select',
-//     required: true,
-//     conditionalRender: ({ case_status_type }) =>
-//       case_status_type?.includes('Child in need'),
-//     options: [
-//       {
-//         value: 'N1 - Abuse or neglect',
-//         text: 'N1 - Abuse or neglect',
-//       },
-//       {
-//         value: 'N2 - Child’s disability',
-//         text: 'N2 - Child’s disability',
-//       },
-//       {
-//         value: 'N3 - Parental disability or illness',
-//         text: 'N3 - Parental disability or illness',
-//       },
-//       {
-//         value: 'N4 - Family in acute stress',
-//         text: 'N4 - Family in acute stress',
-//       },
-//       {
-//         value: 'N5 - Family dysfunction',
-//         text: 'N5 - Family dysfunction',
-//       },
-//       {
-//         value: 'N6 - Socially unacceptable behaviour',
-//         text: 'N6 - Socially unacceptable behaviour',
-//       },
-//       {
-//         value: 'N7 - Low income',
-//         text: 'N7 - Low income',
-//       },
-//       {
-//         value: 'N8 - Absent parenting',
-//         text: 'N8 - Absent parenting',
-//       },
-//       {
-//         value: 'N9 - Cases other than children in need',
-//         text: 'N9 - Cases other than children in need',
-//       },
-//       {
-//         value: 'N0 - Not stated',
-//         text: 'N0 - Not stated',
-//       },
-//     ],
-//   },
-//   {
-//     component: 'DatePicker',
-//     name: 'Start Date',
-//     label: 'Start Date',
-//     hint: 'For example, 31 03 1980',
-//     rules: { required: 'Please provide a valid date.' },
-//     defaultToday: true,
-//   },
-//   {
-//     component: 'DatePicker',
-//     name: 'End Date',
-//     label: 'End Date',
-//     hint: 'For example, 31 03 1980',
-//     rules: { required: 'Please provide a valid date.' },
-//     defaultToday: true,
-//   },
-//   {
-//     name: 'Notes',
-//     label: 'Notes',
-//     component: 'TextArea',
-//     required: false,
-//   },
-
 export default form;
