@@ -15,16 +15,15 @@ const Sub = ({ sub }: SubProps): React.ReactElement => {
   const form = mapFormIdToFormDefinition[sub.formId].form;
   const totalSteps = form.steps.length;
 
+  const completedPercentageDisplay = `${Math.round(
+    (completedSteps / Number(totalSteps)) * 100
+  )}% complete · `;
+
   return (
     <li key={sub.submissionId}>
       <Link href={generateSubmissionUrl(sub)}>{form.name || sub.formId}</Link>{' '}
       <p className="lbh-body-xs">
-        {!Number.isNaN(completedSteps) &&
-          !Number.isNaN(totalSteps) &&
-          `${Math.round(
-            (completedSteps / Number(totalSteps)) * 100
-          )}% complete · `}
-
+        {completedPercentageDisplay}
         {sub.createdBy.email}
       </p>
     </li>
