@@ -6,11 +6,14 @@ describe('UnfinishedSubmissions', () => {
   it('renders a list of clickable submissions', () => {
     render(
       <UnfinishedSubmissions
-        submissions={[
-          { ...mockSubmission, submissionId: '123' },
-          { ...mockSubmission, submissionId: '125' },
-          { ...mockSubmission, submissionId: '126' },
-        ]}
+        submissions={{
+          items: [
+            { ...mockSubmission, submissionId: '123' },
+            { ...mockSubmission, submissionId: '125' },
+            { ...mockSubmission, submissionId: '126' },
+          ],
+          count: 3,
+        }}
       />
     );
 
@@ -22,14 +25,17 @@ describe('UnfinishedSubmissions', () => {
   it('truncates a long list', () => {
     render(
       <UnfinishedSubmissions
-        submissions={[
-          { ...mockSubmission, submissionId: '123' },
-          { ...mockSubmission, submissionId: '124' },
-          { ...mockSubmission, submissionId: '125' },
-          { ...mockSubmission, submissionId: '126' },
-          { ...mockSubmission, submissionId: '127' },
-          { ...mockSubmission, submissionId: '128' },
-        ]}
+        submissions={{
+          items: [
+            { ...mockSubmission, submissionId: '123' },
+            { ...mockSubmission, submissionId: '124' },
+            { ...mockSubmission, submissionId: '125' },
+            { ...mockSubmission, submissionId: '126' },
+            { ...mockSubmission, submissionId: '127' },
+            { ...mockSubmission, submissionId: '128' },
+          ],
+          count: 6,
+        }}
       />
     );
 
