@@ -23,7 +23,7 @@ const CaseStatusDetails = ({ person }: Props): React.ReactElement => {
     <>
       <div className={styles.container}>
         
-        <h2>Statuses</h2>
+        <h2>Case statuses</h2>
 
         {caseStatusData.caseStatuses.map((status) => (
          status.fields.map((item) => (
@@ -31,59 +31,70 @@ const CaseStatusDetails = ({ person }: Props): React.ReactElement => {
           <div key={status.id} className={styles.caseStatusDesign}>
             <div className={styles.caseStatusDetails}>
               
-              <dl>
-                <div className={styles.align}>
-                {status.type && (
-                  <>
-                    <dt className={styles.typeFontSize}>Type</dt>
-                    <dd>
-                      {getTypeString(status.type as keyof typeof valueMapping)}{' '}
-                      -{' '}
-                    </dd>
-                  </>
-                )}
+              <section className="lbh-collapsible" data-module="lbh-collapsible">
+                <dl>
+                      <div className={styles.align}>
+                          <button
+                            aria-expanded="false"
+                            data-behavior="lbh-collapsible-toggle"
+                            className="lbh-collapsible__button"
+                            >
+                            {status.type && (
+                              <>
+                                <dt>
+                                  {getTypeString(status.type as keyof typeof valueMapping)}{' '}
+                                  -{' '}
+                                </dt>
+                              </>
+                            )}
 
-                {status.startDate && (
-                  <>
-                    <dt className={styles.date}>Start</dt>
-                    <dd>
-                      {status.startDate
-                        ? new Date(status.startDate).toLocaleDateString('en-GB'): new Date(status.endDate).toLocaleDateString('en-GB')}{' '}-{' '}
-                    </dd>
-                  </>
-                )}  
+                            {status.startDate && (
+                              <>
+                                <dt className={styles.date}>Start</dt>
+                                <dd>
+                                  {status.startDate
+                                    ? new Date(status.startDate).toLocaleDateString('en-GB'): new Date(status.endDate).toLocaleDateString('en-GB')}{' '}-{' '}
+                                </dd>
+                              </>
+                            )}  
 
-                {status.endDate && (
-                  <>
-                    <dt className={styles.date}>End</dt>
-                    <dd>
-                      {new Date(status.endDate).toLocaleDateString('en-GB')}{' '}
-                    </dd>
-                  </>
-                )}
-                </div>
+                            {status.endDate && (
+                              <>
+                                <dt className={styles.date}>End</dt>
+                                <dd>
+                                  {new Date(status.endDate).toLocaleDateString('en-GB')}{' '}
+                                </dd>
+                              </>
+                            )}
+                              <svg width="17" height="10" viewBox="0 0 17 10">
+                                <path d="M2 1.5L8.5 7.5L15 1.5" strokeWidth="3" />
+                              </svg>
+                        </button>
+                      </div>
+                
+                  
+                    <div className="lbh-collapsible__content" data-behavior="lbh-collapsible-content" hidden>
+                      
+                      {item.selectedOption.name && (
+                        <>
+                          <dt className={styles.selectedTitles}>Category of need</dt>
+                          <dd>{getTypeString(item.selectedOption.name as keyof typeof valueMapping)}</dd>
+                        </>
+                      )}
 
-                {item.selectedOption.name && (
-                  <>
-                    <dt className={styles.selectedTitles}>Category of need</dt>
-                    <dd>{getTypeString(item.selectedOption.name as keyof typeof valueMapping)}</dd>
-                  </>
-                )}
-
-                {status.notes && (
-                  <>
-                    <dt className={styles.selectedTitles}> Notes </dt>
-                    <dd>{status.notes}</dd>
-                  </>
-                )}
-
-              </dl>
-              
+                      {status.notes && (
+                        <>
+                          <dt className={styles.selectedTitles}> Notes </dt>
+                          <dd>{status.notes}</dd>
+                        </>
+                      )}
+                    </div>
+                </dl>
+              </section>
+            
             </div>
-
         </div>
            ))
-
         ))}
       </div>
     </>
