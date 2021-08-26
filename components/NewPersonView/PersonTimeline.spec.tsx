@@ -29,6 +29,7 @@ describe('PersonTimeline', () => {
         onLastPage={false}
         size={1}
         events={mockEvents}
+        unfinishedSubmissions={{ items: [], count: 0 }}
       />
     );
 
@@ -45,6 +46,7 @@ describe('PersonTimeline', () => {
         onLastPage={false}
         size={1}
         events={[]}
+        unfinishedSubmissions={{ items: [], count: 0 }}
       />
     );
     expect(screen.getByText('No events match your search'));
@@ -57,6 +59,7 @@ describe('PersonTimeline', () => {
         onLastPage={true}
         size={1}
         events={mockEvents}
+        unfinishedSubmissions={{ items: [], count: 0 }}
       />
     );
     expect(screen.queryByText('Load older events')).toBeNull();
@@ -70,6 +73,7 @@ describe('PersonTimeline', () => {
         onLastPage={false}
         size={1}
         events={mockEvents}
+        unfinishedSubmissions={{ items: [], count: 0 }}
       />
     );
     fireEvent.click(screen.getByText('Load older events'));
@@ -83,7 +87,7 @@ describe('PersonTimeline', () => {
         onLastPage={false}
         size={1}
         events={mockEvents}
-        unfinishedSubmissions={[mockSubmission]}
+        unfinishedSubmissions={{ items: [mockSubmission], count: 0 }}
       />
     );
     expect(screen.getByText('Unfinished submissions'));

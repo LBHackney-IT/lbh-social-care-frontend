@@ -1,10 +1,11 @@
 import s from './index.module.scss';
-import { Submission } from 'data/flexibleForms/forms.types';
+import { InProgressSubmission } from 'data/flexibleForms/forms.types';
 import Link from 'next/link';
 import { generateSubmissionUrl } from 'lib/submissions';
+import { Paginated } from 'types';
 
 interface SubProps {
-  sub: Submission;
+  sub: InProgressSubmission;
 }
 
 const Sub = ({ sub }: SubProps): React.ReactElement => {
@@ -30,7 +31,7 @@ const Sub = ({ sub }: SubProps): React.ReactElement => {
 };
 
 interface Props {
-  submissions: Submission[];
+  submissions: Paginated<InProgressSubmission>;
 }
 
 const UnfinishedSubmissionsEvent = ({
@@ -41,13 +42,13 @@ const UnfinishedSubmissionsEvent = ({
   >
     <h3 className="govuk-!-margin-bottom-4">Unfinished submissions</h3>
     <ul className="lbh-list lbh-body-s">
-      {submissions.slice(0, 4).map((sub) => (
+      {submissions.items.slice(0, 4).map((sub) => (
         <Sub sub={sub} key={sub.submissionId} />
       ))}
     </ul>
-    {submissions.length > 4 && (
+    {submissions.items.length > 4 && (
       <p className="lbh-body-s govuk-!-margin-top-4">
-        and {submissions.length - 4} more
+        and {submissions.count - 4} more
       </p>
     )}
   </li>

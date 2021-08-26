@@ -1,6 +1,10 @@
-import { Form, Submission } from 'data/flexibleForms/forms.types';
+import {
+  Form,
+  InProgressSubmission,
+  Submission,
+} from 'data/flexibleForms/forms.types';
 import useSWR, { SWRResponse } from 'swr';
-import type { ErrorAPI } from 'types';
+import type { ErrorAPI, Paginated } from 'types';
 
 export type Data = {
   forms: Form[];
@@ -19,21 +23,13 @@ export const useSubmission = (
 
 /** fetch unfinished submissions in the user's current service context, either for everyone, or by social care id */
 export const useUnfinishedSubmissions = (
-  socialCareId?: number
-): SWRResponse<Data, ErrorAPI> => {
-  const res: SWRResponse<Data, ErrorAPI> = useSWR(
-    `/api/submissions?includeSubmissions=true`
+  socialCareId: number
+): SWRResponse<Paginated<InProgressSubmission>, ErrorAPI> => {
+  const personIdQuery = `&personID=${socialCareId}`;
+
+  const res: SWRResponse<Paginated<InProgressSubmission>, ErrorAPI> = useSWR(
+    `/api/submissions?page=1&size=5${personIdQuery}&submissionStates=in_progress`
   );
 
-  return {
-    ...res,
-    data: {
-      forms: res?.data?.forms || [],
-      submissions: socialCareId
-        ? res?.data?.submissions.filter((sub) =>
-            sub.residents.some((resident) => resident.id === socialCareId)
-          ) || []
-        : res?.data?.submissions || [],
-    },
-  };
+  return res;
 };

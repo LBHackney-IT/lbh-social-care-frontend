@@ -319,6 +319,16 @@ export interface WarningNotes {
   notes: Array<WarningNote>;
 }
 
+export interface FormValue {
+  name: string;
+  description: string;
+  options: Array<FormOption>;
+}
+
+export interface FormFields {
+  fields: Array<FormValue>;
+}
+
 export interface PersonCaseStatus {
   personId: number;
   caseStatuses: Array<CaseStatus>;
@@ -337,9 +347,14 @@ export interface CaseStatusFields {
 
 export interface CaseStatus {
   id: number;
-  type: string;
+  type: 'CIN' | 'CPP' | 'LAC';
   fields: Array<CaseStatusFields>;
   startDate: string;
   endDate: string;
   notes: string;
+}
+
+export interface Paginated<T> {
+  items: T[];
+  count: number;
 }

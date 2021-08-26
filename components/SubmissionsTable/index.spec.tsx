@@ -14,7 +14,7 @@ jest.mock('components/UserContext/UserContext');
 
 describe('SubmissionsTable', () => {
   it('renders correctly when there are no submissions', () => {
-    render(<SubmissionsTable submissions={[]} />);
+    render(<SubmissionsTable submissions={[]} everyoneCount={0} />);
     expect(screen.getByText('Just mine (0)'));
     expect(screen.getByText('Everyone (0)'));
     expect(screen.getByText('No results to show.'));
@@ -34,6 +34,7 @@ describe('SubmissionsTable', () => {
             ],
           },
         ]}
+        everyoneCount={0}
       />
     );
 
@@ -43,7 +44,9 @@ describe('SubmissionsTable', () => {
   });
 
   it('lets you search for a submission by form name', async () => {
-    render(<SubmissionsTable submissions={[mockSubmission]} />);
+    render(
+      <SubmissionsTable submissions={[mockSubmission]} everyoneCount={0} />
+    );
 
     fireEvent.change(screen.getByRole('searchbox'), {
       target: { value: 'Sandbox form' },
@@ -53,7 +56,9 @@ describe('SubmissionsTable', () => {
   });
 
   it("correctly renders user's own submissions", () => {
-    render(<SubmissionsTable submissions={[mockSubmission]} />);
+    render(
+      <SubmissionsTable submissions={[mockSubmission]} everyoneCount={1} />
+    );
 
     fireEvent.click(screen.getByText('Just mine (1)'));
     expect(screen.queryAllByRole('listitem').length).toBe(3);
@@ -68,7 +73,9 @@ describe('SubmissionsTable', () => {
       },
     });
 
-    render(<SubmissionsTable submissions={[mockSubmission]} />);
+    render(
+      <SubmissionsTable submissions={[mockSubmission]} everyoneCount={1} />
+    );
 
     fireEvent.click(screen.getByText('Just mine (0)'));
     expect(screen.getByText('No results to show.'));

@@ -39,7 +39,58 @@ describe('CaseStatusView component', () => {
 
     const { queryByText } = render(<CaseStatusView person={person} />);
 
-    expect(queryByText('Child in need - N0')).toBeInTheDocument();
+    expect(queryByText('Child in need')).toBeInTheDocument();
+  });
+
+  it('displays only one "CIN" in case they are multiple', async () => {
+    jest.spyOn(caseStatusApi, 'GetCaseStatus').mockImplementation(() => ({
+      data: mockedPersonCaseStatusFactory.build({
+        personId: person.id,
+        caseStatuses: [
+          mockedCaseStatusFactory.build({
+            type: 'CIN',
+          }),
+          mockedCaseStatusFactory.build({
+            type: 'CIN',
+          }),
+        ],
+      }),
+      isValidating: false,
+      mutate: jest.fn(),
+      revalidate: jest.fn(),
+    }));
+
+    const { queryByText } = render(<CaseStatusView person={person} />);
+
+    expect(queryByText('Child in need')).toBeInTheDocument();
+  });
+
+  it('displays only one "CIN", one "CPP" and one "LAC"', async () => {
+    jest.spyOn(caseStatusApi, 'GetCaseStatus').mockImplementation(() => ({
+      data: mockedPersonCaseStatusFactory.build({
+        personId: person.id,
+        caseStatuses: [
+          mockedCaseStatusFactory.build({
+            type: 'CIN',
+          }),
+          mockedCaseStatusFactory.build({
+            type: 'CPP',
+          }),
+          mockedCaseStatusFactory.build({
+            type: 'LAC',
+          }),
+        ],
+      }),
+      isValidating: false,
+      mutate: jest.fn(),
+      revalidate: jest.fn(),
+    }));
+
+    const { queryByText } = render(<CaseStatusView person={person} />);
+
+    expect(queryByText('Child in need')).toBeInTheDocument();
+    expect(queryByText('Child protection services')).toBeInTheDocument();
+    expect(queryByText('Looked after child')).toBeInTheDocument();
   });
 
   it("displays nothing if there's no case status", async () => {
