@@ -5,6 +5,7 @@ import { format } from 'date-fns';
 import s from './index.module.scss';
 import SubmissionDetailDialog from './SubmissionDetailDialog';
 import { generateSubmissionUrl } from 'lib/submissions';
+import { mapFormIdToFormDefinition } from 'data/flexibleForms/mapFormIdsToFormDefinition';
 
 interface Props {
   submission: InProgressSubmission;
@@ -13,10 +14,12 @@ interface Props {
 const SubmissionPanel = ({ submission }: Props): React.ReactElement | null => {
   const [open, setOpen] = useState(false);
 
-  const form = submission.form;
+  const form = mapFormIdToFormDefinition[submission.formId]?.form ?? {
+    steps: [],
+  };
   const totalSteps = form?.steps?.length;
   const completion =
-    Math.round((submission.completedSteps / Number(totalSteps)) * 100) || 0;
+    Math.round(submission.completedSteps / Number(totalSteps)) * 100;
 
   const url = useMemo(() => generateSubmissionUrl(submission), [submission]);
 
