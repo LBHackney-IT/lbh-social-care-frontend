@@ -12,16 +12,14 @@
 }
 
 .caseStatusDetails {
-  display: grid;
-  grid-template-columns: 14rem 1fr;
-  grid-row-gap: 0.5rem;
+  display: flex;
   margin-bottom: 1rem;
 
   dt {
     margin-top: 0;
   }
 
-  dd{
+  dd {
     margin-top: 0;
     font-size: 14px;
   }
@@ -41,7 +39,6 @@
 }
 
 .align {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
+  display: flex;
+  align-items: flex-start;
 }
