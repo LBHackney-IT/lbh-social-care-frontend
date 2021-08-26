@@ -2,6 +2,7 @@ import ApprovalWidget from './ApprovalWidget';
 import { render, screen } from '@testing-library/react';
 import { mockSubmission } from 'factories/submissions';
 import { mockedUser } from 'factories/users';
+import { SubmissionState } from 'data/flexibleForms/forms.types';
 
 jest.mock('axios');
 
@@ -22,7 +23,7 @@ describe('ApprovalWidget', () => {
         }}
         submission={{
           ...mockSubmission,
-          submissionState: 'Submitted',
+          submissionState: SubmissionState.Submitted,
         }}
       />
     );
@@ -39,7 +40,7 @@ describe('ApprovalWidget', () => {
         user={mockedUser}
         submission={{
           ...mockSubmission,
-          submissionState: 'Submitted',
+          submissionState: SubmissionState.Submitted,
         }}
       />
     );

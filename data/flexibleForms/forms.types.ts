@@ -40,6 +40,8 @@ export interface Field {
   hiddenRepeater?: boolean;
   /** for πer and repeater groups, a singular item name for more descriptive buttons and legends  */
   itemName?: string;
+  /** for textareas only*/
+  rows?: number;
   /** for file fields only */
   // multiple?: boolean
   /**for date inputs that are not allowed to be set in the future */
@@ -104,6 +106,19 @@ export interface FlexibleAnswers {
   [key: string]: StepAnswers;
 }
 
+export type InProgressSubmission = Omit<
+  Submission,
+  'formAnswers' | 'editHistory'
+>;
+
+export enum SubmissionState {
+  InProgress = 'In progress',
+  Approved = 'Approved',
+  Discarded = 'Discarded',
+  Submitted = 'Submitted',
+  PanelApproved = 'Panel Approved',
+}
+
 export interface Submission {
   submissionId: string;
   formId: string;
@@ -119,9 +134,11 @@ export interface Submission {
   residents: Resident[];
   workers: Worker[];
   editHistory: Revision[];
-  submissionState: 'In progress' | 'Approved' | 'Discarded' | 'Submitted';
+  submissionState: SubmissionState;
   formAnswers: FlexibleAnswers;
   tags?: string[];
+  lastEdited: string;
+  completedSteps: number;
 }
 
 export interface SubmissionWithForm extends Submission {

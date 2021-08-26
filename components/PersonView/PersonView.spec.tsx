@@ -1,7 +1,7 @@
 import { render, waitFor } from '@testing-library/react';
 import PersonView from './PersonView';
 import * as residentsAPI from 'utils/api/residents';
-import { mockedResident, residentFactory } from 'factories/residents';
+import { mockedResident } from 'factories/residents';
 import { userFactory } from '../../factories/users';
 import { UserContext } from '../UserContext/UserContext';
 

@@ -12,7 +12,6 @@ import {
   discardSubmission,
   generateSubmissionUrl,
 } from './submissions';
-import { mockedLegacyResident } from 'factories/residents';
 import { mockSubmission } from 'factories/submissions';
 
 jest.mock('axios');
@@ -37,7 +36,7 @@ describe('getInProgressSubmissions', () => {
     });
     const data = await getInProgressSubmissions();
     expect(mockedAxios.get).toHaveBeenCalledWith(
-      `${ENDPOINT_API}/submissions?submissionStates=in_progress&page=1&size=4000&createdAfter=2021-07-11T00:00:00.000Z`,
+      `${ENDPOINT_API}/submissions?submissionStates=in_progress&page=1&size=1000`,
       { headers: { 'x-api-key': AWS_KEY } }
     );
     expect(data).toEqual([
@@ -46,34 +45,20 @@ describe('getInProgressSubmissions', () => {
     ]);
   });
 
-  it('only returns submissions in the requested age context', async () => {
-    mockedAxios.get.mockResolvedValue({
-      data: [
-        {
-          submissionId: '123',
-          formAnswers: {},
-          residents: [mockedLegacyResident],
-        },
-        {
-          submissionId: '456',
-          formAnswers: {},
-          residents: [
-            {
-              ...mockedLegacyResident,
-              ageContext: 'C',
-            },
-          ],
-        },
-      ],
-    });
-    const data = await getInProgressSubmissions('A');
-    expect(data).toEqual([
-      {
-        submissionId: '123',
-        formAnswers: {},
-        residents: [mockedLegacyResident],
-      },
-    ]);
+  it('only queries for submissions using the requested age context', async () => {
+    await getInProgressSubmissions('A');
+    expect(mockedAxios.get).toHaveBeenCalledWith(
+      `${ENDPOINT_API}/submissions?submissionStates=in_progress&page=1&size=1000&ageContext=A`,
+      { headers: { 'x-api-key': AWS_KEY } }
+    );
+  });
+
+  it('only queries for submissions using the requested worker email', async () => {
+    await getInProgressSubmissions(undefined, undefined, 'foo@bar.com');
+    expect(mockedAxios.get).toHaveBeenCalledWith(
+      `${ENDPOINT_API}/submissions?submissionStates=in_progress&page=1&size=1000&workerEmail=foo@bar.com`,
+      { headers: { 'x-api-key': AWS_KEY } }
+    );
   });
 });
 

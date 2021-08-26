@@ -1,14 +1,14 @@
 import s from './index.module.scss';
-import { Submission } from 'data/flexibleForms/forms.types';
+import { InProgressSubmission } from 'data/flexibleForms/forms.types';
 import Link from 'next/link';
 import { generateSubmissionUrl } from 'lib/submissions';
 
 interface SubProps {
-  sub: Submission;
+  sub: InProgressSubmission;
 }
 
 const Sub = ({ sub }: SubProps): React.ReactElement => {
-  const completedSteps = Object.keys(sub.formAnswers).length;
+  const completedSteps = sub.completedSteps;
   const totalSteps = sub.form?.steps?.length;
 
   return (
@@ -30,7 +30,7 @@ const Sub = ({ sub }: SubProps): React.ReactElement => {
 };
 
 interface Props {
-  submissions: Submission[];
+  submissions: InProgressSubmission[];
 }
 
 const UnfinishedSubmissionsEvent = ({

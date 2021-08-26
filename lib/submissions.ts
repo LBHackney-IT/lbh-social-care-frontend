@@ -3,10 +3,11 @@ import {
   Submission,
   StepAnswers,
   FlexibleAnswers,
+  InProgressSubmission,
 } from 'data/flexibleForms/forms.types';
-import { Resident, AgeContext } from 'types';
-import forms from 'data/flexibleForms';
+import { AgeContext } from 'types';
 import parse from 'date-fns/parse';
+import { mapFormIdToFormDefinition } from 'data/flexibleForms/mapFormIdsToFormDefinition';
 
 type RawSubmission = Omit<Submission, 'formAnswers'> & {
   formAnswers: {
@@ -23,23 +24,26 @@ const headersWithKey = {
 
 /** get a list of all unfinished submissions in the current social care service context  */
 export const getInProgressSubmissions = async (
-  ageContext?: AgeContext
-): Promise<Submission[]> => {
-  const dateTwoWeeksAgo = new Date(Date.now());
-  dateTwoWeeksAgo.setDate(dateTwoWeeksAgo.getDate() - 14);
-  const { data } = await axios.get(
-    `${ENDPOINT_API}/submissions?submissionStates=in_progress&page=1&size=4000&createdAfter=${dateTwoWeeksAgo.toISOString()}`,
+  ageContext?: AgeContext,
+  personID?: number,
+  workerEmail?: string
+): Promise<InProgressSubmission[]> => {
+  const ageContextQuery =
+    ageContext !== undefined ? `&ageContext=${ageContext}` : '';
+
+  const personIdQuery = personID !== undefined ? `&personID=${personID}` : '';
+
+  const workerEmailQuery =
+    workerEmail !== undefined ? `&workerEmail=${workerEmail}` : '';
+
+  const { data } = await axios.get<InProgressSubmission[]>(
+    `${ENDPOINT_API}/submissions?submissionStates=in_progress&page=1&size=1000${ageContextQuery}${personIdQuery}${workerEmailQuery}`,
     {
       headers: headersWithKey,
     }
   );
-  return ageContext
-    ? data.filter((submission: Submission) =>
-        submission.residents.some(
-          (resident: Resident) => resident.ageContext === ageContext
-        )
-      )
-    : data;
+
+  return data;
 };
 
 /** create a new submission for the given form, resident and worker  */
@@ -268,10 +272,10 @@ export const returnForEdits = async (
 
 /** safely generate a submission url, handling weird cases like case notes, which use a different canonical url structure */
 export const generateSubmissionUrl = (
-  submission: Submission,
+  submission: Submission | InProgressSubmission,
   socialCareId?: number
 ): string => {
-  const form = forms.find((form) => form.id === submission.formId);
+  const form = mapFormIdToFormDefinition[submission.formId].form;
   if (form?.canonicalUrl) {
     return `${form.canonicalUrl(
       // use the passed in social care id, or default to the first resident on the submission

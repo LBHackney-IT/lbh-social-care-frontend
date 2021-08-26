@@ -1,4 +1,4 @@
-import { mapIdToType } from 'data/flexibleForms/mapFormIdsToDisplayName';
+import { mapFormIdToFormDefinition } from 'data/flexibleForms/mapFormIdsToFormDefinition';
 import Link from 'next/link';
 import { Case } from 'types';
 import { generateInternalLink as generateLegacyUrl } from 'utils/urls';
@@ -12,7 +12,8 @@ const EventLink = ({ event }: Props): React.ReactElement => {
   // 1. handle flexible forms
 
   if (event.formType === 'flexible-form') {
-    const formName = mapIdToType[event.formName] || 'Form';
+    const formName =
+      mapFormIdToFormDefinition[event.formName].displayName || 'Form';
     const formTitle = event.title ? ` - ${event.title}` : '';
 
     return (

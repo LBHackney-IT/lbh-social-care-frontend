@@ -1,4 +1,3 @@
-import forms from 'data/flexibleForms';
 import { NextApiRequest, NextApiResponse } from 'next';
 import StatusCodes from 'http-status-codes';
 import { startSubmission, getInProgressSubmissions } from 'lib/submissions';
@@ -22,21 +21,14 @@ const handler = async (
       }
       break;
     case 'GET':
-      if (req.query.includeSubmissions) {
+      {
+        const { personID } = req.query;
+
         const submissions = await getInProgressSubmissions(
-          user?.permissionFlag
+          user?.permissionFlag,
+          Number(personID)
         );
-        res.json({
-          forms,
-          submissions: submissions.map((sub) => ({
-            ...sub,
-            form: forms.find((form) => form.id === sub.formId),
-          })),
-        });
-      } else {
-        res.json({
-          forms,
-        });
+        res.json(submissions);
       }
       break;
     default:
