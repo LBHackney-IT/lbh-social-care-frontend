@@ -13,7 +13,7 @@ const EventLink = ({ event }: Props): React.ReactElement => {
 
   if (event.formType === 'flexible-form') {
     const formName =
-      mapFormIdToFormDefinition[event.formName].displayName || 'Form';
+      mapFormIdToFormDefinition[event.formName]?.displayName || 'Form';
     const formTitle = event.title ? ` - ${event.title}` : '';
 
     return (

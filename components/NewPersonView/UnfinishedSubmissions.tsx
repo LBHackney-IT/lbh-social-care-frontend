@@ -12,16 +12,16 @@ interface SubProps {
 const Sub = ({ sub }: SubProps): React.ReactElement => {
   const completedSteps = sub.completedSteps;
 
-  const form = mapFormIdToFormDefinition[sub.formId].form;
-  const totalSteps = form.steps.length;
+  const form = mapFormIdToFormDefinition[sub.formId]?.form;
+  const totalSteps = form?.steps.length;
 
-  const completedPercentageDisplay = `${Math.round(
-    (completedSteps / Number(totalSteps)) * 100
-  )}% complete · `;
+  const completedPercentageDisplay = totalSteps
+    ? `${Math.round((completedSteps / Number(totalSteps)) * 100)}% complete · `
+    : 'Unknown % complete · ';
 
   return (
     <li key={sub.submissionId}>
-      <Link href={generateSubmissionUrl(sub)}>{form.name || sub.formId}</Link>{' '}
+      <Link href={generateSubmissionUrl(sub)}>{sub.formId}</Link>{' '}
       <p className="lbh-body-xs">
         {completedPercentageDisplay}
         {sub.createdBy.email}

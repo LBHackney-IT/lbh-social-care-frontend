@@ -8,7 +8,6 @@ import {
 } from 'lib/submissions';
 import { isAuthorised } from 'utils/auth';
 import { notifyApprover } from 'lib/notify';
-import { mapFormIdToFormDefinition } from 'data/flexibleForms/mapFormIdsToFormDefinition';
 
 const handler = async (
   req: NextApiRequest,
@@ -56,12 +55,8 @@ const handler = async (
     case 'GET':
       {
         const submission = await getSubmissionById(id as string);
-        const form = mapFormIdToFormDefinition[submission.formId].form;
 
-        res.json({
-          ...submission,
-          form,
-        });
+        res.json(submission);
       }
       break;
     default:

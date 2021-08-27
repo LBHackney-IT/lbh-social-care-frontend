@@ -14,9 +14,7 @@ interface Props {
 const SubmissionPanel = ({ submission }: Props): React.ReactElement | null => {
   const [open, setOpen] = useState(false);
 
-  const form = mapFormIdToFormDefinition[submission.formId]?.form ?? {
-    steps: [],
-  };
+  const form = mapFormIdToFormDefinition[submission.formId]?.form;
   const totalSteps = form?.steps?.length;
   const completion =
     Math.round(submission.completedSteps / Number(totalSteps)) * 100;

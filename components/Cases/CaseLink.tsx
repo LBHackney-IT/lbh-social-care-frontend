@@ -22,7 +22,7 @@ const CaseLink = ({
   formType,
 }: Props): React.ReactElement | null => {
   if (formType === 'flexible-form') {
-    const name = mapFormIdToFormDefinition[formName].displayName;
+    const name = mapFormIdToFormDefinition[formName]?.displayName;
 
     return (
       <Link href={`/people/${personId}/submissions/${recordId}`}>
