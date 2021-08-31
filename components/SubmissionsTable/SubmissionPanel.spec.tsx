@@ -15,7 +15,6 @@ describe('SubmissionPanel', () => {
   it('can launch and close the dialog', () => {
     render(<SubmissionPanel submission={mockInProgressSubmission} />);
     fireEvent.click(screen.getByText('Details'));
-    expect(screen.getByText('Unknown form details'));
     expect(screen.getByRole('dialog'));
 
     fireEvent.click(screen.getByText('Close'));
