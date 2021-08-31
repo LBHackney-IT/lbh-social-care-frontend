@@ -28,8 +28,9 @@ const Event = ({ event }: Props): React.ReactElement => {
 
   const displaySnippet = event?.caseFormData?.case_note_title
     ? `${event?.caseFormData?.case_note_title}${
-        event?.caseFormData?.case_note_description &&
-        `: ${event?.caseFormData?.case_note_description}`
+        event?.caseFormData?.case_note_description
+          ? `: ${event?.caseFormData?.case_note_description}`
+          : ''
       }`
     : false;
 
