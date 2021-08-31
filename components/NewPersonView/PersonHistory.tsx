@@ -20,13 +20,6 @@ const PersonHistory = ({ personId }: Props): React.ReactElement => {
   } = useCasesByResident(personId);
   const { data: submissionsData } = useUnfinishedSubmissions(personId);
 
-  const events = [] as Case[];
-  for (let i = 0; casesData !== undefined && i < casesData.length; i++) {
-    events.push(...casesData[i].cases);
-  }
-
-  const onLastPage = !casesData?.[casesData.length - 1].nextCursor;
-
   if (isValidating && casesData === undefined) {
     return <Spinner />;
   }
@@ -35,9 +28,16 @@ const PersonHistory = ({ personId }: Props): React.ReactElement => {
     return <ErrorMessage label={casesError.message} />;
   }
 
+  const events = [] as Case[];
+  for (let i = 0; casesData !== undefined && i < casesData.length; i++) {
+    events.push(...casesData[i].cases);
+  }
+
   if (!events || events.length === 0) {
     return <p>No events to show</p>;
   }
+
+  const onLastPage = !casesData?.[casesData.length - 1].nextCursor;
 
   return (
     <PersonTimeline
