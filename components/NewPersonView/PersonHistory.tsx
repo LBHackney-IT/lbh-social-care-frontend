@@ -16,35 +16,37 @@ const PersonHistory = ({ personId }: Props): React.ReactElement => {
     size,
     setSize,
     error: casesError,
+    isValidating,
   } = useCasesByResident(personId);
   const { data: submissionsData } = useUnfinishedSubmissions(personId);
 
-  // flatten pagination
-  const events = casesData?.reduce(
-    (acc, page) => acc.concat(page.cases as Case[]),
-    [] as Case[]
-  );
+  const events = [] as Case[];
+  for (let i = 0; casesData !== undefined && i < casesData.length; i++) {
+    events.push(...casesData[i].cases);
+  }
 
   const onLastPage = !casesData?.[casesData.length - 1].nextCursor;
 
-  return events ? (
-    events.length > 0 ? (
-      <>
-        <PersonTimeline
-          unfinishedSubmissions={submissionsData || { items: [], count: 0 }}
-          events={events}
-          size={size}
-          setSize={setSize}
-          onLastPage={onLastPage}
-        />
-      </>
-    ) : (
-      <p>No events to show</p>
-    )
-  ) : casesError ? (
-    <ErrorMessage label={casesError.message} />
-  ) : (
-    <Spinner />
+  if (isValidating && casesData === undefined) {
+    return <Spinner />;
+  }
+
+  if (casesError) {
+    return <ErrorMessage label={casesError.message} />;
+  }
+
+  if (!events || events.length === 0) {
+    return <p>No events to show</p>;
+  }
+
+  return (
+    <PersonTimeline
+      unfinishedSubmissions={submissionsData || { items: [], count: 0 }}
+      events={events}
+      size={size}
+      setSize={setSize}
+      onLastPage={onLastPage}
+    />
   );
 };
 

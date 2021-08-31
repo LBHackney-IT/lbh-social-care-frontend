@@ -110,7 +110,7 @@ export interface Case {
 }
 
 export interface CaseData {
-  cases: Case[] | [];
+  cases: Case[];
   nextCursor?: number;
 }
 
