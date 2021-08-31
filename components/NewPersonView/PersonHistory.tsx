@@ -3,7 +3,6 @@ import Spinner from 'components/Spinner/Spinner';
 import React from 'react';
 import { Case } from 'types';
 import { useCasesByResident } from 'utils/api/cases';
-import { useUnfinishedSubmissions } from 'utils/api/submissions';
 import PersonTimeline from './PersonTimeline';
 
 interface Props {
@@ -18,7 +17,6 @@ const PersonHistory = ({ personId }: Props): React.ReactElement => {
     error: casesError,
     isValidating,
   } = useCasesByResident(personId);
-  const { data: submissionsData } = useUnfinishedSubmissions(personId);
 
   if (isValidating && casesData === undefined) {
     return <Spinner />;
@@ -41,7 +39,7 @@ const PersonHistory = ({ personId }: Props): React.ReactElement => {
 
   return (
     <PersonTimeline
-      unfinishedSubmissions={submissionsData || { items: [], count: 0 }}
+      personId={personId}
       events={events}
       size={size}
       setSize={setSize}
