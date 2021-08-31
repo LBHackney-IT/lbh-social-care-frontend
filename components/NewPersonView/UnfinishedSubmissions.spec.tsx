@@ -17,7 +17,23 @@ describe('UnfinishedSubmissions', () => {
     jest.resetAllMocks();
   });
 
-  // test we call the useUnfinishedSubmissions with the personId
+  it('calls useUnfinishedSubmissions with the provided PersonId', () => {
+    const mockPersonId = 1;
+
+    const mock = jest
+      .spyOn(submissionHooks, 'useUnfinishedSubmissions')
+      .mockImplementation(() => {
+        const response = {
+          data: {},
+        } as SWRResponse<Paginated<InProgressSubmission>, ErrorAPI>;
+
+        return response;
+      });
+
+    render(<UnfinishedSubmissions personId={mockPersonId} />);
+
+    expect(mock).toHaveBeenCalledWith(mockPersonId);
+  });
 
   it('renders a list of clickable submissions', () => {
     jest
