@@ -61,12 +61,11 @@ const UnfinishedSubmissionsEvent = ({
               <Sub sub={sub} key={sub.submissionId} />
             ))}
           </ul>
-          {unfinishedSubmissionRes &&
-            unfinishedSubmissionRes.items.length > 4 && (
-              <p className="lbh-body-s govuk-!-margin-top-4">
-                and {unfinishedSubmissionRes?.items.length - 4} more
-              </p>
-            )}
+          {unfinishedSubmissionRes.items.length > 4 && (
+            <p className="lbh-body-s govuk-!-margin-top-4">
+              and {unfinishedSubmissionRes?.count - 4} more
+            </p>
+          )}
         </>
       )}
     </li>
