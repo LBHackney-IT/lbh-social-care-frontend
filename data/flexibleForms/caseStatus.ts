@@ -49,13 +49,6 @@ const form: Form = {
           default: format(new Date(), 'yyyy-MM-dd'),
         },
         {
-          id: 'endDate',
-          question: 'End Date',
-          type: 'date',
-          default: format(new Date(), 'yyyy-MM-dd'),
-          className: 'govuk-input--width-10',
-        },
-        {
           id: 'notes',
           question: 'Notes',
           type: 'textarea',
