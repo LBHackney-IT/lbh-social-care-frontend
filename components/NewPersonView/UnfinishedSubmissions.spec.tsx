@@ -256,7 +256,47 @@ describe('UnfinishedSubmissions', () => {
     expect(screen.getByText('No unfinished submissions to show'));
   });
 
-  // test showing form name when found
+  it('displays the form name when it can be found from mapFormIdToFormDefinition', () => {
+    jest
+      .spyOn(submissionHooks, 'useUnfinishedSubmissions')
+      .mockImplementation(() => {
+        const response = {
+          data: {
+            items: [mockInProgressSubmission] as InProgressSubmission[],
+            count: 3,
+          },
+        } as SWRResponse<Paginated<InProgressSubmission>, ErrorAPI>;
 
-  // testing showing form-id when no valid form-name found
+        return response;
+      });
+
+    render(<UnfinishedSubmissions personId={1} />);
+
+    expect(screen.getByText('Sandbox form'));
+  });
+
+  it('displays the formId when form cannot be found from mapFormIdToFormDefinition', () => {
+    const mockFormId = 'fake-form-id';
+
+    jest
+      .spyOn(submissionHooks, 'useUnfinishedSubmissions')
+      .mockImplementation(() => {
+        const response = {
+          data: {
+            items: [
+              mockInProgressSubmissionFactory.build({
+                formId: mockFormId,
+              }),
+            ] as InProgressSubmission[],
+            count: 3,
+          },
+        } as SWRResponse<Paginated<InProgressSubmission>, ErrorAPI>;
+
+        return response;
+      });
+
+    render(<UnfinishedSubmissions personId={1} />);
+
+    expect(screen.getByText(mockFormId));
+  });
 });
