@@ -3,7 +3,6 @@ import type { PersonCaseStatus } from 'types';
 const ENDPOINT_API = process.env.ENDPOINT_API;
 const AWS_KEY = process.env.AWS_KEY;
 const headers = { 'x-api-key': AWS_KEY };
-
 export const getCaseStatusByPersonId = async (
   personId: number
 ): Promise<PersonCaseStatus> => {
