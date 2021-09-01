@@ -29,7 +29,7 @@ export const SubmissionsTable = ({
         // augment each one with its form
         .map((submission) => ({
           ...submission,
-          form: mapFormIdToFormDefinition[submission.formId].form,
+          form: mapFormIdToFormDefinition[submission.formId]?.form,
         }))
         .filter((submission) => {
           // hide any restricted records unless the user has permission to see them

@@ -2,67 +2,18 @@ import { getResident } from 'lib/residents';
 import Layout from 'components/NewPersonView/Layout';
 import { GetServerSideProps } from 'next';
 import { Resident } from 'types';
-import { useCasesByResident } from 'utils/api/cases';
-import { Case } from 'types';
-import PersonTimeline from 'components/NewPersonView/PersonTimeline';
-import Spinner from 'components/Spinner/Spinner';
-import ErrorMessage from 'components/ErrorMessage/ErrorMessage';
-import { useUnfinishedSubmissions } from 'utils/api/submissions';
 import { canManageCases } from 'lib/permissions';
 import { isAuthorised } from 'utils/auth';
-import { ConditionalFeature } from '../../../lib/feature-flags/feature-flags';
-import Cases from 'components/Cases/Cases';
+import PersonHistory from 'components/NewPersonView/PersonHistory';
 
 interface Props {
   person: Resident;
 }
 
 const PersonPage = ({ person }: Props): React.ReactElement => {
-  const {
-    data: casesData,
-    size,
-    setSize,
-    error: casesError,
-  } = useCasesByResident(person.id);
-  const { data: submissionsData } = useUnfinishedSubmissions(person.id);
-
-  // flatten pagination
-  const events = casesData?.reduce(
-    (acc, page) => acc.concat(page.cases as Case[]),
-    [] as Case[]
-  );
-
-  const onLastPage = !casesData?.[casesData.length - 1].nextCursor;
-
   return (
     <Layout person={person}>
-      {events ? (
-        events.length > 0 ? (
-          <>
-            <ConditionalFeature name="person-timeline">
-              <PersonTimeline
-                unfinishedSubmissions={
-                  submissionsData || { items: [], count: 0 }
-                }
-                events={events}
-                size={size}
-                setSize={setSize}
-                onLastPage={onLastPage}
-              />
-            </ConditionalFeature>
-
-            <ConditionalFeature name="person-cases">
-              <Cases id={person.id} person={person} />
-            </ConditionalFeature>
-          </>
-        ) : (
-          <p>No events to show</p>
-        )
-      ) : casesError ? (
-        <ErrorMessage label={casesError.message} />
-      ) : (
-        <Spinner />
-      )}
+      <PersonHistory personId={person.id} />
     </Layout>
   );
 };

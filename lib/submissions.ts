@@ -275,7 +275,7 @@ export const generateSubmissionUrl = (
   submission: Submission | InProgressSubmission,
   socialCareId?: number
 ): string => {
-  const form = mapFormIdToFormDefinition[submission.formId].form;
+  const form = mapFormIdToFormDefinition[submission.formId]?.form;
   if (form?.canonicalUrl) {
     return `${form.canonicalUrl(
       // use the passed in social care id, or default to the first resident on the submission

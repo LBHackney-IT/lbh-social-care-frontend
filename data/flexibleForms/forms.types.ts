@@ -122,7 +122,6 @@ export enum SubmissionState {
 export interface Submission {
   submissionId: string;
   formId: string;
-  form?: Form;
   createdBy: Worker;
   createdAt: string;
   submittedBy: Worker | null;
