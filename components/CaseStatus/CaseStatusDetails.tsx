@@ -34,9 +34,10 @@ const CaseStatusDetails = ({ person }: Props): React.ReactElement => {
                       <div className={styles.align}>
                             {status.type && (
                               <>
-                                <dt className={styles.selectedTitles}>
+                                <dt className="govuk-!-margin-right-2">
+                                  <div className={styles.typeStyling}>
                                   {getTypeString(status.type as keyof typeof valueMapping)}{' '}
-                                  -
+                                  </div>
                                 </dt>
                               </>
                             )}
@@ -45,8 +46,7 @@ const CaseStatusDetails = ({ person }: Props): React.ReactElement => {
                               <>
                                 <dt className={styles.date}>Start</dt>
                                 <dd>
-                                  {status.startDate
-                                    ? new Date(status.startDate).toLocaleDateString('en-GB'): new Date(status.endDate).toLocaleDateString('en-GB')}{' '}-
+                                  {status.startDate ? new Date(status.startDate).toLocaleDateString('en-GB') : new Date(status.endDate).toLocaleDateString('en-GB')}{' '}
                                 </dd>
                               </>
                             )}  
