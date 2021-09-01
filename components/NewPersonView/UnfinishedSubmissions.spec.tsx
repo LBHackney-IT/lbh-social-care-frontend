@@ -202,4 +202,61 @@ describe('UnfinishedSubmissions', () => {
 
     expect(screen.getByText('Unknown % complete · ', { exact: false }));
   });
+
+  it('shows an error message when fetching unfinished submissions returns an error', () => {
+    jest
+      .spyOn(submissionHooks, 'useUnfinishedSubmissions')
+      .mockImplementation(() => {
+        const response = {
+          error: {},
+        } as SWRResponse<Paginated<InProgressSubmission>, ErrorAPI>;
+
+        return response;
+      });
+
+    render(<UnfinishedSubmissions personId={1} />);
+
+    expect(
+      screen.getByText('There was a problem fetching unfinished submissions')
+    );
+  });
+
+  it('shows loading spinner when fetching unfinished submissions', () => {
+    jest
+      .spyOn(submissionHooks, 'useUnfinishedSubmissions')
+      .mockImplementation(() => {
+        const response = {
+          isValidating: true,
+        } as SWRResponse<Paginated<InProgressSubmission>, ErrorAPI>;
+
+        return response;
+      });
+
+    render(<UnfinishedSubmissions personId={1} />);
+
+    expect(screen.getByText('MockedSpinner'));
+  });
+
+  it('shows when there are no unfinished submissions', () => {
+    jest
+      .spyOn(submissionHooks, 'useUnfinishedSubmissions')
+      .mockImplementation(() => {
+        const response = {
+          data: {
+            items: [] as InProgressSubmission[],
+            count: 0,
+          },
+        } as SWRResponse<Paginated<InProgressSubmission>, ErrorAPI>;
+
+        return response;
+      });
+
+    render(<UnfinishedSubmissions personId={1} />);
+
+    expect(screen.getByText('No unfinished submissions to show'));
+  });
+
+  // test showing form name when found
+
+  // testing showing form-id when no valid form-name found
 });
