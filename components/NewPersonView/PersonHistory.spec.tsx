@@ -2,14 +2,11 @@ import { render, screen } from '@testing-library/react';
 import { mockedResident } from 'factories/residents';
 import PersonHistory from './PersonHistory';
 import * as caseHooks from 'utils/api/cases';
-import * as submissionHooks from 'utils/api/submissions';
-import { SWRInfiniteResponse, SWRResponse } from 'swr';
-import { CaseData, ErrorAPI, Paginated } from 'types';
-import { InProgressSubmission } from 'data/flexibleForms/forms.types';
+import { SWRInfiniteResponse } from 'swr';
+import { CaseData } from 'types';
 import { mockedCaseNote } from 'factories/cases';
 
 jest.mock('utils/api/cases');
-jest.mock('utils/api/submissions');
 jest.mock('components/Spinner/Spinner', () => () => 'MockedSpinner');
 
 describe('PersonHistory', () => {
@@ -30,19 +27,7 @@ describe('PersonHistory', () => {
       return response;
     });
 
-    jest
-      .spyOn(submissionHooks, 'useUnfinishedSubmissions')
-      .mockImplementation(() => {
-        const response = {} as SWRResponse<
-          Paginated<InProgressSubmission>,
-          ErrorAPI
-        >;
-
-        return response;
-      });
-
     render(<PersonHistory personId={mockedResident.id} />);
-
     expect(screen.getByText('i am a case title'));
   });
 
@@ -59,19 +44,7 @@ describe('PersonHistory', () => {
       return response;
     });
 
-    jest
-      .spyOn(submissionHooks, 'useUnfinishedSubmissions')
-      .mockImplementation(() => {
-        const response = {} as SWRResponse<
-          Paginated<InProgressSubmission>,
-          ErrorAPI
-        >;
-
-        return response;
-      });
-
     render(<PersonHistory personId={mockedResident.id} />);
-
     expect(screen.getByText('No events to show'));
   });
 
@@ -84,19 +57,7 @@ describe('PersonHistory', () => {
       return response;
     });
 
-    jest
-      .spyOn(submissionHooks, 'useUnfinishedSubmissions')
-      .mockImplementation(() => {
-        const response = {} as SWRResponse<
-          Paginated<InProgressSubmission>,
-          ErrorAPI
-        >;
-
-        return response;
-      });
-
     render(<PersonHistory personId={mockedResident.id} />);
-
     expect(screen.getByText('MockedSpinner'));
   });
 
@@ -113,19 +74,7 @@ describe('PersonHistory', () => {
       return response;
     });
 
-    jest
-      .spyOn(submissionHooks, 'useUnfinishedSubmissions')
-      .mockImplementation(() => {
-        const response = {} as SWRResponse<
-          Paginated<InProgressSubmission>,
-          ErrorAPI
-        >;
-
-        return response;
-      });
-
     render(<PersonHistory personId={mockedResident.id} />);
-
     expect(screen.getByText(errorMessage));
   });
 });
