@@ -16,7 +16,7 @@ export const getCaseStatusByPersonId = async (
   return data;
 };
 
-export const GetFormValues = async (
+export const getFormValues = async (
   type: string
 ): Promise<PersonCaseStatus> => {
   const { data }: { data: PersonCaseStatus } = await axios.get(
@@ -32,7 +32,7 @@ export const addCaseStatus = async (
   params: Record<string, unknown>
 ): Promise<void> => {
   await axios.post(
-    'https://virtserver.swaggerhub.com/Hackney/social-care-case-viewer-api/1.0.0/casestatuses',
+    'https://virtserver.swaggerhub.com/Hackney/social-care-case-viewer-api/1.0.0/case-statuses',
     params,
     {
       headers: { ...headers, 'Content-Type': 'application/json' },
