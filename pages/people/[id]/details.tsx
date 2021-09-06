@@ -6,6 +6,7 @@ import PersonDetails from 'components/PersonView/PersonDetails';
 import { isAuthorised } from '../../../utils/auth';
 import { useRouter } from 'next/router';
 import ConfirmationBanner from 'components/ConfirmationBanner/ConfirmationBanner';
+import Link from 'next/link';
 
 interface Props {
   person: Resident;
@@ -14,9 +15,14 @@ interface Props {
 const PersonAllocationsPage = ({ person }: Props): React.ReactElement => {
   const router = useRouter();
   const success = Boolean(router.query.success);
+  
+  let link =  <Link href={`/people/${person.id}/case-status/add`}>
+  <a style={{ marginLeft: '0px' }}>{'Add another flag'}</a>
+</Link>;
+  
   return (
     <>
-      {success == true && <ConfirmationBanner title={'Flagged status added'} />}
+      {success == true && <ConfirmationBanner title={'Flagged status added'} children={link}/>}
       <Layout person={person}>
         <PersonDetails person={person} />
       </Layout>
