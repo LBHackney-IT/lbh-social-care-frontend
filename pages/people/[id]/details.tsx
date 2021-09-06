@@ -4,17 +4,25 @@ import { GetServerSideProps } from 'next';
 import { Resident } from 'types';
 import PersonDetails from 'components/PersonView/PersonDetails';
 import { isAuthorised } from '../../../utils/auth';
+import { useRouter } from 'next/router';
+import ConfirmationBanner from 'components/ConfirmationBanner/ConfirmationBanner';
 
 interface Props {
   person: Resident;
 }
 
-const PersonAllocationsPage = ({ person }: Props): React.ReactElement => (
-  <Layout person={person}>
-    <PersonDetails person={person} />
-  </Layout>
-);
-
+const PersonAllocationsPage = ({ person }: Props): React.ReactElement => {
+  const router = useRouter();
+  const success = Boolean(router.query.success);
+  return (
+    <>
+      {success == true && <ConfirmationBanner title={'Flagged status added'} />}
+      <Layout person={person}>
+        <PersonDetails person={person} />
+      </Layout>
+    </>
+  );
+};
 PersonAllocationsPage.goBackButton = true;
 
 export const getServerSideProps: GetServerSideProps = async ({

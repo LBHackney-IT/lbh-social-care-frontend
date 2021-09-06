@@ -13,7 +13,6 @@ import { AddCaseStatus } from 'utils/api/caseStatus';
 
 const AddNewCaseStatus = (): React.ReactElement => {
   const router = useRouter();
-
   const personId = Number(router.query.id as string);
   const fields = CASE_STATUS.steps[0].fields;
 
