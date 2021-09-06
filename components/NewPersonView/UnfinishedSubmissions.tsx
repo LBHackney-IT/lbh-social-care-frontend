@@ -2,8 +2,10 @@ import s from './index.module.scss';
 import { InProgressSubmission } from 'data/flexibleForms/forms.types';
 import Link from 'next/link';
 import { generateSubmissionUrl } from 'lib/submissions';
-import { Paginated } from 'types';
 import { mapFormIdToFormDefinition } from 'data/flexibleForms/mapFormIdsToFormDefinition';
+import { useUnfinishedSubmissions } from 'utils/api/submissions';
+import Spinner from 'components/Spinner/Spinner';
+import ErrorMessage from 'components/ErrorMessage/ErrorMessage';
 
 interface SubProps {
   sub: InProgressSubmission;
@@ -21,7 +23,7 @@ const Sub = ({ sub }: SubProps): React.ReactElement => {
 
   return (
     <li key={sub.submissionId}>
-      <Link href={generateSubmissionUrl(sub)}>{sub.formId}</Link>{' '}
+      <Link href={generateSubmissionUrl(sub)}>{form?.name || sub.formId}</Link>
       <p className="lbh-body-xs">
         {completedPercentageDisplay}
         {sub.createdBy.email}
@@ -31,27 +33,47 @@ const Sub = ({ sub }: SubProps): React.ReactElement => {
 };
 
 interface Props {
-  submissions: Paginated<InProgressSubmission>;
+  personId: number;
 }
 
 const UnfinishedSubmissionsEvent = ({
-  submissions,
-}: Props): React.ReactElement => (
-  <li
-    className={`lbh-timeline__event lbh-timeline__event--action-needed ${s.unfinishedSubmissionsPanel}`}
-  >
-    <h3 className="govuk-!-margin-bottom-4">Unfinished submissions</h3>
-    <ul className="lbh-list lbh-body-s">
-      {submissions.items.slice(0, 4).map((sub) => (
-        <Sub sub={sub} key={sub.submissionId} />
-      ))}
-    </ul>
-    {submissions.items.length > 4 && (
-      <p className="lbh-body-s govuk-!-margin-top-4">
-        and {submissions.count - 4} more
-      </p>
-    )}
-  </li>
-);
+  personId,
+}: Props): React.ReactElement => {
+  const {
+    data: unfinishedSubmissionRes,
+    isValidating,
+    error,
+  } = useUnfinishedSubmissions(personId);
+
+  return (
+    <li
+      className={`lbh-timeline__event lbh-timeline__event--action-needed ${s.unfinishedSubmissionsPanel}`}
+    >
+      <h3 className="govuk-!-margin-bottom-4">Unfinished submissions</h3>
+      {isValidating && <Spinner />}
+      {error && (
+        <ErrorMessage label="There was a problem fetching unfinished submissions" />
+      )}
+      {unfinishedSubmissionRes?.items?.length === 0 && (
+        <p>No unfinished submissions to show</p>
+      )}
+
+      {unfinishedSubmissionRes?.items?.length && (
+        <>
+          <ul className="lbh-list lbh-body-s">
+            {unfinishedSubmissionRes?.items.slice(0, 4).map((sub) => (
+              <Sub sub={sub} key={sub.submissionId} />
+            ))}
+          </ul>
+          {unfinishedSubmissionRes?.items.length > 4 && (
+            <p className="lbh-body-s govuk-!-margin-top-4">
+              and {unfinishedSubmissionRes?.count - 4} more
+            </p>
+          )}
+        </>
+      )}
+    </li>
+  );
+};
 
 export default UnfinishedSubmissionsEvent;

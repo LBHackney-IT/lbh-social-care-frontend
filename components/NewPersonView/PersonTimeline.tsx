@@ -1,8 +1,7 @@
 import React from 'react';
 import { formatDistanceToNow } from 'date-fns';
-import { Case, Paginated } from 'types';
+import { Case } from 'types';
 import s from './index.module.scss';
-import { InProgressSubmission } from 'data/flexibleForms/forms.types';
 import UnfinishedSubmissionsEvent from './UnfinishedSubmissions';
 import { normaliseDateToISO } from 'utils/date';
 import Event from './Event';
@@ -24,18 +23,18 @@ const safelyFormatDistanceToNow = (rawDate: string): string => {
 
 interface Props {
   events: Case[];
-  unfinishedSubmissions: Paginated<InProgressSubmission>;
   size: number;
   setSize: (size: number) => void;
   onLastPage: boolean;
+  personId: number;
 }
 
 const PersonTimeline = ({
   events,
-  unfinishedSubmissions,
   size,
   setSize,
   onLastPage,
+  personId,
 }: Props): React.ReactElement => {
   const oldestResult = events?.[events.length - 1];
   const oldestTimestamp = normaliseDateToISO(
@@ -51,9 +50,7 @@ const PersonTimeline = ({
               [s.timelineContinues]: !onLastPage,
             })}
           >
-            {unfinishedSubmissions.items.length > 0 && (
-              <UnfinishedSubmissionsEvent submissions={unfinishedSubmissions} />
-            )}
+            <UnfinishedSubmissionsEvent personId={personId} />
 
             {events?.map((event) => (
               <Event event={event} key={event.recordId} />

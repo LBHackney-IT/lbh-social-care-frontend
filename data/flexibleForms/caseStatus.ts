@@ -16,27 +16,14 @@ const form: Form = {
       theme: 'Case status',
       fields: [
         {
-          id: 'caseStatusType',
+          id: 'type',
           question: 'What is the case status you would like to add?',
           type: 'radios',
-          required: false,
+          required: true,
           choices: [
             {
               value: 'CIN',
               label: 'Child in need',
-            },
-          ],
-        },
-        {
-          id: 'reasonForPlacement',
-          question:
-            'What is the latest primary reason for placement? (Primary need code)',
-          type: 'select',
-          required: true,
-          conditions: [
-            {
-              id: 'caseStatusType',
-              value: 'CIN',
             },
           ],
         },
