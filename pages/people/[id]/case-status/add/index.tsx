@@ -34,8 +34,10 @@ const AddNewCaseStatus = (): React.ReactElement => {
 
       if (error) throw error;
 
-      router.push(`/people/${router.query.id}/details`);
-
+      router.push({
+        pathname: `/people/${router.query.id}/details`,
+        query: { success: true },
+      });
       return data;
     } catch (e) {
       setStatus(e.toString());
