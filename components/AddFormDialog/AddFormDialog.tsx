@@ -86,7 +86,7 @@ const AddFormDialog = ({
             .concat(
               isFeatureActive('workflows-pilot')
                 ? {
-                    label: 'Assessments, support plan or workflow',
+                    label: 'Assessment, support plan or workflow',
                     href: `${process.env.NEXT_PUBLIC_WORKFLOWS_PILOT_URL}/workflows/new?social_care_id=${person.id}`,
                     system: true,
                     approvable: true,
