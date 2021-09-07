@@ -172,6 +172,16 @@ const Layout = ({ person, children }: Props): React.ReactElement => {
                   {link.text}
                 </NavLink>
               ))}
+
+              <ConditionalFeature name="workflows-pilot">
+                <NavLink
+                  href={`${
+                    process.env.NEXT_PUBLIC_WORKFLOWS_PILOT_URL as string
+                  }?social_care_id=${person.id}`}
+                >
+                  Workflows
+                </NavLink>
+              </ConditionalFeature>
             </ul>
 
             <ul className={`lbh-list ${s.secondaryNav}`}>
