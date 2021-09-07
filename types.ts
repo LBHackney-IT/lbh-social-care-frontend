@@ -354,6 +354,16 @@ export interface CaseStatus {
   notes: string;
 }
 
+export interface AddCaseStatusFormData {
+  personId: number;
+  type: string;
+  fields?: [{ name: string; selected: string }];
+  startDate: string;
+  endDate?: string;
+  notes: string;
+  createdby: string;
+}
+
 export interface Paginated<T> {
   items: T[];
   count: number;

@@ -19,7 +19,7 @@ describe('caseStatusAPI', () => {
 
       caseStatusAPI.GetFormValues('CIN');
       expect(SWR.default).toHaveBeenCalledWith(
-        '/api/casestatuses/form-options?type=CIN'
+        '/api/casestatus/form-options/CIN'
       );
     });
   });

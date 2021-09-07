@@ -1,6 +1,9 @@
 import axios from 'axios';
 import * as caseStatusAPI from './caseStatus';
-import { mockedCaseStatusFactory } from 'factories/caseStatus';
+import {
+  mockedCaseStatusFactory,
+  mockedCaseStatusAddRequest,
+} from 'factories/caseStatus';
 
 const ENDPOINT_API = process.env.ENDPOINT_API;
 const AWS_KEY = process.env.AWS_KEY;
@@ -30,22 +33,19 @@ describe('case status APIs', () => {
   });
 
   describe('addCaseStatus', () => {
-    it("calls the service API's case status endpoint", async () => {
-      const caseStatus = mockedCaseStatusFactory.build();
-      mockedAxios.get.mockResolvedValue({
-        data: caseStatus,
+    it("calls the service API's POST case status endpoint", async () => {
+      mockedAxios.post.mockResolvedValue({ data: {} });
+      await caseStatusAPI.addCaseStatus({
+        data: mockedCaseStatusAddRequest,
       });
-
-      const data = await caseStatusAPI.addCaseStatus({});
-
-      expect(mockedAxios.get).toHaveBeenCalled();
-      expect(mockedAxios.get.mock.calls[0][0]).toEqual(
-        `https://virtserver.swaggerhub.com/Hackney/social-care-case-viewer-api/1.0.0/casestatuses`
+      expect(mockedAxios.post).toHaveBeenCalled();
+      expect(mockedAxios.post.mock.calls[0][0]).toEqual(
+        `https://virtserver.swaggerhub.com/Hackney/social-care-case-viewer-api/1.0.0/case-statuses`
       );
-      expect(mockedAxios.get.mock.calls[0][1]?.headers).toEqual({
+      expect(mockedAxios.post.mock.calls[0][2]?.headers).toEqual({
+        'Content-Type': 'application/json',
         'x-api-key': AWS_KEY,
       });
-      expect(data).toEqual(caseStatus);
     });
   });
 });
