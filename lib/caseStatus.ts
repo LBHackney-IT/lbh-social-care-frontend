@@ -30,11 +30,7 @@ export const getFormValues = async (
 export const addCaseStatus = async (
   params: Record<string, unknown>
 ): Promise<void> => {
-  await axios.post(
-    'https://virtserver.swaggerhub.com/Hackney/social-care-case-viewer-api/1.0.0/case-statuses',
-    params,
-    {
-      headers: { ...headers, 'Content-Type': 'application/json' },
-    }
-  );
+  await axios.post(`${ENDPOINT_API}/residents/case-statuses`, params, {
+    headers: { ...headers, 'Content-Type': 'application/json' },
+  });
 };
