@@ -17,6 +17,24 @@ jest.mock('next/router', () => ({
 }));
 
 describe('CaseStatusDetail component', () => {
+  it("displays nothing if there's no case status", async () => {
+    jest.spyOn(caseStatusApi, 'GetCaseStatus').mockImplementation(() => ({
+      data: mockedPersonCaseStatusFactory.build({
+        personId: mockedResident.id,
+        caseStatuses: [],
+      }),
+      isValidating: false,
+      mutate: jest.fn(),
+      revalidate: jest.fn(),
+    }));
+
+    const { queryByText } = render(
+      <CaseStatusDetails person={mockedResident} />
+    );
+
+    expect(queryByText('Child in need')).not.toBeInTheDocument();
+  });
+
   it('displays the casestatus of a person', async () => {
     jest.spyOn(caseStatusApi, 'GetCaseStatus').mockImplementation(() => ({
       data: mockedPersonCaseStatusFactory.build({
@@ -41,24 +59,6 @@ describe('CaseStatusDetail component', () => {
     expect(queryByText('This is a note')).toBeInTheDocument();
   });
 
-  it("displays nothing if there's no case status", async () => {
-    jest.spyOn(caseStatusApi, 'GetCaseStatus').mockImplementation(() => ({
-      data: mockedPersonCaseStatusFactory.build({
-        personId: mockedResident.id,
-        caseStatuses: [],
-      }),
-      isValidating: false,
-      mutate: jest.fn(),
-      revalidate: jest.fn(),
-    }));
-
-    const { queryByText } = render(
-      <CaseStatusDetails person={mockedResident} />
-    );
-
-    expect(queryByText('Child in need')).not.toBeInTheDocument();
-  });
-
   it('displays multiple CIN in case they exist', async () => {
     jest.spyOn(caseStatusApi, 'GetCaseStatus').mockImplementation(() => ({
       data: mockedPersonCaseStatusFactory.build({
@@ -66,11 +66,11 @@ describe('CaseStatusDetail component', () => {
         caseStatuses: [
           mockedCaseStatusFactory.build({
             type: 'CIN',
-            notes: 'first',
+            notes: 'first note',
           }),
           mockedCaseStatusFactory.build({
             type: 'CIN',
-            notes: 'second',
+            notes: 'second note',
           }),
         ],
       }),
@@ -83,8 +83,8 @@ describe('CaseStatusDetail component', () => {
       <CaseStatusDetails person={mockedResident} />
     );
 
-    expect(queryByText('first')).toBeInTheDocument();
-    expect(queryByText('second')).toBeInTheDocument();
+    expect(queryByText('first note')).toBeInTheDocument();
+    expect(queryByText('second note')).toBeInTheDocument();
   });
 
   it('displays an error if API error', async () => {

@@ -27,8 +27,8 @@ const CaseStatusDetails = ({ person }: Props): React.ReactElement => {
 
         {caseStatusData.caseStatuses.map((status) => (
           <div key={status.id} className={styles.caseStatusDesign}>
-            <div className={styles.caseStatusDetails}>
-              <dl>
+            <div key={status.id} className={styles.caseStatusDetails}>
+              <dl key={status.id}>
                 <div className={styles.align}>
                   {status.type && (
                     <>
@@ -73,7 +73,7 @@ const CaseStatusDetails = ({ person }: Props): React.ReactElement => {
                     field.selectedOption &&
                     field.selectedOption.name &&
                     field.selectedOption.description && (
-                      <>
+                      <div key={field.selectedOption.name}>
                         <dt className={styles.selectedTitles}>
                           Category of need
                         </dt>
@@ -81,7 +81,7 @@ const CaseStatusDetails = ({ person }: Props): React.ReactElement => {
                           {field.selectedOption.name} -{' '}
                           {field.selectedOption.description}
                         </dd>
-                      </>
+                      </div>
                     )
                 )}
 
