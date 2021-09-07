@@ -1,14 +1,10 @@
 @import 'node_modules/govuk-frontend/govuk/base';
 
-.container {
-  margin: 0;
-}
-
 .caseStatusDesign {
   border-top: 10px solid #f8e08e;
-  background-color: #fef9e8;
   padding: 10px 20px 1px;
   margin-bottom: 2rem;
+  font-family: 'Open Sans';
 }
 
 .caseStatusDetails {
@@ -24,18 +20,16 @@
     margin-bottom: 1rem;
     font-size: 14px;
   }
+
+  .date {
+    font-size: 14px;
+    font-weight: 500;
+    margin-right: 3px;
+    padding-top: 4px;
+  }
 }
 
 .selectedTitles {
-  font-weight: bold;
-}
-
-.date {
-  font-size: 14px;
-}
-
-.typeFontSize {
-  font-size: 19px;
   font-weight: bold;
 }
 

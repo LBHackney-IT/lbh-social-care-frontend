@@ -2,6 +2,7 @@ import ErrorMessage from 'components/ErrorMessage/ErrorMessage';
 import { GetCaseStatus } from 'utils/api/caseStatus';
 import { Resident } from 'types';
 import styles from './CaseStatusDetails.module.scss';
+
 interface Props {
   person: Resident;
 }
@@ -45,23 +46,23 @@ const CaseStatusDetails = ({ person }: Props): React.ReactElement => {
                     {status.startDate && (
                       <>
                         <dt className={styles.date}>Start</dt>
-                        <dd>
-                          {status.startDate
-                            ? new Date(status.startDate).toLocaleDateString(
-                                'en-GB'
-                              )
-                            : new Date(status.endDate).toLocaleDateString(
-                                'en-GB'
-                              )}{' '}
+                        <dd className={styles.date}>
+                          {new Date(status.startDate).toLocaleDateString(
+                            'en-GB',
+                            { day: '2-digit', month: 'short', year: 'numeric' }
+                          )}
                         </dd>
                       </>
                     )}
 
                     {status.endDate && (
                       <>
-                        <dt className={styles.date}>End</dt>
-                        <dd>
-                          {new Date(status.endDate).toLocaleDateString('en-GB')}{' '}
+                        <dt className={styles.date}> - End</dt>
+                        <dd className={styles.date}>
+                          {new Date(status.endDate).toLocaleDateString(
+                            'en-GB',
+                            { day: '2-digit', month: 'short', year: 'numeric' }
+                          )}{' '}
                         </dd>
                       </>
                     )}
