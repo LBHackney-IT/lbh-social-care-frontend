@@ -22,65 +22,76 @@ const CaseStatusDetails = ({ person }: Props): React.ReactElement => {
   return (
     <>
       <div className={styles.container}>
-        
         <h2>Case statuses</h2>
 
-        {caseStatusData.caseStatuses.map((status) => (
-         status.fields.map((item) => (
-          
-          <div key={status.id} className={styles.caseStatusDesign}>
-            <div className={styles.caseStatusDetails}>
+        {caseStatusData.caseStatuses.map((status) =>
+          status.fields.map((item) => (
+            <div key={status.id} className={styles.caseStatusDesign}>
+              <div className={styles.caseStatusDetails}>
                 <dl>
-                      <div className={styles.align}>
-                            {status.type && (
-                              <>
-                                <dt className="govuk-!-margin-right-2">
-                                  <div className={styles.typeStyling}>
-                                  {getTypeString(status.type as keyof typeof valueMapping)}{' '}
-                                  </div>
-                                </dt>
-                              </>
-                            )}
+                  <div className={styles.align}>
+                    {status.type && (
+                      <>
+                        <dt className="govuk-!-margin-right-2">
+                          <div className={styles.typeStyling}>
+                            {getTypeString(
+                              status.type as keyof typeof valueMapping
+                            )}{' '}
+                          </div>
+                        </dt>
+                      </>
+                    )}
 
-                            {status.startDate && (
-                              <>
-                                <dt className={styles.date}>Start</dt>
-                                <dd>
-                                  {status.startDate ? new Date(status.startDate).toLocaleDateString('en-GB') : new Date(status.endDate).toLocaleDateString('en-GB')}{' '}
-                                </dd>
-                              </>
-                            )}  
+                    {status.startDate && (
+                      <>
+                        <dt className={styles.date}>Start</dt>
+                        <dd>
+                          {status.startDate
+                            ? new Date(status.startDate).toLocaleDateString(
+                                'en-GB'
+                              )
+                            : new Date(status.endDate).toLocaleDateString(
+                                'en-GB'
+                              )}{' '}
+                        </dd>
+                      </>
+                    )}
 
-                            {status.endDate && (
-                              <>
-                                <dt className={styles.date}>End</dt>
-                                <dd>
-                                  {new Date(status.endDate).toLocaleDateString('en-GB')}{' '}
-                                </dd>
-                              </>
-                            )}
-                      </div>
-            
-                      
-                      {item.selectedOption.name && (
-                        <>
-                          <dt className={styles.selectedTitles}>Category of need</dt>
-                          <dd>{item.selectedOption.name} - {item.selectedOption.description}</dd>
-                        </>
-                      )}
+                    {status.endDate && (
+                      <>
+                        <dt className={styles.date}>End</dt>
+                        <dd>
+                          {new Date(status.endDate).toLocaleDateString('en-GB')}{' '}
+                        </dd>
+                      </>
+                    )}
+                  </div>
 
-                      {status.notes && (
-                        <>
-                          <dt className={styles.selectedTitles}> Notes </dt>
-                          <dd>{status.notes}</dd>
-                        </>
-                      )}
-                    
+                  {item.selectedOption &&
+                    item.selectedOption.name &&
+                    item.selectedOption.description && (
+                      <>
+                        <dt className={styles.selectedTitles}>
+                          Category of need
+                        </dt>
+                        <dd>
+                          {item.selectedOption.name} -{' '}
+                          {item.selectedOption.description}
+                        </dd>
+                      </>
+                    )}
+
+                  {status.notes && (
+                    <>
+                      <dt className={styles.selectedTitles}> Notes </dt>
+                      <dd>{status.notes}</dd>
+                    </>
+                  )}
                 </dl>
+              </div>
             </div>
-        </div>
-           ))
-        ))}
+          ))
+        )}
       </div>
     </>
   );
@@ -90,7 +101,7 @@ const getTypeString = (type: keyof typeof valueMapping): any => {
   return valueMapping[type];
 };
 const valueMapping = {
-  CIN: 'Child in need'
+  CIN: 'Child in need',
 };
 
 export default CaseStatusDetails;
