@@ -7,7 +7,10 @@ type FormDefinition = {
   id: string;
 };
 
-export const mapFormIdToFormDefinition: Record<string, FormDefinition> = {
+export const mapFormIdToFormDefinition: Record<
+  string,
+  FormDefinition | undefined
+> = {
   'adult-case-note': {
     form: formAsObjects.adultCaseNote,
     displayName: 'Case note',

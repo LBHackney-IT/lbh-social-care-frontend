@@ -11,10 +11,12 @@ import { mapFormIdToFormDefinition } from 'data/flexibleForms/mapFormIdsToFormDe
 
 interface Props {
   submissions: InProgressSubmission[];
+  everyoneCount: number;
 }
 
 export const SubmissionsTable = ({
   submissions,
+  everyoneCount,
 }: Props): React.ReactElement => {
   const { user } = useAuth();
 
@@ -27,7 +29,7 @@ export const SubmissionsTable = ({
         // augment each one with its form
         .map((submission) => ({
           ...submission,
-          form: mapFormIdToFormDefinition[submission.formId].form,
+          form: mapFormIdToFormDefinition[submission.formId]?.form,
         }))
         .filter((submission) => {
           // hide any restricted records unless the user has permission to see them
@@ -79,7 +81,7 @@ export const SubmissionsTable = ({
             <>Just mine ({justMyResults.length})</>
           </Tab>
           <Tab filter={filter} setFilter={setFilter} value="all">
-            <>Everyone ({searchResults.length})</>
+            <>Everyone ({everyoneCount})</>
           </Tab>
         </ul>
       </fieldset>

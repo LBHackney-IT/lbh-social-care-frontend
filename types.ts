@@ -110,7 +110,7 @@ export interface Case {
 }
 
 export interface CaseData {
-  cases: Case[] | [];
+  cases: Case[];
   nextCursor?: number;
 }
 
@@ -352,4 +352,9 @@ export interface CaseStatus {
   startDate: string;
   endDate: string;
   notes: string;
+}
+
+export interface Paginated<T> {
+  items: T[];
+  count: number;
 }

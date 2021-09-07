@@ -5,7 +5,6 @@ import {
   mockedNote,
   mockedWarningNoteCase,
 } from 'factories/cases';
-import { mockSubmission } from 'factories/submissions';
 import PersonTimeline from './PersonTimeline';
 
 const mockEvents = [
@@ -29,10 +28,11 @@ describe('PersonTimeline', () => {
         onLastPage={false}
         size={1}
         events={mockEvents}
+        personId={1}
       />
     );
 
-    expect(screen.getAllByRole('listitem').length).toBe(4);
+    expect(screen.getAllByRole('listitem').length).toBe(5);
     expect(screen.getAllByRole('link').length).toBe(4);
     expect(screen.getByText('Showing 4 events over 9 months'));
     expect(screen.getByText('Load older events'));
@@ -45,6 +45,7 @@ describe('PersonTimeline', () => {
         onLastPage={false}
         size={1}
         events={[]}
+        personId={1}
       />
     );
     expect(screen.getByText('No events match your search'));
@@ -57,6 +58,7 @@ describe('PersonTimeline', () => {
         onLastPage={true}
         size={1}
         events={mockEvents}
+        personId={1}
       />
     );
     expect(screen.queryByText('Load older events')).toBeNull();
@@ -70,23 +72,10 @@ describe('PersonTimeline', () => {
         onLastPage={false}
         size={1}
         events={mockEvents}
+        personId={1}
       />
     );
     fireEvent.click(screen.getByText('Load older events'));
     expect(mockHandler).toBeCalledWith(2);
-  });
-
-  it('can show unfinished submissions', () => {
-    render(
-      <PersonTimeline
-        setSize={jest.fn()}
-        onLastPage={false}
-        size={1}
-        events={mockEvents}
-        unfinishedSubmissions={[mockSubmission]}
-      />
-    );
-    expect(screen.getByText('Unfinished submissions'));
-    expect(screen.getAllByRole('listitem').length).toBe(6);
   });
 });

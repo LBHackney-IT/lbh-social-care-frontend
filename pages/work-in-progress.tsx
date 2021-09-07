@@ -6,9 +6,10 @@ import { getInProgressSubmissions } from 'lib/submissions';
 import { InProgressSubmission } from 'data/flexibleForms/forms.types';
 import SubmissionsTable from 'components/SubmissionsTable';
 import { isAuthorised } from 'utils/auth';
+import { Paginated } from 'types';
 
 interface Props {
-  submissions: InProgressSubmission[];
+  submissions: Paginated<InProgressSubmission>;
 }
 
 const UnfinishedSubmissions = ({ submissions }: Props): React.ReactElement => (
@@ -18,8 +19,11 @@ const UnfinishedSubmissions = ({ submissions }: Props): React.ReactElement => (
       <>
         <h1 className="govuk-!-margin-bottom-8">Work in progress</h1>
 
-        {submissions?.length > 0 && (
-          <SubmissionsTable submissions={submissions} />
+        {submissions.items?.length > 0 && (
+          <SubmissionsTable
+            submissions={submissions.items}
+            everyoneCount={submissions.count}
+          />
         )}
         <SavedForms />
       </>

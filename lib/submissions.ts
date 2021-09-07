@@ -5,7 +5,7 @@ import {
   FlexibleAnswers,
   InProgressSubmission,
 } from 'data/flexibleForms/forms.types';
-import { AgeContext } from 'types';
+import { AgeContext, Paginated } from 'types';
 import parse from 'date-fns/parse';
 import { mapFormIdToFormDefinition } from 'data/flexibleForms/mapFormIdsToFormDefinition';
 
@@ -27,7 +27,7 @@ export const getInProgressSubmissions = async (
   ageContext?: AgeContext,
   personID?: number,
   workerEmail?: string
-): Promise<InProgressSubmission[]> => {
+): Promise<Paginated<InProgressSubmission>> => {
   const ageContextQuery =
     ageContext !== undefined ? `&ageContext=${ageContext}` : '';
 
@@ -36,7 +36,7 @@ export const getInProgressSubmissions = async (
   const workerEmailQuery =
     workerEmail !== undefined ? `&workerEmail=${workerEmail}` : '';
 
-  const { data } = await axios.get<InProgressSubmission[]>(
+  const { data } = await axios.get<Paginated<InProgressSubmission>>(
     `${ENDPOINT_API}/submissions?submissionStates=in_progress&page=1&size=1000${ageContextQuery}${personIdQuery}${workerEmailQuery}`,
     {
       headers: headersWithKey,
@@ -275,7 +275,7 @@ export const generateSubmissionUrl = (
   submission: Submission | InProgressSubmission,
   socialCareId?: number
 ): string => {
-  const form = mapFormIdToFormDefinition[submission.formId].form;
+  const form = mapFormIdToFormDefinition[submission.formId]?.form;
   if (form?.canonicalUrl) {
     return `${form.canonicalUrl(
       // use the passed in social care id, or default to the first resident on the submission
