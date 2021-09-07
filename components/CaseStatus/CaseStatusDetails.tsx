@@ -1,6 +1,6 @@
 import ErrorMessage from 'components/ErrorMessage/ErrorMessage';
 import { GetCaseStatus } from 'utils/api/caseStatus';
-import { Resident } from 'types';
+import { Resident, CaseStatusFields, CaseStatus } from 'types';
 import styles from './CaseStatusDetails.module.scss';
 
 interface Props {
@@ -25,7 +25,7 @@ const CaseStatusDetails = ({ person }: Props): React.ReactElement => {
       <div className={styles.container}>
         <h2>Case statuses</h2>
 
-        {caseStatusData.caseStatuses.map((status) => (
+        {caseStatusData.caseStatuses.map((status: CaseStatus) => (
           <div key={status.id} className={styles.caseStatusDesign}>
             <div key={status.id} className={styles.caseStatusDetails}>
               <dl key={status.id}>
@@ -69,7 +69,7 @@ const CaseStatusDetails = ({ person }: Props): React.ReactElement => {
                 </div>
 
                 {status.fields.map(
-                  (field) =>
+                  (field: CaseStatusFields) =>
                     field.selectedOption &&
                     field.selectedOption.name &&
                     field.selectedOption.description && (
