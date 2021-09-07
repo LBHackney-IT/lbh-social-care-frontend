@@ -18,23 +18,29 @@ const OnboardingDialog = (): React.ReactElement | null => {
   if (isOpen)
     return (
       <Dialog
-        title="You are part of the workflows pilot"
+        title="Good news! You're part of the brand new workflow pilot."
         isOpen={true}
         onDismiss={() => setOpen(false)}
         showCloseButton={false}
       >
         <>
-          <p>More information about the pilot here.</p>
           <p>You can:</p>
           <ul className="lbh-list lbh-list--bullet">
-            <li>Do foo</li>
-            <li>Do bar</li>
-            <li>Do something else</li>
+            <li>
+              Work collaboratively on a radically streamlined set of assessment
+              forms
+            </li>
+            <li>Take workflows through a manager and panel approval flow</li>
+            <li>Re-assess residents with a new side-by-side interface</li>
           </ul>
+          <p>
+            For the moment, only a small number of users are previewing these
+            features, but we&apos;ll be rolling them out further soon.
+          </p>
 
           <div className="lbh-dialog__actions">
             <button className="govuk-button lbh-button" onClick={handleDismiss}>
-              Show me
+              Okay, show me
             </button>
             <button className="lbh-link" onClick={handleDismiss}>
               Got it, dismiss
