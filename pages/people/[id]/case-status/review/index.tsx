@@ -41,7 +41,7 @@ const ReviewCaseStatusForm = (): React.ReactElement => {
 
   const displayValue: FlexibleAnswersT = {
     answers: {
-      Type: String(value.type),
+      Type: getTypeString(value.type as keyof typeof valueMapping),
       'Start date': String(value.startDate),
       Notes: String(value.notes),
     },
@@ -54,7 +54,10 @@ const ReviewCaseStatusForm = (): React.ReactElement => {
         <div style={{ display: 'flex', justifyContent: 'space-between' }}>
           <Button label="Yes, add" onClick={submitAnwers} wideButton />
           <Link
-            href={{ pathname: `/people/${router.query.id}/case-status/add` }}
+            href={{
+              pathname: `/people/${router.query.id}/case-status/add`,
+              query: router.query,
+            }}
             scroll={false}
           >
             <a className={`lbh-link lbh-link--no-visited-state`}>No, go back</a>
@@ -63,6 +66,13 @@ const ReviewCaseStatusForm = (): React.ReactElement => {
       </>
     </PersonView>
   );
+};
+
+const getTypeString = (type: keyof typeof valueMapping): any => {
+  return valueMapping[type];
+};
+const valueMapping = {
+  CIN: 'Child in need',
 };
 
 export default ReviewCaseStatusForm;
