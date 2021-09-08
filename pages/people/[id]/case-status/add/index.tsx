@@ -4,7 +4,6 @@ import { Form, Formik, FormikHelpers, FormikValues } from 'formik';
 import { generateInitialValues } from 'lib/utils';
 import { generateFlexibleSchema } from 'lib/validators';
 import CASE_STATUS from 'data/flexibleForms/caseStatus';
-import Banner from 'components/FlexibleForms/Banner';
 import FlexibleField from 'components/FlexibleForms/FlexibleFields';
 import PersonView from 'components/PersonView/PersonView';
 import Button from 'components/Button/Button';
@@ -54,18 +53,8 @@ const AddNewCaseStatus = (): React.ReactElement => {
           validationSchema={generateFlexibleSchema(fields)}
           onSubmit={handleSubmit}
         >
-          {({ touched, errors, values, isSubmitting, status }) => (
+          {({ touched, errors, values, isSubmitting }) => (
             <Form>
-              {status && (
-                <Banner
-                  title="There was a problem finishing the submission"
-                  className="lbh-page-announcement--warning"
-                >
-                  <p>Please refresh the page or try again later.</p>
-                  <p className="lbh-body-xs">{status}</p>
-                </Banner>
-              )}
-
               {fields.map((field) => (
                 <FlexibleField
                   key={field.id}
@@ -79,7 +68,7 @@ const AddNewCaseStatus = (): React.ReactElement => {
               <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                 <Button
                   label="Submit"
-                  disabled={isSubmitting}
+                  disabled={Object.keys(errors).length > 0}
                   type="submit"
                   wideButton
                 />
