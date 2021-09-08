@@ -7,6 +7,8 @@ import CASE_STATUS from 'data/flexibleForms/caseStatus';
 import Banner from 'components/FlexibleForms/Banner';
 import FlexibleField from 'components/FlexibleForms/FlexibleFields';
 import PersonView from 'components/PersonView/PersonView';
+import Button from 'components/Button/Button';
+import Link from 'next/link';
 
 const AddNewCaseStatus = (): React.ReactElement => {
   const router = useRouter();
@@ -65,12 +67,17 @@ const AddNewCaseStatus = (): React.ReactElement => {
                 />
               ))}
 
-              <button
-                className="govuk-button lbh-button"
-                disabled={isSubmitting}
-              >
-                Save and finish
-              </button>
+              <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                <Button label="Submit" disabled={isSubmitting} wideButton />
+                <Link
+                  href={{ pathname: `/people/${router.query.id}/` }}
+                  scroll={false}
+                >
+                  <a className={`lbh-link lbh-link--no-visited-state`}>
+                    Cancel
+                  </a>
+                </Link>
+              </div>
             </Form>
           )}
         </Formik>

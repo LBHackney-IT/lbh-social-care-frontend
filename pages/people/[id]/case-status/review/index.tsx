@@ -5,6 +5,9 @@ import { useRouter } from 'next/router';
 import { AddCaseStatus } from 'utils/api/caseStatus';
 import { useAuth } from 'components/UserContext/UserContext';
 import { User } from 'types';
+import PersonView from 'components/PersonView/PersonView';
+import Button from 'components/Button/Button';
+import Link from 'next/link';
 
 const ReviewCaseStatusForm = (): React.ReactElement => {
   const router = useRouter();
@@ -45,12 +48,20 @@ const ReviewCaseStatusForm = (): React.ReactElement => {
   };
 
   return (
-    <>
-      <FlexibleAnswers answers={displayValue} />
-      <button onClick={submitAnwers} className="govuk-button lbh-button">
-        Finish and send
-      </button>
-    </>
+    <PersonView personId={personId} expandView>
+      <>
+        <FlexibleAnswers answers={displayValue} />
+        <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+          <Button label="Yes, add" onClick={submitAnwers} wideButton />
+          <Link
+            href={{ pathname: `/people/${router.query.id}/case-status/add` }}
+            scroll={false}
+          >
+            <a className={`lbh-link lbh-link--no-visited-state`}>No, go back</a>
+          </Link>
+        </div>
+      </>
+    </PersonView>
   );
 };
 
