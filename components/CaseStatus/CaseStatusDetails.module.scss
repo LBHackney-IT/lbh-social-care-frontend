@@ -2,31 +2,8 @@
 
 .caseStatusDesign {
   border-top: 10px solid #f8e08e;
-  padding: 10px 20px 1px;
-  margin-bottom: 2rem;
+  padding: 0 20px 0;
   font-family: 'Open Sans';
-}
-
-.caseStatusDetails {
-  display: flex;
-  font-family: 'Open Sans';
-
-  dt {
-    margin-top: 0;
-  }
-
-  dd {
-    margin-top: 0;
-    margin-bottom: 1rem;
-    font-size: 14px;
-  }
-
-  .date {
-    font-size: 14px;
-    font-weight: 500;
-    margin-right: 3px;
-    padding-top: 4px;
-  }
 }
 
 .selectedTitles {
@@ -38,7 +15,10 @@
   align-items: flex-start;
 }
 
+.dateElement {
+  padding-left: 5px;
+}
+
 .typeStyling {
-  font-weight: bold;
   font-size: 19px;
 }

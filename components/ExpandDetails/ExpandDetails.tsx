@@ -41,7 +41,7 @@ const ExpandDetails = ({
       <button
         onClick={() => setOpen(!open)}
         aria-expanded={open}
-        className="lbh-collapsible__button"
+        className={`lbh-collapsible__button ${styles.noBorder}`}
       >
         <h2 className="lbh-heading-h2 lbh-collapsible__heading">{label}</h2>
         <DownArrow />
