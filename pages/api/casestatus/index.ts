@@ -16,6 +16,7 @@ const endpoint: NextApiHandler = async (
   if (!user.isAuthorised) {
     return res.status(StatusCodes.FORBIDDEN).end();
   }
+
   switch (req.method) {
     case 'POST':
       try {
@@ -23,12 +24,13 @@ const endpoint: NextApiHandler = async (
         res.status(StatusCodes.OK).end();
       } catch (error) {
         console.error('Case status POST error:', error?.response?.data);
+
         error?.response?.status === StatusCodes.NOT_FOUND
           ? res
               .status(StatusCodes.NOT_FOUND)
               .json({ message: 'Case Status Not Found' })
           : res
-              .status(StatusCodes.INTERNAL_SERVER_ERROR)
+              .status(StatusCodes.BAD_REQUEST)
               .json({ message: 'Unable to add the casestatus' });
       }
       break;

@@ -7,37 +7,26 @@ import CASE_STATUS from 'data/flexibleForms/caseStatus';
 import Banner from 'components/FlexibleForms/Banner';
 import FlexibleField from 'components/FlexibleForms/FlexibleFields';
 import PersonView from 'components/PersonView/PersonView';
-import { useAuth } from 'components/UserContext/UserContext';
-import { User } from 'types';
-import { AddCaseStatus } from 'utils/api/caseStatus';
 
 const AddNewCaseStatus = (): React.ReactElement => {
   const router = useRouter();
   const personId = Number(router.query.id as string);
   const fields = CASE_STATUS.steps[0].fields;
 
-  const { user } = useAuth() as { user: User };
-
   const handleSubmit = async (
     values: FormikValues,
     { setStatus }: FormikHelpers<FormikValues>
   ) => {
     try {
-      const { data, error } = await AddCaseStatus({
-        personId: personId,
-        type: values.type,
-        startDate: values.startDate,
-        notes: values.notes,
-        createdby: user.email,
-      });
-
-      if (error) throw error;
-
       router.push({
-        pathname: `/people/${router.query.id}/details`,
-        query: { success: true },
+        pathname: `/people/${router.query.id}/case-status/review`,
+        query: {
+          personId: personId,
+          type: values.type,
+          startDate: values.startDate,
+          notes: values.notes,
+        },
       });
-      return data;
     } catch (e) {
       setStatus(e.toString());
     }
