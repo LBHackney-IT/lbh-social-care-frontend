@@ -2,6 +2,7 @@ import ErrorMessage from 'components/ErrorMessage/ErrorMessage';
 import { GetCaseStatus } from 'utils/api/caseStatus';
 import { Resident, CaseStatusFields, CaseStatus } from 'types';
 import styles from './CaseStatusDetails.module.scss';
+import ExpandDetails from 'components/ExpandDetails/ExpandDetails';
 
 interface Props {
   person: Resident;
@@ -20,10 +21,16 @@ const CaseStatusDetails = ({ person }: Props): React.ReactElement => {
     return <></>;
   }
 
+  const title = <b> hello </b>;
+
   return (
     <>
       <div className={styles.container}>
         <h2>Case statuses</h2>
+
+        <ExpandDetails label={title}>
+          this is the component content
+        </ExpandDetails>
 
         {caseStatusData.caseStatuses.map((status: CaseStatus) => (
           <div key={status.id} className={styles.caseStatusDesign}>
