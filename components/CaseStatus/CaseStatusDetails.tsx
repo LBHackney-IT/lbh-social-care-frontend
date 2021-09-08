@@ -28,7 +28,7 @@ const CaseStatusDetails = ({ person }: Props): React.ReactElement => {
       <div className={styles.container}>
         <h2>Case statuses</h2>
 
-        <ExpandDetails label={title}>
+        <ExpandDetails label={title} buttonLabel>
           this is the component content
         </ExpandDetails>
 
