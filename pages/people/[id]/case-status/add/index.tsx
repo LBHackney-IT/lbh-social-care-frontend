@@ -15,6 +15,15 @@ const AddNewCaseStatus = (): React.ReactElement => {
   const personId = Number(router.query.id as string);
   const fields = CASE_STATUS.steps[0].fields;
 
+  fields.map((field) => {
+    const key = field.id;
+
+    if (router.query[key]) {
+      const value = String(router.query[key]);
+      field.default = value;
+    }
+  });
+
   const handleSubmit = async (
     values: FormikValues,
     { setStatus }: FormikHelpers<FormikValues>
@@ -68,7 +77,12 @@ const AddNewCaseStatus = (): React.ReactElement => {
               ))}
 
               <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                <Button label="Submit" disabled={isSubmitting} wideButton />
+                <Button
+                  label="Submit"
+                  disabled={isSubmitting}
+                  type="submit"
+                  wideButton
+                />
                 <Link
                   href={{ pathname: `/people/${router.query.id}/` }}
                   scroll={false}

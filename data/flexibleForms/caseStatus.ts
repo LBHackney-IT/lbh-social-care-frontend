@@ -34,6 +34,7 @@ const form: Form = {
           required: true,
           className: 'govuk-input--width-10',
           default: format(new Date(), 'yyyy-MM-dd'),
+          isfutureDateValid: false,
         },
         {
           id: 'notes',
