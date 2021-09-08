@@ -70,7 +70,7 @@ const CaseStatusDetails = ({ person }: Props): React.ReactElement => {
 
           return (
             <div key={status.id} className={styles.caseStatusDesign}>
-              <ExpandDetails label={title} buttonLabel>
+              <ExpandDetails label={title}>
                 <div key={status.id} className={styles.caseStatusDetails}>
                   <dl key={status.id}>
                     {status.fields.map(

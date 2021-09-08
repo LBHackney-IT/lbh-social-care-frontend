@@ -16,36 +16,34 @@ const ExpandDetails = ({
   label,
   triggerLabel,
   children,
-  buttonLabel = false,
   isDefaultOpen = false,
 }: Props): React.ReactElement => {
-  const [open, setOpen] = useState<boolean>(true);
-  return !buttonLabel ? (
-    <details
-      className="govuk-details"
-      data-module="govuk-details"
-      open={isDefaultOpen}
-    >
-      <summary className={styles.summary} onClick={() => setOpen(!open)}>
-        <h3>{label}</h3>
-        <span
-          className={cx('govuk-link', 'govuk-link--underline', styles.trigger)}
-        >
-          {open ? 'Hide' : 'Show'} {triggerLabel}
-        </span>
-      </summary>
-      <div className={styles.content}>{children}</div>
-    </details>
-  ) : (
+  const [open, setOpen] = useState<boolean>(isDefaultOpen);
+
+  return (
     <section className="lbh-collapsible govuk-!-margin-bottom-8">
-      <button
+      <a
         onClick={() => setOpen(!open)}
         aria-expanded={open}
-        className={`lbh-collapsible__button ${styles.noBorder}`}
+        className={`lbh-collapsible__button ${
+          triggerLabel ? null : styles.noBorder
+        }`}
       >
         <h2 className="lbh-heading-h2 lbh-collapsible__heading">{label}</h2>
-        <DownArrow />
-      </button>
+        {triggerLabel ? (
+          <span
+            className={cx(
+              'govuk-link',
+              'govuk-link--underline',
+              styles.trigger
+            )}
+          >
+            {open ? 'Hide' : 'Show'} {triggerLabel}
+          </span>
+        ) : (
+          <DownArrow />
+        )}
+      </a>
       {open && <div className="lbh-collapsible__content">{children}</div>}
     </section>
   );
