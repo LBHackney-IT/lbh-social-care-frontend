@@ -4,7 +4,7 @@ import cx from 'classnames';
 import styles from './ExpandDetails.module.scss';
 
 export interface Props {
-  label: string;
+  label: string | React.ReactNode;
   triggerLabel?: string;
   children: React.ReactChild;
   isDefaultOpen?: boolean;
