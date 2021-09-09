@@ -55,7 +55,7 @@ const ReviewCaseStatusForm = (): React.ReactElement => {
 
         <div>
           Do you want to add this case status?
-          <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+          <div style={{ display: 'flex', alignItems: 'center' }}>
             <Button label="Yes, add" onClick={submitAnwers} wideButton />
             <Link
               href={{
@@ -64,7 +64,9 @@ const ReviewCaseStatusForm = (): React.ReactElement => {
               }}
               scroll={false}
             >
-              <a className={`lbh-link lbh-link--no-visited-state`}>
+              <a
+                className={`lbh-link lbh-link--no-visited-state govuk-!-margin-left-5`}
+              >
                 No, go back
               </a>
             </Link>
@@ -74,5 +76,6 @@ const ReviewCaseStatusForm = (): React.ReactElement => {
     </PersonView>
   );
 };
+ReviewCaseStatusForm.goBackButton = true;
 
 export default ReviewCaseStatusForm;

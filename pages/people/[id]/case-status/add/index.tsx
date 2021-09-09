@@ -65,7 +65,7 @@ const AddNewCaseStatus = (): React.ReactElement => {
                 />
               ))}
 
-              <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+              <div style={{ display: 'flex', alignItems: 'center' }}>
                 <Button
                   label="Submit"
                   disabled={values.type == '' || Object.keys(errors).length > 0}
@@ -76,7 +76,9 @@ const AddNewCaseStatus = (): React.ReactElement => {
                   href={{ pathname: `/people/${router.query.id}/` }}
                   scroll={false}
                 >
-                  <a className={`lbh-link lbh-link--no-visited-state`}>
+                  <a
+                    className={`lbh-link lbh-link--no-visited-state govuk-!-margin-left-3`}
+                  >
                     Cancel
                   </a>
                 </Link>
