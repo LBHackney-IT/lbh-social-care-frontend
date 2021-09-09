@@ -1,7 +1,7 @@
 @import 'node_modules/govuk-frontend/govuk/base';
 
 .caseStatusDesign {
-  border-top: 10px solid #f8e08e;
+  border-top: 6px solid #f8e08e;
   padding: 0 20px 0;
   font-family: 'Open Sans';
   background-color: #fefcf4;
@@ -9,6 +9,10 @@
 
 .selectedTitles {
   font-weight: bold;
+}
+
+.selectedValue {
+  margin-top: 0.3em;
 }
 
 .align {
@@ -20,7 +24,7 @@
   padding-left: 5px;
   font-weight: normal;
   font-size: 14px;
-  color: #525A5B;
+  color: #525a5b;
 }
 
 .typeStyling {
