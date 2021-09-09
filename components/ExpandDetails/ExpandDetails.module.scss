@@ -17,6 +17,11 @@
   }
 }
 
+.noBorder {
+  border-bottom: unset;
+  padding-bottom: unset;
+}
+
 .trigger {
   cursor: pointer;
 }
