@@ -23,7 +23,7 @@ const CaseStatusDetails = ({ person }: Props): React.ReactElement => {
   return (
     <>
       <div className={styles.container}>
-        <h2>Case statuses</h2>
+        <h2 style={{fontSize: '24px'}}>Case statuses</h2>
 
         {caseStatusData.caseStatuses.map((status: CaseStatus) => {
           const title = (
@@ -71,7 +71,7 @@ const CaseStatusDetails = ({ person }: Props): React.ReactElement => {
           return (
             <div key={status.id} className={styles.caseStatusDesign}>
               <ExpandDetails label={title}>
-                <div key={status.id} className={styles.caseStatusDetails}>
+                <div key={status.id}>
                   <dl key={status.id}>
                     {status.fields.map(
                       (field: CaseStatusFields) =>
