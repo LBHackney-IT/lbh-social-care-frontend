@@ -1,4 +1,4 @@
-import { render } from '@testing-library/react';
+import { render, fireEvent } from '@testing-library/react';
 import * as caseStatusApi from 'utils/api/caseStatus';
 import CaseStatusDetails from './CaseStatusDetails';
 import { mockedAPIservererror } from 'factories/APIerrors';
@@ -35,7 +35,56 @@ describe('CaseStatusDetail component', () => {
     expect(queryByText('Child in need')).not.toBeInTheDocument();
   });
 
-  it('displays the casestatus of a person', async () => {
+  it('displays correctly the start date', async () => {
+    jest.spyOn(caseStatusApi, 'GetCaseStatus').mockImplementation(() => ({
+      data: mockedPersonCaseStatusFactory.build({
+        personId: mockedResident.id,
+        caseStatuses: [
+          mockedCaseStatusFactory.build({
+            type: 'CIN',
+            startDate: '2021-09-09',
+          }),
+        ],
+      }),
+      isValidating: false,
+      mutate: jest.fn(),
+      revalidate: jest.fn(),
+    }));
+
+    const { queryByText } = render(
+      <CaseStatusDetails person={mockedResident} />
+    );
+
+    expect(queryByText('Child in need')).toBeInTheDocument();
+    expect(queryByText('Start: 09 Sept 2021')).toBeInTheDocument();
+  });
+
+  it('displays correctly the end date', async () => {
+    jest.spyOn(caseStatusApi, 'GetCaseStatus').mockImplementation(() => ({
+      data: mockedPersonCaseStatusFactory.build({
+        personId: mockedResident.id,
+        caseStatuses: [
+          mockedCaseStatusFactory.build({
+            type: 'CIN',
+            startDate: '2021-09-09',
+            endDate: '2021-12-09',
+          }),
+        ],
+      }),
+      isValidating: false,
+      mutate: jest.fn(),
+      revalidate: jest.fn(),
+    }));
+
+    const { queryByText } = render(
+      <CaseStatusDetails person={mockedResident} />
+    );
+
+    expect(queryByText('Child in need')).toBeInTheDocument();
+    expect(queryByText('End: 09 Dec 2021')).toBeInTheDocument();
+  });
+
+  it('displays the notes of a person when the detail panel is expanded', async () => {
     jest.spyOn(caseStatusApi, 'GetCaseStatus').mockImplementation(() => ({
       data: mockedPersonCaseStatusFactory.build({
         personId: mockedResident.id,
@@ -51,9 +100,11 @@ describe('CaseStatusDetail component', () => {
       revalidate: jest.fn(),
     }));
 
-    const { queryByText } = render(
+    const { getByTestId, queryByText } = render(
       <CaseStatusDetails person={mockedResident} />
     );
+
+    fireEvent.click(getByTestId('expand_details'));
 
     expect(queryByText('Child in need')).toBeInTheDocument();
     expect(queryByText('This is a note')).toBeInTheDocument();
@@ -79,12 +130,12 @@ describe('CaseStatusDetail component', () => {
       revalidate: jest.fn(),
     }));
 
-    const { queryByText } = render(
+    const { getAllByTestId } = render(
       <CaseStatusDetails person={mockedResident} />
     );
 
-    expect(queryByText('first note')).toBeInTheDocument();
-    expect(queryByText('second note')).toBeInTheDocument();
+    const elements = getAllByTestId('expand_details');
+    expect(elements.length).toBe(2);
   });
 
   it('displays an error if API error', async () => {

@@ -28,6 +28,7 @@ const ExpandDetails = ({
         className={`lbh-collapsible__button ${
           triggerLabel ? null : styles.noBorder
         }`}
+        data-testid="expand_details"
       >
         <h2 className="lbh-heading-h2 lbh-collapsible__heading">{label}</h2>
         {triggerLabel ? (

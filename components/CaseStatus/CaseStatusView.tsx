@@ -41,7 +41,7 @@ function groupByType(
 
 const valueMapping = {
   CIN: 'Child in need',
-  CPP: 'Child protection services',
+  CP: 'Child protection',
   LAC: 'Looked after child',
 };
 

@@ -37,7 +37,7 @@ const PersonDetails = ({ person }: Props): React.ReactElement => {
   return (
     <>
       <ConditionalFeature name="case-status">
-      <CaseStatusDetails person={person} />
+        <CaseStatusDetails person={person} />
       </ConditionalFeature>
       <section className="govuk-!-margin-bottom-8">
         <div className={s.heading}>
