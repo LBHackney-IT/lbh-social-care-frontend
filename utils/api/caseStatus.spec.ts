@@ -38,7 +38,7 @@ describe('caseStatusAPI', () => {
       };
       jest.spyOn(axios, 'post');
 
-      await caseStatusAPI.AddCaseStatus(formData);
+      await caseStatusAPI.addCaseStatus(formData);
 
       expect(axios.post).toHaveBeenCalledWith('/api/casestatus', formData);
     });
@@ -54,7 +54,7 @@ describe('caseStatusAPI', () => {
 
       mockedAxios.post.mockResolvedValue(apiResponse);
 
-      const response = await caseStatusAPI.AddCaseStatus(formData);
+      const response = await caseStatusAPI.addCaseStatus(formData);
 
       expect(response).toBe(apiResponse.data);
     });

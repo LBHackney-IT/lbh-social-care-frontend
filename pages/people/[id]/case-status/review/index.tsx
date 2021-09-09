@@ -2,7 +2,7 @@ import React from 'react';
 import FlexibleAnswers from 'components/FlexibleAnswers/FlexibleAnswers';
 import { FlexibleAnswers as FlexibleAnswersT } from 'data/flexibleForms/forms.types';
 import { useRouter } from 'next/router';
-import { AddCaseStatus } from 'utils/api/caseStatus';
+import { addCaseStatus } from 'utils/api/caseStatus';
 import { useAuth } from 'components/UserContext/UserContext';
 import { User } from 'types';
 import PersonView from 'components/PersonView/PersonView';
@@ -18,7 +18,7 @@ const ReviewCaseStatusForm = (): React.ReactElement => {
 
   const submitAnwers = async () => {
     try {
-      const { data, error } = await AddCaseStatus({
+      const { data, error } = await addCaseStatus({
         personId: personId,
         type: String(value.type),
         startDate: String(value.startDate),

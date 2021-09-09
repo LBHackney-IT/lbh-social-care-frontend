@@ -9,7 +9,7 @@ import type {
   ErrorAPI,
 } from 'types';
 
-export const AddCaseStatus = async (
+export const addCaseStatus = async (
   formData: AddCaseStatusFormData
 ): Promise<Record<string, unknown>> => {
   const response = await axios.post(`/api/casestatus`, formData);
