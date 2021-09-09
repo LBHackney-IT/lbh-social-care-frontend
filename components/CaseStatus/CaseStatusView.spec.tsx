@@ -59,7 +59,6 @@ describe('CaseStatusView component', () => {
       mutate: jest.fn(),
       revalidate: jest.fn(),
     }));
-
     const { queryByText } = render(<CaseStatusView person={person} />);
 
     expect(queryByText('Child in need')).toBeInTheDocument();
@@ -74,7 +73,7 @@ describe('CaseStatusView component', () => {
             type: 'CIN',
           }),
           mockedCaseStatusFactory.build({
-            type: 'CPP',
+            type: 'CP',
           }),
           mockedCaseStatusFactory.build({
             type: 'LAC',
@@ -89,7 +88,7 @@ describe('CaseStatusView component', () => {
     const { queryByText } = render(<CaseStatusView person={person} />);
 
     expect(queryByText('Child in need')).toBeInTheDocument();
-    expect(queryByText('Child protection services')).toBeInTheDocument();
+    expect(queryByText('Child protection')).toBeInTheDocument();
     expect(queryByText('Looked after child')).toBeInTheDocument();
   });
 
