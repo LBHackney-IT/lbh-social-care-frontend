@@ -5,11 +5,9 @@ import sgAdultConcern from './sgAdultConcern';
 import sgAdultManagerDecisionConcern from './sgAdultManagerDecisionConcern';
 import adultCaseNote from './adultCaseNote';
 import childCaseNote from './childCaseNote';
-import caseStatus from './caseStatus';
 
 export default [
   foo,
-  caseStatus,
   review3c,
   adultCaseNote,
   childCaseNote,
@@ -23,7 +21,6 @@ export const formAsObjects = {
   review3c,
   adultCaseNote,
   childCaseNote,
-  caseStatus,
   faceOverview,
   sgAdultConcern,
   sgAdultManagerDecisionConcern,

@@ -354,6 +354,12 @@ export interface CaseStatus {
   notes: string;
 }
 
+export class CaseStatusMapping {
+  'CIN' = 'Child in need';
+  'CP' = 'Child protection';
+  'LAC' = 'Looked after child';
+}
+
 export interface AddCaseStatusFormData {
   personId: number;
   type: string;

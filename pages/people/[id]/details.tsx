@@ -20,7 +20,7 @@ const PersonAllocationsPage = ({ person }: Props): React.ReactElement => {
 
   useEffect(() => {
     setShowConfirmation(
-      Boolean(router.query.success) && person.contextFlag === 'C'
+      Boolean(router.query.flagged) && person.contextFlag === 'C'
     );
   });
 

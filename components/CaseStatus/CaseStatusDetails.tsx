@@ -1,6 +1,11 @@
 import ErrorMessage from 'components/ErrorMessage/ErrorMessage';
 import { useCaseStatuses } from 'utils/api/caseStatus';
-import { Resident, CaseStatusFields, CaseStatus } from 'types';
+import {
+  Resident,
+  CaseStatusFields,
+  CaseStatus,
+  CaseStatusMapping,
+} from 'types';
 import styles from './CaseStatusDetails.module.scss';
 import ExpandDetails from 'components/ExpandDetails/ExpandDetails';
 
@@ -10,6 +15,7 @@ interface Props {
 
 const CaseStatusDetails = ({ person }: Props): React.ReactElement => {
   const { data: caseStatusData, error } = useCaseStatuses(person.id);
+  const valueMapping = new CaseStatusMapping();
 
   if (error) {
     return (
@@ -32,11 +38,7 @@ const CaseStatusDetails = ({ person }: Props): React.ReactElement => {
                 <>
                   <dt className="govuk-!-margin-right-2">
                     <div className={styles.typeStyling}>
-                      <span>
-                        {getTypeString(
-                          status.type as keyof typeof valueMapping
-                        )}{' '}
-                      </span>
+                      <span>{valueMapping[status.type]}</span>
 
                       {status.startDate && (
                         <span
@@ -112,12 +114,4 @@ const CaseStatusDetails = ({ person }: Props): React.ReactElement => {
     </>
   );
 };
-
-const getTypeString = (type: keyof typeof valueMapping): any => {
-  return valueMapping[type];
-};
-const valueMapping = {
-  CIN: 'Child in need',
-};
-
 export default CaseStatusDetails;

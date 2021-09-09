@@ -4,7 +4,7 @@ import { FlexibleAnswers as FlexibleAnswersT } from 'data/flexibleForms/forms.ty
 import { useRouter } from 'next/router';
 import { addCaseStatus } from 'utils/api/caseStatus';
 import { useAuth } from 'components/UserContext/UserContext';
-import { User } from 'types';
+import { User, CaseStatusMapping } from 'types';
 import PersonView from 'components/PersonView/PersonView';
 import Button from 'components/Button/Button';
 import Link from 'next/link';
@@ -13,27 +13,24 @@ const ReviewCaseStatusForm = (): React.ReactElement => {
   const router = useRouter();
   const personId = Number(router.query.id as string);
   const { user } = useAuth() as { user: User };
-
-  const value = router.query;
+  const formAnswers = router.query;
+  const valueMapping = new CaseStatusMapping();
 
   const submitAnwers = async () => {
     try {
-      const { data, error } = await addCaseStatus({
+      const { error } = await addCaseStatus({
         personId: personId,
-        type: String(value.type),
-        startDate: String(value.startDate),
-        notes: String(value.notes),
+        type: String(formAnswers.type),
+        startDate: String(formAnswers.startDate),
+        notes: String(formAnswers.notes),
         createdby: user.email,
       });
 
       if (error) throw error;
-
       router.push({
         pathname: `/people/${router.query.id}/details`,
-        query: { success: true },
+        query: { flagged: true },
       });
-
-      return data;
     } catch (e) {
       console.log(e);
     }
@@ -41,9 +38,9 @@ const ReviewCaseStatusForm = (): React.ReactElement => {
 
   const displayValue: FlexibleAnswersT = {
     answers: {
-      Type: getTypeString(value.type as keyof typeof valueMapping),
-      'Start date': String(value.startDate),
-      Notes: String(value.notes),
+      Type: [valueMapping[formAnswers.type as keyof CaseStatusMapping]],
+      'Start date': String(formAnswers.startDate),
+      Notes: String(formAnswers.notes),
     },
   };
 
@@ -53,6 +50,7 @@ const ReviewCaseStatusForm = (): React.ReactElement => {
         <h1 className="govuk-fieldset__legend--l gov-weight-lighter">
           Review case status details
         </h1>
+
         <FlexibleAnswers answers={displayValue} />
 
         <div>
@@ -75,13 +73,6 @@ const ReviewCaseStatusForm = (): React.ReactElement => {
       </>
     </PersonView>
   );
-};
-
-const getTypeString = (type: keyof typeof valueMapping): any => {
-  return valueMapping[type];
-};
-const valueMapping = {
-  CIN: 'Child in need',
 };
 
 export default ReviewCaseStatusForm;

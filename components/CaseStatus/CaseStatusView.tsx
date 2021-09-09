@@ -1,6 +1,6 @@
 import ErrorMessage from 'components/ErrorMessage/ErrorMessage';
 import { useCaseStatuses } from 'utils/api/caseStatus';
-import { Resident, CaseStatus } from 'types';
+import { Resident, CaseStatus, CaseStatusMapping } from 'types';
 
 interface Props {
   person: Resident;
@@ -33,16 +33,12 @@ const CaseStatusView = ({ person }: Props): React.ReactElement => {
   );
 };
 
+const valueMapping = new CaseStatusMapping();
+
 function groupByType(
   allCasesStatues: CaseStatus[]
 ): (keyof typeof valueMapping)[] {
   return Array.from(new Set(allCasesStatues.map((el) => el.type)));
 }
-
-const valueMapping = {
-  CIN: 'Child in need',
-  CP: 'Child protection',
-  LAC: 'Looked after child',
-};
 
 export default CaseStatusView;
