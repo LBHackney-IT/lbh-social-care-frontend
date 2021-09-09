@@ -8,10 +8,10 @@ jest.mock('axios');
 const mockedAxios = axios as jest.Mocked<typeof axios>;
 
 describe('caseStatusAPI', () => {
-  describe('GetCaseStatus', () => {
+  describe('useCaseStatuses', () => {
     it('should get case statuses from the API', () => {
       jest.spyOn(SWR, 'default');
-      caseStatusAPI.GetCaseStatus(123);
+      caseStatusAPI.useCaseStatuses(123);
       expect(SWR.default).toHaveBeenCalledWith('/api/residents/123/casestatus');
     });
   });

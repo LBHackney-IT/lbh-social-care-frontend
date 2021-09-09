@@ -1,5 +1,5 @@
 import ErrorMessage from 'components/ErrorMessage/ErrorMessage';
-import { GetCaseStatus } from 'utils/api/caseStatus';
+import { useCaseStatuses } from 'utils/api/caseStatus';
 import { Resident, CaseStatusFields, CaseStatus } from 'types';
 import styles from './CaseStatusDetails.module.scss';
 import ExpandDetails from 'components/ExpandDetails/ExpandDetails';
@@ -9,7 +9,7 @@ interface Props {
 }
 
 const CaseStatusDetails = ({ person }: Props): React.ReactElement => {
-  const { data: caseStatusData, error } = GetCaseStatus(person.id);
+  const { data: caseStatusData, error } = useCaseStatuses(person.id);
 
   if (error) {
     return (

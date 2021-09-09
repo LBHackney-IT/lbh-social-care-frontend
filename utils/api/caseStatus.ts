@@ -16,7 +16,7 @@ export const AddCaseStatus = async (
   return response?.data;
 };
 
-export const GetCaseStatus = (
+export const useCaseStatuses = (
   id: number
 ): SWRResponse<PersonCaseStatus, ErrorAPI> =>
   useSWR(`/api/residents/${id}/casestatus`);

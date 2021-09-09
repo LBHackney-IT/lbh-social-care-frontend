@@ -23,7 +23,7 @@ const person = mockedResident;
 
 describe('CaseStatusView component', () => {
   it('displays the casestatus of a person', async () => {
-    jest.spyOn(caseStatusApi, 'GetCaseStatus').mockImplementation(() => ({
+    jest.spyOn(caseStatusApi, 'useCaseStatuses').mockImplementation(() => ({
       data: mockedPersonCaseStatusFactory.build({
         personId: person.id,
         caseStatuses: [
@@ -43,7 +43,7 @@ describe('CaseStatusView component', () => {
   });
 
   it('displays only one "CIN" in case they are multiple', async () => {
-    jest.spyOn(caseStatusApi, 'GetCaseStatus').mockImplementation(() => ({
+    jest.spyOn(caseStatusApi, 'useCaseStatuses').mockImplementation(() => ({
       data: mockedPersonCaseStatusFactory.build({
         personId: person.id,
         caseStatuses: [
@@ -65,7 +65,7 @@ describe('CaseStatusView component', () => {
   });
 
   it('displays only one "CIN", one "CPP" and one "LAC"', async () => {
-    jest.spyOn(caseStatusApi, 'GetCaseStatus').mockImplementation(() => ({
+    jest.spyOn(caseStatusApi, 'useCaseStatuses').mockImplementation(() => ({
       data: mockedPersonCaseStatusFactory.build({
         personId: person.id,
         caseStatuses: [
@@ -93,7 +93,7 @@ describe('CaseStatusView component', () => {
   });
 
   it("displays nothing if there's no case status", async () => {
-    jest.spyOn(caseStatusApi, 'GetCaseStatus').mockImplementation(() => ({
+    jest.spyOn(caseStatusApi, 'useCaseStatuses').mockImplementation(() => ({
       data: mockedPersonCaseStatusFactory.build({
         personId: person.id,
         caseStatuses: [],
@@ -109,7 +109,7 @@ describe('CaseStatusView component', () => {
   });
 
   it('displays an error if API error', async () => {
-    jest.spyOn(caseStatusApi, 'GetCaseStatus').mockImplementation(() => ({
+    jest.spyOn(caseStatusApi, 'useCaseStatuses').mockImplementation(() => ({
       data: undefined,
       error: mockedAPIservererror,
       revalidate: jest.fn(),
