@@ -15,14 +15,20 @@ interface Props {
 const PersonAllocationsPage = ({ person }: Props): React.ReactElement => {
   const router = useRouter();
   const success = Boolean(router.query.success);
-  
-  let link =  <Link href={`/people/${person.id}/case-status/add`}>
-  <a style={{ marginLeft: '0px' }}>{'Add another flag'}</a>
-</Link>;
-  
+
+  const link = (
+    <Link href={`/people/${person.id}/case-status/add`}>
+      <a style={{ marginLeft: '0px' }}>{'Add another flag'}</a>
+    </Link>
+  );
+
   return (
     <>
-      {success == true && <ConfirmationBanner title={'Flagged status added'} children={link}/>}
+      {success == true && (
+        <ConfirmationBanner title={'Flagged status added'}>
+          {link}
+        </ConfirmationBanner>
+      )}
       <Layout person={person}>
         <PersonDetails person={person} />
       </Layout>

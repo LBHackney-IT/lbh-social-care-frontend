@@ -23,4 +23,18 @@ describe('caseStatusAPI', () => {
       );
     });
   });
+
+  describe('addCaseStatus', () => {
+    it('should get form values from the API', () => {
+      jest.spyOn(SWR, 'default');
+      caseStatusAPI.AddCaseStatus({
+        personId: 123,
+        type: 'CIN',
+        startDate: new Date().toDateString(),
+        notes: 'blabla',
+        createdby: 'jack.musajo@hackney.gov.uk',
+      });
+      expect(SWR.default).toHaveBeenCalledWith('/api/casestatus');
+    });
+  });
 });
