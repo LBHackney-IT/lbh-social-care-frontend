@@ -5,6 +5,7 @@ import { Resident } from 'types';
 import PersonDetails from 'components/PersonView/PersonDetails';
 import { isAuthorised } from '../../../utils/auth';
 import { useRouter } from 'next/router';
+import { useState, useEffect } from 'react';
 import ConfirmationBanner from 'components/ConfirmationBanner/ConfirmationBanner';
 import Link from 'next/link';
 
@@ -14,7 +15,11 @@ interface Props {
 
 const PersonAllocationsPage = ({ person }: Props): React.ReactElement => {
   const router = useRouter();
-  const success = Boolean(router.query.success);
+  const [success, setSuccess] = useState(false);
+
+  useEffect(() => {
+    setSuccess(Boolean(router.query.success));
+  });
 
   const link = (
     <Link href={`/people/${person.id}/case-status/add`}>
@@ -24,7 +29,7 @@ const PersonAllocationsPage = ({ person }: Props): React.ReactElement => {
 
   return (
     <>
-      {success == true && (
+      {success && (
         <ConfirmationBanner title={'Flagged status added'}>
           {link}
         </ConfirmationBanner>
