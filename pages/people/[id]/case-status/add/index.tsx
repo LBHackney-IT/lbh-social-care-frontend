@@ -38,7 +38,7 @@ const AddNewCaseStatus = (): React.ReactElement => {
         },
       });
     } catch (e) {
-      setStatus(e.toString());
+      setStatus(e);
     }
   };
 
