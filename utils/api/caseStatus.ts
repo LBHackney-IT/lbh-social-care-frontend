@@ -12,8 +12,8 @@ import type {
 export const AddCaseStatus = async (
   formData: AddCaseStatusFormData
 ): Promise<Record<string, unknown>> => {
-  const { data } = await axios.post(`/api/casestatus`, formData);
-  return data;
+  const response = await axios.post(`/api/casestatus`, formData);
+  return response?.data;
 };
 
 export const GetCaseStatus = (
