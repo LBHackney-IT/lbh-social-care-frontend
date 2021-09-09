@@ -51,11 +51,12 @@ describe('CaseStatusDetail component', () => {
       revalidate: jest.fn(),
     }));
 
-    const { queryByText } = render(
+    const { getByTestId } = render(
       <CaseStatusDetails person={mockedResident} />
     );
 
-    expect(queryByText('Child in need')).toBeInTheDocument();
+    const elements = getByTestId('start_date');
+    expect(elements).not.toBeNull();
   });
 
   it('displays correctly the end date', async () => {
@@ -75,11 +76,14 @@ describe('CaseStatusDetail component', () => {
       revalidate: jest.fn(),
     }));
 
-    const { queryByText } = render(
+    const { getByTestId } = render(
       <CaseStatusDetails person={mockedResident} />
     );
+    const startDate = getByTestId('start_date');
+    const endDate = getByTestId('end_date');
 
-    expect(queryByText('Child in need')).toBeInTheDocument();
+    expect(startDate).not.toBeNull();
+    expect(endDate).not.toBeNull();
   });
 
   it('displays the notes of a person when the detail panel is expanded', async () => {

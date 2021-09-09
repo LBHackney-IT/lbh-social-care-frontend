@@ -39,7 +39,10 @@ const CaseStatusDetails = ({ person }: Props): React.ReactElement => {
                       </span>
 
                       {status.startDate && (
-                        <span className={styles.dateElement}>
+                        <span
+                          data-testid="start_date"
+                          className={styles.dateElement}
+                        >
                           Start:{' '}
                           {new Date(status.startDate).toLocaleDateString(
                             'en-GB',
@@ -49,7 +52,10 @@ const CaseStatusDetails = ({ person }: Props): React.ReactElement => {
                       )}
 
                       {status.endDate && (
-                        <span className={styles.dateElement}>
+                        <span
+                          data-testid="end_date"
+                          className={styles.dateElement}
+                        >
                           End:{' '}
                           {new Date(status.endDate).toLocaleDateString(
                             'en-GB',
