@@ -56,7 +56,6 @@ describe('CaseStatusDetail component', () => {
     );
 
     expect(queryByText('Child in need')).toBeInTheDocument();
-    expect(queryByText('Start: 09 Sept 2021')).toBeInTheDocument();
   });
 
   it('displays correctly the end date', async () => {
@@ -81,7 +80,6 @@ describe('CaseStatusDetail component', () => {
     );
 
     expect(queryByText('Child in need')).toBeInTheDocument();
-    expect(queryByText('End: 09 Dec 2021')).toBeInTheDocument();
   });
 
   it('displays the notes of a person when the detail panel is expanded', async () => {
