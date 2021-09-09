@@ -16,11 +16,11 @@ describe('caseStatusAPI', () => {
     });
   });
 
-  describe('GetFormValues', () => {
+  describe('useFormValues', () => {
     it('should get form values from the API', () => {
       jest.spyOn(SWR, 'default');
 
-      caseStatusAPI.GetFormValues('CIN');
+      caseStatusAPI.useFormValues('CIN');
       expect(SWR.default).toHaveBeenCalledWith(
         '/api/casestatus/form-options/CIN'
       );

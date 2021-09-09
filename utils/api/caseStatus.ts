@@ -21,7 +21,7 @@ export const useCaseStatuses = (
 ): SWRResponse<PersonCaseStatus, ErrorAPI> =>
   useSWR(`/api/residents/${id}/casestatus`);
 
-export const GetFormValues = (
+export const useFormValues = (
   type: string
 ): SWRResponse<FormFields, ErrorAPI> =>
   useSWR(`/api/casestatus/form-options/${type}`);
