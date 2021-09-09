@@ -45,7 +45,7 @@ const AddNewCaseStatus = (): React.ReactElement => {
   return (
     <>
       <h1 className="govuk-fieldset__legend--l gov-weight-lighter">
-        Add a flag
+        Add a case status
       </h1>
       <PersonView personId={personId} expandView>
         <Formik
@@ -53,7 +53,7 @@ const AddNewCaseStatus = (): React.ReactElement => {
           validationSchema={generateFlexibleSchema(fields)}
           onSubmit={handleSubmit}
         >
-          {({ touched, errors, values, isSubmitting }) => (
+          {({ touched, errors, values }) => (
             <Form>
               {fields.map((field) => (
                 <FlexibleField
@@ -68,7 +68,7 @@ const AddNewCaseStatus = (): React.ReactElement => {
               <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                 <Button
                   label="Submit"
-                  disabled={Object.keys(errors).length > 0}
+                  disabled={values.type == '' || Object.keys(errors).length > 0}
                   type="submit"
                   wideButton
                 />

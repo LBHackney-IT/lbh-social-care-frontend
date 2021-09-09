@@ -50,18 +50,27 @@ const ReviewCaseStatusForm = (): React.ReactElement => {
   return (
     <PersonView personId={personId} expandView>
       <>
+        <h1 className="govuk-fieldset__legend--l gov-weight-lighter">
+          Review case status details
+        </h1>
         <FlexibleAnswers answers={displayValue} />
-        <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-          <Button label="Yes, add" onClick={submitAnwers} wideButton />
-          <Link
-            href={{
-              pathname: `/people/${router.query.id}/case-status/add`,
-              query: router.query,
-            }}
-            scroll={false}
-          >
-            <a className={`lbh-link lbh-link--no-visited-state`}>No, go back</a>
-          </Link>
+
+        <div>
+          Do you want to add this case status?
+          <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+            <Button label="Yes, add" onClick={submitAnwers} wideButton />
+            <Link
+              href={{
+                pathname: `/people/${router.query.id}/case-status/add`,
+                query: router.query,
+              }}
+              scroll={false}
+            >
+              <a className={`lbh-link lbh-link--no-visited-state`}>
+                No, go back
+              </a>
+            </Link>
+          </div>
         </div>
       </>
     </PersonView>

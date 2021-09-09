@@ -12,7 +12,7 @@ const form: Form = {
   steps: [
     {
       id: 'caseStatus',
-      name: 'Add case status',
+      name: 'Flag a status',
       theme: 'Case status',
       fields: [
         {
@@ -32,6 +32,12 @@ const form: Form = {
           question: 'Start Date',
           type: 'date',
           required: true,
+          conditions: [
+            {
+              id: 'type',
+              value: 'CIN',
+            },
+          ],
           className: 'govuk-input--width-10',
           default: format(new Date(), 'yyyy-MM-dd'),
           isfutureDateValid: false,
@@ -39,6 +45,12 @@ const form: Form = {
         {
           id: 'notes',
           question: 'Notes',
+          conditions: [
+            {
+              id: 'type',
+              value: 'CIN',
+            },
+          ],
           type: 'textarea',
           required: false,
         },
