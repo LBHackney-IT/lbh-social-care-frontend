@@ -12,14 +12,11 @@ import Link from 'next/link';
 const AddNewCaseStatus = (): React.ReactElement => {
   const router = useRouter();
   const personId = Number(router.query.id as string);
-  const fields = CASE_STATUS.steps[0].fields;
+  const form_fields = CASE_STATUS.steps[0].fields;
 
-  fields.map((field) => {
-    const key = field.id;
-
-    if (router.query[key]) {
-      const value = String(router.query[key]);
-      field.default = value;
+  form_fields.map((field) => {
+    if (router.query[field.id]) {
+      field.default = String(router.query[field.id]);
     }
   });
 
@@ -49,13 +46,13 @@ const AddNewCaseStatus = (): React.ReactElement => {
       </h1>
       <PersonView personId={personId} expandView>
         <Formik
-          initialValues={generateInitialValues(fields)}
-          validationSchema={generateFlexibleSchema(fields)}
+          initialValues={generateInitialValues(form_fields)}
+          validationSchema={generateFlexibleSchema(form_fields)}
           onSubmit={handleSubmit}
         >
           {({ touched, errors, values }) => (
             <Form>
-              {fields.map((field) => (
+              {form_fields.map((field) => (
                 <FlexibleField
                   key={field.id}
                   field={field}

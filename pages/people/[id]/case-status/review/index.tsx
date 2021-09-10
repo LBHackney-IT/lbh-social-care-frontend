@@ -11,9 +11,11 @@ import Link from 'next/link';
 
 const ReviewCaseStatusForm = (): React.ReactElement => {
   const router = useRouter();
-  const personId = Number(router.query.id as string);
   const { user } = useAuth() as { user: User };
+
+  const personId = Number(router.query.id as string);
   const formAnswers = router.query;
+
   const valueMapping = new CaseStatusMapping();
 
   const submitAnwers = async () => {
@@ -27,6 +29,7 @@ const ReviewCaseStatusForm = (): React.ReactElement => {
       });
 
       if (error) throw error;
+
       router.push({
         pathname: `/people/${router.query.id}/details`,
         query: { flagged: true },
