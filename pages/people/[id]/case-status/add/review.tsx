@@ -54,7 +54,7 @@ const ReviewCaseStatusForm = (): React.ReactElement => {
       <>
         {status && (
           <Banner
-            title="There was a problem finishing the submission"
+            title="There was a problem adding a case status"
             className="lbh-page-announcement--warning"
           >
             <p>Please refresh the page or try again later.</p>
