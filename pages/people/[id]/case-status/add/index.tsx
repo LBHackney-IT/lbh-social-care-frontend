@@ -26,7 +26,7 @@ const AddNewCaseStatus = (): React.ReactElement => {
   ) => {
     try {
       router.push({
-        pathname: `/people/${router.query.id}/case-status/review`,
+        pathname: `/people/${router.query.id}/case-status/add/review`,
         query: {
           personId: personId,
           type: values.type,

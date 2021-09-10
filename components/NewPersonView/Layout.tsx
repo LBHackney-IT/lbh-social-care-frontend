@@ -150,7 +150,7 @@ const Layout = ({ person, children }: Props): React.ReactElement => {
           <ConditionalFeature name="case-status">
             <span hidden>
               {casestatus &&
-              !groupByType(casestatus.caseStatuses).has('CIN') &&
+              !groupCaseStatusByType(casestatus.caseStatuses).has('CIN') &&
               person.contextFlag === 'C'
                 ? secondaryNavigation.push({
                     text: 'Add a case status',
@@ -207,7 +207,7 @@ const Layout = ({ person, children }: Props): React.ReactElement => {
   );
 };
 
-function groupByType(allCasesStatues: CaseStatus[]): any {
+function groupCaseStatusByType(allCasesStatues: CaseStatus[]): any {
   return new Set(allCasesStatues.map((el) => el.type));
 }
 

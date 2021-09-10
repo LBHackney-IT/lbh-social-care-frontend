@@ -1,4 +1,5 @@
 import React from 'react';
+import { useState } from 'react';
 import FlexibleAnswers from 'components/FlexibleAnswers/FlexibleAnswers';
 import { FlexibleAnswers as FlexibleAnswersT } from 'data/flexibleForms/forms.types';
 import { useRouter } from 'next/router';
@@ -8,8 +9,11 @@ import { User, CaseStatusMapping } from 'types';
 import PersonView from 'components/PersonView/PersonView';
 import Button from 'components/Button/Button';
 import Link from 'next/link';
+import Banner from 'components/FlexibleForms/Banner';
 
 const ReviewCaseStatusForm = (): React.ReactElement => {
+  const [status, setStatus] = useState('');
+
   const router = useRouter();
   const { user } = useAuth() as { user: User };
   const personId = Number(router.query.id as string);
@@ -33,7 +37,7 @@ const ReviewCaseStatusForm = (): React.ReactElement => {
         query: { flaggedStatus: true },
       });
     } catch (e) {
-      console.log(e);
+      setStatus(e.message);
     }
   };
 
@@ -48,6 +52,15 @@ const ReviewCaseStatusForm = (): React.ReactElement => {
   return (
     <PersonView personId={personId} expandView>
       <>
+        {status && (
+          <Banner
+            title="There was a problem finishing the submission"
+            className="lbh-page-announcement--warning"
+          >
+            <p>Please refresh the page or try again later.</p>
+            <p className="lbh-body-xs">{status}</p>
+          </Banner>
+        )}
         <h1 className="govuk-fieldset__legend--l gov-weight-lighter">
           Review case status details
         </h1>
