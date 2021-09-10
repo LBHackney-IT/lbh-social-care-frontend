@@ -15,12 +15,12 @@ interface Props {
 }
 
 const PersonAllocationsPage = ({ person }: Props): React.ReactElement => {
-  const router = useRouter();
   const [showConfirmation, setShowConfirmation] = useState(false);
+  const router = useRouter();
 
   useEffect(() => {
     setShowConfirmation(
-      Boolean(router.query.flagged) && person.contextFlag === 'C'
+      Boolean(router.query.flaggedStatus) && person.contextFlag === 'C'
     );
   });
 
