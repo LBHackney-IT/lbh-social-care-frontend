@@ -7,7 +7,6 @@ import { isAuthorised } from '../../../utils/auth';
 import { useRouter } from 'next/router';
 import { useState, useEffect } from 'react';
 import ConfirmationBanner from 'components/ConfirmationBanner/ConfirmationBanner';
-import Link from 'next/link';
 import { ConditionalFeature } from 'lib/feature-flags/feature-flags';
 
 interface Props {
@@ -29,9 +28,7 @@ const PersonAllocationsPage = ({ person }: Props): React.ReactElement => {
       {showConfirmation && (
         <ConditionalFeature name="case-status">
           <ConfirmationBanner title={'Flagged status added'}>
-            <Link href={`/people/${person.id}/case-status/add`}>
-              <a style={{ marginLeft: '0px' }}>{'Add another flag'}</a>
-            </Link>
+            <></>
           </ConfirmationBanner>
         </ConditionalFeature>
       )}
