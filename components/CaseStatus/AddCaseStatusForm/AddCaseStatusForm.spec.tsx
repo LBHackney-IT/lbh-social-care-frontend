@@ -18,7 +18,7 @@ describe('AddCaseStatusForm - CIN', () => {
       <AddCaseStatusForm personId={mockedResident.id} prefilledField={{}} />
     );
 
-    expect(getByTestId('submit_button')).toHaveAttribute('disabled');
+    expect(getByTestId('submit_button')).toBeDisabled();
   });
 
   it('displays start date and notes when selecting CIN', () => {
