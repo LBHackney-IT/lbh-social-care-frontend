@@ -1,9 +1,8 @@
 import axios from 'axios';
-import type { PersonCaseStatus, FormFields } from 'types';
+import type { PersonCaseStatus } from 'types';
 const ENDPOINT_API = process.env.ENDPOINT_API;
 const AWS_KEY = process.env.AWS_KEY;
 const headers = { 'x-api-key': AWS_KEY };
-
 export const getCaseStatusByPersonId = async (
   personId: number
 ): Promise<PersonCaseStatus> => {
@@ -16,12 +15,22 @@ export const getCaseStatusByPersonId = async (
   return data;
 };
 
-export const GetFormValues = async (type: string): Promise<FormFields> => {
-  const { data }: { data: FormFields } = await axios.get(
+export const getFormValues = async (
+  type: string
+): Promise<PersonCaseStatus> => {
+  const { data }: { data: PersonCaseStatus } = await axios.get(
     `${ENDPOINT_API}/case-status/form-options/${type}`,
     {
       headers,
     }
   );
   return data;
+};
+
+export const addCaseStatus = async (
+  params: Record<string, unknown>
+): Promise<void> => {
+  await axios.post(`${ENDPOINT_API}/residents/case-statuses`, params, {
+    headers: { ...headers, 'Content-Type': 'application/json' },
+  });
 };
