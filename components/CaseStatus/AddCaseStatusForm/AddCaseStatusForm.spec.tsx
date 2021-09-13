@@ -45,7 +45,7 @@ describe('AddCaseStatusForm - CIN', () => {
       />
     );
 
-    expect(getByTestId('submit_button')).not.toHaveAttribute('disabled');
+    expect(getByTestId('submit_button')).not.toBeDisabled();
   });
 
   it('pre-select CIN and fills the other fields', () => {
