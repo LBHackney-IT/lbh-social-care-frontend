@@ -20,7 +20,7 @@ const ReviewCaseStatusForm = (): React.ReactElement => {
   const formAnswers = router.query;
   const valueMapping = new CaseStatusMapping();
 
-  const submitAnwers = async () => {
+  const submitAnswers = async () => {
     try {
       const { error } = await addCaseStatus({
         personId: personId,
@@ -68,9 +68,9 @@ const ReviewCaseStatusForm = (): React.ReactElement => {
         <FlexibleAnswers answers={displayValue} />
 
         <div>
-          Do you want to add this case status?
+          <p className="lbh-body">Do you want to add this case status?</p>
           <div style={{ display: 'flex', alignItems: 'center' }}>
-            <Button label="Yes, add" onClick={submitAnwers} wideButton />
+            <Button label="Yes, add" onClick={submitAnswers} wideButton />
             <Link
               href={{
                 pathname: `/people/${router.query.id}/case-status/add`,
