@@ -1,5 +1,5 @@
 import React from 'react';
-import ReviewAddCaseStatusForm from 'components/CaseStatus/ReviewAddCaseStatusForm';
+import ReviewAddCaseStatusForm from 'components/CaseStatus/AddCaseStatusForm/ReviewAddCaseStatusForm';
 import { useRouter } from 'next/router';
 import PersonView from 'components/PersonView/PersonView';
 

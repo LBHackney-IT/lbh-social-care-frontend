@@ -9,7 +9,7 @@ import { addCaseStatus } from 'utils/api/caseStatus';
 import { useAuth } from 'components/UserContext/UserContext';
 import { useRouter } from 'next/router';
 
-const ReviewAddRelationshipForm: React.FC<{
+const ReviewAddCaseStatusForm: React.FC<{
   title: string;
   personId: number;
   formAnswers: any;
@@ -78,7 +78,7 @@ const ReviewAddRelationshipForm: React.FC<{
           <Link
             href={{
               pathname: `/people/${personId}/case-status/add`,
-              query: formAnswers,
+              query: { prefilledFields: JSON.stringify(formAnswers) },
             }}
             scroll={false}
           >
@@ -94,4 +94,4 @@ const ReviewAddRelationshipForm: React.FC<{
   );
 };
 
-export default ReviewAddRelationshipForm;
+export default ReviewAddCaseStatusForm;
