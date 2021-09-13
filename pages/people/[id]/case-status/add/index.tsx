@@ -20,7 +20,7 @@ const AddNewCaseStatus = (): React.ReactElement => {
       <PersonView personId={personId} expandView>
         <AddCaseStatusForm
           personId={personId}
-          prefilledField={prefilledFields}
+          prefilledFields={prefilledFields}
         />
       </PersonView>
     </>

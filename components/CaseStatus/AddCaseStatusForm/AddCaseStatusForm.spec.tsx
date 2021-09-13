@@ -7,7 +7,7 @@ const mockedResident = residentFactory.build();
 describe('AddCaseStatusForm - CIN', () => {
   it('displays the form', () => {
     const { getByText } = render(
-      <AddCaseStatusForm personId={mockedResident.id} prefilledField={{}} />
+      <AddCaseStatusForm personId={mockedResident.id} prefilledFields={{}} />
     );
 
     expect(getByText('Child in need')).toBeInTheDocument();
@@ -15,7 +15,7 @@ describe('AddCaseStatusForm - CIN', () => {
 
   it('should disable the submit button when not completed', () => {
     const { getByTestId } = render(
-      <AddCaseStatusForm personId={mockedResident.id} prefilledField={{}} />
+      <AddCaseStatusForm personId={mockedResident.id} prefilledFields={{}} />
     );
 
     expect(getByTestId('submit_button')).toBeDisabled();
@@ -23,7 +23,7 @@ describe('AddCaseStatusForm - CIN', () => {
 
   it('displays start date and notes when selecting CIN', () => {
     const { getByText } = render(
-      <AddCaseStatusForm personId={mockedResident.id} prefilledField={{}} />
+      <AddCaseStatusForm personId={mockedResident.id} prefilledFields={{}} />
     );
 
     fireEvent.click(getByText('Child in need'));
@@ -37,7 +37,7 @@ describe('AddCaseStatusForm - CIN', () => {
     const { getByTestId } = render(
       <AddCaseStatusForm
         personId={mockedResident.id}
-        prefilledField={{
+        prefilledFields={{
           type: 'CIN',
           notes: 'this is a note',
           startDate: '2020-01-01',
@@ -52,7 +52,7 @@ describe('AddCaseStatusForm - CIN', () => {
     const { getByText } = render(
       <AddCaseStatusForm
         personId={mockedResident.id}
-        prefilledField={{
+        prefilledFields={{
           type: 'CIN',
           notes: 'this is a note',
         }}

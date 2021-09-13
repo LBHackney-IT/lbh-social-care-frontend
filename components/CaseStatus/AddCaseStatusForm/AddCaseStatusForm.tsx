@@ -9,14 +9,14 @@ import { useRouter } from 'next/router';
 
 const AddCaseStatusForm: React.FC<{
   personId: number;
-  prefilledField: any;
-}> = ({ personId, prefilledField }) => {
+  prefilledFields: any;
+}> = ({ personId, prefilledFields }) => {
   const router = useRouter();
   const form_fields = CASE_STATUS.steps[0].fields;
 
   form_fields.map((field) => {
-    if (prefilledField[field.id]) {
-      field.default = String(prefilledField[field.id]);
+    if (prefilledFields[field.id]) {
+      field.default = String(prefilledFields[field.id]);
     }
   });
 
