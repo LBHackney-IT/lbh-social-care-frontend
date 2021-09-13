@@ -1,6 +1,5 @@
 import RemoveRelationshipDialog from './RemoveRelationshipDialog';
 import { render, screen, fireEvent } from '@testing-library/react';
-// import { residentFactory } from 'factories/residents';
 import { mockedExistingRelationship } from 'factories/relationships';
 
 describe('RemoveRelationshipDialog', () => {
