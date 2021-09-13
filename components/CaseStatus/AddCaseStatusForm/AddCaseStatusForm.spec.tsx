@@ -4,7 +4,7 @@ import { residentFactory } from 'factories/residents';
 
 const mockedResident = residentFactory.build();
 
-describe('ReviewAddRelationshipForm - CIN', () => {
+describe('AddCaseStatusForm - CIN', () => {
   it('displays the form', () => {
     const { getByText } = render(
       <AddCaseStatusForm personId={mockedResident.id} prefilledField={{}} />
