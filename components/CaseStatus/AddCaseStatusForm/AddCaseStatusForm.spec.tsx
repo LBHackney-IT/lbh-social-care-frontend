@@ -13,6 +13,14 @@ describe('ReviewAddRelationshipForm - CIN', () => {
     expect(getByText('Child in need')).toBeInTheDocument();
   });
 
+  it('should disable the submit button when not completed', () => {
+    const { getByTestId } = render(
+      <AddCaseStatusForm personId={mockedResident.id} prefilledField={{}} />
+    );
+
+    expect(getByTestId('submit_button')).toHaveAttribute('disabled');
+  });
+
   it('displays start date and notes when selecting CIN', () => {
     const { getByText } = render(
       <AddCaseStatusForm personId={mockedResident.id} prefilledField={{}} />
@@ -23,6 +31,21 @@ describe('ReviewAddRelationshipForm - CIN', () => {
     expect(getByText('Child in need')).toBeInTheDocument();
     expect(getByText('Start Date')).toBeInTheDocument();
     expect(getByText('Notes')).toBeInTheDocument();
+  });
+
+  it('should enable the submit button when completed', () => {
+    const { getByTestId } = render(
+      <AddCaseStatusForm
+        personId={mockedResident.id}
+        prefilledField={{
+          type: 'CIN',
+          notes: 'this is a note',
+          startDate: '2020-01-01',
+        }}
+      />
+    );
+
+    expect(getByTestId('submit_button')).not.toHaveAttribute('disabled');
   });
 
   it('pre-select CIN and fills the other fields', () => {

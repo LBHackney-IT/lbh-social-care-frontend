@@ -62,6 +62,7 @@ const AddCaseStatusForm: React.FC<{
               label="Submit"
               disabled={values.type == '' || Object.keys(errors).length > 0}
               type="submit"
+              data-testid="submit_button"
               wideButton
             />
             <Link href={{ pathname: `/people/${personId}/` }} scroll={false}>
