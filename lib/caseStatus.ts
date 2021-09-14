@@ -7,7 +7,7 @@ export const getCaseStatusByPersonId = async (
   personId: number
 ): Promise<PersonCaseStatus> => {
   const { data }: { data: PersonCaseStatus } = await axios.get(
-    `${ENDPOINT_API}/residents/${personId}/casestatuses`,
+    `${ENDPOINT_API}/residents/${personId}/case-statuses`,
     {
       headers,
     }
@@ -19,7 +19,7 @@ export const getFormValues = async (
   type: string
 ): Promise<PersonCaseStatus> => {
   const { data }: { data: PersonCaseStatus } = await axios.get(
-    `${ENDPOINT_API}/case-status/form-options/${type}`,
+    `${ENDPOINT_API}/case-statuses/form-options/${type}`,
     {
       headers,
     }
