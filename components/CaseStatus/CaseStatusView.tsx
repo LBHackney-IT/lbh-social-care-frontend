@@ -1,13 +1,13 @@
 import ErrorMessage from 'components/ErrorMessage/ErrorMessage';
-import { GetCaseStatus } from 'utils/api/caseStatus';
-import { Resident, CaseStatus } from 'types';
+import { useCaseStatuses } from 'utils/api/caseStatus';
+import { Resident, CaseStatus, CaseStatusMapping } from 'types';
 
 interface Props {
   person: Resident;
 }
 
 const CaseStatusView = ({ person }: Props): React.ReactElement => {
-  const { data: caseStatusData, error } = GetCaseStatus(person.id);
+  const { data: caseStatusData, error } = useCaseStatuses(person.id);
 
   if (error) {
     return (
@@ -33,16 +33,12 @@ const CaseStatusView = ({ person }: Props): React.ReactElement => {
   );
 };
 
+const valueMapping = new CaseStatusMapping();
+
 function groupByType(
   allCasesStatues: CaseStatus[]
 ): (keyof typeof valueMapping)[] {
   return Array.from(new Set(allCasesStatues.map((el) => el.type)));
 }
-
-const valueMapping = {
-  CIN: 'Child in need',
-  CP: 'Child protection',
-  LAC: 'Looked after child',
-};
 
 export default CaseStatusView;

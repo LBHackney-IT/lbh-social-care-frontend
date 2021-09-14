@@ -18,7 +18,7 @@ jest.mock('next/router', () => ({
 
 describe('CaseStatusDetail component', () => {
   it("displays nothing if there's no case status", async () => {
-    jest.spyOn(caseStatusApi, 'GetCaseStatus').mockImplementation(() => ({
+    jest.spyOn(caseStatusApi, 'useCaseStatuses').mockImplementation(() => ({
       data: mockedPersonCaseStatusFactory.build({
         personId: mockedResident.id,
         caseStatuses: [],
@@ -36,7 +36,7 @@ describe('CaseStatusDetail component', () => {
   });
 
   it('displays correctly the start date', async () => {
-    jest.spyOn(caseStatusApi, 'GetCaseStatus').mockImplementation(() => ({
+    jest.spyOn(caseStatusApi, 'useCaseStatuses').mockImplementation(() => ({
       data: mockedPersonCaseStatusFactory.build({
         personId: mockedResident.id,
         caseStatuses: [
@@ -51,15 +51,16 @@ describe('CaseStatusDetail component', () => {
       revalidate: jest.fn(),
     }));
 
-    const { queryByText } = render(
+    const { getByTestId } = render(
       <CaseStatusDetails person={mockedResident} />
     );
 
-    expect(queryByText('Child in need')).toBeInTheDocument();
+    const elements = getByTestId('start_date');
+    expect(elements).not.toBeNull();
   });
 
   it('displays correctly the end date', async () => {
-    jest.spyOn(caseStatusApi, 'GetCaseStatus').mockImplementation(() => ({
+    jest.spyOn(caseStatusApi, 'useCaseStatuses').mockImplementation(() => ({
       data: mockedPersonCaseStatusFactory.build({
         personId: mockedResident.id,
         caseStatuses: [
@@ -75,15 +76,18 @@ describe('CaseStatusDetail component', () => {
       revalidate: jest.fn(),
     }));
 
-    const { queryByText } = render(
+    const { getByTestId } = render(
       <CaseStatusDetails person={mockedResident} />
     );
+    const startDate = getByTestId('start_date');
+    const endDate = getByTestId('end_date');
 
-    expect(queryByText('Child in need')).toBeInTheDocument();
+    expect(startDate).not.toBeNull();
+    expect(endDate).not.toBeNull();
   });
 
   it('displays the notes of a person when the detail panel is expanded', async () => {
-    jest.spyOn(caseStatusApi, 'GetCaseStatus').mockImplementation(() => ({
+    jest.spyOn(caseStatusApi, 'useCaseStatuses').mockImplementation(() => ({
       data: mockedPersonCaseStatusFactory.build({
         personId: mockedResident.id,
         caseStatuses: [
@@ -109,7 +113,7 @@ describe('CaseStatusDetail component', () => {
   });
 
   it('displays multiple CIN in case they exist', async () => {
-    jest.spyOn(caseStatusApi, 'GetCaseStatus').mockImplementation(() => ({
+    jest.spyOn(caseStatusApi, 'useCaseStatuses').mockImplementation(() => ({
       data: mockedPersonCaseStatusFactory.build({
         personId: mockedResident.id,
         caseStatuses: [
@@ -137,7 +141,7 @@ describe('CaseStatusDetail component', () => {
   });
 
   it('displays an error if API error', async () => {
-    jest.spyOn(caseStatusApi, 'GetCaseStatus').mockImplementation(() => ({
+    jest.spyOn(caseStatusApi, 'useCaseStatuses').mockImplementation(() => ({
       data: undefined,
       error: mockedAPIservererror,
       revalidate: jest.fn(),

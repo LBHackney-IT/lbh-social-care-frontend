@@ -2,7 +2,7 @@ import axios from 'axios';
 import * as caseStatusAPI from './caseStatus';
 import {
   mockedCaseStatusFactory,
-  mockedFormValueFactory,
+  mockedCaseStatusAddRequest,
 } from 'factories/caseStatus';
 
 const ENDPOINT_API = process.env.ENDPOINT_API;
@@ -21,31 +21,31 @@ describe('case status APIs', () => {
 
       const data = await caseStatusAPI.getCaseStatusByPersonId(123);
 
-      expect(mockedAxios.get).toHaveBeenCalledWith(
-        `${ENDPOINT_API}/residents/123/casestatuses`,
-        { headers: { 'x-api-key': AWS_KEY } }
+      expect(mockedAxios.get).toHaveBeenCalled();
+      expect(mockedAxios.get.mock.calls[0][0]).toEqual(
+        `${ENDPOINT_API}/residents/123/casestatuses`
       );
+      expect(mockedAxios.get.mock.calls[0][1]?.headers).toEqual({
+        'x-api-key': AWS_KEY,
+      });
       expect(data).toEqual(caseStatus);
     });
   });
-});
 
-describe('case form values APIs', () => {
-  describe('GetFormValues', () => {
-    it("calls the service API's form values endpoint", async () => {
-      const mockedData = mockedFormValueFactory.build();
-
-      mockedAxios.get.mockResolvedValue({
-        data: mockedData,
+  describe('addCaseStatus', () => {
+    it("calls the service API's POST case status endpoint", async () => {
+      mockedAxios.post.mockResolvedValue({ data: {} });
+      await caseStatusAPI.addCaseStatus({
+        data: mockedCaseStatusAddRequest,
       });
-
-      const data = await caseStatusAPI.GetFormValues('CIN');
-
-      expect(mockedAxios.get).toHaveBeenCalledWith(
-        `${ENDPOINT_API}/case-status/form-options/CIN`,
-        { headers: { 'x-api-key': AWS_KEY } }
+      expect(mockedAxios.post).toHaveBeenCalled();
+      expect(mockedAxios.post.mock.calls[0][0]).toEqual(
+        `${ENDPOINT_API}/residents/case-statuses`
       );
-      expect(data).toEqual(mockedData);
+      expect(mockedAxios.post.mock.calls[0][2]?.headers).toEqual({
+        'Content-Type': 'application/json',
+        'x-api-key': AWS_KEY,
+      });
     });
   });
 });
