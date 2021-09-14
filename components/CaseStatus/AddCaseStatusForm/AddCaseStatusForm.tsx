@@ -15,7 +15,7 @@ const AddCaseStatusForm: React.FC<{
   const form_fields = CASE_STATUS.steps[0].fields;
 
   form_fields.map((field) => {
-    if (prefilledFields[field.id]) {
+    if (prefilledFields && prefilledFields[field.id]) {
       field.default = String(prefilledFields[field.id]);
     }
   });
