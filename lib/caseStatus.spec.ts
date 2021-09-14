@@ -23,7 +23,7 @@ describe('case status APIs', () => {
 
       expect(mockedAxios.get).toHaveBeenCalled();
       expect(mockedAxios.get.mock.calls[0][0]).toEqual(
-        `${ENDPOINT_API}/residents/123/casestatuses`
+        `${ENDPOINT_API}/residents/123/case-statuses`
       );
       expect(mockedAxios.get.mock.calls[0][1]?.headers).toEqual({
         'x-api-key': AWS_KEY,
