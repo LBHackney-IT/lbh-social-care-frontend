@@ -58,7 +58,7 @@ const UnfinishedSubmissionsEvent = ({
         <p>No unfinished submissions to show</p>
       )}
 
-      {unfinishedSubmissionRes?.items?.length && (
+      {unfinishedSubmissionRes && unfinishedSubmissionRes.items.length > 0 && (
         <>
           <ul className="lbh-list lbh-body-s">
             {unfinishedSubmissionRes?.items.slice(0, 4).map((sub) => (
