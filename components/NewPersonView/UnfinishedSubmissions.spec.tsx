@@ -32,7 +32,7 @@ describe('UnfinishedSubmissions', () => {
 
     render(<UnfinishedSubmissions personId={mockPersonId} />);
 
-    expect(mock).toHaveBeenCalledWith(mockPersonId);
+    expect(mock).toHaveBeenCalledWith(mockPersonId, 1, 4);
   });
 
   it('renders a list of clickable submissions', () => {
