@@ -103,20 +103,6 @@ const Search = ({
     },
     [pathname, query, replace]
   );
-  // commented out as the feature is not ready in the BE
-  // eslint-disable-next-line no-unused-vars
-  const onSort = useCallback(
-    (value) => {
-      const { order_by, sort_by } = query || {};
-      onFormSubmit({
-        ...(query || {}),
-        ...(sort_by === value && order_by === 'desc'
-          ? { order_by: 'asc', sort_by }
-          : { order_by: 'desc', sort_by: value }),
-      });
-    },
-    [onFormSubmit, query]
-  );
 
   return (
     <>
