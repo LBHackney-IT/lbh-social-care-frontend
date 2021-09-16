@@ -160,10 +160,6 @@ export interface Submission {
   title?: string;
 }
 
-export interface SubmissionWithForm extends Submission {
-  form?: Form;
-}
-
 export interface Revision {
   worker: Worker;
   editTime: string;
