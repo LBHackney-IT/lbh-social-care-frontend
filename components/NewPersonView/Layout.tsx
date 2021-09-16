@@ -14,7 +14,10 @@ import { canManageCases } from 'lib/permissions';
 import AddFormDialog from 'components/AddFormDialog/AddFormDialog';
 import { useState } from 'react';
 import Banner from 'components/FlexibleForms/Banner';
-import { ConditionalFeature } from 'lib/feature-flags/feature-flags';
+import {
+  ConditionalFeature,
+  useFeatureFlags,
+} from 'lib/feature-flags/feature-flags';
 import CaseStatusView from 'components/CaseStatus/CaseStatusView';
 
 interface NavLinkProps {
@@ -60,9 +63,8 @@ const Layout = ({ person, children }: Props): React.ReactElement => {
   const { data: allocations } = useAllocatedWorkers(person.id);
   const { data: relationships } = useRelationships(person.id);
   const { data: casestatus } = useCaseStatuses(person.id);
-
   const { user } = useAuth() as { user: User };
-
+  const { isFeatureActive } = useFeatureFlags();
   const [addFormOpen, setAddFormOpen] = useState<boolean>(false);
 
   const navigation: { text: string; href: string }[] = [
@@ -103,6 +105,20 @@ const Layout = ({ person, children }: Props): React.ReactElement => {
       href: `/people/${person.id}/case-note`,
     },
   ];
+
+  if (
+    isFeatureActive('case-status') &&
+    casestatus &&
+    casestatus.caseStatuses &&
+    !groupCaseStatusByType(casestatus.caseStatuses).has('CIN') &&
+    person.contextFlag === 'C'
+  ) {
+    secondaryNavigation.push({
+      text: 'Add a case status',
+      href: `/people/${person.id}/case-status/add`,
+    });
+  }
+
   return (
     <>
       <Head>
