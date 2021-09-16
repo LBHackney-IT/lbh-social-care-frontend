@@ -43,7 +43,7 @@ const UnfinishedSubmissionsEvent = ({
     data: unfinishedSubmissionRes,
     isValidating,
     error,
-  } = useUnfinishedSubmissions(personId);
+  } = useUnfinishedSubmissions(personId, 1, 4);
 
   return (
     <li
@@ -61,11 +61,11 @@ const UnfinishedSubmissionsEvent = ({
             <p>No unfinished submissions to show</p>
           )}
           <ul className="lbh-list lbh-body-s">
-            {unfinishedSubmissionRes.items.slice(0, 4).map((sub) => (
+            {unfinishedSubmissionRes.items.map((sub) => (
               <Sub sub={sub} key={sub.submissionId} />
             ))}
           </ul>
-          {unfinishedSubmissionRes.items.length > 4 && (
+          {unfinishedSubmissionRes.count > 4 && (
             <p className="lbh-body-s govuk-!-margin-top-4">
               and {unfinishedSubmissionRes?.count - 4} more
             </p>
