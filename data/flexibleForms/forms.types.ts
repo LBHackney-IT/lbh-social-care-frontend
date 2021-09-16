@@ -116,6 +116,11 @@ export type InProgressSubmission = Omit<
   | 'submittedBy'
   | 'submittedAt'
   | 'residents'
+  | 'approvedBy'
+  | 'approvedAt'
+  | 'panelApprovedBy'
+  | 'panelApprovedAt'
+  | 'tags'
 > & {
   workers: Pick<Worker, 'email'>[];
   createdBy: Pick<Worker, 'email'>;
