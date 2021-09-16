@@ -157,6 +157,7 @@ export interface Submission {
   tags?: string[];
   lastEdited: string;
   completedSteps: number;
+  title?: string;
 }
 
 export interface SubmissionWithForm extends Submission {
