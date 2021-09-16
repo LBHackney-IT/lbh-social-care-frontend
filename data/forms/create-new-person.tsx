@@ -156,18 +156,20 @@ const formConfig: FormStep[] = [
         isInline: true,
         isMulti: true,
         isMultiTrigger: '+ Add additional phone number',
+        buttonStyle: 'button',
         summaryInline: true,
         components: [
           {
             component: 'PhoneInput',
             name: 'number',
+            hint: 'For example, 07700900123',
             label: 'Phone number',
           },
           {
             component: 'TextInput',
             name: 'type',
-            label: 'Phone type',
-            placeholder: 'eg. Home',
+            label: 'Note',
+            hint: "For example, Mother's mobile, Carer, Key worker",
           },
         ],
       },
