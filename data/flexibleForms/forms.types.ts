@@ -108,8 +108,22 @@ export interface FlexibleAnswers {
 
 export type InProgressSubmission = Omit<
   Submission,
-  'formAnswers' | 'editHistory'
->;
+  | 'formAnswers'
+  | 'editHistory'
+  | 'workers'
+  | 'submittedBy'
+  | 'createdBy'
+  | 'submittedBy'
+  | 'submittedAt'
+  | 'residents'
+> & {
+  workers: Pick<Worker, 'email'>[];
+  createdBy: Pick<Worker, 'email'>;
+  residents: Pick<
+    Resident,
+    'id' | 'ageContext' | 'firstName' | 'lastName' | 'restricted'
+  >[];
+};
 
 export enum SubmissionState {
   InProgress = 'In progress',
