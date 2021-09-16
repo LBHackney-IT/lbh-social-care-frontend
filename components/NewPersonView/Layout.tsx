@@ -148,16 +148,6 @@ const Layout = ({ person, children }: Props): React.ReactElement => {
           </p>
 
           <ConditionalFeature name="case-status">
-            <span hidden>
-              {casestatus &&
-              !groupCaseStatusByType(casestatus.caseStatuses).has('CIN') &&
-              person.contextFlag === 'C'
-                ? secondaryNavigation.push({
-                    text: 'Add a case status',
-                    href: `/people/${person.id}/case-status/add`,
-                  })
-                : null}
-            </span>
             <CaseStatusView person={person} />
           </ConditionalFeature>
         </div>

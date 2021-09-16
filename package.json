@@ -1,6 +1,6 @@
 {
   "name": "lbh-social-care",
-  "version": "0.23.1",
+  "version": "0.24.1",
   "private": true,
   "scripts": {
     "dev": "next dev",

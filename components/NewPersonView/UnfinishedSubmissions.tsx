@@ -54,18 +54,18 @@ const UnfinishedSubmissionsEvent = ({
       {error && (
         <ErrorMessage label="There was a problem fetching unfinished submissions" />
       )}
-      {unfinishedSubmissionRes?.items?.length === 0 && (
-        <p>No unfinished submissions to show</p>
-      )}
 
-      {unfinishedSubmissionRes?.items?.length && (
+      {unfinishedSubmissionRes?.items !== undefined && (
         <>
+          {unfinishedSubmissionRes.items.length === 0 && (
+            <p>No unfinished submissions to show</p>
+          )}
           <ul className="lbh-list lbh-body-s">
-            {unfinishedSubmissionRes?.items.slice(0, 4).map((sub) => (
+            {unfinishedSubmissionRes.items.slice(0, 4).map((sub) => (
               <Sub sub={sub} key={sub.submissionId} />
             ))}
           </ul>
-          {unfinishedSubmissionRes?.items.length > 4 && (
+          {unfinishedSubmissionRes.items.length > 4 && (
             <p className="lbh-body-s govuk-!-margin-top-4">
               and {unfinishedSubmissionRes?.count - 4} more
             </p>
