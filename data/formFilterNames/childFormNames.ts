@@ -1,7 +1,6 @@
 export default [
   'Adoption Information',
   'Case Audit',
-  'Case Note',
   'Case Summary',
   'Clinician contact',
   'Contact with Doctor',

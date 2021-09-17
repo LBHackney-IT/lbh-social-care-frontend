@@ -1,6 +1,5 @@
 export default [
   'Case Audit',
-  'Case Note',
   'Case Summary',
   'Clinician contact',
   'Out of Hours Service Contact',
