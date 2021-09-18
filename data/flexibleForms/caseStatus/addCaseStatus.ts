@@ -1,4 +1,4 @@
-import { Form } from './forms.types';
+import { Form } from '../forms.types';
 import { format } from 'date-fns';
 
 const form: Form = {
@@ -7,7 +7,7 @@ const form: Form = {
   groupRecordable: false,
   isViewableByAdults: false,
   isViewableByChildrens: true,
-  canonicalUrl: (socialCareId) => `/people/${socialCareId}/case-status/add`,
+  canonicalUrl: (socialCareId) => `/people/${socialCareId}/case-status/edit`,
 
   steps: [
     {

@@ -7,6 +7,7 @@ import {
   CaseStatusMapping,
 } from 'types';
 import styles from './CaseStatusDetails.module.scss';
+import Link from 'next/link';
 import ExpandDetails from 'components/ExpandDetails/ExpandDetails';
 
 interface Props {
@@ -69,6 +70,11 @@ const CaseStatusDetails = ({ person }: Props): React.ReactElement => {
                           )}{' '}
                         </span>
                       )}
+                      <Link
+                        href={`/people/${person.id}/case-status/${status.id}/edit/`}
+                      >
+                        <a data-testid="edit_button">edit</a>
+                      </Link>
                     </div>
                   </dt>
                 </>

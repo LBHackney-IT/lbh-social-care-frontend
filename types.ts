@@ -370,6 +370,15 @@ export interface AddCaseStatusFormData {
   createdby: string;
 }
 
+export interface EditCaseStatusFormData {
+  personId: number;
+  values?: [{ name: string; selected: string }];
+  startDate?: string;
+  endDate?: string;
+  notes?: string;
+  editedBy: string;
+}
+
 export interface Paginated<T> {
   items: T[];
   count: number;

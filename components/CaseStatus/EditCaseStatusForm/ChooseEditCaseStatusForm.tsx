@@ -1,5 +1,5 @@
 import { Form, Formik, FormikHelpers, FormikValues } from 'formik';
-import CASE_STATUS from 'data/flexibleForms/caseStatus/addCaseStatus';
+import CASE_STATUS from 'data/flexibleForms/caseStatus/caseStatusChooseEdit';
 import { generateInitialValues } from 'lib/utils';
 import { generateFlexibleSchema } from 'lib/validators';
 import FlexibleField from 'components/FlexibleForms/FlexibleFields';
@@ -7,16 +7,17 @@ import Button from 'components/Button/Button';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 
-const AddCaseStatusForm: React.FC<{
+const ChooseEditCaseStatusForm: React.FC<{
   personId: number;
-  prefilledFields: any;
-}> = ({ personId, prefilledFields }) => {
-  const router = useRouter();
+  caseStatusId: number;
+  prefilledValue: string;
+}> = ({ personId, caseStatusId, prefilledValue }) => {
   const form_fields = CASE_STATUS.steps[0].fields;
+  const router = useRouter();
 
   form_fields.map((field) => {
-    if (prefilledFields && prefilledFields[field.id]) {
-      field.default = String(prefilledFields[field.id]);
+    if (prefilledValue) {
+      field.default = String(prefilledValue);
     }
   });
 
@@ -26,12 +27,9 @@ const AddCaseStatusForm: React.FC<{
   ) => {
     try {
       router.push({
-        pathname: `/people/${personId}/case-status/add/review`,
+        pathname: `/people/${personId}/case-status/${caseStatusId}/edit/edit`,
         query: {
-          personId: personId,
-          type: values.type,
-          startDate: values.startDate,
-          notes: values.notes,
+          action: values.action,
         },
       });
     } catch (e) {
@@ -47,7 +45,7 @@ const AddCaseStatusForm: React.FC<{
     >
       {({ touched, errors, values }) => (
         <Form>
-          {form_fields.map((field) => (
+          {form_fields.map((field: any) => (
             <FlexibleField
               key={field.id}
               field={field}
@@ -56,11 +54,10 @@ const AddCaseStatusForm: React.FC<{
               touched={touched}
             />
           ))}
-
           <div style={{ display: 'flex', alignItems: 'center' }}>
             <Button
-              label="Submit"
-              disabled={values.type == '' || Object.keys(errors).length > 0}
+              label="Continue"
+              disabled={values.action == '' || Object.keys(errors).length > 0}
               type="submit"
               data-testid="submit_button"
               wideButton
@@ -79,4 +76,4 @@ const AddCaseStatusForm: React.FC<{
   );
 };
 
-export default AddCaseStatusForm;
+export default ChooseEditCaseStatusForm;

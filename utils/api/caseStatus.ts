@@ -5,6 +5,7 @@ import useSWR, { SWRResponse } from 'swr';
 import type {
   PersonCaseStatus,
   AddCaseStatusFormData,
+  EditCaseStatusFormData,
   FormFields,
   ErrorAPI,
 } from 'types';
@@ -13,6 +14,13 @@ export const addCaseStatus = async (
   formData: AddCaseStatusFormData
 ): Promise<Record<string, unknown>> => {
   const response = await axios.post(`/api/casestatus`, formData);
+  return response?.data;
+};
+
+export const patchCaseStatus = async (
+  formData: EditCaseStatusFormData
+): Promise<Record<string, unknown>> => {
+  const response = await axios.patch(`/api/casestatus/`, formData);
   return response?.data;
 };
 
