@@ -8,6 +8,8 @@ import { useState } from 'react';
 import { patchCaseStatus } from 'utils/api/caseStatus';
 import { useAuth } from 'components/UserContext/UserContext';
 import { useRouter } from 'next/router';
+import { useFormValues } from 'utils/api/caseStatus';
+import { CaseStatusMapping } from 'types';
 
 const ReviewAddCaseStatusForm: React.FC<{
   title: string;
@@ -26,23 +28,17 @@ const ReviewAddCaseStatusForm: React.FC<{
 }) => {
   const router = useRouter();
   const [status, setStatus] = useState('');
+  const { data: caseStatusFields } = useFormValues(caseStatusType);
   const { user } = useAuth() as { user: User };
+
+  const valueMapping = new CaseStatusMapping();
 
   const submitAnswers = async () => {
     try {
-      const patchObject =
-        action == 'edit'
-          ? {
-              personId: personId,
-              startDate: String(formAnswers.startDate),
-              notes: String(formAnswers.notes),
-              editedBy: user.email,
-            }
-          : {
-              personId: personId,
-              endDate: String(formAnswers.endDate),
-              editedBy: user.email,
-            };
+      const patchObject = {
+        editedBy: user.email,
+        ...formAnswers,
+      };
 
       const { error } = await patchCaseStatus(patchObject);
 
@@ -61,33 +57,31 @@ const ReviewAddCaseStatusForm: React.FC<{
     }
   };
 
-  const displayValue: FlexibleAnswersT =
-    action == 'edit'
-      ? {
-          answers: {
-            'Start date': new Date(formAnswers.startDate).toLocaleDateString(
-              'en-GB',
-              {
-                day: '2-digit',
-                month: 'short',
-                year: 'numeric',
-              }
-            ),
-            Notes: String(formAnswers.notes),
-          },
+  const diplayObj: any = {
+    Type: valueMapping[caseStatusType as keyof CaseStatusMapping],
+    'Start Date': formAnswers.startDate,
+    'End Date': formAnswers.endDate,
+    Notes: formAnswers.notes,
+  };
+
+  if (caseStatusFields) {
+    caseStatusFields.fields.map((elmField) => {
+      Object.keys(formAnswers).map((elm) => {
+        if (elm === elmField.name) {
+          diplayObj[elmField.description] = formAnswers[elm];
         }
-      : {
-          answers: {
-            'End date': new Date(formAnswers.endDate).toLocaleDateString(
-              'en-GB',
-              {
-                day: '2-digit',
-                month: 'short',
-                year: 'numeric',
-              }
-            ),
-          },
-        };
+      });
+    });
+
+    // console.log(caseStatusFields);
+    console.log(formAnswers);
+  }
+
+  const displayValue: FlexibleAnswersT = {
+    answers: {
+      ...diplayObj,
+    },
+  };
 
   return (
     <>

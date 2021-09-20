@@ -109,8 +109,6 @@ export const generateInitialValues = (
       );
     }
   });
-
-  console.log(initialValues);
   return initialValues;
 };
 

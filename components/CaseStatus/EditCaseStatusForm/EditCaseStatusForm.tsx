@@ -64,7 +64,6 @@ const EditCaseStatusForm: React.FC<{
           if (field.id === 'startDate') {
             field.default = format(new Date(status.startDate), 'yyyy-MM-dd');
           }
-
           status.fields.map((preloaded_field) => {
             if (preloaded_field.name === field.id) {
               field.default = preloaded_field.selectedOption.name;
@@ -75,27 +74,26 @@ const EditCaseStatusForm: React.FC<{
     });
   }
 
+  if (prefilledFields) {
+    form_fields.map((field: any) => {
+      if (prefilledFields[field.id]) {
+        field.default = prefilledFields[field.id];
+      }
+    });
+  }
+
   const handleSubmit = async (
     values: FormikValues,
     { setStatus }: FormikHelpers<FormikValues>
   ) => {
     try {
-      let requestObj;
-      action === 'edit'
-        ? (requestObj = {
-            action: action,
-            type: caseStatusType,
-            startDate: values.startDate,
-            notes: values.notes,
-          })
-        : (requestObj = {
-            action: action,
-            endDate: values.endDate,
-          });
-
       router.push({
         pathname: `/people/${personId}/case-status/${caseStatusId}/edit/review`,
-        query: requestObj,
+        query: {
+          action: action,
+          type: caseStatusType,
+          ...values,
+        },
       });
     } catch (e) {
       setStatus(e.toString());
