@@ -1,4 +1,5 @@
 import { Form, Formik, FormikHelpers, FormikValues } from 'formik';
+import { Choice } from 'data/flexibleForms/forms.types';
 import CASE_STATUS_EDIT from 'data/flexibleForms/caseStatus/editCaseStatus';
 import CASE_STATUS_END from 'data/flexibleForms/caseStatus/endCaseStatus';
 import { generateInitialValues } from 'lib/utils';
@@ -8,19 +9,19 @@ import Button from 'components/Button/Button';
 import { CaseStatus } from 'types';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { useCaseStatuses } from 'utils/api/caseStatus';
+import { useCaseStatuses, useFormValues } from 'utils/api/caseStatus';
 import { format } from 'date-fns';
 
 const EditCaseStatusForm: React.FC<{
   personId: number;
   caseStatusId: number;
   prefilledFields: any;
+  caseStatusType: string;
   action: string;
-}> = ({ personId, caseStatusId, prefilledFields, action }) => {
-  const { data: caseStatusData, error } = useCaseStatuses(personId);
+}> = ({ personId, caseStatusId, caseStatusType, prefilledFields, action }) => {
   const router = useRouter();
-
-  if (error) throw error;
+  const { data: caseStatusData } = useCaseStatuses(personId);
+  const { data: caseStatusFields } = useFormValues(caseStatusType);
 
   let form_fields: any;
   if (prefilledFields && prefilledFields['action']) {
@@ -28,14 +29,30 @@ const EditCaseStatusForm: React.FC<{
   }
 
   action === 'edit'
-    ? (form_fields = CASE_STATUS_EDIT.steps[0].fields)
-    : (form_fields = CASE_STATUS_END.steps[0].fields);
+    ? (form_fields = [...CASE_STATUS_EDIT.steps[0].fields])
+    : (form_fields = [...CASE_STATUS_END.steps[0].fields]);
 
-  form_fields.map((field: any) => {
-    if (prefilledFields && prefilledFields[field.id]) {
-      field.default = String(prefilledFields[field.id]);
-    }
-  });
+  action === 'edit' && caseStatusFields
+    ? caseStatusFields.fields.map((field) => {
+        const choices: Choice[] = [];
+        field.options.map((option: any) => {
+          choices.push({
+            value: option.name,
+            label: option.description,
+          });
+        });
+
+        const fieldObj = {
+          id: field.name,
+          question: field.description,
+          type: 'select',
+          required: true,
+          choices: choices,
+        };
+
+        form_fields.push(fieldObj);
+      })
+    : null;
 
   action === 'edit' && caseStatusData
     ? caseStatusData.caseStatuses.map((status: CaseStatus) => {
@@ -47,6 +64,12 @@ const EditCaseStatusForm: React.FC<{
             if (field.id === 'startDate') {
               field.default = format(new Date(status.startDate), 'yyyy-MM-dd');
             }
+
+            status.fields.map((preloaded_field) => {
+              if (preloaded_field.name === field.id) {
+                field.default = preloaded_field.selectedOption.name;
+              }
+            });
           });
         }
       })
@@ -61,6 +84,7 @@ const EditCaseStatusForm: React.FC<{
       action === 'edit'
         ? (requestObj = {
             action: action,
+            type: caseStatusType,
             startDate: values.startDate,
             notes: values.notes,
           })
@@ -106,7 +130,7 @@ const EditCaseStatusForm: React.FC<{
             <Link
               href={{
                 pathname: `/people/${personId}/case-status/${caseStatusId}/edit`,
-                query: { action: action },
+                query: { action: action, type: caseStatusType },
               }}
               scroll={false}
             >

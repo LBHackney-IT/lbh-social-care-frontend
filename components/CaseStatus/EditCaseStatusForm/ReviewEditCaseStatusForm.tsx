@@ -13,9 +13,17 @@ const ReviewAddCaseStatusForm: React.FC<{
   title: string;
   personId: number;
   caseStatusId: number;
+  caseStatusType: string;
   formAnswers: any;
   action: string;
-}> = ({ title, personId, caseStatusId, action, formAnswers }) => {
+}> = ({
+  title,
+  personId,
+  caseStatusId,
+  caseStatusType,
+  action,
+  formAnswers,
+}) => {
   const router = useRouter();
   const [status, setStatus] = useState('');
   const { user } = useAuth() as { user: User };
@@ -103,7 +111,10 @@ const ReviewAddCaseStatusForm: React.FC<{
           <Link
             href={{
               pathname: `/people/${personId}/case-status/${caseStatusId}/edit/edit`,
-              query: { prefilledFields: JSON.stringify(formAnswers) },
+              query: {
+                prefilledFields: JSON.stringify(formAnswers),
+                type: caseStatusType,
+              },
             }}
             scroll={false}
           >

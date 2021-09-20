@@ -71,7 +71,10 @@ const CaseStatusDetails = ({ person }: Props): React.ReactElement => {
                         </span>
                       )}
                       <Link
-                        href={`/people/${person.id}/case-status/${status.id}/edit/`}
+                        href={{
+                          pathname: `/people/${person.id}/case-status/${status.id}/edit/`,
+                          query: { type: status.type },
+                        }}
                       >
                         <a data-testid="edit_button">edit</a>
                       </Link>

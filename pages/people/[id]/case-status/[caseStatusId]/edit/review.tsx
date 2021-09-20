@@ -8,6 +8,7 @@ const ReviewCaseStatusForm = (): React.ReactElement => {
 
   const personId = Number(router.query.id as string);
   const caseStatusId = Number(router.query.caseStatusId as string);
+  const type = router.query.type as string;
   const formAnswers = router.query;
   const action = String(router.query.action);
 
@@ -17,6 +18,7 @@ const ReviewCaseStatusForm = (): React.ReactElement => {
         title={`Review ${router.query.action} case status details`}
         personId={personId}
         caseStatusId={caseStatusId}
+        caseStatusType={type}
         action={action}
         formAnswers={formAnswers}
       />

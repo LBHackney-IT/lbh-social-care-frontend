@@ -94,11 +94,13 @@ export const generateInitialValues = (
       initialValues[field.id] = [];
     } else if (initiallyNull.has(field.type)) {
       initialValues[field.id] = null;
-    } else if (initiallyFirstChoice.has(field.type)) {
+    } else if (initiallyFirstChoice.has(field.type) && !field.default) {
       initialValues[field.id] = String(
         (person && field.prefill && person[field.prefill]) ||
           (field.choices && field.choices[0].value)
       );
+    } else if (field.type === 'select' && field.default) {
+      initialValues[field.id] = field.default;
     } else {
       initialValues[field.id] = String(
         (person && field.prefill && person[field.prefill]) ||
@@ -107,6 +109,8 @@ export const generateInitialValues = (
       );
     }
   });
+
+  console.log(initialValues);
   return initialValues;
 };
 

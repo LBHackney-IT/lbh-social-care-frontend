@@ -7,6 +7,7 @@ const EditCaseStatus = (): React.ReactElement => {
   const router = useRouter();
   const personId = Number(router.query.id as string);
   const action = String(router.query.action as string);
+  const type = String(router.query.type as string);
   const caseStatusId = Number(router.query.caseStatusId as string);
 
   let prefilledFields;
@@ -25,6 +26,7 @@ const EditCaseStatus = (): React.ReactElement => {
           personId={personId}
           prefilledFields={prefilledFields}
           action={action}
+          caseStatusType={type}
         />
       </PersonView>
     </>

@@ -11,7 +11,8 @@ const ChooseEditCaseStatusForm: React.FC<{
   personId: number;
   caseStatusId: number;
   prefilledValue: string;
-}> = ({ personId, caseStatusId, prefilledValue }) => {
+  caseStatusType: string;
+}> = ({ personId, caseStatusId, prefilledValue, caseStatusType }) => {
   const form_fields = CASE_STATUS.steps[0].fields;
   const router = useRouter();
 
@@ -30,6 +31,7 @@ const ChooseEditCaseStatusForm: React.FC<{
         pathname: `/people/${personId}/case-status/${caseStatusId}/edit/edit`,
         query: {
           action: values.action,
+          type: caseStatusType,
         },
       });
     } catch (e) {
@@ -62,7 +64,10 @@ const ChooseEditCaseStatusForm: React.FC<{
               data-testid="submit_button"
               wideButton
             />
-            <Link href={{ pathname: `/people/${personId}/` }} scroll={false}>
+            <Link
+              href={{ pathname: `/people/${personId}/details` }}
+              scroll={false}
+            >
               <a
                 className={`lbh-link lbh-link--no-visited-state govuk-!-margin-left-3`}
               >

@@ -8,6 +8,7 @@ const EditEndCaseStatus = (): React.ReactElement => {
   const personId = Number(router.query.id as string);
   const caseStatusId = Number(router.query.caseStatusId as string);
   const prefilledValue = String(router.query.action as string);
+  const type = String(router.query.type as string);
 
   return (
     <>
@@ -18,6 +19,7 @@ const EditEndCaseStatus = (): React.ReactElement => {
         <ChooseEditCaseStatusForm
           personId={personId}
           caseStatusId={caseStatusId}
+          caseStatusType={type}
           prefilledValue={prefilledValue}
         />
       </PersonView>
