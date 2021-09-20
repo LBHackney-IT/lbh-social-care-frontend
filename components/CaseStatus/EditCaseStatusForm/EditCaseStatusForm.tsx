@@ -32,48 +32,48 @@ const EditCaseStatusForm: React.FC<{
     ? (form_fields = [...CASE_STATUS_EDIT.steps[0].fields])
     : (form_fields = [...CASE_STATUS_END.steps[0].fields]);
 
-  action === 'edit' && caseStatusFields
-    ? caseStatusFields.fields.map((field) => {
-        const choices: Choice[] = [];
-        field.options.map((option: any) => {
-          choices.push({
-            value: option.name,
-            label: option.description,
+  if (action === 'edit' && caseStatusFields) {
+    caseStatusFields.fields.map((field) => {
+      const choices: Choice[] = [];
+      field.options.map((option: any) => {
+        choices.push({
+          value: option.name,
+          label: option.description,
+        });
+      });
+
+      const fieldObj = {
+        id: field.name,
+        question: field.description,
+        type: 'select',
+        required: true,
+        choices: choices,
+      };
+
+      form_fields.push(fieldObj);
+    });
+  }
+
+  if (action === 'edit' && caseStatusData) {
+    caseStatusData.caseStatuses.map((status: CaseStatus) => {
+      if (status.id == caseStatusId) {
+        form_fields.map((field: any) => {
+          if (field.id === 'notes') {
+            field.default = String(status.notes);
+          }
+          if (field.id === 'startDate') {
+            field.default = format(new Date(status.startDate), 'yyyy-MM-dd');
+          }
+
+          status.fields.map((preloaded_field) => {
+            if (preloaded_field.name === field.id) {
+              field.default = preloaded_field.selectedOption.name;
+            }
           });
         });
-
-        const fieldObj = {
-          id: field.name,
-          question: field.description,
-          type: 'select',
-          required: true,
-          choices: choices,
-        };
-
-        form_fields.push(fieldObj);
-      })
-    : null;
-
-  action === 'edit' && caseStatusData
-    ? caseStatusData.caseStatuses.map((status: CaseStatus) => {
-        if (status.id == caseStatusId) {
-          form_fields.map((field: any) => {
-            if (field.id === 'notes') {
-              field.default = String(status.notes);
-            }
-            if (field.id === 'startDate') {
-              field.default = format(new Date(status.startDate), 'yyyy-MM-dd');
-            }
-
-            status.fields.map((preloaded_field) => {
-              if (preloaded_field.name === field.id) {
-                field.default = preloaded_field.selectedOption.name;
-              }
-            });
-          });
-        }
-      })
-    : null;
+      }
+    });
+  }
 
   const handleSubmit = async (
     values: FormikValues,
