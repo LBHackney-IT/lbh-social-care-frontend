@@ -11,6 +11,7 @@ describe('ReviewAddRelationshipForm', () => {
         title="Review case status details"
         personId={mockedResident.id}
         caseStatusId={123}
+        caseStatusType="CIN"
         action="edit"
         formAnswers={{
           startDate: '2020-12-01',
@@ -31,6 +32,7 @@ describe('ReviewAddRelationshipForm', () => {
       <ReviewEditCaseStatusForm
         title="Review case status details"
         personId={mockedResident.id}
+        caseStatusType="CIN"
         caseStatusId={123}
         action="end"
         formAnswers={{
@@ -51,6 +53,7 @@ describe('ReviewAddRelationshipForm', () => {
       <ReviewEditCaseStatusForm
         title="Review case status details"
         personId={mockedResident.id}
+        caseStatusType="CIN"
         caseStatusId={123}
         action="edit"
         formAnswers={{

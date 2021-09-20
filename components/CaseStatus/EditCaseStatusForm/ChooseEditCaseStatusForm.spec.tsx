@@ -10,6 +10,7 @@ describe('ChooseEditCaseStatusForm - CIN', () => {
       <ChooseEditCaseStatusForm
         personId={mockedResident.id}
         caseStatusId={123}
+        caseStatusType="CIN"
         prefilledValue={''}
       />
     );
@@ -22,6 +23,7 @@ describe('ChooseEditCaseStatusForm - CIN', () => {
       <ChooseEditCaseStatusForm
         personId={mockedResident.id}
         caseStatusId={123}
+        caseStatusType="CIN"
         prefilledValue={''}
       />
     );
@@ -33,6 +35,7 @@ describe('ChooseEditCaseStatusForm - CIN', () => {
     const { getByTestId } = render(
       <ChooseEditCaseStatusForm
         personId={mockedResident.id}
+        caseStatusType="CIN"
         caseStatusId={123}
         prefilledValue={'end'}
       />

@@ -11,6 +11,7 @@ describe('EditCaseStatusForm - CIN', () => {
         personId={mockedResident.id}
         caseStatusId={123}
         action="end"
+        caseStatusType="CIN"
         prefilledFields={{}}
       />
     );
@@ -24,6 +25,7 @@ describe('EditCaseStatusForm - CIN', () => {
         personId={mockedResident.id}
         caseStatusId={123}
         action="edit"
+        caseStatusType="CIN"
         prefilledFields={{}}
       />
     );
@@ -37,6 +39,7 @@ describe('EditCaseStatusForm - CIN', () => {
         personId={mockedResident.id}
         caseStatusId={123}
         action="edit"
+        caseStatusType="CIN"
         prefilledFields={{
           notes: 'this is a note',
           startDate: '2020-01-01',
