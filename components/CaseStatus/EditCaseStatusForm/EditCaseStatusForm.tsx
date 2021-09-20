@@ -5,8 +5,11 @@ import { generateInitialValues } from 'lib/utils';
 import { generateFlexibleSchema } from 'lib/validators';
 import FlexibleField from 'components/FlexibleForms/FlexibleFields';
 import Button from 'components/Button/Button';
+import { CaseStatus } from 'types';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
+import { useCaseStatuses } from 'utils/api/caseStatus';
+import { format } from 'date-fns';
 
 const EditCaseStatusForm: React.FC<{
   personId: number;
@@ -14,7 +17,10 @@ const EditCaseStatusForm: React.FC<{
   prefilledFields: any;
   action: string;
 }> = ({ personId, caseStatusId, prefilledFields, action }) => {
+  const { data: caseStatusData, error } = useCaseStatuses(personId);
   const router = useRouter();
+
+  if (error) throw error;
 
   let form_fields: any;
   if (prefilledFields && prefilledFields['action']) {
@@ -30,6 +36,21 @@ const EditCaseStatusForm: React.FC<{
       field.default = String(prefilledFields[field.id]);
     }
   });
+
+  action === 'edit' && caseStatusData
+    ? caseStatusData.caseStatuses.map((status: CaseStatus) => {
+        if (status.id == caseStatusId) {
+          form_fields.map((field: any) => {
+            if (field.id === 'notes') {
+              field.default = String(status.notes);
+            }
+            if (field.id === 'startDate') {
+              field.default = format(new Date(status.startDate), 'yyyy-MM-dd');
+            }
+          });
+        }
+      })
+    : null;
 
   const handleSubmit = async (
     values: FormikValues,
