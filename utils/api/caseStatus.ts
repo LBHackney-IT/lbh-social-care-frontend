@@ -24,4 +24,4 @@ export const useCaseStatuses = (
 export const useFormValues = (
   type: string
 ): SWRResponse<FormFields, ErrorAPI> =>
-  useSWR(`/api/casestatus/form-options/${type}`);
+  useSWR(`/api/casestatus/form-options?type=${type}`);
