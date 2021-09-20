@@ -1,5 +1,5 @@
 import { Form, Formik, FormikHelpers, FormikValues } from 'formik';
-import CASE_STATUS from 'data/flexibleForms/caseStatus/addCaseStatus';
+import CASE_STATUS from 'data/flexibleForms/caseStatus/caseStatus';
 import { generateInitialValues } from 'lib/utils';
 import { generateFlexibleSchema } from 'lib/validators';
 import FlexibleField from 'components/FlexibleForms/FlexibleFields';
