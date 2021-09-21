@@ -39,7 +39,7 @@ export const getInProgressSubmissions = async (
     workerEmail !== undefined ? `&workerEmail=${workerEmail}` : '';
 
   const { data } = await axios.get<Paginated<InProgressSubmission>>(
-    `${ENDPOINT_API}/submissions?submissionStates=in_progress&page=${page}&size=${size}${ageContextQuery}${personIdQuery}${workerEmailQuery}`,
+    `${ENDPOINT_API}/submissions?submissionStates=in_progress&pruneUnfinished=true&page=${page}&size=${size}${ageContextQuery}${personIdQuery}${workerEmailQuery}`,
     {
       headers: headersWithKey,
     }
