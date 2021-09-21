@@ -6,6 +6,8 @@ import FlexibleField from 'components/FlexibleForms/FlexibleFields';
 import Button from 'components/Button/Button';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
+import { useFormValues } from 'utils/api/caseStatus';
+import { Choice, Field } from 'data/flexibleForms/forms.types';
 
 const AddCaseStatusForm: React.FC<{
   personId: number;
@@ -13,12 +15,41 @@ const AddCaseStatusForm: React.FC<{
 }> = ({ personId, prefilledFields }) => {
   const router = useRouter();
   const form_fields = CASE_STATUS.steps[0].fields;
+  const { data: CpCaseStatusFields } = useFormValues('CP');
 
   form_fields.map((field) => {
     if (prefilledFields && prefilledFields[field.id]) {
       field.default = String(prefilledFields[field.id]);
     }
   });
+
+  if (CpCaseStatusFields) {
+    CpCaseStatusFields.fields.map((field) => {
+      const choices: Choice[] = [];
+      field.options.map((option: any) => {
+        choices.push({
+          value: option.name,
+          label: option.description,
+        });
+      });
+
+      const cpFieldObj: Field = {
+        id: field.name,
+        question: field.description,
+        type: 'radios',
+        required: true,
+        conditions: [
+          {
+            id: 'type',
+            value: 'CP',
+          },
+        ],
+        choices: choices,
+      };
+
+      form_fields.push(cpFieldObj);
+    });
+  }
 
   const handleSubmit = async (
     values: FormikValues,
