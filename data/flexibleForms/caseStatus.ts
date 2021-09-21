@@ -25,6 +25,10 @@ const form: Form = {
               value: 'CIN',
               label: 'Child in need',
             },
+            {
+              value: 'CP',
+              label: 'Child protection',
+            },
           ],
         },
         {
@@ -53,6 +57,21 @@ const form: Form = {
           ],
           type: 'textarea',
           required: false,
+        },
+        {
+          id: 'startDate',
+          question: 'Start Date',
+          type: 'date',
+          required: true,
+          conditions: [
+            {
+              id: 'type',
+              value: 'CP',
+            },
+          ],
+          className: 'govuk-input--width-10',
+          default: format(new Date(), 'yyyy-MM-dd'),
+          isfutureDateValid: false,
         },
       ],
     },

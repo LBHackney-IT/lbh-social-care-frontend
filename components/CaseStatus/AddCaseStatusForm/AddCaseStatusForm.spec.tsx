@@ -65,3 +65,24 @@ describe('AddCaseStatusForm - CIN', () => {
     expect(getByText('this is a note')).toBeInTheDocument();
   });
 });
+
+describe('AddCaseStatusForm - CP', () => {
+  it('displays the form', () => {
+    const { getByText } = render(
+      <AddCaseStatusForm personId={mockedResident.id} prefilledFields={{}} />
+    );
+
+    expect(getByText('Child protection')).toBeInTheDocument();
+  });
+
+  it('displays start date and protection categories when selecting CP', () => {
+    const { getByText } = render(
+      <AddCaseStatusForm personId={mockedResident.id} prefilledFields={{}} />
+    );
+
+    fireEvent.click(getByText('Child protection'));
+
+    expect(getByText('Child protection')).toBeInTheDocument();
+    expect(getByText('Start Date')).toBeInTheDocument();
+  });
+});
