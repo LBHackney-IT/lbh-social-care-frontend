@@ -156,7 +156,8 @@ const formConfig: FormStep[] = [
         isInline: true,
         isMulti: true,
         isMultiTrigger: '+ Add additional phone number',
-        buttonStyle: 'button',
+        buttonStyle:
+          'lbh-button govuk-button lbh-button--secondary govuk-!-margin-bottom-0',
         summaryInline: true,
         components: [
           {

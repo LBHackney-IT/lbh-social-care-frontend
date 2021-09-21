@@ -67,11 +67,7 @@ const DynamicInputMulti = ({
       ))}
       <div className="govuk-!-margin-top-3 govuk-!-margin-bottom-5">
         <button
-          className={
-            buttonStyle === 'button'
-              ? 'lbh-button govuk-button lbh-button--secondary govuk-!-margin-bottom-0'
-              : 'govuk-link'
-          }
+          className={buttonStyle ? buttonStyle : 'govuk-link'}
           type="button"
           onClick={(e) => {
             e.preventDefault();
