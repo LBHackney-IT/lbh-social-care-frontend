@@ -42,6 +42,7 @@ exports[`DynamicInputMulti should render properly 1`] = `
   >
     <button
       class="govuk-link"
+      type="button"
     >
       Add a new one
     </button>
@@ -56,6 +57,7 @@ exports[`DynamicInputMulti should render properly with isMultiInit false 1`] = `
   >
     <button
       class="govuk-link"
+      type="button"
     >
       Add a something
     </button>
