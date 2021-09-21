@@ -26,7 +26,9 @@ const headersWithKey = {
 export const getInProgressSubmissions = async (
   ageContext?: AgeContext,
   personID?: number,
-  workerEmail?: string
+  workerEmail?: string,
+  page = 1,
+  size = 1000
 ): Promise<Paginated<InProgressSubmission>> => {
   const ageContextQuery =
     ageContext !== undefined ? `&ageContext=${ageContext}` : '';
@@ -37,7 +39,7 @@ export const getInProgressSubmissions = async (
     workerEmail !== undefined ? `&workerEmail=${workerEmail}` : '';
 
   const { data } = await axios.get<Paginated<InProgressSubmission>>(
-    `${ENDPOINT_API}/submissions?submissionStates=in_progress&page=1&size=1000${ageContextQuery}${personIdQuery}${workerEmailQuery}`,
+    `${ENDPOINT_API}/submissions?submissionStates=in_progress&page=${page}&size=${size}${ageContextQuery}${personIdQuery}${workerEmailQuery}`,
     {
       headers: headersWithKey,
     }

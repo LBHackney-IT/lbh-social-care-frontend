@@ -1,6 +1,6 @@
 import { StatusCodes } from 'http-status-codes';
 
-import { GetFormValues } from 'lib/caseStatus';
+import { getFormValues } from 'lib/caseStatus';
 import { isAuthorised } from 'utils/auth';
 
 import type { NextApiRequest, NextApiResponse, NextApiHandler } from 'next';
@@ -20,7 +20,7 @@ const endpoint: NextApiHandler = async (
   switch (req.method) {
     case 'GET':
       try {
-        const data = await GetFormValues(req.query?.type as string);
+        const data = await getFormValues(req.query?.type as string);
         res.status(StatusCodes.OK).json(data);
       } catch (error) {
         console.error('Form option values get error:', error?.response?.data);

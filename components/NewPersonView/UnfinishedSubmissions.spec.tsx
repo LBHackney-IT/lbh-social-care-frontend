@@ -32,7 +32,7 @@ describe('UnfinishedSubmissions', () => {
 
     render(<UnfinishedSubmissions personId={mockPersonId} />);
 
-    expect(mock).toHaveBeenCalledWith(mockPersonId);
+    expect(mock).toHaveBeenCalledWith(mockPersonId, 1, 4);
   });
 
   it('renders a list of clickable submissions', () => {
@@ -60,42 +60,13 @@ describe('UnfinishedSubmissions', () => {
     expect(screen.getAllByRole('link').length).toBe(3);
   });
 
-  it('truncates a long list', () => {
+  it('calculates item left based on paginated count', () => {
     jest
       .spyOn(submissionHooks, 'useUnfinishedSubmissions')
       .mockImplementation(() => {
         const response = {
           data: {
             items: [
-              mockInProgressSubmission,
-              mockInProgressSubmission,
-              mockInProgressSubmission,
-              mockInProgressSubmission,
-              mockInProgressSubmission,
-              mockInProgressSubmission,
-            ] as InProgressSubmission[],
-            count: 6,
-          },
-        } as SWRResponse<Paginated<InProgressSubmission>, ErrorAPI>;
-
-        return response;
-      });
-
-    render(<UnfinishedSubmissions personId={1} />);
-
-    expect(screen.getByText('and 2 more'));
-    expect(screen.getAllByRole('listitem').length).toBe(5);
-  });
-
-  it('calculates item left based on response count', () => {
-    jest
-      .spyOn(submissionHooks, 'useUnfinishedSubmissions')
-      .mockImplementation(() => {
-        const response = {
-          data: {
-            items: [
-              mockInProgressSubmission,
-              mockInProgressSubmission,
               mockInProgressSubmission,
               mockInProgressSubmission,
               mockInProgressSubmission,

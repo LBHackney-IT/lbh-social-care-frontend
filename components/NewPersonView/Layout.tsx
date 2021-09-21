@@ -2,10 +2,11 @@ import Head from 'next/head';
 import Link from 'next/link';
 import { format } from 'date-fns';
 import { useRouter } from 'next/router';
-import { Allocation, Resident, User } from 'types';
+import { Allocation, Resident, User, CaseStatus } from 'types';
 import s from './index.module.scss';
 import { useRelationships } from 'utils/api/relationships';
 import { useAllocatedWorkers } from 'utils/api/allocatedWorkers';
+import { useCaseStatuses } from 'utils/api/caseStatus';
 import React from 'react';
 import WarningNotes from 'components/WarningNotes/WarningNotes';
 import { useAuth } from 'components/UserContext/UserContext';
@@ -13,7 +14,10 @@ import { canManageCases } from 'lib/permissions';
 import AddFormDialog from 'components/AddFormDialog/AddFormDialog';
 import { useState } from 'react';
 import Banner from 'components/FlexibleForms/Banner';
-import { ConditionalFeature } from 'lib/feature-flags/feature-flags';
+import {
+  ConditionalFeature,
+  useFeatureFlags,
+} from 'lib/feature-flags/feature-flags';
 import CaseStatusView from 'components/CaseStatus/CaseStatusView';
 
 interface NavLinkProps {
@@ -58,8 +62,9 @@ const summariseAllocations = (allocations: Allocation[]): string | null => {
 const Layout = ({ person, children }: Props): React.ReactElement => {
   const { data: allocations } = useAllocatedWorkers(person.id);
   const { data: relationships } = useRelationships(person.id);
+  const { data: casestatus } = useCaseStatuses(person.id);
   const { user } = useAuth() as { user: User };
-
+  const { isFeatureActive } = useFeatureFlags();
   const [addFormOpen, setAddFormOpen] = useState<boolean>(false);
 
   const navigation: { text: string; href: string }[] = [
@@ -100,6 +105,19 @@ const Layout = ({ person, children }: Props): React.ReactElement => {
       href: `/people/${person.id}/case-note`,
     },
   ];
+
+  if (
+    isFeatureActive('case-status') &&
+    casestatus &&
+    casestatus.caseStatuses &&
+    !groupCaseStatusByType(casestatus.caseStatuses).has('CIN') &&
+    person.contextFlag === 'C'
+  ) {
+    secondaryNavigation.push({
+      text: 'Add a case status',
+      href: `/people/${person.id}/case-status/add`,
+    });
+  }
 
   return (
     <>
@@ -144,6 +162,7 @@ const Layout = ({ person, children }: Props): React.ReactElement => {
             {allocations?.allocations &&
               summariseAllocations(allocations.allocations)}
           </p>
+
           <ConditionalFeature name="case-status">
             <CaseStatusView person={person} />
           </ConditionalFeature>
@@ -193,5 +212,9 @@ const Layout = ({ person, children }: Props): React.ReactElement => {
     </>
   );
 };
+
+function groupCaseStatusByType(allCasesStatues: CaseStatus[]): any {
+  return new Set(allCasesStatues.map((el) => el.type));
+}
 
 export default Layout;
