@@ -22,11 +22,14 @@ const handler = async (
       break;
     case 'GET':
       {
-        const { personID } = req.query;
+        const { personID, page, size } = req.query;
 
         const submissions = await getInProgressSubmissions(
           user?.permissionFlag,
-          Number(personID)
+          Number(personID),
+          undefined,
+          Number(page),
+          Number(size)
         );
         res.json(submissions);
       }
