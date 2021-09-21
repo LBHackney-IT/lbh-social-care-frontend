@@ -115,34 +115,15 @@ export type CaseTableColumns = keyof typeof tableEntities;
 interface Props {
   records: Case[];
   columns: CaseTableColumns[];
-  sort?: {
-    sort_by?: string;
-    order_by?: string;
-  };
-  onSort?: (id: string) => void;
 }
 
-const CasesTable = ({
-  records,
-  columns,
-  sort = {},
-  onSort,
-}: Props): React.ReactElement => (
+const CasesTable = ({ records, columns }: Props): React.ReactElement => (
   <table className="govuk-table">
     <thead className="govuk-table__head">
       <tr className="govuk-table__row">
         {columns.map((column) => (
-          <th
-            key={column}
-            scope="col"
-            className="govuk-table__header"
-            role={onSort && 'button'}
-            onClick={() => onSort && onSort(column)}
-          >
+          <th key={column} scope="col" className="govuk-table__header">
             {tableEntities[column].text}{' '}
-            {column === sort.sort_by && (
-              <>{sort.order_by === 'desc' ? '🔽' : '🔼'}</>
-            )}
           </th>
         ))}
       </tr>

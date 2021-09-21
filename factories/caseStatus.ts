@@ -6,6 +6,7 @@ import {
   FormFields,
   FormOption,
   CaseStatusFields,
+  AddCaseStatusFormData,
 } from 'types';
 
 export const mockedPersonCaseStatusFactory = Factory.define<PersonCaseStatus>(
@@ -23,6 +24,18 @@ export const mockedCaseStatusFactory = Factory.define<CaseStatus>(
     startDate: '2021-01-01T02:00:00Z',
     endDate: '2021-12-01T02:00:00Z',
     notes: 'a lot to note',
+  })
+);
+
+export const mockedCaseStatusAddRequest = Factory.define<AddCaseStatusFormData>(
+  ({ sequence }) => ({
+    personId: sequence,
+    type: 'CIN',
+    fields: [{ name: 'test', selected: 'test' }],
+    startDate: '2021-01-01T02:00:00Z',
+    endDate: '2021-12-01T02:00:00Z',
+    notes: 'a lot to note',
+    createdby: 'test@testington.com',
   })
 );
 
