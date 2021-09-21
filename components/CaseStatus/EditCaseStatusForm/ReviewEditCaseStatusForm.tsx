@@ -68,13 +68,14 @@ const ReviewAddCaseStatusForm: React.FC<{
     caseStatusFields.fields.map((elmField) => {
       Object.keys(formAnswers).map((elm) => {
         if (elm === elmField.name) {
-          diplayObj[elmField.description] = formAnswers[elm];
+          elmField.options.map((option) => {
+            if (option.name === formAnswers[elm]) {
+              diplayObj[elmField.description] = option.description;
+            }
+          });
         }
       });
     });
-
-    // console.log(caseStatusFields);
-    console.log(formAnswers);
   }
 
   const displayValue: FlexibleAnswersT = {

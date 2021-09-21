@@ -2,6 +2,7 @@ import { Form, Formik, FormikHelpers, FormikValues } from 'formik';
 import { Choice } from 'data/flexibleForms/forms.types';
 import CASE_STATUS_EDIT from 'data/flexibleForms/caseStatus/editCaseStatus';
 import CASE_STATUS_END from 'data/flexibleForms/caseStatus/endCaseStatus';
+import CASE_STATUS_UPDATE from 'data/flexibleForms/caseStatus/updateCaseStatus';
 import { generateInitialValues } from 'lib/utils';
 import { generateFlexibleSchema } from 'lib/validators';
 import FlexibleField from 'components/FlexibleForms/FlexibleFields';
@@ -28,9 +29,17 @@ const EditCaseStatusForm: React.FC<{
     action = prefilledFields['action'];
   }
 
-  action === 'edit'
-    ? (form_fields = [...CASE_STATUS_EDIT.steps[0].fields])
-    : (form_fields = [...CASE_STATUS_END.steps[0].fields]);
+  switch (action) {
+    case 'edit':
+      form_fields = [...CASE_STATUS_EDIT.steps[0].fields];
+      break;
+    case 'end':
+      form_fields = [...CASE_STATUS_END.steps[0].fields];
+      break;
+    default:
+      form_fields = [...CASE_STATUS_UPDATE.steps[0].fields];
+      break;
+  }
 
   if (action === 'edit' && caseStatusFields) {
     caseStatusFields.fields.map((field) => {
@@ -51,6 +60,47 @@ const EditCaseStatusForm: React.FC<{
       };
 
       form_fields.push(fieldObj);
+    });
+  }
+
+  if (action === 'update' && caseStatusFields) {
+    caseStatusFields.fields.map((field) => {
+      console.log(field);
+
+      if (field.name === 'legalStatus') {
+        const choices: Choice[] = [];
+
+        field.options.map((option: any) => {
+          choices.push({
+            value: option.name,
+            label: option.description,
+          });
+        });
+
+        form_fields.map((e: any) => {
+          if (e.id === 'newLegalStatus') {
+            console.log(e.id);
+            e.choices = choices;
+          }
+        });
+      }
+
+      if (field.name === 'placementType') {
+        const choices: Choice[] = [];
+
+        field.options.map((option: any) => {
+          choices.push({
+            value: option.name,
+            label: option.description,
+          });
+        });
+
+        form_fields.map((e: any) => {
+          if (e.id === 'newPlacementType') {
+            e.choices = choices;
+          }
+        });
+      }
     });
   }
 
