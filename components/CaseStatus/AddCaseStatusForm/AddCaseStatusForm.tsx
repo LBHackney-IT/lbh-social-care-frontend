@@ -60,9 +60,7 @@ const AddCaseStatusForm: React.FC<{
         pathname: `/people/${personId}/case-status/add/review`,
         query: {
           personId: personId,
-          type: values.type,
-          startDate: values.startDate,
-          notes: values.notes,
+          ...values,
         },
       });
     } catch (e) {

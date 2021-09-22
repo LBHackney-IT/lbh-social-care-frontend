@@ -75,7 +75,7 @@ describe('AddCaseStatusForm - CP', () => {
     expect(getByText('Child protection')).toBeInTheDocument();
   });
 
-  it('displays start date and protection categories when selecting CP', () => {
+  it('displays start date when selecting CP', () => {
     const { getByText } = render(
       <AddCaseStatusForm personId={mockedResident.id} prefilledFields={{}} />
     );

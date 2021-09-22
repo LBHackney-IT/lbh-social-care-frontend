@@ -6,6 +6,7 @@ import { User, CaseStatusMapping } from 'types';
 import { FlexibleAnswers as FlexibleAnswersT } from 'data/flexibleForms/forms.types';
 import { useState } from 'react';
 import { addCaseStatus } from 'utils/api/caseStatus';
+import { useFormValues } from 'utils/api/caseStatus';
 import { useAuth } from 'components/UserContext/UserContext';
 import { useRouter } from 'next/router';
 
@@ -19,6 +20,7 @@ const ReviewAddCaseStatusForm: React.FC<{
   const { user } = useAuth() as { user: User };
 
   const valueMapping = new CaseStatusMapping();
+  const { data: caseStatusFields } = useFormValues('CP');
 
   const submitAnswers = async () => {
     try {
@@ -53,6 +55,7 @@ const ReviewAddCaseStatusForm: React.FC<{
         }
       ),
       Notes: String(formAnswers.notes),
+      'Reason for placement': String(formAnswers.category),
     },
   };
 
