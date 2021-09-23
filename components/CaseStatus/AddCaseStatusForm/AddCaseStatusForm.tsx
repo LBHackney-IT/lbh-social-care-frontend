@@ -89,7 +89,7 @@ const AddCaseStatusForm: React.FC<{
 
           <div style={{ display: 'flex', alignItems: 'center' }}>
             <Button
-              label="Submit"
+              label="Continue"
               disabled={values.type == '' || Object.keys(errors).length > 0}
               type="submit"
               data-testid="submit_button"
