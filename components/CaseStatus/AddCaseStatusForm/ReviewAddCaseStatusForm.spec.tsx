@@ -42,7 +42,7 @@ describe('ReviewAddRelationshipForm', () => {
     expect(getByText('01 Dec 2020')).toBeInTheDocument();
   });
 
-  it('displays type, date and reason for placement when CP is selected', () => {
+  it('displays type and date when CP is selected', () => {
     const { getByText } = render(
       <ReviewAddCaseStatusForm
         title="Review case status details"
@@ -62,6 +62,5 @@ describe('ReviewAddRelationshipForm', () => {
 
     expect(getByText('Child protection')).toBeInTheDocument();
     expect(getByText('01 Dec 2020')).toBeInTheDocument();
-    expect(getByText('Reason for placement')).toBeInTheDocument();
   });
 });

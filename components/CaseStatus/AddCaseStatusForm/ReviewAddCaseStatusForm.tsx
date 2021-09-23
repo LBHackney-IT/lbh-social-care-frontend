@@ -20,7 +20,7 @@ const ReviewAddCaseStatusForm: React.FC<{
   const { user } = useAuth() as { user: User };
 
   const valueMapping = new CaseStatusMapping();
-  const { data: caseStatusFields } = useFormValues('CP');
+  const { data: cpCaseStatusFields } = useFormValues('CP');
 
   const submitAnswers = async () => {
     try {
@@ -29,6 +29,12 @@ const ReviewAddCaseStatusForm: React.FC<{
         type: String(formAnswers.type),
         startDate: String(formAnswers.startDate),
         notes: String(formAnswers.notes),
+        fields: [
+          {
+            name: 'category',
+            selected: String(formAnswers.category),
+          },
+        ],
         createdby: user.email,
       });
 
@@ -43,19 +49,33 @@ const ReviewAddCaseStatusForm: React.FC<{
     }
   };
 
+  const diplayObj: any = {
+    Type: [valueMapping[formAnswers.type as keyof CaseStatusMapping]],
+    'Start date': new Date(formAnswers.startDate).toLocaleDateString('en-GB', {
+      day: '2-digit',
+      month: 'short',
+      year: 'numeric',
+    }),
+    Notes: String(formAnswers.notes),
+  };
+
+  if (cpCaseStatusFields) {
+    cpCaseStatusFields.fields.map((elmField) => {
+      Object.keys(formAnswers).map((elm) => {
+        if (elm === elmField.name) {
+          elmField.options.map((option) => {
+            if (option.name === formAnswers[elm]) {
+              diplayObj[elmField.description] = option.description;
+            }
+          });
+        }
+      });
+    });
+  }
+
   const displayValue: FlexibleAnswersT = {
     answers: {
-      Type: [valueMapping[formAnswers.type as keyof CaseStatusMapping]],
-      'Start date': new Date(formAnswers.startDate).toLocaleDateString(
-        'en-GB',
-        {
-          day: '2-digit',
-          month: 'short',
-          year: 'numeric',
-        }
-      ),
-      Notes: String(formAnswers.notes),
-      'Reason for placement': String(formAnswers.category),
+      ...diplayObj,
     },
   };
 
