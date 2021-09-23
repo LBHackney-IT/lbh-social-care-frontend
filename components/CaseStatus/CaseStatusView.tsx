@@ -29,7 +29,7 @@ const CaseStatusView = ({ person }: Props): React.ReactElement => {
           content={
             <>
               <p className="lbh-body-xs">{valueMapping[status]}</p>
-              <p className="lbh-body-xs">{}</p> {/*how to put end date in?*/}
+              <p className="lbh-body-xs">{}</p>
               <a
                 href={`http://dev.hackney.gov.uk:3000/people/${person.id}/details`}
               >
@@ -39,13 +39,53 @@ const CaseStatusView = ({ person }: Props): React.ReactElement => {
           }
         >
           <span
-            className="govuk-tag lbh-tag lbh-tag--yellow govuk-!-margin-right-1 govuk-!-margin-top-2"
             key={status}
+            className="govuk-tag lbh-tag lbh-tag--yellow govuk-!-margin-right-1 govuk-!-margin-top-2"
           >
             {valueMapping[status]}
           </span>
         </Tip>
       ))}
+
+      {/* {caseStatusData.caseStatuses.map((status: CaseStatus) => {
+        const view = (
+          <div>
+            {status.type && (
+
+              <span>
+                {valueMapping[status.type]}
+              </span>
+            )}
+          </div>
+        );
+
+        return (
+          <div>
+          <Tip
+            
+            interactive={true}
+            content={
+              <>
+                <p className="lbh-body-xs">{}</p>
+                <p className="lbh-body-xs">{}</p>
+                <a
+                  href={`http://dev.hackney.gov.uk:3000/people/${person.id}/details`}
+                >
+                  View details
+                </a>
+              </>
+            }
+          >
+            <span
+              className="govuk-tag lbh-tag lbh-tag--yellow govuk-!-margin-right-1 govuk-!-margin-top-2"
+            >
+              {valueMapping[status.type]}
+            </span>
+          </Tip>
+          </div>
+        )
+      }
+      )} */}
     </>
   );
 };
