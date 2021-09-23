@@ -16,12 +16,14 @@ const DynamicInputMulti = ({
   hint,
   isMultiTrigger = 'Add a new one',
   isMultiInit = true,
+  buttonStyle,
   ...otherProps
 }) => {
   const multiPresent = initialInputData.length || 0;
   const [counter, setCounter] = useState(
     multiPresent === 0 && isMultiInit ? 1 : 0
   );
+
   const removeSelected = useCallback(
     (index) => {
       setCounter(counter - 1);
@@ -65,7 +67,8 @@ const DynamicInputMulti = ({
       ))}
       <div className="govuk-!-margin-top-3 govuk-!-margin-bottom-5">
         <button
-          className="govuk-link"
+          className={buttonStyle ? buttonStyle : 'govuk-link'}
+          type="button"
           onClick={(e) => {
             e.preventDefault();
             setCounter(counter + 1);
@@ -87,6 +90,7 @@ DynamicInputMulti.propTypes = {
   onDelete: PropTypes.func.isRequired,
   isMultiTrigger: PropTypes.string,
   isMultiInit: PropTypes.bool,
+  buttonStyle: PropTypes.string,
 };
 
 export default DynamicInputMulti;

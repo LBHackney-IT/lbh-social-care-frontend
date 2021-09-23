@@ -36,7 +36,7 @@ describe('getInProgressSubmissions', () => {
     });
     const data = await getInProgressSubmissions();
     expect(mockedAxios.get).toHaveBeenCalledWith(
-      `${ENDPOINT_API}/submissions?submissionStates=in_progress&page=1&size=1000`,
+      `${ENDPOINT_API}/submissions?submissionStates=in_progress&pruneUnfinished=true&page=1&size=1000`,
       { headers: { 'x-api-key': AWS_KEY } }
     );
     expect(data).toEqual([
@@ -48,7 +48,7 @@ describe('getInProgressSubmissions', () => {
   it('only queries for submissions using the requested age context', async () => {
     await getInProgressSubmissions('A');
     expect(mockedAxios.get).toHaveBeenCalledWith(
-      `${ENDPOINT_API}/submissions?submissionStates=in_progress&page=1&size=1000&ageContext=A`,
+      `${ENDPOINT_API}/submissions?submissionStates=in_progress&pruneUnfinished=true&page=1&size=1000&ageContext=A`,
       { headers: { 'x-api-key': AWS_KEY } }
     );
   });
@@ -56,7 +56,7 @@ describe('getInProgressSubmissions', () => {
   it('only queries for submissions using the requested worker email', async () => {
     await getInProgressSubmissions(undefined, undefined, 'foo@bar.com');
     expect(mockedAxios.get).toHaveBeenCalledWith(
-      `${ENDPOINT_API}/submissions?submissionStates=in_progress&page=1&size=1000&workerEmail=foo@bar.com`,
+      `${ENDPOINT_API}/submissions?submissionStates=in_progress&pruneUnfinished=true&page=1&size=1000&workerEmail=foo@bar.com`,
       { headers: { 'x-api-key': AWS_KEY } }
     );
   });
