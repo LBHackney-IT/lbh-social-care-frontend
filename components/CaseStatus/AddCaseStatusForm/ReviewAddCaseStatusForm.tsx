@@ -97,7 +97,11 @@ const ReviewAddCaseStatusForm: React.FC<{
       <div>
         <p className="lbh-body">Do you want to add this case status?</p>
         <div style={{ display: 'flex', alignItems: 'center' }}>
-          <Button label="Yes, add" onClick={submitAnswers} wideButton />
+          <Button
+            label="Yes, add this status"
+            onClick={submitAnswers}
+            wideButton
+          />
           <Link
             href={{
               pathname: `/people/${personId}/case-status/add`,
