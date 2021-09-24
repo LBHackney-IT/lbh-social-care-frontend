@@ -60,12 +60,12 @@ const ReviewAddCaseStatusForm: React.FC<{
   };
 
   if (cpCaseStatusFields) {
-    cpCaseStatusFields.fields.map((elmField) => {
-      Object.keys(formAnswers).map((elm) => {
-        if (elm === elmField.name) {
-          elmField.options.map((option) => {
-            if (option.name === formAnswers[elm]) {
-              diplayObj[elmField.description] = option.description;
+    cpCaseStatusFields.fields.map((reason) => {
+      Object.keys(formAnswers).map((selectedOption) => {
+        if (selectedOption === reason.name) {
+          reason.options.map((option) => {
+            if (option.name === formAnswers[selectedOption]) {
+              diplayObj[reason.description] = option.description;
             }
           });
         }
