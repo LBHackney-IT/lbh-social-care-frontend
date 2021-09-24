@@ -23,7 +23,7 @@ const ChooseEditCaseStatusForm: React.FC<{
     };
     if (
       form_fields[0].choices &&
-      form_fields[0].choices.filter((e) => e.value === 'dothings').length == 0
+      form_fields[0].choices.filter((e) => e.value === 'update').length == 0
     ) {
       form_fields[0].choices.push(fieldObj);
     }

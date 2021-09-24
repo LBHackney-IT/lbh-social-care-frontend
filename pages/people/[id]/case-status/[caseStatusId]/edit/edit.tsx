@@ -18,7 +18,7 @@ const EditCaseStatus = (): React.ReactElement => {
   return (
     <>
       <h1 className="govuk-fieldset__legend--l gov-weight-lighter">
-        Edit a case status
+        {action} a case status
       </h1>
       <PersonView personId={personId} expandView>
         <EditCaseStatusForm
