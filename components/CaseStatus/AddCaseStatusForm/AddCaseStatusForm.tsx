@@ -64,7 +64,7 @@ const AddCaseStatusForm: React.FC<{
           ...values,
         },
       });
-    } catch (e) {
+    } catch (e: any) {
       setStatus(e.toString());
     }
   };
