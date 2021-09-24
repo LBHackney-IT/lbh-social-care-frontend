@@ -15,7 +15,7 @@ const AddCaseStatusForm: React.FC<{
 }> = ({ personId, prefilledFields }) => {
   const router = useRouter();
 
-  const form_fields = CASE_STATUS.steps[0].fields;
+  const form_fields = [...CASE_STATUS.steps[0].fields];
   const { data: CpCaseStatusFields } = useFormValues('CP');
 
   form_fields.map((field) => {
