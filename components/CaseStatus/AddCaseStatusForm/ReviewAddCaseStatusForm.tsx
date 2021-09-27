@@ -2,11 +2,10 @@ import FlexibleAnswers from 'components/FlexibleAnswers/FlexibleAnswers';
 import Button from 'components/Button/Button';
 import Link from 'next/link';
 import Banner from 'components/FlexibleForms/Banner';
-import { User, CaseStatusMapping } from 'types';
+import { User, CaseStatusMapping, ChildProtectionCategoryOptions } from 'types';
 import { FlexibleAnswers as FlexibleAnswersT } from 'data/flexibleForms/forms.types';
 import { useState } from 'react';
 import { addCaseStatus } from 'utils/api/caseStatus';
-import { useFormValues } from 'utils/api/caseStatus';
 import { useAuth } from 'components/UserContext/UserContext';
 import { useRouter } from 'next/router';
 
@@ -20,7 +19,6 @@ const ReviewAddCaseStatusForm: React.FC<{
   const { user } = useAuth() as { user: User };
 
   const valueMapping = new CaseStatusMapping();
-  const { data: cpCaseStatusFields } = useFormValues('CP');
 
   const submitAnswers = async () => {
     try {
@@ -49,7 +47,7 @@ const ReviewAddCaseStatusForm: React.FC<{
     }
   };
 
-  const diplayObj: any = {
+  const displayObj: any = {
     Type: [valueMapping[formAnswers.type as keyof CaseStatusMapping]],
     'Start date': new Date(formAnswers.startDate).toLocaleDateString('en-GB', {
       day: '2-digit',
@@ -57,25 +55,15 @@ const ReviewAddCaseStatusForm: React.FC<{
       year: 'numeric',
     }),
     Notes: String(formAnswers.notes),
+    'Category of child protection plan':
+      ChildProtectionCategoryOptions[
+        formAnswers.category as keyof typeof ChildProtectionCategoryOptions
+      ],
   };
-
-  if (cpCaseStatusFields) {
-    cpCaseStatusFields.fields.map((reason) => {
-      Object.keys(formAnswers).map((selectedOption) => {
-        if (selectedOption === reason.name) {
-          reason.options.map((option) => {
-            if (option.name === formAnswers[selectedOption]) {
-              diplayObj[reason.description] = option.description;
-            }
-          });
-        }
-      });
-    });
-  }
 
   const displayValue: FlexibleAnswersT = {
     answers: {
-      ...diplayObj,
+      ...displayObj,
     },
   };
 
