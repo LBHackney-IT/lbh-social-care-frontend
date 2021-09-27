@@ -29,19 +29,19 @@ const form: Form = {
           type: 'radios',
           choices: [
             {
-              value: 'neglect',
+              value: 'C1',
               label: 'Neglect',
             },
             {
-              value: 'physicalAbuse',
+              value: 'C2',
               label: 'Physical abuse',
             },
             {
-              value: 'emotionalAbuse',
+              value: 'C3',
               label: 'Emotional abuse',
             },
             {
-              value: 'sexualAbuse',
+              value: 'C4',
               label: 'Sexual abuse',
             },
           ],

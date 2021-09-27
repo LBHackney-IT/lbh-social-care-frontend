@@ -8,7 +8,6 @@ import { useState } from 'react';
 import { patchCaseStatus } from 'utils/api/caseStatus';
 import { useAuth } from 'components/UserContext/UserContext';
 import { useRouter } from 'next/router';
-import { useFormValues } from 'utils/api/caseStatus';
 import { CaseStatusMapping } from 'types';
 
 const ReviewAddCaseStatusForm: React.FC<{
@@ -28,7 +27,6 @@ const ReviewAddCaseStatusForm: React.FC<{
 }) => {
   const router = useRouter();
   const [status, setStatus] = useState('');
-  const { data: caseStatusFields } = useFormValues(caseStatusType);
   const { user } = useAuth() as { user: User };
 
   const valueMapping = new CaseStatusMapping();
@@ -39,7 +37,6 @@ const ReviewAddCaseStatusForm: React.FC<{
         editedBy: user.email,
         ...formAnswers,
       };
-
       const { error } = await patchCaseStatus(patchObject);
 
       if (error) throw error;
@@ -64,22 +61,10 @@ const ReviewAddCaseStatusForm: React.FC<{
     'Start Date': formAnswers.startDate,
     'End Date': formAnswers.endDate,
     Category: formAnswers.category,
+    'Legal status': formAnswers.legalStatus,
+    'Placement reason': formAnswers.placementReason,
     Notes: formAnswers.notes,
   };
-
-  if (caseStatusFields) {
-    caseStatusFields.fields.map((elmField) => {
-      Object.keys(formAnswers).map((elm) => {
-        if (elm === elmField.name) {
-          elmField.options.map((option) => {
-            if (option.name === formAnswers[elm]) {
-              diplayObj[elmField.description] = option.description;
-            }
-          });
-        }
-      });
-    });
-  }
 
   const displayValue: FlexibleAnswersT = {
     answers: {

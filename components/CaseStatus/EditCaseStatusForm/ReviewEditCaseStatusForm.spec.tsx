@@ -4,7 +4,7 @@ import { residentFactory } from 'factories/residents';
 
 const mockedResident = residentFactory.build();
 
-describe('ReviewAddRelationshipForm', () => {
+describe('ReviewEditCaseStatusForm', () => {
   it('displays the form - edit', () => {
     const { getByText } = render(
       <ReviewEditCaseStatusForm
@@ -42,7 +42,7 @@ describe('ReviewAddRelationshipForm', () => {
     );
 
     expect(getByText('Review case status details')).toBeInTheDocument();
-    expect(getByText('01 Dec 2020')).toBeInTheDocument();
+    expect(getByText('2020-12-01')).toBeInTheDocument();
     expect(
       getByText('Do you want to end this case status?')
     ).toBeInTheDocument();
@@ -64,6 +64,6 @@ describe('ReviewAddRelationshipForm', () => {
     );
 
     expect(getByText('blabla')).toBeInTheDocument();
-    expect(getByText('01 Dec 2020')).toBeInTheDocument();
+    expect(getByText('2020-12-01')).toBeInTheDocument();
   });
 });

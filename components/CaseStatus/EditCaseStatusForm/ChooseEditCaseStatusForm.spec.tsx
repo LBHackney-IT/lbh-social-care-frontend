@@ -23,7 +23,7 @@ describe('ChooseEditCaseStatusForm - CIN', () => {
       <ChooseEditCaseStatusForm
         personId={mockedResident.id}
         caseStatusId={123}
-        caseStatusType="CIN"
+        caseStatusType="CP"
         prefilledValue={''}
       />
     );

@@ -1,6 +1,9 @@
 import { Form, Formik, FormikHelpers, FormikValues } from 'formik';
 import CASE_STATUS_CIN_EDIT from 'data/flexibleForms/caseStatus/editCINCaseStatus';
 import CASE_STATUS_CP_EDIT from 'data/flexibleForms/caseStatus/editCPCaseStatus';
+import CASE_STATUS_LAC_EDIT from 'data/flexibleForms/caseStatus/editLACCaseStatus';
+import CASE_STATUS_LAC_UPDATE from 'data/flexibleForms/caseStatus/updateLACCaseStatus';
+import CASE_STATUS_LAC_END from 'data/flexibleForms/caseStatus/endLACCaseStatus';
 import CASE_STATUS_END from 'data/flexibleForms/caseStatus/endCINCPCaseStatus';
 import { generateInitialValues } from 'lib/utils';
 import { generateFlexibleSchema } from 'lib/validators';
@@ -31,8 +34,14 @@ const EditCaseStatusForm: React.FC<{
     form_fields = CASE_STATUS_CIN_EDIT.steps[0].fields;
   } else if (action == 'edit' && caseStatusType == 'CP') {
     form_fields = CASE_STATUS_CP_EDIT.steps[0].fields;
+  } else if (action == 'edit' && caseStatusType == 'LAC') {
+    form_fields = CASE_STATUS_LAC_EDIT.steps[0].fields;
+  } else if (action == 'end' && caseStatusType == 'LAC') {
+    form_fields = CASE_STATUS_LAC_END.steps[0].fields;
   } else if (action == 'end') {
     form_fields = CASE_STATUS_END.steps[0].fields;
+  } else if (action == 'update') {
+    form_fields = CASE_STATUS_LAC_UPDATE.steps[0].fields;
   }
 
   if (action === 'edit' && caseStatusData) {
