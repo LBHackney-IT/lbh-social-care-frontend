@@ -1,20 +1,12 @@
 import { Factory } from 'fishery';
 import {
   CaseStatus,
-  PersonCaseStatus,
   FormValue,
   FormFields,
   FormOption,
   CaseStatusFields,
   AddCaseStatusFormData,
 } from 'types';
-
-export const mockedPersonCaseStatusFactory = Factory.define<PersonCaseStatus>(
-  ({ sequence }) => ({
-    personId: sequence,
-    caseStatuses: [mockedCaseStatusFactory.build()],
-  })
-);
 
 export const mockedCaseStatusFactory = Factory.define<CaseStatus>(
   ({ sequence }) => ({
