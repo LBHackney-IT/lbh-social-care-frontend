@@ -26,8 +26,8 @@ const CaseStatusView = ({ person }: Props): React.ReactElement => {
 
   return (
     <>
-      {caseStatusData.caseStatuses.map((caseStatus) => (
-        <div key={caseStatus.id} className={Styles.align}>
+      <div className={Styles.align}>
+        {caseStatusData.caseStatuses.map((caseStatus) => (
           <Tip
             key={caseStatus.id}
             interactive={true}
@@ -61,8 +61,8 @@ const CaseStatusView = ({ person }: Props): React.ReactElement => {
               {valueMapping[caseStatus.type]}
             </span>
           </Tip>
-        </div>
-      ))}
+        ))}
+      </div>
     </>
   );
 };
