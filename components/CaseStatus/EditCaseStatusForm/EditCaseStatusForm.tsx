@@ -1,8 +1,7 @@
 import { Form, Formik, FormikHelpers, FormikValues } from 'formik';
-import { Choice } from 'data/flexibleForms/forms.types';
-import CASE_STATUS_EDIT from 'data/flexibleForms/caseStatus/editCaseStatus';
-import CASE_STATUS_END from 'data/flexibleForms/caseStatus/endCaseStatus';
-import CASE_STATUS_UPDATE from 'data/flexibleForms/caseStatus/updateCaseStatus';
+import CASE_STATUS_CIN_EDIT from 'data/flexibleForms/caseStatus/editCINCaseStatus';
+import CASE_STATUS_CP_EDIT from 'data/flexibleForms/caseStatus/editCPCaseStatus';
+import CASE_STATUS_END from 'data/flexibleForms/caseStatus/endCINCPCaseStatus';
 import { generateInitialValues } from 'lib/utils';
 import { generateFlexibleSchema } from 'lib/validators';
 import FlexibleField from 'components/FlexibleForms/FlexibleFields';
@@ -10,7 +9,7 @@ import Button from 'components/Button/Button';
 import { CaseStatus } from 'types';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { useCaseStatuses, useFormValues } from 'utils/api/caseStatus';
+import { useCaseStatuses } from 'utils/api/caseStatus';
 import { format } from 'date-fns';
 
 const EditCaseStatusForm: React.FC<{
@@ -22,86 +21,18 @@ const EditCaseStatusForm: React.FC<{
 }> = ({ personId, caseStatusId, caseStatusType, prefilledFields, action }) => {
   const router = useRouter();
   const { data: caseStatusData } = useCaseStatuses(personId);
-  const { data: caseStatusFields } = useFormValues(caseStatusType);
 
   let form_fields: any;
   if (prefilledFields && prefilledFields['action']) {
     action = prefilledFields['action'];
   }
 
-  switch (action) {
-    case 'edit':
-      form_fields = [...CASE_STATUS_EDIT.steps[0].fields];
-      break;
-    case 'end':
-      form_fields = [...CASE_STATUS_END.steps[0].fields];
-      break;
-    default:
-      form_fields = [...CASE_STATUS_UPDATE.steps[0].fields];
-      break;
-  }
-
-  if (action === 'edit' && caseStatusFields) {
-    caseStatusFields.fields.map((field) => {
-      const choices: Choice[] = [];
-      field.options.map((option: any) => {
-        choices.push({
-          value: option.name,
-          label: option.description,
-        });
-      });
-
-      const fieldObj = {
-        id: field.name,
-        question: field.description,
-        type: 'select',
-        required: true,
-        choices: choices,
-      };
-
-      form_fields.push(fieldObj);
-    });
-  }
-
-  if (action === 'update' && caseStatusFields) {
-    caseStatusFields.fields.map((field) => {
-      console.log(field);
-
-      if (field.name === 'legalStatus') {
-        const choices: Choice[] = [];
-
-        field.options.map((option: any) => {
-          choices.push({
-            value: option.name,
-            label: option.description,
-          });
-        });
-
-        form_fields.map((e: any) => {
-          if (e.id === 'newLegalStatus') {
-            console.log(e.id);
-            e.choices = choices;
-          }
-        });
-      }
-
-      if (field.name === 'placementType') {
-        const choices: Choice[] = [];
-
-        field.options.map((option: any) => {
-          choices.push({
-            value: option.name,
-            label: option.description,
-          });
-        });
-
-        form_fields.map((e: any) => {
-          if (e.id === 'newPlacementType') {
-            e.choices = choices;
-          }
-        });
-      }
-    });
+  if (action == 'edit' && caseStatusType == 'CIN') {
+    form_fields = CASE_STATUS_CIN_EDIT.steps[0].fields;
+  } else if (action == 'edit' && caseStatusType == 'CP') {
+    form_fields = CASE_STATUS_CP_EDIT.steps[0].fields;
+  } else if (action == 'end') {
+    form_fields = CASE_STATUS_END.steps[0].fields;
   }
 
   if (action === 'edit' && caseStatusData) {

@@ -16,19 +16,6 @@ const ChooseEditCaseStatusForm: React.FC<{
   const form_fields = [...CASE_STATUS.steps[0].fields];
   const router = useRouter();
 
-  if (caseStatusType === 'LAC') {
-    const fieldObj = {
-      value: 'update',
-      label: "I need to update the child's circumstances",
-    };
-    if (
-      form_fields[0].choices &&
-      form_fields[0].choices.filter((e) => e.value === 'update').length == 0
-    ) {
-      form_fields[0].choices.push(fieldObj);
-    }
-  }
-
   form_fields.map((field) => {
     if (prefilledValue) {
       field.default = String(prefilledValue);

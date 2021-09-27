@@ -57,10 +57,13 @@ const ReviewAddCaseStatusForm: React.FC<{
     }
   };
 
+  console.log(formAnswers);
+
   const diplayObj: any = {
     Type: valueMapping[caseStatusType as keyof CaseStatusMapping],
     'Start Date': formAnswers.startDate,
     'End Date': formAnswers.endDate,
+    Category: formAnswers.category,
     Notes: formAnswers.notes,
   };
 
