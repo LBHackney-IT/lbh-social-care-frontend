@@ -34,10 +34,7 @@ const CaseStatusView = ({ person }: Props): React.ReactElement => {
             delay={100}
             content={
               <>
-                <p
-                  className={`lbh-body-xs ${Styles.popupTitle}`}
-                  style={{ fontWeight: 'bold', marginBottom: 0 }}
-                >
+                <p className={`lbh-body-xs ${Styles.popupTitle}`}>
                   {valueMapping[caseStatus.type]}
                 </p>
                 <p className="lbh-body-xs">{`Start date: ${format(
