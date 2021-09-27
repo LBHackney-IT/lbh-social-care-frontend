@@ -73,6 +73,36 @@ const form: Form = {
           default: format(new Date(), 'yyyy-MM-dd'),
           isfutureDateValid: false,
         },
+        {
+          id: 'category',
+          question: 'Category of child protection plan',
+          type: 'radios',
+          conditions: [
+            {
+              id: 'type',
+              value: 'CP',
+            },
+          ],
+          choices: [
+            {
+              value: 'C1',
+              label: 'Neglect',
+            },
+            {
+              value: 'C2',
+              label: 'Physical abuse',
+            },
+            {
+              value: 'C3',
+              label: 'Emotional abuse',
+            },
+            {
+              value: 'C4',
+              label: 'Sexual abuse',
+            },
+          ],
+          required: true,
+        },
       ],
     },
   ],

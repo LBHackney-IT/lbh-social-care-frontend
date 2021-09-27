@@ -75,7 +75,17 @@ describe('AddCaseStatusForm - CP', () => {
     expect(getByText('Child protection')).toBeInTheDocument();
   });
 
-  it('displays start date when selecting CP', () => {
+  it('does not display category question unless CP is clicked the form', () => {
+    const { queryByText } = render(
+      <AddCaseStatusForm personId={mockedResident.id} prefilledFields={{}} />
+    );
+
+    expect(
+      queryByText('Category of child protection plan')
+    ).not.toBeInTheDocument();
+  });
+
+  it('displays start date and category when selecting CP', () => {
     const { getByText } = render(
       <AddCaseStatusForm personId={mockedResident.id} prefilledFields={{}} />
     );
@@ -84,5 +94,21 @@ describe('AddCaseStatusForm - CP', () => {
 
     expect(getByText('Child protection')).toBeInTheDocument();
     expect(getByText('Start Date')).toBeInTheDocument();
+    expect(getByText('Category of child protection plan')).toBeInTheDocument();
+  });
+
+  it('displays the category options when selecting CP', () => {
+    const { getByText } = render(
+      <AddCaseStatusForm personId={mockedResident.id} prefilledFields={{}} />
+    );
+
+    fireEvent.click(getByText('Child protection'));
+
+    expect(getByText('Neglect')).toBeInTheDocument();
+    expect(getByText('Physical abuse')).toBeInTheDocument();
+    expect(getByText('Emotional abuse')).toBeInTheDocument();
+    expect(getByText('Sexual abuse')).toBeInTheDocument();
+    expect(getByText('Start Date')).toBeInTheDocument();
+    expect(getByText('Category of child protection plan')).toBeInTheDocument();
   });
 });
