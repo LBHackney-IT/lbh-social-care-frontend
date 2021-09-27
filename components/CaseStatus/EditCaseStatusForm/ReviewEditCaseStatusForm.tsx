@@ -58,11 +58,13 @@ const ReviewAddCaseStatusForm: React.FC<{
 
   const diplayObj: any = {
     Type: valueMapping[caseStatusType as keyof CaseStatusMapping],
+    'Case status ID': formAnswers.caseStatusId,
     'Start Date': formAnswers.startDate,
     'End Date': formAnswers.endDate,
     Category: formAnswers.category,
     'Legal status': formAnswers.legalStatus,
     'Placement reason': formAnswers.placementReason,
+    'Reason for episode ending': formAnswers.episodeReason,
     Notes: formAnswers.notes,
   };
 

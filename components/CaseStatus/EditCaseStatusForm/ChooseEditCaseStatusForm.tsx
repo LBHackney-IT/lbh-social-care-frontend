@@ -1,5 +1,5 @@
 import { Form, Formik, FormikHelpers, FormikValues } from 'formik';
-import CASE_STATUS from 'data/flexibleForms/caseStatus/caseStatusChooseEdit';
+import CASE_STATUS from 'data/flexibleForms/caseStatus/chooseEdit';
 import { generateInitialValues } from 'lib/utils';
 import { generateFlexibleSchema } from 'lib/validators';
 import FlexibleField from 'components/FlexibleForms/FlexibleFields';
@@ -19,6 +19,11 @@ const ChooseEditCaseStatusForm: React.FC<{
   form_fields.map((field) => {
     if (prefilledValue) {
       field.default = String(prefilledValue);
+    }
+    if (field.choices && caseStatusType != 'LAC') {
+      field.choices = field.choices.filter(function (el) {
+        return el.value != 'update';
+      });
     }
   });
 

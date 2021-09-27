@@ -51,11 +51,6 @@ const form: Form = {
               label: 'E3: Care taken over by another local authority in the UK',
             },
             {
-              value: 'E11',
-              label:
-                'E11: Adopted - application for an adoption order unopposed',
-            },
-            {
               value: 'E4A',
               label:
                 'E4A: Returned home to live with parent(s), relative(s), or other person(s) with parental responsibility as part of the care planning process (not under a special guardianship order or residence order or (from 22 April 2014) a child arrangement order).',
