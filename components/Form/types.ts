@@ -57,6 +57,7 @@ export interface GenericField {
   isMulti?: boolean;
   isMultiInit?: boolean;
   isMultiTrigger?: string;
+  buttonStyle?: string;
 }
 
 export interface Checkbox extends GenericField {
