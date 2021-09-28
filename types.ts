@@ -415,16 +415,22 @@ export enum ChildProtectionCategoryOptions {
 export interface AddCaseStatusFormData {
   personId: number;
   type: string;
-  fields?: [{ name: string; selected: string }];
+  fields?: CaseStatusFormValue[];
   startDate: string;
   endDate?: string;
   notes: string;
   createdby: string;
 }
 
+export interface CaseStatusFormValue {
+  name: string;
+  selected: string;
+}
+
 export interface EditCaseStatusFormData {
   personId: number;
-  values?: [{ name: string; selected: string }];
+  caseStatusID: number;
+  values?: CaseStatusFormValue[];
   startDate?: string;
   endDate?: string;
   notes?: string;

@@ -2,7 +2,7 @@ import FlexibleAnswers from 'components/FlexibleAnswers/FlexibleAnswers';
 import Button from 'components/Button/Button';
 import Link from 'next/link';
 import Banner from 'components/FlexibleForms/Banner';
-import { User } from 'types';
+import { User, EditCaseStatusFormData, CaseStatusFormValue } from 'types';
 import { FlexibleAnswers as FlexibleAnswersT } from 'data/flexibleForms/forms.types';
 import { useState } from 'react';
 import { patchCaseStatus } from 'utils/api/caseStatus';
@@ -35,12 +35,35 @@ const ReviewAddCaseStatusForm: React.FC<{
 
   const submitAnswers = async () => {
     try {
-      const patchObject = {
+      const patchObject: EditCaseStatusFormData = {
         editedBy: user.email,
-        ...formAnswers,
+        personId: personId,
+        caseStatusID: caseStatusId,
       };
-      const { error } = await patchCaseStatus(patchObject);
 
+      formAnswers.notes ? (patchObject['notes'] = formAnswers.notes) : null;
+      formAnswers.startDate
+        ? (patchObject['startDate'] = formAnswers.startDate)
+        : null;
+      formAnswers.endDate
+        ? (patchObject['endDate'] = formAnswers.endDate)
+        : null;
+
+      const fieldsValues: CaseStatusFormValue[] = [];
+
+      formAnswers.category
+        ? fieldsValues.push({
+            name: 'category',
+            selected: formAnswers.category,
+          } as CaseStatusFormValue)
+        : null;
+
+      if (fieldsValues.length > 0) {
+        patchObject['values'] = fieldsValues;
+      }
+
+      console.log(patchObject);
+      const { error } = await patchCaseStatus(patchObject);
       if (error) throw error;
 
       router.push({
@@ -59,11 +82,22 @@ const ReviewAddCaseStatusForm: React.FC<{
   const typeString =
     CaseStatusMapping[caseStatusType as keyof typeof CaseStatusMapping];
 
-  const diplayObj: any = {
+  const answers = {
     Type: typeString,
-    'Case status ID': formAnswers.caseStatusId,
-    'Start Date': formAnswers.startDate,
-    'End Date': formAnswers.endDate,
+    'Start Date': formAnswers.startDate
+      ? new Date(formAnswers.startDate).toLocaleDateString('en-GB', {
+          day: '2-digit',
+          month: 'short',
+          year: 'numeric',
+        })
+      : '',
+    'End Date': formAnswers.endDate
+      ? new Date(formAnswers.endDate).toLocaleDateString('en-GB', {
+          day: '2-digit',
+          month: 'short',
+          year: 'numeric',
+        })
+      : '',
     Category:
       ChildProtectionCategoryOptions[
         formAnswers.category as keyof typeof ChildProtectionCategoryOptions
@@ -84,9 +118,7 @@ const ReviewAddCaseStatusForm: React.FC<{
   };
 
   const displayValue: FlexibleAnswersT = {
-    answers: {
-      ...diplayObj,
-    },
+    answers: answers,
   };
 
   return (

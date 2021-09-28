@@ -24,7 +24,7 @@ const ExpandDetails = ({
 
   return (
     <section className="lbh-collapsible govuk-!-margin-bottom-8">
-      <a
+      <span
         onClick={() => setOpen(!open)}
         aria-expanded={open}
         className={`lbh-collapsible__button ${
@@ -47,7 +47,7 @@ const ExpandDetails = ({
         ) : (
           <DownArrow />
         )}
-      </a>
+      </span>
       {open && <div className="lbh-collapsible__content">{children}</div>}
     </section>
   );

@@ -101,6 +101,15 @@ export const generateFlexibleSchema = (
       );
     } else if (field.type === 'timetable') {
       shape[field.id] = Yup.object();
+    } else if (field.type === 'date' && field.startDate != null) {
+      shape[field.id] = Yup.string().test(
+        'Validate date is future',
+        'Date cannot be before start date',
+        (dateValue) => {
+          const dateTimeToValidate = new Date(String(dateValue));
+          return dateTimeToValidate >= new Date(String(field.startDate));
+        }
+      );
     } else if (field.type === 'date' && field.isfutureDateValid === false) {
       shape[field.id] = Yup.string().test(
         'Validate date is present or past',

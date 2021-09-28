@@ -51,6 +51,7 @@ const form: Form = {
           question: 'Category of child protection plan',
           required: true,
           type: 'radios',
+          default: 'C1',
           choices: [
             {
               value: 'C1',

@@ -41,7 +41,7 @@ const EditCaseStatusForm: React.FC<{
     form_fields = CASE_STATUS_LAC_UPDATE.steps[0].fields;
   }
 
-  if (action === 'edit' && caseStatuses) {
+  if (caseStatuses) {
     caseStatuses.map((status: CaseStatus) => {
       if (status.id == caseStatusId) {
         form_fields.map((field: any) => {
@@ -50,6 +50,10 @@ const EditCaseStatusForm: React.FC<{
           }
           if (field.id === 'startDate') {
             field.default = format(new Date(status.startDate), 'yyyy-MM-dd');
+          }
+          if (field.id === 'endDate') {
+            console.log(status.startDate);
+            field.startDate = format(new Date(status.startDate), 'yyyy-MM-dd');
           }
           status.fields.map((preloaded_field) => {
             if (preloaded_field.name === field.id) {
