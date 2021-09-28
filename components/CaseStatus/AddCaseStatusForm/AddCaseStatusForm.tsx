@@ -12,7 +12,8 @@ const AddCaseStatusForm: React.FC<{
   prefilledFields: any;
 }> = ({ personId, prefilledFields }) => {
   const router = useRouter();
-  const form_fields = CASE_STATUS.steps[0].fields;
+
+  const form_fields = [...CASE_STATUS.steps[0].fields];
 
   form_fields.map((field) => {
     if (prefilledFields && prefilledFields[field.id]) {
@@ -29,12 +30,10 @@ const AddCaseStatusForm: React.FC<{
         pathname: `/people/${personId}/case-status/add/review`,
         query: {
           personId: personId,
-          type: values.type,
-          startDate: values.startDate,
-          notes: values.notes,
+          ...values,
         },
       });
-    } catch (e) {
+    } catch (e: any) {
       setStatus(e.toString());
     }
   };
@@ -59,7 +58,7 @@ const AddCaseStatusForm: React.FC<{
 
           <div style={{ display: 'flex', alignItems: 'center' }}>
             <Button
-              label="Submit"
+              label="Continue"
               disabled={values.type == '' || Object.keys(errors).length > 0}
               type="submit"
               data-testid="submit_button"

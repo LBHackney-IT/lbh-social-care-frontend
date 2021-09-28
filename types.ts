@@ -383,6 +383,13 @@ export enum LookedAfterChildOptions {
   Z1 = 'Z1: Other placements (must be listed on a schedule sent to DH with annual submission)',
 }
 
+export enum ChildProtectionCategoryOptions {
+  C1 = 'Neglect',
+  C2 = 'Physical abuse',
+  C3 = 'Emotional abuse',
+  C4 = 'Sexual abuse',
+}
+
 export interface AddCaseStatusFormData {
   personId: number;
   type: string;
