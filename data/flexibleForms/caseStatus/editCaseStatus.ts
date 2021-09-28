@@ -1,6 +1,6 @@
 import { Form } from '../forms.types';
 import { format } from 'date-fns';
-import { CaseStatusMapping } from 'types';
+import { LookedAfterChildOptions, ChildProtectionCategoryOptions } from 'types';
 
 const form: Form = {
   id: 'case-status-edit',
@@ -53,20 +53,20 @@ const form: Form = {
           type: 'radios',
           choices: [
             {
-              value: 'neglect',
-              label: CaseStatusMapping['neglect'],
+              value: 'C1',
+              label: ChildProtectionCategoryOptions['C1'],
             },
             {
-              value: 'physical_abuse',
-              label: CaseStatusMapping['physical_abuse'],
+              value: 'C2',
+              label: ChildProtectionCategoryOptions['C2'],
             },
             {
-              value: 'emotional_abuse',
-              label: CaseStatusMapping['emotional_abuse'],
+              value: 'C3',
+              label: ChildProtectionCategoryOptions['C3'],
             },
             {
-              value: 'sexual_abuse',
-              label: CaseStatusMapping['sexual_abuse'],
+              value: 'C4',
+              label: ChildProtectionCategoryOptions['C4'],
             },
           ],
         },
@@ -93,59 +93,59 @@ const form: Form = {
           choices: [
             {
               value: 'V4',
-              label: CaseStatusMapping['V4'],
+              label: LookedAfterChildOptions['V4'],
             },
             {
               value: 'V3',
-              label: CaseStatusMapping['V3'],
+              label: LookedAfterChildOptions['V3'],
             },
             {
               value: 'J2',
-              label: CaseStatusMapping['J2'],
+              label: LookedAfterChildOptions['J2'],
             },
             {
               value: 'L2',
-              label: CaseStatusMapping['L2'],
+              label: LookedAfterChildOptions['L2'],
             },
             {
               value: 'D1',
-              label: CaseStatusMapping['D1'],
+              label: LookedAfterChildOptions['D1'],
             },
             {
               value: 'C2',
-              label: CaseStatusMapping['C2'],
+              label: LookedAfterChildOptions['C2'],
             },
             {
               value: 'C1',
-              label: CaseStatusMapping['C1'],
+              label: LookedAfterChildOptions['C1'],
             },
             {
               value: 'J1',
-              label: CaseStatusMapping['J1'],
+              label: LookedAfterChildOptions['J1'],
             },
             {
               value: 'E1',
-              label: CaseStatusMapping['E1'],
+              label: LookedAfterChildOptions['E1'],
             },
             {
               value: 'J3',
-              label: CaseStatusMapping['J3'],
+              label: LookedAfterChildOptions['J3'],
             },
             {
               value: 'V2',
-              label: CaseStatusMapping['V2'],
+              label: LookedAfterChildOptions['V2'],
             },
             {
               value: 'L3',
-              label: CaseStatusMapping['L3'],
+              label: LookedAfterChildOptions['L3'],
             },
             {
               value: 'L1',
-              label: CaseStatusMapping['L1'],
+              label: LookedAfterChildOptions['L1'],
             },
             {
               value: 'W1',
-              label: CaseStatusMapping['W1'],
+              label: LookedAfterChildOptions['W1'],
             },
           ],
           required: false,
@@ -157,43 +157,43 @@ const form: Form = {
           choices: [
             {
               value: 'S1',
-              label: CaseStatusMapping['S1'],
+              label: LookedAfterChildOptions['S1'],
             },
             {
               value: 'T0',
-              label: CaseStatusMapping['T0'],
+              label: LookedAfterChildOptions['T0'],
             },
             {
               value: 'R3',
-              label: CaseStatusMapping['R3'],
+              label: LookedAfterChildOptions['R3'],
             },
             {
               value: 'U2',
-              label: CaseStatusMapping['U2'],
+              label: LookedAfterChildOptions['U2'],
             },
             {
               value: 'U1',
-              label: CaseStatusMapping['U1'],
+              label: LookedAfterChildOptions['U1'],
             },
             {
               value: 'U3',
-              label: CaseStatusMapping['U3'],
+              label: LookedAfterChildOptions['U3'],
             },
             {
               value: 'K2',
-              label: CaseStatusMapping['K2'],
+              label: LookedAfterChildOptions['K2'],
             },
             {
               value: 'P2',
-              label: CaseStatusMapping['P2'],
+              label: LookedAfterChildOptions['P2'],
             },
             {
               value: 'R2',
-              label: CaseStatusMapping['R2'],
+              label: LookedAfterChildOptions['R2'],
             },
             {
               value: 'Z1',
-              label: CaseStatusMapping['Z1'],
+              label: LookedAfterChildOptions['Z1'],
             },
           ],
         },

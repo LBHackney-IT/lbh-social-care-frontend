@@ -381,6 +381,28 @@ export enum LookedAfterChildOptions {
   P2 = 'P2: Independent living, e.g. in flat or lodgings, bedsit, B&B or with friends, with or without formal support staff',
   R2 = 'R2: NHS/health Trust or other enstablishment providing medical or nursing care',
   Z1 = 'Z1: Other placements (must be listed on a schedule sent to DH with annual submission)',
+
+  X1 = 'X1: Episode ceases, and new episode begins on same day, for any reason',
+  E11 = 'E11: Adopted - application for an adoption order unopposed ',
+  E12 = 'E12: Adopted – consent dispensed with by the court',
+  E2 = 'E2: Died',
+  E3 = 'E3: Care taken over by another local authority in the UK',
+  E4A = 'E4A: Returned home to live with parent(s), relative(s), or other person(s) with parental responsibility as part of the care planning process (not under a special guardianship order or residence order or (from 22 April 2014) a child arrangement order).',
+  E4B = 'E4B: Returned home to live with parent(s), relative(s), or other person(s) with parental responsibility which was not part of the current care planning process (not under a special guardianship order or residence order or (from 22 April 2014) a child arrangement order).',
+  E13 = 'E13: Left care to live with parent(s), relative(s), or other person(s) with no parental responsibility.',
+  E41 = 'E41: Residence order (or, from 22 April 2014, a child arrangement order which sets out with whom the child is to live) granted',
+  E45 = 'E45: Special guardianship order made to former foster carer(s), who was/are a relative(s) or friend(s)',
+  E46 = 'E46: Special guardianship order made to former foster carer(s), other than relative(s) or friend(s) ',
+  E47 = 'E47: Special guardianship order made to carer(s), other than former foster carer(s), who was/are a relative(s) or friend(s)',
+  E48 = 'E48: Special guardianship order made to carer(s), other than former foster carer(s), other than relative(s) or friend(s) ',
+  E5 = 'E5: Moved into independent living arrangement and no longer looked-after: supportive accommodation providing formalised advice/support arrangements (such as most hostels, young men’s Christian association, foyers, staying close and care leavers projects). Includes both children leaving care before and at age 18 ',
+  E6 = 'E6: Moved into independent living arrangement and no longer looked-after : accommodation providing no formalised advice/support arrangements (such as bedsit, own flat, living with friend(s)). Includes both children leaving care before and at age 18 ',
+  E7 = 'E7: Transferred to residential care funded by adult social care services ',
+  E9 = 'E9: Sentenced to custody ',
+  E15 = 'E15: Age assessment determined child is aged 18 or over and E5, E6 and E7 do not apply, such as an unaccompanied asylum-seeking child (UASC) whose age has been disputed ',
+  E16 = 'E16: Child moved abroad ',
+  E17 = 'E17: Aged 18 (or over) and remained with current carers (inc under staying put arrangements) ',
+  E8 = 'E8: Period of being looked-after ceased for any other reason (where none of the other reasons apply)',
 }
 
 export enum ChildProtectionCategoryOptions {

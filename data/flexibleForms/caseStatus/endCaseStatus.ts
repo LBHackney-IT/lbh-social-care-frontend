@@ -1,5 +1,6 @@
 import { Form } from '../forms.types';
 import { format } from 'date-fns';
+import { LookedAfterChildOptions } from 'types';
 
 const form: Form = {
   id: 'case-status-edit',
@@ -45,103 +46,87 @@ const form: Form = {
           choices: [
             {
               value: 'X1',
-              label:
-                'X1: Episode ceases, and new episode begins on same day, for any reason',
+              label: LookedAfterChildOptions['X1'],
             },
             {
               value: 'E11',
-              label:
-                'E11: Adopted - application for an adoption order unopposed ',
+              label: LookedAfterChildOptions['E11'],
             },
             {
               value: 'E12',
-              label: 'E12: Adopted – consent dispensed with by the court',
+              label: LookedAfterChildOptions['E12'],
             },
             {
               value: 'E2',
-              label: 'E2: Died',
+              label: LookedAfterChildOptions['E2'],
             },
             {
               value: 'E3',
-              label: 'E3: Care taken over by another local authority in the UK',
+              label: LookedAfterChildOptions['E3'],
             },
             {
               value: 'E4A',
-              label:
-                'E4A: Returned home to live with parent(s), relative(s), or other person(s) with parental responsibility as part of the care planning process (not under a special guardianship order or residence order or (from 22 April 2014) a child arrangement order).',
+              label: LookedAfterChildOptions['E4A'],
             },
             {
               value: 'E4B',
-              label:
-                'E4B: Returned home to live with parent(s), relative(s), or other person(s) with parental responsibility which was not part of the current care planning process (not under a special guardianship order or residence order or (from 22 April 2014) a child arrangement order).',
+              label: LookedAfterChildOptions['E4B'],
             },
             {
               value: 'E13',
-              label:
-                'E13: Left care to live with parent(s), relative(s), or other person(s) with no parental responsibility.',
+              label: LookedAfterChildOptions['E13'],
             },
             {
               value: 'E41',
-              label:
-                'E41: Residence order (or, from 22 April 2014, a child arrangement order which sets out with whom the child is to live) granted',
+              label: LookedAfterChildOptions['E41'],
             },
             {
               value: 'E45',
-              label:
-                'E45: Special guardianship order made to former foster carer(s), who was/are a relative(s) or friend(s)',
+              label: LookedAfterChildOptions['E45'],
             },
             {
               value: 'E46',
-              label:
-                'E46: Special guardianship order made to former foster carer(s), other than relative(s) or friend(s) ',
+              label: LookedAfterChildOptions['E46'],
             },
             {
               value: 'E47',
-              label:
-                'E47: Special guardianship order made to carer(s), other than former foster carer(s), who was/are a relative(s) or friend(s)',
+              label: LookedAfterChildOptions['E47'],
             },
             {
               value: 'E48',
-              label:
-                'E48: Special guardianship order made to carer(s), other than former foster carer(s), other than relative(s) or friend(s) ',
+              label: LookedAfterChildOptions['E48'],
             },
             {
               value: 'E5',
-              label:
-                'E5: Moved into independent living arrangement and no longer looked-after: supportive accommodation providing formalised advice/support arrangements (such as most hostels, young men’s Christian association, foyers, staying close and care leavers projects). Includes both children leaving care before and at age 18 ',
+              label: LookedAfterChildOptions['E5'],
             },
             {
               value: 'E6',
-              label:
-                'E6: Moved into independent living arrangement and no longer looked-after : accommodation providing no formalised advice/support arrangements (such as bedsit, own flat, living with friend(s)). Includes both children leaving care before and at age 18 ',
+              label: LookedAfterChildOptions['E6'],
             },
             {
               value: 'E7',
-              label:
-                'E7: Transferred to residential care funded by adult social care services ',
+              label: LookedAfterChildOptions['E7'],
             },
             {
               value: 'E9',
-              label: 'E9: Sentenced to custody ',
+              label: LookedAfterChildOptions['E9'],
             },
             {
               value: 'E15',
-              label:
-                'E15: Age assessment determined child is aged 18 or over and E5, E6 and E7 do not apply, such as an unaccompanied asylum-seeking child (UASC) whose age has been disputed ',
+              label: LookedAfterChildOptions['E15'],
             },
             {
               value: 'E16',
-              label: 'E16: Child moved abroad ',
+              label: LookedAfterChildOptions['E16'],
             },
             {
               value: 'E17',
-              label:
-                'E17: Aged 18 (or over) and remained with current carers (inc under staying put arrangements) ',
+              label: LookedAfterChildOptions['E17'],
             },
             {
               value: 'E8',
-              label:
-                'E8: Period of being looked-after ceased for any other reason (where none of the other reasons apply)',
+              label: LookedAfterChildOptions['E8'],
             },
           ],
         },
