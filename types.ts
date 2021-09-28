@@ -355,6 +355,13 @@ export class CaseStatusMapping {
   'LAC' = 'Looked after child';
 }
 
+export enum ChildProtectionCategoryOptions {
+  C1 = 'Neglect',
+  C2 = 'Physical abuse',
+  C3 = 'Emotional abuse',
+  C4 = 'Sexual abuse',
+}
+
 export interface AddCaseStatusFormData {
   personId: number;
   type: string;
