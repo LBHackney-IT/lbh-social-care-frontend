@@ -7,7 +7,7 @@ interface Props {
 }
 
 const CaseStatusView = ({ person }: Props): React.ReactElement => {
-  const { data: caseStatusData, error } = useCaseStatuses(person.id);
+  const { data: caseStatuses, error } = useCaseStatuses(person.id);
 
   if (error) {
     return (
@@ -15,13 +15,13 @@ const CaseStatusView = ({ person }: Props): React.ReactElement => {
     );
   }
 
-  if (!caseStatusData) {
+  if (!caseStatuses) {
     return <></>;
   }
 
   return (
     <>
-      {groupByType(caseStatusData.caseStatuses).map((status) => (
+      {groupByType(caseStatuses).map((status) => (
         <span
           className="govuk-tag lbh-tag lbh-tag--yellow govuk-!-margin-right-1 govuk-!-margin-top-2"
           key={status}

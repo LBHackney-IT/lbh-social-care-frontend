@@ -15,7 +15,7 @@ interface Props {
 }
 
 const CaseStatusDetails = ({ person }: Props): React.ReactElement => {
-  const { data: caseStatusData, error } = useCaseStatuses(person.id);
+  const { data: caseStatuses, error } = useCaseStatuses(person.id);
   const valueMapping = new CaseStatusMapping();
 
   if (error) {
@@ -24,7 +24,7 @@ const CaseStatusDetails = ({ person }: Props): React.ReactElement => {
     );
   }
 
-  if (!caseStatusData) {
+  if (!caseStatuses) {
     return <></>;
   }
   return (
@@ -32,7 +32,7 @@ const CaseStatusDetails = ({ person }: Props): React.ReactElement => {
       <div>
         <h2 style={{ fontSize: '24px' }}>Case statuses</h2>
 
-        {caseStatusData.caseStatuses.map((status: CaseStatus) => {
+        {caseStatuses.map((status: CaseStatus) => {
           const title = (
             <div className={styles.align}>
               {status.type && (

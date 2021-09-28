@@ -329,11 +329,6 @@ export interface FormFields {
   fields: Array<FormValue>;
 }
 
-export interface PersonCaseStatus {
-  personId: number;
-  caseStatuses: Array<CaseStatus>;
-}
-
 export interface FormOption {
   name: string;
   description: string;
