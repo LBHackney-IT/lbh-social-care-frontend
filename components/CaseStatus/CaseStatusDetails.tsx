@@ -23,7 +23,7 @@ const CaseStatusDetails = ({ person }: Props): React.ReactElement => {
     );
   }
 
-  if (!caseStatuses) {
+  if (!caseStatuses || caseStatuses?.length === 0) {
     return <></>;
   }
   return (
