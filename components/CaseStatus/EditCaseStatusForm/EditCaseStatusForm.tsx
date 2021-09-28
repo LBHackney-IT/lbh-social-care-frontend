@@ -1,6 +1,5 @@
 import { Form, Formik, FormikHelpers, FormikValues } from 'formik';
 import CASE_STATUS_EDIT from 'data/flexibleForms/caseStatus/editCaseStatus';
-import CASE_STATUS_LAC_UPDATE from 'data/flexibleForms/caseStatus/updateLAC';
 import CASE_STATUS_END from 'data/flexibleForms/caseStatus/endCaseStatus';
 import { generateInitialValues } from 'lib/utils';
 import { generateFlexibleSchema } from 'lib/validators';
@@ -31,14 +30,8 @@ const EditCaseStatusForm: React.FC<{
     form_fields = CASE_STATUS_EDIT.steps[0].fields;
   } else if (action == 'edit' && caseStatusType == 'CP') {
     form_fields = CASE_STATUS_EDIT.steps[1].fields;
-  } else if (action == 'edit' && caseStatusType == 'LAC') {
-    form_fields = CASE_STATUS_EDIT.steps[2].fields;
-  } else if (action == 'end' && caseStatusType == 'LAC') {
-    form_fields = CASE_STATUS_END.steps[1].fields;
   } else if (action == 'end') {
     form_fields = CASE_STATUS_END.steps[0].fields;
-  } else if (action == 'update') {
-    form_fields = CASE_STATUS_LAC_UPDATE.steps[0].fields;
   }
 
   if (caseStatuses) {
@@ -52,7 +45,6 @@ const EditCaseStatusForm: React.FC<{
             field.default = format(new Date(status.startDate), 'yyyy-MM-dd');
           }
           if (field.id === 'endDate') {
-            console.log(status.startDate);
             field.startDate = format(new Date(status.startDate), 'yyyy-MM-dd');
           }
           status.fields.map((preloaded_field) => {

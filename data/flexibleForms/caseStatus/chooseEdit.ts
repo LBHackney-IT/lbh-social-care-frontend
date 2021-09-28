@@ -24,10 +24,6 @@ const form: Form = {
               label: 'I need to make a correction',
             },
             {
-              value: 'update',
-              label: 'I need to update the circumstances',
-            },
-            {
               value: 'end',
               label: 'I need to end this status',
             },

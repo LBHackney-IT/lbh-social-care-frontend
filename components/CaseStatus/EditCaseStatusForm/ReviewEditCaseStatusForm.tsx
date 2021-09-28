@@ -8,11 +8,7 @@ import { useState } from 'react';
 import { patchCaseStatus } from 'utils/api/caseStatus';
 import { useAuth } from 'components/UserContext/UserContext';
 import { useRouter } from 'next/router';
-import {
-  CaseStatusMapping,
-  LookedAfterChildOptions,
-  ChildProtectionCategoryOptions,
-} from 'types';
+import { CaseStatusMapping, ChildProtectionCategoryOptions } from 'types';
 
 const ReviewAddCaseStatusForm: React.FC<{
   title: string;
@@ -62,7 +58,6 @@ const ReviewAddCaseStatusForm: React.FC<{
         patchObject['values'] = fieldsValues;
       }
 
-      console.log(patchObject);
       const { error } = await patchCaseStatus(patchObject);
       if (error) throw error;
 
@@ -101,18 +96,6 @@ const ReviewAddCaseStatusForm: React.FC<{
     Category:
       ChildProtectionCategoryOptions[
         formAnswers.category as keyof typeof ChildProtectionCategoryOptions
-      ],
-    'Legal status':
-      LookedAfterChildOptions[
-        formAnswers.legalStatus as keyof typeof LookedAfterChildOptions
-      ],
-    'Placement reason':
-      LookedAfterChildOptions[
-        formAnswers.placementReason as keyof typeof LookedAfterChildOptions
-      ],
-    'Reason for episode ending':
-      LookedAfterChildOptions[
-        formAnswers.episodeReason as keyof typeof LookedAfterChildOptions
       ],
     Notes: formAnswers.notes,
   };
