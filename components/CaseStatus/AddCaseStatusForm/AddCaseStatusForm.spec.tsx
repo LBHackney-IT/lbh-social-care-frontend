@@ -5,7 +5,7 @@ import { residentFactory } from 'factories/residents';
 const mockedResident = residentFactory.build();
 
 describe('AddCaseStatusForm - CIN', () => {
-  it('displays the form', () => {
+  it('displays CIN type option in the form', () => {
     const { getByText } = render(
       <AddCaseStatusForm personId={mockedResident.id} prefilledFields={{}} />
     );
@@ -13,7 +13,7 @@ describe('AddCaseStatusForm - CIN', () => {
     expect(getByText('Child in need')).toBeInTheDocument();
   });
 
-  it('should disable the submit button when not completed', () => {
+  it('should disable the submit button when no type has been selected', () => {
     const { getByTestId } = render(
       <AddCaseStatusForm personId={mockedResident.id} prefilledFields={{}} />
     );
@@ -28,7 +28,6 @@ describe('AddCaseStatusForm - CIN', () => {
 
     fireEvent.click(getByText('Child in need'));
 
-    expect(getByText('Child in need')).toBeInTheDocument();
     expect(getByText('Start Date')).toBeInTheDocument();
     expect(getByText('Notes')).toBeInTheDocument();
   });
@@ -85,19 +84,18 @@ describe('AddCaseStatusForm - CP', () => {
     ).not.toBeInTheDocument();
   });
 
-  it('displays start date and category when selecting CP', () => {
+  it('displays start date and category question when CP is selected', () => {
     const { getByText } = render(
       <AddCaseStatusForm personId={mockedResident.id} prefilledFields={{}} />
     );
 
     fireEvent.click(getByText('Child protection'));
 
-    expect(getByText('Child protection')).toBeInTheDocument();
     expect(getByText('Start Date')).toBeInTheDocument();
     expect(getByText('Category of child protection plan')).toBeInTheDocument();
   });
 
-  it('displays the category options when selecting CP', () => {
+  it('displays the category options when CP is selected', () => {
     const { getByText } = render(
       <AddCaseStatusForm personId={mockedResident.id} prefilledFields={{}} />
     );
@@ -108,7 +106,21 @@ describe('AddCaseStatusForm - CP', () => {
     expect(getByText('Physical abuse')).toBeInTheDocument();
     expect(getByText('Emotional abuse')).toBeInTheDocument();
     expect(getByText('Sexual abuse')).toBeInTheDocument();
+  });
+
+  it('pre-select CP and fills the other fields', () => {
+    const { getByText } = render(
+      <AddCaseStatusForm
+        personId={mockedResident.id}
+        prefilledFields={{
+          type: 'CP',
+          category: 'C1',
+        }}
+      />
+    );
+
+    expect(getByText('Child protection')).toBeInTheDocument();
     expect(getByText('Start Date')).toBeInTheDocument();
-    expect(getByText('Category of child protection plan')).toBeInTheDocument();
+    expect(getByText('Neglect')).toBeInTheDocument();
   });
 });
