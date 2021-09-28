@@ -54,8 +54,6 @@ const ReviewAddCaseStatusForm: React.FC<{
     }
   };
 
-  console.log(formAnswers);
-
   const diplayObj: any = {
     Type: valueMapping[caseStatusType as keyof CaseStatusMapping],
     'Case status ID': formAnswers.caseStatusId,
