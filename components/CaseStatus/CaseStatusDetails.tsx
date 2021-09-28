@@ -7,8 +7,8 @@ import {
   CaseStatusMapping,
 } from 'types';
 import styles from './CaseStatusDetails.module.scss';
-import Link from 'next/link';
 import ExpandDetails from 'components/ExpandDetails/ExpandDetails';
+import Link from 'next/link';
 
 interface Props {
   person: Resident;
@@ -70,14 +70,6 @@ const CaseStatusDetails = ({ person }: Props): React.ReactElement => {
                           )}{' '}
                         </span>
                       )}
-                      <Link
-                        href={{
-                          pathname: `/people/${person.id}/case-status/${status.id}/edit/`,
-                          query: { type: status.type },
-                        }}
-                      >
-                        <a data-testid="edit_button">edit</a>
-                      </Link>
                     </div>
                   </dt>
                 </>
@@ -87,7 +79,19 @@ const CaseStatusDetails = ({ person }: Props): React.ReactElement => {
 
           return (
             <div key={status.id} className={styles.caseStatusDesign}>
-              <ExpandDetails label={title}>
+              <ExpandDetails
+                label={title}
+                link={
+                  <Link
+                    href={{
+                      pathname: `/people/${person.id}/case-status/${status.id}/edit/`,
+                      query: { type: status.type },
+                    }}
+                  >
+                    edit
+                  </Link>
+                }
+              >
                 <div key={status.id}>
                   <dl key={status.id}>
                     {status.fields.map(

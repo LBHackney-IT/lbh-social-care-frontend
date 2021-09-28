@@ -10,6 +10,7 @@ export interface Props {
   triggerLabel?: string;
   buttonLabel?: boolean;
   isDefaultOpen?: boolean;
+  link?: React.ReactNode;
 }
 
 const ExpandDetails = ({
@@ -17,6 +18,7 @@ const ExpandDetails = ({
   triggerLabel,
   children,
   isDefaultOpen = false,
+  link,
 }: Props): React.ReactElement => {
   const [open, setOpen] = useState<boolean>(isDefaultOpen);
 
@@ -31,6 +33,7 @@ const ExpandDetails = ({
         data-testid="expand_details"
       >
         <h2 className="lbh-heading-h2 lbh-collapsible__heading">{label}</h2>
+        {link ? <span className={styles.linkStyle}> {link} </span> : <></>}
         {triggerLabel ? (
           <span
             className={cx(

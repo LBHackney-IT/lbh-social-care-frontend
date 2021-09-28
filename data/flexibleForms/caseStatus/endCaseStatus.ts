@@ -22,6 +22,21 @@ const form: Form = {
           className: 'govuk-input--width-10',
           default: format(new Date(), 'yyyy-MM-dd'),
         },
+      ],
+    },
+    {
+      id: 'endLACCaseStatus',
+      name: 'End a status',
+      theme: 'Case status',
+      fields: [
+        {
+          id: 'endDate',
+          question: 'End Date',
+          type: 'date',
+          required: true,
+          className: 'govuk-input--width-10',
+          default: format(new Date(), 'yyyy-MM-dd'),
+        },
         {
           id: 'episodeReason',
           question: 'What is the reason for the episode ending?',
