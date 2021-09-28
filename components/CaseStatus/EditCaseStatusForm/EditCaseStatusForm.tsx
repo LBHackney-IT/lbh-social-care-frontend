@@ -23,7 +23,7 @@ const EditCaseStatusForm: React.FC<{
   action: string;
 }> = ({ personId, caseStatusId, caseStatusType, prefilledFields, action }) => {
   const router = useRouter();
-  const { data: caseStatusData } = useCaseStatuses(personId);
+  const { data: caseStatuses } = useCaseStatuses(personId);
 
   let form_fields: any;
   if (prefilledFields && prefilledFields['action']) {
@@ -44,8 +44,8 @@ const EditCaseStatusForm: React.FC<{
     form_fields = CASE_STATUS_LAC_UPDATE.steps[0].fields;
   }
 
-  if (action === 'edit' && caseStatusData) {
-    caseStatusData.caseStatuses.map((status: CaseStatus) => {
+  if (action === 'edit' && caseStatuses) {
+    caseStatuses.map((status: CaseStatus) => {
       if (status.id == caseStatusId) {
         form_fields.map((field: any) => {
           if (field.id === 'notes') {
