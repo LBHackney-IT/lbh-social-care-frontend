@@ -18,7 +18,6 @@ const form: Form = {
           question: 'What do you need to do with the status?',
           type: 'radios',
           required: true,
-          default: 'edit',
           choices: [
             {
               value: 'edit',

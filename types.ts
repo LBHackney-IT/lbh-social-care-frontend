@@ -349,10 +349,38 @@ export interface CaseStatus {
   notes: string;
 }
 
-export class CaseStatusMapping {
-  'CIN' = 'Child in need';
-  'CP' = 'Child protection';
-  'LAC' = 'Looked after child';
+export enum CaseStatusMapping {
+  CIN = 'Child in need',
+  CP = 'Child protection',
+  LAC = 'Looked after child',
+}
+
+export enum LookedAfterChildOptions {
+  V4 = 'V4: Accommodated under an agreed series of short-term breaks, when agreements are recorded (ie NOT individual episods of care)',
+  V3 = 'V3: Accomodated under an agreed series of short-term breaks, when individual episodes of care are recorded',
+  J2 = 'J2: Detained in LA accomodation and PACE',
+  L2 = 'L2: Emergency protection order',
+  D1 = 'D1: Freeing order granted',
+  C2 = 'C2: Full care order',
+  C1 = 'C1: Interim care order',
+  J1 = 'J1: On remand, or committed for tiral or sentence, and accomodated by LA',
+  E1 = 'E1: Placement order granted',
+  J3 = 'J3: Sentencted to CYPA 1969 supervision order with residence requirement',
+  V2 = 'V2: Single period of accomodation under section 20',
+  L3 = 'L3: Under child assessment order and in local authority accomodation',
+  L1 = 'L1: Under police protection and in local authority accomodation',
+  W1 = 'W1: Wardship granted in High Court and child in LA accomodation',
+
+  S1 = 'S1: All residential schools, except where dual-registered as a school',
+  T0 = 'T0: All types of temprary move',
+  R3 = 'R3: Family centre or mother and baby unit',
+  U2 = 'U2: Foster placement with relative or friend who is also an approved adopter - FFA',
+  U1 = 'U1: Foster placement with relative or friend - long term fostering',
+  U3 = 'U3: Foster placement with relative or friend - not long term of FFA',
+  K2 = 'K2: Homes and hostels',
+  P2 = 'P2: Independent living, e.g. in flat or lodgings, bedsit, B&B or with friends, with or without formal support staff',
+  R2 = 'R2: NHS/health Trust or other enstablishment providing medical or nursing care',
+  Z1 = 'Z1: Other placements (must be listed on a schedule sent to DH with annual submission)',
 }
 
 export interface AddCaseStatusFormData {

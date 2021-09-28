@@ -107,7 +107,7 @@ const EditCaseStatusForm: React.FC<{
           <div style={{ display: 'flex', alignItems: 'center' }}>
             <Button
               label="Continue"
-              disabled={values.endDate == '' || Object.keys(errors).length > 0}
+              disabled={Object.keys(errors).length > 0}
               type="submit"
               data-testid="submit_button"
               wideButton

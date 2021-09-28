@@ -16,7 +16,6 @@ interface Props {
 
 const CaseStatusDetails = ({ person }: Props): React.ReactElement => {
   const { data: caseStatuses, error } = useCaseStatuses(person.id);
-  const valueMapping = new CaseStatusMapping();
 
   if (error) {
     return (
@@ -39,7 +38,7 @@ const CaseStatusDetails = ({ person }: Props): React.ReactElement => {
                 <>
                   <dt className="govuk-!-margin-right-2">
                     <div className={styles.typeStyling}>
-                      <span>{valueMapping[status.type]}</span>
+                      <span>{CaseStatusMapping[status.type]}</span>
 
                       {status.startDate && (
                         <span

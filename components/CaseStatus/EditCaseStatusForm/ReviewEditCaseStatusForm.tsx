@@ -29,8 +29,6 @@ const ReviewAddCaseStatusForm: React.FC<{
   const [status, setStatus] = useState('');
   const { user } = useAuth() as { user: User };
 
-  const valueMapping = new CaseStatusMapping();
-
   const submitAnswers = async () => {
     try {
       const patchObject = {
@@ -54,8 +52,11 @@ const ReviewAddCaseStatusForm: React.FC<{
     }
   };
 
+  const typeString =
+    CaseStatusMapping[caseStatusType as keyof typeof CaseStatusMapping];
+
   const diplayObj: any = {
-    Type: valueMapping[caseStatusType as keyof CaseStatusMapping],
+    Type: typeString,
     'Case status ID': formAnswers.caseStatusId,
     'Start Date': formAnswers.startDate,
     'End Date': formAnswers.endDate,

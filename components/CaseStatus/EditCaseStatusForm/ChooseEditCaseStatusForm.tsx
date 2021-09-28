@@ -64,7 +64,10 @@ const ChooseEditCaseStatusForm: React.FC<{
           <div style={{ display: 'flex', alignItems: 'center' }}>
             <Button
               label="Continue"
-              disabled={values.action == '' || Object.keys(errors).length > 0}
+              disabled={
+                !['edit', 'update', 'end'].includes(String(values.action)) ||
+                Object.keys(errors).length > 0
+              }
               type="submit"
               data-testid="submit_button"
               wideButton

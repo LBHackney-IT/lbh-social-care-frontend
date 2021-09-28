@@ -4,7 +4,7 @@ import { residentFactory } from 'factories/residents';
 
 const mockedResident = residentFactory.build();
 
-describe('EditCaseStatusForm - CIN', () => {
+describe('EditCaseStatusForm', () => {
   it('displays the End form', () => {
     const { getByText } = render(
       <EditCaseStatusForm
@@ -53,7 +53,7 @@ describe('EditCaseStatusForm - CIN', () => {
         personId={mockedResident.id}
         caseStatusId={123}
         action="edit"
-        caseStatusType="CIN"
+        caseStatusType="LAC"
         prefilledFields={{}}
       />
     );
@@ -74,7 +74,7 @@ describe('EditCaseStatusForm - CIN', () => {
     );
 
     expect(
-      getByText("What is the child's placement reason")
+      getByText("What is the child's placement reason?")
     ).toBeInTheDocument();
     expect(getByText('When will the change take effect?')).toBeInTheDocument();
   });
