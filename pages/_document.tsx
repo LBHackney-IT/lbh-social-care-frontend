@@ -1,18 +1,38 @@
-import Document, { Html, Head, Main, NextScript } from 'next/document';
-
+import Document, {
+  Html,
+  Head,
+  Main,
+  NextScript,
+  DocumentContext,
+  DocumentInitialProps,
+} from 'next/document';
+import { generateCSP, generateNonce } from '../utils/contentSecurity';
 import { GA_TRACKING_ID } from 'utils/gtag';
 
-export default class AppDocument extends Document {
+export default class AppDocument extends Document<{ nonce?: string }> {
+  static async getInitialProps(
+    ctx: DocumentContext
+  ): Promise<DocumentInitialProps & { nonce?: string }> {
+    const res = ctx?.res;
+    const nonce = generateNonce();
+
+    if (process.env.NODE_ENV === 'production' && res != null)
+      res.setHeader('Content-Security-Policy', generateCSP(nonce));
+
+    return { ...(await Document.getInitialProps(ctx)), nonce };
+  }
+
   render(): JSX.Element {
     return (
       <Html id="root" className="govuk-template lbh-template" lang="en-gb">
-        <Head>
+        <Head nonce={this.props.nonce}>
           <link rel="icon" href="/favicon.ico" />
           <script
             async
             src={`https://www.googletagmanager.com/gtag/js?id=${GA_TRACKING_ID}`}
           />
           <script
+            nonce={this.props.nonce}
             dangerouslySetInnerHTML={{
               __html: `
             window.dataLayer = window.dataLayer || [];
@@ -25,6 +45,7 @@ export default class AppDocument extends Document {
             }}
           />
           <script
+            nonce={this.props.nonce}
             dangerouslySetInnerHTML={{
               __html: `
               (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
@@ -37,6 +58,7 @@ export default class AppDocument extends Document {
           />
           {process.env.NODE_ENV === 'production' ? (
             <script
+              nonce={this.props.nonce}
               dangerouslySetInnerHTML={{
                 __html: `// Hotjar Tracking Code for https://social-care-service.hackney.gov.uk/
             (function(h,o,t,j,a,r){
@@ -62,7 +84,7 @@ export default class AppDocument extends Document {
           />
 
           <Main />
-          <NextScript />
+          <NextScript nonce={this.props.nonce} />
         </body>
       </Html>
     );
