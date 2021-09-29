@@ -23,7 +23,9 @@ const policy: CSPPolicy = {
   ],
   'font-src': ["'self'", 'fonts.gstatic.com'],
   'frame-src': ['vars.hotjar.com'],
-  'img-src': ["'self'", 'script.hotjar.com'],
+  'img-src': ["'self'", 'script.hotjar.com', 'www.googletagmanager.com'],
+  'frame-ancestors': ["'self'"],
+  'form-action': ["'self'"],
 };
 
 export type CSPDirective =
@@ -35,6 +37,8 @@ export type CSPDirective =
   | 'frame-src'
   | 'img-src'
   | 'style-src-elem'
+  | 'frame-ancestors'
+  | 'form-action'
   | 'script-src-elem';
 
 export type CSPPolicy = {
@@ -83,4 +87,6 @@ const isDirective = (input: unknown): input is CSPDirective =>
     'img-src',
     'style-src-elem',
     'script-src-elem',
+    'frame-ancestors',
+    'form-action',
   ].includes(input as string);
