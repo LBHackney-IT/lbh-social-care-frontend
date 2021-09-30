@@ -5,7 +5,7 @@ import { residentFactory } from 'factories/residents';
 const mockedResident = residentFactory.build();
 
 describe('EditCaseStatusForm', () => {
-  it('displays the End form', () => {
+  it('displays the End form for CIN', () => {
     const { getByText } = render(
       <EditCaseStatusForm
         personId={mockedResident.id}

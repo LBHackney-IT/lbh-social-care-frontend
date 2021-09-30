@@ -32,7 +32,7 @@ exports[`<AddWarningNoteForm /> for a childrens resident should render the warni
             <section
               class="lbh-collapsible govuk-!-margin-bottom-8"
             >
-              <a
+              <span
                 aria-expanded="false"
                 class="lbh-collapsible__button null"
                 data-testid="expand_details"
@@ -47,7 +47,7 @@ exports[`<AddWarningNoteForm /> for a childrens resident should render the warni
                 >
                   Show guidance
                 </span>
-              </a>
+              </span>
             </section>
           </div>
           <div
@@ -693,7 +693,7 @@ exports[`<AddWarningNoteForm /> for an adults resident should render the warning
             <section
               class="lbh-collapsible govuk-!-margin-bottom-8"
             >
-              <a
+              <span
                 aria-expanded="false"
                 class="lbh-collapsible__button null"
                 data-testid="expand_details"
@@ -708,7 +708,7 @@ exports[`<AddWarningNoteForm /> for an adults resident should render the warning
                 >
                   Show guidance
                 </span>
-              </a>
+              </span>
             </section>
           </div>
           <div
@@ -1052,7 +1052,7 @@ exports[`<AddWarningNoteForm /> for an adults resident should render the warning
             <section
               class="lbh-collapsible govuk-!-margin-bottom-8"
             >
-              <a
+              <span
                 aria-expanded="false"
                 class="lbh-collapsible__button null"
                 data-testid="expand_details"
@@ -1067,7 +1067,7 @@ exports[`<AddWarningNoteForm /> for an adults resident should render the warning
                 >
                   Show guidance
                 </span>
-              </a>
+              </span>
             </section>
           </div>
           <div
@@ -1134,7 +1134,7 @@ exports[`<AddWarningNoteForm /> for an adults resident should render the warning
             <section
               class="lbh-collapsible govuk-!-margin-bottom-8"
             >
-              <a
+              <span
                 aria-expanded="false"
                 class="lbh-collapsible__button null"
                 data-testid="expand_details"
@@ -1149,7 +1149,7 @@ exports[`<AddWarningNoteForm /> for an adults resident should render the warning
                 >
                   Show guidance
                 </span>
-              </a>
+              </span>
             </section>
           </div>
           <div

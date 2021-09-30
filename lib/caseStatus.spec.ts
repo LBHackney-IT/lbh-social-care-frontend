@@ -60,7 +60,7 @@ describe('case status APIs', () => {
 
       expect(mockedAxios.patch).toHaveBeenCalled();
       expect(mockedAxios.patch.mock.calls[0][0]).toEqual(
-        `https://virtserver.swaggerhub.com/Hackney/social-care-case-viewer-api/1.0.0/case-statuses/${caseStatusId}/`
+        `${ENDPOINT_API}/residents/case-statuses/${caseStatusId}/`
       );
       expect(mockedAxios.patch.mock.calls[0][2]?.headers).toEqual({
         'Content-Type': 'application/json',

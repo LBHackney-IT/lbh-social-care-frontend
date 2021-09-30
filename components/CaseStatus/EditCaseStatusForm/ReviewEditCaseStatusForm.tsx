@@ -62,7 +62,6 @@ const ReviewAddCaseStatusForm: React.FC<{
         patchObject['values'] = fieldsValues;
       }
 
-      console.log(patchObject);
       const { error } = await patchCaseStatus(patchObject);
       if (error) throw error;
 

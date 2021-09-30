@@ -52,7 +52,6 @@ const EditCaseStatusForm: React.FC<{
             field.default = format(new Date(status.startDate), 'yyyy-MM-dd');
           }
           if (field.id === 'endDate') {
-            console.log(status.startDate);
             field.startDate = format(new Date(status.startDate), 'yyyy-MM-dd');
           }
           status.fields.map((preloaded_field) => {

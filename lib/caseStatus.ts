@@ -39,10 +39,9 @@ export const patchCaseStatus = async (
   params: Record<string, unknown>
 ): Promise<void> => {
   await axios.patch(
-    `https://virtserver.swaggerhub.com/Hackney/social-care-case-viewer-api/1.0.0/case-statuses/${caseStatusId}/`,
+    `${ENDPOINT_API}/residents/case-statuses/${caseStatusId}/`,
     params,
     {
-      // await axios.patch(`${ENDPOINT_API}/residents/case-statuses/${caseStatusId}/`, params, {
       headers: { ...headers, 'Content-Type': 'application/json' },
     }
   );
