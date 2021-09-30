@@ -349,10 +349,10 @@ export interface CaseStatus {
   notes: string;
 }
 
-export class CaseStatusMapping {
-  'CIN' = 'Child in need';
-  'CP' = 'Child protection';
-  'LAC' = 'Looked after child';
+export enum CaseStatusMapping {
+  CIN = 'Child in need',
+  CP = 'Child protection',
+  LAC = 'Looked after child',
 }
 
 export enum ChildProtectionCategoryOptions {
@@ -365,11 +365,26 @@ export enum ChildProtectionCategoryOptions {
 export interface AddCaseStatusFormData {
   personId: number;
   type: string;
-  fields?: [{ name: string; selected: string }];
+  fields?: CaseStatusFormValue[];
   startDate: string;
   endDate?: string;
   notes: string;
   createdby: string;
+}
+
+export interface CaseStatusFormValue {
+  name: string;
+  selected: string;
+}
+
+export interface EditCaseStatusFormData {
+  personId: number;
+  caseStatusID: number;
+  values?: CaseStatusFormValue[];
+  startDate?: string;
+  endDate?: string;
+  notes?: string;
+  editedBy: string;
 }
 
 export interface Paginated<T> {

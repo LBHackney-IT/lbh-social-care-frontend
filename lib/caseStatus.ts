@@ -33,3 +33,16 @@ export const addCaseStatus = async (
     headers: { ...headers, 'Content-Type': 'application/json' },
   });
 };
+
+export const patchCaseStatus = async (
+  caseStatusId: number,
+  params: Record<string, unknown>
+): Promise<void> => {
+  await axios.patch(
+    `${ENDPOINT_API}/residents/case-statuses/${caseStatusId}/`,
+    params,
+    {
+      headers: { ...headers, 'Content-Type': 'application/json' },
+    }
+  );
+};

@@ -8,6 +8,7 @@ import {
 } from 'types';
 import styles from './CaseStatusDetails.module.scss';
 import ExpandDetails from 'components/ExpandDetails/ExpandDetails';
+import Link from 'next/link';
 
 interface Props {
   person: Resident;
@@ -15,7 +16,6 @@ interface Props {
 
 const CaseStatusDetails = ({ person }: Props): React.ReactElement => {
   const { data: caseStatuses, error } = useCaseStatuses(person.id);
-  const valueMapping = new CaseStatusMapping();
 
   if (error) {
     return (
@@ -38,7 +38,7 @@ const CaseStatusDetails = ({ person }: Props): React.ReactElement => {
                 <>
                   <dt className="govuk-!-margin-right-2">
                     <div className={styles.typeStyling}>
-                      <span>{valueMapping[status.type]}</span>
+                      <span>{CaseStatusMapping[status.type]}</span>
 
                       {status.startDate && (
                         <span
@@ -78,7 +78,19 @@ const CaseStatusDetails = ({ person }: Props): React.ReactElement => {
 
           return (
             <div key={status.id} className={styles.caseStatusDesign}>
-              <ExpandDetails label={title}>
+              <ExpandDetails
+                label={title}
+                link={
+                  <Link
+                    href={{
+                      pathname: `/people/${person.id}/case-status/${status.id}/edit/`,
+                      query: { type: status.type },
+                    }}
+                  >
+                    edit
+                  </Link>
+                }
+              >
                 <div key={status.id}>
                   <dl key={status.id}>
                     {status.fields.map(
