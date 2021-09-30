@@ -13,7 +13,7 @@ const AddCaseStatusForm: React.FC<{
 }> = ({ personId, prefilledFields }) => {
   const router = useRouter();
 
-  const form_fields = [...CASE_STATUS.steps[0].fields];
+  const form_fields = CASE_STATUS.steps[0].fields;
 
   form_fields.map((field) => {
     if (prefilledFields && prefilledFields[field.id]) {
@@ -59,7 +59,7 @@ const AddCaseStatusForm: React.FC<{
           <div style={{ display: 'flex', alignItems: 'center' }}>
             <Button
               label="Continue"
-              disabled={values.type == '' || Object.keys(errors).length > 0}
+              // disabled={values.type == '' || Object.keys(errors).length > 0}
               type="submit"
               data-testid="submit_button"
               wideButton

@@ -1,5 +1,6 @@
 import { Form } from '../forms.types';
 import { format } from 'date-fns';
+import { ChildProtectionCategoryOptions } from 'types';
 
 const form: Form = {
   id: 'case-status',
@@ -86,19 +87,19 @@ const form: Form = {
           choices: [
             {
               value: 'C1',
-              label: 'Neglect',
+              label: ChildProtectionCategoryOptions['C1'],
             },
             {
               value: 'C2',
-              label: 'Physical abuse',
+              label: ChildProtectionCategoryOptions['C2'],
             },
             {
               value: 'C3',
-              label: 'Emotional abuse',
+              label: ChildProtectionCategoryOptions['C3'],
             },
             {
               value: 'C4',
-              label: 'Sexual abuse',
+              label: ChildProtectionCategoryOptions['C4'],
             },
           ],
           required: true,
