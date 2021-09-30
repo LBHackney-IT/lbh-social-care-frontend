@@ -56,13 +56,22 @@ describe('Summary component', () => {
   });
 
   it('should redirect to the redirect url if one is given', async () => {
-    query.redirectUrl = 'http://example.com';
+    query.redirectUrl = 'http://hackney.gov.uk';
 
     render(<Summary {...props} />);
     fireEvent.click(screen.getByRole('button', { name: 'Submit' }));
 
     await waitFor(() =>
-      expect(mockReplace).toBeCalledWith('http://example.com')
+      expect(mockReplace).toBeCalledWith('http://hackney.gov.uk')
     );
+  });
+
+  it('ignores non-hackney urls', async () => {
+    query.redirectUrl = 'http://example.com';
+
+    render(<Summary {...props} />);
+    fireEvent.click(screen.getByRole('button', { name: 'Submit' }));
+
+    await waitFor(() => expect(mockReplace).toBeCalledTimes(0));
   });
 });

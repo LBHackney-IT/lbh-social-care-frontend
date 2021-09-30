@@ -1,7 +1,7 @@
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import Router from 'next/router';
-import FormWizard from './FormWizard';
 import { useBeforeunload } from 'react-beforeunload';
+import FormWizard from './FormWizard';
 
 const query: {
   stepId: string[];
