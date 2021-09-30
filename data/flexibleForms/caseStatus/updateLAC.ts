@@ -1,5 +1,6 @@
 import { Form } from '../forms.types';
 import { format } from 'date-fns';
+import { LookedAfterChildOptions } from 'types';
 
 const form: Form = {
   id: 'case-status-update',
@@ -21,66 +22,59 @@ const form: Form = {
           choices: [
             {
               value: 'V4',
-              label:
-                'V4: Accommodated under an agreed series of short-term breaks, when agreements are recorded (ie NOT individual episods of care)',
+              label: LookedAfterChildOptions['V4'],
             },
             {
               value: 'V3',
-              label:
-                'V3: Accomodated under an agreed series of short-term breaks, when individual episodes of care are recorded',
+              label: LookedAfterChildOptions['V3'],
             },
             {
               value: 'J2',
-              label: 'J2: Detained in LA accomodation and PACE',
+              label: LookedAfterChildOptions['J2'],
             },
             {
               value: 'L2',
-              label: 'L2: Emergency protection order',
+              label: LookedAfterChildOptions['L2'],
             },
             {
               value: 'D1',
-              label: 'D1: Freeing order granted',
+              label: LookedAfterChildOptions['D1'],
             },
             {
               value: 'C2',
-              label: 'C2: Full care order',
+              label: LookedAfterChildOptions['C2'],
             },
             {
               value: 'C1',
-              label: 'C1: Interim care order',
+              label: LookedAfterChildOptions['C1'],
             },
             {
               value: 'J1',
-              label:
-                'J1: On remand, or committed for tiral or sentence, and accomodated by LA',
+              label: LookedAfterChildOptions['J1'],
             },
             {
               value: 'E1',
-              label: 'E1: Placement order granted',
+              label: LookedAfterChildOptions['E1'],
             },
             {
               value: 'J3',
-              label:
-                'J3: Sentencted to CYPA 1969 supervision order with residence requirement',
+              label: LookedAfterChildOptions['J3'],
             },
             {
               value: 'V2',
-              label: 'V2: Single period of accomodation under section 20',
+              label: LookedAfterChildOptions['V2'],
             },
             {
               value: 'L3',
-              label:
-                'L3: Under child assessment order and in local authority accomodation',
+              label: LookedAfterChildOptions['L3'],
             },
             {
               value: 'L1',
-              label:
-                'L1: Under police protection and in local authority accomodation',
+              label: LookedAfterChildOptions['L1'],
             },
             {
               value: 'W1',
-              label:
-                'W1: Wardship granted in High Court and child in LA accomodation',
+              label: LookedAfterChildOptions['W1'],
             },
           ],
           required: false,
@@ -92,50 +86,43 @@ const form: Form = {
           choices: [
             {
               value: 'S1',
-              label:
-                'S1: All residential schools, except where dual-registered as a school',
+              label: LookedAfterChildOptions['S1'],
             },
             {
               value: 'T0',
-              label: 'T0: All types of temprary move',
+              label: LookedAfterChildOptions['T0'],
             },
             {
               value: 'R3',
-              label: 'R3: Family centre or mother and baby unit',
+              label: LookedAfterChildOptions['R3'],
             },
             {
               value: 'U2',
-              label:
-                'U2: Foster placement with relative or friend who is also an approved adopter - FFA',
+              label: LookedAfterChildOptions['U2'],
             },
             {
               value: 'U1',
-              label:
-                'U1: Foster placement with relative or friend - long term fostering',
+              label: LookedAfterChildOptions['U1'],
             },
             {
               value: 'U3',
-              label:
-                'U3: Foster placement with relative or friend - not long term of FFA',
+              label: LookedAfterChildOptions['U3'],
             },
             {
               value: 'K2',
-              label: 'K2: Homes and hostels',
+              label: LookedAfterChildOptions['K2'],
             },
             {
               value: 'P2',
-              label:
-                'P2: Independent living, e.g. in flat or lodgings, bedsit, B&B or with friends, with or without formal support staff',
+              label: LookedAfterChildOptions['P2'],
             },
             {
               value: 'R2',
-              label:
-                'R2: NHS/health Trust or other enstablishment providing medical or nursing care',
+              label: LookedAfterChildOptions['R2'],
             },
             {
               value: 'Z1',
-              label:
-                'Z1: Other placements (must be listed on a schedule sent to DH with annual submission)',
+              label: LookedAfterChildOptions['Z1'],
             },
           ],
         },
