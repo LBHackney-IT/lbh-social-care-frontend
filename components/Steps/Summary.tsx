@@ -42,7 +42,11 @@ const SummaryStep = ({
       deleteData(formPath);
 
       // if there is a custom redirect url specified, go there instead
-      if (redirectUrl) return replace(redirectUrl as string);
+      if (
+        redirectUrl &&
+        new URL(redirectUrl as string).host.endsWith('hackney.gov.uk')
+      )
+        return replace(redirectUrl as string);
 
       replace(
         `${formPath}confirmation${data && data.ref ? `?ref=${data.ref}` : ''}`
