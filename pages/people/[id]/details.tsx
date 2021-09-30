@@ -16,24 +16,20 @@ interface Props {
 const PersonAllocationsPage = ({ person }: Props): React.ReactElement => {
   const [showAddedCaseStatusConfirmation, setshowAddedCaseStatusConfirmation] =
     useState(false);
-  const [caseStatusConfirmationText, setCaseStatusConfirmationText] = useState(
-    'Flagged status added'
-  );
 
   const router = useRouter();
 
   useEffect(() => {
     setshowAddedCaseStatusConfirmation(Boolean(router.query.flaggedStatus));
-    if (router.query.message) {
-      setCaseStatusConfirmationText(String(router.query.message));
-    }
-  });
+  }, [router.query.flaggedStatus]);
 
   return (
     <>
       {showAddedCaseStatusConfirmation && (
         <ConditionalFeature name="case-status">
-          <ConfirmationBanner title={caseStatusConfirmationText} />
+          <ConfirmationBanner
+            title={(router.query.message as string) ?? 'Flagged status added'}
+          />
         </ConditionalFeature>
       )}
       <Layout person={person}>

@@ -45,7 +45,7 @@ const ReviewAddCaseStatusForm: React.FC<{
     }
   };
 
-  const displayObj: any = {
+  const displayObj = {
     Type: CaseStatusMapping[formAnswers.type as keyof typeof CaseStatusMapping],
     'Start date': new Date(formAnswers.startDate).toLocaleDateString('en-GB', {
       day: '2-digit',
