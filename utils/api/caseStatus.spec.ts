@@ -22,7 +22,7 @@ describe('caseStatusAPI', () => {
 
       caseStatusAPI.useFormValues('CIN');
       expect(SWR.default).toHaveBeenCalledWith(
-        '/api/casestatus/form-options/CIN'
+        '/api/casestatus/form-options?type=CIN'
       );
     });
   });

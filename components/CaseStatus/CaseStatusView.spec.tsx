@@ -3,11 +3,9 @@ import * as caseStatusApi from 'utils/api/caseStatus';
 import { mockedAPIservererror } from 'factories/APIerrors';
 import CaseStatusView from './CaseStatusView';
 
-import {
-  mockedCaseStatusFactory,
-  mockedPersonCaseStatusFactory,
-} from 'factories/caseStatus';
+import { mockedCaseStatusFactory } from 'factories/caseStatus';
 import { mockedResident } from 'factories/residents';
+import { CaseStatus } from 'types';
 
 jest.mock('next/router', () => ({
   useRouter: () => ({
@@ -22,16 +20,13 @@ jest.mock('components/Spinner/Spinner', () => () => 'MockedSpinner');
 const person = mockedResident;
 
 describe('CaseStatusView component', () => {
-  it('displays the casestatus of a person', async () => {
+  it('displays the case status of a person', async () => {
     jest.spyOn(caseStatusApi, 'useCaseStatuses').mockImplementation(() => ({
-      data: mockedPersonCaseStatusFactory.build({
-        personId: person.id,
-        caseStatuses: [
-          mockedCaseStatusFactory.build({
-            type: 'CIN',
-          }),
-        ],
-      }),
+      data: [
+        mockedCaseStatusFactory.build({
+          type: 'CIN',
+        }),
+      ],
       isValidating: false,
       mutate: jest.fn(),
       revalidate: jest.fn(),
@@ -44,17 +39,14 @@ describe('CaseStatusView component', () => {
 
   it('displays only one "CIN" in case they are multiple', async () => {
     jest.spyOn(caseStatusApi, 'useCaseStatuses').mockImplementation(() => ({
-      data: mockedPersonCaseStatusFactory.build({
-        personId: person.id,
-        caseStatuses: [
-          mockedCaseStatusFactory.build({
-            type: 'CIN',
-          }),
-          mockedCaseStatusFactory.build({
-            type: 'CIN',
-          }),
-        ],
-      }),
+      data: [
+        mockedCaseStatusFactory.build({
+          type: 'CIN',
+        }),
+        mockedCaseStatusFactory.build({
+          type: 'CIN',
+        }),
+      ],
       isValidating: false,
       mutate: jest.fn(),
       revalidate: jest.fn(),
@@ -64,22 +56,19 @@ describe('CaseStatusView component', () => {
     expect(queryByText('Child in need')).toBeInTheDocument();
   });
 
-  it('displays only one "CIN", one "CPP" and one "LAC"', async () => {
+  it('displays only one "CIN", one "CP" and one "LAC"', async () => {
     jest.spyOn(caseStatusApi, 'useCaseStatuses').mockImplementation(() => ({
-      data: mockedPersonCaseStatusFactory.build({
-        personId: person.id,
-        caseStatuses: [
-          mockedCaseStatusFactory.build({
-            type: 'CIN',
-          }),
-          mockedCaseStatusFactory.build({
-            type: 'CP',
-          }),
-          mockedCaseStatusFactory.build({
-            type: 'LAC',
-          }),
-        ],
-      }),
+      data: [
+        mockedCaseStatusFactory.build({
+          type: 'CIN',
+        }),
+        mockedCaseStatusFactory.build({
+          type: 'CP',
+        }),
+        mockedCaseStatusFactory.build({
+          type: 'LAC',
+        }),
+      ],
       isValidating: false,
       mutate: jest.fn(),
       revalidate: jest.fn(),
@@ -94,10 +83,7 @@ describe('CaseStatusView component', () => {
 
   it("displays nothing if there's no case status", async () => {
     jest.spyOn(caseStatusApi, 'useCaseStatuses').mockImplementation(() => ({
-      data: mockedPersonCaseStatusFactory.build({
-        personId: person.id,
-        caseStatuses: [],
-      }),
+      data: [] as CaseStatus[],
       isValidating: false,
       mutate: jest.fn(),
       revalidate: jest.fn(),

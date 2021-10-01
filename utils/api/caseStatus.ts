@@ -3,10 +3,11 @@ import axios from 'axios';
 import useSWR, { SWRResponse } from 'swr';
 
 import type {
-  PersonCaseStatus,
   AddCaseStatusFormData,
+  EditCaseStatusFormData,
   FormFields,
   ErrorAPI,
+  CaseStatus,
 } from 'types';
 
 export const addCaseStatus = async (
@@ -16,12 +17,19 @@ export const addCaseStatus = async (
   return response?.data;
 };
 
+export const patchCaseStatus = async (
+  formData: EditCaseStatusFormData
+): Promise<Record<string, unknown>> => {
+  const response = await axios.patch(`/api/casestatus/`, formData);
+  return response?.data;
+};
+
 export const useCaseStatuses = (
   id: number
-): SWRResponse<PersonCaseStatus, ErrorAPI> =>
+): SWRResponse<CaseStatus[], ErrorAPI> =>
   useSWR(`/api/residents/${id}/casestatus`);
 
 export const useFormValues = (
   type: string
 ): SWRResponse<FormFields, ErrorAPI> =>
-  useSWR(`/api/casestatus/form-options/${type}`);
+  useSWR(`/api/casestatus/form-options?type=${type}`);
