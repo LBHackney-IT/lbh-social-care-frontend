@@ -18,8 +18,6 @@ const ReviewAddCaseStatusForm: React.FC<{
   const [status, setStatus] = useState('');
   const { user } = useAuth() as { user: User };
 
-  const valueMapping = new CaseStatusMapping();
-
   const submitAnswers = async () => {
     try {
       const { error } = await addCaseStatus({
@@ -47,8 +45,8 @@ const ReviewAddCaseStatusForm: React.FC<{
     }
   };
 
-  const displayObj: any = {
-    Type: [valueMapping[formAnswers.type as keyof CaseStatusMapping]],
+  const displayObj = {
+    Type: CaseStatusMapping[formAnswers.type as keyof typeof CaseStatusMapping],
     'Start date': new Date(formAnswers.startDate).toLocaleDateString('en-GB', {
       day: '2-digit',
       month: 'short',

@@ -46,6 +46,8 @@ export interface Field {
   // multiple?: boolean
   /**for date inputs that are not allowed to be set in the future */
   isfutureDateValid?: boolean;
+  /**for date inputs that are not allowed to be set in the past before the specified date */
+  startDate?: string;
 }
 
 interface Condition {
