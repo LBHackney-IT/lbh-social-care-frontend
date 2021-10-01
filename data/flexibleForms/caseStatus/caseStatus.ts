@@ -1,6 +1,18 @@
-import { Form } from '../forms.types';
+import { Form, Choice } from '../forms.types';
 import { format } from 'date-fns';
 import { ChildProtectionCategoryOptions } from 'types';
+
+const child_protection_category_options: Choice[] = [];
+
+Object.keys(ChildProtectionCategoryOptions).map((key) => {
+  child_protection_category_options.push({
+    value: key,
+    label:
+      ChildProtectionCategoryOptions[
+        key as keyof typeof ChildProtectionCategoryOptions
+      ],
+  });
+});
 
 const form: Form = {
   id: 'case-status',
@@ -84,24 +96,7 @@ const form: Form = {
               value: 'CP',
             },
           ],
-          choices: [
-            {
-              value: 'C1',
-              label: ChildProtectionCategoryOptions['C1'],
-            },
-            {
-              value: 'C2',
-              label: ChildProtectionCategoryOptions['C2'],
-            },
-            {
-              value: 'C3',
-              label: ChildProtectionCategoryOptions['C3'],
-            },
-            {
-              value: 'C4',
-              label: ChildProtectionCategoryOptions['C4'],
-            },
-          ],
+          choices: child_protection_category_options,
           required: true,
         },
       ],

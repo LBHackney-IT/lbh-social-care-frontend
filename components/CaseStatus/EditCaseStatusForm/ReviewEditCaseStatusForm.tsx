@@ -10,7 +10,9 @@ import { useAuth } from 'components/UserContext/UserContext';
 import { useRouter } from 'next/router';
 import {
   CaseStatusMapping,
-  LookedAfterChildOptions,
+  LACLegalStatusOptions,
+  LACPlacementTypeOptions,
+  LACReasonsForEpisodeEndOptions,
   ChildProtectionCategoryOptions,
 } from 'types';
 
@@ -102,16 +104,16 @@ const ReviewAddCaseStatusForm: React.FC<{
         formAnswers.category as keyof typeof ChildProtectionCategoryOptions
       ],
     'Legal status':
-      LookedAfterChildOptions[
-        formAnswers.legalStatus as keyof typeof LookedAfterChildOptions
+      LACLegalStatusOptions[
+        formAnswers.legalStatus as keyof typeof LACLegalStatusOptions
       ],
     'Placement reason':
-      LookedAfterChildOptions[
-        formAnswers.placementReason as keyof typeof LookedAfterChildOptions
+      LACPlacementTypeOptions[
+        formAnswers.placementReason as keyof typeof LACPlacementTypeOptions
       ],
     'Reason for episode ending':
-      LookedAfterChildOptions[
-        formAnswers.episodeReason as keyof typeof LookedAfterChildOptions
+      LACReasonsForEpisodeEndOptions[
+        formAnswers.episodeReason as keyof typeof LACReasonsForEpisodeEndOptions
       ],
     Notes: formAnswers.notes,
   };
