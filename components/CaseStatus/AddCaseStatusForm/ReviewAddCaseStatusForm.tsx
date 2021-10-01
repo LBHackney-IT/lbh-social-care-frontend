@@ -2,7 +2,13 @@ import FlexibleAnswers from 'components/FlexibleAnswers/FlexibleAnswers';
 import Button from 'components/Button/Button';
 import Link from 'next/link';
 import Banner from 'components/FlexibleForms/Banner';
-import { User, CaseStatusMapping, ChildProtectionCategoryOptions } from 'types';
+import {
+  User,
+  CaseStatusMapping,
+  ChildProtectionCategoryOptions,
+  LACLegalStatusOptions,
+  LACPlacementTypeOptions,
+} from 'types';
 import { FlexibleAnswers as FlexibleAnswersT } from 'data/flexibleForms/forms.types';
 import { useState } from 'react';
 import { addCaseStatus } from 'utils/api/caseStatus';
@@ -46,7 +52,8 @@ const ReviewAddCaseStatusForm: React.FC<{
   };
 
   const displayObj = {
-    Type: CaseStatusMapping[formAnswers.type as keyof typeof CaseStatusMapping],
+    'Case status':
+      CaseStatusMapping[formAnswers.type as keyof typeof CaseStatusMapping],
     'Start date': new Date(formAnswers.startDate).toLocaleDateString('en-GB', {
       day: '2-digit',
       month: 'short',
@@ -56,6 +63,14 @@ const ReviewAddCaseStatusForm: React.FC<{
     'Category of child protection plan':
       ChildProtectionCategoryOptions[
         formAnswers.category as keyof typeof ChildProtectionCategoryOptions
+      ],
+    'Legal Status':
+      LACLegalStatusOptions[
+        formAnswers.legalStatus as keyof typeof LACLegalStatusOptions
+      ],
+    'Placement Type':
+      LACPlacementTypeOptions[
+        formAnswers.placementType as keyof typeof LACPlacementTypeOptions
       ],
   };
 
