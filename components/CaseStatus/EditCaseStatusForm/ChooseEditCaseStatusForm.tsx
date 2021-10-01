@@ -38,7 +38,10 @@ const ChooseEditCaseStatusForm: React.FC<{
   ) => {
     try {
       router.push({
-        pathname: `/people/${personId}/case-status/${caseStatusId}/edit/edit`,
+        pathname:
+          values.action == 'update'
+            ? `/people/${personId}/case-status/${caseStatusId}/update/edit`
+            : `/people/${personId}/case-status/${caseStatusId}/edit/edit`,
         query: {
           action: values.action,
           type: caseStatusType,

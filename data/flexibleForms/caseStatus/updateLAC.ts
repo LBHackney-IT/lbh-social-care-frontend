@@ -44,7 +44,7 @@ const form: Form = {
           choices: lac_placement_reason_options,
         },
         {
-          id: 'dateChange',
+          id: 'startDate',
           question: 'When will the change take effect?',
           type: 'date',
           required: true,
