@@ -1,6 +1,6 @@
 import ErrorMessage from 'components/ErrorMessage/ErrorMessage';
 import { useCaseStatuses } from 'utils/api/caseStatus';
-import { Resident, CaseStatusMapping, CaseStatus } from 'types';
+import { Resident, CaseStatusMapping } from 'types';
 import Tip from 'components/Tip/Tip';
 import { format } from 'date-fns';
 import Styles from 'components/CaseStatus/CaseStatusView.module.scss';
@@ -25,18 +25,18 @@ const CaseStatusView = ({ person }: Props): React.ReactElement => {
   return (
     <>
       <div className={Styles.align}>
-        {caseStatuses.map((caseStatus) => (
+        {caseStatuses.map((status) => (
           <Tip
-            key={caseStatus.id}
+            key={status.id}
             interactive={true}
             delay={100}
             content={
               <>
                 <p className={`lbh-body-xs ${Styles.popupTitle}`}>
-                  {caseStatus.type}
+                  {CaseStatusMapping[status.type]}
                 </p>
                 <p className="lbh-body-xs">{`Start date: ${format(
-                  new Date(caseStatus.startDate),
+                  new Date(status.startDate),
                   'dd MMM yyyy'
                 )}`}</p>
                 <a
@@ -47,28 +47,17 @@ const CaseStatusView = ({ person }: Props): React.ReactElement => {
               </>
             }
           >
-            <span className={`${Styles.statusTag}`}>{caseStatus.type}</span>
+            <span
+              className="govuk-tag lbh-tag lbh-tag--yellow govuk-!-margin-right-1 govuk-!-margin-top-2"
+              key={status.id}
+            >
+              {CaseStatusMapping[status.type]}
+            </span>
           </Tip>
         ))}
       </div>
-      {/* {groupByType(caseStatuses).map((status) => (
-        <span
-          className="govuk-tag lbh-tag lbh-tag--yellow govuk-!-margin-right-1 govuk-!-margin-top-2"
-          key={status}
-        >
-          {CaseStatusMapping[status]}
-        </span>
-      ))} */}
     </>
   );
 };
-
-// const valueMapping = new CaseStatusMapping();
-
-function groupByType(
-  allCasesStatues: CaseStatus[]
-): (keyof typeof CaseStatusMapping)[] {
-  return Array.from(new Set(allCasesStatues.map((el) => el.type)));
-}
 
 export default CaseStatusView;
