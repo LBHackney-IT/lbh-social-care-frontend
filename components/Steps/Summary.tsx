@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import Router from 'next/router';
+import { useRouter } from 'next/router';
 
 import Button from 'components/Button/Button';
 import { deleteData } from 'utils/saveData';
@@ -27,6 +27,10 @@ const SummaryStep = ({
 }: Props): React.ReactElement => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [hasError, setHasError] = useState(false);
+
+  const { query, replace } = useRouter();
+  const { redirectUrl } = query;
+
   const onSubmit = async () => {
     setIsSubmitting(true);
     setHasError(false);
@@ -36,7 +40,15 @@ const SummaryStep = ({
         filterDataOnCondition(formSteps, sanitiseObject(formData))
       );
       deleteData(formPath);
-      Router.replace(
+
+      // if there is a custom redirect url specified, go there instead
+      if (
+        redirectUrl &&
+        new URL(redirectUrl as string).host.endsWith('hackney.gov.uk')
+      )
+        return replace(redirectUrl as string);
+
+      replace(
         `${formPath}confirmation${data && data.ref ? `?ref=${data.ref}` : ''}`
       );
     } catch {
