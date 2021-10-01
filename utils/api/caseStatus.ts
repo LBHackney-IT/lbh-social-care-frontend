@@ -3,10 +3,10 @@ import axios from 'axios';
 import useSWR, { SWRResponse } from 'swr';
 
 import type {
-  PersonCaseStatus,
   AddCaseStatusFormData,
   FormFields,
   ErrorAPI,
+  CaseStatus,
 } from 'types';
 
 export const addCaseStatus = async (
@@ -18,10 +18,10 @@ export const addCaseStatus = async (
 
 export const useCaseStatuses = (
   id: number
-): SWRResponse<PersonCaseStatus, ErrorAPI> =>
+): SWRResponse<CaseStatus[], ErrorAPI> =>
   useSWR(`/api/residents/${id}/casestatus`);
 
 export const useFormValues = (
   type: string
 ): SWRResponse<FormFields, ErrorAPI> =>
-  useSWR(`/api/casestatus/form-options/${type}`);
+  useSWR(`/api/casestatus/form-options?type=${type}`);

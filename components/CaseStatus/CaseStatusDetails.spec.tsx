@@ -2,10 +2,7 @@ import { render, fireEvent } from '@testing-library/react';
 import * as caseStatusApi from 'utils/api/caseStatus';
 import CaseStatusDetails from './CaseStatusDetails';
 import { mockedAPIservererror } from 'factories/APIerrors';
-import {
-  mockedCaseStatusFactory,
-  mockedPersonCaseStatusFactory,
-} from 'factories/caseStatus';
+import { mockedCaseStatusFactory } from 'factories/caseStatus';
 import { mockedResident } from 'factories/residents';
 
 jest.mock('next/router', () => ({
@@ -19,10 +16,7 @@ jest.mock('next/router', () => ({
 describe('CaseStatusDetail component', () => {
   it("displays nothing if there's no case status", async () => {
     jest.spyOn(caseStatusApi, 'useCaseStatuses').mockImplementation(() => ({
-      data: mockedPersonCaseStatusFactory.build({
-        personId: mockedResident.id,
-        caseStatuses: [],
-      }),
+      data: [],
       isValidating: false,
       mutate: jest.fn(),
       revalidate: jest.fn(),
@@ -37,15 +31,12 @@ describe('CaseStatusDetail component', () => {
 
   it('displays correctly the start date', async () => {
     jest.spyOn(caseStatusApi, 'useCaseStatuses').mockImplementation(() => ({
-      data: mockedPersonCaseStatusFactory.build({
-        personId: mockedResident.id,
-        caseStatuses: [
-          mockedCaseStatusFactory.build({
-            type: 'CIN',
-            startDate: '2021-09-09',
-          }),
-        ],
-      }),
+      data: [
+        mockedCaseStatusFactory.build({
+          type: 'CIN',
+          startDate: '2021-09-09',
+        }),
+      ],
       isValidating: false,
       mutate: jest.fn(),
       revalidate: jest.fn(),
@@ -61,16 +52,13 @@ describe('CaseStatusDetail component', () => {
 
   it('displays correctly the end date', async () => {
     jest.spyOn(caseStatusApi, 'useCaseStatuses').mockImplementation(() => ({
-      data: mockedPersonCaseStatusFactory.build({
-        personId: mockedResident.id,
-        caseStatuses: [
-          mockedCaseStatusFactory.build({
-            type: 'CIN',
-            startDate: '2021-09-09',
-            endDate: '2021-12-09',
-          }),
-        ],
-      }),
+      data: [
+        mockedCaseStatusFactory.build({
+          type: 'CIN',
+          startDate: '2021-09-09',
+          endDate: '2021-12-09',
+        }),
+      ],
       isValidating: false,
       mutate: jest.fn(),
       revalidate: jest.fn(),
@@ -88,15 +76,12 @@ describe('CaseStatusDetail component', () => {
 
   it('displays the notes of a person when the detail panel is expanded', async () => {
     jest.spyOn(caseStatusApi, 'useCaseStatuses').mockImplementation(() => ({
-      data: mockedPersonCaseStatusFactory.build({
-        personId: mockedResident.id,
-        caseStatuses: [
-          mockedCaseStatusFactory.build({
-            type: 'CIN',
-            notes: 'This is a note',
-          }),
-        ],
-      }),
+      data: [
+        mockedCaseStatusFactory.build({
+          type: 'CIN',
+          notes: 'This is a note',
+        }),
+      ],
       isValidating: false,
       mutate: jest.fn(),
       revalidate: jest.fn(),
@@ -114,19 +99,16 @@ describe('CaseStatusDetail component', () => {
 
   it('displays multiple CIN in case they exist', async () => {
     jest.spyOn(caseStatusApi, 'useCaseStatuses').mockImplementation(() => ({
-      data: mockedPersonCaseStatusFactory.build({
-        personId: mockedResident.id,
-        caseStatuses: [
-          mockedCaseStatusFactory.build({
-            type: 'CIN',
-            notes: 'first note',
-          }),
-          mockedCaseStatusFactory.build({
-            type: 'CIN',
-            notes: 'second note',
-          }),
-        ],
-      }),
+      data: [
+        mockedCaseStatusFactory.build({
+          type: 'CIN',
+          notes: 'first note',
+        }),
+        mockedCaseStatusFactory.build({
+          type: 'CIN',
+          notes: 'first note',
+        }),
+      ],
       isValidating: false,
       mutate: jest.fn(),
       revalidate: jest.fn(),

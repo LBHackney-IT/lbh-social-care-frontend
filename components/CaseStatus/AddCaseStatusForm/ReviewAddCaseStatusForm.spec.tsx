@@ -41,4 +41,38 @@ describe('ReviewAddRelationshipForm', () => {
     expect(getByText('blabla')).toBeInTheDocument();
     expect(getByText('01 Dec 2020')).toBeInTheDocument();
   });
+
+  it('displays type and date when CP is selected', () => {
+    const { getByText } = render(
+      <ReviewAddCaseStatusForm
+        title="Review case status details"
+        personId={mockedResident.id}
+        formAnswers={{
+          type: 'CP',
+          startDate: '2020-12-01',
+          category: 'C1',
+        }}
+      />
+    );
+
+    expect(getByText('Child protection')).toBeInTheDocument();
+    expect(getByText('01 Dec 2020')).toBeInTheDocument();
+  });
+
+  it('displays selected category when CP is selected', () => {
+    const { getByText } = render(
+      <ReviewAddCaseStatusForm
+        title="Review case status details"
+        personId={mockedResident.id}
+        formAnswers={{
+          type: 'CP',
+          startDate: '2020-12-01',
+          category: 'C1',
+        }}
+      />
+    );
+
+    expect(getByText('Neglect')).toBeInTheDocument();
+    expect(getByText('01 Dec 2020')).toBeInTheDocument();
+  });
 });

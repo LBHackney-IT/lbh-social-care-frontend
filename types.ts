@@ -329,11 +329,6 @@ export interface FormFields {
   fields: Array<FormValue>;
 }
 
-export interface PersonCaseStatus {
-  personId: number;
-  caseStatuses: Array<CaseStatus>;
-}
-
 export interface FormOption {
   name: string;
   description: string;
@@ -358,6 +353,13 @@ export class CaseStatusMapping {
   'CIN' = 'Child in need';
   'CP' = 'Child protection';
   'LAC' = 'Looked after child';
+}
+
+export enum ChildProtectionCategoryOptions {
+  C1 = 'Neglect',
+  C2 = 'Physical abuse',
+  C3 = 'Emotional abuse',
+  C4 = 'Sexual abuse',
 }
 
 export interface AddCaseStatusFormData {

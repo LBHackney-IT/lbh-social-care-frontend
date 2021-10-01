@@ -1,9 +1,6 @@
 import ErrorMessage from 'components/ErrorMessage/ErrorMessage';
 import { useCaseStatuses } from 'utils/api/caseStatus';
 import { Resident, CaseStatusMapping } from 'types';
-import Tip from 'components/Tip/Tip';
-import format from 'date-fns/format';
-import Styles from './CaseStatusView.module.scss';
 
 const valueMapping = new CaseStatusMapping();
 
@@ -12,7 +9,7 @@ interface Props {
 }
 
 const CaseStatusView = ({ person }: Props): React.ReactElement => {
-  const { data: caseStatusData, error } = useCaseStatuses(person.id);
+  const { data: caseStatuses, error } = useCaseStatuses(person.id);
 
   if (error) {
     return (
@@ -20,13 +17,13 @@ const CaseStatusView = ({ person }: Props): React.ReactElement => {
     );
   }
 
-  if (!caseStatusData) {
+  if (!caseStatuses) {
     return <></>;
   }
 
   return (
     <>
-      <div className={Styles.align}>
+      {/* <div className={Styles.align}>
         {caseStatusData.caseStatuses.map((caseStatus) => (
           <Tip
             key={caseStatus.id}
@@ -54,7 +51,15 @@ const CaseStatusView = ({ person }: Props): React.ReactElement => {
             </span>
           </Tip>
         ))}
-      </div>
+      </div> */}
+      {/* {groupByType(caseStatuses).map((status) => (
+        <span
+          className="govuk-tag lbh-tag lbh-tag--yellow govuk-!-margin-right-1 govuk-!-margin-top-2"
+          key={status}
+        >
+          {valueMapping[status]}
+        </span>
+      ))} */}
     </>
   );
 };
