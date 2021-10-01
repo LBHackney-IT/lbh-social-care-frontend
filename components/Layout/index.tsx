@@ -6,6 +6,8 @@ import BackButton from './BackButton/BackButton';
 import Footer from './Footer/Footer';
 import OnboardingDialog from 'components/OnboardingDialog';
 import { ConditionalFeature } from 'lib/feature-flags/feature-flags';
+import { User } from 'types';
+import { useAuth } from 'components/UserContext/UserContext';
 
 export interface Props {
   children: React.ReactChild;
@@ -18,6 +20,8 @@ const Layout = ({
   goBackButton = false,
   noLayout = false,
 }: Props): React.ReactElement => {
+  const { user } = useAuth() as { user: User };
+
   if (noLayout) return <>{children}</>;
 
   const feedbackLink = process.env.NEXT_PUBLIC_FEEDBACK_LINK || '';
@@ -37,7 +41,7 @@ const Layout = ({
       </div>
 
       <ConditionalFeature name="workflows-pilot">
-        <OnboardingDialog />
+        {user.isInWorkflowsPilot && <OnboardingDialog />}
       </ConditionalFeature>
 
       <Footer />
