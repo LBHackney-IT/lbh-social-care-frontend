@@ -254,8 +254,9 @@ describe('<AddWarningNoteForm />', () => {
 
       await waitFor(() => {
         expect(Router.push).toHaveBeenCalledWith(
-          '/people/[id]/warning-notes/add/[[...stepId]]',
-          '/people/100/warning-notes/add/summary'
+          expect.objectContaining({
+            pathname: '/people/100/warning-notes/add/summary',
+          })
         );
       });
     });
