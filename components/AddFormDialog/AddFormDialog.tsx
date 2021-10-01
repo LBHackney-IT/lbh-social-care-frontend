@@ -97,7 +97,7 @@ const AddFormDialog = ({
             )
         ),
 
-    [gForms, serviceContext, user, person]
+    [gForms, serviceContext, user, person, isFeatureActive]
   );
 
   const results = useSearch(
