@@ -48,4 +48,24 @@ describe('case status APIs', () => {
       });
     });
   });
+
+  describe('patchCaseStatus', () => {
+    it("calls the service API's PATCH case status endpoint", async () => {
+      const caseStatusId = 123;
+      mockedAxios.patch.mockResolvedValue({ data: {} });
+
+      await caseStatusAPI.patchCaseStatus(caseStatusId, {
+        data: mockedCaseStatusAddRequest,
+      });
+
+      expect(mockedAxios.patch).toHaveBeenCalled();
+      expect(mockedAxios.patch.mock.calls[0][0]).toEqual(
+        `${ENDPOINT_API}/residents/case-statuses/${caseStatusId}/`
+      );
+      expect(mockedAxios.patch.mock.calls[0][2]?.headers).toEqual({
+        'Content-Type': 'application/json',
+        'x-api-key': AWS_KEY,
+      });
+    });
+  });
 });

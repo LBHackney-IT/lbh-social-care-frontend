@@ -5,7 +5,7 @@ exports[`ExpandDetails should render properly 1`] = `
   <section
     class="lbh-collapsible govuk-!-margin-bottom-8"
   >
-    <a
+    <span
       aria-expanded="false"
       class="lbh-collapsible__button null"
       data-testid="expand_details"
@@ -20,7 +20,7 @@ exports[`ExpandDetails should render properly 1`] = `
       >
         Show guidance
       </span>
-    </a>
+    </span>
   </section>
 </DocumentFragment>
 `;

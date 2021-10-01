@@ -26,18 +26,16 @@ const CaseStatusView = ({ person }: Props): React.ReactElement => {
           className="govuk-tag lbh-tag lbh-tag--yellow govuk-!-margin-right-1 govuk-!-margin-top-2"
           key={status}
         >
-          {valueMapping[status]}
+          {CaseStatusMapping[status]}
         </span>
       ))}
     </>
   );
 };
 
-const valueMapping = new CaseStatusMapping();
-
 function groupByType(
   allCasesStatues: CaseStatus[]
-): (keyof typeof valueMapping)[] {
+): (keyof typeof CaseStatusMapping)[] {
   return Array.from(new Set(allCasesStatues.map((el) => el.type)));
 }
 
