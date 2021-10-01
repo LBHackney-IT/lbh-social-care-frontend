@@ -69,7 +69,6 @@
     "@types/jsonwebtoken": "^8.5.1",
     "@types/lodash.debounce": "^4.0.6",
     "@types/react": "^17.0.5",
-    "@types/react-beforeunload": "^2.1.1",
     "@typescript-eslint/eslint-plugin": "^4.22.1",
     "@typescript-eslint/parser": "^4.22.1",
     "babel-eslint": "^10.1.0",
