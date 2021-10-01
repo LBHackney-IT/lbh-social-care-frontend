@@ -3,10 +3,7 @@ import Router from 'next/router';
 import { useBeforeunload } from 'react-beforeunload';
 import FormWizard from './FormWizard';
 
-const query: {
-  stepId: string[];
-  redirectUrl?: string;
-} = {
+const query = {
   stepId: ['1'],
 };
 
