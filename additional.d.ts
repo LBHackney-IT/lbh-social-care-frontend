@@ -10,6 +10,7 @@ declare global {
       AUTHORISED_ALLOCATORS_GROUP: string;
       AUTHORISED_UNRESTRICTED_GROUP: string;
       AUTHORISED_AUDITABLE_GROUP: string;
+      AUTHORISED_WORKFLOWS_PILOT_GROUP: string;
     }
   }
 
