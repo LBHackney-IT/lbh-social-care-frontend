@@ -5,6 +5,7 @@ import PhaseBanner from './PhaseBanner/PhaseBanner';
 import BackButton from './BackButton/BackButton';
 import Footer from './Footer/Footer';
 import OnboardingDialog from 'components/OnboardingDialog';
+import { ConditionalFeature } from 'lib/feature-flags/feature-flags';
 
 export interface Props {
   children: React.ReactChild;
@@ -20,6 +21,7 @@ const Layout = ({
   if (noLayout) return <>{children}</>;
 
   const feedbackLink = process.env.NEXT_PUBLIC_FEEDBACK_LINK || '';
+
   return (
     <>
       <Seo title="Social Care Admin - Hackney Council" />
@@ -34,7 +36,9 @@ const Layout = ({
         </main>
       </div>
 
-      <OnboardingDialog />
+      <ConditionalFeature name="workflows-pilot">
+        <OnboardingDialog />
+      </ConditionalFeature>
 
       <Footer />
     </>
