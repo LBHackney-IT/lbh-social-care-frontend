@@ -37,26 +37,7 @@ describe('CaseStatusView component', () => {
     expect(queryByText('Child in need')).toBeInTheDocument();
   });
 
-  it('displays only one "CIN" in case they are multiple', async () => {
-    jest.spyOn(caseStatusApi, 'useCaseStatuses').mockImplementation(() => ({
-      data: [
-        mockedCaseStatusFactory.build({
-          type: 'CIN',
-        }),
-        mockedCaseStatusFactory.build({
-          type: 'CIN',
-        }),
-      ],
-      isValidating: false,
-      mutate: jest.fn(),
-      revalidate: jest.fn(),
-    }));
-    const { queryByText } = render(<CaseStatusView person={person} />);
-
-    expect(queryByText('Child in need')).toBeInTheDocument();
-  });
-
-  it('displays only one "CIN", one "CP" and one "LAC"', async () => {
+  it('displays "CIN", "CP" and "LAC"', async () => {
     jest.spyOn(caseStatusApi, 'useCaseStatuses').mockImplementation(() => ({
       data: [
         mockedCaseStatusFactory.build({
