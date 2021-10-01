@@ -2,7 +2,11 @@ import AddFormDialog from './AddFormDialog';
 import { render, screen, fireEvent } from '@testing-library/react';
 import { mockedResident } from 'factories/residents';
 import { AuthProvider } from 'components/UserContext/UserContext';
-import { mockedUser, mockedAdminUser } from 'factories/users';
+import {
+  mockedUser,
+  mockedAdminUser,
+  mockedUserInWorkflowsPilot,
+} from 'factories/users';
 import ADULT_GFORMS from 'data/googleForms/adultForms';
 import CHILD_GFORMS from 'data/googleForms/childForms';
 import 'data/flexibleForms';
@@ -192,51 +196,79 @@ describe('AddFormDialog', () => {
     ).toBeGreaterThan(0);
   });
 
-  it('does not display link for workflows if feature flag is off', () => {
-    render(
-      <AuthProvider user={mockedUser}>
-        <FeatureFlagProvider
-          features={{
-            'workflows-pilot': {
-              isActive: false,
-            },
-          }}
-        >
-          <AddFormDialog
-            isOpen={true}
-            onDismiss={jest.fn()}
-            person={mockedResident}
-          />
-        </FeatureFlagProvider>
-      </AuthProvider>
-    );
+  describe('when workflows pilot feature flag is on', () => {
+    it('displays link for workflows if user is in workflows pilot', () => {
+      render(
+        <AuthProvider user={mockedUserInWorkflowsPilot}>
+          <FeatureFlagProvider
+            features={{
+              'workflows-pilot': {
+                isActive: true,
+              },
+            }}
+          >
+            <AddFormDialog
+              isOpen={true}
+              onDismiss={jest.fn()}
+              person={mockedResident}
+            />
+          </FeatureFlagProvider>
+        </AuthProvider>
+      );
 
-    expect(
-      screen.queryByText('Assessment, support plan or workflow')
-    ).not.toBeInTheDocument();
+      expect(
+        screen.queryByText('Assessment, support plan or workflow')
+      ).toBeVisible();
+    });
+
+    it('does not display link for workflows if user is not in workflows pilot', () => {
+      render(
+        <AuthProvider user={mockedUser}>
+          <FeatureFlagProvider
+            features={{
+              'workflows-pilot': {
+                isActive: true,
+              },
+            }}
+          >
+            <AddFormDialog
+              isOpen={true}
+              onDismiss={jest.fn()}
+              person={mockedResident}
+            />
+          </FeatureFlagProvider>
+        </AuthProvider>
+      );
+
+      expect(
+        screen.queryByText('Assessment, support plan or workflow')
+      ).not.toBeInTheDocument();
+    });
   });
 
-  it('displays link for workflows if feature flag is on', () => {
-    render(
-      <AuthProvider user={mockedUser}>
-        <FeatureFlagProvider
-          features={{
-            'workflows-pilot': {
-              isActive: true,
-            },
-          }}
-        >
-          <AddFormDialog
-            isOpen={true}
-            onDismiss={jest.fn()}
-            person={mockedResident}
-          />
-        </FeatureFlagProvider>
-      </AuthProvider>
-    );
+  describe('when workflows pilot feature flag is off', () => {
+    it('does not display link for workflows if feature flag is off', () => {
+      render(
+        <AuthProvider user={mockedUser}>
+          <FeatureFlagProvider
+            features={{
+              'workflows-pilot': {
+                isActive: false,
+              },
+            }}
+          >
+            <AddFormDialog
+              isOpen={true}
+              onDismiss={jest.fn()}
+              person={mockedResident}
+            />
+          </FeatureFlagProvider>
+        </AuthProvider>
+      );
 
-    expect(
-      screen.queryByText('Assessment, support plan or workflow')
-    ).toBeVisible();
+      expect(
+        screen.queryByText('Assessment, support plan or workflow')
+      ).not.toBeInTheDocument();
+    });
   });
 });

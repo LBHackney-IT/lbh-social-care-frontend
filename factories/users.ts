@@ -32,3 +32,7 @@ export const mockedAdminUser = userFactory.build({
 });
 
 export const mockedUser = userFactory.build();
+
+export const mockedUserInWorkflowsPilot = userFactory.build({
+  isInWorkflowsPilot: true,
+});

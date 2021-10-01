@@ -7,7 +7,6 @@ import s from './AddFormDialog.module.scss';
 import Link from 'next/link';
 import { useMemo, useEffect } from 'react';
 import { useAuth } from 'components/UserContext/UserContext';
-
 import ADULT_GFORMS from 'data/googleForms/adultForms';
 import CHILD_GFORMS from 'data/googleForms/childForms';
 import flexibleForms from 'data/flexibleForms';
@@ -84,7 +83,7 @@ const AddFormDialog = ({
               inPreview: false,
             }))
             .concat(
-              isFeatureActive('workflows-pilot')
+              isFeatureActive('workflows-pilot') && user.isInWorkflowsPilot
                 ? {
                     label: 'Assessment, support plan or workflow',
                     href: `${process.env.NEXT_PUBLIC_WORKFLOWS_PILOT_URL}/workflows/new?social_care_id=${person.id}`,
