@@ -1,13 +1,13 @@
 import ErrorMessage from 'components/ErrorMessage/ErrorMessage';
-import { GetCaseStatus } from 'utils/api/caseStatus';
-import { Resident, CaseStatus } from 'types';
+import { useCaseStatuses } from 'utils/api/caseStatus';
+import { Resident, CaseStatus, CaseStatusMapping } from 'types';
 
 interface Props {
   person: Resident;
 }
 
 const CaseStatusView = ({ person }: Props): React.ReactElement => {
-  const { data: caseStatusData, error } = GetCaseStatus(person.id);
+  const { data: caseStatuses, error } = useCaseStatuses(person.id);
 
   if (error) {
     return (
@@ -15,18 +15,18 @@ const CaseStatusView = ({ person }: Props): React.ReactElement => {
     );
   }
 
-  if (!caseStatusData) {
+  if (!caseStatuses) {
     return <></>;
   }
 
   return (
     <>
-      {groupByType(caseStatusData.caseStatuses).map((status) => (
+      {groupByType(caseStatuses).map((status) => (
         <span
           className="govuk-tag lbh-tag lbh-tag--yellow govuk-!-margin-right-1 govuk-!-margin-top-2"
           key={status}
         >
-          {valueMapping[status]}
+          {CaseStatusMapping[status]}
         </span>
       ))}
     </>
@@ -35,14 +35,8 @@ const CaseStatusView = ({ person }: Props): React.ReactElement => {
 
 function groupByType(
   allCasesStatues: CaseStatus[]
-): (keyof typeof valueMapping)[] {
+): (keyof typeof CaseStatusMapping)[] {
   return Array.from(new Set(allCasesStatues.map((el) => el.type)));
 }
-
-const valueMapping = {
-  CIN: 'Child in need',
-  CPP: 'Child protection services',
-  LAC: 'Looked after child',
-};
 
 export default CaseStatusView;

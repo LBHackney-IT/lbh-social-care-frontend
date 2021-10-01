@@ -29,77 +29,26 @@ exports[`<AddWarningNoteForm /> for a childrens resident should render the warni
             <h2>
               Warning types
             </h2>
-            <details
-              class="govuk-details"
-              data-module="govuk-details"
+            <section
+              class="lbh-collapsible govuk-!-margin-bottom-8"
             >
-              <summary
-                class="summary"
+              <span
+                aria-expanded="false"
+                class="lbh-collapsible__button null"
+                data-testid="expand_details"
               >
-                <h3>
+                <h2
+                  class="lbh-heading-h2 lbh-collapsible__heading"
+                >
                   Guidance on types
-                </h3>
+                </h2>
                 <span
                   class="govuk-link govuk-link--underline trigger"
                 >
                   Show guidance
                 </span>
-              </summary>
-              <div
-                class="content"
-              >
-                <div>
-                  <p>
-                    <strong>
-                      Adult who poses risk to children
-                    </strong>
-                     - in cases where there may be contact with an adult who either does or does not live in the home, could be a family member etc, for example, cases where there is a risk of abuse but the perpertrator has never been convicted
-                  </p>
-                  <p>
-                    <strong>
-                      Do not disclose information
-                    </strong>
-                     - information should not be disclosed without the consent of a social worker or parent, for example, address, names, phone numbers, date of birth, school, GP or that they have a social worker
-                  </p>
-                  <p>
-                    <strong>
-                      Contact arrangement in place
-                    </strong>
-                     - this includes court directed contact arrangements for a child and parent(s) or family arranged contact
-                  </p>
-                  <p>
-                    <strong>
-                      Extrafamilial harm
-                    </strong>
-                     - Child criminal exploitation (CCE), Child sexual exploitation (CSE) or Gang affiliation
-                  </p>
-                  <p>
-                    <strong>
-                      MARAC case
-                    </strong>
-                     - high risk domestic violence cases
-                  </p>
-                  <p>
-                    <strong>
-                      Protection order in place
-                    </strong>
-                     - Domestic violence cases where there are court orders in place i.e. non-molestation, Prohibited Steps order etc
-                  </p>
-                  <p>
-                    <strong>
-                      Risk of home environment
-                    </strong>
-                     - dangerous dogs, drugs users/needles etc
-                  </p>
-                  <p>
-                    <strong>
-                      Risk posed to worker
-                    </strong>
-                     - if parents have ever assaulted a professional etc
-                  </p>
-                </div>
-              </div>
-            </details>
+              </span>
+            </section>
           </div>
           <div
             class="govuk-form-group"
@@ -741,138 +690,26 @@ exports[`<AddWarningNoteForm /> for an adults resident should render the warning
             <h2>
               Warning types
             </h2>
-            <details
-              class="govuk-details"
-              data-module="govuk-details"
+            <section
+              class="lbh-collapsible govuk-!-margin-bottom-8"
             >
-              <summary
-                class="summary"
+              <span
+                aria-expanded="false"
+                class="lbh-collapsible__button null"
+                data-testid="expand_details"
               >
-                <h3>
+                <h2
+                  class="lbh-heading-h2 lbh-collapsible__heading"
+                >
                   Guidance on types
-                </h3>
+                </h2>
                 <span
                   class="govuk-link govuk-link--underline trigger"
                 >
                   Show guidance
                 </span>
-              </summary>
-              <div
-                class="content"
-              >
-                <div>
-                  <h4>
-                    Risk to Children
-                  </h4>
-                  Someone who has been:
-                  <ul>
-                    <li>
-                      identified within the Multi-Agency Public Protection Arrangements (
-                      <a
-                        class="govuk-link"
-                        href="https://mappa.justice.gov.uk/connect.ti/MAPPA/grouphome"
-                        rel="noreferrer"
-                        target="_blank"
-                      >
-                        MAPPA
-                      </a>
-                      ) as presenting a significant risk of harm to children
-                    </li>
-                    <li>
-                      convicted of an offence against a child
-                    </li>
-                    <li>
-                      found to have harmed a child or to present a risk of significant harm to a child in a civil court, usually through family Court Proceedings
-                    </li>
-                    <li>
-                      identified within a multi-agency risk assessment conference (
-                      <a
-                        class="govuk-link"
-                        href="https://hackney.gov.uk/domestic-violence/#marac"
-                        rel="noreferrer"
-                        target="_blank"
-                      >
-                        MARAC
-                      </a>
-                      ) as presenting a risk to children.
-                    </li>
-                  </ul>
-                </div>
-                <div>
-                  <h4>
-                    Risk to Adults
-                  </h4>
-                  Someone who has been identified within:
-                  <ul>
-                    <li>
-                      Multi-Agency Public Protection Arrangements (
-                      <a
-                        class="govuk-link"
-                        href="https://mappa.justice.gov.uk/connect.ti/MAPPA/grouphome"
-                        rel="noreferrer"
-                        target="_blank"
-                      >
-                        MAPPA
-                      </a>
-                      ) as presenting a risk of significant harm to another adult or adults
-                    </li>
-                    <li>
-                      a Multi-Agency Risk Assessment Conference (
-                      <a
-                        class="govuk-link"
-                        href="https://hackney.gov.uk/domestic-violence/#marac"
-                        rel="noreferrer"
-                        target="_blank"
-                      >
-                        MARAC
-                      </a>
-                      ) as presenting a risk of significant harm to another adult or adults.
-                    </li>
-                  </ul>
-                </div>
-                <div>
-                  <h4>
-                    Adult at Risk
-                  </h4>
-                  Someone who is currently subject to a Safeguarding Adults Action Plan within an active Adult Safeguarding process.
-                </div>
-                <div>
-                  <h4>
-                    Risk to Staff
-                  </h4>
-                  This category should be applied when the behaviour of a service user poses specific risks to staff members and/or service providers. This category can also be applied when the risk is being posed by other family members or associates. It includes:
-                  <ul>
-                    <li>
-                       Risk of assualt
-                    </li>
-                    <li>
-                      Risk of verbal abuse or harrassment (sexual, racial, religious, disability etc)
-                    </li>
-                    <li>
-                      Significant risk because of pets, livestock or pests.
-                    </li>
-                  </ul>
-                </div>
-                <div>
-                  <h4>
-                    Disclosure Risk
-                  </h4>
-                  This category can apply in situations where disclosing informatin about the service user or their family may place them at risk from others eg domestic abuse.
-                </div>
-                <div>
-                  <h4>
-                    Risk to Self
-                  </h4>
-                  Those individuals who have been identified by an appropriately qualified health professional as being at significant risk of suicide, self-harm or self-neglect.
-                </div>
-                <div>
-                  <h4>
-                    Missing Person
-                  </h4>
-                  Vulnerable individuals who have been notified as missing.
-                </div>
-              </div>
-            </details>
+              </span>
+            </section>
           </div>
           <div
             class="govuk-form-group"
@@ -1212,30 +1049,26 @@ exports[`<AddWarningNoteForm /> for an adults resident should render the warning
             <h2>
               Disclosure of Warning Note to the individual
             </h2>
-            <details
-              class="govuk-details"
-              data-module="govuk-details"
+            <section
+              class="lbh-collapsible govuk-!-margin-bottom-8"
             >
-              <summary
-                class="summary"
+              <span
+                aria-expanded="false"
+                class="lbh-collapsible__button null"
+                data-testid="expand_details"
               >
-                <h3>
+                <h2
+                  class="lbh-heading-h2 lbh-collapsible__heading"
+                >
                   Guidance on disclosure
-                </h3>
+                </h2>
                 <span
                   class="govuk-link govuk-link--underline trigger"
                 >
                   Show guidance
                 </span>
-              </summary>
-              <div
-                class="content"
-              >
-                <div>
-                  The Data Protection Act 2018 gives individuals the right to request access to the personal data held about them (Subject Access Request). Where there is a Warning Note against an individual's record, this should be disclosed to the individual. However, in exceptional circumstances revealing the existence of, or reasons for, the Warning Indicator may also lead to a substantial risk to staff or other individuals. Justification and evidence for non-disclosure must be recorded in these circumstances. In such cases advice should be sought from Data Protection Officer.
-                </div>
-              </div>
-            </details>
+              </span>
+            </section>
           </div>
           <div
             class="govuk-form-group"
@@ -1298,44 +1131,26 @@ exports[`<AddWarningNoteForm /> for an adults resident should render the warning
             <h2>
               Warning narrative and risks
             </h2>
-            <details
-              class="govuk-details"
-              data-module="govuk-details"
+            <section
+              class="lbh-collapsible govuk-!-margin-bottom-8"
             >
-              <summary
-                class="summary"
+              <span
+                aria-expanded="false"
+                class="lbh-collapsible__button null"
+                data-testid="expand_details"
               >
-                <h3>
+                <h2
+                  class="lbh-heading-h2 lbh-collapsible__heading"
+                >
                   Guidance on narrative and risks
-                </h3>
+                </h2>
                 <span
                   class="govuk-link govuk-link--underline trigger"
                 >
                   Show guidance
                 </span>
-              </summary>
-              <div
-                class="content"
-              >
-                <div>
-                  This case note provides the context of the warning and should contain:
-                  <ul>
-                    <li>
-                      a description of incidents that occur that may put a member of staff, or any other person at risk
-                    </li>
-                    <li>
-                      a statement of the reasons for identifying that an individual is a risk
-                    </li>
-                    <li>
-                      a statement about the risks to staff (e.g. 2 workers visit only)
-                    </li>
-                    <li>
-                      details of possible incident triggers and relevant safety recommendations for members of staff.
-                    </li>
-                  </ul>
-                </div>
-              </div>
-            </details>
+              </span>
+            </section>
           </div>
           <div
             class="govuk-form-group"

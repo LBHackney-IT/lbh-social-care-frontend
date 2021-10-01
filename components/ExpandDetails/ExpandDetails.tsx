@@ -2,12 +2,15 @@ import { useState } from 'react';
 import cx from 'classnames';
 
 import styles from './ExpandDetails.module.scss';
+import DownArrow from '../Icons/DownArrow';
 
 export interface Props {
-  label: string;
-  triggerLabel?: string;
+  label: string | React.ReactNode;
   children: React.ReactChild;
+  triggerLabel?: string;
+  buttonLabel?: boolean;
   isDefaultOpen?: boolean;
+  link?: React.ReactNode;
 }
 
 const ExpandDetails = ({
@@ -15,24 +18,38 @@ const ExpandDetails = ({
   triggerLabel,
   children,
   isDefaultOpen = false,
+  link,
 }: Props): React.ReactElement => {
-  const [isOpen, setIsOpen] = useState<boolean>(isDefaultOpen);
+  const [open, setOpen] = useState<boolean>(isDefaultOpen);
+
   return (
-    <details
-      className="govuk-details"
-      data-module="govuk-details"
-      open={isDefaultOpen}
-    >
-      <summary className={styles.summary} onClick={() => setIsOpen(!isOpen)}>
-        <h3>{label}</h3>
-        <span
-          className={cx('govuk-link', 'govuk-link--underline', styles.trigger)}
-        >
-          {isOpen ? 'Hide' : 'Show'} {triggerLabel}
-        </span>
-      </summary>
-      <div className={styles.content}>{children}</div>
-    </details>
+    <section className="lbh-collapsible govuk-!-margin-bottom-8">
+      <span
+        onClick={() => setOpen(!open)}
+        aria-expanded={open}
+        className={`lbh-collapsible__button ${
+          triggerLabel ? null : styles.noBorder
+        }`}
+        data-testid="expand_details"
+      >
+        <h2 className="lbh-heading-h2 lbh-collapsible__heading">{label}</h2>
+        {link ? <span className={styles.linkStyle}> {link} </span> : <></>}
+        {triggerLabel ? (
+          <span
+            className={cx(
+              'govuk-link',
+              'govuk-link--underline',
+              styles.trigger
+            )}
+          >
+            {open ? 'Hide' : 'Show'} {triggerLabel}
+          </span>
+        ) : (
+          <DownArrow />
+        )}
+      </span>
+      {open && <div className="lbh-collapsible__content">{children}</div>}
+    </section>
   );
 };
 

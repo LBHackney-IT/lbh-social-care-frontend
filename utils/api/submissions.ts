@@ -23,12 +23,14 @@ export const useSubmission = (
 
 /** fetch unfinished submissions in the user's current service context, either for everyone, or by social care id */
 export const useUnfinishedSubmissions = (
-  socialCareId: number
+  socialCareId: number,
+  page: number,
+  size: number
 ): SWRResponse<Paginated<InProgressSubmission>, ErrorAPI> => {
   const personIdQuery = `&personID=${socialCareId}`;
 
   const res: SWRResponse<Paginated<InProgressSubmission>, ErrorAPI> = useSWR(
-    `/api/submissions?page=1&size=5${personIdQuery}&submissionStates=in_progress`
+    `/api/submissions?page=${page}&size=${size}${personIdQuery}&submissionStates=in_progress`
   );
 
   return res;

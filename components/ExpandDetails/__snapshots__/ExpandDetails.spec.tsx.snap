@@ -2,29 +2,25 @@
 
 exports[`ExpandDetails should render properly 1`] = `
 <DocumentFragment>
-  <details
-    class="govuk-details"
-    data-module="govuk-details"
+  <section
+    class="lbh-collapsible govuk-!-margin-bottom-8"
   >
-    <summary
-      class="summary"
+    <span
+      aria-expanded="false"
+      class="lbh-collapsible__button null"
+      data-testid="expand_details"
     >
-      <h3>
+      <h2
+        class="lbh-heading-h2 lbh-collapsible__heading"
+      >
         Show intructions
-      </h3>
+      </h2>
       <span
         class="govuk-link govuk-link--underline trigger"
       >
         Show guidance
       </span>
-    </summary>
-    <div
-      class="content"
-    >
-      <p>
-        I am the content!
-      </p>
-    </div>
-  </details>
+    </span>
+  </section>
 </DocumentFragment>
 `;

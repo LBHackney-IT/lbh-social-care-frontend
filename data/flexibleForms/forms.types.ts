@@ -46,6 +46,8 @@ export interface Field {
   // multiple?: boolean
   /**for date inputs that are not allowed to be set in the future */
   isfutureDateValid?: boolean;
+  /**for date inputs that are not allowed to be set in the past before the specified date */
+  startDate?: string;
 }
 
 interface Condition {
@@ -108,8 +110,27 @@ export interface FlexibleAnswers {
 
 export type InProgressSubmission = Omit<
   Submission,
-  'formAnswers' | 'editHistory'
->;
+  | 'formAnswers'
+  | 'editHistory'
+  | 'workers'
+  | 'submittedBy'
+  | 'createdBy'
+  | 'submittedBy'
+  | 'submittedAt'
+  | 'residents'
+  | 'approvedBy'
+  | 'approvedAt'
+  | 'panelApprovedBy'
+  | 'panelApprovedAt'
+  | 'tags'
+> & {
+  workers: Pick<Worker, 'email'>[];
+  createdBy: Pick<Worker, 'email'>;
+  residents: Pick<
+    Resident,
+    'id' | 'ageContext' | 'firstName' | 'lastName' | 'restricted'
+  >[];
+};
 
 export enum SubmissionState {
   InProgress = 'In progress',
@@ -138,10 +159,7 @@ export interface Submission {
   tags?: string[];
   lastEdited: string;
   completedSteps: number;
-}
-
-export interface SubmissionWithForm extends Submission {
-  form?: Form;
+  title?: string;
 }
 
 export interface Revision {

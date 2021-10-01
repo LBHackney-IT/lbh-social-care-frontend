@@ -17,6 +17,16 @@
   }
 }
 
+.linkStyle {
+  margin: auto;
+  margin-right: 10px;
+}
+
+.noBorder {
+  border-bottom: unset;
+  padding-bottom: unset;
+}
+
 .trigger {
   cursor: pointer;
 }

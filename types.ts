@@ -329,11 +329,6 @@ export interface FormFields {
   fields: Array<FormValue>;
 }
 
-export interface PersonCaseStatus {
-  personId: number;
-  caseStatuses: Array<CaseStatus>;
-}
-
 export interface FormOption {
   name: string;
   description: string;
@@ -347,11 +342,49 @@ export interface CaseStatusFields {
 
 export interface CaseStatus {
   id: number;
-  type: 'CIN' | 'CPP' | 'LAC';
+  type: 'CIN' | 'CP' | 'LAC';
   fields: Array<CaseStatusFields>;
   startDate: string;
   endDate: string;
   notes: string;
+}
+
+export enum CaseStatusMapping {
+  CIN = 'Child in need',
+  CP = 'Child protection',
+  LAC = 'Looked after child',
+}
+
+export enum ChildProtectionCategoryOptions {
+  C1 = 'Neglect',
+  C2 = 'Physical abuse',
+  C3 = 'Emotional abuse',
+  C4 = 'Sexual abuse',
+}
+
+export interface AddCaseStatusFormData {
+  personId: number;
+  type: string;
+  fields?: CaseStatusFormValue[];
+  startDate: string;
+  endDate?: string;
+  notes: string;
+  createdby: string;
+}
+
+export interface CaseStatusFormValue {
+  name: string;
+  selected: string;
+}
+
+export interface EditCaseStatusFormData {
+  personId: number;
+  caseStatusID: number;
+  values?: CaseStatusFormValue[];
+  startDate?: string;
+  endDate?: string;
+  notes?: string;
+  editedBy: string;
 }
 
 export interface Paginated<T> {
