@@ -66,7 +66,7 @@ describe('AddCaseStatusForm - CIN', () => {
 });
 
 describe('AddCaseStatusForm - CP', () => {
-  it('displays the form', () => {
+  it('displays CP type option in the form', () => {
     const { getByText } = render(
       <AddCaseStatusForm personId={mockedResident.id} prefilledFields={{}} />
     );
@@ -122,5 +122,57 @@ describe('AddCaseStatusForm - CP', () => {
     expect(getByText('Child protection')).toBeInTheDocument();
     expect(getByText('Start Date')).toBeInTheDocument();
     expect(getByText('Neglect')).toBeInTheDocument();
+  });
+
+  describe('AddCaseStatusForm - LAC', () => {
+    it('displays LAC type option in the form', () => {
+      const { getByText } = render(
+        <AddCaseStatusForm personId={mockedResident.id} prefilledFields={{}} />
+      );
+
+      expect(getByText('Looked after child')).toBeInTheDocument();
+    });
+
+    it('does not display the 2 select drop downs unless LAC radio button is clicked on the form', () => {
+      const { queryByText } = render(
+        <AddCaseStatusForm personId={mockedResident.id} prefilledFields={{}} />
+      );
+
+      expect(
+        queryByText("What is the child's legal status?")
+      ).not.toBeInTheDocument();
+      expect(
+        queryByText('What is the placement type?')
+      ).not.toBeInTheDocument();
+    });
+
+    it('should enable the drop down elements when LAC is selected', () => {
+      const { getByTestId } = render(
+        <AddCaseStatusForm
+          personId={mockedResident.id}
+          prefilledFields={{
+            type: 'LAC',
+            startDate: '2020-01-01',
+          }}
+        />
+      );
+
+      expect(getByTestId('legalStatus')).not.toBeDisabled();
+      expect(getByTestId('placementType')).not.toBeDisabled();
+    });
+
+    it('displays start date and drop down questions when LAC is selected', () => {
+      const { getByText } = render(
+        <AddCaseStatusForm personId={mockedResident.id} prefilledFields={{}} />
+      );
+
+      fireEvent.click(getByText('Looked after child'));
+
+      expect(getByText('Start Date')).toBeInTheDocument();
+      expect(
+        getByText("What is the child's legal status?")
+      ).toBeInTheDocument();
+      expect(getByText('What is the placement type?')).toBeInTheDocument();
+    });
   });
 });
