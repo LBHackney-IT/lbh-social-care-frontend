@@ -15,11 +15,7 @@ const ChooseEditCaseStatusForm: React.FC<{
 }> = ({ personId, caseStatusId, prefilledValue, caseStatusType }) => {
   const router = useRouter();
 
-  let form_fields: any;
-
-  caseStatusType == 'LAC'
-    ? (form_fields = CASE_STATUS.steps[1].fields)
-    : (form_fields = CASE_STATUS.steps[0].fields);
+  const form_fields = CASE_STATUS.steps[0].fields;
 
   form_fields.map((field: any) => {
     if (prefilledValue) {
