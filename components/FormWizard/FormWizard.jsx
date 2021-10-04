@@ -2,7 +2,6 @@ import { useState } from 'react';
 import PropTypes from 'prop-types';
 import Router, { useRouter } from 'next/router';
 import { useBeforeunload } from 'react-beforeunload';
-
 import Seo from 'components/Layout/Seo/Seo';
 import DynamicStep from 'components/FormWizard/DynamicStep';
 import Breadcrumbs from 'components/Breadcrumbs/Breadcrumbs';
@@ -31,10 +30,17 @@ const FormWizard = ({
   Router.events.on('routeChangeComplete', () => {
     window.scrollTo(0, 0);
   });
-  useBeforeunload(() => "You'll lose your data!");
+
   const {
-    query: { stepId, fromSummary, continueForm, ...otherQS },
+    asPath,
+    query: { stepId, fromSummary, continueForm, redirectUrl, ...otherQS },
   } = useRouter();
+
+  useBeforeunload(() => {
+    if (redirectUrl && asPath.includes('/summary')) return false;
+    return "You'll lose your data!";
+  });
+
   const [formData, setFormData] = useState({
     ...defaultValues,
     ...otherQS,
@@ -114,9 +120,11 @@ const FormWizard = ({
             ) {
               Router.push(stepPath, `${formPath}summary`);
             } else {
-              Router.push(
-                stepPath,
-                addAnother
+              let nextQuery = {};
+              if (redirectUrl) nextQuery.redirectUrl = redirectUrl;
+
+              Router.push({
+                pathname: addAnother
                   ? `${formPath}${stepId[0]}/${
                       updatedData[Object.keys(data)[0]]?.length + 1 || 2
                     }`
@@ -125,8 +133,9 @@ const FormWizard = ({
                       steps,
                       formPath,
                       updatedData
-                    )
-              );
+                    ),
+                query: nextQuery,
+              });
             }
           }}
           onSaveAndExit={(data) => {
