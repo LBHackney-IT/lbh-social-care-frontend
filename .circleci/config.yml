@@ -116,6 +116,7 @@ jobs:
               docker run -t owasp/zap2docker-stable zap-baseline.py \
               -u https://raw.githubusercontent.com/${CIRCLE_PROJECT_USERNAME}/${CIRCLE_PROJECT_REPONAME}/${CIRCLE_BRANCH}/zap-baseline.conf \
               -t http://$(ip -f inet -o addr show docker0 | awk '{print $4}' | cut -d '/' -f 1):3000 || \
+              -j \
               if [[ $? == 0 || $? == 2 ]]; then exit 0; else exit 1; fi;
             )
 
