@@ -7,8 +7,8 @@ import {
   CaseStatusMapping,
 } from 'types';
 import styles from './CaseStatusDetails.module.scss';
-import ExpandDetails from 'components/ExpandDetails/ExpandDetails';
 import Link from 'next/link';
+import s from 'stylesheets/Section.module.scss';
 
 interface Props {
   person: Resident;
@@ -28,101 +28,98 @@ const CaseStatusDetails = ({ person }: Props): React.ReactElement => {
   }
   return (
     <>
-      <div>
-        <h2 style={{ fontSize: '24px' }}>Case statuses</h2>
+      {caseStatuses.map((status: CaseStatus) => {
+        return (
+          <div
+            key={status.id}
+            className={styles.caseStatusDesign}
+            data-testid="case_status_details"
+          >
+            <section className="govuk-!-margin-bottom-8">
+              <div className={s.heading}>
+                <h2>{CaseStatusMapping[status.type]}</h2>
+                <Link
+                  href={{
+                    pathname: `/people/${person.id}/case-status/${status.id}/edit/`,
+                    query: { type: status.type },
+                  }}
+                >
+                  Edit
+                </Link>
+              </div>
 
-        {caseStatuses.map((status: CaseStatus) => {
-          const title = (
-            <div className={styles.align}>
-              {status.type && (
-                <>
-                  <dt className="govuk-!-margin-right-2">
-                    <div className={styles.typeStyling}>
-                      <span>{CaseStatusMapping[status.type]}</span>
-
-                      {status.startDate && (
-                        <span
-                          data-testid="start_date"
-                          className={styles.dateElement}
-                        >
-                          Start:{' '}
-                          {new Date(status.startDate).toLocaleDateString(
-                            'en-GB',
-                            { day: '2-digit', month: 'short', year: 'numeric' }
-                          )}
-                        </span>
-                      )}
-
-                      {status.endDate && (
-                        <span
-                          data-testid="end_date"
-                          className={styles.dateElement}
-                        >
-                          End:{' '}
-                          {new Date(status.endDate).toLocaleDateString(
-                            'en-GB',
-                            {
-                              day: '2-digit',
-                              month: 'short',
-                              year: 'numeric',
-                            }
-                          )}{' '}
-                        </span>
-                      )}
-                    </div>
-                  </dt>
-                </>
-              )}
-            </div>
-          );
-
-          return (
-            <div key={status.id} className={styles.caseStatusDesign}>
-              <ExpandDetails
-                label={title}
-                link={
-                  <Link
-                    href={{
-                      pathname: `/people/${person.id}/case-status/${status.id}/edit/`,
-                      query: { type: status.type },
-                    }}
+              <dl className="govuk-summary-list lbh-summary-list">
+                <div className="govuk-summary-list__row">
+                  <dt className="govuk-summary-list__key">Start date</dt>
+                  <dd
+                    className="govuk-summary-list__value"
+                    data-testid="start_date"
                   >
-                    edit
-                  </Link>
-                }
-              >
-                <div key={status.id}>
-                  <dl key={status.id}>
-                    {status.fields.map(
-                      (field: CaseStatusFields) =>
-                        field.selectedOption &&
-                        field.selectedOption.name &&
-                        field.selectedOption.description && (
-                          <div key={field.selectedOption.name}>
-                            <dt className={styles.selectedTitles}>
-                              Category of need
-                            </dt>
-                            <dd className={styles.selectedValue}>
+                    {new Date(status.startDate).toLocaleDateString('en-GB', {
+                      day: '2-digit',
+                      month: 'short',
+                      year: 'numeric',
+                    })}
+                  </dd>
+                </div>
+
+                {status.startDate && status.endDate && (
+                  <div className="govuk-summary-list__row">
+                    <dt className="govuk-summary-list__key">Dates</dt>
+                    <dd
+                      className="govuk-summary-list__value"
+                      data-testid="end_date"
+                    >
+                      {new Date(status.startDate).toLocaleDateString('en-GB', {
+                        day: '2-digit',
+                        month: 'short',
+                        year: 'numeric',
+                      })}{' '}
+                      -{' '}
+                      {new Date(status.startDate).toLocaleDateString('en-GB', {
+                        day: '2-digit',
+                        month: 'short',
+                        year: 'numeric',
+                      })}
+                    </dd>
+                  </div>
+                )}
+
+                {status.fields &&
+                  status.fields?.length > 0 &&
+                  status.fields[0].selectedOption && (
+                    <div className="govuk-summary-list__row">
+                      <dt className="govuk-summary-list__key">
+                        Category of need
+                      </dt>
+                      <dd className="govuk-summary-list__value">
+                        <ul className="govuk-list">
+                          {status.fields.map((field: CaseStatusFields) => (
+                            <li
+                              key={`${field.selectedOption.name} ${field.selectedOption.description}`}
+                            >
                               {field.selectedOption.name} -{' '}
                               {field.selectedOption.description}
-                            </dd>
-                          </div>
-                        )
-                    )}
+                            </li>
+                          ))}
+                        </ul>
+                      </dd>
+                    </div>
+                  )}
 
-                    {status.notes && (
-                      <>
-                        <dt className={styles.selectedTitles}> Notes </dt>
-                        <dd className={styles.selectedValue}>{status.notes}</dd>
-                      </>
-                    )}
-                  </dl>
-                </div>
-              </ExpandDetails>
-            </div>
-          );
-        })}
-      </div>
+                {status.notes && (
+                  <div className="govuk-summary-list__row">
+                    <dt className="govuk-summary-list__key">Notes</dt>
+                    <dd className="govuk-summary-list__value">
+                      {status.notes}
+                    </dd>
+                  </div>
+                )}
+              </dl>
+            </section>
+          </div>
+        );
+      })}
     </>
   );
 };

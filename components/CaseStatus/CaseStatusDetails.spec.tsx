@@ -1,4 +1,4 @@
-import { render, fireEvent } from '@testing-library/react';
+import { render } from '@testing-library/react';
 import * as caseStatusApi from 'utils/api/caseStatus';
 import CaseStatusDetails from './CaseStatusDetails';
 import { mockedAPIservererror } from 'factories/APIerrors';
@@ -74,7 +74,7 @@ describe('CaseStatusDetail component', () => {
     expect(endDate).not.toBeNull();
   });
 
-  it('displays the notes of a person when the detail panel is expanded', async () => {
+  it('displays the notes of a person when there are notes', async () => {
     jest.spyOn(caseStatusApi, 'useCaseStatuses').mockImplementation(() => ({
       data: [
         mockedCaseStatusFactory.build({
@@ -90,8 +90,6 @@ describe('CaseStatusDetail component', () => {
     const { getByTestId, queryByText } = render(
       <CaseStatusDetails person={mockedResident} />
     );
-
-    fireEvent.click(getByTestId('expand_details'));
 
     expect(queryByText('Child in need')).toBeInTheDocument();
     expect(queryByText('This is a note')).toBeInTheDocument();
@@ -118,7 +116,7 @@ describe('CaseStatusDetail component', () => {
       <CaseStatusDetails person={mockedResident} />
     );
 
-    const elements = getAllByTestId('expand_details');
+    const elements = getAllByTestId('case_status_details');
     expect(elements.length).toBe(2);
   });
 
