@@ -6,6 +6,7 @@ import {
   canManageCases,
   canViewRelationships,
   canUserAllocateWorkerToPerson,
+  canAddWorkflow,
 } from './permissions';
 
 const users = {
@@ -16,6 +17,7 @@ const users = {
     hasUnrestrictedPermissions: false,
     hasDevPermissions: false,
     hasAllocationsPermissions: false,
+    isInWorkflowsPilot: false,
   }),
   admin: userFactory.build({
     hasAdminPermissions: true,
@@ -24,6 +26,7 @@ const users = {
     hasUnrestrictedPermissions: false,
     hasDevPermissions: false,
     hasAllocationsPermissions: false,
+    isInWorkflowsPilot: false,
   }),
   adminUnrestricted: userFactory.build({
     hasAdminPermissions: true,
@@ -32,6 +35,7 @@ const users = {
     hasUnrestrictedPermissions: true,
     hasDevPermissions: false,
     hasAllocationsPermissions: false,
+    isInWorkflowsPilot: false,
   }),
   dev: userFactory.build({
     hasAdminPermissions: false,
@@ -40,6 +44,7 @@ const users = {
     hasUnrestrictedPermissions: false,
     hasDevPermissions: true,
     hasAllocationsPermissions: false,
+    isInWorkflowsPilot: false,
   }),
   adults: userFactory.build({
     hasAdminPermissions: false,
@@ -48,6 +53,7 @@ const users = {
     hasUnrestrictedPermissions: false,
     hasDevPermissions: false,
     hasAllocationsPermissions: false,
+    isInWorkflowsPilot: false,
   }),
   adultsUnrestricted: userFactory.build({
     hasAdminPermissions: false,
@@ -56,6 +62,7 @@ const users = {
     hasUnrestrictedPermissions: true,
     hasDevPermissions: false,
     hasAllocationsPermissions: false,
+    isInWorkflowsPilot: false,
   }),
   adultsAllocator: userFactory.build({
     hasAdminPermissions: false,
@@ -64,6 +71,16 @@ const users = {
     hasUnrestrictedPermissions: false,
     hasDevPermissions: false,
     hasAllocationsPermissions: true,
+    isInWorkflowsPilot: false,
+  }),
+  adultsInWorkflowsPilot: userFactory.build({
+    hasAdminPermissions: false,
+    hasAdultPermissions: true,
+    hasChildrenPermissions: false,
+    hasUnrestrictedPermissions: false,
+    hasDevPermissions: false,
+    hasAllocationsPermissions: false,
+    isInWorkflowsPilot: true,
   }),
   childrens: userFactory.build({
     hasAdminPermissions: false,
@@ -72,6 +89,7 @@ const users = {
     hasUnrestrictedPermissions: false,
     hasDevPermissions: false,
     hasAllocationsPermissions: false,
+    isInWorkflowsPilot: false,
   }),
   childrensUnrestricted: userFactory.build({
     hasAdminPermissions: false,
@@ -80,6 +98,25 @@ const users = {
     hasUnrestrictedPermissions: true,
     hasDevPermissions: false,
     hasAllocationsPermissions: false,
+    isInWorkflowsPilot: false,
+  }),
+  childrensInWorkflowsPilot: userFactory.build({
+    hasAdminPermissions: false,
+    hasAdultPermissions: false,
+    hasChildrenPermissions: true,
+    hasUnrestrictedPermissions: false,
+    hasDevPermissions: false,
+    hasAllocationsPermissions: false,
+    isInWorkflowsPilot: true,
+  }),
+  inWorkflowPilot: userFactory.build({
+    hasAdminPermissions: false,
+    hasAdultPermissions: false,
+    hasChildrenPermissions: false,
+    hasUnrestrictedPermissions: false,
+    hasDevPermissions: false,
+    hasAllocationsPermissions: true,
+    isInWorkflowsPilot: true,
   }),
 };
 
@@ -466,6 +503,40 @@ describe('permissions', () => {
           })
         )
       ).toEqual(false);
+    });
+  });
+
+  describe('#canAddWorkflow()', () => {
+    it('should return false when the user has no permissions', () => {
+      expect(canAddWorkflow(users.none)).toEqual(false);
+    });
+
+    it('should return true when the user is a dev', () => {
+      expect(canAddWorkflow(users.dev)).toEqual(true);
+    });
+
+    it('should return true when the user is an admin', () => {
+      expect(canAddWorkflow(users.admin)).toEqual(true);
+    });
+
+    it('should return true when the user in the workflows pilot', () => {
+      expect(canAddWorkflow(users.inWorkflowPilot)).toEqual(true);
+    });
+
+    it('should return true when the user in ASC and the workflows pilot', () => {
+      expect(canAddWorkflow(users.adultsInWorkflowsPilot)).toEqual(true);
+    });
+
+    it('should return false when the user in ASC and not in the workflows pilot', () => {
+      expect(canAddWorkflow(users.adults)).toEqual(false);
+    });
+
+    it('should return true when the user in CFS and the workflows pilot', () => {
+      expect(canAddWorkflow(users.childrensInWorkflowsPilot)).toEqual(true);
+    });
+
+    it('should return false when the user in CFS and not in the workflows pilot', () => {
+      expect(canAddWorkflow(users.childrens)).toEqual(false);
     });
   });
 });
