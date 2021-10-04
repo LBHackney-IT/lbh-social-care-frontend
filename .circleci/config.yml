@@ -96,7 +96,7 @@ jobs:
 
       - run:
           name: Run application in background
-          command: PORT=3000 yarn start
+          command: NODE_ENV=production PORT=3000 yarn start
           background: true
 
       - run:
