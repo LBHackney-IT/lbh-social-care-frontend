@@ -62,23 +62,6 @@ describe('EditCaseStatusForm', () => {
     expect(getByText("What is the child's legal status?")).toBeInTheDocument();
   });
 
-  it('displays the Update form for LAC', () => {
-    const { getByText } = render(
-      <EditCaseStatusForm
-        personId={mockedResident.id}
-        caseStatusId={123}
-        action="update"
-        caseStatusType="LAC"
-        prefilledFields={{}}
-      />
-    );
-
-    expect(
-      getByText("What is the child's placement reason?")
-    ).toBeInTheDocument();
-    expect(getByText('When will the change take effect?')).toBeInTheDocument();
-  });
-
   it('should enable the submit button when completed', () => {
     const { getByTestId } = render(
       <EditCaseStatusForm
