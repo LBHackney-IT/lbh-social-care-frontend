@@ -41,7 +41,7 @@ const Layout = ({
       </div>
 
       <ConditionalFeature name="workflows-pilot">
-        {user.isInWorkflowsPilot && <OnboardingDialog />}
+        {user?.isInWorkflowsPilot && <OnboardingDialog />}
       </ConditionalFeature>
 
       <Footer />
