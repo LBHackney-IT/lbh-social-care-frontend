@@ -215,14 +215,16 @@ const Layout = ({ person, children }: Props): React.ReactElement => {
               ))}
 
               <ConditionalFeature name="workflows-pilot">
-                <li>
-                  <a
-                    href={`${process.env.NEXT_PUBLIC_WORKFLOWS_PILOT_URL}/workflows/new?social_care_id=${person.id}`}
-                    className="lbh-link lbh-body-s lbh-link--no-visited-state"
-                  >
-                    Start workflow
-                  </a>
-                </li>
+                {user.isInWorkflowsPilot && (
+                  <li>
+                    <a
+                      href={`${process.env.NEXT_PUBLIC_WORKFLOWS_PILOT_URL}/workflows/new?social_care_id=${person.id}`}
+                      className="lbh-link lbh-body-s lbh-link--no-visited-state"
+                    >
+                      Start workflow
+                    </a>
+                  </li>
+                )}
               </ConditionalFeature>
             </ul>
           </nav>
