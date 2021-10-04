@@ -12,7 +12,7 @@ export const getFeatureFlags = ({
     'feature-flags-implementation-proof': {
       isActive: environmentName === 'development',
     },
-    // FEATURE-FLAG-EXPIRES [2021-09-31]: case-status
+    // FEATURE-FLAG-EXPIRES [2021-12-31]: case-status
     'case-status': {
       isActive: environmentName === 'development',
     },
