@@ -21,11 +21,6 @@ const ChooseEditCaseStatusForm: React.FC<{
     if (prefilledValue) {
       field.default = String(prefilledValue);
     }
-    if (field.choices && caseStatusType != 'LAC') {
-      field.choices = field.choices.filter(function (el: any) {
-        return el.value != 'update';
-      });
-    }
   });
 
   const handleSubmit = async (
@@ -34,10 +29,7 @@ const ChooseEditCaseStatusForm: React.FC<{
   ) => {
     try {
       router.push({
-        pathname:
-          values.action == 'update'
-            ? `/people/${personId}/case-status/${caseStatusId}/update/edit`
-            : `/people/${personId}/case-status/${caseStatusId}/edit/edit`,
+        pathname: `/people/${personId}/case-status/${caseStatusId}/edit/edit`,
         query: {
           action: values.action,
           type: caseStatusType,
