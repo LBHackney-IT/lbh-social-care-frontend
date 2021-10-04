@@ -7,11 +7,11 @@ import s from './AddFormDialog.module.scss';
 import Link from 'next/link';
 import { useMemo, useEffect } from 'react';
 import { useAuth } from 'components/UserContext/UserContext';
-
 import ADULT_GFORMS from 'data/googleForms/adultForms';
 import CHILD_GFORMS from 'data/googleForms/childForms';
 import flexibleForms from 'data/flexibleForms';
 import { populateChildForm } from 'utils/populate';
+import { useFeatureFlags } from 'lib/feature-flags/feature-flags';
 
 interface Props {
   isOpen: boolean;
@@ -26,6 +26,8 @@ const AddFormDialog = ({
 }: Props): React.ReactElement => {
   const { user } = useAuth() as { user: User };
   const [searchQuery, setSearchQuery] = useState<string>('');
+
+  const { isFeatureActive } = useFeatureFlags();
 
   useEffect(() => {
     setSearchQuery('');
@@ -65,22 +67,36 @@ const AddFormDialog = ({
           inPreview: !f.isViewableByAdults && !f.isViewableByChildrens,
         }))
         .concat(
-          gForms.map((f) => ({
-            label: f.text,
-            href: `${f.value}${populateChildForm(
-              person.firstName,
-              person.lastName,
-              person.id,
-              user.email,
-              f.value
-            )}`,
-            system: false,
-            groupRecordable: false,
-            approvable: false,
-            inPreview: false,
-          }))
+          gForms
+            .map((f) => ({
+              label: f.text,
+              href: `${f.value}${populateChildForm(
+                person.firstName,
+                person.lastName,
+                person.id,
+                user.email,
+                f.value
+              )}`,
+              system: false,
+              groupRecordable: false,
+              approvable: false,
+              inPreview: false,
+            }))
+            .concat(
+              isFeatureActive('workflows-pilot') && user.isInWorkflowsPilot
+                ? {
+                    label: 'Assessment, support plan or workflow',
+                    href: `${process.env.NEXT_PUBLIC_WORKFLOWS_PILOT_URL}/workflows/new?social_care_id=${person.id}`,
+                    system: true,
+                    approvable: true,
+                    groupRecordable: false,
+                    inPreview: false,
+                  }
+                : []
+            )
         ),
-    [gForms, serviceContext, user, person]
+
+    [gForms, serviceContext, user, person, isFeatureActive]
   );
 
   const results = useSearch(

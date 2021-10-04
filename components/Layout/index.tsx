@@ -4,6 +4,10 @@ import SkipLink from './SkipLink/SkipLink';
 import PhaseBanner from './PhaseBanner/PhaseBanner';
 import BackButton from './BackButton/BackButton';
 import Footer from './Footer/Footer';
+import OnboardingDialog from 'components/OnboardingDialog';
+import { ConditionalFeature } from 'lib/feature-flags/feature-flags';
+import { User } from 'types';
+import { useAuth } from 'components/UserContext/UserContext';
 
 export interface Props {
   children: React.ReactChild;
@@ -16,9 +20,12 @@ const Layout = ({
   goBackButton = false,
   noLayout = false,
 }: Props): React.ReactElement => {
+  const { user } = useAuth() as { user: User };
+
   if (noLayout) return <>{children}</>;
 
   const feedbackLink = process.env.NEXT_PUBLIC_FEEDBACK_LINK || '';
+
   return (
     <>
       <Seo title="Social Care Admin - Hackney Council" />
@@ -32,6 +39,10 @@ const Layout = ({
           {children}
         </main>
       </div>
+
+      <ConditionalFeature name="workflows-pilot">
+        {user?.isInWorkflowsPilot && <OnboardingDialog />}
+      </ConditionalFeature>
 
       <Footer />
     </>

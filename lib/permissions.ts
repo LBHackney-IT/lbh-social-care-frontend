@@ -112,3 +112,11 @@ export const canUserManageWorkers = (user: User): boolean => {
 
   return false;
 };
+
+export const canAddWorkflow = (user: User): boolean => {
+  if (user.hasAdminPermissions || user.hasDevPermissions) return true;
+
+  if (user.isInWorkflowsPilot) return true;
+
+  return false;
+};
