@@ -18,13 +18,9 @@ export const addCaseStatus = async (
 };
 
 export const patchCaseStatus = async (
-  caseStatusID: number,
   formData: EditCaseStatusFormData
 ): Promise<Record<string, unknown>> => {
-  const response = await axios.patch(
-    `/api/casestatus/${caseStatusID}/`,
-    formData
-  );
+  const response = await axios.patch(`/api/casestatus/`, formData);
   return response?.data;
 };
 
