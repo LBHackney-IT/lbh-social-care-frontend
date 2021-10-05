@@ -8,6 +8,8 @@ import {
   ChildProtectionCategoryOptions,
   LACLegalStatusOptions,
   LACPlacementTypeOptions,
+  CaseStatusFormValue,
+  AddCaseStatusFormData,
 } from 'types';
 import { FlexibleAnswers as FlexibleAnswersT } from 'data/flexibleForms/forms.types';
 import { useState } from 'react';
@@ -26,19 +28,44 @@ const ReviewAddCaseStatusForm: React.FC<{
 
   const submitAnswers = async () => {
     try {
-      const { error } = await addCaseStatus({
+      const postObject: AddCaseStatusFormData = {
         personId: personId,
         type: String(formAnswers.type),
         startDate: String(formAnswers.startDate),
-        notes: String(formAnswers.notes),
-        fields: [
-          {
-            name: 'category',
-            selected: String(formAnswers.category),
-          },
-        ],
+        fields: [],
         createdby: user.email,
-      });
+      };
+
+      const fieldsValues: CaseStatusFormValue[] = [];
+
+      formAnswers.notes ? (postObject['notes'] = formAnswers.notes) : null;
+
+      formAnswers.category
+        ? fieldsValues.push({
+            name: 'category',
+            selected: formAnswers.category,
+          } as CaseStatusFormValue)
+        : null;
+
+      formAnswers.type === 'LAC' && formAnswers.legalStatus
+        ? fieldsValues.push({
+            name: 'legalStatus',
+            selected: formAnswers.legalStatus,
+          } as CaseStatusFormValue)
+        : null;
+
+      formAnswers.type === 'LAC' && formAnswers.placementType
+        ? fieldsValues.push({
+            name: 'placementType',
+            selected: formAnswers.placementType,
+          } as CaseStatusFormValue)
+        : null;
+
+      if (fieldsValues.length > 0) {
+        postObject['fields'] = fieldsValues;
+      }
+
+      const { error } = await addCaseStatus(postObject);
 
       if (error) throw error;
 

@@ -437,7 +437,7 @@ export interface AddCaseStatusFormData {
   fields?: CaseStatusFormValue[];
   startDate: string;
   endDate?: string;
-  notes: string;
+  notes?: string;
   createdby: string;
 }
 
