@@ -45,23 +45,24 @@ const ReviewAddCaseStatusForm: React.FC<{
     }
   };
 
-  const displayObj = {
-    Type: CaseStatusMapping[formAnswers.type as keyof typeof CaseStatusMapping],
-    'Start date': new Date(formAnswers.startDate).toLocaleDateString('en-GB', {
-      day: '2-digit',
-      month: 'short',
-      year: 'numeric',
-    }),
-    Notes: String(formAnswers.notes),
-    'Category of child protection plan':
-      ChildProtectionCategoryOptions[
-        formAnswers.category as keyof typeof ChildProtectionCategoryOptions
-      ],
-  };
-
   const displayValue: FlexibleAnswersT = {
     answers: {
-      ...displayObj,
+      Type: CaseStatusMapping[
+        formAnswers.type as keyof typeof CaseStatusMapping
+      ],
+      'Start date': new Date(formAnswers.startDate).toLocaleDateString(
+        'en-GB',
+        {
+          day: '2-digit',
+          month: 'short',
+          year: 'numeric',
+        }
+      ),
+      Notes: String(formAnswers.notes),
+      'Category of child protection plan':
+        ChildProtectionCategoryOptions[
+          formAnswers.category as keyof typeof ChildProtectionCategoryOptions
+        ],
     },
   };
 
