@@ -96,7 +96,7 @@ describe('ReviewAddRelationshipForm', () => {
       );
 
       expect(getByText('C2: Full care order')).toBeInTheDocument();
-      expect(getByText("K1: Secure children's homes")).toBeInTheDocument();
+      expect(getByText('K1: Secure children’s homes')).toBeInTheDocument();
       expect(getByText('01 Jan 2021')).toBeInTheDocument();
     });
 
