@@ -1,7 +1,9 @@
 import { Form, Choice } from '../forms.types';
 import { format } from 'date-fns';
 import { LACPlacementTypeOptions, LACLegalStatusOptions } from 'types';
+import { ChildProtectionCategoryOptions } from 'types';
 
+const child_protection_category_options: Choice[] = [];
 const lac_legal_status_options: Choice[] = [];
 const lac_placement_type_options: Choice[] = [];
 
@@ -16,6 +18,16 @@ Object.keys(LACPlacementTypeOptions).map((key) => {
   lac_placement_type_options.push({
     value: key,
     label: LACPlacementTypeOptions[key as keyof typeof LACPlacementTypeOptions],
+  });
+});
+
+Object.keys(ChildProtectionCategoryOptions).map((key) => {
+  child_protection_category_options.push({
+    value: key,
+    label:
+      ChildProtectionCategoryOptions[
+        key as keyof typeof ChildProtectionCategoryOptions
+      ],
   });
 });
 
@@ -105,24 +117,7 @@ const form: Form = {
               value: 'CP',
             },
           ],
-          choices: [
-            {
-              value: 'C1',
-              label: 'Neglect',
-            },
-            {
-              value: 'C2',
-              label: 'Physical abuse',
-            },
-            {
-              value: 'C3',
-              label: 'Emotional abuse',
-            },
-            {
-              value: 'C4',
-              label: 'Sexual abuse',
-            },
-          ],
+          choices: child_protection_category_options,
           required: true,
         },
         {

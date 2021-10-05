@@ -107,7 +107,7 @@ const ReviewAddCaseStatusForm: React.FC<{
 
   const displayValue: FlexibleAnswersT = {
     answers: {
-      ...displayObj,
+      displayObj,
     },
   };
 

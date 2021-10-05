@@ -30,6 +30,10 @@ const EditCaseStatusForm: React.FC<{
     form_fields = CASE_STATUS_EDIT.steps[0].fields;
   } else if (action == 'edit' && caseStatusType == 'CP') {
     form_fields = CASE_STATUS_EDIT.steps[1].fields;
+  } else if (action == 'edit' && caseStatusType == 'LAC') {
+    form_fields = CASE_STATUS_EDIT.steps[2].fields;
+  } else if (action == 'end' && caseStatusType == 'LAC') {
+    form_fields = CASE_STATUS_END.steps[1].fields;
   } else if (action == 'end') {
     form_fields = CASE_STATUS_END.steps[0].fields;
   }
