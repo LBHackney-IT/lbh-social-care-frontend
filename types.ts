@@ -391,3 +391,10 @@ export interface Paginated<T> {
   items: T[];
   count: number;
 }
+
+export enum CaseStatusFieldMapping {
+  placementReason = 'Placement reason',
+  category = 'Category of child protection plan',
+  legalStatus = 'Legal status',
+  placementType = 'Placement type',
+}
