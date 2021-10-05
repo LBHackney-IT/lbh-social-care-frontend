@@ -14,10 +14,10 @@ describe('generating a nonce value', () => {
 describe('generating the desired CSP from a nonce', () => {
   test('generates the expected CSP header', () => {
     expect(generateCSP(generateNonce())).toBe(
-      "connect-src 'self' www.google-analytics.com vc.hotjar.io; " +
+      "connect-src 'self' www.google-analytics.com vc.hotjar.io in.hotjar.com; " +
         "default-src 'self'; " +
         "style-src 'self' 'nonce-4fzzzxjylrx4fzzzxjylrx4fzzzxjylrx4fzzzxjylrx4fzzzxjylrx' 'sha256-2m+uPiNtvboYJ7hcptV7yA5rSTXALge6nT+HAcqYCXA=' 'unsafe-hashes'; " +
-        "style-src-elem 'self' 'nonce-4fzzzxjylrx4fzzzxjylrx4fzzzxjylrx4fzzzxjylrx4fzzzxjylrx' fonts.googleapis.com 'sha256-SvLgADqEePEV9RNxBrRQXSBJafFHcVNG7cPzHz6h9eA='; " +
+        "style-src-elem 'self' 'nonce-4fzzzxjylrx4fzzzxjylrx4fzzzxjylrx4fzzzxjylrx4fzzzxjylrx' fonts.googleapis.com 'sha256-SvLgADqEePEV9RNxBrRQXSBJafFHcVNG7cPzHz6h9eA=' 'sha256-TGjSkcFoVCRdq4Hp3hcETnPc9cikdBGvkz/08Bjzy0I='; " +
         "script-src 'self' 'nonce-4fzzzxjylrx4fzzzxjylrx4fzzzxjylrx4fzzzxjylrx4fzzzxjylrx'; " +
         "script-src-elem 'self' 'nonce-4fzzzxjylrx4fzzzxjylrx4fzzzxjylrx4fzzzxjylrx4fzzzxjylrx' www.googletagmanager.com script.hotjar.com static.hotjar.com; " +
         "font-src 'self' fonts.gstatic.com; " +

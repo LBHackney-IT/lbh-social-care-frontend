@@ -1,5 +1,10 @@
 const policy: CSPPolicy = {
-  'connect-src': ["'self'", 'www.google-analytics.com', 'vc.hotjar.io'],
+  'connect-src': [
+    "'self'",
+    'www.google-analytics.com',
+    'vc.hotjar.io',
+    'in.hotjar.com',
+  ],
   'default-src': ["'self'"],
   'style-src': [
     "'self'",
@@ -12,6 +17,7 @@ const policy: CSPPolicy = {
     '{nonce}',
     'fonts.googleapis.com',
     "'sha256-SvLgADqEePEV9RNxBrRQXSBJafFHcVNG7cPzHz6h9eA='", // HotJar inline style hash
+    "'sha256-TGjSkcFoVCRdq4Hp3hcETnPc9cikdBGvkz/08Bjzy0I='",
   ],
   'script-src': ["'self'", '{nonce}'],
   'script-src-elem': [
