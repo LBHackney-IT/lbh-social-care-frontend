@@ -197,6 +197,7 @@ export interface User {
   hasUnrestrictedPermissions?: boolean;
   isAuditable: boolean;
   isAuthorised: boolean;
+  isInWorkflowsPilot?: boolean;
 }
 
 export interface Team {
