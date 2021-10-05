@@ -51,7 +51,7 @@ const ReviewAddCaseStatusForm: React.FC<{
           },
         ],
       };
-      const { error } = await patchCaseStatus(patchObject);
+      const { error } = await patchCaseStatus(caseStatusId, patchObject);
       if (error) throw error;
 
       router.push({
