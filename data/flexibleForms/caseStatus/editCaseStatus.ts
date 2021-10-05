@@ -1,6 +1,36 @@
-import { Form } from '../forms.types';
+import { Form, Choice } from '../forms.types';
 import { format } from 'date-fns';
-import { ChildProtectionCategoryOptions } from 'types';
+import {
+  LACLegalStatusOptions,
+  LACPlacementTypeOptions,
+  ChildProtectionCategoryOptions,
+} from 'types';
+
+const cp_options: Choice[] = [];
+const lac_legal_status_options: Choice[] = [];
+const lac_placement_reason_options: Choice[] = [];
+
+Object.keys(ChildProtectionCategoryOptions).map((key) => {
+  cp_options.push({
+    value: key,
+    label:
+      ChildProtectionCategoryOptions[
+        key as keyof typeof ChildProtectionCategoryOptions
+      ],
+  });
+});
+Object.keys(LACPlacementTypeOptions).map((key) => {
+  lac_placement_reason_options.push({
+    value: key,
+    label: LACPlacementTypeOptions[key as keyof typeof LACPlacementTypeOptions],
+  });
+});
+Object.keys(LACLegalStatusOptions).map((key) => {
+  lac_legal_status_options.push({
+    value: key,
+    label: LACLegalStatusOptions[key as keyof typeof LACLegalStatusOptions],
+  });
+});
 
 const form: Form = {
   id: 'case-status-edit',
@@ -52,24 +82,36 @@ const form: Form = {
           required: true,
           type: 'radios',
           default: 'C1',
-          choices: [
-            {
-              value: 'C1',
-              label: ChildProtectionCategoryOptions['C1'],
-            },
-            {
-              value: 'C2',
-              label: ChildProtectionCategoryOptions['C2'],
-            },
-            {
-              value: 'C3',
-              label: ChildProtectionCategoryOptions['C3'],
-            },
-            {
-              value: 'C4',
-              label: ChildProtectionCategoryOptions['C4'],
-            },
-          ],
+          choices: cp_options,
+        },
+      ],
+    },
+    {
+      id: 'editLACCaseStatus',
+      name: 'Edit a status',
+      theme: 'Case status',
+      fields: [
+        {
+          id: 'startDate',
+          question: 'Start Date',
+          type: 'date',
+          required: true,
+          className: 'govuk-input--width-10',
+          default: format(new Date(), 'yyyy-MM-dd'),
+          isfutureDateValid: false,
+        },
+        {
+          id: 'legalStatus',
+          question: "What is the child's legal status?",
+          type: 'select',
+          choices: lac_legal_status_options,
+          required: false,
+        },
+        {
+          id: 'placementReason',
+          question: "What is the child's placement reason?",
+          type: 'select',
+          choices: lac_placement_reason_options,
         },
       ],
     },

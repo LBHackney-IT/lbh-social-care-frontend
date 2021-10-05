@@ -8,7 +8,13 @@ import { useState } from 'react';
 import { patchCaseStatus } from 'utils/api/caseStatus';
 import { useAuth } from 'components/UserContext/UserContext';
 import { useRouter } from 'next/router';
-import { CaseStatusMapping, ChildProtectionCategoryOptions } from 'types';
+import {
+  CaseStatusMapping,
+  LACLegalStatusOptions,
+  LACPlacementTypeOptions,
+  LACReasonsForEpisodeEndOptions,
+  ChildProtectionCategoryOptions,
+} from 'types';
 
 const ReviewAddCaseStatusForm: React.FC<{
   title: string;
@@ -46,17 +52,20 @@ const ReviewAddCaseStatusForm: React.FC<{
         : null;
 
       const fieldsValues: CaseStatusFormValue[] = [];
-
       formAnswers.category
         ? fieldsValues.push({
             name: 'category',
             selected: formAnswers.category,
           } as CaseStatusFormValue)
         : null;
+      formAnswers.episodeReason
+        ? fieldsValues.push({
+            name: 'episodeReason',
+            selected: formAnswers.episodeReason,
+          } as CaseStatusFormValue)
+        : null;
 
-      if (fieldsValues.length > 0) {
-        patchObject['values'] = fieldsValues;
-      }
+      patchObject['values'] = fieldsValues;
 
       const { error } = await patchCaseStatus(caseStatusId, patchObject);
       if (error) throw error;
@@ -96,6 +105,18 @@ const ReviewAddCaseStatusForm: React.FC<{
     Category:
       ChildProtectionCategoryOptions[
         formAnswers.category as keyof typeof ChildProtectionCategoryOptions
+      ],
+    'Legal status':
+      LACLegalStatusOptions[
+        formAnswers.legalStatus as keyof typeof LACLegalStatusOptions
+      ],
+    'Placement reason':
+      LACPlacementTypeOptions[
+        formAnswers.placementReason as keyof typeof LACPlacementTypeOptions
+      ],
+    'Reason for episode ending':
+      LACReasonsForEpisodeEndOptions[
+        formAnswers.episodeReason as keyof typeof LACReasonsForEpisodeEndOptions
       ],
     Notes: formAnswers.notes,
   };

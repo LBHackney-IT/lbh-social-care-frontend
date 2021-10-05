@@ -13,7 +13,7 @@ const AddCaseStatusForm: React.FC<{
 }> = ({ personId, prefilledFields }) => {
   const router = useRouter();
 
-  const form_fields = [...CASE_STATUS.steps[0].fields];
+  const form_fields = CASE_STATUS.steps[0].fields;
 
   form_fields.map((field) => {
     if (prefilledFields && prefilledFields[field.id]) {

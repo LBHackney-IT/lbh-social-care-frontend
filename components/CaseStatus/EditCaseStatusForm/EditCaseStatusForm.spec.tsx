@@ -18,19 +18,6 @@ describe('EditCaseStatusForm', () => {
 
     expect(getByText('End Date')).toBeInTheDocument();
   });
-  it('displays the End form for CP', () => {
-    const { getByText } = render(
-      <EditCaseStatusForm
-        personId={mockedResident.id}
-        caseStatusId={123}
-        action="end"
-        caseStatusType="CP"
-        prefilledFields={{}}
-      />
-    );
-
-    expect(getByText('End Date')).toBeInTheDocument();
-  });
 
   it('displays the Edit form for CP', () => {
     const { getByText } = render(
@@ -59,6 +46,39 @@ describe('EditCaseStatusForm', () => {
 
     expect(getByText('Start Date')).toBeInTheDocument();
     expect(getByText('Notes')).toBeInTheDocument();
+  });
+  it('displays the Edit form for LAC', () => {
+    const { getByText } = render(
+      <EditCaseStatusForm
+        personId={mockedResident.id}
+        caseStatusId={123}
+        action="edit"
+        caseStatusType="LAC"
+        prefilledFields={{}}
+      />
+    );
+
+    expect(getByText('Start Date')).toBeInTheDocument();
+    expect(getByText("What is the child's legal status?")).toBeInTheDocument();
+    expect(
+      getByText("What is the child's placement reason?")
+    ).toBeInTheDocument();
+  });
+  it('displays the End form for LAC', () => {
+    const { getByText } = render(
+      <EditCaseStatusForm
+        personId={mockedResident.id}
+        caseStatusId={123}
+        action="end"
+        caseStatusType="LAC"
+        prefilledFields={{}}
+      />
+    );
+
+    expect(getByText('End Date')).toBeInTheDocument();
+    expect(
+      getByText('What is the reason for the episode ending?')
+    ).toBeInTheDocument();
   });
 
   it('should enable the submit button when completed', () => {
