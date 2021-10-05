@@ -99,5 +99,26 @@ describe('ReviewAddRelationshipForm', () => {
       expect(getByText("K1: Secure children's homes")).toBeInTheDocument();
       expect(getByText('01 Jan 2021')).toBeInTheDocument();
     });
+
+    it('Does not display LAC legal status and placement type when LAC status has not been selected', () => {
+      const { getByText, queryByText } = render(
+        <ReviewAddCaseStatusForm
+          title="Review case status details"
+          personId={mockedResident.id}
+          formAnswers={{
+            type: 'CIN',
+            startDate: '2021-01-01',
+            legalStatus: 'C2',
+            placementType: 'K1',
+          }}
+        />
+      );
+
+      expect(queryByText('C2: Full care order')).not.toBeInTheDocument();
+      expect(
+        queryByText("K1: Secure children's homes")
+      ).not.toBeInTheDocument();
+      expect(getByText('01 Jan 2021')).toBeInTheDocument();
+    });
   });
 });

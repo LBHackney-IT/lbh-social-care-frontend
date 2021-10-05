@@ -47,14 +47,14 @@ const ReviewAddCaseStatusForm: React.FC<{
           } as CaseStatusFormValue)
         : null;
 
-      formAnswers.type === 'LAC' && formAnswers.legalStatus
+      formAnswers.legalStatus
         ? fieldsValues.push({
             name: 'legalStatus',
             selected: formAnswers.legalStatus,
           } as CaseStatusFormValue)
         : null;
 
-      formAnswers.type === 'LAC' && formAnswers.placementType
+      formAnswers.placementType
         ? fieldsValues.push({
             name: 'placementType',
             selected: formAnswers.placementType,
@@ -78,7 +78,7 @@ const ReviewAddCaseStatusForm: React.FC<{
     }
   };
 
-  const displayObj = {
+  const displayObj: any = {
     'Case status':
       CaseStatusMapping[formAnswers.type as keyof typeof CaseStatusMapping],
     'Start date': new Date(formAnswers.startDate).toLocaleDateString('en-GB', {
@@ -91,15 +91,19 @@ const ReviewAddCaseStatusForm: React.FC<{
       ChildProtectionCategoryOptions[
         formAnswers.category as keyof typeof ChildProtectionCategoryOptions
       ],
-    'Legal Status':
+  };
+
+  if (formAnswers.type === 'LAC') {
+    displayObj['Legal Status'] =
       LACLegalStatusOptions[
         formAnswers.legalStatus as keyof typeof LACLegalStatusOptions
-      ],
-    'Placement Type':
+      ];
+
+    displayObj['Placement Type'] =
       LACPlacementTypeOptions[
         formAnswers.placementType as keyof typeof LACPlacementTypeOptions
-      ],
-  };
+      ];
+  }
 
   const displayValue: FlexibleAnswersT = {
     answers: {
