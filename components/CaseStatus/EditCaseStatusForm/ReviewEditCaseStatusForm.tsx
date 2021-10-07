@@ -88,7 +88,7 @@ const ReviewAddCaseStatusForm: React.FC<{
     CaseStatusMapping[caseStatusType as keyof typeof CaseStatusMapping];
 
   const answers = {
-    Type: typeString,
+    'Case status': typeString,
     'Start Date': formAnswers.startDate
       ? new Date(formAnswers.startDate).toLocaleDateString('en-GB', {
           day: '2-digit',

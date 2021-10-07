@@ -5,6 +5,24 @@ import { residentFactory } from 'factories/residents';
 const mockedResident = residentFactory.build();
 
 describe('EditCaseStatusForm', () => {
+  it('displays the Edit form for CIN', () => {
+    const { getByText } = render(
+      <EditCaseStatusForm
+        personId={mockedResident.id}
+        caseStatusId={123}
+        action="edit"
+        caseStatusType="CIN"
+        prefilledFields={{
+          notes: 'Edit me',
+        }}
+      />
+    );
+
+    expect(getByText('Start Date')).toBeInTheDocument();
+    expect(getByText('Notes')).toBeInTheDocument();
+    expect(getByText('Edit me')).toBeInTheDocument();
+  });
+
   it('displays the End form for CIN', () => {
     const { getByText } = render(
       <EditCaseStatusForm
@@ -26,27 +44,31 @@ describe('EditCaseStatusForm', () => {
         caseStatusId={123}
         action="edit"
         caseStatusType="CP"
-        prefilledFields={{}}
+        prefilledFields={{
+          category: 'C3',
+        }}
       />
     );
 
     expect(getByText('Start Date')).toBeInTheDocument();
     expect(getByText('Category of child protection plan')).toBeInTheDocument();
+    expect(getByText('Emotional abuse')).toBeInTheDocument();
   });
-  it('displays the Edit form for CIN', () => {
+
+  it('displays the End form for CP', () => {
     const { getByText } = render(
       <EditCaseStatusForm
         personId={mockedResident.id}
         caseStatusId={123}
-        action="edit"
-        caseStatusType="CIN"
+        action="end"
+        caseStatusType="CP"
         prefilledFields={{}}
       />
     );
 
-    expect(getByText('Start Date')).toBeInTheDocument();
-    expect(getByText('Notes')).toBeInTheDocument();
+    expect(getByText('End Date')).toBeInTheDocument();
   });
+
   it('displays the Edit form for LAC', () => {
     const { getByText } = render(
       <EditCaseStatusForm
@@ -58,58 +80,30 @@ describe('EditCaseStatusForm', () => {
       />
     );
 
-    expect(getByText('Start Date')).toBeInTheDocument();
+    expect(getByText('Start Date'));
     expect(getByText("What is the child's legal status?")).toBeInTheDocument();
-  });
-
-  it('displays the Update form for LAC', () => {
-    const { getByText } = render(
-      <EditCaseStatusForm
-        personId={mockedResident.id}
-        caseStatusId={123}
-        action="update"
-        caseStatusType="LAC"
-        prefilledFields={{}}
-      />
-    );
-  });
-
-  it('displays the Update form for LAC', () => {
-    const { getByText } = render(
-      <EditCaseStatusForm
-        personId={mockedResident.id}
-        caseStatusId={123}
-        action="update"
-        caseStatusType="LAC"
-        prefilledFields={{}}
-      />
-    );
     expect(
       getByText("What is the child's placement reason?")
     ).toBeInTheDocument();
-    expect(getByText('When will the change take effect?')).toBeInTheDocument();
   });
 
-  expect(
-    getByText("What is the child's placement reason?")
-  ).toBeInTheDocument();
-  expect(getByText('When will the change take effect?')).toBeInTheDocument();
-});
+  it('displays the End form for LAC', () => {
+    const { getByText } = render(
+      <EditCaseStatusForm
+        personId={mockedResident.id}
+        caseStatusId={123}
+        action="end"
+        caseStatusType="LAC"
+        prefilledFields={{}}
+      />
+    );
 
-it('should enable the submit button when completed', () => {
-  const { getByTestId } = render(
-    <EditCaseStatusForm
-      personId={mockedResident.id}
-      caseStatusId={123}
-      action="edit"
-      caseStatusType="CIN"
-      prefilledFields={{
-        notes: 'this is a note',
-        startDate: '2020-01-01',
-      }}
-    />
-  );
-  expect(getByTestId('submit_button')).not.toBeDisabled();
+    expect(getByText('End Date')).toBeInTheDocument();
+    expect(
+      getByText('What is the reason for the episode ending?')
+    ).toBeInTheDocument();
+  });
+
   it('should enable the submit button when completed', () => {
     const { getByTestId } = render(
       <EditCaseStatusForm
