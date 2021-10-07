@@ -21,6 +21,7 @@ const Template: Story<Props> = (args) => (
         permissionFlag: 'A',
         isAuthorised: true,
         isAuditable: false,
+        isInWorkflowsPilot: false,
       },
     }}
   >
