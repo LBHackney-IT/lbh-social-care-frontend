@@ -12,6 +12,7 @@ export const userFactory = Factory.define<User>(() => ({
   email: 'foo@bar.com',
   permissionFlag: 'A',
   isAuthorised: true,
+  isInWorkflowsPilot: false,
 }));
 
 export const mockedOnlyAdultUser = userFactory.build({
@@ -31,3 +32,7 @@ export const mockedAdminUser = userFactory.build({
 });
 
 export const mockedUser = userFactory.build();
+
+export const mockedUserInWorkflowsPilot = userFactory.build({
+  isInWorkflowsPilot: true,
+});

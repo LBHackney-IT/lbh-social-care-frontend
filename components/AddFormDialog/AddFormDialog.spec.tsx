@@ -2,11 +2,19 @@ import AddFormDialog from './AddFormDialog';
 import { render, screen, fireEvent } from '@testing-library/react';
 import { mockedResident } from 'factories/residents';
 import { AuthProvider } from 'components/UserContext/UserContext';
-import { mockedUser, mockedAdminUser } from 'factories/users';
+import {
+  mockedUser,
+  mockedAdminUser,
+  mockedUserInWorkflowsPilot,
+} from 'factories/users';
 import ADULT_GFORMS from 'data/googleForms/adultForms';
 import CHILD_GFORMS from 'data/googleForms/childForms';
 import 'data/flexibleForms';
 import 'next/router';
+import {
+  FeatureFlagProvider,
+  FeatureSet,
+} from 'lib/feature-flags/feature-flags';
 
 jest.mock('next/router', () => ({
   useRouter: () => ({
@@ -20,15 +28,23 @@ beforeEach(() => {
   jest.resetModules();
 });
 
+const features: FeatureSet = {
+  'workflows-pilot': {
+    isActive: false,
+  },
+};
+
 describe('AddFormDialog', () => {
   it('shows forms from two sources', () => {
     render(
       <AuthProvider user={mockedUser}>
-        <AddFormDialog
-          isOpen={true}
-          onDismiss={jest.fn()}
-          person={mockedResident}
-        />
+        <FeatureFlagProvider features={features}>
+          <AddFormDialog
+            isOpen={true}
+            onDismiss={jest.fn()}
+            person={mockedResident}
+          />
+        </FeatureFlagProvider>
       </AuthProvider>
     );
     expect(screen.getAllByRole('listitem').length).toBeGreaterThan(1);
@@ -45,11 +61,13 @@ describe('AddFormDialog', () => {
     // adult
     render(
       <AuthProvider user={mockedUser}>
-        <AddFormDialog
-          isOpen={true}
-          onDismiss={jest.fn()}
-          person={mockedResident}
-        />
+        <FeatureFlagProvider features={features}>
+          <AddFormDialog
+            isOpen={true}
+            onDismiss={jest.fn()}
+            person={mockedResident}
+          />
+        </FeatureFlagProvider>
       </AuthProvider>
     );
     expect(screen.getByText(ADULT_GFORMS[0].text));
@@ -59,11 +77,13 @@ describe('AddFormDialog', () => {
   it('only shows forms appropriate to the child service context', () => {
     render(
       <AuthProvider user={mockedUser}>
-        <AddFormDialog
-          isOpen={true}
-          onDismiss={jest.fn()}
-          person={{ ...mockedResident, contextFlag: 'C' }}
-        />
+        <FeatureFlagProvider features={features}>
+          <AddFormDialog
+            isOpen={true}
+            onDismiss={jest.fn()}
+            person={{ ...mockedResident, contextFlag: 'C' }}
+          />
+        </FeatureFlagProvider>
       </AuthProvider>
     );
     expect(screen.getByText(CHILD_GFORMS[0].text));
@@ -73,11 +93,13 @@ describe('AddFormDialog', () => {
   it('adds prefill parameters to google forms', () => {
     render(
       <AuthProvider user={mockedUser}>
-        <AddFormDialog
-          isOpen={true}
-          onDismiss={jest.fn()}
-          person={mockedResident}
-        />
+        <FeatureFlagProvider features={features}>
+          <AddFormDialog
+            isOpen={true}
+            onDismiss={jest.fn()}
+            person={mockedResident}
+          />
+        </FeatureFlagProvider>
       </AuthProvider>
     );
     expect(
@@ -92,11 +114,13 @@ describe('AddFormDialog', () => {
   it('supports canonical urls', () => {
     render(
       <AuthProvider user={mockedUser}>
-        <AddFormDialog
-          isOpen={true}
-          onDismiss={jest.fn()}
-          person={{ ...mockedResident, contextFlag: 'C' }}
-        />
+        <FeatureFlagProvider features={features}>
+          <AddFormDialog
+            isOpen={true}
+            onDismiss={jest.fn()}
+            person={{ ...mockedResident, contextFlag: 'C' }}
+          />
+        </FeatureFlagProvider>
       </AuthProvider>
     );
     fireEvent.change(screen.getByLabelText('Search for a form'), {
@@ -110,11 +134,13 @@ describe('AddFormDialog', () => {
   it('allows searching for a form', () => {
     render(
       <AuthProvider user={mockedUser}>
-        <AddFormDialog
-          isOpen={true}
-          onDismiss={jest.fn()}
-          person={mockedResident}
-        />
+        <FeatureFlagProvider features={features}>
+          <AddFormDialog
+            isOpen={true}
+            onDismiss={jest.fn()}
+            person={mockedResident}
+          />
+        </FeatureFlagProvider>
       </AuthProvider>
     );
     expect(screen.getAllByRole('listitem').length).toBeGreaterThan(10);
@@ -141,11 +167,13 @@ describe('AddFormDialog', () => {
           hasAdminPermissions: false,
         }}
       >
-        <AddFormDialog
-          isOpen={true}
-          onDismiss={jest.fn()}
-          person={mockedResident}
-        />
+        <FeatureFlagProvider features={features}>
+          <AddFormDialog
+            isOpen={true}
+            onDismiss={jest.fn()}
+            person={mockedResident}
+          />
+        </FeatureFlagProvider>
       </AuthProvider>
     );
     expect(screen.queryAllByText('In preview', { exact: false }).length).toBe(
@@ -154,15 +182,93 @@ describe('AddFormDialog', () => {
 
     render(
       <AuthProvider user={mockedAdminUser}>
-        <AddFormDialog
-          isOpen={true}
-          onDismiss={jest.fn()}
-          person={mockedResident}
-        />
+        <FeatureFlagProvider features={features}>
+          <AddFormDialog
+            isOpen={true}
+            onDismiss={jest.fn()}
+            person={mockedResident}
+          />
+        </FeatureFlagProvider>
       </AuthProvider>
     );
     expect(
       screen.getAllByText('In preview', { exact: false }).length
     ).toBeGreaterThan(0);
+  });
+
+  describe('when workflows pilot feature flag is on', () => {
+    it('displays link for workflows if user is in workflows pilot', () => {
+      render(
+        <AuthProvider user={mockedUserInWorkflowsPilot}>
+          <FeatureFlagProvider
+            features={{
+              'workflows-pilot': {
+                isActive: true,
+              },
+            }}
+          >
+            <AddFormDialog
+              isOpen={true}
+              onDismiss={jest.fn()}
+              person={mockedResident}
+            />
+          </FeatureFlagProvider>
+        </AuthProvider>
+      );
+
+      expect(
+        screen.queryByText('Assessment, support plan or workflow')
+      ).toBeVisible();
+    });
+
+    it('does not display link for workflows if user is not in workflows pilot', () => {
+      render(
+        <AuthProvider user={mockedUser}>
+          <FeatureFlagProvider
+            features={{
+              'workflows-pilot': {
+                isActive: true,
+              },
+            }}
+          >
+            <AddFormDialog
+              isOpen={true}
+              onDismiss={jest.fn()}
+              person={mockedResident}
+            />
+          </FeatureFlagProvider>
+        </AuthProvider>
+      );
+
+      expect(
+        screen.queryByText('Assessment, support plan or workflow')
+      ).not.toBeInTheDocument();
+    });
+  });
+
+  describe('when workflows pilot feature flag is off', () => {
+    it('does not display link for workflows if feature flag is off', () => {
+      render(
+        <AuthProvider user={mockedUser}>
+          <FeatureFlagProvider
+            features={{
+              'workflows-pilot': {
+                isActive: false,
+              },
+            }}
+          >
+            <AddFormDialog
+              isOpen={true}
+              onDismiss={jest.fn()}
+              person={mockedResident}
+            />
+          </FeatureFlagProvider>
+        </AuthProvider>
+      );
+
+      expect(
+        screen.queryByText('Assessment, support plan or workflow')
+      ).not.toBeInTheDocument();
+    });
   });
 });

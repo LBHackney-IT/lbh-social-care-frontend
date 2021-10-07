@@ -1,8 +1,25 @@
 import { Form, Choice } from '../forms.types';
 import { format } from 'date-fns';
+import { LACPlacementTypeOptions, LACLegalStatusOptions } from 'types';
 import { ChildProtectionCategoryOptions } from 'types';
 
 const child_protection_category_options: Choice[] = [];
+const lac_legal_status_options: Choice[] = [];
+const lac_placement_type_options: Choice[] = [];
+
+Object.keys(LACLegalStatusOptions).map((key) => {
+  lac_legal_status_options.push({
+    value: key,
+    label: LACLegalStatusOptions[key as keyof typeof LACLegalStatusOptions],
+  });
+});
+
+Object.keys(LACPlacementTypeOptions).map((key) => {
+  lac_placement_type_options.push({
+    value: key,
+    label: LACPlacementTypeOptions[key as keyof typeof LACPlacementTypeOptions],
+  });
+});
 
 Object.keys(ChildProtectionCategoryOptions).map((key) => {
   child_protection_category_options.push({
@@ -41,6 +58,10 @@ const form: Form = {
             {
               value: 'CP',
               label: 'Child protection',
+            },
+            {
+              value: 'LAC',
+              label: 'Looked after child',
             },
           ],
         },
@@ -97,6 +118,47 @@ const form: Form = {
             },
           ],
           choices: child_protection_category_options,
+          required: true,
+        },
+        {
+          id: 'startDate',
+          question: 'Start Date',
+          type: 'date',
+          required: true,
+          conditions: [
+            {
+              id: 'type',
+              value: 'LAC',
+            },
+          ],
+          className: 'govuk-input--width-10',
+          default: format(new Date(), 'yyyy-MM-dd'),
+          isfutureDateValid: false,
+        },
+        {
+          id: 'legalStatus',
+          question: "What is the child's legal status?",
+          type: 'select',
+          conditions: [
+            {
+              id: 'type',
+              value: 'LAC',
+            },
+          ],
+          choices: lac_legal_status_options,
+          required: true,
+        },
+        {
+          id: 'placementType',
+          question: 'What is the placement type?',
+          type: 'select',
+          conditions: [
+            {
+              id: 'type',
+              value: 'LAC',
+            },
+          ],
+          choices: lac_placement_type_options,
           required: true,
         },
       ],

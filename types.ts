@@ -197,6 +197,7 @@ export interface User {
   hasUnrestrictedPermissions?: boolean;
   isAuditable: boolean;
   isAuthorised: boolean;
+  isInWorkflowsPilot?: boolean;
 }
 
 export interface Team {
@@ -437,7 +438,7 @@ export interface AddCaseStatusFormData {
   fields?: CaseStatusFormValue[];
   startDate: string;
   endDate?: string;
-  notes: string;
+  notes?: string;
   createdby: string;
 }
 

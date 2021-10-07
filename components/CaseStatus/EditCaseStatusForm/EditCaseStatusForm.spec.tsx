@@ -60,13 +60,14 @@ describe('EditCaseStatusForm', () => {
       <EditCaseStatusForm
         personId={mockedResident.id}
         caseStatusId={123}
-        action="end"
+        action="edit"
         caseStatusType="CP"
         prefilledFields={{}}
       />
     );
 
-    expect(getByText('End Date')).toBeInTheDocument();
+    expect(getByText('Start Date')).toBeInTheDocument();
+    expect(getByText('Category of child protection plan')).toBeInTheDocument();
   });
 
   it('displays the Edit form for LAC', () => {
@@ -87,6 +88,22 @@ describe('EditCaseStatusForm', () => {
     ).toBeInTheDocument();
   });
 
+  it('displays the End form for LAC', () => {
+    const { getByText } = render(
+      <EditCaseStatusForm
+        personId={mockedResident.id}
+        caseStatusId={123}
+        action="end"
+        caseStatusType="LAC"
+        prefilledFields={{}}
+      />
+    );
+
+    expect(getByText('End Date')).toBeInTheDocument();
+    expect(
+      getByText('What is the reason for the episode ending?')
+    ).toBeInTheDocument();
+  });
   it('displays the End form for LAC', () => {
     const { getByText } = render(
       <EditCaseStatusForm
