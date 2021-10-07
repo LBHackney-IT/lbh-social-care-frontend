@@ -5,65 +5,32 @@ import { residentFactory } from 'factories/residents';
 const mockedResident = residentFactory.build();
 
 describe('ReviewUpdateCaseStatusForm', () => {
-  it('displays the form - edit', () => {
+  it('displays the LAC form - update', () => {
     const { getByText } = render(
       <ReviewUpdateCaseStatusForm
         title="Review case status details"
         personId={mockedResident.id}
+        caseStatusType="LAC"
         caseStatusId={123}
-        caseStatusType="CIN"
-        action="edit"
+        action="update"
         formAnswers={{
-          startDate: '2020-12-01',
-          notes: 'blabla',
+          startDate: '2020-12-04',
+          legalStatus: 'L1',
+          placementReason: 'P3',
         }}
       />
     );
 
-    expect(getByText('Review case status details')).toBeInTheDocument();
-    expect(getByText('blabla')).toBeInTheDocument();
+    expect(getByText('Case status')).toBeInTheDocument();
+    expect(getByText('Date the changes will take effect')).toBeInTheDocument();
+    expect(getByText('New legal status')).toBeInTheDocument();
+    expect(getByText('New placement type')).toBeInTheDocument();
+    expect(getByText('04 Dec 2020')).toBeInTheDocument();
     expect(
-      getByText('Do you want to edit this case status?')
+      getByText(
+        'L1: Under police protection and in local authority accommodation'
+      )
     ).toBeInTheDocument();
-  });
-
-  it('displays the form - end', () => {
-    const { getByText } = render(
-      <ReviewUpdateCaseStatusForm
-        title="Review case status details"
-        personId={mockedResident.id}
-        caseStatusType="CIN"
-        caseStatusId={123}
-        action="end"
-        formAnswers={{
-          endDate: '2020-12-01',
-        }}
-      />
-    );
-
-    expect(getByText('Review case status details')).toBeInTheDocument();
-    expect(getByText('01 Dec 2020')).toBeInTheDocument();
-    expect(
-      getByText('Do you want to end this case status?')
-    ).toBeInTheDocument();
-  });
-
-  it('displays start date and notes for the edit', () => {
-    const { getByText } = render(
-      <ReviewUpdateCaseStatusForm
-        title="Review case status details"
-        personId={mockedResident.id}
-        caseStatusType="CIN"
-        caseStatusId={123}
-        action="edit"
-        formAnswers={{
-          startDate: '2020-12-01',
-          notes: 'blabla',
-        }}
-      />
-    );
-
-    expect(getByText('blabla')).toBeInTheDocument();
-    expect(getByText('01 Dec 2020')).toBeInTheDocument();
+    expect(getByText('P3: Residential employment')).toBeInTheDocument();
   });
 });

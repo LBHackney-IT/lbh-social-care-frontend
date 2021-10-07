@@ -2,16 +2,17 @@ import FlexibleAnswers from 'components/FlexibleAnswers/FlexibleAnswers';
 import Button from 'components/Button/Button';
 import Link from 'next/link';
 import Banner from 'components/FlexibleForms/Banner';
-import { User, EditCaseStatusFormData } from 'types';
 import { FlexibleAnswers as FlexibleAnswersT } from 'data/flexibleForms/forms.types';
 import { useState } from 'react';
-import { patchCaseStatus } from 'utils/api/caseStatus';
+import { updateCaseStatus } from 'utils/api/caseStatus';
 import { useAuth } from 'components/UserContext/UserContext';
 import { useRouter } from 'next/router';
 import {
   CaseStatusMapping,
   LACLegalStatusOptions,
   LACPlacementTypeOptions,
+  User,
+  EditCaseStatusFormData,
 } from 'types';
 
 const ReviewAddCaseStatusForm: React.FC<{
@@ -35,7 +36,7 @@ const ReviewAddCaseStatusForm: React.FC<{
 
   const submitAnswers = async () => {
     try {
-      const patchObject: EditCaseStatusFormData = {
+      const postObject: EditCaseStatusFormData = {
         editedBy: user.email,
         personId: personId,
         caseStatusID: caseStatusId,
@@ -51,7 +52,7 @@ const ReviewAddCaseStatusForm: React.FC<{
           },
         ],
       };
-      const { error } = await patchCaseStatus(patchObject);
+      const { error } = await updateCaseStatus(postObject);
       if (error) throw error;
 
       router.push({
@@ -71,19 +72,19 @@ const ReviewAddCaseStatusForm: React.FC<{
     CaseStatusMapping[caseStatusType as keyof typeof CaseStatusMapping];
 
   const answers = {
-    Type: typeString,
-    'Start Date': formAnswers.startDate
+    'Case status': typeString,
+    'Date the changes will take effect': formAnswers.startDate
       ? new Date(formAnswers.startDate).toLocaleDateString('en-GB', {
           day: '2-digit',
           month: 'short',
           year: 'numeric',
         })
       : '',
-    'Legal status':
+    'New legal status':
       LACLegalStatusOptions[
         formAnswers.legalStatus as keyof typeof LACLegalStatusOptions
       ],
-    'Placement reason':
+    'New placement type':
       LACPlacementTypeOptions[
         formAnswers.placementReason as keyof typeof LACPlacementTypeOptions
       ],

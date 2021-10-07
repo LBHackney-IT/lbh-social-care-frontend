@@ -24,6 +24,13 @@ export const patchCaseStatus = async (
   return response?.data;
 };
 
+export const updateCaseStatus = async (
+  formData: EditCaseStatusFormData
+): Promise<Record<string, unknown>> => {
+  const response = await axios.post(`/api/casestatus`, formData);
+  return response?.data;
+};
+
 export const useCaseStatuses = (
   id: number
 ): SWRResponse<CaseStatus[], ErrorAPI> =>
