@@ -72,13 +72,44 @@ describe('EditCaseStatusForm', () => {
         prefilledFields={{}}
       />
     );
+  });
 
+  it('displays the Update form for LAC', () => {
+    const { getByText } = render(
+      <EditCaseStatusForm
+        personId={mockedResident.id}
+        caseStatusId={123}
+        action="update"
+        caseStatusType="LAC"
+        prefilledFields={{}}
+      />
+    );
     expect(
       getByText("What is the child's placement reason?")
     ).toBeInTheDocument();
     expect(getByText('When will the change take effect?')).toBeInTheDocument();
   });
 
+  expect(
+    getByText("What is the child's placement reason?")
+  ).toBeInTheDocument();
+  expect(getByText('When will the change take effect?')).toBeInTheDocument();
+});
+
+it('should enable the submit button when completed', () => {
+  const { getByTestId } = render(
+    <EditCaseStatusForm
+      personId={mockedResident.id}
+      caseStatusId={123}
+      action="edit"
+      caseStatusType="CIN"
+      prefilledFields={{
+        notes: 'this is a note',
+        startDate: '2020-01-01',
+      }}
+    />
+  );
+  expect(getByTestId('submit_button')).not.toBeDisabled();
   it('should enable the submit button when completed', () => {
     const { getByTestId } = render(
       <EditCaseStatusForm
