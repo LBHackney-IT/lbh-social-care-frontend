@@ -67,33 +67,32 @@ const AddFormDialog = ({
           inPreview: !f.isViewableByAdults && !f.isViewableByChildrens,
         }))
         .concat(
-          gForms
-            .map((f) => ({
-              label: f.text,
-              href: `${f.value}${populateChildForm(
-                person.firstName,
-                person.lastName,
-                person.id,
-                user.email,
-                f.value
-              )}`,
-              system: false,
-              groupRecordable: false,
-              approvable: false,
-              inPreview: false,
-            }))
-            .concat(
-              isFeatureActive('workflows-pilot') && user.isInWorkflowsPilot
-                ? {
-                    label: 'Assessment, support plan or workflow',
-                    href: `${process.env.NEXT_PUBLIC_WORKFLOWS_PILOT_URL}/workflows/new?social_care_id=${person.id}`,
-                    system: true,
-                    approvable: true,
-                    groupRecordable: false,
-                    inPreview: false,
-                  }
-                : []
-            )
+          isFeatureActive('workflows-pilot') && user.isInWorkflowsPilot
+            ? {
+                label: 'Assessment, support plan or workflow',
+                href: `${process.env.NEXT_PUBLIC_WORKFLOWS_PILOT_URL}/workflows/new?social_care_id=${person.id}`,
+                system: true,
+                approvable: true,
+                groupRecordable: false,
+                inPreview: false,
+              }
+            : []
+        )
+        .concat(
+          gForms.map((f) => ({
+            label: f.text,
+            href: `${f.value}${populateChildForm(
+              person.firstName,
+              person.lastName,
+              person.id,
+              user.email,
+              f.value
+            )}`,
+            system: false,
+            groupRecordable: false,
+            approvable: false,
+            inPreview: false,
+          }))
         ),
 
     [gForms, serviceContext, user, person, isFeatureActive]
