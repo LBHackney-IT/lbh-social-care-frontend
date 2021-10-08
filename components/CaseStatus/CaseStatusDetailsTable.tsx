@@ -1,4 +1,8 @@
-import { CaseStatusFields, CaseStatus, CaseStatusFieldMapping } from 'types';
+import { CaseStatusFields, CaseStatus } from 'types';
+import {
+  CaseStatusSelectOptionLookup,
+  CaseStatusFieldMapping,
+} from '../../data/caseStatus';
 
 interface Props {
   tableName?: string;
@@ -11,10 +15,20 @@ const CaseStatusDetailsTable = ({
   styleType,
   status,
 }: Props): React.ReactElement => {
+  if (!status) {
+    return <></>;
+  }
   return (
     <>
-      {tableName && <h2 className={`${styleType}`}>{tableName}</h2>}
-      <dl className={`govuk-summary-list lbh-summary-list ${styleType}`}>
+      {tableName && (
+        <h2 className={`${styleType}`} data-testid="case_status_table_title">
+          {tableName}
+        </h2>
+      )}
+      <dl
+        className={`govuk-summary-list lbh-summary-list ${styleType}`}
+        data-testid="case_status_details_table"
+      >
         {status.startDate && !status.endDate && (
           <div className="govuk-summary-list__row">
             <dt className="govuk-summary-list__key ">Start date</dt>
@@ -31,7 +45,10 @@ const CaseStatusDetailsTable = ({
         {status.startDate && status.endDate && (
           <div className="govuk-summary-list__row">
             <dt className="govuk-summary-list__key">Dates</dt>
-            <dd className="govuk-summary-list__value" data-testid="end_date">
+            <dd
+              className="govuk-summary-list__value"
+              data-testid="start_end_date"
+            >
               {new Date(status.startDate).toLocaleDateString('en-GB', {
                 day: '2-digit',
                 month: 'short',
@@ -53,7 +70,8 @@ const CaseStatusDetailsTable = ({
           status.fields.map((field: CaseStatusFields) => (
             <div
               className="govuk-summary-list__row"
-              key={`${field.selectedOption.name} ${field.selectedOption.description}`}
+              key={`${status.id} ${field.name} ${field.selectedOption.name}`}
+              data-testid="case_status_fields"
             >
               <dt className="govuk-summary-list__key">
                 {
@@ -63,7 +81,11 @@ const CaseStatusDetailsTable = ({
                 }
               </dt>
               <dd className="govuk-summary-list__value">
-                {field.selectedOption.name} - {field.selectedOption.description}
+                {CaseStatusSelectOptionLookup(
+                  field.selectedOption.name,
+                  field.selectedOption.description,
+                  field.name
+                )}
               </dd>
             </div>
           ))}

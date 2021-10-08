@@ -43,13 +43,13 @@ export const mockedCaseStatusFormValueFactory = Factory.define<FormValue>(
   })
 );
 
-const mockedStatusField = Factory.define<CaseStatusFields>(() => ({
+export const mockedStatusField = Factory.define<CaseStatusFields>(() => ({
   name: 'placementReason',
   description: 'What is the primary reason for placement? (Primary need code)',
   selectedOption: mockedFieldsFactory.build(),
 }));
 
-const mockedFieldsFactory = Factory.define<FormOption>(() => ({
+export const mockedFieldsFactory = Factory.define<FormOption>(() => ({
   name: 'N0',
   description: 'Not stated',
 }));

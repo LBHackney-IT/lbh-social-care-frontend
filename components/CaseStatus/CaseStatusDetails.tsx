@@ -12,6 +12,8 @@ interface Props {
 
 const CaseStatusDetails = ({ person }: Props): React.ReactElement => {
   const { data: caseStatuses, error } = useCaseStatuses(person.id);
+  const scheduledStatus = undefined;
+  const previousStatus = undefined;
 
   // const caseStatuses = [
   //   {
@@ -92,7 +94,6 @@ const CaseStatusDetails = ({ person }: Props): React.ReactElement => {
   // ];
   // const error = undefined;
 
-  console.log('caseStatus', caseStatuses);
   if (error) {
     return (
       <ErrorMessage label="There was a problem with getting case status." />
@@ -127,17 +128,23 @@ const CaseStatusDetails = ({ person }: Props): React.ReactElement => {
               </div>
 
               <CaseStatusDetailsTable status={status} />
-              <CaseStatusDetailsTable
-                tableName="Scheduled changes"
-                styleType={styles.scheduledStatusFont}
-                status={status}
-              />
+              {scheduledStatus && (
+                <CaseStatusDetailsTable
+                  tableName="Scheduled changes"
+                  styleType={styles.scheduledStatusFont}
+                  //Will need to be scheduledStatus
+                  status={status}
+                />
+              )}
 
-              <CaseStatusDetailsTable
-                tableName="Previous version"
-                styleType={styles.previousStatusFont}
-                status={status}
-              />
+              {previousStatus && (
+                <CaseStatusDetailsTable
+                  tableName="Previous version"
+                  styleType={styles.previousStatusFont}
+                  //Will need to be previousStatus
+                  status={status}
+                />
+              )}
             </section>
           </div>
         );

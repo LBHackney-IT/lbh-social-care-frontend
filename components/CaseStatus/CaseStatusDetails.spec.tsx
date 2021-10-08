@@ -1,3 +1,9 @@
+//TO DO
+// if there are scheduled case status' show these
+
+// if there are no past LAC case status' don't show the scheduled title
+// if there are past LAC case status' show these
+
 import { render } from '@testing-library/react';
 import * as caseStatusApi from 'utils/api/caseStatus';
 import CaseStatusDetails from './CaseStatusDetails';
@@ -29,51 +35,6 @@ describe('CaseStatusDetail component', () => {
     expect(queryByText('Child in need')).not.toBeInTheDocument();
   });
 
-  it('displays correctly the start date', async () => {
-    jest.spyOn(caseStatusApi, 'useCaseStatuses').mockImplementation(() => ({
-      data: [
-        mockedCaseStatusFactory.build({
-          type: 'CIN',
-          startDate: '2021-09-09',
-        }),
-      ],
-      isValidating: false,
-      mutate: jest.fn(),
-      revalidate: jest.fn(),
-    }));
-
-    const { getByTestId } = render(
-      <CaseStatusDetails person={mockedResident} />
-    );
-
-    const elements = getByTestId('start_date');
-    expect(elements).not.toBeNull();
-  });
-
-  it('displays correctly the end date', async () => {
-    jest.spyOn(caseStatusApi, 'useCaseStatuses').mockImplementation(() => ({
-      data: [
-        mockedCaseStatusFactory.build({
-          type: 'CIN',
-          startDate: '2021-09-09',
-          endDate: '2021-12-09',
-        }),
-      ],
-      isValidating: false,
-      mutate: jest.fn(),
-      revalidate: jest.fn(),
-    }));
-
-    const { getByTestId } = render(
-      <CaseStatusDetails person={mockedResident} />
-    );
-    const startDate = getByTestId('start_date');
-    const endDate = getByTestId('end_date');
-
-    expect(startDate).not.toBeNull();
-    expect(endDate).not.toBeNull();
-  });
-
   it('displays the notes of a person when there are notes', async () => {
     jest.spyOn(caseStatusApi, 'useCaseStatuses').mockImplementation(() => ({
       data: [
@@ -87,7 +48,7 @@ describe('CaseStatusDetail component', () => {
       revalidate: jest.fn(),
     }));
 
-    const { getByTestId, queryByText } = render(
+    const { queryByText } = render(
       <CaseStatusDetails person={mockedResident} />
     );
 
@@ -136,5 +97,22 @@ describe('CaseStatusDetail component', () => {
     expect(
       queryByText(/There was a problem with getting case status./)
     ).toBeInTheDocument();
+  });
+
+  it('does not display scheduled status or previous status if they do not exist', async () => {
+    jest.spyOn(caseStatusApi, 'useCaseStatuses').mockImplementation(() => ({
+      data: undefined,
+      error: mockedAPIservererror,
+      revalidate: jest.fn(),
+      mutate: jest.fn(),
+      isValidating: false,
+    }));
+
+    const { queryByText } = render(
+      <CaseStatusDetails person={mockedResident} />
+    );
+
+    expect(queryByText('Scheduled changes')).not.toBeInTheDocument();
+    expect(queryByText('Previous version')).not.toBeInTheDocument();
   });
 });
