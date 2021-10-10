@@ -31,7 +31,7 @@ export const patchCaseStatus = async (
 export const updateCaseStatus = async (
   formData: EditCaseStatusFormData
 ): Promise<Record<string, unknown>> => {
-  const response = await axios.post(`/api/casestatus`, formData);
+  const response = await axios.post(`/api/casestatus/update`, formData);
   return response?.data;
 };
 
