@@ -85,7 +85,10 @@ describe('caseStatusAPI', () => {
 
       await caseStatusAPI.updateCaseStatus(formData);
 
-      expect(axios.post).toHaveBeenCalledWith('/api/casestatus', formData);
+      expect(axios.post).toHaveBeenCalledWith(
+        '/api/casestatus/update',
+        formData
+      );
     });
 
     it('returns response from POST /api/casestatus endpoint when updating LAC', async () => {
