@@ -44,7 +44,7 @@ export const mockedCaseStatusFormValueFactory = Factory.define<FormValue>(
 );
 
 const mockedStatusField = Factory.define<CaseStatusFields>(() => ({
-  name: 'placementReason',
+  name: 'placementType',
   description: 'What is the primary reason for placement? (Primary need code)',
   selectedOption: mockedFieldsFactory.build(),
 }));

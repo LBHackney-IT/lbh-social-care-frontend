@@ -112,7 +112,7 @@ describe('ReviewEditCaseStatusForm', () => {
         formAnswers={{
           startDate: '2020-12-03',
           legalStatus: 'D1',
-          placementReason: 'K1',
+          placementType: 'K1',
         }}
       />
     );

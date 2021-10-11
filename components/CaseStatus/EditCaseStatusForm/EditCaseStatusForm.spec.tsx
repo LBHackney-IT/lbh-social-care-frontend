@@ -84,7 +84,7 @@ describe('EditCaseStatusForm', () => {
     expect(getByText('Start Date'));
     expect(getByText("What is the child's legal status?")).toBeInTheDocument();
     expect(
-      getByText("What is the child's placement reason?")
+      getByText("What is the child's placement type?")
     ).toBeInTheDocument();
   });
 

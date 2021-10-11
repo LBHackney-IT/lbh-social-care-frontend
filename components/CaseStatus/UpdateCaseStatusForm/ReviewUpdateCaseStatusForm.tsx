@@ -37,8 +37,6 @@ const ReviewAddCaseStatusForm: React.FC<{
   const submitAnswers = async () => {
     try {
       const postObject: UpdateLACCaseStatusFormData = {
-        editedBy: user.email,
-        personId: personId,
         caseStatusID: caseStatusId,
         startDate: formAnswers.startDate,
         answers: [
@@ -87,7 +85,7 @@ const ReviewAddCaseStatusForm: React.FC<{
       ],
     'New placement type':
       LACPlacementTypeOptions[
-        formAnswers.placementReason as keyof typeof LACPlacementTypeOptions
+        formAnswers.placementType as keyof typeof LACPlacementTypeOptions
       ],
     Notes: formAnswers.notes,
   };

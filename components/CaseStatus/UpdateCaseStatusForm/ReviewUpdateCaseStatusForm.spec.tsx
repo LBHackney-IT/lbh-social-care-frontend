@@ -16,7 +16,7 @@ describe('ReviewUpdateCaseStatusForm', () => {
         formAnswers={{
           startDate: '2020-12-04',
           legalStatus: 'L1',
-          placementReason: 'P3',
+          placementType: 'P3',
         }}
       />
     );

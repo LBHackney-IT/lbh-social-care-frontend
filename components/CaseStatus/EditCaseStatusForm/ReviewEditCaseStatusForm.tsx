@@ -110,9 +110,9 @@ const ReviewAddCaseStatusForm: React.FC<{
       LACLegalStatusOptions[
         formAnswers.legalStatus as keyof typeof LACLegalStatusOptions
       ],
-    'Placement reason':
+    'Placement type':
       LACPlacementTypeOptions[
-        formAnswers.placementReason as keyof typeof LACPlacementTypeOptions
+        formAnswers.placementType as keyof typeof LACPlacementTypeOptions
       ],
     'Reason for episode ending':
       LACReasonsForEpisodeEndOptions[
