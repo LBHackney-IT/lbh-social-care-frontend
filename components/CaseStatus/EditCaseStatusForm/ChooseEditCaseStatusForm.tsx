@@ -25,11 +25,6 @@ const ChooseEditCaseStatusForm: React.FC<{
     if (prefilledValue) {
       field.default = String(prefilledValue);
     }
-    if (field.choices && caseStatusType != 'LAC') {
-      field.choices = field.choices.filter(function (el: any) {
-        return el.value != 'update';
-      });
-    }
   });
 
   const handleSubmit = async (

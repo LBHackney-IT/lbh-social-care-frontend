@@ -1,7 +1,10 @@
 import * as caseStatusAPI from './caseStatus';
 import * as SWR from 'swr';
 import axios from 'axios';
-import { EditCaseStatusFormData, AddCaseStatusFormData } from '../../types';
+import {
+  AddCaseStatusFormData,
+  UpdateLACCaseStatusFormData,
+} from '../../types';
 
 jest.mock('swr');
 jest.mock('axios');
@@ -64,19 +67,17 @@ describe('caseStatusAPI', () => {
 
   describe('updateCaseStatus', () => {
     it('calls the POST /api/casestatus endpoint when updating LAC', async () => {
-      const formData: EditCaseStatusFormData = {
-        personId: 43,
+      const formData: UpdateLACCaseStatusFormData = {
         caseStatusID: 16,
         startDate: '2021-10-07',
-        endDate: '2021-10-08',
-        values: [
+        answers: [
           {
-            name: 'legalStatus',
-            selected: 'L3',
+            option: 'legalStatus',
+            value: 'L3',
           },
           {
-            name: 'placementReason',
-            selected: 'R5',
+            option: 'placementType',
+            value: 'R5',
           },
         ],
         editedBy: 'jack.musajo@hackney.gov.uk',
@@ -92,11 +93,19 @@ describe('caseStatusAPI', () => {
     });
 
     it('returns response from POST /api/casestatus endpoint when updating LAC', async () => {
-      const formData: EditCaseStatusFormData = {
-        personId: 43,
+      const formData: UpdateLACCaseStatusFormData = {
         caseStatusID: 16,
         startDate: new Date().toDateString(),
-        endDate: '2021-10-08',
+        answers: [
+          {
+            option: 'legalStatus',
+            value: 'L3',
+          },
+          {
+            option: 'placementType',
+            value: 'R5',
+          },
+        ],
         editedBy: 'jack.musajo@hackney.gov.uk',
       };
       const apiResponse = { data: 'foobar' };

@@ -57,7 +57,7 @@ describe('case status APIs', () => {
       });
       expect(mockedAxios.post).toHaveBeenCalled();
       expect(mockedAxios.post.mock.calls[0][0]).toEqual(
-        `${ENDPOINT_API}/residents/case-statuses`
+        `${ENDPOINT_API}/case-statuses/{id}/answers`
       );
       expect(mockedAxios.post.mock.calls[0][2]?.headers).toEqual({
         'Content-Type': 'application/json',

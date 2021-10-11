@@ -37,7 +37,7 @@ export const addCaseStatus = async (
 export const updateCaseStatus = async (
   params: Record<string, unknown>
 ): Promise<void> => {
-  await axios.post(`${ENDPOINT_API}/residents/case-statuses`, params, {
+  await axios.post(`${ENDPOINT_API}/case-statuses/{id}/answers`, params, {
     headers: { ...headers, 'Content-Type': 'application/json' },
   });
 };

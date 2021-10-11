@@ -10,8 +10,6 @@ const EditCaseStatus = (): React.ReactElement => {
   const caseStatusId = Number(router.query.caseStatusId as string);
   const action = String(router.query.action);
 
-  console.log(router.query);
-
   let prefilledFields;
   if (router.query.prefilledFields) {
     prefilledFields = JSON.parse(router.query.prefilledFields.toString());

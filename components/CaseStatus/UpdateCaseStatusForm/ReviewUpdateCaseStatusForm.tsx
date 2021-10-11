@@ -12,7 +12,7 @@ import {
   LACLegalStatusOptions,
   LACPlacementTypeOptions,
   User,
-  EditCaseStatusFormData,
+  UpdateLACCaseStatusFormData,
 } from 'types';
 
 const ReviewAddCaseStatusForm: React.FC<{
@@ -36,21 +36,22 @@ const ReviewAddCaseStatusForm: React.FC<{
 
   const submitAnswers = async () => {
     try {
-      const postObject: EditCaseStatusFormData = {
+      const postObject: UpdateLACCaseStatusFormData = {
         editedBy: user.email,
         personId: personId,
         caseStatusID: caseStatusId,
         startDate: formAnswers.startDate,
-        values: [
+        answers: [
           {
-            name: 'legalStatus',
-            selected: formAnswers.legalStatus,
+            option: 'placementType',
+            value: formAnswers.placementType,
           },
           {
-            name: 'placementReason',
-            selected: formAnswers.placementReason,
+            option: 'legalStatus',
+            value: formAnswers.legalStatus,
           },
         ],
+        editedBy: user.email,
       };
       const { error } = await updateCaseStatus(postObject);
       if (error) throw error;

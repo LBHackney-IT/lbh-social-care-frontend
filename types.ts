@@ -457,6 +457,18 @@ export interface EditCaseStatusFormData {
   editedBy: string;
 }
 
+export interface UpdateLACCaseStatusFormValue {
+  option: string;
+  value: string;
+}
+
+export interface UpdateLACCaseStatusFormData {
+  caseStatusID: number;
+  startDate: string;
+  answers: UpdateLACCaseStatusFormValue[];
+  editedBy: string;
+}
+
 export interface Paginated<T> {
   items: T[];
   count: number;
