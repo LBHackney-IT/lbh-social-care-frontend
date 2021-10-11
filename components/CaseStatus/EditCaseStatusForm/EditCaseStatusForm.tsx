@@ -51,9 +51,9 @@ const EditCaseStatusForm: React.FC<{
           if (field.id === 'endDate') {
             field.startDate = format(new Date(status.startDate), 'yyyy-MM-dd');
           }
-          status.fields.map((preloaded_field) => {
-            if (preloaded_field.name === field.id) {
-              field.default = preloaded_field.selectedOption.name;
+          status.answers.map((preloaded_field) => {
+            if (preloaded_field.option === field.id) {
+              field.default = preloaded_field.option;
             }
           });
         });

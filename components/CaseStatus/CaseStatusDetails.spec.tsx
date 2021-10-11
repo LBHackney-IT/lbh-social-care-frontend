@@ -1,14 +1,15 @@
 //TO DO
 // if there are scheduled case status' show these
-
-// if there are no past LAC case status' don't show the scheduled title
 // if there are past LAC case status' show these
 
 import { render } from '@testing-library/react';
 import * as caseStatusApi from 'utils/api/caseStatus';
 import CaseStatusDetails from './CaseStatusDetails';
 import { mockedAPIservererror } from 'factories/APIerrors';
-import { mockedCaseStatusFactory } from 'factories/caseStatus';
+import {
+  mockedCaseStatusFactory,
+  mockedStatusField,
+} from 'factories/caseStatus';
 import { mockedResident } from 'factories/residents';
 
 jest.mock('next/router', () => ({
@@ -113,6 +114,31 @@ describe('CaseStatusDetail component', () => {
     );
 
     expect(queryByText('Scheduled changes')).not.toBeInTheDocument();
+    expect(queryByText('Previous version')).not.toBeInTheDocument();
+  });
+  xit('displays a scheduled status, if there is one', async () => {
+    jest.spyOn(caseStatusApi, 'useCaseStatuses').mockImplementation(() => ({
+      data: [
+        mockedCaseStatusFactory.build({
+          type: 'LAC',
+          answers: [
+            mockedStatusField.build({
+              option: 'category',
+              value: 'C2',
+            }),
+          ],
+        }),
+      ],
+      isValidating: false,
+      mutate: jest.fn(),
+      revalidate: jest.fn(),
+    }));
+
+    const { queryByText } = render(
+      <CaseStatusDetails person={mockedResident} />
+    );
+
+    expect(queryByText('Scheduled changes')).toBeInTheDocument();
     expect(queryByText('Previous version')).not.toBeInTheDocument();
   });
 });

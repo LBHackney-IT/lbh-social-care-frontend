@@ -3,7 +3,6 @@ import CaseStatusDetailsTable from './CaseStatusDetailsTable';
 import {
   mockedCaseStatusFactory,
   mockedStatusField,
-  mockedFieldsFactory,
 } from 'factories/caseStatus';
 import styles from './CaseStatusDetails.module.scss';
 
@@ -94,14 +93,10 @@ describe('CaseStatusDetailsTable component', () => {
           type: 'CP',
           startDate: '2021-09-09',
           endDate: '2021-09-10',
-          fields: [
+          answers: [
             mockedStatusField.build({
-              name: 'category',
-              description: 'Category of child protection plan',
-              selectedOption: mockedFieldsFactory.build({
-                name: 'C2',
-                description: 'Physical abuse',
-              }),
+              option: 'category',
+              value: 'C2',
             }),
           ],
         })}
@@ -124,22 +119,14 @@ describe('CaseStatusDetailsTable component', () => {
           type: 'LAC',
           startDate: '2021-09-09',
           endDate: '2021-09-10',
-          fields: [
+          answers: [
             mockedStatusField.build({
-              name: 'legalStatus',
-              description: "What is the child's legal status?",
-              selectedOption: mockedFieldsFactory.build({
-                name: 'C2',
-                description: 'C2: Full care order',
-              }),
+              option: 'legalStatus',
+              value: 'C2',
             }),
             mockedStatusField.build({
-              name: 'placementType',
-              description: 'What is the placement type?',
-              selectedOption: mockedFieldsFactory.build({
-                name: 'R1',
-                description: 'Not the description',
-              }),
+              option: 'placementType',
+              value: 'R1',
             }),
           ],
         })}
@@ -163,14 +150,10 @@ describe('CaseStatusDetailsTable component', () => {
           type: 'CP',
           startDate: '2021-09-09',
           endDate: '2021-09-10',
-          fields: [
+          answers: [
             mockedStatusField.build({
-              name: 'category',
-              description: 'Not the category name',
-              selectedOption: mockedFieldsFactory.build({
-                name: 'ZZZ1',
-                description: 'A test',
-              }),
+              option: 'category',
+              value: 'ZZZ1',
             }),
           ],
         })}
@@ -183,6 +166,6 @@ describe('CaseStatusDetailsTable component', () => {
       queryByText('Category of child protection plan')
     ).toBeInTheDocument();
     expect(queryByText('Not the category name')).not.toBeInTheDocument();
-    expect(queryByText('ZZZ1: A test')).toBeInTheDocument();
+    expect(queryByText('ZZZ1')).toBeInTheDocument();
   });
 });

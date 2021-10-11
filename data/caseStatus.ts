@@ -4,7 +4,7 @@ import {
   LACPlacementTypeOptions,
 } from 'types';
 
-export enum CaseStatusFieldMapping {
+export enum CaseStatusOptionMapping {
   placementReason = 'Placement reason',
   category = 'Category of child protection plan',
   legalStatus = 'Legal status',
@@ -12,32 +12,29 @@ export enum CaseStatusFieldMapping {
 }
 
 export const CaseStatusSelectOptionLookup = (
-  selectedOptionName: string,
-  selectedOptionDescription: string,
-  caseStatusField: string
+  caseStatusAnswerValue: string,
+  caseStatusAnswerOption: string
 ): string => {
   let returnString = '';
-  switch (caseStatusField) {
+  switch (caseStatusAnswerOption) {
     case 'category':
       returnString =
         ChildProtectionCategoryOptions[
-          selectedOptionName as keyof typeof ChildProtectionCategoryOptions
+          caseStatusAnswerValue as keyof typeof ChildProtectionCategoryOptions
         ];
       break;
     case 'legalStatus':
       returnString =
         LACLegalStatusOptions[
-          selectedOptionName as keyof typeof LACLegalStatusOptions
+          caseStatusAnswerValue as keyof typeof LACLegalStatusOptions
         ];
       break;
     case 'placementType':
       returnString =
         LACPlacementTypeOptions[
-          selectedOptionName as keyof typeof LACPlacementTypeOptions
+          caseStatusAnswerValue as keyof typeof LACPlacementTypeOptions
         ];
       break;
   }
-  return returnString
-    ? returnString
-    : `${selectedOptionName}: ${selectedOptionDescription}`;
+  return returnString ? returnString : `${caseStatusAnswerValue}`;
 };

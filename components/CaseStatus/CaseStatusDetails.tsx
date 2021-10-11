@@ -23,11 +23,11 @@ const CaseStatusDetails = ({ person }: Props): React.ReactElement => {
   //     type: 'CIN',
   //   },
   //   {
-  //     fields: [
+  //     answers: [
   //       {
-  //         name: 'category',
-  //         description: 'Category of child protection plan',
-  //         selectedOption: { description: 'Neglect', name: 'C1' },
+  //         option: 'category',
+  //         value: 'C1',
+  //         // selectedOption: { description: 'Neglect', name: 'C1' },
   //       },
   //     ],
 
@@ -38,22 +38,22 @@ const CaseStatusDetails = ({ person }: Props): React.ReactElement => {
   //     type: 'CIN',
   //   },
   //   {
-  //     fields: [
+  //     answers: [
   //       {
-  //         name: 'legalStatus',
-  //         description: "What is the child's legal status?",
+  //         option: 'legalStatus',
+  //         value: 'C1',
   //         //update selected option lac_legal_status_options
-  //         selectedOption: { description: 'Interim care order', name: 'C1' },
+  //         // selectedOption: { description: 'Interim care order', name: 'C1' },
   //       },
   //       {
-  //         name: 'placementType',
-  //         description: 'What is the placement type?',
+  //         option: 'placementType',
+  //         value: 'A3',
   //         //update selected option lac_placement_type_options
-  //         selectedOption: {
-  //           description:
-  //             'Placed for adoption with parental/guardian consent with current foster carer(s) (under Section 19 of the Adoption and Children Act 2002) or with a freeing order where parental/guardian consent has been given (under Section 18(1)(a) of the Adoption Act 1976)',
-  //           name: 'A3',
-  //         },
+  //         // selectedOption: {
+  //         //   description:
+  //         //     'Placed for adoption with parental/guardian consent with current foster carer(s) (under Section 19 of the Adoption and Children Act 2002) or with a freeing order where parental/guardian consent has been given (under Section 18(1)(a) of the Adoption Act 1976)',
+  //         //   name: 'A3',
+  //         // },
   //       },
   //     ],
 
@@ -67,7 +67,7 @@ const CaseStatusDetails = ({ person }: Props): React.ReactElement => {
 
   // const scheduledCaseStatus: CaseStatus[] = [
   //   {
-  //     fields: [
+  //     answers: [
   //       {
   //         name: 'legalStatus',
   //         description: "What is the child's legal status?",
@@ -92,6 +92,7 @@ const CaseStatusDetails = ({ person }: Props): React.ReactElement => {
   //     type: 'LAC',
   //   },
   // ];
+
   // const error = undefined;
 
   if (error) {

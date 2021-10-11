@@ -1,7 +1,7 @@
 import { CaseStatusFields, CaseStatus } from 'types';
 import {
   CaseStatusSelectOptionLookup,
-  CaseStatusFieldMapping,
+  CaseStatusOptionMapping,
 } from '../../data/caseStatus';
 
 interface Props {
@@ -64,28 +64,23 @@ const CaseStatusDetailsTable = ({
           </div>
         )}
 
-        {status.fields &&
-          status.fields?.length > 0 &&
-          status.fields[0].selectedOption &&
-          status.fields.map((field: CaseStatusFields) => (
+        {status.answers &&
+          status.answers?.length > 0 &&
+          status.answers.map((answer: CaseStatusFields) => (
             <div
               className="govuk-summary-list__row"
-              key={`${status.id} ${field.name} ${field.selectedOption.name}`}
+              key={`${status.id} ${answer.option} ${answer.value}`}
               data-testid="case_status_fields"
             >
               <dt className="govuk-summary-list__key">
                 {
-                  CaseStatusFieldMapping[
-                    field.name as keyof typeof CaseStatusFieldMapping
+                  CaseStatusOptionMapping[
+                    answer.option as keyof typeof CaseStatusOptionMapping
                   ]
                 }
               </dt>
               <dd className="govuk-summary-list__value">
-                {CaseStatusSelectOptionLookup(
-                  field.selectedOption.name,
-                  field.selectedOption.description,
-                  field.name
-                )}
+                {CaseStatusSelectOptionLookup(answer.value, answer.option)}
               </dd>
             </div>
           ))}
