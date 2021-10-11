@@ -63,7 +63,6 @@ describe('caseStatusAPI', () => {
   });
 
   describe('updateCaseStatus', () => {
-    
     it('calls the POST /api/casestatus endpoint when updating LAC', async () => {
       const formData: EditCaseStatusFormData = {
         personId: 43,
