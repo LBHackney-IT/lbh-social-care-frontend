@@ -71,35 +71,48 @@ const CaseStatusDetails = ({ person }: Props): React.ReactElement => {
               {status.type === 'CIN' && (
                 <CaseStatusDetailsTable
                   status={status}
-                  groupedAnswers={currentStatusAnswers}
+                  answers={
+                    currentStatusAnswers === undefined
+                      ? undefined
+                      : currentStatusAnswers[0]
+                  }
                 />
               )}
 
-              {currentStatusAnswers && currentStatusAnswers.length > 0 && (
-                <CaseStatusDetailsTable
-                  status={status}
-                  groupedAnswers={currentStatusAnswers}
-                />
-              )}
+              {currentStatusAnswers &&
+                currentStatusAnswers.length > 0 &&
+                currentStatusAnswers.map((currentStatusDateGroup) => (
+                  <CaseStatusDetailsTable
+                    key={`Current status - ${currentStatusDateGroup.startDate}`}
+                    status={status}
+                    answers={currentStatusDateGroup}
+                  />
+                ))}
 
-              {scheduledStatusAnswers && scheduledStatusAnswers.length > 0 && (
-                <CaseStatusDetailsTable
-                  tableName="Scheduled changes"
-                  styleType={styles.scheduledStatusFont}
-                  status={status}
-                  groupedAnswers={scheduledStatusAnswers}
-                />
-              )}
+              {scheduledStatusAnswers &&
+                scheduledStatusAnswers.length > 0 &&
+                scheduledStatusAnswers.map((scheduledStatusDateGroup) => (
+                  <CaseStatusDetailsTable
+                    key={`Scheduled status - ${scheduledStatusDateGroup.startDate}`}
+                    tableName="Scheduled changes"
+                    styleType={styles.scheduledStatusFont}
+                    status={status}
+                    answers={scheduledStatusDateGroup}
+                  />
+                ))}
 
-              {pastStatusAnswers && pastStatusAnswers.length > 0 && (
-                <CaseStatusDetailsTable
-                  tableName="Previous version"
-                  styleType={styles.previousStatusFont}
-                  status={status}
-                  groupedAnswers={pastStatusAnswers}
-                  // groupedAnswers={pastStatusAnswersGrouped}
-                />
-              )}
+              {pastStatusAnswers &&
+                pastStatusAnswers.length > 0 &&
+                pastStatusAnswers.map((previousStatusDateGroup) => (
+                  <CaseStatusDetailsTable
+                    key={`Previous version - ${previousStatusDateGroup.startDate}`}
+                    tableName="Previous version"
+                    styleType={styles.previousStatusFont}
+                    status={status}
+                    answers={previousStatusDateGroup}
+                    // groupedAnswers={pastStatusAnswersGrouped}
+                  />
+                ))}
             </section>
           </div>
         );
