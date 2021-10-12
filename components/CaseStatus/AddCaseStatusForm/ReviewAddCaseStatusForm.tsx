@@ -88,12 +88,18 @@ const ReviewAddCaseStatusForm: React.FC<{
       month: 'short',
       year: 'numeric',
     }),
-    Notes: String(formAnswers.notes),
-    'Category of child protection plan':
+  };
+
+  if (formAnswers.type === 'CIN') {
+    displayObj['Notes'] = String(formAnswers.notes);
+  }
+
+  if (formAnswers.type === 'CP') {
+    displayObj['Category of child protection plan'] =
       ChildProtectionCategoryOptions[
         formAnswers.category as keyof typeof ChildProtectionCategoryOptions
-      ],
-  };
+      ];
+  }
 
   if (formAnswers.type === 'LAC') {
     displayObj['Legal Status'] =
@@ -108,9 +114,7 @@ const ReviewAddCaseStatusForm: React.FC<{
   }
 
   const displayValue: FlexibleAnswersT = {
-    answers: {
-      ...displayObj,
-    },
+    answers: displayObj,
   };
 
   return (

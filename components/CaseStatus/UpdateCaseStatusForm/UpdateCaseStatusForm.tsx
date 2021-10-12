@@ -1,5 +1,5 @@
 import { Form, Formik, FormikHelpers, FormikValues } from 'formik';
-import CASE_STATUS from 'data/flexibleForms/caseStatus/chooseEdit';
+import CASE_STATUS_LAC_UPDATE from 'data/flexibleForms/caseStatus/updateLAC';
 import { generateInitialValues } from 'lib/utils';
 import { generateFlexibleSchema } from 'lib/validators';
 import FlexibleField from 'components/FlexibleForms/FlexibleFields';
@@ -7,25 +7,28 @@ import Button from 'components/Button/Button';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 
-const ChooseEditCaseStatusForm: React.FC<{
+const UpdateCaseStatusForm: React.FC<{
   personId: number;
   caseStatusId: number;
-  prefilledValue: string;
+  prefilledFields: any;
   caseStatusType: string;
-}> = ({ personId, caseStatusId, prefilledValue, caseStatusType }) => {
+  action: string;
+}> = ({ personId, caseStatusId, caseStatusType, prefilledFields, action }) => {
   const router = useRouter();
 
-  let form_fields: any;
+  const form_fields = CASE_STATUS_LAC_UPDATE.steps[0].fields;
 
-  caseStatusType == 'LAC'
-    ? (form_fields = CASE_STATUS.steps[1].fields)
-    : (form_fields = CASE_STATUS.steps[0].fields);
+  if (prefilledFields && prefilledFields['action']) {
+    action = prefilledFields['action'];
+  }
 
-  form_fields.map((field: any) => {
-    if (prefilledValue) {
-      field.default = String(prefilledValue);
-    }
-  });
+  if (prefilledFields) {
+    form_fields.map((field: any) => {
+      if (prefilledFields[field.id]) {
+        field.default = prefilledFields[field.id];
+      }
+    });
+  }
 
   const handleSubmit = async (
     values: FormikValues,
@@ -33,13 +36,11 @@ const ChooseEditCaseStatusForm: React.FC<{
   ) => {
     try {
       router.push({
-        pathname:
-          values.action == 'update'
-            ? `/people/${personId}/case-status/${caseStatusId}/update/edit`
-            : `/people/${personId}/case-status/${caseStatusId}/edit/edit`,
+        pathname: `/people/${personId}/case-status/${caseStatusId}/update/review`,
         query: {
-          action: values.action,
+          action: action,
           type: caseStatusType,
+          ...values,
         },
       });
     } catch (e) {
@@ -67,16 +68,16 @@ const ChooseEditCaseStatusForm: React.FC<{
           <div style={{ display: 'flex', alignItems: 'center' }}>
             <Button
               label="Continue"
-              disabled={
-                !['edit', 'update', 'end'].includes(String(values.action)) ||
-                Object.keys(errors).length > 0
-              }
+              disabled={Object.keys(errors).length > 0}
               type="submit"
               data-testid="submit_button"
               wideButton
             />
             <Link
-              href={{ pathname: `/people/${personId}/details` }}
+              href={{
+                pathname: `/people/${personId}/case-status/${caseStatusId}/edit`,
+                query: { action: action, type: caseStatusType },
+              }}
               scroll={false}
             >
               <a
@@ -92,4 +93,4 @@ const ChooseEditCaseStatusForm: React.FC<{
   );
 };
 
-export default ChooseEditCaseStatusForm;
+export default UpdateCaseStatusForm;

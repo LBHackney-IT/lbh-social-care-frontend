@@ -8,7 +8,7 @@ import {
 
 const cp_options: Choice[] = [];
 const lac_legal_status_options: Choice[] = [];
-const lac_placement_reason_options: Choice[] = [];
+const lac_placement_type_options: Choice[] = [];
 
 Object.keys(ChildProtectionCategoryOptions).map((key) => {
   cp_options.push({
@@ -20,7 +20,7 @@ Object.keys(ChildProtectionCategoryOptions).map((key) => {
   });
 });
 Object.keys(LACPlacementTypeOptions).map((key) => {
-  lac_placement_reason_options.push({
+  lac_placement_type_options.push({
     value: key,
     label: LACPlacementTypeOptions[key as keyof typeof LACPlacementTypeOptions],
   });
@@ -108,10 +108,10 @@ const form: Form = {
           required: false,
         },
         {
-          id: 'placementReason',
-          question: "What is the child's placement reason?",
+          id: 'placementType',
+          question: "What is the child's placement type?",
           type: 'select',
-          choices: lac_placement_reason_options,
+          choices: lac_placement_type_options,
         },
       ],
     },

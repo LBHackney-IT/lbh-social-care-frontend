@@ -49,6 +49,24 @@ describe('case status APIs', () => {
     });
   });
 
+  describe('updateCaseStatus', () => {
+    it("calls the service API's update POST case status endpoint", async () => {
+      const caseStatusId = 16;
+      mockedAxios.post.mockResolvedValue({ data: {} });
+      await caseStatusAPI.updateCaseStatus(caseStatusId, {
+        data: mockedCaseStatusAddRequest,
+      });
+      expect(mockedAxios.post).toHaveBeenCalled();
+      expect(mockedAxios.post.mock.calls[0][0]).toEqual(
+        `${ENDPOINT_API}/case-statuses/${caseStatusId}/answers`
+      );
+      expect(mockedAxios.post.mock.calls[0][2]?.headers).toEqual({
+        'Content-Type': 'application/json',
+        'x-api-key': AWS_KEY,
+      });
+    });
+  });
+
   describe('patchCaseStatus', () => {
     it("calls the service API's PATCH case status endpoint", async () => {
       const caseStatusId = 123;

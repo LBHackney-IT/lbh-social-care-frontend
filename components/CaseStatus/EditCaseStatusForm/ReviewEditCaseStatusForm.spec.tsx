@@ -5,7 +5,7 @@ import { residentFactory } from 'factories/residents';
 const mockedResident = residentFactory.build();
 
 describe('ReviewEditCaseStatusForm', () => {
-  it('displays the form CIN - edit', () => {
+  it('displays the CIN form - edit', () => {
     const { getByText } = render(
       <ReviewEditCaseStatusForm
         title="Review case status details"
@@ -21,12 +21,39 @@ describe('ReviewEditCaseStatusForm', () => {
     );
 
     expect(getByText('Review case status details')).toBeInTheDocument();
+    expect(getByText('Child in need')).toBeInTheDocument();
+    expect(getByText('Start Date')).toBeInTheDocument();
+    expect(getByText('01 Dec 2020')).toBeInTheDocument();
     expect(getByText('blabla')).toBeInTheDocument();
     expect(
       getByText('Do you want to edit this case status?')
     ).toBeInTheDocument();
   });
-  it('displays the form - CP edit', () => {
+
+  it('displays the CIN form - end', () => {
+    const { getByText } = render(
+      <ReviewEditCaseStatusForm
+        title="Review case status details"
+        personId={mockedResident.id}
+        caseStatusType="CIN"
+        caseStatusId={123}
+        action="end"
+        formAnswers={{
+          endDate: '2020-12-01',
+        }}
+      />
+    );
+
+    expect(getByText('Review case status details')).toBeInTheDocument();
+    expect(getByText('Child in need')).toBeInTheDocument();
+    expect(getByText('End Date')).toBeInTheDocument();
+    expect(getByText('01 Dec 2020')).toBeInTheDocument();
+    expect(
+      getByText('Do you want to end this case status?')
+    ).toBeInTheDocument();
+  });
+
+  it('displays the CP form - edit', () => {
     const { getByText } = render(
       <ReviewEditCaseStatusForm
         title="Review case status details"
@@ -35,7 +62,7 @@ describe('ReviewEditCaseStatusForm', () => {
         caseStatusType="CP"
         action="edit"
         formAnswers={{
-          startDate: '2020-12-01',
+          startDate: '2020-12-02',
           category: 'C1',
         }}
       />
@@ -43,62 +70,15 @@ describe('ReviewEditCaseStatusForm', () => {
 
     expect(getByText('Review case status details')).toBeInTheDocument();
     expect(getByText('Child protection')).toBeInTheDocument();
+    expect(getByText('Start Date')).toBeInTheDocument();
+    expect(getByText('02 Dec 2020')).toBeInTheDocument();
     expect(getByText('Neglect')).toBeInTheDocument();
     expect(
       getByText('Do you want to edit this case status?')
     ).toBeInTheDocument();
   });
-  it('displays the form - LAC edit', () => {
-    const { getByText } = render(
-      <ReviewEditCaseStatusForm
-        title="Review case status details"
-        personId={mockedResident.id}
-        caseStatusId={123}
-        caseStatusType="LAC"
-        action="edit"
-        formAnswers={{
-          startDate: '2020-12-01',
-          placementReason: 'H5',
-          legalStatus: 'C2',
-        }}
-      />
-    );
 
-    expect(getByText('Review case status details')).toBeInTheDocument();
-    expect(getByText('Looked after child')).toBeInTheDocument();
-    expect(
-      getByText(
-        'H5: Semi-independent living accommodation not subject to children’s homes regulations'
-      )
-    ).toBeInTheDocument();
-    expect(getByText('C2: Full care order')).toBeInTheDocument();
-    expect(
-      getByText('Do you want to edit this case status?')
-    ).toBeInTheDocument();
-  });
-
-  it('displays the form CIN - end', () => {
-    const { getByText } = render(
-      <ReviewEditCaseStatusForm
-        title="Review case status details"
-        personId={mockedResident.id}
-        caseStatusType="CIN"
-        caseStatusId={123}
-        action="end"
-        formAnswers={{
-          endDate: '2020-12-01',
-        }}
-      />
-    );
-
-    expect(getByText('Review case status details')).toBeInTheDocument();
-    expect(getByText('01 Dec 2020')).toBeInTheDocument();
-    expect(
-      getByText('Do you want to end this case status?')
-    ).toBeInTheDocument();
-  });
-
-  it('displays the form CP - end', () => {
+  it('displays the CP form - end', () => {
     const { getByText } = render(
       <ReviewEditCaseStatusForm
         title="Review case status details"
@@ -107,19 +87,47 @@ describe('ReviewEditCaseStatusForm', () => {
         caseStatusId={123}
         action="end"
         formAnswers={{
-          endDate: '2020-12-01',
+          endDate: '2020-12-02',
         }}
       />
     );
 
     expect(getByText('Review case status details')).toBeInTheDocument();
-    expect(getByText('01 Dec 2020')).toBeInTheDocument();
+    expect(getByText('Child protection')).toBeInTheDocument();
+    expect(getByText('End Date')).toBeInTheDocument();
+    expect(getByText('02 Dec 2020')).toBeInTheDocument();
     expect(
       getByText('Do you want to end this case status?')
     ).toBeInTheDocument();
   });
 
-  it('displays the form LAC - end', () => {
+  it('displays the LAC form - edit', () => {
+    const { getByText } = render(
+      <ReviewEditCaseStatusForm
+        title="Review case status details"
+        personId={mockedResident.id}
+        caseStatusId={123}
+        caseStatusType="LAC"
+        action="edit"
+        formAnswers={{
+          startDate: '2020-12-03',
+          legalStatus: 'D1',
+          placementType: 'K1',
+        }}
+      />
+    );
+
+    expect(getByText('Review case status details')).toBeInTheDocument();
+    expect(getByText('Looked after child')).toBeInTheDocument();
+    expect(getByText('03 Dec 2020')).toBeInTheDocument();
+    expect(getByText('D1: Freeing order granted')).toBeInTheDocument();
+    expect(getByText('K1: Secure children’s homes')).toBeInTheDocument();
+    expect(
+      getByText('Do you want to edit this case status?')
+    ).toBeInTheDocument();
+  });
+
+  it('displays the LAC form - end', () => {
     const { getByText } = render(
       <ReviewEditCaseStatusForm
         title="Review case status details"
@@ -128,40 +136,20 @@ describe('ReviewEditCaseStatusForm', () => {
         caseStatusId={123}
         action="end"
         formAnswers={{
-          endDate: '2020-12-01',
-          episodeReason: 'E4A',
+          endDate: '2020-12-03',
+          episodeReason: 'E12',
         }}
       />
     );
 
     expect(getByText('Review case status details')).toBeInTheDocument();
-    expect(getByText('01 Dec 2020')).toBeInTheDocument();
+    expect(getByText('Looked after child')).toBeInTheDocument();
+    expect(getByText('End Date')).toBeInTheDocument();
     expect(
-      getByText(
-        'E4A: Returned home to live with parent(s), relative(s), or other person(s) with parental responsibility as part of the care planning process (not under a special guardianship order or residence order or (from 22 April 2014) a child arrangement order).'
-      )
+      getByText('E12: Adopted – consent dispensed with by the court')
     ).toBeInTheDocument();
     expect(
       getByText('Do you want to end this case status?')
     ).toBeInTheDocument();
-  });
-
-  it('displays start date and notes for the edit', () => {
-    const { getByText } = render(
-      <ReviewEditCaseStatusForm
-        title="Review case status details"
-        personId={mockedResident.id}
-        caseStatusType="CIN"
-        caseStatusId={123}
-        action="edit"
-        formAnswers={{
-          startDate: '2020-12-01',
-          notes: 'blabla',
-        }}
-      />
-    );
-
-    expect(getByText('blabla')).toBeInTheDocument();
-    expect(getByText('01 Dec 2020')).toBeInTheDocument();
   });
 });
