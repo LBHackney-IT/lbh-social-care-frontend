@@ -216,9 +216,7 @@ describe('AddFormDialog', () => {
         </AuthProvider>
       );
 
-      expect(
-        screen.queryByText('Assessment, support plan or workflow')
-      ).toBeVisible();
+      expect(screen.queryByText('Pilot assessment')).toBeVisible();
     });
 
     it('does not display link for workflows if user is not in workflows pilot', () => {
@@ -240,9 +238,7 @@ describe('AddFormDialog', () => {
         </AuthProvider>
       );
 
-      expect(
-        screen.queryByText('Assessment, support plan or workflow')
-      ).not.toBeInTheDocument();
+      expect(screen.queryByText('Pilot assessment')).not.toBeInTheDocument();
     });
   });
 
@@ -266,9 +262,7 @@ describe('AddFormDialog', () => {
         </AuthProvider>
       );
 
-      expect(
-        screen.queryByText('Assessment, support plan or workflow')
-      ).not.toBeInTheDocument();
+      expect(screen.queryByText('Pilot assessment')).not.toBeInTheDocument();
     });
   });
 });
