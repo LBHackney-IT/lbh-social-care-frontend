@@ -15,7 +15,7 @@ interface Props {
 }
 
 const CaseStatusDetails = ({ person }: Props): React.ReactElement => {
-  const { data: caseStatuses, error } = useCaseStatuses(person.id);
+  const { data, error } = useCaseStatuses(person.id);
 
   if (error) {
     return (
@@ -23,7 +23,7 @@ const CaseStatusDetails = ({ person }: Props): React.ReactElement => {
     );
   }
 
-  if (!caseStatuses || caseStatuses?.length === 0) {
+  if (!data || data?.length === 0) {
     return <></>;
   }
   return (
@@ -31,7 +31,7 @@ const CaseStatusDetails = ({ person }: Props): React.ReactElement => {
       <div>
         <h2 style={{ fontSize: '24px' }}>Case statuses</h2>
 
-        {caseStatuses.map((status: CaseStatus) => {
+        {data.map((status: CaseStatus) => {
           const title = (
             <div className={styles.align}>
               {status.type && (
@@ -93,18 +93,15 @@ const CaseStatusDetails = ({ person }: Props): React.ReactElement => {
               >
                 <div key={status.id}>
                   <dl key={status.id}>
-                    {status.fields.map(
+                    {status.answers.map(
                       (field: CaseStatusFields) =>
-                        field.selectedOption &&
-                        field.selectedOption.name &&
-                        field.selectedOption.description && (
-                          <div key={field.selectedOption.name}>
+                        field.value && (
+                          <div key={field.value}>
                             <dt className={styles.selectedTitles}>
                               Category of need
                             </dt>
                             <dd className={styles.selectedValue}>
-                              {field.selectedOption.name} -{' '}
-                              {field.selectedOption.description}
+                              {field.value} - {field.option}
                             </dd>
                           </div>
                         )

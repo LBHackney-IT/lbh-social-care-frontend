@@ -32,7 +32,6 @@ const ReviewAddCaseStatusForm: React.FC<{
         personId: personId,
         type: String(formAnswers.type),
         startDate: String(formAnswers.startDate),
-        fields: [],
         createdby: user.email,
       };
 
@@ -40,29 +39,32 @@ const ReviewAddCaseStatusForm: React.FC<{
 
       formAnswers.notes ? (postObject['notes'] = formAnswers.notes) : null;
 
-      formAnswers.category
+      formAnswers.category && formAnswers.type == 'CP'
         ? fieldsValues.push({
-            name: 'category',
-            selected: formAnswers.category,
+            option: 'category',
+            value: formAnswers.category,
           } as CaseStatusFormValue)
         : null;
 
-      formAnswers.legalStatus
+      formAnswers.legalStatus && formAnswers.type == 'LAC'
         ? fieldsValues.push({
-            name: 'legalStatus',
-            selected: formAnswers.legalStatus,
+            option: 'legalStatus',
+            value: formAnswers.legalStatus,
           } as CaseStatusFormValue)
         : null;
 
-      formAnswers.placementType
+      formAnswers.placementType && formAnswers.type == 'LAC'
         ? fieldsValues.push({
-            name: 'placementType',
-            selected: formAnswers.placementType,
+            option: 'placementType',
+            value: formAnswers.placementType,
           } as CaseStatusFormValue)
         : null;
 
-      if (fieldsValues.length > 0) {
-        postObject['fields'] = fieldsValues;
+      if (
+        fieldsValues.length > 0 &&
+        (formAnswers.type == 'LAC' || formAnswers.type == 'CP')
+      ) {
+        postObject['answers'] = fieldsValues;
       }
 
       const { error } = await addCaseStatus(postObject);
