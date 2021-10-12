@@ -93,19 +93,20 @@ const CaseStatusDetails = ({ person }: Props): React.ReactElement => {
               >
                 <div key={status.id}>
                   <dl key={status.id}>
-                    {status.answers.map(
-                      (field: CaseStatusFields) =>
-                        field.value && (
-                          <div key={field.value}>
-                            <dt className={styles.selectedTitles}>
-                              Category of need
-                            </dt>
-                            <dd className={styles.selectedValue}>
-                              {field.value} - {field.option}
-                            </dd>
-                          </div>
-                        )
-                    )}
+                    {status.answers &&
+                      status.answers.map(
+                        (field: CaseStatusFields) =>
+                          field.value && (
+                            <div key={field.value}>
+                              <dt className={styles.selectedTitles}>
+                                Category of need
+                              </dt>
+                              <dd className={styles.selectedValue}>
+                                {field.value} - {field.option}
+                              </dd>
+                            </div>
+                          )
+                      )}
 
                     {status.notes && (
                       <>

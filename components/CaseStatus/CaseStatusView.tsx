@@ -22,8 +22,6 @@ const CaseStatusView = ({ person }: Props): React.ReactElement => {
     return <></>;
   }
 
-  console.log(data);
-
   return (
     <>
       <div className={Styles.align}>
