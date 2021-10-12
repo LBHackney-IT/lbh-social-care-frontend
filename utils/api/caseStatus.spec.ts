@@ -111,8 +111,11 @@ describe('caseStatusAPI', () => {
       const apiResponse = { data: 'foobar' };
 
       mockedAxios.post.mockResolvedValue(apiResponse);
-
-      const response = await caseStatusAPI.updateCaseStatus(formData);
+      const caseStatusID = formData.caseStatusID;
+      const response = await caseStatusAPI.updateCaseStatus(
+        formData,
+        caseStatusID
+      );
 
       expect(response).toBe(apiResponse.data);
     });
