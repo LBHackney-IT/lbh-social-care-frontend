@@ -9,7 +9,6 @@ interface Props {
   styleType?: string;
   status: CaseStatus;
   answers?: CaseStatusAnswer;
-  // groupedAnswers?: CaseStatusAnswer;
 }
 
 const CaseStatusDetailsTable = ({

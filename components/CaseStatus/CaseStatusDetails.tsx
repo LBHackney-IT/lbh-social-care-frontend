@@ -1,24 +1,21 @@
 import ErrorMessage from 'components/ErrorMessage/ErrorMessage';
+import { useCaseStatuses } from 'utils/api/caseStatus';
 import { Resident, CaseStatus, CaseStatusMapping } from 'types';
 import styles from './CaseStatusDetails.module.scss';
 import Link from 'next/link';
 import s from 'stylesheets/Section.module.scss';
 import CaseStatusDetailsTable from './CaseStatusDetailsTable';
-import {
-  caseStatusesTest,
-  LACcaseStatusesTest,
-  sortCaseStatusAnswers,
-} from '../../data/caseStatus';
+import { sortCaseStatusAnswers } from '../../data/caseStatus';
 
 interface Props {
   person: Resident;
 }
 
 const CaseStatusDetails = ({ person }: Props): React.ReactElement => {
-  // const { data: caseStatuses, error } = useCaseStatuses(person.id);
+  const { data: caseStatuses, error } = useCaseStatuses(person.id);
 
-  const caseStatuses = caseStatusesTest.concat(LACcaseStatusesTest);
-  const error = undefined;
+  // const caseStatuses = caseStatusesTest.concat(LACcaseStatusesTest);
+  // const error = undefined;
 
   if (error) {
     return (
@@ -37,10 +34,6 @@ const CaseStatusDetails = ({ person }: Props): React.ReactElement => {
           scheduledStatusAnswers,
           pastStatusAnswers,
         } = sortCaseStatusAnswers(status);
-        console.log(status.type, status);
-        console.log('current', currentStatusAnswers);
-        console.log('scheduled', scheduledStatusAnswers);
-        console.log('past', pastStatusAnswers);
         pastStatusAnswers?.map((status, index) => {
           status.endDate =
             index === 0
@@ -110,7 +103,6 @@ const CaseStatusDetails = ({ person }: Props): React.ReactElement => {
                     styleType={styles.previousStatusFont}
                     status={status}
                     answers={previousStatusDateGroup}
-                    // groupedAnswers={pastStatusAnswersGrouped}
                   />
                 ))}
             </section>

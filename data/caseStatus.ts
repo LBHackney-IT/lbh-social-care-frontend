@@ -75,31 +75,6 @@ export const sortCaseStatusAnswers = (
         }
       });
 
-      // console.log(
-      //   'multiple index?',
-      //   pastStatus.findIndex(
-      //     (i) =>
-      //       i.createdAt === tempCurrentStatus?.createdAt &&
-      //       i.startDate === tempCurrentStatus?.startDate
-      //   )
-      // );
-
-      // console.log('tempCurrentStatus', tempCurrentStatus);
-
-      // currentStatus = [...pastStatus];
-      // console.log('currentStatus inital', currentStatus);
-      // currentStatus.filter(
-      //   (status) =>
-      //     status.createdAt === tempCurrentStatus.createdAt &&
-      //     status.startDate === tempCurrentStatus.startDate
-      // );
-      // console.log('current status filters', currentStatus);
-
-      // pastStatus.filter(
-      //   (status) =>
-      //     status.createdAt !== tempCurrentStatus.createdAt &&
-      //     status.startDate !== tempCurrentStatus.startDate
-      // );
       let currentStatusIndex = -1;
       do {
         currentStatusIndex = pastStatus.findIndex(
@@ -115,16 +90,6 @@ export const sortCaseStatusAnswers = (
           pastStatus.splice(currentStatusIndex, 1);
         }
       } while (currentStatusIndex >= 0);
-
-      // let currentStatusIndices = []
-      // forpastStatus.findIndex(
-      //   (i) =>
-      //     i.createdAt === tempCurrentStatus?.createdAt &&
-      //     i.startDate === tempCurrentStatus?.startDate
-      // );
-      // for(let i = currentStatusIndices.length - 1; i <= 0; i-- ){
-      //   currentStatus?.push(pastStatus[])
-      // pastStatus.splice(currentStatusIndex, 1);}
     }
   }
 
@@ -256,31 +221,3 @@ export const LACcaseStatusesTest: CaseStatus[] = [
     notes: '',
   },
 ];
-
-// const scheduledCaseStatus: CaseStatus[] = [
-//   {
-//     answers: [
-//       {
-//         name: 'legalStatus',
-//         description: "What is the child's legal status?",
-//         //update selected option lac_legal_status_options
-//         selectedOption: { description: 'Interim care order', name: 'C1' },
-//       },
-//       {
-//         name: 'placementType',
-//         description: 'What is the placement type?',
-//         //update selected option lac_placement_type_options
-//         selectedOption: {
-//           description:
-//             'Placed for adoption with parental/guardian consent with current foster carer(s) (under Section 19 of the Adoption and Children Act 2002) or with a freeing order where parental/guardian consent has been given (under Section 18(1)(a) of the Adoption Act 1976)',
-//           name: 'A3',
-//         },
-//       },
-//     ],
-//     endDate: '2021-08-13T14:35:37.7023130',
-//     id: 3,
-//     notes: 'this is a note',
-//     startDate: '2021-08-12T14:35:37.7023130',
-//     type: 'LAC',
-//   },
-// ];
