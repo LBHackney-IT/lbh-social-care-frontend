@@ -34,32 +34,10 @@ Props): React.ReactElement => {
         className={`govuk-summary-list lbh-summary-list ${styleType}`}
         data-testid="case_status_details_table"
       >
-        {status.startDate && !status.endDate && (
+        {status.startDate && !groupedAnswers && !groupedAnswers?.[0] && (
           <div className="govuk-summary-list__row">
             <dt className="govuk-summary-list__key ">Start date</dt>
             <dd className="govuk-summary-list__value" data-testid="start_date">
-              {new Date(status.startDate).toLocaleDateString('en-GB', {
-                day: '2-digit',
-                month: 'short',
-                year: 'numeric',
-              })}
-            </dd>
-          </div>
-        )}
-
-        {status.startDate && status.endDate && (
-          <div className="govuk-summary-list__row">
-            <dt className="govuk-summary-list__key">Dates</dt>
-            <dd
-              className="govuk-summary-list__value"
-              data-testid="start_end_date"
-            >
-              {new Date(status.startDate).toLocaleDateString('en-GB', {
-                day: '2-digit',
-                month: 'short',
-                year: 'numeric',
-              })}{' '}
-              -{' '}
               {new Date(status.startDate).toLocaleDateString('en-GB', {
                 day: '2-digit',
                 month: 'short',
@@ -75,20 +53,9 @@ Props): React.ReactElement => {
           groupedAnswers.map((dateGroup: CaseStatusAnswer) => {
             return (
               <>
-                {/* {groupedAnswers && (
-                  <div
-                    className="govuk-summary-list__row"
-                    data-testid="case_status_fields"
-                  >
-                    <dt className="govuk-summary-list__key">Hi</dt>
-                    <dd className="govuk-summary-list__value">HIIIIIIIII</dd>
-                  </div>
-                )} */}
                 {dateGroup.startDate && !dateGroup.endDate && (
                   <div className="govuk-summary-list__row">
-                    <dt className="govuk-summary-list__key ">
-                      Test Start date
-                    </dt>
+                    <dt className="govuk-summary-list__key ">Start date</dt>
                     <dd
                       className="govuk-summary-list__value"
                       data-testid="start_date"

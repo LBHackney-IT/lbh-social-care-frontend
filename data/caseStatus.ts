@@ -43,10 +43,6 @@ export const CaseStatusSelectOptionLookup = (
   return returnString ? returnString : `${caseStatusAnswerValue}`;
 };
 
-// export interface caseStatusResponse<CurrentStatus, ScheduledStatus> {
-//   data?: CurrentStatus;
-//   error?: ScheduledStatus;}
-
 export const sortCaseStatusAnswers = (
   caseStatuses: CaseStatus
 ): {
@@ -72,30 +68,63 @@ export const sortCaseStatusAnswers = (
       (answer) => new Date(answer.startDate) <= new Date()
     );
     if (pastStatus.length > 0) {
-      let tempCurrent = pastStatus[0];
+      let tempCurrentStatus = pastStatus[0];
       pastStatus.forEach((status) => {
-        if (status.createdAt > tempCurrent.createdAt) {
-          tempCurrent = status;
+        if (status.createdAt > tempCurrentStatus.createdAt) {
+          tempCurrentStatus = status;
         }
       });
-      currentStatus = [tempCurrent];
-      console.log(
-        'multiple index?',
-        pastStatus.findIndex(
-          (i) =>
-            i.createdAt === currentStatus?.[0].createdAt &&
-            i.startDate === currentStatus?.[0].startDate
-        )
-      );
 
-      const currentStatusIndex = pastStatus.findIndex(
-        (i) =>
-          i.createdAt === currentStatus?.[0].createdAt &&
-          i.option === currentStatus?.[0].option &&
-          i.startDate === currentStatus?.[0].startDate &&
-          i.value === currentStatus?.[0].value
-      );
-      pastStatus.splice(currentStatusIndex, 1);
+      // console.log(
+      //   'multiple index?',
+      //   pastStatus.findIndex(
+      //     (i) =>
+      //       i.createdAt === tempCurrentStatus?.createdAt &&
+      //       i.startDate === tempCurrentStatus?.startDate
+      //   )
+      // );
+
+      // console.log('tempCurrentStatus', tempCurrentStatus);
+
+      // currentStatus = [...pastStatus];
+      // console.log('currentStatus inital', currentStatus);
+      // currentStatus.filter(
+      //   (status) =>
+      //     status.createdAt === tempCurrentStatus.createdAt &&
+      //     status.startDate === tempCurrentStatus.startDate
+      // );
+      // console.log('current status filters', currentStatus);
+
+      // pastStatus.filter(
+      //   (status) =>
+      //     status.createdAt !== tempCurrentStatus.createdAt &&
+      //     status.startDate !== tempCurrentStatus.startDate
+      // );
+      let currentStatusIndex = -1;
+      do {
+        currentStatusIndex = pastStatus.findIndex(
+          (i) =>
+            i.createdAt === tempCurrentStatus.createdAt &&
+            i.startDate === tempCurrentStatus.startDate
+        );
+        if (currentStatusIndex >= 0) {
+          if (currentStatus === undefined) {
+            currentStatus = [];
+          }
+          currentStatus.push(pastStatus[currentStatusIndex]);
+          pastStatus.splice(currentStatusIndex, 1);
+        }
+      } while (currentStatusIndex >= 0);
+
+      // let currentStatusIndices = []
+      // forpastStatus.findIndex(
+      //   (i) =>
+      //     i.createdAt === tempCurrentStatus?.createdAt &&
+      //     i.startDate === tempCurrentStatus?.startDate
+      // );
+      // for(let i = currentStatusIndices.length - 1; i <= 0; i-- ){
+      //   currentStatus?.push(pastStatus[])
+      // pastStatus.splice(currentStatusIndex, 1);}
     }
   }
 
