@@ -219,6 +219,30 @@ describe('AddFormDialog', () => {
       expect(screen.queryByText('Pilot assessment')).toBeVisible();
     });
 
+    it('display link for workflow at the top if user is in workflows pilot', () => {
+      render(
+        <AuthProvider user={mockedUserInWorkflowsPilot}>
+          <FeatureFlagProvider
+            features={{
+              'workflows-pilot': {
+                isActive: true,
+              },
+            }}
+          >
+            <AddFormDialog
+              isOpen={true}
+              onDismiss={jest.fn()}
+              person={mockedResident}
+            />
+          </FeatureFlagProvider>
+        </AuthProvider>
+      );
+
+      expect(screen.queryAllByRole('link')[0]).toHaveTextContent(
+        'Pilot assessment'
+      );
+    });
+
     it('does not display link for workflows if user is not in workflows pilot', () => {
       render(
         <AuthProvider user={mockedUser}>
