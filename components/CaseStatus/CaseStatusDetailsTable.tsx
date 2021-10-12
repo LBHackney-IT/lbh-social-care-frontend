@@ -72,26 +72,87 @@ Props): React.ReactElement => {
         {groupedAnswers &&
           groupedAnswers?.length > 0 &&
           groupedAnswers?.[0]?.status &&
-          groupedAnswers.map((dateGroup: CaseStatusAnswer) =>
-            dateGroup.status.map((answer: CaseStatusFields) => (
-              <div
-                className="govuk-summary-list__row"
-                key={`${status.id} ${answer.option} ${answer.value} ${answer.createdAt}`}
-                data-testid="case_status_fields"
-              >
-                <dt className="govuk-summary-list__key">
-                  {
-                    CaseStatusOptionMapping[
-                      answer.option as keyof typeof CaseStatusOptionMapping
-                    ]
-                  }
-                </dt>
-                <dd className="govuk-summary-list__value">
-                  {CaseStatusSelectOptionLookup(answer.value, answer.option)}
-                </dd>
-              </div>
-            ))
-          )}
+          groupedAnswers.map((dateGroup: CaseStatusAnswer) => {
+            return (
+              <>
+                {/* {groupedAnswers && (
+                  <div
+                    className="govuk-summary-list__row"
+                    data-testid="case_status_fields"
+                  >
+                    <dt className="govuk-summary-list__key">Hi</dt>
+                    <dd className="govuk-summary-list__value">HIIIIIIIII</dd>
+                  </div>
+                )} */}
+                {dateGroup.startDate && !dateGroup.endDate && (
+                  <div className="govuk-summary-list__row">
+                    <dt className="govuk-summary-list__key ">
+                      Test Start date
+                    </dt>
+                    <dd
+                      className="govuk-summary-list__value"
+                      data-testid="start_date"
+                    >
+                      {new Date(dateGroup.startDate).toLocaleDateString(
+                        'en-GB',
+                        {
+                          day: '2-digit',
+                          month: 'short',
+                          year: 'numeric',
+                        }
+                      )}
+                    </dd>
+                  </div>
+                )}
+                {dateGroup.startDate && dateGroup.endDate && (
+                  <div className="govuk-summary-list__row">
+                    <dt className="govuk-summary-list__key">Dates</dt>
+                    <dd
+                      className="govuk-summary-list__value"
+                      data-testid="start_end_date"
+                    >
+                      {new Date(dateGroup.startDate).toLocaleDateString(
+                        'en-GB',
+                        {
+                          day: '2-digit',
+                          month: 'short',
+                          year: 'numeric',
+                        }
+                      )}{' '}
+                      -{' '}
+                      {new Date(dateGroup.endDate).toLocaleDateString('en-GB', {
+                        day: '2-digit',
+                        month: 'short',
+                        year: 'numeric',
+                      })}
+                    </dd>
+                  </div>
+                )}
+                {dateGroup.status &&
+                  dateGroup.status.map((answer: CaseStatusFields) => (
+                    <div
+                      className="govuk-summary-list__row"
+                      key={`${status.id} ${answer.option} ${answer.value} ${answer.createdAt}`}
+                      data-testid="case_status_fields"
+                    >
+                      <dt className="govuk-summary-list__key">
+                        {
+                          CaseStatusOptionMapping[
+                            answer.option as keyof typeof CaseStatusOptionMapping
+                          ]
+                        }
+                      </dt>
+                      <dd className="govuk-summary-list__value">
+                        {CaseStatusSelectOptionLookup(
+                          answer.value,
+                          answer.option
+                        )}
+                      </dd>
+                    </div>
+                  ))}
+              </>
+            );
+          })}
 
         {status.notes && (
           <div className="govuk-summary-list__row">
