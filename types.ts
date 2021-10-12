@@ -336,15 +336,16 @@ export interface FormOption {
 }
 
 export interface CaseStatusFields {
-  name: string;
-  description: string;
-  selectedOption: FormOption;
+  option: string;
+  value: string;
+  startDate: string;
+  createdAt: string;
 }
 
 export interface CaseStatus {
   id: number;
   type: 'CIN' | 'CP' | 'LAC';
-  fields: Array<CaseStatusFields>;
+  answers: Array<CaseStatusFields>;
   startDate: string;
   endDate: string;
   notes: string;
@@ -435,7 +436,7 @@ export enum ChildProtectionCategoryOptions {
 export interface AddCaseStatusFormData {
   personId: number;
   type: string;
-  fields?: CaseStatusFormValue[];
+  answers?: CaseStatusFormValue[];
   startDate: string;
   endDate?: string;
   notes?: string;
@@ -443,14 +444,14 @@ export interface AddCaseStatusFormData {
 }
 
 export interface CaseStatusFormValue {
-  name: string;
-  selected: string;
+  option: string;
+  value: string;
 }
 
 export interface EditCaseStatusFormData {
   personId: number;
   caseStatusID: number;
-  values?: CaseStatusFormValue[];
+  answers?: CaseStatusFormValue[];
   startDate?: string;
   endDate?: string;
   notes?: string;

@@ -10,7 +10,7 @@ interface Props {
 }
 
 const CaseStatusView = ({ person }: Props): React.ReactElement => {
-  const { data: caseStatuses, error } = useCaseStatuses(person.id);
+  const { data, error } = useCaseStatuses(person.id);
 
   if (error) {
     return (
@@ -18,14 +18,14 @@ const CaseStatusView = ({ person }: Props): React.ReactElement => {
     );
   }
 
-  if (!caseStatuses || caseStatuses?.length === 0) {
+  if (!data || data?.length === 0) {
     return <></>;
   }
 
   return (
     <>
       <div className={Styles.align}>
-        {caseStatuses.map((status) => (
+        {data.map((status) => (
           <Tip
             key={status.id}
             interactive={true}

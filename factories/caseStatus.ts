@@ -12,7 +12,7 @@ export const mockedCaseStatusFactory = Factory.define<CaseStatus>(
   ({ sequence }) => ({
     id: sequence,
     type: 'CIN',
-    fields: [mockedStatusField.build()],
+    answers: [mockedStatusField.build()],
     startDate: '2021-01-01T02:00:00Z',
     endDate: '2021-12-01T02:00:00Z',
     notes: 'a lot to note',
@@ -44,9 +44,10 @@ export const mockedCaseStatusFormValueFactory = Factory.define<FormValue>(
 );
 
 const mockedStatusField = Factory.define<CaseStatusFields>(() => ({
-  name: 'placementReason',
-  description: 'What is the primary reason for placement? (Primary need code)',
-  selectedOption: mockedFieldsFactory.build(),
+  option: 'placementReason',
+  value: 'N0',
+  startDate: '2021-09-01',
+  createdAt: '2021-09-01',
 }));
 
 const mockedFieldsFactory = Factory.define<FormOption>(() => ({
