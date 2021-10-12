@@ -30,9 +30,13 @@ export const patchCaseStatus = async (
 };
 
 export const updateCaseStatus = async (
-  formData: UpdateLACCaseStatusFormData
+  formData: UpdateLACCaseStatusFormData,
+  caseStatusId: number
 ): Promise<Record<string, unknown>> => {
-  const response = await axios.post(`/api/casestatus/update`, formData);
+  const response = await axios.post(
+    `/api/casestatus/update/${caseStatusId}`,
+    formData
+  );
   return response?.data;
 };
 

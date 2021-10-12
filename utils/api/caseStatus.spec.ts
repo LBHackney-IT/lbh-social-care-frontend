@@ -83,11 +83,11 @@ describe('caseStatusAPI', () => {
         editedBy: 'jack.musajo@hackney.gov.uk',
       };
       jest.spyOn(axios, 'post');
-
-      await caseStatusAPI.updateCaseStatus(formData);
+      const caseStatusID = formData.caseStatusID;
+      await caseStatusAPI.updateCaseStatus(formData, caseStatusID);
 
       expect(axios.post).toHaveBeenCalledWith(
-        '/api/casestatus/update',
+        `/api/casestatus/update/${caseStatusID}`,
         formData
       );
     });

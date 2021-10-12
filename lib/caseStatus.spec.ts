@@ -51,13 +51,14 @@ describe('case status APIs', () => {
 
   describe('updateCaseStatus', () => {
     it("calls the service API's update POST case status endpoint", async () => {
+      const caseStatusId = 16;
       mockedAxios.post.mockResolvedValue({ data: {} });
-      await caseStatusAPI.updateCaseStatus({
+      await caseStatusAPI.updateCaseStatus(caseStatusId, {
         data: mockedCaseStatusAddRequest,
       });
       expect(mockedAxios.post).toHaveBeenCalled();
       expect(mockedAxios.post.mock.calls[0][0]).toEqual(
-        `${ENDPOINT_API}/case-statuses/{id}/answers`
+        `${ENDPOINT_API}/case-statuses/${caseStatusId}/answers`
       );
       expect(mockedAxios.post.mock.calls[0][2]?.headers).toEqual({
         'Content-Type': 'application/json',

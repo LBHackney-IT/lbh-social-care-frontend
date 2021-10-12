@@ -35,11 +35,16 @@ export const addCaseStatus = async (
 };
 
 export const updateCaseStatus = async (
+  caseStatusId: number,
   params: Record<string, unknown>
 ): Promise<void> => {
-  await axios.post(`${ENDPOINT_API}/case-statuses/{id}/answers`, params, {
-    headers: { ...headers, 'Content-Type': 'application/json' },
-  });
+  await axios.post(
+    `${ENDPOINT_API}/case-statuses/${caseStatusId}/answers`,
+    params,
+    {
+      headers: { ...headers, 'Content-Type': 'application/json' },
+    }
+  );
 };
 
 export const patchCaseStatus = async (

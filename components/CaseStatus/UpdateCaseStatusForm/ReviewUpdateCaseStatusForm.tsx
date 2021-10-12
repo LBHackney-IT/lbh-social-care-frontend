@@ -51,7 +51,7 @@ const ReviewAddCaseStatusForm: React.FC<{
         ],
         editedBy: user.email,
       };
-      const { error } = await updateCaseStatus(postObject);
+      const { error } = await updateCaseStatus(postObject, caseStatusId);
       if (error) throw error;
 
       router.push({

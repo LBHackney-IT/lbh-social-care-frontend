@@ -20,7 +20,7 @@ const endpoint: NextApiHandler = async (
   switch (req.method) {
     case 'POST':
       try {
-        await updateCaseStatus(req.body);
+        await updateCaseStatus(req.body, req.body.caseStatusId);
         res.status(StatusCodes.OK).end();
       } catch (error) {
         console.error('Case status POST error:', error?.response?.data);
