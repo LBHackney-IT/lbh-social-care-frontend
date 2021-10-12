@@ -8,20 +8,21 @@ interface Props {
   tableName?: string;
   styleType?: string;
   status: CaseStatus;
-  answers?: CaseStatusFields[];
-  groupedAnswers?: CaseStatusAnswer;
+  groupedAnswers?: CaseStatusAnswer[];
+  // groupedAnswers?: CaseStatusAnswer;
 }
 
 const CaseStatusDetailsTable = ({
   tableName,
   styleType,
   status,
-  answers,
   groupedAnswers,
-}: Props): React.ReactElement => {
+}: // groupedAnswers,
+Props): React.ReactElement => {
   if (!status) {
     return <></>;
   }
+  console.log('groupedAnswers', groupedAnswers);
   return (
     <>
       {tableName && (
@@ -68,27 +69,29 @@ const CaseStatusDetailsTable = ({
           </div>
         )}
 
-        {answers &&
-          answers?.length > 0 &&
-          answers?.[0]?.option &&
-          answers.map((answer: CaseStatusFields) => (
-            <div
-              className="govuk-summary-list__row"
-              key={`${status.id} ${answer.option} ${answer.value} ${answer.createdAt}`}
-              data-testid="case_status_fields"
-            >
-              <dt className="govuk-summary-list__key">
-                {
-                  CaseStatusOptionMapping[
-                    answer.option as keyof typeof CaseStatusOptionMapping
-                  ]
-                }
-              </dt>
-              <dd className="govuk-summary-list__value">
-                {CaseStatusSelectOptionLookup(answer.value, answer.option)}
-              </dd>
-            </div>
-          ))}
+        {groupedAnswers &&
+          groupedAnswers?.length > 0 &&
+          groupedAnswers?.[0]?.status &&
+          groupedAnswers.map((dateGroup: CaseStatusAnswer) =>
+            dateGroup.status.map((answer: CaseStatusFields) => (
+              <div
+                className="govuk-summary-list__row"
+                key={`${status.id} ${answer.option} ${answer.value} ${answer.createdAt}`}
+                data-testid="case_status_fields"
+              >
+                <dt className="govuk-summary-list__key">
+                  {
+                    CaseStatusOptionMapping[
+                      answer.option as keyof typeof CaseStatusOptionMapping
+                    ]
+                  }
+                </dt>
+                <dd className="govuk-summary-list__value">
+                  {CaseStatusSelectOptionLookup(answer.value, answer.option)}
+                </dd>
+              </div>
+            ))
+          )}
 
         {status.notes && (
           <div className="govuk-summary-list__row">

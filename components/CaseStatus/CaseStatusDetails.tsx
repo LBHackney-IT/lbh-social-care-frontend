@@ -71,14 +71,14 @@ const CaseStatusDetails = ({ person }: Props): React.ReactElement => {
               {status.type === 'CIN' && (
                 <CaseStatusDetailsTable
                   status={status}
-                  answers={currentStatusAnswers}
+                  groupedAnswers={currentStatusAnswers}
                 />
               )}
 
               {currentStatusAnswers && currentStatusAnswers.length > 0 && (
                 <CaseStatusDetailsTable
                   status={status}
-                  answers={currentStatusAnswers}
+                  groupedAnswers={currentStatusAnswers}
                 />
               )}
 
@@ -87,7 +87,7 @@ const CaseStatusDetails = ({ person }: Props): React.ReactElement => {
                   tableName="Scheduled changes"
                   styleType={styles.scheduledStatusFont}
                   status={status}
-                  answers={scheduledStatusAnswers}
+                  groupedAnswers={scheduledStatusAnswers}
                 />
               )}
 
@@ -96,7 +96,7 @@ const CaseStatusDetails = ({ person }: Props): React.ReactElement => {
                   tableName="Previous version"
                   styleType={styles.previousStatusFont}
                   status={status}
-                  answers={pastStatusAnswers}
+                  groupedAnswers={pastStatusAnswers}
                   // groupedAnswers={pastStatusAnswersGrouped}
                 />
               )}
