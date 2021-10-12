@@ -45,59 +45,56 @@ const AddFormDialog = ({
     inPreview: boolean;
   }
 
-  const allForms: Option[] = useMemo(
-    () =>
-      flexibleForms
-        .filter((f) => {
-          // if user has elevated permissions, show all forms
-          if (user.hasAdminPermissions || user.hasDevPermissions) return true;
-          // otherwise, only show those relevant to current person's context
-          return serviceContext === 'A'
-            ? f.isViewableByAdults
-            : f.isViewableByChildrens;
-        })
-        .map((f) => ({
-          label: f.name,
-          href: f.canonicalUrl
-            ? f.canonicalUrl(person.id)
-            : `/submissions/new?form_id=${f.id}&social_care_id=${person.id}`,
-          system: true,
-          groupRecordable: !!f.groupRecordable,
-          approvable: !!f.approvable,
-          inPreview: !f.isViewableByAdults && !f.isViewableByChildrens,
+  const allForms: Option[] = useMemo(() => {
+    const forms = flexibleForms
+      .filter((f) => {
+        // if user has elevated permissions, show all forms
+        if (user.hasAdminPermissions || user.hasDevPermissions) return true;
+        // otherwise, only show those relevant to current person's context
+        return serviceContext === 'A'
+          ? f.isViewableByAdults
+          : f.isViewableByChildrens;
+      })
+      .map((f) => ({
+        label: f.name,
+        href: f.canonicalUrl
+          ? f.canonicalUrl(person.id)
+          : `/submissions/new?form_id=${f.id}&social_care_id=${person.id}`,
+        system: true,
+        groupRecordable: !!f.groupRecordable,
+        approvable: !!f.approvable,
+        inPreview: !f.isViewableByAdults && !f.isViewableByChildrens,
+      }))
+      .concat(
+        gForms.map((f) => ({
+          label: f.text,
+          href: `${f.value}${populateChildForm(
+            person.firstName,
+            person.lastName,
+            person.id,
+            user.email,
+            f.value
+          )}`,
+          system: false,
+          groupRecordable: false,
+          approvable: false,
+          inPreview: false,
         }))
-        .concat(
-          gForms
-            .map((f) => ({
-              label: f.text,
-              href: `${f.value}${populateChildForm(
-                person.firstName,
-                person.lastName,
-                person.id,
-                user.email,
-                f.value
-              )}`,
-              system: false,
-              groupRecordable: false,
-              approvable: false,
-              inPreview: false,
-            }))
-            .concat(
-              isFeatureActive('workflows-pilot') && user.isInWorkflowsPilot
-                ? {
-                    label: 'Assessment, support plan or workflow',
-                    href: `${process.env.NEXT_PUBLIC_WORKFLOWS_PILOT_URL}/workflows/new?social_care_id=${person.id}`,
-                    system: true,
-                    approvable: true,
-                    groupRecordable: false,
-                    inPreview: false,
-                  }
-                : []
-            )
-        ),
+      );
 
-    [gForms, serviceContext, user, person, isFeatureActive]
-  );
+    if (isFeatureActive('workflows-pilot') && user.isInWorkflowsPilot) {
+      forms.unshift({
+        label: 'Pilot assessment',
+        href: `${process.env.NEXT_PUBLIC_WORKFLOWS_PILOT_URL}/workflows/new?social_care_id=${person.id}`,
+        system: true,
+        approvable: true,
+        groupRecordable: false,
+        inPreview: false,
+      });
+    }
+
+    return forms;
+  }, [gForms, serviceContext, user, person, isFeatureActive]);
 
   const results = useSearch(
     searchQuery,

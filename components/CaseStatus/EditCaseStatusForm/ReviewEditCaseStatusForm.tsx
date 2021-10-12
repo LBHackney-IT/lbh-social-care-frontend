@@ -54,18 +54,18 @@ const ReviewAddCaseStatusForm: React.FC<{
       const fieldsValues: CaseStatusFormValue[] = [];
       formAnswers.category
         ? fieldsValues.push({
-            name: 'category',
-            selected: formAnswers.category,
+            option: 'category',
+            value: formAnswers.category,
           } as CaseStatusFormValue)
         : null;
       formAnswers.episodeReason
         ? fieldsValues.push({
-            name: 'episodeReason',
-            selected: formAnswers.episodeReason,
+            option: 'episodeReason',
+            value: formAnswers.episodeReason,
           } as CaseStatusFormValue)
         : null;
 
-      patchObject['values'] = fieldsValues;
+      patchObject['answers'] = fieldsValues;
 
       const { error } = await patchCaseStatus(caseStatusId, patchObject);
       if (error) throw error;

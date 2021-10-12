@@ -27,11 +27,16 @@ export const getFormValues = async (type: string): Promise<CaseStatus[]> => {
 };
 
 export const addCaseStatus = async (
+  personId: number,
   params: Record<string, unknown>
 ): Promise<void> => {
-  await axios.post(`${ENDPOINT_API}/residents/case-statuses`, params, {
-    headers: { ...headers, 'Content-Type': 'application/json' },
-  });
+  await axios.post(
+    `${ENDPOINT_API}/residents/${personId}/case-statuses`,
+    params,
+    {
+      headers: { ...headers, 'Content-Type': 'application/json' },
+    }
+  );
 };
 
 export const updateCaseStatus = async (
@@ -51,11 +56,7 @@ export const patchCaseStatus = async (
   caseStatusId: number,
   params: Record<string, unknown>
 ): Promise<void> => {
-  await axios.patch(
-    `${ENDPOINT_API}/residents/case-statuses/${caseStatusId}/`,
-    params,
-    {
-      headers: { ...headers, 'Content-Type': 'application/json' },
-    }
-  );
+  await axios.patch(`${ENDPOINT_API}/case-statuses/${caseStatusId}/`, params, {
+    headers: { ...headers, 'Content-Type': 'application/json' },
+  });
 };

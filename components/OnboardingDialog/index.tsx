@@ -15,6 +15,12 @@ const OnboardingDialog = (): React.ReactElement | null => {
     setOpen(false);
   };
 
+  const handleLearnMore = async () => {
+    handleDismiss();
+    window.location.href =
+      'https://sites.google.com/hackney.gov.uk/moderntoolsforsocialcare/core-pathway-pilot';
+  };
+
   if (isOpen)
     return (
       <Dialog
@@ -39,7 +45,10 @@ const OnboardingDialog = (): React.ReactElement | null => {
           </p>
 
           <div className="lbh-dialog__actions">
-            <button className="govuk-button lbh-button" onClick={handleDismiss}>
+            <button
+              className="govuk-button lbh-button"
+              onClick={handleLearnMore}
+            >
               Okay, show me
             </button>
             <button className="lbh-link" onClick={handleDismiss}>
