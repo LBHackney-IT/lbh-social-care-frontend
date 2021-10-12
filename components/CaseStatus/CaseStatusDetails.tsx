@@ -1,99 +1,24 @@
 import ErrorMessage from 'components/ErrorMessage/ErrorMessage';
-import { useCaseStatuses } from 'utils/api/caseStatus';
 import { Resident, CaseStatus, CaseStatusMapping } from 'types';
 import styles from './CaseStatusDetails.module.scss';
 import Link from 'next/link';
 import s from 'stylesheets/Section.module.scss';
 import CaseStatusDetailsTable from './CaseStatusDetailsTable';
+import {
+  caseStatusesTest,
+  LACcaseStatusesTest,
+  sortCaseStatusAnswers,
+} from '../../data/caseStatus';
 
 interface Props {
   person: Resident;
 }
 
 const CaseStatusDetails = ({ person }: Props): React.ReactElement => {
-  const { data: caseStatuses, error } = useCaseStatuses(person.id);
-  const scheduledStatus = undefined;
-  const previousStatus = undefined;
+  // const { data: caseStatuses, error } = useCaseStatuses(person.id);
 
-  // const caseStatuses = [
-  //   {
-  //     id: 1,
-  //     notes: 'this is a note',
-  //     startDate: '2021-08-12T14:35:37.7023130',
-  //     type: 'CIN',
-  //   },
-  //   {
-  //     answers: [
-  //       {
-  //         option: 'category',
-  //         value: 'C1',
-  //         // selectedOption: { description: 'Neglect', name: 'C1' },
-  //       },
-  //     ],
-
-  //     endDate: '',
-  //     id: 2,
-  //     notes: 'this is a note',
-  //     startDate: '2021-08-12T14:35:37.7023130',
-  //     type: 'CIN',
-  //   },
-  //   {
-  //     answers: [
-  //       {
-  //         option: 'legalStatus',
-  //         value: 'C1',
-  //         //update selected option lac_legal_status_options
-  //         // selectedOption: { description: 'Interim care order', name: 'C1' },
-  //       },
-  //       {
-  //         option: 'placementType',
-  //         value: 'A3',
-  //         //update selected option lac_placement_type_options
-  //         // selectedOption: {
-  //         //   description:
-  //         //     'Placed for adoption with parental/guardian consent with current foster carer(s) (under Section 19 of the Adoption and Children Act 2002) or with a freeing order where parental/guardian consent has been given (under Section 18(1)(a) of the Adoption Act 1976)',
-  //         //   name: 'A3',
-  //         // },
-  //       },
-  //     ],
-
-  //     endDate: '',
-  //     id: 3,
-  //     notes: 'this is a note',
-  //     startDate: '2021-08-12T14:35:37.7023130',
-  //     type: 'LAC',
-  //   },
-  // ];
-
-  // const scheduledCaseStatus: CaseStatus[] = [
-  //   {
-  //     answers: [
-  //       {
-  //         name: 'legalStatus',
-  //         description: "What is the child's legal status?",
-  //         //update selected option lac_legal_status_options
-  //         selectedOption: { description: 'Interim care order', name: 'C1' },
-  //       },
-  //       {
-  //         name: 'placementType',
-  //         description: 'What is the placement type?',
-  //         //update selected option lac_placement_type_options
-  //         selectedOption: {
-  //           description:
-  //             'Placed for adoption with parental/guardian consent with current foster carer(s) (under Section 19 of the Adoption and Children Act 2002) or with a freeing order where parental/guardian consent has been given (under Section 18(1)(a) of the Adoption Act 1976)',
-  //           name: 'A3',
-  //         },
-  //       },
-  //     ],
-  //     endDate: '2021-08-13T14:35:37.7023130',
-  //     id: 3,
-  //     notes: 'this is a note',
-  //     startDate: '2021-08-12T14:35:37.7023130',
-  //     type: 'LAC',
-  //   },
-  // ];
-
-  // const error = undefined;
+  const caseStatuses = caseStatusesTest.concat(LACcaseStatusesTest);
+  const error = undefined;
 
   if (error) {
     return (
@@ -107,9 +32,24 @@ const CaseStatusDetails = ({ person }: Props): React.ReactElement => {
   return (
     <>
       {caseStatuses.map((status: CaseStatus) => {
+        const {
+          currentStatusAnswers,
+          scheduledStatusAnswers,
+          pastStatusAnswers,
+        } = sortCaseStatusAnswers(status);
+        console.log(status.type, status);
+        console.log('current', currentStatusAnswers);
+        console.log('scheduled', scheduledStatusAnswers);
+        console.log('past', pastStatusAnswers);
+        pastStatusAnswers?.map((status, index) => {
+          status.endDate =
+            index === 0
+              ? currentStatusAnswers?.[0].startDate
+              : pastStatusAnswers[index - 1]?.startDate;
+        });
         return (
           <div
-            key={status.id}
+            key={`${status.id} ${status.type}`}
             className={styles.caseStatusDesign}
             data-testid="case_status_details"
           >
@@ -128,22 +68,36 @@ const CaseStatusDetails = ({ person }: Props): React.ReactElement => {
                 </Link>
               </div>
 
-              <CaseStatusDetailsTable status={status} />
-              {scheduledStatus && (
+              {status.type === 'CIN' && (
                 <CaseStatusDetailsTable
-                  tableName="Scheduled changes"
-                  styleType={styles.scheduledStatusFont}
-                  //Will need to be scheduledStatus
                   status={status}
+                  answers={currentStatusAnswers}
                 />
               )}
 
-              {previousStatus && (
+              {currentStatusAnswers && currentStatusAnswers.length > 0 && (
+                <CaseStatusDetailsTable
+                  status={status}
+                  answers={currentStatusAnswers}
+                />
+              )}
+
+              {scheduledStatusAnswers && scheduledStatusAnswers.length > 0 && (
+                <CaseStatusDetailsTable
+                  tableName="Scheduled changes"
+                  styleType={styles.scheduledStatusFont}
+                  status={status}
+                  answers={scheduledStatusAnswers}
+                />
+              )}
+
+              {pastStatusAnswers && pastStatusAnswers.length > 0 && (
                 <CaseStatusDetailsTable
                   tableName="Previous version"
                   styleType={styles.previousStatusFont}
-                  //Will need to be previousStatus
                   status={status}
+                  answers={pastStatusAnswers}
+                  // groupedAnswers={pastStatusAnswersGrouped}
                 />
               )}
             </section>

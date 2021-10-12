@@ -1,4 +1,4 @@
-import { CaseStatusFields, CaseStatus } from 'types';
+import { CaseStatusFields, CaseStatus, CaseStatusAnswer } from 'types';
 import {
   CaseStatusSelectOptionLookup,
   CaseStatusOptionMapping,
@@ -8,12 +8,16 @@ interface Props {
   tableName?: string;
   styleType?: string;
   status: CaseStatus;
+  answers?: CaseStatusFields[];
+  groupedAnswers?: CaseStatusAnswer;
 }
 
 const CaseStatusDetailsTable = ({
   tableName,
   styleType,
   status,
+  answers,
+  groupedAnswers,
 }: Props): React.ReactElement => {
   if (!status) {
     return <></>;
@@ -64,12 +68,13 @@ const CaseStatusDetailsTable = ({
           </div>
         )}
 
-        {status.answers &&
-          status.answers?.length > 0 &&
-          status.answers.map((answer: CaseStatusFields) => (
+        {answers &&
+          answers?.length > 0 &&
+          answers?.[0]?.option &&
+          answers.map((answer: CaseStatusFields) => (
             <div
               className="govuk-summary-list__row"
-              key={`${status.id} ${answer.option} ${answer.value}`}
+              key={`${status.id} ${answer.option} ${answer.value} ${answer.createdAt}`}
               data-testid="case_status_fields"
             >
               <dt className="govuk-summary-list__key">
