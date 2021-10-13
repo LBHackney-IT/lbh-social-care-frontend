@@ -436,7 +436,7 @@ export enum ChildProtectionCategoryOptions {
 export interface AddCaseStatusFormData {
   personId: number;
   type: string;
-  fields?: CaseStatusFormValue[];
+  answers?: CaseStatusFormValue[];
   startDate: string;
   endDate?: string;
   notes?: string;
@@ -444,8 +444,8 @@ export interface AddCaseStatusFormData {
 }
 
 export interface CaseStatusFormValue {
-  name: string;
-  selected: string;
+  option: string;
+  value: string;
 }
 
 export interface CaseStatusAnswer {
@@ -457,10 +457,22 @@ export interface CaseStatusAnswer {
 export interface EditCaseStatusFormData {
   personId: number;
   caseStatusID: number;
-  values?: CaseStatusFormValue[];
+  answers?: CaseStatusFormValue[];
   startDate?: string;
   endDate?: string;
   notes?: string;
+  editedBy: string;
+}
+
+export interface UpdateLACCaseStatusFormValue {
+  option: string;
+  value: string;
+}
+
+export interface UpdateLACCaseStatusFormData {
+  caseStatusID: number;
+  startDate: string;
+  answers: UpdateLACCaseStatusFormValue[];
   editedBy: string;
 }
 

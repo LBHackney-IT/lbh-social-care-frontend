@@ -1,6 +1,6 @@
 import { StatusCodes } from 'http-status-codes';
 
-import { addCaseStatus } from 'lib/caseStatus';
+import { updateCaseStatus } from 'lib/caseStatus';
 import { isAuthorised } from 'utils/auth';
 
 import type { NextApiRequest, NextApiResponse, NextApiHandler } from 'next';
@@ -20,7 +20,7 @@ const endpoint: NextApiHandler = async (
   switch (req.method) {
     case 'POST':
       try {
-        await addCaseStatus(req.body.personId, req.body);
+        await updateCaseStatus(req.body, req.body.caseStatusId);
         res.status(StatusCodes.OK).end();
       } catch (error) {
         console.error('Case status POST error:', error?.response?.data);

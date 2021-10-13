@@ -2,18 +2,17 @@ import FlexibleAnswers from 'components/FlexibleAnswers/FlexibleAnswers';
 import Button from 'components/Button/Button';
 import Link from 'next/link';
 import Banner from 'components/FlexibleForms/Banner';
-import { User, EditCaseStatusFormData, CaseStatusFormValue } from 'types';
 import { FlexibleAnswers as FlexibleAnswersT } from 'data/flexibleForms/forms.types';
 import { useState } from 'react';
-import { patchCaseStatus } from 'utils/api/caseStatus';
+import { updateCaseStatus } from 'utils/api/caseStatus';
 import { useAuth } from 'components/UserContext/UserContext';
 import { useRouter } from 'next/router';
 import {
   CaseStatusMapping,
   LACLegalStatusOptions,
   LACPlacementTypeOptions,
-  LACReasonsForEpisodeEndOptions,
-  ChildProtectionCategoryOptions,
+  User,
+  UpdateLACCaseStatusFormData,
 } from 'types';
 
 const ReviewAddCaseStatusForm: React.FC<{
@@ -37,37 +36,22 @@ const ReviewAddCaseStatusForm: React.FC<{
 
   const submitAnswers = async () => {
     try {
-      const patchObject: EditCaseStatusFormData = {
-        editedBy: user.email,
-        personId: personId,
+      const postObject: UpdateLACCaseStatusFormData = {
         caseStatusID: caseStatusId,
+        startDate: formAnswers.startDate,
+        answers: [
+          {
+            option: 'placementType',
+            value: formAnswers.placementType,
+          },
+          {
+            option: 'legalStatus',
+            value: formAnswers.legalStatus,
+          },
+        ],
+        editedBy: user.email,
       };
-
-      formAnswers.notes ? (patchObject['notes'] = formAnswers.notes) : null;
-      formAnswers.startDate
-        ? (patchObject['startDate'] = formAnswers.startDate)
-        : null;
-      formAnswers.endDate
-        ? (patchObject['endDate'] = formAnswers.endDate)
-        : null;
-
-      const fieldsValues: CaseStatusFormValue[] = [];
-      formAnswers.category
-        ? fieldsValues.push({
-            option: 'category',
-            value: formAnswers.category,
-          } as CaseStatusFormValue)
-        : null;
-      formAnswers.episodeReason
-        ? fieldsValues.push({
-            option: 'episodeReason',
-            value: formAnswers.episodeReason,
-          } as CaseStatusFormValue)
-        : null;
-
-      patchObject['answers'] = fieldsValues;
-
-      const { error } = await patchCaseStatus(caseStatusId, patchObject);
+      const { error } = await updateCaseStatus(postObject, caseStatusId);
       if (error) throw error;
 
       router.push({
@@ -88,35 +72,20 @@ const ReviewAddCaseStatusForm: React.FC<{
 
   const answers = {
     'Case status': typeString,
-    'Start Date': formAnswers.startDate
+    'Date the changes will take effect': formAnswers.startDate
       ? new Date(formAnswers.startDate).toLocaleDateString('en-GB', {
           day: '2-digit',
           month: 'short',
           year: 'numeric',
         })
       : '',
-    'End Date': formAnswers.endDate
-      ? new Date(formAnswers.endDate).toLocaleDateString('en-GB', {
-          day: '2-digit',
-          month: 'short',
-          year: 'numeric',
-        })
-      : '',
-    Category:
-      ChildProtectionCategoryOptions[
-        formAnswers.category as keyof typeof ChildProtectionCategoryOptions
-      ],
-    'Legal status':
+    'New legal status':
       LACLegalStatusOptions[
         formAnswers.legalStatus as keyof typeof LACLegalStatusOptions
       ],
-    'Placement type':
+    'New placement type':
       LACPlacementTypeOptions[
         formAnswers.placementType as keyof typeof LACPlacementTypeOptions
-      ],
-    'Reason for episode ending':
-      LACReasonsForEpisodeEndOptions[
-        formAnswers.episodeReason as keyof typeof LACReasonsForEpisodeEndOptions
       ],
     Notes: formAnswers.notes,
   };
@@ -146,7 +115,7 @@ const ReviewAddCaseStatusForm: React.FC<{
           <Button label={`Yes, ${action}`} onClick={submitAnswers} wideButton />
           <Link
             href={{
-              pathname: `/people/${personId}/case-status/${caseStatusId}/edit/edit`,
+              pathname: `/people/${personId}/case-status/${caseStatusId}/update/edit`,
               query: {
                 prefilledFields: JSON.stringify(formAnswers),
                 type: caseStatusType,

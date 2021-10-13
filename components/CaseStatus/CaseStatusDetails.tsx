@@ -12,7 +12,7 @@ interface Props {
 }
 
 const CaseStatusDetails = ({ person }: Props): React.ReactElement => {
-  const { data: caseStatuses, error } = useCaseStatuses(person.id);
+  const { data, error } = useCaseStatuses(person.id);
 
   // const caseStatuses = caseStatusesTest.concat(LACcaseStatusesTest);
   // const error = undefined;
@@ -23,12 +23,12 @@ const CaseStatusDetails = ({ person }: Props): React.ReactElement => {
     );
   }
 
-  if (!caseStatuses || caseStatuses?.length === 0) {
+  if (!data || data?.length === 0) {
     return <></>;
   }
   return (
     <>
-      {caseStatuses.map((status: CaseStatus) => {
+      {data.map((status: CaseStatus) => {
         const {
           currentStatusAnswers,
           scheduledStatusAnswers,

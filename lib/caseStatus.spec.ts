@@ -35,12 +35,30 @@ describe('case status APIs', () => {
   describe('addCaseStatus', () => {
     it("calls the service API's POST case status endpoint", async () => {
       mockedAxios.post.mockResolvedValue({ data: {} });
-      await caseStatusAPI.addCaseStatus({
+      await caseStatusAPI.addCaseStatus(123, {
         data: mockedCaseStatusAddRequest,
       });
       expect(mockedAxios.post).toHaveBeenCalled();
       expect(mockedAxios.post.mock.calls[0][0]).toEqual(
-        `${ENDPOINT_API}/residents/case-statuses`
+        `${ENDPOINT_API}/residents/123/case-statuses`
+      );
+      expect(mockedAxios.post.mock.calls[0][2]?.headers).toEqual({
+        'Content-Type': 'application/json',
+        'x-api-key': AWS_KEY,
+      });
+    });
+  });
+
+  describe('updateCaseStatus', () => {
+    it("calls the service API's update POST case status endpoint", async () => {
+      const caseStatusId = 16;
+      mockedAxios.post.mockResolvedValue({ data: {} });
+      await caseStatusAPI.updateCaseStatus(caseStatusId, {
+        data: mockedCaseStatusAddRequest,
+      });
+      expect(mockedAxios.post).toHaveBeenCalled();
+      expect(mockedAxios.post.mock.calls[0][0]).toEqual(
+        `${ENDPOINT_API}/case-statuses/${caseStatusId}/answers`
       );
       expect(mockedAxios.post.mock.calls[0][2]?.headers).toEqual({
         'Content-Type': 'application/json',
@@ -60,7 +78,7 @@ describe('case status APIs', () => {
 
       expect(mockedAxios.patch).toHaveBeenCalled();
       expect(mockedAxios.patch.mock.calls[0][0]).toEqual(
-        `${ENDPOINT_API}/residents/case-statuses/${caseStatusId}/`
+        `${ENDPOINT_API}/case-statuses/${caseStatusId}/`
       );
       expect(mockedAxios.patch.mock.calls[0][2]?.headers).toEqual({
         'Content-Type': 'application/json',

@@ -53,7 +53,7 @@ const EditCaseStatusForm: React.FC<{
           }
           status.answers.map((preloaded_field) => {
             if (preloaded_field.option === field.id) {
-              field.default = preloaded_field.option;
+              field.default = preloaded_field.value;
             }
           });
         });

@@ -38,8 +38,8 @@ const form: Form = {
           required: false,
         },
         {
-          id: 'placementReason',
-          question: "What is the child's placement reason?",
+          id: 'placementType',
+          question: "What is the child's placement type?",
           type: 'select',
           choices: lac_placement_reason_options,
         },

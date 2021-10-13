@@ -52,14 +52,14 @@ describe('ReviewAddRelationshipForm', () => {
           personId={mockedResident.id}
           formAnswers={{
             type: 'CP',
-            startDate: '2020-12-01',
+            startDate: '2020-12-02',
             category: 'C1',
           }}
         />
       );
 
       expect(getByText('Child protection')).toBeInTheDocument();
-      expect(getByText('01 Dec 2020')).toBeInTheDocument();
+      expect(getByText('02 Dec 2020')).toBeInTheDocument();
     });
 
     it('displays selected category when CP is selected', () => {
@@ -69,14 +69,14 @@ describe('ReviewAddRelationshipForm', () => {
           personId={mockedResident.id}
           formAnswers={{
             type: 'CP',
-            startDate: '2020-12-01',
+            startDate: '2020-12-02',
             category: 'C1',
           }}
         />
       );
 
       expect(getByText('Neglect')).toBeInTheDocument();
-      expect(getByText('01 Dec 2020')).toBeInTheDocument();
+      expect(getByText('02 Dec 2020')).toBeInTheDocument();
     });
   });
 
@@ -88,7 +88,7 @@ describe('ReviewAddRelationshipForm', () => {
           personId={mockedResident.id}
           formAnswers={{
             type: 'LAC',
-            startDate: '2021-01-01',
+            startDate: '2021-01-03',
             legalStatus: 'C2',
             placementType: 'K1',
           }}
@@ -97,7 +97,7 @@ describe('ReviewAddRelationshipForm', () => {
 
       expect(getByText('C2: Full care order')).toBeInTheDocument();
       expect(getByText('K1: Secure children’s homes')).toBeInTheDocument();
-      expect(getByText('01 Jan 2021')).toBeInTheDocument();
+      expect(getByText('03 Jan 2021')).toBeInTheDocument();
     });
 
     it('Does not display LAC legal status and placement type when LAC status has not been selected', () => {
