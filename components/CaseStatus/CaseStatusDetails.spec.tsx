@@ -141,4 +141,31 @@ describe('CaseStatusDetail component', () => {
     expect(queryByText('Scheduled changes')).toBeInTheDocument();
     expect(queryByText('Previous version')).not.toBeInTheDocument();
   });
+  xit('displays only one set of answers', () => {
+    jest.spyOn(caseStatusApi, 'useCaseStatuses').mockImplementation(() => ({
+      data: [
+        mockedCaseStatusFactory.build({
+          type: 'LAC',
+          answers: [
+            mockedStatusField.build({
+              option: 'legalStatus',
+              value: 'C2',
+            }),
+            mockedStatusField.build({
+              option: 'legalStatus',
+              value: 'C2',
+            }),
+          ],
+        }),
+      ],
+      isValidating: false,
+      mutate: jest.fn(),
+      revalidate: jest.fn(),
+    }));
+    const { queryByText } = render(
+      <CaseStatusDetails person={mockedResident} />
+    );
+
+    expect(queryByText('Legal status')).toBeInTheDocument();
+  });
 });

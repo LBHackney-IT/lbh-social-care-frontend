@@ -61,15 +61,10 @@ const CaseStatusDetails = ({ person }: Props): React.ReactElement => {
                 </Link>
               </div>
 
-              {status.type === 'CIN' && (
-                <CaseStatusDetailsTable
-                  status={status}
-                  answers={
-                    currentStatusAnswers === undefined
-                      ? undefined
-                      : currentStatusAnswers[0]
-                  }
-                />
+              {(!currentStatusAnswers ||
+                currentStatusAnswers === undefined ||
+                currentStatusAnswers.length <= 0) && (
+                <CaseStatusDetailsTable status={status} answers={undefined} />
               )}
 
               {currentStatusAnswers &&
