@@ -3,13 +3,13 @@ import { useCaseStatuses } from 'utils/api/caseStatus';
 import { Resident, CaseStatusMapping } from 'types';
 import Tip from 'components/Tip/Tip';
 import { format } from 'date-fns';
-import Styles from 'components/CaseStatus/CaseStatusView.module.scss';
+import Styles from './CaseStatusFlag.module.scss';
 
 interface Props {
   person: Resident;
 }
 
-const CaseStatusView = ({ person }: Props): React.ReactElement => {
+const CaseStatusFlag = ({ person }: Props): React.ReactElement => {
   const { data, error } = useCaseStatuses(person.id);
 
   if (error) {
@@ -60,4 +60,4 @@ const CaseStatusView = ({ person }: Props): React.ReactElement => {
   );
 };
 
-export default CaseStatusView;
+export default CaseStatusFlag;
