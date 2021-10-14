@@ -96,15 +96,30 @@ export const sortCaseStatusAnswers = (
   }
 
   return {
-    currentStatusAnswers:
-      groupAnswersByCreatedAtStartDateAndCreatedBy(currentStatus),
-    scheduledStatusAnswers:
-      groupAnswersByCreatedAtStartDateAndCreatedBy(scheduledStatus),
-    pastStatusAnswers: groupAnswersByCreatedAtStartDateAndCreatedBy(pastStatus),
+    currentStatusAnswers: groupAnswersByStartDate(currentStatus),
+    scheduledStatusAnswers: groupAnswersByStartDate(scheduledStatus),
+    pastStatusAnswers: groupAnswersByStartDateAndCreatedAt(pastStatus),
   };
 };
 
-const groupAnswersByCreatedAtStartDateAndCreatedBy = (
+const groupAnswersByStartDate = (
+  caseStatusAnswers: CaseStatusFields[] | undefined
+): CaseStatusAnswerDisplay[] | undefined => {
+  return caseStatusAnswers === undefined
+    ? undefined
+    : _.chain(caseStatusAnswers)
+        .groupBy('startDate')
+        .map((value, key) => ({
+          startDate: removeCreatedAtText(key),
+          status: value,
+        }))
+        .value()
+        .sort((a, b) => {
+          return Date.parse(b.startDate) - Date.parse(a.startDate);
+        });
+};
+
+const groupAnswersByStartDateAndCreatedAt = (
   caseStatusAnswers: CaseStatusFields[] | undefined
 ): CaseStatusAnswerDisplay[] | undefined => {
   return caseStatusAnswers === undefined
