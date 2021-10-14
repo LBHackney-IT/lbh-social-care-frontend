@@ -16,16 +16,6 @@ export const getCaseStatusByPersonId = async (
   return data;
 };
 
-export const getFormValues = async (type: string): Promise<CaseStatus[]> => {
-  const { data } = await axios.get<CaseStatus[]>(
-    `${ENDPOINT_API}/case-statuses/form-options/${type}`,
-    {
-      headers,
-    }
-  );
-  return data;
-};
-
 export const addCaseStatus = async (
   personId: number,
   params: Record<string, unknown>

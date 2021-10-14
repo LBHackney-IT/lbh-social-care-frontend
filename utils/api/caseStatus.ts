@@ -6,7 +6,6 @@ import type {
   AddCaseStatusFormData,
   EditCaseStatusFormData,
   UpdateLACCaseStatusFormData,
-  FormFields,
   ErrorAPI,
   CaseStatus,
 } from 'types';
@@ -44,8 +43,3 @@ export const useCaseStatuses = (
   id: number
 ): SWRResponse<CaseStatus[], ErrorAPI> =>
   useSWR(`/api/residents/${id}/casestatus`);
-
-export const useFormValues = (
-  type: string
-): SWRResponse<FormFields, ErrorAPI> =>
-  useSWR(`/api/casestatus/form-options?type=${type}`);

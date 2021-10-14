@@ -20,17 +20,6 @@ describe('caseStatusAPI', () => {
     });
   });
 
-  describe('useFormValues', () => {
-    it('should get form values from the API', () => {
-      jest.spyOn(SWR, 'default');
-
-      caseStatusAPI.useFormValues('CIN');
-      expect(SWR.default).toHaveBeenCalledWith(
-        '/api/casestatus/form-options?type=CIN'
-      );
-    });
-  });
-
   describe('addCaseStatus', () => {
     it('calls the POST /api/casestatus endpoint', async () => {
       const formData: AddCaseStatusFormData = {
