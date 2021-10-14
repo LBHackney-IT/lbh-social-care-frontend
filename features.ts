@@ -18,7 +18,7 @@ export const getFeatureFlags = ({
     },
     // FEATURE-FLAG-EXPIRES [2021-11-31]: workflows-pilot
     'workflows-pilot': {
-      isActive: environmentName === 'development',
+      isActive: ['development', 'production'].includes(environmentName),
     },
     /*
       The feature-flags-implementation-proof has been setup to have an expiry date in the far future.

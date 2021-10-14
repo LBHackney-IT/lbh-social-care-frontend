@@ -18,7 +18,7 @@ import {
   ConditionalFeature,
   useFeatureFlags,
 } from 'lib/feature-flags/feature-flags';
-import CaseStatusView from 'components/CaseStatus/CaseStatusView';
+import CaseStatusFlag from 'components/CaseStatus/CaseStatusFlag/CaseStatusFlag';
 
 interface NavLinkProps {
   href: string;
@@ -163,7 +163,7 @@ const Layout = ({ person, children }: Props): React.ReactElement => {
           </p>
 
           <ConditionalFeature name="case-status">
-            <CaseStatusView person={person} />
+            <CaseStatusFlag person={person} />
           </ConditionalFeature>
         </div>
 

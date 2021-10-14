@@ -1,7 +1,7 @@
 import { render } from '@testing-library/react';
 import * as caseStatusApi from 'utils/api/caseStatus';
 import { mockedAPIservererror } from 'factories/APIerrors';
-import CaseStatusView from './CaseStatusView';
+import CaseStatusFlag from './CaseStatusFlag';
 
 import { mockedCaseStatusFactory } from 'factories/caseStatus';
 import { mockedResident } from 'factories/residents';
@@ -19,7 +19,7 @@ jest.mock('components/Spinner/Spinner', () => () => 'MockedSpinner');
 
 const person = mockedResident;
 
-describe('CaseStatusView component', () => {
+describe('CaseStatusFlag component', () => {
   it('displays the case status of a person', async () => {
     jest.spyOn(caseStatusApi, 'useCaseStatuses').mockImplementation(() => ({
       data: [
@@ -32,7 +32,7 @@ describe('CaseStatusView component', () => {
       revalidate: jest.fn(),
     }));
 
-    const { queryByText } = render(<CaseStatusView person={person} />);
+    const { queryByText } = render(<CaseStatusFlag person={person} />);
 
     expect(queryByText('Child in need')).toBeInTheDocument();
   });
@@ -55,7 +55,7 @@ describe('CaseStatusView component', () => {
       revalidate: jest.fn(),
     }));
 
-    const { queryByText } = render(<CaseStatusView person={person} />);
+    const { queryByText } = render(<CaseStatusFlag person={person} />);
 
     expect(queryByText('Child in need')).toBeInTheDocument();
     expect(queryByText('Child protection')).toBeInTheDocument();
@@ -70,7 +70,7 @@ describe('CaseStatusView component', () => {
       revalidate: jest.fn(),
     }));
 
-    const { queryByText } = render(<CaseStatusView person={person} />);
+    const { queryByText } = render(<CaseStatusFlag person={person} />);
 
     expect(queryByText('Child in need')).not.toBeInTheDocument();
   });
@@ -84,7 +84,7 @@ describe('CaseStatusView component', () => {
       isValidating: false,
     }));
 
-    const { queryByText } = render(<CaseStatusView person={person} />);
+    const { queryByText } = render(<CaseStatusFlag person={person} />);
 
     expect(
       queryByText(/There was a problem with getting case status./)

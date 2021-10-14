@@ -320,21 +320,6 @@ export interface WarningNotes {
   notes: Array<WarningNote>;
 }
 
-export interface FormValue {
-  name: string;
-  description: string;
-  options: Array<FormOption>;
-}
-
-export interface FormFields {
-  fields: Array<FormValue>;
-}
-
-export interface FormOption {
-  name: string;
-  description: string;
-}
-
 export interface CaseStatusFields {
   option: string;
   value: string;
