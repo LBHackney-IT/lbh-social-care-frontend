@@ -4,7 +4,7 @@ import {
   ChildProtectionCategoryOptions,
   LACLegalStatusOptions,
   LACPlacementTypeOptions,
-  CaseStatusAnswer,
+  CaseStatusAnswerDisplay,
 } from 'types';
 import _ from 'lodash';
 
@@ -46,9 +46,9 @@ export const CaseStatusSelectOptionLookup = (
 export const sortCaseStatusAnswers = (
   caseStatuses: CaseStatus
 ): {
-  currentStatusAnswers: CaseStatusAnswer[] | undefined;
-  scheduledStatusAnswers?: CaseStatusAnswer[] | undefined;
-  pastStatusAnswers?: CaseStatusAnswer[] | undefined;
+  currentStatusAnswers: CaseStatusAnswerDisplay[] | undefined;
+  scheduledStatusAnswers?: CaseStatusAnswerDisplay[] | undefined;
+  pastStatusAnswers?: CaseStatusAnswerDisplay[] | undefined;
 } => {
   let currentStatus: CaseStatusFields[] | undefined;
   let scheduledStatus: CaseStatusFields[] | undefined;
@@ -79,7 +79,8 @@ export const sortCaseStatusAnswers = (
       do {
         currentStatusIndex = pastStatus.findIndex(
           (i) =>
-            i.createdAt === tempCurrentStatus.createdAt &&
+            convertToDateTimeString(i.createdAt) ===
+              convertToDateTimeString(tempCurrentStatus.createdAt) &&
             i.startDate === tempCurrentStatus.startDate
         );
         if (currentStatusIndex >= 0) {
@@ -102,7 +103,7 @@ export const sortCaseStatusAnswers = (
 
 const groupAnswersByStartDate = (
   caseStatusAnswers: CaseStatusFields[] | undefined
-): CaseStatusAnswer[] | undefined => {
+): CaseStatusAnswerDisplay[] | undefined => {
   return caseStatusAnswers === undefined
     ? undefined
     : _.chain(caseStatusAnswers)
@@ -112,6 +113,10 @@ const groupAnswersByStartDate = (
         .sort((a, b) => {
           return Date.parse(b.startDate) - Date.parse(a.startDate);
         });
+};
+
+const convertToDateTimeString = (dateTime: string) => {
+  return new Date(dateTime).toLocaleString('en-GB', { timeZone: 'UTC' });
 };
 
 export const caseStatusesTest: CaseStatus[] = [
@@ -191,6 +196,20 @@ export const LACcaseStatusesTest: CaseStatus[] = [
         startDate: '2021-08-02',
         createdAt: '2021-08-01T10:54:32Z',
       },
+
+      {
+        option: 'legalStatus',
+        value: 'C2',
+        startDate: '2021-08-02',
+        createdAt: '2021-07-30T11:54:32Z',
+      },
+      {
+        option: 'placementType',
+        value: 'K1',
+        startDate: '2021-08-02',
+        createdAt: '2021-07-30T11:54:32Z',
+      },
+
       {
         option: 'legalStatus',
         value: 'C2',

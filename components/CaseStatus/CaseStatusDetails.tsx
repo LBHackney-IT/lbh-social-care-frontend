@@ -14,7 +14,7 @@ interface Props {
 const CaseStatusDetails = ({ person }: Props): React.ReactElement => {
   const { data, error } = useCaseStatuses(person.id);
 
-  // const caseStatuses = caseStatusesTest.concat(LACcaseStatusesTest);
+  // const data = caseStatusesTest.concat(LACcaseStatusesTest);
   // const error = undefined;
 
   if (error) {

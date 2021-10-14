@@ -6,6 +6,7 @@ import {
   FormOption,
   CaseStatusFields,
   AddCaseStatusFormData,
+  CaseStatusAnswerDisplay,
 } from 'types';
 
 export const mockedCaseStatusFactory = Factory.define<CaseStatus>(
@@ -45,7 +46,7 @@ export const mockedCaseStatusFormValueFactory = Factory.define<FormValue>(
 
 export const mockedStatusField = Factory.define<CaseStatusFields>(() => ({
   option: 'placementType',
-  value: 'C1',
+  value: 'k1',
   startDate: '2020-08-01',
   createdAt: '2021-10-11T10:54:32Z',
 }));
@@ -54,3 +55,11 @@ export const mockedFieldsFactory = Factory.define<FormOption>(() => ({
   name: 'N0',
   description: 'Not stated',
 }));
+
+export const mockedCaseStatusAnswers = Factory.define<CaseStatusAnswerDisplay>(
+  () => ({
+    startDate: '2021-09-10',
+    endDate: '2021-10-10',
+    status: [mockedStatusField.build()],
+  })
+);

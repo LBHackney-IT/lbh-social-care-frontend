@@ -1,4 +1,4 @@
-import { CaseStatusFields, CaseStatus, CaseStatusAnswer } from 'types';
+import { CaseStatusFields, CaseStatus, CaseStatusAnswerDisplay } from 'types';
 import {
   CaseStatusSelectOptionLookup,
   CaseStatusOptionMapping,
@@ -8,7 +8,7 @@ interface Props {
   tableName?: string;
   styleType?: string;
   status: CaseStatus;
-  answers?: CaseStatusAnswer;
+  answers?: CaseStatusAnswerDisplay;
 }
 
 const CaseStatusDetailsTable = ({

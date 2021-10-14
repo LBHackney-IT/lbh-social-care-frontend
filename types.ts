@@ -448,7 +448,7 @@ export interface CaseStatusFormValue {
   value: string;
 }
 
-export interface CaseStatusAnswer {
+export interface CaseStatusAnswerDisplay {
   startDate: string;
   endDate?: string;
   status: CaseStatusFields[];
