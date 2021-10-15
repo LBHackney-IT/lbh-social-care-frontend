@@ -12,6 +12,7 @@ import CHILD_GFORMS from 'data/googleForms/childForms';
 import flexibleForms from 'data/flexibleForms';
 import { populateChildForm } from 'utils/populate';
 import { useFeatureFlags } from 'lib/feature-flags/feature-flags';
+import { useAppConfig } from 'lib/appConfig';
 
 interface Props {
   isOpen: boolean;
@@ -28,6 +29,14 @@ const AddFormDialog = ({
   const [searchQuery, setSearchQuery] = useState<string>('');
 
   const { isFeatureActive } = useFeatureFlags();
+
+  const { getConfigValue } = useAppConfig();
+  let workflowsPilotUrl: string | undefined;
+  try {
+    workflowsPilotUrl = getConfigValue('workflowsPilotUrl') as string;
+  } catch (error) {
+    workflowsPilotUrl = undefined;
+  }
 
   useEffect(() => {
     setSearchQuery('');
@@ -82,10 +91,14 @@ const AddFormDialog = ({
         }))
       );
 
-    if (isFeatureActive('workflows-pilot') && user.isInWorkflowsPilot) {
+    if (
+      isFeatureActive('workflows-pilot') &&
+      user.isInWorkflowsPilot &&
+      workflowsPilotUrl
+    ) {
       forms.unshift({
         label: 'Pilot assessment',
-        href: `${process.env.NEXT_PUBLIC_WORKFLOWS_PILOT_URL}/workflows/new?social_care_id=${person.id}`,
+        href: `${workflowsPilotUrl}/workflows/new?social_care_id=${person.id}`,
         system: true,
         approvable: true,
         groupRecordable: false,
@@ -94,7 +107,14 @@ const AddFormDialog = ({
     }
 
     return forms;
-  }, [gForms, serviceContext, user, person, isFeatureActive]);
+  }, [
+    gForms,
+    serviceContext,
+    user,
+    person,
+    isFeatureActive,
+    workflowsPilotUrl,
+  ]);
 
   const results = useSearch(
     searchQuery,
