@@ -47,18 +47,6 @@ interface Props {
 const DashboardWrapper = ({ children }: Props): React.ReactElement => {
   const { getConfigValue } = useAppConfig();
 
-  let navLink;
-
-  try {
-    navLink = (
-      <NavLink href={getConfigValue('workflowsPilotUrl') as string}>
-        Workflows
-      </NavLink>
-    );
-  } catch (error) {
-    navLink = null;
-  }
-
   return (
     <>
       <Head>
@@ -77,7 +65,9 @@ const DashboardWrapper = ({ children }: Props): React.ReactElement => {
                 ))}
 
                 <ConditionalFeature name="workflows-pilot">
-                  {navLink}
+                  <NavLink href={getConfigValue('workflowsPilotUrl') as string}>
+                    Workflows
+                  </NavLink>
                 </ConditionalFeature>
               </ul>
             </nav>

@@ -67,36 +67,7 @@ const Layout = ({ person, children }: Props): React.ReactElement => {
   const { user } = useAuth() as { user: User };
   const { isFeatureActive } = useFeatureFlags();
   const [addFormOpen, setAddFormOpen] = useState<boolean>(false);
-
   const { getConfigValue } = useAppConfig();
-
-  let workflowsNavLink;
-  let startWorkflowNavLink;
-
-  try {
-    workflowsNavLink = (
-      <NavLink
-        href={`${
-          getConfigValue('workflowsPilotUrl') as string
-        }?social_care_id=${person.id}`}
-      >
-        Workflows
-      </NavLink>
-    );
-    startWorkflowNavLink = (
-      <a
-        href={`${getConfigValue(
-          'workflowsPilotUrl'
-        )}/workflows/new?social_care_id=${person.id}`}
-        className="lbh-link lbh-body-s lbh-link--no-visited-state"
-      >
-        Start workflow
-      </a>
-    );
-  } catch (error) {
-    workflowsNavLink = null;
-    startWorkflowNavLink = null;
-  }
 
   const navigation: { text: string; href: string }[] = [
     {
@@ -223,7 +194,13 @@ const Layout = ({ person, children }: Props): React.ReactElement => {
               ))}
 
               <ConditionalFeature name="workflows-pilot">
-                {workflowsNavLink}
+                <NavLink
+                  href={`${
+                    getConfigValue('workflowsPilotUrl') as string
+                  }?social_care_id=${person.id}`}
+                >
+                  Workflows
+                </NavLink>
               </ConditionalFeature>
             </ul>
 
@@ -240,7 +217,18 @@ const Layout = ({ person, children }: Props): React.ReactElement => {
               ))}
 
               <ConditionalFeature name="workflows-pilot">
-                {user.isInWorkflowsPilot && <li>{startWorkflowNavLink}</li>}
+                {user.isInWorkflowsPilot && (
+                  <li>
+                    <a
+                      href={`${getConfigValue(
+                        'workflowsPilotUrl'
+                      )}/workflows/new?social_care_id=${person.id}`}
+                      className="lbh-link lbh-body-s lbh-link--no-visited-state"
+                    >
+                      Start workflow
+                    </a>
+                  </li>
+                )}
               </ConditionalFeature>
             </ul>
           </nav>

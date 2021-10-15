@@ -309,30 +309,6 @@ describe('AddFormDialog', () => {
 
       expect(screen.queryByText('Pilot assessment')).not.toBeInTheDocument();
     });
-
-    it('does not display link for workflows if workflows pilot URL is undefined', () => {
-      render(
-        <AppConfigProvider appConfig={{}}>
-          <AuthProvider user={mockedUser}>
-            <FeatureFlagProvider
-              features={{
-                'workflows-pilot': {
-                  isActive: true,
-                },
-              }}
-            >
-              <AddFormDialog
-                isOpen={true}
-                onDismiss={jest.fn()}
-                person={mockedResident}
-              />
-            </FeatureFlagProvider>
-          </AuthProvider>
-        </AppConfigProvider>
-      );
-
-      expect(screen.queryByText('Pilot assessment')).not.toBeInTheDocument();
-    });
   });
 
   describe('when workflows pilot feature flag is off', () => {

@@ -81,24 +81,4 @@ describe(`DashboardWrapper`, () => {
 
     expect(screen.queryByText('Workflows')).not.toBeInTheDocument();
   });
-
-  it('does not display link for workflows if workflows pilot URL is undefined', () => {
-    render(
-      <AppConfigProvider appConfig={{}}>
-        <FeatureFlagProvider
-          features={{
-            'workflows-pilot': {
-              isActive: false,
-            },
-          }}
-        >
-          <DashboardWrapper>
-            <div>foo</div>
-          </DashboardWrapper>
-        </FeatureFlagProvider>
-      </AppConfigProvider>
-    );
-
-    expect(screen.queryByText('Workflows')).not.toBeInTheDocument();
-  });
 });

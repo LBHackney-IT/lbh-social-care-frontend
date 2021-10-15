@@ -29,14 +29,7 @@ const AddFormDialog = ({
   const [searchQuery, setSearchQuery] = useState<string>('');
 
   const { isFeatureActive } = useFeatureFlags();
-
   const { getConfigValue } = useAppConfig();
-  let workflowsPilotUrl: string | undefined;
-  try {
-    workflowsPilotUrl = getConfigValue('workflowsPilotUrl') as string;
-  } catch (error) {
-    workflowsPilotUrl = undefined;
-  }
 
   useEffect(() => {
     setSearchQuery('');
@@ -91,14 +84,12 @@ const AddFormDialog = ({
         }))
       );
 
-    if (
-      isFeatureActive('workflows-pilot') &&
-      user.isInWorkflowsPilot &&
-      workflowsPilotUrl
-    ) {
+    if (isFeatureActive('workflows-pilot') && user.isInWorkflowsPilot) {
       forms.unshift({
         label: 'Pilot assessment',
-        href: `${workflowsPilotUrl}/workflows/new?social_care_id=${person.id}`,
+        href: `${getConfigValue(
+          'workflowsPilotUrl'
+        )}/workflows/new?social_care_id=${person.id}`,
         system: true,
         approvable: true,
         groupRecordable: false,
@@ -107,14 +98,7 @@ const AddFormDialog = ({
     }
 
     return forms;
-  }, [
-    gForms,
-    serviceContext,
-    user,
-    person,
-    isFeatureActive,
-    workflowsPilotUrl,
-  ]);
+  }, [gForms, serviceContext, user, person, isFeatureActive, getConfigValue]);
 
   const results = useSearch(
     searchQuery,

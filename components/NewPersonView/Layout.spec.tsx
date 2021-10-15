@@ -280,34 +280,6 @@ describe('Layout', () => {
       expect(screen.queryByText('Start workflow')).not.toBeInTheDocument();
     });
 
-    it("doesn't display link to start a workflow if workflows pilot URL is undefined", () => {
-      render(
-        <AppConfigProvider appConfig={{}}>
-          <AuthProvider user={mockedUser}>
-            <FeatureFlagProvider
-              features={{
-                'workflows-pilot': {
-                  isActive: true,
-                },
-              }}
-            >
-              <Layout
-                person={{
-                  ...mockedResident,
-                  id: 123456789,
-                  restricted: 'Y',
-                }}
-              >
-                Foo
-              </Layout>
-            </FeatureFlagProvider>
-          </AuthProvider>
-        </AppConfigProvider>
-      );
-
-      expect(screen.queryByText('Start workflow')).not.toBeInTheDocument();
-    });
-
     it('displays link to the workflows for the person', () => {
       render(
         <AppConfigProvider
@@ -340,34 +312,6 @@ describe('Layout', () => {
         'href',
         'http://example.com?social_care_id=123456789'
       );
-    });
-
-    it("doesn't display link to the workflows for the person if workflows pilot URL is undefined", () => {
-      render(
-        <AppConfigProvider appConfig={{}}>
-          <AuthProvider user={mockedUser}>
-            <FeatureFlagProvider
-              features={{
-                'workflows-pilot': {
-                  isActive: true,
-                },
-              }}
-            >
-              <Layout
-                person={{
-                  ...mockedResident,
-                  id: 123456789,
-                  restricted: 'Y',
-                }}
-              >
-                Foo
-              </Layout>
-            </FeatureFlagProvider>
-          </AuthProvider>
-        </AppConfigProvider>
-      );
-
-      expect(screen.queryByText('Workflows')).not.toBeInTheDocument();
     });
   });
 
