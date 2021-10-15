@@ -21,6 +21,8 @@ import {
   mockedExistingRelationship,
 } from 'factories/relationships';
 
+import { AppConfigProvider } from 'lib/appConfig';
+
 const mockedUseRouter = {
   query: { foo: 'bar' },
   replace: jest.fn(),
@@ -37,16 +39,18 @@ const features: FeatureSet = {
   },
 };
 
-process.env.NEXT_PUBLIC_WORKFLOWS_PILOT_URL = 'http://example.com';
-
 describe('Layout', () => {
   it('renders children, navigation and a primary action', () => {
     render(
-      <AuthProvider user={mockedUser}>
-        <FeatureFlagProvider features={features}>
-          <Layout person={mockedResident}>Foo</Layout>
-        </FeatureFlagProvider>
-      </AuthProvider>
+      <AppConfigProvider
+        appConfig={{ workflowsPilotUrl: 'http://example.com' }}
+      >
+        <AuthProvider user={mockedUser}>
+          <FeatureFlagProvider features={features}>
+            <Layout person={mockedResident}>Foo</Layout>
+          </FeatureFlagProvider>
+        </AuthProvider>
+      </AppConfigProvider>
     );
     expect(screen.getByText('Foo'));
     expect(screen.getByText('Add something new'));
@@ -56,11 +60,15 @@ describe('Layout', () => {
 
   it("renders the user's name and caption", () => {
     render(
-      <AuthProvider user={mockedUser}>
-        <FeatureFlagProvider features={features}>
-          <Layout person={mockedResident}>Foo</Layout>
-        </FeatureFlagProvider>
-      </AuthProvider>
+      <AppConfigProvider
+        appConfig={{ workflowsPilotUrl: 'http://example.com' }}
+      >
+        <AuthProvider user={mockedUser}>
+          <FeatureFlagProvider features={features}>
+            <Layout person={mockedResident}>Foo</Layout>
+          </FeatureFlagProvider>
+        </AuthProvider>
+      </AppConfigProvider>
     );
     expect(screen.getByText('Foo Bar'));
     expect(screen.getByText('#1 · Born 13 Nov 2020'));
@@ -101,11 +109,15 @@ describe('Layout', () => {
     }));
 
     render(
-      <AuthProvider user={mockedOnlyChildUser}>
-        <FeatureFlagProvider features={features}>
-          <Layout person={mockedResident}>Foo</Layout>
-        </FeatureFlagProvider>
-      </AuthProvider>
+      <AppConfigProvider
+        appConfig={{ workflowsPilotUrl: 'http://example.com' }}
+      >
+        <AuthProvider user={mockedOnlyChildUser}>
+          <FeatureFlagProvider features={features}>
+            <Layout person={mockedResident}>Foo</Layout>
+          </FeatureFlagProvider>
+        </AuthProvider>
+      </AppConfigProvider>
     );
 
     const parentsRow = screen.queryByText('Relationships (3)');
@@ -124,11 +136,15 @@ describe('Layout', () => {
     }));
 
     render(
-      <AuthProvider user={mockedOnlyChildUser}>
-        <FeatureFlagProvider features={features}>
-          <Layout person={mockedResident}>Foo</Layout>
-        </FeatureFlagProvider>
-      </AuthProvider>
+      <AppConfigProvider
+        appConfig={{ workflowsPilotUrl: 'http://example.com' }}
+      >
+        <AuthProvider user={mockedOnlyChildUser}>
+          <FeatureFlagProvider features={features}>
+            <Layout person={mockedResident}>Foo</Layout>
+          </FeatureFlagProvider>
+        </AuthProvider>
+      </AppConfigProvider>
     );
 
     const parentsRow = screen.queryByText('Relationships');
@@ -137,71 +153,29 @@ describe('Layout', () => {
 
   it("hides the timeline link if the user isn't authorised", () => {
     render(
-      <AuthProvider user={mockedOnlyChildUser}>
-        <FeatureFlagProvider features={features}>
-          <Layout person={mockedResident}>Foo</Layout>
-        </FeatureFlagProvider>
-      </AuthProvider>
+      <AppConfigProvider
+        appConfig={{ workflowsPilotUrl: 'http://example.com' }}
+      >
+        <AuthProvider user={mockedOnlyChildUser}>
+          <FeatureFlagProvider features={features}>
+            <Layout person={mockedResident}>Foo</Layout>
+          </FeatureFlagProvider>
+        </AuthProvider>
+      </AppConfigProvider>
     );
     expect(screen.queryByText('Timeline')).toBe(null);
   });
 
   it('tells unauthorised users when a resident is restricted', () => {
     render(
-      <AuthProvider user={mockedOnlyAdultUser}>
-        <FeatureFlagProvider features={features}>
-          <Layout
-            person={{
-              ...mockedResident,
-              restricted: 'Y',
-            }}
-          >
-            Foo
-          </Layout>
-        </FeatureFlagProvider>
-      </AuthProvider>
-    );
-    expect(screen.getByText('This person is restricted'));
-  });
-
-  it("doesn't bother to tell authorised users when a resident is restricted", () => {
-    render(
-      <AuthProvider
-        user={{
-          ...mockedUser,
-          hasUnrestrictedPermissions: true,
-        }}
+      <AppConfigProvider
+        appConfig={{ workflowsPilotUrl: 'http://example.com' }}
       >
-        <FeatureFlagProvider features={features}>
-          <Layout
-            person={{
-              ...mockedResident,
-              restricted: 'Y',
-            }}
-          >
-            Foo
-          </Layout>
-        </FeatureFlagProvider>
-      </AuthProvider>
-    );
-    expect(screen.queryByText('This person is restricted')).toBeNull();
-  });
-
-  describe('when workflows pilot feature flag is on', () => {
-    it('displays link to start a workflow if user is in workflows pilot', () => {
-      render(
-        <AuthProvider user={mockedUserInWorkflowsPilot}>
-          <FeatureFlagProvider
-            features={{
-              'workflows-pilot': {
-                isActive: true,
-              },
-            }}
-          >
+        <AuthProvider user={mockedOnlyAdultUser}>
+          <FeatureFlagProvider features={features}>
             <Layout
               person={{
                 ...mockedResident,
-                id: 123456789,
                 restricted: 'Y',
               }}
             >
@@ -209,6 +183,64 @@ describe('Layout', () => {
             </Layout>
           </FeatureFlagProvider>
         </AuthProvider>
+      </AppConfigProvider>
+    );
+    expect(screen.getByText('This person is restricted'));
+  });
+
+  it("doesn't bother to tell authorised users when a resident is restricted", () => {
+    render(
+      <AppConfigProvider
+        appConfig={{ workflowsPilotUrl: 'http://example.com' }}
+      >
+        <AuthProvider
+          user={{
+            ...mockedUser,
+            hasUnrestrictedPermissions: true,
+          }}
+        >
+          <FeatureFlagProvider features={features}>
+            <Layout
+              person={{
+                ...mockedResident,
+                restricted: 'Y',
+              }}
+            >
+              Foo
+            </Layout>
+          </FeatureFlagProvider>
+        </AuthProvider>
+      </AppConfigProvider>
+    );
+    expect(screen.queryByText('This person is restricted')).toBeNull();
+  });
+
+  describe('when workflows pilot feature flag is on', () => {
+    it('displays link to start a workflow if user is in workflows pilot', () => {
+      render(
+        <AppConfigProvider
+          appConfig={{ workflowsPilotUrl: 'http://example.com' }}
+        >
+          <AuthProvider user={mockedUserInWorkflowsPilot}>
+            <FeatureFlagProvider
+              features={{
+                'workflows-pilot': {
+                  isActive: true,
+                },
+              }}
+            >
+              <Layout
+                person={{
+                  ...mockedResident,
+                  id: 123456789,
+                  restricted: 'Y',
+                }}
+              >
+                Foo
+              </Layout>
+            </FeatureFlagProvider>
+          </AuthProvider>
+        </AppConfigProvider>
       );
 
       expect(screen.queryByText('Start workflow')).toBeVisible();
@@ -220,25 +252,57 @@ describe('Layout', () => {
 
     it("doesn't display link to start a workflow if user is in not workflows pilot", () => {
       render(
-        <AuthProvider user={mockedUser}>
-          <FeatureFlagProvider
-            features={{
-              'workflows-pilot': {
-                isActive: true,
-              },
-            }}
-          >
-            <Layout
-              person={{
-                ...mockedResident,
-                id: 123456789,
-                restricted: 'Y',
+        <AppConfigProvider
+          appConfig={{ workflowsPilotUrl: 'http://example.com' }}
+        >
+          <AuthProvider user={mockedUser}>
+            <FeatureFlagProvider
+              features={{
+                'workflows-pilot': {
+                  isActive: true,
+                },
               }}
             >
-              Foo
-            </Layout>
-          </FeatureFlagProvider>
-        </AuthProvider>
+              <Layout
+                person={{
+                  ...mockedResident,
+                  id: 123456789,
+                  restricted: 'Y',
+                }}
+              >
+                Foo
+              </Layout>
+            </FeatureFlagProvider>
+          </AuthProvider>
+        </AppConfigProvider>
+      );
+
+      expect(screen.queryByText('Start workflow')).not.toBeInTheDocument();
+    });
+
+    it("doesn't display link to start a workflow if workflows pilot URL is undefined", () => {
+      render(
+        <AppConfigProvider appConfig={{}}>
+          <AuthProvider user={mockedUser}>
+            <FeatureFlagProvider
+              features={{
+                'workflows-pilot': {
+                  isActive: true,
+                },
+              }}
+            >
+              <Layout
+                person={{
+                  ...mockedResident,
+                  id: 123456789,
+                  restricted: 'Y',
+                }}
+              >
+                Foo
+              </Layout>
+            </FeatureFlagProvider>
+          </AuthProvider>
+        </AppConfigProvider>
       );
 
       expect(screen.queryByText('Start workflow')).not.toBeInTheDocument();
@@ -246,25 +310,29 @@ describe('Layout', () => {
 
     it('displays link to the workflows for the person', () => {
       render(
-        <AuthProvider user={mockedUser}>
-          <FeatureFlagProvider
-            features={{
-              'workflows-pilot': {
-                isActive: true,
-              },
-            }}
-          >
-            <Layout
-              person={{
-                ...mockedResident,
-                id: 123456789,
-                restricted: 'Y',
+        <AppConfigProvider
+          appConfig={{ workflowsPilotUrl: 'http://example.com' }}
+        >
+          <AuthProvider user={mockedUser}>
+            <FeatureFlagProvider
+              features={{
+                'workflows-pilot': {
+                  isActive: true,
+                },
               }}
             >
-              Foo
-            </Layout>
-          </FeatureFlagProvider>
-        </AuthProvider>
+              <Layout
+                person={{
+                  ...mockedResident,
+                  id: 123456789,
+                  restricted: 'Y',
+                }}
+              >
+                Foo
+              </Layout>
+            </FeatureFlagProvider>
+          </AuthProvider>
+        </AppConfigProvider>
       );
 
       expect(screen.queryByText('Workflows')).toBeVisible();
@@ -273,29 +341,61 @@ describe('Layout', () => {
         'http://example.com?social_care_id=123456789'
       );
     });
+
+    it("doesn't display link to the workflows for the person if workflows pilot URL is undefined", () => {
+      render(
+        <AppConfigProvider appConfig={{}}>
+          <AuthProvider user={mockedUser}>
+            <FeatureFlagProvider
+              features={{
+                'workflows-pilot': {
+                  isActive: true,
+                },
+              }}
+            >
+              <Layout
+                person={{
+                  ...mockedResident,
+                  id: 123456789,
+                  restricted: 'Y',
+                }}
+              >
+                Foo
+              </Layout>
+            </FeatureFlagProvider>
+          </AuthProvider>
+        </AppConfigProvider>
+      );
+
+      expect(screen.queryByText('Workflows')).not.toBeInTheDocument();
+    });
   });
 
   describe('when workflows pilot feature flag is off', () => {
     it('does not display to start a workflow', () => {
       render(
-        <AuthProvider user={mockedUser}>
-          <FeatureFlagProvider
-            features={{
-              'workflows-pilot': {
-                isActive: false,
-              },
-            }}
-          >
-            <Layout
-              person={{
-                ...mockedResident,
-                restricted: 'Y',
+        <AppConfigProvider
+          appConfig={{ workflowsPilotUrl: 'http://example.com' }}
+        >
+          <AuthProvider user={mockedUser}>
+            <FeatureFlagProvider
+              features={{
+                'workflows-pilot': {
+                  isActive: false,
+                },
               }}
             >
-              Foo
-            </Layout>
-          </FeatureFlagProvider>
-        </AuthProvider>
+              <Layout
+                person={{
+                  ...mockedResident,
+                  restricted: 'Y',
+                }}
+              >
+                Foo
+              </Layout>
+            </FeatureFlagProvider>
+          </AuthProvider>
+        </AppConfigProvider>
       );
 
       expect(screen.queryByText('Start workflow')).not.toBeInTheDocument();

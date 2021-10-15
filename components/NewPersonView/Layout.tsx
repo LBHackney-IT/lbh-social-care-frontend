@@ -19,6 +19,7 @@ import {
   useFeatureFlags,
 } from 'lib/feature-flags/feature-flags';
 import CaseStatusFlag from 'components/CaseStatus/CaseStatusFlag/CaseStatusFlag';
+import { useAppConfig } from 'lib/appConfig';
 
 interface NavLinkProps {
   href: string;
@@ -66,6 +67,36 @@ const Layout = ({ person, children }: Props): React.ReactElement => {
   const { user } = useAuth() as { user: User };
   const { isFeatureActive } = useFeatureFlags();
   const [addFormOpen, setAddFormOpen] = useState<boolean>(false);
+
+  const { getConfigValue } = useAppConfig();
+
+  let workflowsNavLink;
+  let startWorkflowNavLink;
+
+  try {
+    workflowsNavLink = (
+      <NavLink
+        href={`${
+          getConfigValue('workflowsPilotUrl') as string
+        }?social_care_id=${person.id}`}
+      >
+        Workflows
+      </NavLink>
+    );
+    startWorkflowNavLink = (
+      <a
+        href={`${getConfigValue(
+          'workflowsPilotUrl'
+        )}/workflows/new?social_care_id=${person.id}`}
+        className="lbh-link lbh-body-s lbh-link--no-visited-state"
+      >
+        Start workflow
+      </a>
+    );
+  } catch (error) {
+    workflowsNavLink = null;
+    startWorkflowNavLink = null;
+  }
 
   const navigation: { text: string; href: string }[] = [
     {
@@ -192,13 +223,7 @@ const Layout = ({ person, children }: Props): React.ReactElement => {
               ))}
 
               <ConditionalFeature name="workflows-pilot">
-                <NavLink
-                  href={`${
-                    process.env.NEXT_PUBLIC_WORKFLOWS_PILOT_URL as string
-                  }?social_care_id=${person.id}`}
-                >
-                  Workflows
-                </NavLink>
+                {workflowsNavLink}
               </ConditionalFeature>
             </ul>
 
@@ -215,16 +240,7 @@ const Layout = ({ person, children }: Props): React.ReactElement => {
               ))}
 
               <ConditionalFeature name="workflows-pilot">
-                {user.isInWorkflowsPilot && (
-                  <li>
-                    <a
-                      href={`${process.env.NEXT_PUBLIC_WORKFLOWS_PILOT_URL}/workflows/new?social_care_id=${person.id}`}
-                      className="lbh-link lbh-body-s lbh-link--no-visited-state"
-                    >
-                      Start workflow
-                    </a>
-                  </li>
-                )}
+                {user.isInWorkflowsPilot && <li>{startWorkflowNavLink}</li>}
               </ConditionalFeature>
             </ul>
           </nav>
