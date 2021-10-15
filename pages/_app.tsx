@@ -58,9 +58,7 @@ const CustomApp = ({
   }, []);
 
   return (
-    <AppConfigProvider
-      appConfig={{ workflowsPilotUrl: pageProps.workflowsPilotUrl }}
-    >
+    <AppConfigProvider appConfig={pageProps.appConfig}>
       <FeatureFlagProvider features={features}>
         <SWRConfig
           value={{
@@ -114,7 +112,9 @@ CustomApp.getInitialProps = async (
     ? 'development'
     : 'production';
 
-  const workflowsPilotUrl = process.env.WORKFLOWS_PILOT_URL;
+  const appConfig = {
+    workflowsPilotUrl: process.env.WORKFLOWS_PILOT_URL,
+  };
 
   return {
     ...appProps,
@@ -122,7 +122,7 @@ CustomApp.getInitialProps = async (
       ...appProps.pageProps,
       user,
       environmentName,
-      workflowsPilotUrl,
+      appConfig,
     },
   };
 };
