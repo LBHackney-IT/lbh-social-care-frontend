@@ -14,6 +14,9 @@ interface Props {
 const CaseStatusDetails = ({ person }: Props): React.ReactElement => {
   const { data, error } = useCaseStatuses(person.id);
 
+  // const data = LACcaseStatusesTest;
+  // const error = undefined;
+
   if (error) {
     return (
       <ErrorMessage label="There was a problem with getting case status." />
@@ -90,7 +93,7 @@ const CaseStatusDetails = ({ person }: Props): React.ReactElement => {
                 pastStatusAnswers.length > 0 &&
                 pastStatusAnswers.map((previousStatusDateGroup) => (
                   <CaseStatusDetailsTable
-                    key={`Previous version - ${previousStatusDateGroup.startDate}`}
+                    key={`Previous version - ${previousStatusDateGroup.startDate} - ${previousStatusDateGroup.status[0].groupId}`}
                     tableName="Previous version"
                     styleType={styles.previousStatusFont}
                     status={status}
