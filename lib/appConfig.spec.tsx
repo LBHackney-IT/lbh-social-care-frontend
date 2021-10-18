@@ -54,7 +54,9 @@ describe('AppConfigContext', () => {
 
         expect(() =>
           result.current.getConfigValue('someNonExistentIdentifier')
-        ).toThrowError('A value for someNonExistentIdentifier is not defined');
+        ).toThrowError(
+          'A value for someNonExistentIdentifier is not defined in the app config'
+        );
       });
     });
   });

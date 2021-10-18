@@ -34,7 +34,9 @@ export const useAppConfig: () => {
       const configValue = appConfig[identifier];
 
       if (configValue === undefined) {
-        throw new Error(`A value for ${identifier} is not defined`);
+        throw new Error(
+          `A value for ${identifier} is not defined in the app config`
+        );
       }
 
       return configValue;
