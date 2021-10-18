@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import App, { AppInitialProps, AppContext, AppProps } from 'next/app';
 import { NextComponentType } from 'next';
 import axios from 'axios';
@@ -41,6 +41,10 @@ const CustomApp = ({
     })
   );
 
+  const appConfig = useMemo(() => {
+    return pageProps.appConfig;
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+
   useEffect(() => {
     const environmentName = [
       'localhost:3000',
@@ -58,7 +62,7 @@ const CustomApp = ({
   }, []);
 
   return (
-    <AppConfigProvider appConfig={pageProps.appConfig}>
+    <AppConfigProvider appConfig={appConfig}>
       <FeatureFlagProvider features={features}>
         <SWRConfig
           value={{
