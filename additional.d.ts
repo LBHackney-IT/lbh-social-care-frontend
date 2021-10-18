@@ -16,9 +16,6 @@ declare global {
   }
 
   interface Window {
-    __APP_CONFIG__: {
-      [identifier: string]: string | number;
-    };
     GOVUKFrontend: {
       initAll: () => void;
     };
