@@ -173,28 +173,22 @@ describe('LAC Specific Tests for CaseStatusDetail component', () => {
       data: [
         mockedCaseStatusFactory.build({
           type: 'LAC',
-          answers: [
-            mockedStatusField.build({
-              option: 'category',
-              value: 'C2',
-              startDate: '2021-09-01',
-            }),
-          ],
+          answers: [mockedStatusField.build()],
         }),
       ],
-      error: mockedAPIservererror,
       revalidate: jest.fn(),
       mutate: jest.fn(),
       isValidating: false,
     }));
 
-    const { queryByText } = render(
+    const { queryByText, getByTestId } = render(
       <CaseStatusDetails person={mockedResident} />
     );
 
+    expect(getByTestId('case_status_details_table')).not.toBeNull;
     expect(queryByText('Scheduled changes')).not.toBeInTheDocument();
     expect(queryByText('Previous version')).not.toBeInTheDocument();
-    expect(queryByText('01 Sept 2021')).not.toBeInTheDocument();
+    expect(queryByText('01 Aug 2020')).toBeInTheDocument();
   });
 
   it('displays a legal status and placement type for LAC', async () => {
@@ -207,11 +201,13 @@ describe('LAC Specific Tests for CaseStatusDetail component', () => {
               option: 'placementType',
               value: 'P3',
               startDate: '2021-10-09',
+              groupId: 'abc1',
             }),
             mockedStatusField.build({
               option: 'legalStatus',
               value: 'C1',
               startDate: '2021-10-09',
+              groupId: 'abc1',
             }),
           ],
         }),
@@ -221,10 +217,11 @@ describe('LAC Specific Tests for CaseStatusDetail component', () => {
       revalidate: jest.fn(),
     }));
 
-    const { queryByText } = render(
+    const { queryByText, getByTestId } = render(
       <CaseStatusDetails person={mockedResident} />
     );
 
+    expect(getByTestId('case_status_details_table')).not.toBeNull;
     expect(queryByText('09 Oct 2021')).toBeInTheDocument();
     expect(queryByText('P3: Residential employment')).toBeInTheDocument();
     expect(queryByText('C1: Interim care order')).toBeInTheDocument();
@@ -241,9 +238,10 @@ describe('LAC Specific Tests for CaseStatusDetail component', () => {
             mockedStatusField.build({
               option: 'category',
               value: 'C2',
-              startDate: '2022-10-09',
+              startDate: '2040-10-09',
             }),
           ],
+          notes: '',
         }),
       ],
       isValidating: false,
@@ -251,13 +249,15 @@ describe('LAC Specific Tests for CaseStatusDetail component', () => {
       revalidate: jest.fn(),
     }));
 
-    const { queryByText } = render(
+    const { queryByText, getByTestId } = render(
       <CaseStatusDetails person={mockedResident} />
     );
 
+    expect(getByTestId('case_status_details_table')).not.toBeNull;
     expect(queryByText('Scheduled changes')).toBeInTheDocument();
     expect(queryByText('Previous version')).not.toBeInTheDocument();
-    expect(queryByText('09 Oct 2022')).toBeInTheDocument();
+    expect(queryByText('09 Oct 2040')).toBeInTheDocument();
+    expect(queryByText('Physical abuse')).toBeInTheDocument();
   });
 
   it('displays both scheduled status answers, if there are two', async () => {
@@ -270,11 +270,13 @@ describe('LAC Specific Tests for CaseStatusDetail component', () => {
               option: 'placementType',
               value: 'P3',
               startDate: '2040-10-09',
+              groupId: 'abc',
             }),
             mockedStatusField.build({
               option: 'legalStatus',
               value: 'C1',
               startDate: '2040-10-09',
+              groupId: 'abc',
             }),
           ],
         }),
@@ -284,13 +286,18 @@ describe('LAC Specific Tests for CaseStatusDetail component', () => {
       revalidate: jest.fn(),
     }));
 
-    const { queryByText } = render(
+    const { queryByText, getByTestId } = render(
       <CaseStatusDetails person={mockedResident} />
     );
 
+    expect(getByTestId('case_status_details_table')).not.toBeNull;
     expect(queryByText('Scheduled changes')).toBeInTheDocument();
     expect(queryByText('Previous version')).not.toBeInTheDocument();
     expect(queryByText('09 Oct 2040')).toBeInTheDocument();
+    expect(queryByText('P3: Residential employment')).toBeInTheDocument();
+    expect(queryByText('C1: Interim care order')).toBeInTheDocument();
+    expect(queryByText('Legal status')).toBeInTheDocument();
+    expect(queryByText('Placement type')).toBeInTheDocument();
   });
 
   it("displays additional scheduled status answers, if there are some (this data shouldn't be possible)", async () => {
@@ -303,22 +310,26 @@ describe('LAC Specific Tests for CaseStatusDetail component', () => {
               option: 'placementType',
               value: 'P3',
               startDate: '2040-10-09',
+              groupId: 'abc',
             }),
             mockedStatusField.build({
               option: 'legalStatus',
               value: 'C1',
               startDate: '2040-10-09',
+              groupId: 'abc',
             }),
 
             mockedStatusField.build({
               option: 'placementType',
               value: 'R1',
               startDate: '2040-10-08',
+              groupId: 'def',
             }),
             mockedStatusField.build({
               option: 'legalStatus',
               value: 'L2',
               startDate: '2040-10-08',
+              groupId: 'def',
             }),
           ],
         }),
@@ -356,12 +367,14 @@ describe('LAC Specific Tests for CaseStatusDetail component', () => {
               value: 'P3',
               startDate: '2021-10-09',
               createdAt: '2021-09-08T10:54:32Z',
+              groupId: 'abc',
             }),
             mockedStatusField.build({
               option: 'legalStatus',
               value: 'C1',
               startDate: '2021-10-13',
               createdAt: '2021-09-09T10:54:32Z',
+              groupId: 'def',
             }),
           ],
         }),
@@ -381,6 +394,8 @@ describe('LAC Specific Tests for CaseStatusDetail component', () => {
     expect(queryByText('Previous version')).toBeInTheDocument();
     expect(queryByText('09 Oct 2021 - 13 Oct 2021')).toBeInTheDocument();
     expect(queryByText('13 Oct 2021')).toBeInTheDocument();
+    expect(queryByText('P3: Residential employment')).toBeInTheDocument();
+    expect(queryByText('C1: Interim care order')).toBeInTheDocument();
   });
 
   it('displays multiple past status, if there is a current status and a multiple status in the past with different created dates', async () => {
@@ -394,12 +409,14 @@ describe('LAC Specific Tests for CaseStatusDetail component', () => {
               value: 'C2',
               startDate: '2021-10-02',
               createdAt: '2021-09-03T10:54:32Z',
+              groupId: 'abc',
             }),
             mockedStatusField.build({
               option: 'placementType',
               value: 'P3',
               startDate: '2021-10-02',
               createdAt: '2021-09-03T10:54:32Z',
+              groupId: 'abc',
             }),
 
             mockedStatusField.build({
@@ -407,12 +424,14 @@ describe('LAC Specific Tests for CaseStatusDetail component', () => {
               value: 'D1',
               startDate: '2021-10-09',
               createdAt: '2021-09-08T10:54:32Z',
+              groupId: 'def',
             }),
             mockedStatusField.build({
               option: 'placementType',
               value: 'P3',
               startDate: '2021-10-09',
               createdAt: '2021-09-08T10:54:32Z',
+              groupId: 'def',
             }),
 
             mockedStatusField.build({
@@ -420,12 +439,14 @@ describe('LAC Specific Tests for CaseStatusDetail component', () => {
               value: 'C1',
               startDate: '2021-10-13',
               createdAt: '2021-09-09T10:54:32Z',
+              groupId: 'ghi',
             }),
             mockedStatusField.build({
               option: 'placementType',
               value: 'P3',
               startDate: '2021-10-13',
               createdAt: '2021-09-09T10:54:32Z',
+              groupId: 'ghi',
             }),
           ],
         }),
@@ -466,12 +487,14 @@ describe('LAC Specific Tests for CaseStatusDetail component', () => {
               value: 'C1',
               startDate: '2021-10-02',
               createdAt: '2021-09-03T10:54:32Z',
+              groupId: 'abc',
             }),
             mockedStatusField.build({
               option: 'placementType',
               value: 'P3',
               startDate: '2021-10-02',
               createdAt: '2021-09-03T10:54:32Z',
+              groupId: 'abc',
             }),
 
             mockedStatusField.build({
@@ -479,12 +502,14 @@ describe('LAC Specific Tests for CaseStatusDetail component', () => {
               value: 'E1',
               startDate: '2021-10-09',
               createdAt: '2021-09-08T10:54:32Z',
+              groupId: 'def',
             }),
             mockedStatusField.build({
               option: 'placementType',
               value: 'P3',
               startDate: '2021-10-09',
               createdAt: '2021-09-08T10:54:32Z',
+              groupId: 'def',
             }),
 
             mockedStatusField.build({
@@ -492,12 +517,14 @@ describe('LAC Specific Tests for CaseStatusDetail component', () => {
               value: 'D1',
               startDate: '2021-10-09',
               createdAt: '2021-09-08T11:54:32Z',
+              groupId: 'ghi',
             }),
             mockedStatusField.build({
               option: 'placementType',
               value: 'P3',
               startDate: '2021-10-09',
               createdAt: '2021-09-08T11:54:32Z',
+              groupId: 'ghi',
             }),
 
             mockedStatusField.build({
@@ -505,12 +532,14 @@ describe('LAC Specific Tests for CaseStatusDetail component', () => {
               value: 'C2',
               startDate: '2021-10-13',
               createdAt: '2021-09-09T10:54:32Z',
+              groupId: 'jkl',
             }),
             mockedStatusField.build({
               option: 'placementType',
               value: 'P3',
               startDate: '2021-10-13',
               createdAt: '2021-09-09T10:54:32Z',
+              groupId: 'jkl',
             }),
           ],
         }),
