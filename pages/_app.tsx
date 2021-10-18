@@ -112,6 +112,9 @@ CustomApp.getInitialProps = async (
     ? 'development'
     : 'production';
 
+  // Warning! Any values placed in this object are passed to the client app,
+  // and will be made public in the browser. Do not share any sensitive or
+  // secret values through this.
   const appConfig = {
     workflowsPilotUrl: process.env.WORKFLOWS_PILOT_URL,
   };
