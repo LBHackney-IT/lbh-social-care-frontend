@@ -452,7 +452,7 @@ export interface UpdateLACCaseStatusFormData {
   caseStatusID: number;
   startDate: string;
   answers: UpdateLACCaseStatusFormValue[];
-  editedBy: string;
+  createdBy: string;
 }
 
 export interface Paginated<T> {
