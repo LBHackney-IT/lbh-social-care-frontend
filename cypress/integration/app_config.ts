@@ -18,6 +18,6 @@ describe('app config', () => {
     cy.get('a')
       .contains('Workflows')
       .invoke('attr', 'href')
-      .should('eq', 'https://www.hackney.gov.uk');
+      .should('match', /^https:\/\//); // Starts with https://
   });
 });
