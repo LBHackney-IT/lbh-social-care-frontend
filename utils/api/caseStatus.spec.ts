@@ -95,7 +95,7 @@ describe('caseStatusAPI', () => {
             value: 'R5',
           },
         ],
-        editedBy: 'jack.musajo@hackney.gov.uk',
+        createdBy: 'jack.musajo@hackney.gov.uk',
       };
       const apiResponse = { data: 'foobar' };
 
