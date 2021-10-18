@@ -42,6 +42,16 @@ const CustomApp = ({
   );
 
   useEffect(() => {
+    // On first load only, set the app config to a window
+    //  global so we can access it in the future
+    if (!pageProps.appConfig) {
+      return;
+    }
+
+    window.__APP_CONFIG__ = pageProps.appConfig;
+  });
+
+  useEffect(() => {
     const environmentName = [
       'localhost:3000',
       'dev.hackney.gov.uk:3000',
@@ -57,8 +67,13 @@ const CustomApp = ({
     setFeatures(featureSet);
   }, []);
 
+  const appConfig =
+    typeof window !== 'undefined' && window.__APP_CONFIG__
+      ? window.__APP_CONFIG__
+      : pageProps.appConfig;
+
   return (
-    <AppConfigProvider appConfig={pageProps.appConfig}>
+    <AppConfigProvider appConfig={appConfig}>
       <FeatureFlagProvider features={features}>
         <SWRConfig
           value={{
