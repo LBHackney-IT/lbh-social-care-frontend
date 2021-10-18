@@ -79,4 +79,15 @@ describe('OnboardingDialog component', () => {
       )
     ).not.toBeInTheDocument();
   });
+
+  it('opens the link in a new tab', () => {
+    global.Storage.prototype.getItem = jest.fn().mockReturnValue(null);
+
+    render(<OnboardingDialog />);
+
+    expect(screen.queryByText('Okay, show me')).toHaveAttribute(
+      'target',
+      '_blank'
+    );
+  });
 });
