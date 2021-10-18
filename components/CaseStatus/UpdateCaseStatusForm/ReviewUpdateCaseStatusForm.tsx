@@ -49,7 +49,7 @@ const ReviewAddCaseStatusForm: React.FC<{
             value: formAnswers.legalStatus,
           },
         ],
-        editedBy: user.email,
+        createdBy: user.email,
       };
       const { error } = await updateCaseStatus(postObject, caseStatusId);
       if (error) throw error;
