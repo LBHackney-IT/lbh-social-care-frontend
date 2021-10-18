@@ -5,7 +5,7 @@ import styles from './CaseStatusDetails.module.scss';
 import Link from 'next/link';
 import s from 'stylesheets/Section.module.scss';
 import CaseStatusDetailsTable from './CaseStatusDetailsTable';
-import { sortCaseStatusAnswers } from '../../data/caseStatus';
+import { sortCaseStatusAnswers } from './caseStatusHelper';
 
 interface Props {
   person: Resident;

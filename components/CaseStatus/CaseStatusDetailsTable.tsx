@@ -2,7 +2,7 @@ import { CaseStatusFields, CaseStatus, CaseStatusAnswerDisplay } from 'types';
 import {
   CaseStatusSelectOptionLookup,
   CaseStatusOptionMapping,
-} from '../../data/caseStatus';
+} from './caseStatusHelper';
 
 interface Props {
   tableName?: string;

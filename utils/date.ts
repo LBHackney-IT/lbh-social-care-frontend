@@ -91,7 +91,6 @@ export const normaliseDateNoMilliseconds = (str: string): string => {
     const [year, month, days] = date.split('-');
     const [hours, minutes, seconds] = time.split(':');
     const [secondsTrimmed, milli] = seconds.split('.');
-    console.log('seconds', seconds);
     return `${year}-${month}-${days}T${hours.padStart(2, '0')}:${minutes}${
       secondsTrimmed ? `:${secondsTrimmed}` : seconds ? `${seconds}` : ''
     }`;
