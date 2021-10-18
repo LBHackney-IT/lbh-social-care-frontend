@@ -15,6 +15,7 @@ import {
   FeatureFlagProvider,
   FeatureSet,
 } from 'lib/feature-flags/feature-flags';
+import { AppConfigProvider } from 'lib/appConfig';
 
 jest.mock('next/router', () => ({
   useRouter: () => ({
@@ -37,15 +38,19 @@ const features: FeatureSet = {
 describe('AddFormDialog', () => {
   it('shows forms from two sources', () => {
     render(
-      <AuthProvider user={mockedUser}>
-        <FeatureFlagProvider features={features}>
-          <AddFormDialog
-            isOpen={true}
-            onDismiss={jest.fn()}
-            person={mockedResident}
-          />
-        </FeatureFlagProvider>
-      </AuthProvider>
+      <AppConfigProvider
+        appConfig={{ workflowsPilotUrl: 'http://example.com' }}
+      >
+        <AuthProvider user={mockedUser}>
+          <FeatureFlagProvider features={features}>
+            <AddFormDialog
+              isOpen={true}
+              onDismiss={jest.fn()}
+              person={mockedResident}
+            />
+          </FeatureFlagProvider>
+        </AuthProvider>
+      </AppConfigProvider>
     );
     expect(screen.getAllByRole('listitem').length).toBeGreaterThan(1);
     expect(screen.getAllByRole('link').length).toBeGreaterThan(1);
@@ -60,15 +65,19 @@ describe('AddFormDialog', () => {
   it('only shows forms appropriate to the adult service context', () => {
     // adult
     render(
-      <AuthProvider user={mockedUser}>
-        <FeatureFlagProvider features={features}>
-          <AddFormDialog
-            isOpen={true}
-            onDismiss={jest.fn()}
-            person={mockedResident}
-          />
-        </FeatureFlagProvider>
-      </AuthProvider>
+      <AppConfigProvider
+        appConfig={{ workflowsPilotUrl: 'http://example.com' }}
+      >
+        <AuthProvider user={mockedUser}>
+          <FeatureFlagProvider features={features}>
+            <AddFormDialog
+              isOpen={true}
+              onDismiss={jest.fn()}
+              person={mockedResident}
+            />
+          </FeatureFlagProvider>
+        </AuthProvider>
+      </AppConfigProvider>
     );
     expect(screen.getByText(ADULT_GFORMS[0].text));
     expect(screen.queryByText(CHILD_GFORMS[0].text)).toBeNull();
@@ -76,15 +85,19 @@ describe('AddFormDialog', () => {
 
   it('only shows forms appropriate to the child service context', () => {
     render(
-      <AuthProvider user={mockedUser}>
-        <FeatureFlagProvider features={features}>
-          <AddFormDialog
-            isOpen={true}
-            onDismiss={jest.fn()}
-            person={{ ...mockedResident, contextFlag: 'C' }}
-          />
-        </FeatureFlagProvider>
-      </AuthProvider>
+      <AppConfigProvider
+        appConfig={{ workflowsPilotUrl: 'http://example.com' }}
+      >
+        <AuthProvider user={mockedUser}>
+          <FeatureFlagProvider features={features}>
+            <AddFormDialog
+              isOpen={true}
+              onDismiss={jest.fn()}
+              person={{ ...mockedResident, contextFlag: 'C' }}
+            />
+          </FeatureFlagProvider>
+        </AuthProvider>
+      </AppConfigProvider>
     );
     expect(screen.getByText(CHILD_GFORMS[0].text));
     expect(screen.queryByText(ADULT_GFORMS[0].text)).toBeNull();
@@ -92,15 +105,19 @@ describe('AddFormDialog', () => {
 
   it('adds prefill parameters to google forms', () => {
     render(
-      <AuthProvider user={mockedUser}>
-        <FeatureFlagProvider features={features}>
-          <AddFormDialog
-            isOpen={true}
-            onDismiss={jest.fn()}
-            person={mockedResident}
-          />
-        </FeatureFlagProvider>
-      </AuthProvider>
+      <AppConfigProvider
+        appConfig={{ workflowsPilotUrl: 'http://example.com' }}
+      >
+        <AuthProvider user={mockedUser}>
+          <FeatureFlagProvider features={features}>
+            <AddFormDialog
+              isOpen={true}
+              onDismiss={jest.fn()}
+              person={mockedResident}
+            />
+          </FeatureFlagProvider>
+        </AuthProvider>
+      </AppConfigProvider>
     );
     expect(
       screen
@@ -113,15 +130,19 @@ describe('AddFormDialog', () => {
 
   it('supports canonical urls', () => {
     render(
-      <AuthProvider user={mockedUser}>
-        <FeatureFlagProvider features={features}>
-          <AddFormDialog
-            isOpen={true}
-            onDismiss={jest.fn()}
-            person={{ ...mockedResident, contextFlag: 'C' }}
-          />
-        </FeatureFlagProvider>
-      </AuthProvider>
+      <AppConfigProvider
+        appConfig={{ workflowsPilotUrl: 'http://example.com' }}
+      >
+        <AuthProvider user={mockedUser}>
+          <FeatureFlagProvider features={features}>
+            <AddFormDialog
+              isOpen={true}
+              onDismiss={jest.fn()}
+              person={{ ...mockedResident, contextFlag: 'C' }}
+            />
+          </FeatureFlagProvider>
+        </AuthProvider>
+      </AppConfigProvider>
     );
     fireEvent.change(screen.getByLabelText('Search for a form'), {
       target: { value: 'Case note' },
@@ -133,15 +154,19 @@ describe('AddFormDialog', () => {
 
   it('allows searching for a form', () => {
     render(
-      <AuthProvider user={mockedUser}>
-        <FeatureFlagProvider features={features}>
-          <AddFormDialog
-            isOpen={true}
-            onDismiss={jest.fn()}
-            person={mockedResident}
-          />
-        </FeatureFlagProvider>
-      </AuthProvider>
+      <AppConfigProvider
+        appConfig={{ workflowsPilotUrl: 'http://example.com' }}
+      >
+        <AuthProvider user={mockedUser}>
+          <FeatureFlagProvider features={features}>
+            <AddFormDialog
+              isOpen={true}
+              onDismiss={jest.fn()}
+              person={mockedResident}
+            />
+          </FeatureFlagProvider>
+        </AuthProvider>
+      </AppConfigProvider>
     );
     expect(screen.getAllByRole('listitem').length).toBeGreaterThan(10);
     fireEvent.change(screen.getByLabelText('Search for a form'), {
@@ -161,35 +186,43 @@ describe('AddFormDialog', () => {
     ]);
 
     render(
-      <AuthProvider
-        user={{
-          ...mockedUser,
-          hasAdminPermissions: false,
-        }}
+      <AppConfigProvider
+        appConfig={{ workflowsPilotUrl: 'http://example.com' }}
       >
-        <FeatureFlagProvider features={features}>
-          <AddFormDialog
-            isOpen={true}
-            onDismiss={jest.fn()}
-            person={mockedResident}
-          />
-        </FeatureFlagProvider>
-      </AuthProvider>
+        <AuthProvider
+          user={{
+            ...mockedUser,
+            hasAdminPermissions: false,
+          }}
+        >
+          <FeatureFlagProvider features={features}>
+            <AddFormDialog
+              isOpen={true}
+              onDismiss={jest.fn()}
+              person={mockedResident}
+            />
+          </FeatureFlagProvider>
+        </AuthProvider>
+      </AppConfigProvider>
     );
     expect(screen.queryAllByText('In preview', { exact: false }).length).toBe(
       0
     );
 
     render(
-      <AuthProvider user={mockedAdminUser}>
-        <FeatureFlagProvider features={features}>
-          <AddFormDialog
-            isOpen={true}
-            onDismiss={jest.fn()}
-            person={mockedResident}
-          />
-        </FeatureFlagProvider>
-      </AuthProvider>
+      <AppConfigProvider
+        appConfig={{ workflowsPilotUrl: 'http://example.com' }}
+      >
+        <AuthProvider user={mockedAdminUser}>
+          <FeatureFlagProvider features={features}>
+            <AddFormDialog
+              isOpen={true}
+              onDismiss={jest.fn()}
+              person={mockedResident}
+            />
+          </FeatureFlagProvider>
+        </AuthProvider>
+      </AppConfigProvider>
     );
     expect(
       screen.getAllByText('In preview', { exact: false }).length
@@ -199,21 +232,25 @@ describe('AddFormDialog', () => {
   describe('when workflows pilot feature flag is on', () => {
     it('displays link for workflows if user is in workflows pilot', () => {
       render(
-        <AuthProvider user={mockedUserInWorkflowsPilot}>
-          <FeatureFlagProvider
-            features={{
-              'workflows-pilot': {
-                isActive: true,
-              },
-            }}
-          >
-            <AddFormDialog
-              isOpen={true}
-              onDismiss={jest.fn()}
-              person={mockedResident}
-            />
-          </FeatureFlagProvider>
-        </AuthProvider>
+        <AppConfigProvider
+          appConfig={{ workflowsPilotUrl: 'http://example.com' }}
+        >
+          <AuthProvider user={mockedUserInWorkflowsPilot}>
+            <FeatureFlagProvider
+              features={{
+                'workflows-pilot': {
+                  isActive: true,
+                },
+              }}
+            >
+              <AddFormDialog
+                isOpen={true}
+                onDismiss={jest.fn()}
+                person={mockedResident}
+              />
+            </FeatureFlagProvider>
+          </AuthProvider>
+        </AppConfigProvider>
       );
 
       expect(screen.queryByText('Pilot assessment')).toBeVisible();
@@ -221,21 +258,25 @@ describe('AddFormDialog', () => {
 
     it('display link for workflow at the top if user is in workflows pilot', () => {
       render(
-        <AuthProvider user={mockedUserInWorkflowsPilot}>
-          <FeatureFlagProvider
-            features={{
-              'workflows-pilot': {
-                isActive: true,
-              },
-            }}
-          >
-            <AddFormDialog
-              isOpen={true}
-              onDismiss={jest.fn()}
-              person={mockedResident}
-            />
-          </FeatureFlagProvider>
-        </AuthProvider>
+        <AppConfigProvider
+          appConfig={{ workflowsPilotUrl: 'http://example.com' }}
+        >
+          <AuthProvider user={mockedUserInWorkflowsPilot}>
+            <FeatureFlagProvider
+              features={{
+                'workflows-pilot': {
+                  isActive: true,
+                },
+              }}
+            >
+              <AddFormDialog
+                isOpen={true}
+                onDismiss={jest.fn()}
+                person={mockedResident}
+              />
+            </FeatureFlagProvider>
+          </AuthProvider>
+        </AppConfigProvider>
       );
 
       expect(screen.queryAllByRole('link')[0]).toHaveTextContent(
@@ -245,21 +286,25 @@ describe('AddFormDialog', () => {
 
     it('does not display link for workflows if user is not in workflows pilot', () => {
       render(
-        <AuthProvider user={mockedUser}>
-          <FeatureFlagProvider
-            features={{
-              'workflows-pilot': {
-                isActive: true,
-              },
-            }}
-          >
-            <AddFormDialog
-              isOpen={true}
-              onDismiss={jest.fn()}
-              person={mockedResident}
-            />
-          </FeatureFlagProvider>
-        </AuthProvider>
+        <AppConfigProvider
+          appConfig={{ workflowsPilotUrl: 'http://example.com' }}
+        >
+          <AuthProvider user={mockedUser}>
+            <FeatureFlagProvider
+              features={{
+                'workflows-pilot': {
+                  isActive: true,
+                },
+              }}
+            >
+              <AddFormDialog
+                isOpen={true}
+                onDismiss={jest.fn()}
+                person={mockedResident}
+              />
+            </FeatureFlagProvider>
+          </AuthProvider>
+        </AppConfigProvider>
       );
 
       expect(screen.queryByText('Pilot assessment')).not.toBeInTheDocument();
@@ -269,21 +314,25 @@ describe('AddFormDialog', () => {
   describe('when workflows pilot feature flag is off', () => {
     it('does not display link for workflows if feature flag is off', () => {
       render(
-        <AuthProvider user={mockedUser}>
-          <FeatureFlagProvider
-            features={{
-              'workflows-pilot': {
-                isActive: false,
-              },
-            }}
-          >
-            <AddFormDialog
-              isOpen={true}
-              onDismiss={jest.fn()}
-              person={mockedResident}
-            />
-          </FeatureFlagProvider>
-        </AuthProvider>
+        <AppConfigProvider
+          appConfig={{ workflowsPilotUrl: 'http://example.com' }}
+        >
+          <AuthProvider user={mockedUser}>
+            <FeatureFlagProvider
+              features={{
+                'workflows-pilot': {
+                  isActive: false,
+                },
+              }}
+            >
+              <AddFormDialog
+                isOpen={true}
+                onDismiss={jest.fn()}
+                person={mockedResident}
+              />
+            </FeatureFlagProvider>
+          </AuthProvider>
+        </AppConfigProvider>
       );
 
       expect(screen.queryByText('Pilot assessment')).not.toBeInTheDocument();
