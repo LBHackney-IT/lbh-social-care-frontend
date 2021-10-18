@@ -101,6 +101,10 @@ is then passed into the provider e.g. `<AppConfigProvider appConfig={pageProps.a
 
 1. Add a new key within the `appConfig` variable in `_app.tsx` within the `CustomApp.getInitialProps` function and set it to the new environment variable name.
 
+> ⚠️ **Warning**: Any values placed in this object are passed to the client
+> app, and will be made public in the browser. Do not share any sensitive or
+> secret values through this.
+
 ```ts
 const appConfig = {
   workflowsPilotUrl: process.env.WORKFLOWS_PILOT_URL,
