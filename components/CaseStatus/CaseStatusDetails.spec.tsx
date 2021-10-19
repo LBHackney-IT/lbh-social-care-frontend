@@ -25,11 +25,12 @@ describe('CaseStatusDetail component', () => {
       revalidate: jest.fn(),
     }));
 
-    const { queryByText } = render(
+    const { queryByText, queryByTestId } = render(
       <CaseStatusDetails person={mockedResident} />
     );
 
     expect(queryByText('Child in need')).not.toBeInTheDocument();
+    expect(queryByTestId('case_status_details_table')).toBeNull;
   });
 
   it('displays the notes of a person when there are notes', async () => {
@@ -38,6 +39,7 @@ describe('CaseStatusDetail component', () => {
         mockedCaseStatusFactory.build({
           type: 'CIN',
           notes: 'This is a note',
+          answers: [],
         }),
       ],
       isValidating: false,
@@ -45,12 +47,13 @@ describe('CaseStatusDetail component', () => {
       revalidate: jest.fn(),
     }));
 
-    const { queryByText } = render(
+    const { queryByText, queryByTestId } = render(
       <CaseStatusDetails person={mockedResident} />
     );
 
     expect(queryByText('Child in need')).toBeInTheDocument();
     expect(queryByText('This is a note')).toBeInTheDocument();
+    expect(queryByTestId('case_status_details_table')).not.toBeNull;
   });
 
   it('displays multiple CIN in case they exist', async () => {
@@ -59,10 +62,12 @@ describe('CaseStatusDetail component', () => {
         mockedCaseStatusFactory.build({
           type: 'CIN',
           notes: 'first note',
+          answers: [],
         }),
         mockedCaseStatusFactory.build({
           type: 'CIN',
-          notes: 'first note',
+          notes: 'second note',
+          answers: [],
         }),
       ],
       isValidating: false,
@@ -70,12 +75,21 @@ describe('CaseStatusDetail component', () => {
       revalidate: jest.fn(),
     }));
 
-    const { getAllByTestId } = render(
+    const { queryByText, getAllByTestId, queryAllByText } = render(
       <CaseStatusDetails person={mockedResident} />
     );
 
-    const elements = getAllByTestId('case_status_details');
-    expect(elements.length).toBe(2);
+    const caseStatusElements = getAllByTestId('case_status_details');
+    const caseStatusDetailsTableElements = getAllByTestId(
+      'case_status_details_table'
+    );
+    const childInNeedText = queryAllByText('Child in need');
+
+    expect(caseStatusElements.length).toBe(2);
+    expect(caseStatusDetailsTableElements.length).toBe(2);
+    expect(childInNeedText.length).toBe(2);
+    expect(queryByText('first note')).toBeInTheDocument();
+    expect(queryByText('second note')).toBeInTheDocument();
   });
 
   it('displays an error if API error', async () => {
@@ -100,7 +114,6 @@ describe('CaseStatusDetail component', () => {
     jest.spyOn(caseStatusApi, 'useCaseStatuses').mockImplementation(() => ({
       data: [
         mockedCaseStatusFactory.build({
-          id: 1,
           type: 'CP',
           startDate: '2021-09-09',
           endDate: '2021-09-10',
@@ -108,7 +121,7 @@ describe('CaseStatusDetail component', () => {
             mockedStatusField.build({
               option: 'category',
               value: 'C2',
-              startDate: '2021-09-09',
+              startDate: '2021-09-10',
               createdAt: '2021-09-08T10:54:32Z',
             }),
           ],
@@ -123,19 +136,19 @@ describe('CaseStatusDetail component', () => {
       <CaseStatusDetails person={mockedResident} />
     );
 
-    const elements = getByTestId('case_status_fields');
-    expect(elements).not.toBeNull();
+    expect(getByTestId('case_status_fields')).not.toBeNull();
+    expect(getByTestId('case_status_details_table')).not.toBeNull();
     expect(
       queryByText('Category of child protection plan')
     ).toBeInTheDocument();
     expect(queryByText('Physical abuse')).toBeInTheDocument();
+    expect(queryByText('10 Sept 2021')).toBeInTheDocument();
   });
 
   it('displays the case status field even if an invalid lookup id is passed', async () => {
     jest.spyOn(caseStatusApi, 'useCaseStatuses').mockImplementation(() => ({
       data: [
         mockedCaseStatusFactory.build({
-          id: 1,
           type: 'CP',
           startDate: '2021-09-09',
           endDate: '2021-09-10',
@@ -157,12 +170,11 @@ describe('CaseStatusDetail component', () => {
       <CaseStatusDetails person={mockedResident} />
     );
 
-    const elements = getByTestId('case_status_fields');
-    expect(elements).not.toBeNull();
+    expect(getByTestId('case_status_fields')).not.toBeNull();
+    expect(getByTestId('case_status_details_table')).not.toBeNull();
     expect(
       queryByText('Category of child protection plan')
     ).toBeInTheDocument();
-    expect(queryByText('Not the category name')).not.toBeInTheDocument();
     expect(queryByText('ZZZ1')).toBeInTheDocument();
   });
 });
@@ -173,7 +185,14 @@ describe('LAC Specific Tests for CaseStatusDetail component', () => {
       data: [
         mockedCaseStatusFactory.build({
           type: 'LAC',
-          answers: [mockedStatusField.build()],
+          answers: [
+            mockedStatusField.build({
+              option: 'placementType',
+              value: 'K1',
+              startDate: '2021-08-01',
+              groupId: 'abc1',
+            }),
+          ],
         }),
       ],
       revalidate: jest.fn(),
@@ -188,7 +207,8 @@ describe('LAC Specific Tests for CaseStatusDetail component', () => {
     expect(getByTestId('case_status_details_table')).not.toBeNull;
     expect(queryByText('Scheduled changes')).not.toBeInTheDocument();
     expect(queryByText('Previous version')).not.toBeInTheDocument();
-    expect(queryByText('01 Aug 2020')).toBeInTheDocument();
+    expect(queryByText('01 Aug 2021')).toBeInTheDocument();
+    expect(queryByText('K1: Secure children’s homes')).toBeInTheDocument();
   });
 
   it('displays a legal status and placement type for LAC', async () => {
@@ -229,19 +249,18 @@ describe('LAC Specific Tests for CaseStatusDetail component', () => {
     expect(queryByText('Placement type')).toBeInTheDocument();
   });
 
-  it('displays a scheduled status, if there is one', async () => {
+  it('displays a scheduled status, if there is one answer with a future start date', async () => {
     jest.spyOn(caseStatusApi, 'useCaseStatuses').mockImplementation(() => ({
       data: [
         mockedCaseStatusFactory.build({
           type: 'LAC',
           answers: [
             mockedStatusField.build({
-              option: 'category',
+              option: 'legalStatus',
               value: 'C2',
               startDate: '2040-10-09',
             }),
           ],
-          notes: '',
         }),
       ],
       isValidating: false,
@@ -257,7 +276,7 @@ describe('LAC Specific Tests for CaseStatusDetail component', () => {
     expect(queryByText('Scheduled changes')).toBeInTheDocument();
     expect(queryByText('Previous version')).not.toBeInTheDocument();
     expect(queryByText('09 Oct 2040')).toBeInTheDocument();
-    expect(queryByText('Physical abuse')).toBeInTheDocument();
+    expect(queryByText('C2: Full care order')).toBeInTheDocument();
   });
 
   it('displays both scheduled status answers, if there are two', async () => {
@@ -339,11 +358,15 @@ describe('LAC Specific Tests for CaseStatusDetail component', () => {
       revalidate: jest.fn(),
     }));
 
-    const { queryByText, queryAllByText } = render(
+    const { queryByText, queryAllByText, queryAllByTestId } = render(
       <CaseStatusDetails person={mockedResident} />
     );
 
+    const caseStatusDetailsTableElements = queryAllByTestId(
+      'case_status_details_table'
+    );
     const scheduledChangesElement = queryAllByText('Scheduled changes');
+    expect(caseStatusDetailsTableElements.length).toBe(2);
     expect(scheduledChangesElement.length).toBe(2);
     expect(queryByText('Previous version')).not.toBeInTheDocument();
     expect(queryByText('09 Oct 2040')).toBeInTheDocument();
@@ -356,7 +379,7 @@ describe('LAC Specific Tests for CaseStatusDetail component', () => {
     ).toBeInTheDocument();
   });
 
-  it('displays past status, if there is a current status and a status in the past', async () => {
+  it('displays a current and past status, if there is are two groups of answers, with start dates on or before today', async () => {
     jest.spyOn(caseStatusApi, 'useCaseStatuses').mockImplementation(() => ({
       data: [
         mockedCaseStatusFactory.build({
@@ -463,17 +486,16 @@ describe('LAC Specific Tests for CaseStatusDetail component', () => {
     const pastElement = queryAllByText('Previous version');
     const caseStatusTable = queryAllByTestId('case_status_details_table');
     const placementTypeElement = queryAllByText('P3: Residential employment');
-    expect(queryByText('Scheduled changes')).not.toBeInTheDocument();
-    expect(pastElement).not.toBeNull();
     expect(pastElement.length).toBe(2);
     expect(caseStatusTable.length).toBe(3);
+    expect(placementTypeElement.length).toBe(3);
+    expect(queryByText('Scheduled changes')).not.toBeInTheDocument();
     expect(queryByText('02 Oct 2021 - 09 Oct 2021')).toBeInTheDocument();
     expect(queryByText('09 Oct 2021 - 13 Oct 2021')).toBeInTheDocument();
     expect(queryByText('13 Oct 2021')).toBeInTheDocument();
     expect(queryByText('D1: Freeing order granted')).toBeInTheDocument();
+    expect(queryByText('C1: Interim care order')).toBeInTheDocument();
     expect(queryByText('C2: Full care order')).toBeInTheDocument();
-    expect(placementTypeElement).not.toBeNull();
-    expect(placementTypeElement.length).toBe(3);
   });
 
   it('displays separate historical status, if there is a multiple previous status with the same start dates', async () => {
@@ -556,10 +578,10 @@ describe('LAC Specific Tests for CaseStatusDetail component', () => {
     const pastElement = queryAllByText('Previous version');
     const caseStatusTable = queryAllByTestId('case_status_details_table');
     const placementTypeElement = queryAllByText('P3: Residential employment');
-    expect(queryByText('Scheduled changes')).not.toBeInTheDocument();
-    expect(pastElement).not.toBeNull();
     expect(pastElement.length).toBe(3);
     expect(caseStatusTable.length).toBe(4);
+    expect(placementTypeElement.length).toBe(4);
+    expect(queryByText('Scheduled changes')).not.toBeInTheDocument();
     expect(queryByText('02 Oct 2021 - 09 Oct 2021')).toBeInTheDocument();
     expect(queryByText('09 Oct 2021 - 09 Oct 2021')).toBeInTheDocument();
     expect(queryByText('09 Oct 2021 - 13 Oct 2021')).toBeInTheDocument();
@@ -568,7 +590,5 @@ describe('LAC Specific Tests for CaseStatusDetail component', () => {
     expect(queryByText('C1: Interim care order')).toBeInTheDocument();
     expect(queryByText('E1: Placement order granted')).toBeInTheDocument();
     expect(queryByText('C2: Full care order')).toBeInTheDocument();
-    expect(placementTypeElement).not.toBeNull();
-    expect(placementTypeElement.length).toBe(4);
   });
 });

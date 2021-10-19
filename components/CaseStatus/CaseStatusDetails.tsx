@@ -14,7 +14,7 @@ interface Props {
 const CaseStatusDetails = ({ person }: Props): React.ReactElement => {
   const { data, error } = useCaseStatuses(person.id);
 
-  // const data = LACcaseStatusesTest;
+  // const data = caseStatusesTest.concat(LACcaseStatusesTest);
   // const error = undefined;
 
   if (error) {
@@ -63,9 +63,12 @@ const CaseStatusDetails = ({ person }: Props): React.ReactElement => {
 
               {(!currentStatusAnswers ||
                 currentStatusAnswers === undefined ||
-                currentStatusAnswers.length <= 0) && (
-                <CaseStatusDetailsTable status={status} answers={undefined} />
-              )}
+                currentStatusAnswers.length <= 0) &&
+                (!scheduledStatusAnswers ||
+                  scheduledStatusAnswers === undefined ||
+                  scheduledStatusAnswers.length <= 0) && (
+                  <CaseStatusDetailsTable status={status} answers={undefined} />
+                )}
 
               {currentStatusAnswers &&
                 currentStatusAnswers.length > 0 &&
