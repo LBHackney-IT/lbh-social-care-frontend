@@ -4,7 +4,7 @@ import Heading from 'components/MashHeading/Heading';
 const InitialDecision = (): React.ReactElement => (
   <>
     <h1>Make initial decision</h1>
-    <Heading clientname="Jan Smith" timeleft="3 hours" />
+    <Heading clientname="Jan Smith" timeleft="3 hours" datetime="10:00 6 Jun" />
     <h2>Document the decision</h2>
     <p>
       Write the rationale for your screening decision into the google document.
