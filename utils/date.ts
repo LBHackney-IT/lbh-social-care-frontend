@@ -80,21 +80,3 @@ export const normaliseDateToISO = (str: string): string => {
     return str;
   }
 };
-
-export const normaliseDateNoMilliseconds = (str: string): string => {
-  if (
-    /[0-9]{4}-[0-9]{1,2}-[0-9]{1,2}T[0-9]{1,2}:[0-9]{1,2}:[0-9]{1,2}.[0-9]+/.test(
-      str
-    )
-  ) {
-    const [date, time] = str.split('T');
-    const [year, month, days] = date.split('-');
-    const [hours, minutes, seconds] = time.split(':');
-    const [secondsTrimmed, milli] = seconds.split('.');
-    return `${year}-${month}-${days}T${hours.padStart(2, '0')}:${minutes}${
-      secondsTrimmed ? `:${secondsTrimmed}` : seconds ? `${seconds}` : ''
-    }`;
-  } else {
-    return str;
-  }
-};
