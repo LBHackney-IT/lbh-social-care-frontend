@@ -1,20 +1,10 @@
 import Button from 'components/Button/Button';
-import s from 'stylesheets/Section.module.scss';
+import Heading from 'components/MashHeading/Heading';
 
 const ScreeningDecision = (): React.ReactElement => (
   <>
     <h1>Make screening decision</h1>
-    <section className="govuk-!-margin-bottom-8">
-      <div className={s.heading}>
-        <h2>John Smith</h2>
-        <div>
-          <span className="govuk-!-margin-right-3">
-            recieved at 10:00 6 Jun
-          </span>
-          <span className="govuk-tag lbh-tag lbh-tag--green">4 hours left</span>
-        </div>
-      </div>
-    </section>
+    <Heading clientname="Jan Smith" timeleft="3 hours" />
     <h2>Document the decision</h2>
     <p>
       Write the rationale for your screening decision into the google document.
