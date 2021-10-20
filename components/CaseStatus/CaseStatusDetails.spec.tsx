@@ -62,11 +62,13 @@ describe('CaseStatusDetail component', () => {
         mockedCaseStatusFactory.build({
           type: 'CIN',
           notes: 'first note',
+          startDate: '2021-10-01',
           answers: [],
         }),
         mockedCaseStatusFactory.build({
           type: 'CIN',
           notes: 'second note',
+          startDate: '2021-10-02',
           answers: [],
         }),
       ],
@@ -89,6 +91,8 @@ describe('CaseStatusDetail component', () => {
     expect(childInNeedText.length).toBe(2);
     expect(queryByText('first note')).toBeInTheDocument();
     expect(queryByText('second note')).toBeInTheDocument();
+    expect(queryByText('01 Oct 2021')).toBeInTheDocument();
+    expect(queryByText('02 Oct 2021')).toBeInTheDocument();
   });
 
   it('displays an error if API error', async () => {
