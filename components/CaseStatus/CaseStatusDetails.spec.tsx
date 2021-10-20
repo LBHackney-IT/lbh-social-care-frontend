@@ -56,7 +56,7 @@ describe('CaseStatusDetail component', () => {
     expect(queryByTestId('case_status_details_table')).not.toBeNull;
   });
 
-  it('displays multiple CIN in case they exist', async () => {
+  it("displays multiple CIN status' if they exist", async () => {
     jest.spyOn(caseStatusApi, 'useCaseStatuses').mockImplementation(() => ({
       data: [
         mockedCaseStatusFactory.build({
@@ -78,7 +78,6 @@ describe('CaseStatusDetail component', () => {
     const { queryByText, getAllByTestId, queryAllByText } = render(
       <CaseStatusDetails person={mockedResident} />
     );
-
     const caseStatusElements = getAllByTestId('case_status_details');
     const caseStatusDetailsTableElements = getAllByTestId(
       'case_status_details_table'
@@ -145,7 +144,7 @@ describe('CaseStatusDetail component', () => {
     expect(queryByText('10 Sept 2021')).toBeInTheDocument();
   });
 
-  it('displays the case status field even if an invalid lookup id is passed', async () => {
+  it('displays the case status answer even if an invalid value is passed', async () => {
     jest.spyOn(caseStatusApi, 'useCaseStatuses').mockImplementation(() => ({
       data: [
         mockedCaseStatusFactory.build({
@@ -177,10 +176,52 @@ describe('CaseStatusDetail component', () => {
     ).toBeInTheDocument();
     expect(queryByText('ZZZ1')).toBeInTheDocument();
   });
+
+  it('displays the "current" group of case status answers for CP, even if there are multiple answer groups', async () => {
+    jest.spyOn(caseStatusApi, 'useCaseStatuses').mockImplementation(() => ({
+      data: [
+        mockedCaseStatusFactory.build({
+          type: 'CP',
+          startDate: '2021-09-09',
+          endDate: '2021-09-10',
+          answers: [
+            mockedStatusField.build({
+              option: 'category',
+              value: 'C1',
+              startDate: '2021-09-09',
+              createdAt: '2021-09-08',
+              groupId: 'abc',
+            }),
+            mockedStatusField.build({
+              option: 'category',
+              value: 'C2',
+              startDate: '2021-09-10',
+              createdAt: '2021-09-10',
+              groupId: 'def',
+            }),
+          ],
+        }),
+      ],
+      isValidating: false,
+      mutate: jest.fn(),
+      revalidate: jest.fn(),
+    }));
+    const { queryByText, getByTestId } = render(
+      <CaseStatusDetails person={mockedResident} />
+    );
+
+    expect(getByTestId('case_status_fields')).not.toBeNull();
+    expect(getByTestId('case_status_details_table')).not.toBeNull();
+    expect(
+      queryByText('Category of child protection plan')
+    ).toBeInTheDocument();
+    expect(queryByText('Neglect')).not.toBeInTheDocument();
+    expect(queryByText('Physical abuse')).toBeInTheDocument();
+  });
 });
 
 describe('LAC Specific Tests for CaseStatusDetail component', () => {
-  it('does not display scheduled status or previous status if they do not exist', async () => {
+  it('does not display scheduled status or previous status if there are no scheduled or past status answer groups', async () => {
     jest.spyOn(caseStatusApi, 'useCaseStatuses').mockImplementation(() => ({
       data: [
         mockedCaseStatusFactory.build({
@@ -211,7 +252,7 @@ describe('LAC Specific Tests for CaseStatusDetail component', () => {
     expect(queryByText('K1: Secure children’s homes')).toBeInTheDocument();
   });
 
-  it('displays a legal status and placement type for LAC', async () => {
+  it('displays grouped answers in one case status details table', async () => {
     jest.spyOn(caseStatusApi, 'useCaseStatuses').mockImplementation(() => ({
       data: [
         mockedCaseStatusFactory.build({
@@ -249,7 +290,7 @@ describe('LAC Specific Tests for CaseStatusDetail component', () => {
     expect(queryByText('Placement type')).toBeInTheDocument();
   });
 
-  it('displays a scheduled status, if there is one answer with a future start date', async () => {
+  it('displays a scheduled status, if there is an answer group with a future start date', async () => {
     jest.spyOn(caseStatusApi, 'useCaseStatuses').mockImplementation(() => ({
       data: [
         mockedCaseStatusFactory.build({
@@ -279,7 +320,7 @@ describe('LAC Specific Tests for CaseStatusDetail component', () => {
     expect(queryByText('C2: Full care order')).toBeInTheDocument();
   });
 
-  it('displays both scheduled status answers, if there are two', async () => {
+  it('displays all scheduled status answers that are in the same answer group', async () => {
     jest.spyOn(caseStatusApi, 'useCaseStatuses').mockImplementation(() => ({
       data: [
         mockedCaseStatusFactory.build({
@@ -319,7 +360,7 @@ describe('LAC Specific Tests for CaseStatusDetail component', () => {
     expect(queryByText('Placement type')).toBeInTheDocument();
   });
 
-  it("displays additional scheduled status answers, if there are some (this data shouldn't be possible)", async () => {
+  it("displays only one group of scheduled status answers, even if more than one answer group exists with a future start date (this data shouldn't be possible)", async () => {
     jest.spyOn(caseStatusApi, 'useCaseStatuses').mockImplementation(() => ({
       data: [
         mockedCaseStatusFactory.build({
@@ -367,7 +408,7 @@ describe('LAC Specific Tests for CaseStatusDetail component', () => {
     );
     const scheduledChangesElement = queryAllByText('Scheduled changes');
     expect(caseStatusDetailsTableElements.length).toBe(2);
-    expect(scheduledChangesElement.length).toBe(2);
+    expect(scheduledChangesElement.length).toBe(1);
     expect(queryByText('Previous version')).not.toBeInTheDocument();
     expect(queryByText('09 Oct 2040')).toBeInTheDocument();
     expect(queryByText('08 Oct 2040')).toBeInTheDocument();
@@ -379,7 +420,7 @@ describe('LAC Specific Tests for CaseStatusDetail component', () => {
     ).toBeInTheDocument();
   });
 
-  it('displays a current and past status, if there is are two groups of answers, with start dates on or before today', async () => {
+  it('displays current and past status answer groups, if there are two groups of answers, with start dates on or before today', async () => {
     jest.spyOn(caseStatusApi, 'useCaseStatuses').mockImplementation(() => ({
       data: [
         mockedCaseStatusFactory.build({
@@ -421,7 +462,7 @@ describe('LAC Specific Tests for CaseStatusDetail component', () => {
     expect(queryByText('C1: Interim care order')).toBeInTheDocument();
   });
 
-  it('displays multiple past status, if there is a current status and a multiple status in the past with different created dates', async () => {
+  it('displays multiple past status answer groups, if there is are multiple case status answer groups with start dates on or before today', async () => {
     jest.spyOn(caseStatusApi, 'useCaseStatuses').mockImplementation(() => ({
       data: [
         mockedCaseStatusFactory.build({
@@ -498,7 +539,7 @@ describe('LAC Specific Tests for CaseStatusDetail component', () => {
     expect(queryByText('C2: Full care order')).toBeInTheDocument();
   });
 
-  it('displays separate historical status, if there is a multiple previous status with the same start dates', async () => {
+  it('displays separate historical answer groups, if there is a multiple answer groups with the same start dates', async () => {
     jest.spyOn(caseStatusApi, 'useCaseStatuses').mockImplementation(() => ({
       data: [
         mockedCaseStatusFactory.build({

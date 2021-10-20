@@ -54,46 +54,26 @@ export const sortCaseStatusAnswers = (
   let scheduledStatus: CaseStatusAnswerDisplay[] | undefined;
   let pastStatus: CaseStatusAnswerDisplay[] | undefined;
 
-  console.log('group by guid', groupAnswersByGUID(caseStatuses.answers));
-
-  if (caseStatuses.answers.length === 0) {
-    currentStatus = undefined;
-  } else {
-    const groupedAnswers = groupAnswersByGUID(caseStatuses.answers);
-    if (
-      groupedAnswers &&
-      groupedAnswers.length === 1 &&
-      new Date(groupedAnswers[0].startDate) <= new Date()
-    ) {
+  const groupedAnswers = groupAnswersByGroupId(caseStatuses.answers);
+  if (caseStatuses.type !== 'LAC') {
+    if (groupedAnswers && groupedAnswers.length > 1) {
+      currentStatus = [groupedAnswers[0]];
+    } else {
       currentStatus = groupedAnswers;
-    } else if (groupedAnswers) {
-      scheduledStatus = groupedAnswers.filter(
-        (answer) => new Date(answer.startDate) > new Date()
-      );
-      pastStatus = groupedAnswers.filter(
-        (answer) => new Date(answer.startDate) <= new Date()
-      );
-      if (pastStatus.length > 0) {
-        let tempCurrentStatus = pastStatus[0];
-        let tempCurrentStatusIndex = 0;
-        pastStatus.forEach((status, index) => {
-          if (status.createdAt && tempCurrentStatus.createdAt) {
-            if (status.createdAt > tempCurrentStatus.createdAt) {
-              tempCurrentStatus = status;
-              tempCurrentStatusIndex = index;
-            }
-          }
-        });
-        currentStatus = [tempCurrentStatus];
-        pastStatus.splice(tempCurrentStatusIndex, 1);
+    }
+  } else if (groupedAnswers) {
+    if (new Date(groupedAnswers[0].startDate) > new Date()) {
+      const scheduledAnswers = groupedAnswers.shift();
+      if (scheduledAnswers) {
+        scheduledStatus = [scheduledAnswers];
       }
     }
+    const currentAnswers = groupedAnswers.shift();
+    if (currentAnswers) {
+      currentStatus = [currentAnswers];
+    }
+    pastStatus = groupedAnswers;
   }
-
-  console.log(
-    'past status',
-    sortGroupedAnswersByStartDateAndCreatedAt(pastStatus)
-  );
 
   return {
     currentStatusAnswers: currentStatus,
@@ -101,23 +81,6 @@ export const sortCaseStatusAnswers = (
     pastStatusAnswers: sortGroupedAnswersByStartDateAndCreatedAt(pastStatus),
   };
 };
-
-// const groupAnswersByStartDate = (
-//   caseStatusAnswers: CaseStatusFields[] | undefined
-// ): CaseStatusAnswerDisplay[] | undefined => {
-//   return caseStatusAnswers === undefined
-//     ? undefined
-//     : _.chain(caseStatusAnswers)
-//         .groupBy('startDate')
-//         .map((value, key) => ({
-//           startDate: removeCreatedAtText(key),
-//           status: value,
-//         }))
-//         .value()
-//         .sort((a, b) => {
-//           return Date.parse(b.startDate) - Date.parse(a.startDate);
-//         });
-// };
 
 const sortGroupedAnswersByStartDateAndCreatedAt = (
   groupedAnswers: CaseStatusAnswerDisplay[] | undefined
@@ -132,31 +95,14 @@ const sortGroupedAnswersByStartDateAndCreatedAt = (
       });
 };
 
-// const groupAnswersByStartDateAndCreatedAt = (
-//   caseStatusAnswers: CaseStatusFields[] | undefined
-// ): CaseStatusAnswerDisplay[] | undefined => {
-//   return caseStatusAnswers === undefined
-//     ? undefined
-//     : _.chain(caseStatusAnswers)
-//         .groupBy((item) => `${item.startDate}---${item.createdAt}`)
-//         .map((value, key) => ({
-//           startDate: removeCreatedAtText(key),
-//           status: value,
-//         }))
-//         .value()
-//         .sort((a, b) => {
-//           return Date.parse(b.startDate) - Date.parse(a.startDate);
-//         });
-// };
-
-const groupAnswersByGUID = (
+const groupAnswersByGroupId = (
   caseStatusAnswers: CaseStatusFields[] | undefined
 ): CaseStatusAnswerDisplay[] | undefined => {
   return caseStatusAnswers === undefined
     ? undefined
     : _.chain(caseStatusAnswers)
         .groupBy('groupId')
-        .map((value, key) => ({
+        .map((value) => ({
           startDate: value[0].startDate,
           createdAt: value[0].createdAt,
           status: value,
@@ -165,11 +111,6 @@ const groupAnswersByGUID = (
         .sort((a, b) => {
           return Date.parse(b.startDate) - Date.parse(a.startDate);
         });
-};
-
-const removeCreatedAtText = (str: string): string => {
-  const [startDate, createdAt] = str.split('---');
-  return startDate;
 };
 
 export const caseStatusesTest: CaseStatus[] = [
@@ -217,6 +158,38 @@ export const caseStatusesTest: CaseStatus[] = [
     startDate: '2021-08-12T14:35:37.7023130',
     endDate: '',
     notes: 'this is a note',
+  },
+  {
+    id: 5,
+    type: 'LAC',
+    answers: [
+      {
+        option: 'category',
+        value: 'C2',
+        startDate: '2021-09-01',
+        groupId: 'asdf',
+        createdAt: '2021-09-01T10:54:32Z',
+      },
+    ],
+    startDate: '2021-08-01',
+    endDate: '',
+    notes: '',
+  },
+  {
+    id: 6,
+    type: 'LAC',
+    answers: [
+      {
+        option: 'category',
+        value: 'C2',
+        startDate: '2040-10-09',
+        createdAt: '2021-09-01T10:54:32Z',
+        groupId: 'abc',
+      },
+    ],
+    notes: '',
+    startDate: '2021-09-09',
+    endDate: '',
   },
 ];
 
@@ -300,6 +273,6 @@ export const LACcaseStatusesTest: CaseStatus[] = [
     ],
     startDate: '2021-08-02T14:35:37.7023130',
     endDate: '',
-    notes: '',
+    notes: 'this is a LAC note',
   },
 ];
