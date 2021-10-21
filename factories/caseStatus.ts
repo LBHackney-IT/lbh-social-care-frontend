@@ -24,7 +24,7 @@ export const mockedCaseStatusAddRequest = Factory.define<AddCaseStatusFormData>(
   })
 );
 
-const mockedStatusField = Factory.define<CaseStatusFields>(() => ({
+export const mockedStatusField = Factory.define<CaseStatusFields>(() => ({
   option: 'placementReason',
   value: 'N0',
   startDate: '2021-09-01',
