@@ -7,6 +7,7 @@ import {
   CaseStatusAnswerDisplay,
 } from 'types';
 import _ from 'lodash';
+import { createContext } from 'react';
 
 export enum CaseStatusOptionMapping {
   placementReason = 'Placement reason',
@@ -43,6 +44,9 @@ export const CaseStatusSelectOptionLookup = (
   return returnString ? returnString : `${caseStatusAnswerValue}`;
 };
 
+let caseStatusId = 0;
+let statefulScheduledCaseStatus = false;
+
 export const sortCaseStatusAnswers = (
   caseStatuses: CaseStatus
 ): {
@@ -75,12 +79,23 @@ export const sortCaseStatusAnswers = (
     pastStatus = groupedAnswers;
   }
 
+  caseStatusId = caseStatuses.id;
+  statefulScheduledCaseStatus = scheduledStatus ? true : false;
+
+  console.log('ID', caseStatusId);
+  console.log('BOOLEAN', statefulScheduledCaseStatus);
+
   return {
     currentStatusAnswers: currentStatus,
     scheduledStatusAnswers: scheduledStatus,
     pastStatusAnswers: sortGroupedAnswersByStartDateAndCreatedAt(pastStatus),
   };
 };
+
+export const ScheduledCaseStatusContext = createContext({
+  scheduledCaseStatusIdContext: caseStatusId,
+  scheduledCaseContext: statefulScheduledCaseStatus,
+});
 
 const sortGroupedAnswersByStartDateAndCreatedAt = (
   groupedAnswers: CaseStatusAnswerDisplay[] | undefined
