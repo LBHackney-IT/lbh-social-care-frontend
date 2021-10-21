@@ -1,12 +1,85 @@
 import Button from 'components/Button/Button';
 import Heading from 'components/MashHeading/Heading';
-import Steps from 'components/NumberedSteps/Steps';
+import NumberedSteps from 'components/NumberedSteps/NumberedSteps';
+import { Select } from 'components/Form';
 
 const ScreeningDecision = (): React.ReactElement => (
   <>
     <h1>Make screening decision</h1>
     <Heading clientname="Jan Smith" timeleft="3 hours" datetime="10:00 6 Jun" />
-    <Steps />
+    <NumberedSteps
+      nodes={[
+        <>
+          <h3 className="lbh-heading-h3">Document the decision</h3>
+          <p className="lbh-body">
+            Write the rationale for your screening decision.
+          </p>
+          <p className="lbh-body">
+            <a href="#" className="lbh-link lbh-link--no-visited-state">
+              See Google document
+            </a>
+          </p>{' '}
+        </>,
+        <>
+          {' '}
+          <label htmlFor="screening-decision" className="lbh-heading-h3">
+            Select screening decision
+          </label>
+          <Select
+            id="screening-decision"
+            name="screening-decision"
+            ignoreValue
+            options={['option 1', 'option 2']}
+          />
+        </>,
+        <>
+          <fieldset className="govuk-fieldset">
+            <legend className="lbh-heading-h3">Is this contact urgent?</legend>
+            <div
+              className="govuk-radios lbh-radios govuk-radios--conditional"
+              data-module="govuk-radios"
+            >
+              <div className="govuk-radios__item">
+                <input
+                  className="govuk-radios__input"
+                  id="no-input"
+                  name="urgency"
+                  type="radio"
+                  value="text"
+                />
+                <label
+                  className="govuk-label govuk-radios__label"
+                  htmlFor="no-input"
+                >
+                  No
+                </label>
+              </div>
+              <div className="govuk-radios__item">
+                <input
+                  className="govuk-radios__input"
+                  id="yes-input"
+                  name="urgency"
+                  type="radio"
+                  value="phone"
+                  checked
+                />
+                <label
+                  className="govuk-label govuk-radios__label"
+                  htmlFor="yes-input"
+                >
+                  Yes
+                </label>
+              </div>
+              <div className="govuk-radios__conditional" id="hint-email">
+                <label className="govuk-label" htmlFor="hint">
+                  Please email your MASH manager about the urgent case.
+                </label>
+              </div>
+            </div>
+          </fieldset>
+        </>,
+      ]}
+    />
     <div style={{ display: 'flex', alignItems: 'center' }}>
       <Button label="Submit" type="submit" />
       <p
