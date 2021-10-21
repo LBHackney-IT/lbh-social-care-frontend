@@ -1,14 +1,11 @@
 import ErrorMessage from 'components/ErrorMessage/ErrorMessage';
 import { useCaseStatuses } from 'utils/api/caseStatus';
-import {
-  Resident,
-  CaseStatusFields,
-  CaseStatus,
-  CaseStatusMapping,
-} from 'types';
+import { Resident, CaseStatus, CaseStatusMapping } from 'types';
 import styles from './CaseStatusDetails.module.scss';
-import ExpandDetails from 'components/ExpandDetails/ExpandDetails';
 import Link from 'next/link';
+import s from 'stylesheets/Section.module.scss';
+import CaseStatusDetailsTable from './CaseStatusDetailsTable';
+import { sortCaseStatusAnswers } from './caseStatusHelper';
 
 interface Props {
   person: Resident;
@@ -28,99 +25,85 @@ const CaseStatusDetails = ({ person }: Props): React.ReactElement => {
   }
   return (
     <>
-      <div>
-        <h2 style={{ fontSize: '24px' }}>Case statuses</h2>
+      {data.map((status: CaseStatus) => {
+        const {
+          currentStatusAnswers,
+          scheduledStatusAnswers,
+          pastStatusAnswers,
+        } = sortCaseStatusAnswers(status);
+        pastStatusAnswers?.map((status, index) => {
+          status.endDate =
+            index === 0
+              ? currentStatusAnswers?.[0].startDate
+              : pastStatusAnswers[index - 1]?.startDate;
+        });
+        return (
+          <div
+            key={`${status.id} ${status.type}`}
+            className={styles.caseStatusDesign}
+            data-testid="case_status_details"
+          >
+            <section className="govuk-!-margin-bottom-8">
+              <div className={s.heading}>
+                <h2 className="govuk-!-margin-top-3">
+                  {CaseStatusMapping[status.type]}
+                </h2>
+                <Link
+                  href={{
+                    pathname: `/people/${person.id}/case-status/${status.id}/edit/`,
+                    query: { type: status.type },
+                  }}
+                >
+                  Edit / End
+                </Link>
+              </div>
 
-        {data.map((status: CaseStatus) => {
-          const title = (
-            <div className={styles.align}>
-              {status.type && (
-                <>
-                  <dt className="govuk-!-margin-right-2">
-                    <div className={styles.typeStyling}>
-                      <span>{CaseStatusMapping[status.type]}</span>
+              {(!currentStatusAnswers ||
+                currentStatusAnswers === undefined ||
+                currentStatusAnswers.length <= 0) &&
+                (!scheduledStatusAnswers ||
+                  scheduledStatusAnswers === undefined ||
+                  scheduledStatusAnswers.length <= 0) && (
+                  <CaseStatusDetailsTable status={status} answers={undefined} />
+                )}
 
-                      {status.startDate && (
-                        <span
-                          data-testid="start_date"
-                          className={styles.dateElement}
-                        >
-                          Start:{' '}
-                          {new Date(status.startDate).toLocaleDateString(
-                            'en-GB',
-                            { day: '2-digit', month: 'short', year: 'numeric' }
-                          )}
-                        </span>
-                      )}
+              {currentStatusAnswers &&
+                currentStatusAnswers.length > 0 &&
+                currentStatusAnswers.map((currentStatusDateGroup) => (
+                  <CaseStatusDetailsTable
+                    key={`Current status - ${currentStatusDateGroup.startDate}`}
+                    status={status}
+                    answers={currentStatusDateGroup}
+                  />
+                ))}
 
-                      {status.endDate && (
-                        <span
-                          data-testid="end_date"
-                          className={styles.dateElement}
-                        >
-                          End:{' '}
-                          {new Date(status.endDate).toLocaleDateString(
-                            'en-GB',
-                            {
-                              day: '2-digit',
-                              month: 'short',
-                              year: 'numeric',
-                            }
-                          )}{' '}
-                        </span>
-                      )}
-                    </div>
-                  </dt>
-                </>
-              )}
-            </div>
-          );
+              {scheduledStatusAnswers &&
+                scheduledStatusAnswers.length > 0 &&
+                scheduledStatusAnswers.map((scheduledStatusDateGroup) => (
+                  <CaseStatusDetailsTable
+                    key={`Scheduled status - ${scheduledStatusDateGroup.startDate}`}
+                    tableName="Scheduled changes"
+                    styleType={styles.scheduledStatusFont}
+                    status={status}
+                    answers={scheduledStatusDateGroup}
+                  />
+                ))}
 
-          return (
-            <div key={status.id} className={styles.caseStatusDesign}>
-              <ExpandDetails
-                label={title}
-                link={
-                  <Link
-                    href={{
-                      pathname: `/people/${person.id}/case-status/${status.id}/edit/`,
-                      query: { type: status.type },
-                    }}
-                  >
-                    edit
-                  </Link>
-                }
-              >
-                <div key={status.id}>
-                  <dl key={status.id}>
-                    {status.answers &&
-                      status.answers.map(
-                        (field: CaseStatusFields) =>
-                          field.value && (
-                            <div key={field.value}>
-                              <dt className={styles.selectedTitles}>
-                                Category of need
-                              </dt>
-                              <dd className={styles.selectedValue}>
-                                {field.value} - {field.option}
-                              </dd>
-                            </div>
-                          )
-                      )}
-
-                    {status.notes && (
-                      <>
-                        <dt className={styles.selectedTitles}> Notes </dt>
-                        <dd className={styles.selectedValue}>{status.notes}</dd>
-                      </>
-                    )}
-                  </dl>
-                </div>
-              </ExpandDetails>
-            </div>
-          );
-        })}
-      </div>
+              {pastStatusAnswers &&
+                pastStatusAnswers.length > 0 &&
+                pastStatusAnswers.map((previousStatusDateGroup) => (
+                  <CaseStatusDetailsTable
+                    key={`Previous version - ${previousStatusDateGroup.startDate} - ${previousStatusDateGroup.status[0].groupId}`}
+                    tableName="Previous version"
+                    styleType={styles.previousStatusFont}
+                    status={status}
+                    answers={previousStatusDateGroup}
+                  />
+                ))}
+            </section>
+          </div>
+        );
+      })}
     </>
   );
 };

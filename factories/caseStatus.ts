@@ -1,14 +1,19 @@
 import { Factory } from 'fishery';
-import { CaseStatus, CaseStatusFields, AddCaseStatusFormData } from 'types';
+import {
+  CaseStatus,
+  CaseStatusFields,
+  AddCaseStatusFormData,
+  CaseStatusAnswerDisplay,
+} from 'types';
 
 export const mockedCaseStatusFactory = Factory.define<CaseStatus>(
   ({ sequence }) => ({
     id: sequence,
-    type: 'CIN',
+    type: 'CP',
     answers: [mockedStatusField.build()],
     startDate: '2021-01-01T02:00:00Z',
-    endDate: '2021-12-01T02:00:00Z',
-    notes: 'a lot to note',
+    endDate: '',
+    notes: '',
   })
 );
 
@@ -25,8 +30,17 @@ export const mockedCaseStatusAddRequest = Factory.define<AddCaseStatusFormData>(
 );
 
 export const mockedStatusField = Factory.define<CaseStatusFields>(() => ({
-  option: 'placementReason',
-  value: 'N0',
-  startDate: '2021-09-01',
-  createdAt: '2021-09-01',
+  option: 'category',
+  value: 'C1',
+  startDate: '2020-08-01',
+  createdAt: '2021-10-11T10:54:32Z',
+  groupId: 'abcd',
 }));
+
+export const mockedCaseStatusAnswers = Factory.define<CaseStatusAnswerDisplay>(
+  () => ({
+    startDate: '2021-09-10',
+    endDate: '2021-10-10',
+    status: [mockedStatusField.build()],
+  })
+);

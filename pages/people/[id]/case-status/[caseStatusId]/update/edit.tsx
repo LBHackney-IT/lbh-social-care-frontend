@@ -1,7 +1,9 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { useRouter } from 'next/router';
 import PersonView from 'components/PersonView/PersonView';
 import UpdateCaseStatusForm from 'components/CaseStatus/UpdateCaseStatusForm/UpdateCaseStatusForm';
+import AnnouncementMessage from 'components/AnnouncementMessage/AnnouncementMessage';
+import { ScheduledCaseStatusContext } from '../../../../../../contexts/ScheduledCaseStatusContext';
 
 const EditCaseStatus = (): React.ReactElement => {
   const router = useRouter();
@@ -15,8 +17,24 @@ const EditCaseStatus = (): React.ReactElement => {
     prefilledFields = JSON.parse(router.query.prefilledFields.toString());
   }
 
+  let announcement;
+
+  const { scheduledPersonIdContext, scheduledCaseContext } = useContext(
+    ScheduledCaseStatusContext
+  );
+
+  if (scheduledPersonIdContext === personId && scheduledCaseContext) {
+    announcement = (
+      <AnnouncementMessage
+        title="An update has already been scheduled for this status"
+        content="Any changes you make here will overwrite the scheduled update"
+      />
+    );
+  } else announcement = null;
+
   return (
     <>
+      {announcement}
       <h1 className="govuk-fieldset__legend--l gov-weight-lighter">
         Update the child&lsquo;s circumstances
       </h1>
