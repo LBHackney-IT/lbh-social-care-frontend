@@ -1,18 +1,24 @@
 import ErrorMessage from 'components/ErrorMessage/ErrorMessage';
-import { useCaseStatuses } from 'utils/api/caseStatus';
 import { Resident, CaseStatus, CaseStatusMapping } from 'types';
 import styles from './CaseStatusDetails.module.scss';
 import Link from 'next/link';
 import s from 'stylesheets/Section.module.scss';
 import CaseStatusDetailsTable from './CaseStatusDetailsTable';
-import { sortCaseStatusAnswers } from './caseStatusHelper';
+import {
+  sortCaseStatusAnswers,
+  caseStatusesTest,
+  LACcaseStatusesTest,
+} from './caseStatusHelper';
 
 interface Props {
   person: Resident;
 }
 
 const CaseStatusDetails = ({ person }: Props): React.ReactElement => {
-  const { data, error } = useCaseStatuses(person.id);
+  // const { data, error } = useCaseStatuses(person.id);
+
+  const data = caseStatusesTest.concat(LACcaseStatusesTest);
+  const error = undefined;
 
   if (error) {
     return (
