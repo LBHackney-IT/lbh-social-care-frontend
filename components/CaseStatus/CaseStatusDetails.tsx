@@ -37,6 +37,8 @@ const CaseStatusDetails = ({ person }: Props): React.ReactElement => {
               ? currentStatusAnswers?.[0].startDate
               : pastStatusAnswers[index - 1]?.startDate;
         });
+
+        const isScheduledCaseStatus = scheduledStatusAnswers ? 1 : 0;
         return (
           <div
             key={`${status.id} ${status.type}`}
@@ -51,7 +53,10 @@ const CaseStatusDetails = ({ person }: Props): React.ReactElement => {
                 <Link
                   href={{
                     pathname: `/people/${person.id}/case-status/${status.id}/edit/`,
-                    query: { type: status.type },
+                    query: {
+                      type: status.type,
+                      isScheduledCaseStatus: isScheduledCaseStatus,
+                    },
                   }}
                 >
                   Edit / End

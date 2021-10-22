@@ -1,9 +1,7 @@
-import React, { useContext } from 'react';
 import { useRouter } from 'next/router';
 import PersonView from 'components/PersonView/PersonView';
 import UpdateCaseStatusForm from 'components/CaseStatus/UpdateCaseStatusForm/UpdateCaseStatusForm';
 import AnnouncementMessage from 'components/AnnouncementMessage/AnnouncementMessage';
-import { ScheduledCaseStatusContext } from 'components/CaseStatus/caseStatusHelper';
 
 const EditCaseStatus = (): React.ReactElement => {
   const router = useRouter();
@@ -11,22 +9,16 @@ const EditCaseStatus = (): React.ReactElement => {
   const type = String(router.query.type as string);
   const caseStatusId = Number(router.query.caseStatusId as string);
   const action = String(router.query.action);
+  const isScheduledCaseStatus = Number(router.query.isScheduledCaseStatus);
 
   let prefilledFields;
   if (router.query.prefilledFields) {
     prefilledFields = JSON.parse(router.query.prefilledFields.toString());
   }
 
-  const { scheduledCaseStatusIdContext, scheduledCaseContext } = useContext(
-    ScheduledCaseStatusContext
-  );
-
-  console.log(scheduledCaseStatusIdContext);
-  console.log(scheduledCaseContext);
-
   let announcement;
 
-  if (scheduledCaseStatusIdContext === caseStatusId && scheduledCaseContext) {
+  if (isScheduledCaseStatus) {
     announcement = (
       <AnnouncementMessage
         title="An update has already been scheduled for this status"

@@ -12,9 +12,15 @@ const ChooseEditCaseStatusForm: React.FC<{
   caseStatusId: number;
   prefilledValue: string;
   caseStatusType: string;
-}> = ({ personId, caseStatusId, prefilledValue, caseStatusType }) => {
+  isScheduledCaseStatus?: number;
+}> = ({
+  personId,
+  caseStatusId,
+  prefilledValue,
+  caseStatusType,
+  isScheduledCaseStatus,
+}) => {
   const router = useRouter();
-
   let form_fields: any;
 
   caseStatusType == 'LAC'
@@ -40,6 +46,7 @@ const ChooseEditCaseStatusForm: React.FC<{
         query: {
           action: values.action,
           type: caseStatusType,
+          isScheduledCaseStatus: isScheduledCaseStatus,
         },
       });
     } catch (e) {
