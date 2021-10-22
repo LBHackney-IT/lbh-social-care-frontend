@@ -436,6 +436,7 @@ describe('LAC Specific Tests for CaseStatusDetail component', () => {
               startDate: '2021-10-09',
               createdAt: '2021-09-08T10:54:32Z',
               groupId: 'abc',
+              endDate: '2021-10-13',
             }),
             mockedStatusField.build({
               option: 'legalStatus',
@@ -478,6 +479,7 @@ describe('LAC Specific Tests for CaseStatusDetail component', () => {
               startDate: '2021-10-02',
               createdAt: '2021-09-03T10:54:32Z',
               groupId: 'abc',
+              endDate: '2021-10-09',
             }),
             mockedStatusField.build({
               option: 'placementType',
@@ -485,6 +487,7 @@ describe('LAC Specific Tests for CaseStatusDetail component', () => {
               startDate: '2021-10-02',
               createdAt: '2021-09-03T10:54:32Z',
               groupId: 'abc',
+              endDate: '2021-10-09',
             }),
 
             mockedStatusField.build({
@@ -493,6 +496,7 @@ describe('LAC Specific Tests for CaseStatusDetail component', () => {
               startDate: '2021-10-09',
               createdAt: '2021-09-08T10:54:32Z',
               groupId: 'def',
+              endDate: '2021-10-13',
             }),
             mockedStatusField.build({
               option: 'placementType',
@@ -500,6 +504,7 @@ describe('LAC Specific Tests for CaseStatusDetail component', () => {
               startDate: '2021-10-09',
               createdAt: '2021-09-08T10:54:32Z',
               groupId: 'def',
+              endDate: '2021-10-13',
             }),
 
             mockedStatusField.build({
@@ -555,6 +560,7 @@ describe('LAC Specific Tests for CaseStatusDetail component', () => {
               startDate: '2021-10-02',
               createdAt: '2021-09-03T10:54:32Z',
               groupId: 'abc',
+              endDate: '2021-10-09',
             }),
             mockedStatusField.build({
               option: 'placementType',
@@ -562,6 +568,7 @@ describe('LAC Specific Tests for CaseStatusDetail component', () => {
               startDate: '2021-10-02',
               createdAt: '2021-09-03T10:54:32Z',
               groupId: 'abc',
+              endDate: '2021-10-09',
             }),
 
             mockedStatusField.build({
@@ -570,6 +577,7 @@ describe('LAC Specific Tests for CaseStatusDetail component', () => {
               startDate: '2021-10-09',
               createdAt: '2021-09-08T10:54:32Z',
               groupId: 'def',
+              endDate: '2021-10-09',
             }),
             mockedStatusField.build({
               option: 'placementType',
@@ -577,6 +585,7 @@ describe('LAC Specific Tests for CaseStatusDetail component', () => {
               startDate: '2021-10-09',
               createdAt: '2021-09-08T10:54:32Z',
               groupId: 'def',
+              endDate: '2021-10-09',
             }),
 
             mockedStatusField.build({
@@ -585,6 +594,7 @@ describe('LAC Specific Tests for CaseStatusDetail component', () => {
               startDate: '2021-10-09',
               createdAt: '2021-09-08T11:54:32Z',
               groupId: 'ghi',
+              endDate: '2021-10-13',
             }),
             mockedStatusField.build({
               option: 'placementType',
@@ -592,6 +602,7 @@ describe('LAC Specific Tests for CaseStatusDetail component', () => {
               startDate: '2021-10-09',
               createdAt: '2021-09-08T11:54:32Z',
               groupId: 'ghi',
+              endDate: '2021-10-13',
             }),
 
             mockedStatusField.build({
