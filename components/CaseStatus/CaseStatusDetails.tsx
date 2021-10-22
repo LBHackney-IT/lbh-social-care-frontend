@@ -37,12 +37,6 @@ const CaseStatusDetails = ({ person }: Props): React.ReactElement => {
           scheduledStatusAnswers,
           pastStatusAnswers,
         } = sortCaseStatusAnswers(status);
-        pastStatusAnswers?.map((status, index) => {
-          status.endDate =
-            index === 0
-              ? currentStatusAnswers?.[0].startDate
-              : pastStatusAnswers[index - 1]?.startDate;
-        });
         return (
           <div
             key={`${status.id} ${status.type}`}

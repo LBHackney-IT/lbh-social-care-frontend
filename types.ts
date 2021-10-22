@@ -326,6 +326,7 @@ export interface CaseStatusFields {
   startDate: string;
   createdAt: string;
   groupId?: string;
+  endDate?: string;
 }
 
 export interface CaseStatus {

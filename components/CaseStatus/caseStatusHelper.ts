@@ -110,6 +110,7 @@ const groupAnswersByGroupId = (
           startDate: value[0].startDate,
           createdAt: value[0].createdAt,
           status: value,
+          endDate: value[0].endDate,
         }))
         .value()
         .sort((a, b) => {
@@ -208,6 +209,7 @@ export const LACcaseStatusesTest: CaseStatus[] = [
         startDate: '2021-07-02',
         createdAt: '2021-07-01T10:54:32Z',
         groupId: 'abcd',
+        endDate: '2021-08-02',
       },
       {
         option: 'placementType',
@@ -215,6 +217,7 @@ export const LACcaseStatusesTest: CaseStatus[] = [
         startDate: '2021-07-02',
         createdAt: '2021-07-01T10:54:32Z',
         groupId: 'abcd',
+        endDate: '2021-08-02',
       },
       {
         option: 'legalStatus',
@@ -222,6 +225,7 @@ export const LACcaseStatusesTest: CaseStatus[] = [
         startDate: '2021-08-02',
         createdAt: '2021-08-01T10:54:32Z',
         groupId: 'efgh',
+        endDate: '2021-08-03',
       },
       {
         option: 'placementType',
@@ -229,21 +233,24 @@ export const LACcaseStatusesTest: CaseStatus[] = [
         startDate: '2021-08-02',
         createdAt: '2021-08-01T10:54:32Z',
         groupId: 'efgh',
+        endDate: '2021-08-03',
       },
 
       {
         option: 'legalStatus',
         value: 'C2',
-        startDate: '2021-08-02',
+        startDate: '2021-08-03',
         createdAt: '2021-07-30T11:54:32Z',
         groupId: 'ijkl',
+        endDate: '2021-09-15',
       },
       {
         option: 'placementType',
         value: 'K1',
-        startDate: '2021-08-02',
+        startDate: '2021-08-03',
         createdAt: '2021-07-30T11:54:32Z',
         groupId: 'ijkl',
+        endDate: '2021-09-15',
       },
 
       {
