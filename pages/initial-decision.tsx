@@ -3,10 +3,11 @@ import Heading from 'components/MashHeading/Heading';
 import NumberedSteps from 'components/NumberedSteps/NumberedSteps';
 import { Select } from 'components/Form';
 
-const ScreeningDecision = (): React.ReactElement => (
+const InitialDecision = (): React.ReactElement => (
   <>
-    <h1>Make screening decision</h1>
+    <h1>Make initial decision</h1>
     <Heading clientname="Jan Smith" timeleft="3 hours" datetime="10:00 6 Jun" />
+
     <NumberedSteps
       nodes={[
         <>
@@ -18,16 +19,26 @@ const ScreeningDecision = (): React.ReactElement => (
             <a href="#" className="lbh-link lbh-link--no-visited-state">
               See Google document
             </a>
-          </p>{' '}
+          </p>
         </>,
         <>
-          {' '}
           <label htmlFor="screening-decision" className="lbh-heading-h3">
-            Select screening decision
+            Select initial decision
           </label>
           <Select
-            id="screening-decision"
-            name="screening-decision"
+            id="initial-decision"
+            name="initial-decision"
+            ignoreValue
+            options={['option 1', 'option 2']}
+          />
+        </>,
+        <>
+          <label htmlFor="referral-category" className="lbh-heading-h3">
+            Select referral category
+          </label>
+          <Select
+            id="referral-category"
+            name="referral-category"
             ignoreValue
             options={['option 1', 'option 2']}
           />
@@ -78,6 +89,17 @@ const ScreeningDecision = (): React.ReactElement => (
             </div>
           </fieldset>
         </>,
+        <>
+          <label htmlFor="assign-worker" className="lbh-heading-h3">
+            (Optional) Assign to worker
+          </label>
+          <Select
+            id="assign-worker"
+            name="assign-worker"
+            ignoreValue
+            options={['option 1', 'option 2']}
+          />
+        </>,
       ]}
     />
     <div style={{ display: 'flex', alignItems: 'center' }}>
@@ -95,11 +117,11 @@ const ScreeningDecision = (): React.ReactElement => (
           href="#"
           className={`lbh-link lbh-link--no-visited-state govuk-!-margin-left-3`}
         >
-          Return to initial decision
+          Return to contact
         </a>
       </p>
     </div>
   </>
 );
 
-export default ScreeningDecision;
+export default InitialDecision;

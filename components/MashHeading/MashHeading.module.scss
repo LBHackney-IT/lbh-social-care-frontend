@@ -3,8 +3,8 @@
 .banner {
   border-bottom: 3px solid #00654f;
   padding-bottom: 15px;
-  color: #00654f !important;
-  font-size: larger;
+  color: lbh-colour('lbh-grey-1');
+  font-size: larger !important;
   @include govuk-media-query(400px) {
     display: flex;
     flex-direction: row;

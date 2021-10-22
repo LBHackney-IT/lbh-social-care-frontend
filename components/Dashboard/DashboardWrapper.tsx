@@ -37,9 +37,9 @@ const navigation: { text: string; href: string }[] = [
     href: `/work-in-progress`,
   },
   { text: 'My work', href: '/my-work' },
-  { text: 'Initial decision', href: '/initialdecision' },
+  { text: 'Initial decision', href: '/initial-decision' },
   { text: 'Screening decision', href: '/screening' },
-  { text: 'Final decision', href: '/finalscreening' },
+  { text: 'Final decision', href: '/final-decision' },
 ];
 
 interface Props {

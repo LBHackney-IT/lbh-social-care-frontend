@@ -18,7 +18,7 @@ const MASHheading = ({
         <div>
           <span className="govuk-!-margin-right-3">
             {' '}
-            recieved at {datetime}
+            received at {datetime}
           </span>
           <span className="govuk-tag lbh-tag lbh-tag--green">
             {timeleft} left
