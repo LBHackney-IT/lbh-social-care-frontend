@@ -34,6 +34,8 @@ const CaseStatusDetails = ({ person }: Props): React.ReactElement => {
           scheduledStatusAnswers,
           pastStatusAnswers,
         } = sortCaseStatusAnswers(status);
+
+        const isScheduledCaseStatus = scheduledStatusAnswers ? 1 : 0;
         return (
           <div
             key={`${status.id} ${status.type}`}
