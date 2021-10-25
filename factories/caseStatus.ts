@@ -35,6 +35,7 @@ export const mockedStatusField = Factory.define<CaseStatusFields>(() => ({
   startDate: '2020-08-01',
   createdAt: '2021-10-11T10:54:32Z',
   groupId: 'abcd',
+  endDate: '',
 }));
 
 export const mockedCaseStatusAnswers = Factory.define<CaseStatusAnswerDisplay>(

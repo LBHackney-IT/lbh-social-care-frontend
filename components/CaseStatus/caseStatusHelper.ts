@@ -55,6 +55,10 @@ export const sortCaseStatusAnswers = (
   let pastStatus: CaseStatusAnswerDisplay[] | undefined;
 
   const groupedAnswers = groupAnswersByGroupId(caseStatuses.answers);
+  console.log('grouped new', caseStatuses.type, groupedAnswers);
+  // console.log('grouped new 2', caseStatuses.type, groupedAnswers[1]);
+  console.info('group info', groupedAnswers);
+  console.log('grouped length', groupedAnswers?.length);
   if (caseStatuses.type !== 'LAC') {
     if (groupedAnswers && groupedAnswers.length > 1) {
       currentStatus = [groupedAnswers[0]];
@@ -106,9 +110,180 @@ const groupAnswersByGroupId = (
           startDate: value[0].startDate,
           createdAt: value[0].createdAt,
           status: value,
+          endDate: value[0].endDate,
         }))
         .value()
         .sort((a, b) => {
           return Date.parse(b.startDate) - Date.parse(a.startDate);
         });
 };
+
+export const caseStatusesTest: CaseStatus[] = [
+  {
+    id: 2,
+    type: 'CP',
+    answers: [
+      {
+        option: 'category',
+        value: 'C1',
+        startDate: '2021-09-15',
+        createdAt: '2021-09-01T10:54:32Z',
+      },
+    ],
+    startDate: '2021-08-12T14:35:37.7023130',
+    endDate: '',
+    notes: 'this is a note',
+  },
+  {
+    id: 1,
+    type: 'CIN',
+    answers: [],
+    startDate: '2021-08-12T14:35:37.7023130',
+    endDate: '',
+    notes: 'this is a note',
+  },
+  {
+    id: 3,
+    type: 'LAC',
+    answers: [
+      {
+        option: 'legalStatus',
+        value: 'C1',
+        startDate: '2021-10-15',
+        createdAt: '2021-10-01T10:54:32Z',
+      },
+      {
+        option: 'placementType',
+        value: 'A3',
+        startDate: '2021-10-15',
+        createdAt: '2021-10-01T10:54:32Z',
+      },
+    ],
+
+    startDate: '2021-08-12T14:35:37.7023130',
+    endDate: '',
+    notes: '',
+  },
+  {
+    id: 5,
+    type: 'LAC',
+    answers: [
+      {
+        option: 'category',
+        value: 'C2',
+        startDate: '2021-09-01',
+        groupId: 'asdf',
+        createdAt: '2021-09-01T10:54:32Z',
+      },
+    ],
+    startDate: '2021-08-01',
+    endDate: '',
+    notes: '',
+  },
+  {
+    id: 6,
+    type: 'LAC',
+    answers: [
+      {
+        option: 'category',
+        value: 'C2',
+        startDate: '2040-10-09',
+        createdAt: '2021-09-01T10:54:32Z',
+        groupId: 'abc',
+      },
+    ],
+    notes: '',
+    startDate: '2021-09-09',
+    endDate: '',
+  },
+];
+
+export const LACcaseStatusesTest: CaseStatus[] = [
+  {
+    id: 4,
+    type: 'LAC',
+    answers: [
+      {
+        option: 'legalStatus',
+        value: 'C1',
+        startDate: '2021-07-02',
+        createdAt: '2021-07-01T10:54:32Z',
+        groupId: 'abcd',
+        endDate: '2021-08-02',
+      },
+      {
+        option: 'placementType',
+        value: 'A3',
+        startDate: '2021-07-02',
+        createdAt: '2021-07-01T10:54:32Z',
+        groupId: 'abcd',
+        endDate: '2021-08-02',
+      },
+      {
+        option: 'legalStatus',
+        value: 'C1',
+        startDate: '2021-08-02',
+        createdAt: '2021-08-01T10:54:32Z',
+        groupId: 'efgh',
+        endDate: '2021-08-03',
+      },
+      {
+        option: 'placementType',
+        value: 'A3',
+        startDate: '2021-08-02',
+        createdAt: '2021-08-01T10:54:32Z',
+        groupId: 'efgh',
+        endDate: '2021-08-03',
+      },
+
+      {
+        option: 'legalStatus',
+        value: 'C2',
+        startDate: '2021-08-03',
+        createdAt: '2021-07-30T11:54:32Z',
+        groupId: 'ijkl',
+        endDate: '2021-09-15',
+      },
+      {
+        option: 'placementType',
+        value: 'K1',
+        startDate: '2021-08-03',
+        createdAt: '2021-07-30T11:54:32Z',
+        groupId: 'ijkl',
+        endDate: '2021-09-15',
+      },
+
+      {
+        option: 'legalStatus',
+        value: 'C2',
+        startDate: '2021-11-15',
+        createdAt: '2021-10-01T10:54:32Z',
+        groupId: 'mnop',
+      },
+      {
+        option: 'placementType',
+        value: 'A4',
+        startDate: '2021-11-15',
+        createdAt: '2021-10-01T10:54:32Z',
+        groupId: 'mnop',
+      },
+      {
+        option: 'legalStatus',
+        value: 'D1',
+        startDate: '2021-09-15',
+        createdAt: '2021-09-01T10:54:32Z',
+        groupId: 'qrst',
+      },
+      {
+        option: 'placementType',
+        value: 'A5',
+        startDate: '2021-09-15',
+        createdAt: '2021-09-01T10:54:32Z',
+        groupId: 'qrst',
+      },
+    ],
+    startDate: '2021-08-02T14:35:37.7023130',
+    endDate: '',
+    notes: 'this is a LAC note',
+  },
+];
