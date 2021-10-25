@@ -1,42 +1,41 @@
 import { render } from '@testing-library/react';
-import * as caseStatusApi from 'utils/api/caseStatus';
 import AnnouncementMessage from './AnnouncementMessage';
-import {
-  mockedCaseStatusFactory,
-  mockedStatusField,
-} from 'factories/caseStatus';
-
-jest.mock('next/router', () => ({
-  useRouter: () => ({
-    asPath: 'path',
-    push: jest.fn(),
-  }),
-  reload: jest.fn(),
-}));
 
 describe('AnnouncementMessage component', () => {
-  it("displays nothing if there's no scheduled case status", async () => {
-    jest.spyOn(caseStatusApi, 'useCaseStatuses').mockImplementation(() => ({
-      data: [
-        mockedCaseStatusFactory.build({
-          type: 'LAC',
-          answers: [
-            mockedStatusField.build({
-              option: 'legalStatus',
-              value: 'C2',
-              startDate: '2019-12-25',
-            }),
-          ],
-        }),
-      ],
-      isValidating: false,
-      mutate: jest.fn(),
-      revalidate: jest.fn(),
-    }));
+  it('should render the title and content props properly', async () => {
+    const title = 'An update has already been scheduled for this status';
+    const content =
+      'Any changes you make here will overwrite the scheduled update';
+    const { queryByText, queryByTestId } = render(
+      <AnnouncementMessage title={title} content={content} />
+    );
 
-    const { queryByText, queryByTestId } = render(<AnnouncementMessage />);
+    expect(
+      queryByText('An update has already been scheduled for this status')
+    ).toBeInTheDocument();
+    expect(
+      queryByText(
+        'Any changes you make here will overwrite the scheduled update'
+      )
+    ).toBeInTheDocument();
+    expect(queryByTestId('announcement_message_box')).not.toBeNull;
+  });
 
-    expect(queryByText('Child in need')).not.toBeInTheDocument();
-    expect(queryByTestId('case_status_details_table')).toBeNull;
+  it('should render only the title props properly when no content has been added', async () => {
+    const title = 'An update has already been scheduled for this status';
+
+    const { queryByText, queryByTestId } = render(
+      <AnnouncementMessage title={title} />
+    );
+
+    expect(
+      queryByText('An update has already been scheduled for this status')
+    ).toBeInTheDocument();
+    expect(
+      queryByText(
+        'Any changes you make here will overwrite the scheduled update'
+      )
+    ).not.toBeInTheDocument();
+    expect(queryByTestId('announcement_message_box')).not.toBeNull;
   });
 });
