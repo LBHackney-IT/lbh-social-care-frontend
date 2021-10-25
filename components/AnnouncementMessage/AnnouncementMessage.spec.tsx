@@ -18,7 +18,7 @@ describe('AnnouncementMessage component', () => {
         'Any changes you make here will overwrite the scheduled update'
       )
     ).toBeInTheDocument();
-    expect(queryByTestId('announcement_message_box')).not.toBeNull;
+    expect(queryByTestId('announcement_message_box')).not.toBeNull();
   });
 
   it('should render only the title props properly when no content has been added', async () => {
