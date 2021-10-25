@@ -40,6 +40,7 @@ const navigation: { text: string; href: string }[] = [
   { text: 'Initial decision', href: '/initial-decision' },
   { text: 'Screening decision', href: '/screening' },
   { text: 'Final decision', href: '/final-decision' },
+  { text: 'MASH box', href: '/card' },
 ];
 
 interface Props {
