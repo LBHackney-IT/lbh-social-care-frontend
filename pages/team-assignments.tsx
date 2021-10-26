@@ -2,6 +2,7 @@ import st from 'components/Tabs/Tabs.module.scss';
 import { useState } from 'react';
 import DashboardWrapper from 'components/Dashboard/DashboardWrapper';
 import Tab from 'components/SubmissionsTable/Tab';
+import Card from 'components/MashCards/MashCard';
 import { GetServerSideProps } from 'next';
 import { isAuthorised } from 'utils/auth';
 import { getAllMashReferrals } from 'lib/mashReferrals';
@@ -33,6 +34,7 @@ export const TeamAssignments = ({ referrals }: Props): React.ReactElement => {
     mashReferrals = final;
   }
 
+  console.log(mashReferrals);
   return (
     <div>
       <DashboardWrapper>
@@ -59,10 +61,14 @@ export const TeamAssignments = ({ referrals }: Props): React.ReactElement => {
             </ul>
           </fieldset>
           {mashReferrals.map((referral) => (
-            <div key={referral.id} style={{ border: '1px black solid' }}>
-              <p>ID: {referral.id}</p>
-              <p>Referrer: {referral.referrer}</p>
-              <p>Requested support: {referral.requestedSupport}</p>
+            <div key={referral.id}>
+              <Card
+                clientname={referral.clients[0]}
+                timeleft="4 hours"
+                datetime={referral.createdAt}
+                info1={referral.referrer}
+                info2={referral.requestedSupport}
+              ></Card>
             </div>
           ))}
         </>
