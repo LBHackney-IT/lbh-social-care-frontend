@@ -14,7 +14,7 @@ const UpdateCaseStatusForm: React.FC<{
   prefilledFields: any;
   caseStatusType: string;
   action: string;
-  currentCaseStatusStartDate: string;
+  currentCaseStatusStartDate?: string;
 }> = ({
   personId,
   caseStatusId,
