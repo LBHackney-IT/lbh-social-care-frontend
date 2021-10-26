@@ -18,7 +18,7 @@ const MASHtable = ({
     <>
       <li className={s.row}>
         <div>
-          <p className={`lbh-body-l govuk-!-margin-bottom-3 ${s.stats}`}>
+          <p className="lbh-body-s govuk-!-margin-bottom-3">
             <dt>
               <span className="govuk-tag lbh-tag lbh-tag--green">
                 {timeleft} left
@@ -27,7 +27,7 @@ const MASHtable = ({
             </dt>
           </p>
           <hr className={s.line} />
-          <dl className={` ${s.stats}`}>
+          <dl className={s.stats}>
             <div>
               <dt>Name of client</dt>
               <dd>

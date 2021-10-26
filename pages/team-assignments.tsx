@@ -33,8 +33,6 @@ export const TeamAssignments = ({ referrals }: Props): React.ReactElement => {
   } else {
     mashReferrals = final;
   }
-
-  console.log(mashReferrals);
   return (
     <div>
       <DashboardWrapper>
