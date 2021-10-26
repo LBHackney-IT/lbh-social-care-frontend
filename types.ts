@@ -459,3 +459,18 @@ export interface Paginated<T> {
   items: T[];
   count: number;
 }
+
+export interface MashReferral {
+  id: string;
+  referrer: string;
+  requestedSupport: string;
+  assignedTo: Worker | undefined;
+  createdAt: string;
+  clients: string[];
+  referralDocumentURI: string;
+  stage: string;
+  initialDecision: string | undefined;
+  screeningDecision: string | undefined;
+  finalDecision: string | undefined;
+  referralCategory: string | undefined;
+}
