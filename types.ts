@@ -325,6 +325,8 @@ export interface CaseStatusFields {
   value: string;
   startDate: string;
   createdAt: string;
+  groupId?: string;
+  endDate?: string;
 }
 
 export interface CaseStatus {
@@ -431,6 +433,13 @@ export interface AddCaseStatusFormData {
 export interface CaseStatusFormValue {
   option: string;
   value: string;
+}
+
+export interface CaseStatusAnswerDisplay {
+  startDate: string;
+  endDate?: string;
+  status: CaseStatusFields[];
+  createdAt?: string;
 }
 
 export interface EditCaseStatusFormData {
