@@ -10,6 +10,9 @@ const EditCaseStatus = (): React.ReactElement => {
   const caseStatusId = Number(router.query.caseStatusId as string);
   const action = String(router.query.action);
   const isScheduledCaseStatus = Number(router.query.isScheduledCaseStatus);
+  const currentCaseStatusStartDate = String(
+    router.query.currentCaseStatusStartDate
+  );
 
   let prefilledFields;
   if (router.query.prefilledFields) {
@@ -40,6 +43,7 @@ const EditCaseStatus = (): React.ReactElement => {
           prefilledFields={prefilledFields}
           action={action}
           caseStatusType={type}
+          currentCaseStatusStartDate={currentCaseStatusStartDate}
         />
       </PersonView>
     </>

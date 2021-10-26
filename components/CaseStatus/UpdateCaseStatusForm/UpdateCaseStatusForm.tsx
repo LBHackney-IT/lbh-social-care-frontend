@@ -6,6 +6,7 @@ import FlexibleField from 'components/FlexibleForms/FlexibleFields';
 import Button from 'components/Button/Button';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
+import { format } from 'date-fns';
 
 const UpdateCaseStatusForm: React.FC<{
   personId: number;
@@ -13,10 +14,34 @@ const UpdateCaseStatusForm: React.FC<{
   prefilledFields: any;
   caseStatusType: string;
   action: string;
-}> = ({ personId, caseStatusId, caseStatusType, prefilledFields, action }) => {
+  currentCaseStatusStartDate: string;
+}> = ({
+  personId,
+  caseStatusId,
+  caseStatusType,
+  prefilledFields,
+  action,
+  currentCaseStatusStartDate,
+}) => {
   const router = useRouter();
 
   const form_fields = CASE_STATUS_LAC_UPDATE.steps[0].fields;
+
+  const activeCaseStatusStartDate: Date = new Date(currentCaseStatusStartDate);
+  const currentStartDateValidation: Date = new Date();
+
+  currentStartDateValidation.setDate(activeCaseStatusStartDate.getDate() + 1);
+
+  if (currentCaseStatusStartDate) {
+    form_fields.map((field: any) => {
+      if (field.id === 'startDate') {
+        field.startDate = format(
+          new Date(currentStartDateValidation),
+          'yyyy-MM-dd'
+        );
+      }
+    });
+  }
 
   if (prefilledFields && prefilledFields['action']) {
     action = prefilledFields['action'];

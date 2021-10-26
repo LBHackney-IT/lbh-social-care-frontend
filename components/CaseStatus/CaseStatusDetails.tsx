@@ -14,9 +14,6 @@ interface Props {
 const CaseStatusDetails = ({ person }: Props): React.ReactElement => {
   const { data, error } = useCaseStatuses(person.id);
 
-  // const data = caseStatusesTest.concat(LACcaseStatusesTest);
-  // const error = undefined;
-
   if (error) {
     return (
       <ErrorMessage label="There was a problem with getting case status." />
@@ -26,6 +23,7 @@ const CaseStatusDetails = ({ person }: Props): React.ReactElement => {
   if (!data || data?.length === 0) {
     return <></>;
   }
+
   return (
     <>
       {data.map((status: CaseStatus) => {
@@ -36,6 +34,17 @@ const CaseStatusDetails = ({ person }: Props): React.ReactElement => {
         } = sortCaseStatusAnswers(status);
 
         const isScheduledCaseStatus = scheduledStatusAnswers ? 1 : 0;
+
+        let currentCaseStatusStartDate;
+
+        if (
+          currentStatusAnswers &&
+          currentStatusAnswers.length > 0 &&
+          currentStatusAnswers[0].startDate
+        ) {
+          currentCaseStatusStartDate = currentStatusAnswers[0].startDate;
+        }
+
         return (
           <div
             key={`${status.id} ${status.type}`}
@@ -53,6 +62,7 @@ const CaseStatusDetails = ({ person }: Props): React.ReactElement => {
                     query: {
                       type: status.type,
                       isScheduledCaseStatus: isScheduledCaseStatus,
+                      currentCaseStatusStartDate: currentCaseStatusStartDate,
                     },
                   }}
                 >
