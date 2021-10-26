@@ -48,7 +48,7 @@ describe('UpdateCaseStatusForm validations', () => {
   });
 
   it('does not disable submit button when scheduled start date is set to be after current active case status start date', async () => {
-    const { getByText, getByTestId } = render(
+    const { getByTestId } = render(
       <UpdateCaseStatusForm
         personId={mockedResident.id}
         caseStatusId={123}
