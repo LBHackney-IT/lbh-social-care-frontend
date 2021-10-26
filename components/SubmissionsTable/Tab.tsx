@@ -2,10 +2,10 @@ import s from 'components/Tabs/Tabs.module.scss';
 import cx from 'classnames';
 
 interface FilterProps {
-  value: 'mine' | 'all';
+  value: string;
   children: React.ReactChild;
   filter: string;
-  setFilter: (value: 'mine' | 'all') => void;
+  setFilter: (value: string) => void;
 }
 
 const Filter = ({
