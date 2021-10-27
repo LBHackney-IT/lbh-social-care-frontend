@@ -14,7 +14,7 @@ const UpdateCaseStatusForm: React.FC<{
   prefilledFields: any;
   caseStatusType: string;
   action: string;
-  currentCaseStatusStartDate: string;
+  currentCaseStatusStartDate?: string;
 }> = ({
   personId,
   caseStatusId,
@@ -27,16 +27,31 @@ const UpdateCaseStatusForm: React.FC<{
 
   const form_fields = CASE_STATUS_LAC_UPDATE.steps[0].fields;
 
-  const activeCaseStatusStartDate: Date = new Date(currentCaseStatusStartDate);
-  const currentStartDateValidation: Date = new Date();
+  if (
+    currentCaseStatusStartDate &&
+    currentCaseStatusStartDate !== 'undefined'
+  ) {
+    const activeCaseStatusStartDate: Date = new Date(
+      currentCaseStatusStartDate
+    );
+    const currentStartDateValidation: Date = new Date();
+    currentStartDateValidation.setDate(activeCaseStatusStartDate.getDate() + 1);
 
-  currentStartDateValidation.setDate(activeCaseStatusStartDate.getDate() + 1);
-
-  if (currentCaseStatusStartDate) {
+    if (currentCaseStatusStartDate) {
+      form_fields.map((field: any) => {
+        if (field.id === 'startDate') {
+          field.startDate = format(
+            new Date(currentStartDateValidation),
+            'yyyy-MM-dd'
+          );
+        }
+      });
+    }
+  } else {
     form_fields.map((field: any) => {
       if (field.id === 'startDate') {
         field.startDate = format(
-          new Date(currentStartDateValidation),
+          new Date(prefilledFields.startDate),
           'yyyy-MM-dd'
         );
       }
