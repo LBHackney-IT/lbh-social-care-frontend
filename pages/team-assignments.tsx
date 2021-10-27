@@ -5,8 +5,8 @@ import Tab from 'components/SubmissionsTable/Tab';
 import Card from 'components/MashCards/MashCard';
 import { GetServerSideProps } from 'next';
 import { isAuthorised } from 'utils/auth';
-import { getAllMashReferrals } from 'lib/mashReferrals';
 import { MashReferral } from 'types';
+import { getAllMashReferrals } from 'lib/mashReferral';
 
 interface Props {
   referrals: MashReferral[];
