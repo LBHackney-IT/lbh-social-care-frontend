@@ -26,6 +26,7 @@ const CaseStatusDetails = ({ person }: Props): React.ReactElement => {
   if (!data || data?.length === 0) {
     return <></>;
   }
+
   return (
     <>
       {data.map((status: CaseStatus) => {
@@ -34,6 +35,19 @@ const CaseStatusDetails = ({ person }: Props): React.ReactElement => {
           scheduledStatusAnswers,
           pastStatusAnswers,
         } = sortCaseStatusAnswers(status);
+
+        const isScheduledCaseStatus = scheduledStatusAnswers ? 1 : 0;
+
+        let currentCaseStatusStartDate;
+
+        if (
+          currentStatusAnswers &&
+          currentStatusAnswers.length > 0 &&
+          currentStatusAnswers[0].startDate
+        ) {
+          currentCaseStatusStartDate = currentStatusAnswers[0].startDate;
+        }
+
         return (
           <div
             key={`${status.id} ${status.type}`}
@@ -48,7 +62,11 @@ const CaseStatusDetails = ({ person }: Props): React.ReactElement => {
                 <Link
                   href={{
                     pathname: `/people/${person.id}/case-status/${status.id}/edit/`,
-                    query: { type: status.type },
+                    query: {
+                      type: status.type,
+                      isScheduledCaseStatus: isScheduledCaseStatus,
+                      currentCaseStatusStartDate: currentCaseStatusStartDate,
+                    },
                   }}
                 >
                   Edit / End
