@@ -17,7 +17,15 @@ const EditCaseStatusForm: React.FC<{
   prefilledFields: any;
   caseStatusType: string;
   action: string;
-}> = ({ personId, caseStatusId, caseStatusType, prefilledFields, action }) => {
+  currentCaseStatusStartDate: string;
+}> = ({
+  personId,
+  caseStatusId,
+  caseStatusType,
+  prefilledFields,
+  action,
+  currentCaseStatusStartDate,
+}) => {
   const router = useRouter();
   const { data: caseStatuses } = useCaseStatuses(personId);
 
