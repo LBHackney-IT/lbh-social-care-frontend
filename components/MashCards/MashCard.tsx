@@ -47,8 +47,8 @@ const MASHtable = ({
             </div>
           </dl>
         </div>
-        <div className={s.meter}></div>
       </li>
+      <div className={s.meter}></div>
     </>
   );
 };
