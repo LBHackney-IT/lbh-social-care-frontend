@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import PersonView from 'components/PersonView/PersonView';
 import EditCaseStatusForm from 'components/CaseStatus/EditCaseStatusForm/EditCaseStatusForm';
@@ -10,7 +10,12 @@ const EditCaseStatus = (): React.ReactElement => {
   const type = String(router.query.type as string);
   const caseStatusId = Number(router.query.caseStatusId as string);
   let action = String(router.query.action as string);
-  const isScheduledCaseStatus = Number(router.query.isScheduledCaseStatus);
+
+  const [isScheduledCaseStatus, setIsScheduledCaseStatus] = useState(false);
+
+  useEffect(() => {
+    setIsScheduledCaseStatus(Boolean(router.query.isScheduledCaseStatus));
+  }, [router.query.isScheduledCaseStatus]);
 
   let prefilledFields;
   if (router.query.prefilledFields) {
@@ -21,20 +26,14 @@ const EditCaseStatus = (): React.ReactElement => {
     action.charAt(0).toUpperCase();
   }
 
-  let announcement;
-
-  if (isScheduledCaseStatus) {
-    announcement = (
-      <AnnouncementMessage
-        title="An update has already been scheduled for this status"
-        content="Any changes you make here will overwrite the scheduled update"
-      />
-    );
-  } else announcement = null;
-
   return (
     <>
-      {announcement}
+      {isScheduledCaseStatus && (
+        <AnnouncementMessage
+          title="An update has already been scheduled for this status"
+          content="Any changes you make here will overwrite the scheduled update"
+        />
+      )}
       <h1 className="govuk-fieldset__legend--l gov-weight-lighter">
         {capitalize(action)} a case status
       </h1>
