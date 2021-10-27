@@ -20,7 +20,7 @@ export const SubmissionsTable = ({
 }: Props): React.ReactElement => {
   const { user } = useAuth();
 
-  const [filter, setFilter] = useState<'mine' | 'all'>('mine');
+  const [filter, setFilter] = useState<string>('mine');
   const [searchQuery, setSearchQuery] = useState<string>('');
 
   const searchableSubmissions = useMemo(
