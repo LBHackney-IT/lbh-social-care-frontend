@@ -19,7 +19,7 @@ Object.keys(LACLegalStatusOptions).map((key) => {
 });
 const form: Form = {
   id: 'case-status-update',
-  name: 'Edit/end case status',
+  name: "Update a child's circumstances (scheduled case status)",
   groupRecordable: false,
   isViewableByAdults: false,
   isViewableByChildrens: true,
