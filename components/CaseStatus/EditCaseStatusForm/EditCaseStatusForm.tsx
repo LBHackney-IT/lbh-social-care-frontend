@@ -17,7 +17,15 @@ const EditCaseStatusForm: React.FC<{
   prefilledFields: any;
   caseStatusType: string;
   action: string;
-}> = ({ personId, caseStatusId, caseStatusType, prefilledFields, action }) => {
+  currentCaseStatusStartDate: string;
+}> = ({
+  personId,
+  caseStatusId,
+  caseStatusType,
+  prefilledFields,
+  action,
+  currentCaseStatusStartDate,
+}) => {
   const router = useRouter();
   const { data: caseStatuses } = useCaseStatuses(personId);
 
@@ -59,6 +67,30 @@ const EditCaseStatusForm: React.FC<{
         });
       }
     });
+  }
+
+  if (
+    currentCaseStatusStartDate &&
+    currentCaseStatusStartDate !== 'undefined'
+  ) {
+    const activeCaseStatusStartDate: Date = new Date(
+      currentCaseStatusStartDate
+    );
+
+    if (currentCaseStatusStartDate) {
+      form_fields.map((field: any) => {
+        if (field.id === 'startDate') {
+          field.startDate = format(
+            new Date(currentCaseStatusStartDate),
+            'yyyy-MM-dd'
+          );
+          field.default = format(
+            new Date(activeCaseStatusStartDate),
+            'yyyy-MM-dd'
+          );
+        }
+      });
+    }
   }
 
   if (prefilledFields) {
@@ -115,7 +147,11 @@ const EditCaseStatusForm: React.FC<{
             <Link
               href={{
                 pathname: `/people/${personId}/case-status/${caseStatusId}/edit`,
-                query: { action: action, type: caseStatusType },
+                query: {
+                  action: action,
+                  type: caseStatusType,
+                  currentCaseStatusStartDate: currentCaseStatusStartDate,
+                },
               }}
               scroll={false}
             >

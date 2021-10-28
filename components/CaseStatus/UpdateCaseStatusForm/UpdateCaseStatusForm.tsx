@@ -116,7 +116,11 @@ const UpdateCaseStatusForm: React.FC<{
             <Link
               href={{
                 pathname: `/people/${personId}/case-status/${caseStatusId}/edit`,
-                query: { action: action, type: caseStatusType },
+                query: {
+                  action: action,
+                  type: caseStatusType,
+                  currentCaseStatusStartDate: currentCaseStatusStartDate,
+                },
               }}
               scroll={false}
             >
