@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import App, { AppInitialProps, AppContext, AppProps } from 'next/app';
 import { NextComponentType } from 'next';
 import axios from 'axios';
@@ -17,6 +17,7 @@ import 'stylesheets/header.scss';
 import { FeatureFlagProvider } from '../lib/feature-flags/feature-flags';
 import { getFeatureFlags } from 'features';
 import { useEffect } from 'react';
+import { AppConfigProvider } from 'lib/appConfig';
 
 interface Props {
   user?: Partial<User>;
@@ -40,6 +41,10 @@ const CustomApp = ({
     })
   );
 
+  const appConfig = useMemo(() => {
+    return pageProps.appConfig;
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+
   useEffect(() => {
     const environmentName = [
       'localhost:3000',
@@ -57,30 +62,32 @@ const CustomApp = ({
   }, []);
 
   return (
-    <FeatureFlagProvider features={features}>
-      <SWRConfig
-        value={{
-          fetcher: (resource, options) =>
-            axios.get(resource, options).then((res) => res.data),
-          onErrorRetry: (error) => {
-            if (error.status === 404) return;
-          },
-        }}
-      >
-        <AuthProvider user={user}>
-          <GoogleAnalytics>
-            <Layout
-              goBackButton={Component.goBackButton}
-              noLayout={Component.noLayout}
-            >
-              <ErrorBoundary>
-                <Component {...pageProps} />
-              </ErrorBoundary>
-            </Layout>
-          </GoogleAnalytics>
-        </AuthProvider>
-      </SWRConfig>
-    </FeatureFlagProvider>
+    <AppConfigProvider appConfig={appConfig}>
+      <FeatureFlagProvider features={features}>
+        <SWRConfig
+          value={{
+            fetcher: (resource, options) =>
+              axios.get(resource, options).then((res) => res.data),
+            onErrorRetry: (error) => {
+              if (error.status === 404) return;
+            },
+          }}
+        >
+          <AuthProvider user={user}>
+            <GoogleAnalytics>
+              <Layout
+                goBackButton={Component.goBackButton}
+                noLayout={Component.noLayout}
+              >
+                <ErrorBoundary>
+                  <Component {...pageProps} />
+                </ErrorBoundary>
+              </Layout>
+            </GoogleAnalytics>
+          </AuthProvider>
+        </SWRConfig>
+      </FeatureFlagProvider>
+    </AppConfigProvider>
   );
 };
 
@@ -109,9 +116,21 @@ CustomApp.getInitialProps = async (
     ? 'development'
     : 'production';
 
+  // Warning! Any values placed in this object are passed to the client app,
+  // and will be made public in the browser. Do not share any sensitive or
+  // secret values through this.
+  const appConfig = {
+    workflowsPilotUrl: process.env.WORKFLOWS_PILOT_URL,
+  };
+
   return {
     ...appProps,
-    pageProps: { ...appProps.pageProps, user, environmentName },
+    pageProps: {
+      ...appProps.pageProps,
+      user,
+      environmentName,
+      appConfig,
+    },
   };
 };
 

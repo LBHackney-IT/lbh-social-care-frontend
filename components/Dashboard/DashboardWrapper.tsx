@@ -4,6 +4,7 @@ import Link from 'next/link';
 import s from './DashboardWrapper.module.scss';
 import MyData from './MyData';
 import { ConditionalFeature } from 'lib/feature-flags/feature-flags';
+import { useAppConfig } from 'lib/appConfig';
 
 interface NavLinkProps {
   href: string;
@@ -43,38 +44,40 @@ interface Props {
   children: React.ReactChild;
 }
 
-const DashboardWrapper = ({ children }: Props): React.ReactElement => (
-  <>
-    <Head>
-      <title>Dashboard | Social care | Hackney Council</title>
-    </Head>
+const DashboardWrapper = ({ children }: Props): React.ReactElement => {
+  const { getConfigValue } = useAppConfig();
 
-    <div className={`govuk-grid-row ${s.outer}`}>
-      <div className="govuk-grid-column-one-quarter">
-        <div className={s.sticky}>
-          <nav>
-            <ul className="lbh-list">
-              {navigation.map((link) => (
-                <NavLink href={link.href} key={link.href}>
-                  {link.text}
-                </NavLink>
-              ))}
+  return (
+    <>
+      <Head>
+        <title>Dashboard | Social care | Hackney Council</title>
+      </Head>
 
-              <ConditionalFeature name="workflows-pilot">
-                <NavLink
-                  href={process.env.NEXT_PUBLIC_WORKFLOWS_PILOT_URL as string}
-                >
-                  Workflows
-                </NavLink>
-              </ConditionalFeature>
-            </ul>
-          </nav>
-          <MyData />
+      <div className={`govuk-grid-row ${s.outer}`}>
+        <div className="govuk-grid-column-one-quarter">
+          <div className={s.sticky}>
+            <nav>
+              <ul className="lbh-list">
+                {navigation.map((link) => (
+                  <NavLink href={link.href} key={link.href}>
+                    {link.text}
+                  </NavLink>
+                ))}
+
+                <ConditionalFeature name="workflows-pilot">
+                  <NavLink href={getConfigValue('workflowsPilotUrl') as string}>
+                    Workflows
+                  </NavLink>
+                </ConditionalFeature>
+              </ul>
+            </nav>
+            <MyData />
+          </div>
         </div>
+        <div className="govuk-grid-column-three-quarters">{children}</div>
       </div>
-      <div className="govuk-grid-column-three-quarters">{children}</div>
-    </div>
-  </>
-);
+    </>
+  );
+};
 
 export default DashboardWrapper;
