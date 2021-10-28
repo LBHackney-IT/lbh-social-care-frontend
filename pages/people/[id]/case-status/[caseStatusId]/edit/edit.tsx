@@ -14,7 +14,9 @@ const EditCaseStatus = (): React.ReactElement => {
   const [isScheduledCaseStatus, setIsScheduledCaseStatus] = useState(false);
 
   useEffect(() => {
-    setIsScheduledCaseStatus(Boolean(router.query.isScheduledCaseStatus));
+    setIsScheduledCaseStatus(
+      Boolean(Number(router.query.isScheduledCaseStatus))
+    );
   }, [router.query.isScheduledCaseStatus]);
 
   let prefilledFields;
