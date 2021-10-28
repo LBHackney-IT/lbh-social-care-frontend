@@ -121,7 +121,7 @@ describe('EditCaseStatusForm', () => {
     ).toBeInTheDocument();
   });
 
-  it.only('prefills the start date with the current case status start date', () => {
+  it('prefills the start date with the current case status start date', () => {
     const startDate = '2021-01-01';
     const { getByTestId, getByText } = render(
       <EditCaseStatusForm
@@ -162,7 +162,7 @@ describe('EditCaseStatusForm', () => {
         personId={mockedResident.id}
         caseStatusId={123}
         action="edit"
-        caseStatusType="CIN"
+        caseStatusType="LAC"
         prefilledFields={{
           notes: 'this is a note',
           startDate: '2020-01-01',
