@@ -8,7 +8,7 @@ $lbh-steps-vertical-gap: 70px;
   counter-reset: section;
 
   * + * {
-    margin-top: 0.35em;
+    margin-top: 15px;
   }
 
   &__event {
@@ -45,27 +45,6 @@ $lbh-steps-vertical-gap: 70px;
       @include govuk-media-query($from: tablet) {
         top: 5px;
       }
-    }
-
-    &--major:after {
-      background: lbh-colour('lbh-text');
-    }
-
-    &--minor:after {
-      height: 6px;
-      width: 6px;
-      left: -40px;
-      top: 7px;
-      border-radius: 100%;
-      background: lbh-colour('lbh-text');
-      border: $lbh-steps-thickness solid lbh-colour('lbh-text');
-      @include govuk-media-query($from: tablet) {
-        top: 10px;
-      }
-    }
-
-    &--gap-below:before {
-      border-left: $lbh-steps-thickness dashed lbh-colour('lbh-text');
     }
 
     &:last-child {
