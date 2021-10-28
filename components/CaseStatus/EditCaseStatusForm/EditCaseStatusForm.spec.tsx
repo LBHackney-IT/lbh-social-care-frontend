@@ -15,6 +15,7 @@ describe('EditCaseStatusForm', () => {
         prefilledFields={{
           notes: 'Edit me',
         }}
+        currentCaseStatusStartDate="2021-01-01"
       />
     );
 
@@ -31,6 +32,7 @@ describe('EditCaseStatusForm', () => {
         action="end"
         caseStatusType="CIN"
         prefilledFields={{}}
+        currentCaseStatusStartDate="2021-01-01"
       />
     );
 
@@ -47,6 +49,7 @@ describe('EditCaseStatusForm', () => {
         prefilledFields={{
           category: 'C3',
         }}
+        currentCaseStatusStartDate="2021-01-01"
       />
     );
 
@@ -63,6 +66,7 @@ describe('EditCaseStatusForm', () => {
         action="edit"
         caseStatusType="CP"
         prefilledFields={{}}
+        currentCaseStatusStartDate="2021-01-01"
       />
     );
 
@@ -78,6 +82,7 @@ describe('EditCaseStatusForm', () => {
         action="edit"
         caseStatusType="LAC"
         prefilledFields={{}}
+        currentCaseStatusStartDate="2021-01-01"
       />
     );
 
@@ -96,6 +101,7 @@ describe('EditCaseStatusForm', () => {
         action="end"
         caseStatusType="LAC"
         prefilledFields={{}}
+        currentCaseStatusStartDate="2021-01-01"
       />
     );
 
@@ -112,6 +118,7 @@ describe('EditCaseStatusForm', () => {
         action="end"
         caseStatusType="LAC"
         prefilledFields={{}}
+        currentCaseStatusStartDate="2021-01-01"
       />
     );
 
@@ -132,6 +139,7 @@ describe('EditCaseStatusForm', () => {
           notes: 'this is a note',
           startDate: '2020-01-01',
         }}
+        currentCaseStatusStartDate="2021-01-01"
       />
     );
     expect(getByTestId('submit_button')).not.toBeDisabled();
