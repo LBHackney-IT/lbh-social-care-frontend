@@ -30,7 +30,7 @@ describe('CaseStatusDetail component', () => {
     );
 
     expect(queryByText('Child in need')).not.toBeInTheDocument();
-    expect(queryByTestId('case_status_details_table')).toBeNull;
+    expect(queryByTestId('case_status_details_table')).toBeNull();
   });
 
   it('displays the notes of a person when there are notes', async () => {
@@ -53,7 +53,7 @@ describe('CaseStatusDetail component', () => {
 
     expect(queryByText('Child in need')).toBeInTheDocument();
     expect(queryByText('This is a note')).toBeInTheDocument();
-    expect(queryByTestId('case_status_details_table')).not.toBeNull;
+    expect(queryByTestId('case_status_details_table')).not.toBeNull();
   });
 
   it("displays multiple CIN status' if they exist", async () => {
@@ -249,7 +249,7 @@ describe('LAC Specific Tests for CaseStatusDetail component', () => {
       <CaseStatusDetails person={mockedResident} />
     );
 
-    expect(getByTestId('case_status_details_table')).not.toBeNull;
+    expect(getByTestId('case_status_details_table')).not.toBeNull();
     expect(queryByText('Scheduled changes')).not.toBeInTheDocument();
     expect(queryByText('Previous version')).not.toBeInTheDocument();
     expect(queryByText('01 Aug 2021')).toBeInTheDocument();
@@ -286,7 +286,7 @@ describe('LAC Specific Tests for CaseStatusDetail component', () => {
       <CaseStatusDetails person={mockedResident} />
     );
 
-    expect(getByTestId('case_status_details_table')).not.toBeNull;
+    expect(getByTestId('case_status_details_table')).not.toBeNull();
     expect(queryByText('09 Oct 2021')).toBeInTheDocument();
     expect(queryByText('P3: Residential employment')).toBeInTheDocument();
     expect(queryByText('C1: Interim care order')).toBeInTheDocument();
@@ -317,7 +317,7 @@ describe('LAC Specific Tests for CaseStatusDetail component', () => {
       <CaseStatusDetails person={mockedResident} />
     );
 
-    expect(getByTestId('case_status_details_table')).not.toBeNull;
+    expect(getByTestId('case_status_details_table')).not.toBeNull();
     expect(queryByText('Scheduled changes')).toBeInTheDocument();
     expect(queryByText('Previous version')).not.toBeInTheDocument();
     expect(queryByText('09 Oct 2040')).toBeInTheDocument();
@@ -354,7 +354,7 @@ describe('LAC Specific Tests for CaseStatusDetail component', () => {
       <CaseStatusDetails person={mockedResident} />
     );
 
-    expect(getByTestId('case_status_details_table')).not.toBeNull;
+    expect(getByTestId('case_status_details_table')).not.toBeNull();
     expect(queryByText('Scheduled changes')).toBeInTheDocument();
     expect(queryByText('Previous version')).not.toBeInTheDocument();
     expect(queryByText('09 Oct 2040')).toBeInTheDocument();
