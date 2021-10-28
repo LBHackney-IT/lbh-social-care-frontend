@@ -22,6 +22,7 @@ const EditCaseStatus = (): React.ReactElement => {
   const currentCaseStatusStartDate = String(
     router.query.currentCaseStatusStartDate
   );
+  const pastCaseStatusStartDate = String(router.query.pastCaseStatusStartDate);
 
   let prefilledFields;
   if (router.query.prefilledFields) {
@@ -51,6 +52,7 @@ const EditCaseStatus = (): React.ReactElement => {
           action={action}
           caseStatusType={type}
           currentCaseStatusStartDate={currentCaseStatusStartDate}
+          pastCaseStatusStartDate={pastCaseStatusStartDate}
         />
       </PersonView>
     </>

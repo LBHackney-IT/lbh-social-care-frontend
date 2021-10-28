@@ -44,6 +44,23 @@ describe('CaseStatusDetailsTable component', () => {
     expect(elements).not.toBeNull();
     expect(queryByText('09 Sept 2021')).toBeInTheDocument;
   });
+  it('displays the end date, if there is no answers', async () => {
+    const { getByTestId, queryByText } = render(
+      <CaseStatusDetailsTable
+        status={mockedCaseStatusFactory.build({
+          id: 1,
+          type: 'CIN',
+          startDate: '2021-09-09',
+          endDate: '2022-09-09',
+          answers: [],
+        })}
+      />
+    );
+
+    const elements = getByTestId('end_date');
+    expect(elements).not.toBeNull();
+    expect(queryByText('09 Sept 2022')).toBeInTheDocument;
+  });
 
   it('displays the start date from the answers, if there is one and no end date in the answers', async () => {
     const { getByTestId, queryByText } = render(

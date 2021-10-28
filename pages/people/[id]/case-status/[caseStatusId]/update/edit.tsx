@@ -10,6 +10,7 @@ const EditCaseStatus = (): React.ReactElement => {
   const type = String(router.query.type as string);
   const caseStatusId = Number(router.query.caseStatusId as string);
   const action = String(router.query.action);
+
   const currentCaseStatusStartDate = String(
     router.query.currentCaseStatusStartDate
   );

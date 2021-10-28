@@ -4,6 +4,7 @@ import {
   ChildProtectionCategoryOptions,
   LACLegalStatusOptions,
   LACPlacementTypeOptions,
+  LACReasonsForEpisodeEndOptions,
   CaseStatusAnswerDisplay,
 } from 'types';
 import _ from 'lodash';
@@ -13,6 +14,7 @@ export enum CaseStatusOptionMapping {
   category = 'Category of child protection plan',
   legalStatus = 'Legal status',
   placementType = 'Placement type',
+  episodeReason = 'Reason for episode end',
 }
 
 export const CaseStatusSelectOptionLookup = (
@@ -39,6 +41,12 @@ export const CaseStatusSelectOptionLookup = (
           caseStatusAnswerValue as keyof typeof LACPlacementTypeOptions
         ];
       break;
+    case 'episodeReason':
+      returnString =
+        LACReasonsForEpisodeEndOptions[
+          caseStatusAnswerValue as keyof typeof LACReasonsForEpisodeEndOptions
+        ];
+      break;
   }
   return returnString ? returnString : `${caseStatusAnswerValue}`;
 };
@@ -55,13 +63,14 @@ export const sortCaseStatusAnswers = (
   let pastStatus: CaseStatusAnswerDisplay[] | undefined;
 
   const groupedAnswers = groupAnswersByGroupId(caseStatuses.answers);
+
   if (caseStatuses.type !== 'LAC') {
     if (groupedAnswers && groupedAnswers.length > 1) {
       currentStatus = [groupedAnswers[0]];
     } else {
       currentStatus = groupedAnswers;
     }
-  } else if (groupedAnswers) {
+  } else if (groupedAnswers && groupedAnswers[0]) {
     if (new Date(groupedAnswers[0].startDate) > new Date()) {
       const scheduledAnswers = groupedAnswers.shift();
       if (scheduledAnswers) {
@@ -73,6 +82,25 @@ export const sortCaseStatusAnswers = (
       currentStatus = [currentAnswers];
     }
     pastStatus = groupedAnswers;
+
+    groupedAnswers.forEach((group) => {
+      if (
+        group.status.length == 1 &&
+        group.status[0].option == 'episodeReason'
+      ) {
+        if (scheduledStatus && scheduledStatus.length > 0) {
+          scheduledStatus[0].status.push(group.status[0]);
+        } else if (currentStatus) {
+          currentStatus[0].status.push(group.status[0]);
+        }
+
+        if (pastStatus) {
+          pastStatus = pastStatus.filter(function (item) {
+            return item !== group;
+          });
+        }
+      }
+    });
   }
 
   return {

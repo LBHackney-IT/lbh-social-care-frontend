@@ -9,6 +9,7 @@ interface Props {
   styleType?: string;
   status: CaseStatus;
   answers?: CaseStatusAnswerDisplay;
+  sheduledStatus?: CaseStatusAnswerDisplay[];
 }
 
 const CaseStatusDetailsTable = ({
@@ -16,6 +17,7 @@ const CaseStatusDetailsTable = ({
   styleType,
   status,
   answers,
+  sheduledStatus,
 }: Props): React.ReactElement => {
   if (!status) {
     return <></>;
@@ -44,7 +46,22 @@ const CaseStatusDetailsTable = ({
           </div>
         )}
 
-        {answers?.startDate && !answers.endDate && (
+        {status.endDate && !answers && (
+          <div className="govuk-summary-list__row">
+            <dt className="govuk-summary-list__key ">End date</dt>
+            <dd className="govuk-summary-list__value" data-testid="end_date">
+              {new Date(status.endDate).toLocaleDateString('en-GB', {
+                day: '2-digit',
+                month: 'short',
+                year: 'numeric',
+              })}
+            </dd>
+          </div>
+        )}
+
+        {console.log('sheduledStatus', sheduledStatus)}
+
+        {!sheduledStatus && answers?.startDate && !answers.endDate && (
           <div className="govuk-summary-list__row">
             <dt className="govuk-summary-list__key ">Start date</dt>
             <dd className="govuk-summary-list__value" data-testid="start_date">
@@ -56,6 +73,69 @@ const CaseStatusDetailsTable = ({
             </dd>
           </div>
         )}
+
+        {sheduledStatus &&
+          answers &&
+          status?.startDate &&
+          sheduledStatus[0].startDate && (
+            <div className="govuk-summary-list__row">
+              <dt className="govuk-summary-list__key">Dates</dt>
+              <dd
+                className="govuk-summary-list__value"
+                data-testid="start_end_date"
+              >
+                {new Date(answers.startDate).toLocaleDateString('en-GB', {
+                  day: '2-digit',
+                  month: 'short',
+                  year: 'numeric',
+                })}{' '}
+                -{' '}
+                {new Date(sheduledStatus[0].startDate).toLocaleDateString(
+                  'en-GB',
+                  {
+                    day: '2-digit',
+                    month: 'short',
+                    year: 'numeric',
+                  }
+                )}
+              </dd>
+            </div>
+          )}
+
+        {status.type === 'LAC' &&
+          answers &&
+          answers.status.length > 2 &&
+          answers?.startDate &&
+          !answers.endDate &&
+          status.endDate && (
+            <div className="govuk-summary-list__row">
+              <dt className="govuk-summary-list__key ">End date</dt>
+              <dd className="govuk-summary-list__value" data-testid="end_date">
+                {new Date(status.endDate).toLocaleDateString('en-GB', {
+                  day: '2-digit',
+                  month: 'short',
+                  year: 'numeric',
+                })}
+              </dd>
+            </div>
+          )}
+
+        {status.type != 'LAC' &&
+          answers?.startDate &&
+          !answers.endDate &&
+          status.endDate && (
+            <div className="govuk-summary-list__row">
+              <dt className="govuk-summary-list__key ">End date</dt>
+              <dd className="govuk-summary-list__value" data-testid="end_date">
+                {new Date(status.endDate).toLocaleDateString('en-GB', {
+                  day: '2-digit',
+                  month: 'short',
+                  year: 'numeric',
+                })}
+              </dd>
+            </div>
+          )}
+
         {answers?.startDate && answers.endDate && (
           <div className="govuk-summary-list__row">
             <dt className="govuk-summary-list__key">Dates</dt>

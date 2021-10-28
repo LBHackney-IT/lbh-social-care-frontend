@@ -18,6 +18,7 @@ const EditCaseStatusForm: React.FC<{
   caseStatusType: string;
   action: string;
   currentCaseStatusStartDate?: string;
+  pastCaseStatusStartDate?: string;
 }> = ({
   personId,
   caseStatusId,
@@ -25,6 +26,7 @@ const EditCaseStatusForm: React.FC<{
   prefilledFields,
   action,
   currentCaseStatusStartDate,
+  pastCaseStatusStartDate,
 }) => {
   const router = useRouter();
   const { data: caseStatuses } = useCaseStatuses(personId);
@@ -58,6 +60,10 @@ const EditCaseStatusForm: React.FC<{
           }
           if (field.id === 'endDate') {
             field.startDate = format(new Date(status.startDate), 'yyyy-MM-dd');
+
+            if (status.endDate) {
+              field.default = format(new Date(status.endDate), 'yyyy-MM-dd');
+            }
           }
           status.answers.map((preloaded_field) => {
             if (preloaded_field.option === field.id) {
@@ -69,21 +75,52 @@ const EditCaseStatusForm: React.FC<{
     });
   }
 
-  if (
-    currentCaseStatusStartDate &&
-    currentCaseStatusStartDate !== 'undefined'
-  ) {
-    const activeCaseStatusStartDate: Date = new Date(
-      currentCaseStatusStartDate
-    );
+  console.log(caseStatusType);
+  console.log(action);
 
-    if (currentCaseStatusStartDate) {
+  if (caseStatusType == 'LAC' && (action == 'update' || action == 'end')) {
+    console.log(currentCaseStatusStartDate);
+    if (
+      currentCaseStatusStartDate &&
+      currentCaseStatusStartDate !== 'undefined'
+    ) {
+      const activeCaseStatusStartDate = new Date(currentCaseStatusStartDate);
+
+      if (action == 'update') {
+        activeCaseStatusStartDate.setDate(
+          activeCaseStatusStartDate.getDate() + 1
+        );
+      }
+
+      form_fields.map((field: any) => {
+        if (field.id === 'startDate' || field.id === 'endDate') {
+          field.startDate = format(
+            new Date(activeCaseStatusStartDate),
+            'yyyy-MM-dd'
+          );
+
+          field.default = format(
+            new Date(activeCaseStatusStartDate),
+            'yyyy-MM-dd'
+          );
+        }
+      });
+    }
+  }
+  if (caseStatusType == 'LAC' && action == 'edit') {
+    if (pastCaseStatusStartDate && pastCaseStatusStartDate !== 'undefined') {
+      const activeCaseStatusStartDate = new Date(pastCaseStatusStartDate);
+      activeCaseStatusStartDate.setDate(
+        activeCaseStatusStartDate.getDate() + 1
+      );
+
       form_fields.map((field: any) => {
         if (field.id === 'startDate') {
           field.startDate = format(
-            new Date(currentCaseStatusStartDate),
+            new Date(activeCaseStatusStartDate),
             'yyyy-MM-dd'
           );
+
           field.default = format(
             new Date(activeCaseStatusStartDate),
             'yyyy-MM-dd'
@@ -151,6 +188,7 @@ const EditCaseStatusForm: React.FC<{
                   action: action,
                   type: caseStatusType,
                   currentCaseStatusStartDate: currentCaseStatusStartDate,
+                  pastCaseStatusStartDate: pastCaseStatusStartDate,
                 },
               }}
               scroll={false}

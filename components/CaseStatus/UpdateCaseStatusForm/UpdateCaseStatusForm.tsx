@@ -37,6 +37,8 @@ const UpdateCaseStatusForm: React.FC<{
     const currentStartDateValidation: Date = new Date();
     currentStartDateValidation.setDate(activeCaseStatusStartDate.getDate() + 1);
 
+    console.log(currentCaseStatusStartDate);
+
     if (currentCaseStatusStartDate) {
       form_fields.map((field: any) => {
         if (field.id === 'startDate') {
@@ -49,7 +51,11 @@ const UpdateCaseStatusForm: React.FC<{
     }
   } else {
     form_fields.map((field: any) => {
-      if (field.id === 'startDate') {
+      if (
+        field.id === 'startDate' &&
+        prefilledFields &&
+        prefilledFields.startDate
+      ) {
         field.startDate = format(
           new Date(prefilledFields.startDate),
           'yyyy-MM-dd'
