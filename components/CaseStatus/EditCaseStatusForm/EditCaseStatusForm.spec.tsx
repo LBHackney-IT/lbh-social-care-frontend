@@ -15,7 +15,6 @@ describe('EditCaseStatusForm', () => {
         prefilledFields={{
           notes: 'Edit me',
         }}
-        currentCaseStatusStartDate="2021-01-01"
       />
     );
 
@@ -32,7 +31,6 @@ describe('EditCaseStatusForm', () => {
         action="end"
         caseStatusType="CIN"
         prefilledFields={{}}
-        currentCaseStatusStartDate="2021-01-01"
       />
     );
 
@@ -49,7 +47,6 @@ describe('EditCaseStatusForm', () => {
         prefilledFields={{
           category: 'C3',
         }}
-        currentCaseStatusStartDate="2021-01-01"
       />
     );
 
@@ -66,7 +63,6 @@ describe('EditCaseStatusForm', () => {
         action="edit"
         caseStatusType="CP"
         prefilledFields={{}}
-        currentCaseStatusStartDate="2021-01-01"
       />
     );
 
@@ -82,7 +78,6 @@ describe('EditCaseStatusForm', () => {
         action="edit"
         caseStatusType="LAC"
         prefilledFields={{}}
-        currentCaseStatusStartDate="2021-01-01"
       />
     );
 
@@ -101,7 +96,6 @@ describe('EditCaseStatusForm', () => {
         action="end"
         caseStatusType="LAC"
         prefilledFields={{}}
-        currentCaseStatusStartDate="2021-01-01"
       />
     );
 
@@ -118,7 +112,6 @@ describe('EditCaseStatusForm', () => {
         action="end"
         caseStatusType="LAC"
         prefilledFields={{}}
-        currentCaseStatusStartDate="2021-01-01"
       />
     );
 
@@ -128,7 +121,7 @@ describe('EditCaseStatusForm', () => {
     ).toBeInTheDocument();
   });
 
-  it('prefills the start date with the current case status start date', () => {
+  it.only('prefills the start date with the current case status start date', () => {
     const startDate = '2021-01-01';
     const { getByTestId, getByText } = render(
       <EditCaseStatusForm
@@ -145,6 +138,7 @@ describe('EditCaseStatusForm', () => {
     const clickDateBox = getByTestId('text-raw-field');
     expect(clickDateBox.getAttribute('value')).toEqual(startDate);
   });
+
   it('should enable the submit button when completed', () => {
     const { getByTestId } = render(
       <EditCaseStatusForm
@@ -156,9 +150,28 @@ describe('EditCaseStatusForm', () => {
           notes: 'this is a note',
           startDate: '2020-01-01',
         }}
-        currentCaseStatusStartDate="2021-01-01"
       />
     );
     expect(getByTestId('submit_button')).not.toBeDisabled();
+  });
+
+  it('Test click on back button', () => {
+    const startDate = '2021-01-01';
+    const { getByTestId } = render(
+      <EditCaseStatusForm
+        personId={mockedResident.id}
+        caseStatusId={123}
+        action="edit"
+        caseStatusType="CIN"
+        prefilledFields={{
+          notes: 'this is a note',
+          startDate: '2020-01-01',
+        }}
+        currentCaseStatusStartDate={startDate}
+      />
+    );
+
+    const button = getByTestId('cancel_button');
+    expect(button.getAttribute('href')).toContain(startDate);
   });
 });

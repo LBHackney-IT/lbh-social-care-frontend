@@ -17,7 +17,7 @@ const EditCaseStatusForm: React.FC<{
   prefilledFields: any;
   caseStatusType: string;
   action: string;
-  currentCaseStatusStartDate: string;
+  currentCaseStatusStartDate?: string;
 }> = ({
   personId,
   caseStatusId,
@@ -157,6 +157,7 @@ const EditCaseStatusForm: React.FC<{
             >
               <a
                 className={`lbh-link lbh-link--no-visited-state govuk-!-margin-left-3`}
+                data-testid="cancel_button"
               >
                 Cancel
               </a>
