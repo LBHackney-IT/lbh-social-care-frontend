@@ -44,7 +44,7 @@ describe('Using case status', () => {
   });
 
   describe('As a user in the Childrens group', () => {
-    xdescribe('CIN case status', () => {
+    describe('CIN case status', () => {
       it('should validate that when adding a CIN case status, a start date is required and the start date must be today or in the past', () => {
         cy.visitAs(
           `/people/${Cypress.env('CHILDREN_RECORD_PERSON_ID')}`,
@@ -113,7 +113,7 @@ describe('Using case status', () => {
           AuthRoles.ChildrensGroup
         );
 
-        cy.contains('edit').click();
+        cy.contains('Edit / End').click();
         cy.get(`input[value=edit]`).check();
         cy.get('[data-testid=submit_button]').click();
         cy.url().should('include', '/edit/edit');
@@ -134,13 +134,13 @@ describe('Using case status', () => {
       });
 
       //Edit needs more work
-      xit('should be possible to edit a CIN case status', () => {
+      it('should be possible to edit a CIN case status', () => {
         cy.visitAs(
           `/people/${Cypress.env('CHILDREN_RECORD_PERSON_ID')}/details`,
           AuthRoles.ChildrensGroup
         );
 
-        cy.contains('edit').click();
+        cy.contains('Edit / End').click();
         cy.get(`input[value=edit]`).check();
         cy.get('[data-testid=submit_button]').click();
         cy.url().should('include', '/edit/edit');
@@ -169,7 +169,7 @@ describe('Using case status', () => {
           AuthRoles.ChildrensGroup
         );
 
-        cy.contains('edit').click();
+        cy.contains('Edit / End').click();
         cy.get(`input[value=end]`).check();
         cy.get('[data-testid=submit_button]').click();
         cy.url().should('include', '/edit/edit');
@@ -181,7 +181,7 @@ describe('Using case status', () => {
         cy.contains('Date cannot be before start date').should('be.visible');
         cy.get('[data-testid=text-field-error-message]').should('exist');
 
-        cy.get('input[name=endDate]').clear().type(CINcaseStatusStartDate);
+        cy.get('input[name=endDate]').clear().type(CINcaseStatusStartDateEdit);
         cy.get('label[for=endDate]').click();
         cy.get('[data-testid=text-field-error-message]').should('not.exist');
 
@@ -196,14 +196,14 @@ describe('Using case status', () => {
           AuthRoles.ChildrensGroup
         );
 
-        cy.contains('edit').click();
+        cy.contains('Edit / End').click();
         cy.get(`input[value=end]`).check();
         cy.get('[data-testid=submit_button]').click();
         cy.url().should('include', '/edit/edit');
-        cy.get('input[name=endDate]').clear().type(CINcaseStatusStartDate);
+        cy.get('input[name=endDate]').clear().type(CINcaseStatusStartDateEdit);
         cy.get('[data-testid=submit_button]').click();
         cy.url().should('include', '/review');
-        cy.contains(CINcaseStatusStartDateText).should('be.visible');
+        cy.contains(CINcaseStatusStartDateEditText).should('be.visible');
         cy.contains('button', 'Yes, end').click();
 
         cy.url().should('include', '/details');
@@ -212,7 +212,7 @@ describe('Using case status', () => {
       });
     });
 
-    describe('CP case status', () => {
+    xdescribe('CP case status', () => {
       it('should validate that when adding a CP case status, a start date and answer is required and the start date must be today or in the past', () => {
         cy.visitAs(
           `/people/${Cypress.env('CHILDREN_RECORD_PERSON_ID')}`,
@@ -377,7 +377,7 @@ describe('Using case status', () => {
       });
     });
 
-    describe('LAC case status', () => {
+    xdescribe('LAC case status', () => {
       it('should validate that when adding a LAC case status, a start date and two answers are required and the start date must be today or in the past', () => {
         cy.visitAs(
           `/people/${Cypress.env('CHILDREN_RECORD_PERSON_ID')}`,
