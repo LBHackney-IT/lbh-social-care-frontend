@@ -18,13 +18,17 @@ const MASHtable = ({
     <>
       <li className={s.row}>
         <div>
-          <p className="lbh-body-s govuk-!-margin-bottom-3">
-            <dt>
-              <span className="govuk-tag lbh-tag lbh-tag--green">
-                {timeleft} left
-              </span>{' '}
-              {datetime}
-            </dt>
+          <p className="lbh-body-m govuk-!-margin-bottom-3">
+            <span className="govuk-tag lbh-tag lbh-tag--green">
+              {timeleft} left
+            </span>{' '}
+            {datetime}
+            <span
+              className="lbh-body-l lbh-!-font-weight-bold"
+              style={{ float: 'right', display: 'block' }}
+            >
+              <a href="#">Action </a>
+            </span>
           </p>
           <hr className={s.line} />
           <dl className={s.stats}>
