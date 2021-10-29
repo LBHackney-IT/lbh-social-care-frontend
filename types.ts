@@ -325,6 +325,8 @@ export interface CaseStatusFields {
   value: string;
   startDate: string;
   createdAt: string;
+  groupId?: string;
+  endDate?: string;
 }
 
 export interface CaseStatus {
@@ -433,6 +435,13 @@ export interface CaseStatusFormValue {
   value: string;
 }
 
+export interface CaseStatusAnswerDisplay {
+  startDate: string;
+  endDate?: string;
+  status: CaseStatusFields[];
+  createdAt?: string;
+}
+
 export interface EditCaseStatusFormData {
   personId: number;
   caseStatusID: number;
@@ -458,4 +467,19 @@ export interface UpdateLACCaseStatusFormData {
 export interface Paginated<T> {
   items: T[];
   count: number;
+}
+
+export interface MashReferral {
+  id: string;
+  referrer: string;
+  requestedSupport: string;
+  assignedTo: Worker | undefined;
+  createdAt: string;
+  clients: string[];
+  referralDocumentURI: string;
+  stage: string;
+  initialDecision: string | undefined;
+  screeningDecision: string | undefined;
+  finalDecision: string | undefined;
+  referralCategory: string | undefined;
 }
