@@ -57,7 +57,7 @@ describe('CaseStatusDetailsTable component', () => {
       />
     );
 
-    const elements = getByTestId('end_date');
+    const elements = getByTestId('start_end_date');
     expect(elements).not.toBeNull();
     expect(queryByText('09 Sept 2022')).toBeInTheDocument;
   });

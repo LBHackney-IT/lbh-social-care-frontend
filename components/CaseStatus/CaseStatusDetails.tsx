@@ -38,9 +38,6 @@ const CaseStatusDetails = ({ person }: Props): React.ReactElement => {
         let pastStatusStartDate;
         let currentStatusStartDate;
 
-        console.log('currentStatusAnswers', currentStatusAnswers);
-        console.log('pastStatusAnswers', pastStatusAnswers);
-
         if (
           pastStatusAnswers &&
           pastStatusAnswers.length > 0 &&

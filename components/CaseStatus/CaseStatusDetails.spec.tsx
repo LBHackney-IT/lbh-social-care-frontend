@@ -124,7 +124,7 @@ describe('CaseStatusDetail component', () => {
             mockedStatusField.build({
               option: 'category',
               value: 'C2',
-              startDate: '2021-10-10',
+              startDate: '2021-09-09',
               createdAt: '2021-09-08T10:54:32Z',
             }),
           ],
@@ -145,7 +145,11 @@ describe('CaseStatusDetail component', () => {
       queryByText('Category of child protection plan')
     ).toBeInTheDocument();
     expect(queryByText('Physical abuse')).toBeInTheDocument();
-    expect(queryByText('10 Oct 2021')).toBeInTheDocument();
+    expect(queryByText('Dates')).toBeInTheDocument();
+
+    const elements = getByTestId('start_end_date');
+    expect(elements.textContent).toMatch(/(09 Sept 2021)/i);
+    expect(elements.textContent).toMatch(/(10 Sept 2021)/i);
   });
 
   it('displays the case status answer even if an invalid value is passed', async () => {
@@ -403,9 +407,8 @@ describe('LAC Specific Tests for CaseStatusDetail component', () => {
       revalidate: jest.fn(),
     }));
 
-    const { queryByText, queryAllByText, queryAllByTestId } = render(
-      <CaseStatusDetails person={mockedResident} />
-    );
+    const { getByTestId, queryByText, queryAllByText, queryAllByTestId } =
+      render(<CaseStatusDetails person={mockedResident} />);
 
     const caseStatusDetailsTableElements = queryAllByTestId(
       'case_status_details_table'
@@ -414,8 +417,11 @@ describe('LAC Specific Tests for CaseStatusDetail component', () => {
     expect(caseStatusDetailsTableElements.length).toBe(2);
     expect(scheduledChangesElement.length).toBe(1);
     expect(queryByText('Previous version')).not.toBeInTheDocument();
-    expect(queryByText('09 Oct 2040')).toBeInTheDocument();
-    expect(queryByText('08 Oct 2040')).toBeInTheDocument();
+
+    const elements = getByTestId('start_end_date');
+    expect(elements.textContent).toMatch(/(09 Oct 2040)/i);
+    expect(elements.textContent).toMatch(/(08 Oct 2040)/i);
+
     expect(queryByText('P3: Residential employment')).toBeInTheDocument();
     expect(queryByText('C1: Interim care order')).toBeInTheDocument();
     expect(queryByText('R1: Residential care home')).toBeInTheDocument();
