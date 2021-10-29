@@ -32,7 +32,7 @@ const CaseStatusDetailsTable = ({
     start_date &&
       !end_date &&
       htmlElements.push(
-        <div className="govuk-summary-list__row">
+        <>
           <dt className="govuk-summary-list__key ">Start date</dt>
           <dd className="govuk-summary-list__value" data-testid="start_date">
             {new Date(start_date).toLocaleDateString('en-GB', {
@@ -41,13 +41,13 @@ const CaseStatusDetailsTable = ({
               year: 'numeric',
             })}
           </dd>
-        </div>
+        </>
       );
 
     start_date &&
       end_date &&
       htmlElements.push(
-        <div className="govuk-summary-list__row">
+        <>
           <dt className="govuk-summary-list__key">Dates</dt>
           <dd
             className="govuk-summary-list__value"
@@ -65,7 +65,7 @@ const CaseStatusDetailsTable = ({
               year: 'numeric',
             })}
           </dd>
-        </div>
+        </>
       );
   } else if (status.type.toUpperCase() == 'LAC') {
     let start_date = status.startDate;
@@ -107,7 +107,7 @@ const CaseStatusDetailsTable = ({
     start_date &&
       !end_date &&
       htmlElements.push(
-        <div className="govuk-summary-list__row">
+        <>
           <dt className="govuk-summary-list__key ">Start date</dt>
           <dd className="govuk-summary-list__value" data-testid="start_date">
             {new Date(start_date).toLocaleDateString('en-GB', {
@@ -116,13 +116,13 @@ const CaseStatusDetailsTable = ({
               year: 'numeric',
             })}
           </dd>
-        </div>
+        </>
       );
 
     start_date &&
       end_date &&
       htmlElements.push(
-        <div className="govuk-summary-list__row">
+        <>
           <dt className="govuk-summary-list__key">Dates</dt>
           <dd
             className="govuk-summary-list__value"
@@ -140,7 +140,7 @@ const CaseStatusDetailsTable = ({
               year: 'numeric',
             })}
           </dd>
-        </div>
+        </>
       );
   }
 
@@ -157,7 +157,12 @@ const CaseStatusDetailsTable = ({
         data-testid="case_status_details_table"
       >
         {htmlElements.map((elm) => {
-          return <div key={`table_${styleType}`}> {elm} </div>;
+          return (
+            <div className="govuk-summary-list__row" key={`table_${styleType}`}>
+              {' '}
+              {elm}
+            </div>
+          );
         })}
 
         {answers &&
