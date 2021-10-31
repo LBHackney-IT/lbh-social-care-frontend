@@ -212,7 +212,7 @@ describe('Using case status', () => {
       });
     });
 
-    xdescribe('CP case status', () => {
+    describe('CP case status', () => {
       it('should validate that when adding a CP case status, a start date and answer is required and the start date must be today or in the past', () => {
         cy.visitAs(
           `/people/${Cypress.env('CHILDREN_RECORD_PERSON_ID')}`,
@@ -251,16 +251,6 @@ describe('Using case status', () => {
           AuthRoles.ChildrensGroup
         );
 
-        cy.request(
-          'GET',
-          `/api/residents/${Cypress.env(
-            'CHILDREN_RECORD_PERSON_ID'
-          )}/casestatus`
-        ).then((request) => {
-          const status = request;
-          console.log('status', status);
-        });
-
         cy.contains('Add a case status').click();
         cy.get(`input[value=CP]`).check();
         cy.get('input[name=startDate]').clear().type(CPcaseStatusStartDate);
@@ -285,7 +275,7 @@ describe('Using case status', () => {
           AuthRoles.ChildrensGroup
         );
 
-        cy.contains('edit').click();
+        cy.contains('Edit / End').click();
         cy.get(`input[value=edit]`).check();
         cy.get('[data-testid=submit_button]').click();
         cy.url().should('include', '/edit/edit');
@@ -305,13 +295,13 @@ describe('Using case status', () => {
       });
 
       //Edit needs more work
-      xit('should be possible to edit a CP case status', () => {
+      it('should be possible to edit a CP case status', () => {
         cy.visitAs(
           `/people/${Cypress.env('CHILDREN_RECORD_PERSON_ID')}/details`,
           AuthRoles.ChildrensGroup
         );
 
-        cy.contains('edit').click();
+        cy.contains('Edit / End').click();
         cy.get(`input[value=edit]`).check();
         cy.get('[data-testid=submit_button]').click();
         cy.url().should('include', '/edit/edit');
@@ -336,7 +326,7 @@ describe('Using case status', () => {
           AuthRoles.ChildrensGroup
         );
 
-        cy.contains('edit').click();
+        cy.contains('Edit / End').click();
         cy.get(`input[value=end]`).check();
         cy.get('[data-testid=submit_button]').click();
         cy.url().should('include', '/edit/edit');
@@ -346,7 +336,7 @@ describe('Using case status', () => {
         cy.contains('Date cannot be before start date').should('be.visible');
         cy.get('[data-testid=text-field-error-message]').should('exist');
 
-        cy.get('input[name=endDate]').clear().type(CPcaseStatusStartDate);
+        cy.get('input[name=endDate]').clear().type(CPcaseStatusStartDateEdit);
         cy.get('label[for=endDate]').click();
         cy.get('[data-testid=text-field-error-message]').should('not.exist');
 
@@ -361,14 +351,14 @@ describe('Using case status', () => {
           AuthRoles.ChildrensGroup
         );
 
-        cy.contains('edit').click();
+        cy.contains('Edit / End').click();
         cy.get(`input[value=end]`).check();
         cy.get('[data-testid=submit_button]').click();
         cy.url().should('include', '/edit/edit');
-        cy.get('input[name=endDate]').clear().type(CPcaseStatusStartDate);
+        cy.get('input[name=endDate]').clear().type(CPcaseStatusStartDateEdit);
         cy.get('[data-testid=submit_button]').click();
         cy.url().should('include', '/review');
-        cy.contains(CPcaseStatusStartDateText).should('be.visible');
+        cy.contains(CPcaseStatusStartDateEditText).should('be.visible');
         cy.contains('button', 'Yes, end').click();
 
         cy.url().should('include', '/details');
@@ -377,7 +367,7 @@ describe('Using case status', () => {
       });
     });
 
-    xdescribe('LAC case status', () => {
+    describe('LAC case status', () => {
       it('should validate that when adding a LAC case status, a start date and two answers are required and the start date must be today or in the past', () => {
         cy.visitAs(
           `/people/${Cypress.env('CHILDREN_RECORD_PERSON_ID')}`,
@@ -446,7 +436,7 @@ describe('Using case status', () => {
           AuthRoles.ChildrensGroup
         );
 
-        cy.contains('edit').click();
+        cy.contains('Edit / End').click();
         cy.get(`input[value=edit]`).check();
         cy.get('[data-testid=submit_button]').click();
         cy.url().should('include', '/edit/edit');
@@ -474,7 +464,7 @@ describe('Using case status', () => {
           AuthRoles.ChildrensGroup
         );
 
-        cy.contains('edit').click();
+        cy.contains('Edit / End').click();
         cy.get(`input[value=edit]`).check();
         cy.get('[data-testid=submit_button]').click();
         cy.url().should('include', '/edit/edit');
@@ -503,7 +493,7 @@ describe('Using case status', () => {
           AuthRoles.ChildrensGroup
         );
 
-        cy.contains('edit').click();
+        cy.contains('Edit / End').click();
         cy.get(`input[value=end]`).check();
         cy.get('[data-testid=submit_button]').click();
         cy.url().should('include', '/edit/edit');
@@ -515,7 +505,7 @@ describe('Using case status', () => {
         cy.contains('Date cannot be before start date').should('be.visible');
         cy.get('[data-testid=text-field-error-message]').should('exist');
 
-        cy.get('input[name=endDate]').clear().type(LACcaseStatusStartDate);
+        cy.get('input[name=endDate]').clear().type(LACcaseStatusStartDateEdit);
         cy.get('label[for=endDate]').click();
         cy.get('[data-testid=text-field-error-message]').should('not.exist');
 
@@ -530,15 +520,15 @@ describe('Using case status', () => {
           AuthRoles.ChildrensGroup
         );
 
-        cy.contains('edit').click();
+        cy.contains('Edit / End').click();
         cy.get(`input[value=end]`).check();
         cy.get('[data-testid=submit_button]').click();
         cy.url().should('include', '/edit/edit');
-        cy.get('input[name=endDate]').clear().type(LACcaseStatusStartDate);
+        cy.get('input[name=endDate]').clear().type(LACcaseStatusStartDateEdit);
         cy.get('select[id=episodeReason]').select('E16: Child moved abroad');
         cy.get('[data-testid=submit_button]').click();
         cy.url().should('include', '/review');
-        cy.contains(LACcaseStatusStartDateText).should('be.visible');
+        cy.contains(LACcaseStatusStartDateEditText).should('be.visible');
         cy.contains('E16: Child moved abroad').should('be.visible');
         cy.contains('button', 'Yes, end').click();
 
