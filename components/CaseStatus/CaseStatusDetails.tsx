@@ -95,7 +95,7 @@ const CaseStatusDetails = ({ person }: Props): React.ReactElement => {
                   <CaseStatusDetailsTable
                     key={`Current status - ${currentStatusDateGroup.startDate}`}
                     status={status}
-                    sheduledStatus={scheduledStatusAnswers}
+                    scheduledStatus={scheduledStatusAnswers}
                     answers={currentStatusDateGroup}
                   />
                 ))}
