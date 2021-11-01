@@ -121,6 +121,7 @@ const CaseStatusDetails = ({ person }: Props): React.ReactElement => {
                     styleType={styles.previousStatusFont}
                     status={status}
                     answers={previousStatusDateGroup}
+                    currentStatus={currentStatusAnswers}
                   />
                 ))}
             </section>

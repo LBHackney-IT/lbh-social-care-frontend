@@ -10,6 +10,7 @@ interface Props {
   status: CaseStatus;
   answers?: CaseStatusAnswerDisplay;
   sheduledStatus?: CaseStatusAnswerDisplay[];
+  currentStatus?: CaseStatusAnswerDisplay[];
 }
 
 const CaseStatusDetailsTable = ({
@@ -18,6 +19,7 @@ const CaseStatusDetailsTable = ({
   status,
   answers,
   sheduledStatus,
+  currentStatus,
 }: Props): React.ReactElement => {
   if (!status) {
     return <></>;
@@ -71,6 +73,8 @@ const CaseStatusDetailsTable = ({
     let start_date = status.startDate;
     let end_date = status.endDate;
 
+    console.log(answers);
+
     if (!sheduledStatus && answers?.startDate && !answers.endDate) {
       start_date = answers.startDate;
     }
@@ -102,6 +106,10 @@ const CaseStatusDetailsTable = ({
       status.endDate
     ) {
       end_date = status.endDate;
+    }
+
+    if (currentStatus && !end_date && !answers?.endDate && !status.endDate) {
+      end_date = currentStatus[0].startDate;
     }
 
     start_date &&
