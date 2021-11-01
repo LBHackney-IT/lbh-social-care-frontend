@@ -73,8 +73,6 @@ const CaseStatusDetailsTable = ({
     let start_date = status.startDate;
     let end_date = status.endDate;
 
-    console.log(answers);
-
     if (!sheduledStatus && answers?.startDate && !answers.endDate) {
       start_date = answers.startDate;
     }
