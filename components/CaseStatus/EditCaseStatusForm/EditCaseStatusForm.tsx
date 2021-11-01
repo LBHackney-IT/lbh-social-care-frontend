@@ -80,23 +80,23 @@ const EditCaseStatusForm: React.FC<{
       currentCaseStatusStartDate &&
       currentCaseStatusStartDate !== 'undefined'
     ) {
-      const activeCaseStatusStartDate = new Date(currentCaseStatusStartDate);
+      const currentStartDateValidation = new Date(currentCaseStatusStartDate);
 
       if (action == 'update') {
-        activeCaseStatusStartDate.setDate(
-          activeCaseStatusStartDate.getDate() + 1
+        currentStartDateValidation.setDate(
+          currentStartDateValidation.getDate() + 1
         );
       }
 
       form_fields.map((field: any) => {
         if (field.id === 'startDate' || field.id === 'endDate') {
           field.startDate = format(
-            new Date(activeCaseStatusStartDate),
+            new Date(currentStartDateValidation),
             'yyyy-MM-dd'
           );
 
           field.default = format(
-            new Date(activeCaseStatusStartDate),
+            new Date(currentStartDateValidation),
             'yyyy-MM-dd'
           );
         }

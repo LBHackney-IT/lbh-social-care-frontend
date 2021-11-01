@@ -44,31 +44,9 @@ describe('UpdateCaseStatusForm', () => {
 });
 
 describe('UpdateCaseStatusForm validations', () => {
-  it('display validation text and disables submit button when scheduled start date is set to be on or before current active case status start date', async () => {
-    const { getByText, getByTestId } = render(
-      <UpdateCaseStatusForm
-        personId={mockedResident.id}
-        caseStatusId={123}
-        action="update"
-        caseStatusType="LAC"
-        currentCaseStatusStartDate="2020-10-10"
-        prefilledFields={{ startDate: '2021-10-10' }}
-      />
-    );
-    const clickDateBox = getByTestId('text-raw-field');
-
-    await act(async () => {
-      fireEvent.click(clickDateBox);
-      fireEvent.focusOut(clickDateBox);
-    });
-
-    expect(getByText('Date cannot be before start date')).toBeInTheDocument();
-    expect(getByTestId('submit_button')).toBeDisabled();
-  });
-
   it('prefills the start date with the current case status start date (+1) when updating a LAC', () => {
     const startDate = '2021-01-01';
-    const { getByTestId, getByText } = render(
+    const { getByTestId } = render(
       <UpdateCaseStatusForm
         personId={mockedResident.id}
         caseStatusId={123}
@@ -78,8 +56,6 @@ describe('UpdateCaseStatusForm validations', () => {
         currentCaseStatusStartDate={startDate}
       />
     );
-    expect(getByText('Start Date')).toBeInTheDocument();
-
     const clickDateBox = getByTestId('text-raw-field');
     expect(clickDateBox.getAttribute('value')).toEqual('2021-01-02');
   });
