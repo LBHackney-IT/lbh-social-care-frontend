@@ -15,9 +15,11 @@ const todayDate = format(new Date(), 'yyyy-MM-dd');
 //These need updated each time the test are run
 const caseStatusStartDate = '2000-01-12';
 const caseStatusStartDateText = '12 Jan 2000';
-const caseStatusStartDateEdit = '2000-01-13';
-const caseStatusStartDateEditText = '13 Jan 2000';
+const caseStatusStartDateEdit = '2000-01-11';
+const caseStatusStartDateEditText = '11 Jan 2000';
 const caseStatusBeforeStartDate = '2000-01-01';
+const caseStatusScheduledStartDate = '2040-02-01';
+const caseStatusScheduledStartDateText = '01 Feb 2040';
 
 // const CINcaseStatusStartDate = '2000-01-12';
 // const CINcaseStatusStartDateText = '12 Jan 2000';
@@ -50,7 +52,7 @@ describe('Using case status', () => {
   });
 
   describe('As a user in the Childrens group', () => {
-    xdescribe('CIN case status', () => {
+    describe('CIN case status', () => {
       it('should validate that when adding a CIN case status, a start date is required and the start date must be today or in the past', () => {
         cy.visitAs(
           `/people/${Cypress.env('CHILDREN_RECORD_PERSON_ID')}`,
@@ -202,7 +204,7 @@ describe('Using case status', () => {
       });
     });
 
-    xdescribe('CP case status', () => {
+    describe('CP case status', () => {
       it('should validate that when adding a CP case status, a start date and answer is required and the start date must be today or in the past', () => {
         cy.visitAs(
           `/people/${Cypress.env('CHILDREN_RECORD_PERSON_ID')}`,
@@ -471,6 +473,42 @@ describe('Using case status', () => {
         cy.url().should('include', '/details');
         cy.contains('Looked after child').should('be.visible');
         cy.contains(caseStatusStartDateEditText).should('be.visible');
+      });
+
+      //Update - Scheduled case status
+      xit('should be possible to update a LAC case status to have a scheduled case status', () => {
+        cy.visitAs(
+          `/people/${Cypress.env('CHILDREN_RECORD_PERSON_ID')}/details`,
+          AuthRoles.ChildrensGroup
+        );
+
+        cy.contains('Edit / End').click();
+        cy.get(`input[value=update]`).check();
+        cy.get('[data-testid=submit_button]').click();
+        cy.url().should('include', '/update/edit');
+        cy.get('input[name=startDate]')
+          .clear()
+          .type(caseStatusScheduledStartDate);
+        cy.get('select[id=legalStatus]').select(
+          'L2: Emergency protection order (EPO)'
+        );
+        cy.get('select[id=placementType]').select(
+          'K1: Secure children’s homes'
+        );
+        cy.get('[data-testid=submit_button]').click();
+
+        cy.url().should('include', '/update/review');
+        cy.contains('Looked after child').should('be.visible');
+        cy.contains(caseStatusScheduledStartDateText).should('be.visible');
+        cy.contains('L2: Emergency protection order (EPO)').should(
+          'be.visible'
+        );
+        cy.contains('K1: Secure children’s homes');
+        cy.contains('button', 'Yes, update').click();
+
+        cy.url().should('include', '/details');
+        cy.contains('Looked after child').should('be.visible');
+        cy.contains(caseStatusScheduledStartDateText).should('be.visible');
       });
 
       it('should validate when ending a LAC case status that the end date cannot be before the case status start date, start date can be in the future', () => {
