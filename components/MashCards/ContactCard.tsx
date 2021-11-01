@@ -1,18 +1,18 @@
 import s from './MashCard.module.scss';
 
 interface Props {
-  clientname: string;
-  timeleft: string;
-  datetime: string;
-  info1: string;
-  info2: string;
+  clientName: string;
+  timeLeft: string;
+  dateTime: string;
+  referrer: string;
+  requestedSupport: string;
 }
-const MASHtable = ({
-  clientname,
-  timeleft,
-  datetime,
-  info1,
-  info2,
+const ContactCard = ({
+  clientName,
+  timeLeft,
+  dateTime,
+  referrer,
+  requestedSupport,
 }: Props): React.ReactElement | null => {
   return (
     <>
@@ -20,9 +20,9 @@ const MASHtable = ({
         <div>
           <p className="lbh-body-m govuk-!-margin-bottom-3">
             <span className="govuk-tag lbh-tag lbh-tag--green">
-              {timeleft} left
+              {timeLeft} left
             </span>{' '}
-            {datetime}
+            {dateTime}
             <span
               className="lbh-body-l lbh-!-font-weight-bold"
               style={{ float: 'right', display: 'block' }}
@@ -35,16 +35,16 @@ const MASHtable = ({
             <div>
               <dt>Name of client</dt>
               <dd>
-                <a href="#">{clientname} (referral)</a>
+                <a href="#">{clientName} (referral)</a>
               </dd>
             </div>
             <div>
-              <dt>Initial decision</dt>
-              <dd>{info1}</dd>
+              <dt>Referrer</dt>
+              <dd>{referrer}</dd>
             </div>
             <div>
-              <dt>Referral category</dt>
-              <dd>{info2}</dd>
+              <dt>Requested support</dt>
+              <dd>{requestedSupport}</dd>
             </div>
             <div>
               <a>Assign</a>
@@ -57,4 +57,4 @@ const MASHtable = ({
   );
 };
 
-export default MASHtable;
+export default ContactCard;

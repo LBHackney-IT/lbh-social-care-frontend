@@ -3,18 +3,18 @@ import { GetServerSideProps } from 'next';
 import { isAuthorised } from 'utils/auth';
 import { getAllMashReferrals } from 'lib/mashReferral';
 import MashDashboard from 'components/MashDashboard/MashDashboard';
+import { MashReferral } from 'types';
 
 interface Props {
   referrals: [];
+  mashReferral: MashReferral[];
 }
 
 export const TeamAssignments = ({ referrals }: Props): React.ReactElement => {
   return (
     <div>
       <DashboardWrapper>
-        <>
-          <MashDashboard referrals={referrals} />
-        </>
+        <MashDashboard referrals={referrals} />
       </DashboardWrapper>
     </div>
   );

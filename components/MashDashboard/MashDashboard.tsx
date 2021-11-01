@@ -1,7 +1,7 @@
 import st from 'components/Tabs/Tabs.module.scss';
 import { useState } from 'react';
 import Tab from 'components/SubmissionsTable/Tab';
-import Card from 'components/MashCards/MashCard';
+import MainCard from 'components/MashCards/MainCard';
 import { MashReferral } from 'types';
 
 interface Props {
@@ -49,17 +49,9 @@ export const MashDashboard = ({ referrals }: Props): React.ReactElement => {
             </Tab>
           </ul>
         </fieldset>
-        {mashReferrals.map((referral) => (
-          <div key={referral.id}>
-            <Card
-              clientname={referral.clients[0]}
-              timeleft="4 hours"
-              datetime={referral.createdAt}
-              info1={referral.referrer}
-              info2={referral.requestedSupport}
-            ></Card>
-          </div>
-        ))}
+        <div>
+          <MainCard filter={filter} mashReferrals={mashReferrals}></MainCard>
+        </div>
       </>
     </div>
   );
