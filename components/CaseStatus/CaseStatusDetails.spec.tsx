@@ -148,8 +148,8 @@ describe('CaseStatusDetail component', () => {
     expect(queryByText('Dates')).toBeInTheDocument();
 
     const elements = getByTestId('start_end_date');
-    expect(elements.textContent).toMatch(/(09 Sept 2021)/i);
-    expect(elements.textContent).toMatch(/(10 Sept 2021)/i);
+    expect(elements.textContent).toMatch(/(09 Sept 2021|09 Sep 2021)/i);
+    expect(elements.textContent).toMatch(/(10 Sept 2021|10 Sep 2021)/i);
   });
 
   it('displays the case status answer even if an invalid value is passed', async () => {
