@@ -476,7 +476,7 @@ describe('Using case status', () => {
       });
 
       //Update - Scheduled case status
-      xit('should be possible to update a LAC case status to have a scheduled case status', () => {
+      it('should be possible to update a LAC case status to have a scheduled case status', () => {
         cy.visitAs(
           `/people/${Cypress.env('CHILDREN_RECORD_PERSON_ID')}/details`,
           AuthRoles.ChildrensGroup
