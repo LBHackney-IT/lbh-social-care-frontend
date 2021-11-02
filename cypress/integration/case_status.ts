@@ -185,7 +185,7 @@ describe('Using case status', () => {
         cy.get('[data-testid=text-field-error-message]').should('not.exist');
       });
 
-      it.only('should be possible to end the CIN case status', () => {
+      it('should be possible to end the CIN case status', () => {
         cy.visitAs(
           `/people/${Cypress.env('CHILDREN_RECORD_PERSON_ID')}/details`,
           AuthRoles.ChildrensGroup,
@@ -314,7 +314,6 @@ describe('Using case status', () => {
         cy.get('[data-testid=text-field-error-message]').should('not.exist');
       });
 
-      //Edit needs more work
       it('should be possible to edit a CP case status', () => {
         cy.visitAs(
           `/people/${Cypress.env('CHILDREN_RECORD_PERSON_ID')}/details`,
@@ -397,14 +396,22 @@ describe('Using case status', () => {
         cy.contains('button', 'Yes, end').click();
 
         cy.url().should('include', '/details');
-        cy.get('[data-testid=expand_details]').should('not.exist');
+
+        cy.visitAs(
+          `/people/${Cypress.env('CHILDREN_RECORD_PERSON_ID')}`,
+          AuthRoles.ChildrensGroup,
+          {
+            timeout: 3000,
+          }
+        );
+        cy.wait('@getCaseStatus');
         cy.contains('Add a case status', {
-          timeout: 20000,
+          timeout: 30000,
         }).should('be.visible');
       });
     });
 
-    xdescribe('LAC case status', () => {
+    describe('LAC case status', () => {
       it('should validate that when adding a LAC case status, a start date and two answers are required and the start date must be today or in the past', () => {
         cy.visitAs(
           `/people/${Cypress.env('CHILDREN_RECORD_PERSON_ID')}`,
@@ -632,9 +639,16 @@ describe('Using case status', () => {
         cy.contains('button', 'Yes, end').click();
 
         cy.url().should('include', '/details');
-        cy.get('[data-testid=expand_details]').should('not.exist');
+        cy.visitAs(
+          `/people/${Cypress.env('CHILDREN_RECORD_PERSON_ID')}`,
+          AuthRoles.ChildrensGroup,
+          {
+            timeout: 3000,
+          }
+        );
+        cy.wait('@getCaseStatus');
         cy.contains('Add a case status', {
-          timeout: 20000,
+          timeout: 30000,
         }).should('be.visible');
       });
     });
