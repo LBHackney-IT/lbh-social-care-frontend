@@ -37,7 +37,7 @@
   @include govuk-media-query($from: tablet) {
     display: grid;
     grid-template-columns: 1.8fr 1fr 1fr 0.2fr;
-    gap: 75px;
+    gap: 60px;
     div {
       margin-bottom: 0px;
     }

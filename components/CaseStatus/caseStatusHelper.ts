@@ -55,7 +55,6 @@ export const sortCaseStatusAnswers = (
   let pastStatus: CaseStatusAnswerDisplay[] | undefined;
 
   const groupedAnswers = groupAnswersByGroupId(caseStatuses.answers);
-
   if (caseStatuses.type !== 'LAC') {
     if (groupedAnswers && groupedAnswers.length > 1) {
       currentStatus = [groupedAnswers[0]];
