@@ -207,9 +207,14 @@ describe('Using case status', () => {
         cy.contains('button', 'Yes, end').click();
 
         cy.url().should('include', '/details');
-        cy.get('[data-testid=expand_details]').should('not.exist');
-        // eslint-disable-next-line cypress/no-unnecessary-waiting
-        cy.wait(30000);
+        cy.visitAs(
+          `/people/${Cypress.env('CHILDREN_RECORD_PERSON_ID')}`,
+          AuthRoles.ChildrensGroup,
+          {
+            timeout: 3000,
+          }
+        );
+        cy.wait('@getCaseStatus');
         cy.contains('Add a case status', {
           timeout: 30000,
         }).should('be.visible');
