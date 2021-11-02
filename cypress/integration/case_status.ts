@@ -207,9 +207,9 @@ describe('Using case status', () => {
         cy.contains('button', 'Yes, end').click();
 
         cy.url().should('include', '/details');
-        cy.get('[data-testid=case_status_details]').should('not.exist');
+        cy.get('[data-testid=expand_details]').should('not.exist');
         cy.contains('Add a case status', {
-          timeout: 20000,
+          timeout: 30000,
         }).should('be.visible');
       });
     });
@@ -390,6 +390,7 @@ describe('Using case status', () => {
         cy.contains('button', 'Yes, end').click();
 
         cy.url().should('include', '/details');
+        cy.get('[data-testid=expand_details]').should('not.exist');
         cy.contains('Add a case status', {
           timeout: 20000,
         }).should('be.visible');
@@ -624,8 +625,7 @@ describe('Using case status', () => {
         cy.contains('button', 'Yes, end').click();
 
         cy.url().should('include', '/details');
-        cy.wait('@getCaseStatus');
-        cy.get('[data-testid=case_status_details]').should('not.exist');
+        cy.get('[data-testid=expand_details]').should('not.exist');
         cy.contains('Add a case status', {
           timeout: 20000,
         }).should('be.visible');
