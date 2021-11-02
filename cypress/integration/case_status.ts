@@ -187,7 +187,7 @@ describe('Using case status', () => {
           `/people/${Cypress.env('CHILDREN_RECORD_PERSON_ID')}/details`,
           AuthRoles.ChildrensGroup
         );
-
+        cy.url().should('include', '/details');
         cy.contains('Edit / End').click();
         cy.get(`input[value=end]`).check();
         cy.get('[data-testid=submit_button]').click();
@@ -342,7 +342,7 @@ describe('Using case status', () => {
           `/people/${Cypress.env('CHILDREN_RECORD_PERSON_ID')}/details`,
           AuthRoles.ChildrensGroup
         );
-
+        cy.url().should('include', '/details');
         cy.contains('Edit / End').click();
         cy.get(`input[value=end]`).check();
         cy.get('[data-testid=submit_button]').click();
@@ -541,7 +541,7 @@ describe('Using case status', () => {
           `/people/${Cypress.env('CHILDREN_RECORD_PERSON_ID')}/details`,
           AuthRoles.ChildrensGroup
         );
-
+        cy.url().should('include', '/details');
         cy.contains('Edit / End').click();
         cy.get(`input[value=end]`).check();
         cy.get('[data-testid=submit_button]').click();
