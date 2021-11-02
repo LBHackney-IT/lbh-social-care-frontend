@@ -1,6 +1,6 @@
 import UpdateCaseStatusForm from './UpdateCaseStatusForm';
 import { residentFactory } from 'factories/residents';
-import { act, fireEvent, render } from '@testing-library/react';
+import { fireEvent, render } from '@testing-library/react';
 
 const mockedResident = residentFactory.build();
 
