@@ -65,4 +65,23 @@ describe('UpdateCaseStatusForm validations', () => {
     expect(getByText('Date cannot be before start date')).toBeInTheDocument();
     expect(getByTestId('submit_button')).toBeDisabled();
   });
+
+  it('does not disable submit button when scheduled start date is set to be after current active case status start date', async () => {
+    const { getByTestId } = render(
+      <UpdateCaseStatusForm
+        personId={mockedResident.id}
+        caseStatusId={123}
+        action="update"
+        caseStatusType="LAC"
+        currentCaseStatusStartDate="2020-10-10"
+        prefilledFields={{ startDate: '2021-10-11' }}
+      />
+    );
+    const clickDateBox = getByTestId('text-raw-field');
+
+    fireEvent.click(clickDateBox);
+    fireEvent.focusOut(clickDateBox);
+
+    expect(getByTestId('submit_button')).not.toBeDisabled();
+  });
 });
