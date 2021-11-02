@@ -123,7 +123,6 @@ describe('Using case status', () => {
         cy.get('[data-testid=text-field-error-message]').should('not.exist');
       });
 
-      //Edit needs more work
       it('should be possible to edit a CIN case status', () => {
         cy.visitAs(
           `/people/${Cypress.env('CHILDREN_RECORD_PERSON_ID')}/details`,
@@ -208,7 +207,6 @@ describe('Using case status', () => {
         cy.contains('button', 'Yes, end').click();
 
         cy.url().should('include', '/details');
-        cy.wait('@getCaseStatus');
         cy.get('[data-testid=case_status_details]').should('not.exist');
         cy.contains('Add a case status', {
           timeout: 20000,
@@ -392,8 +390,6 @@ describe('Using case status', () => {
         cy.contains('button', 'Yes, end').click();
 
         cy.url().should('include', '/details');
-        cy.wait('@getCaseStatus');
-        cy.get('[data-testid=case_status_details]').should('not.exist');
         cy.contains('Add a case status', {
           timeout: 20000,
         }).should('be.visible');
