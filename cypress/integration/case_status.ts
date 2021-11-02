@@ -208,6 +208,8 @@ describe('Using case status', () => {
 
         cy.url().should('include', '/details');
         cy.get('[data-testid=expand_details]').should('not.exist');
+        // eslint-disable-next-line cypress/no-unnecessary-waiting
+        cy.wait(30000);
         cy.contains('Add a case status', {
           timeout: 30000,
         }).should('be.visible');
