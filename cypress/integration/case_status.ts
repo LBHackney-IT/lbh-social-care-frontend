@@ -31,6 +31,7 @@ describe('Using case status', () => {
     cy.intercept('PATCH', '/api/casestatus/**', (req) => {
       req.body.editedBy = 'e2e.tests.adult@hackney.gov.uk';
     });
+    cy.intercept('GET', '/api/residents/**/casestatus').as('getCaseStatus');
   });
 
   describe('As a user in the Childrens group', () => {
@@ -187,7 +188,7 @@ describe('Using case status', () => {
             timeout: 3000,
           }
         );
-        cy.url().should('include', '/details');
+        cy.wait('@getCaseStatus');
         cy.contains('a', 'Edit / End').click();
         cy.get(`input[value=end]`).check();
         cy.get('[data-testid=submit_button]').click();
@@ -360,7 +361,7 @@ describe('Using case status', () => {
             timeout: 3000,
           }
         );
-        cy.url().should('include', '/details');
+        cy.wait('@getCaseStatus');
         cy.contains('a', 'Edit / End').click();
         cy.get(`input[value=end]`).check();
         cy.get('[data-testid=submit_button]').click();
@@ -580,7 +581,7 @@ describe('Using case status', () => {
             timeout: 3000,
           }
         );
-        cy.url().should('include', '/details');
+        cy.wait('@getCaseStatus');
         cy.contains('a', 'Edit / End').click();
 
         cy.get(`input[value=end]`).check();
