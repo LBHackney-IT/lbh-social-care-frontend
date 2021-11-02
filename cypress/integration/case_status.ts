@@ -103,7 +103,9 @@ describe('Using case status', () => {
           }
         );
 
-        cy.contains('a', 'Edit / End').click();
+        cy.contains('a', 'Edit / End', {
+          timeout: 20000,
+        }).click();
         cy.get(`input[value=edit]`).check();
         cy.get('[data-testid=submit_button]').click();
         cy.url().should('include', '/edit/edit');
@@ -131,7 +133,9 @@ describe('Using case status', () => {
           }
         );
 
-        cy.contains('a', 'Edit / End').click();
+        cy.contains('a', 'Edit / End', {
+          timeout: 20000,
+        }).click();
         cy.get(`input[value=edit]`).check();
         cy.get('[data-testid=submit_button]').click();
         cy.url().should('include', '/edit/edit');
@@ -161,7 +165,9 @@ describe('Using case status', () => {
           }
         );
 
-        cy.contains('a', 'Edit / End').click();
+        cy.contains('a', 'Edit / End', {
+          timeout: 20000,
+        }).click();
         cy.get(`input[value=end]`).check();
         cy.get('[data-testid=submit_button]').click();
         cy.url().should('include', '/edit/edit');
@@ -202,8 +208,11 @@ describe('Using case status', () => {
         cy.contains('button', 'Yes, end').click();
 
         cy.url().should('include', '/details');
-        cy.get('[data-testid=expand_details]').should('not.exist');
-        cy.contains('Add a case status').should('be.visible');
+        cy.wait('@getCaseStatus');
+        cy.get('[data-testid=case_status_details]').should('not.exist');
+        cy.contains('Add a case status', {
+          timeout: 20000,
+        }).should('be.visible');
       });
     });
 
@@ -279,7 +288,9 @@ describe('Using case status', () => {
           }
         );
 
-        cy.contains('a', 'Edit / End').click();
+        cy.contains('a', 'Edit / End', {
+          timeout: 20000,
+        }).click();
         cy.get(`input[value=edit]`).check();
         cy.get('[data-testid=submit_button]').click();
         cy.url().should('include', '/edit/edit');
@@ -308,7 +319,9 @@ describe('Using case status', () => {
           }
         );
 
-        cy.contains('a', 'Edit / End').click();
+        cy.contains('a', 'Edit / End', {
+          timeout: 20000,
+        }).click();
         cy.get(`input[value=edit]`).check();
         cy.get('[data-testid=submit_button]').click();
         cy.url().should('include', '/edit/edit');
@@ -336,7 +349,9 @@ describe('Using case status', () => {
           }
         );
 
-        cy.contains('a', 'Edit / End').click();
+        cy.contains('a', 'Edit / End', {
+          timeout: 20000,
+        }).click();
         cy.get(`input[value=end]`).check();
         cy.get('[data-testid=submit_button]').click();
         cy.url().should('include', '/edit/edit');
@@ -364,10 +379,9 @@ describe('Using case status', () => {
           }
         );
         cy.wait('@getCaseStatus');
-        cy.get('[data-testid="case_status_details]', {
+        cy.contains('a', 'Edit / End', {
           timeout: 20000,
-        });
-        cy.contains('a', 'Edit / End').click();
+        }).click();
         cy.get(`input[value=end]`).check();
         cy.get('[data-testid=submit_button]').click();
         cy.url().should('include', '/edit/edit');
@@ -378,8 +392,11 @@ describe('Using case status', () => {
         cy.contains('button', 'Yes, end').click();
 
         cy.url().should('include', '/details');
-        cy.get('[data-testid=expand_details]').should('not.exist');
-        cy.contains('Add a case status').should('be.visible');
+        cy.wait('@getCaseStatus');
+        cy.get('[data-testid=case_status_details]').should('not.exist');
+        cy.contains('Add a case status', {
+          timeout: 20000,
+        }).should('be.visible');
       });
     });
 
@@ -461,7 +478,9 @@ describe('Using case status', () => {
           }
         );
 
-        cy.contains('a', 'Edit / End').click();
+        cy.contains('a', 'Edit / End', {
+          timeout: 20000,
+        }).click();
         cy.get(`input[value=edit]`).check();
         cy.get('[data-testid=submit_button]').click();
         cy.url().should('include', '/edit/edit');
@@ -490,7 +509,9 @@ describe('Using case status', () => {
           }
         );
 
-        cy.contains('a', 'Edit / End').click();
+        cy.contains('a', 'Edit / End', {
+          timeout: 20000,
+        }).click();
         cy.get(`input[value=edit]`).check();
         cy.get('[data-testid=submit_button]').click();
         cy.url().should('include', '/edit/edit');
@@ -521,7 +542,9 @@ describe('Using case status', () => {
           }
         );
 
-        cy.contains('a', 'Edit / End').click();
+        cy.contains('a', 'Edit / End', {
+          timeout: 20000,
+        }).click();
         cy.get(`input[value=update]`).check();
         cy.get('[data-testid=submit_button]').click();
         cy.url().should('include', '/update/edit');
@@ -559,7 +582,9 @@ describe('Using case status', () => {
           }
         );
 
-        cy.contains('a', 'Edit / End').click();
+        cy.contains('a', 'Edit / End', {
+          timeout: 20000,
+        }).click();
         cy.get(`input[value=end]`).check();
         cy.get('[data-testid=submit_button]').click();
         cy.url().should('include', '/edit/edit');
@@ -587,10 +612,9 @@ describe('Using case status', () => {
           }
         );
         cy.wait('@getCaseStatus');
-        cy.get('[data-testid="case_status_details]', {
+        cy.contains('a', 'Edit / End', {
           timeout: 20000,
-        });
-        cy.contains('a', 'Edit / End').click();
+        }).click();
 
         cy.get(`input[value=end]`).check();
         cy.get('[data-testid=submit_button]').click();
@@ -604,8 +628,11 @@ describe('Using case status', () => {
         cy.contains('button', 'Yes, end').click();
 
         cy.url().should('include', '/details');
-        cy.get('[data-testid=expand_details]').should('not.exist');
-        cy.contains('Add a case status').should('be.visible');
+        cy.wait('@getCaseStatus');
+        cy.get('[data-testid=case_status_details]').should('not.exist');
+        cy.contains('Add a case status', {
+          timeout: 20000,
+        }).should('be.visible');
       });
     });
   });
