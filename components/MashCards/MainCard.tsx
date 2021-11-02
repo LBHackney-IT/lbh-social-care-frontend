@@ -78,6 +78,3 @@ const MainCard = ({ filter, mashReferrals }: Props): React.ReactElement => {
 };
 
 export default MainCard;
-
-///.map - key on card id value.
-// pass down full referral
