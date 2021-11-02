@@ -6,14 +6,14 @@ import FinalDecisionCard from './FinalDecisionCard';
 
 interface Props {
   filter: string;
-  mashReferrals: MashReferral | any;
+  mashReferrals: MashReferral[];
 }
 
 const MainCard = ({ filter, mashReferrals }: Props): React.ReactElement => {
   if (filter === 'contact') {
     return (
       <div>
-        {mashReferrals.map((referral: any) => (
+        {mashReferrals.map((referral) => (
           <div key={referral.id}>
             <ContactCard
               clientName={referral.clients[0]}

@@ -6,11 +6,10 @@ import MashDashboard from 'components/MashDashboard/MashDashboard';
 import { MashReferral } from 'types';
 
 interface Props {
-  referrals: [];
-  mashReferral: MashReferral[];
+  referrals: MashReferral[];
 }
 
-export const TeamAssignments = ({ referrals }: Props): React.ReactElement => {
+const TeamAssignments = ({ referrals }: Props): React.ReactElement => {
   return (
     <div>
       <DashboardWrapper>

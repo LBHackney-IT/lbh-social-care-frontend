@@ -21,7 +21,10 @@
     z-index: 2;
   }
 }
-
+.action {
+  float: right;
+  display: block;
+}
 .line {
   height: 1px;
   background-color: lbh-colour('lbh-grey-3');

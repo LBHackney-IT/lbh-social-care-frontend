@@ -23,10 +23,7 @@ const FinalDecisionCard = ({
               {timeleft} left
             </span>{' '}
             {datetime}
-            <span
-              className="lbh-body-l lbh-!-font-weight-bold"
-              style={{ float: 'right', display: 'block' }}
-            >
+            <span className={`lbh-body-l lbh-!-font-weight-bold  ${s.action}`}>
               <a href="#">Action </a>
             </span>
           </p>

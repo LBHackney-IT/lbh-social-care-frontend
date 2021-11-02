@@ -1,4 +1,5 @@
 import s from './MashCard.module.scss';
+import Link from 'next/link';
 
 interface Props {
   clientName: string;
@@ -13,7 +14,7 @@ const ContactCard = ({
   dateTime,
   referrer,
   requestedSupport,
-}: Props): React.ReactElement | null => {
+}: Props): React.ReactElement => {
   return (
     <>
       <li className={s.row}>
@@ -23,11 +24,8 @@ const ContactCard = ({
               {timeLeft} left
             </span>{' '}
             {dateTime}
-            <span
-              className="lbh-body-l lbh-!-font-weight-bold"
-              style={{ float: 'right', display: 'block' }}
-            >
-              <a href="#">Action </a>
+            <span className={`lbh-body-l lbh-!-font-weight-bold  ${s.action}`}>
+              <Link href="#">Action </Link>
             </span>
           </p>
           <hr className={s.line} />
