@@ -185,7 +185,7 @@ describe('Using case status', () => {
         cy.get('[data-testid=text-field-error-message]').should('not.exist');
       });
 
-      it('should be possible to end the CIN case status', () => {
+      it.only('should be possible to end the CIN case status', () => {
         cy.visitAs(
           `/people/${Cypress.env('CHILDREN_RECORD_PERSON_ID')}/details`,
           AuthRoles.ChildrensGroup,
