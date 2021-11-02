@@ -73,10 +73,8 @@ describe('UpdateCaseStatusForm validations', () => {
     );
     const clickDateBox = getByTestId('text-raw-field');
 
-    await act(async () => {
-      fireEvent.click(clickDateBox);
-      fireEvent.focusOut(clickDateBox);
-    });
+    fireEvent.click(clickDateBox);
+    fireEvent.focusOut(clickDateBox);
 
     expect(getByTestId('submit_button')).not.toBeDisabled();
   });
