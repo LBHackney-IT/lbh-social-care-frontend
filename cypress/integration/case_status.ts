@@ -190,7 +190,7 @@ describe('Using case status', () => {
         );
         cy.wait('@getCaseStatus');
         cy.get('[data-testid="case_status_details]', {
-          timeout: 20000,
+          timeout: 30000,
         });
         cy.contains('a', 'Edit / End').click();
         cy.get(`input[value=end]`).check();
@@ -366,7 +366,7 @@ describe('Using case status', () => {
         );
         cy.wait('@getCaseStatus');
         cy.get('[data-testid="case_status_details]', {
-          timeout: 20000,
+          timeout: 30000,
         });
         cy.contains('a', 'Edit / End').click();
         cy.get(`input[value=end]`).check();
@@ -589,7 +589,7 @@ describe('Using case status', () => {
         );
         cy.wait('@getCaseStatus');
         cy.get('[data-testid="case_status_details]', {
-          timeout: 20000,
+          timeout: 30000,
         });
         cy.contains('a', 'Edit / End').click();
 
