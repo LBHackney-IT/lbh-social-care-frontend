@@ -21,24 +21,6 @@ const caseStatusBeforeStartDate = '2000-01-01';
 const caseStatusScheduledStartDate = '2040-02-01';
 const caseStatusScheduledStartDateText = '01 Feb 2040';
 
-// const CINcaseStatusStartDate = '2000-01-12';
-// const CINcaseStatusStartDateText = '12 Jan 2000';
-// const CINcaseStatusStartDateEdit = '2000-01-13';
-// const CINcaseStatusStartDateEditText = '13 Jan 2000';
-// const CINcaseStatusBeforeStartDate = '2000-01-01';
-
-// const CPcaseStatusStartDate = '2000-01-15';
-// const CPcaseStatusStartDateText = '15 Jan 2000';
-// const CPcaseStatusStartDateEdit = '2000-01-16';
-// const CPcaseStatusStartDateEditText = '16 Jan 2000';
-// const CPcaseStatusBeforeStartDate = '2000-01-01';
-
-// const LACcaseStatusStartDate = '2000-01-18';
-// const LACcaseStatusStartDateText = '18 Jan 2000';
-// const LACcaseStatusStartDateEdit = '2000-01-19';
-// const LACcaseStatusStartDateEditText = '19 Jan 2000';
-// const LACcaseStatusBeforeStartDate = '2000-01-01';
-
 describe('Using case status', () => {
   beforeEach(() => {
     // This is required as the email address stored in the cookie is not an
@@ -111,7 +93,7 @@ describe('Using case status', () => {
           AuthRoles.ChildrensGroup
         );
 
-        cy.contains('Edit / End').click();
+        cy.contains('a', 'Edit / End').click();
         cy.get(`input[value=edit]`).check();
         cy.get('[data-testid=submit_button]').click();
         cy.url().should('include', '/edit/edit');
@@ -136,7 +118,7 @@ describe('Using case status', () => {
           AuthRoles.ChildrensGroup
         );
 
-        cy.contains('Edit / End').click();
+        cy.contains('a', 'Edit / End').click();
         cy.get(`input[value=edit]`).check();
         cy.get('[data-testid=submit_button]').click();
         cy.url().should('include', '/edit/edit');
@@ -163,7 +145,7 @@ describe('Using case status', () => {
           AuthRoles.ChildrensGroup
         );
 
-        cy.contains('Edit / End').click();
+        cy.contains('a', 'Edit / End').click();
         cy.get(`input[value=end]`).check();
         cy.get('[data-testid=submit_button]').click();
         cy.url().should('include', '/edit/edit');
@@ -188,7 +170,7 @@ describe('Using case status', () => {
           AuthRoles.ChildrensGroup
         );
         cy.url().should('include', '/details');
-        cy.contains('Edit / End').click();
+        cy.contains('a', 'Edit / End').click();
         cy.get(`input[value=end]`).check();
         cy.get('[data-testid=submit_button]').click();
         cy.url().should('include', '/edit/edit');
@@ -267,7 +249,7 @@ describe('Using case status', () => {
           AuthRoles.ChildrensGroup
         );
 
-        cy.contains('Edit / End').click();
+        cy.contains('a', 'Edit / End').click();
         cy.get(`input[value=edit]`).check();
         cy.get('[data-testid=submit_button]').click();
         cy.url().should('include', '/edit/edit');
@@ -293,7 +275,7 @@ describe('Using case status', () => {
           AuthRoles.ChildrensGroup
         );
 
-        cy.contains('Edit / End').click();
+        cy.contains('a', 'Edit / End').click();
         cy.get(`input[value=edit]`).check();
         cy.get('[data-testid=submit_button]').click();
         cy.url().should('include', '/edit/edit');
@@ -318,7 +300,7 @@ describe('Using case status', () => {
           AuthRoles.ChildrensGroup
         );
 
-        cy.contains('Edit / End').click();
+        cy.contains('a', 'Edit / End').click();
         cy.get(`input[value=end]`).check();
         cy.get('[data-testid=submit_button]').click();
         cy.url().should('include', '/edit/edit');
@@ -343,7 +325,7 @@ describe('Using case status', () => {
           AuthRoles.ChildrensGroup
         );
         cy.url().should('include', '/details');
-        cy.contains('Edit / End').click();
+        cy.contains('a', 'Edit / End').click();
         cy.get(`input[value=end]`).check();
         cy.get('[data-testid=submit_button]').click();
         cy.url().should('include', '/edit/edit');
@@ -428,7 +410,7 @@ describe('Using case status', () => {
           AuthRoles.ChildrensGroup
         );
 
-        cy.contains('Edit / End').click();
+        cy.contains('a', 'Edit / End').click();
         cy.get(`input[value=edit]`).check();
         cy.get('[data-testid=submit_button]').click();
         cy.url().should('include', '/edit/edit');
@@ -454,7 +436,7 @@ describe('Using case status', () => {
           AuthRoles.ChildrensGroup
         );
 
-        cy.contains('Edit / End').click();
+        cy.contains('a', 'Edit / End').click();
         cy.get(`input[value=edit]`).check();
         cy.get('[data-testid=submit_button]').click();
         cy.url().should('include', '/edit/edit');
@@ -482,7 +464,7 @@ describe('Using case status', () => {
           AuthRoles.ChildrensGroup
         );
 
-        cy.contains('Edit / End').click();
+        cy.contains('a', 'Edit / End').click();
         cy.get(`input[value=update]`).check();
         cy.get('[data-testid=submit_button]').click();
         cy.url().should('include', '/update/edit');
@@ -517,7 +499,7 @@ describe('Using case status', () => {
           AuthRoles.ChildrensGroup
         );
 
-        cy.contains('Edit / End').click();
+        cy.contains('a', 'Edit / End').click();
         cy.get(`input[value=end]`).check();
         cy.get('[data-testid=submit_button]').click();
         cy.url().should('include', '/edit/edit');
@@ -542,7 +524,8 @@ describe('Using case status', () => {
           AuthRoles.ChildrensGroup
         );
         cy.url().should('include', '/details');
-        cy.contains('Edit / End').click();
+        cy.contains('a', 'Edit / End').click();
+
         cy.get(`input[value=end]`).check();
         cy.get('[data-testid=submit_button]').click();
         cy.url().should('include', '/edit/edit');
