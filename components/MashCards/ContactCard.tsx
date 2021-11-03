@@ -16,7 +16,7 @@ const ContactCard = ({ mashReferrals }: Props): React.ReactElement => {
             </span>{' '}
             {mashReferrals.createdAt}
             <span className={`lbh-body-l lbh-!-font-weight-bold  ${s.action}`}>
-              <Link href="#">Action </Link>
+              <Link href="action">Action</Link>
             </span>
           </p>
           <hr className={s.line} />
@@ -24,7 +24,9 @@ const ContactCard = ({ mashReferrals }: Props): React.ReactElement => {
             <div>
               <dt>Name of client</dt>
               <dd>
-                <a href="#">{mashReferrals.clients[0]} (referral)</a>
+                <Link href="referral">
+                  <a>{mashReferrals.clients[0]} (referral)</a>
+                </Link>
               </dd>
             </div>
             <div>
@@ -36,7 +38,9 @@ const ContactCard = ({ mashReferrals }: Props): React.ReactElement => {
               <dd>{mashReferrals.requestedSupport}</dd>
             </div>
             <div>
-              <a>Assign</a>
+              <Link href="assign">
+                <a>Assign</a>
+              </Link>
             </div>
           </dl>
         </div>

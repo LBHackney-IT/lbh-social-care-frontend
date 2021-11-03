@@ -1,5 +1,6 @@
 import s from './MashCard.module.scss';
 import { MashReferral } from 'types';
+import Link from 'next/link';
 
 interface Props {
   mashReferrals: MashReferral;
@@ -17,7 +18,7 @@ const InitialDecisionCard = ({
             </span>{' '}
             {mashReferrals.createdAt}
             <span className={`lbh-body-l lbh-!-font-weight-bold  ${s.action}`}>
-              <a href="#">Action </a>
+              <Link href="action">Action </Link>
             </span>
           </p>
           <hr className={s.line} />
@@ -25,7 +26,9 @@ const InitialDecisionCard = ({
             <div>
               <dt>Name of client</dt>
               <dd>
-                <a href="#">{mashReferrals.clients[0]} (referral)</a>
+                <Link href="referral">
+                  <a>{mashReferrals.clients[0]} (referral)</a>
+                </Link>
               </dd>
             </div>
             <div>
@@ -37,7 +40,9 @@ const InitialDecisionCard = ({
               <dd>{mashReferrals.referralCategory}</dd>
             </div>
             <div>
-              <a>Assign</a>
+              <Link href="assign">
+                <a>Assign</a>
+              </Link>
             </div>
           </dl>
         </div>
