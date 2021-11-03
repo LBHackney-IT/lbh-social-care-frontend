@@ -7,6 +7,7 @@ import { MashReferral } from 'types';
 import { getMashReferral } from 'lib/mashReferral';
 import { GetServerSideProps } from 'next';
 import { isAuthorised } from 'utils/auth';
+import { submitScreeningDecision } from 'utils/api/mashReferrals';
 interface Props {
   referral: MashReferral;
 }
@@ -15,6 +16,15 @@ const ScreeningDecision = ({ referral }: Props): React.ReactElement => {
   const [screeningDecision, setScreeningDecision] = useState('option 1');
   const [urgencyScreeningDecision, setUrgencyScreeningDecision] =
     useState(false);
+
+  const submitForm = async () => {
+    await submitScreeningDecision(
+      referral.id,
+      screeningDecision,
+      urgencyScreeningDecision,
+      3
+    );
+  };
 
   return (
     <>
@@ -40,10 +50,9 @@ const ScreeningDecision = ({ referral }: Props): React.ReactElement => {
               >
                 See Google document
               </a>
-            </p>{' '}
+            </p>
           </>,
           <>
-            {' '}
             <label htmlFor="screening-decision" className="lbh-heading-h3">
               Select screening decision
             </label>
@@ -109,7 +118,7 @@ const ScreeningDecision = ({ referral }: Props): React.ReactElement => {
         ]}
       />
       <div style={{ display: 'flex', alignItems: 'center' }}>
-        <Button label="Submit" type="submit" />
+        <Button label="Submit" type="submit" onClick={submitForm} />
         <p className="lbh-body">
           <a
             href="#"
