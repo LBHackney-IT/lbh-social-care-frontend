@@ -145,11 +145,6 @@ describe('CaseStatusDetail component', () => {
       queryByText('Category of child protection plan')
     ).toBeInTheDocument();
     expect(queryByText('Physical abuse')).toBeInTheDocument();
-    expect(queryByText('Dates')).toBeInTheDocument();
-
-    const elements = getByTestId('start_end_date');
-    expect(elements.textContent).toMatch(/(09 Sept 2021|09 Sep 2021)/i);
-    expect(elements.textContent).toMatch(/(10 Sept 2021|10 Sep 2021)/i);
   });
 
   it('displays the case status answer even if an invalid value is passed', async () => {
@@ -407,7 +402,7 @@ describe('LAC Specific Tests for CaseStatusDetail component', () => {
       revalidate: jest.fn(),
     }));
 
-    const { getByTestId, queryByText, queryAllByText, queryAllByTestId } =
+    const { getAllByTestId, queryByText, queryAllByText, queryAllByTestId } =
       render(<CaseStatusDetails person={mockedResident} />);
 
     const caseStatusDetailsTableElements = queryAllByTestId(
@@ -418,9 +413,8 @@ describe('LAC Specific Tests for CaseStatusDetail component', () => {
     expect(scheduledChangesElement.length).toBe(1);
     expect(queryByText('Previous version')).not.toBeInTheDocument();
 
-    const elements = getByTestId('start_end_date');
-    expect(elements.textContent).toMatch(/(09 Oct 2040)/i);
-    expect(elements.textContent).toMatch(/(08 Oct 2040)/i);
+    const elements = getAllByTestId('start_date');
+    expect(elements[0].textContent).toMatch(/(08 Oct 2040)/i);
 
     expect(queryByText('P3: Residential employment')).toBeInTheDocument();
     expect(queryByText('C1: Interim care order')).toBeInTheDocument();
