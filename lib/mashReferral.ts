@@ -30,3 +30,30 @@ export const getMashReferral = async (id: string): Promise<MashReferral> => {
 
   return data;
 };
+
+interface ScreeningDecision {
+  workerId: number;
+  updateType: 'SCREENING-DECISION';
+  decision: string;
+  requiresUrgentContact: boolean;
+  referralId: string;
+}
+
+export const patchReferral = async (
+  update: ScreeningDecision
+): Promise<MashReferral> => {
+  const { data } = await axios.patch<MashReferral>(
+    `${ENDPOINT_API}/mash-referral/${update.referralId}`,
+    {
+      workerId: update.workerId,
+      updateType: update.updateType,
+      decision: update.decision,
+      requiresUrgentContact: update.requiresUrgentContact,
+    },
+    {
+      headers: { 'Content-Type': 'application/json', 'x-api-key': AWS_KEY },
+    }
+  );
+
+  return data;
+};
