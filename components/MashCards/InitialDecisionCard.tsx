@@ -4,21 +4,23 @@ import Link from 'next/link';
 
 interface Props {
   mashReferrals: MashReferral;
+  key: string;
 }
 const InitialDecisionCard = ({
   mashReferrals,
-}: Props): React.ReactElement | null => {
+  key,
+}: Props): React.ReactElement => {
   return (
     <>
       <li className={s.row}>
-        <div>
+        <div key={key}>
           <p className="lbh-body-m govuk-!-margin-bottom-3">
             <span className="govuk-tag lbh-tag lbh-tag--green">
               4 hours left
             </span>{' '}
             {mashReferrals.createdAt}
             <span className={`lbh-body-l lbh-!-font-weight-bold  ${s.action}`}>
-              <Link href="action">Action </Link>
+              <Link href="initial-decision">Action </Link>
             </span>
           </p>
           <hr className={s.line} />
@@ -26,8 +28,13 @@ const InitialDecisionCard = ({
             <div>
               <dt>Name of client</dt>
               <dd>
-                <Link href="referral">
-                  <a>{mashReferrals.clients[0]} (referral)</a>
+                <Link href={mashReferrals.referralDocumentURI}>
+                  <a>
+                    {mashReferrals.clients[0]}
+                    {mashReferrals.clients.length > 1 &&
+                      ` + ${mashReferrals.clients.length - 1} `}{' '}
+                    (referral)
+                  </a>
                 </Link>
               </dd>
             </div>
