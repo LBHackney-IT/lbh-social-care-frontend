@@ -105,20 +105,36 @@ const EditCaseStatusForm: React.FC<{
   }
 
   if (caseStatusType == 'LAC' && action == 'edit') {
+    let defaultStartDate: any;
+    let pastStatusStartDate: any;
+    let currentStatusStartDate: any;
+
     if (pastCaseStatusStartDate && pastCaseStatusStartDate !== 'undefined') {
-      const defaultStartDate = new Date(pastCaseStatusStartDate);
-      const pastStatusStartDate = new Date(pastCaseStatusStartDate);
+      pastStatusStartDate = new Date(pastCaseStatusStartDate);
+      defaultStartDate = new Date(pastCaseStatusStartDate);
 
       defaultStartDate.setDate(defaultStartDate.getDate() + 1);
+    }
 
-      form_fields.map((field: any) => {
-        if (field.id === 'startDate') {
+    if (
+      currentCaseStatusStartDate &&
+      currentCaseStatusStartDate !== 'undefined'
+    ) {
+      currentStatusStartDate = new Date(currentCaseStatusStartDate);
+    }
+
+    form_fields.map((field: any) => {
+      if (field.id === 'startDate') {
+        if (pastStatusStartDate) {
           field.startDate = format(pastStatusStartDate, 'yyyy-MM-dd');
-
+        }
+        if (currentStatusStartDate) {
+          field.default = format(currentStatusStartDate, 'yyyy-MM-dd');
+        } else if (defaultStartDate) {
           field.default = format(defaultStartDate, 'yyyy-MM-dd');
         }
-      });
-    }
+      }
+    });
   }
 
   if (prefilledFields) {

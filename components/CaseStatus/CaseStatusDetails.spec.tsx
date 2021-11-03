@@ -124,7 +124,7 @@ describe('CaseStatusDetail component', () => {
             mockedStatusField.build({
               option: 'category',
               value: 'C2',
-              startDate: '2021-09-09',
+              startDate: '2021-10-10',
               createdAt: '2021-09-08T10:54:32Z',
             }),
           ],
@@ -145,6 +145,7 @@ describe('CaseStatusDetail component', () => {
       queryByText('Category of child protection plan')
     ).toBeInTheDocument();
     expect(queryByText('Physical abuse')).toBeInTheDocument();
+    expect(queryByText('10 Oct 2021')).toBeInTheDocument();
   });
 
   it('displays the case status answer even if an invalid value is passed', async () => {
