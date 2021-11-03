@@ -95,7 +95,6 @@ const CaseStatusDetails = ({ person }: Props): React.ReactElement => {
                   <CaseStatusDetailsTable
                     key={`Current status - ${currentStatusDateGroup.startDate}`}
                     status={status}
-                    scheduledStatus={scheduledStatusAnswers}
                     answers={currentStatusDateGroup}
                   />
                 ))}
@@ -121,7 +120,6 @@ const CaseStatusDetails = ({ person }: Props): React.ReactElement => {
                     styleType={styles.previousStatusFont}
                     status={status}
                     answers={previousStatusDateGroup}
-                    currentStatus={currentStatusAnswers}
                   />
                 ))}
             </section>
