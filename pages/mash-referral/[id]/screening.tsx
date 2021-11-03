@@ -9,8 +9,7 @@ const ScreeningDecision = (): React.ReactElement => {
     useState<string>('option 1');
   const [urgencyScreeningDecision, setUrgencyScreeningDecision] =
     useState<boolean>(false);
-  console.log(urgencyScreeningDecision);
-  console.log(screeningDecision);
+
   return (
     <>
       <h1>Make screening decision</h1>
