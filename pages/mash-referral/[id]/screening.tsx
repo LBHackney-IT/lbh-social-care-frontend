@@ -3,20 +3,26 @@ import Heading from 'components/MashHeading/Heading';
 import NumberedSteps from 'components/NumberedSteps/NumberedSteps';
 import { useState } from 'react';
 import { Select } from 'components/Form';
+import { MashReferral } from 'types';
+import { getMashReferral } from 'lib/mashReferral';
+import { GetServerSideProps } from 'next';
+import { isAuthorised } from 'utils/auth';
+interface Props {
+  referral: MashReferral;
+}
 
-const ScreeningDecision = (): React.ReactElement => {
-  const [screeningDecision, setScreeningDecision] =
-    useState<string>('option 1');
+const ScreeningDecision = ({ referral }: Props): React.ReactElement => {
+  const [screeningDecision, setScreeningDecision] = useState('option 1');
   const [urgencyScreeningDecision, setUrgencyScreeningDecision] =
-    useState<boolean>(false);
+    useState(false);
 
   return (
     <>
       <h1>Make screening decision</h1>
       <Heading
-        clientname="Jan Smith"
+        clientname={referral.clients.join(', ')}
         timeleft="3 hours"
-        datetime="10:00 6 Jun"
+        datetime={referral.createdAt}
       />
       <NumberedSteps
         nodes={[
@@ -26,7 +32,12 @@ const ScreeningDecision = (): React.ReactElement => {
               Write the rationale for your screening decision.
             </p>
             <p className="lbh-body">
-              <a href="#" className="lbh-link lbh-link--no-visited-state">
+              <a
+                href={referral.referralDocumentURI}
+                rel="noopener noreferrer"
+                target="_blank"
+                className="lbh-link lbh-link--no-visited-state"
+              >
                 See Google document
               </a>
             </p>{' '}
@@ -118,6 +129,39 @@ const ScreeningDecision = (): React.ReactElement => {
       </div>
     </>
   );
+};
+
+export const getServerSideProps: GetServerSideProps = async ({
+  req,
+  params,
+}) => {
+  const user = isAuthorised(req);
+
+  if (!user) {
+    return {
+      props: {},
+      redirect: {
+        destination: `/login`,
+      },
+    };
+  }
+
+  const referral = await getMashReferral(params?.id as string);
+
+  if (!referral || referral.stage.toUpperCase() !== 'SCREENING') {
+    return {
+      props: {},
+      redirect: {
+        destination: `/404`,
+      },
+    };
+  }
+
+  return {
+    props: {
+      referral,
+    },
+  };
 };
 
 export default ScreeningDecision;
