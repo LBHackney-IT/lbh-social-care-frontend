@@ -16,6 +16,18 @@ export const getCaseStatusByPersonId = async (
   return data;
 };
 
+export const getCaseStatusByPersonIdIncludeEnded = async (
+  personId: number
+): Promise<CaseStatus[]> => {
+  const { data } = await axios.get<CaseStatus[]>(
+    `https://virtserver.swaggerhub.com/Hackney/social-care-case-viewer-api/1.0.0/residents/19/case-statuses-test`,
+    {
+      headers,
+    }
+  );
+  return data;
+};
+
 export const addCaseStatus = async (
   personId: number,
   params: Record<string, unknown>

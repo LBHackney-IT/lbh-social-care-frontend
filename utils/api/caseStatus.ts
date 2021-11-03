@@ -1,6 +1,7 @@
 import axios from 'axios';
 
-import useSWR, { SWRResponse } from 'swr';
+import useSWR, { SWRResponse, useSWRInfinite } from 'swr';
+import { getInfiniteKey } from 'utils/api';
 
 import type {
   AddCaseStatusFormData,
@@ -42,4 +43,17 @@ export const updateCaseStatus = async (
 export const useCaseStatuses = (
   id: number
 ): SWRResponse<CaseStatus[], ErrorAPI> =>
-  useSWR(`/api/residents/${id}/casestatus`);
+  useSWR(`/api/residents/${id}/casestatus/`);
+
+export const useCaseStatusesWithEnded = (
+  id: number,
+  params: Record<string, unknown>,
+  invoke: true
+): SWRResponse<CaseStatus[], ErrorAPI> =>
+  // @ts-ignore
+  useSWRInfinite(
+    // @ts-ignore
+    invoke
+      ? getInfiniteKey(`/api/residents/${id}/casestatus`, 'casestatus', params)
+      : null
+  );

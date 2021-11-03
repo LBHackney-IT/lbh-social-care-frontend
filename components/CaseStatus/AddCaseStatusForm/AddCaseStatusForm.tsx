@@ -6,6 +6,7 @@ import FlexibleField from 'components/FlexibleForms/FlexibleFields';
 import Button from 'components/Button/Button';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
+import { useCaseStatusesWithEnded } from 'utils/api/caseStatus';
 
 const AddCaseStatusForm: React.FC<{
   personId: number;
@@ -20,6 +21,9 @@ const AddCaseStatusForm: React.FC<{
       field.default = String(prefilledFields[field.id]);
     }
   });
+
+  const { data } = useCaseStatusesWithEnded(personId, { includeEnded: true });
+  console.log(data);
 
   const handleSubmit = async (
     values: FormikValues,
