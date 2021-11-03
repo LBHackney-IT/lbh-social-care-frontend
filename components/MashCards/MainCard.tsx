@@ -30,7 +30,7 @@ const MainCard = ({ filter, mashReferrals }: Props): React.ReactElement => {
     return (
       <div>
         {mashReferrals.map((referral) => (
-          <ScreeningCard key={referral.id} mashReferrals={referral} />
+          <ScreeningCard key={referral.id} mashReferral={referral} />
         ))}
       </div>
     );
