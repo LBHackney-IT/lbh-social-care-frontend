@@ -31,11 +31,10 @@ const UpdateCaseStatusForm: React.FC<{
     currentCaseStatusStartDate &&
     currentCaseStatusStartDate !== 'undefined'
   ) {
-    const activeCaseStatusStartDate: Date = new Date(
-      currentCaseStatusStartDate
+    const currentStartDateValidation = new Date(currentCaseStatusStartDate);
+    currentStartDateValidation.setDate(
+      currentStartDateValidation.getDate() + 1
     );
-    const currentStartDateValidation: Date = new Date();
-    currentStartDateValidation.setDate(activeCaseStatusStartDate.getDate() + 1);
 
     if (currentCaseStatusStartDate) {
       form_fields.map((field: any) => {
@@ -44,20 +43,16 @@ const UpdateCaseStatusForm: React.FC<{
             new Date(currentStartDateValidation),
             'yyyy-MM-dd'
           );
+          if (!prefilledFields || !prefilledFields['startDate']) {
+            field.default = format(
+              new Date(currentStartDateValidation),
+              'yyyy-MM-dd'
+            );
+          }
         }
       });
     }
-  } else {
-    form_fields.map((field: any) => {
-      if (field.id === 'startDate') {
-        field.startDate = format(
-          new Date(prefilledFields.startDate),
-          'yyyy-MM-dd'
-        );
-      }
-    });
   }
-
   if (prefilledFields && prefilledFields['action']) {
     action = prefilledFields['action'];
   }
@@ -108,7 +103,7 @@ const UpdateCaseStatusForm: React.FC<{
           <div style={{ display: 'flex', alignItems: 'center' }}>
             <Button
               label="Continue"
-              disabled={Object.keys(errors).length > 0}
+              disabled={Object.keys(errors).length > 0 ? true : false}
               type="submit"
               data-testid="submit_button"
               wideButton
@@ -116,7 +111,11 @@ const UpdateCaseStatusForm: React.FC<{
             <Link
               href={{
                 pathname: `/people/${personId}/case-status/${caseStatusId}/edit`,
-                query: { action: action, type: caseStatusType },
+                query: {
+                  action: action,
+                  type: caseStatusType,
+                  currentCaseStatusStartDate: currentCaseStatusStartDate,
+                },
               }}
               scroll={false}
             >

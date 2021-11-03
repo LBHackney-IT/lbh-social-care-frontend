@@ -71,7 +71,11 @@ const Field = ({
 
       <ErrorMessage name={name}>
         {(msg) => (
-          <p className="govuk-error-message lbh-error-message" role="alert">
+          <p
+            className="govuk-error-message lbh-error-message"
+            role="alert"
+            data-testid="text-field-error-message"
+          >
             <span className="govuk-visually-hidden">Error:</span>
             {msg}
           </p>

@@ -5,6 +5,8 @@ import UpdateCaseStatusForm from 'components/CaseStatus/UpdateCaseStatusForm/Upd
 import AnnouncementMessage from 'components/AnnouncementMessage/AnnouncementMessage';
 
 const EditCaseStatus = (): React.ReactElement => {
+  const [isScheduledCaseStatus, setIsScheduledCaseStatus] = useState(false);
+
   const router = useRouter();
   const personId = Number(router.query.id as string);
   const type = String(router.query.type as string);
@@ -13,8 +15,6 @@ const EditCaseStatus = (): React.ReactElement => {
   const currentCaseStatusStartDate = String(
     router.query.currentCaseStatusStartDate
   );
-
-  const [isScheduledCaseStatus, setIsScheduledCaseStatus] = useState(false);
 
   useEffect(() => {
     setIsScheduledCaseStatus(

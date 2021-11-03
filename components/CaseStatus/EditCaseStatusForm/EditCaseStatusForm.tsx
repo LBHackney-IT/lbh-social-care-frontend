@@ -17,7 +17,17 @@ const EditCaseStatusForm: React.FC<{
   prefilledFields: any;
   caseStatusType: string;
   action: string;
-}> = ({ personId, caseStatusId, caseStatusType, prefilledFields, action }) => {
+  currentCaseStatusStartDate?: string;
+  pastCaseStatusStartDate?: string;
+}> = ({
+  personId,
+  caseStatusId,
+  caseStatusType,
+  prefilledFields,
+  action,
+  currentCaseStatusStartDate,
+  pastCaseStatusStartDate,
+}) => {
   const router = useRouter();
   const { data: caseStatuses } = useCaseStatuses(personId);
 
@@ -50,6 +60,10 @@ const EditCaseStatusForm: React.FC<{
           }
           if (field.id === 'endDate') {
             field.startDate = format(new Date(status.startDate), 'yyyy-MM-dd');
+
+            if (status.endDate) {
+              field.default = format(new Date(status.endDate), 'yyyy-MM-dd');
+            }
           }
           status.answers.map((preloaded_field) => {
             if (preloaded_field.option === field.id) {
@@ -57,6 +71,63 @@ const EditCaseStatusForm: React.FC<{
             }
           });
         });
+      }
+    });
+  }
+
+  if (caseStatusType == 'LAC' && (action == 'update' || action == 'end')) {
+    if (
+      currentCaseStatusStartDate &&
+      currentCaseStatusStartDate !== 'undefined'
+    ) {
+      const currentStartDateValidation = new Date(currentCaseStatusStartDate);
+
+      if (action == 'update') {
+        currentStartDateValidation.setDate(
+          currentStartDateValidation.getDate() + 1
+        );
+      }
+
+      form_fields.map((field: any) => {
+        if (field.id === 'startDate' || field.id === 'endDate') {
+          field.startDate = format(
+            new Date(currentStartDateValidation),
+            'yyyy-MM-dd'
+          );
+
+          field.default = format(
+            new Date(currentStartDateValidation),
+            'yyyy-MM-dd'
+          );
+        }
+      });
+    }
+  }
+
+  if (caseStatusType == 'LAC' && action == 'edit') {
+    let pastStatusStartDate: any;
+    let currentStatusStartDate: any;
+
+    if (pastCaseStatusStartDate && pastCaseStatusStartDate !== 'undefined') {
+      pastStatusStartDate = new Date(pastCaseStatusStartDate);
+      pastStatusStartDate.setDate(pastStatusStartDate.getDate() + 1);
+    }
+
+    if (
+      currentCaseStatusStartDate &&
+      currentCaseStatusStartDate !== 'undefined'
+    ) {
+      currentStatusStartDate = new Date(currentCaseStatusStartDate);
+    }
+
+    form_fields.map((field: any) => {
+      if (field.id === 'startDate') {
+        if (pastStatusStartDate) {
+          field.startDate = format(pastStatusStartDate, 'yyyy-MM-dd');
+        }
+        if (currentStatusStartDate) {
+          field.default = format(currentStatusStartDate, 'yyyy-MM-dd');
+        }
       }
     });
   }
@@ -115,12 +186,18 @@ const EditCaseStatusForm: React.FC<{
             <Link
               href={{
                 pathname: `/people/${personId}/case-status/${caseStatusId}/edit`,
-                query: { action: action, type: caseStatusType },
+                query: {
+                  action: action,
+                  type: caseStatusType,
+                  currentCaseStatusStartDate: currentCaseStatusStartDate,
+                  pastCaseStatusStartDate: pastCaseStatusStartDate,
+                },
               }}
               scroll={false}
             >
               <a
                 className={`lbh-link lbh-link--no-visited-state govuk-!-margin-left-3`}
+                data-testid="cancel_button"
               >
                 Cancel
               </a>

@@ -29,9 +29,10 @@ const endpoint: NextApiHandler = async (
           ? res
               .status(StatusCodes.NOT_FOUND)
               .json({ message: 'Case Status Not Found' })
-          : res
-              .status(StatusCodes.BAD_REQUEST)
-              .json({ message: 'Unable to patch the casestatus' });
+          : res.status(error?.response?.status).json({
+              status: error?.response?.status,
+              message: error?.response?.data,
+            });
       }
       break;
 

@@ -403,9 +403,8 @@ describe('LAC Specific Tests for CaseStatusDetail component', () => {
       revalidate: jest.fn(),
     }));
 
-    const { queryByText, queryAllByText, queryAllByTestId } = render(
-      <CaseStatusDetails person={mockedResident} />
-    );
+    const { getAllByTestId, queryByText, queryAllByText, queryAllByTestId } =
+      render(<CaseStatusDetails person={mockedResident} />);
 
     const caseStatusDetailsTableElements = queryAllByTestId(
       'case_status_details_table'
@@ -414,8 +413,10 @@ describe('LAC Specific Tests for CaseStatusDetail component', () => {
     expect(caseStatusDetailsTableElements.length).toBe(2);
     expect(scheduledChangesElement.length).toBe(1);
     expect(queryByText('Previous version')).not.toBeInTheDocument();
-    expect(queryByText('09 Oct 2040')).toBeInTheDocument();
-    expect(queryByText('08 Oct 2040')).toBeInTheDocument();
+
+    const elements = getAllByTestId('start_date');
+    expect(elements[0].textContent).toMatch(/(08 Oct 2040)/i);
+
     expect(queryByText('P3: Residential employment')).toBeInTheDocument();
     expect(queryByText('C1: Interim care order')).toBeInTheDocument();
     expect(queryByText('R1: Residential care home')).toBeInTheDocument();
