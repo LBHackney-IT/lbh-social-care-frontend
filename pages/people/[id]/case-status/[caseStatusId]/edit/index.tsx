@@ -13,6 +13,7 @@ const EditEndCaseStatus = (): React.ReactElement => {
   const currentCaseStatusStartDate = String(
     router.query.currentCaseStatusStartDate
   );
+  const pastCaseStatusStartDate = String(router.query.pastCaseStatusStartDate);
 
   return (
     <>
@@ -27,6 +28,7 @@ const EditEndCaseStatus = (): React.ReactElement => {
           prefilledValue={prefilledValue}
           isScheduledCaseStatus={isScheduledCaseStatus}
           currentCaseStatusStartDate={currentCaseStatusStartDate}
+          pastCaseStatusStartDate={pastCaseStatusStartDate}
         />
       </PersonView>
     </>

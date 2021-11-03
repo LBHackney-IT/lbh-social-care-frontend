@@ -5,13 +5,17 @@ import EditCaseStatusForm from 'components/CaseStatus/EditCaseStatusForm/EditCas
 import AnnouncementMessage from 'components/AnnouncementMessage/AnnouncementMessage';
 
 const EditCaseStatus = (): React.ReactElement => {
+  const [isScheduledCaseStatus, setIsScheduledCaseStatus] = useState(false);
+
   const router = useRouter();
   const personId = Number(router.query.id as string);
   const type = String(router.query.type as string);
   const caseStatusId = Number(router.query.caseStatusId as string);
+  const currentCaseStatusStartDate = String(
+    router.query.currentCaseStatusStartDate
+  );
+  const pastCaseStatusStartDate = String(router.query.pastCaseStatusStartDate);
   let action = String(router.query.action as string);
-
-  const [isScheduledCaseStatus, setIsScheduledCaseStatus] = useState(false);
 
   useEffect(() => {
     setIsScheduledCaseStatus(
@@ -46,6 +50,8 @@ const EditCaseStatus = (): React.ReactElement => {
           prefilledFields={prefilledFields}
           action={action}
           caseStatusType={type}
+          currentCaseStatusStartDate={currentCaseStatusStartDate}
+          pastCaseStatusStartDate={pastCaseStatusStartDate}
         />
       </PersonView>
     </>

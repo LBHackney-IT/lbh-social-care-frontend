@@ -35,14 +35,23 @@ const CaseStatusDetails = ({ person }: Props): React.ReactElement => {
 
         const isScheduledCaseStatus = scheduledStatusAnswers ? 1 : 0;
 
-        let currentCaseStatusStartDate;
+        let pastStatusStartDate;
+        let currentStatusStartDate;
+
+        if (
+          pastStatusAnswers &&
+          pastStatusAnswers.length > 0 &&
+          pastStatusAnswers[0].startDate
+        ) {
+          pastStatusStartDate = pastStatusAnswers[0].startDate;
+        }
 
         if (
           currentStatusAnswers &&
           currentStatusAnswers.length > 0 &&
           currentStatusAnswers[0].startDate
         ) {
-          currentCaseStatusStartDate = currentStatusAnswers[0].startDate;
+          currentStatusStartDate = currentStatusAnswers[0].startDate;
         }
 
         return (
@@ -62,11 +71,12 @@ const CaseStatusDetails = ({ person }: Props): React.ReactElement => {
                     query: {
                       type: status.type,
                       isScheduledCaseStatus: isScheduledCaseStatus,
-                      currentCaseStatusStartDate: currentCaseStatusStartDate,
+                      currentCaseStatusStartDate: currentStatusStartDate,
+                      pastCaseStatusStartDate: pastStatusStartDate,
                     },
                   }}
                 >
-                  Edit / End
+                  <a>Edit / End</a>
                 </Link>
               </div>
 
