@@ -1,18 +1,11 @@
 import { AuthRoles } from '../support/commands';
 import { format } from 'date-fns';
 
-//Ideally - grab the latest status from the person, add one day so that the new status won't overlap
-//End date should be the same date as the start date where possible to use as few days as possible
-//Might be worth having something like this so that front end validation can show this issue too?
-//Other option - delete end point to delete previous status? - might be easier?
-//Other option - some constant that can be updated with the next start date to use?
-
 const futureDate = new Date();
 futureDate.setDate(futureDate.getDate() + 1);
 const futureDateFormatted = format(futureDate, 'yyyy-MM-dd');
 const todayDate = format(new Date(), 'yyyy-MM-dd');
 
-//These need updated each time the test are run
 const caseStatusStartDate = '2000-01-12';
 const caseStatusStartDateText = '12 Jan 2000';
 const caseStatusStartDateEdit = '2000-01-11';
@@ -39,10 +32,7 @@ describe('Using case status', () => {
       it('should validate that when adding a CIN case status, a start date is required and the start date must be today or in the past', () => {
         cy.visitAs(
           `/people/${Cypress.env('CHILDREN_RECORD_PERSON_ID')}`,
-          AuthRoles.ChildrensGroup,
-          {
-            timeout: 3000,
-          }
+          AuthRoles.ChildrensGroup
         );
 
         cy.contains('Add a case status').click();
@@ -70,10 +60,7 @@ describe('Using case status', () => {
       it('should be possible to add a CIN case status', () => {
         cy.visitAs(
           `/people/${Cypress.env('CHILDREN_RECORD_PERSON_ID')}`,
-          AuthRoles.ChildrensGroup,
-          {
-            timeout: 3000,
-          }
+          AuthRoles.ChildrensGroup
         );
 
         cy.contains('Add a case status').click();
@@ -97,10 +84,7 @@ describe('Using case status', () => {
       it('should validate when editing a CIN status that the start date cannot be in the future', () => {
         cy.visitAs(
           `/people/${Cypress.env('CHILDREN_RECORD_PERSON_ID')}/details`,
-          AuthRoles.ChildrensGroup,
-          {
-            timeout: 3000,
-          }
+          AuthRoles.ChildrensGroup
         );
 
         cy.contains('a', 'Edit / End', {
@@ -126,10 +110,7 @@ describe('Using case status', () => {
       it('should be possible to edit a CIN case status', () => {
         cy.visitAs(
           `/people/${Cypress.env('CHILDREN_RECORD_PERSON_ID')}/details`,
-          AuthRoles.ChildrensGroup,
-          {
-            timeout: 3000,
-          }
+          AuthRoles.ChildrensGroup
         );
 
         cy.contains('a', 'Edit / End', {
@@ -158,10 +139,7 @@ describe('Using case status', () => {
       it('should validate when ending a CIN case status that the end date cannot be before the case status start date, start date can be in the future', () => {
         cy.visitAs(
           `/people/${Cypress.env('CHILDREN_RECORD_PERSON_ID')}/details`,
-          AuthRoles.ChildrensGroup,
-          {
-            timeout: 3000,
-          }
+          AuthRoles.ChildrensGroup
         );
 
         cy.contains('a', 'Edit / End', {
@@ -188,10 +166,7 @@ describe('Using case status', () => {
       it('should be possible to end the CIN case status', () => {
         cy.visitAs(
           `/people/${Cypress.env('CHILDREN_RECORD_PERSON_ID')}/details`,
-          AuthRoles.ChildrensGroup,
-          {
-            timeout: 3000,
-          }
+          AuthRoles.ChildrensGroup
         );
         cy.wait('@getCaseStatus');
         cy.contains('a', 'Edit / End', {
@@ -209,10 +184,7 @@ describe('Using case status', () => {
         cy.url().should('include', '/details');
         cy.visitAs(
           `/people/${Cypress.env('CHILDREN_RECORD_PERSON_ID')}`,
-          AuthRoles.ChildrensGroup,
-          {
-            timeout: 3000,
-          }
+          AuthRoles.ChildrensGroup
         );
         cy.wait('@getCaseStatus');
         cy.contains('Add a case status', {
@@ -225,10 +197,7 @@ describe('Using case status', () => {
       it('should validate that when adding a CP case status, a start date and answer is required and the start date must be today or in the past', () => {
         cy.visitAs(
           `/people/${Cypress.env('CHILDREN_RECORD_PERSON_ID')}`,
-          AuthRoles.ChildrensGroup,
-          {
-            timeout: 3000,
-          }
+          AuthRoles.ChildrensGroup
         );
 
         cy.contains('Add a case status').click();
@@ -260,10 +229,7 @@ describe('Using case status', () => {
       it('should be possible to add a CP case status', () => {
         cy.visitAs(
           `/people/${Cypress.env('CHILDREN_RECORD_PERSON_ID')}`,
-          AuthRoles.ChildrensGroup,
-          {
-            timeout: 3000,
-          }
+          AuthRoles.ChildrensGroup
         );
 
         cy.contains('Add a case status').click();
@@ -287,10 +253,7 @@ describe('Using case status', () => {
       it('should validate when editing a CP status that the start date cannot be in the future', () => {
         cy.visitAs(
           `/people/${Cypress.env('CHILDREN_RECORD_PERSON_ID')}/details`,
-          AuthRoles.ChildrensGroup,
-          {
-            timeout: 3000,
-          }
+          AuthRoles.ChildrensGroup
         );
 
         cy.contains('a', 'Edit / End', {
@@ -317,10 +280,7 @@ describe('Using case status', () => {
       it('should be possible to edit a CP case status', () => {
         cy.visitAs(
           `/people/${Cypress.env('CHILDREN_RECORD_PERSON_ID')}/details`,
-          AuthRoles.ChildrensGroup,
-          {
-            timeout: 3000,
-          }
+          AuthRoles.ChildrensGroup
         );
 
         cy.contains('a', 'Edit / End', {
@@ -347,10 +307,7 @@ describe('Using case status', () => {
       it('should validate when ending a CP case status that the end date cannot be before the case status start date, start date can be in the future', () => {
         cy.visitAs(
           `/people/${Cypress.env('CHILDREN_RECORD_PERSON_ID')}/details`,
-          AuthRoles.ChildrensGroup,
-          {
-            timeout: 3000,
-          }
+          AuthRoles.ChildrensGroup
         );
 
         cy.contains('a', 'Edit / End', {
@@ -377,10 +334,7 @@ describe('Using case status', () => {
       it('should be possible to end the CP case status', () => {
         cy.visitAs(
           `/people/${Cypress.env('CHILDREN_RECORD_PERSON_ID')}/details`,
-          AuthRoles.ChildrensGroup,
-          {
-            timeout: 3000,
-          }
+          AuthRoles.ChildrensGroup
         );
         cy.wait('@getCaseStatus');
         cy.contains('a', 'Edit / End', {
@@ -399,10 +353,7 @@ describe('Using case status', () => {
 
         cy.visitAs(
           `/people/${Cypress.env('CHILDREN_RECORD_PERSON_ID')}`,
-          AuthRoles.ChildrensGroup,
-          {
-            timeout: 3000,
-          }
+          AuthRoles.ChildrensGroup
         );
         cy.wait('@getCaseStatus');
         cy.contains('Add a case status', {
@@ -415,10 +366,7 @@ describe('Using case status', () => {
       it('should validate that when adding a LAC case status, a start date and two answers are required and the start date must be today or in the past', () => {
         cy.visitAs(
           `/people/${Cypress.env('CHILDREN_RECORD_PERSON_ID')}`,
-          AuthRoles.ChildrensGroup,
-          {
-            timeout: 3000,
-          }
+          AuthRoles.ChildrensGroup
         );
 
         cy.contains('Add a case status').click();
@@ -452,10 +400,7 @@ describe('Using case status', () => {
       it('should be possible to add a LAC case status', () => {
         cy.visitAs(
           `/people/${Cypress.env('CHILDREN_RECORD_PERSON_ID')}`,
-          AuthRoles.ChildrensGroup,
-          {
-            timeout: 3000,
-          }
+          AuthRoles.ChildrensGroup
         );
 
         cy.contains('Add a case status').click();
@@ -483,10 +428,7 @@ describe('Using case status', () => {
       it('should validate when editing a LAC status that the start date cannot be in the future', () => {
         cy.visitAs(
           `/people/${Cypress.env('CHILDREN_RECORD_PERSON_ID')}/details`,
-          AuthRoles.ChildrensGroup,
-          {
-            timeout: 3000,
-          }
+          AuthRoles.ChildrensGroup
         );
 
         cy.contains('a', 'Edit / End', {
@@ -510,14 +452,10 @@ describe('Using case status', () => {
         cy.get('[data-testid=text-field-error-message]').should('not.exist');
       });
 
-      //Edit needs more work
       it('should be possible to edit a LAC case status', () => {
         cy.visitAs(
           `/people/${Cypress.env('CHILDREN_RECORD_PERSON_ID')}/details`,
-          AuthRoles.ChildrensGroup,
-          {
-            timeout: 3000,
-          }
+          AuthRoles.ChildrensGroup
         );
 
         cy.contains('a', 'Edit / End', {
@@ -547,10 +485,7 @@ describe('Using case status', () => {
       it('should be possible to update a LAC case status to have a scheduled case status', () => {
         cy.visitAs(
           `/people/${Cypress.env('CHILDREN_RECORD_PERSON_ID')}/details`,
-          AuthRoles.ChildrensGroup,
-          {
-            timeout: 3000,
-          }
+          AuthRoles.ChildrensGroup
         );
 
         cy.contains('a', 'Edit / End', {
@@ -587,10 +522,7 @@ describe('Using case status', () => {
       it('should validate when ending a LAC case status that the end date cannot be before the case status start date, start date can be in the future', () => {
         cy.visitAs(
           `/people/${Cypress.env('CHILDREN_RECORD_PERSON_ID')}/details`,
-          AuthRoles.ChildrensGroup,
-          {
-            timeout: 3000,
-          }
+          AuthRoles.ChildrensGroup
         );
 
         cy.contains('a', 'Edit / End', {
@@ -617,10 +549,7 @@ describe('Using case status', () => {
       it('should be possible to end the LAC case status', () => {
         cy.visitAs(
           `/people/${Cypress.env('CHILDREN_RECORD_PERSON_ID')}/details`,
-          AuthRoles.ChildrensGroup,
-          {
-            timeout: 3000,
-          }
+          AuthRoles.ChildrensGroup
         );
         cy.wait('@getCaseStatus');
         cy.contains('a', 'Edit / End', {
@@ -641,10 +570,7 @@ describe('Using case status', () => {
         cy.url().should('include', '/details');
         cy.visitAs(
           `/people/${Cypress.env('CHILDREN_RECORD_PERSON_ID')}`,
-          AuthRoles.ChildrensGroup,
-          {
-            timeout: 3000,
-          }
+          AuthRoles.ChildrensGroup
         );
         cy.wait('@getCaseStatus');
         cy.contains('Add a case status', {
