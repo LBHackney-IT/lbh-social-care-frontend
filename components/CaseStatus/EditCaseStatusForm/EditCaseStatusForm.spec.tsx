@@ -121,7 +121,7 @@ describe('EditCaseStatusForm', () => {
     ).toBeInTheDocument();
   });
 
-  it('prefills the start date with the past case status start date (+1)  when editing a LAC', () => {
+  it('prefills the start date with the current case status start date when editing a LAC', () => {
     const startDate = '2021-01-01';
     const { getByTestId, getByText } = render(
       <EditCaseStatusForm
@@ -130,13 +130,13 @@ describe('EditCaseStatusForm', () => {
         action="edit"
         caseStatusType="LAC"
         prefilledFields={{}}
-        pastCaseStatusStartDate={startDate}
+        currentCaseStatusStartDate={startDate}
       />
     );
     expect(getByText('Start Date')).toBeInTheDocument();
 
     const clickDateBox = getByTestId('text-raw-field');
-    expect(clickDateBox.getAttribute('value')).toEqual('2021-01-02');
+    expect(clickDateBox.getAttribute('value')).toEqual(startDate);
   });
 
   it('should enable the submit button when completed', () => {

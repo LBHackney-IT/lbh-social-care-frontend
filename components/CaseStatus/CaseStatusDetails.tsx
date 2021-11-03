@@ -76,7 +76,7 @@ const CaseStatusDetails = ({ person }: Props): React.ReactElement => {
                     },
                   }}
                 >
-                  Edit / End
+                  <a>Edit / End</a>
                 </Link>
               </div>
 
