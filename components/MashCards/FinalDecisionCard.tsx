@@ -3,22 +3,18 @@ import { MashReferral } from 'types';
 import Link from 'next/link';
 
 interface Props {
-  mashReferrals: MashReferral;
-  key: string;
+  mashReferral: MashReferral;
 }
-const FinalDecisionCard = ({
-  mashReferrals,
-  key,
-}: Props): React.ReactElement => {
+const FinalDecisionCard = ({ mashReferral }: Props): React.ReactElement => {
   return (
     <>
       <li className={s.row}>
-        <div key={key}>
+        <div>
           <p className="lbh-body-m govuk-!-margin-bottom-3">
             <span className="govuk-tag lbh-tag lbh-tag--green">
               4 hours left
             </span>{' '}
-            {mashReferrals.createdAt}
+            {mashReferral.createdAt}
             <span className={`lbh-body-l lbh-!-font-weight-bold  ${s.action}`}>
               <Link href="action">Action </Link>
             </span>
@@ -28,11 +24,11 @@ const FinalDecisionCard = ({
             <div>
               <dt>Name of client</dt>
               <dd>
-                <Link href={mashReferrals.referralDocumentURI}>
+                <Link href={mashReferral.referralDocumentURI}>
                   <a>
-                    {mashReferrals.clients[0]}
-                    {mashReferrals.clients.length > 1 &&
-                      ` + ${mashReferrals.clients.length - 1} `}{' '}
+                    {mashReferral.clients[0]}
+                    {mashReferral.clients.length > 1 &&
+                      ` + ${mashReferral.clients.length - 1} `}
                     (referral)
                   </a>{' '}
                 </Link>
@@ -40,11 +36,11 @@ const FinalDecisionCard = ({
             </div>
             <div>
               <dt>Screening decision</dt>
-              <dd>{mashReferrals.screeningDecision}</dd>
+              <dd>{mashReferral.screeningDecision}</dd>
             </div>
             <div>
               <dt>Referral category</dt>
-              <dd>{mashReferrals.referralCategory}</dd>
+              <dd>{mashReferral.referralCategory}</dd>
             </div>
             <div>
               <Link href="assign">

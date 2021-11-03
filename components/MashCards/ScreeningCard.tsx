@@ -3,19 +3,18 @@ import { MashReferral } from 'types';
 import Link from 'next/link';
 
 interface Props {
-  mashReferrals: MashReferral;
-  key: string;
+  mashReferral: MashReferral;
 }
-const ScreeningCard = ({ mashReferrals, key }: Props): React.ReactElement => {
+const ScreeningCard = ({ mashReferral }: Props): React.ReactElement => {
   return (
     <>
       <li className={s.row}>
-        <div key={key}>
+        <div>
           <p className="lbh-body-m govuk-!-margin-bottom-3">
             <span className="govuk-tag lbh-tag lbh-tag--green">
               4 hours left
-            </span>{' '}
-            {mashReferrals.createdAt}
+            </span>
+            {mashReferral.createdAt}
             <span className={`lbh-body-l lbh-!-font-weight-bold  ${s.action}`}>
               <Link href="screening">Action </Link>
             </span>
@@ -25,11 +24,11 @@ const ScreeningCard = ({ mashReferrals, key }: Props): React.ReactElement => {
             <div>
               <dt>Name of client</dt>
               <dd>
-                <Link href={mashReferrals.referralDocumentURI}>
+                <Link href={mashReferral.referralDocumentURI}>
                   <a>
-                    {mashReferrals.clients[0]}
-                    {mashReferrals.clients.length > 1 &&
-                      ` + ${mashReferrals.clients.length - 1} `}{' '}
+                    {mashReferral.clients[0]}
+                    {mashReferral.clients.length > 1 &&
+                      ` + ${mashReferral.clients.length - 1} `}
                     (referral)
                   </a>
                 </Link>
@@ -37,11 +36,11 @@ const ScreeningCard = ({ mashReferrals, key }: Props): React.ReactElement => {
             </div>
             <div>
               <dt>Initial decision</dt>
-              <dd>{mashReferrals.initialDecision}</dd>
+              <dd>{mashReferral.initialDecision}</dd>
             </div>
             <div>
               <dt>Referral category</dt>
-              <dd>{mashReferrals.referralCategory}</dd>
+              <dd>{mashReferral.referralCategory}</dd>
             </div>
             <div>
               <Link href="assign">

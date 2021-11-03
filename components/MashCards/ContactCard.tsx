@@ -3,20 +3,19 @@ import Link from 'next/link';
 import { MashReferral } from 'types';
 
 interface Props {
-  mashReferrals: MashReferral;
-  key: string;
+  mashReferral: MashReferral;
 }
 
-const ContactCard = ({ mashReferrals, key }: Props): React.ReactElement => {
+const ContactCard = ({ mashReferral }: Props): React.ReactElement => {
   return (
     <>
       <li className={s.row}>
-        <div key={key}>
+        <div>
           <p className="lbh-body-m govuk-!-margin-bottom-3">
             <span className="govuk-tag lbh-tag lbh-tag--green">
               4 hours left
             </span>{' '}
-            {mashReferrals.createdAt}
+            {mashReferral.createdAt}
             <span className={`lbh-body-l lbh-!-font-weight-bold  ${s.action}`}>
               <Link href="contact">Action</Link>
             </span>
@@ -26,11 +25,11 @@ const ContactCard = ({ mashReferrals, key }: Props): React.ReactElement => {
             <div>
               <dt>Name of client</dt>
               <dd>
-                <Link href={mashReferrals.referralDocumentURI}>
+                <Link href={mashReferral.referralDocumentURI}>
                   <a>
-                    {mashReferrals.clients[0]}
-                    {mashReferrals.clients.length > 1 &&
-                      ` + ${mashReferrals.clients.length - 1} `}{' '}
+                    {mashReferral.clients[0]}
+                    {mashReferral.clients.length > 1 &&
+                      ` + ${mashReferral.clients.length - 1} `}
                     (referral)
                   </a>
                 </Link>
@@ -38,11 +37,11 @@ const ContactCard = ({ mashReferrals, key }: Props): React.ReactElement => {
             </div>
             <div>
               <dt>Referrer</dt>
-              <dd>{mashReferrals.referrer}</dd>
+              <dd>{mashReferral.referrer}</dd>
             </div>
             <div>
               <dt>Requested support</dt>
-              <dd>{mashReferrals.requestedSupport}</dd>
+              <dd>{mashReferral.requestedSupport}</dd>
             </div>
             <div>
               <Link href="assign">

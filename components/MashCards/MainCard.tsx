@@ -14,29 +14,23 @@ const MainCard = ({ filter, mashReferrals }: Props): React.ReactElement => {
     return (
       <div>
         {mashReferrals.map((referral) => (
-          <ContactCard key={referral.id} mashReferrals={referral}></ContactCard>
-        ))}{' '}
+          <ContactCard key={referral.id} mashReferral={referral} />
+        ))}
       </div>
     );
   } else if (filter === 'initial-decision') {
     return (
       <div>
         {mashReferrals.map((referral) => (
-          <InitialDecisionCard
-            key={referral.id}
-            mashReferrals={referral}
-          ></InitialDecisionCard>
-        ))}{' '}
+          <InitialDecisionCard key={referral.id} mashReferral={referral} />
+        ))}
       </div>
     );
   } else if (filter === 'screening') {
     return (
       <div>
         {mashReferrals.map((referral) => (
-          <ScreeningCard
-            key={referral.id}
-            mashReferrals={referral}
-          ></ScreeningCard>
+          <ScreeningCard key={referral.id} mashReferrals={referral} />
         ))}
       </div>
     );
@@ -44,11 +38,8 @@ const MainCard = ({ filter, mashReferrals }: Props): React.ReactElement => {
     return (
       <div>
         {mashReferrals.map((referral) => (
-          <FinalDecisionCard
-            key={referral.id}
-            mashReferrals={referral}
-          ></FinalDecisionCard>
-        ))}{' '}
+          <FinalDecisionCard key={referral.id} mashReferral={referral} />
+        ))}
       </div>
     );
   }
