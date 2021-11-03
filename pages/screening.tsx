@@ -6,9 +6,11 @@ import { Select } from 'components/Form';
 
 const ScreeningDecision = (): React.ReactElement => {
   const [screeningDecision, setScreeningDecision] =
-    useState<string>('decision');
+    useState<string>('option 1');
   const [urgencyScreeningDecision, setUrgencyScreeningDecision] =
     useState<boolean>(false);
+  console.log(urgencyScreeningDecision);
+  console.log(screeningDecision);
   return (
     <>
       <h1>Make screening decision</h1>
@@ -38,6 +40,7 @@ const ScreeningDecision = (): React.ReactElement => {
             <Select
               id="screening-decision"
               name="screening-decision"
+              value={screeningDecision}
               options={['option 1', 'option 2']}
               onChange={(value) => setScreeningDecision(value)}
             />
@@ -58,6 +61,7 @@ const ScreeningDecision = (): React.ReactElement => {
                     name="urgency"
                     type="radio"
                     value="no"
+                    checked={!urgencyScreeningDecision}
                     onClick={() => setUrgencyScreeningDecision(false)}
                   />
                   <label
@@ -74,6 +78,7 @@ const ScreeningDecision = (): React.ReactElement => {
                     name="urgency"
                     type="radio"
                     value="yes"
+                    checked={urgencyScreeningDecision}
                     onClick={() => setUrgencyScreeningDecision(true)}
                   />
                   <label
