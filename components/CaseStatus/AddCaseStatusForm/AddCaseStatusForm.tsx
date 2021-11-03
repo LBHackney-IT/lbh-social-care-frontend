@@ -7,6 +7,8 @@ import Button from 'components/Button/Button';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useCaseStatusesWithEnded } from 'utils/api/caseStatus';
+import { CaseStatus } from 'types';
+import { format } from 'date-fns';
 
 const AddCaseStatusForm: React.FC<{
   personId: number;
@@ -14,16 +16,53 @@ const AddCaseStatusForm: React.FC<{
 }> = ({ personId, prefilledFields }) => {
   const router = useRouter();
 
+  const { data } = useCaseStatusesWithEnded(
+    personId,
+    { includeEnded: true },
+    true
+  );
+
+  const fixedDate = data ? data[0] : undefined;
+
+  const sortCaseStatusByEndDate = (
+    caseStatuses: CaseStatus[] | undefined
+  ): CaseStatus[] | undefined => {
+    console.log('caseStatuses', caseStatuses);
+    return caseStatuses === undefined
+      ? undefined
+      : caseStatuses.sort((a, b) => {
+          console.log('enddate', b.endDate);
+          return Date.parse(b.endDate) - Date.parse(a.endDate);
+        });
+  };
+
+  const orderedCaseStatuses = sortCaseStatusByEndDate(data);
+
+  console.log('orderedCaseStatuses', orderedCaseStatuses);
+  if (orderedCaseStatuses) {
+    console.log('orderedCaseStatuses[0]', orderedCaseStatuses[0]);
+  }
+
+  const latestEndDate = orderedCaseStatuses
+    ? orderedCaseStatuses[0].endDate
+    : undefined;
+
+  console.log('latestEndDate', latestEndDate);
+
   const form_fields = CASE_STATUS.steps[0].fields;
 
   form_fields.map((field) => {
     if (prefilledFields && prefilledFields[field.id]) {
       field.default = String(prefilledFields[field.id]);
     }
+    if (
+      field.id === 'startDate' &&
+      latestEndDate &&
+      latestEndDate !== 'undefined'
+    ) {
+      field.startDate = format(new Date(latestEndDate), 'yyyy-MM-dd');
+    }
   });
-
-  const { data } = useCaseStatusesWithEnded(personId, { includeEnded: true });
-  console.log(data);
 
   const handleSubmit = async (
     values: FormikValues,

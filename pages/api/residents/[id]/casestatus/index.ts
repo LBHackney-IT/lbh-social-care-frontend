@@ -27,7 +27,7 @@ const endpoint: NextApiHandler = async (
           const data = await getCaseStatusByPersonIdIncludeEnded(
             Number(req.query.id as string)
           );
-          res.status(StatusCodes.OK).json(data);
+          res.status(StatusCodes.OK).json(data[0]);
         } catch (error) {
           console.error('Case status gets error:', error?.response?.data);
           res
