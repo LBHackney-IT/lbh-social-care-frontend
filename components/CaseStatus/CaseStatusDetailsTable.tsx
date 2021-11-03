@@ -74,8 +74,8 @@ const CaseStatusDetailsTable = ({
     let end_date = status.endDate;
 
     //current active answers, when there's no scheduled status.
-    //the end date comes from the answers included
-    if (!scheduledStatus && answers?.startDate && answers.endDate) {
+    //the start date comes from the answers included
+    if (!scheduledStatus && answers?.startDate && !answers.endDate) {
       start_date = answers.startDate;
     }
 
@@ -119,7 +119,6 @@ const CaseStatusDetailsTable = ({
 
     //last past status.
     //end date is the current status start date
-
     if (currentStatus && !end_date && !answers?.endDate && !status.endDate) {
       end_date = currentStatus[0].startDate;
     }
