@@ -1,29 +1,20 @@
 import s from './MashCard.module.scss';
 import Link from 'next/link';
+import { MashReferral } from 'types';
 
 interface Props {
-  clientName: string;
-  timeLeft: string;
-  dateTime: string;
-  referrer: string;
-  requestedSupport: string;
+  mashReferrals: MashReferral;
 }
-const ContactCard = ({
-  clientName,
-  timeLeft,
-  dateTime,
-  referrer,
-  requestedSupport,
-}: Props): React.ReactElement => {
+const ContactCard = ({ mashReferrals }: Props): React.ReactElement => {
   return (
     <>
       <li className={s.row}>
         <div>
           <p className="lbh-body-m govuk-!-margin-bottom-3">
             <span className="govuk-tag lbh-tag lbh-tag--green">
-              {timeLeft} left
+              4 hours left
             </span>{' '}
-            {dateTime}
+            {mashReferrals.createdAt}
             <span className={`lbh-body-l lbh-!-font-weight-bold  ${s.action}`}>
               <Link href="#">Action </Link>
             </span>
@@ -33,16 +24,16 @@ const ContactCard = ({
             <div>
               <dt>Name of client</dt>
               <dd>
-                <a href="#">{clientName} (referral)</a>
+                <a href="#">{mashReferrals.clients[0]} (referral)</a>
               </dd>
             </div>
             <div>
               <dt>Referrer</dt>
-              <dd>{referrer}</dd>
+              <dd>{mashReferrals.referrer}</dd>
             </div>
             <div>
               <dt>Requested support</dt>
-              <dd>{requestedSupport}</dd>
+              <dd>{mashReferrals.requestedSupport}</dd>
             </div>
             <div>
               <a>Assign</a>
