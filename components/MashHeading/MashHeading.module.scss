@@ -1,0 +1,21 @@
+@import 'lbh-frontend/lbh/base';
+
+.banner {
+  border-bottom: 3px solid #00654f;
+  padding-bottom: 15px;
+  color: lbh-colour('lbh-grey-1');
+  font-size: larger;
+  @include govuk-media-query(400px) {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+}
+
+.heading {
+  padding-bottom: 0px;
+  color: #00654f;
+  font-size: xx-large;
+  font-weight: 600;
+}
