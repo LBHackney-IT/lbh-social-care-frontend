@@ -29,6 +29,17 @@ export const MashDashboard = ({ referrals }: Props): React.ReactElement => {
     }
   }, [router.query]);
 
+  useEffect(() => {
+    if (router.query.confirmation) {
+      const confirmation = JSON.parse(router.query.confirmation as string) as {
+        name: string;
+        link: string;
+        [values: string]: string;
+      }[];
+      console.log('confirmation: ' + JSON.stringify(confirmation));
+    }
+  });
+
   const { contact, initial, screening, final } = {
     contact: referrals.filter((ref) => ref.stage === 'Contact'),
     initial: referrals.filter((ref) => ref.stage === 'Initial decision'),
