@@ -36,6 +36,16 @@ const ScreeningDecision = ({
       pathname: `/team-assignments`,
       query: {
         tab: 'screening-decision',
+        confirmation: JSON.stringify([
+          {
+            Name: 'Big Boss',
+            Decision: screeningDecision,
+            Urgent: urgencyScreeningDecision ? 'Yes' : 'No',
+            PersonId: '1234',
+            Dob: '12/12/1990',
+            Link: referral.referralDocumentURI,
+          },
+        ]),
       },
     });
   };
