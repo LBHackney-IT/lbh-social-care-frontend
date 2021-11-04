@@ -1,4 +1,5 @@
 import s from './MashHeading.module.scss';
+import { format } from 'date-fns';
 
 interface Props {
   clientname: string;
@@ -15,7 +16,10 @@ const MASHheading = ({
     <div className={s.banner}>
       <div className={s.heading}>{clientname}</div>
       <div>
-        <span className="govuk-!-margin-right-3"> received at {datetime}</span>
+        <span className="govuk-!-margin-right-3">
+          {' '}
+          received at {format(new Date(datetime), 'HH:00 dd MMM')}
+        </span>
         <span className="govuk-tag lbh-tag lbh-tag--green">
           {timeleft} left
         </span>
