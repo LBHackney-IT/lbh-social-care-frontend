@@ -11,7 +11,7 @@ const ScreeningCard = ({ mashReferral }: Props): React.ReactElement => {
     <>
       <li className={s.row}>
         <div>
-          <p className="lbh-body-m govuk-!-margin-bottom-3">
+          <p className={`lbh-body-s govuk-!-margin-bottom-3 ${s.datetime}`}>
             <span className="govuk-tag lbh-tag lbh-tag--green">
               4 hours left
             </span>{' '}
@@ -20,7 +20,7 @@ const ScreeningCard = ({ mashReferral }: Props): React.ReactElement => {
               <Link
                 href={`mash-referral/${mashReferral.id}/screening-decision`}
               >
-                Action
+                Make decision
               </Link>
             </span>
           </p>
