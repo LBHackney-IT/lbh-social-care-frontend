@@ -64,6 +64,18 @@ const ReviewAddCaseStatusForm: React.FC<{
             value: formAnswers.episodeReason,
           } as CaseStatusFormValue)
         : null;
+      formAnswers.legalStatus
+        ? fieldsValues.push({
+            option: 'legalStatus',
+            value: formAnswers.legalStatus,
+          } as CaseStatusFormValue)
+        : null;
+      formAnswers.placementType
+        ? fieldsValues.push({
+            option: 'placementType',
+            value: formAnswers.placementType,
+          } as CaseStatusFormValue)
+        : null;
 
       patchObject['answers'] = fieldsValues;
 

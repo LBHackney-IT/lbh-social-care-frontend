@@ -14,6 +14,7 @@ const ChooseEditCaseStatusForm: React.FC<{
   caseStatusType: string;
   isScheduledCaseStatus?: number;
   currentCaseStatusStartDate?: string;
+  pastCaseStatusStartDate?: string;
 }> = ({
   personId,
   caseStatusId,
@@ -21,6 +22,7 @@ const ChooseEditCaseStatusForm: React.FC<{
   caseStatusType,
   isScheduledCaseStatus,
   currentCaseStatusStartDate,
+  pastCaseStatusStartDate,
 }) => {
   const router = useRouter();
   let form_fields: any;
@@ -50,6 +52,7 @@ const ChooseEditCaseStatusForm: React.FC<{
           type: caseStatusType,
           isScheduledCaseStatus: isScheduledCaseStatus,
           currentCaseStatusStartDate: currentCaseStatusStartDate,
+          pastCaseStatusStartDate: pastCaseStatusStartDate,
         },
       });
     } catch (e) {

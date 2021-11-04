@@ -1,6 +1,6 @@
 import UpdateCaseStatusForm from './UpdateCaseStatusForm';
 import { residentFactory } from 'factories/residents';
-import { act, fireEvent, render } from '@testing-library/react';
+import { fireEvent, render } from '@testing-library/react';
 
 const mockedResident = residentFactory.build();
 
@@ -44,26 +44,20 @@ describe('UpdateCaseStatusForm', () => {
 });
 
 describe('UpdateCaseStatusForm validations', () => {
-  it('display validation text and disables submit button when scheduled start date is set to be on or before current active case status start date', async () => {
-    const { getByText, getByTestId } = render(
+  it('prefills the start date with the current case status start date (+1) when updating a LAC', () => {
+    const startDate = '2021-01-01';
+    const { getByTestId } = render(
       <UpdateCaseStatusForm
         personId={mockedResident.id}
         caseStatusId={123}
         action="update"
         caseStatusType="LAC"
-        currentCaseStatusStartDate="2020-10-10"
-        prefilledFields={{ startDate: '2021-10-10' }}
+        prefilledFields={{}}
+        currentCaseStatusStartDate={startDate}
       />
     );
     const clickDateBox = getByTestId('text-raw-field');
-
-    await act(async () => {
-      fireEvent.click(clickDateBox);
-      fireEvent.focusOut(clickDateBox);
-    });
-
-    expect(getByText('Date cannot be before start date')).toBeInTheDocument();
-    expect(getByTestId('submit_button')).toBeDisabled();
+    expect(clickDateBox.getAttribute('value')).toEqual('2021-01-02');
   });
 
   it('does not disable submit button when scheduled start date is set to be after current active case status start date', async () => {
@@ -79,10 +73,8 @@ describe('UpdateCaseStatusForm validations', () => {
     );
     const clickDateBox = getByTestId('text-raw-field');
 
-    await act(async () => {
-      fireEvent.click(clickDateBox);
-      fireEvent.focusOut(clickDateBox);
-    });
+    fireEvent.click(clickDateBox);
+    fireEvent.focusOut(clickDateBox);
 
     expect(getByTestId('submit_button')).not.toBeDisabled();
   });
