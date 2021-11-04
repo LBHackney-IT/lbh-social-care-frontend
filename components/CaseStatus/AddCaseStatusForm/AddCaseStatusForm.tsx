@@ -7,7 +7,6 @@ import Button from 'components/Button/Button';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useCaseStatusesWithEnded } from 'utils/api/caseStatus';
-import { CaseStatus } from 'types';
 import { format } from 'date-fns';
 
 const AddCaseStatusForm: React.FC<{
@@ -22,32 +21,16 @@ const AddCaseStatusForm: React.FC<{
     true
   );
 
-  const fixedDate = data ? data[0] : undefined;
-
-  const sortCaseStatusByEndDate = (
-    caseStatuses: CaseStatus[] | undefined
-  ): CaseStatus[] | undefined => {
-    console.log('caseStatuses', caseStatuses);
-    return caseStatuses === undefined
-      ? undefined
-      : caseStatuses.sort((a, b) => {
-          console.log('enddate', b.endDate);
-          return Date.parse(b.endDate) - Date.parse(a.endDate);
-        });
-  };
-
-  const orderedCaseStatuses = sortCaseStatusByEndDate(data);
-
-  console.log('orderedCaseStatuses', orderedCaseStatuses);
-  if (orderedCaseStatuses) {
-    console.log('orderedCaseStatuses[0]', orderedCaseStatuses[0]);
+  let latestEndDate: string;
+  if (data) {
+    latestEndDate = data[0].endDate;
+    data.forEach((status) => {
+      if (status.endDate > latestEndDate) {
+        latestEndDate = status.endDate;
+      }
+    });
+    console.log('latestEndDate', latestEndDate);
   }
-
-  const latestEndDate = orderedCaseStatuses
-    ? orderedCaseStatuses[0].endDate
-    : undefined;
-
-  console.log('latestEndDate', latestEndDate);
 
   const form_fields = CASE_STATUS.steps[0].fields;
 
@@ -56,7 +39,9 @@ const AddCaseStatusForm: React.FC<{
       field.default = String(prefilledFields[field.id]);
     }
     if (
-      field.id === 'startDate' &&
+      (field.id === 'startDateCIN' ||
+        field.id === 'startDateCP' ||
+        field.id === 'startDateLAC') &&
       latestEndDate &&
       latestEndDate !== 'undefined'
     ) {

@@ -66,7 +66,7 @@ const form: Form = {
           ],
         },
         {
-          id: 'startDate',
+          id: 'startDateCIN',
           question: 'Start Date',
           type: 'date',
           required: true,
@@ -93,7 +93,7 @@ const form: Form = {
           required: false,
         },
         {
-          id: 'startDate',
+          id: 'startDateCP',
           question: 'Start Date',
           type: 'date',
           required: true,
@@ -121,7 +121,7 @@ const form: Form = {
           required: true,
         },
         {
-          id: 'startDate',
+          id: 'startDateLAC',
           question: 'Start Date',
           type: 'date',
           required: true,
