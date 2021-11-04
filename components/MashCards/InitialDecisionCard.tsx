@@ -13,10 +13,12 @@ const InitialDecisionCard = ({ mashReferral }: Props): React.ReactElement => {
           <p className="lbh-body-m govuk-!-margin-bottom-3">
             <span className="govuk-tag lbh-tag lbh-tag--green">
               4 hours left
-            </span>{' '}
+            </span>
             {mashReferral.createdAt}
             <span className={`lbh-body-l lbh-!-font-weight-bold  ${s.action}`}>
-              <Link href="initial-decision">Action </Link>
+              <Link href={`mash-referral/${mashReferral.id}/initial-decision`}>
+                Action
+              </Link>
             </span>
           </p>
           <hr className={s.line} />
