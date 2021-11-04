@@ -21,7 +21,10 @@
     z-index: 2;
   }
 }
-
+.action {
+  float: right;
+  display: block;
+}
 .line {
   height: 1px;
   background-color: lbh-colour('lbh-grey-3');
@@ -37,7 +40,7 @@
   @include govuk-media-query($from: tablet) {
     display: grid;
     grid-template-columns: 1.8fr 1fr 1fr 0.2fr;
-    gap: 70px;
+    gap: 60px;
     div {
       margin-bottom: 0px;
     }

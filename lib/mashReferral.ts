@@ -9,8 +9,8 @@ const headers = {
   'x-api-key': AWS_KEY,
 };
 
-export const getAllMashReferrals = async (): Promise<MashReferral> => {
-  const { data } = await axios.get<MashReferral>(
+export const getAllMashReferrals = async (): Promise<MashReferral[]> => {
+  const { data } = await axios.get<MashReferral[]>(
     `${ENDPOINT_API}/mash-referral`,
     {
       headers,

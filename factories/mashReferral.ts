@@ -14,6 +14,8 @@ export const mashReferralFactory = Factory.define<MashReferral>(
     finalDecision: 'test-final-decision',
     initialDecision: 'test-initial-decision',
     screeningDecision: 'test-screening-decision',
+    screeningUrgentContactRequired: false,
+    screeningCreatedAt: '2021-11-03T18:52:05.097Z',
     referralCategory: 'test-referral-category',
     referralDocumentURI: 'test-referral-document-URI',
   })
