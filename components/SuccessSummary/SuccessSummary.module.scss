@@ -1,0 +1,29 @@
+.successSummary {
+  border: 1px solid #84bd00;
+  border-left-width: 5px;
+  background-color: #a4d65e33;
+  color: black;
+  padding: 15px;
+  margin-bottom: 30px;
+}
+
+.summaryTitle {
+  font-weight: 700;
+  font-size: 1.125rem;
+  line-height: 1.25;
+  margin-top: 0px;
+  margin-bottom: 15px;
+}
+
+.summaryBody {
+  font-weight: 400;
+  line-height: 1.25;
+  ul {
+    li {
+      padding: 0px;
+      margin: 0px 0px 10px 0px;
+    }
+    list-style: none;
+  }
+  margin-bottom: 15px;
+}

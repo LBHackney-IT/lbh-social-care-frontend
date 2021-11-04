@@ -4,6 +4,7 @@ import Tab from 'components/SubmissionsTable/Tab';
 import MainCard from 'components/MashCards/MainCard';
 import { MashReferral } from 'types';
 import { useRouter } from 'next/router';
+import SuccessSummary from 'components/SuccessSummary/SuccessSummary';
 
 interface Props {
   referrals: MashReferral[];
@@ -22,7 +23,7 @@ export const MashDashboard = ({ referrals }: Props): React.ReactElement => {
   const router = useRouter();
 
   useEffect(() => {
-    const tab = (router.query.tab as string).toLowerCase();
+    const tab = (router.query.tab as string)?.toLowerCase();
     if (possibleTabs.has(tab)) {
       setFilter(tab);
     }
@@ -84,6 +85,17 @@ export const MashDashboard = ({ referrals }: Props): React.ReactElement => {
         <div>
           <MainCard filter={filter} mashReferrals={mashReferrals}></MainCard>
         </div>
+
+        <SuccessSummary
+          title="Final decision confirmation - Jack Smith"
+          body={{
+            'Final decision': 'NFA',
+            'Referral category': 'Housing',
+            'Social care Id': '1237867',
+            'Date of birth': '02/11/2001',
+          }}
+          referralLink="test-link"
+        />
       </>
     </div>
   );
