@@ -32,7 +32,7 @@ export const getMashReferral = async (id: string): Promise<MashReferral> => {
 };
 
 interface ScreeningDecision {
-  workerId: number;
+  workerEmail: string;
   updateType: 'SCREENING-DECISION';
   decision: string;
   requiresUrgentContact: boolean;
@@ -45,7 +45,7 @@ export const patchReferral = async (
   const { data } = await axios.patch<MashReferral>(
     `${ENDPOINT_API}/mash-referral/${update.referralId}`,
     {
-      workerId: update.workerId,
+      workerEmail: update.workerEmail,
       updateType: update.updateType,
       decision: update.decision,
       requiresUrgentContact: update.requiresUrgentContact,

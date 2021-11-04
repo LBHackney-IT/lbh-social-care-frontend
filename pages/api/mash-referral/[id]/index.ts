@@ -19,11 +19,11 @@ const endpoint: NextApiHandler = async (
   switch (req.method) {
     case 'PATCH':
       try {
-        const { referralId, decision, requiresUrgentContact, workerId } = {
+        const { referralId, decision, requiresUrgentContact, workerEmail } = {
           referralId: req.query.id as string,
           decision: req.body.decision,
           requiresUrgentContact: req.body.requiresUrgentContact,
-          workerId: req.body.workerId,
+          workerEmail: req.body.workerEmail,
         };
 
         const data = await patchReferral({
@@ -31,7 +31,7 @@ const endpoint: NextApiHandler = async (
           decision,
           requiresUrgentContact,
           updateType: 'SCREENING-DECISION',
-          workerId,
+          workerEmail,
         });
         res.status(StatusCodes.OK).json(data);
       } catch (error: any) {

@@ -5,7 +5,7 @@ export const submitScreeningDecision = async (
   referralId: string,
   decision: string,
   requiresUrgentContact: boolean,
-  workerId: number
+  workerEmail: string
 ): Promise<MashReferral> => {
   const response = await axios.patch<MashReferral>(
     `/api/mash-referral/${referralId}/`,
@@ -14,7 +14,7 @@ export const submitScreeningDecision = async (
       decision,
       requiresUrgentContact,
       updateType: 'SCREENING-DECISION',
-      workerId: workerId,
+      workerEmail: workerEmail,
     }
   );
   return response?.data;

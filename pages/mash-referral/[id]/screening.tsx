@@ -10,9 +10,13 @@ import { isAuthorised } from 'utils/auth';
 import { submitScreeningDecision } from 'utils/api/mashReferrals';
 interface Props {
   referral: MashReferral;
+  workerEmail: string;
 }
 
-const ScreeningDecision = ({ referral }: Props): React.ReactElement => {
+const ScreeningDecision = ({
+  referral,
+  workerEmail,
+}: Props): React.ReactElement => {
   const [screeningDecision, setScreeningDecision] = useState('option 1');
   const [urgencyScreeningDecision, setUrgencyScreeningDecision] =
     useState(false);
@@ -22,7 +26,7 @@ const ScreeningDecision = ({ referral }: Props): React.ReactElement => {
       referral.id,
       screeningDecision,
       urgencyScreeningDecision,
-      3
+      workerEmail
     );
   };
 
@@ -145,6 +149,7 @@ export const getServerSideProps: GetServerSideProps = async ({
   params,
 }) => {
   const user = isAuthorised(req);
+  console.log('🚀 ~ file: screening.tsx ~ line 148 ~ user', user);
 
   if (!user) {
     return {
@@ -169,6 +174,7 @@ export const getServerSideProps: GetServerSideProps = async ({
   return {
     props: {
       referral,
+      workerEmail: user.email,
     },
   };
 };
