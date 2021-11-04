@@ -6,7 +6,11 @@ import { Select } from 'components/Form';
 const InitialDecision = (): React.ReactElement => (
   <>
     <h1>Make initial decision</h1>
-    <Heading clientname="Jan Smith" timeleft="3 hours" datetime="10:00 6 Jun" />
+    <Heading
+      clientname="Jan Smith"
+      timeleft="3 hours"
+      datetime="2021-11-04T13:50:10.6120000Z"
+    />
 
     <NumberedSteps
       nodes={[
