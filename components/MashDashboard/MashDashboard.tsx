@@ -41,7 +41,7 @@ export const MashDashboard = ({ referrals }: Props): React.ReactElement => {
     mashReferrals = contact;
   } else if (filter === 'initial-decision') {
     mashReferrals = initial;
-  } else if (filter === 'screening') {
+  } else if (filter === 'screening-decision') {
     mashReferrals = screening;
   } else {
     mashReferrals = final;
