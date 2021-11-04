@@ -1,7 +1,11 @@
 import React from 'react';
 
 const contactDecision = (): React.ReactElement => {
-  return <div></div>;
+  return (
+    <>
+      <h1>Work on contact</h1>
+    </>
+  );
 };
 
 export default contactDecision;
