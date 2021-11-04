@@ -1,6 +1,6 @@
 import React from 'react';
 
-const contactDecision = (): React.ReactElement => {
+const ContactDecision = (): React.ReactElement => {
   return (
     <>
       <h1>Work on contact</h1>
@@ -8,4 +8,4 @@ const contactDecision = (): React.ReactElement => {
   );
 };
 
-export default contactDecision;
+export default ContactDecision;
