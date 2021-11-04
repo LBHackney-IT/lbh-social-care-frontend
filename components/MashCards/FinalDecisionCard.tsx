@@ -17,7 +17,9 @@ const FinalDecisionCard = ({ mashReferral }: Props): React.ReactElement => {
             </span>{' '}
             submitted {format(new Date(mashReferral.createdAt), 'HH:00 dd MMM')}
             <span className={`lbh-body-l lbh-!-font-weight-bold  ${s.action}`}>
-              <Link href="action">Action </Link>
+              <Link href={`mash-referral/${mashReferral.id}/final-decision`}>
+                Action
+              </Link>
             </span>
           </p>
           <hr className={s.line} />
@@ -31,7 +33,7 @@ const FinalDecisionCard = ({ mashReferral }: Props): React.ReactElement => {
                     {mashReferral.clients.length > 1 &&
                       ` + ${mashReferral.clients.length - 1} `}
                     (referral)
-                  </a>{' '}
+                  </a>
                 </Link>
               </dd>
             </div>
