@@ -24,6 +24,15 @@ const ScreeningDecision = ({
 
   const router = useRouter();
 
+  const confirmations = referral.clients.map((client) => ({
+    title: `Screening decision - ${client}`,
+    Decision: screeningDecision,
+    Urgent: urgencyScreeningDecision ? 'Yes' : 'No',
+    PersonId: 'hardcoded person id',
+    Dob: 'hardcoded DOB',
+    Link: referral.referralDocumentURI,
+  }));
+
   const submitForm = async () => {
     await submitScreeningDecision(
       referral.id,
@@ -36,16 +45,7 @@ const ScreeningDecision = ({
       pathname: `/team-assignments`,
       query: {
         tab: 'screening-decision',
-        confirmation: JSON.stringify([
-          {
-            Name: 'Big Boss',
-            Decision: screeningDecision,
-            Urgent: urgencyScreeningDecision ? 'Yes' : 'No',
-            PersonId: '1234',
-            Dob: '12/12/1990',
-            Link: referral.referralDocumentURI,
-          },
-        ]),
+        confirmations: JSON.stringify(confirmations),
       },
     });
   };

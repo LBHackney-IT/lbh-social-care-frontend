@@ -23,22 +23,22 @@ export const MashDashboard = ({ referrals }: Props): React.ReactElement => {
   const router = useRouter();
 
   useEffect(() => {
-    const tab = (router.query.tab as string)?.toLowerCase();
-    if (possibleTabs.has(tab)) {
-      setFilter(tab);
+    if (router.query.tab) {
+      const tab = (router.query.tab as string).toLowerCase();
+      if (possibleTabs.has(tab)) {
+        setFilter(tab);
+      }
     }
-  }, [router.query]);
+  }, []);
 
-  useEffect(() => {
-    if (router.query.confirmation) {
-      const confirmation = JSON.parse(router.query.confirmation as string) as {
-        name: string;
+  const confirmations =
+    (router.query.confirmations &&
+      (JSON.parse(router.query.confirmations as string) as {
+        title: string;
         link: string;
         [values: string]: string;
-      }[];
-      console.log('confirmation: ' + JSON.stringify(confirmation));
-    }
-  });
+      }[])) ||
+    [];
 
   const { contact, initial, screening, final } = {
     contact: referrals.filter((ref) => ref.stage === 'Contact'),
@@ -62,12 +62,21 @@ export const MashDashboard = ({ referrals }: Props): React.ReactElement => {
   const onTabClick = (tabClicked: string) => {
     setFilter(tabClicked);
     router.query.tab = tabClicked;
+    router.query.confirmations = undefined;
     router.push(router);
   };
 
   return (
     <div>
       <>
+        {confirmations.map((confirmation, index) => (
+          <SuccessSummary
+            key={index}
+            title={confirmation.title}
+            referralLink={confirmation.link}
+            body={confirmation}
+          />
+        ))}
         <h1 className="govuk-!-margin-bottom-8">Team assignments</h1>
         <fieldset className="govuk-tabs lbh-tabs govuk-!-margin-top-8">
           <ul className={st.tabList}>
@@ -96,17 +105,6 @@ export const MashDashboard = ({ referrals }: Props): React.ReactElement => {
         <div>
           <MainCard filter={filter} mashReferrals={mashReferrals}></MainCard>
         </div>
-
-        <SuccessSummary
-          title="Final decision confirmation - Jack Smith"
-          body={{
-            'Final decision': 'NFA',
-            'Referral category': 'Housing',
-            'Social care Id': '1237867',
-            'Date of birth': '02/11/2001',
-          }}
-          referralLink="test-link"
-        />
       </>
     </div>
   );

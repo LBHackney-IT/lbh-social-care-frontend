@@ -22,11 +22,13 @@ const SuccessSummary = ({
       <h2 className={s.summaryTitle}>{title}</h2>
       <div className={s.summaryBody}>
         <ul>
-          {Object.keys(body).map((key, index) => (
-            <li key={index}>
-              {key} - {body[key]}
-            </li>
-          ))}
+          {Object.keys(body)
+            .filter((x) => x !== 'title' && x !== 'link')
+            .map((key, index) => (
+              <li key={index}>
+                {key} - {body[key]}
+              </li>
+            ))}
         </ul>
       </div>
       <a href={referralLink}>Referral link</a>
