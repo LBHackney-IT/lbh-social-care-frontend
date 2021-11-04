@@ -1,6 +1,7 @@
 import s from './MashCard.module.scss';
 import { MashReferral } from 'types';
 import Link from 'next/link';
+import { format } from 'date-fns';
 
 interface Props {
   mashReferral: MashReferral;
@@ -13,8 +14,8 @@ const ScreeningCard = ({ mashReferral }: Props): React.ReactElement => {
           <p className="lbh-body-m govuk-!-margin-bottom-3">
             <span className="govuk-tag lbh-tag lbh-tag--green">
               4 hours left
-            </span>
-            {mashReferral.createdAt}
+            </span>{' '}
+            submitted {format(new Date(mashReferral.createdAt), 'HH:00 dd MMM')}
             <span className={`lbh-body-l lbh-!-font-weight-bold  ${s.action}`}>
               <Link href="screening">Action </Link>
             </span>
