@@ -8,6 +8,7 @@ import { getMashReferral } from 'lib/mashReferral';
 import { GetServerSideProps } from 'next';
 import { isAuthorised } from 'utils/auth';
 import { submitScreeningDecision } from 'utils/api/mashReferrals';
+import { useRouter } from 'next/router';
 interface Props {
   referral: MashReferral;
   workerEmail: string;
@@ -21,6 +22,8 @@ const ScreeningDecision = ({
   const [urgencyScreeningDecision, setUrgencyScreeningDecision] =
     useState(false);
 
+  const router = useRouter();
+
   const submitForm = async () => {
     await submitScreeningDecision(
       referral.id,
@@ -28,6 +31,13 @@ const ScreeningDecision = ({
       urgencyScreeningDecision,
       workerEmail
     );
+
+    router.push({
+      pathname: `/team-assignments`,
+      query: {
+        tab: 'screening-decision',
+      },
+    });
   };
 
   return (
