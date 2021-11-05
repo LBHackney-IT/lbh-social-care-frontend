@@ -175,6 +175,7 @@ describe('Using case status', () => {
         cy.url().should('include', '/details');
         cy.contains('Child in need').should('be.visible');
         cy.contains(caseStatusStartDateEditText).should('be.visible');
+        cy.contains('this is an updated test note').should('be.visible');
       });
 
       it('should validate when ending a CIN case status that the end date cannot be before the case status start date, start date can be in the future', () => {
@@ -371,6 +372,7 @@ describe('Using case status', () => {
         cy.url().should('include', '/details');
         cy.contains('Child protection').should('be.visible');
         cy.contains(caseStatusStartDateEditText).should('be.visible');
+        cy.contains('Physical abuse').should('be.visible');
       });
 
       it('should validate when ending a CP case status that the end date cannot be before the case status start date, start date can be in the future', () => {
@@ -576,6 +578,8 @@ describe('Using case status', () => {
         cy.url().should('include', '/details');
         cy.contains('Looked after child').should('be.visible');
         cy.contains(caseStatusStartDateEditText).should('be.visible');
+        cy.contains('E1: Placement order granted').should('be.visible');
+        cy.contains('P3: Residential employment').should('be.visible');
       });
 
       //Update - Scheduled case status
