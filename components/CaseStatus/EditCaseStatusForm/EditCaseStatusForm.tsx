@@ -8,8 +8,12 @@ import Button from 'components/Button/Button';
 import { CaseStatus } from 'types';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { useCaseStatuses } from 'utils/api/caseStatus';
+import {
+  useCaseStatuses,
+  useCaseStatusesWithEnded,
+} from 'utils/api/caseStatus';
 import { format } from 'date-fns';
+import { getLatestEndedStatusEndDate } from '../caseStatusHelper';
 
 const EditCaseStatusForm: React.FC<{
   personId: number;
@@ -30,6 +34,14 @@ const EditCaseStatusForm: React.FC<{
 }) => {
   const router = useRouter();
   const { data: caseStatuses } = useCaseStatuses(personId);
+  const { data } = useCaseStatusesWithEnded(
+    personId,
+    { includeEnded: true },
+    true
+  );
+
+  const latestEndedStatusEndDate = getLatestEndedStatusEndDate(data);
+  console.log('latestEndDate', latestEndedStatusEndDate);
 
   let form_fields: any;
   if (prefilledFields && prefilledFields['action']) {
@@ -105,8 +117,9 @@ const EditCaseStatusForm: React.FC<{
   }
 
   if (caseStatusType == 'LAC' && action == 'edit') {
-    let pastStatusStartDate: any;
-    let currentStatusStartDate: any;
+    let pastStatusStartDate: Date;
+    let currentStatusStartDate: Date;
+    let latestStatusEndDate: Date;
 
     if (pastCaseStatusStartDate && pastCaseStatusStartDate !== 'undefined') {
       pastStatusStartDate = new Date(pastCaseStatusStartDate);
@@ -120,10 +133,21 @@ const EditCaseStatusForm: React.FC<{
       currentStatusStartDate = new Date(currentCaseStatusStartDate);
     }
 
+    if (
+      latestEndedStatusEndDate &&
+      latestEndedStatusEndDate !== 'undefined' &&
+      !pastCaseStatusStartDate
+    ) {
+      latestStatusEndDate = new Date(latestEndedStatusEndDate);
+    }
+
     form_fields.map((field: any) => {
       if (field.id === 'startDate') {
         if (pastStatusStartDate) {
           field.startDate = format(pastStatusStartDate, 'yyyy-MM-dd');
+        }
+        if (latestStatusEndDate) {
+          field.startDate = format(latestStatusEndDate, 'yyyy-MM-dd');
         }
         if (currentStatusStartDate) {
           field.default = format(currentStatusStartDate, 'yyyy-MM-dd');

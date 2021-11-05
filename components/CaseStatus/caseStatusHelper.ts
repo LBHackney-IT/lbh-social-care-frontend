@@ -103,3 +103,28 @@ const groupAnswersByGroupId = (
           return Date.parse(b.startDate) - Date.parse(a.startDate);
         });
 };
+
+export const getLatestEndedStatusEndDate = (
+  caseStatusIncludingEnded: CaseStatus[] | undefined
+): string | undefined => {
+  if (caseStatusIncludingEnded) {
+    let latestEndDate: string;
+    const endedCaseData = caseStatusIncludingEnded.filter(
+      (status) => status.endDate
+    );
+    if (endedCaseData) {
+      latestEndDate = endedCaseData[0].endDate;
+      endedCaseData.forEach((status) => {
+        if (status.endDate > latestEndDate) {
+          latestEndDate = status.endDate;
+        }
+      });
+      console.log('latestEndDate', latestEndDate);
+      return latestEndDate;
+    } else {
+      return undefined;
+    }
+  } else {
+    return undefined;
+  }
+};

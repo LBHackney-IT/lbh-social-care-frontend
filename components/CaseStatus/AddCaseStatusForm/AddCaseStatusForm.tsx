@@ -8,6 +8,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useCaseStatusesWithEnded } from 'utils/api/caseStatus';
 import { format } from 'date-fns';
+import { getLatestEndedStatusEndDate } from '../caseStatusHelper';
 
 const AddCaseStatusForm: React.FC<{
   personId: number;
@@ -21,16 +22,8 @@ const AddCaseStatusForm: React.FC<{
     true
   );
 
-  let latestEndDate: string;
-  if (data) {
-    latestEndDate = data[0].endDate;
-    data.forEach((status) => {
-      if (status.endDate > latestEndDate) {
-        latestEndDate = status.endDate;
-      }
-    });
-    console.log('latestEndDate', latestEndDate);
-  }
+  const latestEndedStatusEndDate = getLatestEndedStatusEndDate(data);
+  console.log('latestEndDate');
 
   const form_fields = CASE_STATUS.steps[0].fields;
 
@@ -42,10 +35,13 @@ const AddCaseStatusForm: React.FC<{
       (field.id === 'startDateCIN' ||
         field.id === 'startDateCP' ||
         field.id === 'startDateLAC') &&
-      latestEndDate &&
-      latestEndDate !== 'undefined'
+      latestEndedStatusEndDate &&
+      latestEndedStatusEndDate !== 'undefined'
     ) {
-      field.startDate = format(new Date(latestEndDate), 'yyyy-MM-dd');
+      field.startDate = format(
+        new Date(latestEndedStatusEndDate),
+        'yyyy-MM-dd'
+      );
     }
   });
 
