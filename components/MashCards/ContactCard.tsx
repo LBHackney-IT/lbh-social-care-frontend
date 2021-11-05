@@ -30,9 +30,9 @@ const ContactCard = ({ mashReferral }: Props): React.ReactElement => {
               <dd>
                 <Link href={mashReferral.referralDocumentURI}>
                   <a>
-                    {mashReferral.clients[0]}
+                    {mashReferral.clients[0]} +{' '}
                     {mashReferral.clients.length > 1 &&
-                      ` + ${mashReferral.clients.length - 1} `}
+                      `+ ${mashReferral.clients.length - 1} `}
                     (referral)
                   </a>
                 </Link>
