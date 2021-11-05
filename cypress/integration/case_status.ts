@@ -30,7 +30,7 @@ describe('Using case status', () => {
     cy.intercept('PATCH', '/api/casestatus/**', (req) => {
       req.body.editedBy = 'e2e.tests.adult@hackney.gov.uk';
     });
-    cy.intercept('GET', '/api/residents/**/casestatus').as('getCaseStatus');
+    cy.intercept('GET', '/api/residents/**/casestatus**').as('getCaseStatus');
   });
 
   describe('As a user in the Adults group', () => {
@@ -55,7 +55,7 @@ describe('Using case status', () => {
           'GET',
           `/api/residents/${Cypress.env(
             'CHILDREN_RECORD_PERSON_ID'
-          )}/casestatus`
+          )}/casestatus?include_closed_cases=false`
         ).then((response) => {
           if (response.body.length > 0) {
             cy.contains('a', 'Edit / End', {
@@ -82,22 +82,20 @@ describe('Using case status', () => {
         cy.contains('Add a case status').click();
         cy.get(`input[value=CIN]`).check();
 
-        cy.get('input[name=startDateCIN]').clear();
+        cy.get('input[name=startDate]').clear();
         cy.get('[data-testid=submit_button]').should('be.disabled');
 
-        cy.get('input[name=startDateCIN]').clear().type(futureDateFormatted);
+        cy.get('input[name=startDate]').clear().type(futureDateFormatted);
         cy.get('textarea[name=notes]').click();
-        cy.contains('Date cannot be in the future').should('be.visible');
+        cy.contains(/Date cannot be/).should('be.visible');
         cy.get('[data-testid=text-field-error-message]').should('exist');
 
-        cy.get('input[name=startDateCIN]').clear().type(todayDate);
+        cy.get('input[name=startDate]').clear().type(todayDate);
         cy.get('textarea[name=notes]').click();
-        cy.get('Date cannot be in the future').should('not.exist');
         cy.get('[data-testid=text-field-error-message]').should('not.exist');
 
-        cy.get('input[name=startDateCIN]').clear().type(caseStatusStartDate);
+        cy.get('input[name=startDate]').clear().type(caseStatusStartDate);
         cy.get('textarea[name=notes]').click();
-        cy.get('Date cannot be in the future').should('not.exist');
         cy.get('[data-testid=text-field-error-message]').should('not.exist');
       });
 
@@ -109,7 +107,7 @@ describe('Using case status', () => {
 
         cy.contains('Add a case status').click();
         cy.get(`input[value=CIN]`).check();
-        cy.get('input[name=startDateCIN]').clear().type(caseStatusStartDate);
+        cy.get('input[name=startDate]').clear().type(caseStatusStartDate);
         cy.get('textarea[name=notes]').clear().type('this is a test note');
         cy.get('[data-testid=submit_button]').click();
 
@@ -139,7 +137,7 @@ describe('Using case status', () => {
         cy.url().should('include', '/edit/edit');
         cy.get('input[name=startDate]').clear().type(futureDateFormatted);
         cy.get('textarea[name=notes]').click();
-        cy.contains('Date cannot be in the future').should('be.visible');
+        cy.contains(/Date cannot be/).should('be.visible');
         cy.get('[data-testid=text-field-error-message]').should('exist');
 
         cy.get('input[name=startDate]').clear().type(todayDate);
@@ -196,14 +194,14 @@ describe('Using case status', () => {
 
         cy.get('input[name=endDate]').clear().type(caseStatusBeforeStartDate);
         cy.get('label[for=endDate]').click();
-        cy.contains('Date cannot be before start date').should('be.visible');
+        cy.contains(/Date cannot be/).should('be.visible');
         cy.get('[data-testid=text-field-error-message]').should('exist');
 
         cy.get('input[name=endDate]')
           .clear()
           .type(caseStatusDayBeforeStartDate);
         cy.get('label[for=endDate]').click();
-        cy.contains('Date cannot be before start date').should('be.visible');
+        cy.contains(/Date cannot be/).should('be.visible');
         cy.get('[data-testid=text-field-error-message]').should('exist');
 
         cy.get('input[name=endDate]').clear().type(caseStatusStartDateEdit);
@@ -253,14 +251,14 @@ describe('Using case status', () => {
         cy.contains('Add a case status').click();
         cy.get(`input[value=CIN]`).check();
 
-        cy.get('input[name=startDateCIN]').clear();
+        cy.get('input[name=startDate]').clear();
         cy.get('[data-testid=submit_button]').should('be.disabled');
 
-        cy.get('input[name=startDateCIN]')
+        cy.get('input[name=startDate]')
           .clear()
           .type(invalidCaseStatusStartDate);
         cy.get('textarea[name=notes]').click();
-        cy.contains('Date cannot be in the future').should('be.visible');
+        cy.contains(/Date cannot be/).should('be.visible');
         cy.get('[data-testid=text-field-error-message]').should('exist');
       });
     });
@@ -276,7 +274,7 @@ describe('Using case status', () => {
           'GET',
           `/api/residents/${Cypress.env(
             'CHILDREN_RECORD_SECOND_PERSON_ID'
-          )}/casestatus`
+          )}/casestatus?include_closed_cases=false`
         ).then((response) => {
           if (response.body.length > 0) {
             cy.contains('a', 'Edit / End', {
@@ -303,22 +301,20 @@ describe('Using case status', () => {
         cy.contains('Add a case status').click();
         cy.get(`input[value=CP]`).check();
 
-        cy.get('input[name=startDateCP]').clear();
+        cy.get('input[name=startDate]').clear();
         cy.get('[data-testid=submit_button]').should('be.disabled');
 
-        cy.get('input[name=startDateCP]').clear().type(futureDateFormatted);
+        cy.get('input[name=startDate]').clear().type(futureDateFormatted);
         cy.get('[data-testid=category]').click();
-        cy.contains('Date cannot be in the future').should('be.visible');
+        cy.contains(/Date cannot be/).should('be.visible');
         cy.get('[data-testid=text-field-error-message]').should('exist');
 
-        cy.get('input[name=startDateCP]').clear().type(todayDate);
+        cy.get('input[name=startDate]').clear().type(todayDate);
         cy.get('[data-testid=category]').click();
-        cy.get('Date cannot be in the future').should('not.exist');
         cy.get('[data-testid=text-field-error-message]').should('not.exist');
 
-        cy.get('input[name=startDateCP]').clear().type(caseStatusStartDate);
+        cy.get('input[name=startDate]').clear().type(caseStatusStartDate);
         cy.get('[data-testid=category]').click();
-        cy.get('Date cannot be in the future').should('not.exist');
         cy.get('[data-testid=text-field-error-message]').should('not.exist');
 
         cy.get('[data-testid=submit_button]').should('be.disabled');
@@ -334,7 +330,7 @@ describe('Using case status', () => {
 
         cy.contains('Add a case status').click();
         cy.get(`input[value=CP]`).check();
-        cy.get('input[name=startDateCP]').clear().type(caseStatusStartDate);
+        cy.get('input[name=startDate]').clear().type(caseStatusStartDate);
         cy.get(`input[value=C1]`).check();
         cy.get('[data-testid=submit_button]').click();
 
@@ -365,7 +361,7 @@ describe('Using case status', () => {
 
         cy.get('input[name=startDate]').clear().type(futureDateFormatted);
         cy.get('[data-testid=category]').click();
-        cy.contains('Date cannot be in the future').should('be.visible');
+        cy.contains(/Date cannot be/).should('be.visible');
         cy.get('[data-testid=text-field-error-message]').should('exist');
 
         cy.get('input[name=startDate]').clear().type(todayDate);
@@ -420,14 +416,14 @@ describe('Using case status', () => {
 
         cy.get('input[name=endDate]').clear().type(caseStatusBeforeStartDate);
         cy.get('label[for=endDate]').click();
-        cy.contains('Date cannot be before start date').should('be.visible');
+        cy.contains(/Date cannot be/).should('be.visible');
         cy.get('[data-testid=text-field-error-message]').should('exist');
 
         cy.get('input[name=endDate]')
           .clear()
           .type(caseStatusDayBeforeStartDate);
         cy.get('label[for=endDate]').click();
-        cy.contains('Date cannot be before start date').should('be.visible');
+        cy.contains(/Date cannot be/).should('be.visible');
         cy.get('[data-testid=text-field-error-message]').should('exist');
 
         cy.get('input[name=endDate]').clear().type(caseStatusStartDateEdit);
@@ -477,14 +473,14 @@ describe('Using case status', () => {
         cy.contains('Add a case status').click();
         cy.get(`input[value=CP]`).check();
 
-        cy.get('input[name=startDateCP]').clear();
+        cy.get('input[name=startDate]').clear();
         cy.get('[data-testid=submit_button]').should('be.disabled');
 
-        cy.get('input[name=startDateCP]')
+        cy.get('input[name=startDate]')
           .clear()
           .type(invalidCaseStatusStartDate);
-        cy.get('textarea[name=notes]').click();
-        cy.contains('Date cannot be in the future').should('be.visible');
+        cy.get('[data-testid=category]').click();
+        cy.contains(/Date cannot be/).should('be.visible');
         cy.get('[data-testid=text-field-error-message]').should('exist');
       });
     });
@@ -499,7 +495,7 @@ describe('Using case status', () => {
           'GET',
           `/api/residents/${Cypress.env(
             'CHILDREN_RECORD_THIRD_PERSON_ID'
-          )}/casestatus`
+          )}/casestatus?include_closed_cases=false`
         ).then((response) => {
           if (response.body.length > 0) {
             cy.contains('a', 'Edit / End', {
@@ -526,22 +522,20 @@ describe('Using case status', () => {
         cy.contains('Add a case status').click();
         cy.get(`input[value=LAC]`).check();
 
-        cy.get('input[name=startDateLAC]').clear();
+        cy.get('input[name=startDate]').clear();
         cy.get('[data-testid=submit_button]').should('be.disabled');
 
-        cy.get('input[name=startDateLAC]').clear().type(futureDateFormatted);
+        cy.get('input[name=startDate]').clear().type(futureDateFormatted);
         cy.get('[data-testid=legalStatus]').click();
-        cy.contains('Date cannot be in the future').should('be.visible');
+        cy.contains(/Date cannot be/).should('be.visible');
         cy.get('[data-testid=text-field-error-message]').should('exist');
 
-        cy.get('input[name=startDateLAC]').clear().type(todayDate);
+        cy.get('input[name=startDate]').clear().type(todayDate);
         cy.get('[data-testid=legalStatus]').click();
-        cy.get('Date cannot be in the future').should('not.exist');
         cy.get('[data-testid=text-field-error-message]').should('not.exist');
 
-        cy.get('input[name=startDateLAC]').clear().type(caseStatusStartDate);
+        cy.get('input[name=startDate]').clear().type(caseStatusStartDate);
         cy.get('[data-testid=legalStatus]').click();
-        cy.get('Date cannot be in the future').should('not.exist');
         cy.get('[data-testid=text-field-error-message]').should('not.exist');
 
         cy.get('select[id=legalStatus]').select('C2: Full care order');
@@ -559,7 +553,7 @@ describe('Using case status', () => {
 
         cy.contains('Add a case status').click();
         cy.get(`input[value=LAC]`).check();
-        cy.get('input[name=startDateLAC]').clear().type(caseStatusStartDate);
+        cy.get('input[name=startDate]').clear().type(caseStatusStartDate);
         cy.get('select[id=legalStatus]').select('C2: Full care order');
         cy.get('select[id=placementType]').select(
           'K1: Secure children’s homes'
@@ -596,7 +590,7 @@ describe('Using case status', () => {
 
         cy.get('input[name=startDate]').clear().type(futureDateFormatted);
         cy.get('[data-testid=legalStatus]').click();
-        cy.contains('Date cannot be in the future').should('be.visible');
+        cy.contains(/Date cannot be/).should('be.visible');
         cy.get('[data-testid=text-field-error-message]').should('exist');
 
         cy.get('input[name=startDate]').clear().type(todayDate);
@@ -655,19 +649,19 @@ describe('Using case status', () => {
 
         cy.get('input[name=startDate]').clear().type(caseStatusBeforeStartDate);
         cy.get('[data-testid=legalStatus]').click();
-        cy.contains('Date cannot be before start date').should('be.visible');
+        cy.contains(/Date cannot be/).should('be.visible');
         cy.get('[data-testid=text-field-error-message]').should('exist');
 
         cy.get('input[name=startDate]')
           .clear()
           .type(caseStatusDayBeforeStartDate);
         cy.get('[data-testid=legalStatus]').click();
-        cy.contains('Date cannot be before start date').should('be.visible');
+        cy.contains(/Date cannot be/).should('be.visible');
         cy.get('[data-testid=text-field-error-message]').should('exist');
 
         cy.get('input[name=startDate]').clear().type(caseStatusStartDateEdit);
         cy.get('[data-testid=legalStatus]').click();
-        cy.contains('Date cannot be before start date').should('be.visible');
+        cy.contains(/Date cannot be/).should('be.visible');
         cy.get('[data-testid=text-field-error-message]').should('exist');
 
         cy.get('input[name=startDate]')
@@ -717,7 +711,7 @@ describe('Using case status', () => {
       //Updating A pre-existing scheduled case status - Announcement
       it('should render an announcement when updating a LAC case status that has a pre-existing scheduled case status', () => {
         cy.visitAs(
-          `/people/${Cypress.env('CHILDREN_RECORD_PERSON_ID')}/details`,
+          `/people/${Cypress.env('CHILDREN_RECORD_THIRD_PERSON_ID')}/details`,
           AuthRoles.ChildrensGroup
         );
 
@@ -748,14 +742,14 @@ describe('Using case status', () => {
 
         cy.get('input[name=endDate]').clear().type(caseStatusBeforeStartDate);
         cy.get('label[for=endDate]').click();
-        cy.contains('Date cannot be before start date').should('be.visible');
+        cy.contains(/Date cannot be/).should('be.visible');
         cy.get('[data-testid=text-field-error-message]').should('exist');
 
         cy.get('input[name=endDate]')
           .clear()
           .type(caseStatusDayBeforeStartDate);
         cy.get('label[for=endDate]').click();
-        cy.contains('Date cannot be before start date').should('be.visible');
+        cy.contains(/Date cannot be/).should('be.visible');
         cy.get('[data-testid=text-field-error-message]').should('exist');
 
         cy.get('input[name=endDate]').clear().type(caseStatusStartDateEdit);
@@ -808,14 +802,14 @@ describe('Using case status', () => {
         cy.contains('Add a case status').click();
         cy.get(`input[value=LAC]`).check();
 
-        cy.get('input[name=startDateLAC]').clear();
+        cy.get('input[name=startDate]').clear();
         cy.get('[data-testid=submit_button]').should('be.disabled');
 
-        cy.get('input[name=startDateLAC]')
+        cy.get('input[name=startDate]')
           .clear()
           .type(invalidCaseStatusStartDate);
-        cy.get('textarea[name=notes]').click();
-        cy.contains('Date cannot be in the future').should('be.visible');
+        cy.get('[data-testid=legalStatus]').click();
+        cy.contains(/Date cannot be/).should('be.visible');
         cy.get('[data-testid=text-field-error-message]').should('exist');
       });
     });

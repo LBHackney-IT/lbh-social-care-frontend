@@ -19,7 +19,6 @@ const AddCaseStatusForm: React.FC<{
   const { data } = useCaseStatuses(personId, 'true');
 
   const latestEndedStatusEndDate = getLatestEndedStatusEndDate(data);
-  console.log('latestEndDate');
 
   const form_fields = CASE_STATUS.steps[0].fields;
 
@@ -28,9 +27,7 @@ const AddCaseStatusForm: React.FC<{
       field.default = String(prefilledFields[field.id]);
     }
     if (
-      (field.id === 'startDateCIN' ||
-        field.id === 'startDateCP' ||
-        field.id === 'startDateLAC') &&
+      field.id === 'startDate' &&
       latestEndedStatusEndDate &&
       latestEndedStatusEndDate !== 'undefined'
     ) {
