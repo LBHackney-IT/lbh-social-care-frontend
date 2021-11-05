@@ -29,7 +29,7 @@ const EditCaseStatus = (): React.ReactElement => {
 
   return (
     <>
-      {isScheduledCaseStatus && (
+      {isScheduledCaseStatus && action === 'update' && (
         <AnnouncementMessage
           title="An update has already been scheduled for this status"
           content="Any changes you make here will overwrite the scheduled update"
