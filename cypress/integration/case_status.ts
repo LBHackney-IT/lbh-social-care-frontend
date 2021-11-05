@@ -11,8 +11,11 @@ const caseStatusStartDateText = '12 Jan 2000';
 const caseStatusStartDateEdit = '2000-01-11';
 const caseStatusStartDateEditText = '11 Jan 2000';
 const caseStatusBeforeStartDate = '2000-01-01';
+// const caseStatusDayBeforeStartDate = '2000-01-10';
 const caseStatusScheduledStartDate = '2040-02-01';
 const caseStatusScheduledStartDateText = '01 Feb 2040';
+// const caseStatusLACEditDate = '2000-01-02';
+// const caseStatusLACEditDateText = '02 Jan 2000';
 
 describe('Using case status', () => {
   beforeEach(() => {
@@ -28,7 +31,43 @@ describe('Using case status', () => {
   });
 
   describe('As a user in the Childrens group', () => {
-    describe('CIN case status', () => {
+    it('should not be possible to add a case status on an adult record', () => {
+      cy.visitAs(
+        `/people/${Cypress.env('ADULT_RECORD_PERSON_ID')}`,
+        AuthRoles.AdultsGroup
+      );
+      cy.get('Add a case status').should('not.exist');
+    });
+  });
+
+  describe('As a user in the Childrens group', () => {
+    it('should end any existing case status before all other tests', () => {
+      cy.visitAs(
+        `/people/${Cypress.env('CHILDREN_RECORD_PERSON_ID')}/details`,
+        AuthRoles.ChildrensGroup
+      );
+      cy.wait('@getCaseStatus');
+      cy.request(
+        'GET',
+        `/api/residents/${Cypress.env('CHILDREN_RECORD_PERSON_ID')}/casestatus`
+      ).then((response) => {
+        if (response.body.length > 0) {
+          cy.contains('a', 'Edit / End', {
+            timeout: 20000,
+          }).click();
+          cy.get(`input[value=end]`).check();
+          cy.get('[data-testid=submit_button]').click();
+          cy.url().should('include', '/edit/edit');
+          cy.get('input[name=endDate]').clear().type(caseStatusStartDateEdit);
+          cy.get('label[for=endDate]').click();
+          cy.get('[data-testid=submit_button]').click();
+          cy.url().should('include', '/review');
+          cy.contains(caseStatusStartDateEditText).should('be.visible');
+          cy.contains('button', 'Yes, end').click();
+        }
+      });
+    });
+    xdescribe('CIN case status', () => {
       it('should validate that when adding a CIN case status, a start date is required and the start date must be today or in the past', () => {
         cy.visitAs(
           `/people/${Cypress.env('CHILDREN_RECORD_PERSON_ID')}`,
@@ -193,7 +232,7 @@ describe('Using case status', () => {
       });
     });
 
-    describe('CP case status', () => {
+    xdescribe('CP case status', () => {
       it('should validate that when adding a CP case status, a start date and answer is required and the start date must be today or in the past', () => {
         cy.visitAs(
           `/people/${Cypress.env('CHILDREN_RECORD_PERSON_ID')}`,
@@ -482,6 +521,42 @@ describe('Using case status', () => {
       });
 
       //Update - Scheduled case status
+      it('should validate when updating a LAC status that the start date cannot be before the current status start date', () => {
+        cy.visitAs(
+          `/people/${Cypress.env('CHILDREN_RECORD_PERSON_ID')}/details`,
+          AuthRoles.ChildrensGroup
+        );
+
+        cy.contains('a', 'Edit / End', {
+          timeout: 20000,
+        }).click();
+        cy.get(`input[value=update]`).check();
+        cy.get('[data-testid=submit_button]').click();
+        cy.url().should('include', '/update/edit');
+
+        cy.get('input[name=startDate]').clear().type(caseStatusBeforeStartDate);
+        cy.get('[data-testid=legalStatus]').click();
+        cy.contains('Date cannot be before start date').should('be.visible');
+        cy.get('[data-testid=text-field-error-message]').should('exist');
+
+        // cy.get('input[name=startDate]')
+        //   .clear()
+        //   .type(caseStatusDayBeforeStartDate);
+        // cy.get('[data-testid=legalStatus]').click();
+        // cy.contains('Date cannot be before start date').should('be.visible');
+        // cy.get('[data-testid=text-field-error-message]').should('exist');
+
+        cy.get('input[name=startDate]').clear().type(caseStatusStartDateEdit);
+        cy.get('[data-testid=legalStatus]').click();
+        cy.get('[data-testid=text-field-error-message]').should('not.exist');
+
+        cy.get('input[name=startDate]')
+          .clear()
+          .type(caseStatusScheduledStartDate);
+        cy.get('[data-testid=legalStatus]').click();
+        cy.get('[data-testid=text-field-error-message]').should('not.exist');
+      });
+
       it('should be possible to update a LAC case status to have a scheduled case status', () => {
         cy.visitAs(
           `/people/${Cypress.env('CHILDREN_RECORD_PERSON_ID')}/details`,
