@@ -6,6 +6,7 @@ import initialDecisionOptions from 'data/mashOptions/initialDecisionOptions';
 import referralCategories from 'data/mashOptions/referralCategories';
 import { useRouter } from 'next/router';
 import React, { useState } from 'react';
+import { MashReferral } from 'types';
 import { submitInitialDecision } from 'utils/api/mashReferrals';
 
 interface Props {
