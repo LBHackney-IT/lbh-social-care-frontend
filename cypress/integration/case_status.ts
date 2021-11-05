@@ -519,6 +519,25 @@ describe('Using case status', () => {
         cy.contains(caseStatusScheduledStartDateText).should('be.visible');
       });
 
+      //Updating A pre-existing scheduled case status - Announcement
+      it('should render an announcement when updating a LAC case status that has a pre-existing scheduled case status', () => {
+        cy.visitAs(
+          `/people/${Cypress.env('CHILDREN_RECORD_PERSON_ID')}/details`,
+          AuthRoles.ChildrensGroup
+        );
+
+        cy.contains('a', 'Edit / End', {
+          timeout: 20000,
+        }).click();
+        cy.get(`input[value=update]`).check();
+        cy.get('[data-testid=submit_button]').click();
+        cy.url().should('include', '/update/edit');
+        cy.get('[data-testid=announcement_message_box]').should('exist');
+        cy.contains(
+          'An update has already been scheduled for this status'
+        ).should('be.visible');
+      });
+
       it('should validate when ending a LAC case status that the end date cannot be before the case status start date, start date can be in the future', () => {
         cy.visitAs(
           `/people/${Cypress.env('CHILDREN_RECORD_PERSON_ID')}/details`,
