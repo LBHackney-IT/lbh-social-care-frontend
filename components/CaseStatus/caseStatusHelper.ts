@@ -62,7 +62,8 @@ export const sortCaseStatusAnswers = (
   let scheduledStatus: CaseStatusAnswerDisplay[] | undefined;
   let pastStatus: CaseStatusAnswerDisplay[] | undefined;
 
-  const groupedAnswers = groupAnswersByGroupId(caseStatuses.answers);
+  let groupedAnswers = groupAnswersByGroupId(caseStatuses.answers);
+  let episodeReasonGroup: CaseStatusFields | undefined = undefined;
 
   if (caseStatuses.type !== 'LAC') {
     if (groupedAnswers && groupedAnswers.length > 1) {
@@ -71,6 +72,19 @@ export const sortCaseStatusAnswers = (
       currentStatus = groupedAnswers;
     }
   } else if (groupedAnswers && groupedAnswers[0]) {
+    groupedAnswers.forEach((group) => {
+      if (
+        group.status.length == 1 &&
+        group.status[0].option == 'episodeReason'
+      ) {
+        if (groupedAnswers) {
+          groupedAnswers = groupedAnswers.filter(function (item) {
+            return item !== group;
+          });
+        }
+        episodeReasonGroup = group.status[0];
+      }
+    });
     if (new Date(groupedAnswers[0].startDate) > new Date()) {
       const scheduledAnswers = groupedAnswers.shift();
       if (scheduledAnswers) {
@@ -83,24 +97,13 @@ export const sortCaseStatusAnswers = (
     }
     pastStatus = groupedAnswers;
 
-    groupedAnswers.forEach((group) => {
-      if (
-        group.status.length == 1 &&
-        group.status[0].option == 'episodeReason'
-      ) {
-        if (scheduledStatus && scheduledStatus.length > 0) {
-          scheduledStatus[0].status.push(group.status[0]);
-        } else if (currentStatus) {
-          currentStatus[0].status.push(group.status[0]);
-        }
-
-        if (pastStatus) {
-          pastStatus = pastStatus.filter(function (item) {
-            return item !== group;
-          });
-        }
+    if (episodeReasonGroup && episodeReasonGroup !== undefined) {
+      if (scheduledStatus && scheduledStatus.length > 0) {
+        scheduledStatus[0].status.push(episodeReasonGroup);
+      } else if (currentStatus) {
+        currentStatus[0].status.push(episodeReasonGroup);
       }
-    });
+    }
   }
 
   return {
