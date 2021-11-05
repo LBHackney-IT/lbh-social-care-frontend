@@ -41,9 +41,12 @@ export const updateCaseStatus = async (
 };
 
 export const useCaseStatuses = (
-  id: number
+  id: number,
+  include_closed_cases = 'false'
 ): SWRResponse<CaseStatus[], ErrorAPI> =>
-  useSWR(`/api/residents/${id}/casestatus`);
+  useSWR(
+    `/api/residents/${id}/casestatus?include_closed_cases=${include_closed_cases}`
+  );
 
 export const useCaseStatusesWithEnded = (
   id: number,

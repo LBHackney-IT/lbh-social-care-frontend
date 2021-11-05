@@ -1,9 +1,6 @@
 import { StatusCodes } from 'http-status-codes';
 
-import {
-  getCaseStatusByPersonId,
-  getCaseStatusByPersonIdIncludeEnded,
-} from 'lib/caseStatus';
+import { getCaseStatusByPersonId } from 'lib/caseStatus';
 import { isAuthorised } from 'utils/auth';
 
 import type { NextApiRequest, NextApiResponse, NextApiHandler } from 'next';
@@ -21,33 +18,19 @@ const endpoint: NextApiHandler = async (
   }
   switch (req.method) {
     case 'GET':
-      if (req.query.includeEnded) {
-        console.log('INCLUDE END');
-        try {
-          const data = await getCaseStatusByPersonIdIncludeEnded(
-            Number(req.query.id as string)
-          );
-          res.status(StatusCodes.OK).json(data[0]);
-        } catch (error) {
-          console.error('Case status gets error:', error?.response?.data);
-          res
-            .status(StatusCodes.INTERNAL_SERVER_ERROR)
-            .json({ message: 'Unable to get the case status' });
-        }
-      } else {
-        console.log('Don`t include end');
-        try {
-          const data = await getCaseStatusByPersonId(
-            Number(req.query.id as string)
-          );
-          res.status(StatusCodes.OK).json(data);
-        } catch (error) {
-          console.error('Case status gets error:', error?.response?.data);
-          res
-            .status(StatusCodes.INTERNAL_SERVER_ERROR)
-            .json({ message: 'Unable to get the case status' });
-        }
+      try {
+        const data = await getCaseStatusByPersonId(
+          Number(req.query.id as string),
+          req.query.include_closed_cases as string
+        );
+        res.status(StatusCodes.OK).json(data);
+      } catch (error) {
+        console.error('Case status gets error:', error?.response?.data);
+        res
+          .status(StatusCodes.INTERNAL_SERVER_ERROR)
+          .json({ message: 'Unable to get the case status' });
       }
+
       break;
 
     default:

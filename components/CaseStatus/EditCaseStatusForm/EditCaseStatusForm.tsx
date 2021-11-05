@@ -8,10 +8,7 @@ import Button from 'components/Button/Button';
 import { CaseStatus } from 'types';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import {
-  useCaseStatuses,
-  useCaseStatusesWithEnded,
-} from 'utils/api/caseStatus';
+import { useCaseStatuses } from 'utils/api/caseStatus';
 import { format } from 'date-fns';
 import { getLatestEndedStatusEndDate } from '../caseStatusHelper';
 
@@ -33,14 +30,12 @@ const EditCaseStatusForm: React.FC<{
   pastCaseStatusStartDate,
 }) => {
   const router = useRouter();
-  const { data: caseStatuses } = useCaseStatuses(personId);
-  const { data } = useCaseStatusesWithEnded(
-    personId,
-    { includeEnded: true },
-    true
-  );
+  const { data: caseStatuses } = useCaseStatuses(personId, 'false');
+  const { data: caseStatusesIncClosed } = useCaseStatuses(personId, 'true');
 
-  const latestEndedStatusEndDate = getLatestEndedStatusEndDate(data);
+  const latestEndedStatusEndDate = getLatestEndedStatusEndDate(
+    caseStatusesIncClosed
+  );
   console.log('latestEndDate', latestEndedStatusEndDate);
 
   let form_fields: any;
@@ -116,6 +111,19 @@ const EditCaseStatusForm: React.FC<{
     }
   }
 
+  if (caseStatusType != 'LAC' && action == 'edit') {
+    form_fields.map((field: any) => {
+      if (field.id === 'startDate') {
+        if (latestEndedStatusEndDate) {
+          field.startDate = format(
+            new Date(latestEndedStatusEndDate),
+            'yyyy-MM-dd'
+          );
+        }
+      }
+    });
+  }
+
   if (caseStatusType == 'LAC' && action == 'edit') {
     let pastStatusStartDate: Date;
     let currentStatusStartDate: Date;
@@ -145,8 +153,7 @@ const EditCaseStatusForm: React.FC<{
       if (field.id === 'startDate') {
         if (pastStatusStartDate) {
           field.startDate = format(pastStatusStartDate, 'yyyy-MM-dd');
-        }
-        if (latestStatusEndDate) {
+        } else if (latestStatusEndDate) {
           field.startDate = format(latestStatusEndDate, 'yyyy-MM-dd');
         }
         if (currentStatusStartDate) {
