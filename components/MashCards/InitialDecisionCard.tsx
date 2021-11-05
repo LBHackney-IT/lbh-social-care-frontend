@@ -38,12 +38,12 @@ const InitialDecisionCard = ({ mashReferral }: Props): React.ReactElement => {
               </dd>
             </div>
             <div>
-              <dt>Screening decision</dt>
-              <dd>{mashReferral.screeningDecision}</dd>
+              <dt>Requested support</dt>
+              <dd>{mashReferral.requestedSupport}</dd>
             </div>
             <div>
-              <dt>Referral category</dt>
-              <dd>{mashReferral.referralCategory}</dd>
+              <dt></dt>
+              <dd></dd>
             </div>
             <div>
               <Link href="assign">
