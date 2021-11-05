@@ -469,6 +469,13 @@ export interface Paginated<T> {
   count: number;
 }
 
+export enum ReferralStage {
+  CONTACT = 'CONTACT',
+  INITIAL = 'INITIAL',
+  SCREENING = 'SCREENING',
+  FINAL = 'FINAL',
+}
+
 export interface MashReferral {
   id: string;
   referrer: string;
@@ -477,7 +484,7 @@ export interface MashReferral {
   createdAt: string;
   clients: string[];
   referralDocumentURI: string;
-  stage: string;
+  stage: ReferralStage;
   initialDecision: string | undefined;
   screeningDecision: string | undefined;
   screeningUrgentContactRequired: boolean | undefined;

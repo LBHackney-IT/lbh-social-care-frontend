@@ -34,7 +34,15 @@ const EditCaseStatus = (): React.ReactElement => {
 
   return (
     <>
-      {isScheduledCaseStatus && (
+      {pastCaseStatusStartDate &&
+        pastCaseStatusStartDate !== 'undefined' &&
+        action == 'edit' && (
+          <AnnouncementMessage
+            title="Changes made here may affect previous status items"
+            content="Changing the start date of the current case status will also change the end date of the previous case status"
+          />
+        )}
+      {isScheduledCaseStatus && action == 'end' && (
         <AnnouncementMessage
           title="An update has already been scheduled for this status"
           content="Any changes you make here will overwrite the scheduled update"
