@@ -159,7 +159,6 @@ export const getServerSideProps: GetServerSideProps = async ({
   params,
 }) => {
   const user = isAuthorised(req);
-  console.log('🚀 ~ file: screening.tsx ~ line 148 ~ user', user);
 
   if (!user) {
     return {
