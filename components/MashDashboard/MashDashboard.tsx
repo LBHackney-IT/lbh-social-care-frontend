@@ -2,7 +2,7 @@ import st from 'components/Tabs/Tabs.module.scss';
 import { useEffect, useState } from 'react';
 import Tab from 'components/SubmissionsTable/Tab';
 import MainCard from 'components/MashCards/MainCard';
-import { MashReferral } from 'types';
+import { MashReferral, ReferralStage } from 'types';
 import { useRouter } from 'next/router';
 import SuccessSummary from 'components/SuccessSummary/SuccessSummary';
 
@@ -41,10 +41,10 @@ export const MashDashboard = ({ referrals }: Props): React.ReactElement => {
     undefined;
 
   const { contact, initial, screening, final } = {
-    contact: referrals.filter((ref) => ref.stage === 'Contact'),
-    initial: referrals.filter((ref) => ref.stage === 'Initial decision'),
-    screening: referrals.filter((ref) => ref.stage === 'Screening'),
-    final: referrals.filter((ref) => ref.stage === 'Final'),
+    contact: referrals.filter((ref) => ref.stage === ReferralStage.CONTACT),
+    initial: referrals.filter((ref) => ref.stage === ReferralStage.INITIAL),
+    screening: referrals.filter((ref) => ref.stage === ReferralStage.SCREENING),
+    final: referrals.filter((ref) => ref.stage === ReferralStage.FINAL),
   };
 
   let mashReferrals: MashReferral[] = [];
