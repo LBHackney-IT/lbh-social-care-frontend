@@ -8,6 +8,7 @@ import { isAuthorised } from 'utils/auth';
 import { getMashReferral } from 'lib/mashReferral';
 import { MashReferral } from 'types';
 import { useState } from 'react';
+import { submitInitialDecision } from 'utils/api/mashReferrals';
 
 interface Props {
   referral: MashReferral;
@@ -24,8 +25,15 @@ const InitialDecision = ({
 
   const router = useRouter();
 
+  const confirmation = {
+    title: `A decision has been submitted for ${referral.clients.join(
+      ' and '
+    )}`,
+    link: referral.referralDocumentURI,
+  };
+
   const submitForm = async () => {
-    await SubmitInitialDecision(
+    await submitInitialDecision(
       referral.id,
       workerEmail,
       decision,
@@ -36,7 +44,8 @@ const InitialDecision = ({
     router.push({
       pathname: `/team-assignments`,
       query: {
-        tab: 'screening-decision',
+        tab: 'initial-decision',
+        confirmation: JSON.stringify(confirmation),
       },
     });
   };
@@ -128,18 +137,20 @@ const InitialDecision = ({
                     Yes
                   </label>
                 </div>
-                <div className="govuk-radios__conditional" id="hint-email">
-                  <label className="govuk-label" htmlFor="hint">
-                    Please email your MASH manager about the urgent case.
-                  </label>
-                </div>
+                {urgent && (
+                  <div className="govuk-radios__conditional" id="hint-email">
+                    <label className="govuk-label" htmlFor="hint">
+                      Please email your MASH manager about the urgent case.
+                    </label>
+                  </div>
+                )}
               </div>
             </fieldset>
           </>,
         ]}
       />
       <div style={{ display: 'flex', alignItems: 'center' }}>
-        <Button label="Submit" type="submit" />
+        <Button label="Submit" type="submit" onClick={submitForm} />
         <p className="lbh-body">
           <a
             href="#"
