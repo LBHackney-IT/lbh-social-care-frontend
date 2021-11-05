@@ -452,14 +452,14 @@ describe('Using case status', () => {
     describe('LAC case status', () => {
       it('should end any existing case status before all other LAC tests', () => {
         cy.visitAs(
-          `/people/${Cypress.env('CHILDREN_RECORD__THIRD_PERSON_ID')}/details`,
+          `/people/${Cypress.env('CHILDREN_RECORD_THIRD_PERSON_ID')}/details`,
           AuthRoles.ChildrensGroup
         );
         cy.wait('@getCaseStatus');
         cy.request(
           'GET',
           `/api/residents/${Cypress.env(
-            'CHILDREN_RECORD__THIRD_PERSON_ID'
+            'CHILDREN_RECORD_THIRD_PERSON_ID'
           )}/casestatus`
         ).then((response) => {
           if (response.body.length > 0) {
@@ -480,7 +480,7 @@ describe('Using case status', () => {
       });
       it('should validate that when adding a LAC case status, a start date and two answers are required and the start date must be today or in the past', () => {
         cy.visitAs(
-          `/people/${Cypress.env('CHILDREN_RECORD__THIRD_PERSON_ID')}`,
+          `/people/${Cypress.env('CHILDREN_RECORD_THIRD_PERSON_ID')}`,
           AuthRoles.ChildrensGroup
         );
 
@@ -514,7 +514,7 @@ describe('Using case status', () => {
 
       it('should be possible to add a LAC case status', () => {
         cy.visitAs(
-          `/people/${Cypress.env('CHILDREN_RECORD__THIRD_PERSON_ID')}`,
+          `/people/${Cypress.env('CHILDREN_RECORD_THIRD_PERSON_ID')}`,
           AuthRoles.ChildrensGroup
         );
 
@@ -544,7 +544,7 @@ describe('Using case status', () => {
 
       it('should validate when editing a LAC status that the start date cannot be in the future', () => {
         cy.visitAs(
-          `/people/${Cypress.env('CHILDREN_RECORD__THIRD_PERSON_ID')}/details`,
+          `/people/${Cypress.env('CHILDREN_RECORD_THIRD_PERSON_ID')}/details`,
           AuthRoles.ChildrensGroup
         );
 
@@ -571,7 +571,7 @@ describe('Using case status', () => {
 
       it('should be possible to edit a LAC case status', () => {
         cy.visitAs(
-          `/people/${Cypress.env('CHILDREN_RECORD__THIRD_PERSON_ID')}/details`,
+          `/people/${Cypress.env('CHILDREN_RECORD_THIRD_PERSON_ID')}/details`,
           AuthRoles.ChildrensGroup
         );
 
@@ -603,7 +603,7 @@ describe('Using case status', () => {
       //Update - Scheduled case status
       it('should validate when updating a LAC status that the start date cannot be before the current status start date', () => {
         cy.visitAs(
-          `/people/${Cypress.env('CHILDREN_RECORD__THIRD_PERSON_ID')}/details`,
+          `/people/${Cypress.env('CHILDREN_RECORD_THIRD_PERSON_ID')}/details`,
           AuthRoles.ChildrensGroup
         );
 
@@ -640,7 +640,7 @@ describe('Using case status', () => {
 
       it('should be possible to update a LAC case status to have a scheduled case status', () => {
         cy.visitAs(
-          `/people/${Cypress.env('CHILDREN_RECORD__THIRD_PERSON_ID')}/details`,
+          `/people/${Cypress.env('CHILDREN_RECORD_THIRD_PERSON_ID')}/details`,
           AuthRoles.ChildrensGroup
         );
 
@@ -677,7 +677,7 @@ describe('Using case status', () => {
 
       it('should validate when ending a LAC case status that the end date cannot be before the case status start date, start date can be in the future', () => {
         cy.visitAs(
-          `/people/${Cypress.env('CHILDREN_RECORD__THIRD_PERSON_ID')}/details`,
+          `/people/${Cypress.env('CHILDREN_RECORD_THIRD_PERSON_ID')}/details`,
           AuthRoles.ChildrensGroup
         );
 
@@ -711,7 +711,7 @@ describe('Using case status', () => {
 
       it('should be possible to end the LAC case status', () => {
         cy.visitAs(
-          `/people/${Cypress.env('CHILDREN_RECORD__THIRD_PERSON_ID')}/details`,
+          `/people/${Cypress.env('CHILDREN_RECORD_THIRD_PERSON_ID')}/details`,
           AuthRoles.ChildrensGroup
         );
         cy.wait('@getCaseStatus');
@@ -732,7 +732,7 @@ describe('Using case status', () => {
 
         cy.url().should('include', '/details');
         cy.visitAs(
-          `/people/${Cypress.env('CHILDREN_RECORD__THIRD_PERSON_ID')}`,
+          `/people/${Cypress.env('CHILDREN_RECORD_THIRD_PERSON_ID')}`,
           AuthRoles.ChildrensGroup
         );
         cy.wait('@getCaseStatus');
