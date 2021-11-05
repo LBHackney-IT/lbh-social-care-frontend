@@ -31,14 +31,14 @@ export const MashDashboard = ({ referrals }: Props): React.ReactElement => {
     }
   }, []);
 
-  const confirmations =
-    (router.query.confirmations &&
-      (JSON.parse(router.query.confirmations as string) as {
+  const confirmation =
+    (router.query.confirmation &&
+      (JSON.parse(router.query.confirmation as string) as {
         title: string;
         link: string;
         [values: string]: string;
-      }[])) ||
-    [];
+      })) ||
+    undefined;
 
   const { contact, initial, screening, final } = {
     contact: referrals.filter((ref) => ref.stage === 'Contact'),
@@ -69,14 +69,13 @@ export const MashDashboard = ({ referrals }: Props): React.ReactElement => {
   return (
     <div>
       <>
-        {confirmations.map((confirmation, index) => (
+        {confirmation && (
           <SuccessSummary
-            key={index}
             title={confirmation.title}
             referralLink={confirmation.link}
             body={confirmation}
           />
-        ))}
+        )}
         <h1 className="govuk-!-margin-bottom-8">Team assignments</h1>
         <fieldset className="govuk-tabs lbh-tabs govuk-!-margin-top-8">
           <ul className={st.tabList}>
