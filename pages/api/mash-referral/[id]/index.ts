@@ -3,7 +3,7 @@ import { StatusCodes } from 'http-status-codes';
 import { isAuthorised } from 'utils/auth';
 
 import type { NextApiRequest, NextApiResponse, NextApiHandler } from 'next';
-import { patchReferral } from 'lib/mashReferral';
+import { patchReferralInitial, patchReferralScreening } from 'lib/mashReferral';
 
 const endpoint: NextApiHandler = async (
   req: NextApiRequest,
@@ -19,21 +19,51 @@ const endpoint: NextApiHandler = async (
   switch (req.method) {
     case 'PATCH':
       try {
-        const { referralId, decision, requiresUrgentContact, workerEmail } = {
-          referralId: req.query.id as string,
-          decision: req.body.decision,
-          requiresUrgentContact: req.body.requiresUrgentContact,
-          workerEmail: req.body.workerEmail,
-        };
+        const updateTye = req.body.updateType;
 
-        const data = await patchReferral({
-          referralId,
-          decision,
-          requiresUrgentContact,
-          updateType: 'SCREENING-DECISION',
-          workerEmail,
-        });
-        res.status(StatusCodes.OK).json(data);
+        if (updateTye === 'SCREENING-DECISION') {
+          const { referralId, decision, requiresUrgentContact, workerEmail } = {
+            referralId: req.query.id as string,
+            decision: req.body.decision,
+            requiresUrgentContact: req.body.requiresUrgentContact,
+            workerEmail: req.body.workerEmail,
+          };
+
+          const data = await patchReferralScreening({
+            referralId,
+            decision,
+            requiresUrgentContact,
+            updateType: 'SCREENING-DECISION',
+            workerEmail,
+          });
+
+          res.status(StatusCodes.OK).json(data);
+        } else if (updateTye === 'INITIAL-DECISION') {
+          const {
+            referralId,
+            decision,
+            requiresUrgentContact,
+            workerEmail,
+            referralCategory,
+          } = {
+            referralId: req.query.id as string,
+            decision: req.body.decision,
+            requiresUrgentContact: req.body.requiresUrgentContact,
+            workerEmail: req.body.workerEmail,
+            referralCategory: req.body.referralCategory,
+          };
+
+          const data = await patchReferralInitial({
+            referralId,
+            decision,
+            requiresUrgentContact,
+            updateType: 'INITIAL-DECISION',
+            workerEmail,
+            referralCategory,
+          });
+
+          res.status(StatusCodes.OK).json(data);
+        }
       } catch (error: any) {
         res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ message: error });
       }
