@@ -480,6 +480,8 @@ export interface MashReferral {
   stage: string;
   initialDecision: string | undefined;
   screeningDecision: string | undefined;
+  screeningUrgentContactRequired: boolean | undefined;
+  screeningCreatedAt: string | undefined;
   finalDecision: string | undefined;
   referralCategory: string | undefined;
 }
