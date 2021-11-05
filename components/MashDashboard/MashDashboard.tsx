@@ -41,10 +41,10 @@ export const MashDashboard = ({ referrals }: Props): React.ReactElement => {
     undefined;
 
   const { contact, initial, screening, final } = {
-    contact: referrals.filter((ref) => ref.stage === 'Contact'),
-    initial: referrals.filter((ref) => ref.stage === 'Initial decision'),
-    screening: referrals.filter((ref) => ref.stage === 'Screening'),
-    final: referrals.filter((ref) => ref.stage === 'Final'),
+    contact: referrals.filter((ref) => ref.stage === 'CONTACT'),
+    initial: referrals.filter((ref) => ref.stage === 'INITIAL'),
+    screening: referrals.filter((ref) => ref.stage === 'SCREENING'),
+    final: referrals.filter((ref) => ref.stage === 'FINAL'),
   };
 
   let mashReferrals: MashReferral[] = [];

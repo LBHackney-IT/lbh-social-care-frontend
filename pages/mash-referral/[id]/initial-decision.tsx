@@ -6,7 +6,7 @@ import { useRouter } from 'next/router';
 import { GetServerSideProps } from 'next';
 import { isAuthorised } from 'utils/auth';
 import { getMashReferral } from 'lib/mashReferral';
-import { MashReferral } from 'types';
+import { MashReferral, ReferralStage } from 'types';
 import { useState } from 'react';
 import { submitInitialDecision } from 'utils/api/mashReferrals';
 
@@ -189,7 +189,7 @@ export const getServerSideProps: GetServerSideProps = async ({
 
   const referral = await getMashReferral(params?.id as string);
 
-  if (!referral || referral.stage.toUpperCase() !== 'INITIAL DECISION') {
+  if (!referral || referral.stage !== ReferralStage.INITIAL) {
     return {
       props: {},
       redirect: {

@@ -3,7 +3,7 @@ import Heading from 'components/MashHeading/Heading';
 import NumberedSteps from 'components/NumberedSteps/NumberedSteps';
 import { useState } from 'react';
 import { Select } from 'components/Form';
-import { MashReferral } from 'types';
+import { MashReferral, ReferralStage } from 'types';
 import { getMashReferral } from 'lib/mashReferral';
 import { GetServerSideProps } from 'next';
 import { isAuthorised } from 'utils/auth';
@@ -181,7 +181,7 @@ export const getServerSideProps: GetServerSideProps = async ({
 
   const referral = await getMashReferral(params?.id as string);
 
-  if (!referral || referral.stage.toUpperCase() !== 'SCREENING') {
+  if (!referral || referral.stage !== ReferralStage.SCREENING) {
     return {
       props: {},
       redirect: {
