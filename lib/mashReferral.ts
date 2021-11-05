@@ -39,7 +39,7 @@ interface ScreeningDecision {
   referralId: string;
 }
 
-export const patchReferral = async (
+export const patchReferralScreening = async (
   update: ScreeningDecision
 ): Promise<MashReferral> => {
   const { data } = await axios.patch<MashReferral>(
@@ -49,6 +49,35 @@ export const patchReferral = async (
       updateType: update.updateType,
       decision: update.decision,
       requiresUrgentContact: update.requiresUrgentContact,
+    },
+    {
+      headers: { 'Content-Type': 'application/json', 'x-api-key': AWS_KEY },
+    }
+  );
+
+  return data;
+};
+
+interface InitialDecision {
+  workerEmail: string;
+  updateType: 'INITIAL-DECISION';
+  decision: string;
+  referralCategory: string;
+  requiresUrgentContact: boolean;
+  referralId: string;
+}
+
+export const patchReferralInitial = async (
+  update: InitialDecision
+): Promise<MashReferral> => {
+  const { data } = await axios.patch<MashReferral>(
+    `${ENDPOINT_API}/mash-referral/${update.referralId}`,
+    {
+      workerEmail: update.workerEmail,
+      updateType: update.updateType,
+      decision: update.decision,
+      requiresUrgentContact: update.requiresUrgentContact,
+      referralCategory: update.referralCategory,
     },
     {
       headers: { 'Content-Type': 'application/json', 'x-api-key': AWS_KEY },

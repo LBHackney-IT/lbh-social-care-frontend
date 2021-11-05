@@ -26,7 +26,7 @@ const MainCard = ({ filter, mashReferrals }: Props): React.ReactElement => {
         ))}
       </div>
     );
-  } else if (filter === 'screening') {
+  } else if (filter === 'screening-decision') {
     return (
       <div>
         {mashReferrals.map((referral) => (

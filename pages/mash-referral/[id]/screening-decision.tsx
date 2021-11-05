@@ -3,11 +3,12 @@ import Heading from 'components/MashHeading/Heading';
 import NumberedSteps from 'components/NumberedSteps/NumberedSteps';
 import { useState } from 'react';
 import { Select } from 'components/Form';
-import { MashReferral } from 'types';
+import { MashReferral, ReferralStage } from 'types';
 import { getMashReferral } from 'lib/mashReferral';
 import { GetServerSideProps } from 'next';
 import { isAuthorised } from 'utils/auth';
 import { submitScreeningDecision } from 'utils/api/mashReferrals';
+import { useRouter } from 'next/router';
 interface Props {
   referral: MashReferral;
   workerEmail: string;
@@ -21,6 +22,15 @@ const ScreeningDecision = ({
   const [urgencyScreeningDecision, setUrgencyScreeningDecision] =
     useState(false);
 
+  const router = useRouter();
+
+  const confirmation = {
+    title: `A decision has been submitted for ${referral.clients.join(
+      ' and '
+    )}`,
+    link: referral.referralDocumentURI,
+  };
+
   const submitForm = async () => {
     await submitScreeningDecision(
       referral.id,
@@ -28,6 +38,14 @@ const ScreeningDecision = ({
       urgencyScreeningDecision,
       workerEmail
     );
+
+    router.push({
+      pathname: `/team-assignments`,
+      query: {
+        tab: 'screening-decision',
+        confirmation: JSON.stringify(confirmation),
+      },
+    });
   };
 
   return (
@@ -111,11 +129,13 @@ const ScreeningDecision = ({
                     Yes
                   </label>
                 </div>
-                <div className="govuk-radios__conditional" id="hint-email">
-                  <label className="govuk-label" htmlFor="hint">
-                    Please email your MASH manager about the urgent case.
-                  </label>
-                </div>
+                {urgencyScreeningDecision && (
+                  <div className="govuk-radios__conditional" id="hint-email">
+                    <label className="govuk-label" htmlFor="hint">
+                      Please email your MASH manager about the urgent case.
+                    </label>
+                  </div>
+                )}
               </div>
             </fieldset>
           </>,
@@ -149,7 +169,6 @@ export const getServerSideProps: GetServerSideProps = async ({
   params,
 }) => {
   const user = isAuthorised(req);
-  console.log('🚀 ~ file: screening.tsx ~ line 148 ~ user', user);
 
   if (!user) {
     return {
@@ -162,7 +181,7 @@ export const getServerSideProps: GetServerSideProps = async ({
 
   const referral = await getMashReferral(params?.id as string);
 
-  if (!referral || referral.stage.toUpperCase() !== 'SCREENING') {
+  if (!referral || referral.stage !== ReferralStage.SCREENING) {
     return {
       props: {},
       redirect: {
