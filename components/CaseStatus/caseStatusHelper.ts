@@ -112,7 +112,7 @@ export const getLatestEndedStatusEndDate = (
     const endedCaseData = caseStatusIncludingEnded.filter(
       (status) => status.endDate
     );
-    if (endedCaseData) {
+    if (endedCaseData && endedCaseData.length > 0) {
       latestEndDate = endedCaseData[0].endDate;
       endedCaseData.forEach((status) => {
         if (Date.parse(status.endDate) > Date.parse(latestEndDate)) {
