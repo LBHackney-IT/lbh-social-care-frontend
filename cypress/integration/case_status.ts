@@ -17,9 +17,6 @@ const caseStatusScheduledStartDate = '2040-02-01';
 const caseStatusScheduledStartDateText = '01 Feb 2040';
 const invalidCaseStatusStartDate = '2000-01-10';
 
-// const caseStatusLACEditDate = '2000-01-02';
-// const caseStatusLACEditDateText = '02 Jan 2000';
-
 describe('Using case status', () => {
   beforeEach(() => {
     // This is required as the email address stored in the cookie is not an
