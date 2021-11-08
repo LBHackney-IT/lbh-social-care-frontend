@@ -9,6 +9,8 @@ import { GetServerSideProps } from 'next';
 import { isAuthorised } from 'utils/auth';
 import { submitScreeningDecision } from 'utils/api/mashReferrals';
 import { useRouter } from 'next/router';
+import screeningOptions from './../../../data/mashOptions/screeningOptions';
+
 interface Props {
   referral: MashReferral;
   workerEmail: string;
@@ -18,7 +20,7 @@ const ScreeningDecision = ({
   referral,
   workerEmail,
 }: Props): React.ReactElement => {
-  const [screeningDecision, setScreeningDecision] = useState('option 1');
+  const [screeningDecision, setScreeningDecision] = useState('NFA');
   const [urgencyScreeningDecision, setUrgencyScreeningDecision] =
     useState(false);
 
@@ -82,7 +84,7 @@ const ScreeningDecision = ({
               id="screening-decision"
               name="screening-decision"
               value={screeningDecision}
-              options={['option 1', 'option 2']}
+              options={screeningOptions}
               onChange={(value) => setScreeningDecision(value)}
             />
           </>,
