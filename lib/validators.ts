@@ -112,10 +112,6 @@ export const generateFlexibleSchema = (
 
         (dateValue) => {
           const dateTimeToValidate = new Date(String(dateValue));
-          console.log(
-            'validation test',
-            dateTimeToValidate >= new Date(String(field.startDate))
-          );
           return (
             dateTimeToValidate >= new Date(String(field.startDate)) &&
             dateTimeToValidate <= new Date(Date.now())

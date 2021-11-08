@@ -36,7 +36,6 @@ const EditCaseStatusForm: React.FC<{
   const latestEndedStatusEndDate = getLatestEndedStatusEndDate(
     caseStatusesIncClosed
   );
-  console.log('latestEndDate', latestEndedStatusEndDate);
 
   let form_fields: any;
   if (prefilledFields && prefilledFields['action']) {

@@ -119,7 +119,6 @@ export const getLatestEndedStatusEndDate = (
           latestEndDate = status.endDate;
         }
       });
-      console.log('latestEndDate', latestEndDate);
       return latestEndDate;
     } else {
       return undefined;
