@@ -134,3 +134,27 @@ const groupAnswersByGroupId = (
           return Date.parse(b.startDate) - Date.parse(a.startDate);
         });
 };
+
+export const getLatestEndedStatusEndDate = (
+  caseStatusIncludingEnded: CaseStatus[] | undefined
+): string | undefined => {
+  if (caseStatusIncludingEnded) {
+    let latestEndDate: string;
+    const endedCaseData = caseStatusIncludingEnded.filter(
+      (status) => status.endDate
+    );
+    if (endedCaseData && endedCaseData.length > 0) {
+      latestEndDate = endedCaseData[0].endDate;
+      endedCaseData.forEach((status) => {
+        if (Date.parse(status.endDate) > Date.parse(latestEndDate)) {
+          latestEndDate = status.endDate;
+        }
+      });
+      return latestEndDate;
+    } else {
+      return undefined;
+    }
+  } else {
+    return undefined;
+  }
+};
