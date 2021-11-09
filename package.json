@@ -50,7 +50,8 @@
     "swr": "^0.5.6",
     "uk-postcode-validator": "^1.1.1",
     "use-resize-observer": "^7.0.0",
-    "yup": "^0.32.9"
+    "yup": "^0.32.9",
+    "immer": "^9.0.6"
   },
   "devDependencies": {
     "@babel/core": "^7.14.0",
