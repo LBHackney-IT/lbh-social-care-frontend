@@ -52,7 +52,13 @@
     "use-resize-observer": "^7.0.0",
     "yup": "^0.32.9",
     "immer": "^9.0.6",
-    "set-value": "^4.0.1"
+    "set-value": "^4.0.1",
+    "glob-parent": "^5.1.2",
+    "trim": "^0.0.3",
+    "ansi-regex" : "^5.0.1",
+    "prismjs" : "^1.25.0",
+    "browserslist": "4.16.5",
+    "braces": "2.3.1"
   },
   "devDependencies": {
     "@babel/core": "^7.14.0",
