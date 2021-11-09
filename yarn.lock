@@ -12907,9 +12907,9 @@ rc@^1.2.8:
     strip-json-comments "~2.0.1"
 
 react-beforeunload@^2.5.1:
-  version "2.5.1"
-  resolved "https://registry.yarnpkg.com/react-beforeunload/-/react-beforeunload-2.5.1.tgz#9e9592bc9a27fa1325b650a1e423be42312e2f30"
-  integrity sha512-X0PROB2sOTfue/8DEMIEIbfVWHlsLYuVOQ1s9StYOkrqocWX7wVJ1SErYXNw0I6zT1vTALm6oxsI7SO2B7AoGw==
+  version "2.5.2"
+  resolved "https://registry.yarnpkg.com/react-beforeunload/-/react-beforeunload-2.5.2.tgz#7e80dbb16e7b49d8364e03bad650985d577ac87f"
+  integrity sha512-lVRVUTdcQ07ea/S+5nql6ui/SyR0N9tudGQHdHvAa9WOrGgNMoxR6DOmgRNVRj6DmG1ruIAdSeem0tmM5zfy3w==
   dependencies:
     prop-types "^15.7.2"
     tiny-invariant "^1.1.0"
@@ -13611,9 +13611,9 @@ responselike@^2.0.0:
     lowercase-keys "^2.0.0"
 
 restana@^4.9.1:
-  version "4.9.1"
-  resolved "https://registry.yarnpkg.com/restana/-/restana-4.9.1.tgz#1168a86ea5c7fcf3868855f8b1c4889973cb6acc"
-  integrity sha512-V2AgZCs54/Q3AffX/M5ru3vVAeQB6fmInccIzluxYGXdEGhF+ANbHrzeKUTKgk1cx0cgAGDikr9gPdZreD1e7A==
+  version "4.9.2"
+  resolved "https://registry.yarnpkg.com/restana/-/restana-4.9.2.tgz#953340be13cf8624dd317e1e06b65921b0ce1ef0"
+  integrity sha512-0bbRu/LpsqBpfw0FmxAk6aHLxstbXHaEmyo/YTEpOfIU4+p4aV0TUb5LXNXbj/wraTMY24q+AAtoxQWAMN60sg==
   dependencies:
     "0http" "^3.1.1"
 
@@ -14944,9 +14944,9 @@ timers-browserify@2.0.12, timers-browserify@^2.0.4:
     setimmediate "^1.0.4"
 
 tiny-invariant@^1.1.0:
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/tiny-invariant/-/tiny-invariant-1.1.0.tgz#634c5f8efdc27714b7f386c35e6760991d230875"
-  integrity sha512-ytxQvrb1cPc9WBEI/HSeYYoGD0kWnGEOR8RY6KomWLBVhqz0RgTwVO9dLrGz7dC+nN9llyI7OKAgRq8Vq4ZBSw==
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/tiny-invariant/-/tiny-invariant-1.2.0.tgz#a1141f86b672a9148c72e978a19a73b9b94a15a9"
+  integrity sha512-1Uhn/aqw5C6RI4KejVeTg6mIS7IqxnLJ8Mv2tV5rTc0qWobay7pDUz6Wi392Cnc8ak1H0F2cjoRzb2/AW4+Fvg==
 
 tiny-warning@^1.0.2, tiny-warning@^1.0.3:
   version "1.0.3"
