@@ -20,7 +20,8 @@ const endpoint: NextApiHandler = async (
     case 'GET':
       try {
         const data = await getCaseStatusByPersonId(
-          Number(req.query.id as string)
+          Number(req.query.id as string),
+          req.query.include_closed_cases as string
         );
         res.status(StatusCodes.OK).json(data);
       } catch (error) {
@@ -29,6 +30,7 @@ const endpoint: NextApiHandler = async (
           .status(StatusCodes.INTERNAL_SERVER_ERROR)
           .json({ message: 'Unable to get the case status' });
       }
+
       break;
 
     default:

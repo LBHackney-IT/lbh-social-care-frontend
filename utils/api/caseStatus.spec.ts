@@ -16,7 +16,9 @@ describe('caseStatusAPI', () => {
     it('should get case statuses from the API', () => {
       jest.spyOn(SWR, 'default');
       caseStatusAPI.useCaseStatuses(123);
-      expect(SWR.default).toHaveBeenCalledWith('/api/residents/123/casestatus');
+      expect(SWR.default).toHaveBeenCalledWith(
+        '/api/residents/123/casestatus?include_closed_cases=false'
+      );
     });
   });
 

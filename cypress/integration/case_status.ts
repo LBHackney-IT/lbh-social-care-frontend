@@ -17,9 +17,6 @@ const caseStatusScheduledStartDate = '2040-02-01';
 const caseStatusScheduledStartDateText = '01 Feb 2040';
 const invalidCaseStatusStartDate = '2000-01-10';
 
-// const caseStatusLACEditDate = '2000-01-02';
-// const caseStatusLACEditDateText = '02 Jan 2000';
-
 describe('Using case status', () => {
   beforeEach(() => {
     // This is required as the email address stored in the cookie is not an
@@ -241,6 +238,26 @@ describe('Using case status', () => {
           timeout: 30000,
         }).should('be.visible');
       });
+
+      it('should not allow you to create a new case status before the previous status end date', () => {
+        cy.visitAs(
+          `/people/${Cypress.env('CHILDREN_RECORD_PERSON_ID')}`,
+          AuthRoles.ChildrensGroup
+        );
+
+        cy.contains('Add a case status').click();
+        cy.get(`input[value=CIN]`).check();
+
+        cy.get('input[name=startDate]').clear();
+        cy.get('[data-testid=submit_button]').should('be.disabled');
+
+        cy.get('input[name=startDate]')
+          .clear()
+          .type(invalidCaseStatusStartDate);
+        cy.get('textarea[name=notes]').click();
+        cy.contains(/Date cannot be/).should('be.visible');
+        cy.get('[data-testid=text-field-error-message]').should('exist');
+      });
     });
 
     describe('CP case status', () => {
@@ -443,6 +460,25 @@ describe('Using case status', () => {
         cy.contains('Add a case status', {
           timeout: 30000,
         }).should('be.visible');
+      });
+      it('should not allow you to create a new case status before the previous status end date', () => {
+        cy.visitAs(
+          `/people/${Cypress.env('CHILDREN_RECORD_PERSON_ID')}`,
+          AuthRoles.ChildrensGroup
+        );
+
+        cy.contains('Add a case status').click();
+        cy.get(`input[value=CP]`).check();
+
+        cy.get('input[name=startDate]').clear();
+        cy.get('[data-testid=submit_button]').should('be.disabled');
+
+        cy.get('input[name=startDate]')
+          .clear()
+          .type(invalidCaseStatusStartDate);
+        cy.get('[data-testid=category]').click();
+        cy.contains(/Date cannot be/).should('be.visible');
+        cy.get('[data-testid=text-field-error-message]').should('exist');
       });
     });
     describe('LAC case status', () => {
@@ -752,6 +788,26 @@ describe('Using case status', () => {
         cy.contains('Add a case status', {
           timeout: 30000,
         }).should('be.visible');
+      });
+
+      it('should not allow you to create a new case status before the previous status end date', () => {
+        cy.visitAs(
+          `/people/${Cypress.env('CHILDREN_RECORD_PERSON_ID')}`,
+          AuthRoles.ChildrensGroup
+        );
+
+        cy.contains('Add a case status').click();
+        cy.get(`input[value=LAC]`).check();
+
+        cy.get('input[name=startDate]').clear();
+        cy.get('[data-testid=submit_button]').should('be.disabled');
+
+        cy.get('input[name=startDate]')
+          .clear()
+          .type(invalidCaseStatusStartDate);
+        cy.get('[data-testid=legalStatus]').click();
+        cy.contains(/Date cannot be/).should('be.visible');
+        cy.get('[data-testid=text-field-error-message]').should('exist');
       });
     });
   });

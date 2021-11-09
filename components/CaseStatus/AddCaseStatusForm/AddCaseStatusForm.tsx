@@ -6,6 +6,9 @@ import FlexibleField from 'components/FlexibleForms/FlexibleFields';
 import Button from 'components/Button/Button';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
+import { useCaseStatuses } from 'utils/api/caseStatus';
+import { format } from 'date-fns';
+import { getLatestEndedStatusEndDate } from '../caseStatusHelper';
 
 const AddCaseStatusForm: React.FC<{
   personId: number;
@@ -13,11 +16,25 @@ const AddCaseStatusForm: React.FC<{
 }> = ({ personId, prefilledFields }) => {
   const router = useRouter();
 
+  const { data } = useCaseStatuses(personId, 'true');
+
+  const latestEndedStatusEndDate = getLatestEndedStatusEndDate(data);
+
   const form_fields = CASE_STATUS.steps[0].fields;
 
   form_fields.map((field) => {
     if (prefilledFields && prefilledFields[field.id]) {
       field.default = String(prefilledFields[field.id]);
+    }
+    if (
+      field.id === 'startDate' &&
+      latestEndedStatusEndDate &&
+      latestEndedStatusEndDate !== 'undefined'
+    ) {
+      field.startDate = format(
+        new Date(latestEndedStatusEndDate),
+        'yyyy-MM-dd'
+      );
     }
   });
 
