@@ -13,8 +13,6 @@ const caseStatusStartDateEditText = '11 Jan 2000';
 const caseStatusBeforeStartDate = '2000-01-01';
 const caseStatusDayBeforeStartDate = '2000-01-10';
 
-const caseStatusScheduledStartDate = '2040-02-01';
-const caseStatusScheduledStartDateText = '01 Feb 2040';
 const invalidCaseStatusStartDate = '2000-01-10';
 
 describe('Using CP case status', () => {
