@@ -6001,9 +6001,9 @@ cyclist@^1.0.1:
   integrity sha1-WW6WmP0MgOEgOMK4LW6xs1tiJNk=
 
 cypress-dotenv@^1.2.2:
-  version "1.2.2"
-  resolved "https://registry.yarnpkg.com/cypress-dotenv/-/cypress-dotenv-1.2.2.tgz#c40f23a11648382a79029c718594d2c793494f4e"
-  integrity sha512-T6Z2IWnG64FusDjUPKWKEyGxhlAX1vbJIj1t4s17a2PuhK5Pw58iS3wdthol8g4BRZIsQ+QDX3GN5NgjmJ4/KA==
+  version "1.2.3"
+  resolved "https://registry.yarnpkg.com/cypress-dotenv/-/cypress-dotenv-1.2.3.tgz#214967ee59604e74b68edc7650b1f2944b45490b"
+  integrity sha512-9TsM0iy21Js0muRqNEBvMaIJpx2jRR6HtFuSJXJFacxrGZnnFqzl+TiOOlquIcqGxIzPTFKOLztWMAP2qU21qw==
   dependencies:
     camelcase "^5.3.1"
     dotenv-parse-variables "^0.2.3"
