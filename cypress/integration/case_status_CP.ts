@@ -15,6 +15,50 @@ const caseStatusDayBeforeStartDate = '2000-01-10';
 
 const invalidCaseStatusStartDate = '2000-01-10';
 
+let residentId = Cypress.env('CHILDREN_RECORD_SECOND_PERSON_ID');
+let newResident = {
+  title: 'Mr',
+  firstName: 'Stephen',
+  lastName: 'Strange',
+  otherNames: [
+    {
+      firstName: 'Steve',
+      lastName: 'Strange',
+    },
+    {
+      firstName: 'Steve',
+      lastName: 'Strange',
+    },
+  ],
+  gender: 'M',
+  dateOfBirth: '2021-11-09',
+  dateOfDeath: '2021-11-09',
+  ethnicity: 'A.A26',
+  firstLanguage: 'English',
+  religion: 'Religion',
+  sexualOrientation: 'Sexual orientation',
+  nhsNumber: '4505577104',
+  address: {
+    address: '10 York Street',
+    uprn: '1000000001',
+    postcode: 'E8 1DY',
+  },
+  phoneNumbers: [
+    {
+      number: '55566667777',
+      type: 'Mobile',
+    },
+    {
+      number: '77788889999',
+      type: 'Landline',
+    },
+  ],
+  emailAddress: 'sample@domain.com',
+  preferredMethodOfContact: 'Email',
+  contextFlag: 'A',
+  createdBy: 'e2e.tests.adult@hackney.gov.uk ',
+};
+
 describe('Using CP case status', () => {
   beforeEach(() => {
     // This is required as the email address stored in the cookie is not an
@@ -42,18 +86,27 @@ describe('Using CP case status', () => {
         )}/casestatus?include_closed_cases=false`
       ).then((response) => {
         if (response.body.length > 0) {
-          cy.contains('a', 'Edit / End', {
-            timeout: 20000,
-          }).click();
-          cy.get(`input[value=end]`).check();
-          cy.get('[data-testid=submit_button]').click();
-          cy.url().should('include', '/edit/edit');
-          cy.get('input[name=endDate]').clear().type(caseStatusStartDateEdit);
-          cy.get('label[for=endDate]').click();
-          cy.get('[data-testid=submit_button]').click();
-          cy.url().should('include', '/review');
-          cy.contains(caseStatusStartDateEditText).should('be.visible');
-          cy.contains('button', 'Yes, end').click();
+          console.log('First response check:', response.body);
+          cy.log('First response check:', response.body);
+          // cy.contains('a', 'Edit / End', {
+          //   timeout: 20000,
+          // }).click();
+          // cy.get(`input[value=end]`).check();
+          // cy.get('[data-testid=submit_button]').click();
+          // cy.url().should('include', '/edit/edit');
+          // cy.get('input[name=endDate]').clear().type(caseStatusStartDateEdit);
+          // cy.get('label[for=endDate]').click();
+          // cy.get('[data-testid=submit_button]').click();
+          // cy.url().should('include', '/review');
+          // cy.contains(caseStatusStartDateEditText).should('be.visible');
+          // cy.contains('button', 'Yes, end').click();
+          cy.request('POST', `/api/residents`, {
+            newResident,
+          }).then((response) => {
+            console.log(response);
+            cy.log('SECOND response check:', response.body);
+            residentId = response.body.id;
+          });
         }
       });
     });
@@ -228,9 +281,10 @@ describe('Using CP case status', () => {
         timeout: 30000,
       }).should('be.visible');
     });
+
     it('should not allow you to create a new case status before the previous status end date', () => {
       cy.visitAs(
-        `/people/${Cypress.env('CHILDREN_RECORD_PERSON_ID')}`,
+        `/people/${Cypress.env('CHILDREN_RECORD_SECOND_PERSON_ID')}`,
         AuthRoles.ChildrensGroup
       );
 

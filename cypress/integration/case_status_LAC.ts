@@ -331,7 +331,7 @@ describe('Using LAC case status', () => {
 
     it('should not allow you to create a new case status before the previous status end date', () => {
       cy.visitAs(
-        `/people/${Cypress.env('CHILDREN_RECORD_PERSON_ID')}`,
+        `/people/${Cypress.env('CHILDREN_RECORD_THIRD_PERSON_ID')}`,
         AuthRoles.ChildrensGroup
       );
 
