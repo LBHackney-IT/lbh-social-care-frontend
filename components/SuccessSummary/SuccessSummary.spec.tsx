@@ -32,9 +32,7 @@ describe('#SuccessSummary', () => {
     expect(screen.getByText(`${testKey} - ${testValue}`));
     expect(screen.getByText('Referral link'));
 
-    const linkElement = screen.getAllByTestId(
-      'referral-link'
-    )[0] as HTMLLinkElement;
+    const linkElement = screen.getByTestId('referral-link') as HTMLLinkElement;
 
     expect(linkElement.href).toBe(testReferralLink);
   });
