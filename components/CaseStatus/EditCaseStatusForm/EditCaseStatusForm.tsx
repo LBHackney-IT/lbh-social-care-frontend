@@ -10,6 +10,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useCaseStatuses } from 'utils/api/caseStatus';
 import { format } from 'date-fns';
+import { getLatestEndedStatusEndDate } from '../caseStatusHelper';
 
 const EditCaseStatusForm: React.FC<{
   personId: number;
@@ -29,7 +30,12 @@ const EditCaseStatusForm: React.FC<{
   pastCaseStatusStartDate,
 }) => {
   const router = useRouter();
-  const { data: caseStatuses } = useCaseStatuses(personId);
+  const { data: caseStatuses } = useCaseStatuses(personId, 'false');
+  const { data: caseStatusesIncClosed } = useCaseStatuses(personId, 'true');
+
+  const latestEndedStatusEndDate = getLatestEndedStatusEndDate(
+    caseStatusesIncClosed
+  );
 
   let form_fields: any;
   if (prefilledFields && prefilledFields['action']) {
@@ -104,9 +110,23 @@ const EditCaseStatusForm: React.FC<{
     }
   }
 
+  if (caseStatusType != 'LAC' && action == 'edit') {
+    form_fields.map((field: any) => {
+      if (field.id === 'startDate') {
+        if (latestEndedStatusEndDate) {
+          field.startDate = format(
+            new Date(latestEndedStatusEndDate),
+            'yyyy-MM-dd'
+          );
+        }
+      }
+    });
+  }
+
   if (caseStatusType == 'LAC' && action == 'edit') {
-    let pastStatusStartDate: any;
-    let currentStatusStartDate: any;
+    let pastStatusStartDate: Date;
+    let currentStatusStartDate: Date;
+    let latestStatusEndDate: Date;
 
     if (pastCaseStatusStartDate && pastCaseStatusStartDate !== 'undefined') {
       pastStatusStartDate = new Date(pastCaseStatusStartDate);
@@ -120,10 +140,20 @@ const EditCaseStatusForm: React.FC<{
       currentStatusStartDate = new Date(currentCaseStatusStartDate);
     }
 
+    if (
+      latestEndedStatusEndDate &&
+      latestEndedStatusEndDate !== 'undefined' &&
+      !pastCaseStatusStartDate
+    ) {
+      latestStatusEndDate = new Date(latestEndedStatusEndDate);
+    }
+
     form_fields.map((field: any) => {
       if (field.id === 'startDate') {
         if (pastStatusStartDate) {
           field.startDate = format(pastStatusStartDate, 'yyyy-MM-dd');
+        } else if (latestStatusEndDate) {
+          field.startDate = format(latestStatusEndDate, 'yyyy-MM-dd');
         }
         if (currentStatusStartDate) {
           field.default = format(currentStatusStartDate, 'yyyy-MM-dd');

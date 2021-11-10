@@ -42,7 +42,25 @@ describe('CaseStatusDetailsTable component', () => {
 
     const elements = getByTestId('start_date');
     expect(elements).not.toBeNull();
-    expect(queryByText('09 Sept 2021')).toBeInTheDocument;
+    expect(elements.textContent).toMatch(/(09 Sept 2021|09 Sep 2021)/i);
+  });
+
+  it('displays the end date, if there are no answers', async () => {
+    const { getByTestId, queryByText } = render(
+      <CaseStatusDetailsTable
+        status={mockedCaseStatusFactory.build({
+          id: 1,
+          type: 'CIN',
+          startDate: '2021-09-09',
+          endDate: '2022-09-09',
+          answers: [],
+        })}
+      />
+    );
+
+    const elements = getByTestId('start_end_date');
+    expect(elements).not.toBeNull();
+    expect(elements.textContent).toMatch(/(09 Sept 2022|09 Sep 2022)/i);
   });
 
   it('displays the start date from the answers, if there is one and no end date in the answers', async () => {
@@ -50,17 +68,21 @@ describe('CaseStatusDetailsTable component', () => {
       <CaseStatusDetailsTable
         status={mockedCaseStatusFactory.build({
           id: 1,
-          type: 'CIN',
+          type: 'LAC',
           startDate: '2021-09-09',
           endDate: '',
-          answers: [mockedStatusField.build({ startDate: '2021-09-08' })],
+          answers: [],
+        })}
+        answers={mockedCaseStatusAnswers.build({
+          startDate: '2021-09-08',
+          endDate: '',
         })}
       />
     );
 
     const elements = getByTestId('start_date');
     expect(elements).not.toBeNull();
-    expect(queryByText('08 Sept 2021')).toBeInTheDocument;
+    expect(elements.textContent).toMatch(/(08 Sept 2021|08 Sep 2021)/i);
   });
 
   it('displays the start and end date', async () => {
@@ -68,40 +90,26 @@ describe('CaseStatusDetailsTable component', () => {
       <CaseStatusDetailsTable
         status={mockedCaseStatusFactory.build({
           id: 1,
-          type: 'CIN',
-          startDate: '2021-09-09',
-          endDate: '2021-09-10',
+          type: 'LAC',
+          startDate: '2021-08-08',
+          endDate: '2021-08-09',
           answers: [mockedStatusField.build({ startDate: '2021-09-08' })],
         })}
-        answers={mockedCaseStatusAnswers.build()}
+        answers={mockedCaseStatusAnswers.build({
+          startDate: '2021-09-10',
+          endDate: '2021-10-10',
+        })}
       />
     );
 
     const elements = getByTestId('start_end_date');
     expect(elements).not.toBeNull();
-  });
-
-  it('displays the an answers, if there is one', async () => {
-    const { getByTestId, queryByText } = render(
-      <CaseStatusDetailsTable
-        status={mockedCaseStatusFactory.build({
-          id: 1,
-          type: 'CIN',
-          startDate: '2021-09-09',
-          endDate: '',
-          answers: [mockedStatusField.build()],
-        })}
-        answers={mockedCaseStatusAnswers.build()}
-      />
+    expect(elements.textContent).toMatch(
+      /(10 Sept 2021 - 10 Oct 2021|10 Sep 2021 - 10 Oct 2021)/i
     );
-
-    const elements = getByTestId('case_status_fields');
-    expect(elements).not.toBeNull();
-    expect(queryByText('Placement Type')).toBeInTheDocument;
-    expect(queryByText('K1: Secure children’s homes')).toBeInTheDocument;
   });
 
-  it('displays multiple answers, if there are multiple', async () => {
+  it('displays the answers, if there are any', async () => {
     const { getByTestId, queryByText } = render(
       <CaseStatusDetailsTable
         status={mockedCaseStatusFactory.build({
@@ -109,24 +117,52 @@ describe('CaseStatusDetailsTable component', () => {
           type: 'LAC',
           startDate: '2021-09-09',
           endDate: '',
+          answers: [mockedStatusField.build()],
         })}
-        answers={
-          (mockedCaseStatusAnswers.build(),
-          mockedCaseStatusAnswers.build({
-            status: [
-              mockedStatusField.build({ option: 'legalStatus', value: 'C1' }),
-            ],
-          }))
-        }
+        answers={mockedCaseStatusAnswers.build({
+          status: [
+            mockedStatusField.build({
+              option: 'placementType',
+              value: 'K1',
+            }),
+          ],
+        })}
       />
     );
 
     const elements = getByTestId('case_status_fields');
     expect(elements).not.toBeNull();
-    expect(queryByText('Placement type')).toBeInTheDocument;
-    expect(queryByText('K1: Secure children’s homes')).toBeInTheDocument;
-    expect(queryByText('Legal status')).toBeInTheDocument;
-    expect(queryByText('C1: Interim care order')).toBeInTheDocument;
+    expect(queryByText('Placement type')).toBeInTheDocument();
+    expect(queryByText('K1: Secure children’s homes')).toBeInTheDocument();
+  });
+
+  it('displays multiple answers, if there are multiple', async () => {
+    const { getAllByTestId, queryByText } = render(
+      <CaseStatusDetailsTable
+        status={mockedCaseStatusFactory.build({
+          id: 1,
+          type: 'LAC',
+          startDate: '2021-09-09',
+          endDate: '',
+        })}
+        answers={mockedCaseStatusAnswers.build({
+          status: [
+            mockedStatusField.build({
+              option: 'placementType',
+              value: 'K1',
+            }),
+            mockedStatusField.build({ option: 'legalStatus', value: 'C1' }),
+          ],
+        })}
+      />
+    );
+
+    const elements = getAllByTestId('case_status_fields');
+    expect(elements).not.toBeNull();
+    expect(queryByText('Placement type')).toBeInTheDocument();
+    expect(queryByText('K1: Secure children’s homes')).toBeInTheDocument();
+    expect(queryByText('Legal status')).toBeInTheDocument();
+    expect(queryByText('C1: Interim care order')).toBeInTheDocument();
   });
 
   it('displays notes if they exist', async () => {

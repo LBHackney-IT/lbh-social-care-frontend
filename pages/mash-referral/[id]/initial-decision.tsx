@@ -9,6 +9,8 @@ import { getMashReferral } from 'lib/mashReferral';
 import { MashReferral, ReferralStage } from 'types';
 import { useState } from 'react';
 import { submitInitialDecision } from 'utils/api/mashReferrals';
+import referralCategories from './../../../data/mashOptions/referralCategories';
+import initialDecisionOptions from './../../../data/mashOptions/initialDecisionOptions';
 
 interface Props {
   referral: MashReferral;
@@ -19,8 +21,10 @@ const InitialDecision = ({
   referral,
   workerEmail,
 }: Props): React.ReactElement => {
-  const [decision, setDecision] = useState('option 1');
-  const [referralCategory, setReferralCategory] = useState('option 1');
+  const [decision, setDecision] = useState('CSC Screening required in MASH');
+  const [referralCategory, setReferralCategory] = useState(
+    'Abuse linked to faith or belief'
+  );
   const [urgent, setUrgent] = useState(false);
 
   const router = useRouter();
@@ -81,7 +85,7 @@ const InitialDecision = ({
               name="initial-decision"
               value={decision}
               onChange={(value) => setDecision(value)}
-              options={['option 1', 'option 2']}
+              options={initialDecisionOptions}
             />
           </>,
           <>
@@ -93,7 +97,7 @@ const InitialDecision = ({
               name="referral-category"
               value={referralCategory}
               onChange={(value) => setReferralCategory(value)}
-              options={['option 1', 'option 2']}
+              options={referralCategories}
             />
           </>,
           <>
