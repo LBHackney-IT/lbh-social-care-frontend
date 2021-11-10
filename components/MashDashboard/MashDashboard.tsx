@@ -62,7 +62,7 @@ export const MashDashboard = ({ referrals }: Props): React.ReactElement => {
   const onTabClick = (tabClicked: string) => {
     setFilter(tabClicked);
     router.query.tab = tabClicked;
-    router.query.confirmations = undefined;
+    router.query.confirmation = undefined;
     router.push(router);
   };
 
