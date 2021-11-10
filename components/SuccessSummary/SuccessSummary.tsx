@@ -10,7 +10,7 @@ const SuccessSummary = ({
   title,
   body,
   referralLink,
-}: Props): React.ReactElement | null => {
+}: Props): React.ReactElement => {
   return (
     <div
       className={s.successSummary}
@@ -31,7 +31,9 @@ const SuccessSummary = ({
             ))}
         </ul>
       </div>
-      <a href={referralLink}>Referral link</a>
+      <a href={referralLink} data-testid="referral-link">
+        Referral link
+      </a>
     </div>
   );
 };
