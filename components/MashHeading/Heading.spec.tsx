@@ -8,7 +8,7 @@ describe('Heading', () => {
     render(
       <Heading
         clientname={mockedMashReferral.clients[0]}
-        timeleft="4 hours"
+        timeleft="4 hours left"
         datetime={mockedMashReferral.createdAt}
       />
     );
