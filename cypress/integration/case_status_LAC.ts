@@ -18,6 +18,7 @@ const caseStatusScheduledStartDateText = '01 Feb 2040';
 const invalidCaseStatusStartDate = '2000-01-10';
 
 let residentId = Cypress.env('CHILDREN_RECORD_THIRD_PERSON_ID');
+console.log('LAC Original residentID', residentId);
 const newResident = {
   firstName: 'Todrick',
   lastName: 'Teddington',
@@ -52,10 +53,7 @@ describe('Using LAC case status', () => {
 
   describe('As a user in the Childrens group', () => {
     it('should check for any existing case status before all other LAC tests & if one exists then use a newly created resident to run tests against', () => {
-      cy.visitAs(
-        `/people/${Cypress.env('CHILDREN_RECORD_THIRD_PERSON_ID')}/details`,
-        AuthRoles.ChildrensGroup
-      );
+      cy.visitAs(`/people/${residentId}/details`, AuthRoles.ChildrensGroup);
       cy.wait('@getCaseStatus');
       cy.request(
         'GET',
@@ -67,6 +65,7 @@ describe('Using LAC case status', () => {
           cy.request('POST', `/api/residents`, newResident).then(
             (postResponse) => {
               residentId = postResponse.body.id;
+              console.log('LAC NEW residentID', residentId);
             }
           );
         }

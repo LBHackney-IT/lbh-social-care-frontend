@@ -16,6 +16,7 @@ const caseStatusDayBeforeStartDate = '2000-01-10';
 const invalidCaseStatusStartDate = '2000-01-10';
 
 let residentId = Cypress.env('CHILDREN_RECORD_PERSON_ID');
+console.log('CIN Original residentID', residentId);
 const newResident = {
   firstName: 'Todrick',
   lastName: 'Teddington',
@@ -50,20 +51,14 @@ describe('Using CIN case status', () => {
 
   describe('As a user in the Adults group', () => {
     it('should not be possible to add a case status on an adult record', () => {
-      cy.visitAs(
-        `/people/${Cypress.env('ADULT_RECORD_PERSON_ID')}`,
-        AuthRoles.AdultsGroup
-      );
+      cy.visitAs(`/people/${residentId}`, AuthRoles.AdultsGroup);
       cy.get('Add a case status').should('not.exist');
     });
   });
 
   describe('As a user in the Childrens group', () => {
     it('should check for any existing case status before all other CIN tests & if one exists then use a newly created resident to run tests against', () => {
-      cy.visitAs(
-        `/people/${Cypress.env('CHILDREN_RECORD_PERSON_ID')}/details`,
-        AuthRoles.ChildrensGroup
-      );
+      cy.visitAs(`/people/${residentId}/details`, AuthRoles.ChildrensGroup);
       cy.wait('@getCaseStatus');
       cy.request(
         'GET',
@@ -75,6 +70,7 @@ describe('Using CIN case status', () => {
           cy.request('POST', `/api/residents`, newResident).then(
             (postResponse) => {
               residentId = postResponse.body.id;
+              console.log('CIN NEW residentID', residentId);
             }
           );
         }
