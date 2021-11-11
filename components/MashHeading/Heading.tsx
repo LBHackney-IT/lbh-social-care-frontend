@@ -20,9 +20,7 @@ const MASHheading = ({
           {' '}
           received at {format(new Date(datetime), 'HH:00 dd MMM')}
         </span>
-        <span className="govuk-tag lbh-tag lbh-tag--green">
-          {timeleft} left
-        </span>
+        <span className="govuk-tag lbh-tag lbh-tag--green">{timeleft}</span>
       </div>
     </div>
   </section>

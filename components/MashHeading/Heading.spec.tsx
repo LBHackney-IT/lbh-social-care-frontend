@@ -12,7 +12,7 @@ describe('Heading', () => {
         datetime={mockedMashReferral.createdAt}
       />
     );
-    expect(screen.getByText('4 hours'));
+    expect(screen.getByText('4 hours left'));
     expect(screen.getByText(mockedMashReferral.clients[0] as string));
     expect(
       screen.getByText(
