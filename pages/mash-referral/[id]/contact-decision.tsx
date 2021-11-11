@@ -1,11 +1,8 @@
+import ContactForm from 'components/MashForms/ContactForm';
 import React from 'react';
 
 const ContactDecision = (): React.ReactElement => {
-  return (
-    <>
-      <h1>Work on contact</h1>
-    </>
-  );
+  return <ContactForm />;
 };
 
 export default ContactDecision;
