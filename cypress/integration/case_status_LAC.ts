@@ -1,6 +1,30 @@
 import { AuthRoles } from '../support/commands';
 import { format } from 'date-fns';
 
+const getLatestEndedStatusEndDate = (
+  caseStatusIncludingEnded: any | undefined
+): string | undefined => {
+  if (caseStatusIncludingEnded) {
+    let latestEndDate: string;
+    const endedCaseData = caseStatusIncludingEnded.filter(
+      (status) => status.endDate
+    );
+    if (endedCaseData && endedCaseData.length > 0) {
+      latestEndDate = endedCaseData[0].endDate;
+      endedCaseData.forEach((status) => {
+        if (Date.parse(status.endDate) > Date.parse(latestEndDate)) {
+          latestEndDate = status.endDate;
+        }
+      });
+      return latestEndDate;
+    } else {
+      return undefined;
+    }
+  } else {
+    return undefined;
+  }
+};
+
 const futureDate = new Date();
 futureDate.setDate(futureDate.getDate() + 1);
 const futureDateFormatted = format(futureDate, 'yyyy-MM-dd');
@@ -68,6 +92,29 @@ describe('Using LAC case status', () => {
               console.log('LAC NEW residentID', residentId);
             }
           );
+        } else {
+          cy.request(
+            'GET',
+            `/api/residents/${Cypress.env(
+              'CHILDREN_RECORD_THIRD_PERSON_ID'
+            )}/casestatus?include_closed_cases=true`
+          ).then((endDateResponse) => {
+            const latestEndDate = getLatestEndedStatusEndDate(
+              endDateResponse.body
+            );
+            if (
+              latestEndDate &&
+              latestEndDate != undefined &&
+              new Date(latestEndDate) > new Date(caseStatusStartDate)
+            ) {
+              cy.request('POST', `/api/residents`, newResident).then(
+                (newPostResponse) => {
+                  residentId = newPostResponse.body.id;
+                  console.log('LAC- NEW personID', residentId);
+                }
+              );
+            }
+          });
         }
       });
     });
