@@ -27,7 +27,7 @@ const CaseStatusDetailsTable = ({
 
   const htmlElements = [];
 
-  if (status.type.toUpperCase() == 'CP' || status.type.toUpperCase() == 'CIN') {
+  if (status.type.toUpperCase() == 'CIN') {
     const start_date = status.startDate;
     const end_date = status.endDate;
 
@@ -69,7 +69,10 @@ const CaseStatusDetailsTable = ({
           </dd>
         </>
       );
-  } else if (status.type.toUpperCase() == 'LAC') {
+  } else if (
+    status.type.toUpperCase() == 'CP' ||
+    status.type.toUpperCase() == 'LAC'
+  ) {
     let start_date = status.startDate;
     let end_date = status.endDate;
 
