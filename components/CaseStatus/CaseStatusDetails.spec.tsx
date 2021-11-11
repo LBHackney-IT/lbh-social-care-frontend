@@ -185,7 +185,7 @@ describe('CaseStatusDetail component', () => {
     expect(queryByText('ZZZ1')).toBeInTheDocument();
   });
 
-  it('displays the "current" group of case status answers for CP, even if there are multiple answer groups', async () => {
+  it('displays all groups of case status answers for CP, if there are multiple answer groups', async () => {
     jest.spyOn(caseStatusApi, 'useCaseStatuses').mockImplementation(() => ({
       data: [
         mockedCaseStatusFactory.build({
@@ -214,16 +214,14 @@ describe('CaseStatusDetail component', () => {
       mutate: jest.fn(),
       revalidate: jest.fn(),
     }));
-    const { queryByText, getByTestId } = render(
+    const { queryByText, queryAllByText, getAllByTestId } = render(
       <CaseStatusDetails person={mockedResident} />
     );
 
-    expect(getByTestId('case_status_fields')).not.toBeNull();
-    expect(getByTestId('case_status_details_table')).not.toBeNull();
-    expect(
-      queryByText('Category of child protection plan')
-    ).toBeInTheDocument();
-    expect(queryByText('Neglect')).not.toBeInTheDocument();
+    expect(getAllByTestId('case_status_fields')).toHaveLength(2);
+    expect(getAllByTestId('case_status_details_table')).toHaveLength(2);
+    expect(queryAllByText('Category of child protection plan')).toHaveLength(2);
+    expect(queryByText('Neglect')).toBeInTheDocument();
     expect(queryByText('Physical abuse')).toBeInTheDocument();
   });
 });
