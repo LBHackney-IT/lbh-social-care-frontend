@@ -17,6 +17,26 @@ const caseStatusScheduledStartDate = '2040-02-01';
 const caseStatusScheduledStartDateText = '01 Feb 2040';
 const invalidCaseStatusStartDate = '2000-01-10';
 
+let residentId = Cypress.env('CHILDREN_RECORD_PERSON_ID');
+const newResident = {
+  firstName: 'Todrick',
+  lastName: 'Teddington',
+  contextFlag: 'C',
+  title: 'Ms',
+  gender: 'F',
+  macroEthnicity: 'Black or Black British',
+  firstLanguage: 'French',
+  religion: 'Sikh',
+  sexualOrientation: 'Heterosexual/Straight',
+  nhsNumber: 386,
+  emailAddress: 'gaguripy@mailinator.com',
+  preferredMethodOfContact: 'Phone',
+  restricted: 'N',
+  dateOfBirth: '2013-05-02',
+  ethnicity: 'D.D1',
+  createdBy: 'e2e.tests.adult@hackney.gov.uk',
+};
+
 describe('Using CIN case status', () => {
   beforeEach(() => {
     // This is required as the email address stored in the cookie is not an
@@ -41,7 +61,7 @@ describe('Using CIN case status', () => {
   });
 
   describe('As a user in the Childrens group', () => {
-    it('should end any existing case status before all other CIN tests', () => {
+    it('should check for any existing case status before all other CP tests & if one exists then use a newly created resident to run tests against', () => {
       cy.visitAs(
         `/people/${Cypress.env('CHILDREN_RECORD_PERSON_ID')}/details`,
         AuthRoles.ChildrensGroup
@@ -54,27 +74,17 @@ describe('Using CIN case status', () => {
         )}/casestatus?include_closed_cases=false`
       ).then((response) => {
         if (response.body.length > 0) {
-          cy.contains('a', 'Edit / End', {
-            timeout: 20000,
-          }).click();
-          cy.get(`input[value=end]`).check();
-          cy.get('[data-testid=submit_button]').click();
-          cy.url().should('include', '/edit/edit');
-          cy.get('input[name=endDate]').clear().type(caseStatusStartDateEdit);
-          cy.get('label[for=endDate]').click();
-          cy.get('[data-testid=submit_button]').click();
-          cy.url().should('include', '/review');
-          cy.contains(caseStatusStartDateEditText).should('be.visible');
-          cy.contains('button', 'Yes, end').click();
+          cy.request('POST', `/api/residents`, newResident).then(
+            (postResponse) => {
+              residentId = postResponse.body.id;
+            }
+          );
         }
       });
     });
 
     it('should validate that when adding a CIN case status, a start date is required and the start date must be today or in the past', () => {
-      cy.visitAs(
-        `/people/${Cypress.env('CHILDREN_RECORD_PERSON_ID')}`,
-        AuthRoles.ChildrensGroup
-      );
+      cy.visitAs(`/people/${residentId}`, AuthRoles.ChildrensGroup);
 
       cy.contains('Add a case status').click();
       cy.get(`input[value=CIN]`).check();
@@ -97,10 +107,7 @@ describe('Using CIN case status', () => {
     });
 
     it('should be possible to add a CIN case status', () => {
-      cy.visitAs(
-        `/people/${Cypress.env('CHILDREN_RECORD_PERSON_ID')}`,
-        AuthRoles.ChildrensGroup
-      );
+      cy.visitAs(`/people/${residentId}`, AuthRoles.ChildrensGroup);
 
       cy.contains('Add a case status').click();
       cy.get(`input[value=CIN]`).check();
@@ -121,10 +128,7 @@ describe('Using CIN case status', () => {
     });
 
     it('should validate when editing a CIN status that the start date cannot be in the future', () => {
-      cy.visitAs(
-        `/people/${Cypress.env('CHILDREN_RECORD_PERSON_ID')}/details`,
-        AuthRoles.ChildrensGroup
-      );
+      cy.visitAs(`/people/${residentId}/details`, AuthRoles.ChildrensGroup);
 
       cy.contains('a', 'Edit / End', {
         timeout: 20000,
@@ -147,10 +151,7 @@ describe('Using CIN case status', () => {
     });
 
     it('should be possible to edit a CIN case status', () => {
-      cy.visitAs(
-        `/people/${Cypress.env('CHILDREN_RECORD_PERSON_ID')}/details`,
-        AuthRoles.ChildrensGroup
-      );
+      cy.visitAs(`/people/${residentId}/details`, AuthRoles.ChildrensGroup);
 
       cy.contains('a', 'Edit / End', {
         timeout: 20000,
@@ -177,10 +178,7 @@ describe('Using CIN case status', () => {
     });
 
     it('should validate when ending a CIN case status that the end date cannot be before the case status start date, start date can be in the future', () => {
-      cy.visitAs(
-        `/people/${Cypress.env('CHILDREN_RECORD_PERSON_ID')}/details`,
-        AuthRoles.ChildrensGroup
-      );
+      cy.visitAs(`/people/${residentId}/details`, AuthRoles.ChildrensGroup);
 
       cy.contains('a', 'Edit / End', {
         timeout: 20000,
@@ -209,10 +207,7 @@ describe('Using CIN case status', () => {
     });
 
     it('should be possible to end the CIN case status', () => {
-      cy.visitAs(
-        `/people/${Cypress.env('CHILDREN_RECORD_PERSON_ID')}/details`,
-        AuthRoles.ChildrensGroup
-      );
+      cy.visitAs(`/people/${residentId}/details`, AuthRoles.ChildrensGroup);
       cy.wait('@getCaseStatus');
       cy.contains('a', 'Edit / End', {
         timeout: 20000,
@@ -227,10 +222,7 @@ describe('Using CIN case status', () => {
       cy.contains('button', 'Yes, end').click();
 
       cy.url().should('include', '/details');
-      cy.visitAs(
-        `/people/${Cypress.env('CHILDREN_RECORD_PERSON_ID')}`,
-        AuthRoles.ChildrensGroup
-      );
+      cy.visitAs(`/people/${residentId}`, AuthRoles.ChildrensGroup);
       cy.wait('@getCaseStatus');
       cy.contains('Add a case status', {
         timeout: 30000,
@@ -238,10 +230,7 @@ describe('Using CIN case status', () => {
     });
 
     it('should not allow you to create a new case status before the previous status end date', () => {
-      cy.visitAs(
-        `/people/${Cypress.env('CHILDREN_RECORD_PERSON_ID')}`,
-        AuthRoles.ChildrensGroup
-      );
+      cy.visitAs(`/people/${residentId}`, AuthRoles.ChildrensGroup);
 
       cy.contains('Add a case status').click();
       cy.get(`input[value=CIN]`).check();

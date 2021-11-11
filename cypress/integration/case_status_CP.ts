@@ -49,7 +49,7 @@ describe('Using CP case status', () => {
   });
 
   describe('As a user in the Childrens group', () => {
-    it('should end any existing case status before all other CP tests', () => {
+    it('should check for any existing case status before all other CP tests & if one exists then use a newly created resident to run tests against', () => {
       cy.visitAs(`/people/${residentId}/details`, AuthRoles.ChildrensGroup);
       cy.wait('@getCaseStatus');
       cy.request(
