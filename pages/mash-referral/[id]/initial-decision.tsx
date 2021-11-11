@@ -61,6 +61,7 @@ const InitialDecision = ({
         clientname="Jan Smith"
         timeleft="3 hours"
         datetime="2021-11-04T13:50:10.6120000Z"
+        filter="initial-decision"
       />
 
       <NumberedSteps

@@ -1,16 +1,17 @@
 import s from './MashHeading.module.scss';
 import { format } from 'date-fns';
+import MashTag from 'components/MashTags/MashTags';
 
 interface Props {
   clientname: string;
-  timeleft: string;
   datetime: string;
+  filter: string;
 }
 
 const MASHheading = ({
   clientname,
-  timeleft,
   datetime,
+  filter,
 }: Props): React.ReactElement => (
   <section className="govuk-!-margin-bottom-8">
     <div className={s.banner}>
@@ -20,9 +21,7 @@ const MASHheading = ({
           {' '}
           received at {format(new Date(datetime), 'HH:00 dd MMM')}
         </span>
-        <span className="govuk-tag lbh-tag lbh-tag--green">
-          {timeleft} left
-        </span>
+        <MashTag filter={filter} />
       </div>
     </div>
   </section>

@@ -48,7 +48,7 @@ const MashTags = ({ filter }: Props): React.ReactElement => {
       if (72 > hoursPassed)
         return (
           <div className="govuk-tag lbh-tag lbh-tag--green">
-            {greenTimer} {greenTimer == 1 ? 'hour left' : 'hours left'}
+            {greenTimer} {greenTimer == 1 ? 'hour' : 'hours'} left
           </div>
         );
     }
@@ -63,7 +63,7 @@ const MashTags = ({ filter }: Props): React.ReactElement => {
       if (24 > hoursPassed)
         return (
           <div className="govuk-tag lbh-tag lbh-tag--green">
-            {amberTimer} {amberTimer == 1 ? 'hour left' : 'hours left'}
+            {amberTimer} {amberTimer == 1 ? 'hour' : 'hours'} left
           </div>
         );
     }
@@ -78,7 +78,7 @@ const MashTags = ({ filter }: Props): React.ReactElement => {
       if (4 > hoursPassed)
         return (
           <div className="govuk-tag lbh-tag lbh-tag--green">
-            {redTimer} {redTimer == 1 ? 'hour left' : 'hours left'}
+            {redTimer} {redTimer == 1 ? 'hour' : 'hours'} left
           </div>
         );
     }

@@ -57,6 +57,7 @@ const ScreeningDecision = ({
         clientname={referral.clients.join(', ')}
         timeleft="3 hours"
         datetime={referral.createdAt}
+        filter="screening"
       />
       <NumberedSteps
         nodes={[
