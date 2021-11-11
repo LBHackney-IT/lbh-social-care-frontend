@@ -13,8 +13,6 @@ const caseStatusStartDateEditText = '11 Jan 2000';
 const caseStatusBeforeStartDate = '2000-01-01';
 const caseStatusDayBeforeStartDate = '2000-01-10';
 
-const caseStatusScheduledStartDate = '2040-02-01';
-const caseStatusScheduledStartDateText = '01 Feb 2040';
 const invalidCaseStatusStartDate = '2000-01-10';
 
 let residentId = Cypress.env('CHILDREN_RECORD_PERSON_ID');
@@ -61,7 +59,7 @@ describe('Using CIN case status', () => {
   });
 
   describe('As a user in the Childrens group', () => {
-    it('should check for any existing case status before all other CP tests & if one exists then use a newly created resident to run tests against', () => {
+    it('should check for any existing case status before all other CIN tests & if one exists then use a newly created resident to run tests against', () => {
       cy.visitAs(
         `/people/${Cypress.env('CHILDREN_RECORD_PERSON_ID')}/details`,
         AuthRoles.ChildrensGroup
