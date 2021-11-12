@@ -14,7 +14,11 @@ const ScreeningCard = ({ mashReferral, filter }: Props): React.ReactElement => {
       <li className={s.row}>
         <div>
           <p className={`lbh-body-s govuk-!-margin-bottom-3 ${s.datetime}`}>
-            <MashTag filter={filter} createdAt={mashReferral.createdAt} />{' '}
+            <MashTag
+              filter={filter}
+              createdAt={mashReferral.createdAt}
+              initialDecision={mashReferral.initialDecision}
+            />{' '}
             submitted {format(new Date(mashReferral.createdAt), 'HH:00 dd MMM')}
             <span className={`lbh-body-l lbh-!-font-weight-bold  ${s.action}`}>
               <Link
