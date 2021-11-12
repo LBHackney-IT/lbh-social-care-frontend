@@ -36,5 +36,7 @@ export const submitInitialDecision = async (
       workerEmail: workerEmail,
     }
   );
-  return response?.data;
+  console.log('🚀 ~ file: mashReferrals.ts ~ line 40 ~ response', response);
+
+  return response.data;
 };

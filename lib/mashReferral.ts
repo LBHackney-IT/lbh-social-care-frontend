@@ -70,7 +70,7 @@ interface InitialDecision {
 export const patchReferralInitial = async (
   update: InitialDecision
 ): Promise<MashReferral> => {
-  const { data } = await axios.patch<MashReferral>(
+  const res = await axios.patch<MashReferral>(
     `${ENDPOINT_API}/mash-referral/${update.referralId}`,
     {
       workerEmail: update.workerEmail,
@@ -84,5 +84,5 @@ export const patchReferralInitial = async (
     }
   );
 
-  return data;
+  return res.data;
 };

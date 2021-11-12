@@ -18,6 +18,9 @@ const InitialDecisionForm = ({
   referral,
   workerEmail,
 }: Props): React.ReactElement => {
+  const [submitting, setSubmitting] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
+
   const [decision, setDecision] = useState('CSC Screening required in MASH');
   const [referralCategory, setReferralCategory] = useState(
     'Abuse linked to faith or belief'
@@ -34,21 +37,33 @@ const InitialDecisionForm = ({
   };
 
   const submitForm = async () => {
-    await submitInitialDecision(
-      referral.id,
-      workerEmail,
-      decision,
-      referralCategory,
-      urgent
-    );
+    setSubmitting(true);
 
-    router.push({
-      pathname: `/team-assignments`,
-      query: {
-        tab: 'initial-decision',
-        confirmation: JSON.stringify(confirmation),
-      },
-    });
+    try {
+      await submitInitialDecision(
+        referral.id,
+        'not-a-real-email',
+        decision,
+        referralCategory,
+        urgent
+      );
+
+      setSubmitting(false);
+
+      router.push({
+        pathname: `/team-assignments`,
+        query: {
+          tab: 'initial-decision',
+          confirmation: JSON.stringify(confirmation),
+        },
+      });
+    } catch (error) {
+      console.log(
+        '🚀 ~ file: InitialDecisionForm.tsx ~ line 61 ~ submitForm ~ error',
+        error
+      );
+      // setErrorMessage(error.message);
+    }
   };
 
   return (
