@@ -12,37 +12,42 @@ interface Props {
 const MainCard = ({ filter, mashReferrals }: Props): React.ReactElement => {
   if (filter === 'contact') {
     return (
-      <div>
+      <div data-testid="ContactCard">
         {mashReferrals.map((referral) => (
           <ContactCard key={referral.id} mashReferral={referral} />
         ))}
       </div>
     );
-  } else if (filter === 'initial-decision') {
+  }
+  if (filter === 'initial-decision') {
     return (
-      <div>
+      <div data-testid="InitialDecisionCard">
         {mashReferrals.map((referral) => (
           <InitialDecisionCard key={referral.id} mashReferral={referral} />
         ))}
       </div>
     );
-  } else if (filter === 'screening-decision') {
+  }
+  if (filter === 'screening-decision') {
     return (
-      <div>
+      <div data-testid="ScreeningCard">
         {mashReferrals.map((referral) => (
           <ScreeningCard key={referral.id} mashReferral={referral} />
         ))}
       </div>
     );
-  } else {
+  }
+  if (filter === 'final-decision') {
     return (
-      <div>
+      <div data-testid="FinalDecisionCard">
         {mashReferrals.map((referral) => (
           <FinalDecisionCard key={referral.id} mashReferral={referral} />
         ))}
       </div>
     );
   }
+
+  return <></>;
 };
 
 export default MainCard;
