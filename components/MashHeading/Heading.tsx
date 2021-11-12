@@ -4,14 +4,16 @@ import MashTag from 'components/MashTags/MashTags';
 
 interface Props {
   clientname: string;
-  datetime: string;
+  createdAt: string;
   filter: string;
+  initialDecision: string | undefined;
 }
 
 const MASHheading = ({
   clientname,
-  datetime,
+  createdAt,
   filter,
+  initialDecision,
 }: Props): React.ReactElement => (
   <section className="govuk-!-margin-bottom-8">
     <div className={s.banner}>
@@ -19,9 +21,13 @@ const MASHheading = ({
       <div>
         <span className="govuk-!-margin-right-3">
           {' '}
-          received at {format(new Date(datetime), 'HH:00 dd MMM')}
+          received at {format(new Date(createdAt), 'HH:00 dd MMM')}
         </span>
-        <MashTag filter={filter} />
+        <MashTag
+          initialDecision={initialDecision}
+          createdAt={createdAt}
+          filter={filter}
+        />
       </div>
     </div>
   </section>
