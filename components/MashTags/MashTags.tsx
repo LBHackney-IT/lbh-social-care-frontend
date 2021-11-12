@@ -3,9 +3,14 @@ import moment from 'moment';
 interface Props {
   filter: string;
   createdAt: string;
+  initialDecision: string | undefined;
 }
 
-const MashTags = ({ filter, createdAt }: Props): React.ReactElement => {
+const MashTags = ({
+  filter,
+  createdAt,
+  initialDecision,
+}: Props): React.ReactElement => {
   const currenttime = new Date().toISOString();
   const hoursPassed = moment(currenttime, 'YYYY-MM-DD[T]HH:mm:ss. SSS[Z]').diff(
     moment(createdAt, 'YYYY-MM-DD[T]HH:mm:ss. SSS[Z]'),
@@ -30,8 +35,10 @@ const MashTags = ({ filter, createdAt }: Props): React.ReactElement => {
       );
     return <></>;
   } else {
-    const initialDec = 'green';
-    if (initialDec == 'green') {
+    if (
+      initialDecision == 'E3 Referral' ||
+      initialDecision == 'EH Screening required in MASH'
+    ) {
       const greenTimer = 72 - hoursPassed;
       if (greenTimer < 1 && greenTimer > 0)
         return (
@@ -46,7 +53,7 @@ const MashTags = ({ filter, createdAt }: Props): React.ReactElement => {
           </div>
         );
     }
-    if (initialDec == 'amber') {
+    if (initialDecision == 'CSC Screening required in MASH') {
       const amberTimer = 24 - hoursPassed;
       if (amberTimer < 1 && amberTimer > 0)
         return (
@@ -61,7 +68,7 @@ const MashTags = ({ filter, createdAt }: Props): React.ReactElement => {
           </div>
         );
     }
-    if (initialDec == 'red') {
+    if (initialDecision == 'Progress Straight to CSC Allocation') {
       const redTimer = 4 - hoursPassed;
       if (redTimer < 1 && redTimer > 0)
         return (
