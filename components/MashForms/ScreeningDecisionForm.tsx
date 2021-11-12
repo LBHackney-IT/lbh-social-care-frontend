@@ -11,11 +11,13 @@ import { submitScreeningDecision } from 'utils/api/mashReferrals';
 interface Props {
   referral: MashReferral;
   workerEmail: string;
+  filter: string;
 }
 
 const ScreeningDecisionForm = ({
   referral,
   workerEmail,
+  filter,
 }: Props): React.ReactElement => {
   const [screeningDecision, setScreeningDecision] = useState('NFA');
   const [urgencyScreeningDecision, setUrgencyScreeningDecision] =
@@ -52,8 +54,9 @@ const ScreeningDecisionForm = ({
       <h1>Make screening decision</h1>
       <Heading
         clientname={referral.clients.join(', ')}
-        timeleft="3 hours"
-        datetime={referral.createdAt}
+        filter={filter}
+        createdAt={referral.createdAt}
+        initialDecision={referral.initialDecision}
       />
       <NumberedSteps
         nodes={[
