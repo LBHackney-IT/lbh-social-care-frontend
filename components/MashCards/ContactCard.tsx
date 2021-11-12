@@ -15,8 +15,8 @@ const ContactCard = ({ mashReferral, filter }: Props): React.ReactElement => {
       <li className={s.row}>
         <div>
           <p className={`lbh-body-s govuk-!-margin-bottom-3 ${s.datetime}`}>
-            <MashTag filter={filter} /> submitted{' '}
-            {format(new Date(mashReferral.createdAt), 'HH:00 dd MMM')}
+            <MashTag filter={filter} createdAt={mashReferral.createdAt} />{' '}
+            submitted {format(new Date(mashReferral.createdAt), 'HH:00 dd MMM')}
             <span className={`lbh-body-l lbh-!-font-weight-bold  ${s.action}`}>
               <Link href={`mash-referral/${mashReferral.id}/contact-decision`}>
                 Work on
