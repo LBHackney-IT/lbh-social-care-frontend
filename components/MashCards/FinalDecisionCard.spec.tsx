@@ -4,7 +4,12 @@ import FinalDecisionCard from './FinalDecisionCard';
 
 describe('FinalDecisionCard', () => {
   it('renders the right info from the mash referral', () => {
-    render(<FinalDecisionCard mashReferral={mockedMashReferral} />);
+    render(
+      <FinalDecisionCard
+        filter="final-decision"
+        mashReferral={mockedMashReferral}
+      />
+    );
 
     expect(screen.getByText('4 hours left'));
     expect(screen.getByText(`${mockedMashReferral.clients[0]} (referral)`));

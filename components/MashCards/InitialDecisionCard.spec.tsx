@@ -4,7 +4,12 @@ import InitialDecisionCard from './InitialDecisionCard';
 
 describe('InitialDecisionCard', () => {
   it('renders the right info from the mash referral', () => {
-    render(<InitialDecisionCard mashReferral={mockedMashReferral} />);
+    render(
+      <InitialDecisionCard
+        filter="initial-decision"
+        mashReferral={mockedMashReferral}
+      />
+    );
 
     expect(screen.getByText('4 hours left'));
     expect(screen.getByText(`${mockedMashReferral.clients[0]} (referral)`));
