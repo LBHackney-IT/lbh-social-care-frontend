@@ -22,3 +22,4 @@ export const mashReferralFactory = Factory.define<MashReferral>(
 );
 
 export const mockedMashReferral = mashReferralFactory.build();
+export const mockedMashReferrals = [mashReferralFactory.build()];
