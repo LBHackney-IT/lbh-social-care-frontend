@@ -63,7 +63,7 @@ const ReviewAddCaseStatusForm: React.FC<{
         },
       });
     } catch (e) {
-      setStatus(e.message);
+      setStatus(`Error ${e.response.data.status}: ${e.response.data.message}`);
     }
   };
 
