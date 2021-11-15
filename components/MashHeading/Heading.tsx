@@ -1,33 +1,22 @@
 import s from './MashHeading.module.scss';
 import { format } from 'date-fns';
 import MashTag from 'components/MashTags/MashTags';
+import { MashReferral } from 'types';
 
 interface Props {
-  clientname: string;
-  createdAt: string;
-  filter: string;
-  initialDecision: string | undefined;
+  mashReferral: MashReferral;
 }
 
-const MASHheading = ({
-  clientname,
-  createdAt,
-  filter,
-  initialDecision,
-}: Props): React.ReactElement => (
+const MASHheading = ({ mashReferral }: Props): React.ReactElement => (
   <section className="govuk-!-margin-bottom-8">
     <div className={s.banner}>
-      <div className={s.heading}>{clientname}</div>
+      <div className={s.heading}>{mashReferral.clients.join(', ')}</div>
       <div>
         <span className="govuk-!-margin-right-3">
           {' '}
-          received at {format(new Date(createdAt), 'HH:00 dd MMM')}
+          received at {format(new Date(mashReferral.createdAt), 'HH:00 dd MMM')}
         </span>
-        <MashTag
-          initialDecision={initialDecision}
-          createdAt={createdAt}
-          filter={filter}
-        />
+        <MashTag mashReferral={mashReferral} />
       </div>
     </div>
   </section>

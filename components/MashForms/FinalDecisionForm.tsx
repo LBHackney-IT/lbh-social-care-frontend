@@ -5,12 +5,13 @@ import NumberedSteps from 'components/NumberedSteps/NumberedSteps';
 import finalDecisionOptions from 'data/mashOptions/finalDecisionOptions';
 import referralCategories from 'data/mashOptions/referralCategories';
 import React, { useState } from 'react';
+import { MashReferral } from 'types';
 
 interface Props {
-  filter: string;
+  mashReferral: MashReferral;
 }
 
-const FinalDecisionForm = ({ filter }: Props): React.ReactElement => {
+const FinalDecisionForm = ({ mashReferral }: Props): React.ReactElement => {
   const [decision, setDecision] = useState('NFA');
   const [referralCategory, setReferralCategory] = useState(
     'Abuse linked to faith or belief'
@@ -20,11 +21,7 @@ const FinalDecisionForm = ({ filter }: Props): React.ReactElement => {
   return (
     <>
       <h1>Make final decision</h1>
-      <Heading
-        clientname="Jan Smith"
-        filter={filter}
-        datetime="2021-11-04T13:50:10.6120000Z"
-      />
+      <Heading mashReferral={mashReferral} />
 
       <NumberedSteps
         nodes={[

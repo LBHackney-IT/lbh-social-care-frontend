@@ -12,13 +12,11 @@ import { submitInitialDecision } from 'utils/api/mashReferrals';
 interface Props {
   referral: MashReferral;
   workerEmail: string;
-  filter: string;
 }
 
 const InitialDecisionForm = ({
   referral,
   workerEmail,
-  filter,
 }: Props): React.ReactElement => {
   const [decision, setDecision] = useState('CSC Screening required in MASH');
   const [referralCategory, setReferralCategory] = useState(
@@ -56,12 +54,7 @@ const InitialDecisionForm = ({
   return (
     <>
       <h1>Make initial decision</h1>
-      <Heading
-        clientname={referral.clients.join(', ')}
-        filter={filter}
-        createdAt={referral.createdAt}
-        initialDecision={referral.initialDecision}
-      />
+      <Heading mashReferral={referral} />
 
       <NumberedSteps
         nodes={[

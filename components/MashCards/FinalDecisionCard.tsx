@@ -6,23 +6,15 @@ import MashTag from 'components/MashTags/MashTags';
 
 interface Props {
   mashReferral: MashReferral;
-  filter: string;
 }
-const FinalDecisionCard = ({
-  mashReferral,
-  filter,
-}: Props): React.ReactElement => {
+const FinalDecisionCard = ({ mashReferral }: Props): React.ReactElement => {
   return (
     <>
       <li className={s.row}>
         <div>
           <p className={`lbh-body-s govuk-!-margin-bottom-3 ${s.datetime}`}>
-            <MashTag
-              filter={filter}
-              createdAt={mashReferral.createdAt}
-              initialDecision={mashReferral.initialDecision}
-            />{' '}
-            submitted {format(new Date(mashReferral.createdAt), 'HH:00 dd MMM')}
+            <MashTag mashReferral={mashReferral} /> submitted{' '}
+            {format(new Date(mashReferral.createdAt), 'HH:00 dd MMM')}
             <span className={`lbh-body-l lbh-!-font-weight-bold  ${s.action}`}>
               <Link href={`mash-referral/${mashReferral.id}/final-decision`}>
                 Make decision
