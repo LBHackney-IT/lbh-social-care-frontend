@@ -1,6 +1,11 @@
 import FinalDecisionForm from 'components/MashForms/FinalDecisionForm';
+import { MashReferral } from 'types';
 
-const FinalDecision = (): React.ReactElement => {
-  return <FinalDecisionForm />;
+interface Props {
+  mashReferral: MashReferral;
+}
+
+const FinalDecision = ({ mashReferral }: Props): React.ReactElement => {
+  return <FinalDecisionForm mashReferral={mashReferral} />;
 };
 export default FinalDecision;
