@@ -1,0 +1,12 @@
+@import 'lbh-frontend/lbh/base';
+
+.banner {
+  @include lbh-rem(padding, 36, 20);
+  border: 1px solid lbh-colour('lbh-grey-3');
+  background: rgba(lbh-colour('lbh-grey-4'), 0.8);
+
+  &__content {
+    @include lbh-body-m;
+    font-weight: $lbh-font-weight-regular;
+  }
+}
