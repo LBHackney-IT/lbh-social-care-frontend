@@ -88,7 +88,7 @@ describe('#InitialDecisionForm', () => {
 
   it('should show an error message when submitInitialDecision throws an error', async () => {
     const errorMessage = 'TEST-ERROR-MESSAGE';
-    const errorObject = { response: { data: 'TEST-ERROR-MESSAGE' } };
+    const errorObject = { response: { data: errorMessage } };
     (submitInitialDecision as jest.Mock).mockRejectedValue(errorObject);
 
     fireEvent.click(screen.getByText('Submit'));
