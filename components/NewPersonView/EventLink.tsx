@@ -4,13 +4,14 @@ import { Case } from 'types';
 import { generateInternalLink as generateLegacyUrl } from 'utils/urls';
 import s from './index.module.scss';
 
+const workflowsPilotUrl = `https://workflows-social-care-service.hackney.gov.uk`;
+
 interface Props {
   event: Case;
 }
 
 const EventLink = ({ event }: Props): React.ReactElement => {
   // 1. handle flexible forms
-
   if (event.formType === 'flexible-form') {
     const formName =
       mapFormIdToFormDefinition[event.formName]?.displayName || 'Form';
@@ -26,7 +27,15 @@ const EventLink = ({ event }: Props): React.ReactElement => {
     );
   }
 
-  // 2. handle external/google forms
+  // 2. handle workflows
+  if (event.caseFormData.workflowId)
+    return (
+      <a href={`${workflowsPilotUrl}/workflows/${caseFormData.workflowId}`}>
+        {event.formName}
+      </a>
+    );
+
+  // 3. handle external/google forms
   if (event.caseFormUrl)
     return (
       <a
@@ -39,7 +48,7 @@ const EventLink = ({ event }: Props): React.ReactElement => {
       </a>
     );
 
-  // 3. handle legacy forms
+  // 4. handle legacy forms
   const legacyUrl = generateLegacyUrl(event);
   if (legacyUrl)
     return (
@@ -48,7 +57,7 @@ const EventLink = ({ event }: Props): React.ReactElement => {
       </Link>
     );
 
-  // 4. handle anything else
+  // 5. handle anything else
   return <>{event.formName || 'Unknown event'}</>;
 };
 
