@@ -1,17 +1,74 @@
+import { AxiosError } from 'axios';
 import Button from 'components/Button/Button';
+import ErrorMessage from 'components/ErrorMessage/ErrorMessage';
 import Select from 'components/Form/Select/Select';
 import Heading from 'components/MashHeading/Heading';
 import NumberedSteps from 'components/NumberedSteps/NumberedSteps';
 import finalDecisionOptions from 'data/mashOptions/finalDecisionOptions';
 import referralCategories from 'data/mashOptions/referralCategories';
+import { useRouter } from 'next/router';
 import React, { useState } from 'react';
+import { MashReferral } from 'types';
+import { submitFinalDecision } from 'utils/api/mashReferrals';
 
-const FinalDecisionForm = (): React.ReactElement => {
+interface Props {
+  referral: MashReferral;
+  workerEmail: string;
+}
+
+const FinalDecisionForm = ({
+  referral,
+  workerEmail,
+}: Props): React.ReactElement => {
+  const [submitting, setSubmitting] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
+
   const [decision, setDecision] = useState('NFA');
   const [referralCategory, setReferralCategory] = useState(
     'Abuse linked to faith or belief'
   );
   const [urgent, setUrgent] = useState(false);
+
+  const router = useRouter();
+
+  const confirmation = {
+    title: `A decision has been submitted for ${referral.clients.join(
+      ' and '
+    )}`,
+    link: referral.referralDocumentURI,
+    'Final decision': decision,
+    'Referral category': referralCategory,
+  };
+
+  const submitForm = async () => {
+    setSubmitting(true);
+    setErrorMessage('');
+
+    try {
+      await submitFinalDecision(
+        referral.id,
+        workerEmail,
+        decision,
+        referralCategory,
+        urgent
+      );
+
+      setSubmitting(false);
+
+      router.push({
+        pathname: `/team-assignments`,
+        query: {
+          tab: 'final-decision',
+          confirmation: JSON.stringify(confirmation),
+        },
+      });
+    } catch (error) {
+      const axiosError = error as AxiosError;
+
+      setSubmitting(false);
+      setErrorMessage(axiosError.response?.data);
+    }
+  };
 
   return (
     <>
@@ -85,7 +142,7 @@ const FinalDecisionForm = (): React.ReactElement => {
                     id="no-input"
                     name="urgency"
                     type="radio"
-                    onClick={() => setUrgent(false)}
+                    onChange={() => setUrgent(false)}
                     checked={!urgent}
                   />
                   <label
@@ -101,7 +158,7 @@ const FinalDecisionForm = (): React.ReactElement => {
                     id="yes-input"
                     name="urgency"
                     type="radio"
-                    onClick={() => setUrgent(true)}
+                    onChange={() => setUrgent(true)}
                     checked={urgent}
                   />
                   <label
@@ -121,9 +178,14 @@ const FinalDecisionForm = (): React.ReactElement => {
           </>,
         ]}
       />
-
+      {errorMessage && <ErrorMessage label={errorMessage} />}
       <div style={{ display: 'flex', alignItems: 'center' }}>
-        <Button label="Submit" type="submit" />
+        <Button
+          label="Submit"
+          type="submit"
+          onClick={submitForm}
+          disabled={submitting}
+        />
         <p className="lbh-body">
           <a
             href="#"
