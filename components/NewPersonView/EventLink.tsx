@@ -32,7 +32,7 @@ const EventLink = ({ event }: Props): React.ReactElement => {
     return (
       <a
         href={`${getConfigValue('workflowsPilotUrl') as string}/workflows/${
-          caseFormData.workflowId
+          event.caseFormData.workflowId
         }`}
       >
         {event.formName}
