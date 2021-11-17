@@ -18,12 +18,28 @@ const mockGoogleForm = {
   caseFormUrl: 'https://docs.google.com/document/whatever',
 } as Case;
 
+const mockWorkflow = {
+  recordId: 'abcd1234',
+  formName: 'Example assessment',
+  personId: 123,
+  caseFormData: {
+    workflowId: '123abc',
+  },
+} as Case;
+
 describe('EventLink', () => {
   it('correctly handles a flexible form', () => {
     render(<EventLink event={mockFlexibleForm} />);
     expect(
       (screen.getByText('Case note - Test title') as HTMLLinkElement).href
     ).toContain(`/people/123/submissions/abcd1234`);
+  });
+
+  it('correctly handles a workflow', () => {
+    render(<EventLink event={mockWorkflow} />);
+    expect(
+      (screen.getByText('Example assessment') as HTMLLinkElement).href
+    ).toContain('/workflows/123abc');
   });
 
   it('correctly handles a google/external form', () => {
