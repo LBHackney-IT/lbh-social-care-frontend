@@ -1,16 +1,16 @@
 import { mapFormIdToFormDefinition } from 'data/flexibleForms/mapFormIdsToFormDefinition';
+import { useAppConfig } from 'lib/appConfig';
 import Link from 'next/link';
 import { Case } from 'types';
 import { generateInternalLink as generateLegacyUrl } from 'utils/urls';
 import s from './index.module.scss';
-
-const workflowsPilotUrl = `https://workflows-social-care-service.hackney.gov.uk`;
-
 interface Props {
   event: Case;
 }
 
 const EventLink = ({ event }: Props): React.ReactElement => {
+  const { getConfigValue } = useAppConfig();
+
   // 1. handle flexible forms
   if (event.formType === 'flexible-form') {
     const formName =
@@ -30,7 +30,11 @@ const EventLink = ({ event }: Props): React.ReactElement => {
   // 2. handle workflows
   if (event.caseFormData.workflowId)
     return (
-      <a href={`${workflowsPilotUrl}/workflows/${caseFormData.workflowId}`}>
+      <a
+        href={`${getConfigValue('workflowsPilotUrl') as string}/workflows/${
+          caseFormData.workflowId
+        }`}
+      >
         {event.formName}
       </a>
     );

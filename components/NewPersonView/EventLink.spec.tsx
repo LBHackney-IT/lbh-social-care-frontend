@@ -1,5 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import { mockedAllocationNote, mockedCaseNote } from 'factories/cases';
+import { AppConfigProvider } from 'lib/appConfig';
 import { Case } from 'types';
 import EventLink from './EventLink';
 
@@ -36,10 +37,16 @@ describe('EventLink', () => {
   });
 
   it('correctly handles a workflow', () => {
-    render(<EventLink event={mockWorkflow} />);
+    render(
+      <AppConfigProvider
+        appConfig={{ workflowsPilotUrl: 'http://example.com' }}
+      >
+        <EventLink event={mockWorkflow} />
+      </AppConfigProvider>
+    );
     expect(
       (screen.getByText('Example assessment') as HTMLLinkElement).href
-    ).toContain('/workflows/123abc');
+    ).toContain('http://example.com/workflows/123abc');
   });
 
   it('correctly handles a google/external form', () => {

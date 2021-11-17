@@ -44,6 +44,7 @@ interface CaseFormDataBase {
   form_url?: string;
   case_note_title?: string;
   case_note_description?: string;
+  workflowId?: string;
 }
 
 export interface AllocationCaseFormData extends CaseFormDataBase {
@@ -91,12 +92,7 @@ export type CaseFormData =
   | CaseFormDataBase
   | AllocationCaseFormData
   | DeallocationCaseFormData
-  | WarningNoteCaseFormData
-  | WorkflowData;
-
-export interface WorkflowData {
-  workflowId: string;
-}
+  | WarningNoteCaseFormData;
 
 export interface Case {
   recordId: string;
