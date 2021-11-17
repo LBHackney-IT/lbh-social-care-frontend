@@ -67,9 +67,9 @@ const endpoint: NextApiHandler = async (
         }
       } catch (error: unknown) {
         const axiosError = error as AxiosError;
-        res.status(axiosError.response?.status || 500).json({
-          message: axiosError?.response?.data,
-        });
+        res
+          .status(axiosError.response?.status || 500)
+          .json(axiosError?.response?.data);
       }
       break;
 

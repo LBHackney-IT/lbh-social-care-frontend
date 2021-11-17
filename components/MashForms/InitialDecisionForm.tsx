@@ -1,4 +1,6 @@
+import { AxiosError } from 'axios';
 import Button from 'components/Button/Button';
+import ErrorMessage from 'components/ErrorMessage/ErrorMessage';
 import { Select } from 'components/Form';
 import Heading from 'components/MashHeading/Heading';
 import NumberedSteps from 'components/NumberedSteps/NumberedSteps';
@@ -38,11 +40,12 @@ const InitialDecisionForm = ({
 
   const submitForm = async () => {
     setSubmitting(true);
+    setErrorMessage('');
 
     try {
       await submitInitialDecision(
         referral.id,
-        'not-a-real-email',
+        workerEmail,
         decision,
         referralCategory,
         urgent
@@ -58,11 +61,10 @@ const InitialDecisionForm = ({
         },
       });
     } catch (error) {
-      console.log(
-        '🚀 ~ file: InitialDecisionForm.tsx ~ line 61 ~ submitForm ~ error',
-        error
-      );
-      // setErrorMessage(error.message);
+      const axiosError = error as AxiosError;
+
+      setSubmitting(false);
+      setErrorMessage(axiosError.response?.data);
     }
   };
 
@@ -165,8 +167,14 @@ const InitialDecisionForm = ({
           </>,
         ]}
       />
+      {errorMessage && <ErrorMessage label={errorMessage} />}
       <div style={{ display: 'flex', alignItems: 'center' }}>
-        <Button label="Submit" type="submit" onClick={submitForm} />
+        <Button
+          label="Submit"
+          type="submit"
+          onClick={submitForm}
+          disabled={submitting}
+        />
         <p className="lbh-body">
           <a
             href="#"
