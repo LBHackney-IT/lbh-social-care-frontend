@@ -129,7 +129,7 @@ const InitialDecisionForm = ({
                     id="no-input"
                     name="urgency"
                     type="radio"
-                    onClick={() => setUrgent(false)}
+                    onChange={() => setUrgent(false)}
                     checked={!urgent}
                   />
                   <label
@@ -145,7 +145,7 @@ const InitialDecisionForm = ({
                     id="yes-input"
                     name="urgency"
                     type="radio"
-                    onClick={() => setUrgent(true)}
+                    onChange={() => setUrgent(true)}
                     checked={urgent}
                   />
                   <label
