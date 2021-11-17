@@ -29,7 +29,7 @@ describe('Event', () => {
 
   it('generates and truncates a snippet for form wizard case notes', () => {
     render(
-      <AppConfigProvider>
+      <AppConfigProvider appConfig={{}}>
         <Event
           event={{
             ...mockedWarningNoteCase,
@@ -55,7 +55,7 @@ describe('Event', () => {
 
   it('marks google docs', () => {
     render(
-      <AppConfigProvider>
+      <AppConfigProvider appConfig={{}}>
         <Event
           event={{
             ...mockedWarningNoteCase,

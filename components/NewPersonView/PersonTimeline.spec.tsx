@@ -24,7 +24,7 @@ describe('PersonTimeline', () => {
       );
 
     render(
-      <AppConfigProvider>
+      <AppConfigProvider appConfig={{}}>
         <PersonTimeline
           setSize={jest.fn()}
           onLastPage={false}
@@ -43,7 +43,7 @@ describe('PersonTimeline', () => {
 
   it('can cope when there are no events to show', () => {
     render(
-      <AppConfigProvider>
+      <AppConfigProvider appConfig={{}}>
         <PersonTimeline
           setSize={jest.fn()}
           onLastPage={false}
@@ -58,7 +58,7 @@ describe('PersonTimeline', () => {
 
   it('hides the pagination button on the last page', () => {
     render(
-      <AppConfigProvider>
+      <AppConfigProvider appConfig={{}}>
         <PersonTimeline
           setSize={jest.fn()}
           onLastPage={true}
@@ -74,7 +74,7 @@ describe('PersonTimeline', () => {
   it('can load older events', () => {
     const mockHandler = jest.fn();
     render(
-      <AppConfigProvider>
+      <AppConfigProvider appConfig={{}}>
         <PersonTimeline
           setSize={mockHandler}
           onLastPage={false}

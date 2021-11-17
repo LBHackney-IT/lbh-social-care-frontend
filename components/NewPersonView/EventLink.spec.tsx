@@ -31,7 +31,7 @@ const mockWorkflow = {
 describe('EventLink', () => {
   it('correctly handles a flexible form', () => {
     render(
-      <AppConfigProvider>
+      <AppConfigProvider appConfig={{}}>
         <EventLink event={mockFlexibleForm} />
       </AppConfigProvider>
     );
@@ -55,7 +55,7 @@ describe('EventLink', () => {
 
   it('correctly handles a google/external form', () => {
     render(
-      <AppConfigProvider>
+      <AppConfigProvider appConfig={{}}>
         <EventLink event={mockGoogleForm} />
       </AppConfigProvider>
     );
@@ -66,7 +66,7 @@ describe('EventLink', () => {
 
   it('correctly handles a legacy case note', () => {
     render(
-      <AppConfigProvider>
+      <AppConfigProvider appConfig={{}}>
         <EventLink event={mockedCaseNote} />
       </AppConfigProvider>
     );
@@ -77,7 +77,7 @@ describe('EventLink', () => {
 
   it('correctly handles an allocation', () => {
     render(
-      <AppConfigProvider>
+      <AppConfigProvider appConfig={{}}>
         <EventLink event={mockedAllocationNote} />
       </AppConfigProvider>
     );
@@ -88,7 +88,7 @@ describe('EventLink', () => {
 
   it('correctly handles something unrecognisable', () => {
     render(
-      <AppConfigProvider>
+      <AppConfigProvider appConfig={{}}>
         <EventLink
           event={
             {

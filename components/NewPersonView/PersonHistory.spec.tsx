@@ -29,7 +29,7 @@ describe('PersonHistory', () => {
     });
 
     render(
-      <AppConfigProvider>
+      <AppConfigProvider appConfig={{}}>
         <PersonHistory personId={mockedResident.id} />
       </AppConfigProvider>
     );
@@ -50,7 +50,7 @@ describe('PersonHistory', () => {
     });
 
     render(
-      <AppConfigProvider>
+      <AppConfigProvider appConfig={{}}>
         <PersonHistory personId={mockedResident.id} />
       </AppConfigProvider>
     );
@@ -67,7 +67,7 @@ describe('PersonHistory', () => {
     });
 
     render(
-      <AppConfigProvider>
+      <AppConfigProvider appConfig={{}}>
         <PersonHistory personId={mockedResident.id} />
       </AppConfigProvider>
     );
@@ -88,7 +88,7 @@ describe('PersonHistory', () => {
     });
 
     render(
-      <AppConfigProvider>
+      <AppConfigProvider appConfig={{}}>
         <PersonHistory personId={mockedResident.id} />
       </AppConfigProvider>
     );
