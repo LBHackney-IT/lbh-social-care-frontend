@@ -42,9 +42,9 @@ const ScreeningDecisionForm = ({
     try {
       await submitScreeningDecision(
         referral.id,
+        workerEmail,
         screeningDecision,
-        urgencyScreeningDecision,
-        workerEmail
+        urgencyScreeningDecision
       );
 
       router.push({
