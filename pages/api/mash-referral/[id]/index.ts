@@ -3,7 +3,11 @@ import { StatusCodes } from 'http-status-codes';
 import { isAuthorised } from 'utils/auth';
 
 import type { NextApiRequest, NextApiResponse, NextApiHandler } from 'next';
-import { patchReferralInitial, patchReferralScreening } from 'lib/mashReferral';
+import {
+  patchReferralFinal,
+  patchReferralInitial,
+  patchReferralScreening,
+} from 'lib/mashReferral';
 import { AxiosError } from 'axios';
 
 const endpoint: NextApiHandler = async (
@@ -59,6 +63,31 @@ const endpoint: NextApiHandler = async (
             decision,
             requiresUrgentContact,
             updateType: 'INITIAL-DECISION',
+            workerEmail,
+            referralCategory,
+          });
+
+          res.status(StatusCodes.OK).json(data);
+        } else if (updateTye === 'FINAL-DECISION') {
+          const {
+            referralId,
+            decision,
+            requiresUrgentContact,
+            workerEmail,
+            referralCategory,
+          } = {
+            referralId: req.query.id as string,
+            decision: req.body.decision,
+            requiresUrgentContact: req.body.requiresUrgentContact,
+            workerEmail: req.body.workerEmail,
+            referralCategory: req.body.referralCategory,
+          };
+
+          const data = await patchReferralFinal({
+            referralId,
+            decision,
+            requiresUrgentContact,
+            updateType: 'FINAL-DECISION',
             workerEmail,
             referralCategory,
           });

@@ -16,7 +16,7 @@ export const submitScreeningDecision = async (
       workerEmail: workerEmail,
     }
   );
-  return response?.data;
+  return response.data;
 };
 
 export const submitInitialDecision = async (
@@ -36,6 +36,25 @@ export const submitInitialDecision = async (
       workerEmail: workerEmail,
     }
   );
+  return response.data;
+};
 
+export const submitFinalDecision = async (
+  referralId: string,
+  workerEmail: string,
+  decision: string,
+  referralCategory: string,
+  requiresUrgentContact: boolean
+): Promise<MashReferral> => {
+  const response = await axios.patch<MashReferral>(
+    `/api/mash-referral/${referralId}/`,
+    {
+      decision,
+      requiresUrgentContact,
+      referralCategory,
+      updateType: 'FINAL-DECISION',
+      workerEmail: workerEmail,
+    }
+  );
   return response.data;
 };
