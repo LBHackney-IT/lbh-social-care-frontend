@@ -36,5 +36,6 @@ export const submitInitialDecision = async (
       workerEmail: workerEmail,
     }
   );
-  return response?.data;
+
+  return response.data;
 };

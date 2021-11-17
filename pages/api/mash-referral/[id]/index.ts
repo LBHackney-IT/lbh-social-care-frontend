@@ -4,6 +4,7 @@ import { isAuthorised } from 'utils/auth';
 
 import type { NextApiRequest, NextApiResponse, NextApiHandler } from 'next';
 import { patchReferralInitial, patchReferralScreening } from 'lib/mashReferral';
+import { AxiosError } from 'axios';
 
 const endpoint: NextApiHandler = async (
   req: NextApiRequest,
@@ -64,8 +65,11 @@ const endpoint: NextApiHandler = async (
 
           res.status(StatusCodes.OK).json(data);
         }
-      } catch (error: any) {
-        res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ message: error });
+      } catch (error: unknown) {
+        const axiosError = error as AxiosError;
+        res
+          .status(axiosError.response?.status || 500)
+          .json(axiosError?.response?.data);
       }
       break;
 
