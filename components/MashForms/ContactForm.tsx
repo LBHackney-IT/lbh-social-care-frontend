@@ -2,14 +2,12 @@ import Button from 'components/Button/Button';
 import Heading from 'components/MashHeading/Heading';
 import NumberedSteps from 'components/NumberedSteps/NumberedSteps';
 import React, { useState } from 'react';
-import { MashReferral } from 'types';
-import s from './Contactbanner.module.scss';
+import s from './Contact.module.scss';
+import Link from 'next/link';
+import MatchBanner from './MatchBanner';
+import ContactTable from './ContactTable';
 
-interface Props {
-  mashReferral: MashReferral;
-}
-
-const ContactForm = ({ mashReferral }: Props): React.ReactElement => {
+const ContactForm = (): React.ReactElement => {
   const [urgent, setUrgent] = useState(false);
   return (
     <>
@@ -26,14 +24,9 @@ const ContactForm = ({ mashReferral }: Props): React.ReactElement => {
               Check whether the client exists in the system
             </h3>
             <p className="lbh-body">The client’s details are as follows:</p>
-            <div className={s.banner}>
-              <h3>Potential matches</h3>
-              <p>
-                The client details in this referral appears to match
-                pre-existing record/s in the system. Please double check to make
-                sure this client does not already exist. If the records match
-                you can link the referral to this pre-existing client.
-              </p>
+            <div className={s.clientMatch}>
+              <ContactTable />
+              <MatchBanner />
             </div>
           </>,
           <>
@@ -43,9 +36,9 @@ const ContactForm = ({ mashReferral }: Props): React.ReactElement => {
               required checks.
             </p>
             <p className="lbh-body">
-              <a href="#" className="lbh-link lbh-link--no-visited-state">
-                See Google document
-              </a>
+              <Link href="#">
+                <a>See Google document</a>
+              </Link>
             </p>
           </>,
           <>
