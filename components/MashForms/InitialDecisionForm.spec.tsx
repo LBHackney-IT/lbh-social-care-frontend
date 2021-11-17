@@ -2,6 +2,7 @@ import { render, fireEvent, screen, waitFor } from '@testing-library/react';
 import { mockedMashReferral } from 'factories/mashReferral';
 import InitialDecisionForm from './InitialDecisionForm';
 import { submitInitialDecision } from 'utils/api/mashReferrals';
+import { mockedWorker } from 'factories/workers';
 
 jest.mock('utils/api/mashReferrals');
 
@@ -13,15 +14,13 @@ jest.mock('next/router', () => ({
 }));
 
 describe('#InitialDecisionForm', () => {
-  const workerEmail = 'test-worker-email@hackney.gov.uk';
-
   beforeEach(() => {
     jest.resetAllMocks();
 
     render(
       <InitialDecisionForm
         referral={mockedMashReferral}
-        workerEmail={workerEmail}
+        workerEmail={mockedWorker.email}
       />
     );
   });
@@ -64,7 +63,7 @@ describe('#InitialDecisionForm', () => {
 
     expect(submitInitialDecision).toBeCalledWith(
       mockedMashReferral.id,
-      'test-worker-email@hackney.gov.uk',
+      mockedWorker.email,
       'CSC Screening required in MASH',
       'Abuse linked to faith or belief',
       false
@@ -78,8 +77,9 @@ describe('#InitialDecisionForm', () => {
       expect(mockPush).toBeCalledWith({
         pathname: '/team-assignments',
         query: {
-          confirmation:
-            '{"title":"A decision has been submitted for test-client","link":"test-referral-document-URI"}',
+          confirmation: `{"title":"A decision has been submitted for ${mockedMashReferral.clients.join(
+            ' and '
+          )}","link":"${mockedMashReferral.referralDocumentURI}"}`,
           tab: 'initial-decision',
         },
       });
