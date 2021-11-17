@@ -2,25 +2,30 @@ import Dialog from 'components/Dialog/Dialog';
 import style from './RemoveSubmissionDialog.module.scss';
 import { Resident } from 'types';
 import { Select, TextInput } from 'components/Form';
+import { useState } from 'react';
 
 interface Props {
   isOpen: boolean;
   person: Resident;
-  responseObject: any;
   onDismiss: () => void;
-  onFormSubmit: () => void;
+  onFormSubmit: (data: any) => void;
 }
 
 const RemoveSubmissionDialog = ({
   isOpen,
   person,
-  responseObject,
   onDismiss,
   onFormSubmit,
 }: Props): React.ReactElement => {
-  {
-    responseObject.reason_for_deletion = 'this is the reason';
-  }
+  const [reasonForDeletion, setReasonForDeletion] = useState<string>('');
+  const [nameOfRequester, setNameOfRequester] = useState<string>('');
+
+  const onDeleteButtonClick = () => {
+    onFormSubmit({
+      reason_for_deletion: reasonForDeletion,
+      name_of_requester: nameOfRequester,
+    });
+  };
 
   return (
     <Dialog
@@ -42,7 +47,7 @@ const RemoveSubmissionDialog = ({
         id="Reason for deletion"
         name="reason_for_deletion"
         onChange={(value) => {
-          responseObject.reason_for_deletion = String(value);
+          setReasonForDeletion(value);
         }}
         options={[
           'Submitted prematurely',
@@ -60,15 +65,17 @@ const RemoveSubmissionDialog = ({
         label="Name of requester"
         name="name_of_requester"
         width={10}
-        defaultValue={''}
         onChange={(event) => {
-          responseObject.name_of_requester = String(event.target.value);
+          setNameOfRequester(event.target.value);
         }}
-        disabled={false}
       />
 
       <div className={style.actions}>
-        <button onClick={onFormSubmit} className="govuk-button lbh-button">
+        <button
+          onClick={onDeleteButtonClick}
+          className="govuk-button lbh-button"
+          disabled={reasonForDeletion == '' || nameOfRequester == ''}
+        >
           Yes, remove
         </button>
 

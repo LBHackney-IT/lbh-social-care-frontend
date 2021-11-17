@@ -30,8 +30,6 @@ const SubmissionPage = ({ submission, person }: Props): React.ReactElement => {
   const [isRemoveCaseNoteDialogOpen, setIsRemoveCaseNoteDialogOpen] =
     useState<boolean>(false);
 
-  const response: any = {};
-
   return (
     <>
       <Head>
@@ -52,22 +50,21 @@ const SubmissionPage = ({ submission, person }: Props): React.ReactElement => {
       <RemoveSubmissionDialog
         isOpen={isRemoveCaseNoteDialogOpen}
         person={person}
-        responseObject={response}
         onDismiss={() => setIsRemoveCaseNoteDialogOpen(false)}
-        onFormSubmit={async () => {
+        onFormSubmit={async (data: any) => {
           setIsRemoveCaseNoteDialogOpen(false);
 
-          if (response.reason_for_deletion && response.name_of_requester) {
+          if (data.reason_for_deletion && data.name_of_requester) {
             const titleId = 'titleId';
             const testTitle = 'deletionDetails';
 
             const mockAnswers = {
-              reason_for_deletion: response.reason_for_deletion,
-              name_of_requester: response.name_of_requester,
+              reason_for_deletion: data.reason_for_deletion,
+              name_of_requester: data.name_of_requester,
               [titleId]: testTitle,
             };
 
-            console.log('removing stuff!', response);
+            console.log('removing stuff!', data);
 
             try {
               await patchSubmissionForStep(
