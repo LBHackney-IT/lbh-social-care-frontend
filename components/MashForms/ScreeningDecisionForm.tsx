@@ -1,4 +1,6 @@
+import { AxiosError } from 'axios';
 import Button from 'components/Button/Button';
+import ErrorMessage from 'components/ErrorMessage/ErrorMessage';
 import { Select } from 'components/Form';
 import Heading from 'components/MashHeading/Heading';
 import NumberedSteps from 'components/NumberedSteps/NumberedSteps';
@@ -17,6 +19,9 @@ const ScreeningDecisionForm = ({
   referral,
   workerEmail,
 }: Props): React.ReactElement => {
+  const [submitting, setSubmitting] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
+
   const [screeningDecision, setScreeningDecision] = useState('NFA');
   const [urgencyScreeningDecision, setUrgencyScreeningDecision] =
     useState(false);
@@ -31,20 +36,30 @@ const ScreeningDecisionForm = ({
   };
 
   const submitForm = async () => {
-    await submitScreeningDecision(
-      referral.id,
-      screeningDecision,
-      urgencyScreeningDecision,
-      workerEmail
-    );
+    setSubmitting(true);
+    setErrorMessage('');
 
-    router.push({
-      pathname: `/team-assignments`,
-      query: {
-        tab: 'screening-decision',
-        confirmation: JSON.stringify(confirmation),
-      },
-    });
+    try {
+      await submitScreeningDecision(
+        referral.id,
+        screeningDecision,
+        urgencyScreeningDecision,
+        workerEmail
+      );
+
+      router.push({
+        pathname: `/team-assignments`,
+        query: {
+          tab: 'screening-decision',
+          confirmation: JSON.stringify(confirmation),
+        },
+      });
+    } catch (error) {
+      const axiosError = error as AxiosError;
+
+      setSubmitting(false);
+      setErrorMessage(axiosError.response?.data);
+    }
   };
 
   return (
@@ -140,8 +155,14 @@ const ScreeningDecisionForm = ({
           </>,
         ]}
       />
+      {errorMessage && <ErrorMessage label={errorMessage} />}
       <div style={{ display: 'flex', alignItems: 'center' }}>
-        <Button label="Submit" type="submit" onClick={submitForm} />
+        <Button
+          label="Submit"
+          type="submit"
+          onClick={submitForm}
+          disabled={submitting}
+        />
         <p className="lbh-body">
           <a
             href="#"
