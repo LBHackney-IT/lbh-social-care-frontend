@@ -117,17 +117,6 @@ const FinalDecisionForm = ({
             />
           </>,
           <>
-            <label htmlFor="referral-category" className="lbh-heading-h3">
-              Allocate out of MASH
-            </label>
-            <Select
-              id="allocate"
-              name="allocate"
-              ignoreValue
-              options={['option 1', 'option 2']}
-            />
-          </>,
-          <>
             <fieldset className="govuk-fieldset">
               <legend className="lbh-heading-h3">
                 Is this contact urgent?
