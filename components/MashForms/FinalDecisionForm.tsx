@@ -157,11 +157,13 @@ const FinalDecisionForm = ({
                     Yes
                   </label>
                 </div>
-                <div className="govuk-radios__conditional" id="hint-email">
-                  <label className="govuk-label" htmlFor="hint">
-                    Please email your MASH manager about the urgent case.
-                  </label>
-                </div>
+                {urgent && (
+                  <div className="govuk-radios__conditional" id="hint-email">
+                    <label className="govuk-label" htmlFor="hint">
+                      Please email your MASH manager about the urgent case.
+                    </label>
+                  </div>
+                )}
               </div>
             </fieldset>
           </>,
