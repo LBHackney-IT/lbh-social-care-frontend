@@ -10,7 +10,11 @@ import forms from 'data/flexibleForms';
 import RevisionTimeline from 'components/RevisionTimeline/RevisionTimeline';
 import PanelApprovalWidget from 'components/ApprovalWidget/PanelApprovalWidget';
 import ApprovalWidget from 'components/ApprovalWidget/ApprovalWidget';
+import RemoveSubmissionDialog from 'components/Submissions/RemoveSubmissionDialog/RemoveSubmissionDialog';
+import { useState } from 'react';
 import { useAuth } from 'components/UserContext/UserContext';
+import { patchSubmissionForStep } from 'lib/submissions';
+import { useRouter } from 'next/router';
 
 interface Props {
   submission: Submission;
@@ -21,6 +25,12 @@ interface Props {
 const SubmissionPage = ({ submission, person }: Props): React.ReactElement => {
   const form = forms.find((form) => form.id === submission.formId);
   const { user } = useAuth() as { user: User };
+  const { push } = useRouter();
+
+  const [isRemoveCaseNoteDialogOpen, setIsRemoveCaseNoteDialogOpen] =
+    useState<boolean>(false);
+
+  const response: any = {};
 
   return (
     <>
@@ -39,11 +49,63 @@ const SubmissionPage = ({ submission, person }: Props): React.ReactElement => {
         <PanelApprovalWidget user={user} submission={submission} />
       )}
 
+      <RemoveSubmissionDialog
+        isOpen={isRemoveCaseNoteDialogOpen}
+        person={person}
+        responseObject={response}
+        onDismiss={() => setIsRemoveCaseNoteDialogOpen(false)}
+        onFormSubmit={async () => {
+          setIsRemoveCaseNoteDialogOpen(false);
+
+          if (response.reason_for_deletion && response.name_of_requester) {
+            const titleId = 'titleId';
+            const testTitle = 'deletionDetails';
+
+            const mockAnswers = {
+              reason_for_deletion: response.reason_for_deletion,
+              name_of_requester: response.name_of_requester,
+              [titleId]: testTitle,
+            };
+
+            console.log('removing stuff!', response);
+
+            try {
+              await patchSubmissionForStep(
+                submission.formId,
+                'deletionDetails',
+                user.email,
+                mockAnswers
+              );
+
+              push(`/people/${person.id}`);
+            } catch (e) {
+              console.log(e);
+            }
+          }
+        }}
+      />
+
       <div className="govuk-grid-row">
         <div className="govuk-grid-column-two-thirds">
           <h1 className="lbh-heading-h1 govuk-!-margin-bottom-8">
             {form?.name}
           </h1>
+        </div>
+        <div className="govuk-error-summary__body">
+          <ul className="govuk-list govuk-error-summary__list">
+            <li>
+              <a
+                style={{ float: 'right' }}
+                className="lbh-link"
+                href="#"
+                onClick={() => {
+                  setIsRemoveCaseNoteDialogOpen(true);
+                }}
+              >
+                Delete record
+              </a>
+            </li>
+          </ul>
         </div>
       </div>
       <div className={`govuk-grid-row ${s.outer}`}>
