@@ -88,11 +88,11 @@ export interface HistoricVisitData {
 }
 
 export type CaseFormData =
-  // | CaseFormDataBase
-  // | AllocationCaseFormData
-  // | DeallocationCaseFormData
-  // | WarningNoteCaseFormData
-  WorkflowData;
+  | CaseFormDataBase
+  | AllocationCaseFormData
+  | DeallocationCaseFormData
+  | WarningNoteCaseFormData
+  | WorkflowData;
 
 export interface WorkflowData {
   workflowId: string;
