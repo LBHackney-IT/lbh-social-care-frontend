@@ -30,7 +30,11 @@ const mockWorkflow = {
 
 describe('EventLink', () => {
   it('correctly handles a flexible form', () => {
-    render(<EventLink event={mockFlexibleForm} />);
+    render(
+      <AppConfigProvider>
+        <EventLink event={mockFlexibleForm} />
+      </AppConfigProvider>
+    );
     expect(
       (screen.getByText('Case note - Test title') as HTMLLinkElement).href
     ).toContain(`/people/123/submissions/abcd1234`);
@@ -50,21 +54,33 @@ describe('EventLink', () => {
   });
 
   it('correctly handles a google/external form', () => {
-    render(<EventLink event={mockGoogleForm} />);
+    render(
+      <AppConfigProvider>
+        <EventLink event={mockGoogleForm} />
+      </AppConfigProvider>
+    );
     expect(
       (screen.getByText('Example form name') as HTMLLinkElement).href
     ).toBe('https://docs.google.com/document/whatever');
   });
 
   it('correctly handles a legacy case note', () => {
-    render(<EventLink event={mockedCaseNote} />);
+    render(
+      <AppConfigProvider>
+        <EventLink event={mockedCaseNote} />
+      </AppConfigProvider>
+    );
     expect((screen.getByText('foorm') as HTMLLinkElement).href).toContain(
       `/people/123/records/4`
     );
   });
 
   it('correctly handles an allocation', () => {
-    render(<EventLink event={mockedAllocationNote} />);
+    render(
+      <AppConfigProvider>
+        <EventLink event={mockedAllocationNote} />
+      </AppConfigProvider>
+    );
     expect(
       (screen.getByText('Worker allocated') as HTMLLinkElement).href
     ).toContain('/people/123/allocations/321?recordId=2');
@@ -72,13 +88,15 @@ describe('EventLink', () => {
 
   it('correctly handles something unrecognisable', () => {
     render(
-      <EventLink
-        event={
-          {
-            caseFormData: {},
-          } as unknown as Case
-        }
-      />
+      <AppConfigProvider>
+        <EventLink
+          event={
+            {
+              caseFormData: {},
+            } as unknown as Case
+          }
+        />
+      </AppConfigProvider>
     );
     expect(screen.getByText('Unknown event'));
   });

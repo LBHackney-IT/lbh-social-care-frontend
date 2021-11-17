@@ -5,6 +5,7 @@ import * as caseHooks from 'utils/api/cases';
 import { SWRInfiniteResponse } from 'swr';
 import { CaseData } from 'types';
 import { mockedCaseNote } from 'factories/cases';
+import { AppConfigProvider } from 'lib/appConfig';
 
 jest.mock('utils/api/cases');
 jest.mock('components/Spinner/Spinner', () => () => 'MockedSpinner');
@@ -27,7 +28,11 @@ describe('PersonHistory', () => {
       return response;
     });
 
-    render(<PersonHistory personId={mockedResident.id} />);
+    render(
+      <AppConfigProvider>
+        <PersonHistory personId={mockedResident.id} />
+      </AppConfigProvider>
+    );
     expect(screen.getByText('i am a case title'));
   });
 
@@ -44,7 +49,11 @@ describe('PersonHistory', () => {
       return response;
     });
 
-    render(<PersonHistory personId={mockedResident.id} />);
+    render(
+      <AppConfigProvider>
+        <PersonHistory personId={mockedResident.id} />
+      </AppConfigProvider>
+    );
     expect(screen.getByText('No events to show'));
   });
 
@@ -57,7 +66,11 @@ describe('PersonHistory', () => {
       return response;
     });
 
-    render(<PersonHistory personId={mockedResident.id} />);
+    render(
+      <AppConfigProvider>
+        <PersonHistory personId={mockedResident.id} />
+      </AppConfigProvider>
+    );
     expect(screen.getByText('MockedSpinner'));
   });
 
@@ -74,7 +87,11 @@ describe('PersonHistory', () => {
       return response;
     });
 
-    render(<PersonHistory personId={mockedResident.id} />);
+    render(
+      <AppConfigProvider>
+        <PersonHistory personId={mockedResident.id} />
+      </AppConfigProvider>
+    );
     expect(screen.getByText(errorMessage));
   });
 });

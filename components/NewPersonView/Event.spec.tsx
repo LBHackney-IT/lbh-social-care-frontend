@@ -1,5 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import { mockedCaseNote, mockedWarningNoteCase } from 'factories/cases';
+import { AppConfigProvider } from 'lib/appConfig';
 import Event from './Event';
 
 describe('Event', () => {
@@ -28,17 +29,19 @@ describe('Event', () => {
 
   it('generates and truncates a snippet for form wizard case notes', () => {
     render(
-      <Event
-        event={{
-          ...mockedWarningNoteCase,
-          caseFormData: {
-            ...mockedWarningNoteCase.caseFormData,
-            case_note_title: 'my title here',
-            case_note_description:
-              'my description here my description here my description here',
-          },
-        }}
-      />
+      <AppConfigProvider>
+        <Event
+          event={{
+            ...mockedWarningNoteCase,
+            caseFormData: {
+              ...mockedWarningNoteCase.caseFormData,
+              case_note_title: 'my title here',
+              case_note_description:
+                'my description here my description here my description here',
+            },
+          }}
+        />
+      </AppConfigProvider>
     );
     expect(
       screen.getByText(
@@ -52,12 +55,14 @@ describe('Event', () => {
 
   it('marks google docs', () => {
     render(
-      <Event
-        event={{
-          ...mockedWarningNoteCase,
-          caseFormUrl: 'google.com/123',
-        }}
-      />
+      <AppConfigProvider>
+        <Event
+          event={{
+            ...mockedWarningNoteCase,
+            caseFormUrl: 'google.com/123',
+          }}
+        />
+      </AppConfigProvider>
     );
     expect(screen.getByText('Google document', { exact: false }));
   });
