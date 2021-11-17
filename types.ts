@@ -418,6 +418,7 @@ export enum ChildProtectionCategoryOptions {
   C2 = 'Physical abuse',
   C3 = 'Emotional abuse',
   C4 = 'Sexual abuse',
+  Multiple = 'Multiple',
 }
 
 export interface AddCaseStatusFormData {

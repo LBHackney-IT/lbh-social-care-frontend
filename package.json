@@ -1,6 +1,6 @@
 {
   "name": "lbh-social-care",
-  "version": "0.34.0",
+  "version": "0.35.0",
   "private": true,
   "scripts": {
     "dev": "next dev",
@@ -56,9 +56,9 @@
     "@babel/core": "^7.14.0",
     "@release-it/conventional-changelog": "^3.0.1",
     "@storybook/addon-actions": "^6.1.21",
-    "@storybook/addon-essentials": "^6.1.21",
+    "@storybook/addon-essentials": "^6.3.12",
     "@storybook/addon-links": "^6.1.21",
-    "@storybook/react": "^6.1.21",
+    "@storybook/react": "^6.3.12",
     "@testing-library/jest-dom": "^5.12.0",
     "@testing-library/react": "^11.2.6",
     "@testing-library/react-hooks": "^7.0.1",

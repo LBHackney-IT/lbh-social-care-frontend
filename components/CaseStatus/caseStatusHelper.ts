@@ -65,7 +65,7 @@ export const sortCaseStatusAnswers = (
   let groupedAnswers = groupAnswersByGroupId(caseStatuses.answers);
   let episodeReasonGroup: CaseStatusFields | undefined = undefined;
 
-  if (caseStatuses.type !== 'LAC') {
+  if (caseStatuses.type === 'CIN') {
     if (groupedAnswers && groupedAnswers.length > 1) {
       currentStatus = [groupedAnswers[0]];
     } else {
