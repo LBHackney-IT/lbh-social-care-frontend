@@ -5,7 +5,11 @@ import Event from './Event';
 
 describe('Event', () => {
   it('renders the right info for a form wizard case note', () => {
-    render(<Event event={mockedCaseNote} />);
+    render(
+      <AppConfigProvider appConfig={{}}>
+        <Event event={mockedCaseNote} />
+      </AppConfigProvider>
+    );
 
     expect(screen.getAllByRole('heading').length).toBe(1);
     expect(screen.getAllByRole('link').length).toBe(1);
@@ -17,7 +21,11 @@ describe('Event', () => {
   });
 
   it('renders the right info for a warning note', () => {
-    render(<Event event={mockedWarningNoteCase} />);
+    render(
+      <AppConfigProvider appConfig={{}}>
+        <Event event={mockedWarningNoteCase} />
+      </AppConfigProvider>
+    );
 
     expect(screen.getAllByRole('heading').length).toBe(1);
     expect(screen.getAllByRole('link').length).toBe(1);

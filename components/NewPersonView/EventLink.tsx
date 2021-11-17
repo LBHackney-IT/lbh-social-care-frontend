@@ -28,7 +28,7 @@ const EventLink = ({ event }: Props): React.ReactElement => {
   }
 
   // 2. handle workflows
-  if (event.caseFormData.workflowId)
+  if (event?.caseFormData?.workflowId)
     return (
       <a
         href={`${getConfigValue('workflowsPilotUrl') as string}/workflows/${
