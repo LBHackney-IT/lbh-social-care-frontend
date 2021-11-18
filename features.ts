@@ -15,6 +15,11 @@ export const getFeatureFlags = ({
     'feature-flags-implementation-proof': {
       isActive: environmentName === 'development',
     },
+    // FEATURE-FLAG-EXPIRES [3000-12-31]: feature-flags-implementation-proof-with-user-permission
+    'feature-flags-implementation-proof-with-user-permission': {
+      isActive:
+        environmentName === 'development' || user?.hasAdminPermissions || false,
+    },
     // FEATURE-FLAG-EXPIRES [2021-12-31]: case-status
     'case-status': {
       isActive:

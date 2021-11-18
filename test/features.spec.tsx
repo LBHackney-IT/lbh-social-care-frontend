@@ -1,13 +1,17 @@
 import { getFeatureFlags } from 'features';
 import { mockedUser } from 'factories/users';
 
-describe('Test case-status feature flag', () => {
+describe('Test feature-flags-implementation-proof-with-user-permission feature flag', () => {
   it('should returns false if no parameters are passed', () => {
     const featureFlagResult = getFeatureFlags({
       environmentName: '',
       user: undefined,
     });
-    expect(featureFlagResult['case-status'].isActive).toBe(false);
+    expect(
+      featureFlagResult[
+        'feature-flags-implementation-proof-with-user-permission'
+      ].isActive
+    ).toBe(false);
   });
 
   it('should returns true if the environment name is development', () => {
@@ -15,7 +19,11 @@ describe('Test case-status feature flag', () => {
       environmentName: 'development',
       user: undefined,
     });
-    expect(featureFlagResult['case-status'].isActive).toBe(true);
+    expect(
+      featureFlagResult[
+        'feature-flags-implementation-proof-with-user-permission'
+      ].isActive
+    ).toBe(true);
   });
 
   it('should returns false if the user is not an admin', () => {
@@ -24,7 +32,11 @@ describe('Test case-status feature flag', () => {
       environmentName: '',
       user: mockedUser,
     });
-    expect(featureFlagResult['case-status'].isActive).toBe(false);
+    expect(
+      featureFlagResult[
+        'feature-flags-implementation-proof-with-user-permission'
+      ].isActive
+    ).toBe(false);
   });
 
   it('should returns true if the user is an admin', () => {
@@ -33,7 +45,11 @@ describe('Test case-status feature flag', () => {
       environmentName: '',
       user: mockedUser,
     });
-    expect(featureFlagResult['case-status'].isActive).toBe(true);
+    expect(
+      featureFlagResult[
+        'feature-flags-implementation-proof-with-user-permission'
+      ].isActive
+    ).toBe(true);
   });
 
   it('should returns true if the user is an admin and environment is production', () => {
@@ -42,7 +58,11 @@ describe('Test case-status feature flag', () => {
       environmentName: 'production',
       user: mockedUser,
     });
-    expect(featureFlagResult['case-status'].isActive).toBe(true);
+    expect(
+      featureFlagResult[
+        'feature-flags-implementation-proof-with-user-permission'
+      ].isActive
+    ).toBe(true);
   });
 
   it('should returns false if the user is not an admin and environment is production', () => {
@@ -51,6 +71,10 @@ describe('Test case-status feature flag', () => {
       environmentName: 'production',
       user: mockedUser,
     });
-    expect(featureFlagResult['case-status'].isActive).toBe(false);
+    expect(
+      featureFlagResult[
+        'feature-flags-implementation-proof-with-user-permission'
+      ].isActive
+    ).toBe(false);
   });
 });
