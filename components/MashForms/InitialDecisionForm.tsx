@@ -1,4 +1,6 @@
+import { AxiosError } from 'axios';
 import Button from 'components/Button/Button';
+import ErrorMessage from 'components/ErrorMessage/ErrorMessage';
 import { Select } from 'components/Form';
 import Heading from 'components/MashHeading/Heading';
 import NumberedSteps from 'components/NumberedSteps/NumberedSteps';
@@ -18,6 +20,9 @@ const InitialDecisionForm = ({
   referral,
   workerEmail,
 }: Props): React.ReactElement => {
+  const [submitting, setSubmitting] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
+
   const [decision, setDecision] = useState('CSC Screening required in MASH');
   const [referralCategory, setReferralCategory] = useState(
     'Abuse linked to faith or belief'
@@ -34,21 +39,33 @@ const InitialDecisionForm = ({
   };
 
   const submitForm = async () => {
-    await submitInitialDecision(
-      referral.id,
-      workerEmail,
-      decision,
-      referralCategory,
-      urgent
-    );
+    setSubmitting(true);
+    setErrorMessage('');
 
-    router.push({
-      pathname: `/team-assignments`,
-      query: {
-        tab: 'initial-decision',
-        confirmation: JSON.stringify(confirmation),
-      },
-    });
+    try {
+      await submitInitialDecision(
+        referral.id,
+        workerEmail,
+        decision,
+        referralCategory,
+        urgent
+      );
+
+      setSubmitting(false);
+
+      router.push({
+        pathname: `/team-assignments`,
+        query: {
+          tab: 'initial-decision',
+          confirmation: JSON.stringify(confirmation),
+        },
+      });
+    } catch (error) {
+      const axiosError = error as AxiosError;
+
+      setSubmitting(false);
+      setErrorMessage(axiosError.response?.data);
+    }
   };
 
   return (
@@ -112,7 +129,7 @@ const InitialDecisionForm = ({
                     id="no-input"
                     name="urgency"
                     type="radio"
-                    onClick={() => setUrgent(false)}
+                    onChange={() => setUrgent(false)}
                     checked={!urgent}
                   />
                   <label
@@ -128,7 +145,7 @@ const InitialDecisionForm = ({
                     id="yes-input"
                     name="urgency"
                     type="radio"
-                    onClick={() => setUrgent(true)}
+                    onChange={() => setUrgent(true)}
                     checked={urgent}
                   />
                   <label
@@ -150,8 +167,14 @@ const InitialDecisionForm = ({
           </>,
         ]}
       />
+      {errorMessage && <ErrorMessage label={errorMessage} />}
       <div style={{ display: 'flex', alignItems: 'center' }}>
-        <Button label="Submit" type="submit" onClick={submitForm} />
+        <Button
+          label="Submit"
+          type="submit"
+          onClick={submitForm}
+          disabled={submitting}
+        />
         <p className="lbh-body">
           <a
             href="#"
