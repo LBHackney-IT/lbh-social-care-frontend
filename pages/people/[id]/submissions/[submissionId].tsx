@@ -15,6 +15,7 @@ import { useState } from 'react';
 import { useAuth } from 'components/UserContext/UserContext';
 import { softDeleteSubmission } from 'lib/submissions';
 import { useRouter } from 'next/router';
+import { isAdminOrDev } from 'lib/permissions';
 
 interface Props {
   submission: Submission;
@@ -81,22 +82,24 @@ const SubmissionPage = ({ submission, person }: Props): React.ReactElement => {
             {form?.name}
           </h1>
         </div>
-        <div className="govuk-error-summary__body">
-          <ul className="govuk-list govuk-error-summary__list">
-            <li>
-              <a
-                style={{ float: 'right' }}
-                className="lbh-link"
-                href="#"
-                onClick={() => {
-                  setIsRemoveCaseNoteDialogOpen(true);
-                }}
-              >
-                Delete record
-              </a>
-            </li>
-          </ul>
-        </div>
+        {isAdminOrDev(user) && (
+          <div className="govuk-error-summary__body">
+            <ul className="govuk-list govuk-error-summary__list">
+              <li>
+                <a
+                  style={{ float: 'right' }}
+                  className="lbh-link"
+                  href="#"
+                  onClick={() => {
+                    setIsRemoveCaseNoteDialogOpen(true);
+                  }}
+                >
+                  Delete record
+                </a>
+              </li>
+            </ul>
+          </div>
+        )}
       </div>
       <div className={`govuk-grid-row ${s.outer}`}>
         <div className="govuk-grid-column-two-thirds">
