@@ -482,15 +482,20 @@ export interface MashReferral {
   id: string;
   referrer: string;
   requestedSupport: string;
-  assignedTo: Worker | undefined;
+  assignedTo?: Worker;
   createdAt: string;
   clients: string[];
   referralDocumentURI: string;
   stage: ReferralStage;
-  initialDecision: string | undefined;
-  screeningDecision: string | undefined;
-  screeningUrgentContactRequired: boolean | undefined;
-  screeningCreatedAt: string | undefined;
-  finalDecision: string | undefined;
-  referralCategory: string | undefined;
+  initialReferralCategory?: string;
+  initialDecision?: string;
+  initialUrgentContactRequired?: boolean;
+  initialCreatedAt?: string;
+  screeningDecision?: string;
+  screeningUrgentContactRequired?: boolean;
+  screeningCreatedAt?: string;
+  finalDecision?: string;
+  finalReferralCategory?: string;
+  finalUrgentContactRequired?: string;
+  finalCreatedAt?: string;
 }
