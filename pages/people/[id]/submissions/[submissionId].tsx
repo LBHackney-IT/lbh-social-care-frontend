@@ -13,7 +13,7 @@ import ApprovalWidget from 'components/ApprovalWidget/ApprovalWidget';
 import RemoveSubmissionDialog from 'components/Submissions/RemoveSubmissionDialog/RemoveSubmissionDialog';
 import { useState } from 'react';
 import { useAuth } from 'components/UserContext/UserContext';
-import { softDeleteSubmission } from 'lib/submissions';
+import { deleteSubmission } from 'lib/submissions';
 import { useRouter } from 'next/router';
 import { isAdminOrDev } from 'lib/permissions';
 
@@ -52,21 +52,17 @@ const SubmissionPage = ({ submission, person }: Props): React.ReactElement => {
         isOpen={isRemoveCaseNoteDialogOpen}
         person={person}
         onDismiss={() => setIsRemoveCaseNoteDialogOpen(false)}
-        onFormSubmit={async (softDeletionFields: any) => {
+        onFormSubmit={async (deletionDetails: any) => {
           setIsRemoveCaseNoteDialogOpen(false);
 
           if (
-            softDeletionFields.reason_for_deletion &&
-            softDeletionFields.name_of_requester
+            deletionDetails.reason_for_deletion &&
+            deletionDetails.name_of_requester
           ) {
             const submissionId = String(query.submissionId);
 
             try {
-              await softDeleteSubmission(
-                submissionId,
-                user.email,
-                softDeletionFields
-              );
+              await deleteSubmission(submissionId, user.email, deletionDetails);
 
               push(`/people/${person.id}`);
             } catch (e) {
