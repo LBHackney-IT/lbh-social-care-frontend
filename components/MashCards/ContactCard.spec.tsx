@@ -11,6 +11,5 @@ describe('ContactCard', () => {
     expect(screen.getByText(mockedMashReferral.referrer as string));
     expect(screen.getByText(mockedMashReferral.requestedSupport as string));
     expect(screen.getByText('Work on'));
-    expect(screen.getByText('Assign'));
   });
 });

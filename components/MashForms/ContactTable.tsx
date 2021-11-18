@@ -2,9 +2,9 @@ import s from './Contact.module.scss';
 
 const cases = [
   '#786288',
-  'Sally Samuels',
+  'Jan Smith',
   '09/12/1972',
-  '90 Narford Rd, Hackney, London',
+  '90 Sesame Street, Hackney, London',
   'E9 6EY',
 ];
 

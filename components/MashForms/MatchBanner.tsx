@@ -29,7 +29,7 @@ import React, { useState } from 'react';
 
 const clientDetails = [
   '#786288',
-  'Sally Samuels',
+  'Jan Smith',
   '09/12/1972',
   '90 Narford Rd, Hackney, London',
   'E9 6EY',
@@ -37,7 +37,6 @@ const clientDetails = [
 
 const ContactTable = (): React.ReactElement => {
   const [person, setPerson] = useState(false);
-  console.log(person);
   if (person === false)
     return (
       <div className={s.banner}>
@@ -149,8 +148,8 @@ const ContactTable = (): React.ReactElement => {
   else
     return (
       <div className={s.confirmationBanner}>
-        Records for Sally Samuels have been linked.{' '}
-        <Link href="Undo">
+        Records for Jan Smith have been linked.{' '}
+        <Link href="#">
           <a>Undo linking. </a>
         </Link>
       </div>
