@@ -272,6 +272,26 @@ export const returnForEdits = async (
   return data;
 };
 
+/** set a submitted submission as deleted  */
+export const softDeleteSubmission = async (
+  submissionId: string,
+  editedBy: string,
+  softDeletionFields: any
+): Promise<Submission> => {
+  const { data } = await axios.patch(
+    `${ENDPOINT_API}/submissions/${submissionId}`,
+    {
+      editedBy,
+      deleted: true,
+      softDeletionFields: softDeletionFields,
+    },
+    {
+      headers: headersWithKey,
+    }
+  );
+  return data;
+};
+
 /** safely generate a submission url, handling weird cases like case notes, which use a different canonical url structure */
 export const generateSubmissionUrl = (
   submission: Submission | InProgressSubmission,

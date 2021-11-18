@@ -13,7 +13,7 @@ import ApprovalWidget from 'components/ApprovalWidget/ApprovalWidget';
 import RemoveSubmissionDialog from 'components/Submissions/RemoveSubmissionDialog/RemoveSubmissionDialog';
 import { useState } from 'react';
 import { useAuth } from 'components/UserContext/UserContext';
-import { patchSubmissionForStep } from 'lib/submissions';
+import { softDeleteSubmission } from 'lib/submissions';
 import { useRouter } from 'next/router';
 
 interface Props {
@@ -25,7 +25,7 @@ interface Props {
 const SubmissionPage = ({ submission, person }: Props): React.ReactElement => {
   const form = forms.find((form) => form.id === submission.formId);
   const { user } = useAuth() as { user: User };
-  const { push } = useRouter();
+  const { push, query } = useRouter();
 
   const [isRemoveCaseNoteDialogOpen, setIsRemoveCaseNoteDialogOpen] =
     useState<boolean>(false);
@@ -51,27 +51,20 @@ const SubmissionPage = ({ submission, person }: Props): React.ReactElement => {
         isOpen={isRemoveCaseNoteDialogOpen}
         person={person}
         onDismiss={() => setIsRemoveCaseNoteDialogOpen(false)}
-        onFormSubmit={async (data: any) => {
+        onFormSubmit={async (softDeletionFields: any) => {
           setIsRemoveCaseNoteDialogOpen(false);
 
-          if (data.reason_for_deletion && data.name_of_requester) {
-            const titleId = 'titleId';
-            const testTitle = 'deletionDetails';
-
-            const mockAnswers = {
-              reason_for_deletion: data.reason_for_deletion,
-              name_of_requester: data.name_of_requester,
-              [titleId]: testTitle,
-            };
-
-            console.log('removing stuff!', data);
+          if (
+            softDeletionFields.reason_for_deletion &&
+            softDeletionFields.name_of_requester
+          ) {
+            const submissionId = String(query.submissionId);
 
             try {
-              await patchSubmissionForStep(
-                submission.formId,
-                'deletionDetails',
+              await softDeleteSubmission(
+                submissionId,
                 user.email,
-                mockAnswers
+                softDeletionFields
               );
 
               push(`/people/${person.id}`);
