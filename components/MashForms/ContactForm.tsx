@@ -97,20 +97,23 @@ const ContactForm = (): React.ReactElement => {
       <div style={{ display: 'flex', alignItems: 'center' }}>
         <Button label="Submit" type="submit" />
         <p className="lbh-body">
-          <a
-            href="#"
-            className={`lbh-link lbh-link--no-visited-state govuk-!-margin-left-3`}
-          >
-            Cancel
-          </a>
+          <Link href="#">
+            <a
+              className={`lbh-link lbh-link--no-visited-state govuk-!-margin-left-3`}
+            >
+              Cancel
+            </a>
+          </Link>
         </p>
         <p>
-          <a
-            href="#"
-            className={`lbh-link lbh-link--no-visited-state govuk-!-margin-left-3`}
-          >
-            Delete duplicate referral
-          </a>
+          <Link href="#/">
+            <a
+              href="#"
+              className={`lbh-link lbh-link--no-visited-state govuk-!-margin-left-3`}
+            >
+              Delete duplicate referral
+            </a>
+          </Link>
         </p>
       </div>
     </>
