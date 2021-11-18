@@ -487,6 +487,8 @@ export interface MashReferral {
   clients: string[];
   referralDocumentURI: string;
   stage: ReferralStage;
+  contactUrgentContactRequired?: boolean;
+  contactCreatedAt?: string;
   initialReferralCategory?: string;
   initialDecision?: string;
   initialUrgentContactRequired?: boolean;
@@ -496,6 +498,6 @@ export interface MashReferral {
   screeningCreatedAt?: string;
   finalDecision?: string;
   finalReferralCategory?: string;
-  finalUrgentContactRequired?: string;
+  finalUrgentContactRequired?: boolean;
   finalCreatedAt?: string;
 }
