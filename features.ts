@@ -1,11 +1,14 @@
 import { FeatureSet } from 'lib/feature-flags/feature-flags';
+import { User } from 'types';
 
 type FeatureFlagOptions = {
   environmentName: string;
+  user: User | undefined;
 };
 
 export const getFeatureFlags = ({
   environmentName,
+  user,
 }: FeatureFlagOptions): FeatureSet => {
   const featureFlags: FeatureSet = {
     // FEATURE-FLAG-EXPIRES [3000-12-31]: feature-flags-implementation-proof
@@ -14,7 +17,8 @@ export const getFeatureFlags = ({
     },
     // FEATURE-FLAG-EXPIRES [2021-12-31]: case-status
     'case-status': {
-      isActive: environmentName === 'development',
+      isActive:
+        environmentName === 'development' || user?.hasAdminPermissions || false,
     },
     // FEATURE-FLAG-EXPIRES [2021-11-31]: workflows-pilot
     'workflows-pilot': {

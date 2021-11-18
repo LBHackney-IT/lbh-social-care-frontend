@@ -78,7 +78,10 @@ export const isFeatureFlagActive = (featureName: string) => {
     ? 'development'
     : 'production';
 
-  const features = getFeatureFlags({ environmentName });
+  const features = getFeatureFlags({
+    environmentName: environmentName,
+    user: undefined,
+  });
 
   return isFeatureActive(features)(featureName);
 };
