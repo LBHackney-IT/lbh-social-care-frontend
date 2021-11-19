@@ -10,13 +10,15 @@ describe('MashCard', () => {
         timeleft="4 hours"
         datetime={mockedMashReferral.createdAt}
         info1={mockedMashReferral.initialDecision as string}
-        info2={mockedMashReferral.referralCategory as string}
+        info2={mockedMashReferral.initialReferralCategory as string}
       />
     );
 
     expect(screen.getByText('4 hours left'));
     expect(screen.getByText(`${mockedMashReferral.clients[0]} (referral)`));
     expect(screen.getByText(mockedMashReferral.initialDecision as string));
-    expect(screen.getByText(mockedMashReferral.referralCategory as string));
+    expect(
+      screen.getByText(mockedMashReferral.initialReferralCategory as string)
+    );
   });
 });
