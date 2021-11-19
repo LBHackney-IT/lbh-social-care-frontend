@@ -36,6 +36,7 @@ export const getServerSideProps: GetServerSideProps = async ({
   return {
     props: {
       workerEmail: user.email,
+      referral,
     },
   };
 };
