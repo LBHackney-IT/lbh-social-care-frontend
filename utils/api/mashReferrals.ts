@@ -1,6 +1,22 @@
 import axios from 'axios';
 import { MashReferral } from 'types';
 
+export const submitContactDecision = async (
+  referralId: string,
+  workerEmail: string,
+  requiresUrgentContact: boolean
+): Promise<MashReferral> => {
+  const response = await axios.patch<MashReferral>(
+    `/api/mash-referral/${referralId}/`,
+    {
+      requiresUrgentContact,
+      updateType: 'CONTACT-DECISION',
+      workerEmail: workerEmail,
+    }
+  );
+  return response.data;
+};
+
 export const submitScreeningDecision = async (
   referralId: string,
   workerEmail: string,

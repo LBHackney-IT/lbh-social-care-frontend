@@ -1,0 +1,33 @@
+@import 'lbh-frontend/lbh/base';
+
+.banner {
+  @include lbh-rem(padding, 36, 20);
+  border: 1px solid lbh-colour('lbh-grey-3');
+  background: rgba(lbh-colour('lbh-grey-4'), 0.5);
+
+  &__content {
+    @include lbh-body-m;
+    font-weight: $lbh-font-weight-regular;
+  }
+}
+.text {
+  color: #535555;
+}
+
+.clientMatch {
+  margin-left: 30px;
+}
+
+.tableHeading {
+  color: #444444;
+}
+.confirmationBanner {
+  @include lbh-rem(padding, 36, 20);
+  border: 1px solid lbh-colour('lbh-link');
+  background: rgba(lbh-colour('lbh-link'), 0.1);
+
+  &__content {
+    @include lbh-body-m;
+    font-weight: $lbh-font-weight-bold;
+  }
+}

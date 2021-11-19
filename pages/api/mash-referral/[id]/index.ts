@@ -7,6 +7,7 @@ import {
   patchReferralFinal,
   patchReferralInitial,
   patchReferralScreening,
+  patchReferralContact,
 } from 'lib/mashReferral';
 import { AxiosError } from 'axios';
 
@@ -90,6 +91,20 @@ const endpoint: NextApiHandler = async (
             updateType: 'FINAL-DECISION',
             workerEmail,
             referralCategory,
+          });
+
+          res.status(StatusCodes.OK).json(data);
+        } else if (updateTye === 'CONTACT-DECISION') {
+          const { referralId, requiresUrgentContact, workerEmail } = {
+            referralId: req.query.id as string,
+            requiresUrgentContact: req.body.requiresUrgentContact,
+            workerEmail: req.body.workerEmail,
+          };
+          const data = await patchReferralContact({
+            referralId,
+            requiresUrgentContact,
+            updateType: 'CONTACT-DECISION',
+            workerEmail,
           });
 
           res.status(StatusCodes.OK).json(data);
