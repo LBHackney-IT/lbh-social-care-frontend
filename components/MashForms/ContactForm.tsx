@@ -8,7 +8,7 @@ import { AxiosError } from 'axios';
 import ErrorMessage from 'components/ErrorMessage/ErrorMessage';
 import { useRouter } from 'next/router';
 import { MashReferral } from 'types';
-import { submitContact } from 'utils/api/mashReferrals';
+import { submitContactDecision } from 'utils/api/mashReferrals';
 import ContactTable from './ContactTable';
 import MatchBanner from './MatchBanner';
 
@@ -28,7 +28,7 @@ const ContactForm = ({ referral, workerEmail }: Props): React.ReactElement => {
     setErrorMessage('');
 
     try {
-      await submitContact(referral.id, workerEmail, urgent);
+      await submitContactDecision(referral.id, workerEmail, urgent);
 
       setSubmitting(false);
 
