@@ -58,3 +58,8 @@ export const submitFinalDecision = async (
   );
   return response.data;
 };
+
+export const resetDummyData = async (): Promise<undefined> => {
+  const response = await axios.post<undefined>(`api/mash-referral/reset`);
+  return response.data;
+};

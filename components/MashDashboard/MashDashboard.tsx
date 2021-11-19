@@ -1,10 +1,12 @@
 import st from 'components/Tabs/Tabs.module.scss';
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Tab from 'components/SubmissionsTable/Tab';
 import MainCard from 'components/MashCards/MainCard';
 import { MashReferral, ReferralStage } from 'types';
 import { useRouter } from 'next/router';
 import SuccessSummary from 'components/SuccessSummary/SuccessSummary';
+import Button from 'components/Button/Button';
+import { resetDummyData } from 'utils/api/mashReferrals';
 
 interface Props {
   referrals: MashReferral[];
@@ -19,6 +21,7 @@ const possibleTabs = new Set([
 
 export const MashDashboard = ({ referrals }: Props): React.ReactElement => {
   const [filter, setFilter] = useState('contact');
+  const [submitting, setSubmitting] = useState(false);
 
   const router = useRouter();
 
@@ -66,6 +69,13 @@ export const MashDashboard = ({ referrals }: Props): React.ReactElement => {
     router.push(router);
   };
 
+  const resetData = async () => {
+    setSubmitting(true);
+    await resetDummyData();
+    setSubmitting(false);
+    router.reload();
+  };
+
   return (
     <div>
       <>
@@ -101,6 +111,12 @@ export const MashDashboard = ({ referrals }: Props): React.ReactElement => {
             </Tab>
           </ul>
         </fieldset>
+        <Button
+          label="Reset Dummy Data"
+          type="submit"
+          onClick={resetData}
+          disabled={submitting}
+        />
         <div>
           <MainCard filter={filter} mashReferrals={mashReferrals}></MainCard>
         </div>
