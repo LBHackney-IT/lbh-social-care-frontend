@@ -100,7 +100,6 @@ const endpoint: NextApiHandler = async (
             requiresUrgentContact: req.body.requiresUrgentContact,
             workerEmail: req.body.workerEmail,
           };
-          console.log('Switch');
           const data = await patchReferralContact({
             referralId,
             requiresUrgentContact,
