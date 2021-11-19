@@ -275,18 +275,19 @@ export const returnForEdits = async (
 /** set a submitted submission as deleted  */
 export const deleteSubmission = async (
   submissionId: string,
-  editedBy: string,
-  deletionDetails: any
+  deletedBy: string,
+  deleteReason: string,
+  deleteRequestedBy: string
 ): Promise<Submission> => {
   const { data } = await axios.patch(
     `${ENDPOINT_API}/submissions/${submissionId}`,
     {
-      editedBy,
-      deleted: true,
-      deletionDetails: deletionDetails,
-    },
-    {
       headers: headersWithKey,
+      data: {
+        DeletedBy: deletedBy,
+        DeleteReason: deleteReason,
+        DeleteRequestedBy: deleteRequestedBy,
+      },
     }
   );
   return data;

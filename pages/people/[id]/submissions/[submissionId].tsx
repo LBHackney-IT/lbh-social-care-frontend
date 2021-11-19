@@ -62,7 +62,12 @@ const SubmissionPage = ({ submission, person }: Props): React.ReactElement => {
             const submissionId = String(query.submissionId);
 
             try {
-              await deleteSubmission(submissionId, user.email, deletionDetails);
+              await deleteSubmission(
+                submissionId,
+                user.email,
+                deletionDetails.reason_for_deletion,
+                deletionDetails.name_of_requester
+              );
 
               push(`/people/${person.id}`);
             } catch (e) {

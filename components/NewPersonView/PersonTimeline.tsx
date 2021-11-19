@@ -7,6 +7,10 @@ import { normaliseDateToISO } from 'utils/date';
 import Event from './Event';
 import MAJOR_FORMS from 'data/majorForms';
 import cx from 'classnames';
+import { isAdminOrDev } from 'lib/permissions';
+import { useAuth } from 'components/UserContext/UserContext';
+import { User } from 'types';
+import { useState } from 'react';
 
 /** for all possible kinds of submission/case/record, see if it's major or not */
 export const isMajorEvent = (event: Case): boolean =>
@@ -40,6 +44,9 @@ const PersonTimeline = ({
   const oldestTimestamp = normaliseDateToISO(
     String(oldestResult?.dateOfEvent || oldestResult?.caseFormTimestamp)
   );
+  const { user } = useAuth() as { user: User };
+  const [displayDeletedCases, setDisplayDeletedCases] =
+    useState<boolean>(false);
 
   return (
     <div className={`govuk-grid-row ${s.outer}`}>
@@ -76,6 +83,17 @@ const PersonTimeline = ({
             </p>
           ) : (
             <p className="lbh-body-xs">No events match your search</p>
+          )}
+        </aside>
+        <aside className={s.sticky}>
+          {isAdminOrDev(user) ? (
+            displayDeletedCases ? (
+              <p className="lbh-body-xs">Hide deleted records</p>
+            ) : (
+              <p className="lbh-body-xs">Show deleted records</p>
+            )
+          ) : (
+            <></>
           )}
         </aside>
       </div>
