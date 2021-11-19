@@ -115,3 +115,28 @@ export const patchReferralFinal = async (
 
   return data;
 };
+
+interface ContactDecision {
+  workerEmail: string;
+  updateType: 'CONTACT-DECISION';
+  requiresUrgentContact: boolean;
+  referralId: string;
+}
+
+export const patchReferralContact = async (
+  update: ContactDecision
+): Promise<MashReferral> => {
+  const { data } = await axios.patch<MashReferral>(
+    `${ENDPOINT_API}/mash-referral/${update.referralId}`,
+    {
+      workerEmail: update.workerEmail,
+      updateType: update.updateType,
+      requiresUrgentContact: update.requiresUrgentContact,
+    },
+    {
+      headers: { 'Content-Type': 'application/json', 'x-api-key': AWS_KEY },
+    }
+  );
+
+  return data;
+};

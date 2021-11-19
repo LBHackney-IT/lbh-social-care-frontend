@@ -6,9 +6,46 @@ import s from './Contact.module.scss';
 import Link from 'next/link';
 import MatchBanner from './MatchBanner';
 import ContactTable from './ContactTable';
+import { AxiosError } from 'axios';
+import ErrorMessage from 'components/ErrorMessage/ErrorMessage';
+import { useRouter } from 'next/router';
+import { submitContact } from 'utils/api/mashReferrals';
+import { MashReferral } from 'types';
 
-const ContactForm = (): React.ReactElement => {
+interface Props {
+  referral: MashReferral;
+  workerEmail: string;
+}
+
+const ContactForm = ({ referral, workerEmail }: Props): React.ReactElement => {
+  const [submitting, setSubmitting] = useState(false);
+  const router = useRouter();
+  const [errorMessage, setErrorMessage] = useState('');
   const [urgent, setUrgent] = useState(false);
+
+  const submitForm = async () => {
+    setSubmitting(true);
+    setErrorMessage('');
+
+    try {
+      await submitContact(referral.id, workerEmail, urgent);
+
+      setSubmitting(false);
+      console.log('success');
+
+      router.push({
+        pathname: `/team-assignments`,
+        query: {
+          tab: 'contact',
+        },
+      });
+    } catch (error) {
+      const axiosError = error as AxiosError;
+      console.log('error');
+      setSubmitting(false);
+      setErrorMessage(axiosError.response?.data);
+    }
+  };
   return (
     <>
       <h1>Work on contact</h1>
@@ -94,8 +131,14 @@ const ContactForm = (): React.ReactElement => {
           </>,
         ]}
       />{' '}
+      {errorMessage && <ErrorMessage label={errorMessage} />}
       <div style={{ display: 'flex', alignItems: 'center' }}>
-        <Button label="Submit" type="submit" />
+        <Button
+          label="Submit"
+          type="submit"
+          onClick={submitForm}
+          disabled={submitting}
+        />
         <p className="lbh-body">
           <Link href="#">
             <a
