@@ -22,6 +22,12 @@ const ContactForm = ({ referral, workerEmail }: Props): React.ReactElement => {
   const router = useRouter();
   const [errorMessage, setErrorMessage] = useState('');
   const [urgent, setUrgent] = useState(false);
+  const confirmation = {
+    title: `Work on contact has been submitted for ${referral.clients.join(
+      ' and '
+    )}`,
+    link: referral.referralDocumentURI,
+  };
 
   const submitForm = async () => {
     setSubmitting(true);
@@ -36,6 +42,7 @@ const ContactForm = ({ referral, workerEmail }: Props): React.ReactElement => {
         pathname: `/team-assignments`,
         query: {
           tab: 'contact',
+          confirmation: JSON.stringify(confirmation),
         },
       });
     } catch (error) {
