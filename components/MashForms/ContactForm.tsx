@@ -4,13 +4,13 @@ import NumberedSteps from 'components/NumberedSteps/NumberedSteps';
 import React, { useState } from 'react';
 import s from './Contact.module.scss';
 import Link from 'next/link';
-import MatchBanner from './MatchBanner';
-import ContactTable from './ContactTable';
 import { AxiosError } from 'axios';
 import ErrorMessage from 'components/ErrorMessage/ErrorMessage';
 import { useRouter } from 'next/router';
-import { submitContact } from 'utils/api/mashReferrals';
 import { MashReferral } from 'types';
+import { submitContact } from 'utils/api/mashReferrals';
+import ContactTable from './ContactTable';
+import MatchBanner from './MatchBanner';
 
 interface Props {
   referral: MashReferral;
@@ -31,7 +31,6 @@ const ContactForm = ({ referral, workerEmail }: Props): React.ReactElement => {
       await submitContact(referral.id, workerEmail, urgent);
 
       setSubmitting(false);
-      console.log('success');
 
       router.push({
         pathname: `/team-assignments`,
@@ -41,7 +40,6 @@ const ContactForm = ({ referral, workerEmail }: Props): React.ReactElement => {
       });
     } catch (error) {
       const axiosError = error as AxiosError;
-      console.log('error');
       setSubmitting(false);
       setErrorMessage(axiosError.response?.data);
     }
@@ -93,7 +91,7 @@ const ContactForm = ({ referral, workerEmail }: Props): React.ReactElement => {
                     id="no-input"
                     name="urgency"
                     type="radio"
-                    onClick={() => setUrgent(false)}
+                    onChange={() => setUrgent(false)}
                     checked={!urgent}
                   />
                   <label
@@ -109,7 +107,7 @@ const ContactForm = ({ referral, workerEmail }: Props): React.ReactElement => {
                     id="yes-input"
                     name="urgency"
                     type="radio"
-                    onClick={() => setUrgent(true)}
+                    onChange={() => setUrgent(true)}
                     checked={urgent}
                   />
                   <label
