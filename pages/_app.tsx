@@ -38,6 +38,7 @@ const CustomApp = ({
   const [features, setFeatures] = useState(
     getFeatureFlags({
       environmentName: pageProps.environmentName,
+      user: user,
     })
   );
 
@@ -56,6 +57,7 @@ const CustomApp = ({
 
     const featureSet = getFeatureFlags({
       environmentName,
+      user,
     });
 
     setFeatures(featureSet);
