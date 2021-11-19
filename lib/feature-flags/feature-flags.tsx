@@ -1,6 +1,7 @@
 import { getFeatureFlags } from 'features';
 import React from 'react';
 import { useContext } from 'react';
+import { User } from 'types';
 
 export type FeatureSet = {
   [featureName: string]: {
@@ -71,14 +72,20 @@ export const ConditionalFeature: React.FC<{ name: string }> = ({
 /**
  * Typescript helper function for checking whether a given feature is active or inactive
  */
-export const isFeatureFlagActive = (featureName: string) => {
+export const isFeatureFlagActive = (
+  featureName: string,
+  user: User | undefined = undefined
+): boolean => {
   const environmentName = ['development', 'staging'].includes(
     process.env.NEXT_PUBLIC_ENV || ''
   )
     ? 'development'
     : 'production';
 
-  const features = getFeatureFlags({ environmentName });
+  const features = getFeatureFlags({
+    environmentName: environmentName,
+    user: user,
+  });
 
   return isFeatureActive(features)(featureName);
 };
