@@ -48,101 +48,30 @@ const ContactTable = (): React.ReactElement => {
           to this pre-existing client.
         </p>
         <table className={`govuk-table ${s.tableHeading}`}>
-          <th className="govuk-table__header">Social care ID</th>
-          <th className="govuk-table__header">Client Name</th>
-          <th className="govuk-table__header">Date of birth</th>
-          <th className="govuk-table__header">Address</th>
-          <th className="govuk-table__header">Postcode</th>
-          <tr className="govuk-table__row">
-            {clientDetails.map((cell) => (
-              <td key={cell} className="govuk-table__cell">
-                {cell}
-              </td>
-            ))}
-          </tr>
-        </table>
-
-        {/* This was the attempt when we paired but they just show as rows on top of each other
-        
-        <table className={`govuk-table ${s.tableHeading}`}>
-          <th className="govuk-table__header">Social care ID</th>
-          <tr>
-          <tbody className={`govuk-table__body ${s.text}`}>
-            {clientMatches.map((clients) => (
-              <tr className="govuk-table__row">
-                <td key={clients.id} className="govuk-table__cell">
-                  {clients.id}
-                </td>
-              </tr>
-            ))}
-          </tbody>
-          <th className="govuk-table__header">Client name</th>
-          <tbody className={`govuk-table__body ${s.text}`}>
-            {clientMatches.map((clients) => (
-              <tr className="govuk-table__row">
-                <td key={clients.id} className="govuk-table__cell">
-                  {clients.clientName}
-                </td>
-              </tr>
-            ))}
-          </tbody>
-          </tr>
-        </table> */}
-
-        {/*  trying to map the subarray of 'clientMatches' here:
-
-{clientMatches.map((obj, idx) => {
-   return (
-     <td className="govuk-table__cell">
-       {obj.map((element) => {
-         return <div>{element.id}</div>;
-       })}
-       ,
-     </td>
-   );
- })} */}
-
-        {
-          //this works when there isn't a subarray
-          /* <table className={`govuk-table ${s.tableHeading}`}>
-          <thead className="govuk-table__head">
-            <tr className="govuk-table__row">
-              {header.map((text) => (
-                <th key={text} className="govuk-table__header">
-                  {text}
-                </th>
-              ))}
+          <thead>
+            <tr>
+              <th className="govuk-table__header">Social care ID</th>
+              <th className="govuk-table__header">Client Name</th>
+              <th className="govuk-table__header">Date of birth</th>
+              <th className="govuk-table__header">Address</th>
+              <th className="govuk-table__header">Postcode</th>
             </tr>
           </thead>
-          <tbody className={`govuk-table__body ${s.text}`}>
+          <tbody>
             <tr className="govuk-table__row">
-              {cases.map((cell) => (
+              {clientDetails.map((cell) => (
                 <td key={cell} className="govuk-table__cell">
                   {cell}
                 </td>
               ))}
             </tr>
           </tbody>
-        </table>{' '}
-        <Button
-          label="Link person"
-          type="submit"
-          onClick={() => setPerson(true)}
-        />{' '} */
-        }
-
+        </table>
         <Button
           label="Link person"
           type="submit"
           onClick={() => setPerson(true)}
         />
-        {/*<h3>Can't find a match?</h3>
-         <p className={s.text}>
-          Then {''}
-          <Link href="#">
-            <a>add a new person.</a>
-          </Link>
-        </p> */}
       </div>
     );
   else

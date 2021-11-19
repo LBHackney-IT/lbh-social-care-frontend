@@ -11,11 +11,13 @@ const cases = [
 const ContactTable = (): React.ReactElement => (
   <table className={`govuk-table ${s.tableHeading}`}>
     <thead className="govuk-table__head">
-      <th className="govuk-table__header">Social care ID</th>
-      <th className="govuk-table__header">Client Name</th>
-      <th className="govuk-table__header">Date of birth</th>
-      <th className="govuk-table__header">Address</th>
-      <th className="govuk-table__header">Postcode</th>
+      <tr>
+        <th className="govuk-table__header">Social care ID</th>
+        <th className="govuk-table__header">Client Name</th>
+        <th className="govuk-table__header">Date of birth</th>
+        <th className="govuk-table__header">Address</th>
+        <th className="govuk-table__header">Postcode</th>
+      </tr>
     </thead>
     <tbody className={`govuk-table__body ${s.text}`}>
       <tr className="govuk-table__row">
