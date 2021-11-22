@@ -8,18 +8,12 @@ import {
 } from 'factories/cases';
 import PersonTimeline from './PersonTimeline';
 
-import * as permissions from 'lib/permissions';
-
 const mockEvents = [
   mockedNote,
   mockedCaseNote,
   mockedWarningNoteCase,
   mockedAllocationNote,
 ];
-
-jest.spyOn(permissions, 'isAdminOrDev').mockImplementation(() => {
-  return true;
-});
 
 describe('PersonTimeline', () => {
   it('renders a list of clickable submissions', () => {
@@ -28,6 +22,7 @@ describe('PersonTimeline', () => {
       .mockImplementationOnce(() =>
         new Date('2021-07-25T00:00:00.000Z').valueOf()
       );
+
     render(
       <AppConfigProvider appConfig={{}}>
         <PersonTimeline
