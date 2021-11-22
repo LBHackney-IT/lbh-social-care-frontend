@@ -73,7 +73,7 @@ const RemoveSubmissionDialog = ({
       <div className={style.actions}>
         <button
           onClick={onDeleteButtonClick}
-          className="govuk-button lbh-button"
+          className={` govuk-button lbh-button lbh-button--warning`}
           disabled={reasonForDeletion == '' || nameOfRequester == ''}
         >
           Yes, remove
