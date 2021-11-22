@@ -6,7 +6,6 @@ import { SWRInfiniteResponse } from 'swr';
 import { CaseData } from 'types';
 import { mockedCaseNote } from 'factories/cases';
 import { AppConfigProvider } from 'lib/appConfig';
-import * as permissions from 'lib/permissions';
 
 jest.mock('utils/api/cases');
 jest.mock('components/Spinner/Spinner', () => () => 'MockedSpinner');
@@ -14,10 +13,6 @@ jest.mock('components/Spinner/Spinner', () => () => 'MockedSpinner');
 describe('PersonHistory', () => {
   beforeEach(() => {
     jest.resetAllMocks();
-  });
-
-  jest.spyOn(permissions, 'isAdminOrDev').mockImplementation(() => {
-    return true;
   });
 
   it('renders cases correctly', () => {
