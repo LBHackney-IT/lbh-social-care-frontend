@@ -16,6 +16,7 @@ import { useAuth } from 'components/UserContext/UserContext';
 import { deleteSubmission } from 'lib/submissions';
 import { useRouter } from 'next/router';
 import { isAdminOrDev } from 'lib/permissions';
+import { ConditionalFeature } from 'lib/feature-flags/feature-flags';
 
 interface Props {
   submission: Submission;
@@ -83,24 +84,27 @@ const SubmissionPage = ({ submission, person }: Props): React.ReactElement => {
             {form?.name}
           </h1>
         </div>
-        {isAdminOrDev(user) && (
-          <div className="govuk-error-summary__body">
-            <ul className="govuk-list govuk-error-summary__list">
-              <li>
-                <a
-                  style={{ float: 'right' }}
-                  className="lbh-link"
-                  href="#"
-                  onClick={() => {
-                    setIsRemoveCaseNoteDialogOpen(true);
-                  }}
-                >
-                  Delete record
-                </a>
-              </li>
-            </ul>
-          </div>
-        )}
+
+        <ConditionalFeature name="case-notes-deletion">
+          {isAdminOrDev(user) && (
+            <div className="govuk-error-summary__body">
+              <ul className="govuk-list govuk-error-summary__list">
+                <li>
+                  <a
+                    style={{ float: 'right' }}
+                    className="lbh-link"
+                    href="#"
+                    onClick={() => {
+                      setIsRemoveCaseNoteDialogOpen(true);
+                    }}
+                  >
+                    Delete record
+                  </a>
+                </li>
+              </ul>
+            </div>
+          )}
+        </ConditionalFeature>
       </div>
       <div className={`govuk-grid-row ${s.outer}`}>
         <div className="govuk-grid-column-two-thirds">

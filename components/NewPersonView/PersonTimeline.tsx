@@ -11,6 +11,7 @@ import { isAdminOrDev } from 'lib/permissions';
 import { useAuth } from 'components/UserContext/UserContext';
 import { User } from 'types';
 import { useState } from 'react';
+import { ConditionalFeature } from 'lib/feature-flags/feature-flags';
 
 /** for all possible kinds of submission/case/record, see if it's major or not */
 export const isMajorEvent = (event: Case): boolean =>
@@ -85,17 +86,31 @@ const PersonTimeline = ({
             <p className="lbh-body-xs">No events match your search</p>
           )}
         </aside>
-        <aside className={s.sticky}>
-          {isAdminOrDev(user) ? (
-            displayDeletedCases ? (
-              <p className="lbh-body-xs">Hide deleted records</p>
+        <ConditionalFeature name="case-notes-deletion">
+          <aside className={s.sticky}>
+            {isAdminOrDev(user) ? (
+              displayDeletedCases ? (
+                <a
+                  onClick={() => setDisplayDeletedCases(false)}
+                  href="#"
+                  className="lbh-link lbh-body-s"
+                >
+                  Hide deleted records
+                </a>
+              ) : (
+                <a
+                  onClick={() => setDisplayDeletedCases(true)}
+                  href="#"
+                  className="lbh-link lbh-body-s"
+                >
+                  Show deleted records
+                </a>
+              )
             ) : (
-              <p className="lbh-body-xs">Show deleted records</p>
-            )
-          ) : (
-            <></>
-          )}
-        </aside>
+              <></>
+            )}
+          </aside>
+        </ConditionalFeature>
       </div>
     </div>
   );

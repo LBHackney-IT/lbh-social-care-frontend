@@ -6,6 +6,8 @@ import { SWRInfiniteResponse } from 'swr';
 import { CaseData } from 'types';
 import { mockedCaseNote } from 'factories/cases';
 import { AppConfigProvider } from 'lib/appConfig';
+import * as permissions from 'lib/permissions';
+import { FeatureFlagProvider } from 'lib/feature-flags/feature-flags';
 
 jest.mock('utils/api/cases');
 jest.mock('components/Spinner/Spinner', () => () => 'MockedSpinner');
@@ -13,6 +15,10 @@ jest.mock('components/Spinner/Spinner', () => () => 'MockedSpinner');
 describe('PersonHistory', () => {
   beforeEach(() => {
     jest.resetAllMocks();
+  });
+
+  jest.spyOn(permissions, 'isAdminOrDev').mockImplementation(() => {
+    return true;
   });
 
   it('renders cases correctly', () => {
@@ -30,7 +36,9 @@ describe('PersonHistory', () => {
 
     render(
       <AppConfigProvider appConfig={{}}>
-        <PersonHistory personId={mockedResident.id} />
+        <FeatureFlagProvider features={{}}>
+          <PersonHistory personId={mockedResident.id} />
+        </FeatureFlagProvider>
       </AppConfigProvider>
     );
     expect(screen.getByText('i am a case title'));
