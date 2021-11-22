@@ -272,25 +272,20 @@ export const returnForEdits = async (
   return data;
 };
 
-/** set a submitted submission as deleted  */
 export const deleteSubmission = async (
-  submissionId: string,
+  relationshipId: string,
   deletedBy: string,
   deleteReason: string,
   deleteRequestedBy: string
-): Promise<Submission> => {
-  const { data } = await axios.delete(
-    `${ENDPOINT_API}/submissions/${submissionId}`,
-    {
-      headers: headersWithKey,
-      data: {
-        deletedBy: deletedBy,
-        deleteReason: deleteReason,
-        deleteRequestedBy: deleteRequestedBy,
-      },
-    }
-  );
-  return data;
+): Promise<void> => {
+  await axios.delete(`${ENDPOINT_API}/submissions/${relationshipId}`, {
+    headers: headersWithKey,
+    data: {
+      deletedBy: deletedBy,
+      deleteReason: deleteReason,
+      deleteRequestedBy: deleteRequestedBy,
+    },
+  });
 };
 
 /** safely generate a submission url, handling weird cases like case notes, which use a different canonical url structure */

@@ -13,7 +13,7 @@ import ApprovalWidget from 'components/ApprovalWidget/ApprovalWidget';
 import RemoveSubmissionDialog from 'components/Submissions/RemoveSubmissionDialog/RemoveSubmissionDialog';
 import { useState } from 'react';
 import { useAuth } from 'components/UserContext/UserContext';
-import { deleteSubmission } from 'lib/submissions';
+import { deleteSubmission } from 'utils/api/submissions';
 import { useRouter } from 'next/router';
 import { isAdminOrDev } from 'lib/permissions';
 import { ConditionalFeature } from 'lib/feature-flags/feature-flags';
