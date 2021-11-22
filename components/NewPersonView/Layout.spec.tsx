@@ -310,7 +310,7 @@ describe('Layout', () => {
       expect(screen.queryByText('Workflows')).toBeVisible();
       expect(screen.queryByText('Workflows')).toHaveAttribute(
         'href',
-        'http://example.com?social_care_id=123456789&show_historic=true'
+        'http://example.com/residents/123456789'
       );
     });
   });
