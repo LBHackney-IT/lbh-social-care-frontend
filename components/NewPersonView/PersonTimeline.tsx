@@ -10,7 +10,6 @@ import cx from 'classnames';
 import { isAdminOrDev } from 'lib/permissions';
 import { useAuth } from 'components/UserContext/UserContext';
 import { User } from 'types';
-import { useState } from 'react';
 import { ConditionalFeature } from 'lib/feature-flags/feature-flags';
 
 /** for all possible kinds of submission/case/record, see if it's major or not */
@@ -32,6 +31,10 @@ interface Props {
   setSize: (size: number) => void;
   onLastPage: boolean;
   personId: number;
+  displayDeletedCases?: boolean;
+  setDisplayDeletedCases?: (
+    value: boolean | ((prevVar: boolean) => boolean)
+  ) => void;
 }
 
 const PersonTimeline = ({
@@ -40,14 +43,14 @@ const PersonTimeline = ({
   setSize,
   onLastPage,
   personId,
+  displayDeletedCases,
+  setDisplayDeletedCases,
 }: Props): React.ReactElement => {
   const oldestResult = events?.[events.length - 1];
   const oldestTimestamp = normaliseDateToISO(
     String(oldestResult?.dateOfEvent || oldestResult?.caseFormTimestamp)
   );
   const { user } = useAuth() as { user: User };
-  const [displayDeletedCases, setDisplayDeletedCases] =
-    useState<boolean>(false);
 
   return (
     <div className={`govuk-grid-row ${s.outer}`}>
@@ -88,7 +91,7 @@ const PersonTimeline = ({
         </aside>
         <ConditionalFeature name="case-notes-deletion">
           <aside className={s.sticky}>
-            {isAdminOrDev(user) ? (
+            {isAdminOrDev(user) && setDisplayDeletedCases ? (
               displayDeletedCases ? (
                 <a
                   onClick={() => setDisplayDeletedCases(false)}

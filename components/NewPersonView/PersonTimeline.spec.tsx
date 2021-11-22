@@ -124,6 +124,10 @@ describe('PersonTimeline', () => {
             onLastPage={false}
             size={1}
             events={mockEvents}
+            displayDeletedCases={false}
+            setDisplayDeletedCases={() => {
+              return null;
+            }}
             personId={1}
           />
         </FeatureFlagProvider>
@@ -146,6 +150,10 @@ describe('PersonTimeline', () => {
             onLastPage={false}
             size={1}
             events={mockEvents}
+            displayDeletedCases={false}
+            setDisplayDeletedCases={() => {
+              return null;
+            }}
             personId={1}
           />
         </FeatureFlagProvider>

@@ -39,6 +39,18 @@ describe('cases APIs', () => {
         '/api/residents/123/cases?bar=foobar'
       );
     });
+    it('should properly ask for deleted case notes', () => {
+      jest
+        .spyOn(SWR, 'useSWRInfinite')
+        .mockImplementation(
+          (getKey: (page: number, data: Record<string, unknown>) => string) =>
+            mockSWRInfinite(getKey(0, { cases: [] }))
+        );
+      casesAPI.useCasesByResident(123, { deleted: 'true' });
+      expect(mockSWRInfinite).toHaveBeenCalledWith(
+        '/api/residents/123/cases?deleted=true'
+      );
+    });
   });
 
   describe('useCase', () => {
