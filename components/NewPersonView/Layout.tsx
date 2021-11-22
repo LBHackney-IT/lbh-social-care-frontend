@@ -197,7 +197,7 @@ const Layout = ({ person, children }: Props): React.ReactElement => {
                 <NavLink
                   href={`${
                     getConfigValue('workflowsPilotUrl') as string
-                  }?social_care_id=${person.id}&show_historic=true`}
+                  }/residents/${person.id}`}
                 >
                   Workflows
                 </NavLink>
