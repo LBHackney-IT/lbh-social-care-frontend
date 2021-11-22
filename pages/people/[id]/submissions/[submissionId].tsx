@@ -29,6 +29,10 @@ const SubmissionPage = ({ submission, person }: Props): React.ReactElement => {
   const { user } = useAuth() as { user: User };
   const { push, query } = useRouter();
 
+  if (submission.deleted && !isAdminOrDev(user)) {
+    push(`/people/${person.id}`);
+  }
+
   const [isRemoveCaseNoteDialogOpen, setIsRemoveCaseNoteDialogOpen] =
     useState<boolean>(false);
 

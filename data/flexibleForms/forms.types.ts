@@ -160,6 +160,12 @@ export interface Submission {
   lastEdited: string;
   completedSteps: number;
   title?: string;
+  deleted: boolean;
+  deletedFields?: {
+    deletedBy: string;
+    deleteReason: string;
+    deleteRequestedBy: string;
+  };
 }
 
 export interface Revision {
