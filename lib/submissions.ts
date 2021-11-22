@@ -279,14 +279,14 @@ export const deleteSubmission = async (
   deleteReason: string,
   deleteRequestedBy: string
 ): Promise<Submission> => {
-  const { data } = await axios.patch(
+  const { data } = await axios.delete(
     `${ENDPOINT_API}/submissions/${submissionId}`,
     {
       headers: headersWithKey,
       data: {
-        DeletedBy: deletedBy,
-        DeleteReason: deleteReason,
-        DeleteRequestedBy: deleteRequestedBy,
+        deletedBy: deletedBy,
+        deleteReason: deleteReason,
+        deleteRequestedBy: deleteRequestedBy,
       },
     }
   );
