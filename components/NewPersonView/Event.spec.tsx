@@ -1,10 +1,15 @@
 import { render, screen } from '@testing-library/react';
 import { mockedCaseNote, mockedWarningNoteCase } from 'factories/cases';
+import { AppConfigProvider } from 'lib/appConfig';
 import Event from './Event';
 
 describe('Event', () => {
   it('renders the right info for a form wizard case note', () => {
-    render(<Event event={mockedCaseNote} />);
+    render(
+      <AppConfigProvider appConfig={{}}>
+        <Event event={mockedCaseNote} />
+      </AppConfigProvider>
+    );
 
     expect(screen.getAllByRole('heading').length).toBe(1);
     expect(screen.getAllByRole('link').length).toBe(1);
@@ -16,7 +21,11 @@ describe('Event', () => {
   });
 
   it('renders the right info for a warning note', () => {
-    render(<Event event={mockedWarningNoteCase} />);
+    render(
+      <AppConfigProvider appConfig={{}}>
+        <Event event={mockedWarningNoteCase} />
+      </AppConfigProvider>
+    );
 
     expect(screen.getAllByRole('heading').length).toBe(1);
     expect(screen.getAllByRole('link').length).toBe(1);
@@ -28,17 +37,19 @@ describe('Event', () => {
 
   it('generates and truncates a snippet for form wizard case notes', () => {
     render(
-      <Event
-        event={{
-          ...mockedWarningNoteCase,
-          caseFormData: {
-            ...mockedWarningNoteCase.caseFormData,
-            case_note_title: 'my title here',
-            case_note_description:
-              'my description here my description here my description here',
-          },
-        }}
-      />
+      <AppConfigProvider appConfig={{}}>
+        <Event
+          event={{
+            ...mockedWarningNoteCase,
+            caseFormData: {
+              ...mockedWarningNoteCase.caseFormData,
+              case_note_title: 'my title here',
+              case_note_description:
+                'my description here my description here my description here',
+            },
+          }}
+        />
+      </AppConfigProvider>
     );
     expect(
       screen.getByText(
@@ -52,12 +63,14 @@ describe('Event', () => {
 
   it('marks google docs', () => {
     render(
-      <Event
-        event={{
-          ...mockedWarningNoteCase,
-          caseFormUrl: 'google.com/123',
-        }}
-      />
+      <AppConfigProvider appConfig={{}}>
+        <Event
+          event={{
+            ...mockedWarningNoteCase,
+            caseFormUrl: 'google.com/123',
+          }}
+        />
+      </AppConfigProvider>
     );
     expect(screen.getByText('Google document', { exact: false }));
   });

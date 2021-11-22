@@ -27,14 +27,14 @@ const ContactCard = ({ mashReferral }: Props): React.ReactElement => {
             <div>
               <dt>Name of client</dt>
               <dd>
+                {mashReferral.clients[0] + ' '}
+                {mashReferral.clients.length > 1 &&
+                  `+ ${mashReferral.clients.length - 1} `}
+                (
                 <Link href={mashReferral.referralDocumentURI}>
-                  <a>
-                    {mashReferral.clients[0] + ' '}
-                    {mashReferral.clients.length > 1 &&
-                      `+ ${mashReferral.clients.length - 1} `}
-                    (referral)
-                  </a>
+                  <a>referral</a>
                 </Link>
+                )
               </dd>
             </div>
             <div>
@@ -44,11 +44,6 @@ const ContactCard = ({ mashReferral }: Props): React.ReactElement => {
             <div>
               <dt>Requested support</dt>
               <dd>{mashReferral.requestedSupport}</dd>
-            </div>
-            <div>
-              <Link href="assign">
-                <a>Assign</a>
-              </Link>
             </div>
           </dl>
         </div>

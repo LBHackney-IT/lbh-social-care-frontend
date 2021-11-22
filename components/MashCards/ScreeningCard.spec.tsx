@@ -13,7 +13,9 @@ describe('ScreeningCard', () => {
     );
     expect(screen.getByText(`${mockedMashReferral.clients[0]} (referral)`));
     expect(screen.getByText(mockedMashReferral.initialDecision as string));
-    expect(screen.getByText(mockedMashReferral.referralCategory as string));
+    expect(
+      screen.getByText(mockedMashReferral.initialReferralCategory as string)
+    );
     expect(screen.getByText('Make decision'));
     expect(screen.getByText('Assign'));
     expect(screen.getByText('Name of client'));

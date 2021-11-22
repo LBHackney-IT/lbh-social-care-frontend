@@ -1,23 +1,17 @@
 import { render, screen } from '@testing-library/react';
 import { mockedMashReferral } from 'factories/mashReferral';
 import ContactCard from './ContactCard';
-import { format } from 'date-fns';
 
 describe('ContactCard', () => {
   it('renders the right info from the mash referral', () => {
     render(<ContactCard mashReferral={mockedMashReferral} />);
 
+    expect(screen.getByText('4 hours left'));
     expect(
-      screen.getByText(`submitted{' '}
-    ${format(new Date(mockedMashReferral.createdAt), 'HH:00 dd MMM')}`)
+      screen.getByText(`${mockedMashReferral.clients[0]}`, { exact: false })
     );
-    expect(screen.getByText(`${mockedMashReferral.clients[0]} (referral)`));
     expect(screen.getByText(mockedMashReferral.referrer as string));
     expect(screen.getByText(mockedMashReferral.requestedSupport as string));
     expect(screen.getByText('Work on'));
-    expect(screen.getByText('Assign'));
-    expect(screen.getByText('Name of client'));
-    expect(screen.getByText('Requested support'));
-    expect(screen.getByText('Referrer'));
   });
 });

@@ -1,11 +1,27 @@
 import axios from 'axios';
 import { MashReferral } from 'types';
 
+export const submitContactDecision = async (
+  referralId: string,
+  workerEmail: string,
+  requiresUrgentContact: boolean
+): Promise<MashReferral> => {
+  const response = await axios.patch<MashReferral>(
+    `/api/mash-referral/${referralId}/`,
+    {
+      requiresUrgentContact,
+      updateType: 'CONTACT-DECISION',
+      workerEmail: workerEmail,
+    }
+  );
+  return response.data;
+};
+
 export const submitScreeningDecision = async (
   referralId: string,
+  workerEmail: string,
   decision: string,
-  requiresUrgentContact: boolean,
-  workerEmail: string
+  requiresUrgentContact: boolean
 ): Promise<MashReferral> => {
   const response = await axios.patch<MashReferral>(
     `/api/mash-referral/${referralId}/`,
@@ -16,7 +32,7 @@ export const submitScreeningDecision = async (
       workerEmail: workerEmail,
     }
   );
-  return response?.data;
+  return response.data;
 };
 
 export const submitInitialDecision = async (
@@ -36,5 +52,30 @@ export const submitInitialDecision = async (
       workerEmail: workerEmail,
     }
   );
-  return response?.data;
+  return response.data;
+};
+
+export const submitFinalDecision = async (
+  referralId: string,
+  workerEmail: string,
+  decision: string,
+  referralCategory: string,
+  requiresUrgentContact: boolean
+): Promise<MashReferral> => {
+  const response = await axios.patch<MashReferral>(
+    `/api/mash-referral/${referralId}/`,
+    {
+      decision,
+      requiresUrgentContact,
+      referralCategory,
+      updateType: 'FINAL-DECISION',
+      workerEmail: workerEmail,
+    }
+  );
+  return response.data;
+};
+
+export const resetDummyData = async (): Promise<undefined> => {
+  const response = await axios.post<undefined>(`api/mash-referral/reset`);
+  return response.data;
 };

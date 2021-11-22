@@ -3,7 +3,13 @@ import { StatusCodes } from 'http-status-codes';
 import { isAuthorised } from 'utils/auth';
 
 import type { NextApiRequest, NextApiResponse, NextApiHandler } from 'next';
-import { patchReferralInitial, patchReferralScreening } from 'lib/mashReferral';
+import {
+  patchReferralFinal,
+  patchReferralInitial,
+  patchReferralScreening,
+  patchReferralContact,
+} from 'lib/mashReferral';
+import { AxiosError } from 'axios';
 
 const endpoint: NextApiHandler = async (
   req: NextApiRequest,
@@ -63,9 +69,51 @@ const endpoint: NextApiHandler = async (
           });
 
           res.status(StatusCodes.OK).json(data);
+        } else if (updateTye === 'FINAL-DECISION') {
+          const {
+            referralId,
+            decision,
+            requiresUrgentContact,
+            workerEmail,
+            referralCategory,
+          } = {
+            referralId: req.query.id as string,
+            decision: req.body.decision,
+            requiresUrgentContact: req.body.requiresUrgentContact,
+            workerEmail: req.body.workerEmail,
+            referralCategory: req.body.referralCategory,
+          };
+
+          const data = await patchReferralFinal({
+            referralId,
+            decision,
+            requiresUrgentContact,
+            updateType: 'FINAL-DECISION',
+            workerEmail,
+            referralCategory,
+          });
+
+          res.status(StatusCodes.OK).json(data);
+        } else if (updateTye === 'CONTACT-DECISION') {
+          const { referralId, requiresUrgentContact, workerEmail } = {
+            referralId: req.query.id as string,
+            requiresUrgentContact: req.body.requiresUrgentContact,
+            workerEmail: req.body.workerEmail,
+          };
+          const data = await patchReferralContact({
+            referralId,
+            requiresUrgentContact,
+            updateType: 'CONTACT-DECISION',
+            workerEmail,
+          });
+
+          res.status(StatusCodes.OK).json(data);
         }
-      } catch (error: any) {
-        res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ message: error });
+      } catch (error: unknown) {
+        const axiosError = error as AxiosError;
+        res
+          .status(axiosError.response?.status || 500)
+          .json(axiosError?.response?.data);
       }
       break;
 
