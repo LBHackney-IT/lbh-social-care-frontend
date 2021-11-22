@@ -7,7 +7,6 @@ import { CaseData } from 'types';
 import { mockedCaseNote } from 'factories/cases';
 import { AppConfigProvider } from 'lib/appConfig';
 import * as permissions from 'lib/permissions';
-import { FeatureFlagProvider } from 'lib/feature-flags/feature-flags';
 
 jest.mock('utils/api/cases');
 jest.mock('components/Spinner/Spinner', () => () => 'MockedSpinner');
@@ -36,9 +35,7 @@ describe('PersonHistory', () => {
 
     render(
       <AppConfigProvider appConfig={{}}>
-        <FeatureFlagProvider features={{}}>
-          <PersonHistory personId={mockedResident.id} />
-        </FeatureFlagProvider>
+        <PersonHistory personId={mockedResident.id} />
       </AppConfigProvider>
     );
     expect(screen.getByText('i am a case title'));

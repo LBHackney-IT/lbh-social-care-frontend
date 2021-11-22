@@ -7,10 +7,7 @@ import {
   mockedWarningNoteCase,
 } from 'factories/cases';
 import PersonTimeline from './PersonTimeline';
-import {
-  FeatureFlagProvider,
-  FeatureSet,
-} from 'lib/feature-flags/feature-flags';
+
 import * as permissions from 'lib/permissions';
 
 const mockEvents = [
@@ -19,12 +16,6 @@ const mockEvents = [
   mockedWarningNoteCase,
   mockedAllocationNote,
 ];
-
-const features: FeatureSet = {
-  'case-notes-deletion': {
-    isActive: true,
-  },
-};
 
 jest.spyOn(permissions, 'isAdminOrDev').mockImplementation(() => {
   return true;
@@ -39,15 +30,13 @@ describe('PersonTimeline', () => {
       );
     render(
       <AppConfigProvider appConfig={{}}>
-        <FeatureFlagProvider features={{}}>
-          <PersonTimeline
-            setSize={jest.fn()}
-            onLastPage={false}
-            size={1}
-            events={mockEvents}
-            personId={1}
-          />
-        </FeatureFlagProvider>
+        <PersonTimeline
+          setSize={jest.fn()}
+          onLastPage={false}
+          size={1}
+          events={mockEvents}
+          personId={1}
+        />
       </AppConfigProvider>
     );
 
@@ -60,15 +49,13 @@ describe('PersonTimeline', () => {
   it('can cope when there are no events to show', () => {
     render(
       <AppConfigProvider appConfig={{}}>
-        <FeatureFlagProvider features={{}}>
-          <PersonTimeline
-            setSize={jest.fn()}
-            onLastPage={false}
-            size={1}
-            events={[]}
-            personId={1}
-          />
-        </FeatureFlagProvider>
+        <PersonTimeline
+          setSize={jest.fn()}
+          onLastPage={false}
+          size={1}
+          events={[]}
+          personId={1}
+        />
       </AppConfigProvider>
     );
     expect(screen.getByText('No events match your search'));
@@ -77,15 +64,13 @@ describe('PersonTimeline', () => {
   it('hides the pagination button on the last page', () => {
     render(
       <AppConfigProvider appConfig={{}}>
-        <FeatureFlagProvider features={{}}>
-          <PersonTimeline
-            setSize={jest.fn()}
-            onLastPage={true}
-            size={1}
-            events={mockEvents}
-            personId={1}
-          />
-        </FeatureFlagProvider>
+        <PersonTimeline
+          setSize={jest.fn()}
+          onLastPage={true}
+          size={1}
+          events={mockEvents}
+          personId={1}
+        />
       </AppConfigProvider>
     );
     expect(screen.queryByText('Load older events')).toBeNull();
@@ -95,70 +80,16 @@ describe('PersonTimeline', () => {
     const mockHandler = jest.fn();
     render(
       <AppConfigProvider appConfig={{}}>
-        <FeatureFlagProvider features={{}}>
-          <PersonTimeline
-            setSize={mockHandler}
-            onLastPage={false}
-            size={1}
-            events={mockEvents}
-            personId={1}
-          />
-        </FeatureFlagProvider>
+        <PersonTimeline
+          setSize={mockHandler}
+          onLastPage={false}
+          size={1}
+          events={mockEvents}
+          personId={1}
+        />
       </AppConfigProvider>
     );
     fireEvent.click(screen.getByText('Load older events'));
     expect(mockHandler).toBeCalledWith(2);
-  });
-
-  it('should not display the "Show deleted records" link in staging for admin or dev', () => {
-    const mockHandler = jest.fn();
-    jest.spyOn(permissions, 'isAdminOrDev').mockImplementation(() => {
-      return false;
-    });
-
-    const { queryByText } = render(
-      <AppConfigProvider appConfig={{}}>
-        <FeatureFlagProvider features={features}>
-          <PersonTimeline
-            setSize={mockHandler}
-            onLastPage={false}
-            size={1}
-            events={mockEvents}
-            displayDeletedCases={false}
-            setDisplayDeletedCases={() => {
-              return null;
-            }}
-            personId={1}
-          />
-        </FeatureFlagProvider>
-      </AppConfigProvider>
-    );
-    expect(queryByText('Show deleted records')).toBeNull();
-  });
-
-  it('should display the "Show deleted records" link in staging for admin or dev', () => {
-    const mockHandler = jest.fn();
-    jest.spyOn(permissions, 'isAdminOrDev').mockImplementation(() => {
-      return true;
-    });
-
-    const { getByText } = render(
-      <AppConfigProvider appConfig={{}}>
-        <FeatureFlagProvider features={features}>
-          <PersonTimeline
-            setSize={mockHandler}
-            onLastPage={false}
-            size={1}
-            events={mockEvents}
-            displayDeletedCases={false}
-            setDisplayDeletedCases={() => {
-              return null;
-            }}
-            personId={1}
-          />
-        </FeatureFlagProvider>
-      </AppConfigProvider>
-    );
-    expect(getByText('Show deleted records')).toBeInTheDocument();
   });
 });

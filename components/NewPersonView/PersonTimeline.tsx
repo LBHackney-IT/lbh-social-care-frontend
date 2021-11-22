@@ -7,10 +7,6 @@ import { normaliseDateToISO } from 'utils/date';
 import Event from './Event';
 import MAJOR_FORMS from 'data/majorForms';
 import cx from 'classnames';
-import { isAdminOrDev } from 'lib/permissions';
-import { useAuth } from 'components/UserContext/UserContext';
-import { User } from 'types';
-import { ConditionalFeature } from 'lib/feature-flags/feature-flags';
 
 /** for all possible kinds of submission/case/record, see if it's major or not */
 export const isMajorEvent = (event: Case): boolean =>
@@ -31,10 +27,6 @@ interface Props {
   setSize: (size: number) => void;
   onLastPage: boolean;
   personId: number;
-  displayDeletedCases?: boolean;
-  setDisplayDeletedCases?: (
-    value: boolean | ((prevVar: boolean) => boolean)
-  ) => void;
 }
 
 const PersonTimeline = ({
@@ -43,14 +35,11 @@ const PersonTimeline = ({
   setSize,
   onLastPage,
   personId,
-  displayDeletedCases,
-  setDisplayDeletedCases,
 }: Props): React.ReactElement => {
   const oldestResult = events?.[events.length - 1];
   const oldestTimestamp = normaliseDateToISO(
     String(oldestResult?.dateOfEvent || oldestResult?.caseFormTimestamp)
   );
-  const { user } = useAuth() as { user: User };
 
   return (
     <div className={`govuk-grid-row ${s.outer}`}>
@@ -89,31 +78,6 @@ const PersonTimeline = ({
             <p className="lbh-body-xs">No events match your search</p>
           )}
         </aside>
-        <ConditionalFeature name="case-notes-deletion">
-          <aside className={s.sticky}>
-            {isAdminOrDev(user) && setDisplayDeletedCases ? (
-              displayDeletedCases ? (
-                <a
-                  onClick={() => setDisplayDeletedCases(false)}
-                  href="#"
-                  className="lbh-link lbh-body-s"
-                >
-                  Hide deleted records
-                </a>
-              ) : (
-                <a
-                  onClick={() => setDisplayDeletedCases(true)}
-                  href="#"
-                  className="lbh-link lbh-body-s"
-                >
-                  Show deleted records
-                </a>
-              )
-            ) : (
-              <></>
-            )}
-          </aside>
-        </ConditionalFeature>
       </div>
     </div>
   );
