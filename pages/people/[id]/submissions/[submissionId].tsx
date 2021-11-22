@@ -69,7 +69,6 @@ const SubmissionPage = ({ submission, person }: Props): React.ReactElement => {
             try {
               await deleteSubmission(
                 submissionId,
-                user.email,
                 deletionDetails.reason_for_deletion,
                 deletionDetails.name_of_requester
               );

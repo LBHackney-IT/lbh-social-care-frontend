@@ -278,13 +278,18 @@ export const deleteSubmission = async (
   deleteReason: string,
   deleteRequestedBy: string
 ): Promise<void> => {
+  console.log(`${ENDPOINT_API}/submissions/${relationshipId}`);
+  const data = {
+    deletedBy: deletedBy,
+    deleteReason: deleteReason,
+    deleteRequestedBy: deleteRequestedBy,
+  };
+
+  console.log('data', data);
+
   await axios.delete(`${ENDPOINT_API}/submissions/${relationshipId}`, {
     headers: headersWithKey,
-    data: {
-      deletedBy: deletedBy,
-      deleteReason: deleteReason,
-      deleteRequestedBy: deleteRequestedBy,
-    },
+    data: data,
   });
 };
 

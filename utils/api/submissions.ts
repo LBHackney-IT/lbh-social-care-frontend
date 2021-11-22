@@ -24,12 +24,11 @@ export const useSubmission = (
 
 export const deleteSubmission = async (
   submissionId: string,
-  deletedBy: string,
   deleteReason: string,
   deleteRequestedBy: string
 ): Promise<Record<string, unknown>> => {
   const response = await axios.delete(
-    `/api/submissions/${submissionId}/delete?deletedBy=${deletedBy}&deleteReason=${deleteReason}&deleteRequestedBy=${deleteRequestedBy}`
+    `/api/submissions/${submissionId}/delete?deleteReason=${deleteReason}&deleteRequestedBy=${deleteRequestedBy}`
   );
 
   return response?.data;
