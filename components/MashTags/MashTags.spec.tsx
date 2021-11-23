@@ -10,8 +10,6 @@ describe('MashTags', () => {
     MockDate.reset();
   });
 
-  //Contact stage
-
   it('should show time since referral was recieved when the referral is in contact stage', () => {
     MockDate.set('2021-01-01');
     const contactMockReferral = mashReferralFactory.build({
@@ -21,7 +19,7 @@ describe('MashTags', () => {
     render(<MashTags mashReferral={contactMockReferral} />);
     expect(screen.getByText('2 hours ago'));
   });
-  it.only('should show time (in minutes) since referral was recieved when the referral is in contact stage', () => {
+  it('should show time (in minutes) since referral was recieved when the referral is in contact stage', () => {
     MockDate.set('2021-01-01');
     const contactMockReferral = mashReferralFactory.build({
       stage: ReferralStage.CONTACT,
@@ -31,8 +29,6 @@ describe('MashTags', () => {
     expect(screen.getByText('5 mins ago'));
   });
 
-  //Initial decision stage
-
   it('should show time since referral was recieved when the referral is in initial decision stage', () => {
     MockDate.set('2021-01-01');
     const initialMockReferral = mashReferralFactory.build({
@@ -40,26 +36,25 @@ describe('MashTags', () => {
       createdAt: subHours(new Date(), 2).toISOString(),
     });
     render(<MashTags mashReferral={initialMockReferral} />);
-    expect(screen.getByText('2 hours ago'));
+    expect(screen.getByText('22 hours left'));
   });
-  it('should show time (in minutes) since referral was recieved when the referral is in initial decision stage', () => {
+
+  it('should show time since referral was recieved when the referral is in initial decision stage', () => {
     MockDate.set('2021-01-01');
     const initialMockReferral = mashReferralFactory.build({
       stage: ReferralStage.INITIAL,
-      createdAt: subMinutes(new Date(), 5).toISOString(),
+      createdAt: subHours(new Date(), 25).toISOString(),
     });
     render(<MashTags mashReferral={initialMockReferral} />);
-    expect(screen.getByText('5 mins ago'));
+    expect(screen.getByText('Overdue'));
   });
-
-  //Screening stage - per rag rating
 
   it('should show time left to make screening decision on the referral when the case has a green rag rating (72 hour window)', () => {
     MockDate.set('2021-01-01');
     const screeningMockReferral = mashReferralFactory.build({
       stage: ReferralStage.SCREENING,
       initialDecision: 'EH screening required in MASH',
-      createdAt: subHours(new Date(), 48).toISOString(),
+      initialCreatedAt: subHours(new Date(), 48).toISOString(),
     });
     render(<MashTags mashReferral={screeningMockReferral} />);
     expect(screen.getByText('24 hours left'));
@@ -69,7 +64,7 @@ describe('MashTags', () => {
     const screeningMockReferral = mashReferralFactory.build({
       stage: ReferralStage.SCREENING,
       initialDecision: 'CSC screening required in MASH',
-      createdAt: subHours(new Date(), 2).toISOString(),
+      initialCreatedAt: subHours(new Date(), 2).toISOString(),
     });
     render(<MashTags mashReferral={screeningMockReferral} />);
     expect(screen.getByText('22 hours left'));
@@ -79,20 +74,18 @@ describe('MashTags', () => {
     const screeningMockReferral = mashReferralFactory.build({
       stage: ReferralStage.SCREENING,
       initialDecision: 'Progress straight to CSC allocation',
-      createdAt: subHours(new Date(), 2).toISOString(),
+      initialCreatedAt: subHours(new Date(), 2).toISOString(),
     });
     render(<MashTags mashReferral={screeningMockReferral} />);
     expect(screen.getByText('2 hours left'));
   });
-
-  //Screening stage - overdue per rag rating
 
   it('should show an overdue tag for the screening decision on the referral when the case has a green rag rating and the time is overdue (72 hour window)', () => {
     MockDate.set('2021-01-01');
     const screeningMockReferral = mashReferralFactory.build({
       stage: ReferralStage.SCREENING,
       initialDecision: 'EH screening required in MASH',
-      createdAt: subHours(new Date(), 73).toISOString(),
+      initialCreatedAt: subHours(new Date(), 73).toISOString(),
     });
     render(<MashTags mashReferral={screeningMockReferral} />);
     expect(screen.getByText('Overdue'));
@@ -102,7 +95,7 @@ describe('MashTags', () => {
     const screeningMockReferral = mashReferralFactory.build({
       stage: ReferralStage.SCREENING,
       initialDecision: 'CSC screening required in MASH',
-      createdAt: subHours(new Date(), 25).toISOString(),
+      initialCreatedAt: subHours(new Date(), 25).toISOString(),
     });
     render(<MashTags mashReferral={screeningMockReferral} />);
     expect(screen.getByText('Overdue'));
@@ -112,20 +105,18 @@ describe('MashTags', () => {
     const screeningMockReferral = mashReferralFactory.build({
       stage: ReferralStage.SCREENING,
       initialDecision: 'Progress straight to CSC allocation',
-      createdAt: subHours(new Date(), 5).toISOString(),
+      initialCreatedAt: subHours(new Date(), 5).toISOString(),
     });
     render(<MashTags mashReferral={screeningMockReferral} />);
     expect(screen.getByText('Overdue'));
   });
-
-  //Final decision - per rag rating
 
   it('should show time left to make final decision on the referral when the case has a green rag rating (72 hour window)', () => {
     MockDate.set('2021-01-01');
     const finalMockReferral = mashReferralFactory.build({
       stage: ReferralStage.FINAL,
       initialDecision: 'EH screening required in MASH',
-      createdAt: subHours(new Date(), 48).toISOString(),
+      initialCreatedAt: subHours(new Date(), 48).toISOString(),
     });
     render(<MashTags mashReferral={finalMockReferral} />);
     expect(screen.getByText('24 hours left'));
@@ -135,7 +126,7 @@ describe('MashTags', () => {
     const finalMockReferral = mashReferralFactory.build({
       stage: ReferralStage.FINAL,
       initialDecision: 'CSC screening required in MASH',
-      createdAt: subHours(new Date(), 2).toISOString(),
+      initialCreatedAt: subHours(new Date(), 2).toISOString(),
     });
     render(<MashTags mashReferral={finalMockReferral} />);
     expect(screen.getByText('22 hours left'));
@@ -145,20 +136,18 @@ describe('MashTags', () => {
     const finalMockReferral = mashReferralFactory.build({
       stage: ReferralStage.FINAL,
       initialDecision: 'Progress straight to CSC allocation',
-      createdAt: subHours(new Date(), 2).toISOString(),
+      initialCreatedAt: subHours(new Date(), 2).toISOString(),
     });
     render(<MashTags mashReferral={finalMockReferral} />);
     expect(screen.getByText('2 hours left'));
   });
-
-  //Final decision - overdue per rag rating
 
   it('should show an overdue tag for the final decision on the referral when the case has a green rag rating and the time is overdue (72 hour window)', () => {
     MockDate.set('2021-01-01');
     const finalMockReferral = mashReferralFactory.build({
       stage: ReferralStage.FINAL,
       initialDecision: 'EH screening required in MASH',
-      createdAt: subHours(new Date(), 73).toISOString(),
+      initialCreatedAt: subHours(new Date(), 73).toISOString(),
     });
     render(<MashTags mashReferral={finalMockReferral} />);
     expect(screen.getByText('Overdue'));
@@ -168,7 +157,7 @@ describe('MashTags', () => {
     const finalMockReferral = mashReferralFactory.build({
       stage: ReferralStage.FINAL,
       initialDecision: 'CSC screening required in MASH',
-      createdAt: subHours(new Date(), 25).toISOString(),
+      initialCreatedAt: subHours(new Date(), 25).toISOString(),
     });
     render(<MashTags mashReferral={finalMockReferral} />);
     expect(screen.getByText('Overdue'));
@@ -178,7 +167,7 @@ describe('MashTags', () => {
     const finalMockReferral = mashReferralFactory.build({
       stage: ReferralStage.FINAL,
       initialDecision: 'Progress straight to CSC allocation',
-      createdAt: subHours(new Date(), 5).toISOString(),
+      initialCreatedAt: subHours(new Date(), 5).toISOString(),
     });
     render(<MashTags mashReferral={finalMockReferral} />);
     expect(screen.getByText('Overdue'));
