@@ -108,6 +108,12 @@ export interface Case {
   caseFormData: CaseFormData;
   formType?: string;
   title?: string;
+  deleted: boolean;
+  deletedFields?: {
+    deletedBy: string;
+    deleteReason: string;
+    deleteRequestedBy: string;
+  };
 }
 
 export interface CaseData {

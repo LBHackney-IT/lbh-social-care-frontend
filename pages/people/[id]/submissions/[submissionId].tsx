@@ -29,7 +29,7 @@ const SubmissionPage = ({ submission, person }: Props): React.ReactElement => {
   const { user } = useAuth() as { user: User };
   const { push, query } = useRouter();
 
-  if (submission.deleted && !isAdminOrDev(user)) {
+  if (submission.deleted == true && !isAdminOrDev(user)) {
     push(`/people/${person.id}`);
   }
 
@@ -84,12 +84,12 @@ const SubmissionPage = ({ submission, person }: Props): React.ReactElement => {
       <div className="govuk-grid-row">
         <div className="govuk-grid-column-two-thirds">
           <h1 className="lbh-heading-h1 govuk-!-margin-bottom-8">
-            {form?.name}
+            {form?.name} {submission.deleted == true ? '(deleted record)' : ''}
           </h1>
         </div>
 
         <ConditionalFeature name="case-notes-deletion">
-          {isAdminOrDev(user) && (
+          {isAdminOrDev(user) && !submission.deleted && (
             <div className="govuk-error-summary__body">
               <ul className="govuk-list govuk-error-summary__list">
                 <li>

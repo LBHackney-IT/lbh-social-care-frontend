@@ -21,7 +21,7 @@ const CaseNoteDate = ({ recordId, dateOfEvent, caseFormTimestamp }: Case) => (
   </td>
 );
 
-const CaseNoteTitle = ({ recordId, formName, caseFormData }: Case) => {
+const CaseNoteTitle = ({ recordId, formName, caseFormData, deleted }: Case) => {
   // 1. handle case notes
   if (
     ['ASC_case_note', 'CFS_case_note'].includes(
@@ -44,7 +44,7 @@ const CaseNoteTitle = ({ recordId, formName, caseFormData }: Case) => {
   if (form)
     return (
       <td key={`${recordId}-title`} className="govuk-table__cell">
-        {form.name}
+        {form.name} {deleted ? '(deleted)' : ''}
       </td>
     );
 
@@ -70,21 +70,27 @@ const CaseNoteAction = ({
   personId,
   formType,
   title,
+  deleted,
 }: Case) => (
   <td
     key={`${recordId}-action`}
     className="govuk-table__cell govuk-table__cell--numeric"
     style={{ width: '50px', textAlign: 'center' }}
   >
-    <CaseLink
-      recordId={recordId}
-      externalUrl={caseFormUrl}
-      caseFormData={caseFormData}
-      formName={formName}
-      personId={personId}
-      formType={formType}
-      title={title}
-    />
+    {(formType == 'flexible-form' && !deleted) ||
+    formType != 'flexible-form' ? (
+      <CaseLink
+        recordId={recordId}
+        externalUrl={caseFormUrl}
+        caseFormData={caseFormData}
+        formName={formName}
+        personId={personId}
+        formType={formType}
+        title={title}
+      />
+    ) : (
+      ''
+    )}
   </td>
 );
 

@@ -20,6 +20,7 @@ export const caseFactory = Factory.define<Case>(({ sequence }) => ({
     context_flag: 'A',
     date_of_event: '25/10/2020 13:49:43',
   },
+  deleted: false,
 }));
 
 export const mockedNote = caseFactory.build({ caseFormUrl: 'https://foo.bar' });
