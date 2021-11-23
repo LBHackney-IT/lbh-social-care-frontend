@@ -29,7 +29,7 @@ describe('MashTags', () => {
     expect(screen.getByText('5 mins ago'));
   });
 
-  it('should show time since referral was recieved when the referral is in initial decision stage', () => {
+  it('should show the time left for the initial decision (24 hour window)', () => {
     MockDate.set('2021-01-01');
     const initialMockReferral = mashReferralFactory.build({
       stage: ReferralStage.INITIAL,
@@ -38,8 +38,17 @@ describe('MashTags', () => {
     render(<MashTags mashReferral={initialMockReferral} />);
     expect(screen.getByText('22 hours left'));
   });
+  it('should show the time left (in minutes) for the initial decision (24 hour window)', () => {
+    MockDate.set('2021-01-01');
+    const initialMockReferral = mashReferralFactory.build({
+      stage: ReferralStage.INITIAL,
+      createdAt: subMinutes(new Date(), 23.5 * 60).toISOString(),
+    });
+    render(<MashTags mashReferral={initialMockReferral} />);
+    expect(screen.getByText('30 mins left'));
+  });
 
-  it('should show time since referral was recieved when the referral is in initial decision stage', () => {
+  it('should show an overdue tag for the initial decision on the referral when the time is overdue', () => {
     MockDate.set('2021-01-01');
     const initialMockReferral = mashReferralFactory.build({
       stage: ReferralStage.INITIAL,

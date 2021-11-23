@@ -89,18 +89,18 @@ const MashTags = ({ mashReferral }: Props): React.ReactElement => {
   }
   if (isOverdue != true) {
     if (
-      timeLeftinMilliseconds / 60 / 1000 < 1 &&
+      timeLeftinMilliseconds / 60 / 1000 < 60 &&
       timeLeftinMilliseconds / 60 / 1000 > 0
     )
       return (
         <div className="govuk-tag lbh-tag lbh-tag--green">
-          {timeLeftinMilliseconds / 60 / 1000} mins ago
+          {timeLeftinMilliseconds / 60 / 1000} mins left
         </div>
       );
     if (timeLeftinMilliseconds > 0)
       return (
         <div className="govuk-tag lbh-tag lbh-tag--green">
-          {timeLeftinMilliseconds / 60 / 60 / 1000}
+          {timeLeftinMilliseconds / 60 / 60 / 1000}{' '}
           {timeLeftinMilliseconds / 60 / 60 / 1000 == 1 ? 'hour' : 'hours'} left
         </div>
       );
