@@ -17,7 +17,7 @@ const initialMedRatings = new Set(['CSC SCREENING REQUIRED IN MASH']);
 
 const initialHighRatings = new Set(['PROGRESS STRAIGHT TO CSC ALLOCATION']);
 
-const output = (mashReferral: MashReferral) => {
+const timeMetrics = (mashReferral: MashReferral) => {
   const currentTime = new Date().toISOString();
   const hoursPassed = moment(currentTime, 'YYYY-MM-DD[T]HH:mm:ss. SSS[Z]').diff(
     moment(mashReferral.createdAt, 'YYYY-MM-DD[T]HH:mm:ss. SSS[Z]'),
@@ -70,7 +70,7 @@ const output = (mashReferral: MashReferral) => {
 
 const MashTags = ({ mashReferral }: Props): React.ReactElement => {
   const { hoursPassed, minsPassed, timeLeftinMilliseconds, isOverdue } =
-    output(mashReferral);
+    timeMetrics(mashReferral);
 
   if (mashReferral.stage === ReferralStage.CONTACT) {
     if (minsPassed < 60)
@@ -79,7 +79,7 @@ const MashTags = ({ mashReferral }: Props): React.ReactElement => {
           {minsPassed} mins ago
         </div>
       );
-    if (hoursPassed > 1 || hoursPassed == 1)
+    if (hoursPassed > 1 || hoursPassed === 1)
       return (
         <div className="govuk-tag lbh-tag lbh-tag--green">
           {hoursPassed} {hoursPassed == 1 ? 'hour' : 'hours'} ago
@@ -97,7 +97,8 @@ const MashTags = ({ mashReferral }: Props): React.ReactElement => {
       return (
         <div className="govuk-tag lbh-tag lbh-tag--green">
           {timeLeftinMilliseconds / 60 / 60 / 1000}{' '}
-          {timeLeftinMilliseconds / 60 / 60 / 1000 == 1 ? 'hour' : 'hours'} left
+          {timeLeftinMilliseconds / 60 / 60 / 1000 === 1 ? 'hour' : 'hours'}{' '}
+          left
         </div>
       );
   }
