@@ -1,4 +1,3 @@
-import moment from 'moment';
 import { MashReferral, ReferralStage } from 'types';
 
 interface Props {
@@ -18,43 +17,42 @@ const initialMedRatings = new Set(['CSC SCREENING REQUIRED IN MASH']);
 const initialHighRatings = new Set(['PROGRESS STRAIGHT TO CSC ALLOCATION']);
 
 const timeMetrics = (mashReferral: MashReferral) => {
-  const currentTime = new Date().toISOString();
-  const hoursPassed = moment(currentTime, 'YYYY-MM-DD[T]HH:mm:ss. SSS[Z]').diff(
-    moment(mashReferral.createdAt, 'YYYY-MM-DD[T]HH:mm:ss. SSS[Z]'),
-    'hours'
+  const minsPassed = Math.round(
+    (Number(new Date()) - Number(new Date(mashReferral.createdAt))) / 60 / 1000
   );
-  const minsPassed = moment(currentTime, 'YYYY-MM-DD[T]HH:mm:ss. SSS[Z]').diff(
-    moment(mashReferral.createdAt, 'YYYY-MM-DD[T]HH:mm:ss. SSS[Z]'),
-    'minutes'
+  const hoursPassed = Math.round(
+    (Number(new Date()) - Number(new Date(mashReferral.createdAt))) /
+      60 /
+      60 /
+      1000
   );
+
   let timeLeftinMilliseconds = 0;
 
   if (
     mashReferral.stage === ReferralStage.SCREENING ||
     mashReferral.stage === ReferralStage.FINAL
   ) {
-    const initialMinsPassed = moment(
-      currentTime,
-      'YYYY-MM-DD[T]HH:mm:ss. SSS[Z]'
-    ).diff(
-      moment(mashReferral.initialCreatedAt, 'YYYY-MM-DD[T]HH:mm:ss. SSS[Z]'),
-      'minutes'
-    );
+    let initialMinsPassed = 0;
+    if (mashReferral.initialCreatedAt != undefined)
+      initialMinsPassed = Math.round(
+        Number(new Date()) - Number(new Date(mashReferral.initialCreatedAt))
+      );
 
     if (
       initialLowRatings.has(mashReferral.initialDecision?.toUpperCase() || '')
     ) {
-      timeLeftinMilliseconds = lowRating - initialMinsPassed * 60 * 1000;
+      timeLeftinMilliseconds = lowRating - initialMinsPassed;
     }
     if (
       initialMedRatings.has(mashReferral.initialDecision?.toUpperCase() || '')
     ) {
-      timeLeftinMilliseconds = mediumRating - initialMinsPassed * 60 * 1000;
+      timeLeftinMilliseconds = mediumRating - initialMinsPassed;
     }
     if (
       initialHighRatings.has(mashReferral.initialDecision?.toUpperCase() || '')
     ) {
-      timeLeftinMilliseconds = highRating - initialMinsPassed * 60 * 1000;
+      timeLeftinMilliseconds = highRating - initialMinsPassed;
     }
   } else if (mashReferral.stage === ReferralStage.INITIAL) {
     timeLeftinMilliseconds = mediumRating - minsPassed * 60 * 1000;
