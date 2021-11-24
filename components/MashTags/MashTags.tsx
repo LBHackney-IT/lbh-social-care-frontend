@@ -86,7 +86,7 @@ const MashTags = ({ mashReferral }: Props): React.ReactElement => {
         </div>
       );
   }
-  if (isOverdue === false && timeLeftinMilliseconds / 60 / 1000 > 0) {
+  if (isOverdue === false) {
     if (timeLeftinMilliseconds / 60 / 1000 < 60)
       return (
         <div className="govuk-tag lbh-tag lbh-tag--green">
