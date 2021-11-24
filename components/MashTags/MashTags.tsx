@@ -33,32 +33,31 @@ const output = (mashReferral: MashReferral) => {
     mashReferral.stage === ReferralStage.SCREENING ||
     mashReferral.stage === ReferralStage.FINAL
   ) {
-    const initialhoursPassed = moment(
+    const initialMinsPassed = moment(
       currentTime,
       'YYYY-MM-DD[T]HH:mm:ss. SSS[Z]'
     ).diff(
       moment(mashReferral.initialCreatedAt, 'YYYY-MM-DD[T]HH:mm:ss. SSS[Z]'),
-      'hours'
+      'minutes'
     );
 
     if (
       initialLowRatings.has(mashReferral.initialDecision?.toUpperCase() || '')
     ) {
-      timeLeftinMilliseconds = lowRating - initialhoursPassed * 60 * 60 * 1000;
+      timeLeftinMilliseconds = lowRating - initialMinsPassed * 60 * 1000;
     }
     if (
       initialMedRatings.has(mashReferral.initialDecision?.toUpperCase() || '')
     ) {
-      timeLeftinMilliseconds =
-        mediumRating - initialhoursPassed * 60 * 60 * 1000;
+      timeLeftinMilliseconds = mediumRating - initialMinsPassed * 60 * 1000;
     }
     if (
       initialHighRatings.has(mashReferral.initialDecision?.toUpperCase() || '')
     ) {
-      timeLeftinMilliseconds = highRating - initialhoursPassed * 60 * 60 * 1000;
+      timeLeftinMilliseconds = highRating - initialMinsPassed * 60 * 1000;
     }
   } else if (mashReferral.stage === ReferralStage.INITIAL) {
-    timeLeftinMilliseconds = mediumRating - hoursPassed * 60 * 60 * 1000;
+    timeLeftinMilliseconds = mediumRating - minsPassed * 60 * 1000;
   }
   const isOverdue = timeLeftinMilliseconds < 0;
   return {
@@ -87,17 +86,14 @@ const MashTags = ({ mashReferral }: Props): React.ReactElement => {
         </div>
       );
   }
-  if (isOverdue != true) {
-    if (
-      timeLeftinMilliseconds / 60 / 1000 < 60 &&
-      timeLeftinMilliseconds / 60 / 1000 > 0
-    )
+  if (isOverdue === false && timeLeftinMilliseconds / 60 / 1000 > 0) {
+    if (timeLeftinMilliseconds / 60 / 1000 < 60)
       return (
         <div className="govuk-tag lbh-tag lbh-tag--green">
           {timeLeftinMilliseconds / 60 / 1000} mins left
         </div>
       );
-    if (timeLeftinMilliseconds > 0)
+    else
       return (
         <div className="govuk-tag lbh-tag lbh-tag--green">
           {timeLeftinMilliseconds / 60 / 60 / 1000}{' '}
