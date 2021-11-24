@@ -73,7 +73,7 @@ const FinalDecisionForm = ({
   return (
     <>
       <h1>Make final decision</h1>
-      <Heading mashReferral={mashReferral} />
+      <Heading mashReferral={referral} />
 
       <NumberedSteps
         nodes={[
