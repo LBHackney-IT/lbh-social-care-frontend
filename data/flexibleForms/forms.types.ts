@@ -142,6 +142,7 @@ export enum SubmissionState {
 
 export interface Submission {
   submissionId: string;
+  isImported: boolean;
   formId: string;
   createdBy: Worker;
   createdAt: string;
