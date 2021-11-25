@@ -2,6 +2,7 @@ import s from './MashCard.module.scss';
 import { MashReferral } from 'types';
 import Link from 'next/link';
 import { format } from 'date-fns';
+import MashTag from 'components/MashTags/MashTags';
 
 interface Props {
   mashReferral: MashReferral;
@@ -12,10 +13,8 @@ const InitialDecisionCard = ({ mashReferral }: Props): React.ReactElement => {
       <li className={s.row}>
         <div>
           <p className={`lbh-body-s govuk-!-margin-bottom-3 ${s.datetime}`}>
-            <span className="govuk-tag lbh-tag lbh-tag--green">
-              4 hours left
-            </span>{' '}
-            submitted {format(new Date(mashReferral.createdAt), 'HH:00 dd MMM')}
+            <MashTag mashReferral={mashReferral} /> submitted{' '}
+            {format(new Date(mashReferral.createdAt), 'HH:00 dd MMM')}
             <span className={`lbh-body-l lbh-!-font-weight-bold  ${s.action}`}>
               <Link href={`mash-referral/${mashReferral.id}/initial-decision`}>
                 Make decision
