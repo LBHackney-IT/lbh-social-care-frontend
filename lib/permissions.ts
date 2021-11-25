@@ -112,6 +112,13 @@ export const canUserManageWorkers = (user: User): boolean => {
 
   return false;
 };
+export const isAdminOrDev = (user: User): boolean => {
+  if (user.hasAdminPermissions || user.hasDevPermissions) {
+    return true;
+  }
+
+  return false;
+};
 
 export const isAdminOrDev = (user: User): boolean => {
   if (user.hasAdminPermissions || user.hasDevPermissions) {

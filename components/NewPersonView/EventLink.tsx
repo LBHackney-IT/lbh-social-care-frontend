@@ -17,14 +17,29 @@ const EventLink = ({ event }: Props): React.ReactElement => {
       mapFormIdToFormDefinition[event.formName]?.displayName || 'Form';
     const formTitle = event.title ? ` - ${event.title}` : '';
 
-    return (
-      <Link href={`/people/${event.personId}/submissions/${event.recordId}`}>
-        <a className={`lbh-link ${s.eventLink}`}>
-          {formName}
-          {formTitle}
-        </a>
-      </Link>
-    );
+    if (event.deleted) {
+      return (
+        <Link href={`/people/${event.personId}/submissions/${event.recordId}`}>
+          <a className={`lbh-link ${s.eventLink}`}>
+            {formName}
+            {formTitle}
+          </a>
+        </Link>
+      );
+    } else {
+      return (
+        <>
+          <span>
+            {formName} {formTitle}{' '}
+          </span>
+          <Link
+            href={`/people/${event.personId}/submissions/${event.recordId}`}
+          >
+            <a>(deleted record)</a>
+          </Link>
+        </>
+      );
+    }
   }
 
   // 2. handle workflows
