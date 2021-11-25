@@ -7,19 +7,22 @@ interface Props {
   mashReferral: MashReferral;
 }
 
-const MASHheading = ({ mashReferral }: Props): React.ReactElement => (
-  <section className="govuk-!-margin-bottom-8">
-    <div className={s.banner}>
-      <div className={s.heading}>{mashReferral.clients.join(', ')}</div>
-      <div>
-        <span className="govuk-!-margin-right-3">
-          {' '}
-          received at {format(new Date(mashReferral.createdAt), 'HH:00 dd MMM')}
-        </span>
-        <MashTag mashReferral={mashReferral} />
+const MASHheading = ({ mashReferral }: Props): React.ReactElement => {
+  return (
+    <section className="govuk-!-margin-bottom-8">
+      <div className={s.banner}>
+        <div className={s.heading}>{mashReferral.clients.join(', ')}</div>
+        <div>
+          <span className="govuk-!-margin-right-3">
+            {' '}
+            received at{' '}
+            {format(new Date(mashReferral.createdAt), 'HH:00 dd MMM')}
+          </span>
+          <MashTag mashReferral={mashReferral} />
+        </div>
       </div>
-    </div>
-  </section>
-);
+    </section>
+  );
+};
 
 export default MASHheading;

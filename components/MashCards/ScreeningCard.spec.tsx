@@ -8,8 +8,12 @@ describe('ScreeningCard', () => {
     render(<ScreeningCard mashReferral={mockedMashReferral} />);
 
     expect(
-      screen.getByText(`submitted{' '}
-    ${format(new Date(mockedMashReferral.createdAt), 'HH:00 dd MMM')}`)
+      screen.getByText(
+        `submitted ${format(
+          new Date(mockedMashReferral.createdAt),
+          'HH:00 dd MMM'
+        )}`
+      )
     );
     expect(screen.getByText(`${mockedMashReferral.clients[0]} (referral)`));
     expect(screen.getByText(mockedMashReferral.initialDecision as string));

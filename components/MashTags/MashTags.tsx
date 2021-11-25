@@ -3,6 +3,8 @@ import { MashReferral, ReferralStage } from 'types';
 interface Props {
   mashReferral: MashReferral;
 }
+
+//rag ratings for time thresholds (highRating - red rag rating, mediumRating - amber rag rating, lowRating - green rag rating)
 const highRating = 4 * 60 * 60 * 1000;
 const mediumRating = 24 * 60 * 60 * 1000;
 const lowRating = 72 * 60 * 60 * 1000;
@@ -17,15 +19,14 @@ const initialMedRatings = new Set(['CSC SCREENING REQUIRED IN MASH']);
 const initialHighRatings = new Set(['PROGRESS STRAIGHT TO CSC ALLOCATION']);
 
 const timeMetrics = (mashReferral: MashReferral) => {
-  const minsPassed = Math.round(
-    (Number(new Date()) - Number(new Date(mashReferral.createdAt))) / 60 / 1000
-  );
-  const hoursPassed = Math.round(
+  const minsPassed =
+    (Number(new Date()) - Number(new Date(mashReferral.createdAt))) / 60 / 1000;
+
+  const hoursPassed =
     (Number(new Date()) - Number(new Date(mashReferral.createdAt))) /
-      60 /
-      60 /
-      1000
-  );
+    60 /
+    60 /
+    1000;
 
   let timeLeftinMilliseconds = 0;
 
@@ -74,13 +75,13 @@ const MashTags = ({ mashReferral }: Props): React.ReactElement => {
     if (minsPassed < 60)
       return (
         <div className="govuk-tag lbh-tag lbh-tag--green">
-          {minsPassed} mins ago
+          {Math.round(minsPassed)} mins ago
         </div>
       );
     if (hoursPassed > 1 || hoursPassed === 1)
       return (
         <div className="govuk-tag lbh-tag lbh-tag--green">
-          {hoursPassed} {hoursPassed == 1 ? 'hour' : 'hours'} ago
+          {Math.round(hoursPassed)} {hoursPassed == 1 ? 'hour' : 'hours'} ago
         </div>
       );
   }
@@ -88,14 +89,16 @@ const MashTags = ({ mashReferral }: Props): React.ReactElement => {
     if (timeLeftinMilliseconds / 60 / 1000 < 60)
       return (
         <div className="govuk-tag lbh-tag lbh-tag--green">
-          {timeLeftinMilliseconds / 60 / 1000} mins left
+          {Math.round(timeLeftinMilliseconds / 60 / 1000)} mins left
         </div>
       );
     else
       return (
         <div className="govuk-tag lbh-tag lbh-tag--green">
-          {timeLeftinMilliseconds / 60 / 60 / 1000}{' '}
-          {timeLeftinMilliseconds / 60 / 60 / 1000 === 1 ? 'hour' : 'hours'}{' '}
+          {Math.round(timeLeftinMilliseconds / 60 / 60 / 1000)}{' '}
+          {Math.round(timeLeftinMilliseconds / 60 / 60 / 1000) === 1
+            ? 'hour'
+            : 'hours'}{' '}
           left
         </div>
       );
