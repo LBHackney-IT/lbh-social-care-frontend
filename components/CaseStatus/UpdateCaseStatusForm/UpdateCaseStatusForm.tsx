@@ -1,5 +1,6 @@
 import { Form, Formik, FormikHelpers, FormikValues } from 'formik';
 import CASE_STATUS_LAC_UPDATE from 'data/flexibleForms/caseStatus/updateLAC';
+import CASE_STATUS_CP_UPDATE from 'data/flexibleForms/caseStatus/updateCP';
 import { generateInitialValues } from 'lib/utils';
 import { generateFlexibleSchema } from 'lib/validators';
 import FlexibleField from 'components/FlexibleForms/FlexibleFields';
@@ -25,7 +26,10 @@ const UpdateCaseStatusForm: React.FC<{
 }) => {
   const router = useRouter();
 
-  const form_fields = CASE_STATUS_LAC_UPDATE.steps[0].fields;
+  const form_fields =
+    caseStatusType == 'LAC'
+      ? CASE_STATUS_LAC_UPDATE.steps[0].fields
+      : CASE_STATUS_CP_UPDATE.steps[0].fields;
 
   if (
     currentCaseStatusStartDate &&
