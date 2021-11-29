@@ -25,6 +25,8 @@ export const mockedNote: Case = {
     context_flag: 'A',
     date_of_event: '25/10/2020 13:49:43',
   },
+  deleted: false,
+  isImported: false,
 };
 
 export const mockedCaseNote: Case = {
@@ -68,6 +70,8 @@ export const mockedAllocationNote: Case = {
   lastName: 'Bar',
   officerEmail: 'foo@hackney.gov.uk',
   caseFormTimestamp: '11/03/2021 16:51:56',
+  deleted: false,
+  isImported: false,
   caseFormData: {
     note: 'I am the note',
     allocation_id: 321,
@@ -90,6 +94,8 @@ export const mockedDeallocationNote: Case = {
   lastName: 'Bar',
   officerEmail: 'foo@hackney.gov.uk',
   caseFormTimestamp: '11/03/2021 16:51:56',
+  deleted: false,
+  isImported: false,
   caseFormData: {
     note: 'I am the note',
     allocation_id: 321,
