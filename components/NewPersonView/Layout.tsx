@@ -20,8 +20,7 @@ import {
 } from 'lib/feature-flags/feature-flags';
 import CaseStatusFlag from 'components/CaseStatus/CaseStatusFlag/CaseStatusFlag';
 import { useAppConfig } from 'lib/appConfig';
-
-import AnnouncementMessage from 'components/AnnouncementMessage/AnnouncementMessage';
+import ConfirmationBanner from 'components/ConfirmationBanner/ConfirmationBanner';
 
 interface NavLinkProps {
   href: string;
@@ -142,12 +141,11 @@ const Layout = ({ person, children }: Props): React.ReactElement => {
       />
 
       {case_note_deleted == true ? (
-        <AnnouncementMessage
-          title="Case note deleted"
-          content={`Case note "${String(
+        <ConfirmationBanner title="Case note deleted">
+          {`Case note "${String(
             router.query.case_note_name
           )}" has been deleted correctly`}
-        />
+        </ConfirmationBanner>
       ) : (
         <></>
       )}

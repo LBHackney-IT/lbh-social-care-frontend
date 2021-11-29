@@ -35,7 +35,7 @@ const EventLink = ({ event }: Props): React.ReactElement => {
           <Link
             href={`/people/${event.personId}/submissions/${event.recordId}`}
           >
-            <a>(deleted record)</a>
+            <a className={`lbh-link ${s.eventLink}`}>(deleted record)</a>
           </Link>
         </>
       );
