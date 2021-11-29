@@ -88,7 +88,7 @@ const CaseNoteAction = ({
         formType={formType}
         title={title}
         isImported={false}
-        deleted={false}
+        deleted={deleted}
       />
     ) : (
       ''
