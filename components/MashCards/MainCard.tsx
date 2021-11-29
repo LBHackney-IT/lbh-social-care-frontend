@@ -5,11 +5,11 @@ import ScreeningCard from './ScreeningCard';
 import FinalDecisionCard from './FinalDecisionCard';
 
 interface Props {
-  filter: string;
   mashReferrals: MashReferral[];
+  filter: string;
 }
 
-const MainCard = ({ filter, mashReferrals }: Props): React.ReactElement => {
+const MainCard = ({ mashReferrals, filter }: Props): React.ReactElement => {
   if (filter === 'contact') {
     return (
       <div data-testid="ContactCard">

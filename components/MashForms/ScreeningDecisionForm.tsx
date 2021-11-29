@@ -65,11 +65,7 @@ const ScreeningDecisionForm = ({
   return (
     <>
       <h1>Make screening decision</h1>
-      <Heading
-        clientname={referral.clients.join(', ')}
-        timeleft="3 hours"
-        datetime={referral.createdAt}
-      />
+      <Heading mashReferral={referral} />
       <NumberedSteps
         nodes={[
           <>

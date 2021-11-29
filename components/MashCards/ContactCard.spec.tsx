@@ -5,8 +5,6 @@ import ContactCard from './ContactCard';
 describe('ContactCard', () => {
   it('renders the right info from the mash referral', () => {
     render(<ContactCard mashReferral={mockedMashReferral} />);
-
-    expect(screen.getByText('4 hours left'));
     expect(
       screen.getByText(`${mockedMashReferral.clients[0]}`, { exact: false })
     );

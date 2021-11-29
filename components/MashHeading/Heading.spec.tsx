@@ -5,15 +5,7 @@ import { format } from 'date-fns';
 
 describe('Heading', () => {
   it('renders a title', () => {
-    render(
-      <Heading
-        clientname={mockedMashReferral.clients[0]}
-        timeleft="4 hours left"
-        datetime={mockedMashReferral.createdAt}
-      />
-    );
-    expect(screen.getByText('4 hours left'));
-    expect(screen.getByText(mockedMashReferral.clients[0] as string));
+    render(<Heading mashReferral={mockedMashReferral} />);
     expect(
       screen.getByText(
         `received at ${format(
@@ -22,5 +14,6 @@ describe('Heading', () => {
         )}`
       )
     );
+    expect(screen.getByText(mockedMashReferral.clients[0] as string));
   });
 });
