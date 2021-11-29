@@ -95,24 +95,28 @@ const SubmissionPage = ({ submission, person }: Props): React.ReactElement => {
         </div>
 
         <ConditionalFeature name="case-notes-deletion">
-          {isAdminOrDev(user) && !submission.deleted && (
-            <div className="govuk-error-summary__body">
-              <ul className="govuk-list govuk-error-summary__list">
-                <li>
-                  <a
-                    style={{ float: 'right' }}
-                    className="lbh-link"
-                    href="#"
-                    onClick={() => {
-                      setIsRemoveCaseNoteDialogOpen(true);
-                    }}
-                  >
-                    Delete record
-                  </a>
-                </li>
-              </ul>
-            </div>
-          )}
+          {isAdminOrDev(user) &&
+            !submission.deleted &&
+            !submission.isImported &&
+            (submission.formId == 'child-case-note' ||
+              submission.formId == 'adult-case-note') && (
+              <div className="govuk-error-summary__body">
+                <ul className="govuk-list govuk-error-summary__list">
+                  <li>
+                    <a
+                      style={{ float: 'right' }}
+                      className="lbh-link"
+                      href="#"
+                      onClick={() => {
+                        setIsRemoveCaseNoteDialogOpen(true);
+                      }}
+                    >
+                      Delete record
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            )}
         </ConditionalFeature>
       </div>
       <div className={`govuk-grid-row ${s.outer}`}>
