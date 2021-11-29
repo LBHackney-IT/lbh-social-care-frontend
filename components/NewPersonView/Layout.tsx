@@ -21,6 +21,8 @@ import {
 import CaseStatusFlag from 'components/CaseStatus/CaseStatusFlag/CaseStatusFlag';
 import { useAppConfig } from 'lib/appConfig';
 
+import AnnouncementMessage from 'components/AnnouncementMessage/AnnouncementMessage';
+
 interface NavLinkProps {
   href: string;
   children: React.ReactChild;
@@ -68,6 +70,9 @@ const Layout = ({ person, children }: Props): React.ReactElement => {
   const { isFeatureActive } = useFeatureFlags();
   const [addFormOpen, setAddFormOpen] = useState<boolean>(false);
   const { getConfigValue } = useAppConfig();
+  const router = useRouter();
+
+  const case_note_deleted = Boolean(router.query.case_note_deleted);
 
   const navigation: { text: string; href: string }[] = [
     {
@@ -135,6 +140,17 @@ const Layout = ({ person, children }: Props): React.ReactElement => {
         onDismiss={() => setAddFormOpen(false)}
         person={person}
       />
+
+      {case_note_deleted == true ? (
+        <AnnouncementMessage
+          title="Case note deleted"
+          content={`Case note "${String(
+            router.query.case_note_name
+          )}" has been deleted correctly`}
+        />
+      ) : (
+        <></>
+      )}
 
       <WarningNotes id={person.id} />
 

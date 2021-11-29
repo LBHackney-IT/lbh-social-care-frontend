@@ -77,6 +77,7 @@ const SubmissionPage = ({ submission, person }: Props): React.ReactElement => {
                 pathname: `/people/${person.id}`,
                 query: {
                   case_note_deleted: true,
+                  case_note_name: submission?.title,
                 },
               });
             } catch (e) {

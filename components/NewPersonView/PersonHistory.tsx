@@ -23,6 +23,8 @@ const PersonHistory = ({ personId }: Props): React.ReactElement => {
     show_deleted_records: displayDeletedCases,
   });
 
+  console.log(casesData);
+
   if (isValidating && casesData === undefined) {
     return <Spinner />;
   }
