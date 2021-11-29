@@ -2,7 +2,7 @@ import Head from 'next/head';
 import Link from 'next/link';
 import { format } from 'date-fns';
 import { useRouter } from 'next/router';
-import { Allocation, Resident, User } from 'types';
+import { Allocation, Resident, User, CaseStatus } from 'types';
 import s from './index.module.scss';
 import { useRelationships } from 'utils/api/relationships';
 import { useAllocatedWorkers } from 'utils/api/allocatedWorkers';
@@ -111,6 +111,7 @@ const Layout = ({ person, children }: Props): React.ReactElement => {
   if (
     isFeatureActive('case-status') &&
     casestatus &&
+    groupCaseStatusByType(casestatus).size == 0 &&
     person.contextFlag === 'C'
   ) {
     secondaryNavigation.push({
@@ -237,5 +238,9 @@ const Layout = ({ person, children }: Props): React.ReactElement => {
     </>
   );
 };
+
+function groupCaseStatusByType(allCasesStatues: CaseStatus[]): any {
+  return new Set(allCasesStatues.map((el) => el.type));
+}
 
 export default Layout;
