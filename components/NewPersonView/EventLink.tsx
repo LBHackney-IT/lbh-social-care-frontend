@@ -17,7 +17,7 @@ const EventLink = ({ event }: Props): React.ReactElement => {
       mapFormIdToFormDefinition[event.formName]?.displayName || 'Form';
     const formTitle = event.title ? ` - ${event.title}` : '';
 
-    if (event.deleted) {
+    if (!event.deleted) {
       return (
         <Link href={`/people/${event.personId}/submissions/${event.recordId}`}>
           <a className={`lbh-link ${s.eventLink}`}>
