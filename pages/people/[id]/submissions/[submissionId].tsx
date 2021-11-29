@@ -73,7 +73,12 @@ const SubmissionPage = ({ submission, person }: Props): React.ReactElement => {
                 deletionDetails.name_of_requester
               );
 
-              push(`/people/${person.id}`);
+              push({
+                pathname: `/people/${person.id}`,
+                query: {
+                  case_note_deleted: true,
+                },
+              });
             } catch (e) {
               console.log(e);
             }

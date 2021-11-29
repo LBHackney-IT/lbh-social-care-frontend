@@ -11,6 +11,7 @@ import { isAdminOrDev } from 'lib/permissions';
 import { useAuth } from 'components/UserContext/UserContext';
 import { User } from 'types';
 import { ConditionalFeature } from 'lib/feature-flags/feature-flags';
+import { useRouter } from 'next/router';
 
 /** for all possible kinds of submission/case/record, see if it's major or not */
 export const isMajorEvent = (event: Case): boolean =>
@@ -47,15 +48,23 @@ const PersonTimeline = ({
   setDisplayDeletedCases,
 }: Props): React.ReactElement => {
   const { user } = useAuth() as { user: User };
-
-  console.log(isAdminOrDev(user));
+  const router = useRouter();
 
   const oldestResult = events?.[events.length - 1];
   const oldestTimestamp = normaliseDateToISO(
     String(oldestResult?.dateOfEvent || oldestResult?.caseFormTimestamp)
   );
+  const case_note_deleted = Boolean(router.query.case_note_deleted);
 
   return (
+    //
+    // {{case_note_deleted && (
+    //   <AnnouncementMessage
+    //     title="Case note deleted"
+    //     content="Things has gone correctly, good job"
+    //   />
+    // )}
+
     <div className={`govuk-grid-row ${s.outer}`}>
       <div className="govuk-grid-column-two-thirds">
         {events?.length > 0 && (
@@ -91,9 +100,7 @@ const PersonTimeline = ({
           ) : (
             <p className="lbh-body-xs">No events match your search</p>
           )}
-        </aside>
-        <ConditionalFeature name="case-notes-deletion">
-          <aside className={s.sticky}>
+          <ConditionalFeature name="case-notes-deletion">
             {isAdminOrDev(user) && setDisplayDeletedCases ? (
               displayDeletedCases ? (
                 <a
@@ -115,8 +122,8 @@ const PersonTimeline = ({
             ) : (
               <></>
             )}
-          </aside>
-        </ConditionalFeature>
+          </ConditionalFeature>
+        </aside>
       </div>
     </div>
   );
