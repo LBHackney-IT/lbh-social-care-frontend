@@ -10,7 +10,19 @@ interface Props {
 const ScreeningCard = ({ mashReferral }: Props): React.ReactElement => {
   return (
     <>
-      <li className={s.row}>
+      {' '}
+      {mashReferral.initialUrgentContactRequired ? (
+        <div className={s.priority}>&nbsp;High priority</div>
+      ) : (
+        ''
+      )}
+      <li
+        className={
+          mashReferral.initialUrgentContactRequired
+            ? `${s.row} ${s.priorityrow}`
+            : s.row
+        }
+      >
         <div>
           <p className={`lbh-body-s govuk-!-margin-bottom-3 ${s.datetime}`}>
             <MashTag mashReferral={mashReferral} /> submitted{' '}

@@ -11,7 +11,20 @@ interface Props {
 const ContactCard = ({ mashReferral }: Props): React.ReactElement => {
   return (
     <>
-      <li className={s.row}>
+      {mashReferral.referrer.toUpperCase() === 'POLICE - RED' ||
+      mashReferral.referrer.toUpperCase() === 'POLICE - AMBER' ? (
+        <div className={s.priority}>&nbsp;High priority</div>
+      ) : (
+        ''
+      )}
+      <li
+        className={
+          mashReferral.referrer.toUpperCase() === 'POLICE - RED' ||
+          mashReferral.referrer.toUpperCase() === 'POLICE - AMBER'
+            ? `${s.row} ${s.priorityrow}`
+            : s.row
+        }
+      >
         <div>
           <p className={`lbh-body-s govuk-!-margin-bottom-3 ${s.datetime}`}>
             <MashTag mashReferral={mashReferral} /> submitted{' '}

@@ -10,7 +10,18 @@ interface Props {
 const InitialDecisionCard = ({ mashReferral }: Props): React.ReactElement => {
   return (
     <>
-      <li className={s.row}>
+      {mashReferral.contactUrgentContactRequired ? (
+        <div className={s.priority}>&nbsp;High priority</div>
+      ) : (
+        ''
+      )}
+      <li
+        className={
+          mashReferral.contactUrgentContactRequired
+            ? `${s.row} ${s.priorityrow}`
+            : s.row
+        }
+      >
         <div>
           <p className={`lbh-body-s govuk-!-margin-bottom-3 ${s.datetime}`}>
             <MashTag mashReferral={mashReferral} /> submitted{' '}
