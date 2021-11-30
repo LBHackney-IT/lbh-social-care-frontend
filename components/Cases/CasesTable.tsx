@@ -1,8 +1,8 @@
 import forms from 'data/flexibleForms';
-import { Case } from 'types';
+import { Case, User } from 'types';
 import { formatDate, isDateValid } from 'utils/date';
-
 import CaseLink from './CaseLink';
+import { isAdminOrDev } from '../../lib/permissions';
 
 const CaseNotePersonId = ({ recordId, personId }: Case) => (
   <td key={`${recordId}-personId`} className="govuk-table__cell">
@@ -123,9 +123,10 @@ export type CaseTableColumns = keyof typeof tableEntities;
 interface Props {
   records: Case[];
   columns: CaseTableColumns[];
+  user: User;
 }
 
-const CasesTable = ({ records, columns }: Props): React.ReactElement => (
+const CasesTable = ({ records, columns, user }: Props): React.ReactElement => (
   <table className="govuk-table">
     <thead className="govuk-table__head">
       <tr className="govuk-table__row">
@@ -137,11 +138,18 @@ const CasesTable = ({ records, columns }: Props): React.ReactElement => (
       </tr>
     </thead>
     <tbody className="govuk-table__body">
-      {records.map((record) => (
-        <tr className="govuk-table__row" key={record.recordId}>
-          {columns.map((column) => tableEntities[column].component(record))}
-        </tr>
-      ))}
+      {records.map((record) =>
+        (record.formName == 'child-case-note' ||
+          record.formName == 'adult-case-note') &&
+        record.deleted &&
+        !isAdminOrDev(user) ? (
+          <></>
+        ) : (
+          <tr className="govuk-table__row" key={record.recordId}>
+            {columns.map((column) => tableEntities[column].component(record))}
+          </tr>
+        )
+      )}
     </tbody>
   </table>
 );
