@@ -1,6 +1,6 @@
 import ErrorMessage from 'components/ErrorMessage/ErrorMessage';
 import Spinner from 'components/Spinner/Spinner';
-import React from 'react';
+import React, { useState } from 'react';
 import { Case } from 'types';
 import { useCasesByResident } from 'utils/api/cases';
 import PersonTimeline from './PersonTimeline';
@@ -10,13 +10,18 @@ interface Props {
 }
 
 const PersonHistory = ({ personId }: Props): React.ReactElement => {
+  const [displayDeletedCases, setDisplayDeletedCases] =
+    useState<boolean>(false);
+
   const {
     data: casesData,
     size,
     setSize,
     error: casesError,
     isValidating,
-  } = useCasesByResident(personId);
+  } = useCasesByResident(personId, {
+    show_deleted_records: displayDeletedCases,
+  });
 
   if (isValidating && casesData === undefined) {
     return <Spinner />;
@@ -44,6 +49,8 @@ const PersonHistory = ({ personId }: Props): React.ReactElement => {
       size={size}
       setSize={setSize}
       onLastPage={onLastPage}
+      displayDeletedCases={displayDeletedCases}
+      setDisplayDeletedCases={setDisplayDeletedCases}
     />
   );
 };

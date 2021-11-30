@@ -20,6 +20,8 @@ export const caseFactory = Factory.define<Case>(({ sequence }) => ({
     context_flag: 'A',
     date_of_event: '25/10/2020 13:49:43',
   },
+  deleted: false,
+  isImported: false,
 }));
 
 export const mockedNote = caseFactory.build({ caseFormUrl: 'https://foo.bar' });
@@ -47,6 +49,14 @@ export const mockedCaseNote = caseFactory.build({
     form_name_overall: 'ASC_case_note',
     case_note_title: 'i am a case title',
   },
+});
+export const mockedDeletedCaseNote = caseFactory.build({
+  caseFormData: {
+    form_name_overall: 'ASC_case_note',
+    case_note_title: 'i am a case title',
+  },
+  formName: 'adult-case-note',
+  deleted: true,
 });
 export const mockedWarningNoteCase = caseFactory.build({
   formName: 'Warning Note',
