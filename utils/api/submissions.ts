@@ -5,6 +5,7 @@ import {
 } from 'data/flexibleForms/forms.types';
 import useSWR, { SWRResponse } from 'swr';
 import type { ErrorAPI, Paginated } from 'types';
+import axios from 'axios';
 
 export type Data = {
   forms: Form[];
@@ -19,6 +20,18 @@ export const useSubmission = (
   );
 
   return res;
+};
+
+export const deleteSubmission = async (
+  submissionId: string,
+  deleteReason: string,
+  deleteRequestedBy: string
+): Promise<Record<string, unknown>> => {
+  const response = await axios.delete(
+    `/api/submissions/${submissionId}/delete?deleteReason=${deleteReason}&deleteRequestedBy=${deleteRequestedBy}`
+  );
+
+  return response?.data;
 };
 
 /** fetch unfinished submissions in the user's current service context, either for everyone, or by social care id */

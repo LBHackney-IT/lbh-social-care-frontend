@@ -20,6 +20,7 @@ import {
 } from 'lib/feature-flags/feature-flags';
 import CaseStatusFlag from 'components/CaseStatus/CaseStatusFlag/CaseStatusFlag';
 import { useAppConfig } from 'lib/appConfig';
+import ConfirmationBanner from 'components/ConfirmationBanner/ConfirmationBanner';
 
 interface NavLinkProps {
   href: string;
@@ -68,6 +69,9 @@ const Layout = ({ person, children }: Props): React.ReactElement => {
   const { isFeatureActive } = useFeatureFlags();
   const [addFormOpen, setAddFormOpen] = useState<boolean>(false);
   const { getConfigValue } = useAppConfig();
+  const router = useRouter();
+
+  const case_note_deleted = Boolean(router.query.case_note_deleted);
 
   const navigation: { text: string; href: string }[] = [
     {
@@ -135,6 +139,16 @@ const Layout = ({ person, children }: Props): React.ReactElement => {
         onDismiss={() => setAddFormOpen(false)}
         person={person}
       />
+
+      {case_note_deleted == true ? (
+        <ConfirmationBanner title="Case note deleted">
+          {`Case note "${String(
+            router.query.case_note_name
+          )}" has been deleted correctly`}
+        </ConfirmationBanner>
+      ) : (
+        <></>
+      )}
 
       <WarningNotes id={person.id} />
 
