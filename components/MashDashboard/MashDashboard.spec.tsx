@@ -1,5 +1,9 @@
 import { render, screen, fireEvent } from '@testing-library/react';
-import { mockedMashReferrals } from 'factories/mashReferral';
+import {
+  mockedMashReferral,
+  mockedMashReferrals,
+} from 'factories/mashReferral';
+import { ReferralStage } from 'types';
 import MashDashboard from './MashDashboard';
 
 let tabType: string | undefined;
@@ -14,6 +18,18 @@ jest.mock('next/router', () => ({
 }));
 
 describe('MashDashboard', () => {
+  const contactMashReferral = mockedMashReferral;
+  contactMashReferral.stage = ReferralStage.CONTACT;
+  mockedMashReferrals.push(contactMashReferral);
+  const { contact, initial } = {
+    contact: mockedMashReferrals.filter(
+      (ref) => ref.stage === ReferralStage.CONTACT
+    ),
+    initial: mockedMashReferrals.filter(
+      (ref) => ref.stage === ReferralStage.INITIAL
+    ),
+  };
+
   beforeEach(() => {
     mockedRouter.query.tab = undefined;
     mockedRouter.query.confirmation = undefined;
@@ -22,9 +38,9 @@ describe('MashDashboard', () => {
   it('renders the dashboard default tab to be the contact tab', () => {
     render(<MashDashboard referrals={mockedMashReferrals} />);
 
-    expect(screen.getByText(`Contact (0)`).parentElement?.className).toContain(
-      'active'
-    );
+    expect(
+      screen.getByText(`Contact (${contact.length})`).parentElement?.className
+    ).toContain('active');
   });
 
   it('selects the correct tab if the url query is updated', () => {
@@ -32,8 +48,8 @@ describe('MashDashboard', () => {
     render(<MashDashboard referrals={mockedMashReferrals} />);
 
     expect(
-      screen.getByText(`Initial decision (${mockedMashReferrals.length})`)
-        .parentElement?.className
+      screen.getByText(`Initial decision (${initial.length})`).parentElement
+        ?.className
     ).toContain('active');
   });
 
@@ -42,17 +58,15 @@ describe('MashDashboard', () => {
       '{"title":"test-title","test-key":"test-body"}';
     render(<MashDashboard referrals={mockedMashReferrals} />);
 
-    expect(screen.getByText(`Contact (0)`).parentElement?.className).toContain(
-      'active'
-    );
+    expect(
+      screen.getByText(`Contact (${contact.length})`).parentElement?.className
+    ).toContain('active');
 
-    fireEvent.click(
-      screen.getByText(`Initial decision (${mockedMashReferrals.length})`)
-    );
+    fireEvent.click(screen.getByText(`Initial decision (${initial.length})`));
 
     expect(
-      screen.getByText(`Initial decision (${mockedMashReferrals.length})`)
-        .parentElement?.className
+      screen.getByText(`Initial decision (${initial.length})`).parentElement
+        ?.className
     ).toContain('active');
     expect(mockedRouter.push).toHaveBeenCalledWith(
       expect.objectContaining({
