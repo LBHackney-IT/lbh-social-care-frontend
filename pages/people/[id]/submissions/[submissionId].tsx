@@ -10,7 +10,13 @@ import forms from 'data/flexibleForms';
 import RevisionTimeline from 'components/RevisionTimeline/RevisionTimeline';
 import PanelApprovalWidget from 'components/ApprovalWidget/PanelApprovalWidget';
 import ApprovalWidget from 'components/ApprovalWidget/ApprovalWidget';
+import RemoveSubmissionDialog from 'components/Submissions/RemoveSubmissionDialog/RemoveSubmissionDialog';
+import { useState } from 'react';
 import { useAuth } from 'components/UserContext/UserContext';
+import { deleteSubmission } from 'utils/api/submissions';
+import { useRouter } from 'next/router';
+import { isAdminOrDev } from 'lib/permissions';
+import { ConditionalFeature } from 'lib/feature-flags/feature-flags';
 
 interface Props {
   submission: Submission;
@@ -21,6 +27,14 @@ interface Props {
 const SubmissionPage = ({ submission, person }: Props): React.ReactElement => {
   const form = forms.find((form) => form.id === submission.formId);
   const { user } = useAuth() as { user: User };
+  const { push, query } = useRouter();
+
+  if (submission.deleted == true && !isAdminOrDev(user)) {
+    push(`/people/${person.id}`);
+  }
+
+  const [isRemoveCaseNoteDialogOpen, setIsRemoveCaseNoteDialogOpen] =
+    useState<boolean>(false);
 
   return (
     <>
@@ -39,12 +53,71 @@ const SubmissionPage = ({ submission, person }: Props): React.ReactElement => {
         <PanelApprovalWidget user={user} submission={submission} />
       )}
 
+      <RemoveSubmissionDialog
+        isOpen={isRemoveCaseNoteDialogOpen}
+        person={person}
+        onDismiss={() => setIsRemoveCaseNoteDialogOpen(false)}
+        onFormSubmit={async (deletionDetails: any) => {
+          setIsRemoveCaseNoteDialogOpen(false);
+
+          if (
+            deletionDetails.reason_for_deletion &&
+            deletionDetails.name_of_requester
+          ) {
+            const submissionId = String(query.submissionId);
+
+            try {
+              await deleteSubmission(
+                submissionId,
+                deletionDetails.reason_for_deletion,
+                deletionDetails.name_of_requester
+              );
+
+              push({
+                pathname: `/people/${person.id}`,
+                query: {
+                  case_note_deleted: true,
+                  case_note_name: submission?.title,
+                },
+              });
+            } catch (e) {
+              console.log(e);
+            }
+          }
+        }}
+      />
+
       <div className="govuk-grid-row">
         <div className="govuk-grid-column-two-thirds">
           <h1 className="lbh-heading-h1 govuk-!-margin-bottom-8">
-            {form?.name}
+            {form?.name} {submission.deleted == true ? '(deleted record)' : ''}
           </h1>
         </div>
+
+        <ConditionalFeature name="case-notes-deletion">
+          {isAdminOrDev(user) &&
+            !submission.deleted &&
+            !submission.isImported &&
+            (submission.formId == 'child-case-note' ||
+              submission.formId == 'adult-case-note') && (
+              <div className="govuk-error-summary__body">
+                <ul className="govuk-list govuk-error-summary__list">
+                  <li>
+                    <a
+                      style={{ float: 'right' }}
+                      className="lbh-link"
+                      href="#"
+                      onClick={() => {
+                        setIsRemoveCaseNoteDialogOpen(true);
+                      }}
+                    >
+                      Delete record
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            )}
+        </ConditionalFeature>
       </div>
       <div className={`govuk-grid-row ${s.outer}`}>
         <div className="govuk-grid-column-two-thirds">

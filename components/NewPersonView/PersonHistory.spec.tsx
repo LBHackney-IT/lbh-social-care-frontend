@@ -6,6 +6,18 @@ import { SWRInfiniteResponse } from 'swr';
 import { CaseData } from 'types';
 import { mockedCaseNote } from 'factories/cases';
 import { AppConfigProvider } from 'lib/appConfig';
+import { mockedUser } from 'factories/users';
+import { UserContext } from 'components/UserContext/UserContext';
+import {
+  FeatureFlagProvider,
+  FeatureSet,
+} from 'lib/feature-flags/feature-flags';
+
+const features: FeatureSet = {
+  'case-notes-deletion': {
+    isActive: true,
+  },
+};
 
 jest.mock('utils/api/cases');
 jest.mock('components/Spinner/Spinner', () => () => 'MockedSpinner');
@@ -29,9 +41,17 @@ describe('PersonHistory', () => {
     });
 
     render(
-      <AppConfigProvider appConfig={{}}>
-        <PersonHistory personId={mockedResident.id} />
-      </AppConfigProvider>
+      <FeatureFlagProvider features={features}>
+        <UserContext.Provider
+          value={{
+            user: mockedUser,
+          }}
+        >
+          <AppConfigProvider appConfig={{}}>
+            <PersonHistory personId={mockedResident.id} />
+          </AppConfigProvider>
+        </UserContext.Provider>
+      </FeatureFlagProvider>
     );
     expect(screen.getByText('i am a case title'));
   });

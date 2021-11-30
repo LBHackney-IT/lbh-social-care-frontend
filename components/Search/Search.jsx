@@ -128,6 +128,7 @@ const Search = ({
               sort={query}
               callback={callback}
               columns={columns}
+              user={user}
               // onSort={onSort} // commented out as the feature is not ready in the BE
             />
           ) : (

@@ -1,8 +1,8 @@
 import forms from 'data/flexibleForms';
-import { Case } from 'types';
+import { Case, User } from 'types';
 import { formatDate, isDateValid } from 'utils/date';
-
 import CaseLink from './CaseLink';
+import { isAdminOrDev } from '../../lib/permissions';
 
 const CaseNotePersonId = ({ recordId, personId }: Case) => (
   <td key={`${recordId}-personId`} className="govuk-table__cell">
@@ -21,7 +21,7 @@ const CaseNoteDate = ({ recordId, dateOfEvent, caseFormTimestamp }: Case) => (
   </td>
 );
 
-const CaseNoteTitle = ({ recordId, formName, caseFormData }: Case) => {
+const CaseNoteTitle = ({ recordId, formName, caseFormData, deleted }: Case) => {
   // 1. handle case notes
   if (
     ['ASC_case_note', 'CFS_case_note'].includes(
@@ -31,7 +31,7 @@ const CaseNoteTitle = ({ recordId, formName, caseFormData }: Case) => {
   )
     return (
       <td key={`${recordId}-title`} className="govuk-table__cell">
-        Case note: {formName}
+        Case note: {formName} {deleted ? '(deleted)' : ''}
         <br />
         <p className="lbh-body-s govuk-!-margin-top-2">
           {caseFormData?.case_note_title}
@@ -44,14 +44,14 @@ const CaseNoteTitle = ({ recordId, formName, caseFormData }: Case) => {
   if (form)
     return (
       <td key={`${recordId}-title`} className="govuk-table__cell">
-        {form.name}
+        {form.name} {deleted ? '(deleted)' : ''}
       </td>
     );
 
   // 3. handle everything else
   return (
     <td key={`${recordId}-title`} className="govuk-table__cell">
-      {formName}
+      {formName} {deleted ? '(deleted)' : ''}
     </td>
   );
 };
@@ -70,6 +70,7 @@ const CaseNoteAction = ({
   personId,
   formType,
   title,
+  deleted,
 }: Case) => (
   <td
     key={`${recordId}-action`}
@@ -84,6 +85,8 @@ const CaseNoteAction = ({
       personId={personId}
       formType={formType}
       title={title}
+      isImported={false}
+      deleted={deleted}
     />
   </td>
 );
@@ -115,9 +118,10 @@ export type CaseTableColumns = keyof typeof tableEntities;
 interface Props {
   records: Case[];
   columns: CaseTableColumns[];
+  user: User;
 }
 
-const CasesTable = ({ records, columns }: Props): React.ReactElement => (
+const CasesTable = ({ records, columns, user }: Props): React.ReactElement => (
   <table className="govuk-table">
     <thead className="govuk-table__head">
       <tr className="govuk-table__row">
@@ -129,11 +133,16 @@ const CasesTable = ({ records, columns }: Props): React.ReactElement => (
       </tr>
     </thead>
     <tbody className="govuk-table__body">
-      {records.map((record) => (
-        <tr className="govuk-table__row" key={record.recordId}>
-          {columns.map((column) => tableEntities[column].component(record))}
-        </tr>
-      ))}
+      {records.map((record) =>
+        (record.formName == 'child-case-note' ||
+          record.formName == 'adult-case-note') &&
+        record.deleted &&
+        !isAdminOrDev(user) ? null : (
+          <tr className="govuk-table__row" key={record.recordId}>
+            {columns.map((column) => tableEntities[column].component(record))}
+          </tr>
+        )
+      )}
     </tbody>
   </table>
 );

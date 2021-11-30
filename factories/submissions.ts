@@ -30,6 +30,8 @@ export const mockSubmissionFactory = Factory.define<Submission>(() => ({
   formAnswers: {},
   lastEdited: '2021-06-21T12:00:00.000Z',
   completedSteps: 0,
+  isImported: false,
+  deleted: false,
 }));
 
 export const mockSubmission = mockSubmissionFactory.build();
@@ -51,6 +53,8 @@ export const mockInProgressSubmissionFactory =
     submissionState: SubmissionState.InProgress,
     lastEdited: '2021-06-21T12:00:00.000Z',
     completedSteps: 1,
+    isImported: false,
+    deleted: false,
   }));
 
 export const mockInProgressSubmission = mockInProgressSubmissionFactory.build();
