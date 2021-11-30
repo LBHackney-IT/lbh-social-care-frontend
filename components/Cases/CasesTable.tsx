@@ -31,7 +31,7 @@ const CaseNoteTitle = ({ recordId, formName, caseFormData, deleted }: Case) => {
   )
     return (
       <td key={`${recordId}-title`} className="govuk-table__cell">
-        Case note: {formName}
+        Case note: {formName} {deleted ? '(deleted)' : ''}
         <br />
         <p className="lbh-body-s govuk-!-margin-top-2">
           {caseFormData?.case_note_title}
@@ -51,7 +51,7 @@ const CaseNoteTitle = ({ recordId, formName, caseFormData, deleted }: Case) => {
   // 3. handle everything else
   return (
     <td key={`${recordId}-title`} className="govuk-table__cell">
-      {formName}
+      {formName} {deleted ? '(deleted)' : ''}
     </td>
   );
 };

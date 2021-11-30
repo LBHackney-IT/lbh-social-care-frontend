@@ -50,6 +50,14 @@ export const mockedCaseNote = caseFactory.build({
     case_note_title: 'i am a case title',
   },
 });
+export const mockedDeletedCaseNote = caseFactory.build({
+  caseFormData: {
+    form_name_overall: 'ASC_case_note',
+    case_note_title: 'i am a case title',
+  },
+  formName: 'adult-case-note',
+  deleted: true,
+});
 export const mockedWarningNoteCase = caseFactory.build({
   formName: 'Warning Note',
   caseFormData: {
