@@ -168,12 +168,13 @@ describe('Using CIN case status', () => {
       cy.get('Add a case status').should('not.exist');
     });
 
-    it('should validate when editing a CIN status that the start date cannot be in the future', () => {
+    it('should validate when editing a CIN status that the start date cannot be in the future, and only two options shown on the edit screen', () => {
       cy.visitAs(`/people/${residentId}/details`, AuthRoles.ChildrensGroup);
 
       cy.contains('a', 'Edit / End', {
         timeout: 20000,
       }).click();
+      cy.get(`input[value=update]`).should('not.exist');
       cy.get(`input[value=edit]`).check();
       cy.get('[data-testid=submit_button]').click();
       cy.url().should('include', '/edit/edit');

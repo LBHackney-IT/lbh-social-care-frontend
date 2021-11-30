@@ -37,6 +37,8 @@ const caseStatusStartDateEditText = '11 Jan 2000';
 const caseStatusBeforeStartDate = '2000-01-01';
 const caseStatusDayBeforeStartDate = '2000-01-10';
 
+const caseStatusScheduledStartDate = '2040-02-01';
+const caseStatusScheduledStartDateText = '01 Feb 2040';
 const invalidCaseStatusStartDate = '2000-01-10';
 
 let residentId = Cypress.env('CHILDREN_RECORD_SECOND_PERSON_ID');
@@ -210,6 +212,82 @@ describe('Using CP case status', () => {
       cy.contains('Child protection').should('be.visible');
       cy.contains(caseStatusStartDateEditText).should('be.visible');
       cy.contains('Physical abuse').should('be.visible');
+    });
+
+    it('should validate when updating a CP status that the start date cannot be before the current status start date', () => {
+      cy.visitAs(`/people/${residentId}/details`, AuthRoles.ChildrensGroup);
+
+      cy.contains('a', 'Edit / End', {
+        timeout: 20000,
+      }).click();
+      cy.get(`input[value=update]`).check();
+      cy.get('[data-testid=submit_button]').click();
+      cy.url().should('include', '/update/edit');
+
+      cy.get('input[name=startDate]').clear().type(caseStatusBeforeStartDate);
+      cy.get('[data-testid=category]').click();
+      cy.contains(/Date cannot be/).should('be.visible');
+      cy.get('[data-testid=text-field-error-message]').should('exist');
+
+      cy.get('input[name=startDate]')
+        .clear()
+        .type(caseStatusDayBeforeStartDate);
+      cy.get('[data-testid=category]').click();
+      cy.contains(/Date cannot be/).should('be.visible');
+      cy.get('[data-testid=text-field-error-message]').should('exist');
+
+      cy.get('input[name=startDate]').clear().type(caseStatusStartDateEdit);
+      cy.get('[data-testid=category]').click();
+      cy.contains(/Date cannot be/).should('be.visible');
+      cy.get('[data-testid=text-field-error-message]').should('exist');
+
+      cy.get('input[name=startDate]')
+        .clear()
+        .type(caseStatusScheduledStartDate);
+      cy.get('[data-testid=category]').click();
+      cy.get('[data-testid=text-field-error-message]').should('not.exist');
+    });
+
+    it('should be possible to update a LAC case status to have a scheduled case status', () => {
+      cy.visitAs(`/people/${residentId}/details`, AuthRoles.ChildrensGroup);
+
+      cy.contains('a', 'Edit / End', {
+        timeout: 20000,
+      }).click();
+      cy.get(`input[value=update]`).check();
+      cy.get('[data-testid=submit_button]').click();
+      cy.url().should('include', '/update/edit');
+      cy.get('input[name=startDate]')
+        .clear()
+        .type(caseStatusScheduledStartDate);
+      cy.get(`input[value=C3]`).check();
+      cy.get('[data-testid=submit_button]').click();
+
+      cy.url().should('include', '/update/review');
+      cy.contains('Child protection').should('be.visible');
+      cy.contains(caseStatusScheduledStartDateText).should('be.visible');
+      cy.contains('Emotional abuse');
+      cy.contains('button', 'Yes, update').click();
+
+      cy.url().should('include', '/details');
+      cy.contains('Child protection').should('be.visible');
+      cy.contains(caseStatusScheduledStartDateText).should('be.visible');
+    });
+
+    //Updating A pre-existing scheduled case status - Announcement
+    it('should render an announcement when updating a CP case status that has a pre-existing scheduled case status', () => {
+      cy.visitAs(`/people/${residentId}/details`, AuthRoles.ChildrensGroup);
+
+      cy.contains('a', 'Edit / End', {
+        timeout: 20000,
+      }).click();
+      cy.get(`input[value=update]`).check();
+      cy.get('[data-testid=submit_button]').click();
+      cy.url().should('include', '/update/edit');
+      cy.get('[data-testid=announcement_message_box]').should('exist');
+      cy.contains(
+        'An update has already been scheduled for this status'
+      ).should('be.visible');
     });
 
     it('should validate when ending a CP case status that the end date cannot be before the case status start date, start date can be in the future', () => {
