@@ -137,9 +137,7 @@ const CasesTable = ({ records, columns, user }: Props): React.ReactElement => (
         (record.formName == 'child-case-note' ||
           record.formName == 'adult-case-note') &&
         record.deleted &&
-        !isAdminOrDev(user) ? (
-          <></>
-        ) : (
+        !isAdminOrDev(user) ? null : (
           <tr className="govuk-table__row" key={record.recordId}>
             {columns.map((column) => tableEntities[column].component(record))}
           </tr>

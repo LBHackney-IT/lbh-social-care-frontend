@@ -58,12 +58,13 @@ describe('CasesTable component', () => {
       user: mockedUser,
     };
 
-    const { asFragment } = render(
+    const { asFragment, getByText } = render(
       <CasesTable
         {...props}
         columns={['date_of_event', 'formName', 'officer_email', 'action']}
       />
     );
+    expect(getByText(/(deleted)/)).toBeInTheDocument();
     expect(asFragment()).toMatchSnapshot();
   });
 });
