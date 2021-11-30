@@ -77,22 +77,17 @@ const CaseNoteAction = ({
     className="govuk-table__cell govuk-table__cell--numeric"
     style={{ width: '50px', textAlign: 'center' }}
   >
-    {(formType == 'flexible-form' && !deleted) ||
-    formType != 'flexible-form' ? (
-      <CaseLink
-        recordId={recordId}
-        externalUrl={caseFormUrl}
-        caseFormData={caseFormData}
-        formName={formName}
-        personId={personId}
-        formType={formType}
-        title={title}
-        isImported={false}
-        deleted={deleted}
-      />
-    ) : (
-      ''
-    )}
+    <CaseLink
+      recordId={recordId}
+      externalUrl={caseFormUrl}
+      caseFormData={caseFormData}
+      formName={formName}
+      personId={personId}
+      formType={formType}
+      title={title}
+      isImported={false}
+      deleted={deleted}
+    />
   </td>
 );
 
