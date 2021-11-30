@@ -11,6 +11,8 @@ describe('CaseLink component', () => {
       caseFormData: mockedDeallocationNote.caseFormData,
       personId: 1,
       formName: 'foo',
+      isImported: false,
+      deleted: false,
     };
     const { asFragment } = render(<CaseLink {...props} />);
     expect(asFragment()).toMatchInlineSnapshot(`
@@ -33,6 +35,8 @@ describe('CaseLink component', () => {
       caseFormData: mockedDeallocationNote.caseFormData,
       personId: 1,
       formName: 'foo',
+      isImported: false,
+      deleted: false,
     };
     const { asFragment } = render(<CaseLink {...props} />);
     expect(asFragment()).toMatchInlineSnapshot(`
@@ -54,6 +58,8 @@ describe('CaseLink component', () => {
       personId: 1,
       formName: 'child-case-note',
       title: 'test title',
+      isImported: false,
+      deleted: false,
     };
     const { asFragment } = render(<CaseLink {...props} />);
     expect(asFragment()).toMatchInlineSnapshot(`
@@ -77,6 +83,8 @@ describe('CaseLink component', () => {
       },
       personId: 1,
       formName: 'foo',
+      isImported: false,
+      deleted: false,
     };
     const { asFragment } = render(<CaseLink {...props} />);
     expect(asFragment()).toMatchInlineSnapshot(`<DocumentFragment />`);
@@ -91,6 +99,8 @@ describe('CaseLink component', () => {
       },
       personId: 1,
       formName: 'foo',
+      isImported: false,
+      deleted: false,
     };
     const { asFragment } = render(<CaseLink {...props} />);
     expect(asFragment()).toMatchSnapshot();

@@ -10,6 +10,8 @@ interface Props {
   personId: number;
   title?: string;
   formType?: string;
+  isImported: boolean;
+  deleted: boolean;
 }
 
 const CaseLink = ({
@@ -20,6 +22,8 @@ const CaseLink = ({
   personId,
   title,
   formType,
+  isImported,
+  deleted,
 }: Props): React.ReactElement | null => {
   if (formType === 'flexible-form') {
     const name = mapFormIdToFormDefinition[formName]?.displayName;
@@ -51,6 +55,8 @@ const CaseLink = ({
     caseFormData,
     personId,
     formName,
+    isImported,
+    deleted,
   });
   return internalLink ? (
     <Link href={internalLink}>
