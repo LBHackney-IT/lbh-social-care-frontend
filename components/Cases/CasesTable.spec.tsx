@@ -6,10 +6,12 @@ import {
   mockedCaseNote,
   mockedAllocationNote,
 } from 'factories/cases';
+import { mockedUser } from 'factories/users';
 
 describe('CasesTable component', () => {
   const props = {
     records: [mockedNote, mockedAllocationNote, mockedCaseNote],
+    user: mockedUser,
   };
   it('should render properly', () => {
     const { asFragment } = render(
