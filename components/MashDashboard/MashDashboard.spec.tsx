@@ -1,6 +1,6 @@
 import { render, screen, fireEvent } from '@testing-library/react';
 import {
-  mockedMashReferral,
+  mashReferralFactory,
   mockedMashReferrals,
 } from 'factories/mashReferral';
 import { ReferralStage } from 'types';
@@ -18,7 +18,9 @@ jest.mock('next/router', () => ({
 }));
 
 describe('MashDashboard', () => {
-  const contactMashReferral = mockedMashReferral;
+  const contactMashReferral = mashReferralFactory.build({
+    stage: ReferralStage.CONTACT,
+  });
   contactMashReferral.stage = ReferralStage.CONTACT;
   mockedMashReferrals.push(contactMashReferral);
   const { contact, initial } = {
@@ -38,7 +40,6 @@ describe('MashDashboard', () => {
   it('renders the dashboard default tab to be the contact tab', () => {
     render(<MashDashboard referrals={mockedMashReferrals} />);
 
-    expect(contact.length).toBe(1);
     expect(
       screen.getByText(`Contact (${contact.length})`).parentElement?.className
     ).toContain('active');
@@ -48,7 +49,6 @@ describe('MashDashboard', () => {
     mockedRouter.query.tab = 'initial-decision';
     render(<MashDashboard referrals={mockedMashReferrals} />);
 
-    expect(initial.length).toBe(1);
     expect(
       screen.getByText(`Initial decision (${initial.length})`).parentElement
         ?.className
