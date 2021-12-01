@@ -25,8 +25,8 @@ const PersonHistory = ({ personId }: Props): React.ReactElement => {
     error: casesError,
     isValidating,
   } = useCasesByResident(personId, {
-    includeDeletedRecords: displayDeletedCases,
-    includeDeletedRecordsCount: includeDeletedCount,
+    include_deleted_records: displayDeletedCases,
+    include_deleted_records_count: includeDeletedCount,
   });
 
   if (isValidating && casesData === undefined) {
