@@ -59,7 +59,7 @@ const newResident = {
   createdBy: 'e2e.tests.adult@hackney.gov.uk',
 };
 
-describe('Using CP case status', () => {
+xdescribe('Using CP case status', () => {
   beforeEach(() => {
     // This is required as the email address stored in the cookie is not an
     // existing worker.

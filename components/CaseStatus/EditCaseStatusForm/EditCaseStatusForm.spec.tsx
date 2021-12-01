@@ -89,7 +89,7 @@ describe('EditCaseStatusForm', () => {
   });
 
   it('displays the End form for LAC', () => {
-    const { getByText } = render(
+    const { getByText, queryByText } = render(
       <EditCaseStatusForm
         personId={mockedResident.id}
         caseStatusId={123}
@@ -100,6 +100,11 @@ describe('EditCaseStatusForm', () => {
     );
 
     expect(getByText('End Date')).toBeInTheDocument();
+    expect(
+      queryByText(
+        'X1: Episode ceases, and new episode begins on same day, for any reason'
+      )
+    ).not.toBeInTheDocument();
     expect(
       getByText('What is the reason for the episode ending?')
     ).toBeInTheDocument();
