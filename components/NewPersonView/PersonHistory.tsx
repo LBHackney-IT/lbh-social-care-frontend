@@ -43,8 +43,8 @@ const PersonHistory = ({ personId }: Props): React.ReactElement => {
   for (let i = 0; casesData !== undefined && i < casesData.length; i++) {
     events.push(...casesData[i].cases);
     if (includeDeletedCount) {
-      deletedCount = casesData[i].deletedCount
-        ? Number(casesData[i].deletedCount)
+      deletedCount = casesData[i].deletedRecordsCount
+        ? Number(casesData[i].deletedRecordsCount)
         : 0;
     }
   }
