@@ -5,13 +5,15 @@ import { LACReasonsForEpisodeEndOptions } from 'types';
 const lac_placement_reason_options: Choice[] = [];
 
 Object.keys(LACReasonsForEpisodeEndOptions).map((key) => {
-  lac_placement_reason_options.push({
-    value: key,
-    label:
-      LACReasonsForEpisodeEndOptions[
-        key as keyof typeof LACReasonsForEpisodeEndOptions
-      ],
-  });
+  if (key != 'X1') {
+    lac_placement_reason_options.push({
+      value: key,
+      label:
+        LACReasonsForEpisodeEndOptions[
+          key as keyof typeof LACReasonsForEpisodeEndOptions
+        ],
+    });
+  }
 });
 
 const form: Form = {

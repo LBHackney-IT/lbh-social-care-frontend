@@ -33,7 +33,7 @@ const form: Form = {
     },
     {
       id: 'editLACCaseStatus',
-      name: 'Edit a LAC status',
+      name: 'Edit a status',
       theme: 'Case status',
       fields: [
         {
