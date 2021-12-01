@@ -99,7 +99,10 @@ const PersonTimeline = ({
                   href="#"
                   className="lbh-link lbh-body-s"
                 >
-                  Hide deleted records ({deletedRecordsCount})
+                  Hide deleted records{' '}
+                  {deletedRecordsCount != null
+                    ? `(${deletedRecordsCount})`
+                    : ''}
                 </a>
               ) : (
                 <a
@@ -107,7 +110,10 @@ const PersonTimeline = ({
                   href="#"
                   className="lbh-link lbh-body-s"
                 >
-                  Show deleted records ({deletedRecordsCount})
+                  Show deleted records{' '}
+                  {deletedRecordsCount != null
+                    ? `(${deletedRecordsCount})`
+                    : ''}
                 </a>
               )
             ) : (
