@@ -10,10 +10,8 @@ interface Props {
 const InitialDecisionCard = ({ mashReferral }: Props): React.ReactElement => {
   return (
     <>
-      {mashReferral.contactUrgentContactRequired ? (
+      {mashReferral.contactUrgentContactRequired && (
         <div className={s.priority}>&nbsp;High priority</div>
-      ) : (
-        ''
       )}
       <li
         className={

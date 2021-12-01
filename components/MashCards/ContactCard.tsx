@@ -12,11 +12,9 @@ const ContactCard = ({ mashReferral }: Props): React.ReactElement => {
   return (
     <>
       {mashReferral.referrer.toUpperCase() === 'POLICE - RED' ||
-      mashReferral.referrer.toUpperCase() === 'POLICE - AMBER' ? (
-        <div className={s.priority}>&nbsp;High priority</div>
-      ) : (
-        ''
-      )}
+        (mashReferral.referrer.toUpperCase() === 'POLICE - AMBER' && (
+          <div className={s.priority}>&nbsp;High priority</div>
+        ))}
       <li
         className={
           mashReferral.referrer.toUpperCase() === 'POLICE - RED' ||
