@@ -71,7 +71,13 @@ describe('PersonHistory', () => {
 
     render(
       <AppConfigProvider appConfig={{}}>
-        <PersonHistory personId={mockedResident.id} />
+        <UserContext.Provider
+          value={{
+            user: mockedUser,
+          }}
+        >
+          <PersonHistory personId={mockedResident.id} />
+        </UserContext.Provider>
       </AppConfigProvider>
     );
     expect(screen.getByText('No events to show'));
@@ -88,7 +94,14 @@ describe('PersonHistory', () => {
 
     render(
       <AppConfigProvider appConfig={{}}>
-        <PersonHistory personId={mockedResident.id} />
+        <UserContext.Provider
+          value={{
+            user: mockedUser,
+          }}
+        >
+          {' '}
+          <PersonHistory personId={mockedResident.id} />
+        </UserContext.Provider>
       </AppConfigProvider>
     );
     expect(screen.getByText('MockedSpinner'));
@@ -109,7 +122,13 @@ describe('PersonHistory', () => {
 
     render(
       <AppConfigProvider appConfig={{}}>
-        <PersonHistory personId={mockedResident.id} />
+        <UserContext.Provider
+          value={{
+            user: mockedUser,
+          }}
+        >
+          <PersonHistory personId={mockedResident.id} />
+        </UserContext.Provider>
       </AppConfigProvider>
     );
     expect(screen.getByText(errorMessage));

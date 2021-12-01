@@ -120,6 +120,7 @@ export interface Case {
 export interface CaseData {
   cases: Case[];
   nextCursor?: number;
+  deletedRecordsCount?: number;
 }
 
 export interface LegacyResident {

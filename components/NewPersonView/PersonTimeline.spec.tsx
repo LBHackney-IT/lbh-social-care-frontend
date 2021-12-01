@@ -84,7 +84,7 @@ describe('PersonTimeline', () => {
     expect(screen.getByText('No events match your search'));
   });
 
-  it('displays the hide/show deleted record link', () => {
+  it('displays the hide/show deleted record link with the count', () => {
     render(
       <UserContext.Provider
         value={{
@@ -103,12 +103,13 @@ describe('PersonTimeline', () => {
               setDisplayDeletedCases={() => {
                 return null;
               }}
+              deletedRecordsCount={10}
             />
           </AppConfigProvider>
         </FeatureFlagProvider>
       </UserContext.Provider>
     );
-    expect(screen.getByText('Show deleted records'));
+    expect(screen.getByText('Show deleted records (10)'));
   });
 
   it('hides the pagination button on the last page', () => {
