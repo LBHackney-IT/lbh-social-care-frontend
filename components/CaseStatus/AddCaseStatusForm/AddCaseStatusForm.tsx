@@ -15,7 +15,7 @@ import { useRouter } from 'next/router';
 import { useCaseStatuses } from 'utils/api/caseStatus';
 import { format } from 'date-fns';
 import { getLatestEndedStatusEndDate } from '../caseStatusHelper';
-// import { useEffect } from 'react';
+import { groupCaseStatusByType } from 'components/NewPersonView/Layout';
 
 const AddCaseStatusForm: React.FC<{
   personId: number;
@@ -24,15 +24,36 @@ const AddCaseStatusForm: React.FC<{
   const router = useRouter();
 
   const { data } = useCaseStatuses(personId, 'true');
+  const openCaseStatus = useCaseStatuses(personId, 'false').data;
+  let openGroupedCaseStatus: any;
+  if (openCaseStatus) {
+    openGroupedCaseStatus = groupCaseStatusByType(openCaseStatus);
+  }
 
   let latestEndedStatusEndDate = getLatestEndedStatusEndDate(data);
-  console.log('enddate1', latestEndedStatusEndDate);
 
   const form_fields = CASE_STATUS.steps[0].fields;
 
   form_fields.map((field) => {
     if (prefilledFields && prefilledFields[field.id]) {
       field.default = String(prefilledFields[field.id]);
+    }
+    if (
+      field.id === 'type' &&
+      openGroupedCaseStatus &&
+      openGroupedCaseStatus.size >= 1
+    ) {
+      field.choices = field.choices?.filter((choice) => choice.value !== 'CIN');
+      if (openGroupedCaseStatus.has('LAC')) {
+        field.choices = field.choices?.filter(
+          (choice) => choice.value !== 'LAC'
+        );
+      }
+      if (openGroupedCaseStatus.has('CP')) {
+        field.choices = field.choices?.filter(
+          (choice) => choice.value !== 'CP'
+        );
+      }
     }
     if (
       field.id === 'startDate' &&
@@ -74,7 +95,6 @@ const AddCaseStatusForm: React.FC<{
     }
 
     if (latestEndedStatusEndDate !== prevLatestEndedStatusEndDate) {
-      console.log('change validation date');
       form_fields.map((field) => {
         if (
           field.id === 'startDate' &&
@@ -109,7 +129,6 @@ const AddCaseStatusForm: React.FC<{
             />
           ))}
           <HandleChange />
-          {console.log('values', values.type)}
 
           <div style={{ display: 'flex', alignItems: 'center' }}>
             <Button

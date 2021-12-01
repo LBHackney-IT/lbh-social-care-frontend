@@ -255,7 +255,7 @@ const Layout = ({ person, children }: Props): React.ReactElement => {
   );
 };
 
-function groupCaseStatusByType(allCasesStatues: CaseStatus[]): any {
+export function groupCaseStatusByType(allCasesStatues: CaseStatus[]): any {
   return new Set(allCasesStatues.map((el) => el.type));
 }
 
