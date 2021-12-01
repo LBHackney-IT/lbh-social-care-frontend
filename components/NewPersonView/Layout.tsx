@@ -115,7 +115,9 @@ const Layout = ({ person, children }: Props): React.ReactElement => {
   if (
     isFeatureActive('case-status') &&
     casestatus &&
-    groupCaseStatusByType(casestatus).size == 0 &&
+    (groupCaseStatusByType(casestatus).size == 0 ||
+      (!groupCaseStatusByType(casestatus).has('CIN') &&
+        groupCaseStatusByType(casestatus).size < 2)) &&
     person.contextFlag === 'C'
   ) {
     secondaryNavigation.push({
