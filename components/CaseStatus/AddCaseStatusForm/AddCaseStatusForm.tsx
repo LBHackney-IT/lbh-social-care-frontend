@@ -1,4 +1,10 @@
-import { Form, Formik, FormikHelpers, FormikValues } from 'formik';
+import {
+  Form,
+  Formik,
+  FormikHelpers,
+  FormikValues,
+  useFormikContext,
+} from 'formik';
 import CASE_STATUS from 'data/flexibleForms/caseStatus/caseStatus';
 import { generateInitialValues } from 'lib/utils';
 import { generateFlexibleSchema } from 'lib/validators';
@@ -9,6 +15,7 @@ import { useRouter } from 'next/router';
 import { useCaseStatuses } from 'utils/api/caseStatus';
 import { format } from 'date-fns';
 import { getLatestEndedStatusEndDate } from '../caseStatusHelper';
+// import { useEffect } from 'react';
 
 const AddCaseStatusForm: React.FC<{
   personId: number;
@@ -18,7 +25,8 @@ const AddCaseStatusForm: React.FC<{
 
   const { data } = useCaseStatuses(personId, 'true');
 
-  const latestEndedStatusEndDate = getLatestEndedStatusEndDate(data);
+  let latestEndedStatusEndDate = getLatestEndedStatusEndDate(data);
+  console.log('enddate1', latestEndedStatusEndDate);
 
   const form_fields = CASE_STATUS.steps[0].fields;
 
@@ -55,11 +63,45 @@ const AddCaseStatusForm: React.FC<{
     }
   };
 
+  const HandleChange = () => {
+    const { values }: FormikValues = useFormikContext();
+    console.log('CHANGE', values.type);
+    if (values && values.type === 'CIN') {
+      console.log('IN CIN');
+      latestEndedStatusEndDate = '2021-11-28';
+    }
+    if (values && values.type === 'LAC') {
+      console.log('IN LAC');
+      latestEndedStatusEndDate = '2021-11-29';
+    }
+    if (values && values.type === 'CP') {
+      console.log('IN CP');
+      latestEndedStatusEndDate = '2021-11-30';
+    }
+    console.log(latestEndedStatusEndDate);
+
+    form_fields.map((field) => {
+      if (
+        field.id === 'startDate' &&
+        latestEndedStatusEndDate &&
+        latestEndedStatusEndDate !== 'undefined'
+      ) {
+        field.startDate = format(
+          new Date(latestEndedStatusEndDate),
+          'yyyy-MM-dd'
+        );
+      }
+    });
+    return null;
+  };
+
   return (
     <Formik
       initialValues={generateInitialValues(form_fields)}
       validationSchema={generateFlexibleSchema(form_fields)}
       onSubmit={handleSubmit}
+      // handleChange={HandleChange}
+      // onChange={HandleChange}
     >
       {({ touched, errors, values }) => (
         <Form>
@@ -72,6 +114,8 @@ const AddCaseStatusForm: React.FC<{
               touched={touched}
             />
           ))}
+          <HandleChange />
+          {console.log('values', values.type)}
 
           <div style={{ display: 'flex', alignItems: 'center' }}>
             <Button

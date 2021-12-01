@@ -136,13 +136,20 @@ const groupAnswersByGroupId = (
 };
 
 export const getLatestEndedStatusEndDate = (
-  caseStatusIncludingEnded: CaseStatus[] | undefined
+  caseStatusIncludingEnded: CaseStatus[] | undefined,
+  type?: string
 ): string | undefined => {
   if (caseStatusIncludingEnded) {
+    console.log('type', type);
     let latestEndDate: string;
-    const endedCaseData = caseStatusIncludingEnded.filter(
+    let endedCaseData = caseStatusIncludingEnded.filter(
       (status) => status.endDate
     );
+    if (type) {
+      endedCaseData = endedCaseData.filter(
+        (status) => status.type == type || status.type == 'CIN'
+      );
+    }
     if (endedCaseData && endedCaseData.length > 0) {
       latestEndDate = endedCaseData[0].endDate;
       endedCaseData.forEach((status) => {
