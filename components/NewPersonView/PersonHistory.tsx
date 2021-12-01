@@ -16,7 +16,7 @@ const PersonHistory = ({ personId }: Props): React.ReactElement => {
   const [displayDeletedCases, setDisplayDeletedCases] =
     useState<boolean>(false);
   const { user } = useAuth() as { user: User };
-  const includeDeletedCount = isAdminOrDev(user);
+  const isAdmin = isAdminOrDev(user);
 
   const {
     data: casesData,
@@ -26,7 +26,7 @@ const PersonHistory = ({ personId }: Props): React.ReactElement => {
     isValidating,
   } = useCasesByResident(personId, {
     includeDeletedRecords: displayDeletedCases,
-    includeDeletedRecordsCount: includeDeletedCount && displayDeletedCases,
+    includeDeletedRecordsCount: isAdmin && displayDeletedCases,
   });
 
   if (isValidating && casesData === undefined) {
@@ -42,7 +42,7 @@ const PersonHistory = ({ personId }: Props): React.ReactElement => {
   const events = [] as Case[];
   for (let i = 0; casesData !== undefined && i < casesData.length; i++) {
     events.push(...casesData[i].cases);
-    if (includeDeletedCount) {
+    if (isAdmin) {
       deletedCount = casesData[i].deletedRecordsCount
         ? Number(casesData[i].deletedRecordsCount)
         : 0;
