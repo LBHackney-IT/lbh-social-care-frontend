@@ -65,6 +65,7 @@ const AddCaseStatusForm: React.FC<{
 
   const HandleChange = () => {
     const { values }: FormikValues = useFormikContext();
+    const prevLatestEndedStatusEndDate = latestEndedStatusEndDate;
     console.log('CHANGE', values.type);
     if (values && values.type === 'CIN') {
       console.log('IN CIN');
@@ -80,18 +81,21 @@ const AddCaseStatusForm: React.FC<{
     }
     console.log(latestEndedStatusEndDate);
 
-    form_fields.map((field) => {
-      if (
-        field.id === 'startDate' &&
-        latestEndedStatusEndDate &&
-        latestEndedStatusEndDate !== 'undefined'
-      ) {
-        field.startDate = format(
-          new Date(latestEndedStatusEndDate),
-          'yyyy-MM-dd'
-        );
-      }
-    });
+    if (latestEndedStatusEndDate !== prevLatestEndedStatusEndDate) {
+      console.log('change validation date');
+      form_fields.map((field) => {
+        if (
+          field.id === 'startDate' &&
+          latestEndedStatusEndDate &&
+          latestEndedStatusEndDate !== 'undefined'
+        ) {
+          field.startDate = format(
+            new Date(latestEndedStatusEndDate),
+            'yyyy-MM-dd'
+          );
+        }
+      });
+    }
     return null;
   };
 
@@ -100,8 +104,6 @@ const AddCaseStatusForm: React.FC<{
       initialValues={generateInitialValues(form_fields)}
       validationSchema={generateFlexibleSchema(form_fields)}
       onSubmit={handleSubmit}
-      // handleChange={HandleChange}
-      // onChange={HandleChange}
     >
       {({ touched, errors, values }) => (
         <Form>
