@@ -35,6 +35,7 @@ interface Props {
   setDisplayDeletedCases?: (
     value: boolean | ((prevVar: boolean) => boolean)
   ) => void;
+  deletedRecordsCount?: number;
 }
 
 const PersonTimeline = ({
@@ -45,6 +46,7 @@ const PersonTimeline = ({
   personId,
   displayDeletedCases,
   setDisplayDeletedCases,
+  deletedRecordsCount,
 }: Props): React.ReactElement => {
   const { user } = useAuth() as { user: User };
 
@@ -97,7 +99,7 @@ const PersonTimeline = ({
                   href="#"
                   className="lbh-link lbh-body-s"
                 >
-                  Hide deleted records
+                  Hide deleted records ({deletedRecordsCount})
                 </a>
               ) : (
                 <a
@@ -105,7 +107,7 @@ const PersonTimeline = ({
                   href="#"
                   className="lbh-link lbh-body-s"
                 >
-                  Show deleted records
+                  Show deleted records ({deletedRecordsCount})
                 </a>
               )
             ) : (

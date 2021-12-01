@@ -26,7 +26,7 @@ const PersonHistory = ({ personId }: Props): React.ReactElement => {
     isValidating,
   } = useCasesByResident(personId, {
     show_deleted_records: displayDeletedCases,
-    include_deleted_count: includeDeletedCount,
+    include_deleted_records_count: includeDeletedCount,
   });
 
   if (isValidating && casesData === undefined) {
@@ -37,9 +37,16 @@ const PersonHistory = ({ personId }: Props): React.ReactElement => {
     return <ErrorMessage label={casesError.message} />;
   }
 
+  let deletedCount = 0;
+
   const events = [] as Case[];
   for (let i = 0; casesData !== undefined && i < casesData.length; i++) {
     events.push(...casesData[i].cases);
+    if (includeDeletedCount) {
+      deletedCount = casesData[i].deletedCount
+        ? Number(casesData[i].deletedCount)
+        : 0;
+    }
   }
 
   if (!events || events.length === 0) {
@@ -57,6 +64,7 @@ const PersonHistory = ({ personId }: Props): React.ReactElement => {
       onLastPage={onLastPage}
       displayDeletedCases={displayDeletedCases}
       setDisplayDeletedCases={setDisplayDeletedCases}
+      deletedRecordsCount={deletedCount}
     />
   );
 };
