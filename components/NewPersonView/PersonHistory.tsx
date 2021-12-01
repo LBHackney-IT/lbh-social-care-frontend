@@ -4,6 +4,9 @@ import React, { useState } from 'react';
 import { Case } from 'types';
 import { useCasesByResident } from 'utils/api/cases';
 import PersonTimeline from './PersonTimeline';
+import { isAdminOrDev } from 'lib/permissions';
+import { User } from 'types';
+import { useAuth } from 'components/UserContext/UserContext';
 
 interface Props {
   personId: number;
@@ -12,6 +15,8 @@ interface Props {
 const PersonHistory = ({ personId }: Props): React.ReactElement => {
   const [displayDeletedCases, setDisplayDeletedCases] =
     useState<boolean>(false);
+  const { user } = useAuth() as { user: User };
+  const includeDeletedCount = isAdminOrDev(user);
 
   const {
     data: casesData,
@@ -21,6 +26,7 @@ const PersonHistory = ({ personId }: Props): React.ReactElement => {
     isValidating,
   } = useCasesByResident(personId, {
     show_deleted_records: displayDeletedCases,
+    include_deleted_count: includeDeletedCount,
   });
 
   if (isValidating && casesData === undefined) {
