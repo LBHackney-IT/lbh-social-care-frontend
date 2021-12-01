@@ -48,6 +48,15 @@ const Event = ({ event }: Props): React.ReactElement => {
         {safelyFormat(displayDate)}
         {event.caseFormUrl?.includes('google') && ` · Google document`}
         {event.officerEmail && ` · ${event.officerEmail}`}
+        {event.deleted && event.deletedFields
+          ? ` · deleted ${safelyFormat(event.deletedFields?.dateOfDeletion)}`
+          : null}
+        {event.deleted && event.deletedFields
+          ? ` · ${event.deletedFields?.deleteReason}`
+          : null}
+        {event.deleted && event.deletedFields
+          ? ` · requested by ${event.deletedFields?.deleteRequestedBy}`
+          : null}
       </p>
 
       {displaySnippet && (

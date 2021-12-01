@@ -1,5 +1,9 @@
 import { render, screen } from '@testing-library/react';
-import { mockedCaseNote, mockedWarningNoteCase } from 'factories/cases';
+import {
+  mockedCaseNote,
+  mockedWarningNoteCase,
+  mockedDeletedCaseNote,
+} from 'factories/cases';
 import { AppConfigProvider } from 'lib/appConfig';
 import Event from './Event';
 
@@ -33,6 +37,21 @@ describe('Event', () => {
     expect(screen.getByText('Warning Note'));
     expect(screen.getByText('25 Oct 2020 1.49 pm', { exact: false }));
     expect(screen.getByText('Fname.Lname@hackney.gov.uk', { exact: false }));
+  });
+  it('renders the right info for a deleted case note', () => {
+    render(
+      <AppConfigProvider appConfig={{}}>
+        <Event event={mockedDeletedCaseNote} />
+      </AppConfigProvider>
+    );
+
+    expect(screen.getAllByRole('heading').length).toBe(1);
+    expect(screen.getAllByRole('link').length).toBe(1);
+
+    expect(screen.queryByText('deleted 31 Dec 2020')).toBeInTheDocument;
+    expect(screen.queryByText('Some reason')).toBeInTheDocument;
+    expect(screen.queryByText('requested by Some people')).not
+      .toBeInTheDocument;
   });
 
   it('generates and truncates a snippet for form wizard case notes', () => {

@@ -163,6 +163,7 @@ export interface Submission {
   title?: string;
   deleted: boolean;
   deletedFields?: {
+    dateOfDeletion: string;
     deletedBy: string;
     deleteReason: string;
     deleteRequestedBy: string;

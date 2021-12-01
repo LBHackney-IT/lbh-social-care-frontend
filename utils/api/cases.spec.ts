@@ -39,7 +39,7 @@ describe('cases APIs', () => {
         '/api/residents/123/cases?bar=foobar'
       );
     });
-    it.only('should send multiple parameters properly', () => {
+    it('should send multiple parameters properly', () => {
       jest
         .spyOn(SWR, 'useSWRInfinite')
         .mockImplementation(

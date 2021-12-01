@@ -111,6 +111,7 @@ export interface Case {
   isImported: boolean;
   deleted: boolean;
   deletedFields?: {
+    dateOfDeletion: string;
     deletedBy: string;
     deleteReason: string;
     deleteRequestedBy: string;

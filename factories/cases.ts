@@ -57,6 +57,12 @@ export const mockedDeletedCaseNote = caseFactory.build({
   },
   formName: 'adult-case-note',
   deleted: true,
+  deletedFields: {
+    deletedBy: 'jack.musajo@hackney.gov.uk',
+    dateOfDeletion: '2020-12-31',
+    deleteReason: 'Some reason',
+    deleteRequestedBy: 'Some people',
+  },
 });
 export const mockedWarningNoteCase = caseFactory.build({
   formName: 'Warning Note',
