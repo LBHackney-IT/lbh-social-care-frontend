@@ -66,20 +66,12 @@ const AddCaseStatusForm: React.FC<{
   const HandleChange = () => {
     const { values }: FormikValues = useFormikContext();
     const prevLatestEndedStatusEndDate = latestEndedStatusEndDate;
-    console.log('CHANGE', values.type);
-    if (values && values.type === 'CIN') {
-      console.log('IN CIN');
-      latestEndedStatusEndDate = '2021-11-28';
+
+    if (values && values.type && values.type !== 'CIN') {
+      latestEndedStatusEndDate = getLatestEndedStatusEndDate(data, values.type);
+    } else if (values && values.type && values.type === 'CIN') {
+      latestEndedStatusEndDate = getLatestEndedStatusEndDate(data);
     }
-    if (values && values.type === 'LAC') {
-      console.log('IN LAC');
-      latestEndedStatusEndDate = '2021-11-29';
-    }
-    if (values && values.type === 'CP') {
-      console.log('IN CP');
-      latestEndedStatusEndDate = '2021-11-30';
-    }
-    console.log(latestEndedStatusEndDate);
 
     if (latestEndedStatusEndDate !== prevLatestEndedStatusEndDate) {
       console.log('change validation date');
