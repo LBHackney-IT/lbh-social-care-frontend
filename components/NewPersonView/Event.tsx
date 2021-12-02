@@ -49,10 +49,10 @@ const Event = ({ event }: Props): React.ReactElement => {
         {event.caseFormUrl?.includes('google') && ` · Google document`}
         {event.officerEmail && ` · ${event.officerEmail}`}
         {event.deleted &&
-          event.deletedFields &&
-          ` · deleted ${safelyFormat(event.deletedFields?.dateOfDeletion)}
-          · ${event.deletedFields?.deleteReason}
-          · requested by ${event.deletedFields?.deleteRequestedBy}`}
+          event.deletionDetails &&
+          ` · deleted ${safelyFormat(event.deletionDetails?.deletedAt)}
+          · ${event.deletionDetails?.deleteReason}
+          · requested by ${event.deletionDetails?.deleteRequestedBy}`}
       </p>
 
       {displaySnippet && (
