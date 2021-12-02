@@ -110,7 +110,8 @@ export interface Case {
   title?: string;
   isImported: boolean;
   deleted: boolean;
-  deletedFields?: {
+  deletionDetails?: {
+    deletedAt: string;
     deletedBy: string;
     deleteReason: string;
     deleteRequestedBy: string;
