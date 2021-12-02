@@ -33,9 +33,17 @@ const EditCaseStatusForm: React.FC<{
   const { data: caseStatuses } = useCaseStatuses(personId, 'false');
   const { data: caseStatusesIncClosed } = useCaseStatuses(personId, 'true');
 
-  const latestEndedStatusEndDate = getLatestEndedStatusEndDate(
-    caseStatusesIncClosed
-  );
+  let latestEndedStatusEndDate: string | undefined;
+  if (caseStatusType == 'CIN') {
+    latestEndedStatusEndDate = getLatestEndedStatusEndDate(
+      caseStatusesIncClosed
+    );
+  } else {
+    latestEndedStatusEndDate = getLatestEndedStatusEndDate(
+      caseStatusesIncClosed,
+      caseStatusType
+    );
+  }
 
   let form_fields: any;
   if (prefilledFields && prefilledFields['action']) {

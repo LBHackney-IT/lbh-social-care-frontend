@@ -24,7 +24,7 @@ const AddCaseStatusForm: React.FC<{
   const router = useRouter();
 
   const { data } = useCaseStatuses(personId, 'true');
-  const openCaseStatus = useCaseStatuses(personId, 'false').data;
+  const { data: openCaseStatus } = useCaseStatuses(personId, 'false');
   let openGroupedCaseStatus: any;
   if (openCaseStatus) {
     openGroupedCaseStatus = groupCaseStatusByType(openCaseStatus);
