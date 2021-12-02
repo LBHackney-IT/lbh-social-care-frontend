@@ -59,7 +59,7 @@ export const mockedDeletedCaseNote = caseFactory.build({
   deleted: true,
   deletedFields: {
     deletedBy: 'jack.musajo@hackney.gov.uk',
-    dateOfDeletion: '2020-12-31',
+    dateOfDeletion: '2020-12-31T00:00:00Z',
     deleteReason: 'Some reason',
     deleteRequestedBy: 'Some people',
   },
