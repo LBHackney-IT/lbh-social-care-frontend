@@ -39,6 +39,18 @@ describe('cases APIs', () => {
         '/api/residents/123/cases?bar=foobar'
       );
     });
+    it('should send multiple parameters properly', () => {
+      jest
+        .spyOn(SWR, 'useSWRInfinite')
+        .mockImplementation(
+          (getKey: (page: number, data: Record<string, unknown>) => string) =>
+            mockSWRInfinite(getKey(0, { cases: [] }))
+        );
+      casesAPI.useCasesByResident(123, { bar: 'foobar', foo: 'barfoo' });
+      expect(mockSWRInfinite).toHaveBeenCalledWith(
+        '/api/residents/123/cases?bar=foobar&foo=barfoo'
+      );
+    });
   });
 
   describe('useCase', () => {

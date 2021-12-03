@@ -110,7 +110,8 @@ export interface Case {
   title?: string;
   isImported: boolean;
   deleted: boolean;
-  deletedFields?: {
+  deletionDetails?: {
+    deletedAt: string;
     deletedBy: string;
     deleteReason: string;
     deleteRequestedBy: string;
@@ -120,6 +121,7 @@ export interface Case {
 export interface CaseData {
   cases: Case[];
   nextCursor?: number;
+  deletedRecordsCount?: number;
 }
 
 export interface LegacyResident {
