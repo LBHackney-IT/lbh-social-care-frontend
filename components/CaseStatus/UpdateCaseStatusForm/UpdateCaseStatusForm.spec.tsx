@@ -24,6 +24,22 @@ describe('UpdateCaseStatusForm', () => {
     expect(getByText('When will the change take effect?')).toBeInTheDocument();
   });
 
+  it('displays the Update child circumstances form for CP when clicking through from CaseStatusDetails page', () => {
+    const { getByText } = render(
+      <UpdateCaseStatusForm
+        personId={mockedResident.id}
+        caseStatusId={123}
+        action="update"
+        caseStatusType="CP"
+        currentCaseStatusStartDate="2020-10-10"
+        prefilledFields={{}}
+      />
+    );
+
+    expect(getByText('Category of child protection plan')).toBeInTheDocument();
+    expect(getByText('When will the change take effect?')).toBeInTheDocument();
+  });
+
   it('displays the Update child circumstances form for LAC when clicking back from ReviewUpdateCaseStatusForm page', () => {
     const { getByText } = render(
       <UpdateCaseStatusForm
@@ -52,6 +68,21 @@ describe('UpdateCaseStatusForm validations', () => {
         caseStatusId={123}
         action="update"
         caseStatusType="LAC"
+        prefilledFields={{}}
+        currentCaseStatusStartDate={startDate}
+      />
+    );
+    const clickDateBox = getByTestId('text-raw-field');
+    expect(clickDateBox.getAttribute('value')).toEqual('2021-01-02');
+  });
+  it('prefills the start date with the current case status start date (+1) when updating a CP', () => {
+    const startDate = '2021-01-01';
+    const { getByTestId } = render(
+      <UpdateCaseStatusForm
+        personId={mockedResident.id}
+        caseStatusId={123}
+        action="update"
+        caseStatusType="CP"
         prefilledFields={{}}
         currentCaseStatusStartDate={startDate}
       />
