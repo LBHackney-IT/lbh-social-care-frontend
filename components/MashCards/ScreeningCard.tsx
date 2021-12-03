@@ -3,6 +3,7 @@ import { MashReferral } from 'types';
 import Link from 'next/link';
 import { format } from 'date-fns';
 import MashTag from 'components/MashTags/MashTags';
+import MashPriorityBanner from 'components/MashPriorityBanner/MashPriorityBanner';
 
 interface Props {
   mashReferral: MashReferral;
@@ -10,15 +11,8 @@ interface Props {
 const ScreeningCard = ({ mashReferral }: Props): React.ReactElement => {
   return (
     <>
-      {mashReferral.initialUrgentContactRequired && (
-        <div className={s.priority}>&nbsp;High priority</div>
-      )}
-      <li
-        className={
-          mashReferral.initialUrgentContactRequired
-            ? `${s.row} ${s.priorityrow}`
-            : s.row
-        }
+      <MashPriorityBanner
+        isPriority={mashReferral.initialUrgentContactRequired as boolean}
       >
         <div>
           <p className={`lbh-body-s govuk-!-margin-bottom-3 ${s.datetime}`}>
@@ -62,7 +56,7 @@ const ScreeningCard = ({ mashReferral }: Props): React.ReactElement => {
             </div>
           </dl>
         </div>
-      </li>
+      </MashPriorityBanner>
       <div className={s.meter}></div>
     </>
   );

@@ -2,16 +2,20 @@ import s from 'components/MashCards/MashCard.module.scss';
 
 interface Props {
   isPriority: boolean;
+  children: React.ReactChild;
 }
 
-const MashPriorityBanner = ({ isPriority }: Props): React.ReactElement => {
-  if (isPriority === true)
-    return (
-      <>
-        <div className={s.priority}>&nbsp;High priority</div>
-        <li className={`${s.row} ${s.priorityrow}`} />
-      </>
-    );
-  else return <li className={s.row} />;
+const MashPriorityBanner = ({
+  isPriority,
+  children,
+}: Props): React.ReactElement => {
+  return (
+    <>
+      {isPriority && <div className={s.priority}>&nbsp;High priority</div>}
+      <li className={isPriority ? `${s.row} ${s.priorityrow}` : s.row}>
+        {children}
+      </li>
+    </>
+  );
 };
 export default MashPriorityBanner;
