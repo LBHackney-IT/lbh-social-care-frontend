@@ -20,11 +20,11 @@ export const getFeatureFlags = ({
       isActive:
         environmentName === 'development' || user?.hasAdminPermissions || false,
     },
-    // FEATURE-FLAG-EXPIRES [2021-12-31]: case-notes-deletion
+    // FEATURE-FLAG-EXPIRES [2022-01-31]: case-notes-deletion
     'case-notes-deletion': {
       isActive: environmentName === 'development',
     },
-    // FEATURE-FLAG-EXPIRES [2021-12-31]: case-status
+    // FEATURE-FLAG-EXPIRES [2022-01-31]: case-status
     'case-status': {
       isActive:
         environmentName === 'development' || user?.hasAdminPermissions || false,
