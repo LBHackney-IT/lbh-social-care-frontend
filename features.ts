@@ -29,7 +29,7 @@ export const getFeatureFlags = ({
       isActive:
         environmentName === 'development' || user?.hasAdminPermissions || false,
     },
-    // FEATURE-FLAG-EXPIRES [2021-11-31]: workflows-pilot
+    // FEATURE-FLAG-EXPIRES [2022-01-31]: workflows-pilot
     'workflows-pilot': {
       isActive: ['development', 'production'].includes(environmentName),
     },
