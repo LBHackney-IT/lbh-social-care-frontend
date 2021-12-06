@@ -82,6 +82,29 @@ describe('RevisionTimeline', () => {
     expect(screen.getByText('28 Jul 2021', { exact: false }));
   });
 
+  it('correctly renders a deleted approval', () => {
+    mockSubmission.deleted = true;
+    mockSubmission.deletionDetails = {
+      deletedAt: '2021-07-28T11:00:00.000Z',
+      deleteReason: 'Reason',
+      deletedBy: 'Jack Musajo',
+      deleteRequestedBy: 'jack.musajo@hackney.gov.uk',
+    };
+    render(
+      <RevisionTimeline
+        submission={{
+          ...mockSubmission,
+          approvedAt: '2021-07-28T11:00:00.000Z',
+          approvedBy: mockedWorker,
+        }}
+      />
+    );
+
+    expect(screen.queryByText(/Deleted record/));
+    expect(screen.queryByText(/Deleted by jack.musajo@hackney.gov.uk/));
+    expect(screen.queryByText(/28 Jun 2021/));
+  });
+
   it('correctly renders a panel approval', () => {
     render(
       <RevisionTimeline
@@ -96,6 +119,6 @@ describe('RevisionTimeline', () => {
     expect(
       screen.getByText(`Approved on behalf of panel by ${mockedWorker.email}`)
     );
-    expect(screen.getByText('28 Jul 2021', { exact: false }));
+    expect(screen.queryByText(/28 Jun 2021/));
   });
 });
