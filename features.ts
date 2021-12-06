@@ -29,10 +29,6 @@ export const getFeatureFlags = ({
       isActive:
         environmentName === 'development' || user?.hasAdminPermissions || false,
     },
-    // FEATURE-FLAG-EXPIRES [2022-01-31]: workflows-pilot
-    'workflows-pilot': {
-      isActive: ['development', 'production'].includes(environmentName),
-    },
     /*
       The feature-flags-implementation-proof has been setup to have an expiry date in the far future.
       The FEATURE-FLAG-EXPIRES comment above will cause ESLint errors once the date in the square brackets has passed.

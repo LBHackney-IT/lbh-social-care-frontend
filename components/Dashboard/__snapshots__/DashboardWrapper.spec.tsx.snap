@@ -39,6 +39,14 @@ exports[`DashboardWrapper should render properly 1`] = `
                 My work
               </a>
             </li>
+            <li>
+              <a
+                class="lbh-link lbh-link--no-visited-state navLink"
+                href="http://example.com"
+              >
+                Workflows
+              </a>
+            </li>
           </ul>
         </nav>
       </div>
