@@ -5,7 +5,6 @@ import PhaseBanner from './PhaseBanner/PhaseBanner';
 import BackButton from './BackButton/BackButton';
 import Footer from './Footer/Footer';
 import OnboardingDialog from 'components/OnboardingDialog';
-import { ConditionalFeature } from 'lib/feature-flags/feature-flags';
 import { User } from 'types';
 import { useAuth } from 'components/UserContext/UserContext';
 
@@ -40,9 +39,7 @@ const Layout = ({
         </main>
       </div>
 
-      <ConditionalFeature name="workflows-pilot">
-        {user?.isInWorkflowsPilot && <OnboardingDialog />}
-      </ConditionalFeature>
+      {user?.isInWorkflowsPilot && <OnboardingDialog />}
 
       <Footer />
     </>

@@ -11,7 +11,6 @@ import ADULT_GFORMS from 'data/googleForms/adultForms';
 import CHILD_GFORMS from 'data/googleForms/childForms';
 import flexibleForms from 'data/flexibleForms';
 import { populateChildForm } from 'utils/populate';
-import { useFeatureFlags } from 'lib/feature-flags/feature-flags';
 import { useAppConfig } from 'lib/appConfig';
 
 interface Props {
@@ -27,8 +26,6 @@ const AddFormDialog = ({
 }: Props): React.ReactElement => {
   const { user } = useAuth() as { user: User };
   const [searchQuery, setSearchQuery] = useState<string>('');
-
-  const { isFeatureActive } = useFeatureFlags();
   const { getConfigValue } = useAppConfig();
 
   useEffect(() => {
@@ -84,7 +81,7 @@ const AddFormDialog = ({
         }))
       );
 
-    if (isFeatureActive('workflows-pilot') && user.isInWorkflowsPilot) {
+    if (user.isInWorkflowsPilot) {
       forms.unshift({
         label: 'Pilot assessment',
         href: `${getConfigValue(
@@ -98,7 +95,7 @@ const AddFormDialog = ({
     }
 
     return forms;
-  }, [gForms, serviceContext, user, person, isFeatureActive, getConfigValue]);
+  }, [gForms, serviceContext, user, person, getConfigValue]);
 
   const results = useSearch(
     searchQuery,

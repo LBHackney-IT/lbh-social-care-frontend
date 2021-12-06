@@ -30,7 +30,7 @@ describe('Deleting case notes', () => {
       );
       cy.contains(/Delete record/).should('exist');
     });
-    it('should be possible to view a deleted case note', () => {
+    it('should be possible to view a deleted case note on the time line', () => {
       cy.visitAs(
         `/people/${Cypress.env('CHILDREN_RECORD_PERSON_ID')}`,
         AuthRoles.AdminDevGroup
@@ -40,6 +40,17 @@ describe('Deleting case notes', () => {
       cy.contains(/(deleted record)/).should('be.visible');
       cy.contains(/deleted 2 Dec 2021 1.51 pm/).should('be.visible');
       cy.contains(/requested by requester/).should('be.visible');
+    });
+    it('should be possible to view a specific deleted case note', () => {
+      cy.visitAs(
+        `/people/${Cypress.env('CHILDREN_RECORD_PERSON_ID')}`,
+        AuthRoles.AdminDevGroup
+      );
+      cy.contains(/Show deleted records/).click();
+      cy.contains(/(deleted record)/).click();
+      cy.contains(/Case note/).should('be.visible');
+      cy.contains(/(deleted record)/).should('be.visible');
+      cy.contains(/Deleted by/).should('be.visible');
     });
   });
 });
