@@ -82,7 +82,7 @@ describe('RevisionTimeline', () => {
     expect(screen.getByText('28 Jul 2021', { exact: false }));
   });
 
-  it.only('correctly renders a deleted approval', () => {
+  it('correctly renders a deleted approval', () => {
     mockSubmission.deleted = true;
     mockSubmission.deletionDetails = {
       deletedAt: '2022-01-01T11:00:00.000Z',
