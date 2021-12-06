@@ -207,15 +207,13 @@ const Layout = ({ person, children }: Props): React.ReactElement => {
                 </NavLink>
               ))}
 
-              <ConditionalFeature name="workflows-pilot">
-                <NavLink
-                  href={`${
-                    getConfigValue('workflowsPilotUrl') as string
-                  }/residents/${person.id}`}
-                >
-                  Workflows
-                </NavLink>
-              </ConditionalFeature>
+              <NavLink
+                href={`${
+                  getConfigValue('workflowsPilotUrl') as string
+                }/residents/${person.id}`}
+              >
+                Workflows
+              </NavLink>
             </ul>
 
             <ul className={`lbh-list ${s.secondaryNav}`}>
@@ -230,20 +228,18 @@ const Layout = ({ person, children }: Props): React.ReactElement => {
                 </li>
               ))}
 
-              <ConditionalFeature name="workflows-pilot">
-                {user.isInWorkflowsPilot && (
-                  <li>
-                    <a
-                      href={`${getConfigValue(
-                        'workflowsPilotUrl'
-                      )}/workflows/new?social_care_id=${person.id}`}
-                      className="lbh-link lbh-body-s lbh-link--no-visited-state"
-                    >
-                      Start workflow
-                    </a>
-                  </li>
-                )}
-              </ConditionalFeature>
+              {user.isInWorkflowsPilot && (
+                <li>
+                  <a
+                    href={`${getConfigValue(
+                      'workflowsPilotUrl'
+                    )}/workflows/new?social_care_id=${person.id}`}
+                    className="lbh-link lbh-body-s lbh-link--no-visited-state"
+                  >
+                    Start workflow
+                  </a>
+                </li>
+              )}
             </ul>
           </nav>
         </div>
