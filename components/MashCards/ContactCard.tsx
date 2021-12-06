@@ -3,6 +3,8 @@ import Link from 'next/link';
 import { MashReferral } from 'types';
 import { format } from 'date-fns';
 import MashTag from 'components/MashTags/MashTags';
+import React from 'react';
+import MashPriorityBanner from 'components/MashPriorityBanner/MashPriorityBanner';
 
 interface Props {
   mashReferral: MashReferral;
@@ -11,7 +13,12 @@ interface Props {
 const ContactCard = ({ mashReferral }: Props): React.ReactElement => {
   return (
     <>
-      <li className={s.row}>
+      <MashPriorityBanner
+        isPriority={
+          mashReferral.referrer.toUpperCase() === 'POLICE - RED' ||
+          mashReferral.referrer.toUpperCase() === 'POLICE - AMBER'
+        }
+      >
         <div>
           <p className={`lbh-body-s govuk-!-margin-bottom-3 ${s.datetime}`}>
             <MashTag mashReferral={mashReferral} /> submitted{' '}
@@ -47,7 +54,7 @@ const ContactCard = ({ mashReferral }: Props): React.ReactElement => {
             </div>
           </dl>
         </div>
-      </li>
+      </MashPriorityBanner>
       <div className={s.meter}></div>
     </>
   );
