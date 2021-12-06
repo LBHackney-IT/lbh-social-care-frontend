@@ -123,6 +123,6 @@ describe('RevisionTimeline', () => {
     expect(
       screen.getByText(`Approved on behalf of panel by ${mockedWorker.email}`)
     );
-    expect(screen.queryByText(/28 Jun 2021/));
+    expect(screen.getByText('28 Jul 2021', { exact: false }));
   });
 });
