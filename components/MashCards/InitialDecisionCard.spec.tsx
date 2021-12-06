@@ -22,12 +22,12 @@ describe('InitialDecisionCard', () => {
     expect(screen.getByText('Name of client'));
     expect(screen.getByText('Requested support'));
   });
-  it('renders the right info from the mash referral', () => {
+  it('displays high priority if the contact is marked as urgent on the previous stage', () => {
     const priorityMockReferral = mashReferralFactory.build({
       contactUrgentContactRequired: true,
     });
     render(<InitialDecisionCard mashReferral={priorityMockReferral} />);
-    expect(screen.getByText('High priority'));
+    expect(screen.getByText('High priority')).toBeVisible();
     expect(
       screen.getByText(
         `submitted ${format(

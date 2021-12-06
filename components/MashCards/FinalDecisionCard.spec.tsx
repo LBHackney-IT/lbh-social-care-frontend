@@ -26,12 +26,12 @@ describe('FinalDecisionCard', () => {
     expect(screen.getByText('Referral category'));
     expect(screen.getByText('Screening decision'));
   });
-  it('renders the high priority banner when the referral is marked as urgent in the previous stage', () => {
+  it('displays high priority if the contact is marked as urgent on the previous stage', () => {
     const priorityMockReferral = mashReferralFactory.build({
       screeningUrgentContactRequired: true,
     });
     render(<FinalDecisionCard mashReferral={priorityMockReferral} />);
-    expect(screen.getByText('High priority'));
+    expect(screen.getByText('High priority')).toBeVisible();
     expect(
       screen.getByText(
         `submitted ${format(

@@ -1,10 +1,10 @@
 import { render, screen } from '@testing-library/react';
 import MashPriorityBanner from './MashPriorityBanner';
 
-describe('#FinalDecisionForm', () => {
+describe('MashPriorityBanner', () => {
   const testChildHtml = 'this is the test child html';
 
-  it('should render correctly when there is a priority', () => {
+  it('displays that it is a high priority if it is a priority', () => {
     render(
       <MashPriorityBanner isPriority={true}>{testChildHtml}</MashPriorityBanner>
     );
@@ -13,7 +13,7 @@ describe('#FinalDecisionForm', () => {
     expect(screen.getByText('High priority'));
   });
 
-  it('should render correctly when there is not a priority', () => {
+  it('does not display high priority if it is not a priority', () => {
     render(
       <MashPriorityBanner isPriority={false}>
         {testChildHtml}

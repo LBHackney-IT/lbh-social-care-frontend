@@ -18,7 +18,7 @@ describe('ContactCard', () => {
       referrer: 'Police - red',
     });
     render(<ContactCard mashReferral={priorityMockReferral} />);
-    expect(screen.getByText('High priority'));
+    expect(screen.getByText('High priority')).toBeVisible();
     expect(
       screen.getByText(`${priorityMockReferral.clients[0]}`, { exact: false })
     );
@@ -31,7 +31,7 @@ describe('ContactCard', () => {
       referrer: 'Police - amber',
     });
     render(<ContactCard mashReferral={priorityMockReferral} />);
-    expect(screen.getByText('High priority'));
+    expect(screen.getByText('High priority')).toBeVisible();
     expect(
       screen.getByText(`${priorityMockReferral.clients[0]}`, { exact: false })
     );
