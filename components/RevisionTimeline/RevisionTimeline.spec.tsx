@@ -98,4 +98,24 @@ describe('RevisionTimeline', () => {
     );
     expect(screen.getByText('28 Jul 2021', { exact: false }));
   });
+
+  it.only('correctly renders a deleted by', () => {
+    render(
+      <RevisionTimeline
+        submission={{
+          ...mockSubmission,
+          deleted: true,
+          deletionDetails: {
+            deletedBy: mockedWorker.email,
+            deletedAt: '2021-07-29T10:00:00.000Z',
+            deleteReason: 'Submitted prematurely',
+            deleteRequestedBy: mockedWorker.email,
+          },
+        }}
+      />
+    );
+    expect(screen.getByText('History'));
+    expect(screen.getByText(`Deleted by ${mockedWorker.email}`));
+    expect(screen.getByText('29 Jul 2021', { exact: false }));
+  });
 });
