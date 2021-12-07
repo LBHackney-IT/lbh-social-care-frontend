@@ -3,6 +3,7 @@ import { MashReferral } from 'types';
 import Link from 'next/link';
 import { format } from 'date-fns';
 import MashTag from 'components/MashTags/MashTags';
+import MashAssignmentsWidget from 'components/MashAssignmentFlow/MashAssignmentWidget';
 
 interface Props {
   mashReferral: MashReferral;
@@ -45,9 +46,7 @@ const InitialDecisionCard = ({ mashReferral }: Props): React.ReactElement => {
               <dd></dd>
             </div>
             <div>
-              <Link href="assign">
-                <a>Assign</a>
-              </Link>
+              <MashAssignmentsWidget />
             </div>
           </dl>
         </div>
