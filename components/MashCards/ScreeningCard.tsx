@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { format } from 'date-fns';
 import MashTag from 'components/MashTags/MashTags';
 import MashAssignmentsWidget from 'components/MashAssignmentFlow/MashAssignmentWidget';
+import MashPriorityBanner from 'components/MashPriorityBanner/MashPriorityBanner';
 
 interface Props {
   mashReferral: MashReferral;
@@ -11,7 +12,9 @@ interface Props {
 const ScreeningCard = ({ mashReferral }: Props): React.ReactElement => {
   return (
     <>
-      <li className={s.row}>
+      <MashPriorityBanner
+        isPriority={mashReferral.initialUrgentContactRequired as boolean}
+      >
         <div>
           <p className={`lbh-body-s govuk-!-margin-bottom-3 ${s.datetime}`}>
             <MashTag mashReferral={mashReferral} /> submitted{' '}
@@ -52,7 +55,7 @@ const ScreeningCard = ({ mashReferral }: Props): React.ReactElement => {
             </div>
           </dl>
         </div>
-      </li>
+      </MashPriorityBanner>
       <div className={s.meter}></div>
     </>
   );
