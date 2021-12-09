@@ -43,3 +43,5 @@ cypress.env.json
 
 # Storybook
 storybook-static
+# Sentry
+.sentryclirc
