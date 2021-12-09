@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react';
+import { fireEvent, render, screen } from '@testing-library/react';
 import { mockedMashReferral } from 'factories/mashReferral';
 import { mashReferralFactory } from 'factories/mashReferral';
 import FinalDecisionCard from './FinalDecisionCard';
@@ -50,5 +50,13 @@ describe('FinalDecisionCard', () => {
     expect(screen.getByText('Name of client'));
     expect(screen.getByText('Referral category'));
     expect(screen.getByText('Screening decision'));
+  });
+  it('displays the assign contact modal when the assign button is clicked', () => {
+    render(<FinalDecisionCard mashReferral={mockedMashReferral} />);
+    fireEvent.click(screen.getByText('Assign'));
+    expect(screen.getByText('Assign contact'));
+    expect(screen.getByText('Select worker'));
+    expect(screen.getByText('Submit'));
+    expect(screen.getByText('Cancel'));
   });
 });
