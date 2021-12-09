@@ -492,8 +492,8 @@ export interface MashReferral {
   referrer: string;
   requestedSupport: string;
   assignedTo?: Worker;
-  createdAt: string;
-  clients: string[];
+  referralCreatedAt: string;
+  mashResidents: Resident[];
   referralDocumentURI: string;
   stage: ReferralStage;
   contactUrgentContactRequired?: boolean;
