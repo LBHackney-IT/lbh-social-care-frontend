@@ -20,7 +20,7 @@ export const getServerSideProps: GetServerSideProps = async ({
   req,
   params,
 }) => {
-  const referral = await getMashReferral(params?.id as string);
+  const referral = await getMashReferral(Number(params?.id));
 
   const user = isAuthorised(req);
 

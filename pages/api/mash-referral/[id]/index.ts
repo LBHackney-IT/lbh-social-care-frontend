@@ -29,7 +29,7 @@ const endpoint: NextApiHandler = async (
 
         if (updateTye === 'SCREENING-DECISION') {
           const { referralId, decision, requiresUrgentContact, workerEmail } = {
-            referralId: req.query.id as string,
+            referralId: Number(req.query.id),
             decision: req.body.decision,
             requiresUrgentContact: req.body.requiresUrgentContact,
             workerEmail: req.body.workerEmail,
@@ -52,7 +52,7 @@ const endpoint: NextApiHandler = async (
             workerEmail,
             referralCategory,
           } = {
-            referralId: req.query.id as string,
+            referralId: Number(req.query.id),
             decision: req.body.decision,
             requiresUrgentContact: req.body.requiresUrgentContact,
             workerEmail: req.body.workerEmail,
@@ -77,7 +77,7 @@ const endpoint: NextApiHandler = async (
             workerEmail,
             referralCategory,
           } = {
-            referralId: req.query.id as string,
+            referralId: Number(req.query.id),
             decision: req.body.decision,
             requiresUrgentContact: req.body.requiresUrgentContact,
             workerEmail: req.body.workerEmail,
@@ -96,7 +96,7 @@ const endpoint: NextApiHandler = async (
           res.status(StatusCodes.OK).json(data);
         } else if (updateTye === 'CONTACT-DECISION') {
           const { referralId, requiresUrgentContact, workerEmail } = {
-            referralId: req.query.id as string,
+            referralId: Number(req.query.id),
             requiresUrgentContact: req.body.requiresUrgentContact,
             workerEmail: req.body.workerEmail,
           };
