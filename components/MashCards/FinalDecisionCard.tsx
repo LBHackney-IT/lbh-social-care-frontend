@@ -47,7 +47,7 @@ const FinalDecisionCard = ({ mashReferral }: Props): React.ReactElement => {
             </div>
             <div>
               <dt>Referral category</dt>
-              <dd>{mashReferral.initialReferralCategory}</dd>
+              <dd>{mashReferral.initialDecisionReferralCategory}</dd>
             </div>
             <div>
               <Link href="assign">

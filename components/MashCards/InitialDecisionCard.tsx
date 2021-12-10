@@ -12,7 +12,9 @@ const InitialDecisionCard = ({ mashReferral }: Props): React.ReactElement => {
   return (
     <>
       <MashPriorityBanner
-        isPriority={mashReferral.contactUrgentContactRequired as boolean}
+        isPriority={
+          mashReferral.contactDecisionUrgentContactRequired as boolean
+        }
       >
         <div>
           <p className={`lbh-body-s govuk-!-margin-bottom-3 ${s.datetime}`}>
