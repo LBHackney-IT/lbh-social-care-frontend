@@ -77,13 +77,13 @@ export const submitFinalDecision = async (
 
 export const assignWorker = async (
   referralId: number,
-  workerEmail: string
+  workerId: number
 ): Promise<MashReferral> => {
   const response = await axios.patch<MashReferral>(
     `/api/mash-referral/${referralId}/`,
     {
       updateType: 'ASSIGN-WORKER',
-      workerEmail,
+      workerId,
     }
   );
   return response.data;

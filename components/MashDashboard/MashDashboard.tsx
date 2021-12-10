@@ -10,7 +10,6 @@ import { assignWorker, resetDummyData } from 'utils/api/mashReferrals';
 
 interface Props {
   referrals: MashReferral[];
-  workerEmail: string;
 }
 
 const possibleTabs = new Set([
@@ -20,10 +19,7 @@ const possibleTabs = new Set([
   'final-decision',
 ]);
 
-export const MashDashboard = ({
-  referrals,
-  workerEmail,
-}: Props): React.ReactElement => {
+export const MashDashboard = ({ referrals }: Props): React.ReactElement => {
   const [filter, setFilter] = useState('contact');
   const [submitting, setSubmitting] = useState(false);
 
@@ -80,8 +76,11 @@ export const MashDashboard = ({
     router.reload();
   };
 
-  const assignWorkerToReferral = async (referralId: number) => {
-    await assignWorker(referralId, workerEmail);
+  const assignWorkerToReferral = async (
+    referralId: number,
+    workerId: number
+  ) => {
+    await assignWorker(referralId, workerId);
   };
 
   return (

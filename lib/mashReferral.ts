@@ -142,12 +142,12 @@ export const patchReferralContact = async (
 
 export const patchReferralWorker = async (
   referralId: number,
-  workerEmail: string
+  workerId: number
 ): Promise<MashReferral> => {
   const { data } = await axios.patch<MashReferral>(
     `${ENDPOINT_API}/mash-referral/${referralId}`,
     {
-      workerEmail,
+      workerId,
       updateType: 'ASSIGN-WORKER',
     },
     {

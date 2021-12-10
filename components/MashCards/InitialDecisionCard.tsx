@@ -8,8 +8,9 @@ import MashPriorityBanner from 'components/MashPriorityBanner/MashPriorityBanner
 
 interface Props {
   mashReferral: MashReferral;
-  assignWorkerToReferral: (referralId: number) => void;
+  assignWorkerToReferral: (referralId: number, workerId: number) => void;
 }
+
 const InitialDecisionCard = ({
   mashReferral,
   assignWorkerToReferral,
@@ -54,7 +55,10 @@ const InitialDecisionCard = ({
               <dd></dd>
             </div>
             <div>
-              <MashAssignmentsWidget />
+              <MashAssignmentsWidget
+                mashReferral={mashReferral}
+                assignWorkerToReferral={assignWorkerToReferral}
+              />
             </div>
           </dl>
         </div>

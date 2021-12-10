@@ -2,37 +2,44 @@ import Dialog from './../Dialog/Dialog';
 import { useState } from 'react';
 import { MashReferral } from 'types';
 import { AxiosError } from 'axios';
-import { useRouter } from 'next/router';
 import Button from 'components/Button/Button';
+import ErrorMessage from 'components/ErrorMessage/ErrorMessage';
 
 interface Props {
   mashReferral: MashReferral;
-  assignWorkerToReferral: (referralId: number) => void;
+  assignWorkerToReferral: (referralId: number, workerId: number) => void;
 }
 
 const MashAssignmentWidget = ({
   mashReferral,
   assignWorkerToReferral,
 }: Props): React.ReactElement => {
-  const [dialogOpen, setDialogOpen] = useState<boolean>(false);
+  // fetch all the workers from relevant teams (needs a backend update)
+  // select to choose a worker
+  // assignWorkerToReferral to be given worker id
+
+  const [dialogOpen, setDialogOpen] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
   const [submitting, setSubmitting] = useState(false);
-  const router = useRouter();
+  const [selectedWorker, setSelectedWorker] = useState<Worker | undefined>(
+    undefined
+  );
 
   const submitForm = async () => {
     setSubmitting(true);
     setErrorMessage('');
 
     try {
-      await assignWorkerToReferral(mashReferral.id);
+      await assignWorkerToReferral(mashReferral.id, 3);
       setSubmitting(false);
+      setDialogOpen(false);
     } catch (error) {
       const axiosError = error as AxiosError;
       setSubmitting(false);
       setErrorMessage(axiosError.response?.data);
     }
   };
-  console.log(submitting);
+
   return (
     <section>
       <button className={`lbh-link`} onClick={() => setDialogOpen(true)}>
@@ -91,6 +98,7 @@ const MashAssignmentWidget = ({
             </a>
           </p>
         </div>
+        {errorMessage && <ErrorMessage label={errorMessage} />}
       </Dialog>
     </section>
   );

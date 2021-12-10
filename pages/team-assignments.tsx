@@ -10,14 +10,11 @@ interface Props {
   workerEmail: string;
 }
 
-const TeamAssignments = ({
-  referrals,
-  workerEmail,
-}: Props): React.ReactElement => {
+const TeamAssignments = ({ referrals }: Props): React.ReactElement => {
   return (
     <div>
       <DashboardWrapper>
-        <MashDashboard referrals={referrals} workerEmail={workerEmail} />
+        <MashDashboard referrals={referrals} />
       </DashboardWrapper>
     </div>
   );
@@ -40,7 +37,6 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
   return {
     props: {
       referrals: mashReferrals,
-      workerEmail: user.email,
     },
   };
 };

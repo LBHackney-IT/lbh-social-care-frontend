@@ -8,8 +8,13 @@ import MashPriorityBanner from 'components/MashPriorityBanner/MashPriorityBanner
 
 interface Props {
   mashReferral: MashReferral;
+  assignWorkerToReferral: (referralId: number, workerId: number) => void;
 }
-const ScreeningCard = ({ mashReferral }: Props): React.ReactElement => {
+
+const ScreeningCard = ({
+  mashReferral,
+  assignWorkerToReferral,
+}: Props): React.ReactElement => {
   return (
     <>
       <MashPriorityBanner
@@ -52,7 +57,10 @@ const ScreeningCard = ({ mashReferral }: Props): React.ReactElement => {
               <dd>{mashReferral.initialReferralCategory}</dd>
             </div>
             <div>
-              <MashAssignmentsWidget />
+              <MashAssignmentsWidget
+                mashReferral={mashReferral}
+                assignWorkerToReferral={assignWorkerToReferral}
+              />
             </div>
           </dl>
         </div>

@@ -110,12 +110,12 @@ const endpoint: NextApiHandler = async (
 
           res.status(StatusCodes.OK).json(data);
         } else if (updateTye === 'ASSIGN-WORKER') {
-          const { referralId, workerEmail } = {
+          const { referralId, workerId } = {
             referralId: Number(req.query.id),
-            workerEmail: req.body.workerEmail,
+            workerId: req.body.workerEmail as number,
           };
 
-          const data = await patchReferralWorker(referralId, workerEmail);
+          const data = await patchReferralWorker(referralId, workerId);
           res.status(StatusCodes.OK).json(data);
         }
       } catch (error: unknown) {

@@ -7,7 +7,7 @@ import FinalDecisionCard from './FinalDecisionCard';
 interface Props {
   mashReferrals: MashReferral[];
   filter: string;
-  assignWorkerToReferral: (referralId: number) => void;
+  assignWorkerToReferral: (referralId: number, workerId: number) => void;
 }
 
 const MainCard = ({
