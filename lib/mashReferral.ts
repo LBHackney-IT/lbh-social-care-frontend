@@ -142,7 +142,7 @@ export const patchReferralContact = async (
 
 export const resetDummyData = async (): Promise<undefined> => {
   const { data } = await axios.post<undefined>(
-    `${ENDPOINT_API}/mash-referral/reset2`,
+    `${ENDPOINT_API}/mash-referral/reset`,
     undefined,
     {
       headers: { 'Content-Type': 'application/json', 'x-api-key': AWS_KEY },
