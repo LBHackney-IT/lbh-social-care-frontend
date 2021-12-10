@@ -7,13 +7,17 @@ import { MashReferral } from 'types';
 
 interface Props {
   referrals: MashReferral[];
+  workerEmail: string;
 }
 
-const TeamAssignments = ({ referrals }: Props): React.ReactElement => {
+const TeamAssignments = ({
+  referrals,
+  workerEmail,
+}: Props): React.ReactElement => {
   return (
     <div>
       <DashboardWrapper>
-        <MashDashboard referrals={referrals} />
+        <MashDashboard referrals={referrals} workerEmail={workerEmail} />
       </DashboardWrapper>
     </div>
   );
@@ -36,6 +40,7 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
   return {
     props: {
       referrals: mashReferrals,
+      workerEmail: user.email,
     },
   };
 };

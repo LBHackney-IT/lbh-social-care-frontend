@@ -1,9 +1,35 @@
 import Dialog from './../Dialog/Dialog';
 import { useState } from 'react';
+import { MashReferral } from 'types';
+import { AxiosError } from 'axios';
+import { useRouter } from 'next/router';
+import Button from 'components/Button/Button';
+
+interface Props {
+  mashReferral: MashReferral;
+  workerEmail: string;
+}
 
 const MashAssignmentWidget = (): React.ReactElement => {
   const [dialogOpen, setDialogOpen] = useState<boolean>(false);
+  const [errorMessage, setErrorMessage] = useState('');
+  const [submitting, setSubmitting] = useState(false);
+  const router = useRouter();
 
+  const submitForm = async () => {
+    setSubmitting(true);
+    setErrorMessage('');
+
+    try {
+      await assignWorker(referral.id, workerEmail);
+      setSubmitting(false);
+    } catch (error) {
+      const axiosError = error as AxiosError;
+      setSubmitting(false);
+      setErrorMessage(axiosError.response?.data);
+    }
+  };
+  console.log(submitting);
   return (
     <section>
       <button className={`lbh-link`} onClick={() => setDialogOpen(true)}>
@@ -47,7 +73,12 @@ const MashAssignmentWidget = (): React.ReactElement => {
           </div>
         </div>
         <div style={{ display: 'flex', alignItems: 'center' }}>
-          <button className="govuk-button lbh-button">Submit</button>
+          <Button
+            label="Submit"
+            type="submit"
+            onClick={submitForm}
+            disabled={submitting}
+          />
           <p className="lbh-body">
             <a
               href="#"

@@ -10,6 +10,7 @@ import { resetDummyData } from 'utils/api/mashReferrals';
 
 interface Props {
   referrals: MashReferral[];
+  workerEmail: string;
 }
 
 const possibleTabs = new Set([
@@ -19,7 +20,10 @@ const possibleTabs = new Set([
   'final-decision',
 ]);
 
-export const MashDashboard = ({ referrals }: Props): React.ReactElement => {
+export const MashDashboard = ({
+  referrals,
+  workerEmail,
+}: Props): React.ReactElement => {
   const [filter, setFilter] = useState('contact');
   const [submitting, setSubmitting] = useState(false);
 
@@ -118,7 +122,11 @@ export const MashDashboard = ({ referrals }: Props): React.ReactElement => {
           disabled={submitting}
         />
         <div>
-          <MainCard filter={filter} mashReferrals={mashReferrals}></MainCard>
+          <MainCard
+            filter={filter}
+            mashReferrals={mashReferrals}
+            workerEmail={workerEmail}
+          ></MainCard>
         </div>
       </>
     </div>

@@ -7,9 +7,14 @@ import FinalDecisionCard from './FinalDecisionCard';
 interface Props {
   mashReferrals: MashReferral[];
   filter: string;
+  workerEmail: string;
 }
 
-const MainCard = ({ mashReferrals, filter }: Props): React.ReactElement => {
+const MainCard = ({
+  mashReferrals,
+  filter,
+  workerEmail,
+}: Props): React.ReactElement => {
   if (filter === 'contact') {
     return (
       <div data-testid="ContactCard">
@@ -23,7 +28,11 @@ const MainCard = ({ mashReferrals, filter }: Props): React.ReactElement => {
     return (
       <div data-testid="InitialDecisionCard">
         {mashReferrals.map((referral) => (
-          <InitialDecisionCard key={referral.id} mashReferral={referral} />
+          <InitialDecisionCard
+            key={referral.id}
+            mashReferral={referral}
+            workerEmail={workerEmail}
+          />
         ))}
       </div>
     );
@@ -32,7 +41,11 @@ const MainCard = ({ mashReferrals, filter }: Props): React.ReactElement => {
     return (
       <div data-testid="ScreeningCard">
         {mashReferrals.map((referral) => (
-          <ScreeningCard key={referral.id} mashReferral={referral} />
+          <ScreeningCard
+            key={referral.id}
+            mashReferral={referral}
+            workerEmail={workerEmail}
+          />
         ))}
       </div>
     );
@@ -41,7 +54,11 @@ const MainCard = ({ mashReferrals, filter }: Props): React.ReactElement => {
     return (
       <div data-testid="FinalDecisionCard">
         {mashReferrals.map((referral) => (
-          <FinalDecisionCard key={referral.id} mashReferral={referral} />
+          <FinalDecisionCard
+            key={referral.id}
+            mashReferral={referral}
+            workerEmail={workerEmail}
+          />
         ))}
       </div>
     );
