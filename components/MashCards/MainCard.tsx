@@ -7,13 +7,13 @@ import FinalDecisionCard from './FinalDecisionCard';
 interface Props {
   mashReferrals: MashReferral[];
   filter: string;
-  workerEmail: string;
+  assignWorkerToReferral: (referralId: number) => void;
 }
 
 const MainCard = ({
   mashReferrals,
   filter,
-  workerEmail,
+  assignWorkerToReferral,
 }: Props): React.ReactElement => {
   if (filter === 'contact') {
     return (
@@ -31,7 +31,7 @@ const MainCard = ({
           <InitialDecisionCard
             key={referral.id}
             mashReferral={referral}
-            workerEmail={workerEmail}
+            assignWorkerToReferral={assignWorkerToReferral}
           />
         ))}
       </div>
@@ -44,7 +44,7 @@ const MainCard = ({
           <ScreeningCard
             key={referral.id}
             mashReferral={referral}
-            workerEmail={workerEmail}
+            assignWorkerToReferral={assignWorkerToReferral}
           />
         ))}
       </div>
@@ -57,7 +57,7 @@ const MainCard = ({
           <FinalDecisionCard
             key={referral.id}
             mashReferral={referral}
-            workerEmail={workerEmail}
+            assignWorkerToReferral={assignWorkerToReferral}
           />
         ))}
       </div>

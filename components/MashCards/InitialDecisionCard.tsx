@@ -8,8 +8,12 @@ import MashPriorityBanner from 'components/MashPriorityBanner/MashPriorityBanner
 
 interface Props {
   mashReferral: MashReferral;
+  assignWorkerToReferral: (referralId: number) => void;
 }
-const InitialDecisionCard = ({ mashReferral }: Props): React.ReactElement => {
+const InitialDecisionCard = ({
+  mashReferral,
+  assignWorkerToReferral,
+}: Props): React.ReactElement => {
   return (
     <>
       <MashPriorityBanner

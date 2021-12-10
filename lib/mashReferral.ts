@@ -140,6 +140,24 @@ export const patchReferralContact = async (
   return data;
 };
 
+export const patchReferralWorker = async (
+  referralId: number,
+  workerEmail: string
+): Promise<MashReferral> => {
+  const { data } = await axios.patch<MashReferral>(
+    `${ENDPOINT_API}/mash-referral/${referralId}`,
+    {
+      workerEmail,
+      updateType: 'ASSIGN-WORKER',
+    },
+    {
+      headers: { 'Content-Type': 'application/json', 'x-api-key': AWS_KEY },
+    }
+  );
+
+  return data;
+};
+
 export const resetDummyData = async (): Promise<undefined> => {
   const { data } = await axios.post<undefined>(
     `${ENDPOINT_API}/mash-referral/reset`,

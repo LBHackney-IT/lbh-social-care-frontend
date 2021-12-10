@@ -6,7 +6,7 @@ import { MashReferral, ReferralStage } from 'types';
 import { useRouter } from 'next/router';
 import SuccessSummary from 'components/SuccessSummary/SuccessSummary';
 import Button from 'components/Button/Button';
-import { resetDummyData } from 'utils/api/mashReferrals';
+import { assignWorker, resetDummyData } from 'utils/api/mashReferrals';
 
 interface Props {
   referrals: MashReferral[];
@@ -80,6 +80,10 @@ export const MashDashboard = ({
     router.reload();
   };
 
+  const assignWorkerToReferral = async (referralId: number) => {
+    await assignWorker(referralId, workerEmail);
+  };
+
   return (
     <div>
       <>
@@ -125,7 +129,7 @@ export const MashDashboard = ({
           <MainCard
             filter={filter}
             mashReferrals={mashReferrals}
-            workerEmail={workerEmail}
+            assignWorkerToReferral={assignWorkerToReferral}
           ></MainCard>
         </div>
       </>

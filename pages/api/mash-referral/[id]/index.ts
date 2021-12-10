@@ -8,6 +8,7 @@ import {
   patchReferralInitial,
   patchReferralScreening,
   patchReferralContact,
+  patchReferralWorker,
 } from 'lib/mashReferral';
 import { AxiosError } from 'axios';
 
@@ -107,6 +108,14 @@ const endpoint: NextApiHandler = async (
             workerEmail,
           });
 
+          res.status(StatusCodes.OK).json(data);
+        } else if (updateTye === 'ASSIGN-WORKER') {
+          const { referralId, workerEmail } = {
+            referralId: Number(req.query.id),
+            workerEmail: req.body.workerEmail,
+          };
+
+          const data = await patchReferralWorker(referralId, workerEmail);
           res.status(StatusCodes.OK).json(data);
         }
       } catch (error: unknown) {

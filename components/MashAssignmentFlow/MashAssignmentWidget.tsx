@@ -7,10 +7,13 @@ import Button from 'components/Button/Button';
 
 interface Props {
   mashReferral: MashReferral;
-  workerEmail: string;
+  assignWorkerToReferral: (referralId: number) => void;
 }
 
-const MashAssignmentWidget = (): React.ReactElement => {
+const MashAssignmentWidget = ({
+  mashReferral,
+  assignWorkerToReferral,
+}: Props): React.ReactElement => {
   const [dialogOpen, setDialogOpen] = useState<boolean>(false);
   const [errorMessage, setErrorMessage] = useState('');
   const [submitting, setSubmitting] = useState(false);
@@ -21,7 +24,7 @@ const MashAssignmentWidget = (): React.ReactElement => {
     setErrorMessage('');
 
     try {
-      await assignWorker(referral.id, workerEmail);
+      await assignWorkerToReferral(mashReferral.id);
       setSubmitting(false);
     } catch (error) {
       const axiosError = error as AxiosError;

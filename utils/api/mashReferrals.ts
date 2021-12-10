@@ -75,6 +75,20 @@ export const submitFinalDecision = async (
   return response.data;
 };
 
+export const assignWorker = async (
+  referralId: number,
+  workerEmail: string
+): Promise<MashReferral> => {
+  const response = await axios.patch<MashReferral>(
+    `/api/mash-referral/${referralId}/`,
+    {
+      updateType: 'ASSIGN-WORKER',
+      workerEmail,
+    }
+  );
+  return response.data;
+};
+
 export const resetDummyData = async (): Promise<undefined> => {
   const response = await axios.post<undefined>(`api/mash-referral/reset`);
   return response.data;
