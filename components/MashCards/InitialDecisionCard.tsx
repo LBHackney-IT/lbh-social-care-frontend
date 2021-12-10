@@ -22,7 +22,7 @@ const InitialDecisionCard = ({
         <div>
           <p className={`lbh-body-s govuk-!-margin-bottom-3 ${s.datetime}`}>
             <MashTag mashReferral={mashReferral} /> submitted{' '}
-            {format(new Date(mashReferral.createdAt), 'HH:00 dd MMM')}
+            {format(new Date(mashReferral.referralCreatedAt), 'HH:00 dd MMM')}
             <span className={`lbh-body-l lbh-!-font-weight-bold  ${s.action}`}>
               <Link href={`mash-referral/${mashReferral.id}/initial-decision`}>
                 Make decision
@@ -36,9 +36,10 @@ const InitialDecisionCard = ({
               <dd>
                 <Link href={mashReferral.referralDocumentURI}>
                   <a>
-                    {mashReferral.clients[0] + ' '}
-                    {mashReferral.clients.length > 1 &&
-                      `+ ${mashReferral.clients.length - 1} `}
+                    {mashReferral.mashResidents[0].firstName + ' '}
+                    {mashReferral.mashResidents[0].lastName + ' '}
+                    {mashReferral.mashResidents.length > 1 &&
+                      `+ ${mashReferral.mashResidents.length - 1} `}
                     (referral)
                   </a>
                 </Link>

@@ -10,12 +10,16 @@ describe('FinalDecisionCard', () => {
     expect(
       screen.getByText(
         `submitted ${format(
-          new Date(mockedMashReferral.createdAt),
+          new Date(mockedMashReferral.referralCreatedAt),
           'HH:00 dd MMM'
         )}`
       )
     );
-    expect(screen.getByText(`${mockedMashReferral.clients[0]} (referral)`));
+    expect(
+      screen.getByText(
+        `${mockedMashReferral.mashResidents[0].firstName} ${mockedMashReferral.mashResidents[0].lastName} (referral)`
+      )
+    );
     expect(screen.getByText(mockedMashReferral.screeningDecision as string));
     expect(
       screen.getByText(mockedMashReferral.initialReferralCategory as string)
@@ -26,6 +30,7 @@ describe('FinalDecisionCard', () => {
     expect(screen.getByText('Referral category'));
     expect(screen.getByText('Screening decision'));
   });
+
   it('displays high priority if the contact is marked as urgent on the previous stage', () => {
     const priorityMockReferral = mashReferralFactory.build({
       screeningUrgentContactRequired: true,
@@ -35,12 +40,16 @@ describe('FinalDecisionCard', () => {
     expect(
       screen.getByText(
         `submitted ${format(
-          new Date(priorityMockReferral.createdAt),
+          new Date(priorityMockReferral.referralCreatedAt),
           'HH:00 dd MMM'
         )}`
       )
     );
-    expect(screen.getByText(`${priorityMockReferral.clients[0]} (referral)`));
+    expect(
+      screen.getByText(
+        `${priorityMockReferral.mashResidents[0].firstName} ${priorityMockReferral.mashResidents[0].lastName} (referral)`
+      )
+    );
     expect(screen.getByText(priorityMockReferral.screeningDecision as string));
     expect(
       screen.getByText(priorityMockReferral.initialReferralCategory as string)

@@ -2,7 +2,7 @@ import axios from 'axios';
 import { MashReferral } from 'types';
 
 export const submitContactDecision = async (
-  referralId: string,
+  referralId: number,
   workerEmail: string,
   requiresUrgentContact: boolean
 ): Promise<MashReferral> => {
@@ -18,7 +18,7 @@ export const submitContactDecision = async (
 };
 
 export const submitScreeningDecision = async (
-  referralId: string,
+  referralId: number,
   workerEmail: string,
   decision: string,
   requiresUrgentContact: boolean
@@ -36,7 +36,7 @@ export const submitScreeningDecision = async (
 };
 
 export const submitInitialDecision = async (
-  referralId: string,
+  referralId: number,
   workerEmail: string,
   decision: string,
   referralCategory: string,
@@ -56,7 +56,7 @@ export const submitInitialDecision = async (
 };
 
 export const submitFinalDecision = async (
-  referralId: string,
+  referralId: number,
   workerEmail: string,
   decision: string,
   referralCategory: string,

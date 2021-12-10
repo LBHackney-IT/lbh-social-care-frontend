@@ -9,11 +9,15 @@ describe('Heading', () => {
     expect(
       screen.getByText(
         `received at ${format(
-          new Date(mockedMashReferral.createdAt),
+          new Date(mockedMashReferral.referralCreatedAt),
           'HH:00 dd MMM'
         )}`
       )
     );
-    expect(screen.getByText(mockedMashReferral.clients[0] as string));
+    expect(
+      screen.getByText(
+        `${mockedMashReferral.mashResidents[0].firstName} ${mockedMashReferral.mashResidents[0].lastName}`
+      )
+    );
   });
 });

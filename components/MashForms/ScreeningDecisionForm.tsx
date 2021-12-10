@@ -29,9 +29,9 @@ const ScreeningDecisionForm = ({
   const router = useRouter();
 
   const confirmation = {
-    title: `A decision has been submitted for ${referral.clients.join(
-      ' and '
-    )}`,
+    title: `A decision has been submitted for ${referral.mashResidents
+      .map((resident) => `${resident.firstName} ${resident.lastName}`)
+      .join(' and ')}`,
     link: referral.referralDocumentURI,
   };
 
