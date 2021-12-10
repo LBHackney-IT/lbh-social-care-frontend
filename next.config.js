@@ -7,7 +7,7 @@ module.exports = withSentryConfig(
     poweredByHeader: false,
 
     async headers() {
-      return [
+      const headers = [
         {
           source: '/(.*)',
           headers: [
@@ -26,6 +26,19 @@ module.exports = withSentryConfig(
           ],
         },
       ];
+
+      if (process.env.NODE_ENV === 'production') {
+        headers[0].headers.push({
+          key: 'Content-Security-Policy',
+          value:
+            "connect-src 'self' o183917.ingest.sentry.io; " +
+            "default-src 'self' fonts.googleapis.com fonts.gstatic.com www.googletagmanager.com; " +
+            "frame-ancestors 'self'; " +
+            "form-action 'self';",
+        });
+      }
+
+      return headers;
     },
   },
   {
