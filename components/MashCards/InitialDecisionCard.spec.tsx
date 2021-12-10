@@ -28,7 +28,7 @@ describe('InitialDecisionCard', () => {
   });
   it('displays high priority if the contact is marked as urgent on the previous stage', () => {
     const priorityMockReferral = mashReferralFactory.build({
-      contactUrgentContactRequired: true,
+      contactDecisionUrgentContactRequired: true,
     });
     render(<InitialDecisionCard mashReferral={priorityMockReferral} />);
     expect(screen.getByText('High priority')).toBeVisible();

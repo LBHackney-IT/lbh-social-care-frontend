@@ -22,7 +22,9 @@ describe('FinalDecisionCard', () => {
     );
     expect(screen.getByText(mockedMashReferral.screeningDecision as string));
     expect(
-      screen.getByText(mockedMashReferral.initialReferralCategory as string)
+      screen.getByText(
+        mockedMashReferral.initialDecisionReferralCategory as string
+      )
     );
     expect(screen.getByText('Make decision'));
     expect(screen.getByText('Assign'));
@@ -52,7 +54,9 @@ describe('FinalDecisionCard', () => {
     );
     expect(screen.getByText(priorityMockReferral.screeningDecision as string));
     expect(
-      screen.getByText(priorityMockReferral.initialReferralCategory as string)
+      screen.getByText(
+        priorityMockReferral.initialDecisionReferralCategory as string
+      )
     );
     expect(screen.getByText('Make decision'));
     expect(screen.getByText('Assign'));

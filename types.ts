@@ -509,17 +509,17 @@ export interface MashReferral {
   mashResidents: MashResident[];
   referralDocumentURI: string;
   stage: ReferralStage;
-  contactUrgentContactRequired?: boolean;
-  contactCreatedAt?: string;
-  initialReferralCategory?: string;
+  contactDecisionUrgentContactRequired?: boolean;
+  contactDecisionCreatedAt?: string;
+  initialDecisionReferralCategory?: string;
   initialDecision?: string;
-  initialUrgentContactRequired?: boolean;
-  initialCreatedAt?: string;
+  initialDecisionUrgentContactRequired?: boolean;
+  initialDecisionCreatedAt?: string;
   screeningDecision?: string;
   screeningUrgentContactRequired?: boolean;
   screeningCreatedAt?: string;
   finalDecision?: string;
-  finalReferralCategory?: string;
-  finalUrgentContactRequired?: boolean;
-  finalCreatedAt?: string;
+  finalDecisionReferralCategory?: string;
+  FinalDecisionUrgentContactRequired?: boolean;
+  finalDecisionCreatedAt?: string;
 }
