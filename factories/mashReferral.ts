@@ -1,15 +1,30 @@
 import { Factory } from 'fishery';
-import { MashReferral, ReferralStage } from 'types';
+import { MashReferral, MashResident, ReferralStage } from 'types';
 import { mockedWorker } from './workers';
+
+const mashReferralResidentFactory = Factory.define<MashResident>(
+  ({ sequence }) => ({
+    id: sequence,
+    firstName: 'resident-first-name',
+    lastName: 'resident-last-name',
+    dateOfBirth: '2021-12-09T23:37:20.603Z',
+    gender: 'resident-gender',
+    ethnicity: 'resident-ethnicity',
+    firstLanguage: 'resident-first-language',
+    school: 'resident-school',
+    address: 'resident-address',
+    postcode: 'resident-postcode',
+  })
+);
 
 export const mashReferralFactory = Factory.define<MashReferral>(
   ({ sequence }) => ({
-    id: sequence.toString(),
+    id: sequence,
     referrer: 'hardcoded-referrer',
     requestedSupport: 'test-requested-support',
     assignedTo: mockedWorker,
     referralCreatedAt: '2021-10-27T09:32:17.319Z',
-    mashResidents: ['test-client'],
+    mashResidents: [mashReferralResidentFactory.build()],
     referralDocumentURI: 'test-referral-document-URI',
     stage: ReferralStage.INITIAL,
     contactUrgentContactRequired: false,

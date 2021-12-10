@@ -7,7 +7,10 @@ describe('ContactCard', () => {
   it('renders the right info from the mash referral', () => {
     render(<ContactCard mashReferral={mockedMashReferral} />);
     expect(
-      screen.getByText(`${mockedMashReferral.clients[0]}`, { exact: false })
+      screen.getByText(
+        `${mockedMashReferral.mashResidents[0].firstName} ${mockedMashReferral.mashResidents[0].lastName}`,
+        { exact: false }
+      )
     );
     expect(screen.getByText(mockedMashReferral.referrer as string));
     expect(screen.getByText(mockedMashReferral.requestedSupport as string));
@@ -20,7 +23,10 @@ describe('ContactCard', () => {
     render(<ContactCard mashReferral={priorityMockReferral} />);
     expect(screen.getByText('High priority')).toBeVisible();
     expect(
-      screen.getByText(`${priorityMockReferral.clients[0]}`, { exact: false })
+      screen.getByText(
+        `${mockedMashReferral.mashResidents[0].firstName} ${mockedMashReferral.mashResidents[0].lastName}`,
+        { exact: false }
+      )
     );
     expect(screen.getByText(priorityMockReferral.referrer as string));
     expect(screen.getByText(priorityMockReferral.requestedSupport as string));
@@ -33,7 +39,10 @@ describe('ContactCard', () => {
     render(<ContactCard mashReferral={priorityMockReferral} />);
     expect(screen.getByText('High priority')).toBeVisible();
     expect(
-      screen.getByText(`${priorityMockReferral.clients[0]}`, { exact: false })
+      screen.getByText(
+        `${mockedMashReferral.mashResidents[0].firstName} ${mockedMashReferral.mashResidents[0].lastName}`,
+        { exact: false }
+      )
     );
     expect(screen.getByText(priorityMockReferral.referrer as string));
     expect(screen.getByText(priorityMockReferral.requestedSupport as string));

@@ -75,9 +75,11 @@ describe('#ScreeningDecisionForm', () => {
       expect(mockPush).toBeCalledWith({
         pathname: '/team-assignments',
         query: {
-          confirmation: `{"title":"A decision has been submitted for ${mockedMashReferral.clients.join(
-            ' and '
-          )}","link":"${mockedMashReferral.referralDocumentURI}"}`,
+          confirmation: `{"title":"A decision has been submitted for ${mockedMashReferral.mashResidents
+            .map((resident) => `${resident.firstName} ${resident.lastName}`)
+            .join(' and ')}","link":"${
+            mockedMashReferral.referralDocumentURI
+          }"}`,
           tab: 'screening-decision',
         },
       });

@@ -10,12 +10,16 @@ describe('ScreeningCard', () => {
     expect(
       screen.getByText(
         `submitted ${format(
-          new Date(mockedMashReferral.createdAt),
+          new Date(mockedMashReferral.referralCreatedAt),
           'HH:00 dd MMM'
         )}`
       )
     );
-    expect(screen.getByText(`${mockedMashReferral.clients[0]} (referral)`));
+    expect(
+      screen.getByText(
+        `${mockedMashReferral.mashResidents[0].firstName} ${mockedMashReferral.mashResidents[0].lastName} (referral)`
+      )
+    );
     expect(screen.getByText(mockedMashReferral.initialDecision as string));
     expect(
       screen.getByText(mockedMashReferral.initialReferralCategory as string)
@@ -35,12 +39,16 @@ describe('ScreeningCard', () => {
     expect(
       screen.getByText(
         `submitted ${format(
-          new Date(priorityMockReferral.createdAt),
+          new Date(priorityMockReferral.referralCreatedAt),
           'HH:00 dd MMM'
         )}`
       )
     );
-    expect(screen.getByText(`${priorityMockReferral.clients[0]} (referral)`));
+    expect(
+      screen.getByText(
+        `${priorityMockReferral.mashResidents[0].firstName} ${priorityMockReferral.mashResidents[0].lastName} (referral)`
+      )
+    );
     expect(screen.getByText(priorityMockReferral.initialDecision as string));
     expect(
       screen.getByText(priorityMockReferral.initialReferralCategory as string)

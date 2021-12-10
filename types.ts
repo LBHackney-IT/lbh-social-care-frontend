@@ -487,13 +487,26 @@ export enum ReferralStage {
   FINAL = 'FINAL',
 }
 
+export interface MashResident {
+  id: number;
+  firstName: string;
+  lastName: string;
+  dateOfBirth?: string;
+  gender?: string;
+  ethnicity?: string;
+  firstLanguage?: string;
+  school?: string;
+  address?: string;
+  postcode?: string;
+}
+
 export interface MashReferral {
-  id: string;
+  id: number;
   referrer: string;
   requestedSupport: string;
   assignedTo?: Worker;
   referralCreatedAt: string;
-  mashResidents: Resident[];
+  mashResidents: MashResident[];
   referralDocumentURI: string;
   stage: ReferralStage;
   contactUrgentContactRequired?: boolean;

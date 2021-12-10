@@ -14,7 +14,7 @@ describe('MashTags', () => {
     MockDate.set('2021-01-01');
     const contactMockReferral = mashReferralFactory.build({
       stage: ReferralStage.CONTACT,
-      createdAt: subHours(new Date(), 2).toISOString(),
+      referralCreatedAt: subHours(new Date(), 2).toISOString(),
     });
     render(<MashTags mashReferral={contactMockReferral} />);
     expect(screen.getByText('2 hours ago'));
@@ -23,7 +23,7 @@ describe('MashTags', () => {
     MockDate.set('2021-01-01');
     const contactMockReferral = mashReferralFactory.build({
       stage: ReferralStage.CONTACT,
-      createdAt: subMinutes(new Date(), 5).toISOString(),
+      referralCreatedAt: subMinutes(new Date(), 5).toISOString(),
     });
     render(<MashTags mashReferral={contactMockReferral} />);
     expect(screen.getByText('5 mins ago'));
@@ -33,7 +33,7 @@ describe('MashTags', () => {
     MockDate.set('2021-01-01');
     const initialMockReferral = mashReferralFactory.build({
       stage: ReferralStage.INITIAL,
-      createdAt: subHours(new Date(), 2).toISOString(),
+      referralCreatedAt: subHours(new Date(), 2).toISOString(),
     });
     render(<MashTags mashReferral={initialMockReferral} />);
     expect(screen.getByText('22 hours left'));
@@ -42,7 +42,7 @@ describe('MashTags', () => {
     MockDate.set('2021-01-01');
     const initialMockReferral = mashReferralFactory.build({
       stage: ReferralStage.INITIAL,
-      createdAt: subMinutes(new Date(), 23.5 * 60).toISOString(),
+      referralCreatedAt: subMinutes(new Date(), 23.5 * 60).toISOString(),
     });
     render(<MashTags mashReferral={initialMockReferral} />);
     expect(screen.getByText('30 mins left'));
@@ -52,7 +52,7 @@ describe('MashTags', () => {
     MockDate.set('2021-01-01');
     const initialMockReferral = mashReferralFactory.build({
       stage: ReferralStage.INITIAL,
-      createdAt: subHours(new Date(), 25).toISOString(),
+      referralCreatedAt: subHours(new Date(), 25).toISOString(),
     });
     render(<MashTags mashReferral={initialMockReferral} />);
     expect(screen.getByText('Overdue'));

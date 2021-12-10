@@ -11,7 +11,11 @@ const MASHheading = ({ mashReferral }: Props): React.ReactElement => {
   return (
     <section className="govuk-!-margin-bottom-8">
       <div className={s.banner}>
-        <div className={s.heading}>{mashReferral.mashResidents.join(', ')}</div>
+        <div className={s.heading}>
+          {mashReferral.mashResidents
+            .map((resident) => `${resident.firstName} ${resident.lastName}`)
+            .join(', ')}
+        </div>
         <div>
           <span className="govuk-!-margin-right-3">
             {' '}
