@@ -23,9 +23,9 @@ const ContactForm = ({ referral, workerEmail }: Props): React.ReactElement => {
   const [errorMessage, setErrorMessage] = useState('');
   const [urgent, setUrgent] = useState(false);
   const confirmation = {
-    title: `Work on contact has been submitted for ${referral.clients.join(
-      ' and '
-    )}`,
+    title: `Work on contact has been submitted for ${referral.mashResidents
+      .map((resident) => `${resident.firstName} ${resident.lastName}`)
+      .join(' and ')}`,
     link: referral.referralDocumentURI,
   };
 

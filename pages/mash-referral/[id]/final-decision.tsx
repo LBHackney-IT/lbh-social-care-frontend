@@ -31,7 +31,7 @@ export const getServerSideProps: GetServerSideProps = async ({
     };
   }
 
-  const referral = await getMashReferral(params?.id as string);
+  const referral = await getMashReferral(Number(params?.id));
 
   if (!referral || referral.stage !== ReferralStage.FINAL) {
     return {

@@ -20,10 +20,12 @@ const initialHighRatings = new Set(['PROGRESS STRAIGHT TO CSC ALLOCATION']);
 
 const timeMetrics = (mashReferral: MashReferral) => {
   const minsPassed =
-    (Number(new Date()) - Number(new Date(mashReferral.createdAt))) / 60 / 1000;
+    (Number(new Date()) - Number(new Date(mashReferral.referralCreatedAt))) /
+    60 /
+    1000;
 
   const hoursPassed =
-    (Number(new Date()) - Number(new Date(mashReferral.createdAt))) /
+    (Number(new Date()) - Number(new Date(mashReferral.referralCreatedAt))) /
     60 /
     60 /
     1000;
