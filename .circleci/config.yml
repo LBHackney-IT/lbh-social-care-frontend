@@ -3,7 +3,6 @@ version: 2.1
 orbs:
   aws-cli: circleci/aws-cli@1.0.0
   aws_assume_role: lbh-hackit/aws_assume_role@0.1.0
-  # sentry-cli: picturepipe/sentry-cli@1.1.1
 
 executors:
   node-executor:
@@ -211,14 +210,12 @@ jobs:
 
   notify-sentry-deploy:
     executor: node-executor
-    # Specify executor for running deploy job
     environment:
       SENTRY_ORG: $SENTRY_ORG
       SENTRY_PROJECT: $SENTRY_PROJECT
       SENTRY_ENVIRONMENT: production
     steps:
       - checkout
-      # ...
       - run:
           name: Create release and notify Sentry of deploy
           command: |
