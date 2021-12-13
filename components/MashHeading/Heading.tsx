@@ -11,12 +11,16 @@ const MASHheading = ({ mashReferral }: Props): React.ReactElement => {
   return (
     <section className="govuk-!-margin-bottom-8">
       <div className={s.banner}>
-        <div className={s.heading}>{mashReferral.clients.join(', ')}</div>
+        <div className={s.heading}>
+          {mashReferral.mashResidents
+            .map((resident) => `${resident.firstName} ${resident.lastName}`)
+            .join(', ')}
+        </div>
         <div>
           <span className="govuk-!-margin-right-3">
             {' '}
             received at{' '}
-            {format(new Date(mashReferral.createdAt), 'HH:00 dd MMM')}
+            {format(new Date(mashReferral.referralCreatedAt), 'HH:00 dd MMM')}
           </span>
           <MashTag mashReferral={mashReferral} />
         </div>

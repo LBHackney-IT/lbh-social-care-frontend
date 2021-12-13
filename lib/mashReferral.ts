@@ -20,7 +20,7 @@ export const getAllMashReferrals = async (): Promise<MashReferral[]> => {
   return data;
 };
 
-export const getMashReferral = async (id: string): Promise<MashReferral> => {
+export const getMashReferral = async (id: number): Promise<MashReferral> => {
   const { data } = await axios.get<MashReferral>(
     `${ENDPOINT_API}/mash-referral/${id}`,
     {
@@ -36,7 +36,7 @@ interface ScreeningDecision {
   updateType: 'SCREENING-DECISION';
   decision: string;
   requiresUrgentContact: boolean;
-  referralId: string;
+  referralId: number;
 }
 
 export const patchReferralScreening = async (
@@ -64,7 +64,7 @@ interface InitialDecision {
   decision: string;
   referralCategory: string;
   requiresUrgentContact: boolean;
-  referralId: string;
+  referralId: number;
 }
 
 export const patchReferralInitial = async (
@@ -93,7 +93,7 @@ interface FinalDecision {
   decision: string;
   referralCategory: string;
   requiresUrgentContact: boolean;
-  referralId: string;
+  referralId: number;
 }
 
 export const patchReferralFinal = async (
@@ -119,7 +119,7 @@ interface ContactDecision {
   workerEmail: string;
   updateType: 'CONTACT-DECISION';
   requiresUrgentContact: boolean;
-  referralId: string;
+  referralId: number;
 }
 
 export const patchReferralContact = async (

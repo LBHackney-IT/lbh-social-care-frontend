@@ -162,7 +162,8 @@ export interface Submission {
   completedSteps: number;
   title?: string;
   deleted: boolean;
-  deletedFields?: {
+  deletionDetails?: {
+    deletedAt: string;
     deletedBy: string;
     deleteReason: string;
     deleteRequestedBy: string;
