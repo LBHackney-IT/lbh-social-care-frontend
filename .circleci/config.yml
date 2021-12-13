@@ -3,7 +3,7 @@ version: 2.1
 orbs:
   aws-cli: circleci/aws-cli@1.0.0
   aws_assume_role: lbh-hackit/aws_assume_role@0.1.0
-  sentry-cli: picturepipe/sentry-cli@1.1.1
+  # sentry-cli: picturepipe/sentry-cli@1.1.1
 
 executors:
   node-executor:
@@ -210,7 +210,7 @@ jobs:
             - .aws
 
   notify-sentry-deploy:
-    executor: sentry-cli
+    executor: node-executor
     # Specify executor for running deploy job
     environment:
       SENTRY_ORG: $SENTRY_ORG
