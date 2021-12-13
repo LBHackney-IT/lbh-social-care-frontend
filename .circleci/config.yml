@@ -207,7 +207,7 @@ jobs:
           root: *workspace_root
           paths:
             - .aws
-            
+
   notify-sentry-deploy:
   executor:
   # Specify executor for running deploy job
@@ -227,7 +227,7 @@ jobs:
           sentry-cli releases set-commits $SENTRY_RELEASE --auto
           sentry-cli releases files $SENTRY_RELEASE upload-sourcemaps path-to-sourcemaps-if-applicable
           sentry-cli releases finalize $SENTRY_RELEASE
-          sentry-cli releases deploys $SENTRY_RELEASE new -e $SENTRY_ENVIRONMENT          
+          sentry-cli releases deploys $SENTRY_RELEASE new -e $SENTRY_ENVIRONMENT
 
 workflows:
   version: 2
