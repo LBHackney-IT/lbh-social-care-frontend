@@ -248,7 +248,7 @@ describe('Using CP case status', () => {
       cy.get('[data-testid=text-field-error-message]').should('not.exist');
     });
 
-    it('should be possible to update a LAC case status to have a scheduled case status', () => {
+    it('should be possible to update a CP case status to have a scheduled case status', () => {
       cy.visitAs(`/people/${residentId}/details`, AuthRoles.ChildrensGroup);
 
       cy.contains('a', 'Edit / End', {

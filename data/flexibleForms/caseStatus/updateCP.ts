@@ -29,7 +29,7 @@ const form: Form = {
         {
           id: 'category',
           question: 'Category of child protection plan',
-          type: 'select',
+          type: 'radios',
           choices: cp_category,
           required: true,
         },
