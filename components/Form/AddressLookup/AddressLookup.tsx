@@ -107,13 +107,30 @@ const AddressLookup = ({
     setIsManually(false);
     setError(undefined);
     setResults([]);
-    try {
-      const res = await lookupPostcode(postcode);
-      res.length === 0
-        ? setError('There was a problem with the postcode.')
-        : setResults(res);
-    } catch {
-      setError('There was a problem with the postcode.');
+    let page_number = 1;
+    let lastPage = false;
+    let addresses;
+    do {
+      try {
+        const { address, page_count } = await lookupPostcode(
+          postcode,
+          page_number
+        );
+        console.log('address', address);
+        address.length === 0
+          ? setError('There was a problem with the postcode.')
+          : addresses
+          ? addresses.concat(address)
+          : (addresses = address);
+        console.log('addresses', addresses);
+        page_number === page_count ? (lastPage = true) : page_number++;
+      } catch {
+        setError('There was a problem with the postcode.');
+      }
+    } while (!error && !lastPage);
+    if (addresses) {
+      setResults(addresses);
+      console.log('results', results);
     }
   }, [control, postcode]);
   return (

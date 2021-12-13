@@ -8,6 +8,11 @@ export interface Address {
   uprn: string;
 }
 
+export interface AddressWrapper {
+  address: Address[];
+  page_count: number;
+}
+
 export type AgeContext = 'A' | 'B' | 'C' | undefined;
 
 export interface Allocation {

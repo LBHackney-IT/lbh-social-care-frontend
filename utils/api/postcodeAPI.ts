@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-import type { Address } from 'types';
+import type { Address, AddressWrapper } from 'types';
 
 interface AddressAPI {
   postcode: string;
@@ -24,7 +24,15 @@ export const normalizeAddress = (address: AddressAPI): Address => {
   };
 };
 
-export const lookupPostcode = async (postcode: string): Promise<Address[]> => {
-  const { data } = await axios.get(`/api/postcode/${postcode}`);
-  return data.address.map(normalizeAddress);
+export const lookupPostcode = async (
+  postcode: string,
+  page_number = 1
+): Promise<AddressWrapper> => {
+  const { data } = await axios.get(
+    `/api/postcode/${postcode}&page=${page_number}`
+  );
+  console.log('data before', data);
+  data.address = data.address.map(normalizeAddress);
+  console.log('data', data);
+  return data;
 };
