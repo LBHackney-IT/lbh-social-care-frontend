@@ -22,7 +22,7 @@ package-lock.json
 # misc
 .DS_Store
 .env
-.env.local
+.env.local*
 .vscode
 debug.log
 .eslintcache
