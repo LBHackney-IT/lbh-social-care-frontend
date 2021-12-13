@@ -3,6 +3,7 @@ import { MashReferral } from 'types';
 import Link from 'next/link';
 import { format } from 'date-fns';
 import MashTag from 'components/MashTags/MashTags';
+import MashPriorityBanner from 'components/MashPriorityBanner/MashPriorityBanner';
 
 interface Props {
   mashReferral: MashReferral;
@@ -10,11 +11,15 @@ interface Props {
 const ScreeningCard = ({ mashReferral }: Props): React.ReactElement => {
   return (
     <>
-      <li className={s.row}>
+      <MashPriorityBanner
+        isPriority={
+          mashReferral.initialDecisionUrgentContactRequired as boolean
+        }
+      >
         <div>
           <p className={`lbh-body-s govuk-!-margin-bottom-3 ${s.datetime}`}>
             <MashTag mashReferral={mashReferral} /> submitted{' '}
-            {format(new Date(mashReferral.createdAt), 'HH:00 dd MMM')}
+            {format(new Date(mashReferral.referralCreatedAt), 'HH:00 dd MMM')}
             <span className={`lbh-body-l lbh-!-font-weight-bold  ${s.action}`}>
               <Link
                 href={`mash-referral/${mashReferral.id}/screening-decision`}
@@ -30,9 +35,10 @@ const ScreeningCard = ({ mashReferral }: Props): React.ReactElement => {
               <dd>
                 <Link href={mashReferral.referralDocumentURI}>
                   <a>
-                    {mashReferral.clients[0] + ' '}
-                    {mashReferral.clients.length > 1 &&
-                      `+ ${mashReferral.clients.length - 1} `}
+                    {mashReferral.mashResidents[0].firstName + ' '}
+                    {mashReferral.mashResidents[0].lastName + ' '}
+                    {mashReferral.mashResidents.length > 1 &&
+                      `+ ${mashReferral.mashResidents.length - 1} `}
                     (referral)
                   </a>
                 </Link>
@@ -44,7 +50,7 @@ const ScreeningCard = ({ mashReferral }: Props): React.ReactElement => {
             </div>
             <div>
               <dt>Referral category</dt>
-              <dd>{mashReferral.initialReferralCategory}</dd>
+              <dd>{mashReferral.initialDecisionReferralCategory}</dd>
             </div>
             <div>
               <Link href="assign">
@@ -53,7 +59,7 @@ const ScreeningCard = ({ mashReferral }: Props): React.ReactElement => {
             </div>
           </dl>
         </div>
-      </li>
+      </MashPriorityBanner>
       <div className={s.meter}></div>
     </>
   );
