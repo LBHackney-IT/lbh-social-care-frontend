@@ -209,7 +209,7 @@ export interface User {
   isAuthorised: boolean;
   isInWorkflowsPilot?: boolean;
   isInSafeguardingReviewing?: boolean;
-  isInPlacementManagemntUnit?: boolean;
+  isInPlacementManagementUnit?: boolean;
 }
 
 export interface Team {

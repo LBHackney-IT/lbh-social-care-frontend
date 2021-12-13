@@ -19,7 +19,7 @@ const users = {
     hasAllocationsPermissions: false,
     isInWorkflowsPilot: false,
     isInSafeguardingReviewing: false,
-    isInPlacementManagemntUnit: false,
+    isInPlacementManagementUnit: false,
   }),
   admin: userFactory.build({
     hasAdminPermissions: true,
@@ -30,7 +30,7 @@ const users = {
     hasAllocationsPermissions: false,
     isInWorkflowsPilot: false,
     isInSafeguardingReviewing: false,
-    isInPlacementManagemntUnit: false,
+    isInPlacementManagementUnit: false,
   }),
   adminUnrestricted: userFactory.build({
     hasAdminPermissions: true,
@@ -41,7 +41,7 @@ const users = {
     hasAllocationsPermissions: false,
     isInWorkflowsPilot: false,
     isInSafeguardingReviewing: false,
-    isInPlacementManagemntUnit: false,
+    isInPlacementManagementUnit: false,
   }),
   dev: userFactory.build({
     hasAdminPermissions: false,
@@ -52,7 +52,7 @@ const users = {
     hasAllocationsPermissions: false,
     isInWorkflowsPilot: false,
     isInSafeguardingReviewing: false,
-    isInPlacementManagemntUnit: false,
+    isInPlacementManagementUnit: false,
   }),
   adults: userFactory.build({
     hasAdminPermissions: false,
@@ -63,7 +63,7 @@ const users = {
     hasAllocationsPermissions: false,
     isInWorkflowsPilot: false,
     isInSafeguardingReviewing: false,
-    isInPlacementManagemntUnit: false,
+    isInPlacementManagementUnit: false,
   }),
   adultsUnrestricted: userFactory.build({
     hasAdminPermissions: false,
@@ -74,7 +74,7 @@ const users = {
     hasAllocationsPermissions: false,
     isInWorkflowsPilot: false,
     isInSafeguardingReviewing: false,
-    isInPlacementManagemntUnit: false,
+    isInPlacementManagementUnit: false,
   }),
   adultsAllocator: userFactory.build({
     hasAdminPermissions: false,
@@ -85,7 +85,7 @@ const users = {
     hasAllocationsPermissions: true,
     isInWorkflowsPilot: false,
     isInSafeguardingReviewing: false,
-    isInPlacementManagemntUnit: false,
+    isInPlacementManagementUnit: false,
   }),
   adultsInWorkflowsPilot: userFactory.build({
     hasAdminPermissions: false,
@@ -96,7 +96,7 @@ const users = {
     hasAllocationsPermissions: false,
     isInWorkflowsPilot: true,
     isInSafeguardingReviewing: false,
-    isInPlacementManagemntUnit: false,
+    isInPlacementManagementUnit: false,
   }),
   childrens: userFactory.build({
     hasAdminPermissions: false,
@@ -107,7 +107,7 @@ const users = {
     hasAllocationsPermissions: false,
     isInWorkflowsPilot: false,
     isInSafeguardingReviewing: false,
-    isInPlacementManagemntUnit: false,
+    isInPlacementManagementUnit: false,
   }),
   childrensUnrestricted: userFactory.build({
     hasAdminPermissions: false,
@@ -118,7 +118,7 @@ const users = {
     hasAllocationsPermissions: false,
     isInWorkflowsPilot: false,
     isInSafeguardingReviewing: false,
-    isInPlacementManagemntUnit: false,
+    isInPlacementManagementUnit: false,
   }),
   childrensInWorkflowsPilot: userFactory.build({
     hasAdminPermissions: false,
@@ -129,7 +129,7 @@ const users = {
     hasAllocationsPermissions: false,
     isInWorkflowsPilot: true,
     isInSafeguardingReviewing: false,
-    isInPlacementManagemntUnit: false,
+    isInPlacementManagementUnit: false,
   }),
   inWorkflowPilot: userFactory.build({
     hasAdminPermissions: false,
@@ -140,7 +140,7 @@ const users = {
     hasAllocationsPermissions: true,
     isInWorkflowsPilot: true,
     isInSafeguardingReviewing: false,
-    isInPlacementManagemntUnit: false,
+    isInPlacementManagementUnit: false,
   }),
 };
 

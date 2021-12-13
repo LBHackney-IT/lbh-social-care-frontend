@@ -97,7 +97,7 @@ export const isAuthorised = (
     isInSafeguardingReviewing: groups.includes(
       AUTHORISED_SAFEGUARDING_REVIEWING_GROUP
     ),
-    isInPlacementManagemntUnit: groups.includes(
+    isInPlacementManagementUnit: groups.includes(
       AUTHORISED_PLACEMENT_MANAGEMENT_UNIT_GROUP
     ),
   };
