@@ -94,9 +94,12 @@ export const isAuthorised = (
     hasUnrestrictedPermissions: groups.includes(AUTHORISED_UNRESTRICTED_GROUP),
     isAuditable: groups.includes(AUTHORISED_AUDITABLE_GROUP),
     isInWorkflowsPilot: groups.includes(AUTHORISED_WORKFLOWS_PILOT_GROUP),
-    hasCaseStatusPermissions:
-      groups.includes(AUTHORISED_SAFEGUARDING_REVIEWING_GROUP) ||
-      groups.includes(AUTHORISED_PLACEMENT_MANAGEMENT_UNIT_GROUP),
+    isInSafeguardingReviewing: groups.includes(
+      AUTHORISED_SAFEGUARDING_REVIEWING_GROUP
+    ),
+    isInPlacementManagemntUnit: groups.includes(
+      AUTHORISED_PLACEMENT_MANAGEMENT_UNIT_GROUP
+    ),
   };
   return {
     ...gssUser,

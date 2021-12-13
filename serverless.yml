@@ -59,7 +59,7 @@ functions:
       NOTIFY_RETURN_FOR_EDITS_TEMPLATE_ID: ${ssm:/lbh-social-care/${self:provider.stage}/notify-return-for-edits-template-id}
       WORKFLOWS_PILOT_URL: ${ssm:/lbh-social-care/${self:provider.stage}/workflows-pilot-url}
       AUTHORISED_WORKFLOWS_PILOT_GROUP: ${ssm:/lbh-social-care/${self:provider.stage}/authorised-workflows-pilot-group}
-      AUTHORISED_SAFEGUARDING_REVIEWING_GROUP: ${ssm:/lbh-social-care/${self:provider.stage}/authorised-workflows-pilot-group}
+      AUTHORISED_SAFEGUARDING_REVIEWING_GROUP: ${ssm:/lbh-social-care/${self:provider.stage}/authorised-safeguarding-reviewing-group}
       AUTHORISED_PLACEMENT_MANAGEMENT_UNIT_GROUP: ${ssm:/lbh-social-care/${self:provider.stage}/authorised-placement-management-unit-group}
 resources:
   Resources:

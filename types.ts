@@ -205,10 +205,11 @@ export interface User {
   hasChildrenPermissions: boolean;
   hasAllocationsPermissions?: boolean;
   hasUnrestrictedPermissions?: boolean;
-  hasCaseStatusPermissions?: boolean;
   isAuditable: boolean;
   isAuthorised: boolean;
   isInWorkflowsPilot?: boolean;
+  isInSafeguardingReviewing?: boolean;
+  isInPlacementManagemntUnit?: boolean;
 }
 
 export interface Team {
