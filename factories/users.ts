@@ -13,6 +13,8 @@ export const userFactory = Factory.define<User>(() => ({
   permissionFlag: 'A',
   isAuthorised: true,
   isInWorkflowsPilot: false,
+  isInSafeguardingReviewing: false,
+  isInPlacementManagementUnit: false,
 }));
 
 export const mockedOnlyAdultUser = userFactory.build({
