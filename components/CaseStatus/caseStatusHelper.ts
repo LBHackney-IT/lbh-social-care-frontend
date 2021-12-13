@@ -140,7 +140,6 @@ export const getLatestEndedStatusEndDate = (
   type?: string
 ): string | undefined => {
   if (caseStatusIncludingEnded) {
-    console.log('type', type);
     let latestEndDate: string;
     let endedCaseData = caseStatusIncludingEnded.filter(
       (status) => status.endDate
