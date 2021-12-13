@@ -44,7 +44,7 @@ const TaskListPage = ({
       );
       router.push(`/people/${person.id}/submissions/${params.id}`);
     } catch (e) {
-      setStatus(e.toString());
+      setStatus((e as Error).toString());
     }
   };
 

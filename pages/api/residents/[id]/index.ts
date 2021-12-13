@@ -4,6 +4,7 @@ import { getResident, updateResident } from 'lib/residents';
 import { isAuthorised } from 'utils/auth';
 
 import type { NextApiRequest, NextApiResponse, NextApiHandler } from 'next';
+import { AxiosError } from 'axios';
 
 const endpoint: NextApiHandler = async (
   req: NextApiRequest,
@@ -27,8 +28,11 @@ const endpoint: NextApiHandler = async (
               .status(StatusCodes.NOT_FOUND)
               .json({ message: 'Resident Not Found' });
       } catch (error) {
-        console.error('Resident get error:', error?.response?.data);
-        error?.response?.status === StatusCodes.NOT_FOUND
+        console.error(
+          'Resident get error:',
+          (error as AxiosError)?.response?.data
+        );
+        (error as AxiosError)?.response?.status === StatusCodes.NOT_FOUND
           ? res
               .status(StatusCodes.NOT_FOUND)
               .json({ message: 'Resident Not Found' })
@@ -43,7 +47,10 @@ const endpoint: NextApiHandler = async (
         const data = await updateResident({ id, ...req.body });
         res.status(StatusCodes.OK).json(data);
       } catch (error) {
-        console.error('Resident patch error:', error?.response?.data);
+        console.error(
+          'Resident patch error:',
+          (error as AxiosError)?.response?.data
+        );
         console.error('Resident patch request:', req);
         res
           .status(StatusCodes.INTERNAL_SERVER_ERROR)

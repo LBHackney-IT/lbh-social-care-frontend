@@ -4,6 +4,7 @@ import { getWarningNotesByResident } from 'lib/warningNotes';
 import { isAuthorised } from 'utils/auth';
 
 import type { NextApiRequest, NextApiResponse, NextApiHandler } from 'next';
+import { AxiosError } from 'axios';
 
 const endpoint: NextApiHandler = async (
   req: NextApiRequest,
@@ -24,7 +25,10 @@ const endpoint: NextApiHandler = async (
         );
         res.status(StatusCodes.OK).json(data);
       } catch (error) {
-        console.error('Warning Notes get error:', error?.response?.data);
+        console.error(
+          'Warning Notes get error:',
+          (error as AxiosError)?.response?.data
+        );
         res
           .status(StatusCodes.INTERNAL_SERVER_ERROR)
           .json({ message: 'Unable to get the Warning Notes' });

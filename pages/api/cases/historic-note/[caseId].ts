@@ -4,6 +4,7 @@ import { getHistoricNote } from 'lib/cases';
 import { isAuthorised } from 'utils/auth';
 
 import type { NextApiRequest, NextApiResponse, NextApiHandler } from 'next';
+import { AxiosError } from 'axios';
 
 const endpoint: NextApiHandler = async (
   req: NextApiRequest,
@@ -30,7 +31,10 @@ const endpoint: NextApiHandler = async (
               .status(StatusCodes.NOT_FOUND)
               .json({ message: 'Historic Note Not Found' });
       } catch (error) {
-        console.error('Historic Note get error:', error?.response?.data);
+        console.error(
+          'Historic Note get error:',
+          (error as AxiosError)?.response?.data
+        );
         res
           .status(StatusCodes.INTERNAL_SERVER_ERROR)
           .json({ message: 'Unable to get the Historic Note' });

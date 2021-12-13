@@ -4,6 +4,7 @@ import { getCases, addCase } from 'lib/cases';
 import { isAuthorised } from 'utils/auth';
 
 import type { NextApiRequest, NextApiResponse, NextApiHandler } from 'next';
+import { AxiosError } from 'axios';
 
 const endpoint: NextApiHandler = async (
   req: NextApiRequest,
@@ -25,8 +26,11 @@ const endpoint: NextApiHandler = async (
         });
         res.status(StatusCodes.OK).json(data);
       } catch (error) {
-        console.error('Cases get error:', error?.response?.data);
-        error?.response?.status === StatusCodes.NOT_FOUND
+        console.error(
+          'Cases get error:',
+          (error as AxiosError)?.response?.data
+        );
+        (error as AxiosError)?.response?.status === StatusCodes.NOT_FOUND
           ? res
               .status(StatusCodes.NOT_FOUND)
               .json({ message: 'Cases Not Found' })
@@ -41,7 +45,10 @@ const endpoint: NextApiHandler = async (
         const data = await addCase(req.body);
         res.status(StatusCodes.OK).json(data);
       } catch (error) {
-        console.error('Case post error:', error?.response?.data);
+        console.error(
+          'Case post error:',
+          (error as AxiosError)?.response?.data
+        );
         res
           .status(StatusCodes.INTERNAL_SERVER_ERROR)
           .json({ message: 'Unable to post case' });
