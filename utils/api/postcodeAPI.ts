@@ -31,8 +31,6 @@ export const lookupPostcode = async (
   const { data } = await axios.get(
     `/api/postcode/${postcode}&page=${page_number}`
   );
-  console.log('data before', data);
   data.address = data.address.map(normalizeAddress);
-  console.log('data', data);
   return data;
 };
