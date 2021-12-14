@@ -102,11 +102,11 @@ const AddressLookup = ({
   const [loading, setLoading] = useState(false);
   const searchPostcode = useCallback(async () => {
     control.setValue(`address`, null);
-    setLoading(true);
     if (!postcode || !isPostcodeValid(postcode)) {
       setError('You entered an invalid postcode.');
       return;
     }
+    setLoading(true);
     setIsManually(false);
     setError(undefined);
     setResults([]);
