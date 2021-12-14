@@ -22,8 +22,8 @@ const possibleTabs = new Set([
 export const MashDashboard = ({ referrals }: Props): React.ReactElement => {
   const [filter, setFilter] = useState('contact');
   const [submitting, setSubmitting] = useState(false);
-
   const router = useRouter();
+  const [assignmentFilter, setAssignmentFilter] = useState(false);
 
   useEffect(() => {
     if (router.query.tab) {
@@ -76,6 +76,12 @@ export const MashDashboard = ({ referrals }: Props): React.ReactElement => {
     router.reload();
   };
 
+  if (assignmentFilter === true) {
+    mashReferrals = mashReferrals.filter(
+      (ref) => ref.requestedSupport === 'Safeguarding'
+    );
+  }
+
   return (
     <div>
       <>
@@ -111,6 +117,44 @@ export const MashDashboard = ({ referrals }: Props): React.ReactElement => {
             </Tab>
           </ul>
         </fieldset>
+        <div
+          className="govuk-radios lbh-radios govuk-radios--conditional"
+          data-module="govuk-radios"
+          style={{ display: 'inline-flex' }}
+        >
+          <div className="govuk-radios__item">
+            <input
+              className="govuk-radios__input"
+              id="all-assignments-filter"
+              name="all-assignments"
+              type="radio"
+              onChange={() => setAssignmentFilter(false)}
+              checked={!assignmentFilter}
+            />
+            <label
+              className="govuk-label govuk-radios__label"
+              htmlFor="all-assignments-filter"
+            >
+              All
+            </label>
+          </div>
+          <div className="govuk-radios__item">
+            <input
+              className="govuk-radios__input"
+              id="my-assignments-filter"
+              name="my-assignments"
+              type="radio"
+              onChange={() => setAssignmentFilter(true)}
+              checked={assignmentFilter}
+            />
+            <label
+              className="govuk-label govuk-radios__label"
+              htmlFor="my-assignments-filter"
+            >
+              My assignments only
+            </label>
+          </div>
+        </div>
         <Button
           label="Reset Dummy Data"
           type="submit"
@@ -118,7 +162,11 @@ export const MashDashboard = ({ referrals }: Props): React.ReactElement => {
           disabled={submitting}
         />
         <div>
-          <MainCard filter={filter} mashReferrals={mashReferrals}></MainCard>
+          {mashReferrals.length > 0 ? (
+            <MainCard filter={filter} mashReferrals={mashReferrals}></MainCard>
+          ) : (
+            <p>No referrals to show.</p>
+          )}
         </div>
       </>
     </div>
