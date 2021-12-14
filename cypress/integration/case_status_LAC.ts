@@ -69,6 +69,9 @@ describe('Using LAC case status', () => {
     cy.intercept('POST', `/api/casestatus`, (req) => {
       req.body.createdBy = 'e2e.tests.adult@hackney.gov.uk';
     });
+    cy.intercept('POST', `/api/casestatus/update/**`, (req) => {
+      req.body.createdBy = 'e2e.tests.adult@hackney.gov.uk';
+    });
     cy.intercept('PATCH', '/api/casestatus/**', (req) => {
       req.body.editedBy = 'e2e.tests.adult@hackney.gov.uk';
     });
