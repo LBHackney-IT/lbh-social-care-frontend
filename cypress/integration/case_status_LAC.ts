@@ -359,7 +359,9 @@ describe('Using LAC case status', () => {
       cy.wait('@getCaseStatus');
       cy.contains('Add a case status', {
         timeout: 30000,
-      }).should('be.visible');
+      })
+        .scrollIntoView()
+        .should('be.visible');
     });
 
     it('should not allow you to create a new case status before the previous status end date', () => {
