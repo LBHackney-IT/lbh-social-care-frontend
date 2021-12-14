@@ -7,6 +7,7 @@ import ErrorMessage from 'components/ErrorMessage/ErrorMessage';
 import { Select, TextInput } from 'components/Form';
 import Button from 'components/Button/Button';
 import { lookupPostcode } from 'utils/api/postcodeAPI';
+import Spinner from 'components/Spinner/Spinner';
 
 import { Address } from 'types';
 import { AddressLookup as IAddressLookup } from 'components/Form/types';
@@ -98,8 +99,10 @@ const AddressLookup = ({
   const [results, setResults] = useState<Address[]>([]);
   const [isManually, setIsManually] = useState<boolean>();
   const [error, setError] = useState<string>();
+  const [loading, setLoading] = useState(false);
   const searchPostcode = useCallback(async () => {
     control.setValue(`address`, null);
+    setLoading(true);
     if (!postcode || !isPostcodeValid(postcode)) {
       setError('You entered an invalid postcode.');
       return;
@@ -108,8 +111,8 @@ const AddressLookup = ({
     setError(undefined);
     setResults([]);
     let page_number = 1;
-    let lastPage = false;
-    const addresses: Address[] = [];
+    let isLastPage = false;
+    const matchingAddresses: Address[] = [];
     let errorMessage;
     do {
       try {
@@ -119,17 +122,18 @@ const AddressLookup = ({
         );
         address.length === 0
           ? (errorMessage = 'There was a problem with the postcode.')
-          : addresses?.push(...address);
-        page_number === page_count ? (lastPage = true) : page_number++;
+          : matchingAddresses?.push(...address);
+        page_number === page_count ? (isLastPage = true) : page_number++;
       } catch {
         errorMessage = 'There was a problem with the postcode.';
       }
-    } while (!errorMessage && !lastPage);
+    } while (!errorMessage && !isLastPage);
     if (errorMessage) {
       setError(errorMessage);
-    } else if (addresses) {
-      setResults(addresses);
+    } else if (matchingAddresses) {
+      setResults(matchingAddresses);
     }
+    setLoading(false);
   }, [control, postcode]);
   return (
     <div
@@ -166,6 +170,7 @@ const AddressLookup = ({
           onClick={searchPostcode}
           type="button"
           label="Look up"
+          disabled={loading}
         />
         {supportManualEntry && (
           <Button
@@ -220,6 +225,11 @@ const AddressLookup = ({
           className="govuk-!-margin-top-5"
           label={error || errorMessage}
         />
+      )}
+      {loading && (
+        <div className="govuk-!-margin-top-5 govuk-grid-column-one-third">
+          <Spinner />
+        </div>
       )}
     </div>
   );
