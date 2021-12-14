@@ -10,6 +10,7 @@ import { resetDummyData } from 'utils/api/mashReferrals';
 
 interface Props {
   referrals: MashReferral[];
+  myReferrals: MashReferral[];
 }
 
 const possibleTabs = new Set([
@@ -19,7 +20,10 @@ const possibleTabs = new Set([
   'final-decision',
 ]);
 
-export const MashDashboard = ({ referrals }: Props): React.ReactElement => {
+export const MashDashboard = ({
+  referrals,
+  myReferrals,
+}: Props): React.ReactElement => {
   const [filter, setFilter] = useState('contact');
   const [submitting, setSubmitting] = useState(false);
   const router = useRouter();
@@ -51,15 +55,24 @@ export const MashDashboard = ({ referrals }: Props): React.ReactElement => {
   };
 
   let mashReferrals: MashReferral[] = [];
+  const allReferrals = assignmentFilter ? myReferrals : referrals;
 
   if (filter === 'contact') {
-    mashReferrals = contact;
+    mashReferrals = allReferrals.filter(
+      (ref) => ref.stage === ReferralStage.CONTACT
+    );
   } else if (filter === 'initial-decision') {
-    mashReferrals = initial;
+    mashReferrals = allReferrals.filter(
+      (ref) => ref.stage === ReferralStage.INITIAL
+    );
   } else if (filter === 'screening-decision') {
-    mashReferrals = screening;
+    mashReferrals = allReferrals.filter(
+      (ref) => ref.stage === ReferralStage.SCREENING
+    );
   } else {
-    mashReferrals = final;
+    mashReferrals = allReferrals.filter(
+      (ref) => ref.stage === ReferralStage.FINAL
+    );
   }
 
   const onTabClick = (tabClicked: string) => {

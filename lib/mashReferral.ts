@@ -20,6 +20,19 @@ export const getAllMashReferrals = async (): Promise<MashReferral[]> => {
   return data;
 };
 
+export const getMyMashReferrals = async (
+  email: string
+): Promise<MashReferral[]> => {
+  const { data } = await axios.get<MashReferral[]>(
+    `${ENDPOINT_API}/mash-referral/?email=${email}`,
+    {
+      headers,
+    }
+  );
+
+  return data;
+};
+
 export const getMashReferral = async (id: number): Promise<MashReferral> => {
   const { data } = await axios.get<MashReferral>(
     `${ENDPOINT_API}/mash-referral/${id}`,
