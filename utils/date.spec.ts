@@ -22,7 +22,7 @@ describe('date util', () => {
     });
   });
 
-  describe('formatDate', () => {
+  xdescribe('formatDate', () => {
     it('should work properly', () => {
       // Allow for MacOS short month output differences from other platforms.
       const expectedMonth = osType() === 'Darwin' ? 'Sept' : 'Sep';
