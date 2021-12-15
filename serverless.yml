@@ -37,7 +37,7 @@ functions:
       subnetIds: ${self:custom.subnets.${self:provider.stage}}
     environment:
       NEXT_PUBLIC_ENV: ${opt:stage}
-      AWS_KEY: ${ssm:/lbh-social-care/${self:provider.stage}/aws-key~true}
+      AWS_KEY: ${ssm:/lbh-social-care/${self:provider.stage}/aws-key}
       ENDPOINT_API: ${ssm:/lbh-social-care/${self:provider.stage}/endpoint-case-viewer}
       GSSO_URL: ${ssm:/lbh-social-care/${self:provider.stage}/gsso-url}
       GSSO_TOKEN_NAME: ${ssm:/lbh-social-care/${self:provider.stage}/gsso-token-name}
@@ -50,11 +50,11 @@ functions:
       AUTHORISED_UNRESTRICTED_GROUP: ${ssm:/lbh-social-care/${self:provider.stage}/authorised-unrestricted-group}
       AUTHORISED_AUDITABLE_GROUP: ${ssm:/lbh-social-care/${self:provider.stage}/authorised-auditable-group}
       POSTCODE_LOOKUP_URL: ${ssm:/lbh-social-care/${self:provider.stage}/postcode-lookup-url}
-      POSTCODE_LOOKUP_APIKEY: ${ssm:/lbh-social-care/${self:provider.stage}/postcode-lookup-apikey~true}
+      POSTCODE_LOOKUP_APIKEY: ${ssm:/lbh-social-care/${self:provider.stage}/postcode-lookup-apikey}
       NEXT_PUBLIC_FEEDBACK_LINK: ${ssm:/lbh-social-care/${self:provider.stage}/next-public-feedback-link}
       REDIRECT_URL: ${ssm:/lbh-social-care/${self:provider.stage}/redirect_url}
       NEXT_PUBLIC_GOOGLE_ANALYTICS_ID: ${ssm:/lbh-social-care/${self:provider.stage}/next_public_google_analytics_id}
-      NOTIFY_API_KEY: ${ssm:/lbh-social-care/${self:provider.stage}/notify-api-key~true}
+      NOTIFY_API_KEY: ${ssm:/lbh-social-care/${self:provider.stage}/notify-api-key}
       NOTIFY_APPROVER_TEMPLATE_ID: ${ssm:/lbh-social-care/${self:provider.stage}/notify-approver-template-id}
       NOTIFY_RETURN_FOR_EDITS_TEMPLATE_ID: ${ssm:/lbh-social-care/${self:provider.stage}/notify-return-for-edits-template-id}
       WORKFLOWS_PILOT_URL: ${ssm:/lbh-social-care/${self:provider.stage}/workflows-pilot-url}
