@@ -36,7 +36,7 @@ const MashAssignmentWidget = ({
     } catch (error) {
       const axiosError = error as AxiosError;
       setSubmitting(false);
-      setErrorMessage(axiosError.response?.data);
+      setErrorMessage(axiosError.response?.data.title);
     }
   };
 
