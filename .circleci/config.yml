@@ -204,7 +204,7 @@ workflows:
                 - main
       - build:
           requires:
-            - unit-tests
+            - install-dependencies
       - e2e:
           requires:
             - build

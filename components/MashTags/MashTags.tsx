@@ -20,10 +20,12 @@ const initialHighRatings = new Set(['PROGRESS STRAIGHT TO CSC ALLOCATION']);
 
 const timeMetrics = (mashReferral: MashReferral) => {
   const minsPassed =
-    (Number(new Date()) - Number(new Date(mashReferral.createdAt))) / 60 / 1000;
+    (Number(new Date()) - Number(new Date(mashReferral.referralCreatedAt))) /
+    60 /
+    1000;
 
   const hoursPassed =
-    (Number(new Date()) - Number(new Date(mashReferral.createdAt))) /
+    (Number(new Date()) - Number(new Date(mashReferral.referralCreatedAt))) /
     60 /
     60 /
     1000;
@@ -35,9 +37,10 @@ const timeMetrics = (mashReferral: MashReferral) => {
     mashReferral.stage === ReferralStage.FINAL
   ) {
     let initialMinsPassed = 0;
-    if (mashReferral.initialCreatedAt != undefined)
+    if (mashReferral.initialDecisionCreatedAt != undefined)
       initialMinsPassed = Math.round(
-        Number(new Date()) - Number(new Date(mashReferral.initialCreatedAt))
+        Number(new Date()) -
+          Number(new Date(mashReferral.initialDecisionCreatedAt))
       );
 
     if (
