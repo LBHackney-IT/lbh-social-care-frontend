@@ -96,10 +96,14 @@ const AddressLookup = ({
   const [postcode, setPostcode] = useState(
     defaultValue && defaultValue.postcode
   );
+  const [streetAddress, setStreetAddress] = useState();
   const [results, setResults] = useState<Address[]>([]);
   const [isManually, setIsManually] = useState<boolean>();
   const [error, setError] = useState<string>();
   const [loading, setLoading] = useState(false);
+  console.log('defaultValue', defaultValue);
+  console.log('defaultValue postcode', defaultValue && defaultValue.postcode);
+  console.log('streetAddress', streetAddress);
   const searchPostcode = useCallback(async () => {
     control.setValue(`address`, null);
     if (!postcode || !isPostcodeValid(postcode)) {
@@ -151,6 +155,17 @@ const AddressLookup = ({
       )}
       <div className="govuk-grid-row">
         <div className="govuk-grid-column-one-third">
+          <input
+            className={cx('lbh-input govuk-input', {
+              'govuk-input--error': Boolean(error),
+            })}
+            id="streetAddress"
+            name="street-address"
+            type="text"
+            placeholder="Street Address"
+            onChange={(e) => setStreetAddress(e.target.value)}
+            ref={inputRef}
+          />
           <input
             className={cx('lbh-input govuk-input', {
               'govuk-input--error': Boolean(error),
