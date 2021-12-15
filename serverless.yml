@@ -1,8 +1,8 @@
 service: lbh-social-care
 
 provider:
-  variablesResolutionMode: 20210326
   name: aws
+  variablesResolutionMode: 20210326
   runtime: nodejs14.x
   versionFunctions: false
   region: eu-west-2
