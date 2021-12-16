@@ -3,6 +3,7 @@ import StatusCodes from 'http-status-codes';
 import { finishSubmission, patchSubmissionForStep } from 'lib/submissions';
 import { isAuthorised } from 'utils/auth';
 import { FormikValues } from 'formik';
+import { withSentry, setUser } from '@sentry/nextjs';
 
 const handler = async (
   req: NextApiRequest,
@@ -12,6 +13,7 @@ const handler = async (
     const { id } = req.query;
 
     const user = isAuthorised(req);
+    setUser({ email: user?.email });
 
     switch (req.method) {
       case 'POST':
@@ -56,4 +58,4 @@ const handler = async (
   }
 };
 
-export default handler;
+export default withSentry(handler);
