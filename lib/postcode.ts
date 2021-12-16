@@ -14,12 +14,19 @@ interface Address {
 }
 
 export const getAddresses = async (
-  postcode: string
+  postcode: string,
+  buildingNumber: string,
+  page: string
 ): Promise<{ address: Address[] }> => {
-  const { data } = await axios.get(`${POSTCODE_LOOKUP_URL}${postcode}`, {
-    headers: {
-      Authorization: POSTCODE_LOOKUP_APIKEY,
-    },
-  });
+  const { data } = await axios.get(
+    `${POSTCODE_LOOKUP_URL}${postcode}&page=${page}${
+      buildingNumber !== undefined ? `&buildingNumber=${buildingNumber}` : ''
+    }`,
+    {
+      headers: {
+        Authorization: POSTCODE_LOOKUP_APIKEY,
+      },
+    }
+  );
   return data.data;
 };

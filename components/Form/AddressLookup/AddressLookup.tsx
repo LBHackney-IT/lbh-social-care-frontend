@@ -92,18 +92,17 @@ const AddressLookup = ({
   rules,
 }: Props): React.ReactElement => {
   const inputRef = useRef<HTMLInputElement>(null);
+  const buildingNumRef = useRef<HTMLInputElement>(null);
   const defaultValue = control.defaultValuesRef.current[name];
   const [postcode, setPostcode] = useState(
     defaultValue && defaultValue.postcode
   );
-  const [streetAddress, setStreetAddress] = useState();
+  const [buildingNumber, setBuildingNumber] = useState('');
   const [results, setResults] = useState<Address[]>([]);
   const [isManually, setIsManually] = useState<boolean>();
   const [error, setError] = useState<string>();
   const [loading, setLoading] = useState(false);
-  console.log('defaultValue', defaultValue);
-  console.log('defaultValue postcode', defaultValue && defaultValue.postcode);
-  console.log('streetAddress', streetAddress);
+
   const searchPostcode = useCallback(async () => {
     control.setValue(`address`, null);
     if (!postcode || !isPostcodeValid(postcode)) {
@@ -118,12 +117,15 @@ const AddressLookup = ({
     let isLastPage = false;
     const matchingAddresses: Address[] = [];
     let errorMessage;
+
     do {
       try {
         const { address, page_count } = await lookupPostcode(
           postcode,
+          buildingNumber,
           page_number
         );
+
         address.length === 0
           ? (errorMessage = 'There was a problem with the postcode.')
           : matchingAddresses?.push(...address);
@@ -138,7 +140,7 @@ const AddressLookup = ({
       setResults(matchingAddresses);
     }
     setLoading(false);
-  }, [control, postcode]);
+  }, [control, postcode, buildingNumber]);
   return (
     <div
       className={cx('lbh-form-group govuk-form-group', {
@@ -159,17 +161,21 @@ const AddressLookup = ({
             className={cx('lbh-input govuk-input', {
               'govuk-input--error': Boolean(error),
             })}
-            id="streetAddress"
-            name="street-address"
+            id="buildingNumber"
+            name="building-number"
             type="text"
-            placeholder="Street Address"
-            onChange={(e) => setStreetAddress(e.target.value)}
-            ref={inputRef}
+            placeholder="Building Number (Optional)"
+            onChange={(e) => setBuildingNumber(e.target.value)}
+            ref={buildingNumRef}
           />
           <input
-            className={cx('lbh-input govuk-input', {
-              'govuk-input--error': Boolean(error),
-            })}
+            className={cx(
+              'lbh-input govuk-input',
+              {
+                'govuk-input--error': Boolean(error),
+              },
+              'govuk-!-margin-top-5'
+            )}
             id="postcode"
             name="postal-code"
             type="text"
@@ -186,6 +192,7 @@ const AddressLookup = ({
           type="button"
           label="Look up"
           disabled={loading}
+          id="lookup-button"
         />
         {supportManualEntry && (
           <Button

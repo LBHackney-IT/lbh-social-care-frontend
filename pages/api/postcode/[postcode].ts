@@ -19,7 +19,11 @@ const endpoint: NextApiHandler = async (
   switch (req.method) {
     case 'GET':
       try {
-        const data = await getAddresses(req.query.postcode as string);
+        const data = await getAddresses(
+          req.query.postcode as string,
+          req.query.buildingNumber as string,
+          req.query.page as string
+        );
         res.status(StatusCodes.OK).json(data);
       } catch (error) {
         console.error('Postcode get error', error?.response?.data);
