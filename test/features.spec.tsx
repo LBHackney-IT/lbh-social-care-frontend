@@ -78,3 +78,83 @@ describe('Test feature-flags-implementation-proof-with-user-permission feature f
     ).toBe(false);
   });
 });
+
+describe('Test feature-flags-implementation-proof-with-dev-permission feature flag', () => {
+  it('should returns false if no parameters are passed', () => {
+    const featureFlagResult = getFeatureFlags({
+      environmentName: '',
+      user: undefined,
+    });
+    expect(
+      featureFlagResult[
+        'feature-flags-implementation-proof-with-dev-permission'
+      ].isActive
+    ).toBe(false);
+  });
+
+  it('should returns true if the environment name is development', () => {
+    const featureFlagResult = getFeatureFlags({
+      environmentName: 'development',
+      user: undefined,
+    });
+    expect(
+      featureFlagResult[
+        'feature-flags-implementation-proof-with-dev-permission'
+      ].isActive
+    ).toBe(true);
+  });
+
+  it('should returns false if the user is not an dev', () => {
+    mockedUser.hasDevPermissions = false;
+    const featureFlagResult = getFeatureFlags({
+      environmentName: '',
+      user: mockedUser,
+    });
+    expect(
+      featureFlagResult[
+        'feature-flags-implementation-proof-with-dev-permission'
+      ].isActive
+    ).toBe(false);
+  });
+
+  it('should returns true if the user is a dev', () => {
+    mockedUser.hasDevPermissions = true;
+    const featureFlagResult = getFeatureFlags({
+      environmentName: '',
+      user: mockedUser,
+    });
+    expect(
+      featureFlagResult[
+        'feature-flags-implementation-proof-with-dev-permission'
+      ].isActive
+    ).toBe(true);
+  });
+
+  it('should returns true if the user is a dev and environment is production', () => {
+    mockedUser.hasAdminPermissions = false;
+    mockedUser.hasDevPermissions = true;
+    const featureFlagResult = getFeatureFlags({
+      environmentName: 'production',
+      user: mockedUser,
+    });
+    expect(
+      featureFlagResult[
+        'feature-flags-implementation-proof-with-dev-permission'
+      ].isActive
+    ).toBe(true);
+  });
+
+  it('should returns false if the user is an admin and environment is production', () => {
+    mockedUser.hasDevPermissions = false;
+    mockedUser.hasAdminPermissions = true;
+    const featureFlagResult = getFeatureFlags({
+      environmentName: 'production',
+      user: mockedUser,
+    });
+    expect(
+      featureFlagResult[
+        'feature-flags-implementation-proof-with-dev-permission'
+      ].isActive
+    ).toBe(false);
+  });
+});
