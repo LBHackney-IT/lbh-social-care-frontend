@@ -20,9 +20,15 @@ export const getFeatureFlags = ({
       isActive:
         environmentName === 'development' || user?.hasAdminPermissions || false,
     },
+    // FEATURE-FLAG-EXPIRES [3000-12-31]: feature-flags-implementation-proof-with-dev-permission
+    'feature-flags-implementation-proof-with-dev-permission': {
+      isActive:
+        environmentName === 'development' || user?.hasDevPermissions || false,
+    },
     // FEATURE-FLAG-EXPIRES [2022-01-31]: case-notes-deletion
     'case-notes-deletion': {
-      isActive: environmentName === 'development',
+      isActive:
+        environmentName === 'development' || user?.hasDevPermissions || false,
     },
     // FEATURE-FLAG-EXPIRES [2022-01-31]: case-status
     'case-status': {
