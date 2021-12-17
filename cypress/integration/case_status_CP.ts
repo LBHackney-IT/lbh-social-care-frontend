@@ -74,7 +74,10 @@ xdescribe('Using CP case status', () => {
 
   describe('As a user in the Childrens group', () => {
     it('should check for any existing case status before all other CP tests & if one exists then use a newly created resident to run tests against', () => {
-      cy.visitAs(`/people/${residentId}/details`, AuthRoles.ChildrensGroup);
+      cy.visitAs(
+        `/people/${residentId}/details`,
+        AuthRoles.ChildrensSafeguardingReviewingGroup
+      );
       cy.wait('@getCaseStatus');
       cy.request(
         'GET',
@@ -116,7 +119,10 @@ xdescribe('Using CP case status', () => {
     });
 
     it('should validate that when adding a CP case status, a start date and answer is required and the start date must be today or in the past', () => {
-      cy.visitAs(`/people/${residentId}`, AuthRoles.ChildrensGroup);
+      cy.visitAs(
+        `/people/${residentId}`,
+        AuthRoles.ChildrensSafeguardingReviewingGroup
+      );
 
       cy.contains('Add a case status').click();
       cy.get(`input[value=CP]`).check();
@@ -143,7 +149,10 @@ xdescribe('Using CP case status', () => {
     });
 
     it('should be possible to add a CP case status', () => {
-      cy.visitAs(`/people/${residentId}`, AuthRoles.ChildrensGroup);
+      cy.visitAs(
+        `/people/${residentId}`,
+        AuthRoles.ChildrensSafeguardingReviewingGroup
+      );
 
       cy.contains('Add a case status').click();
       cy.get(`input[value=CP]`).check();
@@ -164,7 +173,10 @@ xdescribe('Using CP case status', () => {
     });
 
     it('should validate when editing a CP status that the start date cannot be in the future', () => {
-      cy.visitAs(`/people/${residentId}/details`, AuthRoles.ChildrensGroup);
+      cy.visitAs(
+        `/people/${residentId}/details`,
+        AuthRoles.ChildrensSafeguardingReviewingGroup
+      );
 
       cy.contains('a', 'Edit / End', {
         timeout: 20000,
@@ -188,7 +200,10 @@ xdescribe('Using CP case status', () => {
     });
 
     it('should be possible to edit a CP case status', () => {
-      cy.visitAs(`/people/${residentId}/details`, AuthRoles.ChildrensGroup);
+      cy.visitAs(
+        `/people/${residentId}/details`,
+        AuthRoles.ChildrensSafeguardingReviewingGroup
+      );
 
       cy.contains('a', 'Edit / End', {
         timeout: 20000,
@@ -213,7 +228,10 @@ xdescribe('Using CP case status', () => {
     });
 
     it('should validate when ending a CP case status that the end date cannot be before the case status start date, start date can be in the future', () => {
-      cy.visitAs(`/people/${residentId}/details`, AuthRoles.ChildrensGroup);
+      cy.visitAs(
+        `/people/${residentId}/details`,
+        AuthRoles.ChildrensSafeguardingReviewingGroup
+      );
 
       cy.contains('a', 'Edit / End', {
         timeout: 20000,
@@ -242,7 +260,10 @@ xdescribe('Using CP case status', () => {
     });
 
     it('should be possible to end the CP case status', () => {
-      cy.visitAs(`/people/${residentId}/details`, AuthRoles.ChildrensGroup);
+      cy.visitAs(
+        `/people/${residentId}/details`,
+        AuthRoles.ChildrensSafeguardingReviewingGroup
+      );
       cy.wait('@getCaseStatus');
       cy.contains('a', 'Edit / End', {
         timeout: 20000,
@@ -260,7 +281,10 @@ xdescribe('Using CP case status', () => {
         timeout: 30000,
       });
 
-      cy.visitAs(`/people/${residentId}`, AuthRoles.ChildrensGroup);
+      cy.visitAs(
+        `/people/${residentId}`,
+        AuthRoles.ChildrensSafeguardingReviewingGroup
+      );
       cy.wait('@getCaseStatus');
       cy.contains('Add a case status', {
         timeout: 30000,
@@ -268,7 +292,10 @@ xdescribe('Using CP case status', () => {
     });
 
     it('should not allow you to create a new case status before the previous status end date', () => {
-      cy.visitAs(`/people/${residentId}`, AuthRoles.ChildrensGroup);
+      cy.visitAs(
+        `/people/${residentId}`,
+        AuthRoles.ChildrensSafeguardingReviewingGroup
+      );
 
       cy.contains('Add a case status').click();
       cy.get(`input[value=CP]`).check();

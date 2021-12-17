@@ -80,7 +80,10 @@ describe('Using LAC case status', () => {
 
   describe('As a user in the Childrens group', () => {
     it('should check for any existing case status before all other LAC tests & if one exists then use a newly created resident to run tests against', () => {
-      cy.visitAs(`/people/${residentId}/details`, AuthRoles.ChildrensGroup);
+      cy.visitAs(
+        `/people/${residentId}/details`,
+        AuthRoles.ChildrensPlacementManagmenetGroup
+      );
       cy.wait('@getCaseStatus');
       cy.request(
         'GET',
@@ -123,7 +126,10 @@ describe('Using LAC case status', () => {
     });
 
     it('should validate that when adding a LAC case status, a start date and two answers are required and the start date must be today or in the past', () => {
-      cy.visitAs(`/people/${residentId}`, AuthRoles.ChildrensGroup);
+      cy.visitAs(
+        `/people/${residentId}`,
+        AuthRoles.ChildrensPlacementManagmenetGroup
+      );
 
       cy.contains('Add a case status').click();
       cy.get(`input[value=LAC]`).check();
@@ -150,7 +156,10 @@ describe('Using LAC case status', () => {
     });
 
     it('should be possible to add a LAC case status', () => {
-      cy.visitAs(`/people/${residentId}`, AuthRoles.ChildrensGroup);
+      cy.visitAs(
+        `/people/${residentId}`,
+        AuthRoles.ChildrensPlacementManagmenetGroup
+      );
 
       cy.contains('Add a case status').click();
       cy.get(`input[value=LAC]`).check();
@@ -175,7 +184,10 @@ describe('Using LAC case status', () => {
     });
 
     it('should validate when editing a LAC status that the start date cannot be in the future', () => {
-      cy.visitAs(`/people/${residentId}/details`, AuthRoles.ChildrensGroup);
+      cy.visitAs(
+        `/people/${residentId}/details`,
+        AuthRoles.ChildrensPlacementManagmenetGroup
+      );
 
       cy.contains('a', 'Edit / End', {
         timeout: 20000,
@@ -199,7 +211,10 @@ describe('Using LAC case status', () => {
     });
 
     it('should be possible to edit a LAC case status', () => {
-      cy.visitAs(`/people/${residentId}/details`, AuthRoles.ChildrensGroup);
+      cy.visitAs(
+        `/people/${residentId}/details`,
+        AuthRoles.ChildrensPlacementManagmenetGroup
+      );
 
       cy.contains('a', 'Edit / End', {
         timeout: 20000,
@@ -228,7 +243,10 @@ describe('Using LAC case status', () => {
 
     //Update - Scheduled case status
     it('should validate when updating a LAC status that the start date cannot be before the current status start date', () => {
-      cy.visitAs(`/people/${residentId}/details`, AuthRoles.ChildrensGroup);
+      cy.visitAs(
+        `/people/${residentId}/details`,
+        AuthRoles.ChildrensPlacementManagmenetGroup
+      );
 
       cy.contains('a', 'Edit / End', {
         timeout: 20000,
@@ -262,7 +280,10 @@ describe('Using LAC case status', () => {
     });
 
     it('should be possible to update a LAC case status to have a scheduled case status', () => {
-      cy.visitAs(`/people/${residentId}/details`, AuthRoles.ChildrensGroup);
+      cy.visitAs(
+        `/people/${residentId}/details`,
+        AuthRoles.ChildrensPlacementManagmenetGroup
+      );
 
       cy.contains('a', 'Edit / End', {
         timeout: 20000,
@@ -293,7 +314,10 @@ describe('Using LAC case status', () => {
 
     //Updating A pre-existing scheduled case status - Announcement
     it('should render an announcement when updating a LAC case status that has a pre-existing scheduled case status', () => {
-      cy.visitAs(`/people/${residentId}/details`, AuthRoles.ChildrensGroup);
+      cy.visitAs(
+        `/people/${residentId}/details`,
+        AuthRoles.ChildrensPlacementManagmenetGroup
+      );
 
       cy.contains('a', 'Edit / End', {
         timeout: 20000,
@@ -308,7 +332,10 @@ describe('Using LAC case status', () => {
     });
 
     it('should validate when ending a LAC case status that the end date cannot be before the case status start date, start date can be in the future', () => {
-      cy.visitAs(`/people/${residentId}/details`, AuthRoles.ChildrensGroup);
+      cy.visitAs(
+        `/people/${residentId}/details`,
+        AuthRoles.ChildrensPlacementManagmenetGroup
+      );
 
       cy.contains('a', 'Edit / End', {
         timeout: 20000,
@@ -337,7 +364,10 @@ describe('Using LAC case status', () => {
     });
 
     it('should be possible to end the LAC case status', () => {
-      cy.visitAs(`/people/${residentId}/details`, AuthRoles.ChildrensGroup);
+      cy.visitAs(
+        `/people/${residentId}/details`,
+        AuthRoles.ChildrensPlacementManagmenetGroup
+      );
       cy.wait('@getCaseStatus');
       cy.contains('a', 'Edit / End', {
         timeout: 20000,
@@ -355,7 +385,10 @@ describe('Using LAC case status', () => {
       cy.contains('button', 'Yes, end').click();
 
       cy.url().should('include', '/details');
-      cy.visitAs(`/people/${residentId}`, AuthRoles.ChildrensGroup);
+      cy.visitAs(
+        `/people/${residentId}`,
+        AuthRoles.ChildrensPlacementManagmenetGroup
+      );
       cy.wait('@getCaseStatus');
       cy.contains('Add a case status', {
         timeout: 30000,
@@ -365,7 +398,10 @@ describe('Using LAC case status', () => {
     });
 
     it('should not allow you to create a new case status before the previous status end date', () => {
-      cy.visitAs(`/people/${residentId}`, AuthRoles.ChildrensGroup);
+      cy.visitAs(
+        `/people/${residentId}`,
+        AuthRoles.ChildrensPlacementManagmenetGroup
+      );
 
       cy.contains('Add a case status').click();
       cy.get(`input[value=LAC]`).check();

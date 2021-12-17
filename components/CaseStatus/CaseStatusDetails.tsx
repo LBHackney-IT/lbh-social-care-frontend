@@ -1,11 +1,12 @@
 import ErrorMessage from 'components/ErrorMessage/ErrorMessage';
 import { useCaseStatuses } from 'utils/api/caseStatus';
-import { Resident, CaseStatus, CaseStatusMapping } from 'types';
+import { Resident, CaseStatus, CaseStatusMapping, User } from 'types';
 import styles from './CaseStatusDetails.module.scss';
 import Link from 'next/link';
 import s from 'stylesheets/Section.module.scss';
 import CaseStatusDetailsTable from './CaseStatusDetailsTable';
 import { sortCaseStatusAnswers } from './caseStatusHelper';
+import { useAuth } from 'components/UserContext/UserContext';
 
 interface Props {
   person: Resident;
@@ -13,6 +14,7 @@ interface Props {
 
 const CaseStatusDetails = ({ person }: Props): React.ReactElement => {
   const { data, error } = useCaseStatuses(person.id);
+  const { user } = useAuth() as { user: User };
 
   if (error) {
     return (
@@ -54,6 +56,22 @@ const CaseStatusDetails = ({ person }: Props): React.ReactElement => {
           currentStatusStartDate = currentStatusAnswers[0].startDate;
         }
 
+        const editLink = (
+          <Link
+            href={{
+              pathname: `/people/${person.id}/case-status/${status.id}/edit/`,
+              query: {
+                type: status.type,
+                isScheduledCaseStatus: isScheduledCaseStatus,
+                currentCaseStatusStartDate: currentStatusStartDate,
+                pastCaseStatusStartDate: pastStatusStartDate,
+              },
+            }}
+          >
+            <a>Edit / End</a>
+          </Link>
+        );
+
         return (
           <div
             key={`${status.id} ${status.type}`}
@@ -65,19 +83,11 @@ const CaseStatusDetails = ({ person }: Props): React.ReactElement => {
                 <h2 className="govuk-!-margin-top-3">
                   {CaseStatusMapping[status.type]}
                 </h2>
-                <Link
-                  href={{
-                    pathname: `/people/${person.id}/case-status/${status.id}/edit/`,
-                    query: {
-                      type: status.type,
-                      isScheduledCaseStatus: isScheduledCaseStatus,
-                      currentCaseStatusStartDate: currentStatusStartDate,
-                      pastCaseStatusStartDate: pastStatusStartDate,
-                    },
-                  }}
-                >
-                  <a>Edit / End</a>
-                </Link>
+                {status.type == 'CIN' ||
+                (status.type == 'CP' && user.isInSafeguardingReviewing) ||
+                (status.type == 'LAC' && user.isInPlacementManagementUnit)
+                  ? editLink
+                  : null}
               </div>
 
               {(!currentStatusAnswers ||

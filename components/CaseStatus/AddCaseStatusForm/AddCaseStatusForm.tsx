@@ -9,18 +9,40 @@ import { useRouter } from 'next/router';
 import { useCaseStatuses } from 'utils/api/caseStatus';
 import { format } from 'date-fns';
 import { getLatestEndedStatusEndDate } from '../caseStatusHelper';
+import { useAuth } from 'components/UserContext/UserContext';
+import { User } from 'types';
 
 const AddCaseStatusForm: React.FC<{
   personId: number;
   prefilledFields: any;
 }> = ({ personId, prefilledFields }) => {
   const router = useRouter();
-
+  const { user } = useAuth() as { user: User };
   const { data } = useCaseStatuses(personId, 'true');
 
   const latestEndedStatusEndDate = getLatestEndedStatusEndDate(data);
 
   const form_fields = CASE_STATUS.steps[0].fields;
+
+  const choices = [
+    {
+      value: 'CIN',
+      label: 'Child in need',
+    },
+  ];
+  user.isInSafeguardingReviewing
+    ? choices.push({
+        value: 'CP',
+        label: 'Child protection',
+      })
+    : null;
+
+  user.isInPlacementManagementUnit
+    ? choices.push({
+        value: 'LAC',
+        label: 'Looked after child',
+      })
+    : null;
 
   form_fields.map((field) => {
     if (prefilledFields && prefilledFields[field.id]) {
@@ -35,6 +57,10 @@ const AddCaseStatusForm: React.FC<{
         new Date(latestEndedStatusEndDate),
         'yyyy-MM-dd'
       );
+    }
+
+    if (field.id === 'type') {
+      field.choices = choices;
     }
   });
 
