@@ -64,6 +64,10 @@ export const isAuthorised = (
   const AUTHORISED_AUDITABLE_GROUP = process.env.AUTHORISED_AUDITABLE_GROUP;
   const AUTHORISED_WORKFLOWS_PILOT_GROUP =
     process.env.AUTHORISED_WORKFLOWS_PILOT_GROUP;
+  const AUTHORISED_SAFEGUARDING_REVIEWING_GROUP =
+    process.env.AUTHORISED_SAFEGUARDING_REVIEWING_GROUP;
+  const AUTHORISED_PLACEMENT_MANAGEMENT_UNIT_GROUP =
+    process.env.AUTHORISED_PLACEMENT_MANAGEMENT_UNIT_GROUP;
 
   const cookies = cookie.parse(req.headers.cookie ?? '');
   const parsedToken = cookies[GSSO_TOKEN_NAME]
@@ -90,6 +94,12 @@ export const isAuthorised = (
     hasUnrestrictedPermissions: groups.includes(AUTHORISED_UNRESTRICTED_GROUP),
     isAuditable: groups.includes(AUTHORISED_AUDITABLE_GROUP),
     isInWorkflowsPilot: groups.includes(AUTHORISED_WORKFLOWS_PILOT_GROUP),
+    isInSafeguardingReviewing: groups.includes(
+      AUTHORISED_SAFEGUARDING_REVIEWING_GROUP
+    ),
+    isInPlacementManagementUnit: groups.includes(
+      AUTHORISED_PLACEMENT_MANAGEMENT_UNIT_GROUP
+    ),
   };
   return {
     ...gssUser,
