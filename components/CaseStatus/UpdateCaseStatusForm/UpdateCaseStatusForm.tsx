@@ -83,7 +83,7 @@ const UpdateCaseStatusForm: React.FC<{
         },
       });
     } catch (e) {
-      setStatus(e.toString());
+      setStatus((e as Error).toString());
     }
   };
 

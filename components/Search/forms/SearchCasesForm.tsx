@@ -18,7 +18,7 @@ interface FormValues {
   my_notes_only?: string;
 }
 
-interface Props {
+export interface Props {
   onFormSubmit: (formData?: FormValues) => void;
   showSearchByPerson?: boolean;
   defaultValues: FormValues;

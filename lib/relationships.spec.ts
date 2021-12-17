@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios, { AxiosError } from 'axios';
 import * as relationshipsAPI from './relationships';
 import {
   mockedRelationshipFactory,
@@ -55,7 +55,7 @@ describe('relationships APIs', () => {
         // @ts-expect-error check validation
         await relationshipsAPI.addRelationship(123);
       } catch (e) {
-        expect(e.name).toEqual('ValidationError');
+        expect((e as AxiosError).name).toEqual('ValidationError');
       }
     });
   });
