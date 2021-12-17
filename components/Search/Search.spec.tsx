@@ -5,9 +5,11 @@ import { useResidents } from 'utils/api/residents';
 import { useCases } from 'utils/api/cases';
 
 import Search from './Search';
+import { User } from '../../types';
+import { ParsedUrlQuery } from 'querystring';
 
 const mockedUseRouter = {
-  query: { foo: 'bar' },
+  query: { foo: 'bar' } as unknown as ParsedUrlQuery,
   replace: jest.fn(),
   pathname: 'foopath',
 };
@@ -32,7 +34,7 @@ describe(`Search`, () => {
   };
 
   it('should update the queryString on search and run a new search - with load more', async () => {
-    useResidents.mockImplementation(() => ({
+    (useResidents as jest.Mock).mockImplementation(() => ({
       size: 0,
       data: [
         {
@@ -50,7 +52,7 @@ describe(`Search`, () => {
     const { queryByText, getByLabelText, findByText, getByRole } = render(
       <UserContext.Provider
         value={{
-          user: { name: 'foo' },
+          user: { name: 'foo' } as unknown as User,
         }}
       >
         <Search {...props} type="people" />
@@ -73,7 +75,7 @@ describe(`Search`, () => {
   });
 
   it('should update the queryString on search and run a new search', async () => {
-    useResidents.mockImplementation(() => ({
+    (useResidents as jest.Mock).mockImplementation(() => ({
       size: 0,
       data: [
         {
@@ -91,7 +93,7 @@ describe(`Search`, () => {
     const { getByLabelText, findByText, getByRole } = render(
       <UserContext.Provider
         value={{
-          user: { name: 'foo' },
+          user: { name: 'foo' } as unknown as User,
         }}
       >
         <Search {...props} type="people" />
@@ -113,11 +115,11 @@ describe(`Search`, () => {
   });
 
   it('should work properly on search fails', async () => {
-    useResidents.mockImplementation(() => ({ error: true }));
+    (useResidents as jest.Mock).mockImplementation(() => ({ error: true }));
     const { findByText } = render(
       <UserContext.Provider
         value={{
-          user: { name: 'foo' },
+          user: { name: 'foo' } as unknown as User,
         }}
       >
         <Search {...props} type="people" />
@@ -130,15 +132,15 @@ describe(`Search`, () => {
   });
 
   it('should search Cases for user email if "Only include records I have created" is selected', () => {
-    useCases.mockImplementation(() => ({}));
+    (useCases as jest.Mock).mockImplementation(() => ({}));
     mockedUseRouter.query = {
       worker_email: 'worker@email.com',
-      my_notes_only: true,
+      my_notes_only: 'true',
     };
     render(
       <UserContext.Provider
         value={{
-          user: { email: 'user@email.com' },
+          user: { email: 'user@email.com' } as unknown as User,
         }}
       >
         <Search {...props} type="records" />

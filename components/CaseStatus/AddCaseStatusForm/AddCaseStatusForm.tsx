@@ -51,7 +51,7 @@ const AddCaseStatusForm: React.FC<{
         },
       });
     } catch (e: any) {
-      setStatus(e.toString());
+      setStatus((e as Error).toString());
     }
   };
 
