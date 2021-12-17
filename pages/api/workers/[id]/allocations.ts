@@ -5,6 +5,7 @@ import { getWorker } from 'lib/workers';
 import { getAllocationsByWorker } from 'lib/allocatedWorkers';
 
 import type { NextApiRequest, NextApiResponse, NextApiHandler } from 'next';
+import { AxiosError } from 'axios';
 
 const endpoint: NextApiHandler = async (
   req: NextApiRequest,
@@ -38,8 +39,11 @@ const endpoint: NextApiHandler = async (
 
         res.status(StatusCodes.OK).json(data);
       } catch (error) {
-        console.log('Allocation Worker get error:', error?.response?.data);
-        error?.response?.status === StatusCodes.NOT_FOUND
+        console.log(
+          'Allocation Worker get error:',
+          (error as AxiosError)?.response?.data
+        );
+        (error as AxiosError)?.response?.status === StatusCodes.NOT_FOUND
           ? res
               .status(StatusCodes.NOT_FOUND)
               .json({ message: 'Allocation Worker Not Found' })

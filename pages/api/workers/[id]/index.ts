@@ -4,6 +4,7 @@ import { isAuthorised } from 'utils/auth';
 import { getWorker, updateWorker } from 'lib/workers';
 
 import type { NextApiRequest, NextApiResponse, NextApiHandler } from 'next';
+import { AxiosError } from 'axios';
 
 const endpoint: NextApiHandler = async (
   req: NextApiRequest,
@@ -24,8 +25,8 @@ const endpoint: NextApiHandler = async (
         });
         res.status(StatusCodes.OK).json(data);
       } catch (error) {
-        console.log('Worker get error:', error?.response?.data);
-        error?.response?.status === StatusCodes.NOT_FOUND
+        console.log('Worker get error:', (error as AxiosError)?.response?.data);
+        (error as AxiosError)?.response?.status === StatusCodes.NOT_FOUND
           ? res
               .status(StatusCodes.NOT_FOUND)
               .json({ message: 'Worker Not Found' })
@@ -40,7 +41,10 @@ const endpoint: NextApiHandler = async (
         const data = await updateWorker(req.body);
         res.status(StatusCodes.OK).json(data);
       } catch (error) {
-        console.error('Workers gets an error:', error?.response?.data);
+        console.error(
+          'Workers gets an error:',
+          (error as AxiosError)?.response?.data
+        );
         res
           .status(StatusCodes.INTERNAL_SERVER_ERROR)
           .json({ message: 'Unable to update the worker' });

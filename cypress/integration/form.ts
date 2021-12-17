@@ -8,7 +8,7 @@ describe('Test Form', () => {
       cy.intercept(
         {
           method: 'POST',
-          url: '/test',
+          path: '/api/test',
         },
         []
       ).as('apiCheck');
