@@ -26,8 +26,8 @@ export const normalizeAddress = (address: AddressAPI): Address => {
 
 export const lookupPostcode = async (
   postcode: string,
-  building_number?: string,
-  page_number = 1
+  page_number = 1,
+  building_number?: string
 ): Promise<AddressWrapper> => {
   const { data } = await axios.get(
     `/api/postcode/${postcode}?page=${page_number}&buildingNumber=${building_number}`

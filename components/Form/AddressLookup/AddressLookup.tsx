@@ -122,8 +122,8 @@ const AddressLookup = ({
       try {
         const { address, page_count } = await lookupPostcode(
           postcode,
-          buildingNumber,
-          page_number
+          page_number,
+          buildingNumber
         );
 
         address.length === 0
