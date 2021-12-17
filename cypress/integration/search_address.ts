@@ -22,7 +22,7 @@ describe('Use AddressLookup to search Hackney address api', () => {
       .should('have.length.at.least', 1);
   });
 
-  it.only('using different building numbers & postcodes', () => {
+  it('using different building numbers & postcodes', () => {
     cy.visitAs(`/people/add`, AuthRoles.ChildrensGroup);
     cy.get(`input[id=buildingNumber]`).click().type('188');
     cy.get(`input[id=postcode]`).click().type('SE17 1JJ');
