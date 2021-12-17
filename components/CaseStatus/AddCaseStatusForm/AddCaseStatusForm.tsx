@@ -24,11 +24,6 @@ const AddCaseStatusForm: React.FC<{
 
   const form_fields = CASE_STATUS.steps[0].fields;
 
-  console.log(
-    'user.isInPlacementManagementUnit',
-    user.isInPlacementManagementUnit
-  );
-
   const choices = [
     {
       value: 'CIN',
