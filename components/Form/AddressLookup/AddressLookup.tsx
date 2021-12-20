@@ -1,5 +1,6 @@
 import { useState, useCallback, useRef } from 'react';
 import cx from 'classnames';
+
 import { Controller, Control } from 'react-hook-form';
 import isPostcodeValid from 'uk-postcode-validator';
 
@@ -98,6 +99,16 @@ const AddressBox = ({ name, disabled, value, onChange }: AddressBox) => {
   );
 };
 
+const inputsContainer = {
+  display: 'flex',
+  flexWrap: 'nowrap',
+  width: '70%',
+  flexDirection: 'column',
+  inputs: {
+    border: '2px solid black',
+  },
+};
+
 const AddressLookup = ({
   name,
   label,
@@ -182,31 +193,37 @@ const AddressLookup = ({
           {hint}
         </span>
       )}
-      <div className="govuk-grid-row">
-        <div className="govuk-grid-column-one-third">
+      <div className="govuk-grid-row" style={inputsContainer}>
+        <div className="govuk-grid-column-one-third govuk-!-margin-bottom-4">
+          <label htmlFor="buildingNumber">Building number (optional)</label>
           <input
-            className={cx('lbh-input govuk-input', {
-              'govuk-input--error': Boolean(error),
-            })}
+            className={cx(
+              'lbh-input govuk-input--width-2 govuk-!-margin-top-2 ',
+              {
+                'govuk-input--error': Boolean(error),
+              }
+            )}
+            style={inputsContainer.inputs}
             id="buildingNumber"
             name="building-number"
             type="text"
-            placeholder="Building Number (Optional)"
             onChange={(e) => setBuildingNumber(e.target.value)}
             ref={buildingNumRef}
           />
+        </div>
+        <div className="govuk-grid-column-one-third">
+          <label htmlFor="postcode">Postcode</label>
           <input
             className={cx(
-              'lbh-input govuk-input',
+              'lbh-input govuk-input--width-5 govuk-!-margin-top-2',
               {
                 'govuk-input--error': Boolean(error),
-              },
-              'govuk-!-margin-top-5'
+              }
             )}
+            style={inputsContainer.inputs}
             id="postcode"
             name="postal-code"
             type="text"
-            placeholder="Postcode"
             onChange={(e) => setPostcode(e.target.value)}
             ref={inputRef}
           />
