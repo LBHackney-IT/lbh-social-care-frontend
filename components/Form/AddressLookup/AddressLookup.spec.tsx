@@ -13,6 +13,10 @@ describe('AddressLookup', () => {
         'You must enter a valid postcode'
       );
       expect(validate.postcode({ postcode: 'e83as' })).toBe(true);
+      expect(validate.buildingNumber()).toBe(true);
+      expect(validate.buildingNumber({ buildingNumber: '' })).toBe(true);
+      expect(validate.buildingNumber({ buildingNumber: 'foo' })).toBe(true);
+      expect(validate.buildingNumber({ buildingNumber: '123' })).toBe(true);
     });
 
     it('should work properly - if required', () => {
@@ -30,6 +34,16 @@ describe('AddressLookup', () => {
         'You must enter a valid postcode'
       );
       expect(validate.postcode({ postcode: 'e83as' })).toBe(true);
+      expect(validate.buildingNumber()).toBe(
+        'Building number must use valid characters (0-9)'
+      );
+      expect(validate.buildingNumber({ buildingNumber: '123' })).toBe(true);
+      expect(validate.buildingNumber({ buildingNumber: '123a' })).toBe(
+        'Building number must use valid characters (0-9)'
+      );
+      expect(validate.buildingNumber({ buildingNumber: '' })).toBe(
+        'Building number must use valid characters (0-9)'
+      );
     });
   });
 });

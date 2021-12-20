@@ -7,6 +7,7 @@ import ErrorMessage from 'components/ErrorMessage/ErrorMessage';
 import { Select, TextInput } from 'components/Form';
 import Button from 'components/Button/Button';
 import { lookupPostcode } from 'utils/api/postcodeAPI';
+import { allNumeric } from 'utils/allNumericInputs';
 import Spinner from 'components/Spinner/Spinner';
 
 import { Address } from 'types';
@@ -14,10 +15,16 @@ import { AddressLookup as IAddressLookup } from 'components/Form/types';
 
 interface AddressBox {
   name: string;
-  onChange: (arg0: { uprn: null; address?: string; postcode?: string }) => void;
+  onChange: (arg0: {
+    uprn: null;
+    address?: string;
+    postcode?: string;
+    buildingNumber?: string;
+  }) => void;
   value: {
     address: string;
     postcode: string;
+    buildingNumber: string;
   };
   disabled: boolean;
 }
@@ -35,6 +42,9 @@ export const defaultValidation = ({
   postcode: (
     arg0?: Partial<AddressBox['value']>
   ) => true | 'You must enter a valid postcode';
+  buildingNumber: (
+    arg0?: Partial<AddressBox['value']>
+  ) => true | 'Building number must use valid characters (0-9)';
 } => ({
   address: (value) =>
     !required ||
@@ -44,6 +54,12 @@ export const defaultValidation = ({
     (!required && (value?.postcode === '' || !value?.postcode)) ||
     (value?.postcode && isPostcodeValid(value?.postcode)) ||
     'You must enter a valid postcode',
+  buildingNumber: (value) =>
+    !required ||
+    (value?.buildingNumber?.length &&
+      value.buildingNumber.length > 0 &&
+      allNumeric(value.buildingNumber)) ||
+    'Building number must use valid characters (0-9)',
 });
 
 const AddressBox = ({ name, disabled, value, onChange }: AddressBox) => {
@@ -57,6 +73,7 @@ const AddressBox = ({ name, disabled, value, onChange }: AddressBox) => {
       },
     [address, onChange]
   );
+
   return (
     <div className="govuk-!-margin-top-5">
       <TextInput
@@ -109,6 +126,15 @@ const AddressLookup = ({
       setError('You entered an invalid postcode.');
       return;
     }
+    if (
+      buildingNumber?.length > 0 &&
+      buildingNumber !== '' &&
+      !allNumeric(buildingNumber)
+    ) {
+      setError('Building number must use valid characters (0-9)');
+      return;
+    }
+
     setLoading(true);
     setIsManually(false);
     setError(undefined);
@@ -141,6 +167,7 @@ const AddressLookup = ({
     }
     setLoading(false);
   }, [control, postcode, buildingNumber]);
+
   return (
     <div
       className={cx('lbh-form-group govuk-form-group', {
