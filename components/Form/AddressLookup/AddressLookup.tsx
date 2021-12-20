@@ -14,6 +14,8 @@ import Spinner from 'components/Spinner/Spinner';
 import { Address } from 'types';
 import { AddressLookup as IAddressLookup } from 'components/Form/types';
 
+import styles from '/components/Form/AddressLookup/AddressLookup.module.scss';
+
 interface AddressBox {
   name: string;
   onChange: (arg0: {
@@ -97,16 +99,6 @@ const AddressBox = ({ name, disabled, value, onChange }: AddressBox) => {
       )}
     </div>
   );
-};
-
-const inputsContainer = {
-  display: 'flex',
-  flexWrap: 'nowrap',
-  width: '70%',
-  flexDirection: 'column',
-  inputs: {
-    border: '2px solid black',
-  },
 };
 
 const AddressLookup = ({
@@ -193,17 +185,20 @@ const AddressLookup = ({
           {hint}
         </span>
       )}
-      <div className="govuk-grid-row" style={inputsContainer}>
-        <div className="govuk-grid-column-one-third govuk-!-margin-bottom-4">
-          <label htmlFor="buildingNumber">Building number (optional)</label>
+
+      <div>
+        <div className={styles.inputContainer}>
+          <label htmlFor="buildingNumber" className="govuk-!-margin-bottom-2">
+            Building number (optional)
+          </label>
           <input
             className={cx(
-              'lbh-input govuk-input--width-2 govuk-!-margin-top-2 ',
+              'lbh-input govuk-input--width-2 govuk-!-margin-top-0',
               {
                 'govuk-input--error': Boolean(error),
               }
             )}
-            style={inputsContainer.inputs}
+            style={{ border: '2px solid black' }}
             id="buildingNumber"
             name="building-number"
             type="text"
@@ -211,7 +206,8 @@ const AddressLookup = ({
             ref={buildingNumRef}
           />
         </div>
-        <div className="govuk-grid-column-one-third">
+
+        <div className={styles.inputContainer}>
           <label htmlFor="postcode">Postcode</label>
           <input
             className={cx(
@@ -220,7 +216,7 @@ const AddressLookup = ({
                 'govuk-input--error': Boolean(error),
               }
             )}
-            style={inputsContainer.inputs}
+            style={{ border: '2px solid black' }}
             id="postcode"
             name="postal-code"
             type="text"
