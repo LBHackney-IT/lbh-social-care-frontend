@@ -12,7 +12,7 @@ describe('Use AddressLookup to search Hackney address api', () => {
       .should('have.text', 'THE SPEAKERS HOUSE, 1 PARLIAMENT SQUARE');
   });
 
-  it('using a postcode', () => {
+  it('using just a postcode', () => {
     cy.visitAs(`/people/add`, AuthRoles.ChildrensGroup);
     cy.get(`input[id=postcode]`).click().type('SW1A 0AA');
     cy.get(`button[id=lookup-button]`).click();
@@ -56,10 +56,27 @@ describe('Validates user input', () => {
     cy.contains('You entered an invalid postcode').should('be.visible');
   });
 
+  it('when just a building number is entered', () => {
+    cy.visitAs(`/people/add`, AuthRoles.ChildrensGroup);
+    cy.get(`input[id=buildingNumber]`).click().type('123');
+    cy.get(`button[id=lookup-button]`).click();
+    cy.contains('You entered an invalid postcode').should('be.visible');
+  });
+
   it('when partial postcode is entered', () => {
     cy.visitAs(`/people/add`, AuthRoles.ChildrensGroup);
     cy.get(`input[id=postcode]`).click().type('SW1A');
     cy.get(`button[id=lookup-button]`).click();
     cy.contains('You entered an invalid postcode').should('be.visible');
+  });
+
+  it('when an incorrectly formatted building number in is entered', () => {
+    cy.visitAs(`/people/add`, AuthRoles.ChildrensGroup);
+    cy.get(`input[id=buildingNumber]`).click().type('123A');
+    cy.get(`input[id=postcode]`).click().type('SW1A 0AA');
+    cy.get(`button[id=lookup-button]`).click();
+    cy.contains('Building number must use valid characters (0-9)').should(
+      'be.visible'
+    );
   });
 });
