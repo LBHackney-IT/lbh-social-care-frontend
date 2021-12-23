@@ -3,7 +3,7 @@ import { AuthRoles } from '../support/commands';
 describe('Use AddressLookup to search Hackney address api', () => {
   it('using a building number & postcode', () => {
     cy.visitAs(`/people/add`, AuthRoles.ChildrensGroup);
-    cy.get(`input[id=buildingNumber]`).click().type('1');
+    cy.get(`input[id=building-number]`).click().type('1');
     cy.get(`input[id=postcode]`).click().type('SW1A 0AA');
     cy.get(`button[id=lookup-button]`).click();
     cy.get(`select[id=address]`).should('be.visible');
@@ -24,7 +24,7 @@ describe('Use AddressLookup to search Hackney address api', () => {
 
   it('using different building numbers & postcodes', () => {
     cy.visitAs(`/people/add`, AuthRoles.ChildrensGroup);
-    cy.get(`input[id=buildingNumber]`).click().type('188');
+    cy.get(`input[id=building-number]`).click().type('188');
     cy.get(`input[id=postcode]`).click().type('SE17 1JJ');
     cy.get(`button[id=lookup-button]`).click();
     cy.get(`select[id=address]`).should('be.visible');
@@ -32,7 +32,7 @@ describe('Use AddressLookup to search Hackney address api', () => {
       .select('188 WALWORTH ROAD')
       .should('have.text', '188 WALWORTH ROAD');
 
-    cy.get(`input[id=buildingNumber]`).click().clear().type('194');
+    cy.get(`input[id=building-number]`).click().clear().type('194');
     cy.get(`input[id=postcode]`).click().clear().type('SE17 1JJ');
     cy.get(`button[id=lookup-button]`).click();
     cy.get(`select[id=address]`).should('be.visible');
@@ -51,14 +51,14 @@ describe('Validates user input', () => {
 
   it('when no postcode is entered', () => {
     cy.visitAs(`/people/add`, AuthRoles.ChildrensGroup);
-    cy.get(`input[id=buildingNumber]`).click().type('1');
+    cy.get(`input[id=building-number]`).click().type('1');
     cy.get(`button[id=lookup-button]`).click();
     cy.contains('You entered an invalid postcode').should('be.visible');
   });
 
   it('when just a building number is entered', () => {
     cy.visitAs(`/people/add`, AuthRoles.ChildrensGroup);
-    cy.get(`input[id=buildingNumber]`).click().type('123');
+    cy.get(`input[id=building-number]`).click().type('123');
     cy.get(`button[id=lookup-button]`).click();
     cy.contains('You entered an invalid postcode').should('be.visible');
   });
@@ -72,7 +72,7 @@ describe('Validates user input', () => {
 
   it('when an incorrectly formatted building number in is entered', () => {
     cy.visitAs(`/people/add`, AuthRoles.ChildrensGroup);
-    cy.get(`input[id=buildingNumber]`).click().type('123A');
+    cy.get(`input[id=building-number]`).click().type('123A');
     cy.get(`input[id=postcode]`).click().type('SW1A 0AA');
     cy.get(`button[id=lookup-button]`).click();
     cy.contains('Building number must use valid characters (0-9)').should(
