@@ -8,15 +8,13 @@ import ErrorMessage from 'components/ErrorMessage/ErrorMessage';
 import { Select, TextInput } from 'components/Form';
 import Button from 'components/Button/Button';
 import { lookupPostcode } from 'utils/api/postcodeAPI';
-import { allNumeric } from 'utils/allNumericInputs';
+import { isNumeric } from 'utils/isNumeric';
 import Spinner from 'components/Spinner/Spinner';
 
 import { Address } from 'types';
 import { AddressLookup as IAddressLookup } from 'components/Form/types';
 
-import styles from '/components/Form/AddressLookup/AddressLookup.module.scss';
-
-interface AddressBox {
+export interface AddressBox {
   name: string;
   onChange: (arg0: {
     uprn: null;
@@ -61,7 +59,7 @@ export const defaultValidation = ({
     !required ||
     (value?.buildingNumber?.length &&
       value.buildingNumber.length > 0 &&
-      allNumeric(value.buildingNumber)) ||
+      isNumeric(value.buildingNumber)) ||
     'Building number must use valid characters (0-9)',
 });
 
@@ -112,7 +110,6 @@ const AddressLookup = ({
   rules,
 }: Props): React.ReactElement => {
   const inputRef = useRef<HTMLInputElement>(null);
-  const buildingNumRef = useRef<HTMLInputElement>(null);
   const defaultValue = control.defaultValuesRef.current[name];
   const [postcode, setPostcode] = useState(
     defaultValue && defaultValue.postcode
@@ -132,7 +129,7 @@ const AddressLookup = ({
     if (
       buildingNumber?.length > 0 &&
       buildingNumber !== '' &&
-      !allNumeric(buildingNumber)
+      !isNumeric(buildingNumber)
     ) {
       setError('Building number must use valid characters (0-9)');
       return;
@@ -187,39 +184,22 @@ const AddressLookup = ({
       )}
 
       <div>
-        <div className={styles.inputContainer}>
-          <label htmlFor="buildingNumber" className="govuk-!-margin-bottom-2">
-            Building number (optional)
-          </label>
-          <input
-            className={cx(
-              'lbh-input govuk-input--width-2 govuk-!-margin-top-0',
-              {
-                'govuk-input--error': Boolean(error),
-              }
-            )}
-            style={{ border: '2px solid black' }}
-            id="buildingNumber"
+        <div>
+          <TextInput
+            label="Building number (optional)"
             name="building-number"
-            type="text"
+            width={3}
+            id="building-number"
             onChange={(e) => setBuildingNumber(e.target.value)}
-            ref={buildingNumRef}
           />
         </div>
 
-        <div className={styles.inputContainer}>
-          <label htmlFor="postcode">Postcode</label>
-          <input
-            className={cx(
-              'lbh-input govuk-input--width-5 govuk-!-margin-top-2',
-              {
-                'govuk-input--error': Boolean(error),
-              }
-            )}
-            style={{ border: '2px solid black' }}
+        <div>
+          <TextInput
+            label="Postcode"
+            name="postcode"
+            width={5}
             id="postcode"
-            name="postal-code"
-            type="text"
             onChange={(e) => setPostcode(e.target.value)}
             ref={inputRef}
           />

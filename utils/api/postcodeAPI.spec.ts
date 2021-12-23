@@ -1,10 +1,14 @@
-import { normalizeAddress } from './postcodeAPI';
+import * as postcodeAPI from './postcodeAPI';
+import axios from 'axios';
+
+jest.mock('swr');
+jest.mock('axios');
 
 describe('postcodeAPI', () => {
   describe('normalizeAddresses', () => {
-    it('should work properly', () => {
+    it('should format address data', () => {
       expect(
-        normalizeAddress({
+        postcodeAPI.formatAddress({
           line1: '407 QUEENSBRIDGE ROAD',
           line2: 'HACKNEY',
           line3: '',
@@ -22,7 +26,7 @@ describe('postcodeAPI', () => {
 
     it('should avoid to have postcode duplicate in address', () => {
       expect(
-        normalizeAddress({
+        postcodeAPI.formatAddress({
           line1: '407 QUEENSBRIDGE ROAD',
           line2: 'HACKNEY',
           line3: 'E8 3AS',
@@ -36,6 +40,22 @@ describe('postcodeAPI', () => {
         postcode: 'E8 3AS',
         uprn: '100021068079',
       });
+    });
+  });
+
+  describe('lookupPostcode', () => {
+    it('calls the GET /api/postcode/ endpoint in Next backend', async () => {
+      jest.spyOn(axios, 'get');
+
+      const postcode = 'SW1A 0AA';
+      const page_number = 1;
+      const building_number = '1';
+
+      await postcodeAPI.lookupPostcode(postcode, 1, building_number);
+
+      expect(axios.get).toHaveBeenCalledWith(
+        `/api/postcode/${postcode}?page=${page_number}&buildingNumber=${building_number}`
+      );
     });
   });
 });

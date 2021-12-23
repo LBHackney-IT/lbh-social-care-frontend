@@ -1,49 +1,183 @@
 import { defaultValidation } from './AddressLookup';
 
+import { AddressBox } from './AddressLookup';
+
 describe('AddressLookup', () => {
   describe('defaultValidation', () => {
-    it('should work properly - if not required', () => {
-      const validate = defaultValidation();
-      expect(validate.address()).toBe(true);
-      expect(validate.address({ address: '' })).toBe(true);
-      expect(validate.address({ address: 'foo' })).toBe(true);
-      expect(validate.postcode()).toBe(true);
-      expect(validate.postcode({ postcode: '' })).toBe(true);
-      expect(validate.postcode({ postcode: 'foo' })).toBe(
-        'You must enter a valid postcode'
-      );
-      expect(validate.postcode({ postcode: 'e83as' })).toBe(true);
-      expect(validate.buildingNumber()).toBe(true);
-      expect(validate.buildingNumber({ buildingNumber: '' })).toBe(true);
-      expect(validate.buildingNumber({ buildingNumber: 'foo' })).toBe(true);
-      expect(validate.buildingNumber({ buildingNumber: '123' })).toBe(true);
+    describe('for address', () => {
+      let validate: {
+        address: (
+          arg0?: Partial<AddressBox['value']>
+        ) => true | 'You must enter an address';
+        postcode: (
+          arg0?: Partial<AddressBox['value']>
+        ) => true | 'You must enter a valid postcode';
+        buildingNumber: (
+          arg0?: Partial<AddressBox['value']>
+        ) => true | 'Building number must use valid characters (0-9)';
+      };
+
+      beforeEach(() => {
+        validate = defaultValidation();
+        return validate;
+      });
+
+      it('when validation is not required should return true when address has no value', () => {
+        expect(validate.address()).toBe(true);
+      });
+
+      it('when validation is not required should return true when address is empty string', () => {
+        expect(validate.address({ address: '' })).toBe(true);
+      });
+
+      it('when validation is not required should return true when address is a non empty string', () => {
+        expect(validate.address({ address: 'foo' })).toBe(true);
+      });
+
+      it('when validation is required should show message when address has no value', () => {
+        const validate = defaultValidation({ required: true });
+        expect(validate.address()).toBe('You must enter an address');
+        expect(validate.address({ address: '' })).toBe(
+          'You must enter an address'
+        );
+        expect(validate.address({ address: 'foo' })).toBe(true);
+      });
+
+      it('when validation is required should show message when address is an empty string', () => {
+        const validate = defaultValidation({ required: true });
+        expect(validate.address({ address: '' })).toBe(
+          'You must enter an address'
+        );
+        expect(validate.address({ address: 'foo' })).toBe(true);
+      });
+
+      it('when validation is required should return true when address is a non empty string', () => {
+        const validate = defaultValidation({ required: true });
+        expect(validate.address({ address: 'foo' })).toBe(true);
+      });
     });
 
-    it('should work properly - if required', () => {
-      const validate = defaultValidation({ required: true });
-      expect(validate.address()).toBe('You must enter an address');
-      expect(validate.address({ address: '' })).toBe(
-        'You must enter an address'
-      );
-      expect(validate.address({ address: 'foo' })).toBe(true);
-      expect(validate.postcode()).toBe('You must enter a valid postcode');
-      expect(validate.postcode({ postcode: '' })).toBe(
-        'You must enter a valid postcode'
-      );
-      expect(validate.postcode({ postcode: 'foo' })).toBe(
-        'You must enter a valid postcode'
-      );
-      expect(validate.postcode({ postcode: 'e83as' })).toBe(true);
-      expect(validate.buildingNumber()).toBe(
-        'Building number must use valid characters (0-9)'
-      );
-      expect(validate.buildingNumber({ buildingNumber: '123' })).toBe(true);
-      expect(validate.buildingNumber({ buildingNumber: '123a' })).toBe(
-        'Building number must use valid characters (0-9)'
-      );
-      expect(validate.buildingNumber({ buildingNumber: '' })).toBe(
-        'Building number must use valid characters (0-9)'
-      );
+    describe('for postcode', () => {
+      let validate: {
+        address: (
+          arg0?: Partial<AddressBox['value']>
+        ) => true | 'You must enter an address';
+        postcode: (
+          arg0?: Partial<AddressBox['value']>
+        ) => true | 'You must enter a valid postcode';
+        buildingNumber: (
+          arg0?: Partial<AddressBox['value']>
+        ) => true | 'Building number must use valid characters (0-9)';
+      };
+
+      beforeEach(() => {
+        validate = defaultValidation();
+        return validate;
+      });
+
+      it('when validation is not required should return true when postcode has no value', () => {
+        expect(validate.postcode()).toBe(true);
+      });
+
+      it('when validation is not required should return true when postcode is empty string', () => {
+        expect(validate.postcode({ postcode: '' })).toBe(true);
+      });
+
+      it('when validation is not required should return error message when postcode is incorrect format', () => {
+        expect(validate.postcode({ postcode: 'foo' })).toBe(
+          'You must enter a valid postcode'
+        );
+      });
+
+      it('when validation is not required should return true when postcode is the correct format', () => {
+        expect(validate.postcode({ postcode: 'e83as' })).toBe(true);
+      });
+
+      it('when validation is required should show message when postcode has no value', () => {
+        const validate = defaultValidation({ required: true });
+        expect(validate.postcode()).toBe('You must enter a valid postcode');
+      });
+
+      it('when validation is required should return error message when postcode is empty string', () => {
+        const validate = defaultValidation({ required: true });
+        expect(validate.postcode({ postcode: '' })).toBe(
+          'You must enter a valid postcode'
+        );
+      });
+
+      it('when validation is required should return error message when postcode is incorrect format', () => {
+        const validate = defaultValidation({ required: true });
+        expect(validate.postcode({ postcode: 'foo' })).toBe(
+          'You must enter a valid postcode'
+        );
+      });
+
+      it('when validation is required should return true when postcode is the correct format', () => {
+        const validate = defaultValidation({ required: true });
+        expect(validate.postcode({ postcode: 'e83as' })).toBe(true);
+      });
+    });
+
+    describe('for building number', () => {
+      let validate: {
+        address: (
+          arg0?: Partial<AddressBox['value']>
+        ) => true | 'You must enter an address';
+        postcode: (
+          arg0?: Partial<AddressBox['value']>
+        ) => true | 'You must enter a valid postcode';
+        buildingNumber: (
+          arg0?: Partial<AddressBox['value']>
+        ) => true | 'Building number must use valid characters (0-9)';
+      };
+
+      beforeEach(() => {
+        validate = defaultValidation();
+        return validate;
+      });
+
+      it('when validation is not required should return true if building number has no value', () => {
+        expect(validate.buildingNumber()).toBe(true);
+      });
+
+      it('when validation is not required should return true if building number is empty string', () => {
+        expect(validate.buildingNumber({ buildingNumber: '' })).toBe(true);
+      });
+
+      it('when validation is not required should return true if building number is non empty string', () => {
+        expect(validate.buildingNumber({ buildingNumber: 'foo' })).toBe(true);
+      });
+
+      it('when validation is not required should return true if building number is all numeric format', () => {
+        const validate = defaultValidation();
+        expect(validate.buildingNumber({ buildingNumber: '123' })).toBe(true);
+      });
+
+      it('when validation is required should show error message when building number has no value', () => {
+        const validate = defaultValidation({ required: true });
+        expect(validate.buildingNumber()).toBe(
+          'Building number must use valid characters (0-9)'
+        );
+      });
+
+      it('when validation is required should show error message when building number is empty string', () => {
+        const validate = defaultValidation({ required: true });
+        expect(validate.buildingNumber({ buildingNumber: '' })).toBe(
+          'Building number must use valid characters (0-9)'
+        );
+      });
+
+      it('when validation is required should show error message when building number is non numeric', () => {
+        const validate = defaultValidation({ required: true });
+        expect(validate.buildingNumber({ buildingNumber: '123a' })).toBe(
+          'Building number must use valid characters (0-9)'
+        );
+      });
+
+      it('when validation is required should return true when building number is numeric', () => {
+        const validate = defaultValidation({ required: true });
+        expect(validate.buildingNumber({ buildingNumber: '123' })).toBe(true);
+      });
     });
   });
 });
