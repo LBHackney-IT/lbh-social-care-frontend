@@ -201,7 +201,6 @@ const AddressLookup = ({
             width={5}
             id="postcode"
             onChange={(e) => setPostcode(e.target.value)}
-            ref={inputRef}
           />
         </div>
       </div>
