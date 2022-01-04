@@ -144,6 +144,7 @@ const ContactForm = ({ referral, workerEmail }: Props): React.ReactElement => {
           <Link href="#">
             <a
               className={`lbh-link lbh-link--no-visited-state govuk-!-margin-left-3`}
+              onClick={() => window.history.back()}
             >
               Cancel
             </a>
