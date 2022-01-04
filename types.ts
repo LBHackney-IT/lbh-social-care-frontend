@@ -213,6 +213,8 @@ export interface User {
   isAuditable: boolean;
   isAuthorised: boolean;
   isInWorkflowsPilot?: boolean;
+  isInSafeguardingReviewing?: boolean;
+  isInPlacementManagementUnit?: boolean;
 }
 
 export interface Team {

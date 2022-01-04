@@ -50,7 +50,9 @@ describe('Deleting case notes', () => {
       cy.contains(/(deleted record)/).click();
       cy.contains(/Case note/).should('be.visible');
       cy.contains(/(deleted record)/).should('be.visible');
-      cy.contains(/Deleted by/).should('be.visible');
+      cy.contains(/Deleted by/)
+        .scrollIntoView()
+        .should('be.visible');
     });
   });
 });

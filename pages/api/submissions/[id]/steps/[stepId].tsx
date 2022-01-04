@@ -4,6 +4,7 @@ import { isAuthorised } from 'utils/auth';
 import { getSubmissionById, patchSubmissionForStep } from 'lib/submissions';
 import statusCodes from 'http-status-codes';
 import { Submission } from 'data/flexibleForms/forms.types';
+import { AxiosError } from 'axios';
 
 const handler = async (
   req: NextApiRequest,
@@ -44,7 +45,9 @@ const handler = async (
       });
     }
   } catch (e) {
-    res.status(e.response.status).json(e.toJSON());
+    res
+      .status((e as AxiosError).response?.status || 500)
+      .json((e as AxiosError).toJSON());
   }
 };
 

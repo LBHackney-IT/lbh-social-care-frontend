@@ -16,6 +16,7 @@ import { useState } from 'react';
 import { addCaseStatus } from 'utils/api/caseStatus';
 import { useAuth } from 'components/UserContext/UserContext';
 import { useRouter } from 'next/router';
+import { AxiosError } from 'axios';
 
 const ReviewAddCaseStatusForm: React.FC<{
   title: string;
@@ -76,7 +77,11 @@ const ReviewAddCaseStatusForm: React.FC<{
         query: { flaggedStatus: true },
       });
     } catch (e) {
-      setStatus(`Error ${e.response.data.status}: ${e.response.data.message}`);
+      setStatus(
+        `Error ${(e as AxiosError).response?.data.status}: ${
+          (e as AxiosError).response?.data.message
+        }`
+      );
     }
   };
 

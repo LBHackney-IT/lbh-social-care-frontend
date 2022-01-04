@@ -4,6 +4,7 @@ import { isAuthorised } from 'utils/auth';
 import { getWorkers, addWorker } from 'lib/workers';
 
 import type { NextApiRequest, NextApiResponse, NextApiHandler } from 'next';
+import { AxiosError } from 'axios';
 
 const endpoint: NextApiHandler = async (
   req: NextApiRequest,
@@ -22,8 +23,11 @@ const endpoint: NextApiHandler = async (
         const data = await getWorkers(req.query);
         res.status(StatusCodes.OK).json(data);
       } catch (error) {
-        console.error('Workers gets an error:', error?.response?.data);
-        error?.response?.status === StatusCodes.NOT_FOUND
+        console.error(
+          'Workers gets an error:',
+          (error as AxiosError)?.response?.data
+        );
+        (error as AxiosError)?.response?.status === StatusCodes.NOT_FOUND
           ? res
               .status(StatusCodes.NOT_FOUND)
               .json({ message: 'Worker Not Found' })
@@ -38,7 +42,10 @@ const endpoint: NextApiHandler = async (
         const data = await addWorker(req.body);
         res.status(StatusCodes.OK).json(data);
       } catch (error) {
-        console.error('Workers gets an error:', error?.response?.data);
+        console.error(
+          'Workers gets an error:',
+          (error as AxiosError)?.response?.data
+        );
         res
           .status(StatusCodes.INTERNAL_SERVER_ERROR)
           .json({ message: 'Unable to add the worker' });

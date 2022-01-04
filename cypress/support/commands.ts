@@ -1,6 +1,8 @@
 export enum AuthRoles {
   ChildrensGroup = 'ChildrensGroup',
   ChildrensUnrestrictedGroup = 'ChildrensUnrestrictedGroup',
+  ChildrensSafeguardingReviewingGroup = 'ChildrensSafeguardingReviewingGroup',
+  ChildrensPlacementManagmenetGroup = 'ChildrensPlacementManagmenetGroup',
   AdultsGroup = 'AdultsGroup',
   AdultsAllocatorGroup = 'AdultsAllocatorGroup',
   AdultsUnrestrictedGroup = 'AdultsUnrestrictedGroup',
@@ -14,6 +16,12 @@ type RoleConfig = {
 const roleConfigurations: Record<AuthRoles, RoleConfig> = {
   ChildrensGroup: {
     tokenValue: Cypress.env('TEST_KEY_CHILDREN_GROUP'),
+  },
+  ChildrensSafeguardingReviewingGroup: {
+    tokenValue: Cypress.env('TEST_KEY_CHILDREN_SAFEGUARDING_REVIEWING_GROUP'),
+  },
+  ChildrensPlacementManagmenetGroup: {
+    tokenValue: Cypress.env('TEST_KEY_CHILDREN_PLACEMENT_MANAGEMENT_GROUP'),
   },
   ChildrensUnrestrictedGroup: {
     tokenValue: Cypress.env('TEST_KEY_CHILDREN_UNRESTRICTED_GROUP'),

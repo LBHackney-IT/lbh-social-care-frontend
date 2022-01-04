@@ -3,6 +3,7 @@ import StatusCodes from 'http-status-codes';
 import { finishSubmission, patchSubmissionForStep } from 'lib/submissions';
 import { isAuthorised } from 'utils/auth';
 import { FormikValues } from 'formik';
+import { AxiosError } from 'axios';
 
 const handler = async (
   req: NextApiRequest,
@@ -51,8 +52,12 @@ const handler = async (
         break;
     }
   } catch (e) {
-    console.log(e.response.data.errors);
-    res.status(e.response.status).json(e.toJSON());
+    console.log((e as AxiosError).response?.data.errors);
+    res
+      .status(
+        (e as AxiosError).response?.status || StatusCodes.INTERNAL_SERVER_ERROR
+      )
+      .json((e as AxiosError).toJSON());
   }
 };
 

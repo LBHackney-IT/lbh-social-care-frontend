@@ -2,6 +2,7 @@ import { NextApiRequest, NextApiResponse } from 'next';
 import StatusCodes from 'http-status-codes';
 import { deleteSubmission } from 'lib/submissions';
 import { isAuthorised } from 'utils/auth';
+import { AxiosError } from 'axios';
 
 const handler = async (
   req: NextApiRequest,
@@ -27,15 +28,18 @@ const handler = async (
 
           res.status(StatusCodes.NO_CONTENT).end();
         } catch (error) {
-          console.error('Submission DELETE error:', error?.response?.data);
+          console.error(
+            'Submission DELETE error:',
+            (error as AxiosError)?.response?.data
+          );
 
-          error?.response?.status === StatusCodes.NOT_FOUND
+          (error as AxiosError)?.response?.status === StatusCodes.NOT_FOUND
             ? res
                 .status(StatusCodes.NOT_FOUND)
                 .json({ message: 'Case Status Not Found' })
-            : res.status(error?.response?.status).json({
-                status: error?.response?.status,
-                message: error?.response?.data,
+            : res.status((error as AxiosError)?.response?.status || 500).json({
+                status: (error as AxiosError)?.response?.status,
+                message: (error as AxiosError)?.response?.data,
               });
         }
       }

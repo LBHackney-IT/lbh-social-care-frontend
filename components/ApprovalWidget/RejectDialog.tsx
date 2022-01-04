@@ -38,7 +38,7 @@ const RejectDialog = ({
       setOpen(false);
       router.reload();
     } catch (e) {
-      setStatus(e.toString());
+      setStatus((e as Error).toString());
     }
   };
 

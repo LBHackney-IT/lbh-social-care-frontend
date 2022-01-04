@@ -26,7 +26,7 @@ const NewSubmissionPage = ({ forms }: Props): React.ReactElement => {
         if (data.error || !data.submissionId) throw data.error;
         router.push(`/submissions/${data.submissionId}`);
       } catch (e) {
-        setStatus(e.toString());
+        setStatus((e as Error).toString());
       }
     },
     [router]
