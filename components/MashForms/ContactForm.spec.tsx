@@ -94,4 +94,11 @@ describe('#ContactDecisionForm', () => {
       expect(screen.getByText(errorMessage));
     });
   });
+
+  it('should trigger history back on click of the cancel button', () => {
+    const mockHandler = jest.fn();
+    global.history.back = mockHandler;
+    fireEvent.click(screen.getByText('Cancel'));
+    expect(history.back).toHaveBeenCalled();
+  });
 });
