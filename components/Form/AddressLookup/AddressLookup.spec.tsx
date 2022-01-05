@@ -2,6 +2,8 @@ import { defaultValidation } from './AddressLookup';
 import AddressLookupWrapper from './AddressLookupWrapper';
 import { AddressBox } from './AddressLookup';
 import { render } from '@testing-library/react';
+import { addressWrapperFactory } from 'factories/postcode';
+import axios from 'axios';
 
 describe('AddressLookup', () => {
   describe('defaultValidation', () => {
@@ -185,7 +187,7 @@ describe('AddressLookup', () => {
   describe('Address search functionality', () => {
     describe('Use AddressLookup to search Hackney address api', () => {
       it('using a building number & postcode', async () => {
-        const { queryByTestId, queryByText, getByTestId } = render(
+        const { getByTestId } = render(
           <AddressLookupWrapper
             postcode="SW1A 0AA"
             buildingNumber="1"
@@ -202,6 +204,29 @@ describe('AddressLookup', () => {
 
         expect(postcodeInput.value).toMatch('SW1A 0AA');
         expect(buildingNumberInput.value).toMatch('1');
+      });
+
+      it('checks lookup button calls postcode api correctly', async () => {
+        jest.mock('axios');
+        const mockedAxios = axios as jest.Mocked<typeof axios>;
+        const mocked_results = addressWrapperFactory.build();
+
+        mockedAxios.get.mockResolvedValue({
+          data: { mocked_results },
+        });
+
+        render(
+          <AddressLookupWrapper
+            postcode="SW1A 0AA"
+            buildingNumber="1"
+            name="name"
+            label="labe"
+            hint="hint"
+          />
+        );
+
+        //todo write the fireEvent click
+        //todo write the expectation
 
         // cy.visitAs(`/people/add`, AuthRoles.ChildrensGroup);
         // cy.get(`input[id=building-number]`).click().type('1');
@@ -212,34 +237,6 @@ describe('AddressLookup', () => {
         //   .select('THE SPEAKERS HOUSE, 1 PARLIAMENT SQUARE')
         //   .should('have.text', 'THE SPEAKERS HOUSE, 1 PARLIAMENT SQUARE');
       });
-
-      // it('checks lookup button calls postcode api correctly', async () => {
-
-      //   jest.spyOn(postcodeApi, 'lookupPostcode').mockImplementation(() => ({
-      //     data: [],
-      //     isValidating: false,
-      //     mutate: jest.fn(),
-      //     revalidate: jest.fn(),
-      //   }));
-
-      //   const { queryByTestId, queryByText, getByTestId } = render(
-      //     <AddressLookupWrapper
-      //       postcode="SW1A 0AA"
-      //       buildingNumber="1"
-      //       name="name"
-      //       label="labe"
-      //       hint="hint"
-      //     />
-      //   );
-      //   const postcodeInput = getByTestId('postcode') as HTMLInputElement;
-      //   const buildingNumberInput = getByTestId(
-      //     'building-number'
-      //   ) as HTMLInputElement;
-      //   console.log('postcodeInput Value', postcodeInput.value);
-
-      //   expect(postcodeInput.value).toMatch('SW1A 0AA');
-      //   expect(buildingNumberInput.value).toMatch('1');
-      // });
     });
   });
 });
