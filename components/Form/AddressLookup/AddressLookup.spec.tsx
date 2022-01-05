@@ -1,6 +1,7 @@
 import { defaultValidation } from './AddressLookup';
-
+import AddressLookupWrapper from './AddressLookupWrapper';
 import { AddressBox } from './AddressLookup';
+import { render } from '@testing-library/react';
 
 describe('AddressLookup', () => {
   describe('defaultValidation', () => {
@@ -178,6 +179,67 @@ describe('AddressLookup', () => {
         const validate = defaultValidation({ required: true });
         expect(validate.buildingNumber({ buildingNumber: '123' })).toBe(true);
       });
+    });
+  });
+
+  describe('Address search functionality', () => {
+    describe('Use AddressLookup to search Hackney address api', () => {
+      it('using a building number & postcode', async () => {
+        const { queryByTestId, queryByText, getByTestId } = render(
+          <AddressLookupWrapper
+            postcode="SW1A 0AA"
+            buildingNumber="1"
+            name="name"
+            label="labe"
+            hint="hint"
+          />
+        );
+        const postcodeInput = getByTestId('postcode') as HTMLInputElement;
+        const buildingNumberInput = getByTestId(
+          'building-number'
+        ) as HTMLInputElement;
+        console.log('postcodeInput Value', postcodeInput.value);
+
+        expect(postcodeInput.value).toMatch('SW1A 0AA');
+        expect(buildingNumberInput.value).toMatch('1');
+
+        // cy.visitAs(`/people/add`, AuthRoles.ChildrensGroup);
+        // cy.get(`input[id=building-number]`).click().type('1');
+        // cy.get(`input[id=postcode]`).click().type('SW1A 0AA');
+        // cy.get(`button[id=lookup-button]`).click();
+        // cy.get(`select[id=address]`).should('be.visible');
+        // cy.get(`select[id=address]`)
+        //   .select('THE SPEAKERS HOUSE, 1 PARLIAMENT SQUARE')
+        //   .should('have.text', 'THE SPEAKERS HOUSE, 1 PARLIAMENT SQUARE');
+      });
+
+      // it('checks lookup button calls postcode api correctly', async () => {
+
+      //   jest.spyOn(postcodeApi, 'lookupPostcode').mockImplementation(() => ({
+      //     data: [],
+      //     isValidating: false,
+      //     mutate: jest.fn(),
+      //     revalidate: jest.fn(),
+      //   }));
+
+      //   const { queryByTestId, queryByText, getByTestId } = render(
+      //     <AddressLookupWrapper
+      //       postcode="SW1A 0AA"
+      //       buildingNumber="1"
+      //       name="name"
+      //       label="labe"
+      //       hint="hint"
+      //     />
+      //   );
+      //   const postcodeInput = getByTestId('postcode') as HTMLInputElement;
+      //   const buildingNumberInput = getByTestId(
+      //     'building-number'
+      //   ) as HTMLInputElement;
+      //   console.log('postcodeInput Value', postcodeInput.value);
+
+      //   expect(postcodeInput.value).toMatch('SW1A 0AA');
+      //   expect(buildingNumberInput.value).toMatch('1');
+      // });
     });
   });
 });
