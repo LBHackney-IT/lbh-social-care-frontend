@@ -208,7 +208,7 @@ describe('AddressLookup', () => {
         expect(buildingNumberInput.value).toMatch('1');
       });
 
-      it.only('checks lookup button calls postcode api correctly', async () => {
+      it('checks lookup button calls postcode api correctly', async () => {
         const mocked_results = addressAPIWrapperFactory.build();
         mockedAxios.get.mockResolvedValue({
           data: mocked_results,
@@ -218,7 +218,7 @@ describe('AddressLookup', () => {
           <AddressLookupWrapper
             postcode="SW1A 0AA"
             buildingNumber="1"
-            name="name"
+            name="address"
             label="label"
             hint="hint"
           />
@@ -228,21 +228,40 @@ describe('AddressLookup', () => {
           fireEvent.click(getByText('Look up'));
         });
 
-        const addressDropDown = getByTestId('name');
+        const addressDropDown = getByTestId('address');
         expect(addressDropDown).not.toBeNull();
+        expect(addressDropDown.childElementCount).toBe(
+          mocked_results.address.length + 1
+        );
 
         const expectedAddress = getByText('test line1');
         expect(expectedAddress).not.toBeNull();
         expect(expectedAddress).toBeInTheDocument();
+      });
 
-        // cy.visitAs(`/people/add`, AuthRoles.ChildrensGroup);
-        // cy.get(`input[id=building-number]`).click().type('1');
-        // cy.get(`input[id=postcode]`).click().type('SW1A 0AA');
-        // cy.get(`button[id=lookup-button]`).click();
-        // cy.get(`select[id=address]`).should('be.visible');
-        // cy.get(`select[id=address]`)
-        //   .select('THE SPEAKERS HOUSE, 1 PARLIAMENT SQUARE')
-        //   .should('have.text', 'THE SPEAKERS HOUSE, 1 PARLIAMENT SQUARE');
+      it('checks postcode api errors are handled correctly', async () => {
+        const message = 'Network Error';
+        mockedAxios.get.mockRejectedValueOnce(new Error(message));
+
+        const { getByText } = render(
+          <AddressLookupWrapper
+            postcode="SW1A 0AA"
+            buildingNumber="1"
+            name="address"
+            label="label"
+            hint="hint"
+          />
+        );
+
+        await waitFor(() => {
+          fireEvent.click(getByText('Look up'));
+        });
+
+        const expectedAddress = getByText(
+          'There was a problem with the postcode.'
+        );
+        expect(expectedAddress).not.toBeNull();
+        expect(expectedAddress).toBeInTheDocument();
       });
     });
   });

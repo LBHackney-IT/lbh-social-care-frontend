@@ -17,7 +17,7 @@ const AddressLookupWrapper = ({
   hint,
 }: AddressLookupWrapperProps): React.ReactElement => {
   const { control } = useForm();
-  control.defaultValuesRef.current['name'] = {
+  control.defaultValuesRef.current[name] = {
     postcode: postcode,
     buildingNumber: buildingNumber,
   };
