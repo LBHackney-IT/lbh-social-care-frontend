@@ -1,9 +1,12 @@
 import { defaultValidation } from './AddressLookup';
 import AddressLookupWrapper from './AddressLookupWrapper';
 import { AddressBox } from './AddressLookup';
-import { render } from '@testing-library/react';
-import { addressWrapperFactory } from 'factories/postcode';
+import { fireEvent, render, waitFor } from '@testing-library/react';
+import { addressAPIWrapperFactory } from 'factories/postcode';
 import axios from 'axios';
+
+jest.mock('axios');
+const mockedAxios = axios as jest.Mocked<typeof axios>;
 
 describe('AddressLookup', () => {
   describe('defaultValidation', () => {
@@ -206,24 +209,49 @@ describe('AddressLookup', () => {
         expect(buildingNumberInput.value).toMatch('1');
       });
 
-      it('checks lookup button calls postcode api correctly', async () => {
-        jest.mock('axios');
-        const mockedAxios = axios as jest.Mocked<typeof axios>;
-        const mocked_results = addressWrapperFactory.build();
-
+      it.only('checks lookup button calls postcode api correctly', async () => {
+        const mocked_results = addressAPIWrapperFactory.build();
         mockedAxios.get.mockResolvedValue({
-          data: { mocked_results },
+          data: mocked_results,
         });
 
-        render(
+        const { getByText, getByTestId } = render(
           <AddressLookupWrapper
             postcode="SW1A 0AA"
             buildingNumber="1"
             name="name"
-            label="labe"
+            label="label"
             hint="hint"
           />
         );
+
+        await waitFor(() => {
+          fireEvent.click(getByText('Look up'));
+        });
+
+        // await waitFor(() => {
+        //   fireEvent.click(getByTestId('name'), {
+        //     target: {
+        //       name: 'address',
+        //     },
+        //   });
+        // });
+
+        await waitFor(() => {
+          fireEvent.click(getByText('test line1'));
+        });
+
+        const addressDropDown = getByTestId('name');
+        expect(addressDropDown).not.toBeNull();
+
+        const selectedAddress = getByText('test line1');
+        console.log('selectedAddress', selectedAddress);
+        expect(selectedAddress).not.toBeNull();
+        expect(selectedAddress).toBeInTheDocument();
+        // expect(
+        //   (getByText('address') as HTMLOptionElement).selected
+        // ).toBeTruthy();
+        // expect(addressDropDown.).not.toBeNull();
 
         //todo write the fireEvent click
         //todo write the expectation

@@ -2,7 +2,7 @@ import axios from 'axios';
 
 import type { Address, AddressWrapper } from 'types';
 
-interface AddressAPI {
+export interface AddressAPI {
   postcode: string;
   UPRN: string;
   town: string;
@@ -13,6 +13,7 @@ interface AddressAPI {
 }
 
 export const formatAddress = (address: AddressAPI): Address => {
+  console.log('format address');
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { UPRN, postcode, town, ...addressLine } = address;
   return {
@@ -33,9 +34,12 @@ export const lookupPostcode = async (
     `/api/postcode/${postcode}?page=${page_number}&buildingNumber=${building_number}`
   );
 
+  console.log('response', response);
+
   response !== undefined
     ? (response.data.address = response.data.address.map(formatAddress))
     : undefined;
 
+  console.log('response.data', response?.data);
   return response?.data;
 };
