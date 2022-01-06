@@ -189,13 +189,13 @@ describe('AddressLookup', () => {
 
   describe('Address search functionality', () => {
     describe('Use AddressLookup to search Hackney address api', () => {
-      it('using a building number & postcode', async () => {
+      it('using default values for building number & postcode', async () => {
         const { getByTestId } = render(
           <AddressLookupWrapper
             postcode="SW1A 0AA"
             buildingNumber="1"
             name="name"
-            label="labe"
+            label="label"
             hint="hint"
           />
         );
@@ -203,7 +203,6 @@ describe('AddressLookup', () => {
         const buildingNumberInput = getByTestId(
           'building-number'
         ) as HTMLInputElement;
-        console.log('postcodeInput Value', postcodeInput.value);
 
         expect(postcodeInput.value).toMatch('SW1A 0AA');
         expect(buildingNumberInput.value).toMatch('1');
@@ -229,32 +228,12 @@ describe('AddressLookup', () => {
           fireEvent.click(getByText('Look up'));
         });
 
-        // await waitFor(() => {
-        //   fireEvent.click(getByTestId('name'), {
-        //     target: {
-        //       name: 'address',
-        //     },
-        //   });
-        // });
-
-        await waitFor(() => {
-          fireEvent.click(getByText('test line1'));
-        });
-
         const addressDropDown = getByTestId('name');
         expect(addressDropDown).not.toBeNull();
 
-        const selectedAddress = getByText('test line1');
-        console.log('selectedAddress', selectedAddress);
-        expect(selectedAddress).not.toBeNull();
-        expect(selectedAddress).toBeInTheDocument();
-        // expect(
-        //   (getByText('address') as HTMLOptionElement).selected
-        // ).toBeTruthy();
-        // expect(addressDropDown.).not.toBeNull();
-
-        //todo write the fireEvent click
-        //todo write the expectation
+        const expectedAddress = getByText('test line1');
+        expect(expectedAddress).not.toBeNull();
+        expect(expectedAddress).toBeInTheDocument();
 
         // cy.visitAs(`/people/add`, AuthRoles.ChildrensGroup);
         // cy.get(`input[id=building-number]`).click().type('1');

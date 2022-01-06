@@ -115,13 +115,14 @@ const AddressLookup = ({
     defaultValue && defaultValue.postcode
   );
   const [buildingNumber, setBuildingNumber] = useState(
-    defaultValue && defaultValue.buildingNumber
+    defaultValue && defaultValue.buildingNumber !== undefined
+      ? defaultValue.buildingNumber
+      : ''
   );
   const [results, setResults] = useState<Address[]>([]);
   const [isManually, setIsManually] = useState<boolean>();
   const [error, setError] = useState<string>();
   const [loading, setLoading] = useState(false);
-  console.log('postcode Component', postcode);
 
   const searchPostcode = useCallback(async () => {
     control.setValue(`address`, null);
