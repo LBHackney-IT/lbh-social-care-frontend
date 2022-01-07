@@ -6,7 +6,7 @@ jest.mock('axios');
 const mockedAxios = axios as jest.Mocked<typeof axios>;
 
 describe('postcodeAPI', () => {
-  describe('normalizeAddresses', () => {
+  describe('formatAddress', () => {
     it('combines the address lines into single line', () => {
       expect(
         formatAddress({
