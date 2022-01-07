@@ -4,10 +4,10 @@ import DashboardWrapper from 'components/Dashboard/DashboardWrapper';
 
 const MyCasesPage = (): React.ReactElement => (
   <div>
-    <Seo title="My work" />
+    <Seo title="Case notes" />
     <DashboardWrapper>
       <>
-        <h1 className="govuk-!-margin-bottom-8">My work</h1>
+        <h1 className="govuk-!-margin-bottom-8">My case notes and records</h1>
         <Search
           type="records"
           subHeader={<>Filter results by (any combination)</>}
