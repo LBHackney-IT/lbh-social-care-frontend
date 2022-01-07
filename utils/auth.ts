@@ -53,6 +53,7 @@ interface ParsedCookie {
 export const isAuthorised = (
   req: NonNullable<NextPageContext['req']>
 ): User | undefined => {
+  console.log('called auth');
   const HACKNEY_JWT_SECRET = process.env.HACKNEY_JWT_SECRET;
   const AUTHORISED_DEV_GROUP = process.env.AUTHORISED_DEV_GROUP;
   const AUTHORISED_ADMIN_GROUP = process.env.AUTHORISED_ADMIN_GROUP;

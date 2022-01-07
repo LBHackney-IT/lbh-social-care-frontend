@@ -126,6 +126,7 @@ const AddressLookup = ({
 
   const searchPostcode = useCallback(async () => {
     control.setValue(`address`, null);
+    console.log('searchPostcode postcode', postcode);
     if (!postcode || !isPostcodeValid(postcode)) {
       setError('You entered an invalid postcode.');
       return;
@@ -274,7 +275,10 @@ const AddressLookup = ({
         />
       )}
       {loading && (
-        <div className="govuk-!-margin-top-5 govuk-grid-column-one-third">
+        <div
+          className="govuk-!-margin-top-5 govuk-grid-column-one-third"
+          data-testid="spinner"
+        >
           <Spinner />
         </div>
       )}

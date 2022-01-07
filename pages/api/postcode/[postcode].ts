@@ -10,7 +10,9 @@ const endpoint: NextApiHandler = async (
   req: NextApiRequest,
   res: NextApiResponse
 ) => {
+  console.log('req', req);
   const user = isAuthorised(req);
+  console.log('isAuthorised', isAuthorised(req));
   if (!user) {
     return res.status(StatusCodes.UNAUTHORIZED).end();
   }
