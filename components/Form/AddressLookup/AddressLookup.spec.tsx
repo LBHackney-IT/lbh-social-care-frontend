@@ -39,10 +39,6 @@ describe('AddressLookup', () => {
       it('when validation is required should show message when address has no value', () => {
         const validate = defaultValidation({ required: true });
         expect(validate.address()).toBe('You must enter an address');
-        expect(validate.address({ address: '' })).toBe(
-          'You must enter an address'
-        );
-        expect(validate.address({ address: 'foo' })).toBe(true);
       });
 
       it('when validation is required should show message when address is an empty string', () => {
@@ -50,7 +46,6 @@ describe('AddressLookup', () => {
         expect(validate.address({ address: '' })).toBe(
           'You must enter an address'
         );
-        expect(validate.address({ address: 'foo' })).toBe(true);
       });
 
       it('when validation is required should return true when address is a non empty string', () => {

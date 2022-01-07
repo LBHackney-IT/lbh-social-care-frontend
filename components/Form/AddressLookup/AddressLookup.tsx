@@ -16,16 +16,10 @@ import { AddressLookup as IAddressLookup } from 'components/Form/types';
 
 export interface AddressBox {
   name: string;
-  onChange: (arg0: {
-    uprn: null;
-    address?: string;
-    postcode?: string;
-    buildingNumber?: string;
-  }) => void;
+  onChange: (arg0: { uprn: null; address?: string; postcode?: string }) => void;
   value: {
     address: string;
     postcode: string;
-    buildingNumber: string;
   };
   disabled: boolean;
 }
