@@ -126,7 +126,6 @@ const AddressLookup = ({
 
   const searchPostcode = useCallback(async () => {
     control.setValue(`address`, null);
-    console.log('searchPostcode postcode', postcode);
     if (!postcode || !isPostcodeValid(postcode)) {
       setError('You entered an invalid postcode.');
       return;
