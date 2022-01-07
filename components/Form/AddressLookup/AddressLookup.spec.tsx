@@ -9,7 +9,7 @@ const mockedAxios = axios as jest.Mocked<typeof axios>;
 
 describe('AddressLookup', () => {
   describe('defaultValidation', () => {
-    describe('for address', () => {
+    describe('when validation is not required', () => {
       let validate: {
         address: (
           arg0?: Partial<AddressBox['value']>
@@ -24,89 +24,89 @@ describe('AddressLookup', () => {
         return validate;
       });
 
-      it('when validation is not required should return true when address has no value', () => {
+      it('should return true when address has no value', () => {
         expect(validate.address()).toBe(true);
       });
 
-      it('when validation is not required should return true when address is empty string', () => {
+      it('should return true when address is empty string', () => {
         expect(validate.address({ address: '' })).toBe(true);
       });
 
-      it('when validation is not required should return true when address is a non empty string', () => {
+      it('should return true when address is a non empty string', () => {
         expect(validate.address({ address: 'foo' })).toBe(true);
       });
 
-      it('when validation is required should show message when address has no value', () => {
+      it('should return true when postcode has no value', () => {
+        expect(validate.postcode()).toBe(true);
+      });
+
+      it('should return true when postcode is empty string', () => {
+        expect(validate.postcode({ postcode: '' })).toBe(true);
+      });
+
+      it('should return error message when postcode is incorrect format', () => {
+        expect(validate.postcode({ postcode: 'foo' })).toBe(
+          'You must enter a valid postcode'
+        );
+      });
+
+      it('should return true when postcode is the correct format', () => {
+        expect(validate.postcode({ postcode: 'e83as' })).toBe(true);
+      });
+    });
+
+    describe('when validation is required', () => {
+      let validate: {
+        address: (
+          arg0?: Partial<AddressBox['value']>
+        ) => true | 'You must enter an address';
+        postcode: (
+          arg0?: Partial<AddressBox['value']>
+        ) => true | 'You must enter a valid postcode';
+      };
+
+      beforeEach(() => {
+        validate = defaultValidation();
+        return validate;
+      });
+
+      it('should show message when address has no value', () => {
         const validate = defaultValidation({ required: true });
         expect(validate.address()).toBe('You must enter an address');
       });
 
-      it('when validation is required should show message when address is an empty string', () => {
+      it('should show message when address is an empty string', () => {
         const validate = defaultValidation({ required: true });
         expect(validate.address({ address: '' })).toBe(
           'You must enter an address'
         );
       });
 
-      it('when validation is required should return true when address is a non empty string', () => {
+      it('should return true when address is a non empty string', () => {
         const validate = defaultValidation({ required: true });
         expect(validate.address({ address: 'foo' })).toBe(true);
       });
-    });
 
-    describe('for postcode', () => {
-      let validate: {
-        address: (
-          arg0?: Partial<AddressBox['value']>
-        ) => true | 'You must enter an address';
-        postcode: (
-          arg0?: Partial<AddressBox['value']>
-        ) => true | 'You must enter a valid postcode';
-      };
-
-      beforeEach(() => {
-        validate = defaultValidation();
-        return validate;
-      });
-
-      it('when validation is not required should return true when postcode has no value', () => {
-        expect(validate.postcode()).toBe(true);
-      });
-
-      it('when validation is not required should return true when postcode is empty string', () => {
-        expect(validate.postcode({ postcode: '' })).toBe(true);
-      });
-
-      it('when validation is not required should return error message when postcode is incorrect format', () => {
-        expect(validate.postcode({ postcode: 'foo' })).toBe(
-          'You must enter a valid postcode'
-        );
-      });
-
-      it('when validation is not required should return true when postcode is the correct format', () => {
-        expect(validate.postcode({ postcode: 'e83as' })).toBe(true);
-      });
-
-      it('when validation is required should show message when postcode has no value', () => {
+      it('should show message when postcode has no value', () => {
         const validate = defaultValidation({ required: true });
         expect(validate.postcode()).toBe('You must enter a valid postcode');
       });
 
-      it('when validation is required should return error message when postcode is empty string', () => {
+      it('should return error message when postcode is empty string', () => {
         const validate = defaultValidation({ required: true });
         expect(validate.postcode({ postcode: '' })).toBe(
           'You must enter a valid postcode'
         );
       });
 
-      it('when validation is required should return error message when postcode is incorrect format', () => {
+      it('should return error message when postcode is incorrect format', () => {
         const validate = defaultValidation({ required: true });
         expect(validate.postcode({ postcode: 'foo' })).toBe(
           'You must enter a valid postcode'
         );
       });
 
-      it('when validation is required should return true when postcode is the correct format', () => {
+      it('should return true when postcode is the correct format', () => {
         const validate = defaultValidation({ required: true });
         expect(validate.postcode({ postcode: 'e83as' })).toBe(true);
       });
