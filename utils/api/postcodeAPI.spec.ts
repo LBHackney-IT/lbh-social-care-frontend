@@ -7,7 +7,7 @@ const mockedAxios = axios as jest.Mocked<typeof axios>;
 
 describe('postcodeAPI', () => {
   describe('normalizeAddresses', () => {
-    it('should format address data', () => {
+    it('combines the address lines into single line', () => {
       expect(
         formatAddress({
           line1: '407 QUEENSBRIDGE ROAD',
