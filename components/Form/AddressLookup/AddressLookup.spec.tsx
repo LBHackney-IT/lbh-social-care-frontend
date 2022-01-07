@@ -187,9 +187,9 @@ describe('AddressLookup', () => {
     });
   });
 
-  describe('Address search functionality', () => {
-    describe('Use AddressLookup to search Hackney address api', () => {
-      it('using default values for building number & postcode', async () => {
+  describe('Address search functionality with mock', () => {
+    describe('mock', () => {
+      it('uses default values for building number & postcode when provided', async () => {
         const { getByTestId } = render(
           <AddressLookupWrapper
             postcode="SW1A 0AA"
@@ -214,10 +214,13 @@ describe('AddressLookup', () => {
           data: mocked_results,
         });
 
+        const postcode = 'SW1A 0AA';
+        const building_number = '1';
+
         const { getByText, getByTestId } = render(
           <AddressLookupWrapper
-            postcode="SW1A 0AA"
-            buildingNumber="1"
+            postcode={postcode}
+            buildingNumber={building_number}
             name="address"
             label="label"
             hint="hint"
@@ -227,6 +230,11 @@ describe('AddressLookup', () => {
         await waitFor(() => {
           fireEvent.click(getByText('Look up'));
         });
+
+        expect(axios.get).toHaveBeenCalled();
+        expect(axios.get).toHaveBeenCalledWith(
+          `/api/postcode/${postcode}?page=1&buildingNumber=${building_number}`
+        );
 
         const addressDropDown = getByTestId('address');
         expect(addressDropDown).not.toBeNull();
@@ -239,7 +247,7 @@ describe('AddressLookup', () => {
         expect(expectedAddress).toBeInTheDocument();
       });
 
-      it('checks postcode api errors are handled correctly', async () => {
+      it('checks postcode api errors are handled', async () => {
         const message = 'Network Error';
         mockedAxios.get.mockRejectedValueOnce(new Error(message));
 
