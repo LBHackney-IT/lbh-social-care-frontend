@@ -6,7 +6,7 @@ import {
   waitFor,
 } from '@testing-library/react';
 import React from 'react';
-import { addYears, subMonths, addMonths } from 'date-fns';
+import { addYears, subMonths, subDays, addMonths, addDays } from 'date-fns';
 import Router from 'next/router';
 
 import { residentFactory } from 'factories/residents';
@@ -211,8 +211,8 @@ describe('<ReviewWarningNoteForm />', () => {
         })
       );
 
-      setDateFieldValue('reviewDate', new Date('2021-01-01'));
-      setDateFieldValue('nextReviewDate', new Date('2022-01-02')); // One year and one day later
+      setDateFieldValue('reviewDate', subDays(new Date(), 1)); // Yesterday
+      setDateFieldValue('nextReviewDate', addDays(addYears(new Date(), 1), 1)); // One year and one day later
 
       fireEvent.submit(screen.getByRole('form'));
 
