@@ -27,24 +27,24 @@ const NavLink = ({ href, children }: NavLinkProps) => {
   );
 };
 
-const navigation: { text: string; href: string }[] = [
-  {
-    text: `Allocations`,
-    href: `/`,
-  },
-  {
-    text: `Work in progress`,
-    href: `/work-in-progress`,
-  },
-  { text: 'My work', href: '/my-work' },
-];
-
 interface Props {
   children: React.ReactChild;
 }
 
 const DashboardWrapper = ({ children }: Props): React.ReactElement => {
   const { getConfigValue } = useAppConfig();
+
+  const navigation: { text: string; href: string }[] = [
+    {
+      text: `Allocations`,
+      href: `/`,
+    },
+    {
+      text: 'Workflows',
+      href: getConfigValue('workflowsPilotUrl') as string,
+    },
+    { text: 'Case notes', href: '/case-notes' },
+  ];
 
   return (
     <>
@@ -62,10 +62,6 @@ const DashboardWrapper = ({ children }: Props): React.ReactElement => {
                     {link.text}
                   </NavLink>
                 ))}
-
-                <NavLink href={getConfigValue('workflowsPilotUrl') as string}>
-                  Workflows
-                </NavLink>
               </ul>
             </nav>
             <MyData />
