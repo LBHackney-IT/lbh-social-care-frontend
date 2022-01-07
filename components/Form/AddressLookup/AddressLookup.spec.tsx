@@ -1,6 +1,5 @@
-import { defaultValidation } from './AddressLookup';
+import { defaultValidation, AddressBox } from './AddressLookup';
 import AddressLookupWrapper from './AddressLookupWrapper';
-import { AddressBox } from './AddressLookup';
 import { fireEvent, render, waitFor } from '@testing-library/react';
 import { addressAPIWrapperFactory } from 'factories/postcode';
 import axios from 'axios';
@@ -18,9 +17,6 @@ describe('AddressLookup', () => {
         postcode: (
           arg0?: Partial<AddressBox['value']>
         ) => true | 'You must enter a valid postcode';
-        buildingNumber: (
-          arg0?: Partial<AddressBox['value']>
-        ) => true | 'Building number must use valid characters (0-9)';
       };
 
       beforeEach(() => {
@@ -71,9 +67,6 @@ describe('AddressLookup', () => {
         postcode: (
           arg0?: Partial<AddressBox['value']>
         ) => true | 'You must enter a valid postcode';
-        buildingNumber: (
-          arg0?: Partial<AddressBox['value']>
-        ) => true | 'Building number must use valid characters (0-9)';
       };
 
       beforeEach(() => {
@@ -123,154 +116,184 @@ describe('AddressLookup', () => {
         expect(validate.postcode({ postcode: 'e83as' })).toBe(true);
       });
     });
-
-    describe('for building number', () => {
-      let validate: {
-        address: (
-          arg0?: Partial<AddressBox['value']>
-        ) => true | 'You must enter an address';
-        postcode: (
-          arg0?: Partial<AddressBox['value']>
-        ) => true | 'You must enter a valid postcode';
-        buildingNumber: (
-          arg0?: Partial<AddressBox['value']>
-        ) => true | 'Building number must use valid characters (0-9)';
-      };
-
-      beforeEach(() => {
-        validate = defaultValidation();
-        return validate;
-      });
-
-      it('when validation is not required should return true if building number has no value', () => {
-        expect(validate.buildingNumber()).toBe(true);
-      });
-
-      it('when validation is not required should return true if building number is empty string', () => {
-        expect(validate.buildingNumber({ buildingNumber: '' })).toBe(true);
-      });
-
-      it('when validation is not required should return true if building number is non empty string', () => {
-        expect(validate.buildingNumber({ buildingNumber: 'foo' })).toBe(true);
-      });
-
-      it('when validation is not required should return true if building number is all numeric format', () => {
-        const validate = defaultValidation();
-        expect(validate.buildingNumber({ buildingNumber: '123' })).toBe(true);
-      });
-
-      it('when validation is required should show error message when building number has no value', () => {
-        const validate = defaultValidation({ required: true });
-        expect(validate.buildingNumber()).toBe(
-          'Building number must use valid characters (0-9)'
-        );
-      });
-
-      it('when validation is required should show error message when building number is empty string', () => {
-        const validate = defaultValidation({ required: true });
-        expect(validate.buildingNumber({ buildingNumber: '' })).toBe(
-          'Building number must use valid characters (0-9)'
-        );
-      });
-
-      it('when validation is required should show error message when building number is non numeric', () => {
-        const validate = defaultValidation({ required: true });
-        expect(validate.buildingNumber({ buildingNumber: '123a' })).toBe(
-          'Building number must use valid characters (0-9)'
-        );
-      });
-
-      it('when validation is required should return true when building number is numeric', () => {
-        const validate = defaultValidation({ required: true });
-        expect(validate.buildingNumber({ buildingNumber: '123' })).toBe(true);
-      });
-    });
   });
 
-  describe('Address search functionality with mock', () => {
-    describe('mock', () => {
-      it('uses default values for building number & postcode when provided', async () => {
-        const { getByTestId } = render(
-          <AddressLookupWrapper
-            postcode="SW1A 0AA"
-            buildingNumber="1"
-            name="name"
-            label="label"
-            hint="hint"
-          />
-        );
-        const postcodeInput = getByTestId('postcode') as HTMLInputElement;
-        const buildingNumberInput = getByTestId(
-          'building-number'
-        ) as HTMLInputElement;
+  describe('Address search functionality', () => {
+    it('uses default values for building number & postcode when provided', async () => {
+      const { getByTestId } = render(
+        <AddressLookupWrapper
+          postcode="SW1A 0AA"
+          buildingNumber="1"
+          name="name"
+          label="label"
+          hint="hint"
+        />
+      );
+      const postcodeInput = getByTestId('postcode') as HTMLInputElement;
+      const buildingNumberInput = getByTestId(
+        'building-number'
+      ) as HTMLInputElement;
 
-        expect(postcodeInput.value).toMatch('SW1A 0AA');
-        expect(buildingNumberInput.value).toMatch('1');
+      expect(postcodeInput.value).toMatch('SW1A 0AA');
+      expect(buildingNumberInput.value).toMatch('1');
+    });
+
+    it('should throw an error when trying to search with no postcode or building number', async () => {
+      const postcode = '';
+      const building_number = '';
+
+      const { getByText } = render(
+        <AddressLookupWrapper
+          postcode={postcode}
+          buildingNumber={building_number}
+          name="address"
+          label="label"
+          hint="hint"
+        />
+      );
+
+      await waitFor(() => {
+        fireEvent.click(getByText('Look up'));
       });
 
-      it('checks lookup button calls postcode api correctly', async () => {
-        const mocked_results = addressAPIWrapperFactory.build();
-        mockedAxios.get.mockResolvedValue({
-          data: mocked_results,
-        });
+      const expectedError = getByText('You entered an invalid postcode.');
+      expect(expectedError).not.toBeNull();
+      expect(expectedError).toBeInTheDocument();
+    });
 
-        const postcode = 'SW1A 0AA';
-        const building_number = '1';
+    it('should throw an error when trying to search with only a building number', async () => {
+      const postcode = '';
+      const building_number = '1';
 
-        const { getByText, getByTestId } = render(
-          <AddressLookupWrapper
-            postcode={postcode}
-            buildingNumber={building_number}
-            name="address"
-            label="label"
-            hint="hint"
-          />
-        );
+      const { getByText } = render(
+        <AddressLookupWrapper
+          postcode={postcode}
+          buildingNumber={building_number}
+          name="address"
+          label="label"
+          hint="hint"
+        />
+      );
 
-        await waitFor(() => {
-          fireEvent.click(getByText('Look up'));
-        });
-
-        expect(axios.get).toHaveBeenCalled();
-        expect(axios.get).toHaveBeenCalledWith(
-          `/api/postcode/${postcode}?page=1&buildingNumber=${building_number}`
-        );
-
-        const addressDropDown = getByTestId('address');
-        expect(addressDropDown).not.toBeNull();
-        expect(addressDropDown.childElementCount).toBe(
-          mocked_results.address.length + 1
-        );
-
-        const expectedAddress = getByText('test line1');
-        expect(expectedAddress).not.toBeNull();
-        expect(expectedAddress).toBeInTheDocument();
+      await waitFor(() => {
+        fireEvent.click(getByText('Look up'));
       });
 
-      it('checks postcode api errors are handled', async () => {
-        const message = 'Network Error';
-        mockedAxios.get.mockRejectedValueOnce(new Error(message));
+      const expectedError = getByText('You entered an invalid postcode.');
+      expect(expectedError).not.toBeNull();
+      expect(expectedError).toBeInTheDocument();
+    });
 
-        const { getByText } = render(
-          <AddressLookupWrapper
-            postcode="SW1A 0AA"
-            buildingNumber="1"
-            name="address"
-            label="label"
-            hint="hint"
-          />
-        );
+    it('should throw an error when trying to search with a partial postcode', async () => {
+      const postcode = 'SW1A';
+      const building_number = '';
 
-        await waitFor(() => {
-          fireEvent.click(getByText('Look up'));
-        });
+      const { getByText } = render(
+        <AddressLookupWrapper
+          postcode={postcode}
+          buildingNumber={building_number}
+          name="address"
+          label="label"
+          hint="hint"
+        />
+      );
 
-        const expectedAddress = getByText(
-          'There was a problem with the postcode.'
-        );
-        expect(expectedAddress).not.toBeNull();
-        expect(expectedAddress).toBeInTheDocument();
+      await waitFor(() => {
+        fireEvent.click(getByText('Look up'));
       });
+
+      const expectedError = getByText('You entered an invalid postcode.');
+      expect(expectedError).not.toBeNull();
+      expect(expectedError).toBeInTheDocument();
+    });
+
+    it('should throw an error when trying to search with a building number with letters', async () => {
+      const postcode = 'SW1A 0AA';
+      const building_number = '123A';
+
+      const { getByText } = render(
+        <AddressLookupWrapper
+          postcode={postcode}
+          buildingNumber={building_number}
+          name="address"
+          label="label"
+          hint="hint"
+        />
+      );
+
+      await waitFor(() => {
+        fireEvent.click(getByText('Look up'));
+      });
+
+      const expectedError = getByText(
+        'Building number must use valid characters (0-9)'
+      );
+      expect(expectedError).not.toBeNull();
+      expect(expectedError).toBeInTheDocument();
+    });
+
+    it('checks lookup button calls postcode api correctly', async () => {
+      const mocked_results = addressAPIWrapperFactory.build();
+      mockedAxios.get.mockResolvedValue({
+        data: mocked_results,
+      });
+
+      const postcode = 'SW1A 0AA';
+      const building_number = '1';
+
+      const { getByText, getByTestId } = render(
+        <AddressLookupWrapper
+          postcode={postcode}
+          buildingNumber={building_number}
+          name="address"
+          label="label"
+          hint="hint"
+        />
+      );
+
+      await waitFor(() => {
+        fireEvent.click(getByText('Look up'));
+      });
+
+      expect(axios.get).toHaveBeenCalled();
+      expect(axios.get).toHaveBeenCalledWith(
+        `/api/postcode/${postcode}?page=1&buildingNumber=${building_number}`
+      );
+
+      const addressDropDown = getByTestId('address');
+      expect(addressDropDown).not.toBeNull();
+      expect(addressDropDown.childElementCount).toBe(
+        mocked_results.address.length + 1
+      );
+
+      const expectedAddress = getByText('test line1');
+      expect(expectedAddress).not.toBeNull();
+      expect(expectedAddress).toBeInTheDocument();
+    });
+
+    it('checks postcode api errors are handled', async () => {
+      const message = 'Network Error';
+      mockedAxios.get.mockRejectedValueOnce(new Error(message));
+
+      const { getByText } = render(
+        <AddressLookupWrapper
+          postcode="SW1A 0AA"
+          buildingNumber="1"
+          name="address"
+          label="label"
+          hint="hint"
+        />
+      );
+
+      await waitFor(() => {
+        fireEvent.click(getByText('Look up'));
+      });
+
+      const expectedAddress = getByText(
+        'There was a problem with the postcode.'
+      );
+      expect(expectedAddress).not.toBeNull();
+      expect(expectedAddress).toBeInTheDocument();
     });
   });
 });

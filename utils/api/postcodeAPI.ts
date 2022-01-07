@@ -13,7 +13,6 @@ export interface AddressAPI {
 }
 
 export const formatAddress = (address: AddressAPI): Address => {
-  console.log('format address');
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { UPRN, postcode, town, ...addressLine } = address;
   return {
@@ -30,13 +29,9 @@ export const lookupPostcode = async (
   page_number = 1,
   building_number?: string
 ): Promise<AddressWrapper> => {
-  const response = await axios.get(
+  const { data } = await axios.get(
     `/api/postcode/${postcode}?page=${page_number}&buildingNumber=${building_number}`
   );
-
-  response !== undefined
-    ? (response.data.address = response.data.address.map(formatAddress))
-    : undefined;
-
-  return response?.data;
+  data.address = data.address.map(formatAddress);
+  return data;
 };

@@ -43,9 +43,6 @@ export const defaultValidation = ({
   postcode: (
     arg0?: Partial<AddressBox['value']>
   ) => true | 'You must enter a valid postcode';
-  buildingNumber: (
-    arg0?: Partial<AddressBox['value']>
-  ) => true | 'Building number must use valid characters (0-9)';
 } => ({
   address: (value) =>
     !required ||
@@ -55,12 +52,6 @@ export const defaultValidation = ({
     (!required && (value?.postcode === '' || !value?.postcode)) ||
     (value?.postcode && isPostcodeValid(value?.postcode)) ||
     'You must enter a valid postcode',
-  buildingNumber: (value) =>
-    !required ||
-    (value?.buildingNumber?.length &&
-      value.buildingNumber.length > 0 &&
-      isNumeric(value.buildingNumber)) ||
-    'Building number must use valid characters (0-9)',
 });
 
 const AddressBox = ({ name, disabled, value, onChange }: AddressBox) => {
