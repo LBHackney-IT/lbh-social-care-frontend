@@ -2,7 +2,6 @@ import { formatAddress, lookupPostcode } from 'utils/api/postcodeAPI';
 import axios from 'axios';
 import { addressAPIWrapperFactory } from 'factories/postcode';
 
-jest.mock('swr');
 jest.mock('axios');
 const mockedAxios = axios as jest.Mocked<typeof axios>;
 
