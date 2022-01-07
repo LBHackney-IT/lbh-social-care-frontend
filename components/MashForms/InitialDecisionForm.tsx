@@ -175,7 +175,7 @@ const InitialDecisionForm = ({
           <a
             href="#"
             className={`lbh-link lbh-link--no-visited-state govuk-!-margin-left-3`}
-            onClick={() => window.history.back()}
+            onClick={() => router.back()}
           >
             Cancel
           </a>

@@ -7,9 +7,11 @@ import ContactForm from './ContactForm';
 jest.mock('utils/api/mashReferrals');
 
 const mockPush = jest.fn();
+const mockBack = jest.fn();
 jest.mock('next/router', () => ({
   useRouter: () => ({
     push: mockPush,
+    back: mockBack,
   }),
 }));
 
@@ -95,10 +97,8 @@ describe('#ContactDecisionForm', () => {
     });
   });
 
-  it('should trigger history back on click of the cancel button', () => {
-    const mockHandler = jest.fn();
-    global.history.back = mockHandler;
+  it('should trigger router back on click of the cancel button', () => {
     fireEvent.click(screen.getByText('Cancel'));
-    expect(history.back).toHaveBeenCalled();
+    expect(mockBack).toHaveBeenCalled();
   });
 });
