@@ -15,7 +15,8 @@
     "cy:open": "cypress open",
     "release": "release-it",
     "delete-draft-github-releases": "node ./ci-scripts/delete-draft-github-releases.js",
-    "validate-pr-title": "node ./ci-scripts/validate-pr-title.js"
+    "validate-pr-title": "node ./ci-scripts/validate-pr-title.js",
+    "copy-node-modules": "scripts/copyNodeModules.sh"
   },
   "dependencies": {
     "@reach/dialog": "^0.16.2",

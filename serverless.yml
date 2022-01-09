@@ -13,12 +13,24 @@ package:
   individually: true
   exclude:
     - ./**
+    
+layers:
+  nodeModulesDependencies:
+    path: layer
+    description: Copy of application node modules folder
+    compatibleRuntimes: 
+      - nodejs14.x
+    package:
+      include:
+      - '**/**' # package include/exclude paths for a layer are resolved relative to the layer's own path directory, not the directory where the serverless.yml file is
 
 functions:
   lbh-social-care:
     name: ${self:service}-${self:provider.stage}
     handler: lambda.handler
     timeout: 30
+    layers:
+      - { Ref: NodeModulesDependenciesLambdaLayer }
     package:
       include:
         - lambda.js
@@ -26,7 +38,9 @@ functions:
         - pages/**
         - public/**
         - build/_next/**
-        - node_modules/**
+        - layer/**
+      exclude:
+        - node_modules/
     events:
       - http:
           path: api/{proxy+}
@@ -37,72 +51,72 @@ functions:
     vpc:
       securityGroupIds: ${self:custom.securityGroups.${self:provider.stage}}
       subnetIds: ${self:custom.subnets.${self:provider.stage}}
-    environment:
-      NEXT_PUBLIC_ENV: ${opt:stage}
-      AWS_KEY: ${ssm:/lbh-social-care/${self:provider.stage}/aws-key}
-      ENDPOINT_API: ${ssm:/lbh-social-care/${self:provider.stage}/endpoint-case-viewer}
-      GSSO_URL: ${ssm:/lbh-social-care/${self:provider.stage}/gsso-url}
-      GSSO_TOKEN_NAME: ${ssm:/lbh-social-care/${self:provider.stage}/gsso-token-name}
-      HACKNEY_JWT_SECRET: ${ssm:/lbh-social-care/${self:provider.stage}/hackney-jwt}
-      AUTHORISED_DEV_GROUP: ${ssm:/lbh-social-care/${self:provider.stage}/authorised-dev-group}
-      AUTHORISED_ADMIN_GROUP: ${ssm:/lbh-social-care/${self:provider.stage}/authorised-admin-group}
-      AUTHORISED_ADULT_GROUP: ${ssm:/lbh-social-care/${self:provider.stage}/authorised-adult-group}
-      AUTHORISED_CHILD_GROUP: ${ssm:/lbh-social-care/${self:provider.stage}/authorised-child-group}
-      AUTHORISED_ALLOCATORS_GROUP: ${ssm:/lbh-social-care/${self:provider.stage}/authorised-allocators-group}
-      AUTHORISED_UNRESTRICTED_GROUP: ${ssm:/lbh-social-care/${self:provider.stage}/authorised-unrestricted-group}
-      AUTHORISED_AUDITABLE_GROUP: ${ssm:/lbh-social-care/${self:provider.stage}/authorised-auditable-group}
-      POSTCODE_LOOKUP_URL: ${ssm:/lbh-social-care/${self:provider.stage}/postcode-lookup-url}
-      POSTCODE_LOOKUP_APIKEY: ${ssm:/lbh-social-care/${self:provider.stage}/postcode-lookup-apikey}
-      NEXT_PUBLIC_FEEDBACK_LINK: ${ssm:/lbh-social-care/${self:provider.stage}/next-public-feedback-link}
-      REDIRECT_URL: ${ssm:/lbh-social-care/${self:provider.stage}/redirect_url}
-      NEXT_PUBLIC_GOOGLE_ANALYTICS_ID: ${ssm:/lbh-social-care/${self:provider.stage}/next_public_google_analytics_id}
-      NOTIFY_API_KEY: ${ssm:/lbh-social-care/${self:provider.stage}/notify-api-key}
-      NOTIFY_APPROVER_TEMPLATE_ID: ${ssm:/lbh-social-care/${self:provider.stage}/notify-approver-template-id}
-      NOTIFY_RETURN_FOR_EDITS_TEMPLATE_ID: ${ssm:/lbh-social-care/${self:provider.stage}/notify-return-for-edits-template-id}
-      WORKFLOWS_PILOT_URL: ${ssm:/lbh-social-care/${self:provider.stage}/workflows-pilot-url}
-      AUTHORISED_WORKFLOWS_PILOT_GROUP: ${ssm:/lbh-social-care/${self:provider.stage}/authorised-workflows-pilot-group}
-      AUTHORISED_SAFEGUARDING_REVIEWING_GROUP: ${ssm:/lbh-social-care/${self:provider.stage}/authorised-safeguarding-reviewing-group}
-      AUTHORISED_PLACEMENT_MANAGEMENT_UNIT_GROUP: ${ssm:/lbh-social-care/${self:provider.stage}/authorised-placement-management-unit-group}
-resources:
-  Resources:
-    CloudFrontDistribution:
-      Type: AWS::CloudFront::Distribution
-      Properties:
-        DistributionConfig:
-          Aliases:
-            - ${self:custom.aliases.${self:provider.stage}}
-          PriceClass: PriceClass_100
-          ViewerCertificate:
-            AcmCertificateArn: ${self:custom.certificate-arn.${self:provider.stage}}
-            MinimumProtocolVersion: TLSv1.2_2018
-            SslSupportMethod: sni-only
-          DefaultCacheBehavior:
-            TargetOriginId: ${self:service}-${self:provider.stage}-custom-origin
-            ViewerProtocolPolicy: 'redirect-to-https'
-            AllowedMethods:
-              - GET
-              - HEAD
-              - OPTIONS
-              - PUT
-              - PATCH
-              - POST
-              - DELETE
-            DefaultTTL: 0
-            MaxTTL: 0
-            MinTTL: 0
-            ForwardedValues:
-              QueryString: true
-              Cookies:
-                Forward: all
-          Enabled: true
-          Origins:
-            - Id: ${self:service}-${self:provider.stage}-custom-origin
-              DomainName: ${self:custom.domain-name}
-              OriginPath: /${self:provider.stage}
-              CustomOriginConfig:
-                HTTPPort: 80
-                HTTPSPort: 443
-                OriginProtocolPolicy: https-only
+    # environment:
+    #   NEXT_PUBLIC_ENV: ${opt:stage}
+    #   AWS_KEY: ${ssm:/lbh-social-care/${self:provider.stage}/aws-key}
+    #   ENDPOINT_API: ${ssm:/lbh-social-care/${self:provider.stage}/endpoint-case-viewer}
+    #   GSSO_URL: ${ssm:/lbh-social-care/${self:provider.stage}/gsso-url}
+    #   GSSO_TOKEN_NAME: ${ssm:/lbh-social-care/${self:provider.stage}/gsso-token-name}
+    #   HACKNEY_JWT_SECRET: ${ssm:/lbh-social-care/${self:provider.stage}/hackney-jwt}
+    #   AUTHORISED_DEV_GROUP: ${ssm:/lbh-social-care/${self:provider.stage}/authorised-dev-group}
+    #   AUTHORISED_ADMIN_GROUP: ${ssm:/lbh-social-care/${self:provider.stage}/authorised-admin-group}
+    #   AUTHORISED_ADULT_GROUP: ${ssm:/lbh-social-care/${self:provider.stage}/authorised-adult-group}
+    #   AUTHORISED_CHILD_GROUP: ${ssm:/lbh-social-care/${self:provider.stage}/authorised-child-group}
+    #   AUTHORISED_ALLOCATORS_GROUP: ${ssm:/lbh-social-care/${self:provider.stage}/authorised-allocators-group}
+    #   AUTHORISED_UNRESTRICTED_GROUP: ${ssm:/lbh-social-care/${self:provider.stage}/authorised-unrestricted-group}
+    #   AUTHORISED_AUDITABLE_GROUP: ${ssm:/lbh-social-care/${self:provider.stage}/authorised-auditable-group}
+    #   POSTCODE_LOOKUP_URL: ${ssm:/lbh-social-care/${self:provider.stage}/postcode-lookup-url}
+    #   POSTCODE_LOOKUP_APIKEY: ${ssm:/lbh-social-care/${self:provider.stage}/postcode-lookup-apikey}
+    #   NEXT_PUBLIC_FEEDBACK_LINK: ${ssm:/lbh-social-care/${self:provider.stage}/next-public-feedback-link}
+    #   REDIRECT_URL: ${ssm:/lbh-social-care/${self:provider.stage}/redirect_url}
+    #   NEXT_PUBLIC_GOOGLE_ANALYTICS_ID: ${ssm:/lbh-social-care/${self:provider.stage}/next_public_google_analytics_id}
+    #   NOTIFY_API_KEY: ${ssm:/lbh-social-care/${self:provider.stage}/notify-api-key}
+    #   NOTIFY_APPROVER_TEMPLATE_ID: ${ssm:/lbh-social-care/${self:provider.stage}/notify-approver-template-id}
+    #   NOTIFY_RETURN_FOR_EDITS_TEMPLATE_ID: ${ssm:/lbh-social-care/${self:provider.stage}/notify-return-for-edits-template-id}
+    #   WORKFLOWS_PILOT_URL: ${ssm:/lbh-social-care/${self:provider.stage}/workflows-pilot-url}
+    #   AUTHORISED_WORKFLOWS_PILOT_GROUP: ${ssm:/lbh-social-care/${self:provider.stage}/authorised-workflows-pilot-group}
+    #   AUTHORISED_SAFEGUARDING_REVIEWING_GROUP: ${ssm:/lbh-social-care/${self:provider.stage}/authorised-safeguarding-reviewing-group}
+    #   AUTHORISED_PLACEMENT_MANAGEMENT_UNIT_GROUP: ${ssm:/lbh-social-care/${self:provider.stage}/authorised-placement-management-unit-group}
+# resources:
+#   Resources:
+#     CloudFrontDistribution:
+#       Type: AWS::CloudFront::Distribution
+#       Properties:
+#         DistributionConfig:
+#           Aliases:
+#             - ${self:custom.aliases.${self:provider.stage}}
+#           PriceClass: PriceClass_100
+#           ViewerCertificate:
+#             AcmCertificateArn: ${self:custom.certificate-arn.${self:provider.stage}}
+#             MinimumProtocolVersion: TLSv1.2_2018
+#             SslSupportMethod: sni-only
+#           DefaultCacheBehavior:
+#             TargetOriginId: ${self:service}-${self:provider.stage}-custom-origin
+#             ViewerProtocolPolicy: 'redirect-to-https'
+#             AllowedMethods:
+#               - GET
+#               - HEAD
+#               - OPTIONS
+#               - PUT
+#               - PATCH
+#               - POST
+#               - DELETE
+#             DefaultTTL: 0
+#             MaxTTL: 0
+#             MinTTL: 0
+#             ForwardedValues:
+#               QueryString: true
+#               Cookies:
+#                 Forward: all
+#           Enabled: true
+#           Origins:
+#             - Id: ${self:service}-${self:provider.stage}-custom-origin
+#               DomainName: ${self:custom.domain-name}
+#               OriginPath: /${self:provider.stage}
+#               CustomOriginConfig:
+#                 HTTPPort: 80
+#                 HTTPSPort: 443
+#                 OriginProtocolPolicy: https-only
 
 custom:
   domain-name:
