@@ -1,12 +1,11 @@
 import React, { Dispatch, SetStateAction } from 'react';
-import s from "C:\Users\marta.pederiva_hackn\dev\lbh-social-care-frontend\components\PersonSelect\PersonSelect.module.scss';
-import { format } from 'date-fns';
+import s from './PersonSelect.module.scss';
+import { LegacyResident, Resident } from 'types';
 
 interface ChoiceProps {
   value: number;
   name: string;
   label: string;
-  hint: string;
   idToAdd: number;
   setIdToAdd: Dispatch<SetStateAction<number>>;
 }
@@ -15,7 +14,6 @@ const Choice = ({
   value,
   name,
   label,
-  hint,
   idToAdd,
   setIdToAdd,
 }: ChoiceProps): React.ReactElement => (
@@ -46,12 +44,12 @@ const Choice = ({
 
 interface Props {
   label: string;
-  people: string[];
+  people: (Resident | LegacyResident)[];
   idToAdd: number;
-  //setIdToAdd: Dispatch<SetStateAction<number>>;
+  setIdToAdd: Dispatch<SetStateAction<number>>;
 }
 
-const PersonSelect = ({
+const WorkerSelect = ({
   label,
   people,
   idToAdd,
@@ -70,22 +68,10 @@ const PersonSelect = ({
             <Choice
               name="person"
               label={`${person.firstName} ${person.lastName}`}
-              value={
-                'id' in person ? person.id : parseInt(String(person.mosaicId))
-              }
+              value={person.id}
               idToAdd={idToAdd}
               setIdToAdd={setIdToAdd}
-              key={'id' in person ? person.id : person.mosaicId}
-              hint={`#${'id' in person ? person.id : person.mosaicId} ${
-                person.dateOfBirth
-                  ? `· Born ${format(
-                      new Date(String(person.dateOfBirth)),
-                      'd MMM yyyy'
-                    )} `
-                  : ''
-              }${
-                person.address?.address ? `· ${person.address?.address}` : ''
-              }`}
+              key={person.id}
             />
           ))}
         </div>
@@ -94,4 +80,4 @@ const PersonSelect = ({
   );
 };
 
-export default PersonSelect;
+export default WorkerSelect;
