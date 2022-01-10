@@ -151,8 +151,3 @@ custom:
     mosaic-prod:
       - subnet-0c39cd286eeaff2b2
       - subnet-04c42d0aafb3738ad
-    scripts:
-      hooks:
-        before:
-          package: 
-            initialize: ./yarn copy-node-modules
