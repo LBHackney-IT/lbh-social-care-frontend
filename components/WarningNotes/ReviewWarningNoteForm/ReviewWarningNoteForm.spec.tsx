@@ -211,8 +211,12 @@ describe('<ReviewWarningNoteForm />', () => {
         })
       );
 
-      setDateFieldValue('reviewDate', new Date('2021-01-01'));
-      setDateFieldValue('nextReviewDate', new Date('2022-01-02')); // One year and one day later
+      const oneYearOneDayFromNow = new Date();
+      oneYearOneDayFromNow.setFullYear(oneYearOneDayFromNow.getFullYear() + 1);
+      oneYearOneDayFromNow.setDate(oneYearOneDayFromNow.getDate() + 1);
+
+      setDateFieldValue('reviewDate', new Date());
+      setDateFieldValue('nextReviewDate', oneYearOneDayFromNow); // One year and one day later
 
       fireEvent.submit(screen.getByRole('form'));
 
