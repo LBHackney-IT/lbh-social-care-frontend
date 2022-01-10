@@ -7,7 +7,7 @@ orbs:
 executors:
   node-executor:
     docker:
-      - image: circleci/node:14.15.5-browsers
+      - image: cimg/node:14.18-browsers
   docker-python:
     docker:
       - image: circleci/python:3.7
@@ -119,7 +119,6 @@ jobs:
               -t http://$(ip -f inet -o addr show docker0 | awk '{print $4}' | cut -d '/' -f 1):3000 || \
               if [[ $? == 0 || $? == 2 ]]; then exit 0; else exit 1; fi;
             )
-
   build-deploy-staging:
     executor: aws-cli/default
     steps:
@@ -127,14 +126,6 @@ jobs:
       - run:
           name: deploy
           command: yarn --frozen-lockfile --production=true && sudo npm i -g serverless && sls deploy --stage staging
-
-  build-deploy-production:
-    executor: aws-cli/default
-    steps:
-      - *attach_workspace
-      - run:
-          name: deploy
-          command: yarn --frozen-lockfile --production=true && sudo npm i -g serverless && sls deploy -s production
 
   build-deploy-mosaic-production:
     executor: aws-cli/default
@@ -182,19 +173,6 @@ jobs:
           paths:
             - .aws
 
-  assume-role-production:
-    executor: docker-python
-    steps:
-      - checkout
-      - aws_assume_role/assume_role:
-          account: $AWS_ACCOUNT_PRODUCTION
-          profile_name: default
-          role: 'LBH_Circle_CI_Deployment_Role'
-      - persist_to_workspace:
-          root: *workspace_root
-          paths:
-            - .aws
-
   assume-role-mosaic-production:
     executor: docker-python
     steps:
@@ -207,7 +185,7 @@ jobs:
           root: *workspace_root
           paths:
             - .aws
-
+  
   notify-sentry-deploy:
     executor: node-executor
     environment:
@@ -244,7 +222,7 @@ workflows:
                 - main
       - build:
           requires:
-            - unit-tests
+            - install-dependencies
       - e2e:
           requires:
             - build
@@ -274,26 +252,6 @@ workflows:
           filters:
             branches:
               only: main
-      - permit-deploy-production:
-          type: approval
-          requires:
-            - build-deploy-staging
-          filters:
-            branches:
-              only: main
-      - assume-role-production:
-          context: api-assume-role-production-context
-          requires:
-            - permit-deploy-production
-          filters:
-            branches:
-              only: main
-      - build-deploy-production:
-          requires:
-            - assume-role-production
-          filters:
-            branches:
-              only: main
       - permit-deploy-mosaic-production:
           type: approval
           requires:
@@ -316,7 +274,7 @@ workflows:
               only: main
       - generate-github-release:
           requires:
-            - build-deploy-production
+            - build-deploy-mosaic-production
           filters:
             branches:
               only: main

@@ -10,15 +10,13 @@
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx && echo 'Lint complete.'",
     "format": "prettier '**/*.{js,jsx,ts,tsx,css,scss,md}' --write --list-different",
     "type-check": "tsc",
-    "storybook": "start-storybook -p 6006",
-    "prestorybook": "cpx \"node_modules/govuk-frontend/govuk/assets/**/*\" assets",
     "e2e": "PORT=3000 start-server-and-test start http://localhost:3000 cy:run",
     "cy:run": "cypress run",
     "cy:open": "cypress open",
-    "build-storybook": "build-storybook",
     "release": "release-it",
     "delete-draft-github-releases": "node ./ci-scripts/delete-draft-github-releases.js",
-    "validate-pr-title": "node ./ci-scripts/validate-pr-title.js"
+    "validate-pr-title": "node ./ci-scripts/validate-pr-title.js",
+    "copy-node-modules": "scripts/copyNodeModules.sh"
   },
   "dependencies": {
     "@reach/dialog": "0.16.2",
