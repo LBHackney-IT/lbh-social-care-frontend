@@ -43,3 +43,6 @@ cypress.env.json
 
 # Lambda layer
 layer/nodejs/node_modules
+
+# Serverless
+.serverless/
