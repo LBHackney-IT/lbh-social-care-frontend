@@ -5,6 +5,7 @@ import { getWorkerByEmail } from 'lib/workers';
 import { getAllocationsByWorker } from 'lib/allocatedWorkers';
 
 import type { NextApiRequest, NextApiResponse, NextApiHandler } from 'next';
+import { AxiosError } from 'axios';
 
 const endpoint: NextApiHandler = async (
   req: NextApiRequest,
@@ -35,8 +36,8 @@ const endpoint: NextApiHandler = async (
           .status(StatusCodes.OK)
           .json({ ...workerData, ...allocations, auth: user });
       } catch (error) {
-        console.log('User get error:', error?.response?.data);
-        error?.response?.status === StatusCodes.NOT_FOUND
+        console.log('User get error:', (error as AxiosError)?.response?.data);
+        (error as AxiosError)?.response?.status === StatusCodes.NOT_FOUND
           ? res
               .status(StatusCodes.NOT_FOUND)
               .json({ message: 'User Not Found' })

@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios, { AxiosError } from 'axios';
 import endOfTomorrow from 'date-fns/endOfTomorrow';
 
 import * as allocatedWorkersAPI from './allocatedWorkers';
@@ -145,7 +145,7 @@ describe('allocatedWorkersAPI', () => {
         // @ts-expect-error check validation
         await allocatedWorkersAPI.addAllocatedWorker(123);
       } catch (e) {
-        expect(e.name).toEqual('ValidationError');
+        expect((e as AxiosError).name).toEqual('ValidationError');
       }
     });
   });
@@ -181,7 +181,7 @@ describe('allocatedWorkersAPI', () => {
         // @ts-expect-error check validation
         await allocatedWorkersAPI.deleteAllocatedWorker();
       } catch (e) {
-        expect(e.name).toEqual('ValidationError');
+        expect((e as AxiosError).name).toEqual('ValidationError');
       }
     });
   });

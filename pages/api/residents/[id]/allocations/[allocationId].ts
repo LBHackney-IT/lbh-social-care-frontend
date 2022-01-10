@@ -4,6 +4,7 @@ import { getResidentAllocation } from 'lib/allocatedWorkers';
 import { isAuthorised } from 'utils/auth';
 
 import type { NextApiRequest, NextApiResponse, NextApiHandler } from 'next';
+import { AxiosError } from 'axios';
 
 const endpoint: NextApiHandler = async (
   req: NextApiRequest,
@@ -29,7 +30,10 @@ const endpoint: NextApiHandler = async (
               .status(StatusCodes.NOT_FOUND)
               .json({ message: 'Allocation Not Found' });
       } catch (error) {
-        console.error('Allocations get error:', error?.response?.data);
+        console.error(
+          'Allocations get error:',
+          (error as AxiosError)?.response?.data
+        );
         res
           .status(StatusCodes.INTERNAL_SERVER_ERROR)
           .json({ message: 'Unable to get the Allocated Workers' });

@@ -4,6 +4,7 @@ import { getTeams } from 'lib/teams';
 import { isAuthorised } from 'utils/auth';
 
 import type { NextApiRequest, NextApiResponse, NextApiHandler } from 'next';
+import { AxiosError } from 'axios';
 
 const endpoint: NextApiHandler = async (
   req: NextApiRequest,
@@ -24,8 +25,11 @@ const endpoint: NextApiHandler = async (
         });
         res.status(StatusCodes.OK).json(data);
       } catch (error) {
-        console.error('Teams get error:', error?.response?.data);
-        error?.response?.status === StatusCodes.NOT_FOUND
+        console.error(
+          'Teams get error:',
+          (error as AxiosError)?.response?.data
+        );
+        (error as AxiosError)?.response?.status === StatusCodes.NOT_FOUND
           ? res
               .status(StatusCodes.NOT_FOUND)
               .json({ message: 'Teams Not Found' })

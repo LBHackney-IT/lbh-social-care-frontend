@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios, { AxiosError } from 'axios';
 
 import * as warningNotesAPI from './warningNotes';
 
@@ -35,7 +35,7 @@ describe('warningNotesAPI', () => {
         // @ts-expect-error check validation
         await warningNotesAPI.addWarningNote(123);
       } catch (e) {
-        expect(e.name).toEqual('ValidationError');
+        expect((e as AxiosError).name).toEqual('ValidationError');
       }
     });
   });
@@ -105,7 +105,7 @@ describe('warningNotesAPI', () => {
         // @ts-expect-error check validation
         await warningNotesAPI.updateWarningNote(123);
       } catch (e) {
-        expect(e.name).toEqual('ValidationError');
+        expect((e as AxiosError).name).toEqual('ValidationError');
       }
     });
   });

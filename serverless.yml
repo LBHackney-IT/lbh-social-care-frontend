@@ -41,16 +41,6 @@ functions:
     events:
       - http:
           path: api/{proxy+}
-
-    
-          
-            
-    
-
-          
-    
-    
-  
           method: ANY
       - http: ANY /
       - http: ANY /{proxy+}
