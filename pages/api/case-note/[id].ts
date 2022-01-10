@@ -6,7 +6,6 @@ import { FormikValues } from 'formik';
 import { withSentry, setUser } from '@sentry/nextjs';
 import { AxiosError } from 'axios';
 
-
 const handler = async (
   req: NextApiRequest,
   res: NextApiResponse
