@@ -53,5 +53,6 @@ module.exports = withSentryConfig(
     // https://github.com/getsentry/sentry-webpack-plugin#options.
     org: 'london-borough-of-hackney',
     project: 'social-care-main-app',
+    dryRun: !['dev', 'stg', 'prod'].includes(process.env.ENVIRONMENT),
   }
 );
