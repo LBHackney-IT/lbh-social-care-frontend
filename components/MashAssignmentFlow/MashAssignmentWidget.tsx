@@ -1,14 +1,29 @@
+// user starts input text
+// (search term state)
+// onchange (search term state changes), results are fetched
+// results are rendered
+
+// user selects appropriate results
+// (selected id stored in state)
+// user confirms
+// (id sent to API)
+// result is saved
+
 import Dialog from './../Dialog/Dialog';
 import { useState } from 'react';
 import { MashReferral } from 'types';
 import { AxiosError } from 'axios';
 import Button from 'components/Button/Button';
 import ErrorMessage from 'components/ErrorMessage/ErrorMessage';
+import PersonSelect from './../WorkerSelect/WorkerSelect';
 
 interface Props {
   mashReferral: MashReferral;
   assignWorkerToReferral: (referralId: number, workerId: number) => void;
 }
+
+const results = ['blah', 'blah'];
+const idToAdd = 1;
 
 const MashAssignmentWidget = ({
   mashReferral,
@@ -83,6 +98,13 @@ const MashAssignmentWidget = ({
             </button>
           </div>
         </div>
+
+        <PersonSelect
+          people={results}
+          label="Matching people"
+          idToAdd={idToAdd}
+        />
+
         <div style={{ display: 'flex', alignItems: 'center' }}>
           <Button
             label="Submit"
