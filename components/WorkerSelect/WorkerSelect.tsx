@@ -1,6 +1,6 @@
 import React, { Dispatch, SetStateAction } from 'react';
-import s from './PersonSelect.module.scss';
-import { LegacyResident, Resident } from 'types';
+import s from './WorkerSelect.module.scss';
+import { Worker } from 'types';
 
 interface ChoiceProps {
   value: number;
@@ -17,7 +17,7 @@ const Choice = ({
   idToAdd,
   setIdToAdd,
 }: ChoiceProps): React.ReactElement => (
-  <div className={`govuk-radios__item ${s.personResult}`}>
+  <div className={`govuk-radios__item ${s.workerResult}`}>
     <input
       className="govuk-radios__input"
       id={`${name}-${value}`}
@@ -35,43 +35,39 @@ const Choice = ({
     >
       {label}
     </label>
-
-    <p id={`${name}-${value}-hint`} className={`lbh-body-xs ${s.meta}`}>
-      {hint}
-    </p>
   </div>
 );
 
 interface Props {
   label: string;
-  people: (Resident | LegacyResident)[];
+  workers: Worker[];
   idToAdd: number;
   setIdToAdd: Dispatch<SetStateAction<number>>;
 }
 
 const WorkerSelect = ({
   label,
-  people,
+  workers,
   idToAdd,
   setIdToAdd,
 }: Props): React.ReactElement => {
-  if (people.length === 0) return <p>No results</p>;
+  if (workers.length === 0) return <p>No results</p>;
 
   return (
     <div className="govuk-form-group lbh-form-group">
       <fieldset className="govuk-fieldset">
         <legend className="govuk-label lbh-label">{label}</legend>
         <div
-          className={`govuk-radios govuk-radios--small lbh-radios ${s.personList}`}
+          className={`govuk-radios govuk-radios--small lbh-radios ${s.workerList}`}
         >
-          {people.map((person) => (
+          {workers.map((worker) => (
             <Choice
               name="person"
-              label={`${person.firstName} ${person.lastName}`}
-              value={person.id}
+              label={`${worker.firstName} ${worker.lastName}`}
+              value={worker.id}
               idToAdd={idToAdd}
               setIdToAdd={setIdToAdd}
-              key={person.id}
+              key={worker.id}
             />
           ))}
         </div>

@@ -1,0 +1,39 @@
+@import 'lbh-frontend/lbh/base';
+
+.workerList {
+  margin-top: 0.75rem;
+  list-style: none;
+  border-top: 1px solid lbh-colour('lbh-grey-3');
+}
+
+.workerResult {
+  padding: 0.75rem 0rem;
+  border-bottom: 1px solid lbh-colour('lbh-grey-3');
+  // override govuk styles
+  float: none !important;
+  padding-left: 40px !important;
+}
+
+.input {
+  top: 6px;
+}
+
+.name {
+  font-weight: 600;
+  // override govuk styles
+  padding: 0 !important;
+  float: none !important;
+
+  &::before {
+    top: 14px !important;
+  }
+
+  &::after {
+    top: 21px !important;
+  }
+}
+
+.meta {
+  margin-top: 5px;
+  color: lbh-colour('lbh-secondary-text');
+}

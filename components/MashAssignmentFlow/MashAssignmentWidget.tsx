@@ -11,18 +11,19 @@
 
 import Dialog from './../Dialog/Dialog';
 import { useState } from 'react';
-import { MashReferral } from 'types';
+import { MashReferral, Worker } from 'types';
 import { AxiosError } from 'axios';
 import Button from 'components/Button/Button';
 import ErrorMessage from 'components/ErrorMessage/ErrorMessage';
-import PersonSelect from './../WorkerSelect/WorkerSelect';
+import WorkerSelect from './../WorkerSelect/WorkerSelect';
+import { mockedWorker } from 'factories/workers';
 
 interface Props {
   mashReferral: MashReferral;
   assignWorkerToReferral: (referralId: number, workerId: number) => void;
 }
 
-const results = ['blah', 'blah'];
+const results = [mockedWorker];
 const idToAdd = 1;
 
 const MashAssignmentWidget = ({
@@ -36,16 +37,31 @@ const MashAssignmentWidget = ({
   const [dialogOpen, setDialogOpen] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
   const [submitting, setSubmitting] = useState(false);
+  const [workerId, setWorkerId] = useState<number>(-1);
+  const [searchQuery, setSearchQuery] = useState('');
   const [selectedWorker, setSelectedWorker] = useState<Worker | undefined>(
     undefined
   );
+
+  const useWorkerSearch = (name: string) => {
+    const workerArray: Worker[] = [];
+    results.map((worker) => {
+      console.log(worker.firstName);
+      if (worker.firstName == name) {
+        workerArray.push(worker);
+      }
+    });
+    return workerArray;
+  };
+
+  const workerData = useWorkerSearch(searchQuery);
 
   const submitForm = async () => {
     setSubmitting(true);
     setErrorMessage('');
 
     try {
-      await assignWorkerToReferral(mashReferral.id, 1); //1 to be subbed by id once obtained
+      await assignWorkerToReferral(mashReferral.id, workerId); //1 to be subbed by id once obtained
       setSubmitting(false);
       setDialogOpen(false);
     } catch (error) {
@@ -75,6 +91,9 @@ const MashAssignmentWidget = ({
               className="govuk-input lbh-input"
               id="query"
               name="query"
+              onChange={(e) => {
+                console.log(e.target.value), setSearchQuery(e.target.value);
+              }}
               type="search"
               placeholder="Type worker's name"
               autoComplete="off"
@@ -98,13 +117,14 @@ const MashAssignmentWidget = ({
             </button>
           </div>
         </div>
-
-        <PersonSelect
-          people={results}
-          label="Matching people"
-          idToAdd={idToAdd}
-        />
-
+        {searchQuery && (
+          <WorkerSelect
+            workers={workerData}
+            label="Matching workers"
+            idToAdd={idToAdd}
+            setIdToAdd={setWorkerId}
+          />
+        )}
         <div style={{ display: 'flex', alignItems: 'center' }}>
           <Button
             label="Submit"
