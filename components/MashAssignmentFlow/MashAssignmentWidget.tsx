@@ -30,7 +30,7 @@ const MashAssignmentWidget = ({
     setErrorMessage('');
 
     try {
-      await assignWorkerToReferral(mashReferral.id, 3);
+      await assignWorkerToReferral(mashReferral.id, 1); //1 to be subbed by id once obtained
       setSubmitting(false);
       setDialogOpen(false);
     } catch (error) {
@@ -62,6 +62,7 @@ const MashAssignmentWidget = ({
               name="query"
               type="search"
               placeholder="Type worker's name"
+              autoComplete="off"
             />
             <button className="lbh-search-box__action">
               <span className="govuk-visually-hidden">Search</span>
