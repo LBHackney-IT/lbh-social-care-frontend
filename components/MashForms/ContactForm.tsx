@@ -141,23 +141,21 @@ const ContactForm = ({ referral, workerEmail }: Props): React.ReactElement => {
           disabled={submitting}
         />
         <p className="lbh-body">
-          <Link href="#">
-            <a
-              className={`lbh-link lbh-link--no-visited-state govuk-!-margin-left-3`}
-            >
-              Cancel
-            </a>
-          </Link>
+          <a
+            href="#"
+            className={`lbh-link lbh-link--no-visited-state govuk-!-margin-left-3`}
+            onClick={() => router.back()}
+          >
+            Cancel
+          </a>
         </p>
         <p>
-          <Link href="#/">
-            <a
-              href="#"
-              className={`lbh-link lbh-link--no-visited-state govuk-!-margin-left-3`}
-            >
-              Delete duplicate referral
-            </a>
-          </Link>
+          <a
+            href="#"
+            className={`lbh-link lbh-link--no-visited-state govuk-!-margin-left-3`}
+          >
+            Delete duplicate referral
+          </a>
         </p>
       </div>
     </>
