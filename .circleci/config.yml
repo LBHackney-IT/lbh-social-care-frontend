@@ -201,8 +201,8 @@ workflows:
     jobs:
       - install-dependencies
       - create-layer-directory:
-        requires:
-          - install-dependencies
+          requires:
+            - install-dependencies
       - unit-tests:
           requires:
             - install-dependencies
