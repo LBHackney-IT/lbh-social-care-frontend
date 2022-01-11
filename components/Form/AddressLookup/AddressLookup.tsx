@@ -1,5 +1,6 @@
 import { useState, useCallback, useRef } from 'react';
 import cx from 'classnames';
+
 import { Controller, Control } from 'react-hook-form';
 import isPostcodeValid from 'uk-postcode-validator';
 
@@ -7,11 +8,13 @@ import ErrorMessage from 'components/ErrorMessage/ErrorMessage';
 import { Select, TextInput } from 'components/Form';
 import Button from 'components/Button/Button';
 import { lookupPostcode } from 'utils/api/postcodeAPI';
+import { isNumeric } from 'utils/isNumeric';
+import Spinner from 'components/Spinner/Spinner';
 
 import { Address } from 'types';
 import { AddressLookup as IAddressLookup } from 'components/Form/types';
 
-interface AddressBox {
+export interface AddressBox {
   name: string;
   onChange: (arg0: { uprn: null; address?: string; postcode?: string }) => void;
   value: {
@@ -56,6 +59,7 @@ const AddressBox = ({ name, disabled, value, onChange }: AddressBox) => {
       },
     [address, onChange]
   );
+
   return (
     <div className="govuk-!-margin-top-5">
       <TextInput
@@ -95,27 +99,64 @@ const AddressLookup = ({
   const [postcode, setPostcode] = useState(
     defaultValue && defaultValue.postcode
   );
+  const [buildingNumber, setBuildingNumber] = useState(
+    defaultValue && defaultValue.buildingNumber !== undefined
+      ? defaultValue.buildingNumber
+      : ''
+  );
   const [results, setResults] = useState<Address[]>([]);
   const [isManually, setIsManually] = useState<boolean>();
   const [error, setError] = useState<string>();
+  const [loading, setLoading] = useState(false);
+
   const searchPostcode = useCallback(async () => {
     control.setValue(`address`, null);
     if (!postcode || !isPostcodeValid(postcode)) {
       setError('You entered an invalid postcode.');
       return;
     }
+    if (
+      buildingNumber?.length > 0 &&
+      buildingNumber !== '' &&
+      !isNumeric(buildingNumber)
+    ) {
+      setError('Building number must use valid characters (0-9)');
+      return;
+    }
+
+    setLoading(true);
     setIsManually(false);
     setError(undefined);
     setResults([]);
-    try {
-      const res = await lookupPostcode(postcode);
-      res.length === 0
-        ? setError('There was a problem with the postcode.')
-        : setResults(res);
-    } catch {
-      setError('There was a problem with the postcode.');
+    let page_number = 1;
+    let isLastPage = false;
+    const matchingAddresses: Address[] = [];
+    let errorMessage;
+
+    do {
+      try {
+        const { address, page_count } = await lookupPostcode(
+          postcode,
+          page_number,
+          buildingNumber
+        );
+
+        address.length === 0
+          ? (errorMessage = 'There was a problem with the postcode.')
+          : matchingAddresses?.push(...address);
+        page_number === page_count ? (isLastPage = true) : page_number++;
+      } catch {
+        errorMessage = 'There was a problem with the postcode.';
+      }
+    } while (!errorMessage && !isLastPage);
+    if (errorMessage) {
+      setError(errorMessage);
+    } else if (matchingAddresses) {
+      setResults(matchingAddresses);
     }
-  }, [control, postcode]);
+    setLoading(false);
+  }, [control, postcode, buildingNumber]);
+
   return (
     <div
       className={cx('lbh-form-group govuk-form-group', {
@@ -130,18 +171,27 @@ const AddressLookup = ({
           {hint}
         </span>
       )}
-      <div className="govuk-grid-row">
-        <div className="govuk-grid-column-one-third">
-          <input
-            className={cx('lbh-input govuk-input', {
-              'govuk-input--error': Boolean(error),
-            })}
+
+      <div>
+        <div>
+          <TextInput
+            label="Building number (optional)"
+            name="building-number"
+            width={3}
+            id="building-number"
+            onChange={(e) => setBuildingNumber(e.target.value)}
+            value={buildingNumber}
+          />
+        </div>
+
+        <div>
+          <TextInput
+            label="Postcode"
+            name="postcode"
+            width={5}
             id="postcode"
-            name="postal-code"
-            type="text"
-            placeholder="Postcode"
             onChange={(e) => setPostcode(e.target.value)}
-            ref={inputRef}
+            value={postcode}
           />
         </div>
       </div>
@@ -151,6 +201,8 @@ const AddressLookup = ({
           onClick={searchPostcode}
           type="button"
           label="Look up"
+          disabled={loading}
+          id="lookup-button"
         />
         {supportManualEntry && (
           <Button
@@ -205,6 +257,14 @@ const AddressLookup = ({
           className="govuk-!-margin-top-5"
           label={error || errorMessage}
         />
+      )}
+      {loading && (
+        <div
+          className="govuk-!-margin-top-5 govuk-grid-column-one-third"
+          data-testid="spinner"
+        >
+          <Spinner />
+        </div>
       )}
     </div>
   );
