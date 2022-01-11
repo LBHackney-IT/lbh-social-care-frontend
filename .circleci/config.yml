@@ -70,6 +70,9 @@ jobs:
       - run:
           name: Build app
           command: yarn build
+      - run:
+          name: Build layer
+          command: yarn copy-node-modules
       - persist_to_workspace:
           root: *workspace_root
           paths:
