@@ -74,6 +74,14 @@ jobs:
           root: *workspace_root
           paths:
             - project/build
+            
+  create-layer-directory:
+    executor: node-executor
+    steps:
+      - *attach_workspace
+      - run:
+          name: create layer directory
+          command: yarn copy-node-modules
 
   e2e:
     executor: node-executor
@@ -192,6 +200,9 @@ workflows:
   continuous-delivery:
     jobs:
       - install-dependencies
+      - create-layer-directory:
+        requires:
+          - install-dependencies
       - unit-tests:
           requires:
             - install-dependencies
