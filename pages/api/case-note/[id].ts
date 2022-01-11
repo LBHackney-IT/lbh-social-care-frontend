@@ -1,20 +1,17 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import StatusCodes from 'http-status-codes';
 import { finishSubmission, patchSubmissionForStep } from 'lib/submissions';
-import { isAuthorised } from 'utils/auth';
 import { FormikValues } from 'formik';
-import { withSentry, setUser } from '@sentry/nextjs';
 import { AxiosError } from 'axios';
+import { apiHandler, ExtendedNextApiRequest } from 'lib/apiHandler';
 
 const handler = async (
-  req: NextApiRequest,
+  req: ExtendedNextApiRequest | NextApiRequest,
   res: NextApiResponse
 ): Promise<void> => {
+  const reqExtended = req as ExtendedNextApiRequest;
   try {
     const { id } = req.query;
-
-    const user = isAuthorised(req);
-    setUser({ email: user?.email });
 
     switch (req.method) {
       case 'POST':
@@ -22,7 +19,7 @@ const handler = async (
           const values = req.body as FormikValues;
           const submission = await finishSubmission(
             String(id),
-            String(user?.email),
+            String(reqExtended.user?.email),
             { singleStep: values }
           );
           res.json(submission);
@@ -39,7 +36,7 @@ const handler = async (
           const submission = await patchSubmissionForStep(
             String(id),
             'singleStep',
-            String(user?.email),
+            String(reqExtended.user?.email),
             values,
             dateOfEventId,
             titleId
@@ -63,4 +60,4 @@ const handler = async (
   }
 };
 
-export default withSentry(handler);
+export default apiHandler(handler);
