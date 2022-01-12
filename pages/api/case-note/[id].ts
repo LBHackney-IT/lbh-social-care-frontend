@@ -3,15 +3,17 @@ import StatusCodes from 'http-status-codes';
 import { finishSubmission, patchSubmissionForStep } from 'lib/submissions';
 import { FormikValues } from 'formik';
 import { AxiosError } from 'axios';
-import { apiHandler, ExtendedNextApiRequest } from 'lib/apiHandler';
+import { apiHandler } from 'lib/apiHandler';
+import { isAuthorised } from 'utils/auth';
 
 const handler = async (
-  req: ExtendedNextApiRequest | NextApiRequest,
+  req: NextApiRequest,
   res: NextApiResponse
 ): Promise<void> => {
-  const reqExtended = req as ExtendedNextApiRequest;
   try {
     const { id } = req.query;
+
+    const user = isAuthorised(req);
 
     switch (req.method) {
       case 'POST':
@@ -19,7 +21,7 @@ const handler = async (
           const values = req.body as FormikValues;
           const submission = await finishSubmission(
             String(id),
-            String(reqExtended.user?.email),
+            String(user?.email),
             { singleStep: values }
           );
           res.json(submission);
@@ -36,7 +38,7 @@ const handler = async (
           const submission = await patchSubmissionForStep(
             String(id),
             'singleStep',
-            String(reqExtended.user?.email),
+            String(user?.email),
             values,
             dateOfEventId,
             titleId
