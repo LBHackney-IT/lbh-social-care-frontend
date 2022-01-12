@@ -53,7 +53,7 @@ module.exports = withSentryConfig(
     // https://github.com/getsentry/sentry-webpack-plugin#options.
     org: 'london-borough-of-hackney',
     project: 'social-care-main-app',
-    // Ensure the value for ENVIRONMENT in your .env file is set to local or test
-    dryRun: !['dev', 'stg', 'prod'].includes(process.env.ENVIRONMENT),
+    // Ensure the value for SENTRY_ENVIRONMENT in your .env file is set to local or test
+    dryRun: !['dev', 'stg', 'prod'].includes(process.env.SENTRY_ENVIRONMENT),
   }
 );
