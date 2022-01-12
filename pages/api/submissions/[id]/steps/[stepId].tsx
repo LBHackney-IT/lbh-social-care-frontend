@@ -5,6 +5,7 @@ import { getSubmissionById, patchSubmissionForStep } from 'lib/submissions';
 import statusCodes from 'http-status-codes';
 import { Submission } from 'data/flexibleForms/forms.types';
 import { AxiosError } from 'axios';
+import { apiHandler } from 'lib/apiHandler';
 
 const handler = async (
   req: NextApiRequest,
@@ -51,4 +52,4 @@ const handler = async (
   }
 };
 
-export default handler;
+export default apiHandler(handler);

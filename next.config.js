@@ -54,6 +54,7 @@ module.exports = withSentryConfig(
     org: 'london-borough-of-hackney',
     project: 'social-care-main-app',
     // Ensure the value for ENVIRONMENT in your .env file is set to local or test
+    // Below are the environments according to Hackney
     dryRun: !['dev', 'stg', 'prod'].includes(process.env.ENVIRONMENT),
   }
 );
