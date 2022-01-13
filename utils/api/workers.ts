@@ -32,7 +32,7 @@ export const updateWorker = async (
 
 export const getWorkers = async (
   workerName: string
-): Promise<Record<string, unknown>> => {
+): Promise<Record<string, unknown>[]> => {
   const { data } = await axios.get(
     `/api/workersearch?workerName=${workerName}`
   );
