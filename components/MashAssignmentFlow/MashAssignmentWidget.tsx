@@ -11,21 +11,17 @@
 
 import Dialog from './../Dialog/Dialog';
 import { useState } from 'react';
-import { MashReferral, Worker } from 'types';
+import { MashReferral } from 'types';
 import { AxiosError } from 'axios';
 import Button from 'components/Button/Button';
 import ErrorMessage from 'components/ErrorMessage/ErrorMessage';
 import WorkerSelect from './../WorkerSelect/WorkerSelect';
-import { mockedWorker } from 'factories/workers';
-import { getWorkers } from 'utils/api/workers';
+import { useWorkersSearch } from 'utils/api/workers';
 
 interface Props {
   mashReferral: MashReferral;
   assignWorkerToReferral: (referralId: number, workerId: number) => void;
 }
-
-const results = [mockedWorker];
-const idToAdd = 1;
 
 const MashAssignmentWidget = ({
   mashReferral,
@@ -40,25 +36,8 @@ const MashAssignmentWidget = ({
   const [submitting, setSubmitting] = useState(false);
   const [workerId, setWorkerId] = useState<number>(-1);
   const [searchQuery, setSearchQuery] = useState('');
-  const [selectedWorker, setSelectedWorker] = useState<Worker | undefined>(
-    undefined
-  );
 
-  const workerResults = getWorkers(searchQuery);
-  console.log(`Data is: ${JSON.stringify(workerResults)}`);
-
-  const useWorkerSearch = (name: string) => {
-    const workerArray: Worker[] = [];
-    results.map((worker) => {
-      console.log(worker.firstName);
-      if (worker.firstName == name) {
-        workerArray.push(worker);
-      }
-    });
-    return workerArray;
-  };
-
-  const workerData = useWorkerSearch(searchQuery);
+  const { data: workerResults } = useWorkersSearch(searchQuery);
 
   const submitForm = async () => {
     setSubmitting(true);
@@ -121,13 +100,15 @@ const MashAssignmentWidget = ({
             </button>
           </div>
         </div>
-        {searchQuery && (
+        {searchQuery && workerResults ? (
           <WorkerSelect
-            workers={workerData}
+            workers={workerResults}
             label="Matching workers"
-            idToAdd={idToAdd}
+            idToAdd={workerId}
             setIdToAdd={setWorkerId}
           />
+        ) : (
+          <></>
         )}
         <div style={{ display: 'flex', alignItems: 'center' }}>
           <Button
