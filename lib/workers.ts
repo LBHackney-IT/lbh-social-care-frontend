@@ -55,10 +55,14 @@ export const updateWorker = async (formData: Worker): Promise<Worker> => {
 export const getWorkersThroughSearchQuery = async (
   workerName: string
 ): Promise<Record<string, unknown>> => {
-  const { data } = await axios.get(`${workerName}`, {
-    headers: { 'Content-Type': 'application/json' },
-  });
-  console.log('I have called elasticsearch');
-  console.log(JSON.stringify(data));
-  return data;
+  const { data } = await axios.get(
+    `https://l9g04a7924.execute-api.eu-west-2.amazonaws.com/testing/?terms=${workerName}`,
+    {
+      headers: { 'Content-Type': 'application/json' },
+    }
+  );
+
+  console.log(data.results);
+
+  return data.results;
 };
