@@ -112,7 +112,7 @@ const endpoint: NextApiHandler = async (
         } else if (updateTye === 'ASSIGN-WORKER') {
           const { referralId, workerId } = {
             referralId: Number(req.query.id),
-            workerId: req.body.workerEmail as number,
+            workerId: req.body.workerId,
           };
 
           const data = await patchReferralWorker(referralId, workerId);
