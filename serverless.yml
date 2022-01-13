@@ -70,8 +70,8 @@ functions:
       NOTIFY_API_KEY: ${ssm:/lbh-social-care/${self:provider.stage}/notify-api-key}
       NOTIFY_APPROVER_TEMPLATE_ID: ${ssm:/lbh-social-care/${self:provider.stage}/notify-approver-template-id}
       NOTIFY_RETURN_FOR_EDITS_TEMPLATE_ID: ${ssm:/lbh-social-care/${self:provider.stage}/notify-return-for-edits-template-id}
-      SENTRY_DSN: ${ssm:/lbh-social-care/${self:provider.stage}/sentry-dsn}
-      SENTRY_ENVIRONMENT: ${ssm:/lbh-social-care/${self:provider.stage}/sentry-environment}
+      NEXT_PUBLIC_SENTRY_DSN: ${ssm:/lbh-social-care/${self:provider.stage}/next-public-sentry-dsn}
+      NEXT_PUBLIC_SENTRY_TARGET: ${ssm:/lbh-social-care/${self:provider.stage}/next-public-sentry-target}
       WORKFLOWS_PILOT_URL: ${ssm:/lbh-social-care/${self:provider.stage}/workflows-pilot-url}
       AUTHORISED_WORKFLOWS_PILOT_GROUP: ${ssm:/lbh-social-care/${self:provider.stage}/authorised-workflows-pilot-group}
       AUTHORISED_SAFEGUARDING_REVIEWING_GROUP: ${ssm:/lbh-social-care/${self:provider.stage}/authorised-safeguarding-reviewing-group}
