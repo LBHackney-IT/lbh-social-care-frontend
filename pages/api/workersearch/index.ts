@@ -19,11 +19,9 @@ const endpoint: NextApiHandler = async (
   switch (req.method) {
     case 'GET':
       try {
-        console.log('This is before I have called the lib function');
         const data = await getWorkersThroughSearchQuery(
           req.query.workerName as string
         );
-        console.log('I have called the lib function');
         res.status(StatusCodes.OK).json(data);
       } catch (error) {
         console.error('Workers gets an error:', error?.response?.data);

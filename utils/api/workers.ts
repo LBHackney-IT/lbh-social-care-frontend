@@ -30,12 +30,7 @@ export const updateWorker = async (
   return { ref: data?.id, data };
 };
 
-export const getWorkers = async (
+export const useWorkersSearch = (
   workerName: string
-): Promise<Record<string, unknown>[]> => {
-  const { data } = await axios.get(
-    `/api/workersearch?workerName=${workerName}`
-  );
-  console.log('I am here');
-  return data;
-};
+): SWRResponse<Record<string, unknown>[], ErrorAPI> =>
+  useSWR(`/api/workersearch?workerName=${workerName}`);
