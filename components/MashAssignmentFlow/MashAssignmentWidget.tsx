@@ -17,6 +17,7 @@ import Button from 'components/Button/Button';
 import ErrorMessage from 'components/ErrorMessage/ErrorMessage';
 import WorkerSelect from './../WorkerSelect/WorkerSelect';
 import { mockedWorker } from 'factories/workers';
+import { getWorkers } from 'utils/api/workers';
 
 interface Props {
   mashReferral: MashReferral;
@@ -42,6 +43,9 @@ const MashAssignmentWidget = ({
   const [selectedWorker, setSelectedWorker] = useState<Worker | undefined>(
     undefined
   );
+
+  const workerResults = getWorkers(searchQuery);
+  console.log(`Data is: ${JSON.stringify(workerResults)}`);
 
   const useWorkerSearch = (name: string) => {
     const workerArray: Worker[] = [];

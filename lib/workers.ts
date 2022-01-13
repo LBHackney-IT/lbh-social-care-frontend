@@ -51,3 +51,14 @@ export const updateWorker = async (formData: Worker): Promise<Worker> => {
   });
   return formData;
 };
+
+export const getWorkersThroughSearchQuery = async (
+  workerName: string
+): Promise<Record<string, unknown>> => {
+  const { data } = await axios.get(`${workerName}`, {
+    headers: { 'Content-Type': 'application/json' },
+  });
+  console.log('I have called elasticsearch');
+  console.log(JSON.stringify(data));
+  return data;
+};

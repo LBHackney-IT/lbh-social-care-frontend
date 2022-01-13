@@ -29,3 +29,13 @@ export const updateWorker = async (
   const { data } = await axios.patch(`/api/workers/${workerId}`, formData);
   return { ref: data?.id, data };
 };
+
+export const getWorkers = async (
+  workerName: string
+): Promise<Record<string, unknown>> => {
+  const { data } = await axios.get(
+    `/api/workersearch?workerName=${workerName}`
+  );
+  console.log('I am here');
+  return data;
+};
