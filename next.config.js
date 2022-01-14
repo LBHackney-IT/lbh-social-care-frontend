@@ -45,11 +45,10 @@ module.exports = withSentryConfig(
     silent: true,
     org: 'london-borough-of-hackney',
     project: 'social-care-main-app',
-    // dryRun: !(
-    //   process.env.CI ||
-    //   process.env.NEXT_PUBLIC_SENTRY_TARGET === 'production' ||
-    //   process.env.NEXT_PUBLIC_SENTRY_TARGET === 'dev'
-    // ),
-    dryRun: true,
+    dryRun: !(
+      process.env.CI ||
+      process.env.NEXT_PUBLIC_SENTRY_TARGET === 'production' ||
+      process.env.NEXT_PUBLIC_SENTRY_TARGET === 'dev'
+    ),
   }
 );

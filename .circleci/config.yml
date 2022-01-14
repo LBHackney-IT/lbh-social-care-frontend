@@ -65,6 +65,8 @@ jobs:
 
   build:
     executor: node-executor
+    environment:
+      SENTRY_RELEASE: $CIRCLE_SHA1
     steps:
       - *attach_workspace
       - run:
@@ -129,45 +131,19 @@ jobs:
             )
   build-deploy-staging:
     executor: aws-cli/default
-    # environment:
-    #   SENTRY_ORG: $SENTRY_ORG
-    #   SENTRY_PROJECT: $SENTRY_PROJECT
-    #   SENTRY_ENVIRONMENT: dev
     steps:
       - *attach_workspace
       - run:
           name: deploy
           command: yarn --frozen-lockfile --production=true && sudo npm i -g serverless && sls deploy --stage staging
-      # - run:
-      #     name: Create release and notify Sentry of deploy staging
-      #     command: |
-      #       curl -sL https://sentry.io/get-cli/ | bash
-      #       export SENTRY_RELEASE=$(sentry-cli releases propose-version)
-      #       sentry-cli releases new -p $SENTRY_PROJECT $SENTRY_RELEASE
-      #       sentry-cli releases set-commits $SENTRY_RELEASE --auto
-      #       sentry-cli releases finalize $SENTRY_RELEASE
-      #       sentry-cli releases deploys $SENTRY_RELEASE new -e $SENTRY_ENVIRONMENT
 
   build-deploy-mosaic-production:
     executor: aws-cli/default
-    # environment:
-    #   SENTRY_ORG: $SENTRY_ORG
-    #   SENTRY_PROJECT: $SENTRY_PROJECT
-    #   SENTRY_ENVIRONMENT: production
     steps:
       - *attach_workspace
       - run:
           name: deploy
           command: yarn --frozen-lockfile --production=true && sudo npm i -g serverless && sls deploy -s mosaic-prod
-      # - run:
-      #     name: Create release and notify Sentry of deploy production
-      #     command: |
-      #       curl -sL https://sentry.io/get-cli/ | bash
-      #       export SENTRY_RELEASE=$(sentry-cli releases propose-version)
-      #       sentry-cli releases new -p $SENTRY_PROJECT $SENTRY_RELEASE
-      #       sentry-cli releases set-commits $SENTRY_RELEASE --auto
-      #       sentry-cli releases finalize $SENTRY_RELEASE
-      #       sentry-cli releases deploys $SENTRY_RELEASE new -e $SENTRY_ENVIRONMENT
 
   generate-draft-github-release:
     executor: aws-cli/default
@@ -219,25 +195,6 @@ jobs:
           root: *workspace_root
           paths:
             - .aws
-  
-  # notify-sentry-deploy:
-  #   executor: node-executor
-  #   environment:
-  #     SENTRY_ORG: $SENTRY_ORG
-  #     SENTRY_PROJECT: $SENTRY_PROJECT
-  #     SENTRY_ENVIRONMENT: production
-  #   steps:
-  #     - checkout
-  #     - run:
-  #         name: Create release and notify Sentry of deploy
-  #         command: |
-  #           curl -sL https://sentry.io/get-cli/ | bash
-  #           export SENTRY_RELEASE=$(sentry-cli releases propose-version)
-  #           sentry-cli releases new -p $SENTRY_PROJECT $SENTRY_RELEASE
-  #           sentry-cli releases set-commits $SENTRY_RELEASE --auto
-  #           sentry-cli releases files $SENTRY_RELEASE upload-sourcemaps path-to-sourcemaps-if-applicable
-  #           sentry-cli releases finalize $SENTRY_RELEASE
-  #           sentry-cli releases deploys $SENTRY_RELEASE new -e $SENTRY_ENVIRONMENT
 
 workflows:
   version: 2
