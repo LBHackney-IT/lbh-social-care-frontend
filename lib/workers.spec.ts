@@ -68,4 +68,19 @@ describe('workers APIs', () => {
       expect(data).toEqual({ allocations: ['foo'] });
     });
   });
+
+  describe('getWorkersThroughSearchQuery', () => {
+    it('should return worker results when workers are found', async () => {
+      //this test will need to be updated once an actual endpoint has been deployed to prod
+      mockedAxios.get.mockResolvedValue({
+        data: { results: [{ data: { id: 1 } }] },
+      });
+      const workerName = 'FakeWorker';
+      const data = await workersAPI.getWorkersThroughSearchQuery(workerName);
+      expect(mockedAxios.get).toHaveBeenCalledWith(`${workerName}`, {
+        headers: { 'Content-Type': 'application/json' },
+      });
+      expect(data).toEqual([{ data: { id: 1 } }]);
+    });
+  });
 });
