@@ -15,7 +15,10 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "jsx": "preserve",
-    "baseUrl": "."
+    "baseUrl": ".",
+    "sourceMap": true,
+    "inlineSources": true,
+    "sourceRoot": "/"
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "pages/_error.js"],
   "exclude": ["node_modules", "cypress"]
