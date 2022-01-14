@@ -65,10 +65,13 @@ jobs:
 
   build:
     executor: node-executor
-    environment:
-      SENTRY_RELEASE: echo "${CIRCLE_SHA1}"
     steps:
       - *attach_workspace
+      - run:
+          name: Setup Environment Variables
+          command: |
+                  echo 'export SENTRY_RELEASE=$CIRCLE_SHA1' >> $BASH_ENV
+
       - run:
           name: Build app
           command: yarn build
