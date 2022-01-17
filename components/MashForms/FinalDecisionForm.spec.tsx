@@ -7,9 +7,11 @@ import FinalDecisionForm from './FinalDecisionForm';
 jest.mock('utils/api/mashReferrals');
 
 const mockPush = jest.fn();
+const mockBack = jest.fn();
 jest.mock('next/router', () => ({
   useRouter: () => ({
     push: mockPush,
+    back: mockBack,
   }),
 }));
 
@@ -98,5 +100,10 @@ describe('#FinalDecisionForm', () => {
     await waitFor(() => {
       expect(screen.getByText(errorMessage));
     });
+  });
+
+  it('should trigger router back on click of the cancel button', () => {
+    fireEvent.click(screen.getByText('Cancel'));
+    expect(mockBack).toHaveBeenCalled();
   });
 });
