@@ -523,3 +523,20 @@ export interface MashReferral {
   finalUrgentContactRequired?: boolean;
   finalCreatedAt?: string;
 }
+
+export interface SearchResultMetaData {
+  _meta: {
+    location: {
+      api: string;
+      frontend: string;
+    };
+    domain: string;
+  };
+}
+
+export interface WorkerSearchResult extends SearchResultMetaData {
+  id: number;
+  firstName: string;
+  lastName: string;
+  email: string;
+}
