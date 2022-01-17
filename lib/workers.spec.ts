@@ -72,15 +72,32 @@ describe('workers APIs', () => {
   describe('getWorkersThroughSearchQuery', () => {
     it('should return worker results when workers are found', async () => {
       //this test will need to be updated once an actual endpoint has been deployed to prod
+      const mockedWorkerResult = {
+        id: 1,
+        firstName: 'some',
+        lastName: 'one',
+        email: 'some.one@test.com',
+      };
       mockedAxios.get.mockResolvedValue({
-        data: { results: [{ data: { id: 1 } }] },
+        data: {
+          results: [
+            {
+              data: {
+                id: 1,
+                firstName: 'some',
+                lastName: 'one',
+                email: 'some.one@test.com',
+              },
+            },
+          ],
+        },
       });
       const workerName = 'FakeWorker';
       const data = await workersAPI.getWorkersThroughSearchQuery(workerName);
       expect(mockedAxios.get).toHaveBeenCalledWith(`${workerName}`, {
         headers: { 'Content-Type': 'application/json' },
       });
-      expect(data).toEqual([{ data: { id: 1 } }]);
+      expect(data).toEqual([mockedWorkerResult]);
     });
   });
 });

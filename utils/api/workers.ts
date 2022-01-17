@@ -1,5 +1,5 @@
 import useSWR, { SWRResponse } from 'swr';
-import { Worker, ErrorAPI } from 'types';
+import { Worker, ErrorAPI, WorkerSearchResult } from 'types';
 import { getQueryString } from 'utils/urls';
 import axios from 'axios';
 
@@ -32,5 +32,5 @@ export const updateWorker = async (
 
 export const useWorkersSearch = (
   workerName: string
-): SWRResponse<Record<string, unknown>[], ErrorAPI> =>
+): SWRResponse<WorkerSearchResult[], ErrorAPI> =>
   useSWR(`/api/workersearch?workerName=${workerName}`);

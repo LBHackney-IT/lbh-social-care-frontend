@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-import { Worker } from 'types';
+import { Worker, WorkerSearchResult } from 'types';
 
 const ENDPOINT_API = process.env.ENDPOINT_API;
 const AWS_KEY = process.env.AWS_KEY;
@@ -54,7 +54,7 @@ export const updateWorker = async (formData: Worker): Promise<Worker> => {
 
 export const getWorkersThroughSearchQuery = async (
   workerName: string
-): Promise<Record<string, unknown>[]> => {
+): Promise<WorkerSearchResult[]> => {
   const { data } = await axios.get(
     `${workerName}`, // URL for the elasticsearch will be added once it is in the production environment
     {
@@ -62,5 +62,10 @@ export const getWorkersThroughSearchQuery = async (
     }
   );
 
-  return data.results;
+  const workerData: WorkerSearchResult[] = [];
+  data.results.map(({ data }: { data: WorkerSearchResult }) => {
+    workerData.push(data);
+  });
+  console.log(JSON.stringify(workerData));
+  return workerData;
 };
