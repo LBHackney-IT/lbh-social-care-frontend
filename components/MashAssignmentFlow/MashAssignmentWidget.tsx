@@ -115,7 +115,7 @@ const MashAssignmentWidget = ({
             label="Submit"
             type="submit"
             onClick={submitForm}
-            disabled={submitting}
+            disabled={submitting || workerId === -1}
           />
           <p className="lbh-body">
             <a

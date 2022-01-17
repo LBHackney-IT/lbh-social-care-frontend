@@ -28,8 +28,23 @@ it('should show results based on input', () => {
   fireEvent.change(screen.getByPlaceholderText("Type worker's name"), {
     target: { value: 'Sample Input' },
   });
-
+  console.log(screen.debug);
   //assert
   //results that match input
-  screen.getByText('Sample Input');
+  expect(screen.queryByText('Sample Input'));
+});
+
+it('submit button disabled if no resident is selected', () => {
+  render(
+    <MashAssignmentWidget
+      mashReferral={mockedMashReferral}
+      assignWorkerToReferral={jest.fn()}
+    />
+  );
+  fireEvent.click(screen.getByText('Assign'));
+
+  fireEvent.click(screen.getByPlaceholderText("Type worker's name"));
+
+  const assignButton = screen.getByText('Submit') as HTMLButtonElement;
+  expect(assignButton.disabled).toBeTruthy();
 });
