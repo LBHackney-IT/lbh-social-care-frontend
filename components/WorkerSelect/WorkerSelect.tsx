@@ -1,4 +1,5 @@
 import React, { Dispatch, SetStateAction } from 'react';
+import { WorkerSearchResult } from 'types';
 import s from './WorkerSelect.module.scss';
 
 interface ChoiceProps {
@@ -39,7 +40,7 @@ const Choice = ({
 
 interface Props {
   label: string;
-  workers: Record<string, unknown>[];
+  workers: WorkerSearchResult[];
   idToAdd: number;
   setIdToAdd: Dispatch<SetStateAction<number>>;
 }
@@ -62,11 +63,11 @@ const WorkerSelect = ({
           {workers.map((worker) => (
             <Choice
               name="person"
-              label={`${worker.data.firstName} ${worker.data.lastName}`}
-              value={worker.data.id}
+              label={`${worker.firstName} ${worker.lastName}`}
+              value={worker.id}
               idToAdd={idToAdd}
               setIdToAdd={setIdToAdd}
-              key={worker.data.id}
+              key={worker.id}
             />
           ))}
         </div>

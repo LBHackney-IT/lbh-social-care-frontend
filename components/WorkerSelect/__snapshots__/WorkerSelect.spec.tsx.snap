@@ -21,6 +21,7 @@ exports[`workerSelect should render properly 1`] = `
         >
           <input
             aria-describedby="person-1-hint"
+            checked=""
             class="govuk-radios__input"
             id="person-1"
             name="person"
