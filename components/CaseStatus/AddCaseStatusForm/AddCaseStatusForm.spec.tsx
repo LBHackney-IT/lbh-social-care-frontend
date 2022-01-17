@@ -1,21 +1,138 @@
 import AddCaseStatusForm from './AddCaseStatusForm';
 import { render, fireEvent } from '@testing-library/react';
 import { residentFactory } from 'factories/residents';
+import { UserContext } from 'components/UserContext/UserContext';
+import { mockedUser } from 'factories/users';
 
 const mockedResident = residentFactory.build();
 
-describe('AddCaseStatusForm - CIN', () => {
+describe('AddCaseStatusForm - Permissions', () => {
   it('displays CIN type option in the form', () => {
+    mockedUser.isInPlacementManagementUnit = false;
+    mockedUser.isInSafeguardingReviewing = false;
     const { getByText } = render(
-      <AddCaseStatusForm personId={mockedResident.id} prefilledFields={{}} />
+      <UserContext.Provider value={{ user: mockedUser }}>
+        <AddCaseStatusForm personId={mockedResident.id} prefilledFields={{}} />
+      </UserContext.Provider>
     );
 
     expect(getByText('Child in need')).toBeInTheDocument();
   });
 
+  it('displays CP type option in the form if user has right permissions', () => {
+    mockedUser.isInPlacementManagementUnit = false;
+    mockedUser.isInSafeguardingReviewing = true;
+
+    const { getByText } = render(
+      <UserContext.Provider value={{ user: mockedUser }}>
+        <AddCaseStatusForm personId={mockedResident.id} prefilledFields={{}} />
+      </UserContext.Provider>
+    );
+
+    expect(getByText('Child protection')).toBeInTheDocument();
+  });
+
+  it('displays CP type option in the form if user has right permissions', () => {
+    mockedUser.isInPlacementManagementUnit = true;
+    mockedUser.isInSafeguardingReviewing = true;
+
+    const { getByText } = render(
+      <UserContext.Provider value={{ user: mockedUser }}>
+        <AddCaseStatusForm personId={mockedResident.id} prefilledFields={{}} />
+      </UserContext.Provider>
+    );
+
+    expect(getByText('Child protection')).toBeInTheDocument();
+  });
+
+  it('does not display CP type option in the form if user has wrong permissions', () => {
+    mockedUser.isInPlacementManagementUnit = true;
+    mockedUser.isInSafeguardingReviewing = false;
+
+    const { queryByText } = render(
+      <UserContext.Provider value={{ user: mockedUser }}>
+        <AddCaseStatusForm personId={mockedResident.id} prefilledFields={{}} />
+      </UserContext.Provider>
+    );
+
+    expect(queryByText('Child protection')).not.toBeInTheDocument();
+  });
+
+  it('does not display CP type option in the form if user has wrong permissions', () => {
+    mockedUser.isInPlacementManagementUnit = false;
+    mockedUser.isInSafeguardingReviewing = false;
+
+    const { queryByText } = render(
+      <UserContext.Provider value={{ user: mockedUser }}>
+        <AddCaseStatusForm personId={mockedResident.id} prefilledFields={{}} />
+      </UserContext.Provider>
+    );
+
+    expect(queryByText('Child protection')).not.toBeInTheDocument();
+  });
+
+  it('displays LAC type option in the form if user has right permissions', () => {
+    mockedUser.isInPlacementManagementUnit = true;
+    mockedUser.isInSafeguardingReviewing = false;
+
+    const { getByText } = render(
+      <UserContext.Provider value={{ user: mockedUser }}>
+        <AddCaseStatusForm personId={mockedResident.id} prefilledFields={{}} />
+      </UserContext.Provider>
+    );
+
+    expect(getByText('Looked after child')).toBeInTheDocument();
+  });
+
+  it('displays LAC type option in the form if user has right permissions', () => {
+    mockedUser.isInPlacementManagementUnit = true;
+    mockedUser.isInSafeguardingReviewing = true;
+
+    const { getByText } = render(
+      <UserContext.Provider value={{ user: mockedUser }}>
+        <AddCaseStatusForm personId={mockedResident.id} prefilledFields={{}} />
+      </UserContext.Provider>
+    );
+
+    expect(getByText('Looked after child')).toBeInTheDocument();
+  });
+
+  it('does not display LAC type option in the form if user has wrong permissions', () => {
+    mockedUser.isInPlacementManagementUnit = false;
+    mockedUser.isInSafeguardingReviewing = true;
+
+    const { queryByText } = render(
+      <UserContext.Provider value={{ user: mockedUser }}>
+        <AddCaseStatusForm personId={mockedResident.id} prefilledFields={{}} />
+      </UserContext.Provider>
+    );
+
+    expect(queryByText('Looked after child')).not.toBeInTheDocument();
+  });
+
+  it('does not display LAC type option in the form if user has wrong permissions', () => {
+    mockedUser.isInPlacementManagementUnit = false;
+    mockedUser.isInSafeguardingReviewing = false;
+
+    const { queryByText } = render(
+      <UserContext.Provider value={{ user: mockedUser }}>
+        <AddCaseStatusForm personId={mockedResident.id} prefilledFields={{}} />
+      </UserContext.Provider>
+    );
+
+    expect(queryByText('Looked after child')).not.toBeInTheDocument();
+  });
+});
+
+describe('AddCaseStatusForm - CIN', () => {
+  mockedUser.isInPlacementManagementUnit = false;
+  mockedUser.isInSafeguardingReviewing = false;
+
   it('should disable the submit button when no type has been selected', () => {
     const { getByTestId } = render(
-      <AddCaseStatusForm personId={mockedResident.id} prefilledFields={{}} />
+      <UserContext.Provider value={{ user: mockedUser }}>
+        <AddCaseStatusForm personId={mockedResident.id} prefilledFields={{}} />
+      </UserContext.Provider>
     );
 
     expect(getByTestId('submit_button')).toBeDisabled();
@@ -23,7 +140,9 @@ describe('AddCaseStatusForm - CIN', () => {
 
   it('displays start date and notes when selecting CIN', () => {
     const { getByText } = render(
-      <AddCaseStatusForm personId={mockedResident.id} prefilledFields={{}} />
+      <UserContext.Provider value={{ user: mockedUser }}>
+        <AddCaseStatusForm personId={mockedResident.id} prefilledFields={{}} />
+      </UserContext.Provider>
     );
 
     fireEvent.click(getByText('Child in need'));
@@ -34,14 +153,16 @@ describe('AddCaseStatusForm - CIN', () => {
 
   it('should enable the submit button when completed', () => {
     const { getByTestId } = render(
-      <AddCaseStatusForm
-        personId={mockedResident.id}
-        prefilledFields={{
-          type: 'CIN',
-          notes: 'this is a note',
-          startDate: '2020-01-01',
-        }}
-      />
+      <UserContext.Provider value={{ user: mockedUser }}>
+        <AddCaseStatusForm
+          personId={mockedResident.id}
+          prefilledFields={{
+            type: 'CIN',
+            notes: 'this is a note',
+            startDate: '2020-01-01',
+          }}
+        />
+      </UserContext.Provider>
     );
 
     expect(getByTestId('submit_button')).not.toBeDisabled();
@@ -49,13 +170,15 @@ describe('AddCaseStatusForm - CIN', () => {
 
   it('pre-select CIN and fills the other fields', () => {
     const { getByText } = render(
-      <AddCaseStatusForm
-        personId={mockedResident.id}
-        prefilledFields={{
-          type: 'CIN',
-          notes: 'this is a note',
-        }}
-      />
+      <UserContext.Provider value={{ user: mockedUser }}>
+        <AddCaseStatusForm
+          personId={mockedResident.id}
+          prefilledFields={{
+            type: 'CIN',
+            notes: 'this is a note',
+          }}
+        />
+      </UserContext.Provider>
     );
 
     expect(getByText('Child in need')).toBeInTheDocument();
@@ -66,17 +189,13 @@ describe('AddCaseStatusForm - CIN', () => {
 });
 
 describe('AddCaseStatusForm - CP', () => {
-  it('displays CP type option in the form', () => {
-    const { getByText } = render(
-      <AddCaseStatusForm personId={mockedResident.id} prefilledFields={{}} />
-    );
-
-    expect(getByText('Child protection')).toBeInTheDocument();
-  });
-
   it('does not display category question unless CP is clicked the form', () => {
+    mockedUser.isInSafeguardingReviewing = true;
+
     const { queryByText } = render(
-      <AddCaseStatusForm personId={mockedResident.id} prefilledFields={{}} />
+      <UserContext.Provider value={{ user: mockedUser }}>
+        <AddCaseStatusForm personId={mockedResident.id} prefilledFields={{}} />
+      </UserContext.Provider>
     );
 
     expect(
@@ -85,8 +204,12 @@ describe('AddCaseStatusForm - CP', () => {
   });
 
   it('displays start date and category question when CP is selected', () => {
+    mockedUser.isInSafeguardingReviewing = true;
+
     const { getByText } = render(
-      <AddCaseStatusForm personId={mockedResident.id} prefilledFields={{}} />
+      <UserContext.Provider value={{ user: mockedUser }}>
+        <AddCaseStatusForm personId={mockedResident.id} prefilledFields={{}} />
+      </UserContext.Provider>
     );
 
     fireEvent.click(getByText('Child protection'));
@@ -96,8 +219,12 @@ describe('AddCaseStatusForm - CP', () => {
   });
 
   it('displays the category options when CP is selected', () => {
+    mockedUser.isInSafeguardingReviewing = true;
+
     const { getByText } = render(
-      <AddCaseStatusForm personId={mockedResident.id} prefilledFields={{}} />
+      <UserContext.Provider value={{ user: mockedUser }}>
+        <AddCaseStatusForm personId={mockedResident.id} prefilledFields={{}} />
+      </UserContext.Provider>
     );
 
     fireEvent.click(getByText('Child protection'));
@@ -109,45 +236,47 @@ describe('AddCaseStatusForm - CP', () => {
   });
 
   it('pre-select CP and fills the other fields', () => {
+    mockedUser.isInSafeguardingReviewing = true;
+
     const { getByText } = render(
-      <AddCaseStatusForm
-        personId={mockedResident.id}
-        prefilledFields={{
-          type: 'CP',
-          category: 'C1',
-        }}
-      />
+      <UserContext.Provider value={{ user: mockedUser }}>
+        <AddCaseStatusForm
+          personId={mockedResident.id}
+          prefilledFields={{
+            type: 'CP',
+            category: 'C1',
+          }}
+        />
+      </UserContext.Provider>
     );
 
     expect(getByText('Child protection')).toBeInTheDocument();
     expect(getByText('Start Date')).toBeInTheDocument();
     expect(getByText('Neglect')).toBeInTheDocument();
   });
+});
 
-  describe('AddCaseStatusForm - LAC', () => {
-    it('displays LAC type option in the form', () => {
-      const { getByText } = render(
+describe('AddCaseStatusForm - LAC', () => {
+  it('does not display the 2 select drop downs unless LAC radio button is clicked on the form', () => {
+    mockedUser.isInPlacementManagementUnit = true;
+
+    const { queryByText } = render(
+      <UserContext.Provider value={{ user: mockedUser }}>
         <AddCaseStatusForm personId={mockedResident.id} prefilledFields={{}} />
-      );
+      </UserContext.Provider>
+    );
+    expect(queryByText('Looked after child')).toBeInTheDocument();
+    expect(
+      queryByText("What is the child's legal status?")
+    ).not.toBeInTheDocument();
+    expect(queryByText('What is the placement type?')).not.toBeInTheDocument();
+  });
 
-      expect(getByText('Looked after child')).toBeInTheDocument();
-    });
+  it('should enable the drop down elements when LAC is selected', () => {
+    mockedUser.isInPlacementManagementUnit = true;
 
-    it('does not display the 2 select drop downs unless LAC radio button is clicked on the form', () => {
-      const { queryByText } = render(
-        <AddCaseStatusForm personId={mockedResident.id} prefilledFields={{}} />
-      );
-
-      expect(
-        queryByText("What is the child's legal status?")
-      ).not.toBeInTheDocument();
-      expect(
-        queryByText('What is the placement type?')
-      ).not.toBeInTheDocument();
-    });
-
-    it('should enable the drop down elements when LAC is selected', () => {
-      const { getByTestId } = render(
+    const { getByTestId, queryByText } = render(
+      <UserContext.Provider value={{ user: mockedUser }}>
         <AddCaseStatusForm
           personId={mockedResident.id}
           prefilledFields={{
@@ -155,24 +284,27 @@ describe('AddCaseStatusForm - CP', () => {
             startDate: '2020-01-01',
           }}
         />
-      );
+      </UserContext.Provider>
+    );
+    expect(queryByText('Looked after child')).toBeInTheDocument();
+    expect(getByTestId('legalStatus')).not.toBeDisabled();
+    expect(getByTestId('placementType')).not.toBeDisabled();
+  });
 
-      expect(getByTestId('legalStatus')).not.toBeDisabled();
-      expect(getByTestId('placementType')).not.toBeDisabled();
-    });
+  it('displays start date and drop down questions when LAC is selected', () => {
+    mockedUser.isInPlacementManagementUnit = true;
 
-    it('displays start date and drop down questions when LAC is selected', () => {
-      const { getByText } = render(
+    const { getByText } = render(
+      <UserContext.Provider value={{ user: mockedUser }}>
         <AddCaseStatusForm personId={mockedResident.id} prefilledFields={{}} />
-      );
+      </UserContext.Provider>
+    );
 
-      fireEvent.click(getByText('Looked after child'));
+    fireEvent.click(getByText('Looked after child'));
 
-      expect(getByText('Start Date')).toBeInTheDocument();
-      expect(
-        getByText("What is the child's legal status?")
-      ).toBeInTheDocument();
-      expect(getByText('What is the placement type?')).toBeInTheDocument();
-    });
+    expect(getByText('Looked after child')).toBeInTheDocument();
+    expect(getByText('Start Date')).toBeInTheDocument();
+    expect(getByText("What is the child's legal status?")).toBeInTheDocument();
+    expect(getByText('What is the placement type?')).toBeInTheDocument();
   });
 });

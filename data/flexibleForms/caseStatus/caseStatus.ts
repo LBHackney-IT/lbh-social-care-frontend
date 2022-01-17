@@ -50,20 +50,7 @@ const form: Form = {
           question: 'What is the case status you would like to add?',
           type: 'radios',
           required: true,
-          choices: [
-            {
-              value: 'CIN',
-              label: 'Child in need',
-            },
-            {
-              value: 'CP',
-              label: 'Child protection',
-            },
-            {
-              value: 'LAC',
-              label: 'Looked after child',
-            },
-          ],
+          choices: [],
         },
         {
           id: 'startDate',

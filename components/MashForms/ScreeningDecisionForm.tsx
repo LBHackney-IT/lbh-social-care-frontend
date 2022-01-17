@@ -29,9 +29,9 @@ const ScreeningDecisionForm = ({
   const router = useRouter();
 
   const confirmation = {
-    title: `A decision has been submitted for ${referral.clients.join(
-      ' and '
-    )}`,
+    title: `A decision has been submitted for ${referral.mashResidents
+      .map((resident) => `${resident.firstName} ${resident.lastName}`)
+      .join(' and ')}`,
     link: referral.referralDocumentURI,
   };
 
@@ -65,11 +65,7 @@ const ScreeningDecisionForm = ({
   return (
     <>
       <h1>Make screening decision</h1>
-      <Heading
-        clientname={referral.clients.join(', ')}
-        timeleft="3 hours"
-        datetime={referral.createdAt}
-      />
+      <Heading mashReferral={referral} />
       <NumberedSteps
         nodes={[
           <>
@@ -167,6 +163,7 @@ const ScreeningDecisionForm = ({
           <a
             href="#"
             className={`lbh-link lbh-link--no-visited-state govuk-!-margin-left-3`}
+            onClick={() => router.back()}
           >
             Cancel
           </a>

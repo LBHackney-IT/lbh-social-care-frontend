@@ -1,4 +1,4 @@
-import { useMemo, useCallback } from 'react';
+import { useMemo, useCallback, ReactElement } from 'react';
 import PropTypes from 'prop-types';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
@@ -10,7 +10,7 @@ import SearchResidentsForm from './forms/SearchResidentsForm';
 import SearchCasesForm from './forms/SearchCasesForm';
 import ResidentsTable from './results/ResidentsTable';
 import RelationshipTable from './results//RelationshipTable';
-import CasesTable from 'components/Cases/CasesTable';
+import CasesTable, { CaseTableColumns } from 'components/Cases/CasesTable';
 
 import Button from 'components/Button/Button';
 import Spinner from 'components/Spinner/Spinner';
@@ -21,10 +21,20 @@ import { useResidents } from 'utils/api/residents';
 import { useCases } from 'utils/api/cases';
 import { getQueryString } from 'utils/urls';
 
-const getRecords = (data) => [
+const getRecords = (data: { [key: string]: Array<unknown> }) => [
   ...(data.residents || []),
   ...(data?.cases || []),
 ];
+
+interface SearchInput {
+  type: 'people' | 'records' | 'relationship';
+  subHeader: ReactElement;
+  resultHeader: string;
+  columns?: CaseTableColumns[];
+  showOnlyMyResults?: boolean;
+  ctaText?: string;
+  callback?: (value: any) => void | null;
+}
 
 const Search = ({
   type,
@@ -33,39 +43,54 @@ const Search = ({
   columns,
   showOnlyMyResults = false,
   ctaText = 'Search',
-  callback = null,
-}) => {
+  callback,
+}: SearchInput) => {
   const { query, pathname, replace } = useRouter();
   const { user } = useAuth();
 
-  const { SearchForm, SearchResults, useSearch } = useMemo(() => {
-    if (type === 'records') {
-      return {
-        SearchForm: SearchCasesForm,
-        SearchResults: CasesTable,
-        useSearch: ({ my_notes_only, worker_email, ...formData }, ...args) =>
-          useCases(
-            {
-              ...formData,
-              worker_email:
-                showOnlyMyResults || my_notes_only ? user.email : worker_email,
-            },
-            ...args
-          ),
-      };
-    } else if (type === 'people')
-      return {
-        SearchForm: SearchResidentsForm,
-        SearchResults: ResidentsTable,
-        useSearch: useResidents,
-      };
-    else if (type === 'relationship')
-      return {
-        SearchForm: SearchResidentsForm,
-        SearchResults: RelationshipTable,
-        useSearch: useResidents,
-      };
-  }, [type, showOnlyMyResults, user.email]);
+  const { SearchForm, SearchResults, useSearch } = useMemo<{
+    SearchForm: any;
+    SearchResults: any;
+    useSearch: any;
+  }>((): {
+    SearchForm: any;
+    SearchResults: any;
+    useSearch: any;
+  } => {
+    switch (type) {
+      case 'records':
+        return {
+          SearchForm: SearchCasesForm,
+          SearchResults: CasesTable,
+          useSearch: (
+            { my_notes_only, worker_email, ...formData }: any,
+            ...args: any
+          ) =>
+            useCases(
+              {
+                ...formData,
+                worker_email:
+                  showOnlyMyResults || my_notes_only
+                    ? user?.email
+                    : worker_email,
+              },
+              ...args
+            ),
+        };
+      case 'people':
+        return {
+          SearchForm: SearchResidentsForm,
+          SearchResults: ResidentsTable,
+          useSearch: useResidents,
+        };
+      case 'relationship':
+        return {
+          SearchForm: SearchResidentsForm,
+          SearchResults: RelationshipTable,
+          useSearch: useResidents,
+        };
+    }
+  }, [type, showOnlyMyResults, user?.email]);
 
   let hasQuery = Boolean(Object.keys(query).length);
 
@@ -83,7 +108,10 @@ const Search = ({
   );
   const results = data &&
     data !== 1 && {
-      records: data?.reduce((acc, d) => [...acc, ...getRecords(d)], []),
+      records: data?.reduce(
+        (acc: any, d: any) => [...acc, ...getRecords(d)],
+        []
+      ),
       nextCursor: data[data.length - 1].nextCursor,
     };
 
@@ -93,8 +121,8 @@ const Search = ({
         ? `?${getQueryString({ ...query, ...formData })}`
         : '';
       replace(
-        `${pathname.replace('[id]', query.id)}${qs}`,
-        `${pathname.replace('[id]', query.id)}${qs}`,
+        `${pathname.replace('[id]', query.id as string)}${qs}`,
+        `${pathname.replace('[id]', query.id as string)}${qs}`,
         {
           shallow: true,
           scroll: false,
@@ -119,7 +147,7 @@ const Search = ({
       {results && (
         <>
           <div className={`${ss.heading} govuk-!-margin-top-8`}>
-            <h2> {resultHeader}</h2>
+            <h2>{resultHeader}</h2>
           </div>
 
           {results.records?.length > 0 ? (
@@ -128,6 +156,7 @@ const Search = ({
               sort={query}
               callback={callback}
               columns={columns}
+              user={user}
               // onSort={onSort} // commented out as the feature is not ready in the BE
             />
           ) : (

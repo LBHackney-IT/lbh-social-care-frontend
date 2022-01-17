@@ -27,7 +27,7 @@ const ChooseEditCaseStatusForm: React.FC<{
   const router = useRouter();
   let form_fields: any;
 
-  caseStatusType == 'LAC'
+  caseStatusType == 'LAC' || caseStatusType == 'CP'
     ? (form_fields = CASE_STATUS.steps[1].fields)
     : (form_fields = CASE_STATUS.steps[0].fields);
 
@@ -56,7 +56,7 @@ const ChooseEditCaseStatusForm: React.FC<{
         },
       });
     } catch (e) {
-      setStatus(e.toString());
+      setStatus((e as Error).toString());
     }
   };
 

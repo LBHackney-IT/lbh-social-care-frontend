@@ -15,6 +15,7 @@ import {
   LACReasonsForEpisodeEndOptions,
   ChildProtectionCategoryOptions,
 } from 'types';
+import { AxiosError } from 'axios';
 
 const ReviewAddCaseStatusForm: React.FC<{
   title: string;
@@ -91,7 +92,11 @@ const ReviewAddCaseStatusForm: React.FC<{
         },
       });
     } catch (e) {
-      setStatus(`Error ${e.response.data.status}: ${e.response.data.message}`);
+      setStatus(
+        `Error ${(e as AxiosError).response?.data.status}: ${
+          (e as AxiosError).response?.data.message
+        }`
+      );
     }
   };
 

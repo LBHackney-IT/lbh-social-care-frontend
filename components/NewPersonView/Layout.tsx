@@ -20,6 +20,7 @@ import {
 } from 'lib/feature-flags/feature-flags';
 import CaseStatusFlag from 'components/CaseStatus/CaseStatusFlag/CaseStatusFlag';
 import { useAppConfig } from 'lib/appConfig';
+import ConfirmationBanner from 'components/ConfirmationBanner/ConfirmationBanner';
 
 interface NavLinkProps {
   href: string;
@@ -68,6 +69,9 @@ const Layout = ({ person, children }: Props): React.ReactElement => {
   const { isFeatureActive } = useFeatureFlags();
   const [addFormOpen, setAddFormOpen] = useState<boolean>(false);
   const { getConfigValue } = useAppConfig();
+  const router = useRouter();
+
+  const case_note_deleted = Boolean(router.query.case_note_deleted);
 
   const navigation: { text: string; href: string }[] = [
     {
@@ -136,6 +140,16 @@ const Layout = ({ person, children }: Props): React.ReactElement => {
         person={person}
       />
 
+      {case_note_deleted == true ? (
+        <ConfirmationBanner title="Case note deleted">
+          {`Case note "${String(
+            router.query.case_note_name
+          )}" has been deleted correctly`}
+        </ConfirmationBanner>
+      ) : (
+        <></>
+      )}
+
       <WarningNotes id={person.id} />
 
       {person.restricted === 'Y' && !canManageCases(user, person) && (
@@ -193,15 +207,13 @@ const Layout = ({ person, children }: Props): React.ReactElement => {
                 </NavLink>
               ))}
 
-              <ConditionalFeature name="workflows-pilot">
-                <NavLink
-                  href={`${
-                    getConfigValue('workflowsPilotUrl') as string
-                  }?social_care_id=${person.id}&show_historic=true`}
-                >
-                  Workflows
-                </NavLink>
-              </ConditionalFeature>
+              <NavLink
+                href={`${
+                  getConfigValue('workflowsPilotUrl') as string
+                }/residents/${person.id}`}
+              >
+                Workflows
+              </NavLink>
             </ul>
 
             <ul className={`lbh-list ${s.secondaryNav}`}>
@@ -216,20 +228,18 @@ const Layout = ({ person, children }: Props): React.ReactElement => {
                 </li>
               ))}
 
-              <ConditionalFeature name="workflows-pilot">
-                {user.isInWorkflowsPilot && (
-                  <li>
-                    <a
-                      href={`${getConfigValue(
-                        'workflowsPilotUrl'
-                      )}/workflows/new?social_care_id=${person.id}`}
-                      className="lbh-link lbh-body-s lbh-link--no-visited-state"
-                    >
-                      Start workflow
-                    </a>
-                  </li>
-                )}
-              </ConditionalFeature>
+              {user.isInWorkflowsPilot && (
+                <li>
+                  <a
+                    href={`${getConfigValue(
+                      'workflowsPilotUrl'
+                    )}/workflows/new?social_care_id=${person.id}`}
+                    className="lbh-link lbh-body-s lbh-link--no-visited-state"
+                  >
+                    Start workflow
+                  </a>
+                </li>
+              )}
             </ul>
           </nav>
         </div>

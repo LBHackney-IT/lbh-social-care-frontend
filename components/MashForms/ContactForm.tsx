@@ -23,9 +23,9 @@ const ContactForm = ({ referral, workerEmail }: Props): React.ReactElement => {
   const [errorMessage, setErrorMessage] = useState('');
   const [urgent, setUrgent] = useState(false);
   const confirmation = {
-    title: `Work on contact has been submitted for ${referral.clients.join(
-      ' and '
-    )}`,
+    title: `Work on contact has been submitted for ${referral.mashResidents
+      .map((resident) => `${resident.firstName} ${resident.lastName}`)
+      .join(' and ')}`,
     link: referral.referralDocumentURI,
   };
 
@@ -54,11 +54,7 @@ const ContactForm = ({ referral, workerEmail }: Props): React.ReactElement => {
   return (
     <>
       <h1>Work on contact</h1>
-      <Heading
-        clientname="Jan Smith"
-        timeleft="3 hours"
-        datetime="2021-11-04T13:50:10.6120000Z"
-      />
+      <Heading mashReferral={referral} />
       <NumberedSteps
         nodes={[
           <>
@@ -145,23 +141,21 @@ const ContactForm = ({ referral, workerEmail }: Props): React.ReactElement => {
           disabled={submitting}
         />
         <p className="lbh-body">
-          <Link href="#">
-            <a
-              className={`lbh-link lbh-link--no-visited-state govuk-!-margin-left-3`}
-            >
-              Cancel
-            </a>
-          </Link>
+          <a
+            href="#"
+            className={`lbh-link lbh-link--no-visited-state govuk-!-margin-left-3`}
+            onClick={() => router.back()}
+          >
+            Cancel
+          </a>
         </p>
         <p>
-          <Link href="#/">
-            <a
-              href="#"
-              className={`lbh-link lbh-link--no-visited-state govuk-!-margin-left-3`}
-            >
-              Delete duplicate referral
-            </a>
-          </Link>
+          <a
+            href="#"
+            className={`lbh-link lbh-link--no-visited-state govuk-!-margin-left-3`}
+          >
+            Delete duplicate referral
+          </a>
         </p>
       </div>
     </>

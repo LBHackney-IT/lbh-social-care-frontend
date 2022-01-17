@@ -8,6 +8,11 @@ export interface Address {
   uprn: string;
 }
 
+export interface AddressWrapper {
+  address: Address[];
+  page_count: number;
+}
+
 export type AgeContext = 'A' | 'B' | 'C' | undefined;
 
 export interface Allocation {
@@ -108,11 +113,20 @@ export interface Case {
   caseFormData: CaseFormData;
   formType?: string;
   title?: string;
+  isImported: boolean;
+  deleted: boolean;
+  deletionDetails?: {
+    deletedAt: string;
+    deletedBy: string;
+    deleteReason: string;
+    deleteRequestedBy: string;
+  };
 }
 
 export interface CaseData {
   cases: Case[];
   nextCursor?: number;
+  deletedRecordsCount?: number;
 }
 
 export interface LegacyResident {
@@ -199,6 +213,8 @@ export interface User {
   isAuditable: boolean;
   isAuthorised: boolean;
   isInWorkflowsPilot?: boolean;
+  isInSafeguardingReviewing?: boolean;
+  isInPlacementManagementUnit?: boolean;
 }
 
 export interface Team {
@@ -478,26 +494,39 @@ export enum ReferralStage {
   FINAL = 'FINAL',
 }
 
+export interface MashResident {
+  id: number;
+  firstName: string;
+  lastName: string;
+  dateOfBirth?: string;
+  gender?: string;
+  ethnicity?: string;
+  firstLanguage?: string;
+  school?: string;
+  address?: string;
+  postcode?: string;
+}
+
 export interface MashReferral {
-  id: string;
+  id: number;
   referrer: string;
   requestedSupport: string;
   assignedTo?: Worker;
-  createdAt: string;
-  clients: string[];
+  referralCreatedAt: string;
+  mashResidents: MashResident[];
   referralDocumentURI: string;
   stage: ReferralStage;
-  contactUrgentContactRequired?: boolean;
-  contactCreatedAt?: string;
-  initialReferralCategory?: string;
+  contactDecisionUrgentContactRequired?: boolean;
+  contactDecisionCreatedAt?: string;
+  initialDecisionReferralCategory?: string;
   initialDecision?: string;
-  initialUrgentContactRequired?: boolean;
-  initialCreatedAt?: string;
+  initialDecisionUrgentContactRequired?: boolean;
+  initialDecisionCreatedAt?: string;
   screeningDecision?: string;
   screeningUrgentContactRequired?: boolean;
   screeningCreatedAt?: string;
   finalDecision?: string;
-  finalReferralCategory?: string;
-  finalUrgentContactRequired?: boolean;
-  finalCreatedAt?: string;
+  finalDecisionReferralCategory?: string;
+  FinalDecisionUrgentContactRequired?: boolean;
+  finalDecisionCreatedAt?: string;
 }

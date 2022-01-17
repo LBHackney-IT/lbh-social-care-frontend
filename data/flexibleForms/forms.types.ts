@@ -142,6 +142,7 @@ export enum SubmissionState {
 
 export interface Submission {
   submissionId: string;
+  isImported: boolean;
   formId: string;
   createdBy: Worker;
   createdAt: string;
@@ -160,6 +161,13 @@ export interface Submission {
   lastEdited: string;
   completedSteps: number;
   title?: string;
+  deleted: boolean;
+  deletionDetails?: {
+    deletedAt: string;
+    deletedBy: string;
+    deleteReason: string;
+    deleteRequestedBy: string;
+  };
 }
 
 export interface Revision {

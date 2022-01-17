@@ -8,6 +8,7 @@ import {
 import { isAuthorised } from 'utils/auth';
 
 import type { NextApiRequest, NextApiResponse, NextApiHandler } from 'next';
+import { AxiosError } from 'axios';
 
 const endpoint: NextApiHandler = async (
   req: NextApiRequest,
@@ -31,8 +32,11 @@ const endpoint: NextApiHandler = async (
         );
         res.status(StatusCodes.OK).json(data);
       } catch (error) {
-        console.error('Allocated Workers get error:', error?.response?.data);
-        error?.response?.status === StatusCodes.NOT_FOUND
+        console.error(
+          'Allocated Workers get error:',
+          (error as AxiosError)?.response?.data
+        );
+        (error as AxiosError)?.response?.status === StatusCodes.NOT_FOUND
           ? res
               .status(StatusCodes.NOT_FOUND)
               .json({ message: 'Allocated Workers Not Found' })
@@ -55,10 +59,12 @@ const endpoint: NextApiHandler = async (
       } catch (error) {
         console.error(
           'Allocated Workers post error:',
-          error?.response?.data || error
+          (error as AxiosError)?.response?.data || error
         );
-        error.name === 'ValidationError'
-          ? res.status(StatusCodes.BAD_REQUEST).json({ message: error.message })
+        (error as AxiosError).name === 'ValidationError'
+          ? res
+              .status(StatusCodes.BAD_REQUEST)
+              .json({ message: (error as AxiosError).message })
           : res
               .status(StatusCodes.INTERNAL_SERVER_ERROR)
               .json({ message: 'Unable to post Allocated Workers' });
@@ -75,10 +81,12 @@ const endpoint: NextApiHandler = async (
       } catch (error) {
         console.error(
           'Allocated Workers patch error:',
-          error?.response?.data || error
+          (error as AxiosError)?.response?.data || error
         );
-        error.name === 'ValidationError'
-          ? res.status(StatusCodes.BAD_REQUEST).json({ message: error.message })
+        (error as AxiosError).name === 'ValidationError'
+          ? res
+              .status(StatusCodes.BAD_REQUEST)
+              .json({ message: (error as AxiosError).message })
           : res
               .status(StatusCodes.INTERNAL_SERVER_ERROR)
               .json({ message: 'Unable to deallocated Worker' });

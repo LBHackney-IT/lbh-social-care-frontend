@@ -1,22 +1,33 @@
 import ErrorMessage from 'components/ErrorMessage/ErrorMessage';
 import Spinner from 'components/Spinner/Spinner';
-import React from 'react';
+import React, { useState } from 'react';
 import { Case } from 'types';
 import { useCasesByResident } from 'utils/api/cases';
 import PersonTimeline from './PersonTimeline';
+import { isAdminOrDev } from 'lib/permissions';
+import { User } from 'types';
+import { useAuth } from 'components/UserContext/UserContext';
 
 interface Props {
   personId: number;
 }
 
 const PersonHistory = ({ personId }: Props): React.ReactElement => {
+  const [displayDeletedCases, setDisplayDeletedCases] =
+    useState<boolean>(false);
+  const { user } = useAuth() as { user: User };
+  const includeDeletedCount = isAdminOrDev(user);
+
   const {
     data: casesData,
     size,
     setSize,
     error: casesError,
     isValidating,
-  } = useCasesByResident(personId);
+  } = useCasesByResident(personId, {
+    include_deleted_records: displayDeletedCases,
+    include_deleted_records_count: includeDeletedCount,
+  });
 
   if (isValidating && casesData === undefined) {
     return <Spinner />;
@@ -26,9 +37,16 @@ const PersonHistory = ({ personId }: Props): React.ReactElement => {
     return <ErrorMessage label={casesError.message} />;
   }
 
+  let deletedCount = 0;
+
   const events = [] as Case[];
   for (let i = 0; casesData !== undefined && i < casesData.length; i++) {
     events.push(...casesData[i].cases);
+    if (includeDeletedCount) {
+      deletedCount = casesData[i].deletedRecordsCount
+        ? Number(casesData[i].deletedRecordsCount)
+        : 0;
+    }
   }
 
   if (!events || events.length === 0) {
@@ -44,6 +62,9 @@ const PersonHistory = ({ personId }: Props): React.ReactElement => {
       size={size}
       setSize={setSize}
       onLastPage={onLastPage}
+      displayDeletedCases={displayDeletedCases}
+      setDisplayDeletedCases={setDisplayDeletedCases}
+      deletedRecordsCount={deletedCount}
     />
   );
 };

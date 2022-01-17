@@ -39,11 +39,7 @@ const CaseStatusFlag = ({ person }: Props): React.ReactElement => {
                   new Date(status.startDate),
                   'dd MMM yyyy'
                 )}`}</p>
-                <a
-                  href={`http://dev.hackney.gov.uk:3000/people/${person.id}/details`}
-                >
-                  View details
-                </a>
+                <a href={`/people/${person.id}/details`}>View details</a>
               </>
             }
           >

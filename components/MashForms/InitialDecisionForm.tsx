@@ -32,9 +32,9 @@ const InitialDecisionForm = ({
   const router = useRouter();
 
   const confirmation = {
-    title: `A decision has been submitted for ${referral.clients.join(
-      ' and '
-    )}`,
+    title: `A decision has been submitted for ${referral.mashResidents
+      .map((resident) => `${resident.firstName} ${resident.lastName}`)
+      .join(' and ')}`,
     link: referral.referralDocumentURI,
   };
 
@@ -71,11 +71,7 @@ const InitialDecisionForm = ({
   return (
     <>
       <h1>Make initial decision</h1>
-      <Heading
-        clientname="Jan Smith"
-        timeleft="3 hours"
-        datetime="2021-11-04T13:50:10.6120000Z"
-      />
+      <Heading mashReferral={referral} />
 
       <NumberedSteps
         nodes={[
@@ -179,6 +175,7 @@ const InitialDecisionForm = ({
           <a
             href="#"
             className={`lbh-link lbh-link--no-visited-state govuk-!-margin-left-3`}
+            onClick={() => router.back()}
           >
             Cancel
           </a>

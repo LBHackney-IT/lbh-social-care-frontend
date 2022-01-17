@@ -14,6 +14,26 @@ const RevisionTimeline = ({ submission }: Props): React.ReactElement | null => {
     <>
       <h2>History</h2>
       <ol className="lbh-timeline">
+        {submission.deleted && (
+          <li
+            className={`lbh-timeline__event lbh-timeline__event--minor && 'lbh-timeline__event--gap-below'
+            }`}
+            key={'deleted'}
+          >
+            <h3 className="lbh-body">
+              Deleted by {submission.deletionDetails?.deletedBy}
+            </h3>
+
+            {submission.deletionDetails?.deletedAt && (
+              <p className="lbh-body-xs">
+                {format(
+                  new Date(submission.deletionDetails?.deletedAt),
+                  'd MMM yyyy K.mm aaa'
+                )}
+              </p>
+            )}
+          </li>
+        )}
         {submission.panelApprovedAt && (
           <li className={`lbh-timeline__event ${s.approvalEvent}`}>
             <svg width="34" height="30" viewBox="0 0 34 30" fill="none">

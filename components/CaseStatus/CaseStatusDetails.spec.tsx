@@ -7,6 +7,8 @@ import {
   mockedStatusField,
 } from 'factories/caseStatus';
 import { mockedResident } from 'factories/residents';
+import { UserContext } from 'components/UserContext/UserContext';
+import { mockedUser } from 'factories/users';
 
 jest.mock('next/router', () => ({
   useRouter: () => ({
@@ -15,6 +17,138 @@ jest.mock('next/router', () => ({
   }),
   reload: jest.fn(),
 }));
+
+describe('CaseStatusDetail - Permissions', () => {
+  it('displays end/edit for CIN', () => {
+    jest.spyOn(caseStatusApi, 'useCaseStatuses').mockImplementation(() => ({
+      data: [
+        mockedCaseStatusFactory.build({
+          type: 'CIN',
+          notes: 'This is a note',
+          answers: [],
+        }),
+      ],
+      isValidating: false,
+      mutate: jest.fn(),
+      revalidate: jest.fn(),
+    }));
+
+    mockedUser.isInPlacementManagementUnit = false;
+    mockedUser.isInSafeguardingReviewing = false;
+
+    const { getByText } = render(
+      <UserContext.Provider value={{ user: mockedUser }}>
+        <CaseStatusDetails person={mockedResident} />
+      </UserContext.Provider>
+    );
+
+    expect(getByText('Edit / End')).toBeInTheDocument();
+  });
+
+  it('displays end/edit for CP if user has right permissions', () => {
+    jest.spyOn(caseStatusApi, 'useCaseStatuses').mockImplementation(() => ({
+      data: [
+        mockedCaseStatusFactory.build({
+          type: 'CP',
+          notes: 'This is a note',
+          answers: [],
+        }),
+      ],
+      isValidating: false,
+      mutate: jest.fn(),
+      revalidate: jest.fn(),
+    }));
+
+    mockedUser.isInPlacementManagementUnit = false;
+    mockedUser.isInSafeguardingReviewing = true;
+
+    const { getByText } = render(
+      <UserContext.Provider value={{ user: mockedUser }}>
+        <CaseStatusDetails person={mockedResident} />
+      </UserContext.Provider>
+    );
+
+    expect(getByText('Edit / End')).toBeInTheDocument();
+  });
+
+  it('does not display end/edit for CP if user has wrong permissions', () => {
+    jest.spyOn(caseStatusApi, 'useCaseStatuses').mockImplementation(() => ({
+      data: [
+        mockedCaseStatusFactory.build({
+          type: 'CP',
+          notes: 'This is a note',
+          answers: [],
+        }),
+      ],
+      isValidating: false,
+      mutate: jest.fn(),
+      revalidate: jest.fn(),
+    }));
+
+    mockedUser.isInPlacementManagementUnit = true;
+    mockedUser.isInSafeguardingReviewing = false;
+
+    const { queryByText } = render(
+      <UserContext.Provider value={{ user: mockedUser }}>
+        <CaseStatusDetails person={mockedResident} />
+      </UserContext.Provider>
+    );
+
+    expect(queryByText('Edit / End')).not.toBeInTheDocument();
+  });
+
+  it('displays end/edit for LAC if user has right permissions', () => {
+    jest.spyOn(caseStatusApi, 'useCaseStatuses').mockImplementation(() => ({
+      data: [
+        mockedCaseStatusFactory.build({
+          type: 'LAC',
+          notes: 'This is a note',
+          answers: [],
+        }),
+      ],
+      isValidating: false,
+      mutate: jest.fn(),
+      revalidate: jest.fn(),
+    }));
+
+    mockedUser.isInPlacementManagementUnit = true;
+    mockedUser.isInSafeguardingReviewing = false;
+
+    const { getByText } = render(
+      <UserContext.Provider value={{ user: mockedUser }}>
+        <CaseStatusDetails person={mockedResident} />
+      </UserContext.Provider>
+    );
+
+    expect(getByText('Edit / End')).toBeInTheDocument();
+  });
+
+  it('does not display end/edit for LAC if user has wrong permissions', () => {
+    jest.spyOn(caseStatusApi, 'useCaseStatuses').mockImplementation(() => ({
+      data: [
+        mockedCaseStatusFactory.build({
+          type: 'LAC',
+          notes: 'This is a note',
+          answers: [],
+        }),
+      ],
+      isValidating: false,
+      mutate: jest.fn(),
+      revalidate: jest.fn(),
+    }));
+
+    mockedUser.isInPlacementManagementUnit = false;
+    mockedUser.isInSafeguardingReviewing = true;
+
+    const { queryByText } = render(
+      <UserContext.Provider value={{ user: mockedUser }}>
+        <CaseStatusDetails person={mockedResident} />
+      </UserContext.Provider>
+    );
+
+    expect(queryByText('Edit / End')).not.toBeInTheDocument();
+  });
+});
 
 describe('CaseStatusDetail component', () => {
   it("displays nothing if there's no case status", async () => {
@@ -26,7 +160,9 @@ describe('CaseStatusDetail component', () => {
     }));
 
     const { queryByText, queryByTestId } = render(
-      <CaseStatusDetails person={mockedResident} />
+      <UserContext.Provider value={{ user: mockedUser }}>
+        <CaseStatusDetails person={mockedResident} />
+      </UserContext.Provider>
     );
 
     expect(queryByText('Child in need')).not.toBeInTheDocument();
@@ -48,7 +184,9 @@ describe('CaseStatusDetail component', () => {
     }));
 
     const { queryByText, queryByTestId } = render(
-      <CaseStatusDetails person={mockedResident} />
+      <UserContext.Provider value={{ user: mockedUser }}>
+        <CaseStatusDetails person={mockedResident} />
+      </UserContext.Provider>
     );
 
     expect(queryByText('Child in need')).toBeInTheDocument();
@@ -78,7 +216,9 @@ describe('CaseStatusDetail component', () => {
     }));
 
     const { queryByText, getAllByTestId, queryAllByText } = render(
-      <CaseStatusDetails person={mockedResident} />
+      <UserContext.Provider value={{ user: mockedUser }}>
+        <CaseStatusDetails person={mockedResident} />
+      </UserContext.Provider>
     );
     const caseStatusElements = getAllByTestId('case_status_details');
     const caseStatusDetailsTableElements = getAllByTestId(
@@ -105,7 +245,9 @@ describe('CaseStatusDetail component', () => {
     }));
 
     const { queryByText } = render(
-      <CaseStatusDetails person={mockedResident} />
+      <UserContext.Provider value={{ user: mockedUser }}>
+        <CaseStatusDetails person={mockedResident} />
+      </UserContext.Provider>
     );
 
     expect(
@@ -136,7 +278,9 @@ describe('CaseStatusDetail component', () => {
     }));
 
     const { getByTestId, queryByText } = render(
-      <CaseStatusDetails person={mockedResident} />
+      <UserContext.Provider value={{ user: mockedUser }}>
+        <CaseStatusDetails person={mockedResident} />
+      </UserContext.Provider>
     );
 
     expect(getByTestId('case_status_fields')).not.toBeNull();
@@ -174,7 +318,9 @@ describe('CaseStatusDetail component', () => {
       revalidate: jest.fn(),
     }));
     const { queryByText, getByTestId } = render(
-      <CaseStatusDetails person={mockedResident} />
+      <UserContext.Provider value={{ user: mockedUser }}>
+        <CaseStatusDetails person={mockedResident} />
+      </UserContext.Provider>
     );
 
     expect(getByTestId('case_status_fields')).not.toBeNull();
@@ -215,7 +361,9 @@ describe('CaseStatusDetail component', () => {
       revalidate: jest.fn(),
     }));
     const { queryByText, queryAllByText, getAllByTestId } = render(
-      <CaseStatusDetails person={mockedResident} />
+      <UserContext.Provider value={{ user: mockedUser }}>
+        <CaseStatusDetails person={mockedResident} />
+      </UserContext.Provider>
     );
 
     expect(getAllByTestId('case_status_fields')).toHaveLength(2);
@@ -248,7 +396,9 @@ describe('LAC Specific Tests for CaseStatusDetail component', () => {
     }));
 
     const { queryByText, getByTestId } = render(
-      <CaseStatusDetails person={mockedResident} />
+      <UserContext.Provider value={{ user: mockedUser }}>
+        <CaseStatusDetails person={mockedResident} />
+      </UserContext.Provider>
     );
 
     expect(getByTestId('case_status_details_table')).not.toBeNull();
@@ -285,7 +435,9 @@ describe('LAC Specific Tests for CaseStatusDetail component', () => {
     }));
 
     const { queryByText, getByTestId } = render(
-      <CaseStatusDetails person={mockedResident} />
+      <UserContext.Provider value={{ user: mockedUser }}>
+        <CaseStatusDetails person={mockedResident} />
+      </UserContext.Provider>
     );
 
     expect(getByTestId('case_status_details_table')).not.toBeNull();
@@ -316,7 +468,9 @@ describe('LAC Specific Tests for CaseStatusDetail component', () => {
     }));
 
     const { queryByText, getByTestId } = render(
-      <CaseStatusDetails person={mockedResident} />
+      <UserContext.Provider value={{ user: mockedUser }}>
+        <CaseStatusDetails person={mockedResident} />
+      </UserContext.Provider>
     );
 
     expect(getByTestId('case_status_details_table')).not.toBeNull();
@@ -353,7 +507,9 @@ describe('LAC Specific Tests for CaseStatusDetail component', () => {
     }));
 
     const { queryByText, getByTestId } = render(
-      <CaseStatusDetails person={mockedResident} />
+      <UserContext.Provider value={{ user: mockedUser }}>
+        <CaseStatusDetails person={mockedResident} />
+      </UserContext.Provider>
     );
 
     expect(getByTestId('case_status_details_table')).not.toBeNull();
@@ -406,7 +562,11 @@ describe('LAC Specific Tests for CaseStatusDetail component', () => {
     }));
 
     const { getByTestId, queryByText, queryAllByText, queryAllByTestId } =
-      render(<CaseStatusDetails person={mockedResident} />);
+      render(
+        <UserContext.Provider value={{ user: mockedUser }}>
+          <CaseStatusDetails person={mockedResident} />
+        </UserContext.Provider>
+      );
 
     const caseStatusDetailsTableElements = queryAllByTestId(
       'case_status_details_table'
@@ -458,7 +618,9 @@ describe('LAC Specific Tests for CaseStatusDetail component', () => {
     }));
 
     const { queryByText, queryAllByTestId } = render(
-      <CaseStatusDetails person={mockedResident} />
+      <UserContext.Provider value={{ user: mockedUser }}>
+        <CaseStatusDetails person={mockedResident} />
+      </UserContext.Provider>
     );
 
     const caseStatusTable = queryAllByTestId('case_status_details_table');
@@ -534,7 +696,9 @@ describe('LAC Specific Tests for CaseStatusDetail component', () => {
     }));
 
     const { queryByText, queryAllByText, queryAllByTestId } = render(
-      <CaseStatusDetails person={mockedResident} />
+      <UserContext.Provider value={{ user: mockedUser }}>
+        <CaseStatusDetails person={mockedResident} />
+      </UserContext.Provider>
     );
 
     const pastElement = queryAllByText('Previous version');
@@ -632,7 +796,9 @@ describe('LAC Specific Tests for CaseStatusDetail component', () => {
     }));
 
     const { queryByText, queryAllByText, queryAllByTestId } = render(
-      <CaseStatusDetails person={mockedResident} />
+      <UserContext.Provider value={{ user: mockedUser }}>
+        <CaseStatusDetails person={mockedResident} />
+      </UserContext.Provider>
     );
 
     const pastElement = queryAllByText('Previous version');

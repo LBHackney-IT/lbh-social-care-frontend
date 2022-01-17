@@ -13,7 +13,9 @@ import {
   LACPlacementTypeOptions,
   User,
   UpdateLACCaseStatusFormData,
+  ChildProtectionCategoryOptions,
 } from 'types';
+import { AxiosError } from 'axios';
 
 const ReviewAddCaseStatusForm: React.FC<{
   title: string;
@@ -35,11 +37,11 @@ const ReviewAddCaseStatusForm: React.FC<{
   const { user } = useAuth() as { user: User };
 
   const submitAnswers = async () => {
-    try {
-      const postObject: UpdateLACCaseStatusFormData = {
-        caseStatusID: caseStatusId,
-        startDate: formAnswers.startDate,
-        answers: [
+    let answers;
+
+    switch (caseStatusType) {
+      case 'LAC':
+        answers = [
           {
             option: 'placementType',
             value: formAnswers.placementType,
@@ -48,7 +50,22 @@ const ReviewAddCaseStatusForm: React.FC<{
             option: 'legalStatus',
             value: formAnswers.legalStatus,
           },
-        ],
+        ];
+        break;
+      default:
+        answers = [
+          {
+            option: 'category',
+            value: formAnswers.category,
+          },
+        ];
+    }
+
+    try {
+      const postObject: UpdateLACCaseStatusFormData = {
+        caseStatusID: caseStatusId,
+        startDate: formAnswers.startDate,
+        answers: answers,
         createdBy: user.email,
       };
       const { error } = await updateCaseStatus(postObject, caseStatusId);
@@ -63,7 +80,11 @@ const ReviewAddCaseStatusForm: React.FC<{
         },
       });
     } catch (e) {
-      setStatus(`Error ${e.response.data.status}: ${e.response.data.message}`);
+      setStatus(
+        `Error ${(e as AxiosError).response?.data.status}: ${
+          (e as AxiosError).response?.data.message
+        }`
+      );
     }
   };
 
@@ -86,6 +107,10 @@ const ReviewAddCaseStatusForm: React.FC<{
     'New placement type':
       LACPlacementTypeOptions[
         formAnswers.placementType as keyof typeof LACPlacementTypeOptions
+      ],
+    Category:
+      ChildProtectionCategoryOptions[
+        formAnswers.category as keyof typeof ChildProtectionCategoryOptions
       ],
     Notes: formAnswers.notes,
   };
