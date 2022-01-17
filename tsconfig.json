@@ -16,9 +16,6 @@
     "isolatedModules": true,
     "jsx": "preserve",
     "baseUrl": ".",
-    "sourceMap": true,
-    "inlineSources": true,
-    "sourceRoot": "/"
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "pages/_error.js"],
   "exclude": ["node_modules", "cypress"]
