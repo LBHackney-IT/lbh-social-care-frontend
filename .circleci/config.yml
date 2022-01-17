@@ -68,13 +68,8 @@ jobs:
     steps:
       - *attach_workspace
       - run:
-          name: Setup Environment Variables
-          command: |
-                  echo 'export SENTRY_RELEASE=$CIRCLE_SHA1' >> $BASH_ENV
-
-      - run:
           name: Build app
-          command: yarn build
+          command: SENTRY_RELEASE=$CIRCLE_SHA1 yarn build
       - persist_to_workspace:
           root: *workspace_root
           paths:
