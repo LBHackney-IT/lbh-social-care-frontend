@@ -507,6 +507,11 @@ export interface MashResident {
   postcode?: string;
 }
 
+export interface UpdateMashResidentData {
+  id: number;
+  socialCareId: number;
+}
+
 export interface MashReferral {
   id: number;
   referrer: string;
