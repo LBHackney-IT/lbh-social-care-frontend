@@ -1,39 +1,15 @@
 import s from './Contact.module.scss';
 import Link from 'next/link';
-import Button from 'components/Button/Button';
 import React, { useState } from 'react';
 
-// const clientMatches = [
-//   {
-//     id: '#786288',
-//     clientName: 'Sally Samuels',
-//     dateOfBirth: '09/12/1972',
-//     address: '90 Narford Rd, Hackney, London',
-//     postcode: 'E9 6EY',
-//   },
-//   {
-//     id: '#786288',
-//     clientName: 'Sally Samuels',
-//     dateOfBirth: '09/12/1972',
-//     address: '90 Narford Rd, Hackney, London',
-//     postcode: 'E9 6EY',
-//   },
-//   {
-//     id: '#786288',
-//     clientName: 'Sally Samuels',
-//     dateOfBirth: '09/12/1972',
-//     address: '90 Narford Rd, Hackney, London',
-//     postcode: 'E9 6EY',
-//   },
-// ];
-
-const clientDetails = [
-  '#786288',
-  'Jan Smith',
-  '09/12/1972',
-  '90 Narford Rd, Hackney, London',
-  'E9 6EY',
-];
+const dummyArray = new Array(3).fill(null).map(() => ({
+  socialID: '67823',
+  firstName: 'Jeff',
+  surName: 'Dummy-Search',
+  dateOfBirth: '19/01/1968',
+  address: '90 Sesame Street, Hackney, London',
+  postcode: 'E9 6EY',
+}));
 
 const ContactTable = (): React.ReactElement => {
   const [person, setPerson] = useState(false);
@@ -55,23 +31,36 @@ const ContactTable = (): React.ReactElement => {
               <th className="govuk-table__header">Date of birth</th>
               <th className="govuk-table__header">Address</th>
               <th className="govuk-table__header">Postcode</th>
+              <th className="govuk-table__header">Action</th>
             </tr>
           </thead>
-          <tbody>
-            <tr className="govuk-table__row">
-              {clientDetails.map((cell) => (
-                <td key={cell} className="govuk-table__cell">
-                  {cell}
-                </td>
-              ))}
-            </tr>
+          <tbody className={s.tableText}>
+            {dummyArray.map((info) => {
+              return (
+                <tr key={3} className="govuk-table__row">
+                  <td key={3} className="govuk-table__cell">
+                    {info.socialID}
+                  </td>
+                  <td key={3} className="govuk-table__cell">
+                    {info.firstName} {info.surName}
+                  </td>
+                  <td key={3} className="govuk-table__cell">
+                    {info.dateOfBirth}
+                  </td>
+                  <td key={3} className="govuk-table__cell">
+                    {info.address}
+                  </td>
+                  <td key={3} className="govuk-table__cell">
+                    {info.postcode}
+                  </td>
+                  <td key={3} className="govuk-table__cell">
+                    <a onClick={() => setPerson(true)}>Link person </a>
+                  </td>
+                </tr>
+              );
+            })}
           </tbody>
         </table>
-        <Button
-          label="Link person"
-          type="submit"
-          onClick={() => setPerson(true)}
-        />
       </div>
     );
   else

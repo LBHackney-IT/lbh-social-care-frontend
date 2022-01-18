@@ -8,7 +8,7 @@ const cases = [
   'E9 6EY',
 ];
 
-const ContactTable = (): React.ReactElement => (
+const ContactTable = ({ residentReferral }: Props): React.ReactElement => (
   <table className={`govuk-table ${s.tableHeading}`}>
     <thead className="govuk-table__head">
       <tr>
@@ -21,11 +21,21 @@ const ContactTable = (): React.ReactElement => (
     </thead>
     <tbody className={`govuk-table__body ${s.text}`}>
       <tr className="govuk-table__row">
-        {cases.map((cell) => (
-          <td key={cell} className="govuk-table__cell">
-            {cell}{' '}
-          </td>
-        ))}
+        <td key={3} className="govuk-table__cell">
+          {residentReferral.id}
+        </td>
+        <td key={3} className="govuk-table__cell">
+          {residentReferral.firstName} {residentReferral.lastName}
+        </td>
+        <td key={3} className="govuk-table__cell">
+          09/12/1972{' '}
+        </td>
+        <td key={3} className="govuk-table__cell">
+          90 Sesame Street, Hackney, London
+        </td>
+        <td key={3} className="govuk-table__cell">
+          E9 6EY
+        </td>
       </tr>
     </tbody>
   </table>

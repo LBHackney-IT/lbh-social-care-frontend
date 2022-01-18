@@ -61,11 +61,17 @@ const ContactForm = ({ referral, workerEmail }: Props): React.ReactElement => {
             <h3 className="lbh-heading-h3">
               Check whether the client exists in the system
             </h3>
-            <p className="lbh-body">The client’s details are as follows:</p>
-            <div className={s.clientMatch}>
-              <ContactTable />
-              <MatchBanner />
-            </div>
+            {referral.mashResidents.map((resident, idx) => (
+              <div key={idx} className={s.clientMatch}>
+                <p className="lbh-body clientMatch">
+                  The client {idx + 1} details are as follows:
+                </p>
+                <div className={s.clientMatch}>
+                  <ContactTable residentReferral={resident} />
+                  <MatchBanner />
+                </div>
+              </div>
+            ))}
           </>,
           <>
             <h3 className="lbh-heading-h3">Review contact</h3>

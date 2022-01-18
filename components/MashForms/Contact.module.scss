@@ -20,6 +20,10 @@
 
 .tableHeading {
   color: #444444;
+  font-size: medium;
+}
+.tableText {
+  font-size: medium;
 }
 .confirmationBanner {
   @include lbh-rem(padding, 36, 20);
