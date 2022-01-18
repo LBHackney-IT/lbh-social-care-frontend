@@ -13,5 +13,11 @@ describe('workersAPI', () => {
         `/api/workersearch?workerName=test`
       );
     });
+
+    it('should not return any workers if no worker name is passed in', () => {
+      jest.spyOn(SWR, 'default');
+      workersAPI.useWorkersSearch('');
+      expect(SWR.default).toHaveBeenCalledWith(null);
+    });
   });
 });

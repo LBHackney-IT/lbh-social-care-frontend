@@ -33,4 +33,4 @@ export const updateWorker = async (
 export const useWorkersSearch = (
   workerName: string
 ): SWRResponse<WorkerSearchResult[], ErrorAPI> =>
-  useSWR(`/api/workersearch?workerName=${workerName}`);
+  useSWR(workerName ? `/api/workersearch?workerName=${workerName}` : null);
