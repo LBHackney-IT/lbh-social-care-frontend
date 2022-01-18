@@ -17,6 +17,7 @@ import Button from 'components/Button/Button';
 import ErrorMessage from 'components/ErrorMessage/ErrorMessage';
 import WorkerSelect from './../WorkerSelect/WorkerSelect';
 import { useWorkersSearch } from 'utils/api/workers';
+import debounce from 'lodash.debounce';
 
 interface Props {
   mashReferral: MashReferral;
@@ -36,6 +37,10 @@ const MashAssignmentWidget = ({
   const [submitting, setSubmitting] = useState(false);
   const [workerId, setWorkerId] = useState<number>(-1);
   const [searchQuery, setSearchQuery] = useState('');
+
+  const debouncedSearch = debounce((value) => {
+    setSearchQuery(value);
+  }, 1000);
 
   const { data: workerResults } = useWorkersSearch(searchQuery);
 
@@ -76,7 +81,7 @@ const MashAssignmentWidget = ({
               id="query"
               name="query"
               onChange={(e) => {
-                console.log(e.target.value), setSearchQuery(e.target.value);
+                console.log(e.target.value), debouncedSearch(e.target.value);
               }}
               type="search"
               placeholder="Type worker's name"
