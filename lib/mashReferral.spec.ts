@@ -24,4 +24,21 @@ describe('mash referral APIs', () => {
       expect(data).toEqual([mockedMashReferral]);
     });
   });
+
+  describe('getMyMashReferrals', () => {
+    it("calls the service API's mashReferral endpoint", async () => {
+      const email = 'workers_email';
+      mockedAxios.get.mockResolvedValue({
+        data: [mockedMashReferral],
+      });
+
+      const data = await mashReferralAPI.getMyMashReferrals(email);
+
+      expect(mockedAxios.get).toHaveBeenCalledWith(
+        `${ENDPOINT_API}/mash-referral/?email=${email}`,
+        { headers: { 'x-api-key': AWS_KEY } }
+      );
+      expect(data).toEqual([mockedMashReferral]);
+    });
+  });
 });
