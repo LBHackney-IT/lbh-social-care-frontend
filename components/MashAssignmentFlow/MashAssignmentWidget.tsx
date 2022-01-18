@@ -64,6 +64,7 @@ const MashAssignmentWidget = ({
         title="Assign contact"
         isOpen={dialogOpen}
         onDismiss={() => setDialogOpen(false)}
+        showCloseButton={false}
       >
         <div className="govuk-form-group lbh-form-group">
           <label className="govuk-label lbh-label" htmlFor="query">
