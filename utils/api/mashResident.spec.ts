@@ -12,6 +12,7 @@ describe('mashResidentAPI', () => {
       const updateMashResidentDetails: UpdateMashResidentData = {
         id: 345,
         socialCareId: 23,
+        updateType: null,
       };
       jest.spyOn(axios, 'patch');
       const mashResidentId = updateMashResidentDetails.id;
@@ -31,6 +32,7 @@ describe('mashResidentAPI', () => {
       const updateMashResidentDetails: UpdateMashResidentData = {
         id: 345,
         socialCareId: 23,
+        updateType: null,
       };
 
       const mockApiResponse = { data: 'baz' };

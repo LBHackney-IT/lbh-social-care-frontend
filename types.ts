@@ -509,7 +509,8 @@ export interface MashResident {
 
 export interface UpdateMashResidentData {
   id: number;
-  socialCareId: number;
+  socialCareId?: number;
+  updateType: null | 'UNLINK-PERSON';
 }
 
 export interface MashReferral {
