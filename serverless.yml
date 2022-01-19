@@ -1,24 +1,33 @@
 service: lbh-social-care
-
 variablesResolutionMode: 20210326
-
 provider:
   name: aws
   runtime: nodejs14.x
   versionFunctions: false
   region: eu-west-2
   stage: ${opt:stage}
-
 package:
   individually: true
   exclude:
     - ./**
+
+layers:
+  nodeModulesDependencies:
+    path: layer
+    description: Copy of application node modules folder
+    compatibleRuntimes:
+      - nodejs14.x
+    package:
+      include:
+      - '**/**' # package include/exclude paths for a layer are resolved relative to the layer's own path directory, not the directory where the serverless.yml file is
 
 functions:
   lbh-social-care:
     name: ${self:service}-${self:provider.stage}
     handler: lambda.handler
     timeout: 30
+    layers:
+      - { Ref: NodeModulesDependenciesLambdaLayer }
     package:
       include:
         - lambda.js
@@ -26,7 +35,9 @@ functions:
         - pages/**
         - public/**
         - build/_next/**
-        - node_modules/**
+      exclude:
+        - node_modules/
+        - layer
     events:
       - http:
           path: api/{proxy+}
@@ -55,10 +66,13 @@ functions:
       POSTCODE_LOOKUP_APIKEY: ${ssm:/lbh-social-care/${self:provider.stage}/postcode-lookup-apikey}
       NEXT_PUBLIC_FEEDBACK_LINK: ${ssm:/lbh-social-care/${self:provider.stage}/next-public-feedback-link}
       REDIRECT_URL: ${ssm:/lbh-social-care/${self:provider.stage}/redirect_url}
+      SENTRY_RELEASE: ${env:SENTRY_RELEASE}
       NEXT_PUBLIC_GOOGLE_ANALYTICS_ID: ${ssm:/lbh-social-care/${self:provider.stage}/next_public_google_analytics_id}
       NOTIFY_API_KEY: ${ssm:/lbh-social-care/${self:provider.stage}/notify-api-key}
       NOTIFY_APPROVER_TEMPLATE_ID: ${ssm:/lbh-social-care/${self:provider.stage}/notify-approver-template-id}
       NOTIFY_RETURN_FOR_EDITS_TEMPLATE_ID: ${ssm:/lbh-social-care/${self:provider.stage}/notify-return-for-edits-template-id}
+      NEXT_PUBLIC_SENTRY_DSN: ${ssm:/lbh-social-care/${self:provider.stage}/next-public-sentry-dsn}
+      NEXT_PUBLIC_SENTRY_TARGET: ${ssm:/lbh-social-care/${self:provider.stage}/next-public-sentry-target}
       WORKFLOWS_PILOT_URL: ${ssm:/lbh-social-care/${self:provider.stage}/workflows-pilot-url}
       AUTHORISED_WORKFLOWS_PILOT_GROUP: ${ssm:/lbh-social-care/${self:provider.stage}/authorised-workflows-pilot-group}
       AUTHORISED_SAFEGUARDING_REVIEWING_GROUP: ${ssm:/lbh-social-care/${self:provider.stage}/authorised-safeguarding-reviewing-group}
@@ -103,7 +117,6 @@ resources:
                 HTTPPort: 80
                 HTTPSPort: 443
                 OriginProtocolPolicy: https-only
-
 custom:
   domain-name:
     Fn::Join:

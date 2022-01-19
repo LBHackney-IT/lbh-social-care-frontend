@@ -69,11 +69,19 @@ jobs:
       - *attach_workspace
       - run:
           name: Build app
-          command: yarn build
+          command: SENTRY_RELEASE=$CIRCLE_SHA1 yarn build
       - persist_to_workspace:
           root: *workspace_root
           paths:
             - project/build
+            
+  prepare-layer-directory:
+    executor: node-executor
+    steps:
+      - *attach_workspace
+      - run:
+          name: prepare layer directory
+          command: yarn prepare-node-modules
 
   e2e:
     executor: node-executor
@@ -119,7 +127,6 @@ jobs:
               -t http://$(ip -f inet -o addr show docker0 | awk '{print $4}' | cut -d '/' -f 1):3000 || \
               if [[ $? == 0 || $? == 2 ]]; then exit 0; else exit 1; fi;
             )
-
   build-deploy-staging:
     executor: aws-cli/default
     steps:
@@ -192,6 +199,9 @@ workflows:
   continuous-delivery:
     jobs:
       - install-dependencies
+      - prepare-layer-directory:
+          requires:
+            - install-dependencies
       - unit-tests:
           requires:
             - install-dependencies
@@ -260,3 +270,4 @@ workflows:
           filters:
             branches:
               only: main
+              
