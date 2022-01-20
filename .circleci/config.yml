@@ -69,19 +69,19 @@ jobs:
       - *attach_workspace
       - run:
           name: Build app
-          command: yarn build
+          command: SENTRY_RELEASE=$CIRCLE_SHA1 yarn build
       - persist_to_workspace:
           root: *workspace_root
           paths:
             - project/build
             
-  create-layer-directory:
+  prepare-layer-directory:
     executor: node-executor
     steps:
       - *attach_workspace
       - run:
-          name: create layer directory
-          command: yarn copy-node-modules
+          name: prepare layer directory
+          command: yarn prepare-node-modules
 
   e2e:
     executor: node-executor
@@ -193,32 +193,13 @@ jobs:
           root: *workspace_root
           paths:
             - .aws
-  
-  notify-sentry-deploy:
-    executor: node-executor
-    environment:
-      SENTRY_ORG: $SENTRY_ORG
-      SENTRY_PROJECT: $SENTRY_PROJECT
-      SENTRY_ENVIRONMENT: production
-    steps:
-      - checkout
-      - run:
-          name: Create release and notify Sentry of deploy
-          command: |
-            curl -sL https://sentry.io/get-cli/ | bash
-            export SENTRY_RELEASE=$(sentry-cli releases propose-version)
-            sentry-cli releases new -p $SENTRY_PROJECT $SENTRY_RELEASE
-            sentry-cli releases set-commits $SENTRY_RELEASE --auto
-            sentry-cli releases files $SENTRY_RELEASE upload-sourcemaps path-to-sourcemaps-if-applicable
-            sentry-cli releases finalize $SENTRY_RELEASE
-            sentry-cli releases deploys $SENTRY_RELEASE new -e $SENTRY_ENVIRONMENT
 
 workflows:
   version: 2
   continuous-delivery:
     jobs:
       - install-dependencies
-      - create-layer-directory:
+      - prepare-layer-directory:
           requires:
             - install-dependencies
       - unit-tests:
@@ -289,3 +270,4 @@ workflows:
           filters:
             branches:
               only: main
+              
