@@ -6,6 +6,16 @@ module.exports = withSentryConfig(
     target: 'server',
     poweredByHeader: false,
 
+    async redirects() {
+      return [
+        {
+          source: '/team-assignments',
+          destination: '/',
+          permanent: true,
+        },
+      ];
+    },
+
     async headers() {
       const headers = [
         {
