@@ -133,7 +133,7 @@ jobs:
       - *attach_workspace
       - run:
           name: deploy
-          command: yarn --frozen-lockfile --production=true && sudo npm i -g serverless && sls deploy --stage staging
+          command: SENTRY_RELEASE=$CIRCLE_SHA1 yarn --frozen-lockfile --production=true && sudo npm i -g serverless && sls deploy --stage staging
 
   build-deploy-mosaic-production:
     executor: aws-cli/default
@@ -141,7 +141,7 @@ jobs:
       - *attach_workspace
       - run:
           name: deploy
-          command: yarn --frozen-lockfile --production=true && sudo npm i -g serverless && sls deploy -s mosaic-prod
+          command: SENTRY_RELEASE=$CIRCLE_SHA1 yarn --frozen-lockfile --production=true && sudo npm i -g serverless && sls deploy -s mosaic-prod
 
   generate-draft-github-release:
     executor: aws-cli/default
