@@ -5,6 +5,7 @@ import { Worker } from 'types';
 const ENDPOINT_API = process.env.ENDPOINT_API;
 const AWS_KEY = process.env.AWS_KEY;
 
+//AWS KEY
 const headers = {
   'x-api-key': AWS_KEY,
 };
