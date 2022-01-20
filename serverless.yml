@@ -66,6 +66,7 @@ functions:
       POSTCODE_LOOKUP_APIKEY: ${ssm:/lbh-social-care/${self:provider.stage}/postcode-lookup-apikey}
       NEXT_PUBLIC_FEEDBACK_LINK: ${ssm:/lbh-social-care/${self:provider.stage}/next-public-feedback-link}
       REDIRECT_URL: ${ssm:/lbh-social-care/${self:provider.stage}/redirect_url}
+      SENTRY_RELEASE: ${env:SENTRY_RELEASE}
       NEXT_PUBLIC_GOOGLE_ANALYTICS_ID: ${ssm:/lbh-social-care/${self:provider.stage}/next_public_google_analytics_id}
       NOTIFY_API_KEY: ${ssm:/lbh-social-care/${self:provider.stage}/notify-api-key}
       NOTIFY_APPROVER_TEMPLATE_ID: ${ssm:/lbh-social-care/${self:provider.stage}/notify-approver-template-id}
