@@ -233,6 +233,7 @@ workflows:
           requires:
             - build
       - assume-role-staging:
+          name: no-deploy-assume-role-staging
           context: api-assume-role-staging-context
           requires:
             - unit-tests
@@ -242,8 +243,8 @@ workflows:
             branches:
               only: setup-sentry
       - no-deploy-build-deploy-staging:
-        requires:
-            - assume-role-staging
+          requires:
+            - no-deploy-assume-role-staging
           filters:
             branches:
               only: setup-sentry
