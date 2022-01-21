@@ -20,7 +20,6 @@ layers:
     package:
       include:
         - ./**
-      # package include/exclude paths for a layer are resolved relative to the layer's own path directory, not the directory where the serverless.yml file is
 
 functions:
   lbh-social-care:
