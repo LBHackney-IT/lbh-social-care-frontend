@@ -36,6 +36,9 @@ functions:
         - pages/**
         - public/**
         - build/_next/**
+    exclude:
+        - node_modules/
+        - layer
     events:
       - http:
           path: api/{proxy+}
