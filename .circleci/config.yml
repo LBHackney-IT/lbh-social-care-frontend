@@ -244,6 +244,7 @@ workflows:
               only: setup-sentry
       - no-deploy-build-deploy-staging:
           requires:
+            - prepare-layer-directory
             - no-deploy-assume-role-staging
           filters:
             branches:
