@@ -136,7 +136,7 @@ jobs:
       - *attach_workspace
       - run:
           name: no deploy
-          command: SENTRY_RELEASE=$CIRCLE_SHA1 yarn --frozen-lockfile --production=true && sudo npm i -g serverless && sls deploy --noDeploy --stage staging
+          command: SENTRY_RELEASE=$CIRCLE_SHA1 yarn --frozen-lockfile --production=true && sudo npm i -g serverless && sls package --stage staging
 
   build-deploy-staging:
     executor: aws-cli/default
