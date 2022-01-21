@@ -8,8 +8,6 @@ provider:
   stage: ${opt:stage}
 package:
   individually: true
-  exclude:
-    - ./**
 
 layers:
   nodeModulesDependencies:
