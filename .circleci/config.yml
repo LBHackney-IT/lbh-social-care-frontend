@@ -130,6 +130,14 @@ jobs:
               -t http://$(ip -f inet -o addr show docker0 | awk '{print $4}' | cut -d '/' -f 1):3000 || \
               if [[ $? == 0 || $? == 2 ]]; then exit 0; else exit 1; fi;
             )
+  no-deploy-build-deploy-staging:
+    executor: aws-cli/default
+    steps:
+      - *attach_workspace
+      - run:
+          name: no deploy
+          command: SENTRY_RELEASE=$CIRCLE_SHA1 yarn --frozen-lockfile --production=true && sudo npm i -g serverless && sls deploy --noDeploy --stage staging
+
   build-deploy-staging:
     executor: aws-cli/default
     steps:
@@ -224,6 +232,21 @@ workflows:
       - owasp-zap-baseline-scan:
           requires:
             - build
+      - assume-role-staging:
+          context: api-assume-role-staging-context
+          requires:
+            - unit-tests
+            - e2e
+            - owasp-zap-baseline-scan
+          filters:
+            branches:
+              only: setup-sentry
+      - no-deploy-build-deploy-staging:
+        requires:
+            - assume-role-staging
+          filters:
+            branches:
+              only: setup-sentry
       - generate-draft-github-release:
           requires:
             - unit-tests
