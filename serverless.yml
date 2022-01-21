@@ -8,6 +8,8 @@ provider:
   stage: ${opt:stage}
 package:
   individually: true
+  exclude:
+    - ./**
 
 layers:
   nodeModulesDependencies:
@@ -35,8 +37,8 @@ functions:
         - public/**
         - build/_next/**
       exclude:
-        - node_modules/
-        - layer
+        - node_modules/**
+        - layer/**
     events:
       - http:
           path: api/{proxy+}
