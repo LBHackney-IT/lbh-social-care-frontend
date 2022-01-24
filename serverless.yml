@@ -14,11 +14,23 @@ package:
   exclude:
     - ./**
 
+layers:
+  nodeModulesDependencies:
+    path: layer
+    description: Copy of application node modules folder
+    compatibleRuntimes:
+      - nodejs14.x
+    package:
+      include:
+        - ./**
+
 functions:
   lbh-social-care:
     name: ${self:service}-${self:provider.stage}
     handler: lambda.handler
     timeout: 30
+    layers:
+      - { Ref: NodeModulesDependenciesLambdaLayer }
     package:
       include:
         - lambda.js
@@ -26,7 +38,9 @@ functions:
         - pages/**
         - public/**
         - build/_next/**
+      exclude:
         - node_modules/**
+        - layer/**
     events:
       - http:
           path: api/{proxy+}
@@ -56,6 +70,8 @@ functions:
       NEXT_PUBLIC_FEEDBACK_LINK: ${ssm:/lbh-social-care/${self:provider.stage}/next-public-feedback-link}
       REDIRECT_URL: ${ssm:/lbh-social-care/${self:provider.stage}/redirect_url}
       NEXT_PUBLIC_GOOGLE_ANALYTICS_ID: ${ssm:/lbh-social-care/${self:provider.stage}/next_public_google_analytics_id}
+      NEXT_PUBLIC_SENTRY_DSN: ${ssm:/lbh-social-care/${self:provider.stage}/next-public-sentry-dsn}
+      NEXT_PUBLIC_SENTRY_TARGET: ${ssm:/lbh-social-care/${self:provider.stage}/next-public-sentry-target}
       NOTIFY_API_KEY: ${ssm:/lbh-social-care/${self:provider.stage}/notify-api-key}
       NOTIFY_APPROVER_TEMPLATE_ID: ${ssm:/lbh-social-care/${self:provider.stage}/notify-approver-template-id}
       NOTIFY_RETURN_FOR_EDITS_TEMPLATE_ID: ${ssm:/lbh-social-care/${self:provider.stage}/notify-return-for-edits-template-id}
