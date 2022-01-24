@@ -23,6 +23,9 @@ layers:
     package:
       include:
         - ./**
+      exclude:
+        - node_modules/@sentry/cli/sentry-cli
+        - build/_next/cache
 
 functions:
   lbh-social-care:
@@ -41,6 +44,7 @@ functions:
       exclude:
         - node_modules/**
         - layer/**
+        - build/_next/cache
     events:
       - http:
           path: api/{proxy+}
