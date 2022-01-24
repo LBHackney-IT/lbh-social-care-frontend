@@ -14,11 +14,23 @@ package:
   exclude:
     - ./**
 
+layers:
+  nodeModulesDependencies:
+    path: layer
+    description: Copy of application node modules folder
+    compatibleRuntimes:
+      - nodejs14.x
+    package:
+      include:
+        - ./**
+
 functions:
   lbh-social-care:
     name: ${self:service}-${self:provider.stage}
     handler: lambda.handler
     timeout: 30
+    layers:
+      - { Ref: NodeModulesDependenciesLambdaLayer }
     package:
       include:
         - lambda.js
@@ -26,7 +38,9 @@ functions:
         - pages/**
         - public/**
         - build/_next/**
+      exclude:
         - node_modules/**
+        - layer/**
     events:
       - http:
           path: api/{proxy+}

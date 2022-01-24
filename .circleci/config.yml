@@ -69,11 +69,21 @@ jobs:
       - *attach_workspace
       - run:
           name: Build app
-          command: yarn build
+          command: SENTRY_RELEASE=$CIRCLE_SHA1 yarn build
       - persist_to_workspace:
           root: *workspace_root
           paths:
             - project/build
+  prepare-layer-directory:
+    executor: node-executor
+    steps:
+      - *attach_workspace
+      - run:
+          name: prepare layer directory
+          command: yarn prepare-node-modules
+      - persist_to_workspace:
+          root: *workspace_root
+          paths: .
 
   e2e:
     executor: node-executor
@@ -126,7 +136,7 @@ jobs:
       - *attach_workspace
       - run:
           name: deploy
-          command: yarn --frozen-lockfile --production=true && sudo npm i -g serverless && sls deploy --stage staging
+          command: SENTRY_RELEASE=$CIRCLE_SHA1 yarn --frozen-lockfile --production=true && sudo npm i -g serverless && sls deploy --stage staging
 
   build-deploy-mosaic-production:
     executor: aws-cli/default
@@ -134,7 +144,7 @@ jobs:
       - *attach_workspace
       - run:
           name: deploy
-          command: yarn --frozen-lockfile --production=true && sudo npm i -g serverless && sls deploy -s mosaic-prod
+          command: SENTRY_RELEASE=$CIRCLE_SHA1 yarn --frozen-lockfile --production=true && sudo npm i -g serverless && sls deploy -s mosaic-prod
 
   generate-draft-github-release:
     executor: aws-cli/default
@@ -192,6 +202,9 @@ workflows:
   continuous-delivery:
     jobs:
       - install-dependencies
+      - prepare-layer-directory:
+          requires:
+            - install-dependencies
       - unit-tests:
           requires:
             - install-dependencies
@@ -230,6 +243,7 @@ workflows:
               only: main
       - build-deploy-staging:
           requires:
+            - prepare-layer-directory
             - assume-role-staging
           filters:
             branches:
@@ -250,6 +264,7 @@ workflows:
               only: main
       - build-deploy-mosaic-production:
           requires:
+            - prepare-layer-directory
             - assume-role-mosaic-production
           filters:
             branches:

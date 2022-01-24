@@ -7,6 +7,7 @@ import { InProgressSubmission } from 'data/flexibleForms/forms.types';
 import SubmissionsTable from 'components/SubmissionsTable';
 import { isAuthorised } from 'utils/auth';
 import { Paginated } from 'types';
+import { setUser } from '@sentry/nextjs';
 
 interface Props {
   submissions: Paginated<InProgressSubmission>;
@@ -36,6 +37,7 @@ export default UnfinishedSubmissions;
 export const getServerSideProps: GetServerSideProps = async ({ req }) => {
   const user = isAuthorised(req);
   const submissions = await getInProgressSubmissions(user?.permissionFlag);
+  setUser({ email: user?.email });
 
   return {
     props: {
