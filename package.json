@@ -1,6 +1,6 @@
 {
   "name": "lbh-social-care",
-  "version": "0.44.1",
+  "version": "0.45.0",
   "private": true,
   "scripts": {
     "dev": "next dev",
@@ -15,12 +15,10 @@
     "cy:open": "cypress open",
     "release": "release-it",
     "delete-draft-github-releases": "node ./ci-scripts/delete-draft-github-releases.js",
-    "validate-pr-title": "node ./ci-scripts/validate-pr-title.js",
-    "prepare-node-modules": "scripts/prepareNodeModules.sh"
+    "validate-pr-title": "node ./ci-scripts/validate-pr-title.js"
   },
   "dependencies": {
-    "@reach/dialog": "0.16.2",
-    "@sentry/nextjs": "^6.16.0",
+    "@reach/dialog": "^0.16.2",
     "axios": "^0.21.2",
     "body-parser": "^1.19.0",
     "classnames": "^2.3.1",
@@ -54,7 +52,6 @@
   "devDependencies": {
     "@babel/core": "^7.14.0",
     "@release-it/conventional-changelog": "^3.0.1",
-    "@sentry/cli": "^1.71.0",
     "@testing-library/jest-dom": "^5.12.0",
     "@testing-library/react": "^11.2.6",
     "@testing-library/react-hooks": "^7.0.1",

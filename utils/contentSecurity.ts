@@ -4,7 +4,6 @@ const policy: CSPPolicy = {
     'www.google-analytics.com',
     'vc.hotjar.io',
     'in.hotjar.com',
-    'o183917.ingest.sentry.io',
   ],
   'default-src': ["'self'"],
   'style-src': [
