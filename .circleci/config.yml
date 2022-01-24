@@ -130,12 +130,12 @@ jobs:
               -t http://$(ip -f inet -o addr show docker0 | awk '{print $4}' | cut -d '/' -f 1):3000 || \
               if [[ $? == 0 || $? == 2 ]]; then exit 0; else exit 1; fi;
             )
-  no-deploy-build-deploy-staging:
+  dry-run-build-deploy-staging:
     executor: aws-cli/default
     steps:
       - *attach_workspace
       - run:
-          name: no deploy
+          name: dry run deploy
           command: SENTRY_RELEASE=$CIRCLE_SHA1 yarn --frozen-lockfile --production=true && sudo npm i -g serverless && sls package --stage staging
 
   build-deploy-staging:
@@ -233,7 +233,7 @@ workflows:
           requires:
             - build
       - assume-role-staging:
-          name: no-deploy-assume-role-staging
+          name: dry-run-assume-role-staging
           context: api-assume-role-staging-context
           requires:
             - unit-tests
@@ -242,10 +242,10 @@ workflows:
           filters:
             branches:
               only: setup-sentry
-      - no-deploy-build-deploy-staging:
+      - dry-run-build-deploy-staging:
           requires:
             - prepare-layer-directory
-            - no-deploy-assume-role-staging
+            - dry-run-assume-role-staging
           filters:
             branches:
               only: setup-sentry
@@ -268,6 +268,7 @@ workflows:
               only: main
       - build-deploy-staging:
           requires:
+            - prepare-layer-directory
             - assume-role-staging
           filters:
             branches:
@@ -288,6 +289,7 @@ workflows:
               only: main
       - build-deploy-mosaic-production:
           requires:
+            - prepare-layer-directory
             - assume-role-mosaic-production
           filters:
             branches:
