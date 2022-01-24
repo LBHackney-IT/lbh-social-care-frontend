@@ -36,8 +36,8 @@ export default UnfinishedSubmissions;
 
 export const getServerSideProps: GetServerSideProps = async ({ req }) => {
   const user = isAuthorised(req);
-  const submissions = await getInProgressSubmissions(user?.permissionFlag);
   setUser({ email: user?.email });
+  const submissions = await getInProgressSubmissions(user?.permissionFlag);
 
   return {
     props: {
