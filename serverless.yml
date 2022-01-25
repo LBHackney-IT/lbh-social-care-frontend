@@ -21,18 +21,15 @@ functions:
     timeout: 30
     package:
       patterns:
+        - 'lambda.js'
+        - 'next.config.js'
+        - 'pages/**'
+        - 'public/**'
+        - 'build/_next/static/**'
+        - 'build/_next/server/**'
+        - 'build/_next/trace/'
         - 'node_modules/**'
-        - '!node_modules/@sentry/cli/**'
-      include:
-        - lambda.js
-        - next.config.js
-        - pages/**
-        - public/**
-        - build/_next/static/**
-        - build/_next/server/**
-        - build/_next/trace
-      exclude:
-        - build/_next/cache/**
+        - '!build/_next/cache/**'
 
     events:
       - http:
@@ -46,32 +43,32 @@ functions:
       subnetIds: ${self:custom.subnets.${self:provider.stage}}
     environment:
       NEXT_PUBLIC_ENV: ${opt:stage}
-      AWS_KEY: ${ssm:/lbh-social-care/${self:provider.stage}/aws-key}
-      ENDPOINT_API: ${ssm:/lbh-social-care/${self:provider.stage}/endpoint-case-viewer}
-      GSSO_URL: ${ssm:/lbh-social-care/${self:provider.stage}/gsso-url}
-      GSSO_TOKEN_NAME: ${ssm:/lbh-social-care/${self:provider.stage}/gsso-token-name}
-      HACKNEY_JWT_SECRET: ${ssm:/lbh-social-care/${self:provider.stage}/hackney-jwt}
-      AUTHORISED_DEV_GROUP: ${ssm:/lbh-social-care/${self:provider.stage}/authorised-dev-group}
-      AUTHORISED_ADMIN_GROUP: ${ssm:/lbh-social-care/${self:provider.stage}/authorised-admin-group}
-      AUTHORISED_ADULT_GROUP: ${ssm:/lbh-social-care/${self:provider.stage}/authorised-adult-group}
-      AUTHORISED_CHILD_GROUP: ${ssm:/lbh-social-care/${self:provider.stage}/authorised-child-group}
-      AUTHORISED_ALLOCATORS_GROUP: ${ssm:/lbh-social-care/${self:provider.stage}/authorised-allocators-group}
-      AUTHORISED_UNRESTRICTED_GROUP: ${ssm:/lbh-social-care/${self:provider.stage}/authorised-unrestricted-group}
-      AUTHORISED_AUDITABLE_GROUP: ${ssm:/lbh-social-care/${self:provider.stage}/authorised-auditable-group}
-      POSTCODE_LOOKUP_URL: ${ssm:/lbh-social-care/${self:provider.stage}/postcode-lookup-url}
-      POSTCODE_LOOKUP_APIKEY: ${ssm:/lbh-social-care/${self:provider.stage}/postcode-lookup-apikey}
-      NEXT_PUBLIC_FEEDBACK_LINK: ${ssm:/lbh-social-care/${self:provider.stage}/next-public-feedback-link}
-      REDIRECT_URL: ${ssm:/lbh-social-care/${self:provider.stage}/redirect_url}
-      NEXT_PUBLIC_GOOGLE_ANALYTICS_ID: ${ssm:/lbh-social-care/${self:provider.stage}/next_public_google_analytics_id}
-      NEXT_PUBLIC_SENTRY_DSN: ${ssm:/lbh-social-care/${self:provider.stage}/next-public-sentry-dsn}
-      NEXT_PUBLIC_SENTRY_TARGET: ${ssm:/lbh-social-care/${self:provider.stage}/next-public-sentry-target}
-      NOTIFY_API_KEY: ${ssm:/lbh-social-care/${self:provider.stage}/notify-api-key}
-      NOTIFY_APPROVER_TEMPLATE_ID: ${ssm:/lbh-social-care/${self:provider.stage}/notify-approver-template-id}
-      NOTIFY_RETURN_FOR_EDITS_TEMPLATE_ID: ${ssm:/lbh-social-care/${self:provider.stage}/notify-return-for-edits-template-id}
-      WORKFLOWS_PILOT_URL: ${ssm:/lbh-social-care/${self:provider.stage}/workflows-pilot-url}
-      AUTHORISED_WORKFLOWS_PILOT_GROUP: ${ssm:/lbh-social-care/${self:provider.stage}/authorised-workflows-pilot-group}
-      AUTHORISED_SAFEGUARDING_REVIEWING_GROUP: ${ssm:/lbh-social-care/${self:provider.stage}/authorised-safeguarding-reviewing-group}
-      AUTHORISED_PLACEMENT_MANAGEMENT_UNIT_GROUP: ${ssm:/lbh-social-care/${self:provider.stage}/authorised-placement-management-unit-group}
+      # AWS_KEY: ${ssm:/lbh-social-care/${self:provider.stage}/aws-key}
+      # ENDPOINT_API: ${ssm:/lbh-social-care/${self:provider.stage}/endpoint-case-viewer}
+      # GSSO_URL: ${ssm:/lbh-social-care/${self:provider.stage}/gsso-url}
+      # GSSO_TOKEN_NAME: ${ssm:/lbh-social-care/${self:provider.stage}/gsso-token-name}
+      # HACKNEY_JWT_SECRET: ${ssm:/lbh-social-care/${self:provider.stage}/hackney-jwt}
+      # AUTHORISED_DEV_GROUP: ${ssm:/lbh-social-care/${self:provider.stage}/authorised-dev-group}
+      # AUTHORISED_ADMIN_GROUP: ${ssm:/lbh-social-care/${self:provider.stage}/authorised-admin-group}
+      # AUTHORISED_ADULT_GROUP: ${ssm:/lbh-social-care/${self:provider.stage}/authorised-adult-group}
+      # AUTHORISED_CHILD_GROUP: ${ssm:/lbh-social-care/${self:provider.stage}/authorised-child-group}
+      # AUTHORISED_ALLOCATORS_GROUP: ${ssm:/lbh-social-care/${self:provider.stage}/authorised-allocators-group}
+      # AUTHORISED_UNRESTRICTED_GROUP: ${ssm:/lbh-social-care/${self:provider.stage}/authorised-unrestricted-group}
+      # AUTHORISED_AUDITABLE_GROUP: ${ssm:/lbh-social-care/${self:provider.stage}/authorised-auditable-group}
+      # POSTCODE_LOOKUP_URL: ${ssm:/lbh-social-care/${self:provider.stage}/postcode-lookup-url}
+      # POSTCODE_LOOKUP_APIKEY: ${ssm:/lbh-social-care/${self:provider.stage}/postcode-lookup-apikey}
+      # NEXT_PUBLIC_FEEDBACK_LINK: ${ssm:/lbh-social-care/${self:provider.stage}/next-public-feedback-link}
+      # REDIRECT_URL: ${ssm:/lbh-social-care/${self:provider.stage}/redirect_url}
+      # NEXT_PUBLIC_GOOGLE_ANALYTICS_ID: ${ssm:/lbh-social-care/${self:provider.stage}/next_public_google_analytics_id}
+      # NEXT_PUBLIC_SENTRY_DSN: ${ssm:/lbh-social-care/${self:provider.stage}/next-public-sentry-dsn}
+      # NEXT_PUBLIC_SENTRY_TARGET: ${ssm:/lbh-social-care/${self:provider.stage}/next-public-sentry-target}
+      # NOTIFY_API_KEY: ${ssm:/lbh-social-care/${self:provider.stage}/notify-api-key}
+      # NOTIFY_APPROVER_TEMPLATE_ID: ${ssm:/lbh-social-care/${self:provider.stage}/notify-approver-template-id}
+      # NOTIFY_RETURN_FOR_EDITS_TEMPLATE_ID: ${ssm:/lbh-social-care/${self:provider.stage}/notify-return-for-edits-template-id}
+      # WORKFLOWS_PILOT_URL: ${ssm:/lbh-social-care/${self:provider.stage}/workflows-pilot-url}
+      # AUTHORISED_WORKFLOWS_PILOT_GROUP: ${ssm:/lbh-social-care/${self:provider.stage}/authorised-workflows-pilot-group}
+      # AUTHORISED_SAFEGUARDING_REVIEWING_GROUP: ${ssm:/lbh-social-care/${self:provider.stage}/authorised-safeguarding-reviewing-group}
+      # AUTHORISED_PLACEMENT_MANAGEMENT_UNIT_GROUP: ${ssm:/lbh-social-care/${self:provider.stage}/authorised-placement-management-unit-group}
 resources:
   Resources:
     CloudFrontDistribution:
