@@ -25,9 +25,7 @@ functions:
         - 'next.config.js'
         - 'pages/**'
         - 'public/**'
-        - 'build/_next/static/**'
-        - 'build/_next/server/**'
-        - 'build/_next/trace/'
+        - 'build/_next/**'
         - 'node_modules/**'
         - '!build/_next/cache/**'
 
