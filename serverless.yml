@@ -21,18 +21,13 @@ functions:
     timeout: 30
     package:
       patterns:
+        - 'lambda.js'
+        - 'next.config.js'
+        - 'pages/**'
+        - 'public/**'
+        - 'build/_next/**'
         - 'node_modules/**'
-        - '!node_modules/@sentry/cli/**'
-      include:
-        - lambda.js
-        - next.config.js
-        - pages/**
-        - public/**
-        - build/_next/static/**
-        - build/_next/server/**
-        - build/_next/trace
-      exclude:
-        - build/_next/cache/**
+        - '!build/_next/cache/**'
 
     events:
       - http:
