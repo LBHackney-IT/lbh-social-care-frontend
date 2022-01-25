@@ -74,16 +74,7 @@ jobs:
           root: *workspace_root
           paths:
             - project/build
-  prepare-layer-directory:
-    executor: node-executor
-    steps:
-      - *attach_workspace
-      - run:
-          name: prepare layer directory
-          command: yarn prepare-node-modules
-      - persist_to_workspace:
-          root: *workspace_root
-          paths: .
+
   e2e:
     executor: node-executor
     steps:
@@ -201,9 +192,6 @@ workflows:
   continuous-delivery:
     jobs:
       - install-dependencies
-      - prepare-layer-directory:
-          requires:
-            - install-dependencies
       - unit-tests:
           requires:
             - install-dependencies
@@ -242,7 +230,6 @@ workflows:
               only: main
       - build-deploy-staging:
           requires:
-            - prepare-layer-directory
             - assume-role-staging
           filters:
             branches:
@@ -263,7 +250,6 @@ workflows:
               only: main
       - build-deploy-mosaic-production:
           requires:
-            - prepare-layer-directory
             - assume-role-mosaic-production
           filters:
             branches:
