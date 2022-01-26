@@ -14,39 +14,21 @@ package:
   exclude:
     - ./**
 
-layers:
-  nodeModulesDependencies:
-    path: layer
-    description: Copy of application node modules folder
-    compatibleRuntimes:
-      - nodejs14.x
-    package:
-      include:
-        - ./**
-      exclude:
-        - node_modules/@sentry/cli/sentry-cli/**
-        - build/_next/cache/**
-
 functions:
   lbh-social-care:
     name: ${self:service}-${self:provider.stage}
     handler: lambda.handler
     timeout: 30
-    layers:
-      - { Ref: NodeModulesDependenciesLambdaLayer }
     package:
-      include:
-        - lambda.js
-        - next.config.js
-        - pages/**
-        - public/**
-        - build/_next/static/**
-        - build/_next/server/**
-        - build/_next/trace
-      exclude:
-        - node_modules/**
-        - build/_next/cache/**
-        - layer/**
+      patterns:
+        - 'lambda.js'
+        - 'next.config.js'
+        - 'pages/**'
+        - 'public/**'
+        - 'build/_next/**'
+        - 'node_modules/**'
+        - '!build/_next/cache/**'
+
     events:
       - http:
           path: api/{proxy+}
