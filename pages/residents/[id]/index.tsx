@@ -1,6 +1,7 @@
 // import Collapsible from 'components/ResidentPage/Collapsible';
 import DataBlock from 'components/ResidentPage/DataBlock';
 import Layout from 'components/ResidentPage/Layout';
+import Mapping from 'components/ResidentPage/Mapping';
 import { getResident } from 'lib/residents';
 import { GetServerSideProps } from 'next';
 import { Resident } from 'types';
@@ -17,6 +18,8 @@ const ResidentPage = ({ resident }: Props): React.ReactElement => (
       list={resident}
       socialCareId={resident.id.toString()}
     />
+
+    <Mapping resident={resident} />
 
     {/* <Collapsible title="Personal details">test</Collapsible>
     <Collapsible title="Workflows and documents">test</Collapsible>
