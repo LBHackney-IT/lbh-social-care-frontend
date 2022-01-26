@@ -1,0 +1,10 @@
+@import 'lbh-frontend/lbh/base';
+
+.button {
+  all: unset;
+  text-decoration: underline;
+  cursor: pointer;
+  color: lbh-colour('lbh-secondary-text');
+  @include lbh-link;
+  @include govuk-link-style-muted;
+}

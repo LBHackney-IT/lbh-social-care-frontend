@@ -16,16 +16,9 @@ const Tip = ({
   ...props
 }: Props): React.ReactElement => {
   return (
-    <p className="lbh-body">
-      <Tippy
-        delay={delay}
-        content={content}
-        interactive={interactive}
-        {...props}
-      >
-        {children}
-      </Tippy>
-    </p>
+    <Tippy delay={delay} content={content} interactive={interactive} {...props}>
+      {children}
+    </Tippy>
   );
 };
 

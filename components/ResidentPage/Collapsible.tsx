@@ -1,23 +1,16 @@
 import useLocalStorage from 'hooks/useLocalStorage';
 import s from './Collapsible.module.scss';
-import Link from 'next/link';
 
 interface Props {
   title: string;
-  children: React.ReactChild;
-  linkText?: string;
-  linkHref?: string;
+  children: React.ReactChild | React.ReactChild[];
+  link?: React.ReactChild;
 }
-const Collapsible = ({
-  title,
-  children,
-  linkText,
-  linkHref,
-}: Props): React.ReactElement => {
+const Collapsible = ({ title, children, link }: Props): React.ReactElement => {
   const [open, setOpen] = useLocalStorage<boolean>(title.toLowerCase(), true);
 
   return (
-    <section className={s.outer}>
+    <section>
       <header className={s.header}>
         <button onClick={() => setOpen(!open)} aria-expanded={open}>
           <svg viewBox="0 0 284 284">
@@ -34,11 +27,7 @@ c1.902-1.903,2.847-4.093,2.847-6.565C284.929,80.607,283.984,78.417,282.082,76.51
           <h2 className="lbh-heading-h4">{title}</h2>
         </button>
 
-        {linkText && linkHref && (
-          <Link href={linkHref}>
-            <a className="lbh-link lbh-link--muted">{linkText}</a>
-          </Link>
-        )}
+        {link}
       </header>
 
       {open && children}

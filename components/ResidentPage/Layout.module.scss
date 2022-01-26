@@ -41,23 +41,6 @@
   }
 }
 
-.navLink,
-.navLinkActive {
-  display: inline-block;
-  margin-bottom: 0.25rem;
-  text-decoration: none;
-  &:hover {
-    text-decoration: underline;
-  }
-  @include govuk-media-query($from: tablet) {
-    font-size: 1.2rem;
-  }
-}
-
-.navLinkActive {
-  font-weight: $lbh-font-weight-bold;
-}
-
 .secondaryNav {
   border-top: 1px solid lbh-colour('lbh-grey-3');
   padding-top: 25px;

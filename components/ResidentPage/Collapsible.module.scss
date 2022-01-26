@@ -1,8 +1,5 @@
 @import 'lbh-frontend/lbh/base';
 
-.outer {
-}
-
 .header {
   border-bottom: 3px solid lbh-colour('lbh-text');
   padding-bottom: 0.5rem;
@@ -16,7 +13,7 @@
     margin-top: 0;
   }
 
-  button {
+  button:first-child {
     all: unset;
     display: flex;
     flex-direction: row;

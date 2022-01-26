@@ -1,4 +1,5 @@
-import Collapsible from 'components/ResidentPage/Collapsible';
+// import Collapsible from 'components/ResidentPage/Collapsible';
+import DataBlock from 'components/ResidentPage/DataBlock';
 import Layout from 'components/ResidentPage/Layout';
 import { getResident } from 'lib/residents';
 import { GetServerSideProps } from 'next';
@@ -11,29 +12,12 @@ interface Props {
 
 const ResidentPage = ({ resident }: Props): React.ReactElement => (
   <Layout resident={resident}>
-    <Collapsible title="Personal details" linkText="See all/edit" linkHref="#">
-      test
-    </Collapsible>
-    <Collapsible
-      title="Workflows and documents"
-      linkText="See all"
-      linkHref="#"
-    >
-      test
-    </Collapsible>
-    <Collapsible title="Case notes" linkText="See all" linkHref="#">
-      test
-    </Collapsible>
-    <Collapsible title="Housing" linkText="See all" linkHref="#">
-      test
-    </Collapsible>
-    <Collapsible
-      title="Relationships and key contacts"
-      linkText="See all"
-      linkHref="#"
-    >
-      test
-    </Collapsible>
+    <DataBlock title="Personal details" list={resident} />
+
+    {/* <Collapsible title="Personal details">test</Collapsible>
+    <Collapsible title="Workflows and documents">test</Collapsible>
+    <Collapsible title="Case notes">test</Collapsible>
+    <Collapsible title="Housing">test</Collapsible> */}
   </Layout>
 );
 
