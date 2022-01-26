@@ -2,6 +2,7 @@ import { NextApiRequest, NextApiResponse } from 'next';
 import StatusCodes from 'http-status-codes';
 import { finishSubmission, patchSubmissionForStep } from 'lib/submissions';
 import { FormikValues } from 'formik';
+import { setUser } from '@sentry/nextjs';
 import { AxiosError } from 'axios';
 import { apiHandler } from 'lib/apiHandler';
 import { isAuthorised } from 'utils/auth';
@@ -14,6 +15,7 @@ const handler = async (
     const { id } = req.query;
 
     const user = isAuthorised(req);
+    setUser({ email: user?.email });
 
     switch (req.method) {
       case 'POST':
