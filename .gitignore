@@ -48,4 +48,4 @@ cypress.env.json
 layer/nodejs/node_modules
 
 # Serverless
-.serverless/
+.serverless
