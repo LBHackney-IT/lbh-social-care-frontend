@@ -3,18 +3,14 @@ import { useEffect, useState } from 'react';
 /** like useState, but it persists the value in localStorage using a specified key, so we can remember user preferences over time */
 function useLocalStorage<T>(
   key: string,
-  initialValue?: T
+  initialValue: T
 ): [T, (newVal: T) => void] {
-  const getValue = () => {
-    try {
-      const item = window.localStorage.getItem(key);
-      return item ? JSON.parse(item) : initialValue;
-    } catch (e) {
-      return initialValue;
-    }
-  };
+  const [value, setValue] = useState<T>(initialValue);
 
-  const [value, setValue] = useState<T>(getValue());
+  useEffect(() => {
+    const item = window.localStorage.getItem(key);
+    if (item) setValue(JSON.parse(item));
+  }, [key]);
 
   useEffect(() => {
     window.localStorage.setItem(key, JSON.stringify(value));
