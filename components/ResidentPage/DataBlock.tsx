@@ -1,5 +1,6 @@
 import Dialog from 'components/Dialog/Dialog';
 import { useState } from 'react';
+import { Resident } from 'types';
 import Collapsible from './Collapsible';
 import s from './DataBlock.module.scss';
 import InlineEdit from './InlineEdit';
@@ -8,9 +9,10 @@ interface ListProps {
   list: {
     [key: string]: string | React.ReactElement;
   };
+  resident: Resident;
 }
 
-const List = ({ list }: ListProps) => {
+const List = ({ list, resident }: ListProps) => {
   const [editing, setEditing] = useState<number | null>(null);
 
   return (
@@ -24,6 +26,7 @@ const List = ({ list }: ListProps) => {
                 fieldName={key}
                 value={value}
                 onClose={() => setEditing(null)}
+                resident={resident}
               />
             ) : (
               <>
@@ -54,7 +57,7 @@ const DataBlock = ({ title, list }: Props): React.ReactElement => {
   return (
     <>
       <Dialog title={title} isOpen={open} onDismiss={() => setOpen(false)}>
-        <List list={list} />
+        <List list={list} resident={list} />
       </Dialog>
 
       <Collapsible
@@ -65,7 +68,7 @@ const DataBlock = ({ title, list }: Props): React.ReactElement => {
           </button>
         }
       >
-        <List list={truncatedList} />
+        <List list={truncatedList} resident={list} />
         <button onClick={() => setOpen(true)} className={s.button}>
           See all {listArray.length} fields
         </button>

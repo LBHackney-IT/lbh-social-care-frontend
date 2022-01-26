@@ -12,7 +12,11 @@ interface Props {
 
 const ResidentPage = ({ resident }: Props): React.ReactElement => (
   <Layout resident={resident}>
-    <DataBlock title="Personal details" list={resident} />
+    <DataBlock
+      title="Personal details"
+      list={resident}
+      socialCareId={resident.id.toString()}
+    />
 
     {/* <Collapsible title="Personal details">test</Collapsible>
     <Collapsible title="Workflows and documents">test</Collapsible>
