@@ -1,0 +1,66 @@
+@import 'lbh-frontend/lbh/base';
+
+.outer {
+}
+
+.header {
+  border-bottom: 3px solid lbh-colour('lbh-text');
+  padding-bottom: 0.5rem;
+  margin-bottom: 0.5rem;
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+
+  * + * {
+    margin-top: 0;
+  }
+
+  button {
+    all: unset;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    cursor: pointer;
+    flex: 1;
+
+    &:hover {
+      h2 {
+        color: lighten(lbh-colour('lbh-text'), 20);
+      }
+      svg path {
+        fill: lighten(lbh-colour('lbh-text'), 20);
+      }
+    }
+
+    &:focus:after {
+      content: '';
+      display: block;
+      position: absolute;
+      bottom: -3px;
+      left: 0;
+      width: 100%;
+      border-bottom: 3px solid lbh-colour('lbh-primary-focus');
+    }
+
+    // flip sideways when closed
+    &[aria-expanded='false'] svg {
+      transform: rotate(-90deg);
+    }
+  }
+
+  svg {
+    width: 15px;
+    height: 15px;
+    position: relative;
+    cursor: pointer;
+    top: 5px;
+
+    // margin-top: -1px;
+    margin-right: 10px;
+
+    @include govuk-media-query($from: tablet) {
+      top: 6px;
+    }
+  }
+}

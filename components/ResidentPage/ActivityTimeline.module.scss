@@ -1,0 +1,37 @@
+@import 'lbh-frontend/lbh/base';
+
+.outer {
+  margin-top: 2.5rem;
+
+  ul {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+  }
+
+  li {
+    &:after {
+      top: 5px;
+    }
+
+    &:last-child:before {
+      content: '';
+      border-left: 3px dashed lbh-colour('lbh-text');
+      bottom: -5px;
+    }
+  }
+
+  li {
+    padding-bottom: 0.5rem;
+  }
+
+  h4 {
+    @include lbh-rem(line-height, 22);
+    font-weight: 400;
+    // color: lbh-colour('lbh-secondary-text');
+  }
+
+  p {
+    margin-top: 0.25rem;
+    color: lbh-colour('lbh-secondary-text');
+  }
+}
