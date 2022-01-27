@@ -23,6 +23,11 @@ body {
   cursor: pointer;
 }
 
+// fix tip label placement
+.tippy-box[data-placement^='bottom'] > .tippy-arrow {
+  top: -31px;
+}
+
 .govuk-required {
   color: #d21b1b;
 }

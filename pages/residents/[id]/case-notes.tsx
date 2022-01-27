@@ -31,14 +31,7 @@ const CaseNotesPage = ({ resident }: Props): React.ReactElement => {
 
         {cases?.length > 0 && (
           <>
-            <CaseNoteGrid cases={cases} />
-
-            <button
-              onClick={() => setSize(size + 1)}
-              className="govuk-button lbh-button"
-            >
-              Load more
-            </button>
+            <CaseNoteGrid cases={cases} size={size} setSize={setSize} />
           </>
         )}
       </>

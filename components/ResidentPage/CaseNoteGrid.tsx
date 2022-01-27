@@ -29,14 +29,26 @@ const CaseNoteTile = ({ c }: TileProps) => (
 
 interface Props {
   cases: Case[];
+  size: number;
+  setSize: (newSize: number) => void;
 }
 
-const CaseNoteGrid = ({ cases }: Props): React.ReactElement => (
-  <ul className={s.grid}>
-    {cases?.map((c) => (
-      <CaseNoteTile key={c.recordId} c={c} />
-    ))}
-  </ul>
+const CaseNoteGrid = ({ cases, size, setSize }: Props): React.ReactElement => (
+  <>
+    <ul className={s.grid}>
+      {cases?.map((c) => (
+        <CaseNoteTile key={c.recordId} c={c} />
+      ))}
+    </ul>
+    <footer className={s.footer}>
+      <button
+        onClick={() => setSize(size + 1)}
+        className="govuk-button lbh-button"
+      >
+        Load more
+      </button>
+    </footer>
+  </>
 );
 
 const CaseTileSkeleton = () => (
