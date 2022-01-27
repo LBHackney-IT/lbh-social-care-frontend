@@ -5,7 +5,6 @@ import s from './Layout.module.scss';
 import { useAllocatedWorkers } from 'utils/api/allocatedWorkers';
 import AddFormDialog from 'components/AddFormDialog/AddFormDialog';
 import { useState } from 'react';
-import CaseStatusFlag from 'components/CaseStatus/CaseStatusFlag/CaseStatusFlag';
 import {
   prettyAddress,
   prettyResidentName,
@@ -14,6 +13,7 @@ import {
 import ActivityTimeline from './ActivityTimeline';
 import NavLink from './NavLink';
 import Tip from 'components/Tip/Tip';
+import StatusTags from './StatusTags';
 
 interface Props {
   resident: Resident;
@@ -92,7 +92,9 @@ const Layout = ({ resident, children }: Props): React.ReactElement => {
             </p>
           )}
 
-          <CaseStatusFlag person={resident} />
+          <StatusTags resident={resident} />
+
+          {/* <CaseStatusFlag person={resident} /> */}
         </div>
 
         <div className={`govuk-grid-column-one-third ${s.actionsArea}`}>
@@ -135,7 +137,7 @@ const Layout = ({ resident, children }: Props): React.ReactElement => {
               ))}
             </ul>
 
-            <ActivityTimeline />
+            <ActivityTimeline socialCareId={resident.id} />
           </nav>
         </div>
 

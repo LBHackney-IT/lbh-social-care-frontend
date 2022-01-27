@@ -1,4 +1,6 @@
-import { Allocation, Resident } from 'types';
+import { mapFormIdToFormDefinition } from 'data/flexibleForms/mapFormIdsToFormDefinition';
+import { Allocation, Resident, Case } from 'types';
+import { formatDate } from 'utils/date';
 import { truncate } from './utils';
 
 /** return a human-friendly resident name */
@@ -23,3 +25,25 @@ export const summariseAllocations = (
 /** truncated address on one line */
 export const prettyAddress = (resident: Resident): string =>
   truncate(`${resident?.address?.address}, ${resident?.address?.postcode}`, 6);
+
+/** return a human-readable title for a case */
+export const prettyCaseTitle = (c: Case): string => {
+  // handle flexible forms/modern system case notes
+  if (c.formType === 'flexible-form') {
+    const formName =
+      mapFormIdToFormDefinition[c.formName]?.displayName || 'Form';
+    const formTitle = c.title;
+
+    return formTitle ? `${formName}: ${formTitle}` : formName;
+  }
+  // handle workflows, old case notes, google forms, etc
+  if (c.formName) return c.formName;
+  return 'Unknown record';
+};
+
+/** return a human-readable date string for a case */
+export const prettyCaseDate = (c: Case): string | null => {
+  if (c.dateOfEvent) return formatDate(c.dateOfEvent);
+  if (c.caseFormTimestamp) return formatDate(c.caseFormTimestamp);
+  return null;
+};

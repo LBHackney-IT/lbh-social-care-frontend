@@ -16,7 +16,7 @@ const List = ({ list, resident }: ListProps) => {
   const [editing, setEditing] = useState<number | null>(null);
 
   return (
-    <dl className="govuk-summary-list lbh-summary-list">
+    <dl className={`govuk-summary-list lbh-summary-list ${s.summaryList}`}>
       {Object.entries(list).map(([key, value], i) => (
         <div key={key} className="govuk-summary-list__row">
           <dt className="govuk-summary-list__key">{key}</dt>

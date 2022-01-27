@@ -1,4 +1,4 @@
-// import Collapsible from 'components/ResidentPage/Collapsible';
+import Collapsible from 'components/ResidentPage/Collapsible';
 import DataBlock from 'components/ResidentPage/DataBlock';
 import Layout from 'components/ResidentPage/Layout';
 import Mapping from 'components/ResidentPage/Mapping';
@@ -19,12 +19,9 @@ const ResidentPage = ({ resident }: Props): React.ReactElement => (
       socialCareId={resident.id.toString()}
     />
 
-    <Mapping resident={resident} />
-
-    {/* <Collapsible title="Personal details">test</Collapsible>
-    <Collapsible title="Workflows and documents">test</Collapsible>
-    <Collapsible title="Case notes">test</Collapsible>
-    <Collapsible title="Housing">test</Collapsible> */}
+    <Collapsible title="Housing">
+      <Mapping resident={resident} />
+    </Collapsible>
   </Layout>
 );
 
