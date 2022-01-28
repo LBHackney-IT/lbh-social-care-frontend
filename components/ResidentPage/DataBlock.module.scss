@@ -8,12 +8,3 @@
   @include lbh-link;
   @include govuk-link-style-muted;
 }
-
-.summaryList {
-  dd,
-  dt {
-    @include lbh-body-s;
-    padding-top: 0.5rem;
-    padding-bottom: 0.5rem;
-  }
-}

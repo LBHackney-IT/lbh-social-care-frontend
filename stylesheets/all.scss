@@ -19,6 +19,11 @@ body {
   margin-top: 0;
 }
 
+// fix spacing of brand lines
+.lbh-header {
+  padding-bottom: 1rem;
+}
+
 [role='button'] {
   cursor: pointer;
 }

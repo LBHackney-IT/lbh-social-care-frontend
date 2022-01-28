@@ -18,9 +18,10 @@ import StatusTags from './StatusTags';
 interface Props {
   resident: Resident;
   children: React.ReactChild | React.ReactChild[];
+  title?: string;
 }
 
-const Layout = ({ resident, children }: Props): React.ReactElement => {
+const Layout = ({ title, resident, children }: Props): React.ReactElement => {
   const { data: allocations } = useAllocatedWorkers(resident.id);
   const [addFormOpen, setAddFormOpen] = useState<boolean>(false);
 
@@ -63,7 +64,8 @@ const Layout = ({ resident, children }: Props): React.ReactElement => {
     <>
       <Head>
         <title>
-          <>{prettyResidentName(resident)} | Social care | Hackney Council</>
+          {title && `${title} | `}
+          {prettyResidentName(resident)} | Social care | Hackney Council
         </title>
       </Head>
 

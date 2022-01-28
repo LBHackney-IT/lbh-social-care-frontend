@@ -1,5 +1,11 @@
 @import 'lbh-frontend/lbh/base';
 
+.outer {
+  & + * {
+    margin-top: 2.5rem;
+  }
+}
+
 .header {
   border-bottom: 3px solid lbh-colour('lbh-text');
   padding-bottom: 0.5rem;

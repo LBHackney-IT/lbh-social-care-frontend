@@ -12,7 +12,7 @@ const Collapsible = ({ title, children, link }: Props): React.ReactElement => {
   console.log(open);
 
   return (
-    <section>
+    <section className={s.outer}>
       <header className={s.header}>
         <button onClick={() => setOpen(!open)} aria-expanded={open}>
           <svg viewBox="0 0 284 284">

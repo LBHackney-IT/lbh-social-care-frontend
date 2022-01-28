@@ -25,7 +25,7 @@ const CaseNotesPage = ({ resident }: Props): React.ReactElement => {
   });
 
   return (
-    <Layout resident={resident}>
+    <Layout resident={resident} title="Case notes">
       <>
         {initiallyLoading && <CaseNoteGridSkeleton />}
 

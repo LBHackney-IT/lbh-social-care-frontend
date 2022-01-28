@@ -32,7 +32,7 @@ const ActivityTimeline = ({
           ))}
         </ul>
 
-        <Link href="#">
+        <Link href={`/residents/${socialCareId}/activity`}>
           <a className="lbh-link lbh-link--muted">See all</a>
         </Link>
       </aside>

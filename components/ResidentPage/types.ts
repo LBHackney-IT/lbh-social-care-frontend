@@ -16,7 +16,7 @@ export type Workflow = {
   heldAt?: Date;
   teamAssignedTo?: string;
   assignedTo?: string;
-  createdAt: Date;
+  createdAt: string;
   createdBy: string;
   submittedAt?: Date;
   submittedBy?: string;
@@ -39,5 +39,9 @@ export type Workflow = {
   form?: {
     id: string;
     name: string;
+  };
+  assignee?: {
+    name: string;
+    email: string;
   };
 };
