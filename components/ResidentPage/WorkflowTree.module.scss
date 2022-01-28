@@ -3,6 +3,12 @@
 .tree {
   list-style: none;
 
+  // divide disconnected episodes from each other
+  & > li:not(:last-of-type) {
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid lbh-colour('lbh-grey-3');
+  }
+
   // child list
   ul {
     list-style: none;
@@ -85,6 +91,7 @@
   @include node;
 }
 
+// hide stray vertical lines when there is no later workflow to connect to
 ul li .nodeWithChildren:first-of-type ul li:after {
   content: '';
   position: absolute;
@@ -93,7 +100,5 @@ ul li .nodeWithChildren:first-of-type ul li:after {
   width: 10px;
   height: calc(100% + 38px);
   display: block;
-
   background: white;
-  // border: 1px solid red;
 }
