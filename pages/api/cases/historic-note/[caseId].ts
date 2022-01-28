@@ -1,5 +1,5 @@
 import { StatusCodes } from 'http-status-codes';
-
+import { apiHandler } from 'lib/apiHandler';
 import { getHistoricNote } from 'lib/cases';
 import { isAuthorised } from 'utils/auth';
 
@@ -48,4 +48,4 @@ const endpoint: NextApiHandler = async (
   }
 };
 
-export default endpoint;
+export default apiHandler(endpoint);

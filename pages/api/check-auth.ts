@@ -4,6 +4,8 @@ import { isAuthorised } from 'utils/auth';
 
 import type { NextApiRequest, NextApiResponse, NextApiHandler } from 'next';
 
+import { apiHandler } from 'lib/apiHandler';
+
 const endpoint: NextApiHandler = async (
   req: NextApiRequest,
   res: NextApiResponse
@@ -32,4 +34,4 @@ const endpoint: NextApiHandler = async (
   }
 };
 
-export default endpoint;
+export default apiHandler(endpoint);
