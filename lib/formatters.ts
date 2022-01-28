@@ -1,5 +1,5 @@
 import { mapFormIdToFormDefinition } from 'data/flexibleForms/mapFormIdsToFormDefinition';
-import { Allocation, Resident, Case } from 'types';
+import { Allocation, Resident, Case, Worker } from 'types';
 import { formatDate } from 'utils/date';
 import { truncate } from './utils';
 
@@ -46,4 +46,11 @@ export const prettyCaseDate = (c: Case): string | null => {
   if (c.dateOfEvent) return formatDate(c.dateOfEvent);
   if (c.caseFormTimestamp) return formatDate(c.caseFormTimestamp);
   return null;
+};
+
+/** display human-readable full name for a worker, falling back to the email if not available */
+export const prettyWorkerName = (worker: Worker): string => {
+  if (worker.firstName && worker.lastName)
+    return `${worker.firstName} ${worker.lastName}`;
+  return worker.email;
 };
