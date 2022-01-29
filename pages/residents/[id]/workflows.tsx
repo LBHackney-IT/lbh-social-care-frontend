@@ -1,22 +1,47 @@
 import Layout from 'components/ResidentPage/Layout';
-import WorkflowTree from 'components/ResidentPage/WorkflowTree';
+import WorkflowTree, {
+  WorkflowTreeSkeleton,
+} from 'components/ResidentPage/WorkflowTree';
 import useWorkflows from 'hooks/useWorkflows';
 import { getResident } from 'lib/residents';
 import { GetServerSideProps } from 'next';
 import { Resident } from 'types';
 import { isAuthorised } from 'utils/auth';
+import Link from 'next/link';
+import ErrorMessage from 'components/ErrorMessage/ErrorMessage';
 
 interface Props {
   resident: Resident;
 }
 
+const NoWorkflowsMessage = () => (
+  <p className="lbh-body">
+    This resident has no workflows yet.{' '}
+    <Link
+      href={`${process.env.NEXT_PUBLIC_CORE_PATHWAY_APP_URL}/workflows/new?social_care_id=${resident.id}`}
+    >
+      Start one?
+    </Link>
+  </p>
+);
+
 const WorkflowsPage = ({ resident }: Props): React.ReactElement => {
-  const { data } = useWorkflows(resident.id, 1000);
-  const workflows = data?.workflows;
+  const { data, error } = useWorkflows(resident.id, 1000);
+  const workflowsToShow = data?.workflows && data.workflows.length > 0;
 
   return (
     <Layout resident={resident} title="Workflows">
-      <>{workflows && <WorkflowTree workflows={workflows} />}</>
+      <>
+        {!data && !error ? (
+          <WorkflowTreeSkeleton />
+        ) : workflowsToShow ? (
+          <WorkflowTree workflows={data.workflows} />
+        ) : error ? (
+          <ErrorMessage />
+        ) : (
+          <NoWorkflowsMessage />
+        )}
+      </>
     </Layout>
   );
 };

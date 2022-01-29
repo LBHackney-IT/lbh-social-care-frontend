@@ -87,3 +87,20 @@ const WorkflowTree = ({ workflows }: Props): React.ReactElement => {
 };
 
 export default WorkflowTree;
+
+export const WorkflowNodeSkeleton = (): React.ReactElement => (
+  <div className={s.nodeSkeleton}>
+    <div></div>
+    <div></div>
+    <div></div>
+  </div>
+);
+
+export const WorkflowTreeSkeleton = (): React.ReactElement => (
+  <>
+    <WorkflowNodeSkeleton />
+    <WorkflowNodeSkeleton />
+    <WorkflowNodeSkeleton />
+    <WorkflowNodeSkeleton />
+  </>
+);

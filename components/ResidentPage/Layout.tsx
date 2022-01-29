@@ -30,7 +30,7 @@ const Layout = ({ title, resident, children }: Props): React.ReactElement => {
     {
       text: 'Workflows',
       href: `/residents/${resident.id}/workflows`,
-      tip: "This resident's assessments and support plans",
+      tip: "A timeline of the resident's care, assessments and support plans",
     },
     {
       text: 'Case notes & records',

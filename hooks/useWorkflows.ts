@@ -16,7 +16,10 @@ const useWorkflows = (
     (url) =>
       fetch(url, {
         credentials: 'include', // by default, fetch won't send the cookie
-      }).then((r) => r.json())
+      }).then((res) => {
+        if (res.status !== 200) throw res.text;
+        return res.json();
+      })
   );
 };
 
