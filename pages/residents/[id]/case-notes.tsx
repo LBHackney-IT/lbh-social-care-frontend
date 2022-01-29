@@ -7,6 +7,7 @@ import { GetServerSideProps } from 'next';
 import { Case, Resident } from 'types';
 import { useCases } from 'utils/api/cases';
 import { isAuthorised } from 'utils/auth';
+import ErrorMessage from 'components/ErrorMessage/ErrorMessage';
 
 interface Props {
   resident: Resident;
@@ -17,22 +18,24 @@ const CaseNotesPage = ({ resident }: Props): React.ReactElement => {
     mosaic_id: resident.id,
   });
 
-  const initiallyLoading = !data && !error;
-
   let cases: Case[] = [];
   data?.map((page) => {
     if (page.cases) cases = cases.concat(page?.cases);
   });
 
+  const casesToShow = cases.length > 0;
+
   return (
     <Layout resident={resident} title="Case notes">
       <>
-        {initiallyLoading && <CaseNoteGridSkeleton />}
-
-        {cases?.length > 0 && (
-          <>
-            <CaseNoteGrid cases={cases} size={size} setSize={setSize} />
-          </>
+        {!data && !error ? (
+          <CaseNoteGridSkeleton />
+        ) : casesToShow ? (
+          <CaseNoteGrid cases={cases} size={size} setSize={setSize} />
+        ) : error ? (
+          <ErrorMessage />
+        ) : (
+          <p className="lbh-body">This resident has no case notes yet.</p>
         )}
       </>
     </Layout>
