@@ -14,17 +14,6 @@ interface Props {
   resident: Resident;
 }
 
-const NoWorkflowsMessage = () => (
-  <p className="lbh-body">
-    This resident has no workflows yet.{' '}
-    <Link
-      href={`${process.env.NEXT_PUBLIC_CORE_PATHWAY_APP_URL}/workflows/new?social_care_id=${resident.id}`}
-    >
-      Start one?
-    </Link>
-  </p>
-);
-
 const WorkflowsPage = ({ resident }: Props): React.ReactElement => {
   const { data, error } = useWorkflows(resident.id, 1000);
   const workflowsToShow = data?.workflows && data.workflows.length > 0;
@@ -39,7 +28,16 @@ const WorkflowsPage = ({ resident }: Props): React.ReactElement => {
         ) : error ? (
           <ErrorMessage />
         ) : (
-          <NoWorkflowsMessage />
+          <>
+            <p className="lbh-body">This resident has no workflows yet. </p>
+            <Link
+              href={`${process.env.NEXT_PUBLIC_CORE_PATHWAY_APP_URL}/workflows/new?social_care_id=${resident.id}`}
+            >
+              <a className="govuk-button lbh-button lbh-button--secondary">
+                Start a workflow
+              </a>
+            </Link>
+          </>
         )}
       </>
     </Layout>

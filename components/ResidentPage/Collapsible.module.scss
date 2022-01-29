@@ -73,3 +73,59 @@
     }
   }
 }
+
+.skeleton {
+  // header
+  & > div:first-child {
+    position: relative;
+    border-bottom: 3px solid lbh-colour('lbh-grey-4');
+    padding-bottom: 0.5rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+
+    div {
+      height: 15px;
+      background: lbh-colour('lbh-grey-3');
+      border-radius: 2px;
+      margin-top: 0.5rem;
+      width: 100px;
+
+      &:first-of-type {
+        height: 20px;
+        width: 200px;
+      }
+    }
+
+    &:after {
+      content: '';
+      display: block;
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(
+        90deg,
+        rgba(255, 255, 255, 0),
+        rgba(255, 255, 255, 1),
+        rgba(255, 255, 255, 1),
+        rgba(255, 255, 255, 0)
+      );
+      animation: scroll 2s infinite;
+      animation-timing-function: linear;
+      opacity: 0.75;
+    }
+
+    @keyframes scroll {
+      from {
+        background-position-x: 0px;
+      }
+
+      to {
+        background-position-x: 817.5px;
+      }
+    }
+  }
+}

@@ -1,3 +1,4 @@
+import axios from 'axios';
 import { Workflow } from 'components/ResidentPage/types';
 import useSWR, { SWRResponse } from 'swr';
 
@@ -13,13 +14,13 @@ const useWorkflows = (
 ): SWRResponse<Res, Error> => {
   return useSWR(
     `${process.env.NEXT_PUBLIC_CORE_PATHWAY_APP_URL}/api/workflows?social_care_id=${socialCareId}&per_page=${limit}`,
-    (url) =>
-      fetch(url, {
-        credentials: 'include', // by default, fetch won't send the cookie
-      }).then((res) => {
-        if (res.status !== 200) throw res.text;
-        return res.json();
-      })
+    (resource, options) =>
+      axios
+        .get(resource, {
+          ...options,
+          withCredentials: true,
+        })
+        .then((res) => res.data)
   );
 };
 

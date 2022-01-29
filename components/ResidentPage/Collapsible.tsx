@@ -1,4 +1,5 @@
 import useLocalStorage from 'hooks/useLocalStorage';
+import React from 'react';
 import s from './Collapsible.module.scss';
 
 interface Props {
@@ -8,8 +9,6 @@ interface Props {
 }
 const Collapsible = ({ title, children, link }: Props): React.ReactElement => {
   const [open, setOpen] = useLocalStorage<boolean>(title.toLowerCase(), true);
-
-  console.log(open);
 
   return (
     <section className={s.outer}>
@@ -39,3 +38,17 @@ c1.902-1.903,2.847-4.093,2.847-6.565C284.929,80.607,283.984,78.417,282.082,76.51
 };
 
 export default Collapsible;
+
+export const CollapsibleSkeleton = ({
+  children,
+}: {
+  children: React.ReactChild | React.ReactChild[];
+}): React.ReactElement => (
+  <div aria-label="Loading..." className={s.skeleton}>
+    <div>
+      <div></div>
+      <div></div>
+    </div>
+    {children}
+  </div>
+);

@@ -53,8 +53,8 @@ const CaseNoteTile = ({ c }: TileProps) => {
 
 interface Props {
   cases: Case[];
-  size: number;
-  setSize: (newSize: number) => void;
+  size?: number;
+  setSize?: (newSize: number) => void;
 }
 
 const CaseNoteGrid = ({ cases, size, setSize }: Props): React.ReactElement => (
@@ -64,23 +64,26 @@ const CaseNoteGrid = ({ cases, size, setSize }: Props): React.ReactElement => (
         <CaseNoteTile key={c.recordId} c={c} />
       ))}
     </ul>
-    <footer className={s.footer}>
-      <button
-        onClick={() => setSize(size + 1)}
-        className="govuk-button lbh-button"
-      >
-        Load more
-      </button>
-      <p className="lbh-body-s">
-        Looking for something specific? Try{' '}
-        <Link href="/search">
-          <a className="lbh-link lbh-link--no-visited-state">
-            searching for it
-          </a>
-        </Link>
-        .
-      </p>
-    </footer>
+
+    {size && setSize && (
+      <footer className={s.footer}>
+        <button
+          onClick={() => setSize(size + 1)}
+          className="govuk-button lbh-button"
+        >
+          Load more
+        </button>
+        <p className="lbh-body-s">
+          Looking for something specific? Try{' '}
+          <Link href="/search">
+            <a className="lbh-link lbh-link--no-visited-state">
+              searching for it
+            </a>
+          </Link>
+          .
+        </p>
+      </footer>
+    )}
   </>
 );
 

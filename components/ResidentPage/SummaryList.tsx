@@ -16,3 +16,20 @@ const SummaryList = ({ rows }: Props): React.ReactElement => (
 );
 
 export default SummaryList;
+
+const RowSkeleton = () => (
+  <div aria-hidden="true" className={s.skeletonRow}>
+    <div></div>
+    <div></div>
+  </div>
+);
+
+export const SummaryListSkeleton = (): React.ReactElement => (
+  <div className={s.skeleton} aria-label="Loading...">
+    <RowSkeleton />
+    <RowSkeleton />
+    <RowSkeleton />
+    <RowSkeleton />
+    <RowSkeleton />
+  </div>
+);

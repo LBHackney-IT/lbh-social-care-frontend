@@ -9,7 +9,7 @@ const ErrorMessage = ({
   label = 'There was a problem. Please refresh the page or try again later.',
   className,
 }: Props): React.ReactElement => (
-  <span className={cx('govuk-error-message', className)}>
+  <span className={cx('govuk-error-message lbh-error-message', className)}>
     <span className="govuk-visually-hidden">Error:</span> {label}
   </span>
 );

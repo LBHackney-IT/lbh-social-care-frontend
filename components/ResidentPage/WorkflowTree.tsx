@@ -89,7 +89,7 @@ const WorkflowTree = ({ workflows }: Props): React.ReactElement => {
 export default WorkflowTree;
 
 export const WorkflowNodeSkeleton = (): React.ReactElement => (
-  <div className={s.nodeSkeleton}>
+  <div className={s.nodeSkeleton} aria-hidden="true">
     <div></div>
     <div></div>
     <div></div>
@@ -97,10 +97,10 @@ export const WorkflowNodeSkeleton = (): React.ReactElement => (
 );
 
 export const WorkflowTreeSkeleton = (): React.ReactElement => (
-  <>
+  <div aria-label="Loading...">
     <WorkflowNodeSkeleton />
     <WorkflowNodeSkeleton />
     <WorkflowNodeSkeleton />
     <WorkflowNodeSkeleton />
-  </>
+  </div>
 );
