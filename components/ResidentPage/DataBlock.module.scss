@@ -8,3 +8,29 @@
   @include lbh-link;
   @include govuk-link-style-muted;
 }
+
+.value {
+  position: relative;
+  padding: 0;
+
+  .editButton {
+    all: unset;
+    text-decoration: underline;
+    cursor: pointer;
+    color: lbh-colour('lbh-secondary-text');
+    @include lbh-body-s;
+    @include lbh-link;
+    @include govuk-link-style-muted;
+    background: white;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    right: 0;
+    opacity: 0;
+  }
+
+  &:hover .editButton,
+  &:focus-within .editButton {
+    opacity: 1;
+  }
+}

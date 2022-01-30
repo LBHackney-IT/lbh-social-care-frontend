@@ -1,0 +1,63 @@
+@import 'lbh-frontend/lbh/base';
+
+.form {
+  position: relative;
+  box-sizing: border-box;
+
+  input {
+    margin-top: 0;
+    width: 100%;
+    box-sizing: border-box;
+    @include lbh-body-s;
+    border: none;
+    padding: 0.5rem;
+    padding-right: 65px; // text doesn't overlap buttons
+    background: transparentize(lbh-colour('lbh-primary-focus'), 0.85);
+
+    &:focus {
+      outline: none;
+      box-shadow: inset 0px -2px 0px lbh-colour('lbh-primary-focus'),
+        0px 1px 0px lbh-colour('lbh-primary-focus');
+    }
+  }
+
+  div {
+    position: absolute;
+    right: 0;
+    margin-top: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    margin-top: 0;
+    display: flex;
+    flex-direction: row;
+  }
+
+  button {
+    margin-top: 0;
+    border: none;
+    background: none;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 5px 4px;
+
+    &:focus {
+      outline: none;
+      svg path {
+        fill: lbh-colour('lbh-primary-focus');
+      }
+    }
+
+    svg {
+      margin-top: 0;
+    }
+
+    &:first-of-type:hover svg path {
+      fill: lbh-colour('lbh-text');
+    }
+    &:last-of-type:hover svg path {
+      fill: lbh-colour('lbh-primary-hover');
+    }
+  }
+}

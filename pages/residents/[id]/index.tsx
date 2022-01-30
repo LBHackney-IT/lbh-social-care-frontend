@@ -9,6 +9,7 @@ import { Resident } from 'types';
 import { useCases } from 'utils/api/cases';
 import { isAuthorised } from 'utils/auth';
 import Link from 'next/link';
+import { formatDate } from 'utils/date';
 
 interface Props {
   resident: Resident;
@@ -23,10 +24,66 @@ const ResidentPage = ({ resident }: Props): React.ReactElement => {
 
   return (
     <Layout resident={resident}>
+      {JSON.stringify(Object.keys(resident))}
+
       <DataBlock
         title="Personal details"
-        list={resident}
-        socialCareId={resident.id.toString()}
+        resident={resident}
+        list={[
+          {
+            displayLabel: 'Social care ID',
+            displayValue: resident.id,
+            editableName: 'id',
+            editableValue: resident.id,
+          },
+          {
+            displayLabel: 'Title',
+            displayValue: resident.title || '',
+            editableName: 'title',
+            editableValue: resident.title || '',
+          },
+          {
+            displayLabel: 'First name',
+            displayValue: resident.firstName,
+            editableName: 'firstName',
+            editableValue: resident.firstName,
+          },
+          {
+            displayLabel: 'Last name',
+            displayValue: resident.lastName,
+            editableName: 'lastName',
+            editableValue: resident.lastName,
+          },
+          {
+            displayLabel: 'Email address',
+            displayValue: resident.emailAddress || '',
+            editableName: 'emailAddress',
+            editableValue: resident.emailAddress || '',
+            highlight: true,
+          },
+          {
+            displayLabel: 'Date of birth',
+            displayValue: formatDate(resident.dateOfBirth || '') || '',
+            editableName: 'dateOfBirth',
+            editableValue: resident.dateOfBirth || '',
+            highlight: true,
+          },
+        ]}
+      />
+
+      <DataBlock
+        title="Medical needs"
+        resident={resident}
+        list={[
+          {
+            displayLabel: 'NHS number',
+            displayValue: resident.nhsNumber || '',
+            editableName: 'nhsNumber',
+            editableValue: resident.nhsNumber || '',
+            highlight: true,
+          },
+          // TODO: add more fields when we support them
+        ]}
       />
 
       <Collapsible
@@ -39,6 +96,15 @@ const ResidentPage = ({ resident }: Props): React.ReactElement => {
       >
         <>{cases && <CaseNoteGrid cases={cases} />}</>
       </Collapsible>
+
+      <Collapsible
+        title="Workflows"
+        link={
+          <Link href={`/residents/${resident.id}/workflows`}>
+            <a className="lbh-link lbh-link--muted">See all</a>
+          </Link>
+        }
+      ></Collapsible>
 
       <Collapsible title="Housing">
         <Mapping resident={resident} />

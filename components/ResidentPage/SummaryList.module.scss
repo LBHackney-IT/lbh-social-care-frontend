@@ -4,6 +4,9 @@
   dd,
   dt {
     @include lbh-body-s;
+  }
+
+  dt {
     padding-top: 0.5rem;
     padding-bottom: 0.5rem;
   }
