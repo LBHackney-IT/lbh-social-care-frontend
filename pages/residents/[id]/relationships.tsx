@@ -1,41 +1,34 @@
-import CaseNoteGrid, {
-  CaseNoteGridSkeleton,
-} from 'components/ResidentPage/CaseNoteGrid';
 import Layout from 'components/ResidentPage/Layout';
 import { getResident } from 'lib/residents';
 import { GetServerSideProps } from 'next';
-import { Case, Resident } from 'types';
-import { useCases } from 'utils/api/cases';
+import { Resident } from 'types';
 import { isAuthorised } from 'utils/auth';
 import ErrorMessage from 'components/ErrorMessage/ErrorMessage';
+import { useRelationships } from 'utils/api/relationships';
+import RelationshipsTable from 'components/ResidentPage/RelationshipsTable';
+import { SummaryListSkeleton } from 'components/ResidentPage/SummaryList';
 
 interface Props {
   resident: Resident;
 }
 
 const RelationshipsPage = ({ resident }: Props): React.ReactElement => {
-  const { data, setSize, size, error } = useCases({
-    mosaic_id: resident.id,
-  });
+  const { data, error } = useRelationships(resident.id);
 
-  let cases: Case[] = [];
-  data?.map((page) => {
-    if (page.cases) cases = cases.concat(page?.cases);
-  });
-
-  const casesToShow = cases.length > 0;
+  const relationshipsToShow =
+    data?.personalRelationships && data.personalRelationships.length > 0;
 
   return (
     <Layout resident={resident} title="Case notes">
       <>
         {!data && !error ? (
-          <CaseNoteGridSkeleton />
-        ) : casesToShow ? (
-          <CaseNoteGrid cases={cases} size={size} setSize={setSize} />
+          <SummaryListSkeleton />
+        ) : relationshipsToShow ? (
+          <RelationshipsTable relationships={data} />
         ) : error ? (
           <ErrorMessage />
         ) : (
-          <p className="lbh-body">This resident has no case notes yet.</p>
+          <p className="lbh-body">This resident has no relationships yet.</p>
         )}
       </>
     </Layout>
