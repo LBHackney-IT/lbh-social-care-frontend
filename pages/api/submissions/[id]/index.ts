@@ -8,6 +8,7 @@ import {
 } from 'lib/submissions';
 import { isAuthorised } from 'utils/auth';
 import { notifyApprover } from 'lib/notify';
+import { apiHandler } from 'lib/apiHandler';
 
 const handler = async (
   req: NextApiRequest,
@@ -67,4 +68,4 @@ const handler = async (
   }
 };
 
-export default handler;
+export default apiHandler(handler);
