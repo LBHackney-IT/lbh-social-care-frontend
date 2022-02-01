@@ -10,6 +10,7 @@ import {
   patchReferralContact,
 } from 'lib/mashReferral';
 import { AxiosError } from 'axios';
+import { apiHandler } from 'lib/apiHandler';
 
 const endpoint: NextApiHandler = async (
   req: NextApiRequest,
@@ -124,4 +125,4 @@ const endpoint: NextApiHandler = async (
   }
 };
 
-export default endpoint;
+export default apiHandler(endpoint);

@@ -5,7 +5,9 @@ import { getWorker } from 'lib/workers';
 import { getAllocationsByWorker } from 'lib/allocatedWorkers';
 
 import type { NextApiRequest, NextApiResponse, NextApiHandler } from 'next';
+
 import { AxiosError } from 'axios';
+import { apiHandler } from 'lib/apiHandler';
 
 const endpoint: NextApiHandler = async (
   req: NextApiRequest,
@@ -61,4 +63,4 @@ const endpoint: NextApiHandler = async (
   }
 };
 
-export default endpoint;
+export default apiHandler(endpoint);

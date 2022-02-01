@@ -57,8 +57,10 @@ module.exports = withSentryConfig(
     project: 'social-care-main-app',
     dryRun: !(
       process.env.CI ||
-      process.env.NEXT_PUBLIC_SENTRY_TARGET === 'production' ||
-      process.env.NEXT_PUBLIC_SENTRY_TARGET === 'dev'
+      ['dev', 'stg', 'prod'].includes(process.env.SENTRY_TARGET)
     ),
   }
 );
+
+// Ensure the value for ENVIRONMENT in your .env file is set to local or test
+// dryRun: !['dev', 'stg', 'prod'].includes(process.env.SENTRY_TARGET)
