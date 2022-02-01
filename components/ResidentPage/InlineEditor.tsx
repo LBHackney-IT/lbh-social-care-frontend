@@ -12,7 +12,6 @@ export interface InlineEditorOption {
 }
 
 interface Props extends DataRow {
-  name: string;
   value: string | number;
   onClose: () => void;
   resident: Resident;

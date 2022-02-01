@@ -27,6 +27,7 @@
     @include lbh-body-s;
     @include lbh-link;
     @include govuk-link-style-muted;
+    color: lbh-colour('lbh-secondary-text');
     opacity: 0;
     position: absolute;
     right: 0;

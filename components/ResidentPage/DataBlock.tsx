@@ -20,7 +20,7 @@ export interface DataRow {
   readOnly?: boolean;
   /** what shows up in readable state? */
   label: string;
-  name: string; // lodash dotpath
+  name: keyof Resident; // lodash dotpath
   /** show on the dialog only, or in the summary? */
   showInSummary?: boolean;
   /** provide a set of selectable options rather than an input field */
@@ -96,7 +96,14 @@ const DataList = ({ list, resident }: DataListProps) => {
     <dl className={`govuk-summary-list lbh-summary-list ${ss.summaryList}`}>
       {list.map((row, i) => (
         <div key={row.name} className="govuk-summary-list__row">
-          <dt className="govuk-summary-list__key">{row.label}</dt>
+          <dt className="govuk-summary-list__key">
+            {row.label}
+            {row.required && (
+              <span className={s.required} aria-label="required">
+                *
+              </span>
+            )}
+          </dt>
           <dd className={`govuk-summary-list__value ${s.value}`}>
             <DataCell
               i={i}

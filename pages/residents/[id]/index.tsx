@@ -10,6 +10,8 @@ import { useCases } from 'utils/api/cases';
 import { isAuthorised } from 'utils/auth';
 import Link from 'next/link';
 import { formatDate } from 'utils/date';
+import SEXUAL_ORIENTATIONS from 'data/orientation';
+import languages from 'data/languages';
 
 interface Props {
   resident: Resident;
@@ -34,6 +36,16 @@ const ResidentPage = ({ resident }: Props): React.ReactElement => {
             readOnly: true,
           },
           {
+            label: 'Service area',
+            name: 'contextFlag',
+            beforeDisplay: (val) =>
+              val === 'A' ? 'Adult social care' : "Children's social care",
+            options: [
+              { label: 'Adult social care', value: 'A' },
+              { label: "Children's social care", value: 'C' },
+            ],
+          },
+          {
             label: 'Title',
             name: 'title',
             showInSummary: true,
@@ -53,6 +65,15 @@ const ResidentPage = ({ resident }: Props): React.ReactElement => {
           },
           { label: 'Last name', name: 'lastName', required: true },
           {
+            label: 'Other names',
+            name: 'otherNames',
+            beforeDisplay: (val) =>
+              (val as { firstName: string }[])?.[0]?.firstName,
+            beforeEdit: (val) =>
+              (val as { firstName: string }[])?.[0]?.firstName,
+            beforeSave: (val) => [{ firstName: val }],
+          },
+          {
             label: 'Date of birth',
             name: 'dateOfBirth',
             required: true,
@@ -60,6 +81,101 @@ const ResidentPage = ({ resident }: Props): React.ReactElement => {
             beforeEdit: (val) => (val as string)?.split('T')[0],
             type: 'date',
           },
+          {
+            label: 'Date of death',
+            name: 'dateOfDeath',
+            beforeDisplay: (val) => formatDate(val as string) || '',
+            beforeEdit: (val) => (val as string)?.split('T')[0],
+            type: 'date',
+          },
+          {
+            label: 'First language',
+            name: 'firstLanguage',
+            options: [
+              {
+                value: '',
+                label: 'Not known',
+              },
+            ].concat(
+              languages.map((lang) => ({
+                label: lang,
+                value: lang,
+              }))
+            ),
+          },
+          {
+            label: 'Gender',
+            name: 'gender',
+            options: [
+              {
+                value: '',
+                label: 'Not known',
+              },
+              {
+                value: 'F',
+                label: 'Female',
+              },
+              {
+                value: 'M',
+                label: 'Male',
+              },
+              {
+                value: 'Non-binary',
+                label: 'Non-binary',
+              },
+              {
+                value: 'Other',
+                label: 'Other',
+              },
+              {
+                value: 'Prefer not to say',
+                label: 'Prefer not to say',
+              },
+            ],
+            beforeDisplay: (val) => {
+              if (val === 'F') return 'Female';
+              if (val === 'M') return 'Male';
+              return val as string;
+            },
+          },
+          {
+            label: 'Sexual orientation',
+            name: 'sexualOrientation',
+            options: [
+              {
+                value: '',
+                label: 'Not known',
+              },
+            ].concat(
+              SEXUAL_ORIENTATIONS.map((opt) => ({
+                label: opt,
+                value: opt,
+              }))
+            ),
+          },
+          {
+            label: 'Address',
+            name: 'address',
+            beforeDisplay: (val) => (
+              <div className="govuk-!-margin-bottom-1">
+                {val.address}
+                <br />
+                {val.postcode}
+                <br />
+                <a
+                  className="lbh-link lbh-link--no-visited-state"
+                  href={`https://maps.google.com?q=${val.address},${val.postcode}`}
+                >
+                  Get directions
+                </a>
+              </div>
+            ),
+          },
+          // {
+          //   label: 'Addresses',
+          //   name: 'addresses',
+          //   beforeDisplay: (val) => JSON.stringify(val),
+          // },
           {
             label: 'Email address',
             name: 'emailAddress',
@@ -75,13 +191,42 @@ const ResidentPage = ({ resident }: Props): React.ReactElement => {
                   (number, i) => (
                     <li key={i}>
                       <strong>{number.type}:</strong>{' '}
-                      <a href={`tel:${number.number}`}>{number.number}</a>
+                      <a
+                        className="lbh-link lbh-link--no-visited-state"
+                        href={`tel:${number.number}`}
+                      >
+                        {number.number}
+                      </a>
                     </li>
                   )
                 )}
               </ul>
             ),
-            customEditor: <p>test editor</p>,
+          },
+
+          {
+            label: 'Contact preference',
+            name: 'preferredMethodOfContact',
+            showInSummary: true,
+            options: [
+              { label: '', value: '' },
+              {
+                label: 'Phone',
+                value: 'Phone',
+              },
+              {
+                label: 'Post/letter',
+                value: 'Post/letter',
+              },
+              {
+                label: 'Email',
+                value: 'Email',
+              },
+              {
+                label: 'Face to face',
+                value: 'Face to face',
+              },
+            ],
           },
           {
             label: 'Restricted?',

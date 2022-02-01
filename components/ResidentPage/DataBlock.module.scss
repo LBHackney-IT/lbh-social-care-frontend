@@ -17,10 +17,10 @@
     all: unset;
     text-decoration: underline;
     cursor: pointer;
-    color: lbh-colour('lbh-secondary-text');
     @include lbh-body-s;
     @include lbh-link;
     @include govuk-link-style-muted;
+    color: lbh-colour('lbh-secondary-text');
     background: white;
     position: absolute;
     top: 50%;
@@ -89,4 +89,8 @@
 .notKnown {
   @include lbh-body-s;
   color: lbh-colour('lbh-grey-2');
+}
+
+.required {
+  color: lbh-colour('lbh-error');
 }

@@ -21,6 +21,10 @@ const StatusTags = ({ resident }: Props): React.ReactElement => {
         </li>
       )}
 
+      {resident?.dateOfDeath && (
+        <li className="govuk-tag lbh-tag lbh-tag--grey">Deceased</li>
+      )}
+
       {resident?.restricted === 'Y' && (
         <li className="govuk-tag lbh-tag lbh-tag--red">Restricted</li>
       )}
