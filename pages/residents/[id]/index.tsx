@@ -31,6 +31,7 @@ const ResidentPage = ({ resident }: Props): React.ReactElement => {
           {
             label: 'Social care ID',
             name: 'id',
+            readOnly: true,
           },
           {
             label: 'Title',
@@ -48,25 +49,39 @@ const ResidentPage = ({ resident }: Props): React.ReactElement => {
           {
             label: 'First name',
             name: 'firstName',
+            required: true,
           },
-          { label: 'Last name', name: 'lastName' },
+          { label: 'Last name', name: 'lastName', required: true },
+          {
+            label: 'Date of birth',
+            name: 'dateOfBirth',
+            required: true,
+            beforeDisplay: (val) => formatDate(val as string) || '',
+            beforeEdit: (val) => (val as string)?.split('T')[0],
+            type: 'date',
+          },
           {
             label: 'Email address',
             name: 'emailAddress',
             showInSummary: true,
             type: 'email',
           },
-
           {
-            label: 'Date of birth',
-            name: 'dateOfBirth',
-            beforeDisplay: (val) => formatDate(val as string) || '',
-            beforeEdit: (val) => {
-              console.log(val);
-              // const date =
-            },
-            beforeSave: (val) => val,
-            type: 'date',
+            label: 'Phone numbers',
+            name: 'phoneNumbers',
+            beforeDisplay: (val) => (
+              <ul className="lbh-list lbh-body-s">
+                {(val as { type: string; number: string }[]).map(
+                  (number, i) => (
+                    <li key={i}>
+                      <strong>{number.type}:</strong>{' '}
+                      <a href={`tel:${number.number}`}>{number.number}</a>
+                    </li>
+                  )
+                )}
+              </ul>
+            ),
+            customEditor: <p>test editor</p>,
           },
           {
             label: 'Restricted?',

@@ -8,10 +8,16 @@ import DefaultInlineEditor, { InlineEditorOption } from './InlineEditor';
 import { useResident } from 'utils/api/residents';
 import get from 'lodash.get';
 
-type SaveableData = boolean | string | number;
+type SaveableData =
+  | boolean
+  | string
+  | number
+  | Record<string, unknown>[]
+  | Record<string, unknown>;
 
 /** an active, inline-editable row of data */
 export interface DataRow {
+  readOnly?: boolean;
   /** what shows up in readable state? */
   label: string;
   name: string; // lodash dotpath
@@ -21,13 +27,14 @@ export interface DataRow {
   options?: InlineEditorOption[];
   /** override the input type eg. number, date, email */
   type?: HTMLInputTypeAttribute;
+  required?: boolean;
   /** provide a custom component to render when the display or edit state is activated **/
   customEditor?: React.ReactElement;
   /** HOOKS */
   /** pretty up a saved value before showing it to the user */
   beforeDisplay?: (value: SaveableData) => React.ReactElement | string;
   /** transform or format a saved value before passing it to the editor */
-  beforeEdit?: (value: SaveableData) => string;
+  beforeEdit?: (value: SaveableData | undefined) => string;
   /** transform or format the edited value before passing it back to the api */
   beforeSave?: (value: unknown) => SaveableData;
 }
@@ -46,10 +53,16 @@ const DataCellSkeleton = () => (
   <div className={s.skeleton} aria-label="Loading..."></div>
 );
 
+const PrettyValue = ({ value }) =>
+  value || <span className={s.notKnown}>Not known</span>;
+
 const DataCell = ({ row, editing, setEditing, resident, i }: DataCellProps) => {
-  const value = get(resident, row.name);
+  const rawValue = get(resident, row.name);
+  const value = row.beforeDisplay ? row.beforeDisplay(rawValue) : rawValue;
 
   if (resident) {
+    if (row.readOnly) return <PrettyValue value={value} />;
+
     return editing === i ? (
       row.customEditor || (
         <DefaultInlineEditor
@@ -61,7 +74,7 @@ const DataCell = ({ row, editing, setEditing, resident, i }: DataCellProps) => {
       )
     ) : (
       <>
-        {row.beforeDisplay ? row.beforeDisplay(value) : value}
+        <PrettyValue value={value} />
         <button className={s.editButton} onClick={() => setEditing(i)}>
           Edit
         </button>
