@@ -34,3 +34,54 @@
     opacity: 1;
   }
 }
+
+.footerButton {
+  all: unset;
+  margin-top: 0.75rem;
+  text-decoration: underline;
+  cursor: pointer;
+  color: lbh-colour('lbh-secondary-text');
+  @include lbh-rem(font-size, 14);
+  @include lbh-rem(line-height, 24);
+  @include lbh-link;
+  @include govuk-link-style-muted;
+}
+
+.skeleton {
+  height: 15px;
+  background: lbh-colour('lbh-grey-3');
+  border-radius: 2px;
+  margin-top: 0.5rem;
+  width: 100px;
+  position: relative;
+
+  &:after {
+    content: '';
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 200%;
+    height: 100%;
+    background: linear-gradient(
+      90deg,
+      rgba(255, 255, 255, 0),
+      rgba(255, 255, 255, 1),
+      rgba(255, 255, 255, 1),
+      rgba(255, 255, 255, 0)
+    );
+    animation: scroll 2s infinite;
+    animation-timing-function: linear;
+    opacity: 0.75;
+  }
+
+  @keyframes scroll {
+    from {
+      background-position-x: 0px;
+    }
+
+    to {
+      background-position-x: 200px;
+    }
+  }
+}

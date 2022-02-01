@@ -3,9 +3,12 @@ import { Workflow, WorkflowType } from 'components/ResidentPage/types';
 import { useMemo } from 'react';
 import s from './WorkflowTree.module.scss';
 import { formatDate } from 'utils/date';
+import { prettyStatus } from 'lib/workflows/status';
+import { formatDistanceToNow } from 'date-fns';
 
 interface Props {
   workflows: Workflow[];
+  socialCareId: number;
 }
 
 interface WorkflowWithChildren extends Workflow {
@@ -55,7 +58,7 @@ const Node = ({ w }: { w: WorkflowWithChildren }) => {
       )}
 
       <p className="lbh-body-xs">
-        Started {formatDate(w.createdAt.toString())}
+        Started {formatDate(w.createdAt.toString())} · {prettyStatus(w)}
       </p>
 
       <p className="lbh-body-xs">
@@ -67,10 +70,15 @@ const Node = ({ w }: { w: WorkflowWithChildren }) => {
   );
 };
 
-const WorkflowTree = ({ workflows }: Props): React.ReactElement => {
+const WorkflowTree = ({
+  workflows,
+  socialCareId,
+}: Props): React.ReactElement => {
   const reverseChronological = workflows.sort(
     (a, b) => new Date(b.createdAt).valueOf() - new Date(a.createdAt).valueOf()
   );
+  const workflowsBegan =
+    reverseChronological[reverseChronological.length - 1].createdAt;
 
   const tree = useMemo(
     () => convertWorkflowsToTree(reverseChronological),
@@ -78,11 +86,27 @@ const WorkflowTree = ({ workflows }: Props): React.ReactElement => {
   );
 
   return (
-    <ul className={s.tree}>
-      {tree?.map((w) => (
-        <Node w={w} key={w.id} />
-      ))}
-    </ul>
+    <div className="govuk-grid-row">
+      <ul className={`govuk-grid-column-three-quarters ${s.tree}`}>
+        {tree?.map((w) => (
+          <Node w={w} key={w.id} />
+        ))}
+      </ul>
+      <aside className={`govuk-grid-column-one-quarter ${s.summaryPanel}`}>
+        <p className="lbh-body-xs">
+          {workflows.length} workflows started over{' '}
+          {formatDistanceToNow(new Date(workflowsBegan))}
+        </p>
+        <p className="lbh-body-xs govuk-!-margin-top-1">
+          <a
+            className="lbh-link lbh-link--no-visited-state"
+            href={`${process.env.NEXT_PUBLIC_CORE_PATHWAY_APP_URL}?quick_filter=all&social_care_id=${socialCareId}&touched_by_me=true`}
+          >
+            See on planner
+          </a>
+        </p>
+      </aside>
+    </div>
   );
 };
 

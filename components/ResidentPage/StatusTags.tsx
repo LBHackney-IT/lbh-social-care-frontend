@@ -21,6 +21,10 @@ const StatusTags = ({ resident }: Props): React.ReactElement => {
         </li>
       )}
 
+      {resident?.restricted === 'Y' && (
+        <li className="govuk-tag lbh-tag lbh-tag--red">Restricted</li>
+      )}
+
       {statuses?.map((s) => (
         <li key={s.id} className="govuk-tag lbh-tag">
           {s.type}

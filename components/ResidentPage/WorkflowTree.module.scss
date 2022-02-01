@@ -157,3 +157,9 @@ ul li .nodeWithChildren:first-of-type ul li:after {
     }
   }
 }
+
+.summaryPanel {
+  p {
+    color: lbh-colour('lbh-secondary-text');
+  }
+}

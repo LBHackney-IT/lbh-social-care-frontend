@@ -45,7 +45,7 @@ const RelationshipsTable = ({ relationships }: Props): React.ReactElement => {
                 <ul className="lbh-list lbh-body-s">
                   {r.relationships.map((rr) => (
                     <li key={rr.id} className={s.item}>
-                      <Link href={`/residents/${rr.id}`}>
+                      <Link href={`/residents/${rr.personId}`}>
                         {prettyResidentName(rr)}
                       </Link>
 

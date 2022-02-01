@@ -22,7 +22,7 @@ export const prettyStatuses = {
   [Status.ReviewSoon]: 'Review soon',
 };
 
-/** determine the current stage of a workflow for logic */
+/** determine the current stage of a workflow for logic - simplified implementation from what's on core pathway app */
 export const getStatus = (workflow: Workflow): Status => {
   // the order of these determines priority
   if (workflow.discardedAt) return Status.Discarded;
@@ -32,18 +32,7 @@ export const getStatus = (workflow: Workflow): Status => {
     workflow.panelApprovedAt ||
     (workflow.managerApprovedAt && !workflow.needsPanelApproval)
   ) {
-    // if (DateTime.fromISO(String(workflow.reviewBefore)) < DateTime.local()) {
-    //   return Status.Overdue;
-    // } else if (
-    //   DateTime.fromISO(String(workflow.reviewBefore)).diffNow() <
-    //   Duration.fromObject({
-    //     months: 1,
-    //   })
-    // ) {
-    //   return Status.ReviewSoon;
-    // } else {
     return Status.NoAction;
-    // }
   }
 
   if (workflow.managerApprovedAt) {
@@ -57,16 +46,8 @@ export const getStatus = (workflow: Workflow): Status => {
   return Status.InProgress;
 };
 
-/** get status of a workflow for display */
+/** get status of a workflow for display - simplified implementation from what's on core pathway app */
 export const prettyStatus = (workflow: Workflow): string => {
   const status = getStatus(workflow);
-
-  switch (status) {
-    // case Status.ReviewSoon:
-    //   return `Review due ${prettyDateToNow(String(workflow.reviewBefore))}`;
-    //   break;
-    default:
-      return prettyStatuses[status];
-      break;
-  }
+  return prettyStatuses[status];
 };

@@ -1,28 +1,38 @@
 import { useEffect, useRef, KeyboardEvent } from 'react';
 import { useForm } from 'react-hook-form';
 import { Resident } from 'types';
-import s from './InlineEdit.module.scss';
+import { useResident } from 'utils/api/residents';
+import { DataRow } from './DataBlock';
+import s from './InlineEditor.module.scss';
 
-interface Props {
-  fieldName: string;
-  value: string;
+export interface InlineEditorOption {
+  label: string;
+  value: string | number;
+}
+
+interface Props extends DataRow {
+  name: string;
+  value: string | number;
   onClose: () => void;
   resident: Resident;
 }
 
 interface FormValues {
-  [fieldName: string]: string;
+  [name: string]: string;
 }
 
-const InlineEdit = ({
-  fieldName,
-  value,
+const InlineEditor = ({
   onClose,
   resident,
-  ...props
+  options,
+  beforeSave,
+  name,
+  beforeEdit,
 }: Props): React.ReactElement => {
   const ref = useRef<HTMLFormElement>(null);
   const { register, handleSubmit } = useForm();
+
+  const { mutate } = useResident(resident.id);
 
   const onSubmit = async (data: FormValues) => {
     const res = await fetch(`/api/residents/${resident.id}`, {
@@ -32,9 +42,10 @@ const InlineEdit = ({
       method: 'PATCH',
       body: JSON.stringify({
         ...resident,
-        ...data,
+        [name]: beforeSave ? beforeSave(data[name]) : data[name],
       }),
     });
+    mutate(); // give it a kick
     if (res.status === 200) {
       onClose();
     }
@@ -68,11 +79,31 @@ const InlineEdit = ({
       onKeyUp={handleKeyup}
       ref={ref}
     >
-      <label className="govuk-visually-hidden" htmlFor={fieldName}>
-        Editing {fieldName}
+      <label className="govuk-visually-hidden" htmlFor={name}>
+        Editing {name}
       </label>
 
-      <input name={fieldName} defaultValue={value} ref={register} {...props} />
+      {options ? (
+        <select
+          name={name}
+          defaultValue={resident[name]}
+          ref={register}
+          {...props}
+        >
+          {options.map((opt) => (
+            <option key={opt.value} value={opt.value}>
+              {opt.label}
+            </option>
+          ))}
+        </select>
+      ) : (
+        <input
+          name={name}
+          defaultValue={resident[name]}
+          ref={register}
+          {...props}
+        />
+      )}
 
       <div>
         <button type="button" onClick={onClose}>
@@ -105,4 +136,4 @@ const InlineEdit = ({
   );
 };
 
-export default InlineEdit;
+export default InlineEditor;

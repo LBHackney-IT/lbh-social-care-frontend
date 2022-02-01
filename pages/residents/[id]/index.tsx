@@ -24,63 +24,78 @@ const ResidentPage = ({ resident }: Props): React.ReactElement => {
 
   return (
     <Layout resident={resident}>
-      {JSON.stringify(Object.keys(resident))}
-
       <DataBlock
         title="Personal details"
-        resident={resident}
+        socialCareId={resident.id}
         list={[
           {
-            displayLabel: 'Social care ID',
-            displayValue: resident.id,
-            editableName: 'id',
-            editableValue: resident.id,
+            label: 'Social care ID',
+            name: 'id',
           },
           {
-            displayLabel: 'Title',
-            displayValue: resident.title || '',
-            editableName: 'title',
-            editableValue: resident.title || '',
+            label: 'Title',
+            name: 'title',
+            showInSummary: true,
+            options: [
+              { label: 'Mr', value: 'Mr' },
+              { label: 'Mrs', value: 'Mrs' },
+              { label: 'Miss', value: 'Miss' },
+              { label: 'Ms', value: 'Ms' },
+              { label: 'Dr', value: 'Dr' },
+              { label: 'Mx', value: 'Mx' },
+            ],
           },
           {
-            displayLabel: 'First name',
-            displayValue: resident.firstName,
-            editableName: 'firstName',
-            editableValue: resident.firstName,
+            label: 'First name',
+            name: 'firstName',
+          },
+          { label: 'Last name', name: 'lastName' },
+          {
+            label: 'Email address',
+            name: 'emailAddress',
+            showInSummary: true,
+            type: 'email',
+          },
+
+          {
+            label: 'Date of birth',
+            name: 'dateOfBirth',
+            beforeDisplay: (val) => formatDate(val as string) || '',
+            beforeEdit: (val) => {
+              console.log(val);
+              // const date =
+            },
+            beforeSave: (val) => val,
+            type: 'date',
           },
           {
-            displayLabel: 'Last name',
-            displayValue: resident.lastName,
-            editableName: 'lastName',
-            editableValue: resident.lastName,
-          },
-          {
-            displayLabel: 'Email address',
-            displayValue: resident.emailAddress || '',
-            editableName: 'emailAddress',
-            editableValue: resident.emailAddress || '',
-            highlight: true,
-          },
-          {
-            displayLabel: 'Date of birth',
-            displayValue: formatDate(resident.dateOfBirth || '') || '',
-            editableName: 'dateOfBirth',
-            editableValue: resident.dateOfBirth || '',
-            highlight: true,
+            label: 'Restricted?',
+            showInSummary: true,
+            beforeDisplay: (val) => (val === 'Y' ? 'Yes' : 'No'),
+            name: 'restricted',
+            options: [
+              {
+                label: 'Yes',
+                value: 'Y',
+              },
+              {
+                label: 'No',
+                value: 'N',
+              },
+            ],
           },
         ]}
       />
 
       <DataBlock
         title="Medical needs"
-        resident={resident}
+        socialCareId={resident.id}
         list={[
           {
-            displayLabel: 'NHS number',
-            displayValue: resident.nhsNumber || '',
-            editableName: 'nhsNumber',
-            editableValue: resident.nhsNumber || '',
-            highlight: true,
+            label: 'NHS number',
+            name: 'nhsNumber',
+            showInSummary: true,
+            beforeSave: (val) => parseInt(val as string),
           },
           // TODO: add more fields when we support them
         ]}
@@ -104,7 +119,9 @@ const ResidentPage = ({ resident }: Props): React.ReactElement => {
             <a className="lbh-link lbh-link--muted">See all</a>
           </Link>
         }
-      ></Collapsible>
+      >
+        test
+      </Collapsible>
 
       <Collapsible title="Housing">
         <Mapping resident={resident} />
