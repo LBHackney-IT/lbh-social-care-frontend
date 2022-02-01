@@ -152,6 +152,9 @@ export const generateFlexibleSchema = (
           const dateTimeToValidate = new Date(dateTimeFromForm[0]);
           const timeFromForm = dateTimeFromForm[1];
 
+          if (!timeFromForm) {
+            return false;
+          }
           const hours = Number(timeFromForm.slice(0, 2));
           const minutes = Number(timeFromForm.slice(3, 5));
 

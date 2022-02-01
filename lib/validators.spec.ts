@@ -324,4 +324,13 @@ describe('validate datetime fields correctly', () => {
       })
     ).resolves.toMatchObject({ one: ['2021-08-16', '12:30'] });
   });
+
+  // Regression test for Jira SCT-1668
+  it.only('when isfutureDateValid set to false the time cannot be left empty', async () => {
+    await expect(
+      schema.validate({
+        one: ['2021-08-16', ''],
+      })
+    ).rejects.toThrowError('Date cannot be in the future');
+  });
 });
