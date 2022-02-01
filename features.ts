@@ -25,12 +25,12 @@ export const getFeatureFlags = ({
       isActive:
         environmentName === 'development' || user?.hasDevPermissions || false,
     },
-    // FEATURE-FLAG-EXPIRES [2022-01-31]: case-notes-deletion
+    // FEATURE-FLAG-EXPIRES [2022-06-31]: case-notes-deletion
     'case-notes-deletion': {
       isActive:
         environmentName === 'development' || user?.hasDevPermissions || false,
     },
-    // FEATURE-FLAG-EXPIRES [2022-01-31]: case-status
+    // FEATURE-FLAG-EXPIRES [2022-06-31]: case-status
     'case-status': {
       isActive:
         environmentName === 'development' || user?.hasAdminPermissions || false,
