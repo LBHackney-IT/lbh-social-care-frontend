@@ -9,6 +9,7 @@ import { formatDistanceToNow } from 'date-fns';
 interface Props {
   workflows: Workflow[];
   socialCareId: number;
+  summarise?: boolean;
 }
 
 interface WorkflowWithChildren extends Workflow {
@@ -73,6 +74,7 @@ const Node = ({ w }: { w: WorkflowWithChildren }) => {
 const WorkflowTree = ({
   workflows,
   socialCareId,
+  summarise,
 }: Props): React.ReactElement => {
   const reverseChronological = workflows.sort(
     (a, b) => new Date(b.createdAt).valueOf() - new Date(a.createdAt).valueOf()
@@ -85,28 +87,37 @@ const WorkflowTree = ({
     [reverseChronological]
   );
 
+  if (summarise)
+    return (
+      <div className="govuk-grid-row">
+        <ul className={`govuk-grid-column-three-quarters ${s.tree}`}>
+          {tree?.map((w) => (
+            <Node w={w} key={w.id} />
+          ))}
+        </ul>
+        <aside className={`govuk-grid-column-one-quarter ${s.summaryPanel}`}>
+          <p className="lbh-body-xs">
+            {workflows.length} workflows started over{' '}
+            {formatDistanceToNow(new Date(workflowsBegan))}
+          </p>
+          <p className="lbh-body-xs govuk-!-margin-top-1">
+            <a
+              className="lbh-link lbh-link--no-visited-state"
+              href={`${process.env.NEXT_PUBLIC_CORE_PATHWAY_APP_URL}?quick_filter=all&social_care_id=${socialCareId}&touched_by_me=true`}
+            >
+              See on planner
+            </a>
+          </p>
+        </aside>
+      </div>
+    );
+
   return (
-    <div className="govuk-grid-row">
-      <ul className={`govuk-grid-column-three-quarters ${s.tree}`}>
-        {tree?.map((w) => (
-          <Node w={w} key={w.id} />
-        ))}
-      </ul>
-      <aside className={`govuk-grid-column-one-quarter ${s.summaryPanel}`}>
-        <p className="lbh-body-xs">
-          {workflows.length} workflows started over{' '}
-          {formatDistanceToNow(new Date(workflowsBegan))}
-        </p>
-        <p className="lbh-body-xs govuk-!-margin-top-1">
-          <a
-            className="lbh-link lbh-link--no-visited-state"
-            href={`${process.env.NEXT_PUBLIC_CORE_PATHWAY_APP_URL}?quick_filter=all&social_care_id=${socialCareId}&touched_by_me=true`}
-          >
-            See on planner
-          </a>
-        </p>
-      </aside>
-    </div>
+    <ul className={s.tree}>
+      {tree?.map((w) => (
+        <Node w={w} key={w.id} />
+      ))}
+    </ul>
   );
 };
 

@@ -17,10 +17,10 @@ type SaveableData =
 
 /** an active, inline-editable row of data */
 export interface DataRow {
-  readOnly?: boolean;
   /** what shows up in readable state? */
   label: string;
-  name: keyof Resident; // lodash dotpath
+  name: keyof Resident;
+  readOnly?: boolean;
   /** show on the dialog only, or in the summary? */
   showInSummary?: boolean;
   /** provide a set of selectable options rather than an input field */
@@ -53,8 +53,9 @@ const DataCellSkeleton = () => (
   <div className={s.skeleton} aria-label="Loading..."></div>
 );
 
-const PrettyValue = ({ value }) =>
-  value || <span className={s.notKnown}>Not known</span>;
+const PrettyValue = ({ value }: { value: string | React.ReactElement }) => (
+  <>{value || <span className={s.notKnown}>Not known</span>}</>
+);
 
 const DataCell = ({ row, editing, setEditing, resident, i }: DataCellProps) => {
   const rawValue = get(resident, row.name);

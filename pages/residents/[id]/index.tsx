@@ -12,17 +12,50 @@ import Link from 'next/link';
 import { formatDate } from 'utils/date';
 import SEXUAL_ORIENTATIONS from 'data/orientation';
 import languages from 'data/languages';
+import WorkflowTree from 'components/ResidentPage/WorkflowTree';
+import useWorkflows from 'hooks/useWorkflows';
 
 interface Props {
   resident: Resident;
 }
 
+// const getMostRecentChain = (workflows: Workflow[]): Workflow[] => {
+//   const chain = [];
+
+//   const mostRecent = workflows.sort(
+//     (a, b) => new Date(b.createdAt).valueOf() - new Date(a.createdAt).valueOf()
+//   )?.[0];
+
+//   let idToSearchFor: string | false = mostRecent.id;
+
+//   while (idToSearchFor) {
+//     const result = workflows.find((w) => w.id === idToSearchFor);
+//     console.log('found result: ', result);
+//     chain.push(result);
+//     idToSearchFor = result?.workflowId || false;
+//   }
+
+//   return chain;
+// };
+
 const ResidentPage = ({ resident }: Props): React.ReactElement => {
-  const { data } = useCases({
+  const { data: casesData } = useCases({
     mosaic_id: resident.id,
   });
+  const { data: workflowsData } = useWorkflows(resident.id);
 
-  const cases = data?.[0].cases.slice(0, 3); // only the first three cases
+  const cases = casesData?.[0].cases.slice(0, 3); // only the first three cases
+  const workflows = workflowsData?.workflows.slice(0, 3); // only the first three cases
+
+  const totalWorkflows = workflowsData?.workflows.length;
+
+  // const workflows = useMemo(
+  //   () =>
+  //     workflowsData?.workflows
+  //       ? getMostRecentChain(workflowsData?.workflows)
+  //       : null,
+  //   [workflowsData]
+  // );
 
   return (
     <Layout resident={resident}>
@@ -154,33 +187,18 @@ const ResidentPage = ({ resident }: Props): React.ReactElement => {
             ),
           },
           {
-            label: 'Address',
-            name: 'address',
-            beforeDisplay: (val) => (
-              <div className="govuk-!-margin-bottom-1">
-                {val.address}
-                <br />
-                {val.postcode}
-                <br />
-                <a
-                  className="lbh-link lbh-link--no-visited-state"
-                  href={`https://maps.google.com?q=${val.address},${val.postcode}`}
-                >
-                  Get directions
-                </a>
-              </div>
-            ),
-          },
-          // {
-          //   label: 'Addresses',
-          //   name: 'addresses',
-          //   beforeDisplay: (val) => JSON.stringify(val),
-          // },
-          {
             label: 'Email address',
             name: 'emailAddress',
             showInSummary: true,
             type: 'email',
+            beforeDisplay: (val) => (
+              <a
+                className="lbh-link lbh-link--no-visited-state"
+                href={`mailto:${val}`}
+              >
+                {val}
+              </a>
+            ),
           },
           {
             label: 'Phone numbers',
@@ -273,19 +291,58 @@ const ResidentPage = ({ resident }: Props): React.ReactElement => {
       </Collapsible>
 
       <Collapsible
-        title="Workflows"
+        title={`Recent workflows`}
         link={
           <Link href={`/residents/${resident.id}/workflows`}>
             <a className="lbh-link lbh-link--muted">See all</a>
           </Link>
         }
       >
-        test
+        <>
+          {workflows && (
+            <WorkflowTree socialCareId={resident.id} workflows={workflows} />
+          )}
+          <p className=" lbh-body-xs">
+            <Link href={`/residents/${resident.id}/workflows`}>
+              <a className="lbh-link lbh-link--muted">
+                See all {totalWorkflows} workflows
+              </a>
+            </Link>
+          </p>
+        </>
       </Collapsible>
 
-      <Collapsible title="Housing">
-        <Mapping resident={resident} />
-      </Collapsible>
+      <DataBlock
+        title="Housing"
+        socialCareId={resident.id}
+        list={[
+          {
+            label: 'Address',
+            name: 'address',
+            beforeDisplay: (val) => (
+              <div className="govuk-!-margin-bottom-1">
+                {val.address}
+                <br />
+                {val.postcode}
+                <br />
+                <a
+                  className="lbh-link lbh-link--no-visited-state"
+                  href={`https://maps.google.com?q=${val.address},${val.postcode}`}
+                >
+                  Get directions
+                </a>
+              </div>
+            ),
+          },
+          // {
+          //   label: 'Addresses',
+          //   name: 'addresses',
+          //   beforeDisplay: (val) => JSON.stringify(val),
+          // },
+        ]}
+      />
+
+      <Mapping resident={resident} />
     </Layout>
   );
 };
