@@ -3,6 +3,7 @@ import StatusCodes from 'http-status-codes';
 import { approveSubmission, returnForEdits } from 'lib/submissions';
 import { isAuthorised } from 'utils/auth';
 import { notifyReturnedForEdits } from 'lib/notify';
+import { apiHandler } from 'lib/apiHandler';
 
 const handler = async (
   req: NextApiRequest,
@@ -47,4 +48,4 @@ const handler = async (
   }
 };
 
-export default handler;
+export default apiHandler(handler);

@@ -1,4 +1,5 @@
 import type { NextApiRequest, NextApiResponse, NextApiHandler } from 'next';
+import { apiHandler } from 'lib/apiHandler';
 
 const endpoint: NextApiHandler = async (
   req: NextApiRequest,
@@ -7,4 +8,4 @@ const endpoint: NextApiHandler = async (
   throw new Error('ErrorThrowingPage api error');
 };
 
-export default endpoint;
+export default apiHandler(endpoint);

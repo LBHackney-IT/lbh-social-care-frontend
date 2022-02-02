@@ -60,6 +60,8 @@ functions:
       NEXT_PUBLIC_GOOGLE_ANALYTICS_ID: ${ssm:/lbh-social-care/${self:provider.stage}/next_public_google_analytics_id}
       NEXT_PUBLIC_SENTRY_DSN: ${ssm:/lbh-social-care/${self:provider.stage}/next-public-sentry-dsn}
       NEXT_PUBLIC_SENTRY_TARGET: ${ssm:/lbh-social-care/${self:provider.stage}/next-public-sentry-target}
+      SENTRY_DSN: ${ssm:/lbh-social-care/${self:provider.stage}/sentry-dsn}
+      SENTRY_TARGET: ${ssm:/lbh-social-care/${self:provider.stage}/sentry-target}
       NOTIFY_API_KEY: ${ssm:/lbh-social-care/${self:provider.stage}/notify-api-key}
       NOTIFY_APPROVER_TEMPLATE_ID: ${ssm:/lbh-social-care/${self:provider.stage}/notify-approver-template-id}
       NOTIFY_RETURN_FOR_EDITS_TEMPLATE_ID: ${ssm:/lbh-social-care/${self:provider.stage}/notify-return-for-edits-template-id}

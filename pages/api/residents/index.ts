@@ -2,6 +2,7 @@ import { StatusCodes } from 'http-status-codes';
 
 import { getResidents, addResident } from 'lib/residents';
 import { isAuthorised } from 'utils/auth';
+import { apiHandler } from 'lib/apiHandler';
 
 import type { NextApiRequest, NextApiResponse, NextApiHandler } from 'next';
 import { AxiosError } from 'axios';
@@ -60,4 +61,4 @@ const endpoint: NextApiHandler = async (
   }
 };
 
-export default endpoint;
+export default apiHandler(endpoint);
