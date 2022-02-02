@@ -6,7 +6,6 @@ import s from './DataBlock.module.scss';
 import ss from './SummaryList.module.scss';
 import DefaultInlineEditor, { InlineEditorOption } from './InlineEditor';
 import { useResident } from 'utils/api/residents';
-import get from 'lodash.get';
 
 type SaveableData =
   | boolean
@@ -58,7 +57,7 @@ const PrettyValue = ({ value }: { value: string | React.ReactElement }) => (
 );
 
 const DataCell = ({ row, editing, setEditing, resident, i }: DataCellProps) => {
-  const rawValue = get(resident, row.name);
+  const rawValue = resident?.[row.name];
   const value = row.beforeDisplay ? row.beforeDisplay(rawValue) : rawValue;
 
   if (resident) {
