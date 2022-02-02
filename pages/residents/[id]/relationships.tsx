@@ -7,6 +7,7 @@ import ErrorMessage from 'components/ErrorMessage/ErrorMessage';
 import { useRelationships } from 'utils/api/relationships';
 import RelationshipsTable from 'components/ResidentPage/RelationshipsTable';
 import { SummaryListSkeleton } from 'components/ResidentPage/SummaryList';
+import Link from 'next/link';
 
 interface Props {
   resident: Resident;
@@ -30,6 +31,16 @@ const RelationshipsPage = ({ resident }: Props): React.ReactElement => {
         ) : (
           <p className="lbh-body">This resident has no relationships yet.</p>
         )}
+
+        <Link href={`/people/${resident.id}/relationships/add`}>
+          <a className="govuk-button lbh-button lbh-button--secondary lbh-button--add">
+            <svg width="12" height="12" viewBox="0 0 12 12">
+              <path d="M6.94 0L5 0V12H6.94V0Z" />
+              <path d="M12 5H0V7H12V5Z" />
+            </svg>
+            Add a relationship
+          </a>
+        </Link>
       </>
     </Layout>
   );
