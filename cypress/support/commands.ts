@@ -1,3 +1,20 @@
+import { sign } from 'jsonwebtoken';
+
+const dateToUnix = (date: Date): number => Math.floor(date.getTime() / 1000);
+
+const makeToken = ({
+  sub = '49516349857314',
+  email = 'test@example.com',
+  iss = 'Hackney',
+  name = 'example user',
+  groups = ['test-group'],
+  iat = new Date(),
+}) =>
+  sign(
+    { sub, email, iss, name, groups, iat: dateToUnix(iat) },
+    Cypress.env('HACKNEY_AUTH_TOKEN_SECRET')
+  );
+
 export enum AuthRoles {
   ChildrensGroup = 'ChildrensGroup',
   ChildrensUnrestrictedGroup = 'ChildrensUnrestrictedGroup',
@@ -68,13 +85,20 @@ const visitAs = (
   role: AuthRoles,
   options?: Partial<Cypress.VisitOptions>
 ) => {
-  const config = roleConfigurations[role];
+  // const config = roleConfigurations[role];
 
-  cy.setCookie('hackneyToken', config.tokenValue);
+  cy.setCookie(
+    'hackneyToken',
+    makeToken({
+      groups: [role],
+    })
+  );
   cy.getCookie('hackneyToken').should(
     'have.property',
     'value',
-    config.tokenValue
+    makeToken({
+      groups: [role],
+    })
   );
 
   cy.visit(url, options);
