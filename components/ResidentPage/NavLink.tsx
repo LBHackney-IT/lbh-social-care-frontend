@@ -39,7 +39,7 @@ const NavLink = ({ ...props }: Props): React.ReactElement => {
     return (
       <li className={s.listItem}>
         <Tip content={props.tip}>
-          <span>
+          <span data-testid="tip-target">
             <NavLinkInner {...props} />
           </span>
         </Tip>
