@@ -191,13 +191,15 @@ export interface Resident {
   preferredMethodOfContact?: string;
   restricted?: 'Y' | 'N';
   dateOfDeath?: string;
-  addresses?: {
-    addressLines: string;
-    postCode: string;
-    uprn?: string;
-    isDisplayAddress?: string;
-  }[];
+  addresses?: LegacyAddress[];
   address?: Address;
+}
+
+export interface LegacyAddress {
+  addressLines: string;
+  postCode: string;
+  uprn?: string;
+  isDisplayAddress?: string;
 }
 
 export interface User {

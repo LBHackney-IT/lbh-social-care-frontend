@@ -1,19 +1,27 @@
 import Dialog from 'components/Dialog/Dialog';
 import React, { HTMLInputTypeAttribute, useState } from 'react';
-import { Address, OtherName, PhoneNumber, Resident } from 'types';
+import {
+  Address,
+  LegacyAddress,
+  OtherName,
+  PhoneNumber,
+  Resident,
+} from 'types';
 import Collapsible from './Collapsible';
 import s from './DataBlock.module.scss';
 import ss from './SummaryList.module.scss';
 import DefaultInlineEditor, { InlineEditorOption } from './InlineEditor';
 import { useResident } from 'utils/api/residents';
 
-type SaveableData =
+/** what are the different kinds of data we might have to deal with? */
+type SupportedData =
   | boolean
   | string
   | number
   | OtherName[]
   | PhoneNumber[]
-  | Address;
+  | Address
+  | LegacyAddress[];
 
 /** an active, inline-editable row of data */
 export interface DataRow {
@@ -32,11 +40,11 @@ export interface DataRow {
   customEditor?: React.ReactElement;
   /** HOOKS */
   /** pretty up a saved value before showing it to the user */
-  beforeDisplay?: (value: SaveableData) => React.ReactElement | string;
+  beforeDisplay?: (value: SupportedData) => React.ReactElement | string;
   /** transform or format a saved value before passing it to the editor */
-  beforeEdit?: (value: SaveableData | undefined) => string;
+  beforeEdit?: (value: SupportedData | undefined) => string;
   /** transform or format the edited value before passing it back to the api */
-  beforeSave?: (value: string) => SaveableData;
+  beforeSave?: (value: string) => SupportedData;
 }
 
 type EditingState = number | null;
@@ -59,15 +67,19 @@ const PrettyValue = ({ value }: { value: string | React.ReactElement }) => (
 
 const DataCell = ({ row, editing, setEditing, resident, i }: DataCellProps) => {
   const rawValue = resident?.[row.name];
-  const value = row.beforeDisplay ? row.beforeDisplay(rawValue) : rawValue;
+  const value =
+    rawValue && row.beforeDisplay
+      ? row.beforeDisplay(rawValue as SupportedData)
+      : rawValue;
 
   if (resident) {
-    if (row.readOnly) return <PrettyValue value={value} />;
+    if (row.readOnly)
+      return <PrettyValue value={value as string | React.ReactElement} />;
 
     return editing === i ? (
       row.customEditor || (
         <DefaultInlineEditor
-          value={value}
+          value={value as string}
           onClose={() => setEditing(null)}
           resident={resident}
           {...row}
@@ -75,7 +87,7 @@ const DataCell = ({ row, editing, setEditing, resident, i }: DataCellProps) => {
       )
     ) : (
       <>
-        <PrettyValue value={value} />
+        <PrettyValue value={value as string | React.ReactElement} />
         <button className={s.editButton} onClick={() => setEditing(i)}>
           Edit
         </button>
