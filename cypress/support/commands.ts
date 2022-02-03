@@ -26,35 +26,21 @@ export enum AuthRoles {
   AdminDevGroup = 'AdminDevGroup',
 }
 
-type RoleConfig = {
-  tokenValue: string;
-};
-
-const roleConfigurations: Record<AuthRoles, RoleConfig> = {
-  ChildrensGroup: {
-    tokenValue: Cypress.env('TEST_KEY_CHILDREN_GROUP'),
-  },
-  ChildrensSafeguardingReviewingGroup: {
-    tokenValue: Cypress.env('TEST_KEY_CHILDREN_SAFEGUARDING_REVIEWING_GROUP'),
-  },
-  ChildrensPlacementManagmenetGroup: {
-    tokenValue: Cypress.env('TEST_KEY_CHILDREN_PLACEMENT_MANAGEMENT_GROUP'),
-  },
-  ChildrensUnrestrictedGroup: {
-    tokenValue: Cypress.env('TEST_KEY_CHILDREN_UNRESTRICTED_GROUP'),
-  },
-  AdultsGroup: {
-    tokenValue: Cypress.env('TEST_KEY_ADULT_GROUP'),
-  },
-  AdultsAllocatorGroup: {
-    tokenValue: Cypress.env('TEST_KEY_ADULT_ALLOCATOR_GROUP'),
-  },
-  AdultsUnrestrictedGroup: {
-    tokenValue: Cypress.env('TEST_KEY_ADULT_UNRESTRICTED_GROUP'),
-  },
-  AdminDevGroup: {
-    tokenValue: Cypress.env('TEST_KEY_ADMIN_DEV'),
-  },
+const roleConfigurations: Record<AuthRoles, Array<string>> = {
+  ChildrensGroup: [Cypress.env('AUTHORISED_CHILD_GROUP')],
+  ChildrensSafeguardingReviewingGroup: [Cypress.env('AUTHORISED_CHILD_GROUP')],
+  ChildrensPlacementManagmenetGroup: [Cypress.env('AUTHORISED_CHILD_GROUP')],
+  ChildrensUnrestrictedGroup: [
+    Cypress.env('AUTHORISED_CHILD_GROUP'),
+    Cypress.env('AUTHORISED_UNRESTRICTED_GROUP'),
+  ],
+  AdultsGroup: [Cypress.env('AUTHORISED_ADULT_GROUP')],
+  AdultsAllocatorGroup: [
+    Cypress.env('AUTHORISED_ADULT_GROUP'),
+    Cypress.env('AUTHORISED_ALLOCATORS_GROUP'),
+  ],
+  AdultsUnrestrictedGroup: [Cypress.env('AUTHORISED_ADULT_GROUP')],
+  AdminDevGroup: [Cypress.env('AUTHORISED_DEV_GROUP')],
 };
 
 declare global {
@@ -85,19 +71,17 @@ const visitAs = (
   role: AuthRoles,
   options?: Partial<Cypress.VisitOptions>
 ) => {
-  // const config = roleConfigurations[role];
-
   cy.setCookie(
     'hackneyToken',
     makeToken({
-      groups: [role],
+      groups: roleConfigurations[role],
     })
   );
   cy.getCookie('hackneyToken').should(
     'have.property',
     'value',
     makeToken({
-      groups: [role],
+      groups: roleConfigurations[role],
     })
   );
 
