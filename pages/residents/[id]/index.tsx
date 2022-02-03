@@ -19,25 +19,6 @@ interface Props {
   resident: Resident;
 }
 
-// const getMostRecentChain = (workflows: Workflow[]): Workflow[] => {
-//   const chain = [];
-
-//   const mostRecent = workflows.sort(
-//     (a, b) => new Date(b.createdAt).valueOf() - new Date(a.createdAt).valueOf()
-//   )?.[0];
-
-//   let idToSearchFor: string | false = mostRecent.id;
-
-//   while (idToSearchFor) {
-//     const result = workflows.find((w) => w.id === idToSearchFor);
-//     console.log('found result: ', result);
-//     chain.push(result);
-//     idToSearchFor = result?.workflowId || false;
-//   }
-
-//   return chain;
-// };
-
 const ResidentPage = ({ resident }: Props): React.ReactElement => {
   const { data: casesData } = useCases({
     mosaic_id: resident.id,
@@ -45,17 +26,9 @@ const ResidentPage = ({ resident }: Props): React.ReactElement => {
   const { data: workflowsData } = useWorkflows(resident.id);
 
   const cases = casesData?.[0].cases.slice(0, 3); // only the first three cases
-  const workflows = workflowsData?.workflows.slice(0, 3); // only the first three cases
+  const workflows = workflowsData?.workflows.slice(0, 3); // only the first three workflows
 
   const totalWorkflows = workflowsData?.workflows.length;
-
-  // const workflows = useMemo(
-  //   () =>
-  //     workflowsData?.workflows
-  //       ? getMostRecentChain(workflowsData?.workflows)
-  //       : null,
-  //   [workflowsData]
-  // );
 
   return (
     <Layout resident={resident}>
