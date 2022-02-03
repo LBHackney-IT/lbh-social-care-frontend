@@ -12,7 +12,7 @@ const makeToken = ({
 }) =>
   sign(
     { sub, email, iss, name, groups, iat: dateToUnix(iat) },
-    Cypress.env('HACKNEY_AUTH_TOKEN_SECRET')
+    Cypress.env('HACKNEY_JWT_SECRET')
   );
 
 export enum AuthRoles {
