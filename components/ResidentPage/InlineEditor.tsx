@@ -94,6 +94,7 @@ const InlineEditor = ({
 
       {options ? (
         <select
+          id={name}
           name={name}
           defaultValue={defaultValue as string | number}
           ref={register}
@@ -106,6 +107,7 @@ const InlineEditor = ({
         </select>
       ) : (
         <input
+          id={name}
           name={name}
           defaultValue={defaultValue as string | number}
           ref={register}

@@ -1,7 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import { mockedCaseNote } from 'factories/cases';
 import CaseNoteTile from './CaseNoteTile';
-
 import { useWorker } from 'utils/api/workers';
 import { mockedWorker } from 'factories/workers';
 
