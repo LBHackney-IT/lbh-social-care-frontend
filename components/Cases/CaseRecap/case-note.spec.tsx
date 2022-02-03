@@ -5,8 +5,28 @@ import { mockedWorker } from 'factories/workers';
 import { SubmissionState } from 'data/flexibleForms/forms.types';
 import { useRouter } from 'next/router';
 
-// jest.mock('next/router');
+jest.mock('next/router');
+const useRouterMock = useRouter as jest.MockedFunction<typeof useRouter>;
 // const mockedAxios = axios as jest.Mocked<typeof axios>;
+
+let eventName;
+let routeChangeHandler;
+
+useRouterMock.mockImplementation(() => {
+  return {
+    BaseRouter: { pathname: '/', route: '/', query: {}, asPath: '/' },
+    events: {
+      on: jest.fn((event, callback) => {
+        eventName = event;
+        routeChangeHandler = callback;
+      }),
+      off: jest.fn((event, callback) => {
+        eventName = event;
+        routeChangeHandler = callback;
+      }),
+    },
+  };
+});
 
 const mockedResident = residentFactory.build();
 
