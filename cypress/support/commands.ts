@@ -28,8 +28,14 @@ export enum AuthRoles {
 
 const roleConfigurations: Record<AuthRoles, Array<string>> = {
   ChildrensGroup: [Cypress.env('AUTHORISED_CHILD_GROUP')],
-  ChildrensSafeguardingReviewingGroup: [Cypress.env('AUTHORISED_CHILD_GROUP')],
-  ChildrensPlacementManagmenetGroup: [Cypress.env('AUTHORISED_CHILD_GROUP')],
+  ChildrensSafeguardingReviewingGroup: [
+    Cypress.env('AUTHORISED_CHILD_GROUP'),
+    Cypress.env('AUTHORISED_SAFEGUARDING_REVIEWING_GROUP'),
+  ],
+  ChildrensPlacementManagmenetGroup: [
+    Cypress.env('AUTHORISED_CHILD_GROUP'),
+    Cypress.env('AUTHORISED_PLACEMENT_MANAGEMENT_UNIT_GROUP'),
+  ],
   ChildrensUnrestrictedGroup: [
     Cypress.env('AUTHORISED_CHILD_GROUP'),
     Cypress.env('AUTHORISED_UNRESTRICTED_GROUP'),
@@ -39,7 +45,10 @@ const roleConfigurations: Record<AuthRoles, Array<string>> = {
     Cypress.env('AUTHORISED_ADULT_GROUP'),
     Cypress.env('AUTHORISED_ALLOCATORS_GROUP'),
   ],
-  AdultsUnrestrictedGroup: [Cypress.env('AUTHORISED_ADULT_GROUP')],
+  AdultsUnrestrictedGroup: [
+    Cypress.env('AUTHORISED_ADULT_GROUP'),
+    Cypress.env('AUTHORISED_UNRESTRICTED_GROUP'),
+  ],
   AdminDevGroup: [Cypress.env('AUTHORISED_DEV_GROUP')],
 };
 
