@@ -14,7 +14,7 @@ const ActivityTimeline = ({
     mosaic_id: socialCareId,
   });
 
-  const activity = data?.[0].cases.slice(0, 3);
+  const activity = data?.[0]?.cases?.slice(0, 3);
 
   if (activity)
     return (
