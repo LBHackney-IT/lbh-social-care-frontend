@@ -1,7 +1,7 @@
 import s from './SummaryList.module.scss';
 
 interface Props {
-  rows: { [key: string]: React.ReactElement };
+  rows: { [key: string]: React.ReactElement | string };
 }
 
 const SummaryList = ({ rows }: Props): React.ReactElement => (

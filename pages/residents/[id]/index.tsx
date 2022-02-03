@@ -5,7 +5,7 @@ import Layout from 'components/ResidentPage/Layout';
 import Mapping from 'components/ResidentPage/Mapping';
 import { getResident } from 'lib/residents';
 import { GetServerSideProps } from 'next';
-import { Resident } from 'types';
+import { Address, OtherName, PhoneNumber, Resident } from 'types';
 import { useCases } from 'utils/api/cases';
 import { isAuthorised } from 'utils/auth';
 import Link from 'next/link';
@@ -100,11 +100,9 @@ const ResidentPage = ({ resident }: Props): React.ReactElement => {
           {
             label: 'Other names',
             name: 'otherNames',
-            beforeDisplay: (val) =>
-              (val as { firstName: string }[])?.[0]?.firstName,
-            beforeEdit: (val) =>
-              (val as { firstName: string }[])?.[0]?.firstName,
-            beforeSave: (val) => [{ firstName: val }],
+            beforeDisplay: (val) => (val as OtherName[])?.[0]?.firstName,
+            beforeEdit: (val) => (val as OtherName[])?.[0]?.firstName,
+            beforeSave: (val) => [{ firstName: val, lastName: '' }],
           },
           {
             label: 'Date of birth',
@@ -205,19 +203,17 @@ const ResidentPage = ({ resident }: Props): React.ReactElement => {
             name: 'phoneNumbers',
             beforeDisplay: (val) => (
               <ul className="lbh-list lbh-body-s">
-                {(val as { type: string; number: string }[]).map(
-                  (number, i) => (
-                    <li key={i}>
-                      <strong>{number.type}:</strong>{' '}
-                      <a
-                        className="lbh-link lbh-link--no-visited-state"
-                        href={`tel:${number.number}`}
-                      >
-                        {number.number}
-                      </a>
-                    </li>
-                  )
-                )}
+                {(val as PhoneNumber[]).map((number, i) => (
+                  <li key={i}>
+                    <strong>{number.type}:</strong>{' '}
+                    <a
+                      className="lbh-link lbh-link--no-visited-state"
+                      href={`tel:${number.number}`}
+                    >
+                      {number.number}
+                    </a>
+                  </li>
+                ))}
               </ul>
             ),
           },
@@ -321,13 +317,15 @@ const ResidentPage = ({ resident }: Props): React.ReactElement => {
             name: 'address',
             beforeDisplay: (val) => (
               <div className="govuk-!-margin-bottom-1">
-                {val.address}
+                {(val as Address).address}
                 <br />
-                {val.postcode}
+                {(val as Address).postcode}
                 <br />
                 <a
                   className="lbh-link lbh-link--no-visited-state"
-                  href={`https://maps.google.com?q=${val.address},${val.postcode}`}
+                  href={`https://maps.google.com?q=${
+                    (val as Address).address
+                  },${(val as Address).postcode}`}
                 >
                   Get directions
                 </a>

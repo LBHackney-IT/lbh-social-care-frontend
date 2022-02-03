@@ -1,6 +1,6 @@
 import Dialog from 'components/Dialog/Dialog';
 import React, { HTMLInputTypeAttribute, useState } from 'react';
-import { Resident } from 'types';
+import { Address, OtherName, PhoneNumber, Resident } from 'types';
 import Collapsible from './Collapsible';
 import s from './DataBlock.module.scss';
 import ss from './SummaryList.module.scss';
@@ -11,8 +11,9 @@ type SaveableData =
   | boolean
   | string
   | number
-  | Record<string, unknown>[]
-  | Record<string, unknown>;
+  | OtherName[]
+  | PhoneNumber[]
+  | Address;
 
 /** an active, inline-editable row of data */
 export interface DataRow {
@@ -35,7 +36,7 @@ export interface DataRow {
   /** transform or format a saved value before passing it to the editor */
   beforeEdit?: (value: SaveableData | undefined) => string;
   /** transform or format the edited value before passing it back to the api */
-  beforeSave?: (value: unknown) => SaveableData;
+  beforeSave?: (value: string) => SaveableData;
 }
 
 type EditingState = number | null;
