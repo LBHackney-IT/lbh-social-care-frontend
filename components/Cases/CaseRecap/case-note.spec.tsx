@@ -75,25 +75,31 @@ describe('Case note page', () => {
   });
   it('catches an unhandled promise', async () => {
     const newError = new Error();
-    (useRouterMock().replace as jest.Mock).mockRejectedValue(newError);
+    const routerReplace = (
+      useRouterMock().replace as jest.Mock
+    ).mockRejectedValue(newError);
 
     render(<CaseNote {...mockedNewSubmission} />);
-    await expect(useRouterMock().replace).rejects.toThrow(newError);
+    await expect(routerReplace).rejects.toEqual(newError);
 
     expect(useRouterMock).toHaveBeenCalled();
-    expect(useRouterMock().replace).toHaveBeenCalled();
+    expect(routerReplace).toHaveBeenCalled();
     expect(consoleErrorMock).toHaveBeenCalled();
+    routerReplace.mockReset();
   });
 
   it('displays an alert banner when router.replace fails', async () => {
     const newError = new Error();
     newError.message = 'HI1';
-    (useRouterMock().replace as jest.Mock).mockRejectedValue(newError);
+    const routerReplace = (
+      useRouterMock().replace as jest.Mock
+    ).mockRejectedValue(newError);
 
     const { getByText } = render(<CaseNote {...mockedNewSubmission} />);
-    await expect(useRouterMock().replace).rejects.toThrow(newError);
+    await expect(routerReplace).rejects.toEqual(newError);
 
     const warningMessage = getByText('There was a problem');
     expect(warningMessage).not.toBeNull();
+    routerReplace.mockReset();
   });
 });
