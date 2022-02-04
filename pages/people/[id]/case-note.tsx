@@ -54,7 +54,6 @@ const CaseNote = ({
           query: { submissionId },
         })
         .catch((error) => {
-          console.log('HEREEEEE');
           console.error(error);
 
           setError(error.message);
@@ -84,7 +83,6 @@ const CaseNote = ({
 
   return (
     <>
-      {console.log('error', error)}
       <Head>
         <title>Add a case note | Social care | Hackney Council</title>
       </Head>
