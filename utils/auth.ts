@@ -69,12 +69,13 @@ export const isAuthorised = (
   const AUTHORISED_PLACEMENT_MANAGEMENT_UNIT_GROUP =
     process.env.AUTHORISED_PLACEMENT_MANAGEMENT_UNIT_GROUP;
 
-  const cookies = cookie.parse(req.headers.cookie ?? '');
   try {
+    const cookies = cookie.parse(req.headers.cookie ?? '');
     const parsedToken = jsonwebtoken.verify(
       cookies[GSSO_TOKEN_NAME],
       HACKNEY_JWT_SECRET
     ) as ParsedCookie;
+
     const { groups = [], name, email } = parsedToken;
     const gssUser = {
       hasDevPermissions: groups.includes(AUTHORISED_DEV_GROUP),
