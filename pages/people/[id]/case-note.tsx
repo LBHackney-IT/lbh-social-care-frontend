@@ -43,20 +43,21 @@ const CaseNote = ({
 
   const router = useRouter();
   const [finished, setFinished] = useState<boolean>(false);
-  const [state, setState] = useState<string>();
+  // const [state, setState] = useState<string>();
 
   // put the submission id on the url if it doesn't already exist
   useEffect(() => {
     if (!router.query.submissionId) {
-      console.log('HEREEEEE');
       router
         .replace({
           pathname: router.asPath,
           query: { submissionId },
         })
         .catch((error) => {
+          console.log('HEREEEEE');
           console.error(error);
-          setState(error.message);
+
+          // setState(error.message);
         });
     }
   }, [router, submissionId, params.id]);
