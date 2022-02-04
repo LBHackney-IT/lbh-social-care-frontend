@@ -77,9 +77,8 @@ describe('Case note page', () => {
     const newError = new Error();
     (useRouterMock().replace as jest.Mock).mockRejectedValue(newError);
 
-    await render(<CaseNote {...mockedNewSubmission} />);
+    render(<CaseNote {...mockedNewSubmission} />);
     await expect(useRouterMock().replace).rejects.toThrow(newError);
-    // await expect(useRouterMock().replace).rejects.toEqual(newError);
 
     expect(useRouterMock).toHaveBeenCalled();
     expect(useRouterMock().replace).toHaveBeenCalled();
@@ -95,7 +94,6 @@ describe('Case note page', () => {
     await expect(useRouterMock().replace).rejects.toThrow(newError);
 
     const warningMessage = getByText('There was a problem');
-    console.log('warning message', warningMessage);
     expect(warningMessage).not.toBeNull();
   });
 });
