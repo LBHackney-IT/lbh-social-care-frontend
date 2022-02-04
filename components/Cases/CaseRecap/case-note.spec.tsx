@@ -4,8 +4,9 @@ import { residentFactory } from 'factories/residents';
 import { mockedWorker } from 'factories/workers';
 import { SubmissionState } from 'data/flexibleForms/forms.types';
 import { NextRouter, useRouter } from 'next/router';
+import { act } from 'react-dom/test-utils';
 
-// jest.mock('next/router');
+jest.mock('next/router');
 const useRouterMock = useRouter as jest.MockedFunction<typeof useRouter>;
 // const mockedAxios = axios as jest.Mocked<typeof axios>;
 
@@ -28,7 +29,7 @@ let routeChangeHandler;
 //   };
 // });
 
-jest.mock('next/router');
+// jest.mock('next/router');
 // const useRouterMock = () => ({
 //   useRouter() {
 //     return {
@@ -60,7 +61,7 @@ const mockRouter: NextRouter = {
   query: {},
   asPath: '/',
   push: jest.fn(() => Promise.resolve(true)),
-  replace: jest.fn(() => Promise.resolve(true)),
+  replace: jest.fn(() => Promise.resolve(false)),
   reload: jest.fn(() => Promise.resolve(true)),
   prefetch: jest.fn(() => Promise.resolve()),
   back: jest.fn(() => Promise.resolve(true)),
@@ -114,9 +115,13 @@ describe('Case note page', () => {
     // const router = useRouter();
     // router.query = { submissionId: '' };
     useRouterMock.mockReturnValue(mockRouter);
+    // (useRouterMock().replace as jest.Mock).mockRejectedValue(new Error());
 
-    const { getByText } = render(<CaseNote {...mockedNewSubmission} />);
+    act(() => {
+      render(<CaseNote {...mockedNewSubmission} />);
+    });
 
     expect(useRouterMock).toHaveBeenCalled();
+    expect(useRouterMock().replace).toHaveBeenCalled();
   });
 });
