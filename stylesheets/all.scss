@@ -224,3 +224,8 @@ input[type='time'] {
     margin: 0;
   }
 }
+
+// fix double-sidebar effect we see when dialogs are open
+.govuk-template {
+  overflow-y: initial;
+}
