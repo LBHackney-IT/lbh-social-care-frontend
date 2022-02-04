@@ -70,46 +70,47 @@ export const isAuthorised = (
     process.env.AUTHORISED_PLACEMENT_MANAGEMENT_UNIT_GROUP;
 
   const cookies = cookie.parse(req.headers.cookie ?? '');
-  const parsedToken = cookies[GSSO_TOKEN_NAME]
-    ? (jsonwebtoken.verify(
-        cookies[GSSO_TOKEN_NAME],
-        HACKNEY_JWT_SECRET
-      ) as ParsedCookie)
-    : null;
-  if (!parsedToken) {
+  try {
+    const parsedToken = jsonwebtoken.verify(
+      cookies[GSSO_TOKEN_NAME],
+      HACKNEY_JWT_SECRET
+    ) as ParsedCookie;
+    const { groups = [], name, email } = parsedToken;
+    const gssUser = {
+      hasDevPermissions: groups.includes(AUTHORISED_DEV_GROUP),
+      hasAdminPermissions:
+        groups.includes(AUTHORISED_ADMIN_GROUP) ||
+        groups.includes(AUTHORISED_DEV_GROUP),
+      hasAdultPermissions: groups.includes(AUTHORISED_ADULT_GROUP),
+      hasChildrenPermissions: groups.includes(AUTHORISED_CHILD_GROUP),
+      hasAllocationsPermissions:
+        groups.includes(AUTHORISED_ALLOCATORS_GROUP) ||
+        // children users don't need to be part of allocator group to be able to allocate
+        groups.includes(AUTHORISED_CHILD_GROUP),
+      hasUnrestrictedPermissions: groups.includes(
+        AUTHORISED_UNRESTRICTED_GROUP
+      ),
+      isAuditable: groups.includes(AUTHORISED_AUDITABLE_GROUP),
+      isInWorkflowsPilot: groups.includes(AUTHORISED_WORKFLOWS_PILOT_GROUP),
+      isInSafeguardingReviewing: groups.includes(
+        AUTHORISED_SAFEGUARDING_REVIEWING_GROUP
+      ),
+      isInPlacementManagementUnit: groups.includes(
+        AUTHORISED_PLACEMENT_MANAGEMENT_UNIT_GROUP
+      ),
+    };
+    return {
+      ...gssUser,
+      permissionFlag: getPermissionFlag(gssUser),
+      isAuthorised:
+        gssUser.hasDevPermissions ||
+        gssUser.hasAdminPermissions ||
+        gssUser.hasAdultPermissions ||
+        gssUser.hasChildrenPermissions,
+      name,
+      email,
+    };
+  } catch (e) {
     return;
   }
-  const { groups = [], name, email } = parsedToken;
-  const gssUser = {
-    hasDevPermissions: groups.includes(AUTHORISED_DEV_GROUP),
-    hasAdminPermissions:
-      groups.includes(AUTHORISED_ADMIN_GROUP) ||
-      groups.includes(AUTHORISED_DEV_GROUP),
-    hasAdultPermissions: groups.includes(AUTHORISED_ADULT_GROUP),
-    hasChildrenPermissions: groups.includes(AUTHORISED_CHILD_GROUP),
-    hasAllocationsPermissions:
-      groups.includes(AUTHORISED_ALLOCATORS_GROUP) ||
-      // children users don't need to be part of allocator group to be able to allocate
-      groups.includes(AUTHORISED_CHILD_GROUP),
-    hasUnrestrictedPermissions: groups.includes(AUTHORISED_UNRESTRICTED_GROUP),
-    isAuditable: groups.includes(AUTHORISED_AUDITABLE_GROUP),
-    isInWorkflowsPilot: groups.includes(AUTHORISED_WORKFLOWS_PILOT_GROUP),
-    isInSafeguardingReviewing: groups.includes(
-      AUTHORISED_SAFEGUARDING_REVIEWING_GROUP
-    ),
-    isInPlacementManagementUnit: groups.includes(
-      AUTHORISED_PLACEMENT_MANAGEMENT_UNIT_GROUP
-    ),
-  };
-  return {
-    ...gssUser,
-    permissionFlag: getPermissionFlag(gssUser),
-    isAuthorised:
-      gssUser.hasDevPermissions ||
-      gssUser.hasAdminPermissions ||
-      gssUser.hasAdultPermissions ||
-      gssUser.hasChildrenPermissions,
-    name,
-    email,
-  };
 };
