@@ -1,8 +1,7 @@
 export default [
-  'Heterosexual/Straight',
-  'Gay/Lesbian',
-  'Bisexual',
-  'Not Known',
+  'Heterosexual/straight',
+  'Gay/lesbian',
+  'Bisexual/pansexual',
   'Other',
   'Prefer not to say',
 ];

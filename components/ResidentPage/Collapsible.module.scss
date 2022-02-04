@@ -1,0 +1,137 @@
+@import 'lbh-frontend/lbh/base';
+
+.outer {
+  // properly space whatever comes after the collapsible
+  & + * {
+    margin-top: 2.5rem;
+  }
+}
+
+.header {
+  border-bottom: 3px solid lbh-colour('lbh-text');
+  padding-bottom: 0.5rem;
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+
+  // properly space the case note tile grid when presented inside a collapsible
+  & + ul {
+    margin-top: 1rem;
+  }
+
+  * + * {
+    margin-top: 0;
+  }
+
+  button:first-child {
+    all: unset;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    cursor: pointer;
+    flex: 1;
+
+    &:hover {
+      h2 {
+        color: lighten(lbh-colour('lbh-text'), 20);
+      }
+      svg path {
+        fill: lighten(lbh-colour('lbh-text'), 20);
+      }
+    }
+
+    &:focus:after {
+      content: '';
+      display: block;
+      position: absolute;
+      bottom: -3px;
+      left: 0;
+      width: 100%;
+      border-bottom: 3px solid lbh-colour('lbh-primary-focus');
+    }
+
+    // flip sideways when closed
+    &[aria-expanded='false'] svg {
+      transform: rotate(-90deg);
+    }
+  }
+
+  div {
+    background: lbh-colour('lbh-text');
+    margin-right: 10px;
+    padding: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  svg {
+    width: 15px;
+    height: 15px;
+    position: relative;
+    cursor: pointer;
+    top: 5px;
+    margin-right: 10px;
+
+    @include govuk-media-query($from: tablet) {
+      top: 6px;
+    }
+  }
+}
+
+.skeleton {
+  // header
+  & > div:first-child {
+    position: relative;
+    border-bottom: 3px solid lbh-colour('lbh-grey-4');
+    padding-bottom: 0.5rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+
+    div {
+      height: 15px;
+      background: lbh-colour('lbh-grey-3');
+      border-radius: 2px;
+      margin-top: 0.5rem;
+      width: 100px;
+
+      &:first-of-type {
+        height: 20px;
+        width: 200px;
+      }
+    }
+
+    &:after {
+      content: '';
+      display: block;
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(
+        90deg,
+        rgba(255, 255, 255, 0),
+        rgba(255, 255, 255, 1),
+        rgba(255, 255, 255, 1),
+        rgba(255, 255, 255, 0)
+      );
+      animation: scroll 2s infinite;
+      animation-timing-function: linear;
+      opacity: 0.75;
+    }
+
+    @keyframes scroll {
+      from {
+        background-position-x: 0px;
+      }
+
+      to {
+        background-position-x: 817.5px;
+      }
+    }
+  }
+}

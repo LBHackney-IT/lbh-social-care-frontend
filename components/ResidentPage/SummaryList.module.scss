@@ -1,0 +1,70 @@
+@import 'lbh-frontend/lbh/base';
+
+.summaryList {
+  dd,
+  dt {
+    @include lbh-body-s;
+  }
+
+  dt {
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+  }
+}
+
+.skeleton {
+  margin-top: 0;
+}
+
+.skeletonRow {
+  position: relative;
+  box-sizing: border-box;
+  display: grid;
+  grid-template-columns: 50% 50%;
+  margin-top: 0;
+  padding: 10px 0px;
+  border-bottom: 1px solid lbh-colour('lbh-grey-4');
+
+  // key and value
+  div {
+    height: 15px;
+    background: lbh-colour('lbh-grey-3');
+    border-radius: 2px;
+    margin-top: 0rem;
+    width: 100px;
+  }
+
+  &:nth-of-type(even) div {
+    width: 150px;
+  }
+
+  &:after {
+    content: '';
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+      90deg,
+      rgba(255, 255, 255, 0),
+      rgba(255, 255, 255, 1),
+      rgba(255, 255, 255, 1),
+      rgba(255, 255, 255, 0)
+    );
+    animation: scroll 2s infinite;
+    animation-timing-function: linear;
+    opacity: 0.75;
+  }
+
+  @keyframes scroll {
+    from {
+      background-position-x: 0px;
+    }
+
+    to {
+      background-position-x: 817.5px;
+    }
+  }
+}

@@ -1,0 +1,17 @@
+@import 'lbh-frontend/lbh/base';
+
+.list {
+  list-style: none;
+  margin-top: 0.75rem;
+
+  li {
+    font-size: 0.9rem;
+    font-weight: 600;
+    padding: 0px 5px;
+  }
+
+  li + li {
+    margin-top: 0;
+    margin-left: 7px;
+  }
+}
