@@ -1,0 +1,56 @@
+@import 'lbh-frontend/lbh/base';
+
+.actions {
+  margin-top: 0.5rem;
+  margin-bottom: 1.5rem;
+
+  button {
+    all: unset;
+    text-decoration: underline;
+    cursor: pointer;
+    color: lbh-colour('lbh-secondary-text');
+    @include lbh-link;
+  }
+
+  button:first-of-type {
+    color: lbh-colour('lbh-error');
+    &:hover {
+      color: lbh-colour('lbh-f01');
+    }
+    &:focus,
+    &:active {
+      color: lbh-colour('lbh-text');
+    }
+  }
+
+  button:last-of-type {
+    @include govuk-link-style-muted;
+    color: lbh-colour('lbh-secondary-text');
+  }
+}
+
+.keyboardMessage {
+  text-align: center;
+
+  p {
+    color: lbh-colour('lbh-secondary-text');
+  }
+
+  span {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    color: lbh-colour('lbh-grey-1');
+    background: darken(lbh-colour('lbh-grey-4'), 3);
+    border: 1px solid darken(lbh-colour('lbh-grey-4'), 5);
+    border-radius: 3px;
+    width: 20px;
+    height: 20px;
+    box-shadow: 0px 1px 0px 0px lbh-colour('lbh-grey-2');
+    margin-top: 0.5rem;
+
+    & + span {
+      margin-left: 0.5rem;
+    }
+  }
+}

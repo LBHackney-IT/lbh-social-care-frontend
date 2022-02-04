@@ -7,6 +7,7 @@ interface Props {
   children: React.ReactChild | React.ReactChild[];
   title: string;
   showCloseButton?: boolean;
+  onKeyUp: unknown;
 }
 
 const Dialog = ({
