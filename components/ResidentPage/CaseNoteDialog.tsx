@@ -50,6 +50,7 @@ const CaseContent = ({ recordId, socialCareId }: CaseContentProps) => {
 
 interface Props {
   caseNotes: Case[];
+  socialCareId: number;
 }
 
 const CaseNoteDialog = ({ caseNotes }: Props): React.ReactElement | null => {
