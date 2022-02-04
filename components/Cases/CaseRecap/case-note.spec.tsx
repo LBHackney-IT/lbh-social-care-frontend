@@ -1,5 +1,5 @@
 import CaseNote from '../../../pages/people/[id]/case-note';
-import { render } from '@testing-library/react';
+import { screen, render, fireEvent, waitFor } from '@testing-library/react';
 import { residentFactory } from 'factories/residents';
 import { mockedWorker } from 'factories/workers';
 import { SubmissionState } from 'data/flexibleForms/forms.types';
@@ -123,7 +123,7 @@ describe('Case note page', () => {
   afterEach(() => {
     consoleSpy.mockReset();
   });
-  it('catches an unhandled promise', () => {
+  it('catches an unhandled promise', async () => {
     // (useRouter().replace as jest.Mock).mockRejectedValue(new Error());
     // const router = useRouter();
     // router.query = { submissionId: '' };
@@ -132,16 +132,31 @@ describe('Case note page', () => {
     newError.message = 'HI1';
     (useRouterMock().replace as jest.Mock).mockRejectedValue(newError);
 
-    render(<CaseNote {...mockedNewSubmission} />);
+    let warningBanner;
+    // act(() => {
+    const { getByText } = render(<CaseNote {...mockedNewSubmission} />);
+
+    await waitFor(() => {
+      fireEvent.click(getByText('Save and finish'));
+    });
+    // warningBanner = getByRole('alert');
+    // });
+    // expect(await screen.getByRole('alert')).toBeVisible;
+    const warningMessage = getByText(
+      'There was a problem finishing the submission'
+    );
+
+    expect(warningMessage).not.toBeNull();
 
     expect(useRouterMock).toHaveBeenCalled();
     expect(useRouterMock().replace).toHaveBeenCalled();
+    expect(warningBanner).not.toBeNull();
     // expect(() => {
     //   consoleSpy;
     // }).toThrowError();
 
-    expect(consoleSpy).toHaveBeenCalledWith(newError);
+    expect(consoleSpy).toHaveBeenCalled();
     // expect(consoleSpy).toHaveErrorMessage();
-    expect(consoleLogSpy).toHaveBeenCalled();
+    // expect(consoleLogSpy).toHaveBeenCalled();
   });
 });
