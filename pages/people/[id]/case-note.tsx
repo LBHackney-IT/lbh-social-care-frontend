@@ -43,7 +43,7 @@ const CaseNote = ({
 
   const router = useRouter();
   const [finished, setFinished] = useState<boolean>(false);
-  const [state, setState] = useState<boolean>();
+  const [error, setError] = useState<string>();
 
   // put the submission id on the url if it doesn't already exist
   useEffect(() => {
@@ -57,7 +57,7 @@ const CaseNote = ({
           console.log('HEREEEEE');
           console.error(error);
 
-          setState(true);
+          setError(error.message);
         });
     }
   }, [router, submissionId, params.id]);
@@ -84,7 +84,7 @@ const CaseNote = ({
 
   return (
     <>
-      {console.log('state', state)}
+      {console.log('error', error)}
       <Head>
         <title>Add a case note | Social care | Hackney Council</title>
       </Head>
@@ -108,7 +108,7 @@ const CaseNote = ({
             >
               {({ touched, errors, values, isSubmitting, status, isValid }) => (
                 <Form>
-                  {(status || state) && (
+                  {status && (
                     <Banner
                       title="There was a problem finishing the submission"
                       className="lbh-page-announcement--warning"
@@ -116,6 +116,16 @@ const CaseNote = ({
                     >
                       <p>Please refresh the page or try again later.</p>
                       <p className="lbh-body-xs">{status}</p>
+                    </Banner>
+                  )}
+                  {error != undefined && !status && (
+                    <Banner
+                      title="There was a problem"
+                      className="lbh-page-announcement--warning"
+                      data-testid={'warning-banner'}
+                    >
+                      <p>Please refresh the page or try again later.</p>
+                      <p className="lbh-body-xs">{error}</p>
                     </Banner>
                   )}
 

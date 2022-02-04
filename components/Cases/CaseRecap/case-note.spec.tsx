@@ -1,5 +1,5 @@
 import CaseNote from '../../../pages/people/[id]/case-note';
-import { screen, render, fireEvent, waitFor } from '@testing-library/react';
+import { render, fireEvent, waitFor } from '@testing-library/react';
 import { residentFactory } from 'factories/residents';
 import { mockedWorker } from 'factories/workers';
 import { SubmissionState } from 'data/flexibleForms/forms.types';
@@ -142,19 +142,13 @@ describe('Case note page', () => {
     // warningBanner = getByRole('alert');
     // });
     // expect(await screen.getByRole('alert')).toBeVisible;
-    const warningMessage = getByText(
-      'There was a problem finishing the submission'
-    );
+    const warningMessage = getByText('There was a problem');
 
     expect(warningMessage).not.toBeNull();
 
     expect(useRouterMock).toHaveBeenCalled();
     expect(useRouterMock().replace).toHaveBeenCalled();
     expect(warningBanner).not.toBeNull();
-    // expect(() => {
-    //   consoleSpy;
-    // }).toThrowError();
-
     expect(consoleSpy).toHaveBeenCalled();
     // expect(consoleSpy).toHaveErrorMessage();
     // expect(consoleLogSpy).toHaveBeenCalled();
