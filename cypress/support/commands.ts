@@ -1,20 +1,3 @@
-import { sign } from 'jsonwebtoken';
-
-const dateToUnix = (date: Date): number => Math.floor(date.getTime() / 1000);
-
-const makeToken = ({
-  sub = '49516349857314',
-  email = 'test@example.com',
-  iss = 'Hackney',
-  name = 'example user',
-  groups = ['test-group'],
-  iat = new Date(),
-}) =>
-  sign(
-    { sub, email, iss, name, groups, iat: dateToUnix(iat) },
-    Cypress.env('HACKNEY_JWT_SECRET')
-  );
-
 export enum AuthRoles {
   ChildrensGroup = 'ChildrensGroup',
   ChildrensUnrestrictedGroup = 'ChildrensUnrestrictedGroup',
@@ -26,30 +9,35 @@ export enum AuthRoles {
   AdminDevGroup = 'AdminDevGroup',
 }
 
-const roleConfigurations: Record<AuthRoles, Array<string>> = {
-  ChildrensGroup: [Cypress.env('AUTHORISED_CHILD_GROUP')],
-  ChildrensSafeguardingReviewingGroup: [
-    Cypress.env('AUTHORISED_CHILD_GROUP'),
-    Cypress.env('AUTHORISED_SAFEGUARDING_REVIEWING_GROUP'),
-  ],
-  ChildrensPlacementManagmenetGroup: [
-    Cypress.env('AUTHORISED_CHILD_GROUP'),
-    Cypress.env('AUTHORISED_PLACEMENT_MANAGEMENT_UNIT_GROUP'),
-  ],
-  ChildrensUnrestrictedGroup: [
-    Cypress.env('AUTHORISED_CHILD_GROUP'),
-    Cypress.env('AUTHORISED_UNRESTRICTED_GROUP'),
-  ],
-  AdultsGroup: [Cypress.env('AUTHORISED_ADULT_GROUP')],
-  AdultsAllocatorGroup: [
-    Cypress.env('AUTHORISED_ADULT_GROUP'),
-    Cypress.env('AUTHORISED_ALLOCATORS_GROUP'),
-  ],
-  AdultsUnrestrictedGroup: [
-    Cypress.env('AUTHORISED_ADULT_GROUP'),
-    Cypress.env('AUTHORISED_UNRESTRICTED_GROUP'),
-  ],
-  AdminDevGroup: [Cypress.env('AUTHORISED_DEV_GROUP')],
+type RoleConfig = {
+  tokenValue: string;
+};
+
+const roleConfigurations: Record<AuthRoles, RoleConfig> = {
+  ChildrensGroup: {
+    tokenValue: Cypress.env('TEST_KEY_CHILDREN_GROUP'),
+  },
+  ChildrensSafeguardingReviewingGroup: {
+    tokenValue: Cypress.env('TEST_KEY_CHILDREN_SAFEGUARDING_REVIEWING_GROUP'),
+  },
+  ChildrensPlacementManagmenetGroup: {
+    tokenValue: Cypress.env('TEST_KEY_CHILDREN_PLACEMENT_MANAGEMENT_GROUP'),
+  },
+  ChildrensUnrestrictedGroup: {
+    tokenValue: Cypress.env('TEST_KEY_CHILDREN_UNRESTRICTED_GROUP'),
+  },
+  AdultsGroup: {
+    tokenValue: Cypress.env('TEST_KEY_ADULT_GROUP'),
+  },
+  AdultsAllocatorGroup: {
+    tokenValue: Cypress.env('TEST_KEY_ADULT_ALLOCATOR_GROUP'),
+  },
+  AdultsUnrestrictedGroup: {
+    tokenValue: Cypress.env('TEST_KEY_ADULT_UNRESTRICTED_GROUP'),
+  },
+  AdminDevGroup: {
+    tokenValue: Cypress.env('TEST_KEY_ADMIN_DEV'),
+  },
 };
 
 declare global {
@@ -80,18 +68,13 @@ const visitAs = (
   role: AuthRoles,
   options?: Partial<Cypress.VisitOptions>
 ) => {
-  cy.setCookie(
-    'hackneyToken',
-    makeToken({
-      groups: roleConfigurations[role],
-    })
-  );
+  const config = roleConfigurations[role];
+
+  cy.setCookie('hackneyToken', config.tokenValue);
   cy.getCookie('hackneyToken').should(
     'have.property',
     'value',
-    makeToken({
-      groups: roleConfigurations[role],
-    })
+    config.tokenValue
   );
 
   cy.visit(url, options);

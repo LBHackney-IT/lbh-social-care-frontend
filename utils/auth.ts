@@ -10,8 +10,6 @@ export const AUTH_WHITELIST = ['/login', '/access-denied'];
 
 const GSSO_TOKEN_NAME = process.env.GSSO_TOKEN_NAME;
 
-export const SESSION_EXPIRY = 14400;
-
 export const deleteSession = (
   res: NonNullable<NextPageContext['res']>
 ): void => {
@@ -73,9 +71,10 @@ export const isAuthorised = (
 
   const cookies = cookie.parse(req.headers.cookie ?? '');
   const parsedToken = cookies[GSSO_TOKEN_NAME]
-    ? (jsonwebtoken.verify(cookies[GSSO_TOKEN_NAME], HACKNEY_JWT_SECRET, {
-        maxAge: SESSION_EXPIRY,
-      }) as ParsedCookie)
+    ? (jsonwebtoken.verify(
+        cookies[GSSO_TOKEN_NAME],
+        HACKNEY_JWT_SECRET
+      ) as ParsedCookie)
     : null;
   if (!parsedToken) {
     return;
