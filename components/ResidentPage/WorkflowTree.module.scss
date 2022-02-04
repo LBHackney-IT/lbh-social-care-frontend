@@ -1,0 +1,165 @@
+@import 'lbh-frontend/lbh/base';
+
+.tree {
+  list-style: none;
+
+  // divide disconnected episodes from each other
+  & > li:not(:last-of-type) {
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid lbh-colour('lbh-grey-3');
+  }
+
+  // child list
+  ul {
+    list-style: none;
+    padding-left: 35px;
+    margin-left: 7px;
+    position: relative;
+    margin-bottom: 1.5rem;
+
+    // backbone line
+    &:before {
+      content: '';
+      display: block;
+      position: absolute;
+      bottom: 0px;
+      left: -2px;
+      height: calc(100% - 15px);
+      width: 20px;
+      border-left: 3px solid lbh-colour('lbh-text');
+      z-index: 0;
+    }
+
+    // backbone root dot
+    &:after {
+      content: '';
+      display: block;
+      position: absolute;
+      bottom: -6px;
+      left: -6px;
+      width: 6px;
+      height: 6px;
+      border-radius: 100%;
+      background: lbh-colour('lbh-text');
+      border: 3px solid #0b0c0c;
+    }
+
+    // horizontal node line
+    li a:before {
+      content: '';
+      display: block;
+      position: absolute;
+      top: 14px;
+      left: -37px;
+      width: 22px;
+      border-top: 3px solid lbh-colour('lbh-text');
+      pointer-events: none;
+    }
+  }
+}
+
+@mixin node {
+  position: relative;
+
+  a {
+    @include lbh-heading-h4;
+    @include lbh-link;
+    font-weight: 600;
+    text-decoration: none;
+    display: inline-block;
+    margin-top: 0;
+    margin-bottom: 0.25rem;
+    position: relative;
+  }
+
+  // tag
+  span {
+    margin-top: 0px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    padding: 0px 5px;
+    margin-left: 10px;
+  }
+
+  p {
+    margin-top: 0rem;
+  }
+}
+
+.node,
+.nodeWithChildren {
+  @include node;
+}
+
+// hide stray vertical lines when there is no later workflow to connect to
+ul li .nodeWithChildren:first-of-type ul li:after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -81px;
+  width: 10px;
+  height: calc(100% + 38px);
+  display: block;
+  background: white;
+}
+
+// skeleton uis
+.nodeSkeleton {
+  position: relative;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  margin-top: 0;
+  width: 300px;
+  margin-bottom: 1.5rem;
+
+  div {
+    height: 15px;
+    background: lbh-colour('lbh-grey-3');
+    border-radius: 2px;
+    margin-top: 0.5rem;
+    width: 50%;
+
+    &:first-of-type {
+      height: 30px;
+      width: 100%;
+      margin-top: 0;
+    }
+  }
+
+  &:after {
+    content: '';
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+      90deg,
+      rgba(255, 255, 255, 0),
+      rgba(255, 255, 255, 1),
+      rgba(255, 255, 255, 1),
+      rgba(255, 255, 255, 0)
+    );
+    animation: scroll 1s infinite;
+    animation-timing-function: linear;
+    opacity: 0.75;
+  }
+
+  @keyframes scroll {
+    from {
+      background-position-x: 0px;
+    }
+
+    to {
+      background-position-x: 300px;
+    }
+  }
+}
+
+.summaryPanel {
+  p {
+    color: lbh-colour('lbh-secondary-text');
+  }
+}

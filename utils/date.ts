@@ -18,16 +18,15 @@ export const parseDate = (date: string): Date | undefined => {
   }
 };
 
-export const formatDate = (date: string): string | undefined => {
+export const formatDate = (date: string): string | null => {
   const parsedDate = parseDate(date);
-  return (
-    parsedDate &&
-    parsedDate.toLocaleString('en-GB', {
+  if (parsedDate)
+    return parsedDate.toLocaleString('en-GB', {
       day: 'numeric',
       month: 'short',
       year: 'numeric',
-    })
-  );
+    });
+  return null;
 };
 
 export const isDateValid = (date: string): boolean =>

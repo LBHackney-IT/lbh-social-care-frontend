@@ -13,7 +13,7 @@ exports[`MyAllocatedCases should render a message when there is no worker for th
 exports[`MyAllocatedCases should render an error if the API returns a 500 1`] = `
 <DocumentFragment>
   <span
-    class="govuk-error-message"
+    class="govuk-error-message lbh-error-message"
   >
     <span
       class="govuk-visually-hidden"

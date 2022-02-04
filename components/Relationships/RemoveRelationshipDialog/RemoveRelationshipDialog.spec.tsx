@@ -48,7 +48,7 @@ describe('RemoveRelationshipDialog', () => {
       />
     );
 
-    fireEvent.click(screen.getByText(/Cancel/));
+    fireEvent.click(screen.getByText(/No, do nothing/));
 
     expect(onDismiss).toHaveBeenCalled();
   });
