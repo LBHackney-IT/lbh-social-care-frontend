@@ -12,7 +12,7 @@ describe('SummaryList', () => {
         }}
       />
     );
-    expect(screen.getAllByText('term').length).toBe(2);
-    expect(screen.getAllByText('definition').length).toBe(2);
+    expect(screen.getAllByRole('term').length).toBe(2);
+    expect(screen.getAllByRole('definition').length).toBe(2);
   });
 });
