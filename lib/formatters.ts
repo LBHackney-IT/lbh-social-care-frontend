@@ -4,7 +4,10 @@ import { formatDate } from 'utils/date';
 import { truncate } from './utils';
 
 /** return a human-friendly resident name */
-export const prettyResidentName = (resident: Resident): string =>
+export const prettyResidentName = (resident: {
+  firstName: string;
+  lastName: string;
+}): string =>
   `${resident?.firstName?.trim() || ''} ${
     resident?.lastName?.trim() || ''
   }`.trim();
