@@ -75,7 +75,7 @@ describe('CaseStatusFlag component', () => {
     expect(queryByText('Child in need')).not.toBeInTheDocument();
   });
 
-  it('displays an error if API error', async () => {
+  it('displays nothing if API error', async () => {
     jest.spyOn(caseStatusApi, 'useCaseStatuses').mockImplementation(() => ({
       data: undefined,
       error: mockedAPIservererror,
@@ -85,9 +85,6 @@ describe('CaseStatusFlag component', () => {
     }));
 
     const { queryByText } = render(<CaseStatusFlag person={person} />);
-
-    expect(
-      queryByText(/There was a problem with getting case status./)
-    ).toBeInTheDocument();
+    expect(queryByText('Child in need')).not.toBeInTheDocument();
   });
 });

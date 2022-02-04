@@ -7,6 +7,10 @@ $govuk-page-width: 1100px;
 
 $screen-sm-min: 576px;
 
+body {
+  margin-right: 0px !important;
+}
+
 * {
   font-family: Open Sans, Arial, sans-serif !important;
 }
@@ -15,8 +19,18 @@ $screen-sm-min: 576px;
   margin-top: 0;
 }
 
+// fix spacing of brand lines
+.lbh-header {
+  padding-bottom: 1rem;
+}
+
 [role='button'] {
   cursor: pointer;
+}
+
+// fix tip label placement
+.tippy-box[data-placement^='bottom'] > .tippy-arrow {
+  top: -31px;
 }
 
 .govuk-required {
@@ -209,4 +223,9 @@ input[type='time'] {
   button {
     margin: 0;
   }
+}
+
+// fix double-sidebar effect we see when dialogs are open
+.govuk-template {
+  overflow-y: initial;
 }

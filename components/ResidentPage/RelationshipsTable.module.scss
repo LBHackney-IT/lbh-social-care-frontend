@@ -1,0 +1,42 @@
+@import 'lbh-frontend/lbh/base';
+
+.table {
+  tr:first-child {
+    th,
+    td {
+      padding-top: 0;
+    }
+  }
+}
+
+.item {
+  position: relative;
+
+  * {
+    margin-top: 0;
+  }
+
+  p {
+    color: lbh-colour('lbh-secondary-text');
+  }
+
+  button {
+    all: unset;
+    text-decoration: underline;
+    cursor: pointer;
+    @include lbh-body-s;
+    @include lbh-link;
+    @include govuk-link-style-muted;
+    color: lbh-colour('lbh-secondary-text');
+    opacity: 0;
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+
+  &:hover button,
+  &:focus-within button {
+    opacity: 1;
+  }
+}
