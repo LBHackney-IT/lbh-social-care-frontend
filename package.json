@@ -10,7 +10,7 @@
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx && echo 'Lint complete.'",
     "format": "prettier '**/*.{js,jsx,ts,tsx,css,scss,md}' --write --list-different",
     "type-check": "tsc",
-    "e2e": "PORT=3000 start-server-and-test start http://localhost:3000 cy:run",
+    "e2e": "PORT=3000 HACKNEY_JWT_SECRET=test-secret start-server-and-test start http://localhost:3000 cy:run",
     "cy:run": "cypress run",
     "cy:open": "cypress open",
     "release": "release-it",
