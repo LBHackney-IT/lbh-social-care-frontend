@@ -136,9 +136,11 @@ describe('Case note page', () => {
     // act(() => {
     const { getByText } = render(<CaseNote {...mockedNewSubmission} />);
 
-    await waitFor(() => {
-      fireEvent.click(getByText('Save and finish'));
-    });
+    await expect(useRouterMock().replace).rejects.toThrow(newError);
+
+    // await waitFor(() => {
+    //   fireEvent.click(getByText('Save and finish'));
+    // });
     // warningBanner = getByRole('alert');
     // });
     // expect(await screen.getByRole('alert')).toBeVisible;
@@ -147,9 +149,12 @@ describe('Case note page', () => {
     expect(warningMessage).not.toBeNull();
 
     expect(useRouterMock).toHaveBeenCalled();
+
     expect(useRouterMock().replace).toHaveBeenCalled();
+
     expect(warningBanner).not.toBeNull();
     expect(consoleSpy).toHaveBeenCalled();
+
     // expect(consoleSpy).toHaveErrorMessage();
     // expect(consoleLogSpy).toHaveBeenCalled();
   });
