@@ -3,15 +3,21 @@ import { render } from '@testing-library/react';
 import { residentFactory } from 'factories/residents';
 import { mockedWorker } from 'factories/workers';
 import { SubmissionState } from 'data/flexibleForms/forms.types';
-import { NextRouter, useRouter } from 'next/router';
-import { act } from 'react-dom/test-utils';
+import { useRouter } from 'next/router';
+// import { act } from 'react-dom/test-utils';
 
 jest.mock('next/router');
 const useRouterMock = useRouter as jest.MockedFunction<typeof useRouter>;
 // const mockedAxios = axios as jest.Mocked<typeof axios>;
 
-let eventName;
-let routeChangeHandler;
+const consoleSpy = jest.spyOn(console, 'error').mockImplementation((error) => {
+  console.log(error.message);
+});
+const consoleLogSpy = jest.spyOn(global.console, 'log');
+// .mockImplementation(() => jest.fn());
+
+// let eventName;
+// let routeChangeHandler;
 
 // useRouterMock.mockImplementation(() => {
 //   return {
@@ -54,7 +60,7 @@ let routeChangeHandler;
 //   },
 // });
 
-const mockRouter: NextRouter = {
+const mockRouter = {
   basePath: '/',
   pathname: '/',
   route: '/',
@@ -110,18 +116,32 @@ const mockedNewSubmission = {
 };
 
 describe('Case note page', () => {
+  // beforeEach(() => {
+  //   consoleSpy.mockClear();
+  //   consoleLogSpy.mockClear();
+  // });
+  afterEach(() => {
+    consoleSpy.mockReset();
+  });
   it('catches an unhandled promise', () => {
     // (useRouter().replace as jest.Mock).mockRejectedValue(new Error());
     // const router = useRouter();
     // router.query = { submissionId: '' };
     useRouterMock.mockReturnValue(mockRouter);
-    // (useRouterMock().replace as jest.Mock).mockRejectedValue(new Error());
+    const newError = new Error();
+    newError.message = 'HI1';
+    (useRouterMock().replace as jest.Mock).mockRejectedValue(newError);
 
-    act(() => {
-      render(<CaseNote {...mockedNewSubmission} />);
-    });
+    render(<CaseNote {...mockedNewSubmission} />);
 
     expect(useRouterMock).toHaveBeenCalled();
     expect(useRouterMock().replace).toHaveBeenCalled();
+    // expect(() => {
+    //   consoleSpy;
+    // }).toThrowError();
+
+    expect(consoleSpy).toHaveBeenCalledWith(newError);
+    // expect(consoleSpy).toHaveErrorMessage();
+    expect(consoleLogSpy).toHaveBeenCalled();
   });
 });
