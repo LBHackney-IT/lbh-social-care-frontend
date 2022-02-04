@@ -47,7 +47,8 @@ const CaseNote = ({
 
   // put the submission id on the url if it doesn't already exist
   useEffect(() => {
-    if (!router.query.submissionId)
+    if (!router.query.submissionId) {
+      console.log('HEREEEEE');
       router
         .replace({
           pathname: router.asPath,
@@ -57,6 +58,7 @@ const CaseNote = ({
           console.error(error);
           setState(error.message);
         });
+    }
   }, [router, submissionId, params.id]);
 
   const handleSubmit = async (

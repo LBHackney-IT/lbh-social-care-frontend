@@ -5,28 +5,54 @@ import { mockedWorker } from 'factories/workers';
 import { SubmissionState } from 'data/flexibleForms/forms.types';
 import { useRouter } from 'next/router';
 
-jest.mock('next/router');
-const useRouterMock = useRouter as jest.MockedFunction<typeof useRouter>;
+// jest.mock('next/router');
+// const useRouterMock = useRouter as jest.MockedFunction<typeof useRouter>;
 // const mockedAxios = axios as jest.Mocked<typeof axios>;
 
 let eventName;
 let routeChangeHandler;
 
-useRouterMock.mockImplementation(() => {
-  return {
-    BaseRouter: { pathname: '/', route: '/', query: {}, asPath: '/' },
-    events: {
-      on: jest.fn((event, callback) => {
-        eventName = event;
-        routeChangeHandler = callback;
-      }),
-      off: jest.fn((event, callback) => {
-        eventName = event;
-        routeChangeHandler = callback;
-      }),
-    },
-  };
-});
+// useRouterMock.mockImplementation(() => {
+//   return {
+//     BaseRouter: { pathname: '/', route: '/', query: {}, asPath: '/' },
+// events: {
+//   on: jest.fn((event, callback) => {
+//     eventName = event;
+//     routeChangeHandler = callback;
+//   }),
+//   off: jest.fn((event, callback) => {
+//     eventName = event;
+//     routeChangeHandler = callback;
+//   }),
+// },
+//   };
+// });
+
+jest.mock('next/router', () => ({
+  useRouter() {
+    return {
+      basePath: '/',
+      pathname: '/',
+      route: '/',
+      query: {},
+      asPath: '/',
+      push: jest.fn(() => Promise.resolve(true)),
+      replace: jest.fn(() => Promise.resolve(true)),
+      reload: jest.fn(() => Promise.resolve(true)),
+      prefetch: jest.fn(() => Promise.resolve()),
+      back: jest.fn(() => Promise.resolve(true)),
+      beforePopState: jest.fn(() => Promise.resolve(true)),
+      isFallback: false,
+      events: {
+        on: jest.fn(),
+        off: jest.fn(),
+        emit: jest.fn(),
+      },
+    };
+  },
+}));
+
+// const spyOnReplace = jest.spyOn(useRouter, 'replace');
 
 const mockedResident = residentFactory.build();
 
@@ -60,12 +86,12 @@ const mockedNewSubmission = {
 
 describe('Case note page', () => {
   it('catches an unhandled promise', () => {
-    (useRouter().replace as jest.Mock).mockRejectedValue(new Error());
+    // (useRouter().replace as jest.Mock).mockRejectedValue(new Error());
     // const router = useRouter();
     // router.query = { submissionId: '' };
 
     const { getByText } = render(<CaseNote {...mockedNewSubmission} />);
 
-    expect(useRouter().replace).toHaveBeenCalled();
+    expect(useRouter.useRouter).toHaveBeenCalled();
   });
 });
