@@ -12,15 +12,38 @@ import s from './CaseNoteDialog.module.scss';
 import { useCase } from 'utils/api/cases';
 import { useSubmission } from 'utils/api/submissions';
 import FlexibleAnswers from 'components/FlexibleAnswers/FlexibleAnswers';
+import Link from 'next/link';
+import { KeyboardEventHandler, useState } from 'react';
+import RemoveCaseNoteDialog from './RemoveCaseNoteDialog';
 
 interface SubmissionContentProps {
   submissionId: string;
+  deleting: boolean;
+  setDeleting: (newValue: boolean) => void;
+  socialCareId: number;
 }
 
-const SubmissionContent = ({ submissionId }: SubmissionContentProps) => {
+const SubmissionContent = ({
+  submissionId,
+  deleting,
+  setDeleting,
+  socialCareId,
+}: SubmissionContentProps) => {
   const { data } = useSubmission(submissionId);
 
-  if (data) return <FlexibleAnswers answers={data.formAnswers} />;
+  if (data)
+    return (
+      <>
+        <FlexibleAnswers answers={data.formAnswers} />
+
+        <RemoveCaseNoteDialog
+          socialCareId={socialCareId}
+          submissionId={submissionId}
+          isOpen={deleting}
+          onClose={() => setDeleting(false)}
+        />
+      </>
+    );
 
   return <SummaryListSkeleton />;
 };
@@ -30,6 +53,9 @@ interface CaseContentProps {
   socialCareId: number;
 }
 
+const prettyKey = (key: string): string =>
+  key.replaceAll('_', ' ').replace(/^\w/, (char) => char.toUpperCase());
+
 const CaseContent = ({ recordId, socialCareId }: CaseContentProps) => {
   const { data } = useCase(recordId, socialCareId);
 
@@ -38,8 +64,8 @@ const CaseContent = ({ recordId, socialCareId }: CaseContentProps) => {
       <SummaryList
         rows={Object.fromEntries(
           Object.entries(data.caseFormData || data).map(([key, value]) => [
-            key,
-            JSON.stringify(value),
+            prettyKey(key),
+            JSON.stringify(value).replaceAll('"', ''),
           ])
         )}
       />
@@ -53,8 +79,13 @@ interface Props {
   socialCareId: number;
 }
 
-const CaseNoteDialog = ({ caseNotes }: Props): React.ReactElement | null => {
+const CaseNoteDialog = ({
+  caseNotes,
+  socialCareId,
+}: Props): React.ReactElement | null => {
   const { query, replace } = useRouter();
+
+  const [deleting, setDeleting] = useState<boolean>(false);
 
   const handleClose = () =>
     replace(window.location.pathname, undefined, {
@@ -70,7 +101,7 @@ const CaseNoteDialog = ({ caseNotes }: Props): React.ReactElement | null => {
   });
   const worker = workerData?.[0];
 
-  const handleKeyboardNav = (e: KeyboardEvent) => {
+  const handleKeyboardNav: KeyboardEventHandler<HTMLDivElement> = (e) => {
     let newId;
     if (e.key === 'ArrowLeft') {
       newId = caseNotes?.[i - 1]?.recordId; // previous/newer note
@@ -99,15 +130,34 @@ const CaseNoteDialog = ({ caseNotes }: Props): React.ReactElement | null => {
           {worker ? prettyWorkerName(worker) : note.officerEmail}
         </p>
 
-        <p className={`lbh-body-s ${s.actions}`}>
-          <button className="lbh-link lbh-link--danger">Remove</button> ·{' '}
-          <button className="lbh-link lbh-link--muted">Pin to top</button>
+        <p className={`lbh-body-xs ${s.actions}`}>
+          <button className="lbh-link">Pin to top</button> ·{' '}
+          <Link href="#">
+            <a className="lbh-link">Printable version</a>
+          </Link>
+          {note.formType === 'flexible-form' && (
+            <>
+              {' '}
+              ·{' '}
+              <button
+                className={`lbh-link ${s.deleteButton}`}
+                onClick={() => setDeleting(true)}
+              >
+                Remove
+              </button>
+            </>
+          )}
         </p>
 
         {note.formType === 'flexible-form' ? (
-          <SubmissionContent submissionId={note.recordId} />
+          <SubmissionContent
+            deleting={deleting}
+            setDeleting={setDeleting}
+            submissionId={note.recordId}
+            socialCareId={socialCareId}
+          />
         ) : (
-          <CaseContent recordId={note.recordId} socialCareId={note.personId} />
+          <CaseContent recordId={note.recordId} socialCareId={socialCareId} />
         )}
 
         <div className={s.keyboardMessage}>
@@ -117,6 +167,10 @@ const CaseNoteDialog = ({ caseNotes }: Props): React.ReactElement | null => {
           </p>
           <span>←</span>
           <span>→</span>
+
+          <p className="lbh-body-xs">
+            This is {i + 1} of {caseNotes.length}
+          </p>
         </div>
       </Dialog>
     );

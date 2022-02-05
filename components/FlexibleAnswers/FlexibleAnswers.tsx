@@ -101,7 +101,7 @@ const FlexibleAnswersStep = ({
         aria-expanded={open}
         className="lbh-collapsible__button"
       >
-        <h2 className="lbh-heading-h2 lbh-collapsible__heading">{stepName}</h2>
+        <h2 className="lbh-heading-h4 lbh-collapsible__heading">{stepName}</h2>
         <DownArrow />
       </button>
 

@@ -4,15 +4,18 @@
   margin-top: 0.5rem;
   margin-bottom: 1.5rem;
 
-  button {
+  button,
+  a {
     all: unset;
     text-decoration: underline;
     cursor: pointer;
     color: lbh-colour('lbh-secondary-text');
     @include lbh-link;
+    @include govuk-link-style-muted;
+    color: lbh-colour('lbh-secondary-text');
   }
 
-  button:first-of-type {
+  .deleteButton {
     color: lbh-colour('lbh-error');
     &:hover {
       color: lbh-colour('lbh-f01');
@@ -21,11 +24,6 @@
     &:active {
       color: lbh-colour('lbh-text');
     }
-  }
-
-  button:last-of-type {
-    @include govuk-link-style-muted;
-    color: lbh-colour('lbh-secondary-text');
   }
 }
 

@@ -1,6 +1,13 @@
 import { fireEvent, render, screen } from '@testing-library/react';
 import { mockedCaseNote } from 'factories/cases';
 import CaseNoteGrid from './CaseNoteGrid';
+import { useRouter } from 'next/router';
+
+jest.mock('next/router');
+
+(useRouter as jest.Mock).mockReturnValue({
+  query: {},
+});
 
 const mockSetSize = jest.fn();
 
