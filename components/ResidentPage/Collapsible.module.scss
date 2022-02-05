@@ -16,7 +16,8 @@
   justify-content: space-between;
 
   // properly space the case note tile grid when presented inside a collapsible
-  & + ul {
+  & + ul,
+  & + p {
     margin-top: 1rem;
   }
 

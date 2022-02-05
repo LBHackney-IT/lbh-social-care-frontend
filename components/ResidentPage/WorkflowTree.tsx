@@ -5,10 +5,13 @@ import s from './WorkflowTree.module.scss';
 import { formatDate } from 'utils/date';
 import { prettyStatus } from 'lib/workflows/status';
 import { formatDistanceToNow } from 'date-fns';
+import { useAuth } from 'components/UserContext/UserContext';
+import { canManageCases } from 'lib/permissions';
+import { Resident } from 'types';
 
 interface Props {
   workflows: Workflow[];
-  socialCareId: number;
+  resident: Resident;
   summarise?: boolean;
 }
 
@@ -73,9 +76,11 @@ const Node = ({ w }: { w: WorkflowWithChildren }) => {
 
 const WorkflowTree = ({
   workflows,
-  socialCareId,
+  resident,
   summarise,
 }: Props): React.ReactElement => {
+  const { user } = useAuth();
+
   const reverseChronological = workflows.sort(
     (a, b) => new Date(b.createdAt).valueOf() - new Date(a.createdAt).valueOf()
   );
@@ -86,6 +91,13 @@ const WorkflowTree = ({
     () => convertWorkflowsToTree(reverseChronological),
     [reverseChronological]
   );
+
+  if (user && !canManageCases(user, resident))
+    return (
+      <p>
+        You don&apos;t have permission to see this resident&apos;s workflows.
+      </p>
+    );
 
   if (summarise)
     return (
@@ -103,7 +115,7 @@ const WorkflowTree = ({
           <p className="lbh-body-xs govuk-!-margin-top-1">
             <a
               className="lbh-link lbh-link--no-visited-state"
-              href={`${process.env.NEXT_PUBLIC_CORE_PATHWAY_APP_URL}?quick_filter=all&social_care_id=${socialCareId}&touched_by_me=true`}
+              href={`${process.env.NEXT_PUBLIC_CORE_PATHWAY_APP_URL}?quick_filter=all&social_care_id=${resident.id}&touched_by_me=true`}
             >
               See on planner
             </a>

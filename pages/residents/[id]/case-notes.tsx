@@ -31,7 +31,12 @@ const RelationshipsPage = ({ resident }: Props): React.ReactElement => {
         {!data && !error ? (
           <CaseNoteGridSkeleton />
         ) : casesToShow ? (
-          <CaseNoteGrid cases={cases} size={size} setSize={setSize} />
+          <CaseNoteGrid
+            cases={cases}
+            size={size}
+            setSize={setSize}
+            resident={resident}
+          />
         ) : error ? (
           <ErrorMessage />
         ) : (
