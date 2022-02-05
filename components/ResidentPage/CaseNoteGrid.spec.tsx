@@ -1,5 +1,6 @@
 import { fireEvent, render, screen } from '@testing-library/react';
 import { mockedCaseNote } from 'factories/cases';
+import { mockedResident } from 'factories/residents';
 import CaseNoteGrid from './CaseNoteGrid';
 
 const mockSetSize = jest.fn();
@@ -13,14 +14,28 @@ const mockCases = [
 
 describe('CaseNoteGrid', () => {
   it('shows a list of case notes', () => {
-    render(<CaseNoteGrid cases={mockCases} size={1} setSize={mockSetSize} />);
+    render(
+      <CaseNoteGrid
+        resident={mockedResident}
+        cases={mockCases}
+        size={1}
+        setSize={mockSetSize}
+      />
+    );
     expect(screen.getByRole('list'));
     expect(screen.getAllByRole('listitem').length).toBe(4);
     expect(screen.getAllByText('foorm').length).toBe(4);
   });
 
   it('can load earlier notes', () => {
-    render(<CaseNoteGrid cases={mockCases} size={1} setSize={mockSetSize} />);
+    render(
+      <CaseNoteGrid
+        resident={mockedResident}
+        cases={mockCases}
+        size={1}
+        setSize={mockSetSize}
+      />
+    );
     fireEvent.click(screen.getByText('Load more'));
     expect(mockSetSize).toBeCalledWith(2);
   });
