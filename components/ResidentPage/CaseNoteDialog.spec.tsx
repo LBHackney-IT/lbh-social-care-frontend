@@ -200,6 +200,10 @@ describe('CaseNoteDialog', () => {
     );
   });
 
+  it.skip('only shows "Printable version" on records that have a full page version to go to', () => {
+    expect(screen.queryByText('Printable version')).toBeNull();
+  });
+
   it.skip('can be pinned to the top', () => {
     render(<CaseNoteDialog socialCareId={123} caseNotes={[mockedCaseNote]} />);
     fireEvent.click(screen.getByText('Pin to top'));

@@ -8,20 +8,11 @@ import s from './CaseNoteGrid.module.scss';
 import Link from 'next/link';
 import { truncate } from 'lib/utils';
 import React from 'react';
-import { generateInternalLink } from 'utils/urls';
 import { useWorker } from 'utils/api/workers';
 
 interface TileProps {
   c: Case;
 }
-
-const generateCaseLink = (c: Case): string => {
-  if (c.formType === 'flexible-form')
-    return `/people/${c.personId}/submissions/${c.recordId}`;
-  if (c.caseFormUrl) return c.caseFormUrl;
-  const intLink = generateInternalLink(c);
-  return intLink || '';
-};
 
 const CaseNoteTile = ({ c }: TileProps): React.ReactElement => {
   const { data } = useWorker({
@@ -38,7 +29,6 @@ const CaseNoteTile = ({ c }: TileProps): React.ReactElement => {
           href={`${window.location.pathname}?case_note=${c.recordId}`}
           scroll={false}
         >
-          {/* <Link href={generateCaseLink(c)}> */}
           <a className="lbh-link lbh-link--no-visited-state">
             {prettyCaseTitle(c)}
           </a>

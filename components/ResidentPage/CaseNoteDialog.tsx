@@ -15,6 +15,7 @@ import FlexibleAnswers from 'components/FlexibleAnswers/FlexibleAnswers';
 import Link from 'next/link';
 import { KeyboardEventHandler, useState } from 'react';
 import RemoveCaseNoteDialog from './RemoveCaseNoteDialog';
+import { generateInternalLink } from 'utils/urls';
 
 interface SubmissionContentProps {
   submissionId: string;
@@ -85,6 +86,15 @@ const CaseNoteDialog = ({
 }: Props): React.ReactElement | null => {
   const { query, replace } = useRouter();
 
+  const generateCaseLink = (c: Case): string => {
+    if (c.formType === 'flexible-form')
+      return `/people/${c.personId}/submissions/${c.recordId}`;
+    if (c.caseFormUrl) return c.caseFormUrl;
+    const intLink = generateInternalLink(c);
+
+    return intLink || '';
+  };
+
   const [deleting, setDeleting] = useState<boolean>(false);
 
   const handleClose = () =>
@@ -117,7 +127,9 @@ const CaseNoteDialog = ({
       });
   };
 
-  if (note)
+  if (note) {
+    const link = generateCaseLink(note);
+
     return (
       <Dialog
         title={prettyCaseTitle(note)}
@@ -131,10 +143,16 @@ const CaseNoteDialog = ({
         </p>
 
         <p className={`lbh-body-xs ${s.actions}`}>
-          <button className="lbh-link">Pin to top</button> ·{' '}
-          <Link href="#">
-            <a className="lbh-link">Printable version</a>
-          </Link>
+          <button className="lbh-link">Pin to top</button>
+          {link && (
+            <>
+              {' '}
+              ·{' '}
+              <Link href={link}>
+                <a className="lbh-link">Printable version</a>
+              </Link>
+            </>
+          )}
           {note.formType === 'flexible-form' && (
             <>
               {' '}
@@ -174,6 +192,7 @@ const CaseNoteDialog = ({
         </div>
       </Dialog>
     );
+  }
 
   return null;
 };
