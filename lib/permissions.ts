@@ -36,7 +36,6 @@ export const canManageCases = (
   user: User,
   person: Pick<Resident, 'restricted' | 'contextFlag'>
 ): boolean => {
-  return false;
   const isPersonRestricted = person.restricted === 'Y';
 
   if (user.hasAdminPermissions || user.hasDevPermissions) {
