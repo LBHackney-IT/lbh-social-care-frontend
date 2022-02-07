@@ -326,7 +326,7 @@ describe('validate datetime fields correctly', () => {
   });
 
   // Regression test for Jira SCT-1668
-  it.only('when isfutureDateValid set to false the time cannot be left empty', async () => {
+  it('when isfutureDateValid set to false the time cannot be left empty', async () => {
     await expect(
       schema.validate({
         one: ['2021-08-16', ''],
