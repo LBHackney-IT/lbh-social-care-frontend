@@ -151,7 +151,7 @@ export const generateFlexibleSchema = (
 
           const dateTimeToValidate = new Date(dateTimeFromForm[0]);
           const timeFromForm = dateTimeFromForm[1];
-
+          // When no time is entered
           if (!timeFromForm) {
             return false;
           }

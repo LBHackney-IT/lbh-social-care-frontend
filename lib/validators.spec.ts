@@ -326,6 +326,7 @@ describe('validate datetime fields correctly', () => {
   });
 
   // Regression test for Jira SCT-1668
+  //"Cannot read properties of undefined (reading 'slice') - TypeError call(lib/validators)"
   it('when isfutureDateValid set to false the time cannot be left empty', async () => {
     await expect(
       schema.validate({
