@@ -55,7 +55,7 @@ interface CaseContentProps {
 }
 
 const prettyKey = (key: string): string =>
-  key?.replaceAll('_', ' ')?.replace(/^\w/, (char) => char.toUpperCase());
+  key?.replaceAll(/_/g, ' ')?.replace(/^\w/, (char) => char.toUpperCase());
 
 const CaseContent = ({ recordId, socialCareId }: CaseContentProps) => {
   const { data } = useCase(recordId, socialCareId);
