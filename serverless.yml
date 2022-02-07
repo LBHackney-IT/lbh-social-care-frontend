@@ -123,7 +123,7 @@ custom:
     production: social-care-service-alb-temp-non-existent.hackney.gov.uk
     mosaic-prod: social-care-service.hackney.gov.uk
   certificate-arn:
-    staging: arn:aws:acm:us-east-1:715003523189:certificate/8f7fa30c-a4e5-4775-b827-ade824a33c9a
+    staging: arn:aws:acm:us-east-1:715003523189:certificate/d2860eaf-cd6a-46e8-a171-2edc3450a51c
     production: arn:aws:acm:us-east-1:153306643385:certificate/71728a39-cd3e-4570-a440-e87f84ef9a0d
     mosaic-prod: arn:aws:acm:us-east-1:267112830674:certificate/dae4d0be-8f3a-4512-ba9c-fb80366e77f7
   securityGroups:
