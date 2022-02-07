@@ -19,7 +19,7 @@ const mockRouter = {
   query: {},
   asPath: '/',
   push: jest.fn(() => Promise.resolve(true)),
-  replace: jest.fn(() => Promise.resolve(false)),
+  replace: jest.fn(() => Promise.resolve(true)),
   reload: jest.fn(() => Promise.resolve(true)),
   prefetch: jest.fn(() => Promise.resolve()),
   back: jest.fn(() => Promise.resolve(true)),
@@ -65,41 +65,35 @@ const mockedNewSubmission = {
   params: { id: '1234' },
 };
 
+let routerReplace: jest.Mock<any, any>;
+const newError = new Error();
+newError.message = 'HI1';
+
 describe('Case note page', () => {
-  beforeEach(() => {
+  beforeAll(() => {
     useRouterMock.mockReturnValue(mockRouter);
+    routerReplace = (useRouterMock().replace as jest.Mock).mockRejectedValue(
+      newError
+    );
   });
-  afterEach(() => {
-    consoleErrorMock.mockReset();
+  afterAll(() => {
     useRouterMock.mockReset();
   });
   it('catches an unhandled promise', async () => {
-    const newError = new Error();
-    const routerReplace = (
-      useRouterMock().replace as jest.Mock
-    ).mockRejectedValue(newError);
-
     render(<CaseNote {...mockedNewSubmission} />);
     await expect(routerReplace).rejects.toEqual(newError);
 
     expect(useRouterMock).toHaveBeenCalled();
     expect(routerReplace).toHaveBeenCalled();
     expect(consoleErrorMock).toHaveBeenCalled();
-    routerReplace.mockReset();
   });
 
   it('displays an alert banner when router.replace fails', async () => {
-    const newError = new Error();
-    newError.message = 'HI1';
-    const routerReplace = (
-      useRouterMock().replace as jest.Mock
-    ).mockRejectedValue(newError);
-
     const { getByText } = render(<CaseNote {...mockedNewSubmission} />);
     await expect(routerReplace).rejects.toEqual(newError);
 
     const warningMessage = getByText('There was a problem');
     expect(warningMessage).not.toBeNull();
-    routerReplace.mockReset();
+    expect(consoleErrorMock).toHaveBeenCalled();
   });
 });
