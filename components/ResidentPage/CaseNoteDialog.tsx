@@ -55,7 +55,7 @@ interface CaseContentProps {
 }
 
 const prettyKey = (key: string): string =>
-  key?.replaceAll(/_/g, ' ')?.replace(/^\w/, (char) => char.toUpperCase());
+  key?.replace(/_/g, ' ')?.replace(/^\w/, (char) => char.toUpperCase());
 
 const CaseContent = ({ recordId, socialCareId }: CaseContentProps) => {
   const { data } = useCase(recordId, socialCareId);
@@ -66,7 +66,7 @@ const CaseContent = ({ recordId, socialCareId }: CaseContentProps) => {
         rows={Object.fromEntries(
           Object.entries(data.caseFormData || data).map(([key, value]) => [
             prettyKey(key),
-            JSON.stringify(value).replaceAll('"', ''),
+            JSON.stringify(value).replace(/"/g, ''),
           ])
         )}
       />
