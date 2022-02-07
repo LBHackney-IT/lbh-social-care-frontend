@@ -5,7 +5,7 @@ export type ErrorAPI = AxiosError;
 export interface Address {
   address: string;
   postcode: string;
-  uprn: string;
+  uprn?: string;
 }
 
 export interface AddressWrapper {
@@ -160,6 +160,16 @@ export interface ResidentsAPI {
  * This should replace LegacyResident
  * When /residents is going to be aligned with /residents/:id
  */
+export interface PhoneNumber {
+  number: string;
+  type: string;
+}
+
+export interface OtherName {
+  firstName: string;
+  lastName: string;
+}
+
 export interface Resident {
   id: number;
   firstName: string;
@@ -168,14 +178,8 @@ export interface Resident {
   contextFlag: AgeContext;
   ageContext?: AgeContext;
   createdBy: string;
-  otherNames: Array<{
-    firstName: string;
-    lastName: string;
-  }>;
-  phoneNumbers: Array<{
-    number: string;
-    type: string;
-  }>;
+  otherNames: OtherName[];
+  phoneNumbers: PhoneNumber[];
   title?: string;
   dateOfBirth?: string;
   ethnicity?: string;
@@ -187,17 +191,15 @@ export interface Resident {
   preferredMethodOfContact?: string;
   restricted?: 'Y' | 'N';
   dateOfDeath?: string;
-  addresses?: {
-    addressLines: string;
-    postCode: string;
-    uprn?: string;
-    isDisplayAddress?: string;
-  }[];
-  address?: {
-    address: string;
-    postcode: string;
-    uprn?: string;
-  };
+  addresses?: LegacyAddress[];
+  address?: Address;
+}
+
+export interface LegacyAddress {
+  addressLines: string;
+  postCode: string;
+  uprn?: string;
+  isDisplayAddress?: string;
 }
 
 export interface User {

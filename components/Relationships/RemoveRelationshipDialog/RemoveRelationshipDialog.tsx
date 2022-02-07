@@ -38,7 +38,7 @@ const RemoveRelationshipDialog = ({
           href="#"
           onClick={onDismiss}
         >
-          Cancel
+          No, do nothing
         </a>
       </div>
     </Dialog>
