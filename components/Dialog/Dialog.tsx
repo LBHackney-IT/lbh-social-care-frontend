@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { KeyboardEventHandler } from 'react';
 import { Dialog as ReachDialog } from '@reach/dialog';
 
 interface Props {
@@ -7,6 +7,7 @@ interface Props {
   children: React.ReactChild | React.ReactChild[];
   title: string;
   showCloseButton?: boolean;
+  onKeyUp?: KeyboardEventHandler<HTMLDivElement>;
 }
 
 const Dialog = ({
@@ -15,6 +16,7 @@ const Dialog = ({
   children,
   title,
   showCloseButton = true,
+  onKeyUp,
   ...props
 }: Props): React.ReactElement => (
   <ReachDialog
@@ -22,6 +24,7 @@ const Dialog = ({
     onDismiss={onDismiss}
     aria-label={title}
     className="lbh-dialog lbh-dialog--light"
+    onKeyUp={onKeyUp}
     {...props}
   >
     <h2 className="lbh-heading-h2 lbh-dialog__title govuk-!-margin-bottom-6">

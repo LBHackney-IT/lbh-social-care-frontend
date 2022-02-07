@@ -256,7 +256,9 @@ const ResidentPage = ({ resident }: Props): React.ReactElement => {
           </Link>
         }
       >
-        <>{cases && <CaseNoteGrid cases={cases} />}</>
+        <>
+          {cases && <CaseNoteGrid cases={cases} socialCareId={resident.id} />}
+        </>
       </Collapsible>
 
       <Collapsible

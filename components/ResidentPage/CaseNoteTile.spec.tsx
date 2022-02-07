@@ -21,7 +21,7 @@ describe('CaseNoteTile', () => {
     render(<CaseNoteTile c={mockedCaseNote} />);
 
     expect((screen.getByRole('link') as HTMLAnchorElement).href).toContain(
-      '/people/123/records/4'
+      '?case_note=4'
     );
   });
 });

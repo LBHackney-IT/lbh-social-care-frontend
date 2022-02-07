@@ -2,14 +2,21 @@ import { Case } from 'types';
 import s from './CaseNoteGrid.module.scss';
 import Link from 'next/link';
 import CaseNoteTile from './CaseNoteTile';
+import CaseNoteDialog from './CaseNoteDialog';
 
 interface Props {
   cases: Case[];
   size?: number;
   setSize?: (newSize: number) => void;
+  socialCareId: number;
 }
 
-const CaseNoteGrid = ({ cases, size, setSize }: Props): React.ReactElement => (
+const CaseNoteGrid = ({
+  cases,
+  size,
+  setSize,
+  socialCareId,
+}: Props): React.ReactElement => (
   <>
     <ul className={s.grid}>
       {cases?.map((c) => (
@@ -36,6 +43,8 @@ const CaseNoteGrid = ({ cases, size, setSize }: Props): React.ReactElement => (
         </p>
       </footer>
     )}
+
+    <CaseNoteDialog socialCareId={socialCareId} caseNotes={cases} />
   </>
 );
 
