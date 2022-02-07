@@ -37,7 +37,7 @@ export interface DataRow {
   type?: HTMLInputTypeAttribute;
   required?: boolean;
   /** provide a custom component to render when the display or edit state is activated **/
-  customEditor?: React.ReactElement;
+  render?: React.ReactNode;
   /** HOOKS */
   /** pretty up a saved value before showing it to the user */
   beforeDisplay?: (value: SupportedData) => React.ReactElement | string;
@@ -77,7 +77,12 @@ const DataCell = ({ row, editing, setEditing, resident, i }: DataCellProps) => {
       return <PrettyValue value={value as string | React.ReactElement} />;
 
     return editing === i ? (
-      row.customEditor || (
+      row.render({
+        value: value as string,
+        onClose: () => setEditing(null),
+        resident: resident,
+        ...row,
+      }) || (
         <DefaultInlineEditor
           value={value as string}
           onClose={() => setEditing(null)}

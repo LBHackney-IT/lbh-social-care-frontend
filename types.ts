@@ -5,7 +5,7 @@ export type ErrorAPI = AxiosError;
 export interface Address {
   address: string;
   postcode: string;
-  uprn?: string;
+  uprn?: number;
 }
 
 export interface AddressWrapper {

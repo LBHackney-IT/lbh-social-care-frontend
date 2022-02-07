@@ -14,6 +14,7 @@ import SEXUAL_ORIENTATIONS from 'data/orientation';
 import languages from 'data/languages';
 import WorkflowTree from 'components/ResidentPage/WorkflowTree';
 import useWorkflows from 'hooks/useWorkflows';
+import CustomAddressEditor from 'components/ResidentPage/CustomAddressEditor';
 
 interface Props {
   resident: Resident;
@@ -306,6 +307,7 @@ const ResidentPage = ({ resident }: Props): React.ReactElement => {
                 </a>
               </div>
             ),
+            render: CustomAddressEditor,
           },
           // {
           //   label: 'Addresses',
