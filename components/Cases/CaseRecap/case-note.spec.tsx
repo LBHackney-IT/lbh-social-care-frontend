@@ -69,6 +69,9 @@ let routerReplace: jest.Mock<any, any>;
 const newError = new Error();
 newError.message = 'HI1';
 
+// Regression test for sct-1669
+// https://hackney.atlassian.net/browse/SCT-1669
+// UnhandledRejection Non-Error promise rejection captured with value: routeChange aborted.
 describe('Case note page', () => {
   beforeAll(() => {
     useRouterMock.mockReturnValue(mockRouter);
