@@ -39,10 +39,10 @@ const RepeaterGroupAnswers = ({
 }: {
   answers: (string | RepeaterGroupAnswerT)[];
 }): React.ReactElement => (
-  <ul className="govuk-list lbh-list">
+  <ul className="govuk-list lbh-list lbh-body-s">
     {answers.length > 0 &&
       answers.map((item, i) => (
-        <li key={i}>
+        <li key={i} className="govuk-!-margin-top-1">
           {typeof item === 'string' ? (
             item
           ) : (
@@ -63,8 +63,10 @@ const SummaryList = ({
       ([questionName, answerGroup]) =>
         shouldShow(answerGroup) && (
           <div className="govuk-summary-list__row" key={questionName}>
-            <dt className="govuk-summary-list__key">{questionName}</dt>
-            <dd className={`govuk-summary-list__value ${s.dd}`}>
+            <dt className="govuk-summary-list__key lbh-body-s">
+              {questionName}
+            </dt>
+            <dd className={`govuk-summary-list__value lbh-body-s ${s.dd}`}>
               {typeof answerGroup === 'string' ? (
                 answerGroup
               ) : isTimetableAnswer(
@@ -99,7 +101,7 @@ const FlexibleAnswersStep = ({
         aria-expanded={open}
         className="lbh-collapsible__button"
       >
-        <h2 className="lbh-heading-h2 lbh-collapsible__heading">{stepName}</h2>
+        <h2 className="lbh-heading-h4 lbh-collapsible__heading">{stepName}</h2>
         <DownArrow />
       </button>
 

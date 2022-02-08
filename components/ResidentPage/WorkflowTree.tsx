@@ -81,11 +81,11 @@ const WorkflowTree = ({
 }: Props): React.ReactElement => {
   const { user } = useAuth();
 
-  const reverseChronological = workflows.sort(
+  const reverseChronological = workflows?.sort(
     (a, b) => new Date(b.createdAt).valueOf() - new Date(a.createdAt).valueOf()
   );
   const workflowsBegan =
-    reverseChronological[reverseChronological.length - 1].createdAt;
+    reverseChronological?.[reverseChronological.length - 1]?.createdAt;
 
   const tree = useMemo(
     () => convertWorkflowsToTree(reverseChronological),

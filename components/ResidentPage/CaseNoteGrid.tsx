@@ -4,6 +4,7 @@ import Link from 'next/link';
 import CaseNoteTile from './CaseNoteTile';
 import { canManageCases } from 'lib/permissions';
 import { useAuth } from 'components/UserContext/UserContext';
+import CaseNoteDialog from './CaseNoteDialog';
 
 interface Props {
   cases: Case[];
@@ -55,6 +56,8 @@ const CaseNoteGrid = ({
           </p>
         </footer>
       )}
+
+      <CaseNoteDialog socialCareId={resident.id} caseNotes={cases} />
     </>
   );
 };
