@@ -11,7 +11,7 @@ export interface InlineEditorOption {
   value: string | number;
 }
 
-interface Props extends DataRow {
+export interface InlineEditorProps extends DataRow {
   value: string | number;
   onClose: () => void;
   resident: Resident;
@@ -30,7 +30,7 @@ const InlineEditor = ({
   beforeEdit,
   beforeSave,
   required,
-}: Props): React.ReactElement => {
+}: InlineEditorProps): React.ReactElement => {
   const ref = useRef<HTMLFormElement>(null);
   const { register, handleSubmit } = useForm();
 

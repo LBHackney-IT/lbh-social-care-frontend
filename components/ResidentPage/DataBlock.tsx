@@ -10,7 +10,10 @@ import {
 import Collapsible from './Collapsible';
 import s from './DataBlock.module.scss';
 import ss from './SummaryList.module.scss';
-import DefaultInlineEditor, { InlineEditorOption } from './InlineEditor';
+import DefaultInlineEditor, {
+  InlineEditorOption,
+  InlineEditorProps,
+} from './InlineEditor';
 import { useResident } from 'utils/api/residents';
 
 /** what are the different kinds of data we might have to deal with? */
@@ -37,7 +40,7 @@ export interface DataRow {
   type?: HTMLInputTypeAttribute;
   required?: boolean;
   /** provide a custom component to render when the display or edit state is activated **/
-  render?: React.ReactNode;
+  render?: (props: InlineEditorProps) => React.ReactElement;
   /** HOOKS */
   /** pretty up a saved value before showing it to the user */
   beforeDisplay?: (value: SupportedData) => React.ReactElement | string;
@@ -77,12 +80,14 @@ const DataCell = ({ row, editing, setEditing, resident, i }: DataCellProps) => {
       return <PrettyValue value={value as string | React.ReactElement} />;
 
     return editing === i ? (
-      row.render({
-        value: value as string,
-        onClose: () => setEditing(null),
-        resident: resident,
-        ...row,
-      }) || (
+      row.render ? (
+        row.render({
+          value: value as string,
+          onClose: () => setEditing(null),
+          resident: resident,
+          ...row,
+        })
+      ) : (
         <DefaultInlineEditor
           value={value as string}
           onClose={() => setEditing(null)}
