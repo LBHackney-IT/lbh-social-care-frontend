@@ -256,9 +256,7 @@ const ResidentPage = ({ resident }: Props): React.ReactElement => {
           </Link>
         }
       >
-        <>
-          {cases && <CaseNoteGrid cases={cases} socialCareId={resident.id} />}
-        </>
+        <>{cases && <CaseNoteGrid cases={cases} resident={resident} />}</>
       </Collapsible>
 
       <Collapsible
@@ -271,7 +269,7 @@ const ResidentPage = ({ resident }: Props): React.ReactElement => {
       >
         <>
           {workflows && (
-            <WorkflowTree socialCareId={resident.id} workflows={workflows} />
+            <WorkflowTree resident={resident} workflows={workflows} />
           )}
           <p className=" lbh-body-xs">
             <Link href={`/residents/${resident.id}/workflows`}>

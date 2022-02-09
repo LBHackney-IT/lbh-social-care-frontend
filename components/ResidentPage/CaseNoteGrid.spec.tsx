@@ -1,5 +1,6 @@
 import { fireEvent, render, screen } from '@testing-library/react';
 import { mockedCaseNote } from 'factories/cases';
+import { mockedResident } from 'factories/residents';
 import CaseNoteGrid from './CaseNoteGrid';
 import { useRouter } from 'next/router';
 
@@ -22,7 +23,7 @@ describe('CaseNoteGrid', () => {
   it('shows a list of case notes', () => {
     render(
       <CaseNoteGrid
-        socialCareId={1}
+        resident={mockedResident}
         cases={mockCases}
         size={1}
         setSize={mockSetSize}
@@ -36,7 +37,7 @@ describe('CaseNoteGrid', () => {
   it('can load earlier notes', () => {
     render(
       <CaseNoteGrid
-        socialCareId={1}
+        resident={mockedResident}
         cases={mockCases}
         size={1}
         setSize={mockSetSize}

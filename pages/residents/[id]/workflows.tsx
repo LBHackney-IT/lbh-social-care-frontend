@@ -24,7 +24,7 @@ const WorkflowsPage = ({ resident }: Props): React.ReactElement => {
         {!data && !error ? (
           <WorkflowTreeSkeleton />
         ) : workflowsToShow ? (
-          <WorkflowTree workflows={data.workflows} socialCareId={resident.id} />
+          <WorkflowTree workflows={data.workflows} resident={resident} />
         ) : error ? (
           <ErrorMessage />
         ) : (

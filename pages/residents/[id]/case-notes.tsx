@@ -35,7 +35,7 @@ const RelationshipsPage = ({ resident }: Props): React.ReactElement => {
             cases={cases}
             size={size}
             setSize={setSize}
-            socialCareId={resident.id}
+            resident={resident}
           />
         ) : error ? (
           <ErrorMessage />

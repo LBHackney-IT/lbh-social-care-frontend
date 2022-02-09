@@ -1,4 +1,5 @@
 import { render, screen } from '@testing-library/react';
+import { mockedResident } from 'factories/residents';
 import { mockWorkflow } from 'fixtures/workflows';
 import WorkflowTree from './WorkflowTree';
 
@@ -25,7 +26,7 @@ const mockTree = [
 
 describe('WorkflowTree', () => {
   it('shows workflows and their children', () => {
-    render(<WorkflowTree workflows={mockTree} socialCareId={1} />);
+    render(<WorkflowTree workflows={mockTree} resident={mockedResident} />);
     expect(screen.getAllByRole('list').length).toBe(3);
     expect(screen.getAllByRole('listitem').length).toBe(4);
     expect(screen.getAllByRole('link').length).toBe(4);
@@ -41,7 +42,9 @@ describe('WorkflowTree', () => {
   });
 
   it('summarises the workflow chain when asked', () => {
-    render(<WorkflowTree workflows={mockTree} socialCareId={1} summarise />);
+    render(
+      <WorkflowTree workflows={mockTree} resident={mockedResident} summarise />
+    );
     expect(screen.getByText('4 workflows started over over 1 year'));
   });
 });
