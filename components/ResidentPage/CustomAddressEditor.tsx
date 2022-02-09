@@ -119,8 +119,6 @@ const CustomAddressEditor = ({
         className="govuk-input lbh-input govuk-input--width-10"
       />
 
-      {JSON.stringify()}
-
       <div className={s.secondaryActions}>
         <button
           type="button"
