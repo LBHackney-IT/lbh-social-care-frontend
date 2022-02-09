@@ -83,7 +83,8 @@ const AddFormDialog = ({
 
     if (user.isInWorkflowsPilot) {
       forms.unshift({
-        label: 'Pilot assessment',
+        // label: 'Assessment, review or reassessment',
+        label: 'Workflow or assessment',
         href: `${getConfigValue(
           'workflowsPilotUrl'
         )}/workflows/new?social_care_id=${person.id}`,

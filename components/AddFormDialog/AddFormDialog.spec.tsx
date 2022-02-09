@@ -218,7 +218,7 @@ describe('AddFormDialog', () => {
       </AppConfigProvider>
     );
 
-    expect(screen.queryByText('Pilot assessment')).toBeVisible();
+    expect(screen.queryByText('Workflow or assessment')).toBeVisible();
   });
 
   it('displays link for workflow at the top if user is in workflows pilot', () => {
@@ -237,7 +237,7 @@ describe('AddFormDialog', () => {
     );
 
     expect(screen.queryAllByRole('link')[0]).toHaveTextContent(
-      'Pilot assessment'
+      'Workflow or assessment'
     );
   });
 
@@ -256,6 +256,8 @@ describe('AddFormDialog', () => {
       </AppConfigProvider>
     );
 
-    expect(screen.queryByText('Pilot assessment')).not.toBeInTheDocument();
+    expect(
+      screen.queryByText('Workflow or assessment')
+    ).not.toBeInTheDocument();
   });
 });
