@@ -8,7 +8,6 @@ import { DataRow } from './DataBlock';
 import s from './CustomAddressEditor.module.scss';
 
 interface Props extends DataRow {
-  value: string | number;
   onClose: () => void;
   resident: Resident;
 }
@@ -24,12 +23,7 @@ interface FormValues {
 const CustomAddressEditor = ({
   onClose,
   resident,
-}: // name,
-// type,
-// beforeEdit,
-// beforeSave,
-// required,
-Props): React.ReactElement => {
+}: Props): React.ReactElement => {
   const addressExists = !!(
     resident.address?.address || resident.address?.postcode
   );
@@ -43,7 +37,6 @@ Props): React.ReactElement => {
   useWarnUnsavedChanges(true);
 
   const onSubmit = async (data: FormValues) => {
-    console.log(data);
     const res = await fetch(`/api/residents/${resident.id}`, {
       headers: {
         'Content-Type': 'application/json',
@@ -66,6 +59,7 @@ Props): React.ReactElement => {
 
   const handleKeyup: KeyboardEventHandler = (e) => {
     if (e.key === 'Escape') onClose();
+    if (e.key === 'Enter') handleSubmit(onSubmit);
   };
 
   useEffect(() => {
@@ -73,14 +67,6 @@ Props): React.ReactElement => {
       if (ref.current && e.target && !ref.current.contains(e.target as Node))
         onClose();
     };
-
-    // if (ref.current) {
-    //   // move focus to input or select as soon as it appears
-    //   ref.current.querySelector('input')?.focus();
-    //   ref.current.querySelector('select')?.focus();
-    //   // handle outside clicks
-    //   document.addEventListener('click', handleClickOutside, true);
-    // }
 
     return () =>
       document.removeEventListener('click', handleClickOutside, true);
@@ -133,6 +119,8 @@ Props): React.ReactElement => {
         className="govuk-input lbh-input govuk-input--width-10"
       />
 
+      {JSON.stringify()}
+
       <div className={s.secondaryActions}>
         <button
           type="button"
@@ -153,40 +141,42 @@ Props): React.ReactElement => {
         )}
       </div>
 
-      <fieldset className={open ? '' : 'govuk-visually-hidden'}>
-        <label htmlFor="address">Address</label>
-        <input
-          name="address"
-          id="address"
-          placeholder="Address"
-          defaultValue={resident.address?.address}
-          ref={register}
-          className="govuk-input lbh-input"
-        />
+      {open && (
+        <fieldset>
+          <label htmlFor="address">Address</label>
+          <input
+            name="address"
+            id="address"
+            placeholder="Address"
+            defaultValue={resident.address?.address}
+            ref={register()}
+            className="govuk-input lbh-input"
+          />
 
-        <label htmlFor="postcode">Postcode</label>
-        <input
-          name="postcode"
-          id="postcode"
-          ref={register}
-          placeholder="Postcode"
-          defaultValue={resident.address?.postcode}
-          className="govuk-input lbh-input govuk-input--width-10"
-        />
+          <label htmlFor="postcode">Postcode</label>
+          <input
+            name="postcode"
+            id="postcode"
+            ref={register()}
+            placeholder="Postcode"
+            defaultValue={resident.address?.postcode}
+            className="govuk-input lbh-input govuk-input--width-10"
+          />
 
-        <label htmlFor="uprn">Unique property reference number</label>
-        <p className={s.hint} id="uprn-hint">
-          Also called UPRN
-        </p>
-        <input
-          name="uprn"
-          id="uprn"
-          aria-describedby="uprn-hint"
-          defaultValue={resident.address?.uprn}
-          ref={register}
-          className="govuk-input lbh-input govuk-input--width-10"
-        />
-      </fieldset>
+          <label htmlFor="uprn">Unique property reference number</label>
+          <p className={s.hint} id="uprn-hint">
+            Also called UPRN
+          </p>
+          <input
+            name="uprn"
+            id="uprn"
+            aria-describedby="uprn-hint"
+            defaultValue={resident.address?.uprn}
+            ref={register()}
+            className="govuk-input lbh-input govuk-input--width-10"
+          />
+        </fieldset>
+      )}
 
       <div className={s.primaryActions}>
         <button type="button" onClick={onClose} title="Cancel">
