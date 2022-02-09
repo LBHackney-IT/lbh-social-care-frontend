@@ -1,0 +1,116 @@
+@import 'lbh-frontend/lbh/base';
+
+.form {
+  * + * {
+    margin-top: 1rem;
+  }
+
+  label {
+    display: block;
+    @include lbh-body-s;
+  }
+
+  p {
+    @include lbh-body-s;
+  }
+
+  label + input,
+  p + input {
+    margin-top: 0.25rem;
+  }
+}
+
+.row {
+  display: grid;
+  grid-template-columns: 2fr 3fr 1fr;
+  gap: 10px;
+  align-items: flex-end;
+
+  div {
+    margin-top: 0;
+  }
+
+  button {
+    padding: 10px 0px;
+    @include lbh-rem(font-size, 13);
+    @include lbh-rem(line-height, 19);
+    @include govuk-media-query($from: tablet) {
+      @include lbh-rem(font-size, 16);
+      @include lbh-rem(line-height, 24);
+    }
+  }
+
+  margin-top: 0rem;
+
+  &:not(:first-of-type) {
+    margin-top: 0.5rem;
+
+    label {
+      position: absolute;
+      font-size: 0;
+      opacity: 0;
+    }
+  }
+}
+
+p.hint {
+  @include lbh-body-xs;
+  color: lbh-colour('lbh-secondary-text');
+  margin-top: 0;
+}
+
+.secondaryActions {
+  button:disabled {
+    color: lbh-colour('lbh-grey-2');
+    cursor: not-allowed;
+  }
+
+  button {
+    margin-right: 0.5rem;
+
+    @include lbh-rem(font-size, 13);
+    @include lbh-rem(line-height, 19);
+    @include govuk-media-query($from: tablet) {
+      @include lbh-rem(font-size, 16);
+      @include lbh-rem(line-height, 24);
+    }
+  }
+}
+
+.primaryActions {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  margin-bottom: 0.5rem;
+
+  button {
+    margin-top: 0;
+    border: none;
+    background: none;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 5px 0px;
+    width: 25px;
+    margin-left: 5px;
+
+    &:focus {
+      outline: none;
+      svg path {
+        fill: lbh-colour('lbh-primary-focus');
+      }
+    }
+
+    svg {
+      margin-top: 0;
+    }
+
+    &:first-of-type:hover svg path {
+      fill: lbh-colour('lbh-secondary-text');
+    }
+    &:last-of-type:hover svg path {
+      fill: lbh-colour('lbh-primary-hover');
+    }
+  }
+}
