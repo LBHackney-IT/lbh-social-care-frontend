@@ -128,15 +128,7 @@ describe('CustomPhoneNumberEditor', () => {
     expect(global.fetch).toBeCalledWith('/api/residents/1', {
       method: 'PATCH',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        ...mockedResident,
-        phoneNumbers: [
-          {
-            type: '',
-            number: '',
-          },
-        ],
-      }),
+      body: JSON.stringify(mockedResident),
     });
   });
 });
