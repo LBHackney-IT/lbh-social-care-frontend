@@ -12,8 +12,8 @@ import Link from 'next/link';
 import { formatDate } from 'utils/date';
 import SEXUAL_ORIENTATIONS from 'data/orientation';
 import languages from 'data/languages';
-import WorkflowTree from 'components/ResidentPage/WorkflowTree';
 import useWorkflows from 'hooks/useWorkflows';
+import WorkflowOverview from 'components/ResidentPage/WorkflowOverview';
 
 interface Props {
   resident: Resident;
@@ -26,9 +26,7 @@ const ResidentPage = ({ resident }: Props): React.ReactElement => {
   const { data: workflowsData } = useWorkflows(resident.id);
 
   const cases = casesData?.[0].cases.slice(0, 3); // only the first three cases
-  const workflows = workflowsData?.workflows.slice(0, 3); // only the first three workflows
-
-  const totalWorkflows = workflowsData?.workflows.length;
+  const workflows = workflowsData?.workflows;
 
   return (
     <Layout resident={resident}>
@@ -260,25 +258,14 @@ const ResidentPage = ({ resident }: Props): React.ReactElement => {
       </Collapsible>
 
       <Collapsible
-        title={`Recent workflows`}
+        title="Recent workflows"
         link={
           <Link href={`/residents/${resident.id}/workflows`}>
             <a className="lbh-link lbh-link--muted">See all</a>
           </Link>
         }
       >
-        <>
-          {workflows && (
-            <WorkflowTree resident={resident} workflows={workflows} />
-          )}
-          <p className=" lbh-body-xs">
-            <Link href={`/residents/${resident.id}/workflows`}>
-              <a className="lbh-link lbh-link--muted">
-                See all {totalWorkflows} workflows
-              </a>
-            </Link>
-          </p>
-        </>
+        <WorkflowOverview workflows={workflows} />
       </Collapsible>
 
       <DataBlock

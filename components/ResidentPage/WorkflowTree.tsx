@@ -1,13 +1,11 @@
-import Link from 'next/link';
-import { Workflow, WorkflowType } from 'components/ResidentPage/types';
+import { Workflow } from 'components/ResidentPage/types';
 import { useMemo } from 'react';
 import s from './WorkflowTree.module.scss';
-import { formatDate } from 'utils/date';
-import { prettyStatus } from 'lib/workflows/status';
 import { formatDistanceToNow } from 'date-fns';
 import { useAuth } from 'components/UserContext/UserContext';
 import { canManageCases } from 'lib/permissions';
 import { Resident } from 'types';
+import { WorkflowChunk } from './WorkflowOverview';
 
 interface Props {
   workflows: Workflow[];
@@ -51,25 +49,7 @@ const Node = ({ w }: { w: WorkflowWithChildren }) => {
         </ul>
       )}
 
-      <Link
-        href={`${process.env.NEXT_PUBLIC_CORE_PATHWAY_APP_URL}/workflows/${w.id}`}
-      >
-        {w?.form?.name || w.formId}
-      </Link>
-
-      {w.type === WorkflowType.Reassessment && (
-        <span className="govuk-tag lbh-tag">Reassessment</span>
-      )}
-
-      <p className="lbh-body-xs">
-        Started {formatDate(w.createdAt.toString())} · {prettyStatus(w)}
-      </p>
-
-      <p className="lbh-body-xs">
-        {w.assignee
-          ? `Assigned to ${w.assignee.name || w.assignee.email}`
-          : 'Unassigned'}
-      </p>
+      <WorkflowChunk workflow={w} />
     </li>
   );
 };

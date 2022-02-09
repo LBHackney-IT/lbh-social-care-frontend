@@ -47,4 +47,14 @@ describe('WorkflowTree', () => {
     );
     expect(screen.getByText('4 workflows started over over 1 year'));
   });
+
+  it('marks in progress work differently', () => {
+    render(
+      <WorkflowTree workflows={mockTree} resident={mockedResident} summarise />
+    );
+    expect(screen.getAllByText('In progress').length).toBe(4);
+    expect(screen.getAllByText(' · In progress', { exact: false }).length).toBe(
+      4
+    );
+  });
 });
