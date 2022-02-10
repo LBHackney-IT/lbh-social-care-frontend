@@ -1,42 +1,7 @@
-import { Workflow, WorkflowType } from './types';
+import { Workflow } from './types';
 import Link from 'next/link';
-import { formatDate } from 'utils/date';
-import { prettyStatus } from 'lib/workflows/status';
-
-interface WorkflowChunkProps {
-  workflow: Workflow;
-}
-
-export const WorkflowChunk = ({
-  workflow,
-}: WorkflowChunkProps): React.ReactElement => (
-  <>
-    <Link
-      href={`${process.env.NEXT_PUBLIC_CORE_PATHWAY_APP_URL}/workflows/${workflow.id}`}
-    >
-      {workflow?.form?.name || workflow.formId}
-    </Link>
-
-    {workflow.type === WorkflowType.Reassessment && (
-      <span className="govuk-tag lbh-tag">Reassessment</span>
-    )}
-
-    {!workflow.submittedAt && (
-      <span className="govuk-tag lbh-tag lbh-tag--yellow">In progress</span>
-    )}
-
-    <p className="lbh-body-xs">
-      Started {formatDate(workflow.createdAt.toString())} ·{' '}
-      {prettyStatus(workflow)}
-    </p>
-
-    <p className="lbh-body-xs">
-      {workflow.assignee
-        ? `Assigned to ${workflow.assignee.name || workflow.assignee.email}`
-        : 'Unassigned'}
-    </p>
-  </>
-);
+import WorkflowChunk from './WorkflowChunk';
+import s from './WorkflowOverview.module.scss';
 
 interface Props {
   workflows?: Workflow[];
@@ -50,29 +15,44 @@ const WorkflowOverview = ({
   const mostRecent = workflows?.sort(
     (a, b) => new Date(b.createdAt).valueOf() - new Date(a.createdAt).valueOf()
   )[0];
-  const inProgress = workflows?.filter((w) => !w.submittedAt);
+
+  const inProgress = workflows
+    ?.filter((w) => !w.submittedAt)
+    .filter((w) => w.id !== mostRecent?.id);
+  const inProgressCount = (inProgress?.length || 0) - 3;
+  const inProgressThree = inProgress?.slice(0, 3);
 
   return (
     <>
-      <h3 className="lbh-heading-h5">Most recent</h3>
-      {mostRecent && <WorkflowChunk workflow={mostRecent} />}
+      {mostRecent && (
+        <>
+          <h3 className="lbh-heading-h5">Most recent</h3>
+          <WorkflowChunk workflow={mostRecent} />
+        </>
+      )}
 
-      <h3 className="lbh-heading-h5">In progress</h3>
-      {inProgress?.map((w) => (
-        <WorkflowChunk workflow={w} key={w.id} />
-      ))}
+      {inProgressThree && (
+        <>
+          <h3 className="lbh-heading-h5">In progress</h3>
+          {inProgressThree?.map((w) => (
+            <WorkflowChunk workflow={w} key={w.id} />
+          ))}
+          {inProgressCount && (
+            <p className="lbh-body-xs">and {inProgressCount} more</p>
+          )}
+        </>
+      )}
 
-      <h3 className="lbh-heading-h5">Review soon</h3>
-      {/* TODO */}
+      {/* <h3 className="lbh-heading-h5">Review soon</h3> */}
 
-      <p>
+      <footer className={`lbh-body-s ${s.footer}`}>
         <Link href={`/residents/${socialCareId}/workflows`}>See all</Link>
         <a
           href={`${process.env.NEXT_PUBLIC_CORE_PATHWAY_APP_URL}?quick_filter=all&social_care_id=${socialCareId}&touched_by_me=true`}
         >
           See on planner
         </a>
-      </p>
+      </footer>
     </>
   );
 };

@@ -5,8 +5,7 @@ import { formatDistanceToNow } from 'date-fns';
 import { useAuth } from 'components/UserContext/UserContext';
 import { canManageCases } from 'lib/permissions';
 import { Resident } from 'types';
-import { WorkflowChunk } from './WorkflowOverview';
-
+import WorkflowChunk from './WorkflowChunk';
 interface Props {
   workflows: Workflow[];
   resident: Resident;
