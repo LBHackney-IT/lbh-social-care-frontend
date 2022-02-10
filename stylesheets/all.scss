@@ -229,3 +229,8 @@ input[type='time'] {
 .govuk-template {
   overflow-y: initial;
 }
+
+// fix tab spacing{
+.js-enabled .govuk-tabs__list-item--selected {
+  padding-bottom: 11px;
+}

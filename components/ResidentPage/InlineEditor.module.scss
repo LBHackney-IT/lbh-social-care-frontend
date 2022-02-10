@@ -80,3 +80,16 @@
     }
   }
 }
+
+.error {
+  @include lbh-body-xs;
+  position: absolute;
+  bottom: -34px;
+  right: 0px;
+  color: lbh-colour('lbh-error');
+  font-weight: 600;
+  background: lighten(lbh-colour('lbh-error'), 45);
+  z-index: 2;
+  border: 1px solid transparentize(lbh-colour('lbh-error'), 0.9);
+  padding: 0px 4px;
+}
