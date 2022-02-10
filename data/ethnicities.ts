@@ -216,6 +216,7 @@ export default {
       value: 'E.E2',
       text: 'Vietnamese',
     },
+    { value: 'E.EX', text: 'Arab' },
     {
       value: 'E.E6',
       text: 'Any other group',

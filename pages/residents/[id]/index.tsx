@@ -174,10 +174,11 @@ const ResidentPage = ({ resident }: Props): React.ReactElement => {
           {
             label: 'Phone numbers',
             name: 'phoneNumbers',
+            showInSummary: true,
             beforeDisplay: (val) => (
-              <ul className="lbh-list lbh-body-s">
+              <ul className="lbh-list lbh-body-s govuk-!-margin-bottom-2">
                 {(val as PhoneNumber[]).map((number, i) => (
-                  <li key={i}>
+                  <li key={i} className="govuk-!-margin-top-0">
                     <strong>{number.type}:</strong>{' '}
                     <a
                       className="lbh-link lbh-link--no-visited-state"
@@ -189,6 +190,7 @@ const ResidentPage = ({ resident }: Props): React.ReactElement => {
                 ))}
               </ul>
             ),
+            render: CustomPhoneNumberEditor,
           },
 
           {
@@ -301,6 +303,7 @@ const ResidentPage = ({ resident }: Props): React.ReactElement => {
                 </a>
               </div>
             ),
+            render: CustomAddressEditor,
           },
           // {
           //   label: 'Addresses',
