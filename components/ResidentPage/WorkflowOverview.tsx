@@ -54,15 +54,15 @@ const WorkflowOverview = ({
 
   return (
     <>
-      <h3 className="lbh-heading-h4">Most recent</h3>
+      <h3 className="lbh-heading-h5">Most recent</h3>
       {mostRecent && <WorkflowChunk workflow={mostRecent} />}
 
-      <h3 className="lbh-heading-h4">In progress</h3>
+      <h3 className="lbh-heading-h5">In progress</h3>
       {inProgress?.map((w) => (
         <WorkflowChunk workflow={w} key={w.id} />
       ))}
 
-      <h3 className="lbh-heading-h4">Review soon</h3>
+      <h3 className="lbh-heading-h5">Review soon</h3>
       {/* TODO */}
 
       <p>
