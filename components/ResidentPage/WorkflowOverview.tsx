@@ -18,9 +18,7 @@ const WorkflowOverview = ({
 
   const inProgress = workflows
     ?.filter((w) => !w.submittedAt)
-    .filter((w) => w.id !== mostRecent?.id);
-  const inProgressCount = (inProgress?.length || 0) - 3;
-  const inProgressThree = inProgress?.slice(0, 3);
+    .filter((w) => w.id !== mostRecent?.id); // exclude most recent workflow
 
   return (
     <>
@@ -31,14 +29,14 @@ const WorkflowOverview = ({
         </>
       )}
 
-      {inProgressThree && (
+      {inProgress && (
         <>
           <h3 className="lbh-heading-h5">In progress</h3>
-          {inProgressThree?.map((w) => (
+          {inProgress.slice(0, 3)?.map((w) => (
             <WorkflowChunk workflow={w} key={w.id} />
           ))}
-          {inProgressCount && (
-            <p className="lbh-body-xs">and {inProgressCount} more</p>
+          {inProgress.length > 3 && (
+            <p className="lbh-body-xs">and {inProgress.length - 3} more</p>
           )}
         </>
       )}
