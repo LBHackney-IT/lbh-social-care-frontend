@@ -6,8 +6,14 @@ interface Props {
   title: string;
   children: React.ReactChild | React.ReactChild[];
   link?: React.ReactChild;
+  aside?: React.ReactElement;
 }
-const Collapsible = ({ title, children, link }: Props): React.ReactElement => {
+const Collapsible = ({
+  title,
+  children,
+  link,
+  aside,
+}: Props): React.ReactElement => {
   const [open, setOpen] = useLocalStorage<boolean>(title.toLowerCase(), true);
 
   return (
@@ -32,7 +38,18 @@ c1.902-1.903,2.847-4.093,2.847-6.565C284.929,80.607,283.984,78.417,282.082,76.51
         {link}
       </header>
 
-      {open && children}
+      {open && (
+        <>
+          {aside ? (
+            <div className="govuk-grid-row govuk-!-margin-top-2">
+              <div className="govuk-grid-column-one-half">{children}</div>
+              <aside className="govuk-grid-column-one-half">{aside}</aside>
+            </div>
+          ) : (
+            children
+          )}
+        </>
+      )}
     </section>
   );
 };

@@ -146,6 +146,7 @@ interface Props {
   title: string;
   list: DataRow[];
   socialCareId: number;
+  aside?: React.ReactElement;
 }
 
 /** a component to render information about a resident, or a subset of it, and allow in-place editing */
@@ -153,6 +154,7 @@ const DataBlock = ({
   title,
   list,
   socialCareId,
+  aside,
 }: Props): React.ReactElement => {
   const { data } = useResident(socialCareId);
 
@@ -165,7 +167,6 @@ const DataBlock = ({
       <Dialog title={title} isOpen={open} onDismiss={() => setOpen(false)}>
         <DataList list={list} resident={data} />
       </Dialog>
-
       <Collapsible
         title={title}
         link={
@@ -173,6 +174,7 @@ const DataBlock = ({
             See all/edit
           </button>
         }
+        aside={aside}
       >
         <DataList list={truncatedList} resident={data} />
         <button onClick={() => setOpen(true)} className={s.footerButton}>

@@ -289,6 +289,7 @@ const ResidentPage = ({ resident }: Props): React.ReactElement => {
           {
             label: 'Address',
             name: 'address',
+            showInSummary: true,
             beforeDisplay: (val) => (
               <div className="govuk-!-margin-bottom-1">
                 {(val as Address).address}
@@ -313,9 +314,8 @@ const ResidentPage = ({ resident }: Props): React.ReactElement => {
           //   beforeDisplay: (val) => JSON.stringify(val),
           // },
         ]}
+        aside={<Mapping resident={resident} />}
       />
-
-      <Mapping resident={resident} />
     </Layout>
   );
 };

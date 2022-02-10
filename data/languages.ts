@@ -52,7 +52,6 @@ export default [
   'Marathi',
   'Nepalese',
   'Pakistani Pahari (with Mirpuri and Potwari)',
-  '',
   'Pashto',
   'Persian/Farsi',
   'Polish',
