@@ -14,6 +14,8 @@ import SEXUAL_ORIENTATIONS from 'data/orientation';
 import languages from 'data/languages';
 import useWorkflows from 'hooks/useWorkflows';
 import WorkflowOverview from 'components/ResidentPage/WorkflowOverview';
+import CustomPhoneNumberEditor from 'components/ResidentPage/CustomPhoneNumberEditor';
+import CustomAddressEditor from 'components/ResidentPage/CustomAddressEditor';
 
 interface Props {
   resident: Resident;
