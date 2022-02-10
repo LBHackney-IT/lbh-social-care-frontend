@@ -23,4 +23,13 @@ describe('Collapsible', () => {
     fireEvent.click(screen.getByText('foo'));
     expect(screen.getByText('bar'));
   });
+
+  it('can render an aside', () => {
+    render(
+      <Collapsible title="foo" aside={<h1>foo</h1>}>
+        bar
+      </Collapsible>
+    );
+    expect(screen.getByRole('complementary'));
+  });
 });

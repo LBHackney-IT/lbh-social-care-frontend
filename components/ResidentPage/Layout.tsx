@@ -14,6 +14,7 @@ import ActivityTimeline from './ActivityTimeline';
 import NavLink from './NavLink';
 import Tip from 'components/Tip/Tip';
 import StatusTags from './StatusTags';
+import WarningNotes from './WarningNotes';
 
 interface Props {
   resident: Resident;
@@ -143,7 +144,11 @@ const Layout = ({ title, resident, children }: Props): React.ReactElement => {
           </nav>
         </div>
 
-        <div className="govuk-grid-column-three-quarters">{children}</div>
+        <div className="govuk-grid-column-three-quarters">
+          <WarningNotes socialCareId={resident.id} />
+
+          {children}
+        </div>
       </div>
     </>
   );

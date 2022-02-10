@@ -1,15 +1,32 @@
 import { mockedResident } from 'factories/residents';
-import { render, screen } from '@testing-library/react';
+import { fireEvent, render, screen } from '@testing-library/react';
 import Mapping from './Mapping';
 
 describe('Mapping', () => {
-  it('shows street view and map', () => {
+  it('can tab between street view and map', () => {
+    render(<Mapping resident={mockedResident} />);
+
+    fireEvent.click(screen.getByText('Street view'));
+    expect(
+      screen
+        .getAllByTestId('panel')[0]
+        .classList.contains('govuk-tabs__panel--hidden')
+    );
+    fireEvent.click(screen.getByText('Map'));
+    expect(
+      screen
+        .getAllByTestId('panel')[1]
+        .classList.contains('govuk-tabs__panel--hidden')
+    );
+  });
+
+  it('shows a street view and map', () => {
     render(<Mapping resident={mockedResident} />);
     expect((screen.getAllByRole('img')[0] as HTMLImageElement).src).toContain(
-      'https://maps.googleapis.com/maps/api/streetview?size=300x300&return_error_code=true&location=sjakdjlk,%20hdsadjk'
+      'https://maps.googleapis.com/maps/api/staticmap?size=360x360&return_error_code=true&markers=sjakdjlk,%20hdsadjk&zoom=15'
     );
     expect((screen.getAllByRole('img')[1] as HTMLImageElement).src).toContain(
-      'https://maps.googleapis.com/maps/api/staticmap?size=300x300&return_error_code=true&markers=sjakdjlk,%20hdsadjk&zoom=15'
+      'https://maps.googleapis.com/maps/api/streetview?size=360x360&return_error_code=true&location=sjakdjlk,%20hdsadjk'
     );
   });
 });

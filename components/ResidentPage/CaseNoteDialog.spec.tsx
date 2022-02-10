@@ -34,7 +34,13 @@ jest.mock('utils/api/submissions');
 
 describe('CaseNoteDialog', () => {
   it('renders nothing when there is no matching record ID in the URL query', () => {
-    render(<CaseNoteDialog caseNotes={[mockedCaseNote]} socialCareId={123} />);
+    render(
+      <CaseNoteDialog
+        totalCount={1}
+        caseNotes={[mockedCaseNote]}
+        socialCareId={123}
+      />
+    );
     expect(screen.queryByText('Close')).toBeNull();
     expect(screen.queryByRole('heading')).toBeNull();
   });
@@ -46,7 +52,13 @@ describe('CaseNoteDialog', () => {
       },
     });
 
-    render(<CaseNoteDialog caseNotes={[mockedCaseNote]} socialCareId={123} />);
+    render(
+      <CaseNoteDialog
+        totalCount={1}
+        caseNotes={[mockedCaseNote]}
+        socialCareId={123}
+      />
+    );
 
     expect(screen.getByText('foorm'));
     expect(screen.getByText('Added 25 Oct 2020 by Fname.Lname@hackney.gov.uk'));
@@ -71,6 +83,7 @@ describe('CaseNoteDialog', () => {
 
     render(
       <CaseNoteDialog
+        totalCount={1}
         socialCareId={123}
         caseNotes={[
           {
@@ -102,6 +115,7 @@ describe('CaseNoteDialog', () => {
 
     render(
       <CaseNoteDialog
+        totalCount={1}
         socialCareId={123}
         caseNotes={[
           {
@@ -135,6 +149,7 @@ describe('CaseNoteDialog', () => {
 
     render(
       <CaseNoteDialog
+        totalCount={1}
         socialCareId={123}
         caseNotes={[
           {
@@ -167,7 +182,13 @@ describe('CaseNoteDialog', () => {
       replace: mockReplace,
     });
 
-    render(<CaseNoteDialog socialCareId={123} caseNotes={[mockedCaseNote]} />);
+    render(
+      <CaseNoteDialog
+        totalCount={1}
+        socialCareId={123}
+        caseNotes={[mockedCaseNote]}
+      />
+    );
     fireEvent.click(screen.getByText('Close'));
     expect(mockReplace).toBeCalledWith(expect.anything(), undefined, {
       scroll: false,
@@ -183,6 +204,7 @@ describe('CaseNoteDialog', () => {
 
     render(
       <CaseNoteDialog
+        totalCount={1}
         socialCareId={123}
         caseNotes={[
           {
@@ -205,7 +227,13 @@ describe('CaseNoteDialog', () => {
   });
 
   it.skip('can be pinned to the top', () => {
-    render(<CaseNoteDialog socialCareId={123} caseNotes={[mockedCaseNote]} />);
+    render(
+      <CaseNoteDialog
+        totalCount={1}
+        socialCareId={123}
+        caseNotes={[mockedCaseNote]}
+      />
+    );
     fireEvent.click(screen.getByText('Pin to top'));
   });
 });

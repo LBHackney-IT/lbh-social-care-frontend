@@ -12,10 +12,10 @@ import Link from 'next/link';
 import { formatDate } from 'utils/date';
 import SEXUAL_ORIENTATIONS from 'data/orientation';
 import languages from 'data/languages';
-import WorkflowTree from 'components/ResidentPage/WorkflowTree';
 import useWorkflows from 'hooks/useWorkflows';
-import CustomAddressEditor from 'components/ResidentPage/CustomAddressEditor';
+import WorkflowOverview from 'components/ResidentPage/WorkflowOverview';
 import CustomPhoneNumberEditor from 'components/ResidentPage/CustomPhoneNumberEditor';
+import CustomAddressEditor from 'components/ResidentPage/CustomAddressEditor';
 
 interface Props {
   resident: Resident;
@@ -24,13 +24,13 @@ interface Props {
 const ResidentPage = ({ resident }: Props): React.ReactElement => {
   const { data: casesData } = useCases({
     mosaic_id: resident.id,
+    exclude_audit_trail_events: true,
   });
   const { data: workflowsData } = useWorkflows(resident.id);
 
   const cases = casesData?.[0].cases.slice(0, 3); // only the first three cases
-  const workflows = workflowsData?.workflows.slice(0, 3); // only the first three workflows
-
-  const totalWorkflows = workflowsData?.workflows.length;
+  const totalCount = casesData?.[0]?.totalCount || 0;
+  const workflows = workflowsData?.workflows;
 
   return (
     <Layout resident={resident}>
@@ -260,29 +260,26 @@ const ResidentPage = ({ resident }: Props): React.ReactElement => {
           </Link>
         }
       >
-        <>{cases && <CaseNoteGrid cases={cases} resident={resident} />}</>
+        <>
+          {cases && (
+            <CaseNoteGrid
+              cases={cases}
+              resident={resident}
+              totalCount={totalCount}
+            />
+          )}
+        </>
       </Collapsible>
 
       <Collapsible
-        title={`Recent workflows`}
+        title="Recent workflows"
         link={
           <Link href={`/residents/${resident.id}/workflows`}>
             <a className="lbh-link lbh-link--muted">See all</a>
           </Link>
         }
       >
-        <>
-          {workflows && (
-            <WorkflowTree resident={resident} workflows={workflows} />
-          )}
-          <p className=" lbh-body-xs">
-            <Link href={`/residents/${resident.id}/workflows`}>
-              <a className="lbh-link lbh-link--muted">
-                See all {totalWorkflows} workflows
-              </a>
-            </Link>
-          </p>
-        </>
+        <WorkflowOverview workflows={workflows} socialCareId={resident.id} />
       </Collapsible>
 
       <DataBlock
@@ -292,6 +289,7 @@ const ResidentPage = ({ resident }: Props): React.ReactElement => {
           {
             label: 'Address',
             name: 'address',
+            showInSummary: true,
             beforeDisplay: (val) => (
               <div className="govuk-!-margin-bottom-1">
                 {(val as Address).address}
@@ -316,9 +314,8 @@ const ResidentPage = ({ resident }: Props): React.ReactElement => {
           //   beforeDisplay: (val) => JSON.stringify(val),
           // },
         ]}
+        aside={<Mapping resident={resident} />}
       />
-
-      <Mapping resident={resident} />
     </Layout>
   );
 };

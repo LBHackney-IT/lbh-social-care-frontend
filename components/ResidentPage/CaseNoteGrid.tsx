@@ -1,6 +1,5 @@
 import { Case, Resident } from 'types';
 import s from './CaseNoteGrid.module.scss';
-import Link from 'next/link';
 import CaseNoteTile from './CaseNoteTile';
 import { canManageCases } from 'lib/permissions';
 import { useAuth } from 'components/UserContext/UserContext';
@@ -11,6 +10,7 @@ interface Props {
   size?: number;
   setSize?: (newSize: number) => void;
   resident: Resident;
+  totalCount: number;
 }
 
 const CaseNoteGrid = ({
@@ -18,6 +18,7 @@ const CaseNoteGrid = ({
   size,
   setSize,
   resident,
+  totalCount,
 }: Props): React.ReactElement => {
   const { user } = useAuth();
 
@@ -39,25 +40,30 @@ const CaseNoteGrid = ({
 
       {size && setSize && (
         <footer className={s.footer}>
-          <button
-            onClick={() => setSize(size + 1)}
-            className="govuk-button lbh-button"
-          >
-            Load more
-          </button>
-          <p className="lbh-body-s">
-            Looking for something specific? Try{' '}
-            <Link href="/search">
-              <a className="lbh-link lbh-link--no-visited-state">
-                searching for it
-              </a>
-            </Link>
-            .
+          <p className="lbh-body-xs">
+            Showing {cases.length} of {totalCount}
           </p>
+
+          <meter
+            className={s.meter}
+            value={cases.length}
+            max={totalCount}
+            aria-hidden="true"
+          ></meter>
+
+          {cases.length < totalCount && (
+            <button onClick={() => setSize(size + 1)} className="lbh-link">
+              Load more
+            </button>
+          )}
         </footer>
       )}
 
-      <CaseNoteDialog socialCareId={resident.id} caseNotes={cases} />
+      <CaseNoteDialog
+        socialCareId={resident.id}
+        caseNotes={cases}
+        totalCount={totalCount}
+      />
     </>
   );
 };

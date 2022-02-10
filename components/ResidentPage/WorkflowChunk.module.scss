@@ -1,0 +1,29 @@
+@import 'lbh-frontend/lbh/base';
+
+.chunk {
+  position: relative;
+
+  a {
+    @include lbh-heading-h4;
+    @include lbh-link;
+    font-weight: 600;
+    text-decoration: none;
+    display: inline-block;
+    margin-top: 0;
+    margin-bottom: 0.25rem;
+    position: relative;
+  }
+
+  // tag
+  span {
+    margin-top: 0px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    padding: 0px 5px;
+    margin-left: 10px;
+  }
+
+  p {
+    margin-top: 0rem;
+  }
+}

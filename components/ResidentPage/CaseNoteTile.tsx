@@ -37,12 +37,14 @@ const CaseNoteTile = ({ c }: TileProps): React.ReactElement => {
 
       <div aria-hidden="true" className={s.preview}>
         {c?.caseFormData?.case_note_description &&
-          truncate(c.caseFormData.case_note_description || '', 20)}
+          truncate(c?.caseFormData?.case_note_description || '', 20)}
       </div>
 
-      <p className="lbh-body-xs">
-        By {worker ? prettyWorkerName(worker) : c.officerEmail}
-      </p>
+      {c.officerEmail && (
+        <p className="lbh-body-xs">
+          By {worker ? prettyWorkerName(worker) : c.officerEmail}
+        </p>
+      )}
     </li>
   );
 };

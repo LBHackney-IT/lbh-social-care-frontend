@@ -16,7 +16,7 @@ const ActivityTimeline = ({
 
   const activity = data?.[0]?.cases?.slice(0, 3);
 
-  if (activity)
+  if (activity && activity.length > 0)
     return (
       <aside className={s.outer}>
         <h3 className="lbh-heading-h5">Activity</h3>

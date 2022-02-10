@@ -1,0 +1,27 @@
+@import 'lbh-frontend/lbh/base';
+
+.tabs {
+  display: none;
+
+  @include govuk-media-query($from: tablet) {
+    display: inherit;
+  }
+
+  ul button {
+    all: unset;
+    @include lbh-link;
+    cursor: pointer;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
+
+section.tab {
+  padding: 1.25rem !important; // doesn't work otherwise!;
+
+  img {
+    max-width: 100%;
+  }
+}

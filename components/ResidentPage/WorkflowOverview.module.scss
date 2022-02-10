@@ -1,0 +1,18 @@
+@import 'lbh-frontend/lbh/base';
+
+.footer {
+  margin-top: 1rem;
+
+  a {
+    all: unset;
+    margin-top: 0;
+    text-decoration: underline;
+    cursor: pointer;
+    color: lbh-colour('lbh-secondary-text');
+    @include lbh-rem(font-size, 14);
+    @include lbh-rem(line-height, 24);
+    @include lbh-link;
+    @include govuk-link-style-muted;
+    margin-right: 10px;
+  }
+}

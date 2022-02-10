@@ -79,7 +79,15 @@ const AddFormDialog = ({
           approvable: false,
           inPreview: false,
         }))
-      );
+      )
+      .concat({
+        label: 'Warning note',
+        href: `/people/${person.id}/warning-notes/add?id=${person.id}`,
+        system: true,
+        groupRecordable: false,
+        approvable: false,
+        inPreview: false,
+      });
 
     if (user.isInWorkflowsPilot) {
       forms.unshift({
