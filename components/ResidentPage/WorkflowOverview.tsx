@@ -36,7 +36,9 @@ const WorkflowOverview = ({
             <WorkflowChunk workflow={w} key={w.id} />
           ))}
           {inProgress.length > 3 && (
-            <p className="lbh-body-xs">and {inProgress.length - 3} more</p>
+            <p className="lbh-body-xs govuk-!-margin-top-2">
+              and {inProgress.length - 3} more
+            </p>
           )}
         </>
       )}
@@ -44,9 +46,11 @@ const WorkflowOverview = ({
       {/* <h3 className="lbh-heading-h5">Review soon</h3> */}
 
       <footer className={`lbh-body-s ${s.footer}`}>
-        <Link href={`/residents/${socialCareId}/workflows`}>See all</Link>
+        <Link href={`/residents/${socialCareId}/workflows`}>
+          <a>See all{workflows && ` ${workflows.length} workflows`}</a>
+        </Link>
         <a
-          href={`${process.env.NEXT_PUBLIC_CORE_PATHWAY_APP_URL}?quick_filter=all&social_care_id=${socialCareId}&touched_by_me=true`}
+          href={`${process.env.NEXT_PUBLIC_CORE_PATHWAY_APP_URL}?quick_filter=all&social_care_id=${socialCareId}`}
         >
           See on planner
         </a>

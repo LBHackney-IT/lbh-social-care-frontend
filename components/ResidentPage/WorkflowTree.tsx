@@ -94,7 +94,7 @@ const WorkflowTree = ({
           <p className="lbh-body-xs govuk-!-margin-top-1">
             <a
               className="lbh-link lbh-link--no-visited-state"
-              href={`${process.env.NEXT_PUBLIC_CORE_PATHWAY_APP_URL}?quick_filter=all&social_care_id=${resident.id}&touched_by_me=true`}
+              href={`${process.env.NEXT_PUBLIC_CORE_PATHWAY_APP_URL}?quick_filter=all&social_care_id=${resident.id}`}
             >
               See on planner
             </a>
