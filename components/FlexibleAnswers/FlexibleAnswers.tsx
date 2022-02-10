@@ -24,7 +24,7 @@ const RepeaterGroupAnswer = ({
 }: {
   answers: RepeaterGroupAnswerT;
 }): React.ReactElement => (
-  <ul className="govuk-list lbh-list">
+  <ul className="govuk-list lbh-list lbh-body-s">
     {Object.entries(answers).map(([questionName, answer]) => (
       <li key={questionName}>
         <strong>{questionName}:</strong>{' '}

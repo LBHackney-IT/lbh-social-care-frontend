@@ -40,9 +40,11 @@ const CaseNoteTile = ({ c }: TileProps): React.ReactElement => {
           truncate(c.caseFormData.case_note_description || '', 20)}
       </div>
 
-      <p className="lbh-body-xs">
-        By {worker ? prettyWorkerName(worker) : c.officerEmail}
-      </p>
+      {c.officerEmail && (
+        <p className="lbh-body-xs">
+          By {worker ? prettyWorkerName(worker) : c.officerEmail}
+        </p>
+      )}
     </li>
   );
 };

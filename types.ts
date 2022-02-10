@@ -125,6 +125,7 @@ export interface Case {
 
 export interface CaseData {
   cases: Case[];
+  totalCount: number;
   nextCursor?: number;
   deletedRecordsCount?: number;
 }

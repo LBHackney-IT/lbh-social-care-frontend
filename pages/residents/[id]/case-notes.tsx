@@ -16,6 +16,7 @@ interface Props {
 const RelationshipsPage = ({ resident }: Props): React.ReactElement => {
   const { data, setSize, size, error } = useCases({
     mosaic_id: resident.id,
+    exclude_audit_trail_events: true,
   });
 
   let cases: Case[] = [];
@@ -23,6 +24,7 @@ const RelationshipsPage = ({ resident }: Props): React.ReactElement => {
     if (page.cases) cases = cases.concat(page?.cases);
   });
 
+  const totalCount = data?.[0]?.totalCount || 0;
   const casesToShow = cases.length > 0;
 
   return (
@@ -36,6 +38,7 @@ const RelationshipsPage = ({ resident }: Props): React.ReactElement => {
             size={size}
             setSize={setSize}
             resident={resident}
+            totalCount={totalCount}
           />
         ) : error ? (
           <ErrorMessage />

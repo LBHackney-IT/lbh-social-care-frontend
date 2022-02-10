@@ -169,3 +169,20 @@
     }
   }
 }
+
+.meter {
+  margin-top: 1rem;
+  height: 5px;
+  max-width: 150px;
+  width: 100%;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+
+  background: lbh-colour('lbh-grey-3');
+
+  &:-moz-meter-optimum::-moz-meter-bar,
+  &::-webkit-meter-optimum-value {
+    background: lbh-colour('lbh-grey-1');
+  }
+}

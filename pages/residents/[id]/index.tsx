@@ -22,10 +22,12 @@ interface Props {
 const ResidentPage = ({ resident }: Props): React.ReactElement => {
   const { data: casesData } = useCases({
     mosaic_id: resident.id,
+    exclude_audit_trail_events: true,
   });
   const { data: workflowsData } = useWorkflows(resident.id);
 
   const cases = casesData?.[0].cases.slice(0, 3); // only the first three cases
+  const totalCount = casesData?.[0]?.totalCount || 0;
   const workflows = workflowsData?.workflows;
 
   return (
@@ -254,7 +256,15 @@ const ResidentPage = ({ resident }: Props): React.ReactElement => {
           </Link>
         }
       >
-        <>{cases && <CaseNoteGrid cases={cases} resident={resident} />}</>
+        <>
+          {cases && (
+            <CaseNoteGrid
+              cases={cases}
+              resident={resident}
+              totalCount={totalCount}
+            />
+          )}
+        </>
       </Collapsible>
 
       <Collapsible
@@ -265,7 +275,7 @@ const ResidentPage = ({ resident }: Props): React.ReactElement => {
           </Link>
         }
       >
-        <WorkflowOverview workflows={workflows} />
+        <WorkflowOverview workflows={workflows} socialCareId={resident.id} />
       </Collapsible>
 
       <DataBlock

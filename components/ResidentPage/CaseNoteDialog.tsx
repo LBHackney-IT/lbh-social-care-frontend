@@ -78,11 +78,13 @@ const CaseContent = ({ recordId, socialCareId }: CaseContentProps) => {
 interface Props {
   caseNotes: Case[];
   socialCareId: number;
+  totalCount: number;
 }
 
 const CaseNoteDialog = ({
   caseNotes,
   socialCareId,
+  totalCount,
 }: Props): React.ReactElement | null => {
   const { query, replace } = useRouter();
 
@@ -187,7 +189,7 @@ const CaseNoteDialog = ({
           <span>→</span>
 
           <p className="lbh-body-xs">
-            This is {i + 1} of {caseNotes.length}
+            This is {i + 1} of {totalCount}
           </p>
         </div>
       </Dialog>

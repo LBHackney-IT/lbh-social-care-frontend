@@ -23,6 +23,7 @@ describe('CaseNoteGrid', () => {
   it('shows a list of case notes', () => {
     render(
       <CaseNoteGrid
+        totalCount={4}
         resident={mockedResident}
         cases={mockCases}
         size={1}
@@ -37,12 +38,14 @@ describe('CaseNoteGrid', () => {
   it('can load earlier notes', () => {
     render(
       <CaseNoteGrid
+        totalCount={8}
         resident={mockedResident}
         cases={mockCases}
         size={1}
         setSize={mockSetSize}
       />
     );
+    expect(screen.getByText('Showing 4 of 8'));
     fireEvent.click(screen.getByText('Load more'));
     expect(mockSetSize).toBeCalledWith(2);
   });
