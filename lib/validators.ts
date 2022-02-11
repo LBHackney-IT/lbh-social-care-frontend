@@ -208,7 +208,7 @@ export const residentSchema = Yup.object().shape({
   title: Yup.string(),
   firstName: Yup.string().required('You must give a first name'),
   lastName: Yup.string().required('You must give a last name'),
-  otherNames: Yup.array().of(Yup.string()),
+  otherNames: Yup.string(), // this conflicts with the api type definition, but is a better reflection of the ui
   dateOfBirth: Yup.date()
     .typeError('You must give a valid date')
     .required('You must give a date of birth'),
