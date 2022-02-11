@@ -12,6 +12,7 @@ const policy: CSPPolicy = {
     '{nonce}',
     "'sha256-2m+uPiNtvboYJ7hcptV7yA5rSTXALge6nT+HAcqYCXA='", // Inline styles from GTM
     "'unsafe-hashes'",
+    'fonts.googleapis.com',
   ],
   'style-src-elem': [
     "'self'",
