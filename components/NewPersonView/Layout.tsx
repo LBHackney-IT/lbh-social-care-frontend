@@ -21,7 +21,6 @@ import {
 import CaseStatusFlag from 'components/CaseStatus/CaseStatusFlag/CaseStatusFlag';
 import { useAppConfig } from 'lib/appConfig';
 import ConfirmationBanner from 'components/ConfirmationBanner/ConfirmationBanner';
-import PreviewBanner from './PreviewBanner';
 
 interface NavLinkProps {
   href: string;
@@ -150,8 +149,6 @@ const Layout = ({ person, children }: Props): React.ReactElement => {
       ) : (
         <></>
       )}
-
-      <PreviewBanner socialCareId={person.id} />
 
       <WarningNotes id={person.id} />
 
