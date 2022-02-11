@@ -87,6 +87,7 @@
   word-wrap: anywhere;
   color: lbh-colour('lbh-grey-1');
   margin-bottom: auto;
+  pointer-events: none; // can be clicked through
 
   &:after {
     position: absolute;
