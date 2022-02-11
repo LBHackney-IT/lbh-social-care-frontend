@@ -24,7 +24,8 @@ type SupportedData =
   | OtherName[]
   | PhoneNumber[]
   | Address
-  | LegacyAddress[];
+  | LegacyAddress[]
+  | null;
 
 /** an active, inline-editable row of data */
 export interface DataRow {
@@ -38,7 +39,8 @@ export interface DataRow {
   options?: InlineEditorOption[];
   /** override the input type eg. number, date, email */
   type?: HTMLInputTypeAttribute;
-  required?: boolean;
+  /** VISUALLY MARK a field as required (doesn't actually make it required) */
+  markAsRequired?: boolean;
   /** provide a custom component to render when the display or edit state is activated **/
   render?: (props: InlineEditorProps) => React.ReactElement;
   /** HOOKS */
@@ -121,7 +123,7 @@ const DataList = ({ list, resident }: DataListProps) => {
         <div key={row.name} className="govuk-summary-list__row">
           <dt className="govuk-summary-list__key">
             {row.label}
-            {row.required && (
+            {row.markAsRequired && (
               <span className={s.required} aria-label="required">
                 *
               </span>

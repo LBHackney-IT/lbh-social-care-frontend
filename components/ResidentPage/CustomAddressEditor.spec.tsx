@@ -113,7 +113,12 @@ describe('CustomAddressEditor', () => {
         resident={mockedResident}
       />
     );
+    fireEvent.change(screen.getAllByLabelText('Postcode')[1], {
+      target: { value: 'A1 1AA' },
+    });
     await waitFor(() => fireEvent.click(screen.getByText('Save')));
+
+    screen.debug();
     expect(global.fetch).toBeCalledWith('/api/residents/1', {
       method: 'PATCH',
       headers: { 'Content-Type': 'application/json' },
@@ -121,6 +126,7 @@ describe('CustomAddressEditor', () => {
         ...mockedResident,
         address: {
           ...mockedResident.address,
+          postcode: 'A1 1AA',
           uprn: null,
         },
       }),

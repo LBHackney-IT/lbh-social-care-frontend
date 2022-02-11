@@ -1,11 +1,19 @@
 import axios from 'axios';
 import useWarnUnsavedChanges from 'hooks/useWarnUnsavedChanges';
 import { KeyboardEventHandler, useEffect, useRef, useState } from 'react';
-import { useForm } from 'react-hook-form';
 import { Resident } from 'types';
 import { useResident } from 'utils/api/residents';
 import { DataRow } from './DataBlock';
 import s from './CustomAddressEditor.module.scss';
+import { Field, Form, Formik, FormikProps } from 'formik';
+import { residentSchema } from 'lib/validators';
+
+const Error = ({ error }: { error?: string }) =>
+  error ? (
+    <span className={s.error} role="alert">
+      {error.toString()}
+    </span>
+  ) : null;
 
 interface Props extends DataRow {
   onClose: () => void;
@@ -15,51 +23,82 @@ interface Props extends DataRow {
 interface FormValues {
   numberSearch: string;
   postcodeSearch: string;
-  address: string;
-  postcode: string;
-  uprn: string;
+  address: {
+    address: string;
+    postcode: string;
+    uprn: string;
+  };
 }
 
-const CustomAddressEditor = ({
-  onClose,
+const CustomAddressEditor = (props: Props): React.ReactElement => {
+  const { mutate } = useResident(props.resident.id);
+
+  useWarnUnsavedChanges(true);
+
+  const handleSubmit = async (data: FormValues) => {
+    const res = await fetch(`/api/residents/${props.resident.id}`, {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      method: 'PATCH',
+      body: JSON.stringify({
+        ...props.resident,
+        address: {
+          address: data.address.address,
+          postcode: data.address.postcode,
+          uprn: parseInt(data.address.uprn),
+        },
+      }),
+    });
+    mutate(); // give it a kick
+    if (res.status === 200) {
+      props.onClose();
+    }
+  };
+
+  return (
+    <Formik
+      initialValues={{
+        numberSearch: '',
+        postcodeSearch: '',
+        address: {
+          address: '',
+          postcode: '',
+          uprn: '',
+          ...props.resident.address,
+        },
+      }}
+      onSubmit={handleSubmit}
+      validationSchema={residentSchema.pick(['address'])}
+    >
+      {(formikProps) => <InnerForm {...formikProps} {...props} />}
+    </Formik>
+  );
+};
+
+export default CustomAddressEditor;
+
+type InnerProps = Props & FormikProps<FormValues>;
+
+const InnerForm = ({
   resident,
-}: Props): React.ReactElement => {
+  onClose,
+  errors,
+  touched,
+  values,
+  setFieldValue,
+  submitForm,
+}: InnerProps) => {
   const addressExists = !!(
     resident.address?.address || resident.address?.postcode
   );
 
   const ref = useRef<HTMLFormElement>(null);
   const [open, setOpen] = useState<boolean>(addressExists);
-  const { register, handleSubmit, getValues, setValue, watch } = useForm();
-
-  const { mutate } = useResident(resident.id);
-
-  useWarnUnsavedChanges(true);
-
-  const onSubmit = async (data: FormValues) => {
-    const res = await fetch(`/api/residents/${resident.id}`, {
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      method: 'PATCH',
-      body: JSON.stringify({
-        ...resident,
-        address: {
-          address: data.address,
-          postcode: data.postcode,
-          uprn: parseInt(data.uprn),
-        },
-      } as Resident),
-    });
-    mutate(); // give it a kick
-    if (res.status === 200) {
-      onClose();
-    }
-  };
 
   const handleKeyup: KeyboardEventHandler = (e) => {
     if (e.key === 'Escape') onClose();
-    if (e.key === 'Enter') handleSubmit(onSubmit);
+    if (e.key === 'Enter') submitForm();
   };
 
   useEffect(() => {
@@ -74,49 +113,39 @@ const CustomAddressEditor = ({
 
   const handleSearch = async () => {
     try {
-      const { numberSearch, postcodeSearch } = getValues([
-        'numberSearch',
-        'postcodeSearch',
-      ]);
+      const { numberSearch, postcodeSearch } = values;
 
       const { data } = await axios.get(
         `/api/postcode/${postcodeSearch}?buildingNumber=${numberSearch}`
       );
       const result = data?.address?.[0];
-      setValue('address', result['line1']);
-      setValue('postcode', result['postcode']);
-      setValue('uprn', result['UPRN']);
+      setFieldValue('address.address', result['line1']);
+      setFieldValue('address.postcode', result['postcode']);
+      setFieldValue('address.uprn', result['UPRN']);
       setOpen(true);
     } catch (e) {
       setOpen(true);
     }
   };
 
-  const canSearch = watch('postcodeSearch') && watch('numberSearch');
+  const canSearch = values['postcodeSearch'] && values['numberSearch'];
 
   return (
-    <form
-      className={s.form}
-      onSubmit={handleSubmit(onSubmit)}
-      onKeyUp={handleKeyup}
-      ref={ref}
-    >
+    <Form className={s.form} onKeyUp={handleKeyup} ref={ref}>
       <label htmlFor="numberSearch">Building number or name</label>
-      <input
+      <Field
         name="numberSearch"
         id="numberSearch"
         max="30"
-        ref={register}
         className="govuk-input lbh-input govuk-input--width-5"
       />
 
       <label htmlFor="postcodeSearch">Postcode</label>
-      <input
+      <Field
         name="postcodeSearch"
         id="postcodeSearch"
         max="10"
-        ref={register}
-        className="govuk-input lbh-input govuk-input--width-10"
+        className="govuk-input lbh-input govuk-input--width-5"
       />
 
       <div className={s.secondaryActions}>
@@ -141,36 +170,43 @@ const CustomAddressEditor = ({
 
       {open && (
         <fieldset>
-          <label htmlFor="address">Address</label>
-          <input
-            name="address"
-            id="address"
+          <label htmlFor="address.address">Address</label>
+          <Error
+            error={
+              touched?.address?.address ? errors.address?.address : undefined
+            }
+          />
+          <Field
+            name="address.address"
+            id="address.address"
             placeholder="Address"
-            defaultValue={resident.address?.address}
-            ref={register()}
             className="govuk-input lbh-input"
           />
 
-          <label htmlFor="postcode">Postcode</label>
-          <input
-            name="postcode"
-            id="postcode"
-            ref={register()}
-            placeholder="Postcode"
-            defaultValue={resident.address?.postcode}
-            className="govuk-input lbh-input govuk-input--width-10"
+          <label htmlFor="address.postcode">Postcode</label>
+          <Error
+            error={
+              touched?.address?.postcode ? errors.address?.postcode : undefined
+            }
+          />
+          <Field
+            name="address.postcode"
+            id="address.postcode"
+            placeholder="eg. E8 1EA"
+            className="govuk-input lbh-input govuk-input--width-5"
           />
 
-          <label htmlFor="uprn">Unique property reference number</label>
+          <label htmlFor="address.uprn">Unique property reference number</label>
           <p className={s.hint} id="uprn-hint">
             Also called UPRN
           </p>
-          <input
-            name="uprn"
-            id="uprn"
+          <Error
+            error={touched?.address?.uprn ? errors.address?.uprn : undefined}
+          />
+          <Field
+            name="address.uprn"
+            id="address.uprn"
             aria-describedby="uprn-hint"
-            defaultValue={resident.address?.uprn}
-            ref={register()}
             className="govuk-input lbh-input govuk-input--width-10"
           />
         </fieldset>
@@ -203,8 +239,6 @@ const CustomAddressEditor = ({
           </svg>
         </button>
       </div>
-    </form>
+    </Form>
   );
 };
-
-export default CustomAddressEditor;

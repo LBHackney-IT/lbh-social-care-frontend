@@ -35,6 +35,11 @@ export const getFeatureFlags = ({
       isActive:
         environmentName === 'development' || user?.hasAdminPermissions || false,
     },
+    // FEATURE-FLAG-EXPIRES [2022-02-25]: case-status
+    'preview-new-resident-view': {
+      isActive:
+        environmentName === 'development' || user?.hasAdminPermissions || false,
+    },
     /*
       The feature-flags-implementation-proof has been setup to have an expiry date in the far future.
       The FEATURE-FLAG-EXPIRES comment above will cause ESLint errors once the date in the square brackets has passed.

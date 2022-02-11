@@ -1,6 +1,7 @@
+import { Field, Form, Formik } from 'formik';
 import useWarnUnsavedChanges from 'hooks/useWarnUnsavedChanges';
+import { residentSchema } from 'lib/validators';
 import { useEffect, useRef, KeyboardEvent } from 'react';
-import { useForm } from 'react-hook-form';
 import { Resident } from 'types';
 import { useResident } from 'utils/api/residents';
 import { DataRow } from './DataBlock';
@@ -29,16 +30,16 @@ const InlineEditor = ({
   type,
   beforeEdit,
   beforeSave,
-  required,
 }: InlineEditorProps): React.ReactElement => {
   const ref = useRef<HTMLFormElement>(null);
-  const { register, handleSubmit } = useForm();
+
+  const schema = residentSchema.pick([name]);
 
   const { mutate } = useResident(resident.id);
 
   useWarnUnsavedChanges(true);
 
-  const onSubmit = async (data: FormValues) => {
+  const handleSubmit = async (data: FormValues) => {
     const res = await fetch(`/api/residents/${resident.id}`, {
       headers: {
         'Content-Type': 'application/json',
@@ -82,68 +83,69 @@ const InlineEditor = ({
     : resident[name as keyof Resident];
 
   return (
-    <form
-      onSubmit={handleSubmit(onSubmit)}
-      className={s.form}
-      onKeyUp={handleKeyup}
-      ref={ref}
+    <Formik
+      initialValues={
+        {
+          [name]: defaultValue,
+        } as FormValues
+      }
+      onSubmit={handleSubmit}
+      validationSchema={schema}
     >
-      <label className="govuk-visually-hidden" htmlFor={name}>
-        Editing {name}
-      </label>
+      {({ errors }) => (
+        <Form className={s.form} onKeyUp={handleKeyup} ref={ref}>
+          <label className="govuk-visually-hidden" htmlFor={name}>
+            Editing {name}
+          </label>
 
-      {options ? (
-        <select
-          id={name}
-          name={name}
-          defaultValue={defaultValue as string | number}
-          ref={register}
-        >
-          {options.map((opt) => (
-            <option key={opt.value} value={opt.value}>
-              {opt.label}
-            </option>
-          ))}
-        </select>
-      ) : (
-        <input
-          id={name}
-          name={name}
-          defaultValue={defaultValue as string | number}
-          ref={register}
-          type={type}
-          required={required}
-        />
+          {options ? (
+            <Field as="select" id={name} name={name}>
+              {options.map((opt) => (
+                <option key={opt.value} value={opt.value}>
+                  {opt.label}
+                </option>
+              ))}
+            </Field>
+          ) : (
+            <Field id={name} name={name} type={type} />
+          )}
+
+          {errors[name] && (
+            <p className={s.error} role="alert">
+              {errors[name]?.toString()}
+            </p>
+          )}
+
+          <div>
+            <button type="button" onClick={onClose} title="Cancel">
+              <span className="govuk-visually-hidden">Cancel</span>
+              <svg width="18" height="18" viewBox="0 0 18 18">
+                <path
+                  d="M-0.0695801 1.88831L1.88856 -0.0698242L17.5538 15.5953L15.5955 17.5534L-0.0695801 1.88831Z"
+                  fill="#6F777B"
+                />
+                <path
+                  d="M15.5955 -0.0696411L17.5538 1.8885L1.88856 17.5536L-0.0695801 15.5955L15.5955 -0.0696411Z"
+                  fill="#6F777B"
+                />
+              </svg>
+            </button>
+
+            <button title="Save">
+              <span className="govuk-visually-hidden">Save</span>
+              <svg width="24" height="19" viewBox="0 0 24 19">
+                <path
+                  fillRule="evenodd"
+                  clipRule="evenodd"
+                  d="M23.5608 3.06065L8.50011 18.1213L0.939453 10.5607L3.06077 8.43933L8.50011 13.8787L21.4395 0.939331L23.5608 3.06065Z"
+                  fill="#00664F"
+                />
+              </svg>
+            </button>
+          </div>
+        </Form>
       )}
-
-      <div>
-        <button type="button" onClick={onClose} title="Cancel">
-          <span className="govuk-visually-hidden">Cancel</span>
-          <svg width="18" height="18" viewBox="0 0 18 18">
-            <path
-              d="M-0.0695801 1.88831L1.88856 -0.0698242L17.5538 15.5953L15.5955 17.5534L-0.0695801 1.88831Z"
-              fill="#6F777B"
-            />
-            <path
-              d="M15.5955 -0.0696411L17.5538 1.8885L1.88856 17.5536L-0.0695801 15.5955L15.5955 -0.0696411Z"
-              fill="#6F777B"
-            />
-          </svg>
-        </button>
-
-        <button title="Save">
-          <span className="govuk-visually-hidden">Save</span>
-          <svg width="24" height="19" viewBox="0 0 24 19">
-            <path
-              fillRule="evenodd"
-              clipRule="evenodd"
-              d="M23.5608 3.06065L8.50011 18.1213L0.939453 10.5607L3.06077 8.43933L8.50011 13.8787L21.4395 0.939331L23.5608 3.06065Z"
-              fill="#00664F"
-            />
-          </svg>
-        </button>
-      </div>
-    </form>
+    </Formik>
   );
 };
 
