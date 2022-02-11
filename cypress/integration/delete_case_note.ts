@@ -35,8 +35,10 @@ describe('Deleting case notes', () => {
         `/people/${Cypress.env('CHILDREN_RECORD_PERSON_ID')}`,
         AuthRoles.AdminDevGroup
       );
+
+      cy.get('.lbh-timeline').scrollIntoView();
       cy.contains(/Show deleted records/).click();
-      cy.contains(/Hide deleted records/).should('be.visible');
+      cy.contains(/Hide deleted records/);
       cy.contains(/(deleted record)/).should('be.visible');
       cy.contains(/deleted 2 Dec 2021 1.51 pm/).should('be.visible');
       cy.contains(/requested by requester/).should('be.visible');
