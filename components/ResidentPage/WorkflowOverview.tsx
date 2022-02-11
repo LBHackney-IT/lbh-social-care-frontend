@@ -22,26 +22,28 @@ const WorkflowOverview = ({
 
   return (
     <>
-      {mostRecent && (
-        <>
-          <h3 className="lbh-heading-h5">Most recent</h3>
-          <WorkflowChunk workflow={mostRecent} />
-        </>
-      )}
+      <div className="govuk-grid-row">
+        {inProgress && (
+          <div className="govuk-grid-column-one-half">
+            <h3 className="lbh-heading-h5">In progress</h3>
+            {inProgress.slice(0, 3)?.map((w) => (
+              <WorkflowChunk workflow={w} key={w.id} />
+            ))}
+            {inProgress.length > 3 && (
+              <p className="lbh-body-xs govuk-!-margin-top-2">
+                and {inProgress.length - 3} more
+              </p>
+            )}
+          </div>
+        )}
 
-      {inProgress && (
-        <>
-          <h3 className="lbh-heading-h5">In progress</h3>
-          {inProgress.slice(0, 3)?.map((w) => (
-            <WorkflowChunk workflow={w} key={w.id} />
-          ))}
-          {inProgress.length > 3 && (
-            <p className="lbh-body-xs govuk-!-margin-top-2">
-              and {inProgress.length - 3} more
-            </p>
-          )}
-        </>
-      )}
+        {mostRecent && (
+          <div className="govuk-grid-column-one-half">
+            <h3 className="lbh-heading-h5">Most recent</h3>
+            <WorkflowChunk workflow={mostRecent} />
+          </div>
+        )}
+      </div>
 
       {/* <h3 className="lbh-heading-h5">Review soon</h3> */}
 

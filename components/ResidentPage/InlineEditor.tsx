@@ -107,12 +107,7 @@ const InlineEditor = ({
               ))}
             </Field>
           ) : (
-            <Field
-              id={name}
-              name={name}
-              defaultValue={defaultValue as string | number}
-              type={type}
-            />
+            <Field id={name} name={name} type={type} />
           )}
 
           {errors[name] && (

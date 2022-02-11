@@ -1,10 +1,11 @@
 import useWarnUnsavedChanges from 'hooks/useWarnUnsavedChanges';
 import { KeyboardEventHandler, useEffect, useRef } from 'react';
-import { useFieldArray, useForm } from 'react-hook-form';
 import { PhoneNumber, Resident } from 'types';
 import { useResident } from 'utils/api/residents';
 import { DataRow } from './DataBlock';
 import s from './CustomPhoneNumberEditor.module.scss';
+import { Field, FieldArray, Form, Formik, FormikProps, getIn } from 'formik';
+import { residentSchema } from 'lib/validators';
 
 interface Props extends DataRow {
   onClose: () => void;
@@ -15,41 +16,24 @@ interface FormValues {
   phoneNumbers: PhoneNumber[];
 }
 
-const CustomPhoneNumberEditor = ({
-  onClose,
-  resident,
-}: Props): React.ReactElement => {
-  const ref = useRef<HTMLFormElement>(null);
-  const { register, handleSubmit, control } = useForm({
-    defaultValues: {
-      phoneNumbers:
-        resident?.phoneNumbers?.length > 0
-          ? resident.phoneNumbers
-          : [
-              {
-                type: '',
-                number: '',
-              },
-            ],
-    },
-  });
-  const { append, remove, fields } = useFieldArray<PhoneNumber>({
-    name: 'phoneNumbers',
-    control,
-  });
+const Error = ({ error }: { error?: string }) =>
+  error ? (
+    <span role="alert" className={s.error}>
+      {error}
+    </span>
+  ) : null;
 
-  const { mutate } = useResident(resident.id);
-
-  useWarnUnsavedChanges(true);
+const CustomPhoneNumberEditor = (props: Props): React.ReactElement => {
+  const { mutate } = useResident(props.resident.id);
 
   const onSubmit = async (data: FormValues) => {
-    const res = await fetch(`/api/residents/${resident.id}`, {
+    const res = await fetch(`/api/residents/${props.resident.id}`, {
       headers: {
         'Content-Type': 'application/json',
       },
       method: 'PATCH',
       body: JSON.stringify({
-        ...resident,
+        ...props.resident,
         phoneNumbers: data?.phoneNumbers
           ?.filter((n) => n.type || n.number)
           ?.map((n) => ({
@@ -60,13 +44,47 @@ const CustomPhoneNumberEditor = ({
     });
     mutate(); // give it a kick
     if (res.status === 200) {
-      onClose();
+      props.onClose();
     }
   };
 
+  return (
+    <Formik
+      initialValues={{
+        phoneNumbers:
+          props.resident.phoneNumbers.length > 0
+            ? props.resident.phoneNumbers
+            : [
+                {
+                  type: '',
+                  number: '',
+                },
+              ],
+      }}
+      validationSchema={residentSchema.pick(['phoneNumbers'])}
+      onSubmit={onSubmit}
+    >
+      {(formikProps) => <InnerForm {...formikProps} {...props} />}
+    </Formik>
+  );
+};
+
+type InnerProps = Props & FormikProps<FormValues>;
+
+const InnerForm = ({
+  onClose,
+  values,
+  errors,
+  submitForm,
+  touched,
+}: InnerProps): React.ReactElement => {
+  const ref = useRef<HTMLFormElement>(null);
+
+  useWarnUnsavedChanges(true);
+
   const handleKeyup: KeyboardEventHandler = (e) => {
     if (e.key === 'Escape') onClose();
-    if (e.key === 'Enter') handleSubmit(onSubmit);
+    if (e.key === 'Enter') submitForm();
   };
 
   useEffect(() => {
@@ -80,76 +98,91 @@ const CustomPhoneNumberEditor = ({
   }, [onClose]);
 
   return (
-    <form
-      className={s.form}
-      onSubmit={handleSubmit(onSubmit)}
-      onKeyUp={handleKeyup}
-      ref={ref}
-    >
-      <fieldset>
-        <legend className="govuk-visually-hidden">Phone numbers</legend>
+    <Form className={s.form} onKeyUp={handleKeyup} ref={ref}>
+      <FieldArray name="phoneNumbers">
+        {({ push, remove }) => (
+          <>
+            <fieldset>
+              <legend className="govuk-visually-hidden">Phone numbers</legend>
 
-        <datalist id="type-hints">
-          <option value="Mobile">Mobile</option>
-          <option value="Home">Home</option>
-          <option value="Work/office">Work/office</option>
-        </datalist>
+              <datalist id="type-hints">
+                <option value="Mobile">Mobile</option>
+                <option value="Home">Home</option>
+                <option value="Work/office">Work/office</option>
+              </datalist>
 
-        {fields.map((field, i) => (
-          <div key={field.id} className={s.row}>
-            <div>
-              <label htmlFor={`phoneNumbers[${i}].type`}>Label</label>
-              <input
-                name={`phoneNumbers[${i}].type`}
-                id={`phoneNumbers[${i}].type`}
-                max="10"
-                ref={register()}
-                className="govuk-input lbh-input"
-                list="type-hints"
-                placeholder={i === 0 ? 'eg. Mobile' : ''}
-                defaultValue={field.type}
-              />
+              {values.phoneNumbers.map((field, i) => (
+                <div key={i} className={s.row}>
+                  <div>
+                    <label htmlFor={`phoneNumbers[${i}].type`}>Label</label>
+                    <Error
+                      error={
+                        touched?.phoneNumbers?.[i]
+                          ? getIn(errors, `phoneNumbers.${i}.type`)
+                          : undefined
+                      }
+                    />
+                    <Field
+                      name={`phoneNumbers[${i}].type`}
+                      id={`phoneNumbers[${i}].type`}
+                      max="10"
+                      className="govuk-input lbh-input"
+                      list="type-hints"
+                      placeholder={i === 0 ? 'eg. Mobile' : ''}
+                    />
+                  </div>
+
+                  <div>
+                    <label htmlFor={`phoneNumbers[${i}].number`}>Number</label>
+                    <Error
+                      error={
+                        touched?.phoneNumbers?.[i]
+                          ? getIn(errors, `phoneNumbers.${i}.number`)
+                          : undefined
+                      }
+                    />
+                    <Field
+                      name={`phoneNumbers[${i}].number`}
+                      id={`phoneNumbers[${i}].number`}
+                      max="15"
+                      className="govuk-input lbh-input"
+                      placeholder={i === 0 ? 'eg. 0777 777 7777' : ''}
+                    />
+                  </div>
+
+                  <button
+                    onClick={() => remove(i)}
+                    title="Remove this number"
+                    className="lbh-link"
+                    type="button"
+                  >
+                    Remove
+                  </button>
+                </div>
+              ))}
+            </fieldset>
+
+            <div className={s.secondaryActions}>
+              <button
+                type="button"
+                disabled={values.phoneNumbers.length > 3}
+                onClick={() =>
+                  push({
+                    type: '',
+                    number: '',
+                  })
+                }
+                className="lbh-link"
+              >
+                + Add{' '}
+                {values.phoneNumbers.length === 0
+                  ? 'first phone number'
+                  : 'another'}
+              </button>
             </div>
-
-            <div>
-              <label htmlFor={`phoneNumbers[${i}].number`}>Number</label>
-              <input
-                name={`phoneNumbers[${i}].number`}
-                id={`phoneNumbers[${i}].number`}
-                max="15"
-                ref={register()}
-                className="govuk-input lbh-input"
-                placeholder={i === 0 ? 'eg. 0777 777 7777' : ''}
-                defaultValue={field.number}
-              />
-            </div>
-
-            <button
-              onClick={() => remove(i)}
-              title="Remove this number"
-              className="lbh-link"
-              type="button"
-            >
-              Remove
-            </button>
-          </div>
-        ))}
-      </fieldset>
-
-      <div className={s.secondaryActions}>
-        <button
-          type="button"
-          onClick={() =>
-            append({
-              type: '',
-              number: '',
-            })
-          }
-          className="lbh-link"
-        >
-          + Add {fields.length === 0 ? 'first phone number' : 'another'}
-        </button>
-      </div>
+          </>
+        )}
+      </FieldArray>
 
       <div className={s.primaryActions}>
         <button type="button" onClick={onClose} title="Cancel">
@@ -178,7 +211,7 @@ const CustomPhoneNumberEditor = ({
           </svg>
         </button>
       </div>
-    </form>
+    </Form>
   );
 };
 

@@ -1,12 +1,12 @@
 import { prettyAddress } from 'lib/formatters';
 import { useState } from 'react';
-import { Resident } from 'types';
+import { useResident } from 'utils/api/residents';
 import s from './Mapping.module.scss';
 
 type TabState = 'map' | 'street-view';
 
 interface Props {
-  resident: Resident;
+  socialCareId: number;
 }
 
 interface TabProps {
@@ -45,15 +45,18 @@ const TabPanel = ({ active, value, children }: TabPanelProps) => (
   </section>
 );
 
-const Mapping = ({ resident }: Props): React.ReactElement => {
+const Mapping = ({ socialCareId }: Props): React.ReactElement | null => {
   const [active, setActive] = useState<TabState>('map');
+  const { data } = useResident(socialCareId);
+
+  if (!data) return null;
 
   const mapUrl = `https://maps.googleapis.com/maps/api/staticmap?size=360x360&return_error_code=true&markers=${prettyAddress(
-    resident
+    data
   )}&zoom=15&key=${process.env.NEXT_PUBLIC_GOOGLE_CLIENT_KEY}`;
 
   const streetViewUrl = `https://maps.googleapis.com/maps/api/streetview?size=360x360&return_error_code=true&location=${prettyAddress(
-    resident
+    data
   )}&key=${process.env.NEXT_PUBLIC_GOOGLE_CLIENT_KEY}`;
 
   return (
@@ -69,13 +72,13 @@ const Mapping = ({ resident }: Props): React.ReactElement => {
       </ul>
 
       <TabPanel active={active} value="map">
-        <a href={`https://www.google.com/maps?q=${prettyAddress(resident)}`}>
+        <a href={`https://www.google.com/maps?q=${prettyAddress(data)}`}>
           <img src={mapUrl} alt="Map view" />
         </a>
       </TabPanel>
 
       <TabPanel active={active} value="street-view">
-        <a href={`https://www.google.com/maps?q=${prettyAddress(resident)}`}>
+        <a href={`https://www.google.com/maps?q=${prettyAddress(data)}`}>
           <img src={streetViewUrl} alt="Street view" />
         </a>
       </TabPanel>

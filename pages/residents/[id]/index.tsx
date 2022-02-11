@@ -69,9 +69,10 @@ const ResidentPage = ({ resident }: Props): React.ReactElement => {
           {
             label: 'First name',
             name: 'firstName',
-            required: true,
+
+            markAsRequired: true,
           },
-          { label: 'Last name', name: 'lastName', required: true },
+          { label: 'Last name', name: 'lastName', markAsRequired: true },
           {
             label: 'Other names',
             name: 'otherNames',
@@ -82,7 +83,8 @@ const ResidentPage = ({ resident }: Props): React.ReactElement => {
           {
             label: 'Date of birth',
             name: 'dateOfBirth',
-            required: true,
+            markAsRequired: true,
+
             beforeDisplay: (val) => formatDate(val as string) || '',
             beforeEdit: (val) => (val as string)?.split('T')[0],
             type: 'date',
@@ -92,6 +94,7 @@ const ResidentPage = ({ resident }: Props): React.ReactElement => {
             name: 'dateOfDeath',
             beforeDisplay: (val) => formatDate(val as string) || '',
             beforeEdit: (val) => (val as string)?.split('T')[0],
+            beforeSave: (val) => val || null,
             type: 'date',
           },
           {
@@ -163,7 +166,6 @@ const ResidentPage = ({ resident }: Props): React.ReactElement => {
             label: 'Email address',
             name: 'emailAddress',
             showInSummary: true,
-            type: 'email',
             beforeDisplay: (val) => (
               <a
                 className="lbh-link lbh-link--no-visited-state"
@@ -314,7 +316,7 @@ const ResidentPage = ({ resident }: Props): React.ReactElement => {
           //   beforeDisplay: (val) => JSON.stringify(val),
           // },
         ]}
-        aside={<Mapping resident={resident} />}
+        aside={<Mapping socialCareId={resident.id} />}
       />
     </Layout>
   );

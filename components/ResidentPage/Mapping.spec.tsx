@@ -1,10 +1,17 @@
 import { mockedResident } from 'factories/residents';
 import { fireEvent, render, screen } from '@testing-library/react';
 import Mapping from './Mapping';
+import { useResident } from 'utils/api/residents';
+
+jest.mock('utils/api/residents');
+
+(useResident as jest.Mock).mockReturnValue({
+  data: mockedResident,
+});
 
 describe('Mapping', () => {
   it('can tab between street view and map', () => {
-    render(<Mapping resident={mockedResident} />);
+    render(<Mapping socialCareId={1} />);
 
     fireEvent.click(screen.getByText('Street view'));
     expect(
@@ -21,7 +28,7 @@ describe('Mapping', () => {
   });
 
   it('shows a street view and map', () => {
-    render(<Mapping resident={mockedResident} />);
+    render(<Mapping socialCareId={1} />);
     expect((screen.getAllByRole('img')[0] as HTMLImageElement).src).toContain(
       'https://maps.googleapis.com/maps/api/staticmap?size=360x360&return_error_code=true&markers=sjakdjlk,%20hdsadjk&zoom=15'
     );

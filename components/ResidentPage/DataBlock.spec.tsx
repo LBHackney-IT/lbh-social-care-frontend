@@ -70,25 +70,6 @@ describe('DataBlock', () => {
     fireEvent.click(screen.getByText('Close'));
   });
 
-  it('marks required data', () => {
-    render(
-      <DataBlock
-        title="example"
-        socialCareId={1}
-        list={[
-          {
-            label: 'First name',
-            name: 'firstName',
-            showInSummary: true,
-            required: true,
-          },
-        ]}
-      />
-    );
-
-    expect(screen.getByLabelText('required'));
-  });
-
   it('offers the option to edit in-place', () => {
     render(
       <DataBlock

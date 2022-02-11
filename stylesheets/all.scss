@@ -234,3 +234,25 @@ input[type='time'] {
 .js-enabled .govuk-tabs__list-item--selected {
   padding-bottom: 11px;
 }
+
+.lbh-page-announcement--orange {
+  border-color: lbh-colour('lbh-f04');
+  background: transparentize(lbh-colour('lbh-f04'), 0.9);
+
+  a {
+    font-weight: 600;
+
+    &:visited {
+      color: lbh-colour('lbh-link');
+    }
+
+    &:hover {
+      color: lbh-colour('lbh-link-hover');
+    }
+
+    &:active,
+    &:focus {
+      color: lbh-colour('lbh-text');
+    }
+  }
+}

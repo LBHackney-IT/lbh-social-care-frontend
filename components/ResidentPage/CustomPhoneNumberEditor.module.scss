@@ -114,3 +114,14 @@ p.hint {
     }
   }
 }
+
+.error {
+  @include lbh-body-xs;
+  display: block;
+  color: lbh-colour('lbh-error');
+  margin-top: 0rem;
+  font-weight: 600;
+  & + input {
+    margin-top: 0.5rem;
+  }
+}

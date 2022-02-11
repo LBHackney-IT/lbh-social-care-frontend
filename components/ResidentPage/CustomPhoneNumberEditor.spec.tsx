@@ -124,11 +124,26 @@ describe('CustomPhoneNumberEditor', () => {
         name="phoneNumbers"
       />
     );
+    fireEvent.change(screen.getByLabelText('Label'), {
+      target: { value: 'One' },
+    });
+    fireEvent.change(screen.getByLabelText('Number'), {
+      target: { value: '0777' },
+    });
     await waitFor(() => fireEvent.click(screen.getByText('Save')));
+
     expect(global.fetch).toBeCalledWith('/api/residents/1', {
       method: 'PATCH',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(mockedResident),
+      body: JSON.stringify({
+        ...mockedResident,
+        phoneNumbers: [
+          {
+            type: 'One',
+            number: '0777',
+          },
+        ],
+      }),
     });
   });
 });

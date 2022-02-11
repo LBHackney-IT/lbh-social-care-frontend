@@ -214,7 +214,10 @@ export const residentSchema = Yup.object().shape({
     .required('You must give a date of birth'),
   dateOfDeath: Yup.date().typeError('You must give a valid date'),
   /** medical */
-  nhsNumber: Yup.number().typeError('You must give only digits'),
+  nhsNumber: Yup.number()
+    .typeError('NHS numbers can only contain digits')
+    .positive('NHS numbers can only contain digits')
+    .integer('NHS numbers can only contain digits'),
   /** extended biography */
   ethnicity: Yup.string(),
   religion: Yup.string().oneOf(religions),
@@ -222,19 +225,35 @@ export const residentSchema = Yup.object().shape({
   gender: Yup.string().required(),
   /** housing */
   address: Yup.object({
-    address: Yup.string(),
-    postcode: Yup.string(),
-    uprn: Yup.string(),
+    address: Yup.string().required(
+      'You must give the first line of the address'
+    ),
+    postcode: Yup.string().matches(
+      /^[a-zA-Z]{1,2}([0-9]{1,2}|[0-9][a-zA-Z])\s*[0-9][a-zA-Z]{2}$/,
+      'You must give a valid postcode'
+    ),
+    uprn: Yup.number()
+      .typeError('UPRNs can only contain digits')
+      .integer('UPRNs can only contain digits')
+      .positive('UPRNs can only contain digits')
+      .max(999999999999, 'That UPRN is too long'),
   }),
   /** communication */
   firstLanguage: Yup.string().oneOf(languages),
   preferredMethodOfContact: Yup.string(),
-  phoneNumbers: Yup.array().of(
-    Yup.object().shape({
-      type: Yup.string().required(),
-      number: Yup.string().required(),
-    })
-  ),
+  phoneNumbers: Yup.array()
+    .of(
+      Yup.object().shape({
+        type: Yup.string().required('You must give a label'),
+        number: Yup.number()
+          .typeError('Phone numbers can only contain digits')
+          .required('You must give a number'),
+      })
+    )
+    .max(
+      4,
+      "You can't add any more phone numbers. Consider adding a relationship or case note instead."
+    ),
   emailAddress: Yup.string().email('You must give a valid email'),
   /** metadata */
   createdBy: Yup.string().email(),
