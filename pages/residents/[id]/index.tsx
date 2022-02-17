@@ -310,6 +310,61 @@ const ResidentPage = ({ resident }: Props): React.ReactElement => {
             ),
             render: CustomAddressEditor,
           },
+          {
+            label: 'Living situation',
+            name: 'livingSituation',
+          },
+          {
+            label: 'Tenure type',
+            name: 'tenureType',
+          },
+          {
+            label: 'Accomodation type',
+            name: 'accessToHome',
+          },
+          {
+            label: 'Housing staff in contact?',
+            name: 'housingStaffInContact',
+            // TODO: convert these values to booleans either in a beforeSave or directly support bool values
+            options: [
+              {
+                label: 'Yes',
+                value: 'yes',
+              },
+              {
+                label: 'No',
+                value: 'no',
+              },
+            ],
+          },
+          {
+            label: 'Housing officer',
+            name: 'housingOfficer',
+          },
+          {
+            label: 'Cautionary alert',
+            name: 'cautionaryAlert',
+          },
+          {
+            label: 'Possession or eviction order',
+            name: 'possessionEvictionOrder',
+          },
+          {
+            label: 'Rent record',
+            name: 'rentRecord',
+          },
+          {
+            label: 'Housing benefit',
+            name: 'housingBenefit',
+          },
+          {
+            label: 'Council tenure type',
+            name: 'councilTenureType',
+          },
+          {
+            label: 'Tenancy household structure',
+            name: 'tenancyHouseholdStructure',
+          },
           // {
           //   label: 'Addresses',
           //   name: 'addresses',

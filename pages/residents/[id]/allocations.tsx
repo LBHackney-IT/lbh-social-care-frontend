@@ -26,6 +26,12 @@ const AllocationsPage = ({ resident }: Props): React.ReactElement => {
   return (
     <Layout resident={resident} title="Allocations">
       <>
+        <p className="lbh-body-s">
+          {resident.allocatedTeam
+            ? `Allocated to ${resident.allocatedTeam}`
+            : `This resident is not allocated to a team`}
+        </p>
+
         {!data && !error ? (
           <CollapsibleSkeleton>
             <SummaryListSkeleton />
