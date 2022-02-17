@@ -16,6 +16,7 @@ import useWorkflows from 'hooks/useWorkflows';
 import WorkflowOverview from 'components/ResidentPage/WorkflowOverview';
 import CustomPhoneNumberEditor from 'components/ResidentPage/CustomPhoneNumberEditor';
 import CustomAddressEditor from 'components/ResidentPage/CustomAddressEditor';
+import { simpleEthnicities } from 'data/ethnicities';
 
 interface Props {
   resident: Resident;
@@ -54,6 +55,10 @@ const ResidentPage = ({ resident }: Props): React.ReactElement => {
             ],
           },
           {
+            name: 'allocatedTeam',
+            label: 'Allocated team',
+          },
+          {
             label: 'Title',
             name: 'title',
             showInSummary: true,
@@ -81,7 +86,7 @@ const ResidentPage = ({ resident }: Props): React.ReactElement => {
             beforeSave: (val) => [{ firstName: val, lastName: '' }],
           },
           {
-            label: 'Date of birth',
+            label: 'Born',
             name: 'dateOfBirth',
             markAsRequired: true,
 
@@ -90,27 +95,12 @@ const ResidentPage = ({ resident }: Props): React.ReactElement => {
             type: 'date',
           },
           {
-            label: 'Date of death',
+            label: 'Died',
             name: 'dateOfDeath',
             beforeDisplay: (val) => formatDate(val as string) || '',
             beforeEdit: (val) => (val as string)?.split('T')[0],
             beforeSave: (val) => val || null,
             type: 'date',
-          },
-          {
-            label: 'First language',
-            name: 'firstLanguage',
-            options: [
-              {
-                value: '',
-                label: 'Not known',
-              },
-            ].concat(
-              languages.map((lang) => ({
-                label: lang,
-                value: lang,
-              }))
-            ),
           },
           {
             label: 'Gender',
@@ -148,6 +138,36 @@ const ResidentPage = ({ resident }: Props): React.ReactElement => {
             },
           },
           {
+            label: 'Same gender as assigned at birth?',
+            name: 'genderAssignedAtBirth',
+            options: [
+              {
+                label: 'Yes',
+              },
+              {
+                label: 'No',
+              },
+            ],
+          },
+          {
+            label: 'Pronoun',
+            name: 'pronoun',
+            options: [
+              {
+                label: 'He/him',
+              },
+              {
+                label: 'They/them',
+              },
+              {
+                label: 'She/her',
+              },
+              {
+                label: 'Other or none',
+              },
+            ],
+          },
+          {
             label: 'Sexual orientation',
             name: 'sexualOrientation',
             options: [
@@ -159,6 +179,21 @@ const ResidentPage = ({ resident }: Props): React.ReactElement => {
               SEXUAL_ORIENTATIONS.map((opt) => ({
                 label: opt,
                 value: opt,
+              }))
+            ),
+          },
+          {
+            label: 'Ethnicity',
+            name: 'ethnicity',
+            options: [
+              {
+                value: '',
+                label: 'Not known',
+              },
+            ].concat(
+              simpleEthnicities.map((eth) => ({
+                label: eth,
+                value: eth,
               }))
             ),
           },
@@ -241,7 +276,7 @@ const ResidentPage = ({ resident }: Props): React.ReactElement => {
       />
 
       <DataBlock
-        title="Medical needs"
+        title="Health and disability"
         socialCareId={resident.id}
         list={[
           {
@@ -249,6 +284,107 @@ const ResidentPage = ({ resident }: Props): React.ReactElement => {
             name: 'nhsNumber',
             showInSummary: true,
             beforeSave: (val) => parseInt(val as string),
+          },
+          {
+            name: 'gpDetails',
+            label: 'GP details',
+            showInSummary: true,
+          },
+          {
+            name: 'disability',
+            label: 'Disabilities',
+            showInSummary: true,
+          },
+          {
+            name: 'mentalHealthSectionStatus',
+            label: 'Mental health section status',
+            options: [
+              {
+                label: 'None',
+              },
+              {
+                label:
+                  'Guardianship under Section 37 MHA 1983 (S37 - order to place offender under local social services authority)',
+              },
+              {
+                label:
+                  'Guardianship under Section 7 MHA 1983 (S7 - order to place person under local social services authority)',
+              },
+              {
+                label:
+                  'Section 117 MHA 1983 (S117 - support given after discharged from hospital)',
+              },
+              {
+                label:
+                  'Section 2 MHA 1983 (S2 - admission to hospital for assessment)',
+              },
+              {
+                label:
+                  'Section 3 MHA 1983 (S3 - admission to hospital for treatment)',
+              },
+            ],
+          },
+
+          {
+            name: 'deafRegister',
+            label: 'Hearing loss',
+            options: [
+              {
+                label: 'Yes, registered',
+              },
+              {
+                label: 'Yes, not registered',
+              },
+              {
+                label: 'No hearing loss',
+              },
+              {
+                label: 'Not known',
+                value: '',
+              },
+            ],
+          },
+
+          {
+            name: 'blindRegister',
+            label: 'Sight loss',
+            options: [
+              {
+                label: 'Yes, certified blind (severe)',
+              },
+              {
+                label: 'Yes, certified partially sighted',
+              },
+              {
+                label: 'Yes, registered blind (severe)',
+              },
+              {
+                label: 'Yes, registered partially sighted',
+              },
+              {
+                label: 'Yes, not registered or certified',
+              },
+              {
+                label: 'No sight loss',
+              },
+              {
+                label: 'Not known',
+                value: '',
+              },
+            ],
+          },
+
+          {
+            name: 'blueBadge',
+            label: 'Has a blue badge?',
+            options: [
+              {
+                label: 'Yes',
+              },
+              {
+                label: 'No',
+              },
+            ],
           },
           // TODO: add more fields when we support them
         ]}
@@ -313,17 +449,78 @@ const ResidentPage = ({ resident }: Props): React.ReactElement => {
           {
             label: 'Living situation',
             name: 'livingSituation',
+            showInSummary: true,
+            options: [
+              { label: 'Lives alone', value: 'Lives alone' },
+              { label: 'Lives with others', value: 'Lives with others' },
+              { label: 'Not known', value: '' },
+            ],
           },
           {
-            label: 'Tenure type',
-            name: 'tenureType',
+            label: 'Access to home (eg. keybox)',
+            name: 'accessToHome',
+            showInSummary: true,
           },
           {
             label: 'Accomodation type',
-            name: 'accessToHome',
+            name: 'accomodationType',
+            options: [
+              {
+                label: 'Owner occupier or shared ownership scheme',
+              },
+              {
+                label:
+                  'Tenant of a local authority, arms length management organisations, registered social landlord or housing association',
+              },
+              {
+                label: 'Tenant of a private landlord',
+              },
+              {
+                label:
+                  'Settled mainstream housing with family or friends (including flat sharing)',
+              },
+              {
+                label:
+                  'Supported accommodation, supported lodgings or supported group home (i.e. accommodation supported by staff or resident care taker)',
+              },
+              { label: 'Shared lives scheme' },
+              {
+                label:
+                  'Approved premises for offenders released from prison or under probation supervision (e.g. probation hostel)',
+              },
+              {
+                label:
+                  'Sheltered housing, extra care housing or other sheltered housing',
+              },
+              {
+                label:
+                  'Mobile accommodation for Gypsy/Roma and Traveller communities',
+              },
+              { label: 'Rough sleeper or squatting' },
+              {
+                label:
+                  'Night shelter, emergency hostel or direct access hostel (temporary accommodation accepting self-referrals)',
+              },
+              { label: 'Refuge' },
+              {
+                label:
+                  'Placed in temporary accommodation by the council (including homelessness resettlement)',
+              },
+              { label: 'Staying with family/friends as a short-term guest' },
+              {
+                label:
+                  'Acute or long-term healthcare residential facility or hospital (e.g. NHS Independent general hospital/clinic, long-stay hospital, specialist rehabilitation/recovery hospital)',
+              },
+              { label: 'Registered care home' },
+              { label: 'Registered nursing home' },
+              {
+                label: 'Prison/young offenders institution / detention centre',
+              },
+              { label: 'Other temporary accommodation' },
+            ],
           },
           {
-            label: 'Housing staff in contact?',
+            label: 'Known to housing staff?',
             name: 'housingStaffInContact',
             // TODO: convert these values to booleans either in a beforeSave or directly support bool values
             options: [
@@ -338,33 +535,37 @@ const ResidentPage = ({ resident }: Props): React.ReactElement => {
             ],
           },
           {
-            label: 'Housing officer',
+            label: "Housing officer's name",
             name: 'housingOfficer',
           },
-          {
-            label: 'Cautionary alert',
-            name: 'cautionaryAlert',
-          },
-          {
-            label: 'Possession or eviction order',
-            name: 'possessionEvictionOrder',
-          },
-          {
-            label: 'Rent record',
-            name: 'rentRecord',
-          },
-          {
-            label: 'Housing benefit',
-            name: 'housingBenefit',
-          },
-          {
-            label: 'Council tenure type',
-            name: 'councilTenureType',
-          },
-          {
-            label: 'Tenancy household structure',
-            name: 'tenancyHouseholdStructure',
-          },
+          // {
+          //   label: 'Tenure type',
+          //   name: 'tenureType',
+          // },
+          // {
+          //   label: 'Cautionary alert',
+          //   name: 'cautionaryAlert',
+          // },
+          // {
+          //   label: 'Possession or eviction order',
+          //   name: 'possessionEvictionOrder',
+          // },
+          // {
+          //   label: 'Rent record',
+          //   name: 'rentRecord',
+          // },
+          // {
+          //   label: 'Housing benefit',
+          //   name: 'housingBenefit',
+          // },
+          // {
+          //   label: 'Council tenure type',
+          //   name: 'councilTenureType',
+          // },
+          // {
+          //   label: 'Tenancy household structure',
+          //   name: 'tenancyHouseholdStructure',
+          // },
           // {
           //   label: 'Addresses',
           //   name: 'addresses',
@@ -372,6 +573,109 @@ const ResidentPage = ({ resident }: Props): React.ReactElement => {
           // },
         ]}
         aside={<Mapping socialCareId={resident.id} />}
+      />
+
+      <DataBlock
+        title="Relationships and support network"
+        socialCareId={resident.id}
+        list={[
+          {
+            label: 'Key contacts',
+            name: 'keyContacts',
+          },
+        ]}
+      />
+
+      <DataBlock
+        title="Communication needs and preferences"
+        list={[
+          {
+            label: 'First language',
+            name: 'firstLanguage',
+            options: [
+              {
+                value: '',
+                label: 'Not known',
+              },
+            ].concat(
+              languages.map((lang) => ({
+                label: lang,
+                value: lang,
+              }))
+            ),
+          },
+          {
+            label: 'Preferred language',
+            name: 'preferredLanguage',
+            options: [
+              {
+                value: '',
+                label: 'Not known',
+              },
+            ].concat(
+              languages.map((lang) => ({
+                label: lang,
+                value: lang,
+              }))
+            ),
+          },
+          {
+            label: 'Fluent in English?',
+            name: 'fluentInEnglish',
+            showInSummary: true,
+            options: [
+              {
+                label: 'Yes',
+              },
+              {
+                label: 'No',
+              },
+            ],
+          },
+          {
+            label: 'Interpreter needed?',
+            name: 'interpreterNeeded',
+            showInSummary: true,
+            options: [
+              {
+                label: 'Yes',
+              },
+              {
+                label: 'No',
+              },
+            ],
+          },
+          {
+            name: 'communicationDifficulties',
+            label: 'Any communication difficulties?',
+          },
+          {
+            name: 'difficultyMakingDecisions',
+            label: 'Any difficulty making decisions?',
+          },
+          {
+            name: 'techUse',
+            label: 'What technology do they use?',
+            options: [
+              {
+                label: 'Mobile phone',
+              },
+              {
+                label: 'Landline phone',
+              },
+              {
+                label: 'Internet',
+              },
+              {
+                label: 'Telecare',
+              },
+              {
+                label: 'Smart home device (Amazon Alexa, Google Home, etc',
+              },
+            ],
+          },
+        ]}
+        socialCareId={resident.id}
       />
     </Layout>
   );

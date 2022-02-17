@@ -549,7 +549,7 @@ export interface Resident {
   // communication
   communicationDifficulties?: boolean;
   difficultyMakingDecisions?: boolean;
-  communicationDifficultiesDetails?: string;
+  communicationDifficultiesDetails?: string; // TODO use this!?
 
   // further biographical info
   techUse: Tech[];

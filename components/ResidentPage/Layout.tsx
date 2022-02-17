@@ -92,6 +92,7 @@ const Layout = ({ title, resident, children }: Props): React.ReactElement => {
           {allocations?.allocations && (
             <p className="lbh-body-xs">
               {summariseAllocations(allocations.allocations)}
+              {resident.allocatedTeam && ` · ${resident.allocatedTeam}`}
             </p>
           )}
 

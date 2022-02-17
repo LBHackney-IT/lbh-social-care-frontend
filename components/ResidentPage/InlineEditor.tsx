@@ -9,7 +9,7 @@ import s from './InlineEditor.module.scss';
 
 export interface InlineEditorOption {
   label: string;
-  value: string | number;
+  value?: string | number;
 }
 
 export interface InlineEditorProps extends DataRow {
@@ -82,6 +82,8 @@ const InlineEditor = ({
     ? beforeEdit(resident[name as keyof Resident])
     : resident[name as keyof Resident];
 
+  console.log(options);
+
   return (
     <Formik
       initialValues={
@@ -101,7 +103,10 @@ const InlineEditor = ({
           {options ? (
             <Field as="select" id={name} name={name}>
               {options.map((opt) => (
-                <option key={opt.value} value={opt.value}>
+                <option
+                  key={opt.value || opt.label}
+                  value={opt.value || opt.label}
+                >
                   {opt.label}
                 </option>
               ))}
