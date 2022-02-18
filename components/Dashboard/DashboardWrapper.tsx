@@ -32,10 +32,6 @@ const navigation: { text: string; href: string }[] = [
     text: `Allocations`,
     href: `/`,
   },
-  {
-    text: `Work in progress`,
-    href: `/work-in-progress`,
-  },
   { text: 'My work', href: '/my-work' },
 ];
 
