@@ -2,6 +2,8 @@ import Dialog from 'components/Dialog/Dialog';
 import React, { HTMLInputTypeAttribute, useState } from 'react';
 import {
   Address,
+  GPDetails,
+  KeyContact,
   LegacyAddress,
   OtherName,
   PhoneNumber,
@@ -17,15 +19,19 @@ import DefaultInlineEditor, {
 import { useResident } from 'utils/api/residents';
 
 /** what are the different kinds of data we might have to deal with? */
-type SupportedData =
+export type SupportedData =
   | boolean
   | string
+  | string[]
   | number
+  | null
+  // special data types
   | OtherName[]
   | PhoneNumber[]
   | Address
   | LegacyAddress[]
-  | null;
+  | KeyContact[]
+  | GPDetails;
 
 /** an active, inline-editable row of data */
 export interface DataRow {
@@ -50,6 +56,8 @@ export interface DataRow {
   beforeEdit?: (value: SupportedData | undefined) => string;
   /** transform or format the edited value before passing it back to the api */
   beforeSave?: (value: string) => SupportedData;
+  /** allow multiple selection? */
+  multiple?: boolean;
 }
 
 type EditingState = number | null;
@@ -66,9 +74,10 @@ const DataCellSkeleton = () => (
   <div className={s.skeleton} aria-label="Loading..."></div>
 );
 
-const PrettyValue = ({ value }: { value: string | React.ReactElement }) => (
-  <>{value || <span className={s.notKnown}>Not known</span>}</>
-);
+const PrettyValue = ({ value }: { value: string | React.ReactElement }) => {
+  if (typeof value === 'boolean') return <>{value ? 'Yes' : 'No'}</>;
+  return <>{value || <span className={s.notKnown}>Not known</span>}</>;
+};
 
 const DataCell = ({ row, editing, setEditing, resident, i }: DataCellProps) => {
   const rawValue = resident?.[row.name];
@@ -149,6 +158,7 @@ interface Props {
   list: DataRow[];
   socialCareId: number;
   aside?: React.ReactElement;
+  footer?: React.ReactElement;
 }
 
 /** a component to render information about a resident, or a subset of it, and allow in-place editing */
@@ -157,6 +167,7 @@ const DataBlock = ({
   list,
   socialCareId,
   aside,
+  footer,
 }: Props): React.ReactElement => {
   const { data } = useResident(socialCareId);
 
@@ -179,9 +190,13 @@ const DataBlock = ({
         aside={aside}
       >
         <DataList list={truncatedList} resident={data} />
-        <button onClick={() => setOpen(true)} className={s.footerButton}>
-          See all {list.length} field{list.length !== 1 && 's'}
-        </button>
+        {footer ? (
+          <footer className="govuk-!-margin-top-2">{footer}</footer>
+        ) : (
+          <button onClick={() => setOpen(true)} className={s.footerButton}>
+            See all {list.length} field{list.length !== 1 && 's'}
+          </button>
+        )}
       </Collapsible>
     </>
   );

@@ -217,7 +217,8 @@ export const residentSchema = Yup.object().shape({
   nhsNumber: Yup.number()
     .typeError('NHS numbers can only contain digits')
     .positive('NHS numbers can only contain digits')
-    .integer('NHS numbers can only contain digits'),
+    .integer('NHS numbers can only contain digits')
+    .max(9999999999, 'That NHS number is too long'),
   /** extended biography */
   ethnicity: Yup.string(),
   religion: Yup.string().oneOf(religions),
@@ -259,6 +260,32 @@ export const residentSchema = Yup.object().shape({
   createdBy: Yup.string().email(),
   restricted: Yup.string().oneOf(['Y', 'N']),
   ageContext: Yup.string().oneOf(['A', 'C']),
+
+  gpDetails: Yup.object().shape({
+    name: Yup.string(),
+    address: Yup.string(),
+    postcode: Yup.string().matches(
+      /^[a-zA-Z]{1,2}([0-9]{1,2}|[0-9][a-zA-Z])\s*[0-9][a-zA-Z]{2}$/,
+      'You must give a valid postcode'
+    ),
+    email: Yup.string().email('You must give a valid email'),
+    phone: Yup.number().typeError('Phone numbers can only contain digits'),
+  }),
+
+  keyContacts: Yup.array()
+    .of(
+      Yup.object().shape({
+        name: Yup.string().required('You must give a name'),
+        email: Yup.string()
+          .email('You must give a valid email')
+          .required('You must give an email'),
+      })
+    )
+    .max(
+      4,
+      "You can't add any more phone numbers. Consider adding a relationship or case note instead."
+    ),
+
   /** @deprecated legacy */
   contextFlag: Yup.string().oneOf(['A', 'C']),
   addresses: Yup.array(),

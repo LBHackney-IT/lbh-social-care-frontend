@@ -509,13 +509,18 @@ export interface MashReferral {
   finalDecisionCreatedAt?: string;
 }
 
-type Tech = 'Mobile phone' | 'Landline' | 'Internet' | 'Telecare';
+// export type Tech = 'Mobile phone' | 'Landline' | 'Internet' | 'Telecare';
 
-interface GPDetails {
+export interface GPDetails {
   name: string;
   address: string;
   postcode: string;
-  phone: string;
+  phoneNumber: string;
+  email: string;
+}
+
+export interface KeyContact {
+  name: string;
   email: string;
 }
 
@@ -541,10 +546,7 @@ export interface Resident {
   interpreterNeeded?: boolean;
 
   // key contacts
-  keyContacts: {
-    name: string;
-    email: string;
-  }[];
+  keyContacts: KeyContact[];
 
   // communication
   communicationDifficulties?: boolean;
@@ -552,7 +554,7 @@ export interface Resident {
   communicationDifficultiesDetails?: string; // TODO use this!?
 
   // further biographical info
-  techUse: Tech[];
+  techUse: string[];
   dateOfBirth?: string;
   dateOfDeath?: string;
   ethnicity?: string;
@@ -579,7 +581,7 @@ export interface Resident {
   // medical & disability
   nhsNumber?: number;
   gpDetails?: GPDetails;
-  disability: string[];
+  disabilities: string[];
   mentalHealthSectionStatus: string;
   deafRegister: string;
   blindRegister: string;

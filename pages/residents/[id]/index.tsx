@@ -5,7 +5,14 @@ import Layout from 'components/ResidentPage/Layout';
 import Mapping from 'components/ResidentPage/Mapping';
 import { getResident } from 'lib/residents';
 import { GetServerSideProps } from 'next';
-import { Address, OtherName, PhoneNumber, Resident } from 'types';
+import {
+  Address,
+  GPDetails,
+  KeyContact,
+  OtherName,
+  PhoneNumber,
+  Resident,
+} from 'types';
 import { useCases } from 'utils/api/cases';
 import { isAuthorised } from 'utils/auth';
 import Link from 'next/link';
@@ -17,6 +24,9 @@ import WorkflowOverview from 'components/ResidentPage/WorkflowOverview';
 import CustomPhoneNumberEditor from 'components/ResidentPage/CustomPhoneNumberEditor';
 import CustomAddressEditor from 'components/ResidentPage/CustomAddressEditor';
 import { simpleEthnicities } from 'data/ethnicities';
+import CustomKeyContactsEditor from 'components/ResidentPage/CustomKeyContactsEditor';
+import CustomGPDetailsEditor from 'components/ResidentPage/CustomGPDetailsEditor';
+import { useTeams } from 'utils/api/allocatedWorkers';
 
 interface Props {
   resident: Resident;
@@ -28,10 +38,18 @@ const ResidentPage = ({ resident }: Props): React.ReactElement => {
     exclude_audit_trail_events: true,
   });
   const { data: workflowsData } = useWorkflows(resident.id);
+  const { data: teamData } = useTeams({
+    ageContext: resident.contextFlag,
+  });
 
   const cases = casesData?.[0].cases.slice(0, 3); // only the first three cases
   const totalCount = casesData?.[0]?.totalCount || 0;
   const workflows = workflowsData?.workflows;
+
+  const teamOptions = teamData?.teams?.map((team) => ({
+    label: team.name,
+    value: team.id,
+  }));
 
   return (
     <Layout resident={resident}>
@@ -57,6 +75,7 @@ const ResidentPage = ({ resident }: Props): React.ReactElement => {
           {
             name: 'allocatedTeam',
             label: 'Allocated team',
+            options: teamOptions,
           },
           {
             label: 'Title',
@@ -107,10 +126,6 @@ const ResidentPage = ({ resident }: Props): React.ReactElement => {
             name: 'gender',
             options: [
               {
-                value: '',
-                label: 'Not known',
-              },
-              {
                 value: 'F',
                 label: 'Female',
               },
@@ -140,6 +155,8 @@ const ResidentPage = ({ resident }: Props): React.ReactElement => {
           {
             label: 'Same gender as assigned at birth?',
             name: 'genderAssignedAtBirth',
+            beforeSave: (val) => val === 'Yes',
+            beforeEdit: (val) => (val ? 'Yes' : 'No'),
             options: [
               {
                 label: 'Yes',
@@ -191,7 +208,7 @@ const ResidentPage = ({ resident }: Props): React.ReactElement => {
                 label: 'Not known',
               },
             ].concat(
-              simpleEthnicities.map((eth) => ({
+              simpleEthnicities.sort().map((eth) => ({
                 label: eth,
                 value: eth,
               }))
@@ -216,8 +233,11 @@ const ResidentPage = ({ resident }: Props): React.ReactElement => {
             showInSummary: true,
             beforeDisplay: (val) => (
               <ul className="lbh-list lbh-body-s govuk-!-margin-bottom-2">
-                {(val as PhoneNumber[]).map((number, i) => (
-                  <li key={i} className="govuk-!-margin-top-0">
+                {(val as PhoneNumber[]).map((number) => (
+                  <li
+                    key={`${number.type}-${number.number}`}
+                    className="govuk-!-margin-top-0"
+                  >
                     <strong>{number.type}:</strong>{' '}
                     <a
                       className="lbh-link lbh-link--no-visited-state"
@@ -289,11 +309,39 @@ const ResidentPage = ({ resident }: Props): React.ReactElement => {
             name: 'gpDetails',
             label: 'GP details',
             showInSummary: true,
+            render: CustomGPDetailsEditor,
+            beforeDisplay: (val) => {
+              const gp = val as GPDetails;
+              return (
+                <ul className="lbh-list lbh-body-s govuk-!-margin-bottom-2">
+                  <li className="govuk-!-margin-top-0">
+                    <strong>{gp.name}</strong>
+                  </li>
+                  <li className="govuk-!-margin-top-0">{gp.address}</li>
+                  <li className="govuk-!-margin-top-0">{gp.postcode}</li>
+                  <li className="govuk-!-margin-top-0">
+                    <a href={`mailto:${gp.email}`}>{gp.email}</a>
+                  </li>
+                  <li className="govuk-!-margin-top-0">{gp.phoneNumber}</li>
+                </ul>
+              );
+            },
           },
           {
-            name: 'disability',
+            name: 'disabilities',
             label: 'Disabilities',
+            multiple: true,
             showInSummary: true,
+            beforeDisplay: (val) => (
+              <div className="govuk-!-margin-bottom-2">
+                {(val as string[])?.join(', ')}
+              </div>
+            ),
+            options: [
+              { label: 'Dementia' },
+              { label: 'Physical disabilities' },
+              { label: 'Mental health/acquired brain injury' },
+            ],
           },
           {
             name: 'mentalHealthSectionStatus',
@@ -373,20 +421,10 @@ const ResidentPage = ({ resident }: Props): React.ReactElement => {
               },
             ],
           },
-
           {
             name: 'blueBadge',
-            label: 'Has a blue badge?',
-            options: [
-              {
-                label: 'Yes',
-              },
-              {
-                label: 'No',
-              },
-            ],
+            label: 'Blue badge',
           },
-          // TODO: add more fields when we support them
         ]}
       />
 
@@ -428,22 +466,23 @@ const ResidentPage = ({ resident }: Props): React.ReactElement => {
             label: 'Address',
             name: 'address',
             showInSummary: true,
-            beforeDisplay: (val) => (
-              <div className="govuk-!-margin-bottom-1">
-                {(val as Address).address}
-                <br />
-                {(val as Address).postcode}
-                <br />
-                <a
-                  className="lbh-link lbh-link--no-visited-state"
-                  href={`https://maps.google.com?q=${
-                    (val as Address).address
-                  },${(val as Address).postcode}`}
-                >
-                  Get directions
-                </a>
-              </div>
-            ),
+            beforeDisplay: (val) => {
+              const address = val as Address;
+              return (
+                <div className="govuk-!-margin-bottom-1">
+                  {address.address}
+                  <br />
+                  {address.postcode}
+                  <br />
+                  <a
+                    className="lbh-link lbh-link--no-visited-state"
+                    href={`https://maps.google.com?q=${address.address},${address.postcode}`}
+                  >
+                    Get directions
+                  </a>
+                </div>
+              );
+            },
             render: CustomAddressEditor,
           },
           {
@@ -522,7 +561,7 @@ const ResidentPage = ({ resident }: Props): React.ReactElement => {
           {
             label: 'Known to housing staff?',
             name: 'housingStaffInContact',
-            // TODO: convert these values to booleans either in a beforeSave or directly support bool values
+            beforeSave: (val) => val === 'yes',
             options: [
               {
                 label: 'Yes',
@@ -578,10 +617,32 @@ const ResidentPage = ({ resident }: Props): React.ReactElement => {
       <DataBlock
         title="Relationships and support network"
         socialCareId={resident.id}
+        footer={
+          <Link href={`/residents/${resident.id}/relationships`}>
+            <a className="lbh-link lbh-link--muted">See all relationships</a>
+          </Link>
+        }
         list={[
           {
             label: 'Key contacts',
             name: 'keyContacts',
+            render: CustomKeyContactsEditor,
+            showInSummary: true,
+            beforeDisplay: (val) => (
+              <ul className="lbh-list lbh-body-s govuk-!-margin-bottom-2">
+                {(val as KeyContact[]).map((contact, i) => (
+                  <li key={i} className="govuk-!-margin-top-0">
+                    <strong>{contact.name}:</strong>{' '}
+                    <a
+                      className="lbh-link lbh-link--no-visited-state"
+                      href={`mailto:${contact.email}`}
+                    >
+                      {contact.email}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            ),
           },
         ]}
       />
@@ -623,6 +684,7 @@ const ResidentPage = ({ resident }: Props): React.ReactElement => {
             label: 'Fluent in English?',
             name: 'fluentInEnglish',
             showInSummary: true,
+            beforeSave: (val) => val === 'Yes',
             options: [
               {
                 label: 'Yes',
@@ -636,6 +698,7 @@ const ResidentPage = ({ resident }: Props): React.ReactElement => {
             label: 'Interpreter needed?',
             name: 'interpreterNeeded',
             showInSummary: true,
+            beforeSave: (val) => val === 'Yes',
             options: [
               {
                 label: 'Yes',
@@ -646,16 +709,14 @@ const ResidentPage = ({ resident }: Props): React.ReactElement => {
             ],
           },
           {
-            name: 'communicationDifficulties',
-            label: 'Any communication difficulties?',
-          },
-          {
-            name: 'difficultyMakingDecisions',
-            label: 'Any difficulty making decisions?',
-          },
-          {
             name: 'techUse',
             label: 'What technology do they use?',
+            multiple: true,
+            beforeDisplay: (val) => (
+              <div className="govuk-!-margin-bottom-2">
+                {(val as string[])?.join(', ')}
+              </div>
+            ),
             options: [
               {
                 label: 'Mobile phone',
@@ -673,6 +734,38 @@ const ResidentPage = ({ resident }: Props): React.ReactElement => {
                 label: 'Smart home device (Amazon Alexa, Google Home, etc',
               },
             ],
+          },
+          {
+            name: 'difficultyMakingDecisions',
+            label: 'Any difficulty making decisions?',
+            beforeSave: (val) => val === 'Yes',
+            beforeEdit: (val) => (val ? 'Yes' : 'No'),
+            options: [
+              {
+                label: 'Yes',
+              },
+              {
+                label: 'No',
+              },
+            ],
+          },
+          {
+            name: 'communicationDifficulties',
+            label: 'Any difficulty communicating?',
+            beforeSave: (val) => val === 'Yes',
+            beforeEdit: (val) => (val ? 'Yes' : 'No'),
+            options: [
+              {
+                label: 'Yes',
+              },
+              {
+                label: 'No',
+              },
+            ],
+          },
+          {
+            name: 'communicationDifficultiesDetails',
+            label: 'Details',
           },
         ]}
         socialCareId={resident.id}

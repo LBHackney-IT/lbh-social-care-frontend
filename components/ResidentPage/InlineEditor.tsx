@@ -4,7 +4,7 @@ import { residentSchema } from 'lib/validators';
 import { useEffect, useRef, KeyboardEvent } from 'react';
 import { Resident } from 'types';
 import { useResident } from 'utils/api/residents';
-import { DataRow } from './DataBlock';
+import { DataRow, SupportedData } from './DataBlock';
 import s from './InlineEditor.module.scss';
 
 export interface InlineEditorOption {
@@ -30,6 +30,7 @@ const InlineEditor = ({
   type,
   beforeEdit,
   beforeSave,
+  multiple,
 }: InlineEditorProps): React.ReactElement => {
   const ref = useRef<HTMLFormElement>(null);
 
@@ -78,11 +79,25 @@ const InlineEditor = ({
       document.removeEventListener('click', handleClickOutside, true);
   }, [onClose]);
 
-  const defaultValue = beforeEdit
-    ? beforeEdit(resident[name as keyof Resident])
-    : resident[name as keyof Resident];
+  let defaultValue: SupportedData = '';
 
-  console.log(options);
+  if (options) {
+    if (multiple) {
+      defaultValue = [];
+    } else {
+      defaultValue = options[0].value || options[0].label;
+    }
+  }
+
+  const existingValue = resident[name as keyof Resident] as SupportedData;
+
+  if (existingValue || typeof existingValue === 'boolean') {
+    if (beforeEdit) {
+      defaultValue = beforeEdit(existingValue);
+    } else {
+      defaultValue = existingValue;
+    }
+  }
 
   return (
     <Formik
@@ -95,32 +110,64 @@ const InlineEditor = ({
       validationSchema={schema}
     >
       {({ errors }) => (
-        <Form className={s.form} onKeyUp={handleKeyup} ref={ref}>
-          <label className="govuk-visually-hidden" htmlFor={name}>
-            Editing {name}
-          </label>
-
-          {options ? (
-            <Field as="select" id={name} name={name}>
-              {options.map((opt) => (
-                <option
+        <Form
+          className={multiple ? s.multipleForm : s.form}
+          onKeyUp={handleKeyup}
+          ref={ref}
+        >
+          {multiple ? (
+            <fieldset className="govuk-fieldset govuk-checkboxes govuk-checkboxes--small lbh-checkboxes">
+              <legend className="govuk-visually-hidden"> Editing {name}</legend>
+              {options?.map((opt) => (
+                <div
                   key={opt.value || opt.label}
-                  value={opt.value || opt.label}
+                  className="govuk-checkboxes__item"
                 >
-                  {opt.label}
-                </option>
+                  <Field
+                    type="checkbox"
+                    className="govuk-checkboxes__input"
+                    id={`${name}-${opt.value || opt.label}`}
+                    name={name}
+                    value={opt.value || opt.label}
+                  />
+                  <label
+                    className="govuk-checkboxes__label"
+                    htmlFor={`${name}-${opt.value || opt.label}`}
+                  >
+                    {opt.label}
+                  </label>
+                </div>
               ))}
-            </Field>
+            </fieldset>
           ) : (
-            <Field id={name} name={name} type={type} />
-          )}
+            <>
+              <label className="govuk-visually-hidden" htmlFor={name}>
+                Editing {name}
+              </label>
 
+              {options ? (
+                <Field as="select" id={name} name={name}>
+                  {options.map((opt) => (
+                    <option
+                      key={opt.value || opt.label}
+                      value={
+                        typeof opt.value === 'string' ? opt.value : opt.label
+                      }
+                    >
+                      {opt.label}
+                    </option>
+                  ))}
+                </Field>
+              ) : (
+                <Field id={name} name={name} type={type} />
+              )}
+            </>
+          )}
           {errors[name] && (
             <p className={s.error} role="alert">
               {errors[name]?.toString()}
             </p>
           )}
-
           <div>
             <button type="button" onClick={onClose} title="Cancel">
               <span className="govuk-visually-hidden">Cancel</span>
