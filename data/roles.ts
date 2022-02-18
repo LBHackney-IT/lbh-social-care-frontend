@@ -32,6 +32,7 @@ export const ASCRoles = [
   'Coordinator',
   'Counselling Psychologist',
   'CPN',
+  'Customer Service Officer',
   'D2A -Nurse',
   'D2A coordinator',
   'Deputy Head of Service',
