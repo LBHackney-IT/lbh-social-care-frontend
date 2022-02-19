@@ -536,7 +536,7 @@ export interface Resident {
   // sex & gender
   gender: string;
   pronoun?: string;
-  genderAssignedAtBirth: boolean;
+  genderAssignedAtBirth?: boolean;
   sexualOrientation?: string;
 
   // languages
@@ -546,7 +546,7 @@ export interface Resident {
   interpreterNeeded?: boolean;
 
   // key contacts
-  keyContacts: KeyContact[];
+  keyContacts?: KeyContact[];
 
   // communication
   communicationDifficulties?: boolean;
@@ -554,7 +554,7 @@ export interface Resident {
   communicationDifficultiesDetails?: string; // TODO use this!?
 
   // further biographical info
-  techUse: string[];
+  techUse?: string[];
   dateOfBirth?: string;
   dateOfDeath?: string;
   ethnicity?: string;
@@ -565,43 +565,43 @@ export interface Resident {
   careProvider?: string;
 
   // housing
-  livingSituation: string;
-  tenureType: string;
-  accomodationType: string;
-  accessToHome: string;
-  housingOfficer: string;
-  housingStaffInContact: boolean;
-  cautionaryAlert: boolean;
-  possessionEvictionOrder: string;
-  rentRecord: string;
-  housingBenefit: string;
-  councilTenureType: string;
-  tenancyHouseholdStructure: string;
+  livingSituation?: string;
+  tenureType?: string;
+  accomodationType?: string;
+  accessToHome?: string;
+  housingOfficer?: string;
+  housingStaffInContact?: boolean;
+  cautionaryAlert?: boolean;
+  possessionEvictionOrder?: string;
+  rentRecord?: string;
+  housingBenefit?: string;
+  councilTenureType?: string;
+  tenancyHouseholdStructure?: string;
 
   // medical & disability
   nhsNumber?: number;
   gpDetails?: GPDetails;
-  disabilities: string[];
-  mentalHealthSectionStatus: string;
-  deafRegister: string;
-  blindRegister: string;
-  blueBadge: boolean;
+  disabilities?: string[];
+  mentalHealthSectionStatus?: string;
+  deafRegister?: string;
+  blindRegister?: string;
+  blueBadge?: boolean;
 
   // contact details
   address?: Address;
   phoneNumbers: PhoneNumber[];
-  emails: string[];
+  // emails: string[];
   preferredMethodOfContact?: string;
   emailAddress?: string;
 
   // permissions and metadata
   primarySupportReason?: string;
   allocatedTeam?: string;
-  openCase: boolean;
+  openCase?: boolean;
   contextFlag: AgeContext;
   restricted?: 'Y' | 'N';
   createdBy: string;
-  lastUpdated: {
+  lastUpdated?: {
     [key: string]: string;
   };
 

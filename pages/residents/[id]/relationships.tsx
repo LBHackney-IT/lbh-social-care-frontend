@@ -44,7 +44,7 @@ const RelationshipsPage = ({ resident }: Props): React.ReactElement => {
           </a>
         </Link>
 
-        {keyContactsCount > 0 && (
+        {keyContactsCount && keyContactsCount > 0 && (
           <p className="lbh-body-xs">
             This resident also has {keyContactsCount}{' '}
             <Link href={`/residents/${resident.id}`}>

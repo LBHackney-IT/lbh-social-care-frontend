@@ -53,7 +53,7 @@ const CustomKeyContactsEditor = (props: Props): React.ReactElement => {
     <Formik
       initialValues={{
         keyContacts:
-          props.resident.keyContacts.length > 0
+          props.resident?.keyContacts && props.resident?.keyContacts?.length > 0
             ? props.resident.keyContacts
             : [
                 {
