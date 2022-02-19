@@ -66,6 +66,7 @@
     "@types/jsonwebtoken": "^8.5.1",
     "@types/lodash.debounce": "^4.0.6",
     "@types/react": "^17.0.5",
+    "@types/react-autosuggest": "^10.1.5",
     "@typescript-eslint/eslint-plugin": "^4.33.0",
     "@typescript-eslint/parser": "^4.33.0",
     "babel-eslint": "^10.1.0",
