@@ -1,11 +1,12 @@
 import useWarnUnsavedChanges from 'hooks/useWarnUnsavedChanges';
-import { KeyboardEventHandler, useEffect, useRef } from 'react';
+import { KeyboardEventHandler, useRef } from 'react';
 import { KeyContact, Resident } from 'types';
 import { useResident } from 'utils/api/residents';
 import { DataRow } from './DataBlock';
 import s from './CustomPhoneNumberEditor.module.scss';
 import { Field, FieldArray, Form, Formik, FormikProps, getIn } from 'formik';
 import { residentSchema } from 'lib/validators';
+import useClickOutside from 'hooks/useClickOutside';
 
 interface Props extends DataRow {
   onClose: () => void;
@@ -81,21 +82,12 @@ const InnerForm = ({
   const ref = useRef<HTMLFormElement>(null);
 
   useWarnUnsavedChanges(true);
+  useClickOutside(ref, onClose);
 
   const handleKeyup: KeyboardEventHandler = (e) => {
     if (e.key === 'Escape') onClose();
     if (e.key === 'Enter') submitForm();
   };
-
-  useEffect(() => {
-    const handleClickOutside = (e: MouseEvent) => {
-      if (ref.current && e.target && !ref.current.contains(e.target as Node))
-        onClose();
-    };
-
-    return () =>
-      document.removeEventListener('click', handleClickOutside, true);
-  }, [onClose]);
 
   return (
     <Form className={s.form} onKeyUp={handleKeyup} ref={ref}>

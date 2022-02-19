@@ -1,7 +1,8 @@
 import { Field, Form, Formik } from 'formik';
+import useClickOutside from 'hooks/useClickOutside';
 import useWarnUnsavedChanges from 'hooks/useWarnUnsavedChanges';
 import { residentSchema } from 'lib/validators';
-import { useEffect, useRef, KeyboardEvent } from 'react';
+import { useRef, KeyboardEvent } from 'react';
 import { Resident } from 'types';
 import { useResident } from 'utils/api/residents';
 import { DataRow, SupportedData } from './DataBlock';
@@ -39,6 +40,7 @@ const InlineEditor = ({
   const { mutate } = useResident(resident.id);
 
   useWarnUnsavedChanges(true);
+  useClickOutside(ref, onClose);
 
   const handleSubmit = async (data: FormValues) => {
     const res = await fetch(`/api/residents/${resident.id}`, {
@@ -61,26 +63,6 @@ const InlineEditor = ({
     if (e.key === 'Escape') onClose();
     // if (e.key === 'Enter') handleSubmit();
   };
-
-  useEffect(() => {
-    const handleClickOutside = (e: MouseEvent) => {
-      if (ref.current && e.target && !ref.current.contains(e.target as Node)) {
-        e.preventDefault();
-        onClose();
-      }
-    };
-
-    if (ref.current) {
-      // move focus to input or select as soon as it appears
-      ref.current.querySelector('input')?.focus();
-      ref.current.querySelector('select')?.focus();
-      // handle outside clicks
-      document.addEventListener('click', handleClickOutside, true);
-    }
-
-    return () =>
-      document.removeEventListener('click', handleClickOutside, true);
-  }, [onClose]);
 
   let defaultValue: SupportedData = '';
 

@@ -1,12 +1,13 @@
 import axios from 'axios';
 import useWarnUnsavedChanges from 'hooks/useWarnUnsavedChanges';
-import { KeyboardEventHandler, useEffect, useRef, useState } from 'react';
+import { KeyboardEventHandler, useRef, useState } from 'react';
 import { Resident } from 'types';
 import { useResident } from 'utils/api/residents';
 import { DataRow } from './DataBlock';
 import s from './CustomAddressEditor.module.scss';
 import { Field, Form, Formik, FormikProps } from 'formik';
 import { residentSchema } from 'lib/validators';
+import useClickOutside from 'hooks/useClickOutside';
 
 const Error = ({ error }: { error?: string }) =>
   error ? (
@@ -96,20 +97,12 @@ const InnerForm = ({
   const ref = useRef<HTMLFormElement>(null);
   const [open, setOpen] = useState<boolean>(addressExists);
 
+  useClickOutside(ref, onClose);
+
   const handleKeyup: KeyboardEventHandler = (e) => {
     if (e.key === 'Escape') onClose();
     if (e.key === 'Enter') submitForm();
   };
-
-  useEffect(() => {
-    const handleClickOutside = (e: MouseEvent) => {
-      if (ref.current && e.target && !ref.current.contains(e.target as Node))
-        onClose();
-    };
-
-    return () =>
-      document.removeEventListener('click', handleClickOutside, true);
-  }, [onClose]);
 
   const handleSearch = async () => {
     try {
