@@ -75,7 +75,7 @@ const AllocationsPage = ({ resident }: Props): React.ReactElement => {
                   <path d="M6.94 0L5 0V12H6.94V0Z" />
                   <path d="M12 5H0V7H12V5Z" />
                 </svg>
-                Allocate someone else
+                Allocate another user
               </a>
             </Link>
           </>
@@ -90,7 +90,7 @@ const AllocationsPage = ({ resident }: Props): React.ReactElement => {
                   <path d="M6.94 0L5 0V12H6.94V0Z" />
                   <path d="M12 5H0V7H12V5Z" />
                 </svg>
-                Allocate someone
+                Allocate a user
               </a>
             </Link>
           </>
