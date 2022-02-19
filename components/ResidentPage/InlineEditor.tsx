@@ -59,12 +59,15 @@ const InlineEditor = ({
 
   const handleKeyup = (e: KeyboardEvent) => {
     if (e.key === 'Escape') onClose();
+    // if (e.key === 'Enter') handleSubmit();
   };
 
   useEffect(() => {
     const handleClickOutside = (e: MouseEvent) => {
-      if (ref.current && e.target && !ref.current.contains(e.target as Node))
+      if (ref.current && e.target && !ref.current.contains(e.target as Node)) {
+        e.preventDefault();
         onClose();
+      }
     };
 
     if (ref.current) {

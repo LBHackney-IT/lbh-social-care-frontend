@@ -19,6 +19,8 @@ const RelationshipsPage = ({ resident }: Props): React.ReactElement => {
   const relationshipsToShow =
     data?.personalRelationships && data.personalRelationships.length > 0;
 
+  const keyContactsCount = resident?.keyContacts?.length;
+
   return (
     <Layout resident={resident} title="Case notes">
       <>
@@ -41,6 +43,18 @@ const RelationshipsPage = ({ resident }: Props): React.ReactElement => {
             Add a relationship
           </a>
         </Link>
+
+        {keyContactsCount > 0 && (
+          <p className="lbh-body-xs">
+            This resident also has {keyContactsCount}{' '}
+            <Link href={`/residents/${resident.id}`}>
+              <a className="lbh-link lbh-link--muted">
+                key contact{keyContactsCount !== 1 && 's'}
+              </a>
+            </Link>
+            .
+          </p>
+        )}
       </>
     </Layout>
   );

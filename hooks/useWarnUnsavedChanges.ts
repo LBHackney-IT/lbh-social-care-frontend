@@ -17,7 +17,7 @@ const useWarnUnsavedChanges = (unsavedChanges: boolean): void => {
       if (!unsavedChanges) return;
       if (window.confirm(message)) return;
       router?.events.emit('routeChangeError');
-      throw 'routeChange aborted.';
+      throw 'routeChange aborted. This error can be safely ignored';
     };
 
     window.addEventListener('beforeunload', handleBrowserClose);
