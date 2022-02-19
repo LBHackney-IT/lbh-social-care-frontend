@@ -27,6 +27,7 @@ import { simpleEthnicities } from 'data/ethnicities';
 import CustomKeyContactsEditor from 'components/ResidentPage/CustomKeyContactsEditor';
 import CustomGPDetailsEditor from 'components/ResidentPage/CustomGPDetailsEditor';
 import { useTeams } from 'utils/api/allocatedWorkers';
+import { differenceInYears } from 'date-fns';
 
 interface Props {
   resident: Resident;
@@ -108,8 +109,13 @@ const ResidentPage = ({ resident }: Props): React.ReactElement => {
             label: 'Born',
             name: 'dateOfBirth',
             markAsRequired: true,
-
-            beforeDisplay: (val) => formatDate(val as string) || '',
+            beforeDisplay: (val) =>
+              formatDate(val as string)
+                ? `${formatDate(val as string)} (age ${differenceInYears(
+                    new Date(),
+                    new Date(val as string)
+                  )})`
+                : '',
             beforeEdit: (val) => (val as string)?.split('T')[0],
             type: 'date',
           },
@@ -232,7 +238,7 @@ const ResidentPage = ({ resident }: Props): React.ReactElement => {
             name: 'phoneNumbers',
             showInSummary: true,
             beforeDisplay: (val) => (
-              <ul className="lbh-list lbh-body-s govuk-!-margin-bottom-2">
+              <ul className="lbh-list lbh-body-s ">
                 {(val as PhoneNumber[]).map((number) => (
                   <li
                     key={`${number.type}-${number.number}`}
@@ -251,31 +257,6 @@ const ResidentPage = ({ resident }: Props): React.ReactElement => {
             ),
             render: CustomPhoneNumberEditor,
           },
-
-          {
-            label: 'Contact preference',
-            name: 'preferredMethodOfContact',
-            showInSummary: true,
-            options: [
-              { label: '', value: '' },
-              {
-                label: 'Phone',
-                value: 'Phone',
-              },
-              {
-                label: 'Post/letter',
-                value: 'Post/letter',
-              },
-              {
-                label: 'Email',
-                value: 'Email',
-              },
-              {
-                label: 'Face to face',
-                value: 'Face to face',
-              },
-            ],
-          },
           {
             label: 'Restricted?',
             showInSummary: true,
@@ -289,6 +270,64 @@ const ResidentPage = ({ resident }: Props): React.ReactElement => {
               {
                 label: 'No',
                 value: 'N',
+              },
+            ],
+          },
+
+          {
+            name: 'religion',
+            label: 'Religion',
+          },
+          {
+            name: 'employment',
+            label: 'Employment',
+            options: [
+              { label: 'Paid: Less than 16 hours a week' },
+              { label: 'Paid: 16 or more hours a week' },
+              { label: 'Not in paid employment (seeking work)' },
+              {
+                label:
+                  'Not in paid employment (not actively seeking work / retired)',
+              },
+              { label: 'Not in paid employment (voluntary work only)' },
+              { label: 'Not known', value: '' },
+            ],
+          },
+          {
+            name: 'maritalStatus',
+            label: 'Marital status',
+            options: [
+              { label: 'Single' },
+              { label: 'Married/civil partnership' },
+              { label: 'Cohabiting/living together' },
+              { label: 'Divorced/separated' },
+              { label: 'Widowed' },
+              { label: 'Not known', value: '' },
+            ],
+          },
+          {
+            name: 'immigrationStatus',
+            label: 'Immigration status',
+          },
+          {
+            name: 'careProvider',
+            label: 'Care provider',
+          },
+          {
+            name: 'primarySupportReason',
+            label: 'Primary support reason',
+          },
+          {
+            name: 'openCase',
+            label: 'Open case?',
+            beforeSave: (val) => val === 'Yes',
+            beforeEdit: (val) => (val ? 'Yes' : 'No'),
+            options: [
+              {
+                label: 'Yes',
+              },
+              {
+                label: 'No',
               },
             ],
           },
@@ -307,13 +346,13 @@ const ResidentPage = ({ resident }: Props): React.ReactElement => {
           },
           {
             name: 'gpDetails',
-            label: 'GP details',
+            label: 'GP',
             showInSummary: true,
             render: CustomGPDetailsEditor,
             beforeDisplay: (val) => {
               const gp = val as GPDetails;
               return (
-                <ul className="lbh-list lbh-body-s govuk-!-margin-bottom-2">
+                <ul className="lbh-list lbh-body-s ">
                   <li className="govuk-!-margin-top-0">
                     <strong>{gp.name}</strong>
                   </li>
@@ -333,9 +372,7 @@ const ResidentPage = ({ resident }: Props): React.ReactElement => {
             multiple: true,
             showInSummary: true,
             beforeDisplay: (val) => (
-              <div className="govuk-!-margin-bottom-2">
-                {(val as string[])?.join(', ')}
-              </div>
+              <div className="">{(val as string[])?.join(', ')}</div>
             ),
             options: [
               { label: 'Dementia' },
@@ -503,6 +540,7 @@ const ResidentPage = ({ resident }: Props): React.ReactElement => {
           {
             label: 'Accomodation type',
             name: 'accomodationType',
+            showInSummary: true,
             options: [
               {
                 label: 'Owner occupier or shared ownership scheme',
@@ -561,6 +599,7 @@ const ResidentPage = ({ resident }: Props): React.ReactElement => {
           {
             label: 'Known to housing staff?',
             name: 'housingStaffInContact',
+            beforeEdit: (val) => (val ? 'yes' : 'no'),
             beforeSave: (val) => val === 'yes',
             options: [
               {
@@ -619,7 +658,9 @@ const ResidentPage = ({ resident }: Props): React.ReactElement => {
         socialCareId={resident.id}
         footer={
           <Link href={`/residents/${resident.id}/relationships`}>
-            <a className="lbh-link lbh-link--muted">See all relationships</a>
+            <a className="lbh-link lbh-link--muted lbh-body-xs">
+              See all relationships
+            </a>
           </Link>
         }
         list={[
@@ -629,7 +670,7 @@ const ResidentPage = ({ resident }: Props): React.ReactElement => {
             render: CustomKeyContactsEditor,
             showInSummary: true,
             beforeDisplay: (val) => (
-              <ul className="lbh-list lbh-body-s govuk-!-margin-bottom-2">
+              <ul className="lbh-list lbh-body-s ">
                 {(val as KeyContact[]).map((contact, i) => (
                   <li key={i} className="govuk-!-margin-top-0">
                     <strong>{contact.name}:</strong>{' '}
@@ -709,13 +750,35 @@ const ResidentPage = ({ resident }: Props): React.ReactElement => {
             ],
           },
           {
+            label: 'Contact preference',
+            name: 'preferredMethodOfContact',
+            showInSummary: true,
+            options: [
+              { label: '', value: '' },
+              {
+                label: 'Phone',
+                value: 'Phone',
+              },
+              {
+                label: 'Post/letter',
+                value: 'Post/letter',
+              },
+              {
+                label: 'Email',
+                value: 'Email',
+              },
+              {
+                label: 'Face to face',
+                value: 'Face to face',
+              },
+            ],
+          },
+          {
             name: 'techUse',
             label: 'What technology do they use?',
             multiple: true,
             beforeDisplay: (val) => (
-              <div className="govuk-!-margin-bottom-2">
-                {(val as string[])?.join(', ')}
-              </div>
+              <div className="">{(val as string[])?.join(', ')}</div>
             ),
             options: [
               {

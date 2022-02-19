@@ -9,6 +9,10 @@
   @include govuk-link-style-muted;
 }
 
+.prettyValue {
+  padding-bottom: 0.5rem;
+}
+
 .value {
   position: relative;
   padding: 0;

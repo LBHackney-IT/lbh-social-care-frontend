@@ -108,7 +108,9 @@ const DataCell = ({ row, editing, setEditing, resident, i }: DataCellProps) => {
       )
     ) : (
       <>
-        <PrettyValue value={value as string | React.ReactElement} />
+        <div className={s.prettyValue}>
+          <PrettyValue value={value as string | React.ReactElement} />
+        </div>
         <button className={s.editButton} onClick={() => setEditing(i)}>
           Edit
         </button>

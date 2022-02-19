@@ -19,6 +19,12 @@
   justify-content: center;
   align-items: center;
   flex-direction: column;
+
+  button {
+    @include lbh-body-s;
+    margin-top: 1rem;
+    color: lbh-colour('lbh-link');
+  }
 }
 
 .tile {
@@ -34,7 +40,7 @@
 
   @include govuk-media-query($from: tablet) {
     padding: 0.75rem;
-    min-height: 200px;
+    min-height: 150px;
   }
 
   &:focus-within {
@@ -112,7 +118,7 @@
   background: lbh-colour('lbh-grey-4');
   display: flex;
   flex-direction: column;
-  min-height: 200px;
+  min-height: 150px;
 
   &:after {
     content: '';
