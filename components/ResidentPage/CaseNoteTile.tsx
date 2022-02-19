@@ -10,6 +10,12 @@ import { truncate } from 'lib/utils';
 import React from 'react';
 import { useWorker } from 'utils/api/workers';
 
+const prettyLink = (c: Case): string => {
+  if (c?.caseFormData?.workflowId)
+    return `${process.env.NEXT_PUBLIC_CORE_PATHWAY_APP_URL}/workflows/${c.caseFormData.workflowId}`;
+  return `${window.location.pathname}?case_note=${c.recordId}`;
+};
+
 interface TileProps {
   c: Case;
 }
@@ -25,10 +31,7 @@ const CaseNoteTile = ({ c }: TileProps): React.ReactElement => {
     <li key={c.recordId} className={s.tile}>
       <p className="lbh-body-xs">{prettyCaseDate(c)}</p>
       <h2 className="lbh-heading-h4">
-        <Link
-          href={`${window.location.pathname}?case_note=${c.recordId}`}
-          scroll={false}
-        >
+        <Link href={prettyLink(c)} scroll={false}>
           <a className="lbh-link lbh-link--no-visited-state">
             {prettyCaseTitle(c)}
           </a>
