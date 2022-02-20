@@ -1,0 +1,14 @@
+@import 'lbh-frontend/lbh/base';
+
+.aside {
+  background: lbh-colour('lbh-grey-4');
+  padding: 25px;
+
+  fieldset + fieldset {
+    margin-top: 2.5rem;
+  }
+
+  fieldset div {
+    margin-top: 1rem;
+  }
+}
