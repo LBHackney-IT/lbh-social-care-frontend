@@ -67,13 +67,13 @@ const Filters = (): React.ReactElement => {
           </label>
           <Field
             name="socialCareId"
-            className="govuk-input lbh-input govuk-input--width-5"
+            className="govuk-input lbh-input govuk-input--width-10"
             id="socialCareId"
             placeholder="eg. 1234"
           />
         </fieldset>
 
-        <fieldset className="govuk-fieldset">
+        {/* <fieldset className="govuk-fieldset">
           <legend className="lbh-heading-h5">Added between</legend>
 
           <div className={s.addedBetween}>
@@ -100,9 +100,9 @@ const Filters = (): React.ReactElement => {
               />
             </div>
           </div>
-        </fieldset>
+        </fieldset> */}
 
-        <fieldset className="govuk-fieldset">
+        {/* <fieldset className="govuk-fieldset">
           <legend className="lbh-heading-h5">Added by</legend>
           <div className="govuk-radios lbh-radios">
             <Radio name="addedByQuickOpt" label="Everyone" value="" />
@@ -142,7 +142,7 @@ const Filters = (): React.ReactElement => {
               </div>
             )}
           </div>
-        </fieldset>
+        </fieldset> */}
       </div>
     </aside>
   );

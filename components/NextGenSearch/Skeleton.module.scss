@@ -1,0 +1,70 @@
+@import 'lbh-frontend/lbh/base';
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes scroll {
+  from {
+    background-position-x: 0px;
+  }
+  to {
+    background-position-x: 620px;
+  }
+}
+
+.skeleton {
+  background: white;
+  margin-top: 0ch;
+  border-bottom: 2px solid lbh-colour('lbh-grey-4');
+  padding-bottom: 1.5rem;
+  margin-bottom: 1.5rem;
+  position: relative;
+  background: white;
+  animation: fadeIn 0.5s ease-out;
+
+  &:after {
+    content: '';
+    display: block;
+    background: red;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+      90deg,
+      rgba(255, 255, 255, 0),
+      rgba(255, 255, 255, 1),
+      rgba(255, 255, 255, 1),
+      rgba(255, 255, 255, 0)
+    );
+    animation: scroll 2s infinite;
+    animation-timing-function: linear;
+  }
+
+  div:first-child {
+    height: 25px;
+    width: 200px;
+    background: lbh-colour('lbh-grey-3');
+  }
+
+  div:nth-child(2) {
+    height: 10px;
+    width: 300px;
+    background: lbh-colour('lbh-grey-3');
+  }
+
+  div:last-child div {
+    height: 7px;
+    width: 100%;
+    background: lbh-colour('lbh-grey-3');
+    margin-top: 10px;
+    margin-bottom: 0;
+  }
+}

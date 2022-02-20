@@ -1,12 +1,8 @@
 import Filters from 'components/NextGenSearch/Filters';
+import ResultList from 'components/NextGenSearch/ResultList';
 import SearchBox from 'components/NextGenSearch/SearchBox';
 import { Form, Formik } from 'formik';
 import Head from 'next/head';
-
-export enum SortOrder {
-  Relevant = '',
-  Recent = 'Recent',
-}
 
 export enum SearchDomain {
   Residents = 'residents',
@@ -17,11 +13,7 @@ export enum SearchDomain {
 export interface SearchParams {
   query: string;
   domain: SearchDomain | '';
-  sort?: SortOrder;
-  socialCareId?: string;
-  addedAfter?: string;
-  addedBefore?: string;
-  addedBy?: string;
+  socialCareId: string;
 }
 
 const SearchPage = (): React.ReactElement => {
@@ -36,11 +28,7 @@ const SearchPage = (): React.ReactElement => {
         {
           query: '',
           domain: '',
-          sort: SortOrder.Recent,
           socialCareId: '',
-          addedAfter: '',
-          addedBefore: '',
-          addedBy: '',
         } as SearchParams
       }
       onSubmit={handleSubmit}
@@ -56,11 +44,15 @@ const SearchPage = (): React.ReactElement => {
             <SearchBox />
 
             <div className="govuk-grid-row">
-              <aside className="govuk-grid-column-one-quarter">
+              <aside className="govuk-grid-column-one-third">
                 <Filters />
               </aside>
-              <main className="govuk-grid-column-three-quarters">
-                Results here {JSON.stringify(values)}
+              <main className="govuk-grid-column-two-thirds">
+                {/* <pre>
+                  <code>{JSON.stringify(values, null, 2)}</code>
+                </pre> */}
+
+                <ResultList />
               </main>
             </div>
           </Form>

@@ -1,0 +1,11 @@
+@import 'lbh-frontend/lbh/base';
+
+.showMore {
+  text-align: center;
+  display: block;
+  margin-top: 0rem;
+  font-weight: 600;
+  text-decoration: none;
+  border-bottom: 1px solid lbh-colour('lbh-grey-3');
+  padding: 0.5rem;
+}

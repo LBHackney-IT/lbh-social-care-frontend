@@ -25,18 +25,15 @@ const Suggestion = (suggestion: any, { query }: Props) => {
 const SearchBox = () => {
   const name = 'query';
 
-  const [suggestions, setSuggestions] = useState([]);
+  const [suggestions, setSuggestions] = useState([
+    {
+      title: 'Example suggestion',
+      resultType: 'Example result type',
+    },
+  ]);
   const { push } = useRouter();
-  const {
-    errors,
-    touched,
-    isSubmitting,
-    values,
-    setFieldValue,
-    submitForm,
-    initialValues,
-    setValues,
-  } = useFormikContext<SearchParams>();
+  const { isSubmitting, values, setFieldValue, submitForm } =
+    useFormikContext<SearchParams>();
 
   const getSuggestions = useCallback(async (e) => {
     // const res = await fetch(`/api/autocomplete?query=${e.value}`);
@@ -56,7 +53,7 @@ const SearchBox = () => {
             suggestions={suggestions}
             onSuggestionsFetchRequested={getSuggestions}
             theme={s}
-            onSuggestionsClearRequested={() => setSuggestions([])}
+            // onSuggestionsClearRequested={() => setSuggestions([])}
             getSuggestionValue={(suggestion) => suggestion?.title}
             shouldRenderSuggestions={(val) => val?.trim()?.length > 1}
             onSuggestionSelected={(e, { suggestion, method }) => {
@@ -98,14 +95,6 @@ const SearchBox = () => {
             type="submit"
             className="govuk-button lbh-button"
             disabled={isSubmitting}
-            onClick={(e) => {
-              e.preventDefault();
-              setValues({
-                ...initialValues,
-                query: values.query,
-              });
-              submitForm();
-            }}
           >
             Search
           </button>

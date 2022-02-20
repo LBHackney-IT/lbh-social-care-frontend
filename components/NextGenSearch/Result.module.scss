@@ -1,0 +1,31 @@
+@import 'lbh-frontend/lbh/base';
+
+.result {
+  margin-top: 0ch;
+  border-bottom: 1px solid lbh-colour('lbh-grey-3');
+  padding-bottom: 1.5rem;
+
+  &:not(:last-child) {
+    margin-bottom: 1.5rem;
+  }
+
+  a {
+    text-decoration: none;
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
+  em {
+    font-style: normal;
+    background: lbh-colour('lbh-h04');
+  }
+
+  p {
+    word-wrap: anywhere;
+
+    &:nth-child(2) {
+      color: lbh-colour('lbh-secondary-text');
+    }
+  }
+}
