@@ -16,6 +16,7 @@ import Link from 'next/link';
 import { KeyboardEventHandler, useState } from 'react';
 import RemoveCaseNoteDialog from './RemoveCaseNoteDialog';
 import { generateInternalLink } from 'utils/urls';
+import { useAuth } from 'components/UserContext/UserContext';
 
 interface SubmissionContentProps {
   submissionId: string;
@@ -113,6 +114,8 @@ const CaseNoteDialog = ({
   });
   const worker = workerData?.[0];
 
+  const { user } = useAuth();
+
   const handleKeyboardNav: KeyboardEventHandler<HTMLDivElement> = (e) => {
     let newId;
     if (e.key === 'ArrowLeft') {
@@ -130,26 +133,26 @@ const CaseNoteDialog = ({
   };
 
   const pin = async () => {
-    await fetch(`/api/cases/${note.recordId}`, {
+    await fetch(`/api/submissions/${note.recordId}`, {
       headers: {
         'Content-Type': 'application/json',
       },
       method: 'PATCH',
       body: JSON.stringify({
-        ...note,
-        pinnedAt: new Date(),
+        editedBy: user?.email,
+        pinnedAt: new Date().toISOString(),
       }),
     });
   };
 
   const unpin = async () => {
-    await fetch(`/api/cases/${note.recordId}`, {
+    await fetch(`/api/submissions/${note.recordId}`, {
       headers: {
         'Content-Type': 'application/json',
       },
       method: 'PATCH',
       body: JSON.stringify({
-        ...note,
+        editedBy: user?.email,
         pinnedAt: null,
       }),
     });
@@ -166,33 +169,33 @@ const CaseNoteDialog = ({
         onKeyUp={handleKeyboardNav}
       >
         <p className="lbh-body-s">
+          {note.pinnedAt && `Pinned · `}
           Added {prettyCaseDate(note)} by{' '}
           {worker ? prettyWorkerName(worker) : note.officerEmail}
         </p>
 
         <p className={`lbh-body-xs ${s.actions}`}>
-          {note.pinnedAt ? (
-            <button className="lbh-link" onClick={unpin}>
-              Unpin from top
-            </button>
-          ) : (
-            <button className="lbh-link" onClick={pin}>
-              Pin to top
-            </button>
-          )}
-
           {link && (
             <>
-              {' '}
-              ·{' '}
               <Link href={link}>
                 <a className="lbh-link">Printable version</a>
               </Link>
             </>
           )}
+
           {note.formType === 'flexible-form' && (
             <>
               {' '}
+              ·{' '}
+              {note.pinnedAt ? (
+                <button className="lbh-link" onClick={unpin}>
+                  Unpin from top
+                </button>
+              ) : (
+                <button className="lbh-link" onClick={pin}>
+                  Pin to top
+                </button>
+              )}{' '}
               ·{' '}
               <button
                 className={`lbh-link ${s.deleteButton}`}
