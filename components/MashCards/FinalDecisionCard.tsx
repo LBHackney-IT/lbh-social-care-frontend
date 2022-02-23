@@ -16,7 +16,7 @@ const FinalDecisionCard = ({ mashReferral }: Props): React.ReactElement => {
         isPriority={mashReferral.screeningUrgentContactRequired as boolean}
       >
         <div>
-          <p className={`lbh-body-s govuk-!-margin-bottom-3 ${s.datetime}`}>
+          <div className={`lbh-body-s govuk-!-margin-bottom-3 ${s.datetime}`}>
             <MashTag mashReferral={mashReferral} /> submitted{' '}
             {format(new Date(mashReferral.referralCreatedAt), 'HH:00 dd MMM')}
             <span className={`lbh-body-l lbh-!-font-weight-bold  ${s.action}`}>
@@ -24,7 +24,7 @@ const FinalDecisionCard = ({ mashReferral }: Props): React.ReactElement => {
                 Make decision
               </Link>
             </span>
-          </p>
+          </div>
           <hr className={s.line} />
           <dl className={s.stats}>
             <div>
