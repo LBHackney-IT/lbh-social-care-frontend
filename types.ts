@@ -121,6 +121,7 @@ export interface Case {
     deleteReason: string;
     deleteRequestedBy: string;
   };
+  pinnedAt: string;
 }
 
 export interface CaseData {

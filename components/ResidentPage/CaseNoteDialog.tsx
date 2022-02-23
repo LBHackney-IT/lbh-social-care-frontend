@@ -129,6 +129,32 @@ const CaseNoteDialog = ({
       });
   };
 
+  const pin = async () => {
+    await fetch(`/api/cases/${note.recordId}`, {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      method: 'PATCH',
+      body: JSON.stringify({
+        ...note,
+        pinnedAt: new Date(),
+      }),
+    });
+  };
+
+  const unpin = async () => {
+    await fetch(`/api/cases/${note.recordId}`, {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      method: 'PATCH',
+      body: JSON.stringify({
+        ...note,
+        pinnedAt: null,
+      }),
+    });
+  };
+
   if (note) {
     const link = generateCaseLink(note);
 
@@ -145,7 +171,16 @@ const CaseNoteDialog = ({
         </p>
 
         <p className={`lbh-body-xs ${s.actions}`}>
-          <button className="lbh-link">Pin to top</button>
+          {note.pinnedAt ? (
+            <button className="lbh-link" onClick={unpin}>
+              Unpin from top
+            </button>
+          ) : (
+            <button className="lbh-link" onClick={pin}>
+              Pin to top
+            </button>
+          )}
+
           {link && (
             <>
               {' '}
