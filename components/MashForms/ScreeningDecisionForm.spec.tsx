@@ -28,11 +28,11 @@ describe('#ScreeningDecisionForm', () => {
   });
 
   it('should render correctly', () => {
-    expect(screen.getByText('Make screening decision'));
-    expect(screen.getByText('Document the decision'));
-    expect(screen.getByText('Select screening decision'));
-    expect(screen.getByText('Is this contact urgent?'));
-    expect(screen.getByText('Submit'));
+    expect(screen.getByText('Make screening decision')).toBeVisible();
+    expect(screen.getByText('Document the decision')).toBeVisible();
+    expect(screen.getByText('Select screening decision')).toBeVisible();
+    expect(screen.getByText('Is this contact urgent?')).toBeVisible();
+    expect(screen.getByText('Submit')).toBeVisible();
   });
 
   it('should dynamically render hint text for emailing a mash manager if decision is urgent', () => {
@@ -46,7 +46,7 @@ describe('#ScreeningDecisionForm', () => {
 
     expect(
       screen.getByText('Please email your MASH manager about the urgent case.')
-    );
+    ).toBeVisible();
   });
 
   it('should disable submit button when submitScreeningDecision Submit button is clicked', () => {
@@ -67,6 +67,25 @@ describe('#ScreeningDecisionForm', () => {
       mockedWorker.email,
       'NFA',
       false
+    );
+  });
+
+  it('should call submitScreeningDecision with urgency when Submit button is clicked', async () => {
+    (submitScreeningDecision as jest.Mock).mockResolvedValue(true);
+
+    await waitFor(() => {
+      fireEvent.click(screen.getByText('Yes'));
+    });
+
+    await waitFor(() => {
+      fireEvent.click(screen.getByText('Submit'));
+    });
+
+    expect(submitScreeningDecision).toBeCalledWith(
+      mockedMashReferral.id,
+      mockedWorker.email,
+      'NFA',
+      true
     );
   });
 
