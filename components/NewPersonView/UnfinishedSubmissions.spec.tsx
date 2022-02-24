@@ -43,8 +43,8 @@ describe('UnfinishedSubmissions', () => {
           data: {
             items: [
               mockInProgressSubmission,
-              mockInProgressSubmission,
-              mockInProgressSubmission,
+              { ...mockInProgressSubmission, submissionId: '1234' },
+              { ...mockInProgressSubmission, submissionId: '1235' },
             ] as InProgressSubmission[],
             count: 3,
           },
@@ -68,9 +68,9 @@ describe('UnfinishedSubmissions', () => {
           data: {
             items: [
               mockInProgressSubmission,
-              mockInProgressSubmission,
-              mockInProgressSubmission,
-              mockInProgressSubmission,
+              { ...mockInProgressSubmission, submissionId: '1236' },
+              { ...mockInProgressSubmission, submissionId: '1237' },
+              { ...mockInProgressSubmission, submissionId: '1238' },
             ] as InProgressSubmission[],
             count: 50,
           },
