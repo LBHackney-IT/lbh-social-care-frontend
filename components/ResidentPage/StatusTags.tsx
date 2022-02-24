@@ -21,9 +21,9 @@ const StatusTags = ({ resident }: Props): React.ReactElement => {
         </li>
       )}
 
-      {resident.openCase && (
+      {/* {resident.openCase && (
         <li className="govuk-tag lbh-tag lbh-tag--blue">Open case</li>
-      )}
+      )} */}
 
       {resident.primarySupportReason && (
         <li className="govuk-tag lbh-tag lbh-tag--green">

@@ -317,20 +317,20 @@ const ResidentPage = ({ resident }: Props): React.ReactElement => {
             name: 'primarySupportReason',
             label: 'Primary support reason',
           },
-          {
-            name: 'openCase',
-            label: 'Open case?',
-            beforeSave: (val) => val === 'Yes',
-            beforeEdit: (val) => (val ? 'Yes' : 'No'),
-            options: [
-              {
-                label: 'Yes',
-              },
-              {
-                label: 'No',
-              },
-            ],
-          },
+          // {
+          //   name: 'openCase',
+          //   label: 'Open case?',
+          //   beforeSave: (val) => val === 'Yes',
+          //   beforeEdit: (val) => (val ? 'Yes' : 'No'),
+          //   options: [
+          //     {
+          //       label: 'Yes',
+          //     },
+          //     {
+          //       label: 'No',
+          //     },
+          //   ],
+          // },
         ]}
       />
 
