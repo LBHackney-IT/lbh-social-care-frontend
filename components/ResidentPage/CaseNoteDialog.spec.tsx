@@ -64,7 +64,7 @@ describe('CaseNoteDialog', () => {
     expect(screen.getByText('Added 25 Oct 2020 by Fname.Lname@hackney.gov.uk'));
 
     expect(screen.queryByText('Remove')).toBeNull();
-    expect(screen.getByText('Pin to top'));
+    expect(screen.queryByText('Pin to top')).toBeNull();
     expect(screen.getByText('Printable version'));
 
     expect(screen.getAllByRole('term').length).toBe(11);
