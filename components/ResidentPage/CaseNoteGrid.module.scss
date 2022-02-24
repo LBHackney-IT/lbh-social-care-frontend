@@ -111,13 +111,13 @@
 }
 
 .pinned {
-  background: transparentize(lbh-colour('lbh-primary-focus'), 0.95);
+  background: transparentize(lbh-colour('lbh-primary-focus'), 0.9);
   border-color: lbh-colour('lbh-primary-focus');
 
   div {
     background-image: linear-gradient(
       transparentize(lbh-colour('lbh-primary-focus'), 1),
-      transparentize(lbh-colour('lbh-primary-focus'), 0.95)
+      transparentize(lbh-colour('lbh-primary-focus'), 0.9)
     );
   }
 }

@@ -865,6 +865,16 @@ export const getServerSideProps: GetServerSideProps = async ({
     };
   }
 
+  // the new resident view is adults-only
+  if (resident.contextFlag === 'C') {
+    return {
+      props: {},
+      redirect: {
+        destination: `/people/${resident.id}`,
+      },
+    };
+  }
+
   return {
     props: {
       resident,

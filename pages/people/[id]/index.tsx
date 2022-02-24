@@ -15,7 +15,7 @@ const PersonPage = ({ person }: Props): React.ReactElement => {
   return (
     <Layout person={person}>
       <>
-        <PreviewBanner socialCareId={person.id} />
+        <PreviewBanner resident={person} />
         <PersonHistory personId={person.id} />
       </>
     </Layout>

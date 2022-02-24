@@ -65,7 +65,6 @@ functions:
       NOTIFY_API_KEY: ${ssm:/lbh-social-care/${self:provider.stage}/notify-api-key}
       NOTIFY_APPROVER_TEMPLATE_ID: ${ssm:/lbh-social-care/${self:provider.stage}/notify-approver-template-id}
       NOTIFY_RETURN_FOR_EDITS_TEMPLATE_ID: ${ssm:/lbh-social-care/${self:provider.stage}/notify-return-for-edits-template-id}
-      # WORKFLOWS_PILOT_URL: ${ssm:/lbh-social-care/${self:provider.stage}/workflows-pilot-url}
       NEXT_PUBLIC_CORE_PATHWAY_APP_URL: ${ssm:/lbh-social-care/${self:provider.stage}/core-pathway-app-url}
       NEXT_PUBLIC_GOOGLE_CLIENT_KEY: ${ssm:/lbh-social-care/${self:provider.stage}/google-client-key}
       AUTHORISED_WORKFLOWS_PILOT_GROUP: ${ssm:/lbh-social-care/${self:provider.stage}/authorised-workflows-pilot-group}

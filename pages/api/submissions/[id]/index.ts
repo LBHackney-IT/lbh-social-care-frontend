@@ -52,12 +52,6 @@ const handler = async (
           }
         );
 
-        // const submission = await patchResidents(
-        //   id as string,
-        //   user?.email ?? '',
-        //   req.body.residents
-        // );
-
         res.status(StatusCodes.ACCEPTED).json(submission);
       }
       break;
