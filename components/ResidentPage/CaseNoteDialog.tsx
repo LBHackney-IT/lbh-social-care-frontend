@@ -9,14 +9,13 @@ import { Case } from 'types';
 import { useWorker } from 'utils/api/workers';
 import SummaryList, { SummaryListSkeleton } from './SummaryList';
 import s from './CaseNoteDialog.module.scss';
-import { useCase } from 'utils/api/cases';
+import { useCase, useCases } from 'utils/api/cases';
 import { useSubmission } from 'utils/api/submissions';
 import FlexibleAnswers from 'components/FlexibleAnswers/FlexibleAnswers';
 import Link from 'next/link';
 import { KeyboardEventHandler, useState } from 'react';
 import RemoveCaseNoteDialog from './RemoveCaseNoteDialog';
 import { generateInternalLink } from 'utils/urls';
-import { useAuth } from 'components/UserContext/UserContext';
 
 interface SubmissionContentProps {
   submissionId: string;
@@ -89,6 +88,12 @@ const CaseNoteDialog = ({
 }: Props): React.ReactElement | null => {
   const { query, replace } = useRouter();
 
+  const { mutate } = useCases({
+    mosaic_id: socialCareId,
+    exclude_audit_trail_events: true,
+    pinned_first: true,
+  });
+
   const generateCaseLink = (c: Case): string => {
     if (c.formType === 'flexible-form')
       return `/people/${c.personId}/submissions/${c.recordId}`;
@@ -100,11 +105,6 @@ const CaseNoteDialog = ({
 
   const [deleting, setDeleting] = useState<boolean>(false);
 
-  const handleClose = () =>
-    replace(window.location.pathname, undefined, {
-      scroll: false,
-    });
-
   const selectedId = query['case_note'];
   const i = caseNotes.findIndex((c) => c.recordId === selectedId);
   const note = caseNotes[i];
@@ -113,8 +113,6 @@ const CaseNoteDialog = ({
     email: note?.officerEmail || '',
   });
   const worker = workerData?.[0];
-
-  const { user } = useAuth();
 
   const handleKeyboardNav: KeyboardEventHandler<HTMLDivElement> = (e) => {
     let newId;
@@ -132,30 +130,22 @@ const CaseNoteDialog = ({
       });
   };
 
-  const pin = async () => {
-    await fetch(`/api/submissions/${note.recordId}`, {
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      method: 'PATCH',
-      body: JSON.stringify({
-        editedBy: user?.email,
-        pinnedAt: new Date().toISOString(),
-      }),
+  const handleClose = () =>
+    replace(window.location.pathname, undefined, {
+      scroll: false,
     });
-  };
 
-  const unpin = async () => {
+  const pinOrUnpin = async () => {
     await fetch(`/api/submissions/${note.recordId}`, {
       headers: {
         'Content-Type': 'application/json',
       },
       method: 'PATCH',
       body: JSON.stringify({
-        editedBy: user?.email,
-        pinnedAt: null,
+        pinnedAt: note.pinnedAt ? '' : new Date().toISOString(),
       }),
     });
+    mutate();
   };
 
   if (note) {
@@ -187,15 +177,9 @@ const CaseNoteDialog = ({
             <>
               {' '}
               ·{' '}
-              {note.pinnedAt ? (
-                <button className="lbh-link" onClick={unpin}>
-                  Unpin from top
-                </button>
-              ) : (
-                <button className="lbh-link" onClick={pin}>
-                  Pin to top
-                </button>
-              )}{' '}
+              <button className="lbh-link" onClick={pinOrUnpin}>
+                {note.pinnedAt ? 'Unpin from top' : 'Pin to top'}
+              </button>{' '}
               ·{' '}
               <button
                 className={`lbh-link ${s.deleteButton}`}

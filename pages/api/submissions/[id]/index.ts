@@ -3,12 +3,13 @@ import StatusCodes from 'http-status-codes';
 import {
   getSubmissionById,
   finishSubmission,
-  patchResidents,
+  // patchResidents,
   discardSubmission,
 } from 'lib/submissions';
 import { isAuthorised } from 'utils/auth';
 import { notifyApprover } from 'lib/notify';
 import { apiHandler } from 'lib/apiHandler';
+import axios from 'axios';
 
 const handler = async (
   req: NextApiRequest,
@@ -36,11 +37,26 @@ const handler = async (
     case 'PATCH':
       {
         const user = isAuthorised(req);
-        const submission = await patchResidents(
-          id as string,
-          user?.email ?? '',
-          req.body.residents
+        // TODO: process pinning and unpinning here too
+        const { data: submission } = await axios.patch(
+          `${process.env.ENDPOINT_API}/submissions/${id}`,
+          {
+            ...req.body,
+            editedBy: user?.email,
+            pinnedAt: req.body.pinnedAt || '',
+          },
+          {
+            headers: {
+              'x-api-key': process.env.AWS_KEY,
+            },
+          }
         );
+
+        // const submission = await patchResidents(
+        //   id as string,
+        //   user?.email ?? '',
+        //   req.body.residents
+        // );
 
         res.status(StatusCodes.ACCEPTED).json(submission);
       }
