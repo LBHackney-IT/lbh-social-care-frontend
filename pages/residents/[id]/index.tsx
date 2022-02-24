@@ -37,6 +37,7 @@ const ResidentPage = ({ resident }: Props): React.ReactElement => {
   const { data: casesData } = useCases({
     mosaic_id: resident.id,
     exclude_audit_trail_events: true,
+    pinned_first: true,
   });
   const { data: workflowsData } = useWorkflows(resident.id);
   const { data: teamData } = useTeams({
