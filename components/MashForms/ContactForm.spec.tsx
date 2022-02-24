@@ -28,26 +28,28 @@ describe('#ContactDecisionForm', () => {
   });
 
   it('should render correctly', () => {
-    expect(screen.getByText('Work on contact'));
-    expect(screen.getByText('Is this contact urgent?'));
-    expect(screen.getByText('Submit'));
+    expect(screen.getByText('Work on contact')).toBeVisible();
+    expect(screen.getByText('Is this contact urgent?')).toBeVisible();
+    expect(screen.getByText('Submit')).toBeVisible();
   });
 
-  it('should dynamically render hint text for emailing a mash manager if decision is urgent', () => {
+  it('should dynamically render hint text for emailing a mash manager if decision is urgent', async () => {
     expect(
       screen.queryByText(
         'Please email your MASH manager about the urgent case.'
       )
     ).toBeNull();
 
-    fireEvent.click(screen.getByText('Yes'));
+    await waitFor(() => {
+      fireEvent.click(screen.getByText('Yes'));
+    });
 
     expect(
       screen.getByText('Please email your MASH manager about the urgent case.')
     );
   });
 
-  it('should disable submit button when submitContactDecision Submit button is clicked', () => {
+  it('should disable submit button when submitContactDecision Submit button is clicked', async () => {
     expect(screen.getByText('Submit')).not.toHaveAttribute('disabled');
 
     fireEvent.click(screen.getByText('Submit'));
@@ -55,10 +57,12 @@ describe('#ContactDecisionForm', () => {
     expect(screen.getByText('Submit')).toHaveAttribute('disabled');
   });
 
-  it('should call submitContactDecision Submit button is clicked', () => {
+  it('should call submitContactDecision Submit button is clicked', async () => {
     (submitContactDecision as jest.Mock).mockResolvedValue(true);
 
-    fireEvent.click(screen.getByText('Submit'));
+    await waitFor(() => {
+      fireEvent.click(screen.getByText('Submit'));
+    });
 
     expect(submitContactDecision).toBeCalledWith(
       mockedMashReferral.id,
@@ -68,20 +72,18 @@ describe('#ContactDecisionForm', () => {
   });
 
   it('should reroute the user with a confirmation when submitContactDecision returns successfully', async () => {
-    fireEvent.click(screen.getByText('Submit'));
-
     await waitFor(() => {
-      expect(mockPush).toBeCalledWith({
-        pathname: '/team-assignments',
-        query: {
-          confirmation: `{"title":"Work on contact has been submitted for ${mockedMashReferral.mashResidents
-            .map((resident) => `${resident.firstName} ${resident.lastName}`)
-            .join(' and ')}","link":"${
-            mockedMashReferral.referralDocumentURI
-          }"}`,
-          tab: 'contact',
-        },
-      });
+      fireEvent.click(screen.getByText('Submit'));
+    });
+
+    expect(mockPush).toBeCalledWith({
+      pathname: '/team-assignments',
+      query: {
+        confirmation: `{"title":"Work on contact has been submitted for ${mockedMashReferral.mashResidents
+          .map((resident) => `${resident.firstName} ${resident.lastName}`)
+          .join(' and ')}","link":"${mockedMashReferral.referralDocumentURI}"}`,
+        tab: 'contact',
+      },
     });
   });
 
@@ -90,15 +92,17 @@ describe('#ContactDecisionForm', () => {
     const errorObject = { response: { data: errorMessage } };
     (submitContactDecision as jest.Mock).mockRejectedValue(errorObject);
 
-    fireEvent.click(screen.getByText('Submit'));
-
     await waitFor(() => {
-      expect(screen.getByText(errorMessage));
+      fireEvent.click(screen.getByText('Submit'));
     });
+
+    expect(screen.getByText(errorMessage));
   });
 
-  it('should trigger router back on click of the cancel button', () => {
-    fireEvent.click(screen.getByText('Cancel'));
+  it('should trigger router back on click of the cancel button', async () => {
+    await waitFor(() => {
+      fireEvent.click(screen.getByText('Cancel'));
+    });
     expect(mockBack).toHaveBeenCalled();
   });
 });
