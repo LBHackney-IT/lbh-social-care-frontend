@@ -1,5 +1,5 @@
 import * as Yup from 'yup';
-import { Answer, Field } from 'data/flexibleForms/forms.types';
+import { Answer, Field, isConditionList } from 'data/flexibleForms/forms.types';
 import { ObjectShape, OptionalObjectSchema, TypeOfShape } from 'yup/lib/object';
 import { getTotalHours } from './utils';
 import languages from 'data/languages';
@@ -182,10 +182,19 @@ export const generateFlexibleSchema = (
     if (field.required) {
       if (field.conditions) {
         shape[field.id] = (shape[field.id] as Yup.StringSchema).when(
-          field.conditions.map((c) => c.id),
+          isConditionList(field.conditions)
+            ? field.conditions.map((c) => c.id)
+            : isConditionList(field.conditions.OR)
+            ? field.conditions.OR.map((c) => c.id)
+            : [],
           {
             is: (...valuesToTest: Answer[]) =>
-              field.conditions?.every((condition, i) => {
+              (isConditionList(field.conditions)
+                ? field.conditions
+                : isConditionList(field.conditions?.OR)
+                ? field.conditions?.OR
+                : []
+              )?.every((condition, i) => {
                 return valuesToTest[i] === condition.value;
               }),
             then: applyRequired(field, shape),
