@@ -119,7 +119,6 @@ export type InProgressSubmission = Omit<
   | 'workers'
   | 'submittedBy'
   | 'createdBy'
-  | 'submittedBy'
   | 'submittedAt'
   | 'residents'
   | 'approvedBy'
