@@ -5,6 +5,7 @@ const policy: CSPPolicy = {
     'vc.hotjar.io',
     'in.hotjar.com',
     'o183917.ingest.sentry.io',
+    process.env.NEXT_PUBLIC_CORE_PATHWAY_APP_URL as string,
   ],
   'default-src': ["'self'"],
   'style-src': [
