@@ -229,7 +229,7 @@ describe('generateFlexibleSchema', () => {
         two: 'no',
         three: '',
       })
-    );
+    ).resolves.toEqual({ one: 'yes', two: 'no', three: '' });
 
     await expect(
       schema.validate({
@@ -237,7 +237,7 @@ describe('generateFlexibleSchema', () => {
         two: 'yes',
         three: 'yes',
       })
-    );
+    ).resolves.toEqual({ one: 'yes', two: 'yes', three: 'yes' });
   });
 });
 

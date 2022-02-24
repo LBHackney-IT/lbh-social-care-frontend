@@ -7,7 +7,7 @@ import RepeaterGroupField from './RepeaterGroupField';
 import ComboboxField from './ComboboxField';
 import DateTimeField from './DateTimeField';
 import { FormikValues, FormikTouched, FormikErrors } from 'formik';
-import { Field } from 'data/flexibleForms/forms.types';
+import { Field, isConditionList } from 'data/flexibleForms/forms.types';
 import TimetableField from './TimetableField';
 import TagsField from './TagsField';
 
@@ -25,11 +25,22 @@ const FlexibleField = ({
   errors,
 }: Props): React.ReactElement | null => {
   // check if there's more than one condition
-  if (
-    field.conditions &&
-    !field.conditions.every((cond) => values[cond.id] === cond.value)
-  )
-    return null;
+  if (field.conditions) {
+    if (
+      isConditionList(field.conditions) &&
+      !field.conditions.every((cond) => values[cond.id] === cond.value)
+    ) {
+      return null;
+    }
+
+    if (
+      !isConditionList(field.conditions) &&
+      isConditionList(field.conditions?.OR) &&
+      !field.conditions.OR.some((cond) => values[cond.id] === cond.value)
+    ) {
+      return null;
+    }
+  }
 
   if (field.type === 'repeaterGroup' && field.subfields)
     return (
