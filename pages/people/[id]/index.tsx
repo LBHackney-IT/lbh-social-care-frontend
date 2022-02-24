@@ -5,7 +5,6 @@ import { Resident } from 'types';
 import { canManageCases } from 'lib/permissions';
 import { isAuthorised } from 'utils/auth';
 import PersonHistory from 'components/NewPersonView/PersonHistory';
-import PreviewBanner from 'components/NewPersonView/PreviewBanner';
 
 interface Props {
   person: Resident;
@@ -15,7 +14,7 @@ const PersonPage = ({ person }: Props): React.ReactElement => {
   return (
     <Layout person={person}>
       <>
-        <PreviewBanner resident={person} />
+        {/* <PreviewBanner resident={person} /> */}
         <PersonHistory personId={person.id} />
       </>
     </Layout>
