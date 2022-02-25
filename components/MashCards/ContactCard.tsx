@@ -20,7 +20,7 @@ const ContactCard = ({ mashReferral }: Props): React.ReactElement => {
         }
       >
         <div>
-          <p className={`lbh-body-s govuk-!-margin-bottom-3 ${s.datetime}`}>
+          <div className={`lbh-body-s govuk-!-margin-bottom-3 ${s.datetime}`}>
             <MashTag mashReferral={mashReferral} /> submitted{' '}
             {format(new Date(mashReferral.referralCreatedAt), 'HH:00 dd MMM')}
             <span className={`lbh-body-l lbh-!-font-weight-bold  ${s.action}`}>
@@ -28,7 +28,7 @@ const ContactCard = ({ mashReferral }: Props): React.ReactElement => {
                 Work on
               </Link>
             </span>
-          </p>
+          </div>
           <hr className={s.line} />
           <dl className={s.stats}>
             <div>
