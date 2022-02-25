@@ -113,7 +113,9 @@ const ScreeningDecisionForm = ({
                     type="radio"
                     value="no"
                     checked={!urgencyScreeningDecision}
-                    onClick={() => setUrgencyScreeningDecision(false)}
+                    onChange={(el) =>
+                      setUrgencyScreeningDecision(el.target.value === 'yes')
+                    }
                   />
                   <label
                     className="govuk-label govuk-radios__label"
@@ -130,7 +132,9 @@ const ScreeningDecisionForm = ({
                     type="radio"
                     value="yes"
                     checked={urgencyScreeningDecision}
-                    onClick={() => setUrgencyScreeningDecision(true)}
+                    onChange={(el) =>
+                      setUrgencyScreeningDecision(el.target.value === 'yes')
+                    }
                   />
                   <label
                     className="govuk-label govuk-radios__label"
