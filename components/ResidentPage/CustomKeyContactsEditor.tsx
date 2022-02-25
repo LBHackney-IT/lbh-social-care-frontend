@@ -1,6 +1,6 @@
 import useWarnUnsavedChanges from 'hooks/useWarnUnsavedChanges';
 import { KeyboardEventHandler, useRef } from 'react';
-import { PhoneNumber, Resident } from 'types';
+import { KeyContact, Resident } from 'types';
 import { useResident } from 'utils/api/residents';
 import { DataRow } from './DataBlock';
 import s from './CustomPhoneNumberEditor.module.scss';
@@ -14,7 +14,7 @@ interface Props extends DataRow {
 }
 
 interface FormValues {
-  phoneNumbers: PhoneNumber[];
+  keyContacts: KeyContact[];
 }
 
 const Error = ({ error }: { error?: string }) =>
@@ -24,7 +24,7 @@ const Error = ({ error }: { error?: string }) =>
     </span>
   ) : null;
 
-const CustomPhoneNumberEditor = (props: Props): React.ReactElement => {
+const CustomKeyContactsEditor = (props: Props): React.ReactElement => {
   const { mutate } = useResident(props.resident.id);
 
   const onSubmit = async (data: FormValues) => {
@@ -35,11 +35,11 @@ const CustomPhoneNumberEditor = (props: Props): React.ReactElement => {
       method: 'PATCH',
       body: JSON.stringify({
         ...props.resident,
-        phoneNumbers: data?.phoneNumbers
-          ?.filter((n) => n.type || n.number)
-          ?.map((n) => ({
-            ...n,
-            number: n.number.replace(/\s/g, ''), // sanitise by removing spaces
+        keyContacts: data?.keyContacts
+          ?.filter((n) => n.name || n.email)
+          .map((kc) => ({
+            name: kc.name.trim(),
+            email: kc.email.trim(),
           })),
       } as Resident),
     });
@@ -52,17 +52,17 @@ const CustomPhoneNumberEditor = (props: Props): React.ReactElement => {
   return (
     <Formik
       initialValues={{
-        phoneNumbers:
-          props.resident.phoneNumbers.length > 0
-            ? props.resident.phoneNumbers
+        keyContacts:
+          props.resident?.keyContacts && props.resident?.keyContacts?.length > 0
+            ? props.resident.keyContacts
             : [
                 {
-                  type: '',
-                  number: '',
+                  name: '',
+                  email: '',
                 },
               ],
       }}
-      validationSchema={residentSchema.pick(['phoneNumbers'])}
+      validationSchema={residentSchema.pick(['keyContacts'])}
       onSubmit={onSubmit}
     >
       {(formikProps) => <InnerForm {...formikProps} {...props} />}
@@ -91,60 +91,53 @@ const InnerForm = ({
 
   return (
     <Form className={s.form} onKeyUp={handleKeyup} ref={ref}>
-      <FieldArray name="phoneNumbers">
+      <FieldArray name="keyContacts">
         {({ push, remove }) => (
           <>
             <fieldset>
-              <legend className="govuk-visually-hidden">Phone numbers</legend>
+              <legend className="govuk-visually-hidden">Key contacts</legend>
 
-              <datalist id="type-hints">
-                <option value="Mobile">Mobile</option>
-                <option value="Home">Home</option>
-                <option value="Work/office">Work/office</option>
-              </datalist>
-
-              {values.phoneNumbers.map((field, i) => (
+              {values?.keyContacts.map((field, i) => (
                 <div key={i} className={s.row}>
                   <div>
-                    <label htmlFor={`phoneNumbers[${i}].type`}>Label</label>
+                    <label htmlFor={`keyContacts[${i}].name`}>Their name</label>
                     <Error
                       error={
-                        touched?.phoneNumbers?.[i]
-                          ? getIn(errors, `phoneNumbers.${i}.type`)
+                        touched?.keyContacts?.[i]
+                          ? getIn(errors, `keyContacts.${i}.name`)
                           : undefined
                       }
                     />
                     <Field
-                      name={`phoneNumbers[${i}].type`}
-                      id={`phoneNumbers[${i}].type`}
+                      name={`keyContacts[${i}].name`}
+                      id={`keyContacts[${i}].name`}
                       max="10"
                       className="govuk-input lbh-input"
-                      list="type-hints"
-                      placeholder={i === 0 ? 'eg. Mobile' : ''}
+                      placeholder={i === 0 ? 'eg. Namey McName' : ''}
                     />
                   </div>
 
                   <div>
-                    <label htmlFor={`phoneNumbers[${i}].number`}>Number</label>
+                    <label htmlFor={`keyContacts[${i}].email`}>Email</label>
                     <Error
                       error={
-                        touched?.phoneNumbers?.[i]
-                          ? getIn(errors, `phoneNumbers.${i}.number`)
+                        touched?.keyContacts?.[i]
+                          ? getIn(errors, `keyContacts.${i}.email`)
                           : undefined
                       }
                     />
                     <Field
-                      name={`phoneNumbers[${i}].number`}
-                      id={`phoneNumbers[${i}].number`}
+                      name={`keyContacts[${i}].email`}
+                      id={`keyContacts[${i}].email`}
                       max="15"
                       className="govuk-input lbh-input"
-                      placeholder={i === 0 ? 'eg. 0777 777 7777' : ''}
+                      placeholder={i === 0 ? 'eg. example@email.com' : ''}
                     />
                   </div>
 
                   <button
                     onClick={() => remove(i)}
-                    title="Remove this number"
+                    title="Remove this contact"
                     className="lbh-link"
                     type="button"
                   >
@@ -157,19 +150,17 @@ const InnerForm = ({
             <div className={s.secondaryActions}>
               <button
                 type="button"
-                disabled={values.phoneNumbers.length > 3}
+                disabled={values.keyContacts.length > 3}
                 onClick={() =>
                   push({
-                    type: '',
-                    number: '',
+                    name: '',
+                    email: '',
                   })
                 }
                 className="lbh-link"
               >
                 + Add{' '}
-                {values.phoneNumbers.length === 0
-                  ? 'first phone number'
-                  : 'another'}
+                {values.keyContacts.length === 0 ? 'first contact' : 'another'}
               </button>
             </div>
           </>
@@ -207,4 +198,4 @@ const InnerForm = ({
   );
 };
 
-export default CustomPhoneNumberEditor;
+export default CustomKeyContactsEditor;

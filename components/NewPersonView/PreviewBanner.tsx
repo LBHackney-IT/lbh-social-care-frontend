@@ -1,15 +1,19 @@
 import { useFeatureFlags } from 'lib/feature-flags/feature-flags';
 import Link from 'next/link';
 import React from 'react';
+import { Resident } from 'types';
 
 const PreviewBanner = ({
-  socialCareId,
+  resident,
 }: {
-  socialCareId: number;
+  resident: Resident;
 }): React.ReactElement | null => {
   const { isFeatureActive } = useFeatureFlags();
 
-  if (isFeatureActive('preview-new-resident-view'))
+  if (
+    isFeatureActive('preview-new-resident-view') &&
+    resident.contextFlag !== 'C'
+  )
     return (
       <section
         role="alert"
@@ -24,7 +28,10 @@ const PreviewBanner = ({
             chronology of their workflows and browse case notes faster.
           </p>
           <p className="lbh-body-s govuk-!-margin-top-2">
-            <Link href={`/residents/${socialCareId}`}>Try it now</Link>
+            <Link href={`/residents/${resident.id}`}>Try it now</Link>
+            <Link href={process.env.NEXT_PUBLIC_FEEDBACK_LINK as string}>
+              <a className="govuk-!-margin-left-3">Give feedback</a>
+            </Link>
           </p>
         </div>
       </section>

@@ -14,9 +14,9 @@ describe('generating a nonce value', () => {
 describe('generating the desired CSP from a nonce', () => {
   test('generates the expected CSP header', () => {
     expect(generateCSP(generateNonce())).toBe(
-      "connect-src 'self' www.google-analytics.com vc.hotjar.io in.hotjar.com o183917.ingest.sentry.io; " +
+      `connect-src 'self' www.google-analytics.com vc.hotjar.io in.hotjar.com o183917.ingest.sentry.io ${process.env.NEXT_PUBLIC_CORE_PATHWAY_APP_URL}; ` +
         "default-src 'self'; " +
-        "style-src 'self' 'nonce-4fzzzxjylrx4fzzzxjylrx4fzzzxjylrx4fzzzxjylrx4fzzzxjylrx' 'sha256-2m+uPiNtvboYJ7hcptV7yA5rSTXALge6nT+HAcqYCXA=' 'unsafe-hashes'; " +
+        "style-src 'self' 'nonce-4fzzzxjylrx4fzzzxjylrx4fzzzxjylrx4fzzzxjylrx4fzzzxjylrx' fonts.googleapis.com 'sha256-2m+uPiNtvboYJ7hcptV7yA5rSTXALge6nT+HAcqYCXA=' 'unsafe-hashes'; " +
         "style-src-elem 'self' 'nonce-4fzzzxjylrx4fzzzxjylrx4fzzzxjylrx4fzzzxjylrx4fzzzxjylrx' fonts.googleapis.com 'sha256-SvLgADqEePEV9RNxBrRQXSBJafFHcVNG7cPzHz6h9eA=' 'sha256-TGjSkcFoVCRdq4Hp3hcETnPc9cikdBGvkz/08Bjzy0I='; " +
         "script-src 'self' 'nonce-4fzzzxjylrx4fzzzxjylrx4fzzzxjylrx4fzzzxjylrx4fzzzxjylrx'; " +
         "script-src-elem 'self' 'nonce-4fzzzxjylrx4fzzzxjylrx4fzzzxjylrx4fzzzxjylrx4fzzzxjylrx' www.googletagmanager.com script.hotjar.com static.hotjar.com; " +

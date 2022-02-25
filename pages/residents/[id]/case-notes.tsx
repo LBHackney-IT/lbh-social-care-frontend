@@ -17,6 +17,7 @@ const RelationshipsPage = ({ resident }: Props): React.ReactElement => {
   const { data, setSize, size, error } = useCases({
     mosaic_id: resident.id,
     exclude_audit_trail_events: true,
+    pinned_first: true,
   });
 
   let cases: Case[] = [];
@@ -25,7 +26,7 @@ const RelationshipsPage = ({ resident }: Props): React.ReactElement => {
   });
 
   const totalCount = data?.[0]?.totalCount || 0;
-  const casesToShow = cases.length > 0;
+  const casesToShow = cases?.length > 0;
 
   return (
     <Layout resident={resident} title="Case notes">

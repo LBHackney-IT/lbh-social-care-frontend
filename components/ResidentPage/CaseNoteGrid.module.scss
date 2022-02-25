@@ -19,6 +19,12 @@
   justify-content: center;
   align-items: center;
   flex-direction: column;
+
+  button {
+    @include lbh-body-s;
+    margin-top: 1rem;
+    color: lbh-colour('lbh-link');
+  }
 }
 
 .tile {
@@ -34,7 +40,7 @@
 
   @include govuk-media-query($from: tablet) {
     padding: 0.75rem;
-    min-height: 200px;
+    min-height: 150px;
   }
 
   &:focus-within {
@@ -87,6 +93,7 @@
   word-wrap: anywhere;
   color: lbh-colour('lbh-grey-1');
   margin-bottom: auto;
+  pointer-events: none; // can be clicked through
 
   &:after {
     position: absolute;
@@ -103,6 +110,18 @@
   }
 }
 
+.pinned {
+  background: transparentize(lbh-colour('lbh-primary-focus'), 0.9);
+  border-color: lbh-colour('lbh-primary-focus');
+
+  div {
+    background-image: linear-gradient(
+      transparentize(lbh-colour('lbh-primary-focus'), 1),
+      transparentize(lbh-colour('lbh-primary-focus'), 0.9)
+    );
+  }
+}
+
 .tileSkeleton {
   position: relative;
   box-sizing: border-box;
@@ -111,7 +130,7 @@
   background: lbh-colour('lbh-grey-4');
   display: flex;
   flex-direction: column;
-  min-height: 200px;
+  min-height: 150px;
 
   &:after {
     content: '';

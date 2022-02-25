@@ -5,11 +5,13 @@ const policy: CSPPolicy = {
     'vc.hotjar.io',
     'in.hotjar.com',
     'o183917.ingest.sentry.io',
+    process.env.NEXT_PUBLIC_CORE_PATHWAY_APP_URL as string,
   ],
   'default-src': ["'self'"],
   'style-src': [
     "'self'",
     '{nonce}',
+    'fonts.googleapis.com',
     "'sha256-2m+uPiNtvboYJ7hcptV7yA5rSTXALge6nT+HAcqYCXA='", // Inline styles from GTM
     "'unsafe-hashes'",
   ],

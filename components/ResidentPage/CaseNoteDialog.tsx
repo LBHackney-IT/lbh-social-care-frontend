@@ -9,7 +9,7 @@ import { Case } from 'types';
 import { useWorker } from 'utils/api/workers';
 import SummaryList, { SummaryListSkeleton } from './SummaryList';
 import s from './CaseNoteDialog.module.scss';
-import { useCase } from 'utils/api/cases';
+import { useCase, useCases } from 'utils/api/cases';
 import { useSubmission } from 'utils/api/submissions';
 import FlexibleAnswers from 'components/FlexibleAnswers/FlexibleAnswers';
 import Link from 'next/link';
@@ -88,6 +88,12 @@ const CaseNoteDialog = ({
 }: Props): React.ReactElement | null => {
   const { query, replace } = useRouter();
 
+  const { mutate } = useCases({
+    mosaic_id: socialCareId,
+    exclude_audit_trail_events: true,
+    pinned_first: true,
+  });
+
   const generateCaseLink = (c: Case): string => {
     if (c.formType === 'flexible-form')
       return `/people/${c.personId}/submissions/${c.recordId}`;
@@ -98,11 +104,6 @@ const CaseNoteDialog = ({
   };
 
   const [deleting, setDeleting] = useState<boolean>(false);
-
-  const handleClose = () =>
-    replace(window.location.pathname, undefined, {
-      scroll: false,
-    });
 
   const selectedId = query['case_note'];
   const i = caseNotes.findIndex((c) => c.recordId === selectedId);
@@ -129,6 +130,24 @@ const CaseNoteDialog = ({
       });
   };
 
+  const handleClose = () =>
+    replace(window.location.pathname, undefined, {
+      scroll: false,
+    });
+
+  const pinOrUnpin = async () => {
+    await fetch(`/api/submissions/${note.recordId}`, {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      method: 'PATCH',
+      body: JSON.stringify({
+        pinnedAt: note.pinnedAt ? '' : new Date().toISOString(),
+      }),
+    });
+    mutate();
+  };
+
   if (note) {
     const link = generateCaseLink(note);
 
@@ -140,24 +159,27 @@ const CaseNoteDialog = ({
         onKeyUp={handleKeyboardNav}
       >
         <p className="lbh-body-s">
+          {note.pinnedAt && `Pinned · `}
           Added {prettyCaseDate(note)} by{' '}
           {worker ? prettyWorkerName(worker) : note.officerEmail}
         </p>
 
         <p className={`lbh-body-xs ${s.actions}`}>
-          <button className="lbh-link">Pin to top</button>
           {link && (
             <>
-              {' '}
-              ·{' '}
               <Link href={link}>
                 <a className="lbh-link">Printable version</a>
               </Link>
             </>
           )}
+
           {note.formType === 'flexible-form' && (
             <>
               {' '}
+              ·{' '}
+              <button className="lbh-link" onClick={pinOrUnpin}>
+                {note.pinnedAt ? 'Unpin from top' : 'Pin to top'}
+              </button>{' '}
               ·{' '}
               <button
                 className={`lbh-link ${s.deleteButton}`}

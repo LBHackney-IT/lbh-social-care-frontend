@@ -122,7 +122,7 @@ CustomApp.getInitialProps = async (
   // and will be made public in the browser. Do not share any sensitive or
   // secret values through this.
   const appConfig = {
-    workflowsPilotUrl: process.env.WORKFLOWS_PILOT_URL,
+    workflowsPilotUrl: process.env.NEXT_PUBLIC_CORE_PATHWAY_APP_URL,
   };
 
   return {

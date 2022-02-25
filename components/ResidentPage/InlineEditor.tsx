@@ -1,15 +1,16 @@
 import { Field, Form, Formik } from 'formik';
+import useClickOutside from 'hooks/useClickOutside';
 import useWarnUnsavedChanges from 'hooks/useWarnUnsavedChanges';
 import { residentSchema } from 'lib/validators';
-import { useEffect, useRef, KeyboardEvent } from 'react';
+import { useRef, KeyboardEvent } from 'react';
 import { Resident } from 'types';
 import { useResident } from 'utils/api/residents';
-import { DataRow } from './DataBlock';
+import { DataRow, SupportedData } from './DataBlock';
 import s from './InlineEditor.module.scss';
 
 export interface InlineEditorOption {
   label: string;
-  value: string | number;
+  value?: string | number;
 }
 
 export interface InlineEditorProps extends DataRow {
@@ -30,6 +31,7 @@ const InlineEditor = ({
   type,
   beforeEdit,
   beforeSave,
+  multiple,
 }: InlineEditorProps): React.ReactElement => {
   const ref = useRef<HTMLFormElement>(null);
 
@@ -38,6 +40,7 @@ const InlineEditor = ({
   const { mutate } = useResident(resident.id);
 
   useWarnUnsavedChanges(true);
+  useClickOutside(ref, onClose);
 
   const handleSubmit = async (data: FormValues) => {
     const res = await fetch(`/api/residents/${resident.id}`, {
@@ -58,29 +61,28 @@ const InlineEditor = ({
 
   const handleKeyup = (e: KeyboardEvent) => {
     if (e.key === 'Escape') onClose();
+    // if (e.key === 'Enter') handleSubmit();
   };
 
-  useEffect(() => {
-    const handleClickOutside = (e: MouseEvent) => {
-      if (ref.current && e.target && !ref.current.contains(e.target as Node))
-        onClose();
-    };
+  let defaultValue: SupportedData = '';
 
-    if (ref.current) {
-      // move focus to input or select as soon as it appears
-      ref.current.querySelector('input')?.focus();
-      ref.current.querySelector('select')?.focus();
-      // handle outside clicks
-      document.addEventListener('click', handleClickOutside, true);
+  if (options) {
+    if (multiple) {
+      defaultValue = [];
+    } else {
+      defaultValue = options[0].value || options[0].label;
     }
+  }
 
-    return () =>
-      document.removeEventListener('click', handleClickOutside, true);
-  }, [onClose]);
+  const existingValue = resident[name as keyof Resident] as SupportedData;
 
-  const defaultValue = beforeEdit
-    ? beforeEdit(resident[name as keyof Resident])
-    : resident[name as keyof Resident];
+  if (existingValue || typeof existingValue === 'boolean') {
+    if (beforeEdit) {
+      defaultValue = beforeEdit(existingValue);
+    } else {
+      defaultValue = existingValue;
+    }
+  }
 
   return (
     <Formik
@@ -93,29 +95,64 @@ const InlineEditor = ({
       validationSchema={schema}
     >
       {({ errors }) => (
-        <Form className={s.form} onKeyUp={handleKeyup} ref={ref}>
-          <label className="govuk-visually-hidden" htmlFor={name}>
-            Editing {name}
-          </label>
-
-          {options ? (
-            <Field as="select" id={name} name={name}>
-              {options.map((opt) => (
-                <option key={opt.value} value={opt.value}>
-                  {opt.label}
-                </option>
+        <Form
+          className={multiple ? s.multipleForm : s.form}
+          onKeyUp={handleKeyup}
+          ref={ref}
+        >
+          {multiple ? (
+            <fieldset className="govuk-fieldset govuk-checkboxes govuk-checkboxes--small lbh-checkboxes">
+              <legend className="govuk-visually-hidden"> Editing {name}</legend>
+              {options?.map((opt) => (
+                <div
+                  key={opt.value || opt.label}
+                  className="govuk-checkboxes__item"
+                >
+                  <Field
+                    type="checkbox"
+                    className="govuk-checkboxes__input"
+                    id={`${name}-${opt.value || opt.label}`}
+                    name={name}
+                    value={opt.value || opt.label}
+                  />
+                  <label
+                    className="govuk-checkboxes__label"
+                    htmlFor={`${name}-${opt.value || opt.label}`}
+                  >
+                    {opt.label}
+                  </label>
+                </div>
               ))}
-            </Field>
+            </fieldset>
           ) : (
-            <Field id={name} name={name} type={type} />
-          )}
+            <>
+              <label className="govuk-visually-hidden" htmlFor={name}>
+                Editing {name}
+              </label>
 
+              {options ? (
+                <Field as="select" id={name} name={name}>
+                  {options.map((opt) => (
+                    <option
+                      key={opt.value || opt.label}
+                      value={
+                        typeof opt.value === 'string' ? opt.value : opt.label
+                      }
+                    >
+                      {opt.label}
+                    </option>
+                  ))}
+                </Field>
+              ) : (
+                <Field id={name} name={name} type={type} />
+              )}
+            </>
+          )}
           {errors[name] && (
             <p className={s.error} role="alert">
               {errors[name]?.toString()}
             </p>
           )}
-
           <div>
             <button type="button" onClick={onClose} title="Cancel">
               <span className="govuk-visually-hidden">Cancel</span>
