@@ -3,6 +3,13 @@ import { validatePrTitle } from './validate-pr-title';
 
 jest.mock('cross-fetch');
 
+const currentLog = console.log;
+console.log = jest.fn();
+
+afterAll(() => {
+  console.log = currentLog;
+});
+
 const defaultConfig = {
   gitHubToken: 'github-token',
   pullRequestUrl: 'pull-request',

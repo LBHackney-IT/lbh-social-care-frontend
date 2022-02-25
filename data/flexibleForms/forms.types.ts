@@ -24,7 +24,7 @@ export interface Field {
     | 'file';
   hint?: string;
   error?: string;
-  conditions?: Condition[];
+  conditions?: Condition[] | { OR?: Condition[] };
   className?: string;
   /** on conditional fields, required value is only respected when all conditions are met */
   required?: boolean;
@@ -49,6 +49,10 @@ export interface Field {
   /**for date inputs that are not allowed to be set in the past before the specified date */
   startDate?: string;
 }
+
+export const isConditionList = (input: unknown): input is Condition[] =>
+  Array.isArray(input) &&
+  input.every((c) => c?.id !== undefined && c?.value !== undefined);
 
 interface Condition {
   id: string;
@@ -115,7 +119,6 @@ export type InProgressSubmission = Omit<
   | 'workers'
   | 'submittedBy'
   | 'createdBy'
-  | 'submittedBy'
   | 'submittedAt'
   | 'residents'
   | 'approvedBy'

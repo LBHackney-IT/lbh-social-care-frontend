@@ -57,12 +57,22 @@ const form: Form = {
           question: 'Start Date',
           type: 'date',
           required: true,
-          conditions: [
-            {
-              id: 'type',
-              value: 'CIN',
-            },
-          ],
+          conditions: {
+            OR: [
+              {
+                id: 'type',
+                value: 'CIN',
+              },
+              {
+                id: 'type',
+                value: 'CP',
+              },
+              {
+                id: 'type',
+                value: 'LAC',
+              },
+            ],
+          },
           className: 'govuk-input--width-10',
           default: format(new Date(), 'yyyy-MM-dd'),
           isfutureDateValid: false,
@@ -80,21 +90,6 @@ const form: Form = {
           required: false,
         },
         {
-          id: 'startDate',
-          question: 'Start Date',
-          type: 'date',
-          required: true,
-          conditions: [
-            {
-              id: 'type',
-              value: 'CP',
-            },
-          ],
-          className: 'govuk-input--width-10',
-          default: format(new Date(), 'yyyy-MM-dd'),
-          isfutureDateValid: false,
-        },
-        {
           id: 'category',
           question: 'Category of child protection plan',
           type: 'radios',
@@ -106,21 +101,6 @@ const form: Form = {
           ],
           choices: child_protection_category_options,
           required: true,
-        },
-        {
-          id: 'startDate',
-          question: 'Start Date',
-          type: 'date',
-          required: true,
-          conditions: [
-            {
-              id: 'type',
-              value: 'LAC',
-            },
-          ],
-          className: 'govuk-input--width-10',
-          default: format(new Date(), 'yyyy-MM-dd'),
-          isfutureDateValid: false,
         },
         {
           id: 'legalStatus',

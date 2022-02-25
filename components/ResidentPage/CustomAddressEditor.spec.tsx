@@ -118,7 +118,6 @@ describe('CustomAddressEditor', () => {
     });
     await waitFor(() => fireEvent.click(screen.getByText('Save')));
 
-    screen.debug();
     expect(global.fetch).toBeCalledWith('/api/residents/1', {
       method: 'PATCH',
       headers: { 'Content-Type': 'application/json' },
