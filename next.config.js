@@ -3,7 +3,6 @@ const { withSentryConfig } = require('@sentry/nextjs');
 module.exports = withSentryConfig(
   {
     distDir: 'build/_next',
-    target: 'server',
     poweredByHeader: false,
 
     async redirects() {
