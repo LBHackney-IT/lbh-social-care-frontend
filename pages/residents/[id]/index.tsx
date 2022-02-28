@@ -482,7 +482,7 @@ const ResidentPage = ({ resident }: Props): React.ReactElement => {
                 resident={resident}
                 totalCount={totalCount}
               />
-              <Link href="/">
+              <Link href={`/residents/${resident.id}/case-notes`}>
                 <a className="lbh-link lbh-link--muted lbh-body-xs govuk-!-margin-top-2">
                   See all {totalCount} case notes
                 </a>
