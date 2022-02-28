@@ -55,10 +55,6 @@ const Layout = ({ title, resident, children }: Props): React.ReactElement => {
       text: 'Add case note',
       href: `/people/${resident.id}/case-note`,
     },
-    {
-      text: 'Add a case status',
-      href: `/people/${resident.id}/case-status/add`,
-    },
   ];
 
   return (
