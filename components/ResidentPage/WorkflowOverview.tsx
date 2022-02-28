@@ -47,7 +47,7 @@ const WorkflowOverview = ({
 
       <footer className={`lbh-body-s ${s.footer}`}>
         <Link href={`/residents/${socialCareId}/workflows`}>
-          <a>See all{workflows && ` ${workflows.length} workflows`}</a>
+          <a>See chain of all{workflows && ` ${workflows.length} workflows`}</a>
         </Link>
         <a
           href={`${process.env.NEXT_PUBLIC_CORE_PATHWAY_APP_URL}?quick_filter=all&social_care_id=${socialCareId}`}
