@@ -476,11 +476,18 @@ const ResidentPage = ({ resident }: Props): React.ReactElement => {
       >
         <>
           {cases && (
-            <CaseNoteGrid
-              cases={cases}
-              resident={resident}
-              totalCount={totalCount}
-            />
+            <>
+              <CaseNoteGrid
+                cases={cases}
+                resident={resident}
+                totalCount={totalCount}
+              />
+              <Link href="/">
+                <a className="lbh-link lbh-link--muted lbh-body-xs govuk-!-margin-top-2">
+                  See all {totalCount} case notes
+                </a>
+              </Link>
+            </>
           )}
         </>
       </Collapsible>
