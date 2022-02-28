@@ -35,7 +35,7 @@ export const getFeatureFlags = ({
       isActive:
         environmentName === 'development' || user?.hasAdminPermissions || false,
     },
-    // FEATURE-FLAG-EXPIRES [2022-02-25]: case-status
+    // FEATURE-FLAG-EXPIRES [2022-06-31]: preview-new-resident-view
     'preview-new-resident-view': {
       isActive: environmentName === 'production',
     },
