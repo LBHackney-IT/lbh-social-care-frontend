@@ -157,6 +157,7 @@ const CaseNoteDialog = ({
         isOpen={!!query['case_note']}
         onDismiss={handleClose}
         onKeyUp={handleKeyboardNav}
+        className={s.dialog}
       >
         <p className="lbh-body-s">
           {note.pinnedAt && `Pinned · `}

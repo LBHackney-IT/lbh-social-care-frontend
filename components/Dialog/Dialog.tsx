@@ -1,5 +1,6 @@
 import React, { KeyboardEventHandler } from 'react';
 import { Dialog as ReachDialog } from '@reach/dialog';
+import classNames from 'classnames';
 
 interface Props {
   isOpen: boolean;
@@ -8,6 +9,7 @@ interface Props {
   title: string;
   showCloseButton?: boolean;
   onKeyUp?: KeyboardEventHandler<HTMLDivElement>;
+  className?: string;
 }
 
 const Dialog = ({
@@ -17,13 +19,14 @@ const Dialog = ({
   title,
   showCloseButton = true,
   onKeyUp,
+  className,
   ...props
 }: Props): React.ReactElement => (
   <ReachDialog
     isOpen={isOpen}
     onDismiss={onDismiss}
     aria-label={title}
-    className="lbh-dialog lbh-dialog--light"
+    className={classNames('lbh-dialog lbh-dialog--light', className)}
     onKeyUp={onKeyUp}
     {...props}
   >
