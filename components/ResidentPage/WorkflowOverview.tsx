@@ -45,8 +45,6 @@ const WorkflowOverview = ({
         )}
       </div>
 
-      {/* <h3 className="lbh-heading-h5">Review soon</h3> */}
-
       <footer className={`lbh-body-s ${s.footer}`}>
         <Link href={`/residents/${socialCareId}/workflows`}>
           <a>See all{workflows && ` ${workflows.length} workflows`}</a>
