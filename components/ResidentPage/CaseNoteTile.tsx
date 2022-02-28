@@ -22,6 +22,8 @@ interface TileProps {
 }
 
 const CaseNoteTile = ({ c }: TileProps): React.ReactElement => {
+  const isWorkflow = c?.caseFormData?.workflowId;
+
   const { data } = useWorker({
     email: c.officerEmail || '',
   });
@@ -29,9 +31,13 @@ const CaseNoteTile = ({ c }: TileProps): React.ReactElement => {
   const worker = data?.[0];
 
   return (
-    <li key={c.recordId} className={cx(s.tile, c.pinnedAt && s.pinned)}>
+    <li
+      key={c.recordId}
+      className={cx(s.tile, c.pinnedAt && s.pinned, isWorkflow && s.workflow)}
+    >
       <p className="lbh-body-xs">
         {prettyCaseDate(c)}
+        {isWorkflow && ` · Workflow`}
         {c.pinnedAt && ` · Pinned`}
       </p>
       <h2 className="lbh-heading-h4">

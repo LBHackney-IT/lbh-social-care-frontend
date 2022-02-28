@@ -150,6 +150,7 @@ const CaseNoteDialog = ({
 
   if (note) {
     const link = generateCaseLink(note);
+    const isWorkflow = note?.caseFormData?.workflowId;
 
     return (
       <Dialog
@@ -166,12 +167,20 @@ const CaseNoteDialog = ({
         </p>
 
         <p className={`lbh-body-xs ${s.actions}`}>
-          {link && (
-            <>
-              <Link href={link}>
-                <a className="lbh-link">Printable version</a>
-              </Link>
-            </>
+          {isWorkflow ? (
+            <Link
+              href={`${process.env.NEXT_PUBLIC_CORE_PATHWAY_APP_URL}/workflows/${note.caseFormData.workflowId}`}
+            >
+              Go to workflow
+            </Link>
+          ) : (
+            link && (
+              <>
+                <Link href={link}>
+                  <a className="lbh-link">Printable version</a>
+                </Link>
+              </>
+            )
           )}
 
           {note.formType === 'flexible-form' && (
@@ -199,6 +208,8 @@ const CaseNoteDialog = ({
             submissionId={note.recordId}
             socialCareId={socialCareId}
           />
+        ) : isWorkflow ? (
+          <></>
         ) : (
           <CaseContent recordId={note.recordId} socialCareId={socialCareId} />
         )}
