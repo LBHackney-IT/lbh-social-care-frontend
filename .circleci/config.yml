@@ -125,6 +125,9 @@ jobs:
     steps:
       - *attach_workspace
       - run:
+          name: build
+          command: NEXT_PUBLIC_CORE_PATHWAY_APP_URL=$STAGING_CORE_PATHWAY_APP_URL yarn build
+      - run:
           name: deploy
           command: SENTRY_RELEASE=$CIRCLE_SHA1 yarn --frozen-lockfile --production=true && sudo npm i -g serverless && sls deploy --stage staging
 
@@ -132,6 +135,9 @@ jobs:
     executor: aws-cli/default
     steps:
       - *attach_workspace
+      - run:
+          name: build
+          command: NEXT_PUBLIC_CORE_PATHWAY_APP_URL=$PRODUCTION_CORE_PATHWAY_APP_URL yarn build
       - run:
           name: deploy
           command: SENTRY_RELEASE=$CIRCLE_SHA1 yarn --frozen-lockfile --production=true && sudo npm i -g serverless && sls deploy -s mosaic-prod
