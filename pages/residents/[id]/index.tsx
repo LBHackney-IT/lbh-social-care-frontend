@@ -28,6 +28,7 @@ import CustomKeyContactsEditor from 'components/ResidentPage/CustomKeyContactsEd
 import CustomGPDetailsEditor from 'components/ResidentPage/CustomGPDetailsEditor';
 import { useTeams } from 'utils/api/allocatedWorkers';
 import { differenceInYears } from 'date-fns';
+import primarySupportReasons from 'data/primarySupportReasons';
 
 interface Props {
   resident: Resident;
@@ -317,6 +318,9 @@ const ResidentPage = ({ resident }: Props): React.ReactElement => {
           {
             name: 'primarySupportReason',
             label: 'Primary support reason',
+            options: Object.entries(primarySupportReasons).map(
+              ([short, long]) => ({ label: long, value: short })
+            ),
           },
           // {
           //   name: 'openCase',
