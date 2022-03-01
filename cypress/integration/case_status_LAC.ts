@@ -62,7 +62,15 @@ const newResident = {
   createdBy: 'e2e.tests.adult@hackney.gov.uk',
 };
 
-describe('Using LAC case status', () => {
+describe.only('Check Case Status Feature is disabled', () => {
+  it('should not be possible to view a Case Status on a child', () => {
+    cy.visitAs(`/people/${residentId}/details`, AuthRoles.ChildrensGroup);
+    cy.url().should('include', '/details');
+    cy.contains('Looked after child').should('not.exist');
+  });
+});
+
+xdescribe('Using LAC case status', () => {
   beforeEach(() => {
     // This is required as the email address stored in the cookie is not an
     // existing worker.

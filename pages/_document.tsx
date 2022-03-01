@@ -72,6 +72,11 @@ export default class AppDocument extends Document<{ nonce?: string }> {
               }}
             />
           ) : null}
+          <link
+            rel="stylesheet"
+            nonce={this.props.nonce}
+            href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap"
+          />
         </Head>
         <body className="govuk-template__body lbh-template__body js-enabled">
           <noscript

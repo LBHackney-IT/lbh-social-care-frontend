@@ -59,6 +59,14 @@ const newResident = {
   createdBy: 'e2e.tests.adult@hackney.gov.uk',
 };
 
+describe.only('Check Case Status Feature is disabled', () => {
+  it('should not be possible to view a Case Status on a child', () => {
+    cy.visitAs(`/people/${residentId}/details`, AuthRoles.ChildrensGroup);
+    cy.url().should('include', '/details');
+    cy.contains('Child protection').should('not.exist');
+  });
+});
+
 xdescribe('Using CP case status', () => {
   beforeEach(() => {
     // This is required as the email address stored in the cookie is not an
