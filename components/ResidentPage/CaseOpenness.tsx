@@ -9,7 +9,7 @@ const CaseOpennessTag = ({
   resident,
   allocations,
 }: Props): React.ReactElement => {
-  if (allocations?.allocations?.length > 0)
+  if (allocations?.allocations && allocations?.allocations?.length > 0)
     return (
       <li className="govuk-tag lbh-tag lbh-tag--blue">Open active case</li>
     );
