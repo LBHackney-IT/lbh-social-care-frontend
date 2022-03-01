@@ -41,7 +41,7 @@
 
   @include govuk-media-query($from: tablet) {
     padding: 0.75rem;
-    min-height: 150px;
+    min-height: 200px;
   }
 
   &:focus-within {
@@ -50,7 +50,11 @@
     box-shadow: 0px 4px 0px lbh-colour('lbh-text');
 
     div {
-      visibility: hidden;
+      color: lbh-colour('lbh-text');
+
+      &:after {
+        visibility: hidden;
+      }
     }
 
     p {
@@ -81,19 +85,24 @@
 
   h2 {
     margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+  }
+
+  p:last-child {
+    margin-top: auto;
   }
 }
 
 .preview {
   position: relative;
-  margin-top: 0.5rem;
   max-height: 70px;
   overflow: hidden;
   @include lbh-body-xs;
-  //   flex: 1;
+  flex: 1;
   word-wrap: anywhere;
   color: lbh-colour('lbh-grey-1');
-  margin-bottom: auto;
+  margin-top: 0;
+  margin-bottom: 0.5rem;
   pointer-events: none; // can be clicked through
 
   &:after {
@@ -104,7 +113,7 @@
     height: 50%;
     display: block;
     content: '';
-    background-image: linear-gradient(
+    background: linear-gradient(
       transparentize(lbh-colour('lbh-grey-4'), 1),
       lbh-colour('lbh-grey-4')
     );
@@ -112,13 +121,13 @@
 }
 
 .pinned {
-  background: transparentize(lbh-colour('lbh-primary-focus'), 0.9);
+  background: lighten(lbh-colour('lbh-primary-focus'), 30);
   border-color: lbh-colour('lbh-primary-focus');
 
-  div {
-    background-image: linear-gradient(
-      transparentize(lbh-colour('lbh-primary-focus'), 1),
-      transparentize(lbh-colour('lbh-primary-focus'), 0.9)
+  div:after {
+    background: linear-gradient(
+      transparentize(lighten(lbh-colour('lbh-primary-focus'), 30), 1),
+      lighten(lbh-colour('lbh-primary-focus'), 30)
     );
   }
 }

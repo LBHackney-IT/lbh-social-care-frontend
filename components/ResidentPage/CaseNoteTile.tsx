@@ -10,6 +10,7 @@ import { truncate } from 'lib/utils';
 import React from 'react';
 import { useWorker } from 'utils/api/workers';
 import cx from 'classnames';
+import { useSubmission } from 'utils/api/submissions';
 
 const prettyLink = (c: Case): string => {
   if (c?.caseFormData?.workflowId)
@@ -20,6 +21,25 @@ const prettyLink = (c: Case): string => {
 interface TileProps {
   c: Case;
 }
+
+interface SubmissionPreviewProps {
+  submissionId: string;
+}
+
+const SubmissionPreview = ({ submissionId }: SubmissionPreviewProps) => {
+  const { data } = useSubmission(submissionId);
+
+  const text = data?.formAnswers?.['singleStep']?.['Body'];
+
+  if (text)
+    return (
+      <div aria-hidden="true" className={s.preview}>
+        {truncate(text as string, 20)}
+      </div>
+    );
+
+  return null;
+};
 
 const CaseNoteTile = ({ c }: TileProps): React.ReactElement => {
   const isWorkflow = c?.caseFormData?.workflowId;
@@ -48,10 +68,9 @@ const CaseNoteTile = ({ c }: TileProps): React.ReactElement => {
         </Link>
       </h2>
 
-      <div aria-hidden="true" className={s.preview}>
-        {c?.caseFormData?.case_note_description &&
-          truncate(c?.caseFormData?.case_note_description || '', 20)}
-      </div>
+      {c.formType === 'flexible-form' && (
+        <SubmissionPreview submissionId={c.recordId} />
+      )}
 
       {c.officerEmail && (
         <p className="lbh-body-xs">
