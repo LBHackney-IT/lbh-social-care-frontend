@@ -2,7 +2,7 @@ import { AllocationData, Resident } from 'types';
 
 interface Props {
   resident: Resident;
-  allocations: AllocationData;
+  allocations?: AllocationData;
 }
 
 const CaseOpennessTag = ({

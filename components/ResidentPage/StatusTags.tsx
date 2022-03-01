@@ -25,14 +25,14 @@ const StatusTags = ({ resident, allocations }: Props): React.ReactElement => {
 
       <CaseOpennessTag resident={resident} allocations={allocations} />
 
+      {resident?.dateOfDeath && (
+        <li className="govuk-tag lbh-tag lbh-tag--grey">Deceased</li>
+      )}
+
       {resident.primarySupportReason && (
         <li className="govuk-tag lbh-tag lbh-tag--green">
           {resident.primarySupportReason}
         </li>
-      )}
-
-      {resident?.dateOfDeath && (
-        <li className="govuk-tag lbh-tag lbh-tag--grey">Deceased</li>
       )}
 
       {resident?.restricted === 'Y' && (
