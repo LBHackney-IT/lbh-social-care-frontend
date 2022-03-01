@@ -30,10 +30,9 @@ export const getFeatureFlags = ({
       isActive:
         environmentName === 'development' || user?.hasDevPermissions || false,
     },
-    // FEATURE-FLAG-EXPIRES [2022-06-31]: case-status
+    // FEATURE-FLAG-EXPIRES [2031-06-31]: case-status
     'case-status': {
-      isActive:
-        environmentName === 'development' || user?.hasAdminPermissions || false,
+      isActive: false,
     },
     // FEATURE-FLAG-EXPIRES [2022-06-31]: preview-new-resident-view
     'preview-new-resident-view': {
