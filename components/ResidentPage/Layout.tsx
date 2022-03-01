@@ -92,7 +92,7 @@ const Layout = ({ title, resident, children }: Props): React.ReactElement => {
             </p>
           )}
 
-          <StatusTags resident={resident} />
+          <StatusTags resident={resident} allocations={allocations} />
 
           {/* <CaseStatusFlag person={resident} /> */}
         </div>

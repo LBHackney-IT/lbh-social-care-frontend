@@ -1,12 +1,14 @@
-import { Resident } from 'types';
+import { AllocationData, Resident } from 'types';
 import { useCaseStatuses } from 'utils/api/caseStatus';
+import CaseOpennessTag from './CaseOpenness';
 import s from './StatusTags.module.scss';
 
 interface Props {
   resident: Resident;
+  allocations?: AllocationData;
 }
 
-const StatusTags = ({ resident }: Props): React.ReactElement => {
+const StatusTags = ({ resident, allocations }: Props): React.ReactElement => {
   const { data: statuses } = useCaseStatuses(resident.id);
 
   return (
@@ -21,9 +23,7 @@ const StatusTags = ({ resident }: Props): React.ReactElement => {
         </li>
       )}
 
-      {/* {resident.openCase && (
-        <li className="govuk-tag lbh-tag lbh-tag--blue">Open case</li>
-      )} */}
+      <CaseOpennessTag resident={resident} allocations={allocations} />
 
       {resident.primarySupportReason && (
         <li className="govuk-tag lbh-tag lbh-tag--green">
