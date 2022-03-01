@@ -73,6 +73,7 @@ export default class AppDocument extends Document<{ nonce?: string }> {
             />
           ) : null}
           <link
+            nonce={this.props.nonce}
             rel="stylesheet"
             href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap"
           />
