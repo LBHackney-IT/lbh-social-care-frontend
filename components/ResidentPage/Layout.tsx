@@ -46,18 +46,15 @@ const Layout = ({ title, resident, children }: Props): React.ReactElement => {
   ];
 
   const secondaryNavigation = [
-    {
-      text: 'Shareable version',
-      href: `/people/${resident.id}/warning-notes/add?id=${resident.id}`,
-      tip: "A handy printer-friendly view of this resident's info",
-    },
+    // {
+    //   text: 'Shareable version',
+    //   href: `/people/${resident.id}/warning-notes/add?id=${resident.id}`,
+    //   tip: "A handy printer-friendly view of this resident's info",
+    // },
     {
       text: 'Add case note',
       href: `/people/${resident.id}/case-note`,
-    },
-    {
-      text: 'Add a case status',
-      href: `/people/${resident.id}/case-status/add`,
+      tip: "It's now faster to find and move through case notes",
     },
   ];
 
@@ -96,7 +93,7 @@ const Layout = ({ title, resident, children }: Props): React.ReactElement => {
             </p>
           )}
 
-          <StatusTags resident={resident} />
+          <StatusTags resident={resident} allocations={allocations} />
 
           {/* <CaseStatusFlag person={resident} /> */}
         </div>
@@ -133,7 +130,7 @@ const Layout = ({ title, resident, children }: Props): React.ReactElement => {
                 <NavLink
                   href={link.href}
                   key={link.href}
-                  tip={link.tip}
+                  tip={link?.tip}
                   secondary
                 >
                   {link.text}

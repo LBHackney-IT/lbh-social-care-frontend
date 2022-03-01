@@ -24,7 +24,7 @@ const CaseNoteGrid = ({
 
   if (user && !canManageCases(user, resident))
     return (
-      <p>
+      <p className="lbh-body-s">
         You don&apos;t have permission to see this resident&apos;s case notes
         and records.
       </p>
