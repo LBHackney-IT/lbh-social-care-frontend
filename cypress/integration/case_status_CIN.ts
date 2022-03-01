@@ -60,7 +60,20 @@ const newResident = {
   createdBy: 'e2e.tests.adult@hackney.gov.uk',
 };
 
-describe('Using CIN case status', () => {
+describe.only('Check Case Status Feature is disabled', () => {
+  it('should not be possible to add a Case Status on a child', () => {
+    cy.visitAs(`/people/${residentId}`, AuthRoles.ChildrensGroup);
+    cy.get('Add a case status').should('not.exist');
+  });
+
+  it('should not be possible to view a Case Status on a child', () => {
+    cy.visitAs(`/people/${residentId}/details`, AuthRoles.ChildrensGroup);
+    cy.url().should('include', '/details');
+    cy.contains('Child in need').should('not.exist');
+  });
+});
+
+xdescribe('Using CIN case status', () => {
   beforeEach(() => {
     // This is required as the email address stored in the cookie is not an
     // existing worker.
