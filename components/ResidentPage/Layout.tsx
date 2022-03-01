@@ -54,6 +54,7 @@ const Layout = ({ title, resident, children }: Props): React.ReactElement => {
     {
       text: 'Add case note',
       href: `/people/${resident.id}/case-note`,
+      tip: "It's now faster to find and move through case notes",
     },
   ];
 
@@ -129,7 +130,7 @@ const Layout = ({ title, resident, children }: Props): React.ReactElement => {
                 <NavLink
                   href={link.href}
                   key={link.href}
-                  tip={link.tip}
+                  tip={link?.tip}
                   secondary
                 >
                   {link.text}
