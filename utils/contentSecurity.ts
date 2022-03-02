@@ -32,7 +32,12 @@ const policy: CSPPolicy = {
   ],
   'font-src': ["'self'", 'fonts.gstatic.com'],
   'frame-src': ['vars.hotjar.com'],
-  'img-src': ["'self'", 'script.hotjar.com', 'www.googletagmanager.com'],
+  'img-src': [
+    "'self'",
+    'script.hotjar.com',
+    'www.googletagmanager.com',
+    'maps.googleapis.com',
+  ],
   'frame-ancestors': ["'self'"],
   'form-action': ["'self'"],
 };

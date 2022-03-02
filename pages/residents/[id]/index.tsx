@@ -28,6 +28,7 @@ import CustomKeyContactsEditor from 'components/ResidentPage/CustomKeyContactsEd
 import CustomGPDetailsEditor from 'components/ResidentPage/CustomGPDetailsEditor';
 import { useTeams } from 'utils/api/allocatedWorkers';
 import { differenceInYears } from 'date-fns';
+import primarySupportReasons from 'data/primarySupportReasons';
 
 interface Props {
   resident: Resident;
@@ -317,6 +318,9 @@ const ResidentPage = ({ resident }: Props): React.ReactElement => {
           {
             name: 'primarySupportReason',
             label: 'Primary support reason',
+            options: Object.entries(primarySupportReasons).map(
+              ([short, long]) => ({ label: long, value: short })
+            ),
           },
           // {
           //   name: 'openCase',
@@ -476,11 +480,18 @@ const ResidentPage = ({ resident }: Props): React.ReactElement => {
       >
         <>
           {cases && (
-            <CaseNoteGrid
-              cases={cases}
-              resident={resident}
-              totalCount={totalCount}
-            />
+            <>
+              <CaseNoteGrid
+                cases={cases}
+                resident={resident}
+                totalCount={totalCount}
+              />
+              <Link href={`/residents/${resident.id}/case-notes`}>
+                <a className="lbh-link lbh-link--muted lbh-body-xs govuk-!-margin-top-2">
+                  See all {totalCount} case notes & records
+                </a>
+              </Link>
+            </>
           )}
         </>
       </Collapsible>

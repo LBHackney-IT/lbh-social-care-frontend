@@ -22,7 +22,7 @@ describe('generating the desired CSP from a nonce', () => {
         "script-src-elem 'self' 'nonce-4fzzzxjylrx4fzzzxjylrx4fzzzxjylrx4fzzzxjylrx4fzzzxjylrx' www.googletagmanager.com script.hotjar.com static.hotjar.com; " +
         "font-src 'self' fonts.gstatic.com; " +
         'frame-src vars.hotjar.com; ' +
-        "img-src 'self' script.hotjar.com www.googletagmanager.com; " +
+        "img-src 'self' script.hotjar.com www.googletagmanager.com maps.googleapis.com; " +
         "frame-ancestors 'self'; " +
         "form-action 'self';"
     );
