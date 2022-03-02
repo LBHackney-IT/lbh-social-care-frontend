@@ -135,8 +135,8 @@ describe('UnfinishedSubmissions', () => {
           data: {
             items: [
               mockInProgressSubmissionFactory.build({
-                completedSteps: 2,
-                formId: 'face-overview-assessment',
+                completedSteps: 1,
+                formId: 'adult-case-note',
               }),
             ] as InProgressSubmission[],
             count: 3,
@@ -148,7 +148,7 @@ describe('UnfinishedSubmissions', () => {
 
     render(<UnfinishedSubmissions personId={1} />);
 
-    expect(screen.getByText('7% complete ·', { exact: false }));
+    expect(screen.getByText('100% complete ·', { exact: false }));
   });
 
   it('handles when we can not find the associated form for a submission', () => {
