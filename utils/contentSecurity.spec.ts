@@ -18,7 +18,7 @@ describe('generating the desired CSP from a nonce', () => {
         "default-src 'self'; " +
         "style-src 'self' 'nonce-4fzzzxjylrx4fzzzxjylrx4fzzzxjylrx4fzzzxjylrx4fzzzxjylrx' fonts.googleapis.com 'sha256-2m+uPiNtvboYJ7hcptV7yA5rSTXALge6nT+HAcqYCXA=' 'unsafe-hashes'; " +
         "style-src-elem 'self' 'nonce-4fzzzxjylrx4fzzzxjylrx4fzzzxjylrx4fzzzxjylrx4fzzzxjylrx' fonts.googleapis.com 'sha256-SvLgADqEePEV9RNxBrRQXSBJafFHcVNG7cPzHz6h9eA=' 'sha256-TGjSkcFoVCRdq4Hp3hcETnPc9cikdBGvkz/08Bjzy0I='; " +
-        "script-src 'self' 'nonce-4fzzzxjylrx4fzzzxjylrx4fzzzxjylrx4fzzzxjylrx4fzzzxjylrx'; " +
+        "script-src 'self' 'unsafe-eval' 'nonce-4fzzzxjylrx4fzzzxjylrx4fzzzxjylrx4fzzzxjylrx4fzzzxjylrx'; " +
         "script-src-elem 'self' 'nonce-4fzzzxjylrx4fzzzxjylrx4fzzzxjylrx4fzzzxjylrx4fzzzxjylrx' www.googletagmanager.com script.hotjar.com static.hotjar.com; " +
         "font-src 'self' fonts.gstatic.com; " +
         'frame-src vars.hotjar.com; ' +

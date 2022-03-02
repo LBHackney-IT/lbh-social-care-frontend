@@ -22,7 +22,7 @@ const policy: CSPPolicy = {
     "'sha256-SvLgADqEePEV9RNxBrRQXSBJafFHcVNG7cPzHz6h9eA='", // HotJar inline style hash
     "'sha256-TGjSkcFoVCRdq4Hp3hcETnPc9cikdBGvkz/08Bjzy0I='",
   ],
-  'script-src': ["'self'", '{nonce}'],
+  'script-src': ["'self'", "'unsafe-eval'", '{nonce}'],
   'script-src-elem': [
     "'self'",
     '{nonce}',
