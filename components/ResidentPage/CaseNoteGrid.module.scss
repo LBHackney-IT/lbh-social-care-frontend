@@ -39,6 +39,10 @@
   flex-direction: column;
   height: 100%;
 
+  * {
+    word-wrap: anywhere;
+  }
+
   @include govuk-media-query($from: tablet) {
     padding: 0.75rem;
     min-height: 200px;

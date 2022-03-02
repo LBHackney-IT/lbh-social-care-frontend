@@ -29,6 +29,8 @@ import CustomGPDetailsEditor from 'components/ResidentPage/CustomGPDetailsEditor
 import { useTeams } from 'utils/api/allocatedWorkers';
 import { differenceInYears } from 'date-fns';
 import primarySupportReasons from 'data/primarySupportReasons';
+import { canManageCases } from 'lib/permissions';
+import { useAuth } from 'components/UserContext/UserContext';
 
 interface Props {
   resident: Resident;
@@ -44,6 +46,9 @@ const ResidentPage = ({ resident }: Props): React.ReactElement => {
   const { data: teamData } = useTeams({
     ageContext: resident.contextFlag,
   });
+  const { user } = useAuth();
+
+  const canManage = user && canManageCases(user, resident);
 
   const cases = casesData?.[0].cases.slice(0, 3); // only the first three cases
   const totalCount = casesData?.[0]?.totalCount || 0;
@@ -473,9 +478,11 @@ const ResidentPage = ({ resident }: Props): React.ReactElement => {
       <Collapsible
         title="Case notes & records"
         link={
-          <Link href={`/residents/${resident.id}/case-notes`}>
-            <a className="lbh-link lbh-link--muted">See all</a>
-          </Link>
+          canManage ? (
+            <Link href={`/residents/${resident.id}/case-notes`}>
+              <a className="lbh-link lbh-link--muted">See all</a>
+            </Link>
+          ) : undefined
         }
       >
         <>
@@ -486,11 +493,13 @@ const ResidentPage = ({ resident }: Props): React.ReactElement => {
                 resident={resident}
                 totalCount={totalCount}
               />
-              <Link href={`/residents/${resident.id}/case-notes`}>
-                <a className="lbh-link lbh-link--muted lbh-body-xs govuk-!-margin-top-2">
-                  See all {totalCount} case notes & records
-                </a>
-              </Link>
+              {canManage && (
+                <Link href={`/residents/${resident.id}/case-notes`}>
+                  <a className="lbh-link lbh-link--muted lbh-body-xs govuk-!-margin-top-2">
+                    See all {totalCount} case notes & records
+                  </a>
+                </Link>
+              )}
             </>
           )}
         </>
