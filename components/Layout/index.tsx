@@ -23,7 +23,8 @@ const Layout = ({
 
   if (noLayout) return <>{children}</>;
 
-  const feedbackLink = process.env.NEXT_PUBLIC_FEEDBACK_LINK || '';
+  const feedbackLink =
+    'https://docs.google.com/forms/d/e/1FAIpQLScILbPD1ioKHzp1D3HN4_DKaxV2tpWLMu8upSSqNgSPCo85cg/viewform';
 
   return (
     <>
