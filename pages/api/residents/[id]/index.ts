@@ -45,7 +45,11 @@ const endpoint: NextApiHandler = async (
 
     case 'PATCH':
       try {
-        const data = await updateResident({ id, ...req.body });
+        const data = await updateResident({
+          id,
+          ...req.body,
+          createdBy: req.body.createdBy || user.email,
+        });
         res.status(StatusCodes.OK).json(data);
       } catch (error) {
         console.error(
