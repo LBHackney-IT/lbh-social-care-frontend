@@ -55,7 +55,6 @@ functions:
       AUTHORISED_AUDITABLE_GROUP: ${ssm:/lbh-social-care/${self:provider.stage}/authorised-auditable-group}
       POSTCODE_LOOKUP_URL: ${ssm:/lbh-social-care/${self:provider.stage}/postcode-lookup-url}
       POSTCODE_LOOKUP_APIKEY: ${ssm:/lbh-social-care/${self:provider.stage}/postcode-lookup-apikey}
-      NEXT_PUBLIC_FEEDBACK_LINK: ${ssm:/lbh-social-care/${self:provider.stage}/next-public-feedback-link}
       REDIRECT_URL: ${ssm:/lbh-social-care/${self:provider.stage}/redirect_url}
       NEXT_PUBLIC_GOOGLE_ANALYTICS_ID: ${ssm:/lbh-social-care/${self:provider.stage}/next_public_google_analytics_id}
       NEXT_PUBLIC_SENTRY_DSN: ${ssm:/lbh-social-care/${self:provider.stage}/next-public-sentry-dsn}
