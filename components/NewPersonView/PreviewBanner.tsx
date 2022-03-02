@@ -28,14 +28,16 @@ const PreviewBanner = ({
             chronology of their workflows and browse case notes faster.
           </p>
           <p className="lbh-body-s govuk-!-margin-top-2">
-            <Link href={`/residents/${resident.id}`}>Try it now</Link>
-            <Link
+            <Link href={`/residents/${resident.id}`}>Try it now</Link>{' '}
+            <a
               href={
                 'https://docs.google.com/forms/d/e/1FAIpQLScILbPD1ioKHzp1D3HN4_DKaxV2tpWLMu8upSSqNgSPCo85cg/viewform'
               }
+              target={'_blank'}
+              rel="noreferrer"
             >
-              <a className="govuk-!-margin-left-3">Give feedback</a>
-            </Link>
+              Give feedback
+            </a>
           </p>
         </div>
       </section>
