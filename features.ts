@@ -36,7 +36,7 @@ export const getFeatureFlags = ({
     },
     // FEATURE-FLAG-EXPIRES [2022-06-31]: preview-new-resident-view
     'preview-new-resident-view': {
-      isActive: environmentName !== 'production',
+      isActive: true,
     },
     /*
       The feature-flags-implementation-proof has been setup to have an expiry date in the far future.
