@@ -1,0 +1,89 @@
+@import 'lbh-frontend/lbh/base';
+
+.listItem {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  position: relative;
+  background: lbh-colour('lbh-grey-4');
+  padding: 15px;
+
+  * {
+    margin-top: 0;
+  }
+
+  div {
+    margin-top: 0;
+  }
+
+  &[aria-expanded='true'] button svg {
+    transform: rotate(0deg);
+  }
+
+  //   initials badge
+  div:first-child {
+    background: lbh-colour('lbh-link');
+    color: white;
+    width: 45px;
+    height: 45px;
+    border-radius: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: 600;
+    margin-right: 25px;
+    flex-shrink: 0;
+  }
+
+  p {
+    color: lbh-colour('lbh-secondary-text');
+    margin-top: 0.25rem;
+    margin-right: 45px;
+
+    a {
+      @include govuk-link-style-muted;
+      position: relative;
+      z-index: 2;
+    }
+  }
+
+  button {
+    margin-left: auto;
+    padding: 0;
+    border: 0;
+    background: none;
+    cursor: pointer;
+
+    svg {
+      transform: rotate(-90deg);
+    }
+
+    &:before {
+      content: '';
+      display: block;
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 1;
+    }
+
+    &:focus {
+      background: lbh-colour('lbh-primary-focus');
+    }
+  }
+}
+
+.allocationPanel {
+  margin-top: 0;
+  padding: 15px;
+  border: 2px solid lbh-colour('lbh-grey-4');
+  ul {
+    column-count: 2;
+  }
+
+  li {
+    break-inside: avoid;
+  }
+}
