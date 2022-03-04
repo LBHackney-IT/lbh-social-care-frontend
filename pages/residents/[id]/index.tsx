@@ -486,22 +486,25 @@ const ResidentPage = ({ resident }: Props): React.ReactElement => {
         }
       >
         <>
-          {cases && (
-            <>
-              <CaseNoteGrid
-                cases={cases}
-                resident={resident}
-                totalCount={totalCount}
-              />
-              {canManage && (
-                <Link href={`/residents/${resident.id}/case-notes`}>
-                  <a className="lbh-link lbh-link--muted lbh-body-xs govuk-!-margin-top-2">
-                    See all {totalCount} case notes & records
-                  </a>
-                </Link>
-              )}
-            </>
-          )}
+          {cases &&
+            (cases.length > 0 ? (
+              <>
+                <CaseNoteGrid
+                  cases={cases}
+                  resident={resident}
+                  totalCount={totalCount}
+                />
+                {canManage && (
+                  <Link href={`/residents/${resident.id}/case-notes`}>
+                    <a className="lbh-link lbh-link--muted lbh-body-xs govuk-!-margin-top-2">
+                      See all {totalCount} case notes & records
+                    </a>
+                  </Link>
+                )}
+              </>
+            ) : (
+              <p className="lbh-body-s">This resident has no case notes yet.</p>
+            ))}
         </>
       </Collapsible>
 
