@@ -326,6 +326,10 @@ const ResidentPage = ({ resident }: Props): React.ReactElement => {
             options: Object.entries(primarySupportReasons).map(
               ([short, long]) => ({ label: long, value: short })
             ),
+            beforeDisplay: (value) =>
+              Object.entries(primarySupportReasons).find(
+                ([short]) => value === short
+              )?.[1] || (value as string),
           },
           // {
           //   name: 'openCase',
