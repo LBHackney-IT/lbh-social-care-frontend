@@ -1,4 +1,5 @@
 import TeamLayout from 'components/TeamPage/Layout';
+import TeamMemberList from 'components/TeamPage/TeamMemberList';
 import { GetServerSideProps } from 'next';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
@@ -24,11 +25,7 @@ const AllocationsPage = ({ id }: Props): React.ReactElement => {
 
   return (
     <TeamLayout team={team}>
-      <ul>
-        {users?.map((user) => (
-          <li key={user.id}>{JSON.stringify(user)}</li>
-        ))}
-      </ul>
+      <>{users && <TeamMemberList users={users} />}</>
     </TeamLayout>
   );
 };
