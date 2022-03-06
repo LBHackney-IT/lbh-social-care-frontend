@@ -19,6 +19,8 @@ interface TeamMemberProps {
 const TeamMemberAllocations = ({ user }: TeamMemberProps) => {
   const { data } = useAllocationsByWorker(user.id);
 
+  if (!data) return null;
+
   if (data?.allocations && data?.allocations.length > 0)
     return (
       <div className={s.allocationPanel}>
