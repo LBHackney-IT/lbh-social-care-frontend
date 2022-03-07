@@ -26,7 +26,7 @@ describe(`SearchResidentsForm`, () => {
       fireEvent.submit(getByRole('form'));
     });
     expect(props.onFormSubmit).toHaveBeenCalledWith({
-      full_name: 'foo',
+      name: 'foo',
       mosaic_id: '',
       postcode: '',
       date_of_birth: null,
@@ -35,13 +35,13 @@ describe(`SearchResidentsForm`, () => {
 
   it('should initialise the form with the passed defaultValues', async () => {
     const { getByRole } = render(
-      <SearchResidentsForm {...props} defaultValues={{ full_name: 'bar' }} />
+      <SearchResidentsForm {...props} defaultValues={{ name: 'bar' }} />
     );
     await act(async () => {
       fireEvent.submit(getByRole('form'));
     });
     expect(props.onFormSubmit).toHaveBeenCalledWith({
-      full_name: 'bar',
+      name: 'bar',
       mosaic_id: '',
       postcode: '',
       date_of_birth: null,

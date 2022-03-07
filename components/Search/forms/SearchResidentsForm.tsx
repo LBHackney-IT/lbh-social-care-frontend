@@ -7,9 +7,7 @@ import { TextInput, DateInput } from 'components/Form';
 import Button from 'components/Button/Button';
 
 interface FormValues {
-  first_name?: string;
-  last_name?: string;
-  full_name?: string;
+  name?: string;
   date_of_birth?: string | null;
   postcode?: string;
   mosaic_id?: string;
@@ -44,9 +42,9 @@ const SearchResidentsForm = ({
           <TextInput
             label="Name"
             labelSize="s"
-            name="full_name"
+            name="name"
             hint="This can be either a first or last name or both"
-            error={errors.full_name}
+            error={errors.name}
             register={register}
           />
         </div>
