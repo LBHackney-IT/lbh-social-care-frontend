@@ -58,15 +58,15 @@ describe(`Search`, () => {
         <Search {...props} type="people" />
       </UserContext.Provider>
     );
-    const firstNameInput = getByLabelText('First name');
-    fireEvent.change(firstNameInput, { target: { value: 'foo' } });
+    const fullNameInput = getByLabelText('Name');
+    fireEvent.change(fullNameInput, { target: { value: 'foo' } });
     await act(async () => {
       fireEvent.submit(getByRole('form'));
     });
     expect(mockedUseRouter.replace).toHaveBeenCalled();
     expect(mockedUseRouter.replace).toHaveBeenCalledWith(
-      'foopath?foo=bar&first_name=foo',
-      'foopath?foo=bar&first_name=foo',
+      'foopath?foo=bar&full_name=foo',
+      'foopath?foo=bar&full_name=foo',
       { shallow: true, scroll: false }
     );
     const searchResult = await findByText('PEOPLE SEARCH RESULT');
@@ -99,15 +99,15 @@ describe(`Search`, () => {
         <Search {...props} type="people" />
       </UserContext.Provider>
     );
-    const firstNameInput = getByLabelText('First name');
-    fireEvent.change(firstNameInput, { target: { value: 'foo' } });
+    const fullNameInput = getByLabelText('Name');
+    fireEvent.change(fullNameInput, { target: { value: 'foo' } });
     await act(async () => {
       fireEvent.submit(getByRole('form'));
     });
     expect(mockedUseRouter.replace).toHaveBeenCalled();
     expect(mockedUseRouter.replace).toHaveBeenCalledWith(
-      'foopath?foo=bar&first_name=foo',
-      'foopath?foo=bar&first_name=foo',
+      'foopath?foo=bar&full_name=foo',
+      'foopath?foo=bar&full_name=foo',
       { shallow: true, scroll: false }
     );
     const searchResult = await findByText('PEOPLE SEARCH RESULT');
