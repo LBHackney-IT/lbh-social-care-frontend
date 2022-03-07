@@ -18,7 +18,6 @@ interface Props {
   defaultValues: FormValues;
   ctaText?: string;
 }
-console.log('resident search form');
 
 const SearchResidentsForm = ({
   onFormSubmit,
