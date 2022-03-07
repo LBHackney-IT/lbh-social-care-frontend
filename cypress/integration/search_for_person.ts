@@ -100,7 +100,7 @@ describe('Search for a person', () => {
       cy.contains('Load more').should('not.exist');
     });
 
-    it.only('should show a list that contains children records when a search is completed', () => {
+    it('should show a list that contains children records when a search is completed', () => {
       cy.visitAs('/search', AuthRoles.AdminDevGroup);
 
       cy.contains('Name').type(Cypress.env('CHILDREN_RECORD_FULL_NAME'));
@@ -115,6 +115,59 @@ describe('Search for a person', () => {
       cy.contains(Cypress.env('CHILDREN_RECORD_FULL_NAME')).should(
         'be.visible'
       );
+    });
+
+    describe('test fuzzy name search', () => {
+      it('should return correct person when one letter wrong in first name', () => {
+        cy.visitAs('/search', AuthRoles.AdminDevGroup);
+
+        cy.contains('Name').type('Cristoball');
+        cy.get('[type="submit"]').click();
+
+        cy.get('[data-testid="residents-table"]').contains(
+          Cypress.env('CHILDREN_RECORD_PERSON_ID')
+        );
+
+        cy.get('[data-testid="residents-table"]').contains(
+          Cypress.env('CHILDREN_RECORD_FULL_NAME')
+        );
+
+        cy.contains('Load more').should('not.exist');
+      });
+
+      it('should return correct person when one letter incorrect in first name & one letter incorrect in last name', () => {
+        cy.visitAs('/search', AuthRoles.AdminDevGroup);
+
+        cy.contains('Name').type('Cristubal CawFell');
+        cy.get('[type="submit"]').click();
+
+        cy.get('[data-testid="residents-table"]').contains(
+          Cypress.env('CHILDREN_RECORD_PERSON_ID')
+        );
+
+        cy.get('[data-testid="residents-table"]').contains(
+          Cypress.env('CHILDREN_RECORD_FULL_NAME')
+        );
+
+        cy.contains('Load more').should('not.exist');
+      });
+
+      it.only('should return correct person when we have 2 persons with same name but different date of birth', () => {
+        cy.visitAs('/search', AuthRoles.AdminDevGroup);
+
+        cy.contains('Name').type('Qumendus');
+        cy.get('input[name=date_of_birth-day]').type('01');
+        cy.get('input[name=date_of_birth-month]').type('06');
+        cy.get('input[name=date_of_birth-year]').type('2000');
+        cy.get('[type="submit"]').click();
+
+        cy.get('[data-testid="residents-table"]').contains('Qumendus Quality');
+
+        cy.get('[data-testid="residents-table"]').contains('50000362');
+        cy.get('[data-testid="residents-table"]')
+          .contains('Qumendus Quality')
+          .should('have.length', 1);
+      });
     });
   });
 });
