@@ -610,7 +610,3 @@ export interface Resident {
   ageContext?: AgeContext;
   addresses?: LegacyAddress[];
 }
-
-export interface SearchData {
-  records: LegacyResident[];
-}
