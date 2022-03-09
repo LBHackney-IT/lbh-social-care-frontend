@@ -21,7 +21,7 @@ describe('search APIs', () => {
 
       expect(mockedAxios.get).toHaveBeenCalled();
       expect(mockedAxios.get.mock.calls[0][0]).toEqual(
-        `${ENDPOINT_API}/search?foo=bar`
+        `${ENDPOINT_API}/search/person?foo=bar`
       );
       expect(mockedAxios.get.mock.calls[0][1]?.headers).toEqual({
         'x-api-key': AWS_KEY,

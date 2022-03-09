@@ -34,7 +34,7 @@ export const searchPerson = async (
   parameters: Record<string, unknown>
 ): Promise<ResidentsAPI> => {
   const { data } = await axios.get(
-    `${ENDPOINT_API}/search?${getQueryString(parameters)}`,
+    `${ENDPOINT_API}/search/person?${getQueryString(parameters)}`,
     {
       headers,
     }
