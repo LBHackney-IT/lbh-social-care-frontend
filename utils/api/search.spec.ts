@@ -12,7 +12,7 @@ describe('searchAPI', () => {
       .spyOn(SWR, 'useSWRInfinite')
       .mockImplementation(
         (getKey: (page: number, data: Record<string, unknown>) => string) =>
-          mockSWRInfinite(getKey(0, { person: [] }))
+          mockSWRInfinite(getKey(0, { residents: [] }))
       );
     searchAPI.SearchPerson({
       foo: 'bar',
