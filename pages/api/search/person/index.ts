@@ -21,8 +21,16 @@ const endpoint: NextApiHandler = async (
 
   switch (req.method) {
     case 'GET':
+      console.log('request in api/search/person ', req.query);
+
       try {
-        const data = await searchPerson(req.query);
+        const data = await searchPerson(
+          req.query.name as string,
+          req.query.date_of_birth as string,
+          req.query.postcode as string,
+          req.query.mosaic_id as string,
+          req.query.cursor as string
+        );
         res.status(StatusCodes.OK).json(data);
       } catch (error) {
         console.error(

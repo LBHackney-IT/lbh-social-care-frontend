@@ -29,13 +29,74 @@ const sanitiseResidentData = (residents: ResidentBE[]): LegacyResident[] =>
     };
   });
 
+const searchUrlParameters = (
+  name?: string,
+  dateOfBirth?: string,
+  postcode?: string,
+  personId?: string,
+  cursor?: string
+) => {
+  let queryString = '';
+
+  name
+    ? (queryString = queryString.concat(
+        queryString ? '&' : '?',
+        `name=${name}`
+      ))
+    : '';
+  dateOfBirth
+    ? (queryString = queryString.concat(
+        queryString ? '&' : '?',
+        `date_of_birth=${dateOfBirth}`
+      ))
+    : '';
+  postcode
+    ? (queryString = queryString.concat(
+        queryString ? '&' : '?',
+        `postcode=${postcode}`
+      ))
+    : '';
+  personId
+    ? (queryString = queryString.concat(
+        queryString ? '&' : '?',
+        `person_id=${personId}`
+      ))
+    : '';
+  cursor
+    ? (queryString = queryString.concat(
+        queryString ? '&' : '?',
+        `cursor=${cursor}`
+      ))
+    : (queryString = queryString.concat(queryString ? '&' : '?', `cursor=0`));
+
+  console.log('URL Parameters', queryString);
+
+  return queryString;
+};
+
 export const searchPerson = async (
-  params: Record<string, unknown>,
-  contextFlag?: string
+  name?: string,
+  dateOfBirth?: string,
+  postcode?: string,
+  personId?: string,
+  cursor?: string
 ): Promise<ResidentsAPI> => {
-  const { data } = await axios.get(`${ENDPOINT_API}/search/person`, {
-    headers,
-    params: { ...params, contextFlag },
-  });
+  const urlParms = searchUrlParameters(
+    name,
+    dateOfBirth,
+    postcode,
+    personId,
+    cursor
+  );
+  console.log(
+    `https://virtserver.swaggerhub.com/Hackney/social-care-case-viewer-api/1.0.0/search${urlParms}`
+  );
+  const { data } = await axios.get(
+    `
+    https://virtserver.swaggerhub.com/Hackney/social-care-case-viewer-api/1.0.0/search${urlParms}`,
+    {
+      headers,
+    }
+  );
   return { ...data, residents: sanitiseResidentData(data.residents) };
 };
