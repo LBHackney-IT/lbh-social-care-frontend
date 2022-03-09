@@ -1,12 +1,18 @@
-import { act, fireEvent, render } from '@testing-library/react';
+import {
+  act,
+  fireEvent,
+  render,
+  screen,
+  waitFor,
+} from '@testing-library/react';
 
 import { UserContext } from 'components/UserContext/UserContext';
-import { useResidents } from 'utils/api/residents';
 import { useCases } from 'utils/api/cases';
 
 import Search from './Search';
 import { User } from '../../types';
 import { ParsedUrlQuery } from 'querystring';
+import { SearchPerson } from 'utils/api/search';
 
 const mockedUseRouter = {
   query: { foo: 'bar' } as unknown as ParsedUrlQuery,
@@ -18,8 +24,10 @@ jest.mock('next/router', () => ({
   useRouter: () => mockedUseRouter,
 }));
 
-jest.mock('utils/api/residents', () => ({
-  useResidents: jest.fn(),
+jest.mock('utils/api/search', () => ({
+  SearchPerson: jest
+    .fn()
+    .mockReturnValue({ size: 0, setSize: jest.fn(), data: {}, error: null }),
 }));
 
 jest.mock('utils/api/cases', () => ({
@@ -34,7 +42,7 @@ describe(`Search`, () => {
   };
 
   it('should update the queryString on search and run a new search - with load more', async () => {
-    (useResidents as jest.Mock).mockImplementation(() => ({
+    (SearchPerson as jest.Mock).mockImplementation(() => ({
       size: 0,
       data: [
         {
@@ -60,7 +68,7 @@ describe(`Search`, () => {
     );
     const nameInput = getByLabelText('Name');
     fireEvent.change(nameInput, { target: { value: 'foo' } });
-    await act(async () => {
+    await waitFor(async () => {
       fireEvent.submit(getByRole('form'));
     });
     expect(mockedUseRouter.replace).toHaveBeenCalled();
@@ -74,8 +82,63 @@ describe(`Search`, () => {
     expect(queryByText('Load more')).not.toBeInTheDocument();
   });
 
+  xit('should update the queryString on search and run a new search - with load more', async () => {
+    (SearchPerson as jest.Mock).mockReturnValue({
+      size: 0,
+      setSize: jest.fn(),
+      data: [
+        {
+          residents: [
+            {
+              firstName: 'foo',
+              lastName: '',
+              mosaicId: '',
+              dateOfBirth: '2020-11-11',
+            },
+          ],
+          nextCursor: 20,
+        },
+      ],
+      error: null,
+    });
+
+    const { queryByText, getByLabelText, findByText, getByRole } = render(
+      <UserContext.Provider
+        value={{
+          user: { name: 'foo' } as unknown as User,
+        }}
+      >
+        <Search {...props} type="people" />
+      </UserContext.Provider>
+    );
+    const nameInput = getByLabelText('Name');
+    fireEvent.change(nameInput, { target: { value: 'foo' } });
+    await act(async () => {
+      fireEvent.submit(getByRole('form'));
+    });
+    expect(mockedUseRouter.replace).toHaveBeenCalled();
+    expect(mockedUseRouter.replace).toHaveBeenCalledWith(
+      'foopath?foo=bar&name=foo',
+      'foopath?foo=bar&name=foo',
+      { shallow: true, scroll: false }
+    );
+    const searchResult = await findByText('PEOPLE SEARCH RESULT');
+    expect(searchResult).toBeInTheDocument();
+    expect(queryByText('Load more')).toBeInTheDocument();
+
+    await act(async () => {
+      fireEvent.click(screen.getByText('Load more'));
+    });
+    expect(mockedUseRouter.replace).toHaveBeenCalled();
+    expect(mockedUseRouter.replace).toHaveBeenCalledWith(
+      'foopath?foo=bar&name=foo&cursor=20',
+      'foopath?foo=bar&name=foo&cursor=20',
+      { shallow: true, scroll: false }
+    );
+  });
+
   it('should update the queryString on search and run a new search', async () => {
-    (useResidents as jest.Mock).mockImplementation(() => ({
+    (SearchPerson as jest.Mock).mockImplementation(() => ({
       size: 0,
       data: [
         {
@@ -115,7 +178,7 @@ describe(`Search`, () => {
   });
 
   it('should work properly on search fails', async () => {
-    (useResidents as jest.Mock).mockImplementation(() => ({ error: true }));
+    (SearchPerson as jest.Mock).mockImplementation(() => ({ error: true }));
     const { findByText } = render(
       <UserContext.Provider
         value={{
