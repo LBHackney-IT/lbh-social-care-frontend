@@ -12,6 +12,7 @@ jest.mock('next/router', () => ({
 
 describe('TeamLayout component', () => {
   it('displays the team name', async () => {
+    mockedTeam.name = 'example-team';
     const { queryByText } = render(
       <TeamLayout team={mockedTeam}>
         <></>
