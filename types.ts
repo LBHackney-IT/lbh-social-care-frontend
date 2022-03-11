@@ -211,6 +211,11 @@ export interface Worker {
   teams: Team[];
 }
 
+export interface WorkerAllocation {
+  allocations: Allocation[];
+  workers: Worker[];
+}
+
 export interface ExistingRelationship {
   id: number;
   personId: number;

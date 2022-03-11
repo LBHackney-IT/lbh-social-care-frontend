@@ -8,6 +8,7 @@ import type {
   ErrorAPI,
   Team,
   Worker,
+  WorkerAllocation,
 } from 'types';
 
 export const useAllocatedWorkers = (
@@ -35,7 +36,7 @@ export const useTeamWorkers = (
 
 export const useAllocationsByWorker = (
   workerId: number
-): SWRResponse<{ allocations: Allocation[]; workers: Worker[] }, ErrorAPI> =>
+): SWRResponse<WorkerAllocation, ErrorAPI> =>
   useSWR(`/api/workers/${workerId}/allocations`);
 
 export const deleteAllocatedWorker = async (

@@ -7,8 +7,12 @@ import { useAllocationsByWorker } from 'utils/api/allocatedWorkers';
 import { formatDate } from 'utils/date';
 
 const prettyWorkerInitials = (worker: Worker): string => {
-  if (worker.firstName && worker.lastName)
-    return `${worker?.firstName?.[0]?.toUpperCase()}${worker.lastName?.[0]?.toUpperCase()}`;
+  if (worker.firstName && worker.lastName) {
+    const firstNameInitial = worker?.firstName?.[0]?.toUpperCase();
+    const lastNameInitial = worker.lastName?.[0]?.toUpperCase();
+
+    return `${firstNameInitial}${lastNameInitial}`;
+  }
   return worker.email?.[0].toUpperCase();
 };
 
@@ -44,12 +48,16 @@ const TeamMemberAllocations = ({ user }: TeamMemberProps) => {
   return <p className="lbh-body-s">This user has no allocated residents.</p>;
 };
 
-const TeamMember = ({ user }: TeamMemberProps) => {
+export const TeamMember = ({ user }: TeamMemberProps) => {
   const [expanded, setExpanded] = useState<boolean>(false);
-
   return (
     <>
-      <li key={user.id} className={s.listItem} aria-expanded={expanded}>
+      <li
+        data-testid={`team_member_${user.id}`}
+        key={user.id}
+        className={s.listItem}
+        aria-expanded={expanded}
+      >
         <div aria-hidden="true">{prettyWorkerInitials(user)}</div>
 
         <div>
@@ -63,7 +71,10 @@ const TeamMember = ({ user }: TeamMemberProps) => {
           </p>
         </div>
 
-        <button onClick={() => setExpanded(!expanded)}>
+        <button
+          data-testid={`expand_${user.id}`}
+          onClick={() => setExpanded(!expanded)}
+        >
           <svg width="20" height="20" viewBox="0 0 13 9" fill="none">
             <path
               d="M1.5 1.5L6.5 6.5L11.5 1.5"
