@@ -156,6 +156,7 @@ export interface LegacyResident {
 export interface ResidentsAPI {
   residents: LegacyResident[] | [];
   nextCursor?: string;
+  totalCount?: string;
 }
 
 /**

@@ -17,7 +17,8 @@ import Spinner from 'components/Spinner/Spinner';
 import ErrorMessage from 'components/ErrorMessage/ErrorMessage';
 import { useAuth } from 'components/UserContext/UserContext';
 
-import { useResidents } from 'utils/api/residents';
+// import { useResidents } from 'utils/api/residents'
+import { SearchPerson } from 'utils/api/search';
 import { useCases } from 'utils/api/cases';
 import { getQueryString } from 'utils/urls';
 
@@ -81,13 +82,13 @@ const Search = ({
         return {
           SearchForm: SearchResidentsForm,
           SearchResults: ResidentsTable,
-          useSearch: useResidents,
+          useSearch: SearchPerson,
         };
       case 'relationship':
         return {
           SearchForm: SearchResidentsForm,
           SearchResults: RelationshipTable,
-          useSearch: useResidents,
+          useSearch: SearchPerson,
         };
     }
   }, [type, showOnlyMyResults, user?.email]);
