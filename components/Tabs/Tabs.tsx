@@ -27,7 +27,7 @@ const Tabs = ({ title, tabs, children }: Props): React.ReactElement => {
               [s.active]: pathname === url,
             })}
           >
-            <Link href={{ pathname: url, query: query }} scroll={false}>
+            <Link href={{ pathname: url }} scroll={false}>
               <a className={`lbh-link lbh-link--no-visited-state ${s.link}`}>
                 {text}
               </a>
