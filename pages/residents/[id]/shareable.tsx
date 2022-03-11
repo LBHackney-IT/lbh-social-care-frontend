@@ -11,10 +11,8 @@ import { prettyResidentName } from 'lib/formatters';
 import Head from 'next/head';
 import s from '../../../stylesheets/Shareable.module.scss';
 import WorkflowTree from 'components/ResidentPage/WorkflowTree';
-import FlexibleAnswers from 'components/FlexibleAnswers/FlexibleAnswers';
 import { useRelationships } from 'utils/api/relationships';
 import RelationshipsTable from 'components/ResidentPage/RelationshipsTable';
-import { FlexibleAnswers as FlexibleAnswersT } from 'data/flexibleForms/forms.types';
 
 interface Props {
   resident: Resident;
@@ -46,7 +44,18 @@ const ResidentPage = ({ resident }: Props): React.ReactElement => {
       </button>
 
       <h2>Details</h2>
-      <FlexibleAnswers answers={{ resident } as unknown as FlexibleAnswersT} />
+      <dl className="govuk-summary-list lbh-summary-list">
+        {Object.entries(resident).map(([key, value]) => (
+          <div className="govuk-summary-list__row" key={key}>
+            <dt className="govuk-summary-list__key">{key}</dt>
+            <dl className="govuk-summary-list__value">
+              {['string', 'number', 'boolean'].includes(typeof value)
+                ? value.toString()
+                : JSON.stringify(value, null, 2)}
+            </dl>
+          </div>
+        ))}
+      </dl>
 
       <h2>Case notes</h2>
       <p>Only most recent 20 shown</p>
