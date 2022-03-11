@@ -25,7 +25,9 @@ const NavLink = ({ href, children }: NavLinkProps) => {
       )}
     >
       <Link href={href} replace={true} scroll={false}>
-        <a className="govuk-tabs__tab">{children}</a>
+        <a className="govuk-tabs__tab" data-testid={`navlink_content_${href}`}>
+          {children}
+        </a>
       </Link>
     </li>
   );
