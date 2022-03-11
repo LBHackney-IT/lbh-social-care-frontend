@@ -2,6 +2,7 @@ import cx from 'classnames';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import s from './Tabs.module.scss';
+import { ParsedUrlQuery } from 'querystring';
 
 interface Tab {
   url: string;
@@ -14,8 +15,21 @@ export interface Props {
   children: React.ReactChild;
 }
 
+const updateQuery = (query: ParsedUrlQuery) => {
+  if (query && url == '/search') {
+    return query.replace('moasic_id', 'person_id');
+  }
+  if (query && url == '/cases') {
+    return query.replace('person_id', 'moasic_id');
+  } else {
+    return undefined;
+  }
+};
+
 const Tabs = ({ title, tabs, children }: Props): React.ReactElement => {
   const { pathname, query } = useRouter();
+  console.log(pathname);
+  console.log(query);
   return (
     <div className="govuk-tabs lbh-tabs">
       <h2 className="govuk-tabs__title">{title}</h2>
@@ -27,7 +41,10 @@ const Tabs = ({ title, tabs, children }: Props): React.ReactElement => {
               [s.active]: pathname === url,
             })}
           >
-            <Link href={{ pathname: url }} scroll={false}>
+            <Link
+              href={{ pathname: url, query: updateQuery(query) }}
+              scroll={false}
+            >
               <a className={`lbh-link lbh-link--no-visited-state ${s.link}`}>
                 {text}
               </a>
