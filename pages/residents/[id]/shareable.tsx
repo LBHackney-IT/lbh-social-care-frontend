@@ -5,8 +5,6 @@ import { Resident } from 'types';
 import { useCases } from 'utils/api/cases';
 import { isAuthorised } from 'utils/auth';
 import useWorkflows from 'hooks/useWorkflows';
-import { useTeams } from 'utils/api/allocatedWorkers';
-import { useAuth } from 'components/UserContext/UserContext';
 import { prettyResidentName } from 'lib/formatters';
 import Head from 'next/head';
 import s from '../../../stylesheets/Shareable.module.scss';
@@ -25,11 +23,7 @@ const ResidentPage = ({ resident }: Props): React.ReactElement => {
     pinned_first: true,
   });
   const { data: workflowsData } = useWorkflows(resident.id);
-  const { data: teamData } = useTeams({
-    ageContext: resident.contextFlag,
-  });
   const { data: relationshipsData } = useRelationships(resident.id);
-  const { user } = useAuth();
 
   const cases = casesData?.[0].cases;
 
