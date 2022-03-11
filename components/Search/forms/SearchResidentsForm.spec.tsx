@@ -27,7 +27,7 @@ describe(`SearchResidentsForm`, () => {
     });
     expect(props.onFormSubmit).toHaveBeenCalledWith({
       name: 'foo',
-      mosaic_id: '',
+      person_id: '',
       postcode: '',
       date_of_birth: null,
     });
@@ -42,7 +42,7 @@ describe(`SearchResidentsForm`, () => {
     });
     expect(props.onFormSubmit).toHaveBeenCalledWith({
       name: 'bar',
-      mosaic_id: '',
+      person_id: '',
       postcode: '',
       date_of_birth: null,
     });
