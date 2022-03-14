@@ -10,7 +10,7 @@ interface FormValues {
   name?: string;
   date_of_birth?: string | null;
   postcode?: string;
-  mosaic_id?: string;
+  person_id?: string;
 }
 
 interface Props {
@@ -89,11 +89,11 @@ const SearchResidentsForm = ({
           <TextInput
             label="Social care ID"
             labelSize="s"
-            name="mosaic_id"
+            name="person_id"
             hint="e.g. 1234567890"
             inputClassName="govuk-input--width-10"
             inputMode="numeric"
-            error={errors.mosaic_id}
+            error={errors.person_id}
             register={register}
           />
         </div>

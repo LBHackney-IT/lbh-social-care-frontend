@@ -84,7 +84,7 @@ describe('Search for a person', () => {
     it('show a list of records that match the Mosaic ID when a search is completed', () => {
       cy.visitAs('/search', AuthRoles.AdminDevGroup);
 
-      cy.get('[data-testid="mosaic_id"]').type(Cypress.env('MOSAIC_ID_TEST'));
+      cy.get('[data-testid="person_id"]').type(Cypress.env('MOSAIC_ID_TEST'));
       cy.get('[type="submit"]').click();
       cy.get('td a').click();
       cy.contains(Cypress.env('NAME_FOR_MOSAIC_ID_TEST')).should('be.visible');
@@ -138,7 +138,7 @@ describe('Search for a person', () => {
       it('should return correct person when one letter incorrect in first name & one letter incorrect in last name', () => {
         cy.visitAs('/search', AuthRoles.AdminDevGroup);
 
-        cy.contains('Name').type('Cristubal CawFell');
+        cy.contains('Name').type('Cristbal Cawdel');
         cy.get('[type="submit"]').click();
 
         cy.get('[data-testid="residents-table"]').contains(
@@ -152,7 +152,7 @@ describe('Search for a person', () => {
         cy.contains('Load more').should('not.exist');
       });
 
-      it.only('should return correct person when we have 2 persons with same name but different date of birth', () => {
+      it('should return correct person when we have 2 persons with same name but different date of birth', () => {
         cy.visitAs('/search', AuthRoles.AdminDevGroup);
 
         cy.contains('Name').type('Qumendus');

@@ -2,6 +2,7 @@ import cx from 'classnames';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import s from './Tabs.module.scss';
+import { ParsedUrlQuery } from 'querystring';
 
 interface Tab {
   url: string;
@@ -13,6 +14,35 @@ export interface Props {
   tabs: Tab[];
   children: React.ReactChild;
 }
+
+export const updateQuery = (
+  query: ParsedUrlQuery,
+  url: string
+): ParsedUrlQuery | undefined => {
+  if (query) {
+    const updatedQuery: ParsedUrlQuery = { ...query };
+    if (url == '/cases') {
+      if (query.person_id && !query.mosaic_id) {
+        updatedQuery.mosaic_id = query.person_id;
+      }
+      if (!query.person_id && query.mosaic_id) {
+        delete updatedQuery.mosaic_id;
+      }
+      if (updatedQuery.name) {
+        delete updatedQuery.name;
+      }
+      if (updatedQuery.date_of_birth) {
+        delete updatedQuery.date_of_birth;
+      }
+      if (updatedQuery.postcode) {
+        delete updatedQuery.postcode;
+      }
+    }
+    return updatedQuery;
+  } else {
+    return undefined;
+  }
+};
 
 const Tabs = ({ title, tabs, children }: Props): React.ReactElement => {
   const { pathname, query } = useRouter();
@@ -27,7 +57,10 @@ const Tabs = ({ title, tabs, children }: Props): React.ReactElement => {
               [s.active]: pathname === url,
             })}
           >
-            <Link href={{ pathname: url, query: query }} scroll={false}>
+            <Link
+              href={{ pathname: url, query: updateQuery(query, url) }}
+              scroll={false}
+            >
               <a className={`lbh-link lbh-link--no-visited-state ${s.link}`}>
                 {text}
               </a>
