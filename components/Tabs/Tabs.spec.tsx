@@ -34,4 +34,11 @@ describe(`Tabs`, () => {
       expect(updatedQuery.mosaic_id).toBe(123);
     }
   });
+  it('should not add mosaic_id if a person_id is present and the url is /search', () => {
+    const query = { person_id: 123 } as unknown as ParsedUrlQuery;
+    const updatedQuery = updateQuery(query, '/search');
+    if (updatedQuery) {
+      expect(updatedQuery.mosaic_id).toBe(undefined);
+    }
+  });
 });

@@ -46,8 +46,6 @@ export const updateQuery = (
 
 const Tabs = ({ title, tabs, children }: Props): React.ReactElement => {
   const { pathname, query } = useRouter();
-  console.log(pathname);
-  console.log(query);
   return (
     <div className="govuk-tabs lbh-tabs">
       <h2 className="govuk-tabs__title">{title}</h2>
