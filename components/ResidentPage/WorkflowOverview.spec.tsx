@@ -69,4 +69,9 @@ describe('WorkflowOverview', () => {
     expect(screen.getAllByText('In progress').length).toBe(3);
     expect(screen.getAllByRole('link').length).toBe(4);
   });
+
+  it('handles when there are no workflows to show', () => {
+    render(<WorkflowOverview socialCareId={1} workflows={[]} />);
+    expect(screen.getByText('This resident has no workflows yet.'));
+  });
 });
