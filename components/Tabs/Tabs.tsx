@@ -16,18 +16,23 @@ export interface Props {
 }
 
 const updateQuery = (query: ParsedUrlQuery, url: string) => {
-  console.log('url & query', url, query);
   if (query) {
-    const updatedQuery = query;
+    const updatedQuery: ParsedUrlQuery = { ...query };
     if (url == '/cases') {
       if (query.person_id && !query.mosaic_id) {
-        console.log('ding');
         updatedQuery.mosaic_id = query.person_id;
-        console.log('updated query', updatedQuery);
       }
       if (!query.person_id && query.mosaic_id) {
-        console.log('dong');
         delete updatedQuery.mosaic_id;
+      }
+      if (updatedQuery.name) {
+        delete updatedQuery.name;
+      }
+      if (updatedQuery.date_of_birth) {
+        delete updatedQuery.date_of_birth;
+      }
+      if (updatedQuery.postcode) {
+        delete updatedQuery.postcode;
       }
     }
     return updatedQuery;
