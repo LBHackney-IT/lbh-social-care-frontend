@@ -74,4 +74,19 @@ describe('WorkflowOverview', () => {
     render(<WorkflowOverview socialCareId={1} workflows={[]} />);
     expect(screen.getByText('This resident has no workflows yet.'));
   });
+
+  it('handles when there are workflows but nothing in progress', () => {
+    render(
+      <WorkflowOverview
+        socialCareId={1}
+        workflows={[
+          {
+            ...mockWorkflow,
+            submittedAt: new Date(),
+          },
+        ]}
+      />
+    );
+    expect(screen.getByText('Nothing is in progress right now.'));
+  });
 });
