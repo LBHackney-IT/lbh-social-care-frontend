@@ -15,7 +15,10 @@ export interface Props {
   children: React.ReactChild;
 }
 
-const updateQuery = (query: ParsedUrlQuery, url: string) => {
+export const updateQuery = (
+  query: ParsedUrlQuery,
+  url: string
+): ParsedUrlQuery | undefined => {
   if (query) {
     const updatedQuery: ParsedUrlQuery = { ...query };
     if (url == '/cases') {
