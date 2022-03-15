@@ -7,7 +7,8 @@ import { TextInput, DateInput } from 'components/Form';
 import Button from 'components/Button/Button';
 
 interface FormValues {
-  name?: string;
+  first_name?: string;
+  last_name?: string;
   date_of_birth?: string | null;
   postcode?: string;
   person_id?: string;
@@ -37,13 +38,21 @@ const SearchResidentsForm = ({
   return (
     <form role="form" onSubmit={handleSubmit((data) => onFormSubmit(data))}>
       <div className="govuk-grid-row">
-        <div className="govuk-grid-column-three-quarters">
+        <div className="govuk-grid-column-one-half">
           <TextInput
-            label="Name"
+            label="First name"
             labelSize="s"
-            name="name"
-            hint="This can be either a first or last name or both"
-            error={errors.name}
+            name="first_name"
+            error={errors.first_name}
+            register={register}
+          />
+        </div>
+        <div className="govuk-grid-column-one-half">
+          <TextInput
+            label="Last name"
+            labelSize="s"
+            name="last_name"
+            error={errors.last_name}
             register={register}
           />
         </div>

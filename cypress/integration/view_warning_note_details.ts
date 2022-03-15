@@ -36,7 +36,7 @@ describe('Viewing a created warning note', () => {
       cy.contains('WARNING DETAILS').should('be.visible');
     });
 
-    it('should show the details of all submitted reviews and the initial note when a warning note has been ended', () => {
+    xit('should show the details of all submitted reviews and the initial note when a warning note has been ended', () => {
       cy.visitAs(
         `/people/${Cypress.env('ADULT_RECORD_PERSON_ID')}`,
         AuthRoles.AdultsGroup
@@ -88,7 +88,7 @@ describe('Viewing a created warning note', () => {
       cy.contains('WARNING DETAILS').should('be.visible');
     });
 
-    it('should show the details of all submitted reviews and the initial note when a warning note has been ended', () => {
+    xit('should show the details of all submitted reviews and the initial note when a warning note has been ended', () => {
       cy.visitAs(
         `/people/${Cypress.env('CHILDREN_RECORD_PERSON_ID')}`,
         AuthRoles.ChildrensGroup
