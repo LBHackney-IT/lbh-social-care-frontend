@@ -18,7 +18,9 @@ describe('Adding, viewing and remove a relationship', () => {
     cy.contains('Add a new relationship').click();
 
     // Search for related person
-    cy.get('input[name=name]').type(Cypress.env('CHILDREN_RECORD_FIRST_NAME'));
+    cy.get('input[name=first_name]').type(
+      Cypress.env('CHILDREN_RECORD_FIRST_NAME')
+    );
 
     cy.contains('button', 'Search').click();
 

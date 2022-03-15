@@ -19,14 +19,15 @@ describe(`SearchResidentsForm`, () => {
       <SearchResidentsForm {...props} />
     );
 
-    const fullNameInput = getByLabelText('Name');
-    fireEvent.change(fullNameInput, { target: { value: 'foo' } });
+    const firstNameInput = getByLabelText('First name');
+    fireEvent.change(firstNameInput, { target: { value: 'foo' } });
 
     await act(async () => {
       fireEvent.submit(getByRole('form'));
     });
     expect(props.onFormSubmit).toHaveBeenCalledWith({
-      name: 'foo',
+      first_name: 'foo',
+      last_name: '',
       person_id: '',
       postcode: '',
       date_of_birth: null,
@@ -35,13 +36,14 @@ describe(`SearchResidentsForm`, () => {
 
   it('should initialise the form with the passed defaultValues', async () => {
     const { getByRole } = render(
-      <SearchResidentsForm {...props} defaultValues={{ name: 'bar' }} />
+      <SearchResidentsForm {...props} defaultValues={{ first_name: 'bar' }} />
     );
     await act(async () => {
       fireEvent.submit(getByRole('form'));
     });
     expect(props.onFormSubmit).toHaveBeenCalledWith({
-      name: 'bar',
+      first_name: 'bar',
+      last_name: '',
       person_id: '',
       postcode: '',
       date_of_birth: null,

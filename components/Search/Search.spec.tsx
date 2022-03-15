@@ -1,10 +1,4 @@
-import {
-  act,
-  fireEvent,
-  render,
-  screen,
-  waitFor,
-} from '@testing-library/react';
+import { act, fireEvent, render, waitFor } from '@testing-library/react';
 
 import { UserContext } from 'components/UserContext/UserContext';
 import { useCases } from 'utils/api/cases';
@@ -66,75 +60,20 @@ describe(`Search`, () => {
         <Search {...props} type="people" />
       </UserContext.Provider>
     );
-    const nameInput = getByLabelText('Name');
+    const nameInput = getByLabelText('First name');
     fireEvent.change(nameInput, { target: { value: 'foo' } });
     await waitFor(async () => {
       fireEvent.submit(getByRole('form'));
     });
     expect(mockedUseRouter.replace).toHaveBeenCalled();
     expect(mockedUseRouter.replace).toHaveBeenCalledWith(
-      'foopath?foo=bar&name=foo',
-      'foopath?foo=bar&name=foo',
+      'foopath?foo=bar&first_name=foo',
+      'foopath?foo=bar&first_name=foo',
       { shallow: true, scroll: false }
     );
     const searchResult = await findByText('PEOPLE SEARCH RESULT');
     expect(searchResult).toBeInTheDocument();
     expect(queryByText('Load more')).not.toBeInTheDocument();
-  });
-
-  xit('should update the queryString on search and run a new search - with load more', async () => {
-    (SearchPerson as jest.Mock).mockReturnValue({
-      size: 0,
-      setSize: jest.fn(),
-      data: [
-        {
-          residents: [
-            {
-              firstName: 'foo',
-              lastName: '',
-              mosaicId: '',
-              dateOfBirth: '2020-11-11',
-            },
-          ],
-          nextCursor: 20,
-        },
-      ],
-      error: null,
-    });
-
-    const { queryByText, getByLabelText, findByText, getByRole } = render(
-      <UserContext.Provider
-        value={{
-          user: { name: 'foo' } as unknown as User,
-        }}
-      >
-        <Search {...props} type="people" />
-      </UserContext.Provider>
-    );
-    const nameInput = getByLabelText('Name');
-    fireEvent.change(nameInput, { target: { value: 'foo' } });
-    await act(async () => {
-      fireEvent.submit(getByRole('form'));
-    });
-    expect(mockedUseRouter.replace).toHaveBeenCalled();
-    expect(mockedUseRouter.replace).toHaveBeenCalledWith(
-      'foopath?foo=bar&name=foo',
-      'foopath?foo=bar&name=foo',
-      { shallow: true, scroll: false }
-    );
-    const searchResult = await findByText('PEOPLE SEARCH RESULT');
-    expect(searchResult).toBeInTheDocument();
-    expect(queryByText('Load more')).toBeInTheDocument();
-
-    await act(async () => {
-      fireEvent.click(screen.getByText('Load more'));
-    });
-    expect(mockedUseRouter.replace).toHaveBeenCalled();
-    expect(mockedUseRouter.replace).toHaveBeenCalledWith(
-      'foopath?foo=bar&name=foo&cursor=20',
-      'foopath?foo=bar&name=foo&cursor=20',
-      { shallow: true, scroll: false }
-    );
   });
 
   it('should update the queryString on search and run a new search', async () => {
@@ -162,15 +101,15 @@ describe(`Search`, () => {
         <Search {...props} type="people" />
       </UserContext.Provider>
     );
-    const nameInput = getByLabelText('Name');
+    const nameInput = getByLabelText('First name');
     fireEvent.change(nameInput, { target: { value: 'foo' } });
     await act(async () => {
       fireEvent.submit(getByRole('form'));
     });
     expect(mockedUseRouter.replace).toHaveBeenCalled();
     expect(mockedUseRouter.replace).toHaveBeenCalledWith(
-      'foopath?foo=bar&name=foo',
-      'foopath?foo=bar&name=foo',
+      'foopath?foo=bar&first_name=foo',
+      'foopath?foo=bar&first_name=foo',
       { shallow: true, scroll: false }
     );
     const searchResult = await findByText('PEOPLE SEARCH RESULT');
