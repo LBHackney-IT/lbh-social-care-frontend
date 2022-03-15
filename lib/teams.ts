@@ -10,9 +10,14 @@ const headersWithKey = {
 export const getTeams = async (
   params: Record<string, unknown>
 ): Promise<Record<string, unknown>> => {
-  const { data } = await axios.get(`${ENDPOINT_API}/teams`, {
-    headers: headersWithKey,
-    params,
-  });
+  console.log('getting teams');
+  // const { data } = await axios.get(`${ENDPOINT_API}/teams`, {
+  const { data } = await axios.get(
+    `https://virtserver.swaggerhub.com/Hackney/social-care-case-viewer-api/1.0.0/teams`,
+    {
+      headers: headersWithKey,
+      params,
+    }
+  );
   return data;
 };

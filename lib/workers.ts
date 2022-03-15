@@ -12,10 +12,14 @@ const headers = {
 export const getWorkers = async (
   params?: Record<string, unknown>
 ): Promise<Worker[]> => {
-  const { data } = await axios.get(`${ENDPOINT_API}/workers`, {
-    headers,
-    params,
-  });
+  // const { data } = await axios.get(`${ENDPOINT_API}/workers`, {
+  const { data } = await axios.get(
+    `https://virtserver.swaggerhub.com/Hackney/social-care-case-viewer-api/1.0.0/teams/123/workers`,
+    {
+      headers,
+      params,
+    }
+  );
   return data;
 };
 

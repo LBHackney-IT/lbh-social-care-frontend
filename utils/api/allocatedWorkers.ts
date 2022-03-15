@@ -28,6 +28,9 @@ export const useTeams = ({
 }): SWRResponse<{ teams: Team[] }, ErrorAPI> =>
   useSWR(`/api/teams${ageContext ? '?ageContext=' + ageContext : ''}`);
 
+export const useTeam = ({ id }: { id: number }): SWRResponse<Team, ErrorAPI> =>
+  useSWR(`/api/teams?id=${id}`);
+
 export const useTeamWorkers = (
   teamId?: number
 ): SWRResponse<Worker[], ErrorAPI> =>
