@@ -472,6 +472,10 @@ export interface Paginated<T> {
   count: number;
 }
 
+export interface TeamData {
+  teams: Team[];
+}
+
 export enum ReferralStage {
   CONTACT = 'CONTACT',
   INITIAL = 'INITIAL',

@@ -6,7 +6,7 @@ import type {
   Allocation,
   AllocationData,
   ErrorAPI,
-  Team,
+  TeamData,
   Worker,
   WorkerAllocation,
 } from 'types';
@@ -26,7 +26,7 @@ export const useTeams = ({
   ageContext,
 }: {
   ageContext: AgeContext;
-}): SWRResponse<{ teams: Team[] }, ErrorAPI> =>
+}): SWRResponse<TeamData, ErrorAPI> =>
   useSWR(`/api/teams${ageContext ? '?ageContext=' + ageContext : ''}`);
 
 export const useTeamWorkers = (
