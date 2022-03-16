@@ -29,7 +29,7 @@ describe(`AddAllocation`, () => {
     isValidating: false,
   }));
   jest.spyOn(allocatedWorkerAPI, 'useTeamWorkers').mockImplementation(() => ({
-    data: [
+    workers: [
       {
         id: 9,
         firstName: 'Worker',

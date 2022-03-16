@@ -9,6 +9,7 @@ import { useTeams, useTeamWorkers } from 'utils/api/allocatedWorkers';
 import { AgeContext } from 'types';
 import DateInput from 'components/Form/DateInput/DateInput';
 import Radios from 'components/Form/Radios/Radios';
+import SelectWorker from './SelectWorker';
 import { allocateResident } from '../../../lib/allocations';
 
 interface Props {
@@ -19,6 +20,7 @@ interface Props {
 const AddAllocation = ({ personId, ageContext }: Props): React.ReactElement => {
   const [postError, setPostError] = useState<boolean | null>();
   const [postLoading, setPostLoading] = useState<boolean>();
+  const [workerAllocation, setWorkerAllocation] = useState<boolean>(false);
   const { query, push, replace, pathname } = useRouter();
   const { handleSubmit, control, errors } = useForm({
     defaultValues: query,
@@ -85,8 +87,6 @@ const AddAllocation = ({ personId, ageContext }: Props): React.ReactElement => {
         />
       )}
 
-      {console.log(workers)}
-
       <Radios
         name="priority"
         label="Choose a priority rating"
@@ -111,28 +111,60 @@ const AddAllocation = ({ personId, ageContext }: Props): React.ReactElement => {
         required
       />
 
-      {workers && workers.workers.length && (
-        <Autocomplete
-          name="workerId"
-          label="Select a worker"
-          labelSize="m"
-          placeholder="Select or type worker name"
-          control={control}
-          options={workers.workers.map(({ id, firstName, lastName }) => ({
-            value: id,
-            text: `${firstName} ${lastName}`,
-          }))}
-          onChange={(value: string | number | null) => {
-            replace(
-              {
-                pathname,
-                query: { id: personId, teamId: value },
-              },
-              undefined,
-              { scroll: false }
-            );
-          }}
-        />
+      {!workerAllocation ? (
+        <a className="lbh-link" onClick={() => setWorkerAllocation(true)}>
+          <svg
+            width="15"
+            height="15"
+            viewBox="0 0 15 15"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <rect x="7" width="1" height="15" fill="#025EA6" />
+            <rect
+              x="15"
+              y="7"
+              width="1"
+              height="15"
+              transform="rotate(90 15 7)"
+              fill="#025EA6"
+            />
+          </svg>
+          View
+        </a>
+      ) : (
+        <></>
+      )}
+
+      {workerAllocation && workers?.workers ? (
+        <>
+          <SelectWorker
+            records={workers?.workers}
+            callback={(value: any) => console.log(value)}
+          />
+          <a className="lbh-link" onClick={() => setWorkerAllocation(false)}>
+            <svg
+              width="15"
+              height="15"
+              viewBox="0 0 15 15"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <rect x="7" width="1" height="15" fill="#025EA6" />
+              <rect
+                x="15"
+                y="7"
+                width="1"
+                height="15"
+                transform="rotate(90 15 7)"
+                fill="#025EA6"
+              />
+            </svg>
+            hide
+          </a>
+        </>
+      ) : (
+        <></>
       )}
 
       <Button label="Continue" type="submit" disabled={postLoading} />
