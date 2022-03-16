@@ -36,7 +36,7 @@ const AddNewAllocationPage = (): React.ReactElement => {
     <>
       <Seo title={`Allocate Worker to #${query.id} Allocate Worker`} />
       <h1 className="govuk-fieldset__legend--l gov-weight-lighter">
-        Allocate a resident
+        Add an allocation
       </h1>
       <PersonView personId={personId} expandView>
         {(resident) => (

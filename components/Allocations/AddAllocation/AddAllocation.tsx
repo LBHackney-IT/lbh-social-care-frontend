@@ -8,6 +8,7 @@ import ErrorMessage from 'components/ErrorMessage/ErrorMessage';
 import { useTeams, useTeamWorkers } from 'utils/api/allocatedWorkers';
 import { AgeContext } from 'types';
 import DateInput from 'components/Form/DateInput/DateInput';
+import Radios from 'components/Form/Radios/Radios';
 import { allocateResident } from '../../../lib/allocations';
 
 interface Props {
@@ -19,15 +20,12 @@ const AddAllocation = ({ personId, ageContext }: Props): React.ReactElement => {
   const [postError, setPostError] = useState<boolean | null>();
   const [postLoading, setPostLoading] = useState<boolean>();
   const { query, push, replace, pathname } = useRouter();
-  const { handleSubmit, register, control, errors } = useForm({
+  const { handleSubmit, control, errors } = useForm({
     defaultValues: query,
   });
   const { teamId } = query as { teamId?: number };
   const { data: { teams } = {}, error: errorTeams } = useTeams({ ageContext });
-  const {
-    data: { workers },
-    error: errorWorkers,
-  } = useTeamWorkers(teamId);
+  const { data: workers, error: errorWorkers } = useTeamWorkers(teamId);
   const addWorker = useCallback(
     async ({ workerId, allocationStartDate }) => {
       setPostLoading(true);
@@ -36,11 +34,12 @@ const AddAllocation = ({ personId, ageContext }: Props): React.ReactElement => {
         await allocateResident({
           personId: Number(personId),
           allocatedTeamId: Number(teamId),
+          workerId: Number(workerId),
           createdBy: Number(),
           summary: '',
           carePackage: '',
           ragRating: 'purple',
-          allocationDate: new Date('12-12-2020'),
+          allocationDate: allocationStartDate,
         });
         push(`/people/${personId}`);
       } catch (e) {
@@ -53,7 +52,7 @@ const AddAllocation = ({ personId, ageContext }: Props): React.ReactElement => {
   useEffect(() => {
     setPostError(null);
   }, [query]);
-  if (errorTeams || errorWorkers) {
+  if (errorTeams || errorWorkers || postError) {
     return <ErrorMessage />;
   }
   if (!teams) {
@@ -82,21 +81,43 @@ const AddAllocation = ({ personId, ageContext }: Props): React.ReactElement => {
               { scroll: false }
             );
           }}
+          required
         />
       )}
 
       {console.log(workers)}
 
-      {workers && workers.length && (
+      <Radios
+        name="priority"
+        label="Choose a priority rating"
+        options={[
+          'Urgent priority',
+          'High priority',
+          'Medium priority',
+          'Low priority',
+        ]}
+        required
+      />
+
+      <DateInput
+        label="Select an allocation date"
+        labelSize="s"
+        name="allocationStartDate"
+        error={errors.allocationStartDate}
+        control={control}
+        required
+      />
+
+      {workers && workers.workers.length && (
         <Autocomplete
           name="workerId"
           label="Select a worker"
           labelSize="m"
           placeholder="Select or type worker name"
           control={control}
-          options={workers.map(({ id, firstName, lastName }) => ({
+          options={workers.workers.map(({ id, firstName, lastName }) => ({
             value: id,
-            text: `${firstName}`,
+            text: `${firstName} ${lastName}`,
           }))}
           onChange={(value: string | number | null) => {
             replace(
@@ -110,15 +131,8 @@ const AddAllocation = ({ personId, ageContext }: Props): React.ReactElement => {
           }}
         />
       )}
-      <DateInput
-        label="Allocation Start Date:"
-        labelSize="s"
-        name="allocationStartDate"
-        error={errors.allocationStartDate}
-        control={control}
-        rules={{ required: 'Please select the allocation start date.' }}
-      />
-      <Button label="Allocate worker" type="submit" disabled={postLoading} />
+
+      <Button label="Continue" type="submit" disabled={postLoading} />
       {teamId && (!teams || !workers) && <Spinner />}
     </form>
   );

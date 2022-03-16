@@ -33,7 +33,7 @@ export const useTeam = ({ id }: { id: number }): SWRResponse<Team, ErrorAPI> =>
 
 export const useTeamWorkers = (
   teamId?: number
-): SWRResponse<Worker[], ErrorAPI> =>
+): SWRResponse<{ workers: Worker[] }, ErrorAPI> =>
   useSWR(teamId ? `/api/teams/${teamId}/workers` : null);
 
 export const useAllocationsByWorker = (
