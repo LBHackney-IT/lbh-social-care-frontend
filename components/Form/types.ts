@@ -124,6 +124,7 @@ export interface Radios extends RadiosType {
   options?: Option[];
   isRadiosInline?: boolean;
   children?: React.ReactNode;
+  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
 interface StepRadios extends Omit<Radios, 'options' | 'rules'> {

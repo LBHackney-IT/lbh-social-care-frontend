@@ -96,6 +96,9 @@ const AddAllocation = ({ personId, ageContext }: Props): React.ReactElement => {
           'Medium priority',
           'Low priority',
         ]}
+        onChange={(elm) => {
+          console.log('change', elm.target.value);
+        }}
         required
       />
 
