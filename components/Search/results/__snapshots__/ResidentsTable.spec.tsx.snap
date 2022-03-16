@@ -34,7 +34,7 @@ exports[`ResidentsTable component should render a list of residents 1`] = `
           class="govuk-table__header"
           scope="col"
         >
-          Postcode
+          Address
         </th>
         <th
           class="govuk-table__header"
@@ -71,6 +71,9 @@ exports[`ResidentsTable component should render a list of residents 1`] = `
         <td
           class="govuk-table__cell"
         >
+          <span>
+            sjakdjlk 
+          </span>
           <span
             class="uppercase"
           >
@@ -160,6 +163,282 @@ exports[`ResidentsTable component should render a resident without a postcode 1`
           <span
             class="uppercase"
           />
+        </td>
+        <td
+          class="govuk-table__cell govuk-table__cell--numeric"
+        >
+          <span
+            class="govuk-tag lbh-tag lbh-tag--grey uppercase"
+          >
+            Restricted
+          </span>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</DocumentFragment>
+`;
+
+exports[`ResidentsTable component should render a resident without an address 1`] = `
+<DocumentFragment>
+  <table
+    class="govuk-table lbh-table"
+    data-testid="residents-table"
+  >
+    <thead
+      class="govuk-table__head"
+    >
+      <tr
+        class="govuk-table__row"
+      >
+        <th
+          class="govuk-table__header"
+          scope="col"
+        >
+          Social care ID
+        </th>
+        <th
+          class="govuk-table__header"
+          scope="col"
+        >
+          Person
+        </th>
+        <th
+          class="govuk-table__header"
+          scope="col"
+        >
+          Date of birth
+        </th>
+        <th
+          class="govuk-table__header"
+          scope="col"
+        >
+          Address
+        </th>
+        <th
+          class="govuk-table__header"
+          scope="col"
+        />
+      </tr>
+    </thead>
+    <tbody
+      class="govuk-table__body"
+    >
+      <tr
+        class="govuk-table__row restrictedRow"
+      >
+        <td
+          class="govuk-table__cell"
+        >
+          3
+        </td>
+        <td
+          class="govuk-table__cell"
+        >
+          <a
+            class="govuk-link govuk-custom-text-color"
+            href="/people/3"
+          >
+            Foo Bar
+          </a>
+        </td>
+        <td
+          class="govuk-table__cell"
+        >
+          13/11/2020
+        </td>
+        <td
+          class="govuk-table__cell"
+        />
+        <td
+          class="govuk-table__cell govuk-table__cell--numeric"
+        >
+          <span
+            class="govuk-tag lbh-tag lbh-tag--grey uppercase"
+          >
+            Restricted
+          </span>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</DocumentFragment>
+`;
+
+exports[`ResidentsTable component when the address is less than 20 characters should render the full address and postcode 1`] = `
+<DocumentFragment>
+  <table
+    class="govuk-table lbh-table"
+    data-testid="residents-table"
+  >
+    <thead
+      class="govuk-table__head"
+    >
+      <tr
+        class="govuk-table__row"
+      >
+        <th
+          class="govuk-table__header"
+          scope="col"
+        >
+          Social care ID
+        </th>
+        <th
+          class="govuk-table__header"
+          scope="col"
+        >
+          Person
+        </th>
+        <th
+          class="govuk-table__header"
+          scope="col"
+        >
+          Date of birth
+        </th>
+        <th
+          class="govuk-table__header"
+          scope="col"
+        >
+          Address
+        </th>
+        <th
+          class="govuk-table__header"
+          scope="col"
+        />
+      </tr>
+    </thead>
+    <tbody
+      class="govuk-table__body"
+    >
+      <tr
+        class="govuk-table__row restrictedRow"
+      >
+        <td
+          class="govuk-table__cell"
+        >
+          4
+        </td>
+        <td
+          class="govuk-table__cell"
+        >
+          <a
+            class="govuk-link govuk-custom-text-color"
+            href="/people/4"
+          >
+            Foo Bar
+          </a>
+        </td>
+        <td
+          class="govuk-table__cell"
+        >
+          13/11/2020
+        </td>
+        <td
+          class="govuk-table__cell"
+        >
+          <span>
+            short address 
+          </span>
+          <span
+            class="uppercase"
+          >
+            E8 1AA
+          </span>
+        </td>
+        <td
+          class="govuk-table__cell govuk-table__cell--numeric"
+        >
+          <span
+            class="govuk-tag lbh-tag lbh-tag--grey uppercase"
+          >
+            Restricted
+          </span>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</DocumentFragment>
+`;
+
+exports[`ResidentsTable component when the address is more than 20 characters should render the truncated address and postcode 1`] = `
+<DocumentFragment>
+  <table
+    class="govuk-table lbh-table"
+    data-testid="residents-table"
+  >
+    <thead
+      class="govuk-table__head"
+    >
+      <tr
+        class="govuk-table__row"
+      >
+        <th
+          class="govuk-table__header"
+          scope="col"
+        >
+          Social care ID
+        </th>
+        <th
+          class="govuk-table__header"
+          scope="col"
+        >
+          Person
+        </th>
+        <th
+          class="govuk-table__header"
+          scope="col"
+        >
+          Date of birth
+        </th>
+        <th
+          class="govuk-table__header"
+          scope="col"
+        >
+          Address
+        </th>
+        <th
+          class="govuk-table__header"
+          scope="col"
+        />
+      </tr>
+    </thead>
+    <tbody
+      class="govuk-table__body"
+    >
+      <tr
+        class="govuk-table__row restrictedRow"
+      >
+        <td
+          class="govuk-table__cell"
+        >
+          5
+        </td>
+        <td
+          class="govuk-table__cell"
+        >
+          <a
+            class="govuk-link govuk-custom-text-color"
+            href="/people/5"
+          >
+            Foo Bar
+          </a>
+        </td>
+        <td
+          class="govuk-table__cell"
+        >
+          13/11/2020
+        </td>
+        <td
+          class="govuk-table__cell"
+        >
+          <span>
+            really really long... 
+          </span>
+          <span
+            class="uppercase"
+          >
+            E8 1AA
+          </span>
         </td>
         <td
           class="govuk-table__cell govuk-table__cell--numeric"

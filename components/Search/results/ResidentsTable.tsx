@@ -51,9 +51,20 @@ const ResultEntry = ({
         {dateOfBirth && new Date(dateOfBirth).toLocaleDateString('en-GB')}
       </td>
       <td className="govuk-table__cell">
-        <span className={styles.uppercase}>
-          {(address && address.postcode) || ''}
-        </span>
+        {address && (
+          <>
+            {address?.address && (
+              <span>
+                {address.address.length > 20
+                  ? address?.address.substr(0, 19).trimEnd() + '... '
+                  : address?.address + ' ' || ''}
+              </span>
+            )}
+            <span className={styles.uppercase}>
+              {(address && address.postcode) || ''}
+            </span>
+          </>
+        )}
       </td>
       <td className="govuk-table__cell govuk-table__cell--numeric">
         {isRecordRestricted && (
@@ -89,7 +100,7 @@ const ResultTable = ({
           Date of birth
         </th>
         <th scope="col" className="govuk-table__header">
-          Postcode
+          Address
         </th>
         <th scope="col" className="govuk-table__header" />
       </tr>
