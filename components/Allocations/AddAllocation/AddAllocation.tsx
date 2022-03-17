@@ -10,8 +10,9 @@ import { AgeContext, User } from 'types';
 import DatePicker from 'components/Form/DatePicker/DatePicker';
 import Radios from 'components/Form/Radios/Radios';
 import SelectWorker from './SelectWorker';
-import { allocateResident } from '../../../lib/allocations';
+import { allocateResident } from 'lib/allocations';
 import { useAuth } from 'components/UserContext/UserContext';
+import s from './AddAllocation.module.scss';
 
 interface Props {
   personId: number;
@@ -120,27 +121,13 @@ const AddAllocation = ({ personId, ageContext }: Props): React.ReactElement => {
         required
       />
 
-      {!workerAllocation ? (
-        <a className="lbh-link" onClick={() => setWorkerAllocation(true)}>
-          <svg
-            width="15"
-            height="15"
-            viewBox="0 0 15 15"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <rect x="7" width="1" height="15" fill="#025EA6" />
-            <rect
-              x="15"
-              y="7"
-              width="1"
-              height="15"
-              transform="rotate(90 15 7)"
-              fill="#025EA6"
-            />
-          </svg>
-          View
-        </a>
+      {!workerAllocation && teamId && workers ? (
+        <button
+          className={`lbh-link ${s.addPersonLink}`}
+          onClick={() => setWorkerAllocation(true)}
+        >
+          + Allocate a worker
+        </button>
       ) : (
         <></>
       )}
@@ -151,36 +138,21 @@ const AddAllocation = ({ personId, ageContext }: Props): React.ReactElement => {
             records={workers?.workers}
             callback={(value: any) => setWorker(value)}
           />
-          <a
-            className="lbh-link"
+          <button
+            className={`lbh-link ${s.addPersonLink}`}
             onClick={() => {
               setWorkerAllocation(false);
               setWorker(null);
             }}
           >
-            <svg
-              width="15"
-              height="15"
-              viewBox="0 0 15 15"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <rect x="7" width="1" height="15" fill="#025EA6" />
-              <rect
-                x="15"
-                y="7"
-                width="1"
-                height="15"
-                transform="rotate(90 15 7)"
-                fill="#025EA6"
-              />
-            </svg>
-            hide
-          </a>
+            - Clear selection
+          </button>
+          <br />
         </>
       ) : (
         <></>
       )}
+      <br />
 
       <Button
         label="Continue"

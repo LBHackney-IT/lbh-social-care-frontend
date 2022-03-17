@@ -28,21 +28,15 @@ export const allocateResidentSchema = yup.object({
 export const allocateResident = async (
   allocation: AllocationRequest
 ): Promise<void> => {
-  try {
-    const elm = await allocateResidentSchema.validate(allocation);
-  } catch (e) {
-    console.log(e);
-  }
   const body = await allocateResidentSchema.validate(allocation);
 
-  // const { data } = await axios.post(`${ENDPOINT_API}/allocations`, body, {
-  const { data } = await axios.post(
-    `https://virtserver.swaggerhub.com/Hackney/social-care-case-viewer-api/1.0.0/allocations`,
-    body,
-    {
-      headers,
-    }
-  );
+  const { data } = await axios.post(`${ENDPOINT_API}/allocations`, body, {
+    // const { data } = await axios.post(
+    // `https://virtserver.swaggerhub.com/Hackney/social-care-case-viewer-api/1.0.0/allocations`,
+    // body,
+    // {
+    headers,
+  });
 
   return data;
 };

@@ -1,0 +1,16 @@
+.workerLink {
+  margin-top: 1rem;
+  svg {
+    margin-right: 10px;
+  }
+
+  &:hover svg rect {
+    fill: lbh-colour('lbh-link-hover');
+  }
+  &:active svg rect {
+    fill: lbh-colour('lbh-link-active');
+  }
+  &:focus svg rect {
+    fill: lbh-colour('lbh-text');
+  }
+}

@@ -91,7 +91,7 @@ describe(`AddAllocation`, () => {
 
   it('should render and submit correctly', async () => {
     jest.spyOn(allocatedWorkerAPI, 'addAllocatedWorker');
-    const { getByLabelText, getByRole, getByTestId } = render(
+    const { getByRole, getByTestId } = render(
       <UserContext.Provider
         value={{
           user: mockedUser,
@@ -107,11 +107,6 @@ describe(`AddAllocation`, () => {
     await act(async () => {
       fireEvent.click(getByTestId('teamId_0'));
     });
-
-    fireEvent.click(getByLabelText('Worker C'));
-    fireEvent.change(getByLabelText('Day'), { target: { value: '01' } });
-    fireEvent.change(getByLabelText('Month'), { target: { value: '01' } });
-    fireEvent.change(getByLabelText('Year'), { target: { value: '2021' } });
 
     await act(async () => {
       fireEvent.submit(getByRole('form'));

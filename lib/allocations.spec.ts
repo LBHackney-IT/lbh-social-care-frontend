@@ -13,7 +13,7 @@ describe('validating the allocation request', () => {
       data = await allocateResidentSchema.validate({
         personId: 3057982,
         allocatedTeamId: 81,
-        createdBy: 93,
+        createdBy: 'test.testington@test.com',
         summary: 'A reason that is totally valid',
         carePackage: 'look after them',
         ragRating: 'purple',
@@ -28,7 +28,7 @@ describe('validating the allocation request', () => {
       expect(data).toHaveProperty('allocatedTeamId', 81);
     });
     test('validated data includes the createdBy', () => {
-      expect(data).toHaveProperty('createdBy', 93);
+      expect(data).toHaveProperty('createdBy', 'test.testington@test.com');
     });
     test('validated data includes the summary', () => {
       expect(data).toHaveProperty('summary', 'A reason that is totally valid');
@@ -64,7 +64,7 @@ describe('validating the allocation request', () => {
     });
   });
   describe('when the allocatedTeamId is invalid', () => {
-    test('validation throws an error', async () => {
+    it.only('validation throws an error', async () => {
       await expect(
         allocateResidentSchema.validate({
           personId: 3057982,
@@ -76,7 +76,7 @@ describe('validating the allocation request', () => {
           allocationDate: new Date(Date.parse('2022-01-27 15:33:13.839')),
         })
       ).rejects.toThrow(
-        'allocatedTeamId must be a `number` type, but the final value was: `NaN` (cast from the value `"invalid"`).'
+        'allocatedTeamId must be a `string` type, but the final value was: `NaN` (cast from the value `"invalid"`).'
       );
     });
   });
@@ -172,11 +172,10 @@ describe('allocating a resident to a team', () => {
     await allocateResident({
       allocatedTeamId: 10,
       allocationDate: new Date('2022-01-27T15:33:13.839Z'),
-      carePackage: 'look after them',
       createdBy: 34,
       personId: 4938745,
       ragRating: 'purple',
-      summary: 'a summary',
+      workerId: 12,
     });
   });
   test('post request to the expected endpoint', () => {
