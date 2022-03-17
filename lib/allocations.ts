@@ -6,35 +6,43 @@ const AWS_KEY = process.env.AWS_KEY;
 const headers = { 'Content-Type': 'application/json', 'x-api-key': AWS_KEY };
 
 export interface AllocationRequest {
-  workerId?: number;
+  workerId: number | null;
   personId: number;
   allocatedTeamId: number;
-  createdBy: number;
-  summary: string;
-  carePackage: string;
+  createdBy: string;
   ragRating: 'purple' | 'red' | 'amber' | 'green';
   allocationDate: Date;
 }
 
 export const allocateResidentSchema = yup.object({
-  workerId: yup.number().positive().integer(),
   personId: yup.number().positive().integer().required(),
   allocatedTeamId: yup.number().positive().integer().required(),
-  createdBy: yup.number().positive().integer().required(),
-  summary: yup.string().required(),
-  carePackage: yup.string().required(),
-  ragRating: yup.string().oneOf(['purple', 'red', 'amber', 'green']).required(),
+  createdBy: yup.string().required(),
+  ragRating: yup
+    .string()
+    .oneOf(['purple', 'red', 'amber', 'green', 'white'])
+    .required(),
   allocationDate: yup.date().required(),
 });
 
 export const allocateResident = async (
   allocation: AllocationRequest
 ): Promise<void> => {
+  try {
+    const elm = await allocateResidentSchema.validate(allocation);
+  } catch (e) {
+    console.log(e);
+  }
   const body = await allocateResidentSchema.validate(allocation);
 
-  const { data } = await axios.post(`${ENDPOINT_API}/allocations`, body, {
-    headers,
-  });
+  // const { data } = await axios.post(`${ENDPOINT_API}/allocations`, body, {
+  const { data } = await axios.post(
+    `https://virtserver.swaggerhub.com/Hackney/social-care-case-viewer-api/1.0.0/allocations`,
+    body,
+    {
+      headers,
+    }
+  );
 
   return data;
 };

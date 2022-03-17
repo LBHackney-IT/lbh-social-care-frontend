@@ -6,11 +6,12 @@ import Button from 'components/Button/Button';
 import Spinner from 'components/Spinner/Spinner';
 import ErrorMessage from 'components/ErrorMessage/ErrorMessage';
 import { useTeams, useTeamWorkers } from 'utils/api/allocatedWorkers';
-import { AgeContext } from 'types';
+import { AgeContext, User } from 'types';
 import DatePicker from 'components/Form/DatePicker/DatePicker';
 import Radios from 'components/Form/Radios/Radios';
 import SelectWorker from './SelectWorker';
 import { allocateResident } from '../../../lib/allocations';
+import { useAuth } from 'components/UserContext/UserContext';
 
 interface Props {
   personId: number;
@@ -33,6 +34,7 @@ const AddAllocation = ({ personId, ageContext }: Props): React.ReactElement => {
   const { teamId } = query as { teamId?: number };
   const { data: { teams } = {}, error: errorTeams } = useTeams({ ageContext });
   const { data: workers, error: errorWorkers } = useTeamWorkers(teamId);
+  const { user } = useAuth() as { user: User };
 
   const addWorker = useCallback(async () => {
     setPostLoading(true);
@@ -41,10 +43,9 @@ const AddAllocation = ({ personId, ageContext }: Props): React.ReactElement => {
       await allocateResident({
         personId: Number(personId),
         allocatedTeamId: Number(teamId),
-        createdBy: Number(),
-        workerId: Number(worker),
-        summary: '',
-        carePackage: '',
+        ...(worker && { workerId: 5 }),
+        workerId: workerAllocation ? Number(worker) : null,
+        createdBy: user.email,
         ragRating: 'purple',
         allocationDate: allocationDate,
       });
@@ -90,15 +91,15 @@ const AddAllocation = ({ personId, ageContext }: Props): React.ReactElement => {
           required
         />
       )}
-
       <Radios
         name="priority"
         label="Choose a priority rating"
         options={[
           { value: 'purple', text: 'Urgent priority' },
-          'High priority',
-          'Medium priority',
-          'Low priority',
+          { value: 'red', text: 'High priority' },
+          { value: 'amber', text: 'Medium priority' },
+          { value: 'green', text: 'Low priority' },
+          { value: 'white', text: 'No priority' },
         ]}
         onChange={(elm) => {
           console.log('change', elm.target.value);
