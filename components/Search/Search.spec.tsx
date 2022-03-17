@@ -177,57 +177,58 @@ describe(`Search`, () => {
 
     expect(getByText('add a new person')).toBeInTheDocument();
   });
-});
-it('when there are more than 20 but less than 40 results shows add a user after one load more clicks', async () => {
-  (SearchPerson as jest.Mock).mockImplementation(
-    makeSearchResultsImplementation(2)
-  );
 
-  const { getByText, getByLabelText, getByRole } = render(
-    <UserContext.Provider
-      value={{
-        user: { name: 'foo' } as unknown as User,
-      }}
-    >
-      <Search {...props} type="people" />
-    </UserContext.Provider>
-  );
+  it('when there are more than 20 but less than 40 results shows add a user after one load more clicks', async () => {
+    (SearchPerson as jest.Mock).mockImplementation(
+      makeSearchResultsImplementation(2)
+    );
 
-  const nameInput = getByLabelText('First name');
-  fireEvent.change(nameInput, { target: { value: 'foo' } });
-  await act(async () => {
-    fireEvent.submit(getByRole('form'));
+    const { getByText, getByLabelText, getByRole } = render(
+      <UserContext.Provider
+        value={{
+          user: { name: 'foo' } as unknown as User,
+        }}
+      >
+        <Search {...props} type="people" />
+      </UserContext.Provider>
+    );
+
+    const nameInput = getByLabelText('First name');
+    fireEvent.change(nameInput, { target: { value: 'foo' } });
+    await act(async () => {
+      fireEvent.submit(getByRole('form'));
+    });
+
+    await waitFor(() =>
+      expect(getByText('add a new person')).toBeInTheDocument()
+    );
   });
 
-  await waitFor(() =>
-    expect(getByText('add a new person')).toBeInTheDocument()
-  );
-});
+  it('when there are more than 60 results shows add a user after two load more clicks', async () => {
+    (SearchPerson as jest.Mock).mockImplementation(
+      makeSearchResultsImplementation(3)
+    );
 
-it('when there are more than 60 results shows add a user after two load more clicks', async () => {
-  (SearchPerson as jest.Mock).mockImplementation(
-    makeSearchResultsImplementation(3)
-  );
+    const { getByText, getByLabelText, getByRole } = render(
+      <UserContext.Provider
+        value={{
+          user: { name: 'foo' } as unknown as User,
+        }}
+      >
+        <Search {...props} type="people" />
+      </UserContext.Provider>
+    );
 
-  const { getByText, getByLabelText, getByRole } = render(
-    <UserContext.Provider
-      value={{
-        user: { name: 'foo' } as unknown as User,
-      }}
-    >
-      <Search {...props} type="people" />
-    </UserContext.Provider>
-  );
+    const nameInput = getByLabelText('First name');
+    fireEvent.change(nameInput, { target: { value: 'foo' } });
+    await act(async () => {
+      fireEvent.submit(getByRole('form'));
+    });
 
-  const nameInput = getByLabelText('First name');
-  fireEvent.change(nameInput, { target: { value: 'foo' } });
-  await act(async () => {
-    fireEvent.submit(getByRole('form'));
+    await waitFor(() =>
+      expect(getByText('add a new person')).toBeInTheDocument()
+    );
   });
-
-  await waitFor(() =>
-    expect(getByText('add a new person')).toBeInTheDocument()
-  );
 });
 
 const makeSearchResultsImplementation = (count: number) => () => {
