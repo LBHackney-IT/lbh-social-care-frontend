@@ -6,7 +6,7 @@ const AWS_KEY = process.env.AWS_KEY;
 const headers = { 'Content-Type': 'application/json', 'x-api-key': AWS_KEY };
 
 export interface AllocationRequest {
-  workerId: number;
+  workerId?: number;
   personId: number;
   allocatedTeamId: number;
   createdBy: number;
@@ -17,7 +17,7 @@ export interface AllocationRequest {
 }
 
 export const allocateResidentSchema = yup.object({
-  workerId: yup.number().positive().integer().required(),
+  workerId: yup.number().positive().integer(),
   personId: yup.number().positive().integer().required(),
   allocatedTeamId: yup.number().positive().integer().required(),
   createdBy: yup.number().positive().integer().required(),

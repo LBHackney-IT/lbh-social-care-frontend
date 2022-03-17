@@ -7,7 +7,7 @@ import Spinner from 'components/Spinner/Spinner';
 import ErrorMessage from 'components/ErrorMessage/ErrorMessage';
 import { useTeams, useTeamWorkers } from 'utils/api/allocatedWorkers';
 import { AgeContext } from 'types';
-import DateInput from 'components/Form/DateInput/DateInput';
+import DatePicker from 'components/Form/DatePicker/DatePicker';
 import Radios from 'components/Form/Radios/Radios';
 import SelectWorker from './SelectWorker';
 import { allocateResident } from '../../../lib/allocations';
@@ -21,6 +21,11 @@ const AddAllocation = ({ personId, ageContext }: Props): React.ReactElement => {
   const [postError, setPostError] = useState<boolean | null>();
   const [postLoading, setPostLoading] = useState<boolean>();
   const [workerAllocation, setWorkerAllocation] = useState<boolean>(false);
+  const [priority, setPriority] = useState<string>();
+  const [worker, setWorker] = useState<number | null>();
+  const [allocationDate, setAllocationDate] = useState<Date>(
+    new Date(Date.now())
+  );
   const { query, push, replace, pathname } = useRouter();
   const { handleSubmit, control, errors } = useForm({
     defaultValues: query,
@@ -28,29 +33,27 @@ const AddAllocation = ({ personId, ageContext }: Props): React.ReactElement => {
   const { teamId } = query as { teamId?: number };
   const { data: { teams } = {}, error: errorTeams } = useTeams({ ageContext });
   const { data: workers, error: errorWorkers } = useTeamWorkers(teamId);
-  const addWorker = useCallback(
-    async ({ workerId, allocationStartDate }) => {
-      setPostLoading(true);
-      setPostError(null);
-      try {
-        await allocateResident({
-          personId: Number(personId),
-          allocatedTeamId: Number(teamId),
-          workerId: Number(workerId),
-          createdBy: Number(),
-          summary: '',
-          carePackage: '',
-          ragRating: 'purple',
-          allocationDate: allocationStartDate,
-        });
-        push(`/people/${personId}`);
-      } catch (e) {
-        setPostError(true);
-      }
-      setPostLoading(false);
-    },
-    [personId, teamId, push]
-  );
+
+  const addWorker = useCallback(async () => {
+    setPostLoading(true);
+    setPostError(null);
+    try {
+      await allocateResident({
+        personId: Number(personId),
+        allocatedTeamId: Number(teamId),
+        createdBy: Number(),
+        workerId: Number(worker),
+        summary: '',
+        carePackage: '',
+        ragRating: 'purple',
+        allocationDate: allocationDate,
+      });
+      push(`/people/${personId}`);
+    } catch (e) {
+      setPostError(true);
+    }
+    setPostLoading(false);
+  }, [priority, allocationDate, worker, personId, teamId, push]);
   useEffect(() => {
     setPostError(null);
   }, [query]);
@@ -74,6 +77,7 @@ const AddAllocation = ({ personId, ageContext }: Props): React.ReactElement => {
             text: name,
           }))}
           onChange={(value: string | number | null) => {
+            setWorker(null);
             replace(
               {
                 pathname,
@@ -91,23 +95,27 @@ const AddAllocation = ({ personId, ageContext }: Props): React.ReactElement => {
         name="priority"
         label="Choose a priority rating"
         options={[
-          'Urgent priority',
+          { value: 'purple', text: 'Urgent priority' },
           'High priority',
           'Medium priority',
           'Low priority',
         ]}
         onChange={(elm) => {
           console.log('change', elm.target.value);
+          setPriority(elm.target.value);
         }}
         required
       />
 
-      <DateInput
+      <DatePicker
         label="Select an allocation date"
         labelSize="s"
         name="allocationStartDate"
         error={errors.allocationStartDate}
-        control={control}
+        defaultToday
+        onChange={(date) => {
+          setAllocationDate(new Date(date.target.value));
+        }}
         required
       />
 
@@ -140,9 +148,15 @@ const AddAllocation = ({ personId, ageContext }: Props): React.ReactElement => {
         <>
           <SelectWorker
             records={workers?.workers}
-            callback={(value: any) => console.log(value)}
+            callback={(value: any) => setWorker(value)}
           />
-          <a className="lbh-link" onClick={() => setWorkerAllocation(false)}>
+          <a
+            className="lbh-link"
+            onClick={() => {
+              setWorkerAllocation(false);
+              setWorker(null);
+            }}
+          >
             <svg
               width="15"
               height="15"
@@ -167,7 +181,12 @@ const AddAllocation = ({ personId, ageContext }: Props): React.ReactElement => {
         <></>
       )}
 
-      <Button label="Continue" type="submit" disabled={postLoading} />
+      <Button
+        label="Continue"
+        type="submit"
+        disabled={postLoading || !priority || !teamId}
+      />
+
       {teamId && (!teams || !workers) && <Spinner />}
     </form>
   );
