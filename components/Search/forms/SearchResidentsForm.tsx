@@ -1,8 +1,6 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import isPast from 'date-fns/isPast';
-import isPostcodeValid from 'uk-postcode-validator';
-
 import { TextInput, DateInput } from 'components/Form';
 import Button from 'components/Button/Button';
 
@@ -86,8 +84,8 @@ const SearchResidentsForm = ({
               validate: {
                 valid: (value) =>
                   value === '' ||
-                  (value && isPostcodeValid(value)) ||
-                  'You entered an invalid postcode',
+                  (value && value.trim().length > 1) ||
+                  'You must enter at least the first two letters of the postcode',
               },
             }}
           />
