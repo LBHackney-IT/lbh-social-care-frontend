@@ -153,4 +153,112 @@ describe(`Search`, () => {
       true
     );
   });
+
+  it('when there are less than 20 results shows add a user', async () => {
+    (SearchPerson as jest.Mock).mockImplementation(
+      makeSearchResultsImplementation(1)
+    );
+
+    const { getByText, getByLabelText, getByRole } = render(
+      <UserContext.Provider
+        value={{
+          user: { name: 'foo' } as unknown as User,
+        }}
+      >
+        <Search {...props} type="people" />
+      </UserContext.Provider>
+    );
+
+    const nameInput = getByLabelText('First name');
+    fireEvent.change(nameInput, { target: { value: 'foo' } });
+    act(() => {
+      fireEvent.submit(getByRole('form'));
+    });
+
+    expect(getByText('add a new person')).toBeInTheDocument();
+  });
+
+  it('when there are more than 20 but less than 40 results shows add a user after one load more clicks', async () => {
+    (SearchPerson as jest.Mock).mockImplementation(
+      makeSearchResultsImplementation(2)
+    );
+
+    const { getByText, getByLabelText, getByRole } = render(
+      <UserContext.Provider
+        value={{
+          user: { name: 'foo' } as unknown as User,
+        }}
+      >
+        <Search {...props} type="people" />
+      </UserContext.Provider>
+    );
+
+    const nameInput = getByLabelText('First name');
+    fireEvent.change(nameInput, { target: { value: 'foo' } });
+    await act(async () => {
+      fireEvent.submit(getByRole('form'));
+    });
+
+    await waitFor(() =>
+      expect(getByText('add a new person')).toBeInTheDocument()
+    );
+  });
+
+  it('when there are more than 60 results shows add a user after two load more clicks', async () => {
+    (SearchPerson as jest.Mock).mockImplementation(
+      makeSearchResultsImplementation(3)
+    );
+
+    const { getByText, getByLabelText, getByRole } = render(
+      <UserContext.Provider
+        value={{
+          user: { name: 'foo' } as unknown as User,
+        }}
+      >
+        <Search {...props} type="people" />
+      </UserContext.Provider>
+    );
+
+    const nameInput = getByLabelText('First name');
+    fireEvent.change(nameInput, { target: { value: 'foo' } });
+    await act(async () => {
+      fireEvent.submit(getByRole('form'));
+    });
+
+    await waitFor(() =>
+      expect(getByText('add a new person')).toBeInTheDocument()
+    );
+  });
 });
+
+const makeSearchResultsImplementation = (count: number) => () => {
+  const response: { size: number; data: Array<unknown> } = {
+    size: 1,
+    data: [],
+  };
+
+  for (let i = 0; i < count; i++) {
+    response.data.push({
+      nextCursor: '',
+      totalCount: count * 20 - 1,
+      residents: new Array(count * 20 - 1)
+        .fill({
+          firstName: 'Ross',
+          lastName: 'Geller',
+          uprn: '10002263753',
+          dateOfBirth: '2006-02-03T00:00:00.0000000',
+          ageContext: 'A',
+          gender: 'M',
+          nhsNumber: '9707109432',
+          restricted: 'N',
+          address: { address: '4A, LONDON ROAD', postcode: 'TW1 3RR' },
+        })
+        .map((val, index) => ({
+          ...val,
+          mosaicId: index + i * 100,
+        })),
+    });
+  }
+
+  return response;
+};
