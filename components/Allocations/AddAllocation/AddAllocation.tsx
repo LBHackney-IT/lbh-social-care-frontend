@@ -132,10 +132,10 @@ const AddAllocation = ({ personId, ageContext }: Props): React.ReactElement => {
         <></>
       )}
 
-      {workerAllocation && workers?.workers ? (
+      {workerAllocation && workers ? (
         <>
           <SelectWorker
-            records={workers?.workers}
+            records={workers}
             callback={(value: any) => setWorker(value)}
           />
           <button
