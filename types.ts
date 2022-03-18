@@ -202,10 +202,6 @@ export interface Team {
   name: string;
 }
 
-export interface TeamWorkers {
-  workers: Worker[];
-}
-
 export interface Worker {
   id: number;
   email: string;
