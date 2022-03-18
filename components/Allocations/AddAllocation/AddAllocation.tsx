@@ -13,7 +13,7 @@ import {
 import { AgeContext, User } from 'types';
 import DatePicker from 'components/Form/DatePicker/DatePicker';
 import Radios from 'components/Form/Radios/Radios';
-import SelectWorker from './SelectWorker';
+import SelectWorker from '../SelectWorker/SelectWorker';
 import { useAuth } from 'components/UserContext/UserContext';
 import s from './AddAllocation.module.scss';
 import { format } from 'date-fns';
