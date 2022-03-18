@@ -90,8 +90,64 @@ describe(`AddAllocation`, () => {
     expect(asFragment()).toMatchSnapshot();
   });
 
+  it('should not show "Allocate a worker" if there is no team selected', async () => {
+    const { queryByText } = render(
+      <UserContext.Provider
+        value={{
+          user: mockedUser,
+        }}
+      >
+        <AddAllocation {...props} />
+      </UserContext.Provider>
+    );
+    const allocate_worker_link = queryByText('+ Allocate a worker');
+    expect(allocate_worker_link).not.toBeInTheDocument();
+  });
+  xit('should show "Allocate a worker" if a team selected', async () => {
+    jest.spyOn(allocatedWorkerAPI, 'useTeamWorkers').mockImplementation(() => ({
+      workers: [
+        {
+          id: 9,
+          firstName: 'Worker',
+          lastName: 'A',
+          allocationCount: 3,
+          role: 'role_a',
+          email: 'a@email.com',
+          teams: [],
+        },
+      ],
+      revalidate: jest.fn(),
+      mutate: jest.fn(),
+      isValidating: false,
+    }));
+
+    const { getByTestId } = render(
+      <UserContext.Provider
+        value={{
+          user: mockedUser,
+        }}
+      >
+        <AddAllocation {...props} />
+      </UserContext.Provider>
+    );
+    const teamAutocomplete = getByTestId('teamId');
+
+    await act(async () => {
+      fireEvent.click(teamAutocomplete);
+      fireEvent.change(teamAutocomplete, { target: { value: 'Team 3' } });
+    });
+    await act(async () => {
+      fireEvent.click(getByTestId('teamId'));
+      expect(teamAutocomplete).toHaveValue('Team 3');
+    });
+
+    const allocate_worker_link = getByTestId('allocate_worker_link');
+    expect(allocate_worker_link).toBeInTheDocument();
+  });
+
   it('should render and submit correctly', async () => {
     jest.spyOn(allocatedWorkerAPI, 'addAllocatedWorker');
+
     const { getByText, getByRole, getByTestId } = render(
       <UserContext.Provider
         value={{
@@ -106,12 +162,11 @@ describe(`AddAllocation`, () => {
       fireEvent.click(teamAutocomplete);
     });
     await act(async () => {
-      fireEvent.click(getByTestId('teamId_0'));
+      fireEvent.click(getByText('Team 3'));
     });
     await act(async () => {
       fireEvent.click(getByText('Medium priority'));
     });
-
     await act(async () => {
       fireEvent.submit(getByRole('form'));
     });

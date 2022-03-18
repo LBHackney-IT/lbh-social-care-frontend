@@ -30,23 +30,25 @@ const ResultEntry = ({
               htmlFor={String(id)}
             >
               <span className="govuk-visually-hidden">
-                {firstName} {lastName}
+                {`${firstName} ${lastName}`}
               </span>
             </label>
           </div>
         </td>
-        <td className="govuk-table__cell">
-          {firstName} {lastName}
+        <td data-testid="workerName" className="govuk-table__cell">
+          {`${firstName} ${lastName}`}
         </td>
         <td className="govuk-table__cell">
-          <label htmlFor={String(id)}>{allocationCount}</label>
+          <label data-testid="allocationCount" htmlFor={String(id)}>
+            {allocationCount}
+          </label>
         </td>
       </tr>
     </>
   );
 };
 
-const RelationshipSearchTable = ({
+const SelectWorker = ({
   records,
   callback,
 }: {
@@ -79,4 +81,4 @@ const RelationshipSearchTable = ({
   );
 };
 
-export default RelationshipSearchTable;
+export default SelectWorker;

@@ -126,6 +126,7 @@ const AddAllocation = ({ personId, ageContext }: Props): React.ReactElement => {
       {!workerAllocation && teamId && workers ? (
         <button
           className={`lbh-link ${s.addPersonLink}`}
+          data-testid="allocate_worker_link"
           onClick={() => setWorkerAllocation(true)}
         >
           + Allocate a worker
