@@ -4,6 +4,7 @@ import { mockedUser } from 'factories/users';
 import AddAllocation from './AddAllocation';
 import * as allocatedWorkerAPI from 'utils/api/allocatedWorkers';
 import { AgeContext } from 'types';
+import { format } from 'date-fns';
 
 jest.mock('next/router', () => ({
   useRouter: () => ({
@@ -91,7 +92,7 @@ describe(`AddAllocation`, () => {
 
   it('should render and submit correctly', async () => {
     jest.spyOn(allocatedWorkerAPI, 'addAllocatedWorker');
-    const { getByRole, getByTestId } = render(
+    const { getByText, getByRole, getByTestId } = render(
       <UserContext.Provider
         value={{
           user: mockedUser,
@@ -107,6 +108,9 @@ describe(`AddAllocation`, () => {
     await act(async () => {
       fireEvent.click(getByTestId('teamId_0'));
     });
+    await act(async () => {
+      fireEvent.click(getByText('Medium priority'));
+    });
 
     await act(async () => {
       fireEvent.submit(getByRole('form'));
@@ -115,8 +119,9 @@ describe(`AddAllocation`, () => {
     expect(allocatedWorkerAPI.addAllocatedWorker).toHaveBeenCalled();
     expect(allocatedWorkerAPI.addAllocatedWorker).toHaveBeenCalledWith(123, {
       allocatedTeamId: 3,
-      allocatedWorkerId: 7,
-      allocationStartDate: '2021-01-01',
+      allocationStartDate: format(new Date(), 'yyyy-MM-dd'),
+      createdBy: 'foo@bar.com',
+      ragRating: 'amber',
     });
   });
 });

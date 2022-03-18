@@ -203,36 +203,10 @@ exports[`AddAllocation should render properly 1`] = `
         id="allocationStartDate"
         name="allocationStartDate"
         type="date"
-        value="2022-03-17"
+        value="2022-03-18"
       />
     </div>
-    <a
-      class="lbh-link"
-    >
-      <svg
-        fill="none"
-        height="15"
-        viewBox="0 0 15 15"
-        width="15"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <rect
-          fill="#025EA6"
-          height="15"
-          width="1"
-          x="7"
-        />
-        <rect
-          fill="#025EA6"
-          height="15"
-          transform="rotate(90 15 7)"
-          width="1"
-          x="15"
-          y="7"
-        />
-      </svg>
-      View
-    </a>
+    <br />
     <button
       class="lbh-button govuk-button"
       data-module="govuk-button"
