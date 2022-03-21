@@ -30,7 +30,7 @@ describe(`AddAllocation`, () => {
     isValidating: false,
   }));
   jest.spyOn(allocatedWorkerAPI, 'useTeamWorkers').mockImplementation(() => ({
-    workers: [
+    data: [
       {
         id: 9,
         firstName: 'Worker',
@@ -69,7 +69,13 @@ describe(`AddAllocation`, () => {
     control: { defaultValuesRef: { current: { name: 'teamId' } } },
   };
 
-  it('should not show "Allocate a worker" if there is no team selected', async () => {
+  it('should not show "Allocate a worker" if there are no workers', async () => {
+    jest.spyOn(allocatedWorkerAPI, 'useTeamWorkers').mockImplementation(() => ({
+      data: [],
+      revalidate: jest.fn(),
+      mutate: jest.fn(),
+      isValidating: false,
+    }));
     const { queryByText } = render(
       <UserContext.Provider
         value={{
@@ -82,9 +88,9 @@ describe(`AddAllocation`, () => {
     const allocate_worker_link = queryByText('+ Allocate a worker');
     expect(allocate_worker_link).not.toBeInTheDocument();
   });
-  xit('should show "Allocate a worker" if a team selected', async () => {
+  it('should show "Allocate a worker" if a team selected', async () => {
     jest.spyOn(allocatedWorkerAPI, 'useTeamWorkers').mockImplementation(() => ({
-      workers: [
+      data: [
         {
           id: 9,
           firstName: 'Worker',
