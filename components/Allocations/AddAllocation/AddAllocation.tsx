@@ -15,7 +15,7 @@ import DatePicker from 'components/Form/DatePicker/DatePicker';
 import Radios from 'components/Form/Radios/Radios';
 import SelectWorker from '../SelectWorker/SelectWorker';
 import s from './AddAllocation.module.scss';
-import { format } from 'date-fns';
+import { format, isBefore } from 'date-fns';
 
 interface Props {
   personId: number;
@@ -28,16 +28,25 @@ const AddAllocation = ({ personId, ageContext }: Props): React.ReactElement => {
   const [workerAllocation, setWorkerAllocation] = useState<boolean>(false);
   const [priority, setPriority] = useState<string>();
   const [worker, setWorker] = useState<number | null>();
+  const [dateValidation, setDateValidation] = useState<boolean>(false);
+
   const [allocationDate, setAllocationDate] = useState<Date>(
     new Date(Date.now())
   );
   const { query, push, replace, pathname } = useRouter();
-  const { handleSubmit, control, errors } = useForm({
+  const { handleSubmit, control } = useForm({
     defaultValues: query,
   });
   const { teamId } = query as { teamId?: number };
   const { data: { teams } = {}, error: errorTeams } = useTeams({ ageContext });
   const { data: workers, error: errorWorkers } = useTeamWorkers(teamId);
+
+  useEffect(() => {
+    setDateValidation(false);
+    if (isBefore(new Date(), allocationDate)) {
+      setDateValidation(true);
+    }
+  }, [allocationDate]);
 
   const addWorker = useCallback(async () => {
     setPostLoading(true);
@@ -56,15 +65,18 @@ const AddAllocation = ({ personId, ageContext }: Props): React.ReactElement => {
     }
     setPostLoading(false);
   }, [priority, allocationDate, worker, personId, teamId, push]);
+
   useEffect(() => {
     setPostError(null);
   }, [query]);
+
   if (errorTeams || errorWorkers || postError) {
     return <ErrorMessage />;
   }
   if (!teams) {
     return <Spinner />;
   }
+
   return (
     <form role="form" onSubmit={handleSubmit(addWorker)}>
       {teams && (
@@ -112,7 +124,14 @@ const AddAllocation = ({ personId, ageContext }: Props): React.ReactElement => {
         label="Select an allocation date"
         labelSize="s"
         name="allocationStartDate"
-        error={errors.allocationStartDate}
+        error={
+          dateValidation
+            ? {
+                message: 'Date not valid',
+                type: 'string',
+              }
+            : undefined
+        }
         defaultToday
         onChange={(date) => {
           setAllocationDate(new Date(date.target.value));
