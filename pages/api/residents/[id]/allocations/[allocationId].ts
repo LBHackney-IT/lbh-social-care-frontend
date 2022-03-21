@@ -60,7 +60,7 @@ const endpoint: NextApiHandler = async (
         (error as AxiosError)?.response?.status === StatusCodes.NOT_FOUND
           ? res
               .status(StatusCodes.NOT_FOUND)
-              .json({ message: 'Case Status Not Found' })
+              .json({ message: 'Allocation PATCH error' })
           : res
               .status(
                 (error as AxiosError)?.response?.status ||
