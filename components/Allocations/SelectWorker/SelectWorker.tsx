@@ -19,6 +19,7 @@ const ResultEntry = ({
               id={String(id)}
               name="workerId"
               type="radio"
+              data-testid={`select_${firstName}_${lastName}`}
               value={id}
               onChange={(e) => {
                 callback(e.target.value);

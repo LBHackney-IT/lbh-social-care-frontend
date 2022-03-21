@@ -69,6 +69,7 @@ const AddAllocation = ({
       <DatePicker
         label="Select an allocation date"
         labelSize="s"
+        data-testid="allocationStartDate"
         name="allocationStartDate"
         error={errors.allocationStartDate}
         defaultToday
@@ -77,7 +78,12 @@ const AddAllocation = ({
         }}
         required
       />
-      <Button label="Continue" type="submit" disabled={postLoading} />
+      <Button
+        label="Continue"
+        type="submit"
+        data-testid="submitbutton"
+        disabled={postLoading}
+      />
 
       {!workers && <Spinner />}
     </form>

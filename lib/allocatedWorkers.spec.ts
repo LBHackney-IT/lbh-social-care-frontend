@@ -203,4 +203,26 @@ describe('allocatedWorkersAPI', () => {
       expect(data).toEqual({ allocations: ['foo'] });
     });
   });
+
+  describe('patchResidentAllocation', () => {
+    it('should work properly', async () => {
+      mockedAxios.patch.mockResolvedValue({
+        data: { allocations: ['foo'] },
+      });
+      const data = await allocatedWorkersAPI.patchResidentAllocation(12, 123, {
+        allocatedTeamId: 12,
+        allocatedWorkerId: 123,
+        allocationStartDate: '2022-12-12',
+      });
+      expect(mockedAxios.patch).toHaveBeenCalled();
+      expect(mockedAxios.patch.mock.calls[0][0]).toEqual(
+        `${ENDPOINT_API}/allocations/123`
+      );
+      expect(mockedAxios.patch.mock.calls[0][2]?.headers).toEqual({
+        'Content-Type': 'application/json',
+        'x-api-key': AWS_KEY,
+      });
+      expect(data).toEqual({ allocations: ['foo'] });
+    });
+  });
 });
