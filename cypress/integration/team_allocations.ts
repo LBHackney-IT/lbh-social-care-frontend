@@ -2,7 +2,7 @@ import { AuthRoles } from '../support/commands';
 
 describe('Worker / team allocation', () => {
   describe('As a user in the Admin Dev group', () => {
-    it('Search of Adult group record', () => {
+    it('Loads correcty the "add an allocation" page', () => {
       cy.visitAs(
         `/residents/${Cypress.env('ADULT_RECORD_PERSON_ID')}/allocations/add`,
         AuthRoles.AdminDevGroup
