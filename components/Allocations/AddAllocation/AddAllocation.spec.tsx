@@ -69,27 +69,6 @@ describe(`AddAllocation`, () => {
     control: { defaultValuesRef: { current: { name: 'teamId' } } },
   };
 
-  it('should render properly', async () => {
-    const { getByTestId, asFragment } = render(
-      <UserContext.Provider
-        value={{
-          user: mockedUser,
-        }}
-      >
-        <AddAllocation {...props} />
-      </UserContext.Provider>
-    );
-    const teamAutocomplete = getByTestId('teamId');
-    expect(teamAutocomplete).toBeInTheDocument();
-    expect(allocatedWorkerAPI.useTeams).toHaveBeenCalledWith({
-      ageContext: 'A',
-    });
-    await act(async () => {
-      fireEvent.click(teamAutocomplete);
-    });
-    expect(asFragment()).toMatchSnapshot();
-  });
-
   it('should not show "Allocate a worker" if there is no team selected', async () => {
     const { queryByText } = render(
       <UserContext.Provider
@@ -175,7 +154,6 @@ describe(`AddAllocation`, () => {
     expect(allocatedWorkerAPI.addAllocatedWorker).toHaveBeenCalledWith(123, {
       allocatedTeamId: 3,
       allocationStartDate: format(new Date(), 'yyyy-MM-dd'),
-      createdBy: 'foo@bar.com',
       ragRating: 'amber',
     });
   });
