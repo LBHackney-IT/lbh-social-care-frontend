@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useEffect } from 'react';
+import React, { useState, useCallback } from 'react';
 import { useRouter } from 'next/router';
 import { useForm } from 'react-hook-form';
 import Button from 'components/Button/Button';
@@ -22,7 +22,7 @@ const AddAllocation = ({
   allocationId,
 }: Props): React.ReactElement => {
   const [postError, setPostError] = useState<boolean | null>();
-  const [postLoading, setPostLoading] = useState<boolean>();
+  const [postLoading, setPostLoading] = useState<boolean>(true);
   const [worker, setWorker] = useState<number | null>();
   const [allocationDate, setAllocationDate] = useState<Date>(
     new Date(Date.now())
@@ -48,9 +48,6 @@ const AddAllocation = ({
     }
     setPostLoading(false);
   }, [allocationDate, worker, personId, push]);
-  useEffect(() => {
-    setPostError(null);
-  }, [query]);
   if (errorWorkers || postError) {
     return <ErrorMessage />;
   }
@@ -82,7 +79,7 @@ const AddAllocation = ({
         label="Continue"
         type="submit"
         data-testid="submitbutton"
-        disabled={postLoading}
+        disabled={!worker && postLoading}
       />
 
       {!workers && <Spinner />}
