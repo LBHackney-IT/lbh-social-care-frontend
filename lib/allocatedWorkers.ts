@@ -84,14 +84,6 @@ export const addAllocatedWorker = async (
   mosaicId: yup.InferType<typeof addAllocatedWorkerSchema>['mosaicId'],
   params: Omit<yup.InferType<typeof addAllocatedWorkerSchema>, 'mosaicId'>
 ): Promise<Record<string, unknown>> => {
-  try {
-    const body = await addAllocatedWorkerSchema.validate({
-      mosaicId,
-      ...params,
-    });
-  } catch (e) {
-    console.log(e);
-  }
   const body = await addAllocatedWorkerSchema.validate({ mosaicId, ...params });
 
   const { data } = await axios.post(`${ENDPOINT_API}/allocations`, body, {
