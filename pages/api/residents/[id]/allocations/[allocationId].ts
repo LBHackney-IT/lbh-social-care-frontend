@@ -1,6 +1,9 @@
 import { StatusCodes } from 'http-status-codes';
 
-import { getResidentAllocation } from 'lib/allocatedWorkers';
+import {
+  getResidentAllocation,
+  patchResidentAllocation,
+} from 'lib/allocatedWorkers';
 import { isAuthorised } from 'utils/auth';
 
 import type { NextApiRequest, NextApiResponse, NextApiHandler } from 'next';
@@ -40,7 +43,35 @@ const endpoint: NextApiHandler = async (
           .json({ message: 'Unable to get the Allocated Workers' });
       }
       break;
+    case 'PATCH':
+      try {
+        await patchResidentAllocation(
+          parseInt(req.query.id as string, 10),
+          parseInt(req.query.allocationId as string, 10),
+          req.body
+        );
+        res.status(StatusCodes.OK).end();
+      } catch (error) {
+        console.error(
+          'Allocation PATCH error:',
+          (error as AxiosError)?.response?.data
+        );
 
+        (error as AxiosError)?.response?.status === StatusCodes.NOT_FOUND
+          ? res
+              .status(StatusCodes.NOT_FOUND)
+              .json({ message: 'Case Status Not Found' })
+          : res
+              .status(
+                (error as AxiosError)?.response?.status ||
+                  StatusCodes.INTERNAL_SERVER_ERROR
+              )
+              .json({
+                status: (error as AxiosError)?.response?.status,
+                message: (error as AxiosError)?.response?.data,
+              });
+      }
+      break;
     default:
       res
         .status(StatusCodes.BAD_REQUEST)

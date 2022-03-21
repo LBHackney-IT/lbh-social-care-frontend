@@ -91,3 +91,29 @@ export const addAllocatedWorker = async (
   });
   return data;
 };
+
+const patchAllocationSchema = yup.object({
+  mosaicId: yup.number().required().positive().integer(),
+  allocationId: yup.number().integer(),
+  allocatedTeamId: yup.number().integer().nullable(),
+  allocatedWorkerId: yup.number().integer().nullable(),
+  allocationStartDate: yup.string().required(),
+});
+
+export const patchResidentAllocation = async (
+  mosaicId: yup.InferType<typeof patchAllocationSchema>['mosaicId'],
+  allocation_Id: yup.InferType<typeof patchAllocationSchema>['allocationId'],
+  params: Omit<yup.InferType<typeof patchAllocationSchema>, 'mosaicId'>
+): Promise<Record<string, unknown>> => {
+  const body = await patchAllocationSchema.validate({
+    mosaicId,
+    allocation_Id,
+    ...params,
+  });
+
+  const { data } = await axios.patch(`${ENDPOINT_API}/allocations`, body, {
+    headers: { 'Content-Type': 'application/json', 'x-api-key': AWS_KEY },
+  });
+
+  return data;
+};

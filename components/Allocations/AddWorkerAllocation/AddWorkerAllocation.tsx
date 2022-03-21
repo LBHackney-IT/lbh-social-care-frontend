@@ -6,12 +6,11 @@ import Spinner from 'components/Spinner/Spinner';
 import ErrorMessage from 'components/ErrorMessage/ErrorMessage';
 import {
   useTeamWorkers,
-  // addAllocatedWorker,
+  addWorkerToAllocation,
 } from 'utils/api/allocatedWorkers';
-import { User } from 'types';
 import DatePicker from 'components/Form/DatePicker/DatePicker';
 import SelectWorker from '../SelectWorker/SelectWorker';
-import { useAuth } from 'components/UserContext/UserContext';
+import { format } from 'date-fns';
 
 interface Props {
   personId: number;
@@ -33,19 +32,15 @@ const AddAllocation = ({
     defaultValues: query,
   });
   const { data: workers, error: errorWorkers } = useTeamWorkers(87);
-  const { user } = useAuth() as { user: User };
 
   const addWorker = useCallback(async () => {
     setPostLoading(true);
     setPostError(null);
     try {
-      // await addAllocatedWorker(personId, {
-      //   allocatedTeamId: Number(teamId),
-      //   ...(worker && { allocatedWorkerId: Number(worker) }),
-      //   ragRating: priority,
-      //   allocationStartDate: format(allocationDate, 'yyyy-MM-dd'),
-      //   createdBy: user.email,
-      // });
+      await addWorkerToAllocation(personId, allocationId, {
+        allocatedWorkerId: Number(worker),
+        allocationStartDate: format(allocationDate, 'yyyy-MM-dd'),
+      });
 
       push(`/people/${personId}`);
     } catch (e) {

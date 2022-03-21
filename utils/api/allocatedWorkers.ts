@@ -62,3 +62,15 @@ export const addAllocatedWorker = async (
   );
   return data;
 };
+
+export const addWorkerToAllocation = async (
+  residentId: number,
+  allocationId: number,
+  body: Record<string, unknown>
+): Promise<Record<string, unknown>> => {
+  const { data } = await axios.patch(
+    `/api/residents/${residentId}/allocations/${allocationId}`,
+    body
+  );
+  return data;
+};
