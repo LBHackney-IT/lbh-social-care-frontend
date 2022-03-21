@@ -35,6 +35,8 @@ describe(`AddWorkerAllocation`, () => {
   const props = {
     personId: 123,
     allocationId: 12,
+    teamId: 15,
+    teamAllocationStartDate: new Date(-10),
   };
 
   it('should load the page correctly', async () => {
@@ -69,6 +71,7 @@ describe(`AddWorkerAllocation`, () => {
       {
         allocatedWorkerId: 9,
         allocationStartDate: format(new Date(), 'yyyy-MM-dd'),
+        team_id: 15,
       }
     );
   });

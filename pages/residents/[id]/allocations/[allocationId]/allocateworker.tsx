@@ -33,6 +33,9 @@ const AddNewAllocationPage = (): React.ReactElement => {
     return <></>;
   }
 
+  const teamAllocationStartDate = String(query.teamAllocationStartDate);
+  const teamId = Number(query.teamId);
+
   return (
     <>
       <Seo title={`Allocate Worker to #${query.id} Allocate Worker`} />
@@ -43,7 +46,9 @@ const AddNewAllocationPage = (): React.ReactElement => {
         {(resident) => (
           <div className="govuk-!-margin-top-7">
             <AddWorkerAllocation
+              teamAllocationStartDate={new Date(teamAllocationStartDate)}
               personId={resident.id}
+              teamId={teamId}
               allocationId={allocationId}
             />
           </div>
