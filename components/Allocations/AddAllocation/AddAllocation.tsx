@@ -10,11 +10,10 @@ import {
   useTeamWorkers,
   addAllocatedWorker,
 } from 'utils/api/allocatedWorkers';
-import { AgeContext, User } from 'types';
+import { AgeContext } from 'types';
 import DatePicker from 'components/Form/DatePicker/DatePicker';
 import Radios from 'components/Form/Radios/Radios';
 import SelectWorker from '../SelectWorker/SelectWorker';
-import { useAuth } from 'components/UserContext/UserContext';
 import s from './AddAllocation.module.scss';
 import { format } from 'date-fns';
 
@@ -39,7 +38,6 @@ const AddAllocation = ({ personId, ageContext }: Props): React.ReactElement => {
   const { teamId } = query as { teamId?: number };
   const { data: { teams } = {}, error: errorTeams } = useTeams({ ageContext });
   const { data: workers, error: errorWorkers } = useTeamWorkers(teamId);
-  const { user } = useAuth() as { user: User };
 
   const addWorker = useCallback(async () => {
     setPostLoading(true);
@@ -50,7 +48,6 @@ const AddAllocation = ({ personId, ageContext }: Props): React.ReactElement => {
         ...(worker && { allocatedWorkerId: Number(worker) }),
         ragRating: priority,
         allocationStartDate: format(allocationDate, 'yyyy-MM-dd'),
-        createdBy: user.email,
       });
 
       push(`/people/${personId}`);

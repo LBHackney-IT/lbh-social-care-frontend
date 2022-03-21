@@ -58,7 +58,6 @@ export const getAllocationsByWorker = async (
 
 const deleteAllocatedWorkerSchema = yup.object({
   id: yup.number().required().positive().integer(),
-  createdBy: yup.string().email().required(),
   deallocationReason: yup.string().required(),
   deallocationDate: yup.string().required(),
 });
@@ -76,9 +75,9 @@ export const deleteAllocatedWorker = async (
 const addAllocatedWorkerSchema = yup.object({
   mosaicId: yup.number().required().positive().integer(),
   allocatedTeamId: yup.number().required().integer(),
-  allocatedWorkerId: yup.number().required().integer(),
-  createdBy: yup.string().email().required(),
+  allocatedWorkerId: yup.number().integer().nullable(),
   allocationStartDate: yup.string().required(),
+  ragRating: yup.string().required(),
 });
 
 export const addAllocatedWorker = async (
@@ -86,6 +85,7 @@ export const addAllocatedWorker = async (
   params: Omit<yup.InferType<typeof addAllocatedWorkerSchema>, 'mosaicId'>
 ): Promise<Record<string, unknown>> => {
   const body = await addAllocatedWorkerSchema.validate({ mosaicId, ...params });
+
   const { data } = await axios.post(`${ENDPOINT_API}/allocations`, body, {
     headers: { 'Content-Type': 'application/json', 'x-api-key': AWS_KEY },
   });

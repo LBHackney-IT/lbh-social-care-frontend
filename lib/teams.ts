@@ -10,7 +10,6 @@ const headersWithKey = {
 export const getTeams = async (
   params: Record<string, unknown>
 ): Promise<Record<string, unknown>> => {
-  console.log('getting teams');
   const { data } = await axios.get(`${ENDPOINT_API}/teams`, {
     headers: headersWithKey,
     params,
