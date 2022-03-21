@@ -42,6 +42,7 @@ const AddAllocation = ({
 
   useEffect(() => {
     setDateValidation(false);
+    console.log(teamAllocationStartDate);
     if (isAfter(teamAllocationStartDate, allocationDate)) {
       setDateValidation(true);
     }
@@ -98,10 +99,12 @@ const AddAllocation = ({
         data-testid="allocationStartDate"
         name="allocationStartDate"
         error={
-          dateValidation && {
-            message: 'Date not valid',
-            type: 'string',
-          }
+          dateValidation
+            ? {
+                message: 'Date not valid',
+                type: 'string',
+              }
+            : undefined
         }
         defaultToday
         onChange={(date) => {
