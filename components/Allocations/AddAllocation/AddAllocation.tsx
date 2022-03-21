@@ -120,7 +120,7 @@ const AddAllocation = ({ personId, ageContext }: Props): React.ReactElement => {
         required
       />
 
-      {!workerAllocation && teamId && workers ? (
+      {!workerAllocation && teamId && workers && workers.length > 0 ? (
         <button
           className={`lbh-link ${s.addPersonLink}`}
           data-testid="allocate_worker_link"
@@ -132,7 +132,7 @@ const AddAllocation = ({ personId, ageContext }: Props): React.ReactElement => {
         <></>
       )}
 
-      {workerAllocation && workers ? (
+      {workerAllocation && workers && workers.length > 0 ? (
         <>
           <SelectWorker
             records={workers}
