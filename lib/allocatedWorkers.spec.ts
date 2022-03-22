@@ -159,6 +159,7 @@ describe('allocatedWorkersAPI', () => {
         id: 123,
         deallocationReason: 'test',
         deallocationDate: '01/01/2021',
+        createdBy: 'jest.jestington@gmail.com',
       });
       expect(mockedAxios.patch).toHaveBeenCalled();
       expect(mockedAxios.patch.mock.calls[0][0]).toEqual(
@@ -168,6 +169,7 @@ describe('allocatedWorkersAPI', () => {
         id: 123,
         deallocationReason: 'test',
         deallocationDate: '01/01/2021',
+        createdBy: 'jest.jestington@gmail.com',
       });
       expect(mockedAxios.patch.mock.calls[0][2]?.headers).toEqual({
         'Content-Type': 'application/json',
