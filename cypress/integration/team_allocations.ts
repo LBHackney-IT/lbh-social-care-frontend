@@ -22,9 +22,12 @@ describe('Worker / team allocation', () => {
         AuthRoles.AdminDevGroup
       );
 
+      const futureDate = new Date();
+      futureDate.setDate(futureDate.getDate() + 1);
+
       cy.get('input[name=allocationStartDate]')
         .clear()
-        .type(format(new Date(1), 'yyyy-MM-dd'));
+        .type(format(futureDate, 'yyyy-MM-dd'));
 
       cy.get('[data-testid=teamId]').click();
       cy.contains(/Date not valid/).should('be.visible');
