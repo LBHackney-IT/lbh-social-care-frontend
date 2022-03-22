@@ -42,7 +42,6 @@ const AddWorkerAllocation = ({
 
   useEffect(() => {
     setDateValidation(false);
-    console.log(teamAllocationStartDate);
     if (isAfter(teamAllocationStartDate, allocationDate)) {
       setDateValidation(true);
     }
@@ -118,7 +117,7 @@ const AddWorkerAllocation = ({
         label="Continue"
         type="submit"
         data-testid="submitbutton"
-        disabled={!worker && postLoading}
+        disabled={!worker || !postLoading || dateValidation}
       />
 
       {!workers && <Spinner />}
