@@ -15,7 +15,9 @@ const DeAllocationPage = (): React.ReactElement => {
   const { query, replace } = useRouter();
   const personId = Number(query.id as string);
   const allocationId = Number(query.allocationId as string);
-  const type = String(query.type as string);
+  const type = String(query.type);
+  const allocationStartDate = String(query.allocationStartDate);
+  const teamName = String(query.teamName);
 
   const { user } = useAuth() as { user: User };
   const { data: resident, error } = useResident(personId);
@@ -51,6 +53,8 @@ const DeAllocationPage = (): React.ReactElement => {
             <DeallocateTeamWorker
               type="team"
               personId={personId}
+              teamName={teamName}
+              allocationStartDate={new Date(allocationStartDate)}
               allocationId={allocationId}
             />
           </div>
