@@ -78,6 +78,7 @@ const addAllocatedWorkerSchema = yup.object({
   allocatedWorkerId: yup.number().integer().nullable(),
   allocationStartDate: yup.string().required(),
   ragRating: yup.string().required(),
+  createdBy: yup.string().email().required(),
 });
 
 export const addAllocatedWorker = async (
