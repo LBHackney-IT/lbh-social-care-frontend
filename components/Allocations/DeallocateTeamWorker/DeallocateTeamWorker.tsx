@@ -2,11 +2,9 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { useRouter } from 'next/router';
 import { useForm } from 'react-hook-form';
 import Button from 'components/Button/Button';
-import Spinner from 'components/Spinner/Spinner';
 import TextArea from 'components/Form/TextArea/TextArea';
 import { Resident } from 'types';
 import ErrorMessage from 'components/ErrorMessage/ErrorMessage';
-import { useTeamWorkers } from 'utils/api/allocatedWorkers';
 import DatePicker from 'components/Form/DatePicker/DatePicker';
 import { isAfter, isBefore } from 'date-fns';
 
@@ -32,10 +30,9 @@ const DeallocateTeamWorker = ({
     new Date(Date.now())
   );
   const [dateValidation, setDateValidation] = useState<boolean>(false);
-  const { data: workers, error: errorWorkers } = useTeamWorkers(87);
 
   const { query, push } = useRouter();
-  const { handleSubmit, errors } = useForm({
+  const { handleSubmit } = useForm({
     defaultValues: query,
   });
 
@@ -65,11 +62,8 @@ const DeallocateTeamWorker = ({
     setPostLoading(false);
   }, [resident.id, push]);
 
-  if (errorWorkers || postError) {
+  if (postError) {
     return <ErrorMessage />;
-  }
-  if (!workers) {
-    return <Spinner />;
   }
 
   return (
@@ -79,8 +73,7 @@ const DeallocateTeamWorker = ({
       <br />
       {type == 'team'
         ? `${teamName} Team, allocated ${allocationStartDate.toLocaleDateString()}`
-        : `${resident && resident.firstName}
-          ${
+        : `${resident && resident.firstName} ${
             resident && resident.lastName
           }, social worker (${teamName} Team), allocated ${allocationStartDate.toLocaleDateString()}`}
 
@@ -119,8 +112,6 @@ const DeallocateTeamWorker = ({
           data-testid="submitbutton"
           disabled={!deallocationReason || postLoading || dateValidation}
         />
-
-        {!workers && <Spinner />}
       </form>
     </>
   );
