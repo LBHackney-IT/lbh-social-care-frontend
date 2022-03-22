@@ -19,7 +19,7 @@ interface Props {
   teamAllocationStartDate: Date;
 }
 
-const AddAllocation = ({
+const AddWorkerAllocation = ({
   personId,
   allocationId,
   teamId,
@@ -57,10 +57,11 @@ const AddAllocation = ({
     setPostError(null);
 
     try {
-      await addWorkerToAllocation(personId, allocationId, {
+      await addWorkerToAllocation('add_worker_to_allocation', personId, {
         allocatedWorkerId: Number(worker),
+        allocationId: Number(allocationId),
         allocationStartDate: format(allocationDate, 'yyyy-MM-dd'),
-        team_id: Number(teamId),
+        allocatedTeamId: Number(teamId),
       });
       push(`/people/${personId}`);
     } catch (e) {
@@ -125,4 +126,4 @@ const AddAllocation = ({
   );
 };
 
-export default AddAllocation;
+export default AddWorkerAllocation;

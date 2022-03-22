@@ -66,12 +66,13 @@ describe(`AddWorkerAllocation`, () => {
     });
     expect(allocatedWorkerAPI.addWorkerToAllocation).toHaveBeenCalled();
     expect(allocatedWorkerAPI.addWorkerToAllocation).toHaveBeenCalledWith(
+      'add_worker_to_allocation',
       123,
-      12,
       {
+        allocationId: 12,
         allocatedWorkerId: 9,
         allocationStartDate: format(new Date(), 'yyyy-MM-dd'),
-        team_id: 15,
+        allocatedTeamId: 15,
       }
     );
   });
