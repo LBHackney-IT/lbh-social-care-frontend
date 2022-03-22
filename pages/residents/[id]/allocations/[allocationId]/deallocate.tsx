@@ -51,8 +51,8 @@ const DeAllocationPage = (): React.ReactElement => {
         {(resident) => (
           <div className="govuk-!-margin-top-7">
             <DeallocateTeamWorker
-              type="team"
-              personId={personId}
+              type={type}
+              resident={resident}
               teamName={teamName}
               allocationStartDate={new Date(allocationStartDate)}
               allocationId={allocationId}

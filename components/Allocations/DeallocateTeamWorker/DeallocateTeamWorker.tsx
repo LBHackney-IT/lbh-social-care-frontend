@@ -4,7 +4,7 @@ import { useForm } from 'react-hook-form';
 import Button from 'components/Button/Button';
 import Spinner from 'components/Spinner/Spinner';
 import TextArea from 'components/Form/TextArea/TextArea';
-
+import { Resident } from 'types';
 import ErrorMessage from 'components/ErrorMessage/ErrorMessage';
 import { useTeamWorkers } from 'utils/api/allocatedWorkers';
 import DatePicker from 'components/Form/DatePicker/DatePicker';
@@ -12,20 +12,18 @@ import { isAfter, isBefore } from 'date-fns';
 
 interface Props {
   type: string;
-  personId: number;
+  resident: Resident;
   allocationId: number;
   allocationStartDate: Date;
   teamName: string;
-  workerName?: string;
 }
 
-const AddAllocation = ({
+const DeallocateTeamWorker = ({
   type,
-  personId,
+  resident,
   allocationId,
   allocationStartDate,
   teamName,
-  workerName,
 }: Props): React.ReactElement => {
   const [postError, setPostError] = useState<boolean | null>();
   const [postLoading, setPostLoading] = useState<boolean>(false);
@@ -33,13 +31,13 @@ const AddAllocation = ({
   const [deallocationDate, setDeallocationDate] = useState<Date>(
     new Date(Date.now())
   );
+  const [dateValidation, setDateValidation] = useState<boolean>(false);
+  const { data: workers, error: errorWorkers } = useTeamWorkers(87);
 
   const { query, push } = useRouter();
   const { handleSubmit, errors } = useForm({
     defaultValues: query,
   });
-  const { data: workers, error: errorWorkers } = useTeamWorkers(87);
-  const [dateValidation, setDateValidation] = useState<boolean>(false);
 
   useEffect(() => {
     setDateValidation(false);
@@ -58,13 +56,15 @@ const AddAllocation = ({
     try {
       console.log(deallocationReason);
       console.log(deallocationDate);
+      console.log(allocationId);
 
-      push(`/people/${personId}`);
+      push(`/people/${resident.id}`);
     } catch (e) {
       setPostError(true);
     }
     setPostLoading(false);
-  }, [personId, push]);
+  }, [resident.id, push]);
+
   if (errorWorkers || postError) {
     return <ErrorMessage />;
   }
@@ -79,7 +79,10 @@ const AddAllocation = ({
       <br />
       {type == 'team'
         ? `${teamName} Team, allocated ${allocationStartDate.toLocaleDateString()}`
-        : `${workerName}, social worker (${teamName} Team), allocated ${allocationStartDate.toLocaleDateString()}`}
+        : `${resident && resident.firstName}
+          ${
+            resident && resident.lastName
+          }, social worker (${teamName} Team), allocated ${allocationStartDate.toLocaleDateString()}`}
 
       <form role="form" onSubmit={handleSubmit(addWorker)}>
         <TextArea
@@ -123,4 +126,4 @@ const AddAllocation = ({
   );
 };
 
-export default AddAllocation;
+export default DeallocateTeamWorker;
