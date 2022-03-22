@@ -60,6 +60,7 @@ const deleteAllocatedWorkerSchema = yup.object({
   id: yup.number().required().positive().integer(),
   deallocationReason: yup.string().required(),
   deallocationDate: yup.string().required(),
+  createdBy: yup.string().email().required(),
 });
 
 export const deleteAllocatedWorker = async (
@@ -78,6 +79,7 @@ const addAllocatedWorkerSchema = yup.object({
   allocatedWorkerId: yup.number().integer().nullable(),
   allocationStartDate: yup.string().required(),
   ragRating: yup.string().required(),
+  createdBy: yup.string().email().required(),
 });
 
 export const addAllocatedWorker = async (

@@ -121,6 +121,7 @@ describe('allocatedWorkersAPI', () => {
         allocatedTeamId: 321,
         ragRating: 'purple',
         allocationStartDate: '01-04-2021',
+        createdBy: 'jest.jestington@gmail.com',
       });
       expect(mockedAxios.post).toHaveBeenCalled();
       expect(mockedAxios.post.mock.calls[0][0]).toEqual(
@@ -132,6 +133,7 @@ describe('allocatedWorkersAPI', () => {
         allocatedWorkerId: 123,
         mosaicId: 123,
         allocationStartDate: '01-04-2021',
+        createdBy: 'jest.jestington@gmail.com',
       });
       expect(mockedAxios.post.mock.calls[0][2]?.headers).toEqual({
         'Content-Type': 'application/json',
@@ -157,6 +159,7 @@ describe('allocatedWorkersAPI', () => {
         id: 123,
         deallocationReason: 'test',
         deallocationDate: '01/01/2021',
+        createdBy: 'jest.jestington@gmail.com',
       });
       expect(mockedAxios.patch).toHaveBeenCalled();
       expect(mockedAxios.patch.mock.calls[0][0]).toEqual(
@@ -166,6 +169,7 @@ describe('allocatedWorkersAPI', () => {
         id: 123,
         deallocationReason: 'test',
         deallocationDate: '01/01/2021',
+        createdBy: 'jest.jestington@gmail.com',
       });
       expect(mockedAxios.patch.mock.calls[0][2]?.headers).toEqual({
         'Content-Type': 'application/json',
