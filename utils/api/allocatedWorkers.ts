@@ -28,9 +28,6 @@ export const useTeams = ({
 }): SWRResponse<{ teams: Team[] }, ErrorAPI> =>
   useSWR(`/api/teams${ageContext ? '?ageContext=' + ageContext : ''}`);
 
-export const useTeam = ({ id }: { id: number }): SWRResponse<Team, ErrorAPI> =>
-  useSWR(`/api/teams?id=${id}`);
-
 export const useTeamWorkers = (
   teamId?: number
 ): SWRResponse<Worker[], ErrorAPI> =>
@@ -64,12 +61,12 @@ export const addAllocatedWorker = async (
 };
 
 export const addWorkerToAllocation = async (
+  type: string,
   residentId: number,
-  allocationId: number,
   body: Record<string, unknown>
 ): Promise<Record<string, unknown>> => {
-  const { data } = await axios.patch(
-    `/api/residents/${residentId}/allocations/${allocationId}`,
+  const { data } = await axios.post(
+    `/api/residents/${residentId}/allocations?type=${type}`,
     body
   );
   return data;

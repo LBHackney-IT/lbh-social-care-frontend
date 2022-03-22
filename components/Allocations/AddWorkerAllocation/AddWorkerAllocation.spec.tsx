@@ -35,6 +35,8 @@ describe(`AddWorkerAllocation`, () => {
   const props = {
     personId: 123,
     allocationId: 12,
+    teamId: 15,
+    teamAllocationStartDate: new Date(-10),
   };
 
   it('should load the page correctly', async () => {
@@ -64,11 +66,13 @@ describe(`AddWorkerAllocation`, () => {
     });
     expect(allocatedWorkerAPI.addWorkerToAllocation).toHaveBeenCalled();
     expect(allocatedWorkerAPI.addWorkerToAllocation).toHaveBeenCalledWith(
+      'add_worker_to_allocation',
       123,
-      12,
       {
+        allocationId: 12,
         allocatedWorkerId: 9,
         allocationStartDate: format(new Date(), 'yyyy-MM-dd'),
+        allocatedTeamId: 15,
       }
     );
   });

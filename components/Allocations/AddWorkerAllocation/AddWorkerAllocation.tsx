@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useRouter } from 'next/router';
 import { useForm } from 'react-hook-form';
 import Button from 'components/Button/Button';
@@ -10,38 +10,59 @@ import {
 } from 'utils/api/allocatedWorkers';
 import DatePicker from 'components/Form/DatePicker/DatePicker';
 import SelectWorker from '../SelectWorker/SelectWorker';
-import { format } from 'date-fns';
+import { format, isAfter, isBefore } from 'date-fns';
 
 interface Props {
   personId: number;
   allocationId: number;
+  teamId: number;
+  teamAllocationStartDate: Date;
 }
 
-const AddAllocation = ({
+const AddWorkerAllocation = ({
   personId,
   allocationId,
+  teamId,
+  teamAllocationStartDate,
 }: Props): React.ReactElement => {
   const [postError, setPostError] = useState<boolean | null>();
   const [postLoading, setPostLoading] = useState<boolean>(true);
   const [worker, setWorker] = useState<number | null>();
+  const [dateValidation, setDateValidation] = useState<boolean>(false);
   const [allocationDate, setAllocationDate] = useState<Date>(
     new Date(Date.now())
   );
   const { query, push } = useRouter();
-  const { handleSubmit, errors } = useForm({
+
+  const { handleSubmit } = useForm({
     defaultValues: query,
   });
-  const { data: workers, error: errorWorkers } = useTeamWorkers(87);
+
+  const { data: workers, error: errorWorkers } = useTeamWorkers(teamId);
+
+  useEffect(() => {
+    setDateValidation(false);
+    console.log(teamAllocationStartDate);
+    if (isAfter(teamAllocationStartDate, allocationDate)) {
+      setDateValidation(true);
+    }
+
+    if (isBefore(new Date(), allocationDate)) {
+      setDateValidation(true);
+    }
+  }, [allocationDate]);
 
   const addWorker = useCallback(async () => {
     setPostLoading(true);
     setPostError(null);
-    try {
-      await addWorkerToAllocation(personId, allocationId, {
-        allocatedWorkerId: Number(worker),
-        allocationStartDate: format(allocationDate, 'yyyy-MM-dd'),
-      });
 
+    try {
+      await addWorkerToAllocation('add_worker_to_allocation', personId, {
+        allocatedWorkerId: Number(worker),
+        allocationId: Number(allocationId),
+        allocationStartDate: format(allocationDate, 'yyyy-MM-dd'),
+        allocatedTeamId: Number(teamId),
+      });
       push(`/people/${personId}`);
     } catch (e) {
       setPostError(true);
@@ -54,6 +75,15 @@ const AddAllocation = ({
   if (!workers) {
     return <Spinner />;
   }
+
+  if (!teamAllocationStartDate) {
+    teamAllocationStartDate = new Date();
+  }
+
+  if (!teamId) {
+    return <ErrorMessage />;
+  }
+
   return (
     <form role="form" onSubmit={handleSubmit(addWorker)}>
       {workers && (
@@ -63,15 +93,24 @@ const AddAllocation = ({
         />
       )}
       <br />
+
       <DatePicker
         label="Select an allocation date"
         labelSize="s"
         data-testid="allocationStartDate"
         name="allocationStartDate"
-        error={errors.allocationStartDate}
+        error={
+          dateValidation
+            ? {
+                message: 'Date not valid',
+                type: 'string',
+              }
+            : undefined
+        }
         defaultToday
         onChange={(date) => {
-          setAllocationDate(new Date(date.target.value));
+          const dateVal = new Date(date.target.value);
+          setAllocationDate(dateVal);
         }}
         required
       />
@@ -87,4 +126,4 @@ const AddAllocation = ({
   );
 };
 
-export default AddAllocation;
+export default AddWorkerAllocation;
