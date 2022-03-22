@@ -24,9 +24,7 @@ describe(`DeallocateTeamWorker`, () => {
   };
 
   it('should load the page correctly', async () => {
-    const { getByText, queryByText } = render(
-      <DeallocateTeamWorker {...props} />
-    );
+    const { getByText } = render(<DeallocateTeamWorker {...props} />);
 
     expect(getByText('Deallocation details')).toBeInTheDocument();
     expect(getByText('Reason for deallocation')).toBeInTheDocument();
