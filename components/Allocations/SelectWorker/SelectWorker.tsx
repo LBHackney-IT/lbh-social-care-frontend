@@ -6,7 +6,7 @@ const ResultEntry = ({
   callback,
 }: {
   worker: Worker;
-  callback: any;
+  callback: (workerId: string) => void;
 }): React.ReactElement => {
   const { id, firstName, lastName, allocationCount } = worker;
 
