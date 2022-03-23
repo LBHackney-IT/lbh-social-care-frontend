@@ -52,6 +52,8 @@ const DeallocateTeamWorker = ({
     setPostLoading(true);
     setPostError(null);
 
+    console.log('deallocationReason', deallocationReason);
+
     try {
       await deallocateTeamWorker(resident.id, {
         id: Number(allocationId),
@@ -64,7 +66,7 @@ const DeallocateTeamWorker = ({
       setPostError(true);
     }
     setPostLoading(false);
-  }, [resident.id, push]);
+  }, [deallocationReason, deallocationDate, resident.id, push]);
 
   if (postError) {
     return <ErrorMessage />;
@@ -87,7 +89,9 @@ const DeallocateTeamWorker = ({
           label={'Reason for deallocation'}
           data-testid="deallocationReason"
           onChange={(text) => {
+            console.log('change!');
             setDeallocationReason(text.target.value);
+            console.log(deallocationReason);
           }}
         />
 
