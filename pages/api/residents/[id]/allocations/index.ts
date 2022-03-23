@@ -2,7 +2,7 @@ import { StatusCodes } from 'http-status-codes';
 
 import {
   getResidentAllocatedWorkers,
-  deleteAllocatedWorker,
+  deleteAllocation,
   addAllocatedWorker,
   addWorkerAllocation,
 } from 'lib/allocatedWorkers';
@@ -88,7 +88,7 @@ const endpoint: NextApiHandler = async (
 
     case 'PATCH':
       try {
-        const data = await deleteAllocatedWorker({
+        const data = await deleteAllocation({
           ...req.body,
           createdBy: user.email,
         });

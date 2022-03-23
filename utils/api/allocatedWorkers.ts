@@ -38,7 +38,7 @@ export const useAllocationsByWorker = (
 ): SWRResponse<{ allocations: Allocation[]; workers: Worker[] }, ErrorAPI> =>
   useSWR(`/api/workers/${workerId}/allocations`);
 
-export const deleteAllocatedWorker = async (
+export const deleteAllocation = async (
   residentId: number,
   body: Record<string, unknown>
 ): Promise<Record<string, unknown>> => {

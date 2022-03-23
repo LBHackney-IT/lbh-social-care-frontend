@@ -56,18 +56,17 @@ export const getAllocationsByWorker = async (
   params?: AllocationsParams
 ): Promise<AllocationData> => getAllocations({ worker_id, ...params });
 
-const deleteAllocatedWorkerSchema = yup.object({
+const deleteAllocationSchema = yup.object({
   id: yup.number().required().positive().integer(),
   deallocationReason: yup.string().required(),
   deallocationDate: yup.string().required(),
-  type: yup.string().required(),
   createdBy: yup.string().email().required(),
 });
 
-export const deleteAllocatedWorker = async (
-  params: yup.InferType<typeof deleteAllocatedWorkerSchema>
+export const deleteAllocation = async (
+  params: yup.InferType<typeof deleteAllocationSchema>
 ): Promise<Record<string, unknown>> => {
-  const body = await deleteAllocatedWorkerSchema.validate(params);
+  const body = await deleteAllocationSchema.validate(params);
   const { data } = await axios.patch(`${ENDPOINT_API}/allocations`, body, {
     headers: { 'Content-Type': 'application/json', 'x-api-key': AWS_KEY },
   });

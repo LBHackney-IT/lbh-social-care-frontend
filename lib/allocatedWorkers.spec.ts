@@ -152,10 +152,10 @@ describe('allocatedWorkersAPI', () => {
     });
   });
 
-  describe('deleteAllocatedWorker', () => {
-    it('should work properly', async () => {
+  describe('deleteAllocation', () => {
+    it('should send the correct request object to the correct endpoint', async () => {
       mockedAxios.patch.mockResolvedValue({ data: { foo: 'foobar' } });
-      const data = await allocatedWorkersAPI.deleteAllocatedWorker({
+      const data = await allocatedWorkersAPI.deleteAllocation({
         id: 123,
         deallocationReason: 'test',
         deallocationDate: '01/01/2021',
@@ -178,10 +178,22 @@ describe('allocatedWorkersAPI', () => {
       expect(data).toEqual({ foo: 'foobar' });
     });
 
+    it('should throw an error with no body', async () => {
+      try {
+        // @ts-expect-error check validatio
+        await allocatedWorkersAPI.deleteAllocation();
+      } catch (e) {
+        expect((e as AxiosError).name).toEqual('ValidationError');
+      }
+    });
     it('should throw an error with the wrong body', async () => {
       try {
-        // @ts-expect-error check validation
-        await allocatedWorkersAPI.deleteAllocatedWorker();
+        // @ts-expect-error check validatio
+        await allocatedWorkersAPI.deleteAllocation({
+          deallocationReason: 'test',
+          deallocationDate: '01/01/2021',
+          createdBy: 'jest.jestington@gmail.com',
+        });
       } catch (e) {
         expect((e as AxiosError).name).toEqual('ValidationError');
       }

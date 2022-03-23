@@ -54,10 +54,9 @@ const DeallocateTeamWorker = ({
 
     try {
       await deallocateTeamWorker(resident.id, {
-        deallocationReason: deallocationReason,
         id: Number(allocationId),
+        deallocationReason: deallocationReason,
         deallocationDate: format(deallocationDate, 'yyyy-MM-dd'),
-        allocationType: type,
       });
 
       push(`/people/${resident.id}`);

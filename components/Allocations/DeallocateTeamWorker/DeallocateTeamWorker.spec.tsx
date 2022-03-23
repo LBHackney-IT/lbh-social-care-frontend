@@ -93,10 +93,9 @@ describe(`DeallocateTeamWorker`, () => {
 
     expect(allocatedWorkerAPI.deallocateTeamWorker).toHaveBeenCalled();
     expect(allocatedWorkerAPI.deallocateTeamWorker).toHaveBeenCalledWith(12, {
-      deallocationReason: 'This is the reason',
       id: 12,
+      deallocationReason: 'This is the reason',
       deallocationDate: format(new Date(), 'yyyy-MM-dd'),
-      allocationType: 'team',
     });
   });
 });
