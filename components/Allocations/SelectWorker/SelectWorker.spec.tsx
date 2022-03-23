@@ -1,4 +1,4 @@
-import { render } from '@testing-library/react';
+import { render, act, fireEvent } from '@testing-library/react';
 
 import SelectWorker from './SelectWorker';
 
@@ -58,5 +58,34 @@ describe('SelectWorker component', () => {
     expect(queryAllByText('Mary Johnson')[1]).toBeInTheDocument();
     expect(getByText('90')).toBeInTheDocument();
     expect(getByText('0')).toBeInTheDocument();
+  });
+
+  it('should execute the callback on selection', () => {
+    const callback = jest.fn();
+
+    const { queryAllByText } = render(
+      <SelectWorker
+        records={[
+          userFactory.build({
+            id: 999,
+            firstName: 'Roby',
+            lastName: 'Robinson',
+            allocationCount: 90,
+          }),
+          userFactory.build({
+            firstName: 'Mary',
+            lastName: 'Johnson',
+            allocationCount: 0,
+          }),
+        ]}
+        callback={callback}
+      />
+    );
+
+    act(() => {
+      fireEvent.click(queryAllByText('Roby Robinson')[0]);
+    });
+
+    expect(callback).toHaveBeenCalledWith('999');
   });
 });
