@@ -52,7 +52,7 @@ const endpoint: NextApiHandler = async (
       try {
         const request_type = req.query.type;
 
-        if (request_type && request_type == 'add_worker_to_allocation') {
+        if (request_type == 'add_worker_to_allocation') {
           const data = await addWorkerAllocation(
             parseInt(req.query.id as string, 10),
             {

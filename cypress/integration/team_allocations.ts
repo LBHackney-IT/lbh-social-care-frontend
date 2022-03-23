@@ -3,7 +3,7 @@ import { format } from 'date-fns';
 
 describe('Worker / team allocation', () => {
   describe('As a user in the Admin Dev group', () => {
-    it('Loads correcty the "add an allocation" page', () => {
+    it('Loads correctly the "add an allocation" page', () => {
       cy.visitAs(
         `/residents/${Cypress.env('ADULT_RECORD_PERSON_ID')}/allocations/add`,
         AuthRoles.AdminDevGroup
@@ -44,7 +44,6 @@ describe('Worker / team allocation', () => {
       );
 
       cy.contains('Allocate a worker').should('exist');
-      cy.contains('Mike Gallagher').should('exist');
       cy.contains('Total allocations').should('exist');
       cy.contains('Select an allocation date').should('exist');
       cy.contains('This is for').should('exist');
@@ -63,7 +62,6 @@ describe('Worker / team allocation', () => {
       );
 
       cy.contains('Allocate a worker').should('exist');
-      cy.contains('Mike Gallagher').should('exist');
       cy.contains('Total allocations').should('exist');
       cy.contains('Select an allocation date').should('exist');
       cy.contains('This is for').should('exist');

@@ -11,7 +11,7 @@ import Spinner from 'components/Spinner/Spinner';
 import React from 'react';
 import AddWorkerAllocation from 'components/Allocations/AddWorkerAllocation/AddWorkerAllocation';
 
-const AddNewAllocationPage = (): React.ReactElement => {
+const AddWorkerAllocationPage = (): React.ReactElement => {
   const { query, replace } = useRouter();
   const personId = Number(query.id as string);
   const allocationId = Number(query.allocationId as string);
@@ -58,6 +58,6 @@ const AddNewAllocationPage = (): React.ReactElement => {
   );
 };
 
-AddNewAllocationPage.goBackButton = true;
+AddWorkerAllocationPage.goBackButton = true;
 
-export default AddNewAllocationPage;
+export default AddWorkerAllocationPage;
