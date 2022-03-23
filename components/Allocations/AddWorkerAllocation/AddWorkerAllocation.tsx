@@ -29,9 +29,7 @@ const AddWorkerAllocation = ({
   const [postLoading, setPostLoading] = useState<boolean>(true);
   const [worker, setWorker] = useState<number | null>();
   const [dateValidation, setDateValidation] = useState<boolean>(false);
-  const [allocationDate, setAllocationDate] = useState<Date>(
-    new Date(Date.now())
-  );
+  const [allocationDate, setAllocationDate] = useState<Date>(new Date());
   const { query, push } = useRouter();
 
   const { handleSubmit } = useForm({

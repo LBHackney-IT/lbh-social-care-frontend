@@ -209,7 +209,7 @@ describe('allocatedWorkersAPI', () => {
   });
 
   describe('addWorkerAllocation', () => {
-    it('should work properly', async () => {
+    it('should send the correct parameters to the correct endpoint', async () => {
       mockedAxios.post.mockResolvedValue({
         data: { allocations: ['foo'] },
       });
