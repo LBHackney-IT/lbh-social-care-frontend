@@ -22,7 +22,7 @@ describe(`DeallocateTeamWorker`, () => {
     resident: mockedResident,
     allocationId: 12,
     allocationStartDate: allocationDate,
-    teamName: 'TEAMNAME',
+    allocatedWorkerTeam: 'TEAMNAME',
   };
 
   it('should load the page correctly', async () => {
@@ -46,6 +46,23 @@ describe(`DeallocateTeamWorker`, () => {
     expect(
       getByText(
         `Foo Bar, social worker (TEAMNAME Team), allocated ${allocationDate.toLocaleDateString()}`
+      )
+    ).toBeInTheDocument();
+  });
+
+  it('should load the worker with no team specified', async () => {
+    const props = {
+      type: 'worker',
+      resident: mockedResident,
+      allocationId: 12,
+      allocationStartDate: allocationDate,
+    };
+
+    const { getByText } = render(<DeallocateTeamWorker {...props} />);
+
+    expect(
+      getByText(
+        `Foo Bar, social worker, allocated ${allocationDate.toLocaleDateString()}`
       )
     ).toBeInTheDocument();
   });

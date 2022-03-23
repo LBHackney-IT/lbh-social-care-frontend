@@ -14,7 +14,7 @@ interface Props {
   resident: Resident;
   allocationId: number;
   allocationStartDate: Date;
-  teamName: string;
+  allocatedWorkerTeam?: string;
 }
 
 const DeallocateTeamWorker = ({
@@ -22,7 +22,7 @@ const DeallocateTeamWorker = ({
   resident,
   allocationId,
   allocationStartDate,
-  teamName,
+  allocatedWorkerTeam,
 }: Props): React.ReactElement => {
   const [postError, setPostError] = useState<boolean | null>();
   const [postLoading, setPostLoading] = useState<boolean>(false);
@@ -72,16 +72,22 @@ const DeallocateTeamWorker = ({
     return <ErrorMessage />;
   }
 
+  const displayTeamName = allocatedWorkerTeam
+    ? ` (${allocatedWorkerTeam} Team)`
+    : '';
+
   return (
     <>
       <h4>Deallocation details</h4>
 
       <br />
       {type == 'team'
-        ? `${teamName} Team, allocated ${allocationStartDate.toLocaleDateString()}`
+        ? `${allocatedWorkerTeam} Team, allocated ${allocationStartDate.toLocaleDateString()}`
         : `${resident && resident.firstName} ${
             resident && resident.lastName
-          }, social worker (${teamName} Team), allocated ${allocationStartDate.toLocaleDateString()}`}
+          }, social worker${
+            displayTeamName && displayTeamName
+          }, allocated ${allocationStartDate.toLocaleDateString()}`}
 
       <form role="form" onSubmit={handleSubmit(addWorker)}>
         <TextArea
@@ -89,9 +95,7 @@ const DeallocateTeamWorker = ({
           label={'Reason for deallocation'}
           data-testid="deallocationReason"
           onChange={(text) => {
-            console.log('change!');
             setDeallocationReason(text.target.value);
-            console.log(deallocationReason);
           }}
         />
 
