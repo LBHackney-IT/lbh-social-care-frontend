@@ -6,7 +6,8 @@ import TextArea from 'components/Form/TextArea/TextArea';
 import { Resident } from 'types';
 import ErrorMessage from 'components/ErrorMessage/ErrorMessage';
 import DatePicker from 'components/Form/DatePicker/DatePicker';
-import { isAfter, isBefore } from 'date-fns';
+import { format, isAfter, isBefore } from 'date-fns';
+import { deallocateTeamWorker } from 'utils/api/allocatedWorkers';
 
 interface Props {
   type: string;
@@ -50,10 +51,14 @@ const DeallocateTeamWorker = ({
   const addWorker = useCallback(async () => {
     setPostLoading(true);
     setPostError(null);
+
     try {
-      console.log(deallocationReason);
-      console.log(deallocationDate);
-      console.log(allocationId);
+      await deallocateTeamWorker(resident.id, {
+        deallocationReason: deallocationReason,
+        id: Number(allocationId),
+        deallocationDate: format(deallocationDate, 'yyyy-MM-dd'),
+        allocationType: type,
+      });
 
       push(`/people/${resident.id}`);
     } catch (e) {
@@ -81,6 +86,7 @@ const DeallocateTeamWorker = ({
         <TextArea
           name="deallocationReason"
           label={'Reason for deallocation'}
+          data-testid="deallocationReason"
           onChange={(text) => {
             setDeallocationReason(text.target.value);
           }}
@@ -89,7 +95,7 @@ const DeallocateTeamWorker = ({
         <DatePicker
           label="Select a deallocation date"
           labelSize="s"
-          data-testid="allocationStartDate"
+          data-testid="deallocationDate"
           name="deallocationDate"
           error={
             dateValidation
