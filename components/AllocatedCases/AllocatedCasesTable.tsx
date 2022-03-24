@@ -31,7 +31,7 @@ const AllocatedCasesTable = ({
           <td className="govuk-table__cell">{cell.personId} </td>
           <td className="govuk-table__cell">
             {
-              <Link href={`/people/${cell.personId}`}>
+              <Link href={`/residents/${cell.personId}`}>
                 <a className="govuk-link">{cell.personName}</a>
               </Link>
             }
