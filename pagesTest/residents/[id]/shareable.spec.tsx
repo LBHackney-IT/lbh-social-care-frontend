@@ -34,7 +34,7 @@ jest.mock('hooks/useWorkflows');
 (useWorkflows as jest.Mock).mockReturnValue({ data: [] });
 
 describe('ResidentPage', () => {
-  it('loads a sensible masthead', () => {
+  it('loads the right page landmarks', () => {
     render(
       <AppConfigProvider appConfig={{}}>
         <ShareableResidentPage resident={mockedResident} />
@@ -58,6 +58,17 @@ describe('ResidentPage', () => {
 
     expect(screen.queryByText('Case notes')).toBeNull();
     expect(screen.queryByText('Workflows')).toBeNull();
+  });
+
+  it('shows everything if resident is not restricted', () => {
+    render(
+      <AppConfigProvider appConfig={{}}>
+        <ShareableResidentPage resident={mockedResident} />
+      </AppConfigProvider>
+    );
+
+    expect(screen.getByText('Case notes'));
+    expect(screen.getByText('Workflows'));
   });
 
   it('shows everything if user is allowed', () => {

@@ -31,12 +31,14 @@ const ShareableResidentPage = ({ resident }: Props): React.ReactElement => {
 
   const { user } = useAuth();
 
+  const fullName = prettyResidentName(resident);
+
   return (
     <div className={s.shareable}>
       <Head>
-        <title>{prettyResidentName(resident)}</title>
+        <title>{fullName}</title>
       </Head>
-      <h1>{prettyResidentName(resident)}</h1>
+      <h1>{fullName}</h1>
       <button className={`lbh-link ${s.button}`} onClick={() => window.print()}>
         Print or save as PDF
       </button>
