@@ -115,7 +115,7 @@ const endpoint: NextApiHandler = async (
               .json({ message: (error as AxiosError).message })
           : res
               .status(StatusCodes.INTERNAL_SERVER_ERROR)
-              .json({ message: 'Unable to deallocated Worker' });
+              .json({ message: 'Unable to deallocate Worker' });
       }
       break;
 
