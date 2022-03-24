@@ -115,3 +115,21 @@ export const addWorkerAllocation = async (
 
   return data;
 };
+
+const patchAllocationSchema = yup.object({
+  allocationId: yup.number().integer().nullable(),
+  ragRating: yup.string().required(),
+});
+
+export const patchAllocation = async (
+  params: Omit<yup.InferType<typeof patchAllocationSchema>, 'mosaicId'>
+): Promise<Record<string, unknown>> => {
+  const body = await patchAllocationSchema.validate({
+    ...params,
+  });
+  const { data } = await axios.patch(`${ENDPOINT_API}/allocations`, body, {
+    headers: { 'Content-Type': 'application/json', 'x-api-key': AWS_KEY },
+  });
+
+  return data;
+};

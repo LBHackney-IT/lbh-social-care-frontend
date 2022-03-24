@@ -1,6 +1,7 @@
 import { render, act, fireEvent } from '@testing-library/react';
 import EditAllocationPriority from './EditAllocationPriority';
 import { mockedResident } from 'factories/residents';
+import * as allocatedWorkerAPI from 'utils/api/allocatedWorkers';
 
 jest.mock('next/router', () => ({
   useRouter: () => ({
@@ -43,5 +44,27 @@ describe(`DeallocateTeamWorker`, () => {
       fireEvent.click(getByText('High priority'));
     });
     expect(getByText(/Continue/).closest('button')).toBeEnabled();
+  });
+
+  it('should render and submit correctly the form', async () => {
+    jest.spyOn(allocatedWorkerAPI, 'patchAllocation');
+
+    const { getByRole, getByText } = render(
+      <EditAllocationPriority {...props} />
+    );
+    act(() => {
+      fireEvent.click(getByText('High priority'));
+    });
+    expect(getByText(/Continue/).closest('button')).toBeEnabled();
+
+    await act(async () => {
+      fireEvent.submit(getByRole('form'));
+    });
+
+    expect(allocatedWorkerAPI.patchAllocation).toHaveBeenCalled();
+    expect(allocatedWorkerAPI.patchAllocation).toHaveBeenCalledWith(1, {
+      id: 12,
+      ragRating: 'red',
+    });
   });
 });

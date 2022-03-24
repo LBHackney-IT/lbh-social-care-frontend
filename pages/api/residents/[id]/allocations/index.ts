@@ -3,6 +3,7 @@ import { StatusCodes } from 'http-status-codes';
 import {
   getResidentAllocatedWorkers,
   deleteAllocation,
+  patchAllocation,
   addAllocatedWorker,
   addWorkerAllocation,
 } from 'lib/allocatedWorkers';
@@ -88,11 +89,21 @@ const endpoint: NextApiHandler = async (
 
     case 'PATCH':
       try {
-        const data = await deleteAllocation({
-          ...req.body,
-          createdBy: user.email,
-        });
-        res.status(StatusCodes.OK).json(data);
+        const type = req.query.type;
+
+        if (type == 'edit') {
+          const data = await patchAllocation({
+            ...req.body,
+            createdBy: user.email,
+          });
+          res.status(StatusCodes.OK).json(data);
+        } else {
+          const data = await deleteAllocation({
+            ...req.body,
+            createdBy: user.email,
+          });
+          res.status(StatusCodes.OK).json(data);
+        }
       } catch (error) {
         console.error(
           'Allocated Workers patch error:',

@@ -5,6 +5,7 @@ import Button from 'components/Button/Button';
 import { Resident } from 'types';
 import ErrorMessage from 'components/ErrorMessage/ErrorMessage';
 import Radios from 'components/Form/Radios/Radios';
+import { patchAllocation } from 'utils/api/allocatedWorkers';
 
 interface Props {
   resident: Resident;
@@ -28,19 +29,16 @@ const EditAllocationPriority = ({
     setPostLoading(true);
     setPostError(null);
 
-    console.log('priorityRating', priorityRating);
-    console.log('allocationId', allocationId);
+    try {
+      await patchAllocation(resident.id, {
+        id: Number(allocationId),
+        ragRating: priorityRating,
+      });
 
-    // try {
-    //   // await deallocateTeamWorker(resident.id, {
-    //   //   id: Number(allocationId),
-    //   //   priorityRating: priorityRating,
-    //   // });
-    //
-    //   push(`/people/${resident.id}`);
-    // } catch (e) {
-    //   setPostError(true);
-    // }
+      push(`/people/${resident.id}`);
+    } catch (e) {
+      setPostError(true);
+    }
     setPostLoading(false);
   }, [priorityRating, push]);
 
