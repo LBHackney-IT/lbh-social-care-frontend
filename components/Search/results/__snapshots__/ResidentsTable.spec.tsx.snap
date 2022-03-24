@@ -58,7 +58,7 @@ exports[`ResidentsTable component should render a list of residents 1`] = `
         >
           <a
             class="govuk-link govuk-custom-text-color"
-            href="/people/1"
+            href="/residents/1"
           >
             Foo Bar
           </a>
@@ -147,7 +147,7 @@ exports[`ResidentsTable component should render a resident without an address 1`
         >
           <a
             class="govuk-link govuk-custom-text-color"
-            href="/people/3"
+            href="/residents/3"
           >
             Foo Bar
           </a>
@@ -233,7 +233,7 @@ exports[`ResidentsTable component when the address is less than 20 characters sh
         >
           <a
             class="govuk-link govuk-custom-text-color"
-            href="/people/4"
+            href="/residents/4"
           >
             Foo Bar
           </a>
@@ -328,7 +328,7 @@ exports[`ResidentsTable component when the address is more than 20 characters sh
         >
           <a
             class="govuk-link govuk-custom-text-color"
-            href="/people/5"
+            href="/residents/5"
           >
             Foo Bar
           </a>

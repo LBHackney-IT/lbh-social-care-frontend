@@ -32,7 +32,7 @@ const ResultEntry = ({
       <td className="govuk-table__cell">
         {newTab ? (
           <a
-            href={`/people/${mosaicId}`}
+            href={`/residents/${mosaicId}`}
             target="_blank"
             rel="noreferrer"
             className="govuk-link govuk-custom-text-color"
@@ -40,7 +40,7 @@ const ResultEntry = ({
             {firstName} {lastName}
           </a>
         ) : (
-          <Link href={`/people/${mosaicId}`}>
+          <Link href={`/residents/${mosaicId}`}>
             <a className="govuk-link govuk-custom-text-color">
               {firstName} {lastName}
             </a>

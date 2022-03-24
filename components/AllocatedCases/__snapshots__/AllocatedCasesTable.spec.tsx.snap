@@ -54,7 +54,7 @@ exports[`AllocatedCasesTable component should render records properly 1`] = `
         >
           <a
             class="govuk-link"
-            href="/people/1234"
+            href="/residents/1234"
           >
             foo
           </a>
