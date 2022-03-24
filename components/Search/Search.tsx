@@ -5,19 +5,15 @@ import { useRouter } from 'next/router';
 import s from './Search.module.scss';
 import ss from 'stylesheets/Section.module.scss';
 import cx from 'classnames';
-
 import SearchResidentsForm from './forms/SearchResidentsForm';
 import SearchCasesForm from './forms/SearchCasesForm';
 import ResidentsTable from './results/ResidentsTable';
 import RelationshipTable from './results//RelationshipTable';
 import CasesTable, { CaseTableColumns } from 'components/Cases/CasesTable';
-
 import Button from 'components/Button/Button';
 import Spinner from 'components/Spinner/Spinner';
 import ErrorMessage from 'components/ErrorMessage/ErrorMessage';
 import { useAuth } from 'components/UserContext/UserContext';
-
-// import { useResidents } from 'utils/api/residents'
 import { SearchPerson } from 'utils/api/search';
 import { useCases } from 'utils/api/cases';
 import { getQueryString } from 'utils/urls';
@@ -158,7 +154,6 @@ const Search = ({
               callback={callback}
               columns={columns}
               user={user}
-              // onSort={onSort} // commented out as the feature is not ready in the BE
             />
           ) : (
             <>
@@ -180,13 +175,26 @@ const Search = ({
       </div>
       {error && data !== 1 && <ErrorMessage />}
 
-      {type === 'people' && results && !results?.nextCursor && (
-        <>
-          {results?.records?.length > 0 ? (
-            <>
-              <p>Can&apos;t find a match?</p>
+      {type === 'people' &&
+        results &&
+        (!results?.nextCursor || parseInt(results?.nextCursor) > 39) && (
+          <>
+            {results?.records?.length > 0 ? (
+              <>
+                <p>Can&apos;t find a match?</p>
+                <p>
+                  Try narrowing your search, or{' '}
+                  <Link href={`/people/add?${getQueryString(query)}`}>
+                    <a className="lbh-link lbh-link--no-visited-state">
+                      add a new person
+                    </a>
+                  </Link>
+                  .
+                </p>
+              </>
+            ) : (
               <p>
-                Try narrowing your search, or{' '}
+                Try widening your search, or{' '}
                 <Link href={`/people/add?${getQueryString(query)}`}>
                   <a className="lbh-link lbh-link--no-visited-state">
                     add a new person
@@ -194,47 +202,36 @@ const Search = ({
                 </Link>
                 .
               </p>
-            </>
-          ) : (
-            <p>
-              Try widening your search, or{' '}
-              <Link href={`/people/add?${getQueryString(query)}`}>
-                <a className="lbh-link lbh-link--no-visited-state">
-                  add a new person
-                </a>
-              </Link>
-              .
-            </p>
-          )}
+            )}
 
-          <div className={s.mutedPanel}>
-            <div
-              className={cx(
-                'govuk-warning-text lbh-warning-text',
-                s.warningText
-              )}
-            >
-              <span
-                className={cx('govuk-warning-text__icon', s.icon)}
-                aria-hidden="true"
+            <div className={s.mutedPanel}>
+              <div
+                className={cx(
+                  'govuk-warning-text lbh-warning-text',
+                  s.warningText
+                )}
               >
-                !
-              </span>
-              <strong className={cx('govuk-warning-text__text', s.text)}>
-                <h2>Prevent duplicate people</h2>
-                <p>Before adding a new person, try:</p>
-                <ul className="lbh-list lbh-list--bullet">
-                  <li>alternate spellings or variations of the same name</li>
-                  <li>
-                    different combinations of names, date of birth or postcode
-                  </li>
-                  <li>using just the first part of the postcode</li>
-                </ul>
-              </strong>
+                <span
+                  className={cx('govuk-warning-text__icon', s.icon)}
+                  aria-hidden="true"
+                >
+                  !
+                </span>
+                <strong className={cx('govuk-warning-text__text', s.text)}>
+                  <h2>Prevent duplicate people</h2>
+                  <p>Before adding a new person, try:</p>
+                  <ul className="lbh-list lbh-list--bullet">
+                    <li>alternate spellings or variations of the same name</li>
+                    <li>
+                      different combinations of names, date of birth or postcode
+                    </li>
+                    <li>using just the first part of the postcode</li>
+                  </ul>
+                </strong>
+              </div>
             </div>
-          </div>
-        </>
-      )}
+          </>
+        )}
     </>
   );
 };
