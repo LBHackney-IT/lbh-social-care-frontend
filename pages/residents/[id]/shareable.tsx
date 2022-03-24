@@ -11,6 +11,8 @@ import s from '../../../stylesheets/Shareable.module.scss';
 import WorkflowTree from 'components/ResidentPage/WorkflowTree';
 import { useRelationships } from 'utils/api/relationships';
 import RelationshipsTable from 'components/ResidentPage/RelationshipsTable';
+import { canManageCases } from 'lib/permissions';
+import { useAuth } from 'components/UserContext/UserContext';
 
 interface Props {
   resident: Resident;
@@ -26,6 +28,8 @@ const ResidentPage = ({ resident }: Props): React.ReactElement => {
   const { data: relationshipsData } = useRelationships(resident.id);
 
   const cases = casesData?.[0].cases;
+
+  const { user } = useAuth();
 
   return (
     <div className={s.shareable}>
@@ -51,27 +55,31 @@ const ResidentPage = ({ resident }: Props): React.ReactElement => {
         ))}
       </dl>
 
-      <h2>Case notes</h2>
-      <p>Only most recent 20 shown</p>
-      {cases && (
-        <CaseNoteGrid
-          cases={cases}
-          resident={resident}
-          totalCount={cases.length}
-        />
-      )}
-
-      <h2>Workflows</h2>
-      {workflowsData?.workflows && (
-        <WorkflowTree
-          resident={resident}
-          workflows={workflowsData?.workflows}
-        />
-      )}
-
       <h2>Relationships</h2>
       {relationshipsData && (
         <RelationshipsTable relationships={relationshipsData} />
+      )}
+
+      {user && canManageCases(user, resident) && (
+        <>
+          <h2>Case notes</h2>
+          <p>Only most recent 20 shown</p>
+          {cases && (
+            <CaseNoteGrid
+              cases={cases}
+              resident={resident}
+              totalCount={cases.length}
+            />
+          )}
+
+          <h2>Workflows</h2>
+          {workflowsData?.workflows && (
+            <WorkflowTree
+              resident={resident}
+              workflows={workflowsData?.workflows}
+            />
+          )}
+        </>
       )}
     </div>
   );
