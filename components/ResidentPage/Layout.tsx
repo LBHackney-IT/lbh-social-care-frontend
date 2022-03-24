@@ -46,11 +46,11 @@ const Layout = ({ title, resident, children }: Props): React.ReactElement => {
   ];
 
   const secondaryNavigation = [
-    // {
-    //   text: 'Shareable version',
-    //   href: `/people/${resident.id}/warning-notes/add?id=${resident.id}`,
-    //   tip: "A handy printer-friendly view of this resident's info",
-    // },
+    {
+      text: 'Shareable version',
+      href: `/residents/${resident.id}/shareable`,
+      tip: "A handy printer-friendly view of this resident's info",
+    },
     {
       text: 'Add case note',
       href: `/people/${resident.id}/case-note`,
