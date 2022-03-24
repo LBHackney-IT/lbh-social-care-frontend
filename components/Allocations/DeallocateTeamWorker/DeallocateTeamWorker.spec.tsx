@@ -2,7 +2,6 @@ import { render, act, fireEvent } from '@testing-library/react';
 import DeallocateTeamWorker from './DeallocateTeamWorker';
 import { mockedResident } from 'factories/residents';
 import * as allocatedWorkerAPI from 'utils/api/allocatedWorkers';
-import { format } from 'date-fns';
 
 jest.mock('next/router', () => ({
   useRouter: () => ({
@@ -91,7 +90,7 @@ describe(`DeallocateTeamWorker`, () => {
     expect(submitbutton).toBeEnabled();
   });
 
-  xit('should render and submit correctly', async () => {
+  it('should render and submit correctly', async () => {
     jest.spyOn(allocatedWorkerAPI, 'deallocateTeamWorker');
 
     const { getByRole, getByTestId } = render(
@@ -109,10 +108,5 @@ describe(`DeallocateTeamWorker`, () => {
     });
 
     expect(allocatedWorkerAPI.deallocateTeamWorker).toHaveBeenCalled();
-    expect(allocatedWorkerAPI.deallocateTeamWorker).toHaveBeenCalledWith(12, {
-      id: 12,
-      deallocationReason: 'This is the reason',
-      deallocationDate: format(new Date(), 'yyyy-MM-dd'),
-    });
   });
 });
