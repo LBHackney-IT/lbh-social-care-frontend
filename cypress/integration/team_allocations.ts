@@ -66,5 +66,20 @@ describe('Worker / team allocation', () => {
       cy.contains('Select an allocation date').should('exist');
       cy.contains('This is for').should('exist');
     });
+
+    it('Loads correcty the "Edit priority" form', () => {
+      cy.visitAs(
+        `/residents/${Cypress.env(
+          'ADULT_RECORD_PERSON_ID'
+        )}/allocations/${Cypress.env('ALLOCATION_ID')}/editpriority`,
+        AuthRoles.AdminDevGroup
+      );
+
+      cy.contains('Edit priority level').should('exist');
+      cy.contains('Choose a priority rating').should('exist');
+      cy.contains('Medium priority').should('exist');
+      cy.contains('This is for').should('exist');
+      cy.contains('Continue').should('exist');
+    });
   });
 });
