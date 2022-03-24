@@ -77,7 +77,7 @@ export const deallocateTeamWorker = async (
   body: Record<string, unknown>
 ): Promise<Record<string, unknown>> => {
   const { data } = await axios.patch(
-    `/api/residents/${residentId}/allocations?type=deallocate`,
+    `/api/residents/${residentId}/allocations`,
     body
   );
   return data;
