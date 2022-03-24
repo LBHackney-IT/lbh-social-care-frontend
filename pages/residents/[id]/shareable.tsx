@@ -18,7 +18,7 @@ interface Props {
   resident: Resident;
 }
 
-const ResidentPage = ({ resident }: Props): React.ReactElement => {
+const ShareableResidentPage = ({ resident }: Props): React.ReactElement => {
   const { data: casesData } = useCases({
     mosaic_id: resident.id,
     exclude_audit_trail_events: true,
@@ -85,7 +85,7 @@ const ResidentPage = ({ resident }: Props): React.ReactElement => {
   );
 };
 
-ResidentPage.noLayout = true;
+ShareableResidentPage.noLayout = true;
 
 export const getServerSideProps: GetServerSideProps = async ({
   params,
@@ -132,4 +132,4 @@ export const getServerSideProps: GetServerSideProps = async ({
   };
 };
 
-export default ResidentPage;
+export default ShareableResidentPage;
