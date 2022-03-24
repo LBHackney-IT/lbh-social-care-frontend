@@ -13,11 +13,13 @@ jest.mock('next/router');
 (useRouter as jest.Mock).mockReturnValue({ asPath: '' });
 
 jest.mock('utils/api/cases');
-(useCases as jest.Mock).mockReturnValue([
-  {
-    cases: [],
-  },
-]);
+(useCases as jest.Mock).mockReturnValue({
+  data: [
+    {
+      cases: [],
+    },
+  ],
+});
 
 jest.mock('components/UserContext/UserContext');
 (useAuth as jest.Mock).mockReturnValue({ user: mockedUser });
@@ -53,5 +55,15 @@ describe('ResidentPage', () => {
     );
     expect(screen.getByText('Adult social care'));
     expect(screen.getByText('Closed case'));
+  });
+
+  it('correctly handles when there are no case notes', () => {
+    render(
+      <AppConfigProvider appConfig={{}}>
+        <ResidentPage resident={mockedResident} />
+      </AppConfigProvider>
+    );
+
+    expect(screen.getByText('This resident has no case notes yet.'));
   });
 });
