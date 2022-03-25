@@ -9,7 +9,7 @@ import Button from 'components/Button/Button';
 import Spinner from 'components/Spinner/Spinner';
 import {
   useAllocatedWorkers,
-  deleteAllocatedWorker,
+  deleteAllocation,
 } from 'utils/api/allocatedWorkers';
 
 interface Props {
@@ -36,7 +36,7 @@ const DeallocatedWorkers = ({
   }) => {
     setLoading(true);
     try {
-      await deleteAllocatedWorker(personId, {
+      await deleteAllocation(personId, {
         id: allocationId,
         deallocationReason,
         deallocationDate,
