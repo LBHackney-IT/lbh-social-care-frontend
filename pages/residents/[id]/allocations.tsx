@@ -77,7 +77,7 @@ const AllocationsPage = ({ resident }: Props): React.ReactElement => {
                   {a.allocatedWorker ? (
                     <span style={{ float: 'right' }}>
                       <Link
-                        href={`/residents/${resident.id}/allocations/${a.id}/deallocate?type=worker&allocationStartDate=${a.allocationStartDate}&allocatedWorkerTeam=${a.allocatedWorkerTeam}`}
+                        href={`/residents/${resident.id}/allocations/${a.id}/deallocate?type=worker&allocationStartDate=${a.allocationStartDate}&allocatedWorkerTeam=${a.allocatedWorkerTeam}&allocatedWorker=${a.allocatedWorker}`}
                       >
                         <a className="lbh-link lbh-link--muted">
                           Deallocate worker
