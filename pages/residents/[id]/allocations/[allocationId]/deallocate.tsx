@@ -19,6 +19,8 @@ const DeAllocationPage = (): React.ReactElement => {
   const allocationStartDate = String(query.allocationStartDate);
   const allocatedWorkerTeam =
     query.allocatedWorkerTeam && String(query.allocatedWorkerTeam);
+  const allocatedWorker =
+    query.allocatedWorker && String(query.allocatedWorker);
 
   const { user } = useAuth() as { user: User };
   const { data: resident, error } = useResident(personId);
@@ -55,6 +57,7 @@ const DeAllocationPage = (): React.ReactElement => {
               type={type}
               resident={resident}
               allocatedWorkerTeam={allocatedWorkerTeam}
+              allocatedWorker={allocatedWorker}
               allocationStartDate={new Date(allocationStartDate)}
               allocationId={allocationId}
             />

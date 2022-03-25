@@ -15,6 +15,7 @@ interface Props {
   allocationId: number;
   allocationStartDate: Date;
   allocatedWorkerTeam?: string;
+  allocatedWorker?: string;
 }
 
 const DeallocateTeamWorker = ({
@@ -23,6 +24,7 @@ const DeallocateTeamWorker = ({
   allocationId,
   allocationStartDate,
   allocatedWorkerTeam,
+  allocatedWorker,
 }: Props): React.ReactElement => {
   const [postError, setPostError] = useState<boolean | null>();
   const [postLoading, setPostLoading] = useState<boolean>(false);
@@ -52,8 +54,6 @@ const DeallocateTeamWorker = ({
     setPostLoading(true);
     setPostError(null);
 
-    console.log('deallocationReason', deallocationReason);
-
     try {
       await deallocateTeamWorker(resident.id, {
         id: Number(allocationId),
@@ -72,10 +72,6 @@ const DeallocateTeamWorker = ({
     return <ErrorMessage />;
   }
 
-  const displayTeamName = allocatedWorkerTeam
-    ? ` (${allocatedWorkerTeam} Team)`
-    : '';
-
   return (
     <>
       <h4>Deallocation details</h4>
@@ -83,10 +79,8 @@ const DeallocateTeamWorker = ({
       <br />
       {type == 'team'
         ? `${allocatedWorkerTeam} Team, allocated ${allocationStartDate.toLocaleDateString()}`
-        : `${resident && resident.firstName} ${
-            resident && resident.lastName
-          }, social worker${
-            displayTeamName && displayTeamName
+        : `${allocatedWorker}, social worker${
+            allocatedWorkerTeam ? ` (${allocatedWorkerTeam} Team)` : ''
           }, allocated ${allocationStartDate.toLocaleDateString()}`}
 
       <form role="form" onSubmit={handleSubmit(addWorker)}>

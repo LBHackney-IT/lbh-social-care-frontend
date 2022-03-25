@@ -22,6 +22,7 @@ describe(`DeallocateTeamWorker`, () => {
     allocationId: 12,
     allocationStartDate: allocationDate,
     allocatedWorkerTeam: 'TEAMNAME',
+    allocatedWorker: 'John Doe',
   };
 
   it('should load the page correctly', async () => {
@@ -44,7 +45,7 @@ describe(`DeallocateTeamWorker`, () => {
 
     expect(
       getByText(
-        `Foo Bar, social worker (TEAMNAME Team), allocated ${allocationDate.toLocaleDateString()}`
+        `John Doe, social worker (TEAMNAME Team), allocated ${allocationDate.toLocaleDateString()}`
       )
     ).toBeInTheDocument();
   });
@@ -54,6 +55,7 @@ describe(`DeallocateTeamWorker`, () => {
       type: 'worker',
       resident: mockedResident,
       allocationId: 12,
+      allocatedWorker: 'John Doe',
       allocationStartDate: allocationDate,
     };
 
@@ -61,7 +63,7 @@ describe(`DeallocateTeamWorker`, () => {
 
     expect(
       getByText(
-        `Foo Bar, social worker, allocated ${allocationDate.toLocaleDateString()}`
+        `John Doe, social worker, allocated ${allocationDate.toLocaleDateString()}`
       )
     ).toBeInTheDocument();
   });
