@@ -13,7 +13,7 @@ import SummaryList, {
 } from 'components/ResidentPage/SummaryList';
 import { formatDate } from 'utils/date';
 import ErrorMessage from 'components/ErrorMessage/ErrorMessage';
-import PriorityDot from 'components/PriorityDot/PriorityDot';
+import PriorityRating from 'components/PriorityRating/PriorityRating';
 
 interface Props {
   resident: Resident;
@@ -48,15 +48,11 @@ const AllocationsPage = ({ resident }: Props): React.ReactElement => {
             {data.allocations?.map((a: Allocation) => {
               const priorityLevel = (
                 <>
-                  {a.ragRating ? a.ragRating : 'No priority '}
-                  {a.ragRating ? <PriorityDot colour={a.ragRating} /> : <></>}
-                  <span style={{ float: 'right' }}>
-                    <Link
-                      href={`/residents/${resident.id}/allocations/${a.id}/editpriority`}
-                    >
-                      <a className="lbh-link lbh-link--muted">Edit</a>
-                    </Link>
-                  </span>
+                  {a.ragRating ? (
+                    <PriorityRating resident={resident} allocation={a} />
+                  ) : (
+                    'No priority '
+                  )}
                 </>
               );
 
