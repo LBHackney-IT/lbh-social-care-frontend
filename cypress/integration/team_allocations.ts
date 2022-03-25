@@ -32,7 +32,6 @@ describe('Worker / team allocation', () => {
       cy.get('[data-testid=teamId]').click();
       cy.contains(/Date not valid/).should('be.visible');
     });
-      
     it('Loads correcty the "Allocate a worker', () => {
       cy.visitAs(
         `/residents/${Cypress.env(
