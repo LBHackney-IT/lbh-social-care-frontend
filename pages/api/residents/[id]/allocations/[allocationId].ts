@@ -40,7 +40,6 @@ const endpoint: NextApiHandler = async (
           .json({ message: 'Unable to get the Allocated Workers' });
       }
       break;
-
     default:
       res
         .status(StatusCodes.BAD_REQUEST)
