@@ -14,19 +14,19 @@ export const getRatingColour = (rating: keyof typeof colorMapping): string => {
 };
 
 const ratingMapping = {
-  purple: 'Urgent',
-  red: 'High',
-  amber: 'Medium',
-  green: 'Low',
-  white: 'No priority',
+  urgent: 'Urgent',
+  high: 'High',
+  medium: 'Medium',
+  low: 'Low',
+  none: 'No priority',
 };
 
 const colorMapping = {
-  purple: 'purple',
-  red: 'red',
-  amber: 'orange',
-  green: 'green',
-  white: 'grey',
+  urgent: 'purple',
+  high: 'red',
+  medium: 'orange',
+  low: 'green',
+  none: 'grey',
 };
 
 const PriorityRating = ({
