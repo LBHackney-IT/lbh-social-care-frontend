@@ -9,7 +9,7 @@ import { Case } from 'types';
 import { useWorker } from 'utils/api/workers';
 import SummaryList, { SummaryListSkeleton } from './SummaryList';
 import s from './CaseNoteDialog.module.scss';
-import { useCase, useCases } from 'utils/api/cases';
+import { useCase, useCases, useHistoricCaseNote } from 'utils/api/cases';
 import { useSubmission } from 'utils/api/submissions';
 import FlexibleAnswers from 'components/FlexibleAnswers/FlexibleAnswers';
 import Link from 'next/link';
@@ -49,13 +49,35 @@ const SubmissionContent = ({
   return <SummaryListSkeleton />;
 };
 
-interface CaseContentProps {
+interface HistoricContentProps {
   recordId: string;
-  socialCareId: number;
 }
 
 const prettyKey = (key: string): string =>
   key?.replace(/_/g, ' ')?.replace(/^\w/, (char) => char.toUpperCase());
+
+const HistoricCaseContent = ({ recordId }: HistoricContentProps) => {
+  const { data } = useHistoricCaseNote(recordId);
+
+  if (data)
+    return (
+      <SummaryList
+        rows={Object.fromEntries(
+          Object.entries(data).map(([key, value]) => [
+            prettyKey(key),
+            JSON.stringify(value).replace(/"/g, ''),
+          ])
+        )}
+      />
+    );
+
+  return <SummaryListSkeleton />;
+};
+
+interface CaseContentProps {
+  recordId: string;
+  socialCareId: number;
+}
 
 const CaseContent = ({ recordId, socialCareId }: CaseContentProps) => {
   const { data } = useCase(recordId, socialCareId);
@@ -64,7 +86,7 @@ const CaseContent = ({ recordId, socialCareId }: CaseContentProps) => {
     return (
       <SummaryList
         rows={Object.fromEntries(
-          Object.entries(data.caseFormData || data).map(([key, value]) => [
+          Object.entries(data?.caseFormData || data).map(([key, value]) => [
             prettyKey(key),
             JSON.stringify(value).replace(/"/g, ''),
           ])
@@ -210,6 +232,8 @@ const CaseNoteDialog = ({
           />
         ) : isWorkflow ? (
           <></>
+        ) : note?.caseFormData?.is_historical ? (
+          <HistoricCaseContent recordId={note.recordId} />
         ) : (
           <CaseContent recordId={note.recordId} socialCareId={socialCareId} />
         )}
