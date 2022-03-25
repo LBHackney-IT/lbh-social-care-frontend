@@ -15,6 +15,7 @@ interface Props {
   allocationId: number;
   allocationStartDate: Date;
   allocatedWorkerTeam?: string;
+  allocatedWorker?: string;
 }
 
 const DeallocateTeamWorker = ({
@@ -23,6 +24,7 @@ const DeallocateTeamWorker = ({
   allocationId,
   allocationStartDate,
   allocatedWorkerTeam,
+  allocatedWorker,
 }: Props): React.ReactElement => {
   const [postError, setPostError] = useState<boolean | null>();
   const [postLoading, setPostLoading] = useState<boolean>(false);
@@ -51,8 +53,6 @@ const DeallocateTeamWorker = ({
   const addWorker = useCallback(async () => {
     setPostLoading(true);
     setPostError(null);
-
-    console.log('deallocationReason', deallocationReason);
 
     try {
       await deallocateTeamWorker(resident.id, {
@@ -83,9 +83,7 @@ const DeallocateTeamWorker = ({
       <br />
       {type == 'team'
         ? `${allocatedWorkerTeam} Team, allocated ${allocationStartDate.toLocaleDateString()}`
-        : `${resident && resident.firstName} ${
-            resident && resident.lastName
-          }, social worker${
+        : `${allocatedWorker}, social worker${
             displayTeamName && displayTeamName
           }, allocated ${allocationStartDate.toLocaleDateString()}`}
 
