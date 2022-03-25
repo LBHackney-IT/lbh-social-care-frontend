@@ -119,19 +119,21 @@ describe('allocatedWorkersAPI', () => {
       const data = await allocatedWorkersAPI.addAllocatedWorker(123, {
         allocatedWorkerId: 123,
         allocatedTeamId: 321,
-        createdBy: 'foo@bar.com',
+        ragRating: 'purple',
         allocationStartDate: '01-04-2021',
+        createdBy: 'jest.jestington@gmail.com',
       });
       expect(mockedAxios.post).toHaveBeenCalled();
       expect(mockedAxios.post.mock.calls[0][0]).toEqual(
         `${ENDPOINT_API}/allocations`
       );
       expect(mockedAxios.post.mock.calls[0][1]).toEqual({
-        createdBy: 'foo@bar.com',
+        ragRating: 'purple',
         allocatedTeamId: 321,
         allocatedWorkerId: 123,
         mosaicId: 123,
         allocationStartDate: '01-04-2021',
+        createdBy: 'jest.jestington@gmail.com',
       });
       expect(mockedAxios.post.mock.calls[0][2]?.headers).toEqual({
         'Content-Type': 'application/json',
@@ -155,9 +157,9 @@ describe('allocatedWorkersAPI', () => {
       mockedAxios.patch.mockResolvedValue({ data: { foo: 'foobar' } });
       const data = await allocatedWorkersAPI.deleteAllocatedWorker({
         id: 123,
-        createdBy: 'asd@asd.com',
         deallocationReason: 'test',
         deallocationDate: '01/01/2021',
+        createdBy: 'jest.jestington@gmail.com',
       });
       expect(mockedAxios.patch).toHaveBeenCalled();
       expect(mockedAxios.patch.mock.calls[0][0]).toEqual(
@@ -165,9 +167,9 @@ describe('allocatedWorkersAPI', () => {
       );
       expect(mockedAxios.patch.mock.calls[0][1]).toEqual({
         id: 123,
-        createdBy: 'asd@asd.com',
         deallocationReason: 'test',
         deallocationDate: '01/01/2021',
+        createdBy: 'jest.jestington@gmail.com',
       });
       expect(mockedAxios.patch.mock.calls[0][2]?.headers).toEqual({
         'Content-Type': 'application/json',

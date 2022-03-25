@@ -1,0 +1,90 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SelectWorker component should render a worker 1`] = `
+<DocumentFragment>
+  <table
+    class="govuk-table lbh-table"
+    data-testid="residents-table"
+  >
+    <thead
+      class="govuk-table__head"
+    >
+      <tr
+        class="govuk-table__row"
+      >
+        <th
+          class="govuk-table__header"
+          scope="col"
+        >
+          Select
+        </th>
+        <th
+          class="govuk-table__header"
+          scope="col"
+        >
+          Name
+        </th>
+        <th
+          class="govuk-table__header"
+          scope="col"
+        >
+          Total allocations
+        </th>
+        <th
+          class="govuk-table__header"
+          scope="col"
+        />
+      </tr>
+    </thead>
+    <tbody
+      class="govuk-table__body"
+    >
+      <tr
+        class="govuk-table__row"
+      >
+        <td
+          class="govuk-table__cell"
+        >
+          <div
+            class="govuk-radios__item"
+          >
+            <input
+              class="govuk-radios__input"
+              id="1"
+              name="workerId"
+              type="radio"
+              value="1"
+            />
+            <label
+              class="govuk-label govuk-radios__label"
+              for="1"
+            >
+              <span
+                class="govuk-visually-hidden"
+              >
+                Foo Bar
+              </span>
+            </label>
+          </div>
+        </td>
+        <td
+          class="govuk-table__cell"
+          data-testid="workerName"
+        >
+          Foo Bar
+        </td>
+        <td
+          class="govuk-table__cell"
+        >
+          <label
+            data-testid="allocationCount"
+            for="1"
+          >
+            0
+          </label>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</DocumentFragment>
+`;
