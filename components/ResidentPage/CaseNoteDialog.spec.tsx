@@ -19,6 +19,9 @@ jest.mock('utils/api/submissions');
 (useCase as jest.Mock).mockReturnValue({
   data: mockedCaseNote,
 });
+// (useHistoricCaseNote as jest.Mock).mockReturnValue({
+//   data: mockedHistoricCaseNote,
+// });
 (useSubmission as jest.Mock).mockReturnValue({
   data: {
     ...mockSubmission,
@@ -103,6 +106,32 @@ describe('CaseNoteDialog', () => {
     expect(screen.getAllByRole('term').length).toBe(2);
     expect(screen.getAllByRole('definition').length).toBe(2);
   });
+
+  // it('renders a historic case note correctly', () => {
+  //   (useRouter as jest.Mock).mockReturnValueOnce({
+  //     query: {
+  //       case_note: mockedHistoricCaseNote,
+  //     },
+  //   });
+
+  //   render(
+  //     <CaseNoteDialog
+  //       totalCount={1}
+  //       socialCareId={123}
+  //       caseNotes={[
+  //         {
+  //           ...mockedCaseNote,
+  //           caseFormData: {
+  //             ...mockedCaseNote.caseFormData,
+  //             is_historical: true,
+  //           },
+  //         },
+  //       ]}
+  //     />
+  //   );
+
+  //   screen.debug();
+  // });
 
   it('can be navigate to an older note by keyboard', () => {
     const mockReplace = jest.fn();
