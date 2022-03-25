@@ -6,10 +6,10 @@ export interface Props {
   allocation: Allocation;
 }
 
-const getRatingString = (rating: keyof typeof ratingMapping): string => {
+export const getRatingString = (rating: keyof typeof ratingMapping): string => {
   return ratingMapping[rating];
 };
-const getRatingColour = (rating: keyof typeof colorMapping): string => {
+export const getRatingColour = (rating: keyof typeof colorMapping): string => {
   return colorMapping[rating];
 };
 
@@ -50,7 +50,7 @@ const PriorityRating = ({
       {`${getRatingString(
         allocation.ragRating.toLowerCase() as keyof typeof ratingMapping
       )} `}
-      <span style={style}></span>
+      <span data-testid="colourdot" style={style}></span>
       <span style={{ float: 'right', margin: '0' }}>
         <Link
           href={`/residents/${resident.id}/allocations/${allocation.id}/editpriority`}
