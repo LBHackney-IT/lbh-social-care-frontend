@@ -14,7 +14,7 @@ export const allocationFactory = Factory.define<Allocation>(({ sequence }) => ({
   personName: 'foo',
   personAddress: 'the address',
   personDateOfBirth: '2020-03-20',
-  ragRating: 'amber',
+  ragRating: 'medium',
 }));
 
 export const mockedAllocation = allocationFactory.build();

@@ -13,7 +13,6 @@ describe('PriorityRating', () => {
     );
 
     expect(screen.getByTestId('colourdot')).not.toBeNull();
-
     expect(screen.getByText('Medium'));
     expect(screen.getByText('Edit'));
   });
