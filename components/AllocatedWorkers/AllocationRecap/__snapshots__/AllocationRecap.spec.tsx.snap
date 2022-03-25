@@ -15,7 +15,7 @@ exports[`AllocationRecap should render properly on allocation 1`] = `
     </b>
     : 
     <a
-      href="/people/1234"
+      href="/residents/1234"
     >
       foo
     </a>
@@ -117,7 +117,7 @@ exports[`AllocationRecap should render properly on deallocation 1`] = `
     </b>
     : 
     <a
-      href="/people/1234"
+      href="/residents/1234"
     >
       foo
     </a>
