@@ -9,13 +9,24 @@ export interface Props {
 const getRatingString = (rating: keyof typeof ratingMapping): string => {
   return ratingMapping[rating];
 };
+const getRatingColour = (rating: keyof typeof colorMapping): string => {
+  return colorMapping[rating];
+};
 
 const ratingMapping = {
   purple: 'Urgent',
   red: 'High',
-  orange: 'Medium',
+  amber: 'Medium',
   green: 'Low',
   white: 'No priority',
+};
+
+const colorMapping = {
+  purple: 'purple',
+  red: 'red',
+  amber: 'orange',
+  green: 'green',
+  white: 'grey',
 };
 
 const PriorityRating = ({
@@ -30,7 +41,9 @@ const PriorityRating = ({
     borderRadius: '50%',
   };
 
-  style.backgroundColor = allocation.ragRating;
+  style.backgroundColor = getRatingColour(
+    allocation.ragRating.toLowerCase() as keyof typeof colorMapping
+  );
 
   return (
     <>

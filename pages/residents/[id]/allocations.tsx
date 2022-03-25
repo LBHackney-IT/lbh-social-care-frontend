@@ -46,6 +46,7 @@ const AllocationsPage = ({ resident }: Props): React.ReactElement => {
         ) : allocationsToShow ? (
           <>
             {data.allocations?.map((a: Allocation) => {
+              a.ragRating = 'amber';
               const priorityLevel = (
                 <>
                   {a.ragRating ? (
