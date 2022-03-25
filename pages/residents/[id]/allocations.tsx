@@ -54,7 +54,7 @@ const AllocationsPage = ({ resident }: Props): React.ReactElement => {
                     <Link
                       href={`/residents/${resident.id}/allocations/${a.id}/editpriority`}
                     >
-                      <a className="lbh-link lbh-link--muted">edit</a>
+                      <a className="lbh-link lbh-link--muted">Edit</a>
                     </Link>
                   </span>
                 </>
