@@ -60,16 +60,34 @@ const AllocationsPage = ({ resident }: Props): React.ReactElement => {
                 </>
               );
 
-              const allocateWorkerLink = a.allocatedWorker ? (
-                a.allocatedWorker
-              ) : (
-                <Link
-                  href={`/residents/${resident.id}/allocations/${a.id}/allocateworker`}
-                >
-                  <a className="lbh-link lbh-link--muted">
-                    + Add worker for {a.allocatedWorkerTeam}
-                  </a>
-                </Link>
+              const workerAllocation = (
+                <>
+                  {a.allocatedWorker ? (
+                    a.allocatedWorker
+                  ) : (
+                    <Link
+                      href={`/residents/${resident.id}/allocations/${a.id}/allocateworker`}
+                    >
+                      <a className="lbh-link lbh-link--muted">
+                        + Add worker for {a.allocatedWorkerTeam}
+                      </a>
+                    </Link>
+                  )}
+
+                  {a.allocatedWorker ? (
+                    <span style={{ float: 'right' }}>
+                      <Link
+                        href={`/residents/${resident.id}/allocations/${a.id}/deallocate?type=worker&allocationStartDate=${a.allocationStartDate}&allocatedWorkerTeam=${a.allocatedWorkerTeam}`}
+                      >
+                        <a className="lbh-link lbh-link--muted">
+                          Deallocate worker
+                        </a>
+                      </Link>
+                    </span>
+                  ) : (
+                    <></>
+                  )}
+                </>
               );
 
               return (
@@ -82,7 +100,7 @@ const AllocationsPage = ({ resident }: Props): React.ReactElement => {
                   }
                   link={
                     <Link
-                      href={`/residents/${resident.id}/allocations/${a.id}/deallocate?type=team&allocationStartDate=${a.allocationStartDate}&teamName=${a.allocatedWorkerTeam}`}
+                      href={`/residents/${resident.id}/allocations/${a.id}/deallocate?type=team&allocationStartDate=${a.allocationStartDate}&allocatedWorkerTeam=${a.allocatedWorkerTeam}`}
                     >
                       <a className="lbh-link lbh-link--muted">Deallocate</a>
                     </Link>
@@ -98,7 +116,7 @@ const AllocationsPage = ({ resident }: Props): React.ReactElement => {
                           ? formatDate(a.allocationEndDate)
                           : 'present'
                       }`,
-                      Worker: allocateWorkerLink,
+                      Worker: workerAllocation,
                     }}
                   />
                 </Collapsible>
