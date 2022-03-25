@@ -242,7 +242,6 @@ describe('allocatedWorkersAPI', () => {
       expect(data).toEqual({ allocations: ['foo'] });
     });
   });
-
   describe('patchAllocation', () => {
     it('should send the correct parameters to the correct endpoint', async () => {
       mockedAxios.patch.mockResolvedValue({

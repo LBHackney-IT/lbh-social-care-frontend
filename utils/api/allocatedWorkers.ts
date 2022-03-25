@@ -71,7 +71,6 @@ export const addWorkerToAllocation = async (
   );
   return data;
 };
-
 export const deallocateTeamWorker = async (
   residentId: number,
   body: Record<string, unknown>
