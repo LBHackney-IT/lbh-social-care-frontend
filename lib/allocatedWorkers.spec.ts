@@ -207,4 +207,27 @@ describe('allocatedWorkersAPI', () => {
       expect(data).toEqual({ allocations: ['foo'] });
     });
   });
+
+  describe('addWorkerAllocation', () => {
+    it('should send the correct parameters to the correct endpoint', async () => {
+      mockedAxios.post.mockResolvedValue({
+        data: { allocations: ['foo'] },
+      });
+      const data = await allocatedWorkersAPI.addWorkerAllocation(123, {
+        allocationId: 1,
+        allocatedTeamId: 12,
+        allocatedWorkerId: 123,
+        allocationStartDate: '2022-12-12',
+      });
+      expect(mockedAxios.post).toHaveBeenCalled();
+      expect(mockedAxios.post.mock.calls[0][0]).toEqual(
+        `${ENDPOINT_API}/allocations`
+      );
+      expect(mockedAxios.post.mock.calls[0][2]?.headers).toEqual({
+        'Content-Type': 'application/json',
+        'x-api-key': AWS_KEY,
+      });
+      expect(data).toEqual({ allocations: ['foo'] });
+    });
+  });
 });

@@ -93,3 +93,25 @@ export const addAllocatedWorker = async (
   });
   return data;
 };
+
+const addWorkerAllocationSchema = yup.object({
+  allocationId: yup.number().integer().nullable(),
+  allocatedTeamId: yup.number().integer().nullable(),
+  allocatedWorkerId: yup.number().integer().nullable(),
+  allocationStartDate: yup.string().required(),
+});
+
+export const addWorkerAllocation = async (
+  mosaicId: number,
+  params: Omit<yup.InferType<typeof addWorkerAllocationSchema>, 'mosaicId'>
+): Promise<Record<string, unknown>> => {
+  const body = await addWorkerAllocationSchema.validate({
+    mosaicId,
+    ...params,
+  });
+  const { data } = await axios.post(`${ENDPOINT_API}/allocations`, body, {
+    headers: { 'Content-Type': 'application/json', 'x-api-key': AWS_KEY },
+  });
+
+  return data;
+};

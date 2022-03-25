@@ -50,6 +50,7 @@ exports[`SelectWorker component should render a worker 1`] = `
           >
             <input
               class="govuk-radios__input"
+              data-testid="select_Foo_Bar"
               id="1"
               name="workerId"
               type="radio"
