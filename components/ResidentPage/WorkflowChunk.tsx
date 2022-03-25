@@ -24,7 +24,7 @@ export const WorkflowChunk = ({ workflow }: Props): React.ReactElement => (
       <span className="govuk-tag lbh-tag lbh-tag--yellow">In progress</span>
     )}
 
-    <p className="lbh-body-xs">
+    <p className="lbh-body-xs govuk-!-margin-top-1">
       Started {formatDate(workflow.createdAt.toString())} ·{' '}
       {prettyStatus(workflow)}
     </p>
