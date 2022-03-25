@@ -3,8 +3,9 @@ import { mockedCaseNote } from 'factories/cases';
 import { mockSubmission } from 'factories/submissions';
 import CaseNoteDialog from './CaseNoteDialog';
 import { useRouter } from 'next/router';
-import { useCase, useCases } from 'utils/api/cases';
+import { useCase, useCases, useHistoricCaseNote } from 'utils/api/cases';
 import { useSubmission } from 'utils/api/submissions';
+import { mockedHistoricCaseNote } from 'fixtures/cases.fixtures';
 
 jest.mock('next/router');
 jest.mock('utils/api/cases');
@@ -19,9 +20,9 @@ jest.mock('utils/api/submissions');
 (useCase as jest.Mock).mockReturnValue({
   data: mockedCaseNote,
 });
-// (useHistoricCaseNote as jest.Mock).mockReturnValue({
-//   data: mockedHistoricCaseNote,
-// });
+(useHistoricCaseNote as jest.Mock).mockReturnValue({
+  data: mockedHistoricCaseNote,
+});
 (useSubmission as jest.Mock).mockReturnValue({
   data: {
     ...mockSubmission,
@@ -107,31 +108,35 @@ describe('CaseNoteDialog', () => {
     expect(screen.getAllByRole('definition').length).toBe(2);
   });
 
-  // it('renders a historic case note correctly', () => {
-  //   (useRouter as jest.Mock).mockReturnValueOnce({
-  //     query: {
-  //       case_note: mockedHistoricCaseNote,
-  //     },
-  //   });
+  it('renders a historic case note correctly', () => {
+    (useRouter as jest.Mock).mockReturnValueOnce({
+      query: {
+        case_note: mockedCaseNote.recordId,
+      },
+    });
 
-  //   render(
-  //     <CaseNoteDialog
-  //       totalCount={1}
-  //       socialCareId={123}
-  //       caseNotes={[
-  //         {
-  //           ...mockedCaseNote,
-  //           caseFormData: {
-  //             ...mockedCaseNote.caseFormData,
-  //             is_historical: true,
-  //           },
-  //         },
-  //       ]}
-  //     />
-  //   );
+    render(
+      <CaseNoteDialog
+        totalCount={1}
+        socialCareId={123}
+        caseNotes={[
+          {
+            ...mockedCaseNote,
+            caseFormData: {
+              ...mockedCaseNote.caseFormData,
+              is_historical: true,
+            },
+          },
+        ]}
+      />
+    );
 
-  //   screen.debug();
-  // });
+    expect(screen.getByRole('heading', { name: 'foorm' }));
+    expect(screen.getByText(/Added 25 Oct 2020 by Fname.Lname@hackney.gov.uk/));
+
+    expect(screen.getAllByRole('term').length).toBe(6);
+    expect(screen.getAllByRole('definition').length).toBe(6);
+  });
 
   it('can be navigate to an older note by keyboard', () => {
     const mockReplace = jest.fn();
