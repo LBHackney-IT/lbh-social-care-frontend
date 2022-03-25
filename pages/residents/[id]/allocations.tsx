@@ -4,7 +4,7 @@ import Collapsible, {
 import Layout from 'components/ResidentPage/Layout';
 import { getResident } from 'lib/residents';
 import { GetServerSideProps } from 'next';
-import { Resident } from 'types';
+import { Resident, Allocation } from 'types';
 import { useAllocatedWorkers } from 'utils/api/allocatedWorkers';
 import { isAuthorised } from 'utils/auth';
 import Link from 'next/link';
@@ -13,6 +13,7 @@ import SummaryList, {
 } from 'components/ResidentPage/SummaryList';
 import { formatDate } from 'utils/date';
 import ErrorMessage from 'components/ErrorMessage/ErrorMessage';
+import PriorityRating from 'components/PriorityRating/PriorityRating';
 
 interface Props {
   resident: Resident;
@@ -23,77 +24,117 @@ const AllocationsPage = ({ resident }: Props): React.ReactElement => {
 
   const allocationsToShow = data?.allocations && data.allocations.length > 0;
 
+  const allocateButton = (
+    <Link href={`/residents/${resident.id}/allocations/add`}>
+      <a className="govuk-button lbh-button lbh-button--secondary lbh-button--add">
+        <svg width="12" height="12" viewBox="0 0 12 12">
+          <path d="M6.94 0L5 0V12H6.94V0Z" />
+          <path d="M12 5H0V7H12V5Z" />
+        </svg>
+        Allocate a team/worker
+      </a>
+    </Link>
+  );
+
   return (
     <Layout resident={resident} title="Allocations">
       <>
-        <p className="lbh-body-s govuk-!-margin-bottom-6">
-          {resident.allocatedTeam
-            ? `Allocated to ${resident.allocatedTeam}`
-            : `This resident is not allocated to a team.`}
-        </p>
-
         {!data && !error ? (
           <CollapsibleSkeleton>
             <SummaryListSkeleton />
           </CollapsibleSkeleton>
         ) : allocationsToShow ? (
           <>
-            {data.allocations?.map((a) => (
-              <Collapsible
-                key={a.id}
-                title={a.allocatedWorker}
-                link={
-                  <Link
-                    href={`/people/${resident.id}/allocations/${a.id}/remove`}
-                  >
-                    <a className="lbh-link lbh-link--muted">Deallocate</a>
-                  </Link>
-                }
-              >
-                <SummaryList
-                  rows={{
-                    Role: a.workerType,
-                    Team: (
+            {data.allocations?.map((a: Allocation) => {
+              const priorityLevel = (
+                <>
+                  {a.ragRating ? (
+                    <PriorityRating resident={resident} allocation={a} />
+                  ) : (
+                    'No priority '
+                  )}
+                </>
+              );
+
+              const workerAllocation = (
+                <>
+                  {a.allocatedWorker ? (
+                    a.allocatedWorker
+                  ) : (
+                    <Link
+                      href={`/residents/${resident.id}/allocations/${a.id}/allocateworker`}
+                    >
+                      <a className="lbh-link lbh-link--muted">
+                        + Add worker for {a.allocatedWorkerTeam}
+                      </a>
+                    </Link>
+                  )}
+
+                  {a.allocatedWorker ? (
+                    <span style={{ float: 'right' }}>
                       <Link
-                        href={`${process.env.NEXT_PUBLIC_CORE_PATHWAY_APP_URL}/teams/${a.allocatedWorkerTeam}`}
+                        href={`/residents/${resident.id}/allocations/${
+                          a.id
+                        }/deallocate?type=worker&allocationStartDate=${
+                          a.allocationStartDate
+                        }&allocatedWorker=${a.allocatedWorker}${
+                          a.allocatedWorkerTeam
+                            ? `&allocatedWorkerTeam=${a.allocatedWorkerTeam}`
+                            : ''
+                        }`}
                       >
-                        <a>{a.allocatedWorkerTeam}</a>
+                        <a className="lbh-link lbh-link--muted">
+                          Deallocate worker
+                        </a>
                       </Link>
-                    ),
-                    Duration: `${formatDate(a.allocationStartDate)} — ${
-                      a.allocationEndDate
-                        ? formatDate(a.allocationEndDate)
-                        : 'present'
-                    }`,
-                  }}
-                />
-              </Collapsible>
-            ))}
-            <Link href={`/people/${resident.id}/allocations/add`}>
-              <a className="govuk-button lbh-button lbh-button--secondary lbh-button--add">
-                <svg width="12" height="12" viewBox="0 0 12 12">
-                  <path d="M6.94 0L5 0V12H6.94V0Z" />
-                  <path d="M12 5H0V7H12V5Z" />
-                </svg>
-                Allocate another user
-              </a>
-            </Link>
+                    </span>
+                  ) : (
+                    <></>
+                  )}
+                </>
+              );
+
+              return (
+                <Collapsible
+                  key={a.id}
+                  title={
+                    a.allocatedWorkerTeam
+                      ? `Team allocation: ${a.allocatedWorkerTeam}`
+                      : 'Worker Allocation'
+                  }
+                  link={
+                    <Link
+                      href={`/residents/${resident.id}/allocations/${a.id}/deallocate?type=team&allocationStartDate=${a.allocationStartDate}&allocatedWorkerTeam=${a.allocatedWorkerTeam}`}
+                    >
+                      <a className="lbh-link lbh-link--muted">Deallocate</a>
+                    </Link>
+                  }
+                >
+                  <SummaryList
+                    rows={{
+                      'Priority  Level': priorityLevel,
+                      'Date allocated to team': `${formatDate(
+                        a.allocationStartDate
+                      )} — ${
+                        a.allocationEndDate
+                          ? formatDate(a.allocationEndDate)
+                          : 'present'
+                      }`,
+                      Worker: workerAllocation,
+                    }}
+                  />
+                </Collapsible>
+              );
+            })}
+            {allocateButton}
           </>
         ) : error ? (
           <ErrorMessage />
         ) : (
-          <>
-            <p>No one is allocated to this resident yet.</p>
-            <Link href={`/people/${resident.id}/allocations/add`}>
-              <a className="govuk-button lbh-button lbh-button--secondary lbh-button--add">
-                <svg width="12" height="12" viewBox="0 0 12 12">
-                  <path d="M6.94 0L5 0V12H6.94V0Z" />
-                  <path d="M12 5H0V7H12V5Z" />
-                </svg>
-                Allocate a user
-              </a>
-            </Link>
-          </>
+          <p>
+            No one is allocated to this resident yet.
+            {allocateButton}
+          </p>
         )}
       </>
     </Layout>
@@ -117,7 +158,6 @@ export const getServerSideProps: GetServerSideProps = async ({
   }
 
   const resident = await getResident(Number(params?.id), user);
-
   // does the resident exist?
   if (!resident.id) {
     return {
