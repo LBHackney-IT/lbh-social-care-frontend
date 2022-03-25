@@ -20,7 +20,7 @@ const DeAllocationPage = (): React.ReactElement => {
   const allocatedWorkerTeam =
     query.allocatedWorkerTeam && String(query.allocatedWorkerTeam);
   const allocatedWorker =
-    query.allocatedWorkerTeam && String(query.allocatedWorkerTeam);
+    query.allocatedWorker && String(query.allocatedWorker);
 
   const { user } = useAuth() as { user: User };
   const { data: resident, error } = useResident(personId);

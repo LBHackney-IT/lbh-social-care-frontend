@@ -72,10 +72,6 @@ const DeallocateTeamWorker = ({
     return <ErrorMessage />;
   }
 
-  const displayTeamName = allocatedWorkerTeam
-    ? ` (${allocatedWorkerTeam} Team)`
-    : '';
-
   return (
     <>
       <h4>Deallocation details</h4>
@@ -84,7 +80,7 @@ const DeallocateTeamWorker = ({
       {type == 'team'
         ? `${allocatedWorkerTeam} Team, allocated ${allocationStartDate.toLocaleDateString()}`
         : `${allocatedWorker}, social worker${
-            displayTeamName && displayTeamName
+            allocatedWorkerTeam ? ` (${allocatedWorkerTeam} Team)` : ''
           }, allocated ${allocationStartDate.toLocaleDateString()}`}
 
       <form role="form" onSubmit={handleSubmit(addWorker)}>
