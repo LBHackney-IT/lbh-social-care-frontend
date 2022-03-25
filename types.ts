@@ -27,6 +27,7 @@ export interface Allocation {
   personName: string;
   personDateOfBirth: string;
   personAddress: string;
+  ragRating: string;
 }
 
 export interface AllocationData {
