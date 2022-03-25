@@ -71,13 +71,23 @@ export const addWorkerToAllocation = async (
   );
   return data;
 };
-
 export const deallocateTeamWorker = async (
   residentId: number,
   body: Record<string, unknown>
 ): Promise<Record<string, unknown>> => {
   const { data } = await axios.patch(
-    `/api/residents/${residentId}/allocations`,
+    `/api/residents/${residentId}/allocations?type=deallocate`,
+    body
+  );
+  return data;
+};
+
+export const patchAllocation = async (
+  residentId: number,
+  body: Record<string, unknown>
+): Promise<Record<string, unknown>> => {
+  const { data } = await axios.patch(
+    `/api/residents/${residentId}/allocations?type=edit`,
     body
   );
   return data;
