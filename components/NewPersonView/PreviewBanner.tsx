@@ -20,24 +20,16 @@ const PreviewBanner = ({
         className="lbh-page-announcement lbh-page-announcement--orange"
       >
         <h4 className="lbh-page-announcement__title">
-          Try the faster, brand new resident view
+          This view will soon be retired
         </h4>
         <div className="lbh-page-announcement__content">
           <p className="lbh-body-s">
             You can record much more information about a resident, see a
-            chronology of their workflows and browse case notes faster.
+            chronology of their workflows and browse case notes faster using the
+            new resident view.
           </p>
           <p className="lbh-body-s govuk-!-margin-top-2">
             <Link href={`/residents/${resident.id}`}>Try it now</Link>{' '}
-            <a
-              href={
-                'https://docs.google.com/forms/d/e/1FAIpQLScILbPD1ioKHzp1D3HN4_DKaxV2tpWLMu8upSSqNgSPCo85cg/viewform'
-              }
-              target={'_blank'}
-              rel="noreferrer"
-            >
-              Give feedback
-            </a>
           </p>
         </div>
       </section>

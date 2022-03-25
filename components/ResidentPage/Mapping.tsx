@@ -51,6 +51,8 @@ const Mapping = ({ socialCareId }: Props): React.ReactElement | null => {
 
   if (!data) return null;
 
+  if (!data.address?.postcode && !data.address?.address) return null; // handle resident with no address set
+
   const mapUrl = `https://maps.googleapis.com/maps/api/staticmap?size=360x360&return_error_code=true&markers=${prettyAddress(
     data
   )}&zoom=15&key=${process.env.NEXT_PUBLIC_GOOGLE_CLIENT_KEY}`;
