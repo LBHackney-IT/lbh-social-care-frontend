@@ -108,11 +108,11 @@ const AddAllocation = ({ personId, ageContext }: Props): React.ReactElement => {
         name="priority"
         label="Choose a priority rating"
         options={[
-          { value: 'purple', text: 'Urgent priority' },
-          { value: 'red', text: 'High priority' },
-          { value: 'amber', text: 'Medium priority' },
-          { value: 'green', text: 'Low priority' },
-          { value: 'white', text: 'No priority' },
+          { value: 'urgent', text: 'Urgent priority' },
+          { value: 'high', text: 'High priority' },
+          { value: 'medium', text: 'Medium priority' },
+          { value: 'low', text: 'Low priority' },
+          { value: 'none', text: 'No priority' },
         ]}
         onChange={(elm) => {
           setPriority(elm.target.value);

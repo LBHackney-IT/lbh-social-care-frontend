@@ -13,24 +13,23 @@ describe('PriorityRating', () => {
     );
 
     expect(screen.getByTestId('colourdot')).not.toBeNull();
-
     expect(screen.getByText('Medium'));
     expect(screen.getByText('Edit'));
   });
 
   it('properly convert ragRatings to CSS colours', () => {
-    expect(getRatingColour('purple')).toBe('purple');
-    expect(getRatingColour('red')).toBe('red');
-    expect(getRatingColour('amber')).toBe('orange');
-    expect(getRatingColour('green')).toBe('green');
-    expect(getRatingColour('white')).toBe('grey');
+    expect(getRatingColour('urgent')).toBe('purple');
+    expect(getRatingColour('high')).toBe('red');
+    expect(getRatingColour('medium')).toBe('orange');
+    expect(getRatingColour('low')).toBe('green');
+    expect(getRatingColour('none')).toBe('grey');
   });
 
   it('properly convert ragRatings to string', () => {
-    expect(getRatingString('purple')).toBe('Urgent');
-    expect(getRatingString('red')).toBe('High');
-    expect(getRatingString('amber')).toBe('Medium');
-    expect(getRatingString('green')).toBe('Low');
-    expect(getRatingString('white')).toBe('No priority');
+    expect(getRatingString('urgent')).toBe('Urgent');
+    expect(getRatingString('high')).toBe('High');
+    expect(getRatingString('medium')).toBe('Medium');
+    expect(getRatingString('low')).toBe('Low');
+    expect(getRatingString('none')).toBe('No priority');
   });
 });

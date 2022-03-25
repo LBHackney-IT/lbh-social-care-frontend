@@ -64,7 +64,7 @@ describe(`DeallocateTeamWorker`, () => {
     expect(allocatedWorkerAPI.patchAllocation).toHaveBeenCalled();
     expect(allocatedWorkerAPI.patchAllocation).toHaveBeenCalledWith(1, {
       id: 12,
-      ragRating: 'red',
+      ragRating: 'high',
     });
   });
 });

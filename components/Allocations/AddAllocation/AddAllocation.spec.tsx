@@ -160,7 +160,7 @@ describe(`AddAllocation`, () => {
     expect(allocatedWorkerAPI.addAllocatedWorker).toHaveBeenCalledWith(123, {
       allocatedTeamId: 3,
       allocationStartDate: format(new Date(), 'yyyy-MM-dd'),
-      ragRating: 'amber',
+      ragRating: 'medium',
     });
   });
 });
