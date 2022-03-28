@@ -103,7 +103,7 @@ const AllocationsPage = ({ resident }: Props): React.ReactElement => {
                   title={
                     a.allocatedWorkerTeam
                       ? `Team allocation: ${a.allocatedWorkerTeam}`
-                      : 'Worker Allocation'
+                      : `Worker Allocation: ${a.allocatedWorker}`
                   }
                   link={
                     <Link
