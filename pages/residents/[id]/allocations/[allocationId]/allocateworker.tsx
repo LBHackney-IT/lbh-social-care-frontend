@@ -15,6 +15,10 @@ const AddWorkerAllocationPage = (): React.ReactElement => {
   const { query, replace } = useRouter();
   const personId = Number(query.id as string);
   const allocationId = Number(query.allocationId as string);
+
+  const teamAllocationStartDate = String(query.teamAllocationStartDate);
+  const teamId = Number(query.teamId);
+
   const { user } = useAuth() as { user: User };
   const { data: resident, error } = useResident(personId);
 
@@ -32,9 +36,6 @@ const AddWorkerAllocationPage = (): React.ReactElement => {
     });
     return <></>;
   }
-
-  const teamAllocationStartDate = String(query.teamAllocationStartDate);
-  const teamId = Number(query.teamId);
 
   return (
     <>

@@ -61,7 +61,7 @@ const DeallocateTeamWorker = ({
         deallocationDate: format(deallocationDate, 'yyyy-MM-dd'),
       });
 
-      push(`/people/${resident.id}`);
+      push(`/residents/${resident.id}/allocations`);
     } catch (e) {
       setPostError(true);
     }

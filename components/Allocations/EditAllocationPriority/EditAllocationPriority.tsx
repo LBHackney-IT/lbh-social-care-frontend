@@ -35,7 +35,7 @@ const EditAllocationPriority = ({
         ragRating: priorityRating,
       });
 
-      push(`/people/${resident.id}`);
+      push(`/residents/${resident.id}/allocations`);
     } catch (e) {
       setPostError(true);
     }
