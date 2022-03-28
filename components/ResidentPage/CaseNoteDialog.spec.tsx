@@ -21,7 +21,10 @@ jest.mock('utils/api/submissions');
   data: mockedCaseNote,
 });
 (useHistoricCaseNote as jest.Mock).mockReturnValue({
-  data: mockedHistoricCaseNote,
+  data: {
+    ...mockedHistoricCaseNote,
+    content: '<h1>foo historic</h1>',
+  },
 });
 (useSubmission as jest.Mock).mockReturnValue({
   data: {
@@ -136,6 +139,33 @@ describe('CaseNoteDialog', () => {
 
     expect(screen.getAllByRole('term').length).toBe(6);
     expect(screen.getAllByRole('definition').length).toBe(6);
+  });
+
+  it('strips html tags from historic case notes', () => {
+    (useRouter as jest.Mock).mockReturnValueOnce({
+      query: {
+        case_note: mockedCaseNote.recordId,
+      },
+    });
+
+    render(
+      <CaseNoteDialog
+        totalCount={1}
+        socialCareId={123}
+        caseNotes={[
+          {
+            ...mockedCaseNote,
+            caseFormData: {
+              ...mockedCaseNote.caseFormData,
+              is_historical: true,
+            },
+          },
+        ]}
+      />
+    );
+
+    expect(screen.getByText('foo historic'));
+    expect(screen.queryByText('<h1>foo historic</h1>')).toBeNull;
   });
 
   it('can be navigate to an older note by keyboard', () => {
