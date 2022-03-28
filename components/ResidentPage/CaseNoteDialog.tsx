@@ -13,7 +13,7 @@ import { useCase, useCases, useHistoricCaseNote } from 'utils/api/cases';
 import { useSubmission } from 'utils/api/submissions';
 import FlexibleAnswers from 'components/FlexibleAnswers/FlexibleAnswers';
 import Link from 'next/link';
-import { KeyboardEventHandler, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import RemoveCaseNoteDialog from './RemoveCaseNoteDialog';
 import { generateInternalLink } from 'utils/urls';
 
@@ -136,21 +136,31 @@ const CaseNoteDialog = ({
   });
   const worker = workerData?.[0];
 
-  const handleKeyboardNav: KeyboardEventHandler<HTMLDivElement> = (e) => {
-    let newId;
-    if (e.key === 'ArrowLeft') {
-      newId = caseNotes?.[i - 1]?.recordId; // previous/newer note
-    }
-    if (e.key === 'ArrowRight') {
-      if (caseNotes.length > i) {
-        newId = caseNotes?.[i + 1]?.recordId; // next/older note
+  const handleKeyboardNav = useCallback(
+    (e) => {
+      let newId;
+      if (e.key === 'ArrowLeft') {
+        console.log('<-');
+        newId = caseNotes?.[i - 1]?.recordId; // previous/newer note
       }
-    }
-    if (newId)
-      replace(`${window.location.pathname}?case_note=${newId}`, undefined, {
-        scroll: false,
-      });
-  };
+      if (e.key === 'ArrowRight') {
+        console.log('->');
+        if (caseNotes.length > i) {
+          newId = caseNotes?.[i + 1]?.recordId; // next/older note
+        }
+      }
+      if (newId)
+        replace(`${window.location.pathname}?case_note=${newId}`, undefined, {
+          scroll: false,
+        });
+    },
+    [caseNotes, i, replace]
+  );
+
+  useEffect(() => {
+    document.addEventListener('keyup', handleKeyboardNav);
+    return () => document.removeEventListener('keyup', handleKeyboardNav);
+  }, [handleKeyboardNav]);
 
   const handleClose = () =>
     replace(window.location.pathname, undefined, {
@@ -179,7 +189,6 @@ const CaseNoteDialog = ({
         title={prettyCaseTitle(note)}
         isOpen={!!query['case_note']}
         onDismiss={handleClose}
-        onKeyUp={handleKeyboardNav}
         className={s.dialog}
       >
         <p className="lbh-body-s">
