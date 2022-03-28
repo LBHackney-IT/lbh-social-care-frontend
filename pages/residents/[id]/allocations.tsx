@@ -62,7 +62,7 @@ const AllocationsPage = ({ resident }: Props): React.ReactElement => {
                     a.allocatedWorker
                   ) : (
                     <Link
-                      href={`/residents/${resident.id}/allocations/${a.id}/allocateworker`}
+                      href={`/residents/${resident.id}/allocations/${a.id}/allocateworker?teamAllocationStartDate=${a.allocationStartDate}&teamId=${a.teamId}`}
                     >
                       <a className="lbh-link lbh-link--muted">
                         + Add worker for {a.allocatedWorkerTeam}

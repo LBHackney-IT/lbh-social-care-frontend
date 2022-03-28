@@ -59,7 +59,7 @@ const AddAllocation = ({ personId, ageContext }: Props): React.ReactElement => {
         allocationStartDate: format(allocationDate, 'yyyy-MM-dd'),
       });
 
-      push(`/people/${personId}`);
+      push(`/residents/${personId}/allocations`);
     } catch (e) {
       setPostError(true);
     }
