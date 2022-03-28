@@ -1,6 +1,7 @@
 import { act, fireEvent, render } from '@testing-library/react';
 import { UserContext } from 'components/UserContext/UserContext';
 import { mockedUser } from 'factories/users';
+import { allocationFactory } from 'factories/allocatedWorkers';
 import AddAllocation from './AddAllocation';
 import * as allocatedWorkerAPI from 'utils/api/allocatedWorkers';
 import { AgeContext } from 'types';
@@ -63,6 +64,15 @@ describe(`AddAllocation`, () => {
     mutate: jest.fn(),
     isValidating: false,
   }));
+  jest
+    .spyOn(allocatedWorkerAPI, 'useAllocatedWorkers')
+    .mockImplementation(() => ({
+      data: { allocations: [allocationFactory.build()] },
+      revalidate: jest.fn(),
+      mutate: jest.fn(),
+      isValidating: false,
+    }));
+
   const props = {
     personId: 123,
     ageContext: 'A' as AgeContext,
@@ -128,6 +138,24 @@ describe(`AddAllocation`, () => {
 
     const allocate_worker_link = getByTestId('allocate_worker_link');
     expect(allocate_worker_link).toBeInTheDocument();
+  });
+
+  it('should show not display a pre-existing team if its alread allocated', async () => {
+    const { getByTestId, queryByText } = render(
+      <UserContext.Provider
+        value={{
+          user: mockedUser,
+        }}
+      >
+        <AddAllocation {...props} />
+      </UserContext.Provider>
+    );
+    const teamAutocomplete = getByTestId('teamId');
+
+    await act(async () => {
+      fireEvent.click(teamAutocomplete);
+      expect(queryByText('Team 1')).not.toBeInTheDocument();
+    });
   });
 
   it('should render and submit correctly', async () => {

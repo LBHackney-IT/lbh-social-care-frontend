@@ -10,12 +10,13 @@ import {
   useTeamWorkers,
   addAllocatedWorker,
 } from 'utils/api/allocatedWorkers';
-import { AgeContext } from 'types';
+import { AgeContext, Allocation } from 'types';
 import DatePicker from 'components/Form/DatePicker/DatePicker';
 import Radios from 'components/Form/Radios/Radios';
 import SelectWorker from '../SelectWorker/SelectWorker';
 import s from './AddAllocation.module.scss';
 import { format, isBefore } from 'date-fns';
+import { useAllocatedWorkers } from 'utils/api/allocatedWorkers';
 
 interface Props {
   personId: number;
@@ -40,6 +41,7 @@ const AddAllocation = ({ personId, ageContext }: Props): React.ReactElement => {
   const { teamId } = query as { teamId?: number };
   const { data: { teams } = {}, error: errorTeams } = useTeams({ ageContext });
   const { data: workers, error: errorWorkers } = useTeamWorkers(teamId);
+  const { data, error: allocationsError } = useAllocatedWorkers(personId);
 
   useEffect(() => {
     setDateValidation(false);
@@ -70,12 +72,19 @@ const AddAllocation = ({ personId, ageContext }: Props): React.ReactElement => {
     setPostError(null);
   }, [query]);
 
-  if (errorTeams || errorWorkers || postError) {
+  if (errorTeams || errorWorkers || postError || allocationsError) {
     return <ErrorMessage />;
   }
-  if (!teams) {
+  if (!teams || !data) {
     return <Spinner />;
   }
+
+  const teamIdList: number[] = [];
+  data.allocations?.map((a: Allocation) => {
+    if (a.allocatedWorkerTeamId) {
+      teamIdList.push(a.allocatedWorkerTeamId);
+    }
+  });
 
   return (
     <form role="form" onSubmit={handleSubmit(addWorker)}>
@@ -86,10 +95,12 @@ const AddAllocation = ({ personId, ageContext }: Props): React.ReactElement => {
           labelSize="m"
           placeholder="Select or type team name"
           control={control}
-          options={teams.map(({ id, name }) => ({
-            value: id,
-            text: name,
-          }))}
+          options={teams
+            .filter((team) => !teamIdList.includes(team.id))
+            .map(({ id, name }) => ({
+              value: id,
+              text: name,
+            }))}
           onChange={(value: string | number | null) => {
             setWorker(null);
             replace(
