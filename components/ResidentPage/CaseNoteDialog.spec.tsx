@@ -165,7 +165,7 @@ describe('CaseNoteDialog', () => {
     );
 
     expect(screen.getByText('foo historic'));
-    expect(screen.queryByText('<h1>foo historic</h1>')).toBeNull;
+    expect(screen.queryByText('<h1>foo historic</h1>')).toBeNull();
   });
 
   it('can be navigate to an older note by keyboard', () => {
