@@ -60,7 +60,7 @@ const AddWorkerAllocation = ({
         allocationStartDate: format(allocationDate, 'yyyy-MM-dd'),
         allocatedTeamId: Number(teamId),
       });
-      push(`/people/${personId}`);
+      push(`/residents/${personId}/allocations`);
     } catch (e) {
       setPostError(true);
     }

@@ -46,32 +46,25 @@ const AllocationsPage = ({ resident }: Props): React.ReactElement => {
         ) : allocationsToShow ? (
           <>
             {data.allocations?.map((a: Allocation) => {
-              const priorityLevel = (
-                <>
-                  {a.ragRating ? (
-                    <PriorityRating resident={resident} allocation={a} />
-                  ) : (
-                    'No priority '
-                  )}
-                </>
-              );
-
               const workerAllocation = (
                 <>
                   {a.allocatedWorker ? (
                     a.allocatedWorker
                   ) : (
                     <Link
-                      href={`/residents/${resident.id}/allocations/${a.id}/allocateworker`}
+                      href={`/residents/${resident.id}/allocations/${a.id}/allocateworker?teamAllocationStartDate=${a.allocationStartDate}&teamId=${a.allocatedWorkerTeamId}`}
                     >
-                      <a className="lbh-link lbh-link--muted">
-                        + Add worker for {a.allocatedWorkerTeam}
+                      <a className="lbh-link lbh-link--no-visited-state">
+                        + Add worker
+                        {a.allocatedWorkerTeam
+                          ? ` for ${a.allocatedWorkerTeam}`
+                          : ''}
                       </a>
                     </Link>
                   )}
 
-                  {a.allocatedWorker ? (
-                    <span style={{ float: 'right' }}>
+                  {a.allocatedWorker && a.allocatedWorkerTeam ? (
+                    <span style={{ float: 'right', marginRight: '-18px' }}>
                       <Link
                         href={`/residents/${resident.id}/allocations/${
                           a.id
@@ -100,7 +93,7 @@ const AllocationsPage = ({ resident }: Props): React.ReactElement => {
                   title={
                     a.allocatedWorkerTeam
                       ? `Team allocation: ${a.allocatedWorkerTeam}`
-                      : 'Worker Allocation'
+                      : `Worker Allocation: ${a.allocatedWorker}`
                   }
                   link={
                     <Link
@@ -112,7 +105,9 @@ const AllocationsPage = ({ resident }: Props): React.ReactElement => {
                 >
                   <SummaryList
                     rows={{
-                      'Priority  Level': priorityLevel,
+                      'Priority  Level': (
+                        <PriorityRating resident={resident} allocation={a} />
+                      ),
                       'Date allocated to team': `${formatDate(
                         a.allocationStartDate
                       )} — ${

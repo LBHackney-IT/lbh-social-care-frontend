@@ -18,6 +18,7 @@ export type AgeContext = 'A' | 'B' | 'C' | undefined;
 export interface Allocation {
   id: number;
   caseStatus: 'Closed' | 'Open';
+  allocatedWorkerTeamId?: number;
   allocatedWorkerTeam: string;
   allocatedWorker: string;
   allocationStartDate: string;

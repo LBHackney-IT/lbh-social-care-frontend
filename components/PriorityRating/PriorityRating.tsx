@@ -41,6 +41,10 @@ const PriorityRating = ({
     borderRadius: '50%',
   };
 
+  if (!allocation.ragRating) {
+    allocation.ragRating = 'none';
+  }
+
   style.backgroundColor = getRatingColour(
     allocation.ragRating.toLowerCase() as keyof typeof colorMapping
   );
@@ -51,7 +55,8 @@ const PriorityRating = ({
         allocation.ragRating.toLowerCase() as keyof typeof ratingMapping
       )} `}
       <span data-testid="colourdot" style={style}></span>
-      <span style={{ float: 'right', margin: '0' }}>
+
+      <span style={{ float: 'right', margin: '0 -18px 0 0' }}>
         <Link
           href={`/residents/${resident.id}/allocations/${allocation.id}/editpriority`}
         >
