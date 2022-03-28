@@ -1,7 +1,5 @@
 import axios from 'axios';
 import * as yup from 'yup';
-import isPast from 'date-fns/isPast';
-import parseISO from 'date-fns/parseISO';
 
 import type { Allocation, AllocationData } from 'types';
 
@@ -14,27 +12,18 @@ interface AllocationsParams {
   [key: string]: unknown;
 }
 
-const filterClosedAllocations = (allocations: Allocation[]) =>
-  allocations?.filter(
-    ({ caseStatus, allocationEndDate }) =>
-      caseStatus?.toLowerCase() !== 'closed' &&
-      (!allocationEndDate || !isPast(parseISO(allocationEndDate)))
-  );
-
 export const getAllocations = async (
   params: AllocationsParams,
   showOnlyOpen = true
 ): Promise<AllocationData> => {
-  const { data } = await axios.get(`${ENDPOINT_API}/allocations`, {
-    headers: { 'x-api-key': AWS_KEY },
-    params,
-  });
-  return showOnlyOpen
-    ? {
-        ...data,
-        allocations: filterClosedAllocations(data.allocations),
-      }
-    : data;
+  const { data } = await axios.get(
+    `${ENDPOINT_API}/allocations${showOnlyOpen && '?status=open'}`,
+    {
+      headers: { 'x-api-key': AWS_KEY },
+      params,
+    }
+  );
+  return data;
 };
 
 export const getResidentAllocatedWorkers = (
