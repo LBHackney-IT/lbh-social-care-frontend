@@ -73,7 +73,7 @@ const AllocationsPage = ({ resident }: Props): React.ReactElement => {
                     </Link>
                   )}
 
-                  {a.allocatedWorker ? (
+                  {a.allocatedWorker && a.allocatedWorkerTeam ? (
                     <span style={{ float: 'right', marginRight: '-18px' }}>
                       <Link
                         href={`/residents/${resident.id}/allocations/${
