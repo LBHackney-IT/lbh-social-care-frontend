@@ -46,16 +46,6 @@ const AllocationsPage = ({ resident }: Props): React.ReactElement => {
         ) : allocationsToShow ? (
           <>
             {data.allocations?.map((a: Allocation) => {
-              const priorityLevel = (
-                <>
-                  {a.ragRating ? (
-                    <PriorityRating resident={resident} allocation={a} />
-                  ) : (
-                    'No priority '
-                  )}
-                </>
-              );
-
               const workerAllocation = (
                 <>
                   {a.allocatedWorker ? (
@@ -115,7 +105,9 @@ const AllocationsPage = ({ resident }: Props): React.ReactElement => {
                 >
                   <SummaryList
                     rows={{
-                      'Priority  Level': priorityLevel,
+                      'Priority  Level': (
+                        <PriorityRating resident={resident} allocation={a} />
+                      ),
                       'Date allocated to team': `${formatDate(
                         a.allocationStartDate
                       )} — ${
