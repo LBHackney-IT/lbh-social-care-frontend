@@ -16,16 +16,14 @@ export const getAllocations = async (
   params: AllocationsParams,
   showOnlyOpen = true
 ): Promise<AllocationData> => {
-  const { data } = await axios.get(`${ENDPOINT_API}/allocations`, {
-    headers: { 'x-api-key': AWS_KEY },
-    params,
-  });
-  return showOnlyOpen
-    ? {
-        ...data,
-        allocations: data.allocations,
-      }
-    : data;
+  const { data } = await axios.get(
+    `${ENDPOINT_API}/allocations${showOnlyOpen && '?status=open'}`,
+    {
+      headers: { 'x-api-key': AWS_KEY },
+      params,
+    }
+  );
+  return data;
 };
 
 export const getResidentAllocatedWorkers = (
