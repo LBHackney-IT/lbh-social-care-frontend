@@ -1,7 +1,5 @@
 import axios from 'axios';
 import * as yup from 'yup';
-import isPast from 'date-fns/isPast';
-import parseISO from 'date-fns/parseISO';
 
 import type { Allocation, AllocationData } from 'types';
 
@@ -14,13 +12,6 @@ interface AllocationsParams {
   [key: string]: unknown;
 }
 
-const filterClosedAllocations = (allocations: Allocation[]) =>
-  allocations?.filter(
-    ({ caseStatus, allocationEndDate }) =>
-      caseStatus?.toLowerCase() !== 'closed' &&
-      (!allocationEndDate || !isPast(parseISO(allocationEndDate)))
-  );
-
 export const getAllocations = async (
   params: AllocationsParams,
   showOnlyOpen = true
@@ -32,7 +23,7 @@ export const getAllocations = async (
   return showOnlyOpen
     ? {
         ...data,
-        allocations: filterClosedAllocations(data.allocations),
+        allocations: data.allocations,
       }
     : data;
 };
