@@ -41,24 +41,20 @@ const PriorityRating = ({
     borderRadius: '50%',
   };
 
-  if (allocation.ragRating) {
-    style.backgroundColor = getRatingColour(
-      allocation.ragRating.toLowerCase() as keyof typeof colorMapping
-    );
+  if (!allocation.ragRating) {
+    allocation.ragRating = 'none';
   }
+
+  style.backgroundColor = getRatingColour(
+    allocation.ragRating.toLowerCase() as keyof typeof colorMapping
+  );
 
   return (
     <>
-      {allocation.ragRating ? (
-        <>
-          {`${getRatingString(
-            allocation.ragRating.toLowerCase() as keyof typeof ratingMapping
-          )} `}
-          <span data-testid="colourdot" style={style}></span>
-        </>
-      ) : (
-        <>No priority</>
-      )}
+      {`${getRatingString(
+        allocation.ragRating.toLowerCase() as keyof typeof ratingMapping
+      )} `}
+      <span data-testid="colourdot" style={style}></span>
 
       <span style={{ float: 'right', margin: '0 -18px 0 0' }}>
         <Link

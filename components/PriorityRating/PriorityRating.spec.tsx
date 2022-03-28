@@ -36,7 +36,7 @@ describe('PriorityRating', () => {
     expect(getRatingString('none')).toBe('No priority');
   });
 
-  it('shows "no priority" and edit link in case a ragRating is not specified (legacy allocation)', () => {
+  it('shows "no priority", grey dot and edit link in case a ragRating is not specified (legacy allocation)', () => {
     render(
       <PriorityRating
         allocation={allocationFactory.build({ ragRating: undefined })}
@@ -44,6 +44,7 @@ describe('PriorityRating', () => {
       />
     );
     expect(screen.getByText('No priority')).toBeInTheDocument();
+    expect(screen.getByTestId('colourdot')).not.toBeNull();
     expect(screen.getByText('Edit')).toBeInTheDocument();
   });
 });
