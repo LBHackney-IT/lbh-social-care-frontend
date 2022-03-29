@@ -128,6 +128,7 @@ const AllocationsPage = ({ resident }: Props): React.ReactElement => {
         ) : (
           <p>
             No one is allocated to this resident yet.
+            <br />
             {allocateButton}
           </p>
         )}

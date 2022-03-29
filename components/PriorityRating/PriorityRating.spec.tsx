@@ -33,7 +33,7 @@ describe('PriorityRating', () => {
     expect(getRatingString('high')).toBe('High');
     expect(getRatingString('medium')).toBe('Medium');
     expect(getRatingString('low')).toBe('Low');
-    expect(getRatingString('none')).toBe('No priority');
+    expect(getRatingString('none')).toBe('No priority set');
   });
 
   it('shows "no priority", grey dot and edit link in case a ragRating is not specified (legacy allocation)', () => {
@@ -43,7 +43,7 @@ describe('PriorityRating', () => {
         resident={mockedResident}
       />
     );
-    expect(screen.getByText('No priority')).toBeInTheDocument();
+    expect(screen.getByText('No priority set')).toBeInTheDocument();
     expect(screen.getByTestId('colourdot')).not.toBeNull();
     expect(screen.getByText('Edit')).toBeInTheDocument();
   });
