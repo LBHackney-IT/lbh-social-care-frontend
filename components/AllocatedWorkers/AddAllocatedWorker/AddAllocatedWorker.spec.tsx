@@ -130,6 +130,7 @@ describe(`AddAllocatedWorker`, () => {
       allocatedTeamId: 3,
       allocatedWorkerId: 7,
       allocationStartDate: '2021-01-01',
+      ragRating: 'medium',
     });
   });
 });

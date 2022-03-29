@@ -40,6 +40,7 @@ const AddAllocatedWorker = ({
         await addAllocatedWorker(personId, {
           allocatedTeamId: Number(teamId),
           allocatedWorkerId: Number(workerId),
+          ragRating: 'medium',
           allocationStartDate,
         });
         push(`/people/${personId}`);
