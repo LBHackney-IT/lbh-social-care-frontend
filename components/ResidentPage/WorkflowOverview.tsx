@@ -20,19 +20,29 @@ const WorkflowOverview = ({
     ?.filter((w) => !w.submittedAt)
     .filter((w) => w.id !== mostRecent?.id); // exclude most recent workflow
 
+  if (workflows?.length === 0)
+    return <p className="lbh-body-s">This resident has no workflows yet.</p>;
+
   return (
     <>
       <div className="govuk-grid-row">
         {inProgress && (
           <div className="govuk-grid-column-one-half">
             <h3 className="lbh-heading-h5">In progress</h3>
-            {inProgress.slice(0, 3)?.map((w) => (
-              <WorkflowChunk workflow={w} key={w.id} />
-            ))}
-            {inProgress.length > 3 && (
-              <p className="lbh-body-xs govuk-!-margin-top-2">
-                and {inProgress.length - 3} more
-              </p>
+
+            {inProgress.length > 0 ? (
+              <>
+                {inProgress.slice(0, 3)?.map((w) => (
+                  <WorkflowChunk workflow={w} key={w.id} />
+                ))}
+                {inProgress.length > 3 && (
+                  <p className="lbh-body-xs govuk-!-margin-top-2">
+                    and {inProgress.length - 3} more
+                  </p>
+                )}
+              </>
+            ) : (
+              <p className="lbh-body-s">Nothing is in progress right now.</p>
             )}
           </div>
         )}

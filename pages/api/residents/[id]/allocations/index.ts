@@ -2,8 +2,10 @@ import { StatusCodes } from 'http-status-codes';
 
 import {
   getResidentAllocatedWorkers,
-  deleteAllocatedWorker,
+  deleteAllocation,
+  patchAllocation,
   addAllocatedWorker,
+  addWorkerAllocation,
 } from 'lib/allocatedWorkers';
 import { isAuthorised } from 'utils/auth';
 
@@ -49,14 +51,27 @@ const endpoint: NextApiHandler = async (
 
     case 'POST':
       try {
-        const data = await addAllocatedWorker(
-          parseInt(req.query.id as string, 10),
-          {
-            ...req.body,
-            createdBy: user.email,
-          }
-        );
-        res.status(StatusCodes.CREATED).json(data);
+        const request_type = req.query.type;
+
+        if (request_type == 'add_worker_to_allocation') {
+          const data = await addWorkerAllocation(
+            parseInt(req.query.id as string, 10),
+            {
+              ...req.body,
+              createdBy: user.email,
+            }
+          );
+          res.status(StatusCodes.CREATED).json(data);
+        } else {
+          const data = await addAllocatedWorker(
+            parseInt(req.query.id as string, 10),
+            {
+              ...req.body,
+              createdBy: user.email,
+            }
+          );
+          res.status(StatusCodes.CREATED).json(data);
+        }
       } catch (error) {
         console.error(
           'Allocated Workers post error:',
@@ -74,11 +89,21 @@ const endpoint: NextApiHandler = async (
 
     case 'PATCH':
       try {
-        const data = await deleteAllocatedWorker({
-          ...req.body,
-          createdBy: user.email,
-        });
-        res.status(StatusCodes.OK).json(data);
+        const type = req.query.type;
+
+        if (type == 'edit') {
+          const data = await patchAllocation({
+            ...req.body,
+            createdBy: user.email,
+          });
+          res.status(StatusCodes.OK).json(data);
+        } else {
+          const data = await deleteAllocation({
+            ...req.body,
+            createdBy: user.email,
+          });
+          res.status(StatusCodes.OK).json(data);
+        }
       } catch (error) {
         console.error(
           'Allocated Workers patch error:',
@@ -90,7 +115,7 @@ const endpoint: NextApiHandler = async (
               .json({ message: (error as AxiosError).message })
           : res
               .status(StatusCodes.INTERNAL_SERVER_ERROR)
-              .json({ message: 'Unable to deallocated Worker' });
+              .json({ message: 'Unable to deallocate Worker' });
       }
       break;
 

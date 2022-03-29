@@ -36,4 +36,19 @@ describe('Mapping', () => {
       'https://maps.googleapis.com/maps/api/streetview?size=360x360&return_error_code=true&location=sjakdjlk,%20hdsadjk'
     );
   });
+
+  it('handles a resident with no address', () => {
+    (useResident as jest.Mock).mockReturnValue({
+      data: {
+        ...mockedResident,
+        address: {
+          address: '',
+          postcode: '',
+        },
+      },
+    });
+
+    render(<Mapping socialCareId={1} />);
+    expect(screen.queryByRole('img')).toBeNull();
+  });
 });

@@ -39,7 +39,7 @@ export const useAllocationsByWorker = (
 ): SWRResponse<WorkerAllocation, ErrorAPI> =>
   useSWR(`/api/workers/${workerId}/allocations`);
 
-export const deleteAllocatedWorker = async (
+export const deleteAllocation = async (
   residentId: number,
   body: Record<string, unknown>
 ): Promise<Record<string, unknown>> => {
@@ -56,6 +56,39 @@ export const addAllocatedWorker = async (
 ): Promise<Record<string, unknown>> => {
   const { data } = await axios.post(
     `/api/residents/${residentId}/allocations`,
+    body
+  );
+  return data;
+};
+
+export const addWorkerToAllocation = async (
+  type: string,
+  residentId: number,
+  body: Record<string, unknown>
+): Promise<Record<string, unknown>> => {
+  const { data } = await axios.post(
+    `/api/residents/${residentId}/allocations?type=${type}`,
+    body
+  );
+  return data;
+};
+export const deallocateTeamWorker = async (
+  residentId: number,
+  body: Record<string, unknown>
+): Promise<Record<string, unknown>> => {
+  const { data } = await axios.patch(
+    `/api/residents/${residentId}/allocations?type=deallocate`,
+    body
+  );
+  return data;
+};
+
+export const patchAllocation = async (
+  residentId: number,
+  body: Record<string, unknown>
+): Promise<Record<string, unknown>> => {
+  const { data } = await axios.patch(
+    `/api/residents/${residentId}/allocations?type=edit`,
     body
   );
   return data;

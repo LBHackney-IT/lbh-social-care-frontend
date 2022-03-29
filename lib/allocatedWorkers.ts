@@ -1,7 +1,5 @@
 import axios from 'axios';
 import * as yup from 'yup';
-import isPast from 'date-fns/isPast';
-import parseISO from 'date-fns/parseISO';
 
 import type { Allocation, AllocationData } from 'types';
 
@@ -14,27 +12,18 @@ interface AllocationsParams {
   [key: string]: unknown;
 }
 
-const filterClosedAllocations = (allocations: Allocation[]) =>
-  allocations?.filter(
-    ({ caseStatus, allocationEndDate }) =>
-      caseStatus?.toLowerCase() !== 'closed' &&
-      (!allocationEndDate || !isPast(parseISO(allocationEndDate)))
-  );
-
 export const getAllocations = async (
   params: AllocationsParams,
   showOnlyOpen = true
 ): Promise<AllocationData> => {
-  const { data } = await axios.get(`${ENDPOINT_API}/allocations`, {
-    headers: { 'x-api-key': AWS_KEY },
-    params,
-  });
-  return showOnlyOpen
-    ? {
-        ...data,
-        allocations: filterClosedAllocations(data.allocations),
-      }
-    : data;
+  const { data } = await axios.get(
+    `${ENDPOINT_API}/allocations${showOnlyOpen && '?status=open'}`,
+    {
+      headers: { 'x-api-key': AWS_KEY },
+      params,
+    }
+  );
+  return data;
 };
 
 export const getResidentAllocatedWorkers = (
@@ -56,17 +45,17 @@ export const getAllocationsByWorker = async (
   params?: AllocationsParams
 ): Promise<AllocationData> => getAllocations({ worker_id, ...params });
 
-const deleteAllocatedWorkerSchema = yup.object({
+const deleteAllocationSchema = yup.object({
   id: yup.number().required().positive().integer(),
-  createdBy: yup.string().email().required(),
   deallocationReason: yup.string().required(),
   deallocationDate: yup.string().required(),
+  createdBy: yup.string().email().required(),
 });
 
-export const deleteAllocatedWorker = async (
-  params: yup.InferType<typeof deleteAllocatedWorkerSchema>
+export const deleteAllocation = async (
+  params: yup.InferType<typeof deleteAllocationSchema>
 ): Promise<Record<string, unknown>> => {
-  const body = await deleteAllocatedWorkerSchema.validate(params);
+  const body = await deleteAllocationSchema.validate(params);
   const { data } = await axios.patch(`${ENDPOINT_API}/allocations`, body, {
     headers: { 'Content-Type': 'application/json', 'x-api-key': AWS_KEY },
   });
@@ -76,9 +65,10 @@ export const deleteAllocatedWorker = async (
 const addAllocatedWorkerSchema = yup.object({
   mosaicId: yup.number().required().positive().integer(),
   allocatedTeamId: yup.number().required().integer(),
-  allocatedWorkerId: yup.number().required().integer(),
-  createdBy: yup.string().email().required(),
+  allocatedWorkerId: yup.number().integer().nullable(),
   allocationStartDate: yup.string().required(),
+  ragRating: yup.string().required(),
+  createdBy: yup.string().email().required(),
 });
 
 export const addAllocatedWorker = async (
@@ -86,8 +76,49 @@ export const addAllocatedWorker = async (
   params: Omit<yup.InferType<typeof addAllocatedWorkerSchema>, 'mosaicId'>
 ): Promise<Record<string, unknown>> => {
   const body = await addAllocatedWorkerSchema.validate({ mosaicId, ...params });
+
   const { data } = await axios.post(`${ENDPOINT_API}/allocations`, body, {
     headers: { 'Content-Type': 'application/json', 'x-api-key': AWS_KEY },
   });
+  return data;
+};
+
+const patchAllocationSchema = yup.object({
+  allocationId: yup.number().integer().nullable(),
+  ragRating: yup.string().required(),
+});
+
+export const patchAllocation = async (
+  params: Omit<yup.InferType<typeof patchAllocationSchema>, 'mosaicId'>
+): Promise<Record<string, unknown>> => {
+  const body = await patchAllocationSchema.validate({
+    ...params,
+  });
+  const { data } = await axios.patch(`${ENDPOINT_API}/allocations`, body, {
+    headers: { 'Content-Type': 'application/json', 'x-api-key': AWS_KEY },
+  });
+
+  return data;
+};
+
+const addWorkerAllocationSchema = yup.object({
+  allocationId: yup.number().integer().nullable(),
+  allocatedTeamId: yup.number().integer().nullable(),
+  allocatedWorkerId: yup.number().integer().nullable(),
+  allocationStartDate: yup.string().required(),
+});
+
+export const addWorkerAllocation = async (
+  mosaicId: number,
+  params: Omit<yup.InferType<typeof addWorkerAllocationSchema>, 'mosaicId'>
+): Promise<Record<string, unknown>> => {
+  const body = await addWorkerAllocationSchema.validate({
+    mosaicId,
+    ...params,
+  });
+  const { data } = await axios.post(`${ENDPOINT_API}/allocations`, body, {
+    headers: { 'Content-Type': 'application/json', 'x-api-key': AWS_KEY },
+  });
+
   return data;
 };

@@ -58,7 +58,7 @@ const AllocationRecap = ({
       </h1>
       <p className="govuk-body govuk-!-margin-top-6">
         <b>Person</b>:{' '}
-        <Link href={`/people/${allocation.personId}`}>
+        <Link href={`/residents/${allocation.personId}`}>
           {allocation.personName}
         </Link>
       </p>

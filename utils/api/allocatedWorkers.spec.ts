@@ -76,10 +76,10 @@ describe('allocatedWorkers APIs', () => {
     });
   });
 
-  describe('deleteAllocatedWorker', () => {
+  describe('deleteAllocation', () => {
     it('should work properly', async () => {
       mockedAxios.patch.mockResolvedValue({ data: { foo: 'foobar' } });
-      const data = await allocatedWorkersAPI.deleteAllocatedWorker(123, {
+      const data = await allocatedWorkersAPI.deleteAllocation(123, {
         foo: 'bar',
       });
       expect(mockedAxios.patch).toHaveBeenCalled();

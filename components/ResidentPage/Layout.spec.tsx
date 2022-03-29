@@ -57,7 +57,7 @@ describe('Layout', () => {
       </AppConfigProvider>
     );
     expect(screen.getAllByRole('list').length).toBe(3);
-    expect(screen.getAllByRole('listitem').length).toBe(8);
+    expect(screen.getAllByRole('listitem').length).toBe(9);
     expect(screen.getByText('Adult social care'));
   });
 });
