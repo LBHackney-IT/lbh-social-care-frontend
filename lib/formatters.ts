@@ -17,13 +17,35 @@ export const summariseAllocations = (
   allocations: Allocation[]
 ): string | null => {
   if (allocations?.length === 1)
-    return `Allocated to ${allocations[0].allocatedWorker}`;
+    return ` · Allocated to ${
+      allocations[0].allocatedWorker
+        ? `${allocations[0].allocatedWorker}${
+            allocations[0].allocatedWorkerTeam
+              ? ` (${allocations[0].allocatedWorkerTeam})`
+              : ''
+          }`
+        : allocations[0].allocatedWorkerTeam
+    }`;
   if (allocations?.length === 2)
-    return `Allocated to ${allocations[0].allocatedWorker} and 1 other`;
+    return ` · Allocated to ${
+      allocations[0].allocatedWorker
+        ? `${allocations[0].allocatedWorker}${
+            allocations[0].allocatedWorkerTeam
+              ? ` (${allocations[0].allocatedWorkerTeam})`
+              : ''
+          }`
+        : allocations[0].allocatedWorkerTeam
+    } and 1 other`;
   if (allocations?.length > 2)
-    return `Allocated to ${allocations[0].allocatedWorker} and ${
-      allocations?.length - 1
-    } others`;
+    return ` · Allocated to ${
+      allocations[0].allocatedWorker
+        ? `${allocations[0].allocatedWorker}${
+            allocations[0].allocatedWorkerTeam
+              ? ` (${allocations[0].allocatedWorkerTeam})`
+              : ''
+          }`
+        : allocations[0].allocatedWorkerTeam
+    } and ${allocations?.length - 1} others`;
   return null;
 };
 
