@@ -36,7 +36,6 @@ const CustomGPDetailsEditor = (props: Props): React.ReactElement => {
       },
       method: 'PATCH',
       body: JSON.stringify({
-        ...props.resident,
         gpDetails: data.gpDetails,
       }),
     });

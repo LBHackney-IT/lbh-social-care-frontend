@@ -49,7 +49,6 @@ describe('InlineEditor', () => {
       },
       method: 'PATCH',
       body: JSON.stringify({
-        ...mockedResident,
         firstName: 'example value',
       }),
     });
