@@ -76,7 +76,10 @@ const AllocationsPage = ({ resident }: Props): React.ReactElement => {
                             : ''
                         }`}
                       >
-                        <a className="lbh-link lbh-link--muted">
+                        <a
+                          id="deallocateWorker"
+                          className="lbh-link lbh-link--muted"
+                        >
                           Deallocate worker
                         </a>
                       </Link>

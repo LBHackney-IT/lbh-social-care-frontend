@@ -80,7 +80,7 @@ describe('Worker / team allocation', () => {
       cy.contains('Continue').should('exist');
     });
 
-    it('Correctly adds a Team allocation using the UI - without a worker', () => {
+    it('Correctly adds a Team allocation using the UI', () => {
       cy.visitAs(
         `/residents/${Cypress.env(
           'ADULT_RECORD_PERSON_ID'
@@ -90,6 +90,8 @@ describe('Worker / team allocation', () => {
       cy.url().should('include', '/add?teamId=78');
 
       cy.get('#priority_medium').click();
+      cy.get('#allocateWorker').click();
+      cy.get('#149').click();
       cy.get('button[type=submit]').click();
 
       cy.visitAs(
@@ -98,6 +100,26 @@ describe('Worker / team allocation', () => {
       );
       cy.url().should('include', '/allocations');
       cy.contains('Team allocation: testing-team').should('exist');
+    });
+
+    it('Correctly deallocate a Worker allocation using the UI', () => {
+      cy.visitAs(
+        `/residents/${Cypress.env('ADULT_RECORD_PERSON_ID')}/allocations`,
+        AuthRoles.AdminDevGroup
+      );
+
+      cy.url().should('include', '/deallocate');
+
+      cy.get('#deallocationReason').clear().type('testing reasons');
+
+      cy.get('button[type=submit]').click();
+
+      cy.url().should('include', '/allocations');
+
+      cy.contains('Team allocation: testing-team')
+        .closest('section')
+        .find('#deallocateWorker')
+        .should('not.exist');
     });
     it('Correctly deallocate a Team allocation using the UI', () => {
       cy.visitAs(
