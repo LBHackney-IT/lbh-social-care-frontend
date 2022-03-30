@@ -93,6 +93,14 @@ describe('Worker / team allocation', () => {
       }).click();
 
       cy.url().should('include', '/add');
+
+      cy.visitAs(
+        `/residents/${Cypress.env(
+          'ADULT_RECORD_PERSON_ID'
+        )}/allocations?teamId=78`,
+        AuthRoles.AdminDevGroup
+      );
+
       cy.get('Medium priority').click();
       cy.get('button[type=submit]').click();
 
