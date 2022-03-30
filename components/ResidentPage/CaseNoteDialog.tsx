@@ -65,7 +65,9 @@ const HistoricCaseContent = ({ recordId }: HistoricContentProps) => {
         rows={Object.fromEntries(
           Object.entries(data).map(([key, value]) => [
             prettyKey(key),
-            JSON.stringify(value).replace(/"/g, ''),
+            JSON.stringify(value)
+              .replace(/"/g, '')
+              .replace(/(<([^>]+)>)/gi, ''),
           ])
         )}
       />
