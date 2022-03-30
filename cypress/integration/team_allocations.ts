@@ -89,7 +89,7 @@ describe('Worker / team allocation', () => {
       );
       cy.url().should('include', '/add');
 
-      cy.get('Medium priority').click();
+      cy.get('#priority_medium').click();
       cy.get('button[type=submit]').click();
 
       cy.url().should('include', '/allocations');
