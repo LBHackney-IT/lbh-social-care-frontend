@@ -114,7 +114,10 @@ describe('Worker / team allocation', () => {
 
       cy.get('button[type=submit]').click();
 
-      cy.url().should('include', '/allocations');
+      cy.visitAs(
+        `/residents/${Cypress.env('ADULT_RECORD_PERSON_ID')}/allocations`,
+        AuthRoles.AdminDevGroup
+      );
 
       cy.contains('Team allocation: testing-team')
         .closest('section')
@@ -137,7 +140,11 @@ describe('Worker / team allocation', () => {
 
       cy.get('button[type=submit]').click();
 
-      cy.url().should('include', '/allocations');
+      cy.visitAs(
+        `/residents/${Cypress.env('ADULT_RECORD_PERSON_ID')}/allocations`,
+        AuthRoles.AdminDevGroup
+      );
+
       cy.contains('Team allocation: testing-team').should('not.exist');
     });
   });
