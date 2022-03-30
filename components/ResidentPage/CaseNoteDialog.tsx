@@ -140,11 +140,9 @@ const CaseNoteDialog = ({
     (e) => {
       let newId;
       if (e.key === 'ArrowLeft') {
-        console.log('<-');
         newId = caseNotes?.[i - 1]?.recordId; // previous/newer note
       }
       if (e.key === 'ArrowRight') {
-        console.log('->');
         if (caseNotes.length > i) {
           newId = caseNotes?.[i + 1]?.recordId; // next/older note
         }
