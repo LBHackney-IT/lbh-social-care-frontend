@@ -2,7 +2,7 @@ import Head from 'next/head';
 import Link from 'next/link';
 import { format } from 'date-fns';
 import { useRouter } from 'next/router';
-import { Allocation, Resident, User, CaseStatus } from 'types';
+import { Resident, User, CaseStatus } from 'types';
 import s from './index.module.scss';
 import { useRelationships } from 'utils/api/relationships';
 import { useAllocatedWorkers } from 'utils/api/allocatedWorkers';
@@ -14,6 +14,7 @@ import { canManageCases } from 'lib/permissions';
 import AddFormDialog from 'components/AddFormDialog/AddFormDialog';
 import { useState } from 'react';
 import Banner from 'components/FlexibleForms/Banner';
+import { summariseAllocations } from 'lib/formatters';
 import {
   ConditionalFeature,
   useFeatureFlags,
@@ -48,18 +49,6 @@ interface Props {
   person: Resident;
   children: React.ReactChild;
 }
-
-const summariseAllocations = (allocations: Allocation[]): string | null => {
-  if (allocations?.length === 1)
-    return ` · Allocated to ${allocations[0].allocatedWorker}`;
-  if (allocations?.length === 2)
-    return ` · Allocated to ${allocations[0].allocatedWorker} and 1 other`;
-  if (allocations?.length > 2)
-    return ` · Allocated to ${allocations[0].allocatedWorker} and ${
-      allocations?.length - 1
-    } others`;
-  return null;
-};
 
 const Layout = ({ person, children }: Props): React.ReactElement => {
   const { data: allocations } = useAllocatedWorkers(person.id);

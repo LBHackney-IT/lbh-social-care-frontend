@@ -32,3 +32,12 @@ export const updateResident = async (
   const { data } = await axios.patch(`/api/residents/${personId}`, formData);
   return { ref: data?.id, data };
 };
+
+export const patchResident = async (formData: {
+  id: number;
+  createdBy: string;
+  [key: string]: unknown;
+}): Promise<Record<string, unknown>> => {
+  const { data } = await axios.patch(`/api/residents`, formData);
+  return { ref: data?.id, data };
+};
