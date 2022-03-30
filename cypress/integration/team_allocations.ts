@@ -95,5 +95,24 @@ describe('Worker / team allocation', () => {
       cy.url().should('include', '/allocations');
       cy.contains('Team allocation: testing-team').should('exist');
     });
+    it('Correctly deallocate a Team allocation using the UI', () => {
+      cy.visitAs(
+        `/residents/${Cypress.env('ADULT_RECORD_PERSON_ID')}/allocations`,
+        AuthRoles.AdminDevGroup
+      );
+      cy.contains('Team allocation: testing-team')
+        .closest('section')
+        .find('.lbh-link')
+        .click();
+
+      cy.url().should('include', '/deallocate');
+
+      cy.get('#deallocationReason').clear().type('testing reasons');
+
+      cy.get('button[type=submit]').click();
+
+      cy.url().should('include', '/allocations');
+      cy.contains('Team allocation: testing-team').should('not.exist');
+    });
   });
 });
