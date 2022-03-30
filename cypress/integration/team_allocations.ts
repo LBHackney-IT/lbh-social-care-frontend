@@ -102,7 +102,7 @@ describe('Worker / team allocation', () => {
       );
       cy.contains('Team allocation: testing-team')
         .closest('section')
-        .find('.lbh-link')
+        .find('.lbh-link')[0]
         .click();
 
       cy.url().should('include', '/deallocate');
