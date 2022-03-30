@@ -8,7 +8,7 @@ jest.mock('utils/api/residents');
 (global.fetch as jest.Mock) = jest.fn(() =>
   Promise.resolve({
     json: () => Promise.resolve({}),
-    status: 200,
+    status: 204,
   })
 );
 
@@ -49,7 +49,6 @@ describe('InlineEditor', () => {
       },
       method: 'PATCH',
       body: JSON.stringify({
-        ...mockedResident,
         firstName: 'example value',
       }),
     });

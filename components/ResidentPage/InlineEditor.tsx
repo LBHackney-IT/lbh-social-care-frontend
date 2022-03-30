@@ -49,12 +49,11 @@ const InlineEditor = ({
       },
       method: 'PATCH',
       body: JSON.stringify({
-        ...resident,
         [name]: beforeSave ? beforeSave(data[name]) : data[name],
       }),
     });
     mutate(); // give it a kick
-    if (res.status === 200) {
+    if (res.status === 204) {
       onClose();
     }
   };
