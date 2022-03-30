@@ -1,4 +1,4 @@
-import { Field, Form, Formik } from 'formik';
+import { Field, Form, Formik, FormikHelpers } from 'formik';
 import useClickOutside from 'hooks/useClickOutside';
 import useWarnUnsavedChanges from 'hooks/useWarnUnsavedChanges';
 import { residentSchema } from 'lib/validators';
@@ -42,20 +42,24 @@ const InlineEditor = ({
   useWarnUnsavedChanges(true);
   useClickOutside(ref, onClose);
 
-  const handleSubmit = async (data: FormValues) => {
+  const handleSubmit = async (
+    data: FormValues,
+    { setStatus }: FormikHelpers<FormValues>
+  ) => {
     const res = await fetch(`/api/residents/${resident.id}`, {
       headers: {
         'Content-Type': 'application/json',
       },
       method: 'PATCH',
       body: JSON.stringify({
-        ...resident,
         [name]: beforeSave ? beforeSave(data[name]) : data[name],
       }),
     });
     mutate(); // give it a kick
-    if (res.status === 200) {
+    if (res.status === 204) {
       onClose();
+    } else {
+      setStatus(res.text || res.statusText);
     }
   };
 
@@ -94,7 +98,7 @@ const InlineEditor = ({
       onSubmit={handleSubmit}
       validationSchema={schema}
     >
-      {({ errors }) => (
+      {({ errors, status }) => (
         <Form
           className={multiple ? s.multipleForm : s.form}
           onKeyUp={handleKeyup}
@@ -151,6 +155,11 @@ const InlineEditor = ({
           {errors[name] && (
             <p className={s.error} role="alert">
               {errors[name]?.toString()}
+            </p>
+          )}
+          {status && (
+            <p className={s.error} role="alert">
+              {status}
             </p>
           )}
           <div>
