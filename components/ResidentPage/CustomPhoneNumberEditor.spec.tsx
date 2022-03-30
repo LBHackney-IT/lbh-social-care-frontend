@@ -136,7 +136,6 @@ describe('CustomPhoneNumberEditor', () => {
       method: 'PATCH',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        ...mockedResident,
         phoneNumbers: [
           {
             type: 'One',

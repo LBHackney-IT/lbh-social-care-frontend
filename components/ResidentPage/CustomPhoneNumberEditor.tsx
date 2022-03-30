@@ -34,7 +34,6 @@ const CustomPhoneNumberEditor = (props: Props): React.ReactElement => {
       },
       method: 'PATCH',
       body: JSON.stringify({
-        ...props.resident,
         phoneNumbers: data?.phoneNumbers
           ?.filter((n) => n.type || n.number)
           ?.map((n) => ({

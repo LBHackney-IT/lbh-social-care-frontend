@@ -34,7 +34,6 @@ const CustomKeyContactsEditor = (props: Props): React.ReactElement => {
       },
       method: 'PATCH',
       body: JSON.stringify({
-        ...props.resident,
         keyContacts: data?.keyContacts
           ?.filter((n) => n.name || n.email)
           .map((kc) => ({

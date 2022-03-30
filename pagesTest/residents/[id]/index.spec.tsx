@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react';
+import { render, screen, queryByRole } from '@testing-library/react';
 import { mockedResident } from 'factories/residents';
 import ResidentPage from 'pages/residents/[id]';
 import { useCases } from 'utils/api/cases';
@@ -65,5 +65,20 @@ describe('ResidentPage', () => {
     );
 
     expect(screen.getByText('This resident has no case notes yet.'));
+  });
+
+  it("doesn't let normal users change restricted status", () => {
+    render(
+      <AppConfigProvider appConfig={{}}>
+        <ResidentPage resident={{ ...mockedResident, restricted: 'Y' }} />
+      </AppConfigProvider>
+    );
+
+    expect(
+      queryByRole(
+        screen.getByText('Restricted?')?.parentElement as HTMLElement,
+        'button'
+      )
+    ).toBeNull();
   });
 });

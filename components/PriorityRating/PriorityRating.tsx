@@ -18,7 +18,7 @@ const ratingMapping = {
   high: 'High',
   medium: 'Medium',
   low: 'Low',
-  none: 'No priority',
+  none: 'No priority set',
 };
 
 const colorMapping = {

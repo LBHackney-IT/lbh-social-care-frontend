@@ -52,10 +52,7 @@ const endpoint: NextApiHandler = async (
         });
         res.status(StatusCodes.OK).json(data);
       } catch (error) {
-        console.error(
-          'Resident patch error:',
-          (error as AxiosError)?.response?.data
-        );
+        console.error('Resident patch error:', error);
         console.error('Resident patch request:', req);
         res
           .status(StatusCodes.INTERNAL_SERVER_ERROR)

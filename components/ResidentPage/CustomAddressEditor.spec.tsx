@@ -122,7 +122,6 @@ describe('CustomAddressEditor', () => {
       method: 'PATCH',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        ...mockedResident,
         address: {
           ...mockedResident.address,
           postcode: 'A1 1AA',

@@ -59,6 +59,7 @@ const DeallocateTeamWorker = ({
         id: Number(allocationId),
         deallocationReason: deallocationReason,
         deallocationDate: format(deallocationDate, 'yyyy-MM-dd'),
+        deallocationScope: type,
       });
 
       push(`/residents/${resident.id}/allocations`);

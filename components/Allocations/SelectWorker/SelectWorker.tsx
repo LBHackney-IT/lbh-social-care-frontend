@@ -10,11 +10,13 @@ const ResultEntry = ({
 }): React.ReactElement => {
   const { id, firstName, lastName, allocationCount } = worker;
 
+  const styleBlock = { verticalAlign: 'middle', padding: '0px 20px 0px 0' };
+
   return (
     <>
       <tr className={cx('govuk-table__row')}>
-        <td className="govuk-table__cell">
-          <div className="govuk-radios__item">
+        <td className="govuk-table__cell" style={styleBlock}>
+          <div className="govuk-radios__item" style={{ marginTop: '5px' }}>
             <input
               id={String(id)}
               name="workerId"
@@ -36,10 +38,14 @@ const ResultEntry = ({
             </label>
           </div>
         </td>
-        <td data-testid="workerName" className="govuk-table__cell">
+        <td
+          data-testid="workerName"
+          className="govuk-table__cell"
+          style={styleBlock}
+        >
           {`${firstName} ${lastName}`}
         </td>
-        <td className="govuk-table__cell">
+        <td className="govuk-table__cell" style={styleBlock}>
           <label data-testid="allocationCount" htmlFor={String(id)}>
             {allocationCount}
           </label>

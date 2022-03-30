@@ -44,9 +44,11 @@ exports[`SelectWorker component should render a worker 1`] = `
       >
         <td
           class="govuk-table__cell"
+          style="vertical-align: middle; padding: 0px 20px 0px 0px;"
         >
           <div
             class="govuk-radios__item"
+            style="margin-top: 5px;"
           >
             <input
               class="govuk-radios__input"
@@ -71,11 +73,13 @@ exports[`SelectWorker component should render a worker 1`] = `
         <td
           class="govuk-table__cell"
           data-testid="workerName"
+          style="vertical-align: middle; padding: 0px 20px 0px 0px;"
         >
           Foo Bar
         </td>
         <td
           class="govuk-table__cell"
+          style="vertical-align: middle; padding: 0px 20px 0px 0px;"
         >
           <label
             data-testid="allocationCount"
