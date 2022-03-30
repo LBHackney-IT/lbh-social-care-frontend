@@ -56,6 +56,19 @@ interface HistoricContentProps {
 const prettyKey = (key: string): string =>
   key?.replace(/_/g, ' ')?.replace(/^\w/, (char) => char.toUpperCase());
 
+const PrettyValue = ({ value }: { value: string }): React.ReactElement => {
+  if (
+    // detect urls
+    // eslint-disable-next-line no-useless-escape
+    /((?:(?:http?|ftp)[s]*:\/\/)?[a-z0-9-%\/\&=?\.]+\.[a-z]{2,4}\/?([^\s<>\#%"\,\{\}\\|\\\^\[\]`]+)?)/gi.test(
+      value
+    )
+  )
+    return <a href={value}>{value}</a>;
+
+  return <>{JSON.stringify(value).replace(/"/g, '')}</>;
+};
+
 const HistoricCaseContent = ({ recordId }: HistoricContentProps) => {
   const { data } = useHistoricCaseNote(recordId);
 
@@ -84,14 +97,16 @@ const CaseContent = ({ recordId, socialCareId }: CaseContentProps) => {
 
   if (data)
     return (
-      <SummaryList
-        rows={Object.fromEntries(
-          Object.entries(data?.caseFormData || data).map(([key, value]) => [
-            prettyKey(key),
-            JSON.stringify(value).replace(/"/g, ''),
-          ])
-        )}
-      />
+      <dl className={`govuk-summary-list lbh-summary-list ${s.summaryList}`}>
+        {Object.entries(data?.caseFormData || data).map(([key, value]) => (
+          <div key={key} className="govuk-summary-list__row lbh-body-s">
+            <dt className="govuk-summary-list__key">{prettyKey(key)}</dt>
+            <dd className="govuk-summary-list__value">
+              <PrettyValue value={value} />
+            </dd>
+          </div>
+        ))}
+      </dl>
     );
 
   return <SummaryListSkeleton />;
