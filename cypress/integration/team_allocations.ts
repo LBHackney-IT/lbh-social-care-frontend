@@ -87,11 +87,15 @@ describe('Worker / team allocation', () => {
         )}/allocations/add?teamId=78`,
         AuthRoles.AdminDevGroup
       );
-      cy.url().should('include', '/add');
+      cy.url().should('include', '/add?teamId=78');
 
       cy.get('#priority_medium').click();
       cy.get('button[type=submit]').click();
 
+      cy.visitAs(
+        `/residents/${Cypress.env('ADULT_RECORD_PERSON_ID')}/allocations`,
+        AuthRoles.AdminDevGroup
+      );
       cy.url().should('include', '/allocations');
       cy.contains('Team allocation: testing-team').should('exist');
     });
@@ -102,7 +106,7 @@ describe('Worker / team allocation', () => {
       );
       cy.contains('Team allocation: testing-team')
         .closest('section')
-        .find('.lbh-link')[0]
+        .find('#deallocate')
         .click();
 
       cy.url().should('include', '/deallocate');
