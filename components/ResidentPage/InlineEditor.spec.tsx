@@ -4,6 +4,7 @@ import { mockedResident } from 'factories/residents';
 import InlineEditor from './InlineEditor';
 
 jest.mock('utils/api/residents');
+const mockFetch = global as jest.Mocked<typeof global>;
 
 (global.fetch as jest.Mock) = jest.fn(() =>
   Promise.resolve({
@@ -22,6 +23,15 @@ const mockClose = jest.fn();
 
 describe('InlineEditor', () => {
   it('loads the inline editor and submits changes', async () => {
+    mockFetch.fetch.mockResolvedValue({
+      status: 200,
+      ok: true,
+      statusText: '',
+      type: 'basic',
+      url: '',
+      headers: {},
+      redirected: false,
+    });
     render(
       <InlineEditor
         label="Bar"
@@ -49,7 +59,6 @@ describe('InlineEditor', () => {
       },
       method: 'PATCH',
       body: JSON.stringify({
-        ...mockedResident,
         firstName: 'example value',
       }),
     });
@@ -96,5 +105,51 @@ describe('InlineEditor', () => {
     expect(screen.getByRole('combobox'));
     expect(screen.getAllByRole('option').length).toBe(2);
     expect(screen.queryByRole('textbox')).toBeNull();
+  });
+  describe('Error tests', () => {
+    it('loads the inline editor and submits changes', async () => {
+      mockFetch.fetch.mockResolvedValue({
+        status: 500,
+        ok: true,
+        statusText: 'This is an error',
+        type: 'basic',
+        url: '',
+        headers: {},
+        redirected: false,
+      });
+      // (global.fetch as jest.Mock).mockImplementationOnce(
+      //   jest.fn(() =>
+      //     Promise.resolve({
+      //       json: () => Promise.resolve({}),
+      //       status: 500,
+      //       statusText: 'This is an error',
+      //     })
+      //   )
+      // );
+      render(
+        <InlineEditor
+          label="Bar"
+          name="firstName"
+          value="foo"
+          onClose={mockClose}
+          resident={mockedResident}
+        />
+      );
+
+      expect(screen.getByLabelText('Editing firstName'));
+
+      await waitFor(() =>
+        fireEvent.change(screen.getByRole('textbox'), {
+          target: {
+            value: 'example value',
+          },
+        })
+      );
+      await waitFor(() => fireEvent.click(screen.getByText('Save')));
+
+      expect(global.fetch).toBeCalled();
+      expect(screen.getByRole('alert'));
+      expect(screen.getByText('This is an error'));
+    });
   });
 });

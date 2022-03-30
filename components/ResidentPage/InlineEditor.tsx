@@ -56,7 +56,7 @@ const InlineEditor = ({
       }),
     });
     mutate(); // give it a kick
-    if (res.status === 204) {
+    if (res.status === 200) {
       onClose();
     } else {
       setStatus(res.text || res.statusText);
