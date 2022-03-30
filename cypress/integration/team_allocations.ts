@@ -79,5 +79,30 @@ describe('Worker / team allocation', () => {
       cy.contains('This is for').should('exist');
       cy.contains('Continue').should('exist');
     });
+
+    it('Correctly adds a Team allocation using the UI - without a worker', () => {
+      cy.visitAs(
+        `/residents/${Cypress.env(
+          'ADULT_RECORD_PERSON_ID'
+        )}/allocations/${Cypress.env('ALLOCATION_ID')}`,
+        AuthRoles.AdminDevGroup
+      );
+
+      cy.contains('a', 'Allocate a team/worker', {
+        timeout: 20000,
+      }).click();
+
+      cy.url().should('include', '/add');
+      cy.get('input[id=teamId]').clear().type('test');
+      cy.get('[data-testid="teamId_1"]').click();
+
+      cy.get('#priority_medium').click();
+
+      cy.get('button[type=submit]').click();
+
+      cy.url().should('include', '/allocations');
+
+      cy.contains('Team allocation: testing-team').should('exist');
+    });
   });
 });
