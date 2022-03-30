@@ -14,7 +14,7 @@ const StopDialog = (): React.ReactElement | null => {
   if (isOpen)
     return (
       <Dialog
-        title="Don't make edits here any more"
+        title="You shouldn't make edits here any more"
         isOpen={true}
         onDismiss={() => setOpen(false)}
         showCloseButton={false}
@@ -22,7 +22,8 @@ const StopDialog = (): React.ReactElement | null => {
       >
         <>
           <p>
-            This is a child resident, so you must only use Mosaic from now on.
+            This is a child resident, so you must only use Mosaic for them from
+            now on.
           </p>
           <p className="govuk-!-margin-top-3">
             The only exception is if you&apos;re about to turn this resident
