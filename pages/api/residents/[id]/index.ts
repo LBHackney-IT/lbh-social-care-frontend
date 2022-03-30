@@ -1,6 +1,6 @@
 import { StatusCodes } from 'http-status-codes';
 
-import { getResident, updateResident } from 'lib/residents';
+import { getResident, patchResident } from 'lib/residents';
 import { isAuthorised } from 'utils/auth';
 
 import type { NextApiRequest, NextApiResponse, NextApiHandler } from 'next';
@@ -45,7 +45,7 @@ const endpoint: NextApiHandler = async (
 
     case 'PATCH':
       try {
-        const data = await updateResident({
+        const data = await patchResident({
           id,
           ...req.body,
           createdBy: req.body.createdBy || user.email,
