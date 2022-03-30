@@ -82,7 +82,9 @@ describe('Worker / team allocation', () => {
 
     it('Correctly adds a Team allocation using the UI - without a worker', () => {
       cy.visitAs(
-        `/residents/${Cypress.env('ADULT_RECORD_PERSON_ID')}/allocations`,
+        `/residents/${Cypress.env(
+          'ADULT_RECORD_PERSON_ID'
+        )}/allocations?teamId=78`,
         AuthRoles.AdminDevGroup
       );
 
@@ -91,8 +93,6 @@ describe('Worker / team allocation', () => {
       }).click();
 
       cy.url().should('include', '/add');
-      cy.get('input[id=teamId]').clear().type('test');
-      cy.get('testing-team').click();
       cy.get('Medium priority').click();
       cy.get('button[type=submit]').click();
 
