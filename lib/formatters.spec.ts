@@ -1,6 +1,7 @@
 import { mockedCaseNote } from 'factories/cases';
 import { mockedResident } from 'factories/residents';
 import { mockedWorker } from 'factories/workers';
+import { allocationFactory } from 'factories/allocatedWorkers';
 import { Resident } from 'types';
 import {
   prettyAddress,
@@ -8,6 +9,7 @@ import {
   prettyCaseTitle,
   prettyResidentName,
   prettyWorkerName,
+  summariseAllocations,
 } from './formatters';
 
 describe('prettyResidentName', () => {
@@ -86,5 +88,125 @@ describe('prettyCaseTitle', () => {
       formName: '',
     });
     expect(result).toBe('Unknown record');
+  });
+
+  it('displays the correct allocation in the header', () => {
+    expect(
+      summariseAllocations([
+        allocationFactory.build({
+          allocatedWorker: 'Jon Doe',
+          allocatedWorkerTeam: 'The Best Team',
+        }),
+      ])
+    ).toBe(' · Allocated to Jon Doe (The Best Team)');
+    expect(
+      summariseAllocations([
+        allocationFactory.build({
+          allocatedWorker: undefined,
+          allocatedWorkerTeam: 'The Best Team',
+        }),
+      ])
+    ).toBe(' · Allocated to The Best Team');
+    expect(
+      summariseAllocations([
+        allocationFactory.build({
+          allocatedWorker: 'Jon Doe',
+          allocatedWorkerTeam: 'The Best Team',
+        }),
+      ])
+    ).toBe(' · Allocated to Jon Doe (The Best Team)');
+    expect(
+      summariseAllocations([
+        allocationFactory.build({
+          allocatedWorker: undefined,
+          allocatedWorkerTeam: 'The Best Team',
+        }),
+      ])
+    ).toBe(' · Allocated to The Best Team');
+    expect(
+      summariseAllocations([
+        allocationFactory.build({
+          allocatedWorker: 'Jon Doe',
+          allocatedWorkerTeam: 'The Best Team',
+        }),
+        allocationFactory.build({ allocatedWorker: 'Foo Bar' }),
+      ])
+    ).toBe(' · Allocated to Jon Doe (The Best Team) and 1 other');
+    expect(
+      summariseAllocations([
+        allocationFactory.build({
+          allocatedWorker: undefined,
+          allocatedWorkerTeam: 'The Best Team',
+        }),
+        allocationFactory.build({ allocatedWorker: 'Foo Bar' }),
+      ])
+    ).toBe(' · Allocated to The Best Team and 1 other');
+    expect(
+      summariseAllocations([
+        allocationFactory.build({
+          allocatedWorker: 'Jon Doe',
+          allocatedWorkerTeam: 'The Best Team',
+        }),
+        allocationFactory.build({ allocatedWorker: 'Foo Bar' }),
+      ])
+    ).toBe(' · Allocated to Jon Doe (The Best Team) and 1 other');
+    expect(
+      summariseAllocations([
+        allocationFactory.build({
+          allocatedWorker: 'Jon Doe',
+          allocatedWorkerTeam: 'The Best Team',
+        }),
+        allocationFactory.build({ allocatedWorker: 'Foo Bar' }),
+        allocationFactory.build({ allocatedWorker: 'Agent Smith' }),
+      ])
+    ).toBe(' · Allocated to Jon Doe (The Best Team) and 2 others');
+    expect(
+      summariseAllocations([
+        allocationFactory.build({
+          allocatedWorker: undefined,
+          allocatedWorkerTeam: 'The Best Team',
+        }),
+        allocationFactory.build({ allocatedWorker: 'Foo Bar' }),
+        allocationFactory.build({ allocatedWorker: 'Agent Smith' }),
+      ])
+    ).toBe(' · Allocated to The Best Team and 2 others');
+    expect(
+      summariseAllocations([
+        allocationFactory.build({
+          allocatedWorker: 'Jon Doe',
+          allocatedWorkerTeam: 'The Best Team',
+        }),
+        allocationFactory.build({ allocatedWorker: 'Foo Bar' }),
+        allocationFactory.build({ allocatedWorker: 'Agent Smith' }),
+      ])
+    ).toBe(' · Allocated to Jon Doe (The Best Team) and 2 others');
+
+    expect(
+      summariseAllocations([
+        allocationFactory.build({
+          allocatedWorker: 'Jon Doe',
+          allocatedWorkerTeam: undefined,
+        }),
+      ])
+    ).toBe(' · Allocated to Jon Doe');
+    expect(
+      summariseAllocations([
+        allocationFactory.build({
+          allocatedWorker: 'Jon Doe',
+          allocatedWorkerTeam: undefined,
+        }),
+        allocationFactory.build({ allocatedWorker: 'Foo Bar' }),
+      ])
+    ).toBe(' · Allocated to Jon Doe and 1 other');
+    expect(
+      summariseAllocations([
+        allocationFactory.build({
+          allocatedWorker: 'Jon Doe',
+          allocatedWorkerTeam: undefined,
+        }),
+        allocationFactory.build({ allocatedWorker: 'Foo Bar' }),
+        allocationFactory.build({ allocatedWorker: 'Agent Smith' }),
+      ])
+    ).toBe(' · Allocated to Jon Doe and 2 others');
   });
 });

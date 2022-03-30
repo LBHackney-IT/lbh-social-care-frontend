@@ -38,6 +38,7 @@ const DeallocatedWorkers = ({
     try {
       await deleteAllocation(personId, {
         id: allocationId,
+        deallocationScope: 'team',
         deallocationReason,
         deallocationDate,
       });
