@@ -82,7 +82,7 @@ describe('Worker / team allocation', () => {
 
     it('Correctly adds a Team allocation using the UI - without a worker', () => {
       cy.visitAs(
-        `/residents/${Cypress.env('ADULT_RECORD_PERSON_ID')}/allocations}`,
+        `/residents/${Cypress.env('ADULT_RECORD_PERSON_ID')}/allocations`,
         AuthRoles.AdminDevGroup
       );
 
