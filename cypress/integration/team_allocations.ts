@@ -92,14 +92,11 @@ describe('Worker / team allocation', () => {
 
       cy.url().should('include', '/add');
       cy.get('input[id=teamId]').clear().type('test');
-      cy.get('[data-testid="teamId_1"]').click();
-
-      cy.get('#priority_medium').click();
-
+      cy.get('testing-team').click();
+      cy.get('Medium priority').click();
       cy.get('button[type=submit]').click();
 
       cy.url().should('include', '/allocations');
-
       cy.contains('Team allocation: testing-team').should('exist');
     });
   });
