@@ -29,6 +29,8 @@ describe('Adding records', () => {
         AuthRoles.ChildrensGroup
       );
 
+      cy.contains(/I understand, continue/).click();
+
       cy.contains(Cypress.env('CHILDREN_RECORD_FULL_NAME')).should(
         'be.visible'
       );
