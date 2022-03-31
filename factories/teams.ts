@@ -1,5 +1,5 @@
 import { Factory } from 'fishery';
-import { Team, Worker, WorkerAllocation, Allocation } from 'types';
+import { Team, Worker, Allocation } from 'types';
 
 export const mockedTeamFactory = Factory.define<Team>(({ sequence }) => ({
   id: sequence,
@@ -30,11 +30,7 @@ export const allocationFactory = Factory.define<Allocation>(({ sequence }) => ({
   personName: '',
   personDateOfBirth: '',
   personAddress: '',
-}));
-
-export const workerAllocationFactory = Factory.define<WorkerAllocation>(() => ({
-  workers: [mockedTeamWorkerFactory.build()],
-  allocations: [allocationFactory.build()],
+  ragRating: 'medium',
 }));
 
 export const mockedTeam = mockedTeamFactory.build();
