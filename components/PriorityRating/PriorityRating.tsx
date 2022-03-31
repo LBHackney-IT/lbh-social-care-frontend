@@ -39,6 +39,7 @@ const PriorityRating = ({
     display: 'inline-block',
     backgroundColor: '#bbb',
     borderRadius: '50%',
+    marginTop: 0,
   };
 
   if (!allocation.ragRating) {

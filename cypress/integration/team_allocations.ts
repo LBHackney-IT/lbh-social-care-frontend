@@ -117,7 +117,7 @@ describe('Worker / team allocation', () => {
         `/residents/${Cypress.env('ADULT_RECORD_PERSON_ID')}/allocations`,
         AuthRoles.AdminDevGroup
       );
-      cy.get('#testing-team_priorityRating').should('have.text', 'Urgent');
+      cy.get('#testing-team_priorityRating').should('have.text', 'Urgent ');
     });
 
     it('Deallocates a Worker allocation', () => {
