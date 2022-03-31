@@ -1,4 +1,3 @@
-import useWarnUnsavedChanges from 'hooks/useWarnUnsavedChanges';
 import { KeyboardEventHandler, useRef } from 'react';
 import { GPDetails, Resident } from 'types';
 import { useResident } from 'utils/api/residents';
@@ -26,8 +25,6 @@ interface FormValues {
 
 const CustomGPDetailsEditor = (props: Props): React.ReactElement => {
   const { mutate } = useResident(props.resident.id);
-
-  useWarnUnsavedChanges(true);
 
   const handleSubmit = async (data: FormValues) => {
     const res = await fetch(`/api/residents/${props.resident.id}`, {
