@@ -77,7 +77,7 @@ const AllocationsPage = ({ resident }: Props): React.ReactElement => {
                         }`}
                       >
                         <a
-                          id="deallocateWorker"
+                          id={`${a.allocatedWorkerTeam}_deallocateWorker`}
                           className="lbh-link lbh-link--muted"
                         >
                           Deallocate worker
@@ -102,7 +102,12 @@ const AllocationsPage = ({ resident }: Props): React.ReactElement => {
                     <Link
                       href={`/residents/${resident.id}/allocations/${a.id}/deallocate?type=team&allocationStartDate=${a.allocationStartDate}&allocatedWorkerTeam=${a.allocatedWorkerTeam}`}
                     >
-                      <a className="lbh-link lbh-link--muted" id="deallocate">
+                      <a
+                        className="lbh-link lbh-link--muted"
+                        id={`${
+                          a.allocatedWorkerTeam && a.allocatedWorkerTeam
+                        }_deallocate`}
+                      >
                         Deallocate
                       </a>
                     </Link>

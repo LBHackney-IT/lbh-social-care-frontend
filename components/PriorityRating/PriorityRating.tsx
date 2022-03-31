@@ -51,7 +51,11 @@ const PriorityRating = ({
 
   return (
     <>
-      <span id="priorityRating">{`${getRatingString(
+      <span
+        id={`${
+          allocation.allocatedWorkerTeam && allocation.allocatedWorkerTeam
+        }_priorityRating`}
+      >{`${getRatingString(
         allocation.ragRating.toLowerCase() as keyof typeof ratingMapping
       )} `}</span>
       <span data-testid="colourdot" style={style}></span>
@@ -60,7 +64,12 @@ const PriorityRating = ({
         <Link
           href={`/residents/${resident.id}/allocations/${allocation.id}/editpriority`}
         >
-          <a id="editPriority" className="lbh-link lbh-link--muted">
+          <a
+            id={`${
+              allocation.allocatedWorkerTeam && allocation.allocatedWorkerTeam
+            }_editPriority`}
+            className="lbh-link lbh-link--muted"
+          >
             Edit
           </a>
         </Link>

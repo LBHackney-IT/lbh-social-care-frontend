@@ -108,10 +108,7 @@ describe('Worker / team allocation', () => {
         AuthRoles.AdminDevGroup
       );
 
-      cy.contains('Team allocation: testing-team')
-        .closest('section')
-        .find('#editPriority')
-        .click();
+      cy.get(`#testing-team_editPriority`).click();
 
       cy.get('#priority_urgent').click();
       cy.get('button[type=submit]').click();
@@ -120,12 +117,7 @@ describe('Worker / team allocation', () => {
         `/residents/${Cypress.env('ADULT_RECORD_PERSON_ID')}/allocations`,
         AuthRoles.AdminDevGroup
       );
-      expect(
-        cy
-          .contains('Team allocation: testing-team')
-          .closest('section')
-          .find('#priorityRating')
-      ).to.have.text('Urgent');
+      cy.find('#testing-team_priorityRating').should('have.text', 'Urgent');
     });
 
     it('Deallocates a Worker allocation', () => {
@@ -134,10 +126,7 @@ describe('Worker / team allocation', () => {
         AuthRoles.AdminDevGroup
       );
 
-      cy.contains('Team allocation: testing-team')
-        .closest('section')
-        .find('#deallocateWorker')
-        .click();
+      cy.get('#testing-team_deallocateWorker').click();
 
       cy.get('#deallocationReason').clear().type('testing reasons');
       cy.get('button[type=submit]').click();
@@ -147,10 +136,7 @@ describe('Worker / team allocation', () => {
         AuthRoles.AdminDevGroup
       );
 
-      cy.contains('Team allocation: testing-team')
-        .closest('section')
-        .find('#deallocateWorker')
-        .should('not.exist');
+      cy.get('#testing-team_deallocateWorker').should('not.exist');
     });
 
     it('Deallocates a Team allocation', () => {
@@ -158,10 +144,8 @@ describe('Worker / team allocation', () => {
         `/residents/${Cypress.env('ADULT_RECORD_PERSON_ID')}/allocations`,
         AuthRoles.AdminDevGroup
       );
-      cy.contains('Team allocation: testing-team')
-        .closest('section')
-        .find('#deallocate')
-        .click();
+
+      cy.get('#testing-team_deallocate').click();
 
       cy.url().should('include', '/deallocate');
       cy.get('#deallocationReason').clear().type('testing reasons');
