@@ -43,7 +43,6 @@ const CustomAddressEditor = (props: Props): React.ReactElement => {
       },
       method: 'PATCH',
       body: JSON.stringify({
-        ...props.resident,
         address: {
           address: data.address.address,
           postcode: data.address.postcode,

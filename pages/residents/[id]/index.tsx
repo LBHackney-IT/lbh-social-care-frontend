@@ -268,6 +268,7 @@ const ResidentPage = ({ resident }: Props): React.ReactElement => {
             label: 'Restricted?',
             showInSummary: true,
             beforeDisplay: (val) => (val === 'Y' ? 'Yes' : 'No'),
+            readOnly: canManage,
             name: 'restricted',
             options: [
               {
