@@ -36,6 +36,8 @@ describe('Deleting case notes', () => {
         AuthRoles.AdminDevGroup
       );
 
+      cy.contains(/I understand, continue/).click();
+
       cy.get('.lbh-timeline').scrollIntoView();
       cy.contains(/Show deleted records/).click();
       cy.contains(/Hide deleted records/);
@@ -48,6 +50,7 @@ describe('Deleting case notes', () => {
         `/people/${Cypress.env('CHILDREN_RECORD_PERSON_ID')}`,
         AuthRoles.AdminDevGroup
       );
+      cy.contains(/I understand, continue/).click();
       cy.contains(/Show deleted records/).click();
       cy.contains(/(deleted record)/).click();
       cy.contains(/Case note/).should('be.visible');
