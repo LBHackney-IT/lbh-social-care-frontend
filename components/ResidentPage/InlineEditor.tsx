@@ -49,7 +49,6 @@ const InlineEditor = ({
       },
       method: 'PATCH',
       body: JSON.stringify({
-        ...resident,
         [name]: beforeSave ? beforeSave(data[name]) : data[name],
       }),
     });
