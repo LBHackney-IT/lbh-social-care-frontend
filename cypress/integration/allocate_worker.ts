@@ -1,6 +1,6 @@
 import { AuthRoles } from '../support/commands';
 
-xdescribe('Allocating workers', () => {
+describe('Allocating workers', () => {
   describe('As a user in the Adults group', () => {
     it('should show the allocate worker button on an adult resident if the user has allocator permissions', () => {
       cy.visitAs(

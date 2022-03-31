@@ -80,7 +80,7 @@ describe('Worker / team allocation', () => {
       cy.contains('Continue').should('exist');
     });
 
-    it('Correctly adds a Team allocation using the UI', () => {
+    it('Adds a Team and Worker allocation', () => {
       cy.visitAs(
         `/residents/${Cypress.env(
           'ADULT_RECORD_PERSON_ID'
@@ -102,16 +102,44 @@ describe('Worker / team allocation', () => {
       cy.contains('Team allocation: testing-team').should('exist');
     });
 
-    it('Correctly deallocate a Worker allocation using the UI', () => {
+    it('Changes the priority', () => {
       cy.visitAs(
         `/residents/${Cypress.env('ADULT_RECORD_PERSON_ID')}/allocations`,
         AuthRoles.AdminDevGroup
       );
 
-      cy.url().should('include', '/deallocate');
+      cy.contains('Team allocation: testing-team')
+        .closest('section')
+        .find('#editPriority')
+        .click();
+
+      cy.get('#priority_urgent').click();
+      cy.get('button[type=submit]').click();
+
+      cy.visitAs(
+        `/residents/${Cypress.env('ADULT_RECORD_PERSON_ID')}/allocations`,
+        AuthRoles.AdminDevGroup
+      );
+      expect(
+        cy
+          .contains('Team allocation: testing-team')
+          .closest('section')
+          .find('#priorityRating')
+      ).to.have.text('Urgent');
+    });
+
+    it('Deallocates a Worker allocation', () => {
+      cy.visitAs(
+        `/residents/${Cypress.env('ADULT_RECORD_PERSON_ID')}/allocations`,
+        AuthRoles.AdminDevGroup
+      );
+
+      cy.contains('Team allocation: testing-team')
+        .closest('section')
+        .find('#deallocateWorker')
+        .click();
 
       cy.get('#deallocationReason').clear().type('testing reasons');
-
       cy.get('button[type=submit]').click();
 
       cy.visitAs(
@@ -124,7 +152,8 @@ describe('Worker / team allocation', () => {
         .find('#deallocateWorker')
         .should('not.exist');
     });
-    it('Correctly deallocate a Team allocation using the UI', () => {
+
+    it('Deallocates a Team allocation', () => {
       cy.visitAs(
         `/residents/${Cypress.env('ADULT_RECORD_PERSON_ID')}/allocations`,
         AuthRoles.AdminDevGroup
@@ -135,9 +164,7 @@ describe('Worker / team allocation', () => {
         .click();
 
       cy.url().should('include', '/deallocate');
-
       cy.get('#deallocationReason').clear().type('testing reasons');
-
       cy.get('button[type=submit]').click();
 
       cy.visitAs(
