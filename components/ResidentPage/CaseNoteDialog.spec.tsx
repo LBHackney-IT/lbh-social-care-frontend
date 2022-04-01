@@ -93,7 +93,7 @@ describe('CaseNoteDialog', () => {
           {
             ...mockedCaseNote,
             caseFormData: {
-              form_url: 'http://example.com/foo',
+              form_url: 'https://example.com/foo',
             },
           } as Case,
         ]}
