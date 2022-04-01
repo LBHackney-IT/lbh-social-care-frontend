@@ -56,18 +56,12 @@ interface HistoricContentProps {
 const prettyKey = (key: string): string =>
   key?.replace(/_/g, ' ')?.replace(/^\w/, (char) => char.toUpperCase());
 
-const PrettyValue = ({ value }: { value: string }): React.ReactElement => {
-  if (
-    // detect urls
-    // eslint-disable-next-line no-useless-escape
-    /((?:(?:http?|ftp)[s]*:\/\/)?[a-z0-9-%\/\&=?\.]+\.[a-z]{2,4}\/?([^\s<>\#%"\,\{\}\\|\\\^\[\]`]+)?)/gi.test(
-      value
-    )
-  )
-    return <a href={value}>{value}</a>;
-
-  return <>{JSON.stringify(value).replace(/"/g, '')}</>;
-};
+const PrettyValue = ({ value }: { value: string }): React.ReactElement =>
+  value.startsWith('https://') ? (
+    <a href={value}>{value}</a>
+  ) : (
+    <>{JSON.stringify(value).replace(/"/g, '')}</>
+  );
 
 const HistoricCaseContent = ({ recordId }: HistoricContentProps) => {
   const { data } = useHistoricCaseNote(recordId);
