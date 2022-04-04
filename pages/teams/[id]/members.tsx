@@ -2,9 +2,8 @@ import TeamLayout from 'components/TeamPage/Layout';
 import Seo from 'components/Layout/Seo/Seo';
 import DashboardWrapper from 'components/Dashboard/DashboardWrapper';
 import TeamWorkerList from 'components/TeamPage/TeamWorkerList/TeamWorkerList';
+import ErrorMessage from 'components/ErrorMessage/ErrorMessage';
 import { GetServerSideProps } from 'next';
-import { useRouter } from 'next/router';
-import { useEffect } from 'react';
 import { useTeams, useTeamWorkers } from 'utils/api/allocatedWorkers';
 import { isAuthorised } from 'utils/auth';
 
@@ -19,11 +18,9 @@ const AllocationsPage = ({ id }: Props): React.ReactElement => {
   const team = teamData?.teams?.find((t) => t.id === id);
   const { data: users } = useTeamWorkers(id);
 
-  const { replace } = useRouter();
-
-  useEffect(() => {
-    if (teamData && !team) replace('/404'); // handle team not found
-  }, [team, teamData, replace]);
+  if (!team) {
+    return <ErrorMessage />;
+  }
 
   return (
     <>

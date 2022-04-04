@@ -6,6 +6,7 @@ import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 import { useTeams } from 'utils/api/allocatedWorkers';
 import { isAuthorised } from 'utils/auth';
+import ErrorMessage from 'components/ErrorMessage/ErrorMessage';
 
 interface Props {
   id: number;
@@ -22,6 +23,10 @@ const AllocationsPage = ({ id }: Props): React.ReactElement => {
   useEffect(() => {
     if (teamData && !team) replace('/404'); // handle team not found
   }, [team, teamData, replace]);
+
+  if (!team) {
+    return <ErrorMessage />;
+  }
 
   return (
     <>
