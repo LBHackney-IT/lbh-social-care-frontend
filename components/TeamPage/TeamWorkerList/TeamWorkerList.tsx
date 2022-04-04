@@ -23,8 +23,6 @@ interface TeamMemberProps {
 const TeamMemberAllocations = ({ user }: TeamMemberProps) => {
   const { data } = useAllocationsByWorker(user.id);
 
-  console.log('useAllocationsByWorker', data);
-
   if (!data) return null;
 
   if (data?.allocations && data?.allocations.length > 0)

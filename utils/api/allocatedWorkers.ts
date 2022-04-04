@@ -11,6 +11,8 @@ import type {
   WorkerAllocation,
 } from 'types';
 
+import { getQueryString } from 'utils/urls';
+
 export const useAllocatedWorkers = (
   id: number
 ): SWRResponse<AllocationData, ErrorAPI> =>
@@ -38,6 +40,15 @@ export const useAllocationsByWorker = (
   workerId: number
 ): SWRResponse<WorkerAllocation, ErrorAPI> =>
   useSWR(`/api/workers/${workerId}/allocations`);
+
+export const useAllocationsByTeam = (
+  teamId: number,
+  parameters: Record<string, unknown>
+): SWRResponse<WorkerAllocation, ErrorAPI> => {
+  return useSWR(
+    `/api/teams/${teamId}/allocations?${getQueryString(parameters)}`
+  );
+};
 
 export const deleteAllocation = async (
   residentId: number,

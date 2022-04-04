@@ -2,6 +2,7 @@ import axios from 'axios';
 import * as yup from 'yup';
 
 import type { Allocation, AllocationData } from 'types';
+import { getQueryString } from 'utils/urls';
 
 const ENDPOINT_API = process.env.ENDPOINT_API;
 const AWS_KEY = process.env.AWS_KEY;
@@ -44,6 +45,24 @@ export const getAllocationsByWorker = async (
   worker_id: number,
   params?: AllocationsParams
 ): Promise<AllocationData> => getAllocations({ worker_id, ...params });
+
+export const getAllocationsByTeam = async (
+  params: AllocationsParams
+): Promise<AllocationData> => {
+  const urlParameters = getQueryString({
+    ...params,
+    showOnlyOpen: true,
+  });
+
+  const { data } = await axios.get(
+    `${ENDPOINT_API}/allocations?${urlParameters}`,
+    {
+      headers: { 'x-api-key': AWS_KEY },
+      params,
+    }
+  );
+  return data;
+};
 
 const deleteAllocationSchema = yup.object({
   id: yup.number().required().positive().integer(),

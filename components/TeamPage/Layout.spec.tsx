@@ -21,12 +21,6 @@ describe('TeamLayout component', () => {
 
     expect(queryByText('example-team')).toBeInTheDocument();
   });
-  it('displays unknow team when the team is null', async () => {
-    const { queryByText } = render(
-      <TeamLayout>This is a child component</TeamLayout>
-    );
-    expect(queryByText('Unknown team')).toBeInTheDocument();
-  });
 
   it('loads correctly the team worker count', async () => {
     jest.spyOn(teamWorkersAPI, 'useTeamWorkers').mockImplementation(() => ({
