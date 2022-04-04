@@ -41,7 +41,7 @@ describe('TeamLayout component', () => {
         <></>
       </TeamLayout>
     );
-    expect(queryByText('Members (1)')).toBeInTheDocument();
+    expect(queryByText('Team members (1)')).toBeInTheDocument();
   });
 
   it('displays correctly children components', async () => {

@@ -45,11 +45,11 @@ const TeamLayout = ({ team, children }: Props): React.ReactElement => {
         <div className="govuk-tabs lbh-tabs govuk-!-margin-top-8">
           <ul className="govuk-tabs__list">
             <NavLink href={`/teams/${team.id}`}>Waiting list</NavLink>
-            <NavLink href={`/teams/${team.id}/members`}>
-              <>Members {users?.length && `(${users.length})`}</>
+            <NavLink href={`/teams/${team.id}/active`}>
+              <>Active cases</>
             </NavLink>
-            <NavLink href={`/teams/${team.id}/allocations`}>
-              Allocations
+            <NavLink href={`/teams/${team.id}/members`}>
+              <>Team members {users?.length && `(${users.length})`} </>
             </NavLink>
           </ul>
 

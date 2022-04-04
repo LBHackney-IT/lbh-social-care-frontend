@@ -1,5 +1,7 @@
 import TeamLayout from 'components/TeamPage/Layout';
-import TeamMemberList from 'components/TeamPage/TeamMemberList';
+import Seo from 'components/Layout/Seo/Seo';
+import DashboardWrapper from 'components/Dashboard/DashboardWrapper';
+import TeamWorkerList from 'components/TeamPage/TeamWorkerList/TeamWorkerList';
 import { GetServerSideProps } from 'next';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
@@ -14,8 +16,8 @@ const AllocationsPage = ({ id }: Props): React.ReactElement => {
   const { data: teamData } = useTeams({
     ageContext: 'A',
   });
-  const { data: users } = useTeamWorkers(id);
   const team = teamData?.teams?.find((t) => t.id === id);
+  const { data: users } = useTeamWorkers(id);
 
   const { replace } = useRouter();
 
@@ -24,9 +26,14 @@ const AllocationsPage = ({ id }: Props): React.ReactElement => {
   }, [team, teamData, replace]);
 
   return (
-    <TeamLayout team={team}>
-      <>{users && <TeamMemberList users={users} />}</>
-    </TeamLayout>
+    <>
+      <Seo title={`Team allocations`} />
+      <DashboardWrapper>
+        <TeamLayout team={team}>
+          <>{users && <TeamWorkerList users={users} />}</>
+        </TeamLayout>
+      </DashboardWrapper>
+    </>
   );
 };
 

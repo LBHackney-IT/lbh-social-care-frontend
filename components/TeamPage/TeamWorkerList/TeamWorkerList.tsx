@@ -1,6 +1,6 @@
 import { prettyWorkerName } from 'lib/formatters';
-import { Worker } from 'types';
-import s from './TeamMemberList.module.scss';
+import { Worker, Allocation } from 'types';
+import s from './TeamWorkerList.module.scss';
 import Link from 'next/link';
 import { useState } from 'react';
 import { useAllocationsByWorker } from 'utils/api/allocatedWorkers';
@@ -23,6 +23,8 @@ interface TeamMemberProps {
 const TeamMemberAllocations = ({ user }: TeamMemberProps) => {
   const { data } = useAllocationsByWorker(user.id);
 
+  console.log('useAllocationsByWorker', data);
+
   if (!data) return null;
 
   if (data?.allocations && data?.allocations.length > 0)
@@ -30,7 +32,7 @@ const TeamMemberAllocations = ({ user }: TeamMemberProps) => {
       <div className={s.allocationPanel}>
         <h4>Allocated residents</h4>
         <ul className="lbh-list">
-          {data?.allocations.map((alloc) => (
+          {data?.allocations.map((alloc: Allocation) => (
             <li key={alloc.id} className="lbh-body-s">
               <Link href={`/residents/${alloc.personId}/allocations`}>
                 {alloc.personName}
@@ -96,7 +98,7 @@ interface Props {
   users: Worker[];
 }
 
-const TeamMemberList = ({ users }: Props): React.ReactElement => (
+const TeamWorkerList = ({ users }: Props): React.ReactElement => (
   <ul className="lbh-list">
     {users?.map((user) => (
       <TeamMember user={user} key={user.id} />
@@ -104,4 +106,4 @@ const TeamMemberList = ({ users }: Props): React.ReactElement => (
   </ul>
 );
 
-export default TeamMemberList;
+export default TeamWorkerList;

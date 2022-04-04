@@ -1,4 +1,6 @@
 import TeamLayout from 'components/TeamPage/Layout';
+import Seo from 'components/Layout/Seo/Seo';
+import DashboardWrapper from 'components/Dashboard/DashboardWrapper';
 import { GetServerSideProps } from 'next';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
@@ -21,7 +23,14 @@ const AllocationsPage = ({ id }: Props): React.ReactElement => {
     if (teamData && !team) replace('/404'); // handle team not found
   }, [team, teamData, replace]);
 
-  return <TeamLayout team={team}>Allocations go here</TeamLayout>;
+  return (
+    <>
+      <Seo title={`Team members`} />
+      <DashboardWrapper>
+        <TeamLayout team={team}>Active cases goes here</TeamLayout>
+      </DashboardWrapper>
+    </>
+  );
 };
 
 export const getServerSideProps: GetServerSideProps = async ({

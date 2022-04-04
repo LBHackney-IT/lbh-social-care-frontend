@@ -32,6 +32,10 @@ const navigation: { text: string; href: string }[] = [
     text: `Allocations`,
     href: `/`,
   },
+  {
+    text: `Teams`,
+    href: `/teams`,
+  },
   { text: 'My work', href: '/my-work' },
 ];
 
