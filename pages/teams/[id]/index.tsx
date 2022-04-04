@@ -5,6 +5,7 @@ import { GetServerSideProps } from 'next';
 import { useTeams } from 'utils/api/allocatedWorkers';
 import { isAuthorised } from 'utils/auth';
 import ErrorMessage from 'components/ErrorMessage/ErrorMessage';
+import TeamAllocationsList from 'components/TeamPage/TeamAllocationsList/TeamAllocationsList';
 
 interface Props {
   id: number;
@@ -24,7 +25,9 @@ const AllocationsPage = ({ id }: Props): React.ReactElement => {
     <>
       <Seo title={`Team allocations`} />
       <DashboardWrapper>
-        <TeamLayout team={team}>Waiting list goes here</TeamLayout>
+        <TeamLayout team={team}>
+          <TeamAllocationsList teamId={team.id} type={'unallocated'} />
+        </TeamLayout>
       </DashboardWrapper>
     </>
   );

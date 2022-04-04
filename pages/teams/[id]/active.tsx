@@ -7,6 +7,7 @@ import { useEffect } from 'react';
 import { useTeams } from 'utils/api/allocatedWorkers';
 import { isAuthorised } from 'utils/auth';
 import ErrorMessage from 'components/ErrorMessage/ErrorMessage';
+import TeamAllocationsList from 'components/TeamPage/TeamAllocationsList/TeamAllocationsList';
 
 interface Props {
   id: number;
@@ -32,7 +33,9 @@ const AllocationsPage = ({ id }: Props): React.ReactElement => {
     <>
       <Seo title={`Team members`} />
       <DashboardWrapper>
-        <TeamLayout team={team}>Active cases goes here</TeamLayout>
+        <TeamLayout team={team}>
+          <TeamAllocationsList teamId={team.id} type={'allocated'} />
+        </TeamLayout>
       </DashboardWrapper>
     </>
   );

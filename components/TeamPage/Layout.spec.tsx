@@ -1,13 +1,34 @@
 import TeamLayout from './Layout';
 
 import { render } from '@testing-library/react';
-import { mockedTeam, mockedTeamWorker } from 'factories/teams';
+import {
+  mockedTeam,
+  mockedTeamWorker,
+  workerAllocationFactory,
+  allocationFactory,
+} from 'factories/teams';
 import * as teamWorkersAPI from 'utils/api/allocatedWorkers';
 
 const mockedUseRouter = { pathname: '/foo' };
 
 jest.mock('next/router', () => ({
   useRouter: () => mockedUseRouter,
+}));
+
+jest.spyOn(teamWorkersAPI, 'useAllocationsByTeam').mockImplementation(() => ({
+  data: workerAllocationFactory.build({
+    allocations: [allocationFactory.build()],
+  }),
+  revalidate: jest.fn(),
+  mutate: jest.fn(),
+  isValidating: false,
+}));
+
+jest.spyOn(teamWorkersAPI, 'useTeamWorkers').mockImplementation(() => ({
+  data: [mockedTeamWorker],
+  revalidate: jest.fn(),
+  mutate: jest.fn(),
+  isValidating: false,
 }));
 
 describe('TeamLayout component', () => {
@@ -23,13 +44,6 @@ describe('TeamLayout component', () => {
   });
 
   it('loads correctly the team worker count', async () => {
-    jest.spyOn(teamWorkersAPI, 'useTeamWorkers').mockImplementation(() => ({
-      data: [mockedTeamWorker],
-      revalidate: jest.fn(),
-      mutate: jest.fn(),
-      isValidating: false,
-    }));
-
     const { queryByText } = render(
       <TeamLayout team={mockedTeam}>
         <></>
