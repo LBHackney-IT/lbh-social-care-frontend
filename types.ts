@@ -35,6 +35,11 @@ export interface AllocationData {
   allocations: Allocation[];
 }
 
+export interface WorkerAllocation {
+  workers: Worker[];
+  allocations: Allocation[];
+}
+
 interface CaseFormDataBase {
   mosaic_id: number;
   first_name: string;
