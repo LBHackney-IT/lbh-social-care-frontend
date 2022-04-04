@@ -81,3 +81,16 @@ describe('Worker / team allocation', () => {
     });
   });
 });
+
+describe('Team view', () => {
+  describe('As a user in the Admin Dev group', () => {
+    it('Search of Adult group record', () => {
+      cy.visitAs(`/teams/${Cypress.env('TEAM_ID')}`, AuthRoles.AdminDevGroup);
+
+      cy.contains('Team').should('exist');
+      cy.contains('Waiting list').should('exist');
+      cy.contains('Active cases').should('exist');
+      cy.contains('Team members').should('exist');
+    });
+  });
+});
