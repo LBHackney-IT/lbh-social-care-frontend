@@ -23,7 +23,7 @@ jest.mock('utils/api/submissions');
 (useHistoricCaseNote as jest.Mock).mockReturnValue({
   data: {
     ...mockedHistoricCaseNote,
-    content: '<h1>foo historic</h1>',
+    content: '<h1>\r\n\t&nbsp;foo historic</h1>',
   },
 });
 (useSubmission as jest.Mock).mockReturnValue({
@@ -141,32 +141,37 @@ describe('CaseNoteDialog', () => {
     expect(screen.getAllByRole('definition').length).toBe(6);
   });
 
-  it('strips html tags from historic case notes', () => {
+  it('strips tags from historic case notes', () => {
     (useRouter as jest.Mock).mockReturnValueOnce({
       query: {
-        case_note: mockedCaseNote.recordId,
-      },
-    });
-
-    render(
-      <CaseNoteDialog
-        totalCount={1}
-        socialCareId={123}
-        caseNotes={[
-          {
-            ...mockedCaseNote,
-            caseFormData: {
-              ...mockedCaseNote.caseFormData,
-              is_historical: true,
+                case_note: mockedCaseNote.recordId,
             },
-          },
-        ]}
-      />
-    );
+        });
 
-    expect(screen.getByText('foo historic'));
-    expect(screen.queryByText('<h1>foo historic</h1>')).toBeNull();
-  });
+        render(
+            <CaseNoteDialog
+                totalCount={1}
+                socialCareId={123}
+                caseNotes={[
+                    {
+                        ...mockedCaseNote,
+                        caseFormData: {
+                            ...mockedCaseNote.caseFormData,
+                            is_historical: true,
+                        },
+                    },
+                ]}
+            />
+        );
+
+        expect(screen.getByText('foo historic'));
+      expect(screen.queryByText('<h1>')).toBeNull();
+      expect(screen.queryByText('</h1>')).toBeNull();
+      expect(screen.queryByText('\r')).toBeNull();
+      expect(screen.queryByText('\n')).toBeNull();
+      expect(screen.queryByText('\t')).toBeNull();
+      expect(screen.queryByText('&nbsp;')).toBeNull();
+    });
 
   it('can be navigate to an older note by keyboard', () => {
     const mockReplace = jest.fn();
