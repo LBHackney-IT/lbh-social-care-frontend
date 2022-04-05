@@ -9,8 +9,8 @@ export interface Props {
 export const getRatingString = (rating: keyof typeof ratingMapping): string => {
   return ratingMapping[rating];
 };
-export const getRatingColour = (rating: keyof typeof colorMapping): string => {
-  return colorMapping[rating];
+export const getRatingColour = (rating: string) => {
+  return colorMapping[rating as keyof typeof colorMapping];
 };
 
 const ratingMapping = {
@@ -21,7 +21,7 @@ const ratingMapping = {
   none: 'No priority set',
 };
 
-const colorMapping = {
+export const colorMapping = {
   urgent: 'purple',
   high: 'red',
   medium: 'orange',

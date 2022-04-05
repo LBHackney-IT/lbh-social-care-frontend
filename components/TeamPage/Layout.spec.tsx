@@ -34,13 +34,13 @@ jest.spyOn(teamWorkersAPI, 'useTeamWorkers').mockImplementation(() => ({
 describe('TeamLayout component', () => {
   it('displays the team name', async () => {
     mockedTeam.name = 'example-team';
-    const { queryByText } = render(
+    const { queryAllByText } = render(
       <TeamLayout team={mockedTeam}>
         <></>
       </TeamLayout>
     );
 
-    expect(queryByText('example-team')).toBeInTheDocument();
+    expect(queryAllByText('example-team')).toHaveLength(2);
   });
 
   it('loads correctly the team worker count', async () => {

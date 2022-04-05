@@ -35,7 +35,6 @@ const TeamMemberAllocations = ({ user }: TeamMemberProps) => {
               <Link href={`/residents/${alloc.personId}/allocations`}>
                 {alloc.personName}
               </Link>
-
               <p className="lbh-body-xs govuk-!-margin-top-1">
                 Allocated {formatDate(alloc.allocationStartDate)}
               </p>
@@ -63,11 +62,7 @@ export const TeamMember = ({ user }: TeamMemberProps) => {
         <div>
           <h3>{prettyWorkerName(user)}</h3>
           <p className="lbh-body-s lmf-grey">
-            {user.email} · {user.role} · {user.allocationCount || '0'}{' '}
-            allocations ·{' '}
-            <Link href={`/workers/${user.id}/edit`}>
-              <a className="lbh-link--no-visited-state">Edit role/team</a>
-            </Link>
+            {user.role} · {user.allocationCount || '0'} allocations
           </p>
         </div>
 

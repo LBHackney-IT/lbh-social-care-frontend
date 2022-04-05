@@ -61,8 +61,15 @@ const TeamLayout = ({ team, children }: Props): React.ReactElement => {
   }
 
   return (
-    <>
-      <p className="govuk-caption-s">Team</p>
+    <div className="govuk-breadcrumbs lbh-breadcrumbs lbh-container">
+      <ol className="govuk-breadcrumbs__list">
+        <li className="govuk-breadcrumbs__list-item">
+          <a className="govuk-breadcrumbs__link" href="/teams">
+            Teams
+          </a>
+        </li>
+        <li className="govuk-breadcrumbs__list-item">{team.name}</li>
+      </ol>
       <h1 className="govuk-!-margin-top-1">{team.name}</h1>
 
       <div className="govuk-tabs lbh-tabs govuk-!-margin-top-8">
@@ -78,11 +85,15 @@ const TeamLayout = ({ team, children }: Props): React.ReactElement => {
           </NavLink>
         </ul>
 
-        <section className="govuk-tabs__panel" id="past-day">
+        <section
+          id="past-day"
+          className="govuk-tabs__panel"
+          style={{ paddingTop: '0px' }}
+        >
           {children}
         </section>
       </div>
-    </>
+    </div>
   );
 };
 export default TeamLayout;

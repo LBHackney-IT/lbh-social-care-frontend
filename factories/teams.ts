@@ -27,7 +27,7 @@ export const allocationFactory = Factory.define<Allocation>(({ sequence }) => ({
   allocationEndDate: '',
   workerType: '',
   personId: 1,
-  personName: '',
+  personName: 'Foo Bar',
   personDateOfBirth: '',
   personAddress: '',
   ragRating: 'medium',
