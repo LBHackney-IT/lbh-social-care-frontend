@@ -1,0 +1,22 @@
+@import 'lbh-frontend/lbh/base';
+
+.stopDialog {
+  background: lbh-colour('lbh-text');
+  border-color: white;
+
+  h2,
+  p {
+    color: white;
+  }
+
+  button {
+    background: lbh-colour('lbh-grey-4');
+    color: lbh-colour('lbh-text');
+
+    &:hover,
+    &:active {
+      background: lbh-colour('lbh-grey-3') !important;
+      color: lbh-colour('lbh-text');
+    }
+  }
+}

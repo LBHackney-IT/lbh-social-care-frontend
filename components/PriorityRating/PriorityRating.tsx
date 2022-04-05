@@ -39,6 +39,7 @@ const PriorityRating = ({
     display: 'inline-block',
     backgroundColor: '#bbb',
     borderRadius: '50%',
+    marginTop: 0,
   };
 
   if (!allocation.ragRating) {
@@ -51,16 +52,27 @@ const PriorityRating = ({
 
   return (
     <>
-      {`${getRatingString(
+      <span
+        id={`${
+          allocation.allocatedWorkerTeam && allocation.allocatedWorkerTeam
+        }_priorityRating`}
+      >{`${getRatingString(
         allocation.ragRating.toLowerCase() as keyof typeof ratingMapping
-      )} `}
+      )} `}</span>
       <span data-testid="colourdot" style={style}></span>
 
       <span style={{ float: 'right', margin: '0 -18px 0 0' }}>
         <Link
           href={`/residents/${resident.id}/allocations/${allocation.id}/editpriority`}
         >
-          <a className="lbh-link lbh-link--muted">Edit</a>
+          <a
+            id={`${
+              allocation.allocatedWorkerTeam && allocation.allocatedWorkerTeam
+            }_editPriority`}
+            className="lbh-link lbh-link--muted"
+          >
+            Edit
+          </a>
         </Link>
       </span>
     </>

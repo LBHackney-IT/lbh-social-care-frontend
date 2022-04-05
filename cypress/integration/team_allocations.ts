@@ -79,6 +79,85 @@ describe('Worker / team allocation', () => {
       cy.contains('This is for').should('exist');
       cy.contains('Continue').should('exist');
     });
+
+    it('Adds a Team and Worker allocation', () => {
+      cy.visitAs(
+        `/residents/${Cypress.env(
+          'ADULT_RECORD_PERSON_ID'
+        )}/allocations/add?teamId=78`,
+        AuthRoles.AdminDevGroup
+      );
+      cy.url().should('include', '/add?teamId=78');
+
+      cy.get('#priority_medium').click();
+      cy.get('#allocateWorker').click();
+      cy.get('#149').click();
+      cy.get('button[type=submit]').click();
+
+      cy.visitAs(
+        `/residents/${Cypress.env('ADULT_RECORD_PERSON_ID')}/allocations`,
+        AuthRoles.AdminDevGroup
+      );
+      cy.url().should('include', '/allocations');
+      cy.contains('Team allocation: testing-team').should('exist');
+    });
+
+    it('Changes the priority', () => {
+      cy.visitAs(
+        `/residents/${Cypress.env('ADULT_RECORD_PERSON_ID')}/allocations`,
+        AuthRoles.AdminDevGroup
+      );
+
+      cy.get(`#testing-team_editPriority`).click();
+
+      cy.get('#priority_urgent').click();
+      cy.get('button[type=submit]').click();
+
+      cy.visitAs(
+        `/residents/${Cypress.env('ADULT_RECORD_PERSON_ID')}/allocations`,
+        AuthRoles.AdminDevGroup
+      );
+      cy.get('#testing-team_priorityRating').should('have.text', 'Urgent ');
+    });
+
+    it('Deallocates a Worker allocation', () => {
+      cy.visitAs(
+        `/residents/${Cypress.env('ADULT_RECORD_PERSON_ID')}/allocations`,
+        AuthRoles.AdminDevGroup
+      );
+
+      cy.get('#testing-team_deallocateWorker').click();
+
+      cy.get('#deallocationReason').clear().type('testing reasons');
+      cy.get('button[type=submit]').click();
+
+      cy.visitAs(
+        `/residents/${Cypress.env('ADULT_RECORD_PERSON_ID')}/allocations`,
+        AuthRoles.AdminDevGroup
+      );
+
+      cy.get('#testing-team_deallocateWorker').should('not.exist');
+    });
+
+    it('Deallocates a Team allocation', () => {
+      cy.visitAs(
+        `/residents/${Cypress.env('ADULT_RECORD_PERSON_ID')}/allocations`,
+        AuthRoles.AdminDevGroup
+      );
+
+      cy.get('#testing-team_deallocate').click();
+
+      cy.url().should('include', '/deallocate');
+      cy.get('#deallocationReason').clear().type('testing reasons');
+      cy.get('button[type=submit]').click();
+
+      cy.visitAs(
+        `/residents/${Cypress.env('ADULT_RECORD_PERSON_ID')}/allocations`,
+        AuthRoles.AdminDevGroup
+      );
+
+      cy.contains('Team allocation: testing-team').should('not.exist');
+    });
   });
 });
 

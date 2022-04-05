@@ -1,9 +1,11 @@
 import { prettyCaseDate, prettyCaseTitle } from 'lib/formatters';
 import { getResident } from 'lib/residents';
 import { GetServerSideProps } from 'next';
+import Link from 'next/link';
 import { Case, Resident } from 'types';
 import { useCases } from 'utils/api/cases';
 import { isAuthorised } from 'utils/auth';
+import { generateInternalLink } from 'utils/urls';
 
 interface Props {
   resident: Resident;
@@ -18,6 +20,15 @@ const ActivityPage = ({ resident }: Props): React.ReactElement => {
   data?.map((page) => {
     if (page.cases) cases = cases.concat(page?.cases);
   });
+
+  const generateCaseLink = (c: Case): string => {
+    if (c.formType === 'flexible-form')
+      return `/people/${c.personId}/submissions/${c.recordId}`;
+    if (c.caseFormUrl) return c.caseFormUrl;
+    const intLink = generateInternalLink(c);
+
+    return intLink || '';
+  };
 
   return (
     <>
@@ -37,13 +48,23 @@ const ActivityPage = ({ resident }: Props): React.ReactElement => {
           </tr>
         </thead>
         <tbody className="govuk-table__body">
-          {cases.map((c) => (
-            <tr className="govuk-table__row" key={c.recordId}>
-              <td className="govuk-table__cell">{prettyCaseDate(c)}</td>
-              <td className="govuk-table__cell">{prettyCaseTitle(c)}</td>
-              <td className="govuk-table__cell">{c.officerEmail}</td>
-            </tr>
-          ))}
+          {cases.map((c) => {
+            const link = generateCaseLink(c);
+
+            return (
+              <tr className="govuk-table__row" key={c.recordId}>
+                <td className="govuk-table__cell">{prettyCaseDate(c)}</td>
+                <td className="govuk-table__cell">
+                  {link ? (
+                    <Link href={link}>{prettyCaseTitle(c)}</Link>
+                  ) : (
+                    prettyCaseTitle(c)
+                  )}
+                </td>
+                <td className="govuk-table__cell">{c.officerEmail}</td>
+              </tr>
+            );
+          })}
         </tbody>
       </table>
       <button
