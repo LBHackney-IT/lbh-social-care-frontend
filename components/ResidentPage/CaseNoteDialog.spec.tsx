@@ -81,6 +81,32 @@ describe('CaseNoteDialog', () => {
     expect(screen.getByText('Date of event'));
   });
 
+  it('turns google doc urls into links', () => {
+    (useRouter as jest.Mock).mockReturnValueOnce({
+      query: {
+        case_note: mockedCaseNote.recordId,
+      },
+    });
+
+    render(
+      <CaseNoteDialog
+        totalCount={1}
+        caseNotes={[
+          {
+            ...mockedCaseNote,
+            caseFormData: {
+              ...mockedCaseNote.caseFormData,
+              form_url: 'https://example.com/foo',
+            },
+          },
+        ]}
+        socialCareId={123}
+      />
+    );
+
+    expect(screen.getByRole('link'));
+  });
+
   it('renders a new-style case note (submission/flexible-form) correctly', () => {
     (useRouter as jest.Mock).mockReturnValueOnce({
       query: {
