@@ -1,4 +1,3 @@
-import useWarnUnsavedChanges from 'hooks/useWarnUnsavedChanges';
 import { KeyboardEventHandler, useRef } from 'react';
 import { PhoneNumber, Resident } from 'types';
 import { useResident } from 'utils/api/residents';
@@ -34,7 +33,6 @@ const CustomPhoneNumberEditor = (props: Props): React.ReactElement => {
       },
       method: 'PATCH',
       body: JSON.stringify({
-        ...props.resident,
         phoneNumbers: data?.phoneNumbers
           ?.filter((n) => n.type || n.number)
           ?.map((n) => ({
@@ -81,7 +79,6 @@ const InnerForm = ({
 }: InnerProps): React.ReactElement => {
   const ref = useRef<HTMLFormElement>(null);
 
-  useWarnUnsavedChanges(true);
   useClickOutside(ref, onClose);
 
   const handleKeyup: KeyboardEventHandler = (e) => {

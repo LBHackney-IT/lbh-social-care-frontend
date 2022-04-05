@@ -1,6 +1,5 @@
 import { Field, Form, Formik } from 'formik';
 import useClickOutside from 'hooks/useClickOutside';
-import useWarnUnsavedChanges from 'hooks/useWarnUnsavedChanges';
 import { residentSchema } from 'lib/validators';
 import { useRef, KeyboardEvent } from 'react';
 import { Resident } from 'types';
@@ -39,7 +38,6 @@ const InlineEditor = ({
 
   const { mutate } = useResident(resident.id);
 
-  useWarnUnsavedChanges(true);
   useClickOutside(ref, onClose);
 
   const handleSubmit = async (data: FormValues) => {

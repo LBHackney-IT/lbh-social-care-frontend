@@ -1,5 +1,4 @@
 import axios from 'axios';
-import useWarnUnsavedChanges from 'hooks/useWarnUnsavedChanges';
 import { KeyboardEventHandler, useRef, useState } from 'react';
 import { Resident } from 'types';
 import { useResident } from 'utils/api/residents';
@@ -34,8 +33,6 @@ interface FormValues {
 const CustomAddressEditor = (props: Props): React.ReactElement => {
   const { mutate } = useResident(props.resident.id);
 
-  useWarnUnsavedChanges(true);
-
   const handleSubmit = async (data: FormValues) => {
     const res = await fetch(`/api/residents/${props.resident.id}`, {
       headers: {
@@ -43,7 +40,6 @@ const CustomAddressEditor = (props: Props): React.ReactElement => {
       },
       method: 'PATCH',
       body: JSON.stringify({
-        ...props.resident,
         address: {
           address: data.address.address,
           postcode: data.address.postcode,

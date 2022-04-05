@@ -22,6 +22,7 @@ import {
 import CaseStatusFlag from 'components/CaseStatus/CaseStatusFlag/CaseStatusFlag';
 import { useAppConfig } from 'lib/appConfig';
 import ConfirmationBanner from 'components/ConfirmationBanner/ConfirmationBanner';
+import StopDialog from 'components/StopDialog';
 
 interface NavLinkProps {
   href: string;
@@ -122,6 +123,8 @@ const Layout = ({ person, children }: Props): React.ReactElement => {
           </>
         </title>
       </Head>
+
+      {person.contextFlag === 'C' && <StopDialog />}
 
       <AddFormDialog
         isOpen={addFormOpen}
