@@ -6,7 +6,6 @@ import { useRouter } from 'next/router';
 import { useCase, useCases, useHistoricCaseNote } from 'utils/api/cases';
 import { useSubmission } from 'utils/api/submissions';
 import { mockedHistoricCaseNote } from 'fixtures/cases.fixtures';
-import { Case } from 'types';
 
 jest.mock('next/router');
 jest.mock('utils/api/cases');
@@ -93,9 +92,10 @@ describe('CaseNoteDialog', () => {
           {
             ...mockedCaseNote,
             caseFormData: {
+              ...mockedCaseNote.caseFormData,
               form_url: 'https://example.com/foo',
             },
-          } as Case,
+          },
         ]}
         socialCareId={123}
       />
