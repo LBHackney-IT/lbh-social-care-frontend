@@ -91,7 +91,7 @@ describe('Worker / team allocation', () => {
 
       cy.get('#priority_medium').click();
       cy.get('#allocateWorker').click();
-      cy.get('#149').click();
+      cy.get('#170').click();
       cy.get('button[type=submit]').click();
 
       cy.visitAs(
