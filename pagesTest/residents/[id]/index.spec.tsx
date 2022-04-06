@@ -89,10 +89,7 @@ describe('ResidentPage', () => {
       </AppConfigProvider>
     );
 
-    await act(async () => {
-      fireEvent.click(screen.getByText('See all 23 fields'));
-    });
-
+    fireEvent.click(screen.getByText('See all 23 fields'));
     screen.debug();
     expect(screen.getByText('Albanian')).toBeVisible();
   });
