@@ -75,10 +75,10 @@ const HistoricCaseContent = ({ recordId }: HistoricContentProps) => {
             JSON.stringify(value)
               .replace(/"/g, '')
               .replace(/(<([^>]+)>)/gi, '')
-                .replace("\\r", '')
-                .replace("\\n", '')
-                .replace("\\t", '')
-                .replace("&nbsp;", ''),
+              .replace('\\r', '')
+              .replace('\\n', '')
+              .replace('\\t', '')
+              .replace('&nbsp;', ''),
           ])
         )}
       />
