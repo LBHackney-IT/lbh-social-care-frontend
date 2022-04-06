@@ -1,4 +1,4 @@
-import { render, screen, queryByRole } from '@testing-library/react';
+import { render, screen, queryByRole, fireEvent, act } from '@testing-library/react';
 import { mockedResident } from 'factories/residents';
 import ResidentPage from 'pages/residents/[id]';
 import { useCases } from 'utils/api/cases';
@@ -80,5 +80,20 @@ describe('ResidentPage', () => {
         'button'
       )
     ).toBeNull();
+  });
+
+  it("shows the resident's ethnicity", async () => {
+    render(
+      <AppConfigProvider appConfig={{}}>
+        <ResidentPage resident={{ ...mockedResident, ethnicity: 'A.A20' }} />
+      </AppConfigProvider>
+    );
+
+    await act(async () => {
+      fireEvent.click(screen.getByText('See all 23 fields'));
+    });
+
+    screen.debug();
+    expect(screen.getByText('Albanian')).toBeVisible();
   });
 });

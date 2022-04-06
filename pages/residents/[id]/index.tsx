@@ -223,7 +223,7 @@ const ResidentPage = ({ resident }: Props): React.ReactElement => {
             label: 'Ethnicity',
             name: 'ethnicity',
             beforeDisplay: (val) =>
-              val ? getEthnicityName(val as string) : val,
+              getEthnicityName(val as string) || (val as string),
             options: [
               {
                 value: '',
