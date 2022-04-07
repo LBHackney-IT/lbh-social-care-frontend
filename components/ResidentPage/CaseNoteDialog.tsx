@@ -74,7 +74,11 @@ const HistoricCaseContent = ({ recordId }: HistoricContentProps) => {
             prettyKey(key),
             JSON.stringify(value)
               .replace(/"/g, '')
-              .replace(/(<([^>]+)>)/gi, ''),
+              .replace(/(<([^>]+)>)/gi, '')
+              .replace('\\r', '')
+              .replace('\\n', '')
+              .replace('\\t', '')
+              .replace('&nbsp;', ''),
           ])
         )}
       />
