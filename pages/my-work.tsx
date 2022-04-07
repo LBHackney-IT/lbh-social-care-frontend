@@ -1,30 +1,58 @@
 import Seo from 'components/Layout/Seo/Seo';
-import Search from 'components/Search/Search';
+import WorkerAllocations from 'components/WorkerView/WorkerAllocations/WorkerAllocations';
 import DashboardWrapper from 'components/Dashboard/DashboardWrapper';
+import { GetServerSideProps } from 'next';
+import { isAuthorised } from 'utils/auth';
+import { useWorker } from 'utils/api/workers';
 
-const MyCasesPage = (): React.ReactElement => (
-  <div>
-    <Seo title="My work" />
-    <DashboardWrapper>
-      <>
-        <h1 className="govuk-!-margin-bottom-8">My work</h1>
-        <Search
-          type="records"
-          subHeader={<>Filter results by (any combination)</>}
-          resultHeader="All records you have added"
-          showOnlyMyResults
-          columns={[
-            'person_id',
-            'first_name',
-            'formName',
-            'date_of_event',
-            'action',
-          ]}
-          ctaText="Filter"
-        />
-      </>
-    </DashboardWrapper>
-  </div>
-);
+interface Props {
+  email: string;
+}
+
+const MyCasesPage = ({ email }: Props): React.ReactElement => {
+  const { data: workers } = useWorker({
+    email: email,
+  });
+
+  let worker;
+  if (workers && workers?.[0]) {
+    worker = workers[0];
+  }
+
+  return (
+    <div>
+      <Seo title="My work" />
+      <DashboardWrapper>
+        <>
+          <h1 className="govuk-!-margin-bottom-8">My work</h1>
+          {worker ? (
+            <WorkerAllocations workerId={worker.id} />
+          ) : (
+            'Logged user is not a worker'
+          )}
+        </>
+      </DashboardWrapper>
+    </div>
+  );
+};
+
+export const getServerSideProps: GetServerSideProps = async ({ req }) => {
+  const user = isAuthorised(req);
+
+  if (!user) {
+    return {
+      props: {},
+      redirect: {
+        destination: `/login`,
+      },
+    };
+  }
+
+  return {
+    props: {
+      email: user.email,
+    },
+  };
+};
 
 export default MyCasesPage;

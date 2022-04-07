@@ -1,0 +1,52 @@
+@import 'lbh-frontend/lbh/base';
+
+.ragRating {
+  padding: 2px 20px;
+  margin-right: 5px;
+  border-radius: 5px;
+  color: white;
+}
+
+.listItem {
+  background: white;
+  border-top: 1px solid lightgrey;
+  margin-top: 0px;
+  padding: 20px 0px;
+  list-style-type: none;
+}
+
+.listItem:nth-child(odd) {
+  background: #f8f8f8;
+}
+
+.residentName {
+  font-size: 20px;
+  margin-right: 5px;
+}
+
+.residentId {
+  color: grey;
+  font-size: 15px;
+}
+
+.dateAdded,
+.workerAllocation,
+.dateAdded {
+  b {
+    font-weight: 600;
+  }
+}
+
+.elementValue {
+  color: grey;
+}
+
+.rowDescription {
+  margin-top: 5px;
+}
+
+.loadMoreButton {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}

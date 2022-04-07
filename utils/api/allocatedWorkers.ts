@@ -1,6 +1,7 @@
 import useSWR, { SWRResponse, useSWRInfinite, SWRInfiniteResponse } from 'swr';
 import axios from 'axios';
 import { getInfiniteKey } from 'utils/api';
+import { getQueryString } from 'utils/urls';
 
 import type {
   AgeContext,
@@ -36,9 +37,14 @@ export const useTeamWorkers = (
   useSWR(teamId ? `/api/teams/${teamId}/workers` : null);
 
 export const useAllocationsByWorker = (
-  workerId: number
-): SWRResponse<WorkerAllocation, ErrorAPI> =>
-  useSWR(`/api/workers/${workerId}/allocations`);
+  workerId: number,
+  parameters: Record<string, unknown> = {}
+): SWRResponse<WorkerAllocation, ErrorAPI> => {
+  const requestParameters = Object.keys(parameters).length
+    ? `?${getQueryString(parameters)}`
+    : '';
+  return useSWR(`/api/workers/${workerId}/allocations${requestParameters}`);
+};
 
 export const useAllocationsByTeam = (
   teamId: number,
