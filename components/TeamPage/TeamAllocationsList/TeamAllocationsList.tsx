@@ -90,11 +90,29 @@ const TeamAllocationsList = ({
 }: TeamAllocationsListProps): React.ReactElement => {
   const [sortBy, setSortBy] = useState<string>('rag_rating');
 
-  const { data: allocatedTeamData, error } = useAllocationsByTeam(teamId, {
+  const {
+    data: allocatedTeamData,
+    size,
+    setSize,
+    error,
+  } = useAllocationsByTeam(teamId, {
     team_allocation_status: type,
     status: 'open',
     sort_by: sortBy,
   });
+
+  const allocationData = [] as Allocation[];
+  for (
+    let i = 0;
+    allocatedTeamData !== undefined && i < allocatedTeamData.length;
+    i++
+  ) {
+    allocationData.push(...allocatedTeamData[i].allocations);
+  }
+
+  const onLastPage =
+    !allocatedTeamData?.[allocatedTeamData.length - 1].nextCursor;
+
   if (error) {
     return <ErrorMessage label="There was a problem with team allocations." />;
   }
@@ -125,12 +143,27 @@ const TeamAllocationsList = ({
       </table>
 
       <ul style={{ marginTop: '0px' }}>
-        {allocatedTeamData?.allocations.map((elm) => (
-          <li key={elm.id} className={classNames('lbh-body-s', s.listItem)}>
-            <TeamAllocation allocation={elm} type={type} />
-          </li>
-        ))}
+        {allocationData?.length
+          ? allocationData.map((elm) => (
+              <li key={elm.id} className={classNames('lbh-body-s', s.listItem)}>
+                <TeamAllocation allocation={elm} type={type} />
+              </li>
+            ))
+          : `No ${
+              type == 'allocated'
+                ? 'active cases'
+                : 'elements in the waiting list'
+            } for the selected team`}
       </ul>
+
+      {!onLastPage && (
+        <button
+          className={`govuk-button lbh-button ${s.loadMoreButton}`}
+          onClick={() => setSize(size + 1)}
+        >
+          Load more
+        </button>
+      )}
     </>
   );
 };

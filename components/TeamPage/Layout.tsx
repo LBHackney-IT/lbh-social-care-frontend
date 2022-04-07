@@ -1,7 +1,7 @@
 import classNames from 'classnames';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { Team } from 'types';
+import { Team, Allocation } from 'types';
 import {
   useTeamWorkers,
   useAllocationsByTeam,
@@ -60,6 +60,23 @@ const TeamLayout = ({ team, children }: Props): React.ReactElement => {
     return <ErrorMessage />;
   }
 
+  const allocated = [] as Allocation[];
+  for (
+    let i = 0;
+    allocatedTeamData !== undefined && i < allocatedTeamData.length;
+    i++
+  ) {
+    allocated.push(...allocatedTeamData[i].allocations);
+  }
+  const unallocated = [] as Allocation[];
+  for (
+    let i = 0;
+    unallocatedTeamData !== undefined && i < unallocatedTeamData.length;
+    i++
+  ) {
+    unallocated.push(...unallocatedTeamData[i].allocations);
+  }
+
   return (
     <div className="govuk-breadcrumbs lbh-breadcrumbs lbh-container">
       <ol className="govuk-breadcrumbs__list">
@@ -75,10 +92,10 @@ const TeamLayout = ({ team, children }: Props): React.ReactElement => {
       <div className="govuk-tabs lbh-tabs govuk-!-margin-top-8">
         <ul className="govuk-tabs__list">
           <NavLink href={`/teams/${team.id}`}>
-            <>Waiting list ({unallocatedTeamData?.allocations.length})</>
+            <>Waiting list ({unallocated?.length})</>
           </NavLink>
           <NavLink href={`/teams/${team.id}/active`}>
-            <>Active cases ({allocatedTeamData?.allocations.length})</>
+            <>Active cases ({allocated?.length})</>
           </NavLink>
           <NavLink href={`/teams/${team.id}/members`}>
             <>Team members {users?.length && `(${users.length})`} </>

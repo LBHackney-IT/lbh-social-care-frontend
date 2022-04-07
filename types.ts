@@ -33,6 +33,9 @@ export interface Allocation {
 
 export interface AllocationData {
   allocations: Allocation[];
+  totalCount: number;
+  nextCursor?: number;
+  deletedRecordsCount?: number;
 }
 
 export interface WorkerAllocation {

@@ -1,17 +1,15 @@
-import useSWR, { SWRResponse } from 'swr';
+import useSWR, { SWRResponse, useSWRInfinite, SWRInfiniteResponse } from 'swr';
 import axios from 'axios';
+import { getInfiniteKey } from 'utils/api';
 
 import type {
   AgeContext,
-  Allocation,
   AllocationData,
   ErrorAPI,
   TeamData,
   Worker,
   WorkerAllocation,
 } from 'types';
-
-import { getQueryString } from 'utils/urls';
 
 export const useAllocatedWorkers = (
   id: number
@@ -21,7 +19,7 @@ export const useAllocatedWorkers = (
 export const useResidentAllocation = (
   id: number,
   allocationId: number
-): SWRResponse<Allocation, ErrorAPI> =>
+): SWRResponse<AllocationData, ErrorAPI> =>
   useSWR(`/api/residents/${id}/allocations/${allocationId}`);
 
 export const useTeams = ({
@@ -43,12 +41,19 @@ export const useAllocationsByWorker = (
 
 export const useAllocationsByTeam = (
   teamId: number,
-  parameters: Record<string, unknown>
-): SWRResponse<WorkerAllocation, ErrorAPI> => {
-  return useSWR(
-    `/api/teams/${teamId}/allocations?${getQueryString(parameters)}`
+  parameters: Record<string, unknown>,
+  invoke = true
+): SWRInfiniteResponse<AllocationData, Error> =>
+  // @ts-ignore
+  useSWRInfinite(
+    invoke
+      ? getInfiniteKey(
+          `/api/teams/${teamId}/allocations`,
+          'allocations',
+          parameters
+        )
+      : null
   );
-};
 
 export const deleteAllocation = async (
   residentId: number,

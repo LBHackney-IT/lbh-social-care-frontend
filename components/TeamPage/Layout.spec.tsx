@@ -8,6 +8,10 @@ import {
   allocationFactory,
 } from 'factories/teams';
 import * as teamWorkersAPI from 'utils/api/allocatedWorkers';
+import { AllocationData } from 'types';
+
+import { SWRInfiniteResponse } from 'swr';
+jest.mock('utils/api/allocatedWorkers');
 
 const mockedUseRouter = { pathname: '/foo' };
 
@@ -15,14 +19,15 @@ jest.mock('next/router', () => ({
   useRouter: () => mockedUseRouter,
 }));
 
-jest.spyOn(teamWorkersAPI, 'useAllocationsByTeam').mockImplementation(() => ({
-  data: workerAllocationFactory.build({
-    allocations: [allocationFactory.build()],
-  }),
-  revalidate: jest.fn(),
-  mutate: jest.fn(),
-  isValidating: false,
-}));
+jest.spyOn(teamWorkersAPI, 'useAllocationsByTeam').mockImplementation(() => {
+  const response = {
+    data: workerAllocationFactory.build({
+      allocations: [allocationFactory.build()],
+    }),
+  } as unknown as SWRInfiniteResponse<AllocationData, Error>;
+
+  return response;
+});
 
 jest.spyOn(teamWorkersAPI, 'useTeamWorkers').mockImplementation(() => ({
   data: [mockedTeamWorker],
