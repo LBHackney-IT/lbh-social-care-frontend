@@ -23,7 +23,7 @@ jest.mock('utils/api/submissions');
 (useHistoricCaseNote as jest.Mock).mockReturnValue({
   data: {
     ...mockedHistoricCaseNote,
-    content: '<h1>foo historic</h1>',
+    content: '<h1>\r\n\r\n\r\n\t\t&nbsp;&nbsp;foo &amp; historic&rsquo;s</h1>',
   },
 });
 (useSubmission as jest.Mock).mockReturnValue({
@@ -79,6 +79,32 @@ describe('CaseNoteDialog', () => {
 
     expect(screen.getByText('Context flag'));
     expect(screen.getByText('Date of event'));
+  });
+
+  it('turns google doc urls into links', () => {
+    (useRouter as jest.Mock).mockReturnValueOnce({
+      query: {
+        case_note: mockedCaseNote.recordId,
+      },
+    });
+
+    render(
+      <CaseNoteDialog
+        totalCount={1}
+        caseNotes={[
+          {
+            ...mockedCaseNote,
+            caseFormData: {
+              ...mockedCaseNote.caseFormData,
+              form_url: 'https://example.com/foo',
+            },
+          },
+        ]}
+        socialCareId={123}
+      />
+    );
+
+    expect(screen.getByRole('link'));
   });
 
   it('renders a new-style case note (submission/flexible-form) correctly', () => {
@@ -141,7 +167,7 @@ describe('CaseNoteDialog', () => {
     expect(screen.getAllByRole('definition').length).toBe(6);
   });
 
-  it('strips html tags from historic case notes', () => {
+  it('strips tags from historic case notes', () => {
     (useRouter as jest.Mock).mockReturnValueOnce({
       query: {
         case_note: mockedCaseNote.recordId,
@@ -164,8 +190,13 @@ describe('CaseNoteDialog', () => {
       />
     );
 
-    expect(screen.getByText('foo historic'));
-    expect(screen.queryByText('<h1>foo historic</h1>')).toBeNull();
+    expect(screen.getByText("foo & historic's"));
+    expect(screen.queryByText('<h1>')).toBeNull();
+    expect(screen.queryByText('</h1>')).toBeNull();
+    expect(screen.queryByText('\r')).toBeNull();
+    expect(screen.queryByText('\n')).toBeNull();
+    expect(screen.queryByText('\t')).toBeNull();
+    expect(screen.queryByText('&nbsp;')).toBeNull();
   });
 
   it('can be navigate to an older note by keyboard', () => {

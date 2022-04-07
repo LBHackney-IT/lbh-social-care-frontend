@@ -5,7 +5,7 @@ describe('StopDialog component', () => {
   it('displays the dialog ', () => {
     render(<StopDialog />);
 
-    expect(screen.getByText("You shouldn't make edits here any more"));
+    expect(screen.getByText("You shouldn't record here anymore"));
   });
 
   it("hides the dialog after they've clicked okay", () => {
@@ -13,8 +13,6 @@ describe('StopDialog component', () => {
 
     fireEvent.click(screen.getByRole('button'));
 
-    expect(
-      screen.queryByText("You shouldn't make edits here any more")
-    ).toBeNull();
+    expect(screen.queryByText("You shouldn't record here anymore")).toBeNull();
   });
 });
