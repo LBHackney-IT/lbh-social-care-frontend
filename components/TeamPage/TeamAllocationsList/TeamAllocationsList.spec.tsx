@@ -4,6 +4,7 @@ import { render } from '@testing-library/react';
 import { workerAllocationFactory, allocationFactory } from 'factories/teams';
 import * as teamWorkersAPI from 'utils/api/allocatedWorkers';
 import { AllocationData } from 'types';
+import { addDays } from 'date-fns';
 
 import { SWRInfiniteResponse } from 'swr';
 jest.mock('utils/api/allocatedWorkers');
@@ -16,7 +17,11 @@ describe('TeamAllocationsList component', () => {
         const response = {
           data: [
             workerAllocationFactory.build({
-              allocations: [allocationFactory.build()],
+              allocations: [
+                allocationFactory.build({
+                  allocationStartDate: addDays(new Date(), 3).toISOString(),
+                }),
+              ],
             }),
           ],
         } as unknown as SWRInfiniteResponse<AllocationData, Error>;
@@ -40,7 +45,11 @@ describe('TeamAllocationsList component', () => {
         const response = {
           data: [
             workerAllocationFactory.build({
-              allocations: [allocationFactory.build()],
+              allocations: [
+                allocationFactory.build({
+                  allocationStartDate: addDays(new Date(), 3).toISOString(),
+                }),
+              ],
             }),
           ],
         } as unknown as SWRInfiniteResponse<AllocationData, Error>;
@@ -52,7 +61,6 @@ describe('TeamAllocationsList component', () => {
     );
 
     expect(queryByText('Medium')).toBeInTheDocument();
-    expect(queryByText('Team allocation:')).toBeInTheDocument();
     expect(queryByText('Worker allocation:')).toBeInTheDocument();
     expect(queryByText('#1')).toBeInTheDocument();
     expect(queryByText('Foo Bar')).toBeInTheDocument();
@@ -62,9 +70,15 @@ describe('TeamAllocationsList component', () => {
       .spyOn(teamWorkersAPI, 'useAllocationsByTeam')
       .mockImplementation(() => {
         const response = {
-          data: workerAllocationFactory.build({
-            allocations: [allocationFactory.build()],
-          }),
+          data: [
+            workerAllocationFactory.build({
+              allocations: [
+                allocationFactory.build({
+                  allocationStartDate: addDays(new Date(), 3).toISOString(),
+                }),
+              ],
+            }),
+          ],
         } as unknown as SWRInfiniteResponse<AllocationData, Error>;
 
         return response;
@@ -82,9 +96,11 @@ describe('TeamAllocationsList component', () => {
       .spyOn(teamWorkersAPI, 'useAllocationsByTeam')
       .mockImplementation(() => {
         const response = {
-          data: workerAllocationFactory.build({
-            allocations: [allocationFactory.build()],
-          }),
+          data: [
+            workerAllocationFactory.build({
+              allocations: [],
+            }),
+          ],
         } as unknown as SWRInfiniteResponse<AllocationData, Error>;
 
         return response;
@@ -103,9 +119,11 @@ describe('TeamAllocationsList component', () => {
       .spyOn(teamWorkersAPI, 'useAllocationsByTeam')
       .mockImplementation(() => {
         const response = {
-          data: workerAllocationFactory.build({
-            allocations: [allocationFactory.build()],
-          }),
+          data: [
+            workerAllocationFactory.build({
+              allocations: [],
+            }),
+          ],
         } as unknown as SWRInfiniteResponse<AllocationData, Error>;
 
         return response;
@@ -119,5 +137,30 @@ describe('TeamAllocationsList component', () => {
     expect(
       queryByText('No elements in the waiting list for the selected team')
     ).toBeInTheDocument();
+  });
+  it('displays the correct amount of days in the difference between today and allocation date', async () => {
+    jest
+      .spyOn(teamWorkersAPI, 'useAllocationsByTeam')
+      .mockImplementation(() => {
+        const response = {
+          data: [
+            workerAllocationFactory.build({
+              allocations: [
+                allocationFactory.build({
+                  allocationStartDate: addDays(new Date(), -3).toString(),
+                }),
+              ],
+            }),
+          ],
+        } as unknown as SWRInfiniteResponse<AllocationData, Error>;
+
+        return response;
+      });
+
+    const { getByText } = render(
+      <TeamAllocationsList teamId={123} type="allocated" />
+    );
+
+    expect(getByText(/3 days ago/i)).toBeInTheDocument();
   });
 });

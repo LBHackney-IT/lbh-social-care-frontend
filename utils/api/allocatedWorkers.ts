@@ -41,18 +41,15 @@ export const useAllocationsByWorker = (
 
 export const useAllocationsByTeam = (
   teamId: number,
-  parameters: Record<string, unknown>,
-  invoke = true
+  parameters?: Record<string, unknown>
 ): SWRInfiniteResponse<AllocationData, Error> =>
   // @ts-ignore
   useSWRInfinite(
-    invoke
-      ? getInfiniteKey(
-          `/api/teams/${teamId}/allocations`,
-          'allocations',
-          parameters
-        )
-      : null
+    getInfiniteKey(
+      `/api/teams/${teamId}/allocations`,
+      'allocations',
+      parameters
+    )
   );
 
 export const deleteAllocation = async (

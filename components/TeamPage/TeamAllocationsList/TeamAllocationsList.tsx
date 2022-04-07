@@ -8,6 +8,7 @@ import { getRatingColour } from 'components/PriorityRating/PriorityRating';
 import { capitalize } from 'utils/strings';
 import classNames from 'classnames';
 import Link from 'next/link';
+import { formatDistance, subDays } from 'date-fns';
 
 interface TeamAllocationsListProps {
   teamId: number;
@@ -62,19 +63,20 @@ export const TeamAllocation = ({ allocation, type }: TeamAllocationProps) => {
       <>
         {residentLine}
         <div className={s.rowDescription}>
-          <span className={s.dateAdded}>
-            <b>Team allocation:</b>
-            <span className={s.elementValue}>
-              {' '}
-              {new Date(allocation.allocationStartDate).toLocaleDateString()}
-            </span>
-          </span>
-          <br />
           <span className={s.workerAllocation}>
             <b>Worker allocation:</b>
-            <span className={s.elementValue}>
+            <span data-testid="dateSpan" className={s.elementValue}>
               {' '}
               {allocation.allocatedWorker}
+              {' on '}
+              {new Date(allocation.allocationStartDate).toLocaleDateString()}
+              {' ('}
+              {formatDistance(
+                subDays(new Date(allocation.allocationStartDate), 0),
+                new Date(),
+                { addSuffix: true }
+              )}
+              {') '}
             </span>
           </span>
         </div>
