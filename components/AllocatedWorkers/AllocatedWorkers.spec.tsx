@@ -27,6 +27,7 @@ describe(`AddAllocatedWorker`, () => {
     .mockImplementation(() => ({
       data: {
         allocations: mockedAllocations,
+        totalCount: mockedAllocations.length,
       },
       revalidate: jest.fn(),
       mutate: jest.fn(),
