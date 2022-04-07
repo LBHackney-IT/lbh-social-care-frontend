@@ -1,4 +1,11 @@
-import { render, screen, queryByRole, fireEvent, act } from '@testing-library/react';
+import {
+  render,
+  screen,
+  queryByRole,
+  fireEvent,
+  act,
+  within,
+} from '@testing-library/react';
 import { mockedResident } from 'factories/residents';
 import ResidentPage from 'pages/residents/[id]';
 import { useCases } from 'utils/api/cases';
@@ -82,15 +89,26 @@ describe('ResidentPage', () => {
     ).toBeNull();
   });
 
-  it("shows the resident's ethnicity", async () => {
+  it.only("shows the resident's ethnicity", async () => {
     render(
       <AppConfigProvider appConfig={{}}>
         <ResidentPage resident={{ ...mockedResident, ethnicity: 'A.A20' }} />
       </AppConfigProvider>
     );
 
-    fireEvent.click(screen.getByText('See all 23 fields'));
-    screen.debug();
-    expect(screen.getByText('Albanian')).toBeVisible();
+    await act(async () => {
+      fireEvent.click(screen.getByText('See all 23 fields'));
+    });
+
+    // screen.debug();
+    const { getByText } = within(screen.getByLabelText('Personal details'));
+    // await waitFor(() => {
+    //   expect(screen.getAllByLabelText('Loading...')).not.toBeVisible();
+    // });
+    expect(getByText('Ethnicity')).toBeInTheDocument();
+    expect(getByText('Albanian')).toBeVisible();
+
+    // expect(screen.getByLabelText('Personal details'));
+    // expect(screen.getByText('Albanian')).toBeVisible();
   });
 });
