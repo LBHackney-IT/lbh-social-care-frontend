@@ -23,7 +23,7 @@ jest.mock('utils/api/submissions');
 (useHistoricCaseNote as jest.Mock).mockReturnValue({
   data: {
     ...mockedHistoricCaseNote,
-    content: '<h1>\r\n\t&nbsp;foo historic</h1>',
+    content: '<h1>\r\n\r\n\r\n\t\t&nbsp;&nbsp;foo historic</h1>',
   },
 });
 (useSubmission as jest.Mock).mockReturnValue({
