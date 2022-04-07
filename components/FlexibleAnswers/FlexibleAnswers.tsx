@@ -69,6 +69,14 @@ const SummaryList = ({
             <dd className={`govuk-summary-list__value lbh-body-s ${s.dd}`}>
               {typeof answerGroup === 'string' ? (
                 answerGroup
+                  .replace(/"/g, '')
+                  .replace(/(<([^>]+)>)/gi, '')
+                  .replace(/\\r/gm, '')
+                  .replace(/\\n/gm, '')
+                  .replace(/\\t/gm, '')
+                  .replace(/&nbsp;/gm, '')
+                  .replace(/&amp;/gm, '&')
+                  .replace(/&rsquo;/gm, "'")
               ) : isTimetableAnswer(
                   answerGroup as TimetableAnswerT | RepeaterGroupAnswerT[]
                 ) ? (
@@ -121,6 +129,7 @@ interface Props {
 const FlexibleAnswers = ({ answers }: Props): React.ReactElement => {
   const steps = Object.entries(answers);
 
+  console.log('Flexible answers', steps);
   if (steps.length === 1) return <SummaryList stepAnswers={steps[0][1]} />;
 
   return (

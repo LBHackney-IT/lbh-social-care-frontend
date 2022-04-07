@@ -96,6 +96,7 @@ interface CaseContentProps {
 
 const CaseContent = ({ recordId, socialCareId }: CaseContentProps) => {
   const { data } = useCase(recordId, socialCareId);
+  console.log('case content');
 
   if (data)
     return (
