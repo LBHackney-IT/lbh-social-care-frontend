@@ -47,7 +47,7 @@ const TeamMemberAllocations = ({ user }: TeamMemberProps) => {
   return <p className="lbh-body-s">This user has no allocated residents.</p>;
 };
 
-export const TeamMember = ({ user }: TeamMemberProps) => {
+export const TeamMember = ({ user }: TeamMemberProps): React.ReactElement => {
   const [expanded, setExpanded] = useState<boolean>(false);
   return (
     <>

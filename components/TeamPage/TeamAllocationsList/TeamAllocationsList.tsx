@@ -20,7 +20,10 @@ interface TeamAllocationProps {
   type: string;
 }
 
-export const TeamAllocation = ({ allocation, type }: TeamAllocationProps) => {
+export const TeamAllocation = ({
+  allocation,
+  type,
+}: TeamAllocationProps): React.ReactElement => {
   const color = getRatingColour(allocation.ragRating);
   const style = { backgroundColor: color };
 
