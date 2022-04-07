@@ -78,7 +78,8 @@ const HistoricCaseContent = ({ recordId }: HistoricContentProps) => {
               .replace(/\\r/gm, '')
               .replace(/\\n/gm, '')
               .replace(/\\t/gm, '')
-              .replace(/&nbsp;/gm, ''),
+              .replace(/&nbsp;/gm, '')
+              .replace(/&amp;/gm, '&'),
           ])
         )}
       />
