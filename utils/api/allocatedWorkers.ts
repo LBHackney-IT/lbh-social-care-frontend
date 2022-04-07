@@ -4,6 +4,7 @@ import { getInfiniteKey } from 'utils/api';
 
 import type {
   AgeContext,
+  Allocation,
   AllocationData,
   ErrorAPI,
   TeamData,
@@ -19,7 +20,7 @@ export const useAllocatedWorkers = (
 export const useResidentAllocation = (
   id: number,
   allocationId: number
-): SWRResponse<AllocationData, ErrorAPI> =>
+): SWRResponse<Allocation, ErrorAPI> =>
   useSWR(`/api/residents/${id}/allocations/${allocationId}`);
 
 export const useTeams = ({
@@ -45,9 +46,12 @@ export const useAllocationsByTeam = (
 ): SWRInfiniteResponse<AllocationData, Error> =>
   // @ts-ignore
   useSWRInfinite(
+    // @ts-ignore
     getInfiniteKey(
+      // @ts-ignore
       `/api/teams/${teamId}/allocations`,
       'allocations',
+      // @ts-ignore
       parameters
     )
   );
