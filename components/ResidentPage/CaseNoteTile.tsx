@@ -2,6 +2,7 @@ import {
   prettyCaseDate,
   prettyCaseTitle,
   prettyWorkerName,
+  tidyText,
 } from 'lib/formatters';
 import { Case } from 'types';
 import s from './CaseNoteGrid.module.scss';
@@ -34,7 +35,7 @@ const SubmissionPreview = ({ submissionId }: SubmissionPreviewProps) => {
   if (text)
     return (
       <div aria-hidden="true" className={s.preview}>
-        {truncate(text as string, 20)}
+        {truncate(tidyText(text as string), 20)}
       </div>
     );
 
