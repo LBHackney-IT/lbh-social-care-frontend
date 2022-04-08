@@ -141,28 +141,6 @@ describe('CaseNoteDialog', () => {
 
     expect(screen.getAllByRole('term').length).toBe(2);
     expect(screen.getAllByRole('definition').length).toBe(2);
-  });
-
-  it('renders a new-style case note (submission/flexible-form) correctly, removing special characters', () => {
-    (useRouter as jest.Mock).mockReturnValueOnce({
-      query: {
-        case_note: mockedCaseNote.recordId,
-      },
-    });
-
-    render(
-      <CaseNoteDialog
-        totalCount={1}
-        socialCareId={123}
-        caseNotes={[
-          {
-            ...mockedCaseNote,
-            formType: 'flexible-form',
-          },
-        ]}
-      />
-    );
-
     expect(screen.getByText('two')).toBeVisible();
     expect(screen.getByText('four')).toBeVisible();
   });
