@@ -9,6 +9,7 @@ import {
 import DownArrow from '../Icons/DownArrow';
 import TimetableAnswer, { isTimetableAnswer } from './TimetableAnswer';
 import s from './FlexibleAnswers.module.scss';
+import { tidyText } from 'lib/formatters';
 
 const shouldShow = (answerGroup: Answer): boolean => {
   if (Array.isArray(answerGroup)) {
@@ -44,7 +45,7 @@ const RepeaterGroupAnswers = ({
       answers.map((item, i) => (
         <li key={i} className="govuk-!-margin-top-1">
           {typeof item === 'string' ? (
-            item
+            tidyText(item)
           ) : (
             <RepeaterGroupAnswer answers={item} />
           )}
@@ -68,15 +69,7 @@ const SummaryList = ({
             </dt>
             <dd className={`govuk-summary-list__value lbh-body-s ${s.dd}`}>
               {typeof answerGroup === 'string' ? (
-                answerGroup
-                  .replace(/"/g, '')
-                  .replace(/(<([^>]+)>)/gi, '')
-                  .replace(/\\r/gm, '')
-                  .replace(/\\n/gm, '')
-                  .replace(/\\t/gm, '')
-                  .replace(/&nbsp;/gm, '')
-                  .replace(/&amp;/gm, '&')
-                  .replace(/&rsquo;/gm, "'")
+                tidyText(answerGroup)
               ) : isTimetableAnswer(
                   answerGroup as TimetableAnswerT | RepeaterGroupAnswerT[]
                 ) ? (
@@ -129,7 +122,6 @@ interface Props {
 const FlexibleAnswers = ({ answers }: Props): React.ReactElement => {
   const steps = Object.entries(answers);
 
-  console.log('Flexible answers', steps);
   if (steps.length === 1) return <SummaryList stepAnswers={steps[0][1]} />;
 
   return (

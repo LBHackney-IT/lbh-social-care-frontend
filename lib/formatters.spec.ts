@@ -10,6 +10,7 @@ import {
   prettyResidentName,
   prettyWorkerName,
   summariseAllocations,
+  tidyText,
 } from './formatters';
 
 describe('prettyResidentName', () => {
@@ -208,5 +209,34 @@ describe('prettyCaseTitle', () => {
         allocationFactory.build({ allocatedWorker: 'Agent Smith' }),
       ])
     ).toBe(' · Allocated to Jon Doe and 2 others');
+  });
+});
+
+describe('tidyText', () => {
+  it('returns the string if there are no special characters in the string', () => {
+    expect(tidyText('input string')).toBe('input string');
+  });
+  it('returns the string without special character when there is one special character with double \\ in the string', () => {
+    expect(tidyText('input \\r\\nstring')).toBe('input string');
+  });
+  it('returns the string without special character when there is one special character with a single \\ in the string', () => {
+    expect(tidyText('input \r\nstring')).toBe('input string');
+  });
+  it('returns the string without special character when there is multiple special characters in the string', () => {
+    expect(tidyText('input \\r\\n\r\n\t\\t\n\\n&nbsp;string')).toBe(
+      'input string'
+    );
+  });
+  it("returns the string with & and ' when there are &amp; and &rsquo; special characters in the string", () => {
+    expect(
+      tidyText('input&amp; \\r\\n\r\n\t\\t\n\\n &nbsp;str&rsquo;ing')
+    ).toBe("input&  str'ing");
+  });
+  it("returns the string with & and ' replaced and special characters removed", () => {
+    expect(
+      tidyText(
+        '<h1>&nbsp;\\r\\n\\r\\n\\r\\n\\t\\r\\n\\t\\t\\r\\n\\t\\t\\t\\r\\n\\t\\t\\t&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;foo &amp; historic&rsquo;s</h1>'
+      )
+    ).toBe("foo & historic's");
   });
 });

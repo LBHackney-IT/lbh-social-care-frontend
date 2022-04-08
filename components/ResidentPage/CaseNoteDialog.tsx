@@ -3,6 +3,7 @@ import {
   prettyCaseDate,
   prettyCaseTitle,
   prettyWorkerName,
+  tidyText,
 } from 'lib/formatters';
 import { useRouter } from 'next/router';
 import { Case } from 'types';
@@ -60,7 +61,7 @@ const PrettyValue = ({ value }: { value: string }): React.ReactElement =>
   value.toString().startsWith('https://') ? (
     <a href={value}>{value}</a>
   ) : (
-    <>{JSON.stringify(value).replace(/"/g, '')}</>
+    <>{tidyText(JSON.stringify(value))}</>
   );
 
 const HistoricCaseContent = ({ recordId }: HistoricContentProps) => {
@@ -72,15 +73,7 @@ const HistoricCaseContent = ({ recordId }: HistoricContentProps) => {
         rows={Object.fromEntries(
           Object.entries(data).map(([key, value]) => [
             prettyKey(key),
-            JSON.stringify(value)
-              .replace(/"/g, '')
-              .replace(/(<([^>]+)>)/gi, '')
-              .replace(/\\r/gm, '')
-              .replace(/\\n/gm, '')
-              .replace(/\\t/gm, '')
-              .replace(/&nbsp;/gm, '')
-              .replace(/&amp;/gm, '&')
-              .replace(/&rsquo;/gm, "'"),
+            tidyText(JSON.stringify(value)),
           ])
         )}
       />
@@ -96,7 +89,6 @@ interface CaseContentProps {
 
 const CaseContent = ({ recordId, socialCareId }: CaseContentProps) => {
   const { data } = useCase(recordId, socialCareId);
-  console.log('case content');
 
   if (data)
     return (

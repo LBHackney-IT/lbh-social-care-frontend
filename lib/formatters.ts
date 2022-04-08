@@ -81,3 +81,20 @@ export const prettyWorkerName = (worker: Worker): string => {
     return `${worker.firstName} ${worker.lastName}`;
   return worker.email;
 };
+
+export const tidyText = (inputText: string): string =>
+  inputText
+    .replace(/"/g, '')
+    .replace(/(<([^>]+)>)/gi, '')
+    .replace(/\\\\r/gm, '')
+    .replace(/\\r/gm, '')
+    .replace(/\\\\n/gm, '')
+    .replace(/\\n/gm, '')
+    .replace(/\r\n/gm, '')
+    .replace(/\n/gm, '')
+    .replace(/\\\\t/gm, '')
+    .replace(/\\t/gm, '')
+    .replace(/\t/gm, '')
+    .replace(/&nbsp;/gm, '')
+    .replace(/&amp;/gm, '&')
+    .replace(/&rsquo;/gm, "'");
