@@ -1,4 +1,3 @@
-import classNames from 'classnames';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { Team, Allocation } from 'types';
@@ -8,37 +7,17 @@ import {
 } from 'utils/api/allocatedWorkers';
 import Spinner from 'components/Spinner/Spinner';
 import ErrorMessage from 'components/ErrorMessage/ErrorMessage';
-
-interface NavLinkProps {
-  href: string;
-  children: React.ReactChild;
-}
+import s from './Layout.module.scss';
+import cx from 'classnames';
 
 interface Props {
   team: Team;
   children: React.ReactChild;
 }
 
-const NavLink = ({ href, children }: NavLinkProps) => {
-  const router = useRouter();
-
-  return (
-    <li
-      className={classNames(
-        'govuk-tabs__list-item',
-        router.asPath === href && 'govuk-tabs__list-item--selected'
-      )}
-    >
-      <Link href={href} replace={true} scroll={false}>
-        <a className="govuk-tabs__tab" data-testid={`navlink_content_${href}`}>
-          {children}
-        </a>
-      </Link>
-    </li>
-  );
-};
-
 const TeamLayout = ({ team, children }: Props): React.ReactElement => {
+  const { pathname } = useRouter();
+
   const { data: users, error } = useTeamWorkers(team?.id);
 
   const { data: allocatedTeamData, error: allocatedError } =
@@ -89,24 +68,50 @@ const TeamLayout = ({ team, children }: Props): React.ReactElement => {
       </ol>
       <h1 className="govuk-!-margin-top-1">{team.name}</h1>
 
-      <div className="govuk-tabs lbh-tabs govuk-!-margin-top-8">
-        <ul className="govuk-tabs__list">
-          <NavLink href={`/teams/${team.id}`}>
-            <>Waiting list ({unallocated?.length})</>
-          </NavLink>
-          <NavLink href={`/teams/${team.id}/active`}>
-            <>Active cases ({allocated?.length})</>
-          </NavLink>
-          <NavLink href={`/teams/${team.id}/members`}>
-            <>Team members {users?.length && `(${users.length})`} </>
-          </NavLink>
+      <div className="govuk-tabs lbh-tabs">
+        <ul className={s.tabList}>
+          <li
+            key={'fdsafdsa'}
+            className={cx('lbh-body', s.tab, {
+              [s.active]: !(
+                pathname.includes('active') || pathname.includes('members')
+              ),
+            })}
+          >
+            <Link href={`/teams/${team.id}`} scroll={false}>
+              <a className={`lbh-link lbh-link--no-visited-state ${s.link}`}>
+                Waiting list ({unallocated?.length})
+              </a>
+            </Link>
+          </li>
+          <li
+            key={'fdsafdsa'}
+            className={cx('lbh-body', s.tab, {
+              [s.active]: pathname.includes('active'),
+            })}
+          >
+            <Link href={`/teams/${team.id}/active`} scroll={false}>
+              <a className={`lbh-link lbh-link--no-visited-state ${s.link}`}>
+                Active cases ({allocated?.length})
+              </a>
+            </Link>
+          </li>
+
+          <li
+            key={'fdsafdsa'}
+            className={cx('lbh-body', s.tab, {
+              [s.active]: pathname.includes('members'),
+            })}
+          >
+            <Link href={`/teams/${team.id}/members`} scroll={false}>
+              <a className={`lbh-link lbh-link--no-visited-state ${s.link}`}>
+                Team members {users?.length && `(${users.length})`}
+              </a>
+            </Link>
+          </li>
         </ul>
 
-        <section
-          id="past-day"
-          className="govuk-tabs__panel"
-          style={{ paddingTop: '0px' }}
-        >
+        <section id="past-day" style={{ marginTop: '0px', paddingTop: '0px' }}>
           {children}
         </section>
       </div>
