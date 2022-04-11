@@ -4,7 +4,7 @@ import Radios from 'components/Form/Radios/Radios';
 import React, { useState } from 'react';
 import { Allocation } from 'types';
 import s from './WorkerAllocations.module.scss';
-import { getRatingColour } from 'components/PriorityRating/PriorityRating';
+import { getRatingCSSColour } from 'components/PriorityRating/PriorityRating';
 import { capitalize } from 'lib/formatters';
 import classNames from 'classnames';
 import Link from 'next/link';
@@ -21,8 +21,11 @@ interface WorkerAllocationsProps {
 export const WorkerAllocations = ({
   allocation,
 }: WorkerAllocationsProps): React.ReactElement => {
-  const color = getRatingColour(allocation.ragRating);
-  const style = { backgroundColor: color };
+  const color = getRatingCSSColour(allocation.ragRating.toLowerCase());
+  const style = { backgroundColor: color, color: 'white' };
+  if (allocation.ragRating == 'medium') {
+    style['color'] = 'black';
+  }
 
   const residentLine = (
     <>
