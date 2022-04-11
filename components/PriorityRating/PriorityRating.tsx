@@ -6,11 +6,14 @@ export interface Props {
   allocation: Allocation;
 }
 
-export const getRatingString = (rating: keyof typeof ratingMapping): string => {
-  return ratingMapping[rating];
+export const getRatingString = (rating: string) => {
+  return ratingMapping[rating as keyof typeof ratingMapping];
 };
 export const getRatingColour = (rating: string) => {
   return colorMapping[rating as keyof typeof colorMapping];
+};
+export const getRatingCSSColour = (rating: string) => {
+  return cssMapping[rating as keyof typeof cssMapping];
 };
 
 const ratingMapping = {
@@ -26,6 +29,13 @@ export const colorMapping = {
   high: 'red',
   medium: 'orange',
   low: 'green',
+  none: 'grey',
+};
+export const cssMapping = {
+  urgent: '#8031A7',
+  high: '#BE3A34',
+  medium: '#FFBF47',
+  low: '#00664F',
   none: 'grey',
 };
 
@@ -46,8 +56,8 @@ const PriorityRating = ({
     allocation.ragRating = 'none';
   }
 
-  style.backgroundColor = getRatingColour(
-    allocation.ragRating.toLowerCase() as keyof typeof colorMapping
+  style.backgroundColor = getRatingCSSColour(
+    allocation.ragRating.toLowerCase()
   );
 
   return (
