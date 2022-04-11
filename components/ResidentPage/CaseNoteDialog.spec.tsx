@@ -23,7 +23,8 @@ jest.mock('utils/api/submissions');
 (useHistoricCaseNote as jest.Mock).mockReturnValue({
   data: {
     ...mockedHistoricCaseNote,
-    content: '<h1>\r\n\r\n\r\n\t\t&nbsp;&nbsp;foo &amp; historic&rsquo;s</h1>',
+    content:
+      '<h1>&nbsp;\\r\\n\\r\\n\\r\\n\\t\\r\\n\\t\\t\\r\\n\\t\\t\\t\\r\\n\\t\\t\\t&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; foo &amp; historic&rsquo;s</h1>',
   },
 });
 (useSubmission as jest.Mock).mockReturnValue({
@@ -32,8 +33,8 @@ jest.mock('utils/api/submissions');
     id: mockedCaseNote.recordId,
     formAnswers: {
       foo: {
-        one: 'two',
-        three: 'four',
+        one: 't&nbsp;\\t\\r\\n\\r\\n&nbsp;&nbsp;&nbsp;wo',
+        three: '\r\n\r\n\tfour',
       },
     },
   },
@@ -56,6 +57,10 @@ describe('CaseNoteDialog', () => {
     (useRouter as jest.Mock).mockReturnValueOnce({
       query: {
         case_note: mockedCaseNote.recordId,
+        caseFormData: {
+          ...mockedCaseNote.caseFormData,
+          note: '&nbsp;\\t\\r\\n\\r\\n&nbsp;&nbsp;&nbsp;I am the \r\n\r\n\tnote',
+        },
       },
     });
 
@@ -79,6 +84,7 @@ describe('CaseNoteDialog', () => {
 
     expect(screen.getByText('Context flag'));
     expect(screen.getByText('Date of event'));
+    expect(screen.getByText('I am the note'));
   });
 
   it('turns google doc urls into links', () => {
@@ -135,6 +141,8 @@ describe('CaseNoteDialog', () => {
 
     expect(screen.getAllByRole('term').length).toBe(2);
     expect(screen.getAllByRole('definition').length).toBe(2);
+    expect(screen.getByText('two')).toBeVisible();
+    expect(screen.getByText('four')).toBeVisible();
   });
 
   it('renders a historic case note correctly', () => {
