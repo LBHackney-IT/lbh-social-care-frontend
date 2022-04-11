@@ -20,7 +20,7 @@ const TeamsList = (): React.ReactElement => {
       <h3>List of teams ({teamData.teams.length})</h3>
       <ul className="lbh-list">
         {teamData.teams.map((elm) => (
-          <li key={elm.id} className="lbh-body-s">
+          <li key={elm.id} className="lbh-body">
             <Link href={`teams/${elm.id}/`}>
               <a data-testid={`teamlink_${elm.id}`}>{elm.name}</a>
             </Link>
