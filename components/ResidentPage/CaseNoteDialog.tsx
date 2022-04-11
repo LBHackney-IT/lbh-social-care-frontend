@@ -3,6 +3,7 @@ import {
   prettyCaseDate,
   prettyCaseTitle,
   prettyWorkerName,
+  tidyText,
 } from 'lib/formatters';
 import { useRouter } from 'next/router';
 import { Case } from 'types';
