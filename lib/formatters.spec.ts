@@ -11,6 +11,7 @@ import {
   prettyWorkerName,
   summariseAllocations,
   tidyText,
+  capitalize,
 } from './formatters';
 
 describe('prettyResidentName', () => {
@@ -209,6 +210,13 @@ describe('prettyCaseTitle', () => {
         allocationFactory.build({ allocatedWorker: 'Agent Smith' }),
       ])
     ).toBe(' · Allocated to Jon Doe and 2 others');
+  });
+});
+
+describe('capitalize', () => {
+  it('should capitalize correctly words', () => {
+    expect(capitalize('this is a string')).toBe('This is a string');
+    expect(capitalize('fooobar')).toBe('Fooobar');
   });
 });
 

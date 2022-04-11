@@ -5,7 +5,7 @@ import React, { useState } from 'react';
 import { Allocation } from 'types';
 import s from './TeamAllocationsList.module.scss';
 import { getRatingColour } from 'components/PriorityRating/PriorityRating';
-import { capitalize } from 'utils/strings';
+import { capitalize } from 'lib/formatters';
 import classNames from 'classnames';
 import Link from 'next/link';
 import { formatDistance, subDays } from 'date-fns';

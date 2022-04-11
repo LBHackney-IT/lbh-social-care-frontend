@@ -3,7 +3,7 @@ import { useRouter } from 'next/router';
 import PersonView from 'components/PersonView/PersonView';
 import EditCaseStatusForm from 'components/CaseStatus/EditCaseStatusForm/EditCaseStatusForm';
 import AnnouncementMessage from 'components/AnnouncementMessage/AnnouncementMessage';
-import { capitalize } from 'utils/strings';
+import { capitalize } from 'lib/formatters';
 
 const EditCaseStatus = (): React.ReactElement => {
   const [isScheduledCaseStatus, setIsScheduledCaseStatus] = useState(false);
