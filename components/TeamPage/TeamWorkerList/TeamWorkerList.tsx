@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { useState } from 'react';
 import { useAllocationsByWorker } from 'utils/api/allocatedWorkers';
 import { formatDate } from 'utils/date';
+import { formatDistance, subDays } from 'date-fns';
 
 const prettyWorkerInitials = (worker: Worker): string => {
   if (worker.firstName && worker.lastName) {
@@ -28,19 +29,40 @@ const TeamMemberAllocations = ({ user }: TeamMemberProps) => {
   if (data?.allocations && data?.allocations.length > 0)
     return (
       <div className={s.allocationPanel}>
-        <h4>Allocated residents</h4>
-        <ul className="lbh-list">
-          {data?.allocations.map((alloc: Allocation) => (
-            <li key={alloc.id} className="lbh-body-s">
-              <Link href={`/residents/${alloc.personId}/allocations`}>
-                {alloc.personName}
-              </Link>
-              <p className="lbh-body-xs govuk-!-margin-top-1">
-                Allocated {formatDate(alloc.allocationStartDate)}
-              </p>
-            </li>
-          ))}
-        </ul>
+        <h3>Allocations</h3>
+        <table className="govuk-table lbh-table" style={{ marginTop: '0px' }}>
+          <thead className="govuk-table__head">
+            <tr className="govuk-table__row">
+              <th scope="col" className="govuk-table__header">
+                Name
+              </th>
+              <th scope="col" className="govuk-table__header">
+                Allocated to worker
+              </th>
+            </tr>
+          </thead>
+          <tbody className="govuk-table__body">
+            {data?.allocations.map((allocation: Allocation) => (
+              <>
+                <td key={allocation.id} className="govuk-table__cell">
+                  <Link href={`/residents/${allocation.personId}/allocations`}>
+                    {allocation.personName}
+                  </Link>
+                </td>
+                <td className="govuk-table__cell">
+                  {formatDate(allocation.allocationStartDate)}
+                  {' ('}
+                  {formatDistance(
+                    subDays(new Date(allocation.allocationStartDate), 0),
+                    new Date(),
+                    { addSuffix: true }
+                  )}
+                  {' )'}
+                </td>
+              </>
+            ))}
+          </tbody>
+        </table>
       </div>
     );
 

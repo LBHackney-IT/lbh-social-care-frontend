@@ -7,6 +7,7 @@ import {
   allocationFactory,
 } from 'factories/teams';
 import * as teamWorkersAPI from 'utils/api/allocatedWorkers';
+import { addDays } from 'date-fns';
 
 const users = [
   mockedTeamWorkerFactory.build({
@@ -38,7 +39,11 @@ describe('TeamWorkerList component', () => {
       .spyOn(teamWorkersAPI, 'useAllocationsByWorker')
       .mockImplementation(() => ({
         data: workerAllocationFactory.build({
-          allocations: [allocationFactory.build()],
+          allocations: [
+            allocationFactory.build({
+              allocationStartDate: addDays(new Date(), -3).toString(),
+            }),
+          ],
         }),
         revalidate: jest.fn(),
         mutate: jest.fn(),
@@ -56,6 +61,37 @@ describe('TeamWorkerList component', () => {
     );
 
     fireEvent.click(screen.getByTestId(`expand_1`));
-    expect(screen.queryByText(`Allocated residents`)).toBeInTheDocument();
+    expect(screen.queryByText(`Allocated to worker`)).toBeInTheDocument();
+  });
+
+  it('make sure to display the date difference correctly', async () => {
+    jest
+      .spyOn(teamWorkersAPI, 'useAllocationsByWorker')
+      .mockImplementation(() => ({
+        data: workerAllocationFactory.build({
+          allocations: [
+            allocationFactory.build({
+              allocationStartDate: addDays(new Date(), -3).toString(),
+            }),
+          ],
+        }),
+        revalidate: jest.fn(),
+        mutate: jest.fn(),
+        isValidating: false,
+      }));
+
+    render(
+      <TeamWorkerList
+        users={[
+          mockedTeamWorkerFactory.build({
+            id: 1,
+          }),
+        ]}
+      />
+    );
+
+    fireEvent.click(screen.getByTestId(`expand_1`));
+    expect(screen.queryByText(`Allocated to worker`)).toBeInTheDocument();
+    expect(screen.getByText(/3 days ago/i)).toBeInTheDocument();
   });
 });
