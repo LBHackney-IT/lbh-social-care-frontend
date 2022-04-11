@@ -71,7 +71,7 @@ const TeamLayout = ({ team, children }: Props): React.ReactElement => {
       <div className="govuk-tabs lbh-tabs">
         <ul className={s.tabList}>
           <li
-            key={'fdsafdsa'}
+            key={'waitinglist'}
             className={cx('lbh-body', s.tab, {
               [s.active]: !(
                 pathname.includes('active') || pathname.includes('members')
@@ -85,7 +85,7 @@ const TeamLayout = ({ team, children }: Props): React.ReactElement => {
             </Link>
           </li>
           <li
-            key={'fdsafdsa'}
+            key={'active'}
             className={cx('lbh-body', s.tab, {
               [s.active]: pathname.includes('active'),
             })}
@@ -98,7 +98,7 @@ const TeamLayout = ({ team, children }: Props): React.ReactElement => {
           </li>
 
           <li
-            key={'fdsafdsa'}
+            key={'members'}
             className={cx('lbh-body', s.tab, {
               [s.active]: pathname.includes('members'),
             })}
