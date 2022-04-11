@@ -20,7 +20,7 @@ exports[`DashboardWrapper should render properly 1`] = `
                 class="lbh-link lbh-link--no-visited-state navLink"
                 href="/"
               >
-                Allocations
+                My work
               </a>
             </li>
             <li>
@@ -29,14 +29,6 @@ exports[`DashboardWrapper should render properly 1`] = `
                 href="/teams"
               >
                 Teams
-              </a>
-            </li>
-            <li>
-              <a
-                class="lbh-link lbh-link--no-visited-state navLink"
-                href="/my-work"
-              >
-                My work
               </a>
             </li>
             <li>
