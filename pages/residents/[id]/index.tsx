@@ -51,10 +51,6 @@ const ResidentPage = ({ resident }: Props): React.ReactElement => {
 
   // This combines all the full ethnicity objects into one array and orders it alphabetically by its text
   const eth = Object.values(ETHNICITIES);
-  console.log(
-    eth.flat().sort((a, b) => (a.text > b.text ? 1 : b.text > a.text ? -1 : 0))
-  );
-
   const canManage = user && canManageCases(user, resident);
 
   const cases = casesData?.[0].cases.slice(0, 3); // only the first three cases
@@ -282,7 +278,7 @@ const ResidentPage = ({ resident }: Props): React.ReactElement => {
             label: 'Restricted?',
             showInSummary: true,
             beforeDisplay: (val) => (val === 'Y' ? 'Yes' : 'No'),
-            readOnly: canManage,
+            readOnly: !canManage,
             name: 'restricted',
             options: [
               {

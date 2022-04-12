@@ -16,7 +16,6 @@ import useWorkflows from 'hooks/useWorkflows';
 import { mockedUser } from 'factories/users';
 import { AppConfigProvider } from 'lib/appConfig';
 import { useRouter } from 'next/router';
-import { getResident } from 'lib/residents';
 import { useResident } from 'utils/api/residents';
 
 jest.mock('next/router');
@@ -48,9 +47,6 @@ jest.mock('utils/api/allocatedWorkers');
 
 jest.mock('hooks/useWorkflows');
 (useWorkflows as jest.Mock).mockReturnValue({ data: [] });
-
-jest.mock('lib/residents');
-(getResident as jest.Mock).mockReturnValue({ data: mockedResident });
 
 jest.mock('utils/api/residents');
 (useResident as jest.Mock).mockReturnValue({
