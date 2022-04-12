@@ -23,7 +23,7 @@ import useWorkflows from 'hooks/useWorkflows';
 import WorkflowOverview from 'components/ResidentPage/WorkflowOverview';
 import CustomPhoneNumberEditor from 'components/ResidentPage/CustomPhoneNumberEditor';
 import CustomAddressEditor from 'components/ResidentPage/CustomAddressEditor';
-import ETHNICITIES, { simpleEthnicities } from 'data/ethnicities';
+import ETHNICITIES from 'data/ethnicities';
 import CustomKeyContactsEditor from 'components/ResidentPage/CustomKeyContactsEditor';
 import CustomGPDetailsEditor from 'components/ResidentPage/CustomGPDetailsEditor';
 import { useTeams } from 'utils/api/allocatedWorkers';
@@ -230,10 +230,15 @@ const ResidentPage = ({ resident }: Props): React.ReactElement => {
                 label: 'Not known',
               },
             ].concat(
-              simpleEthnicities.sort().map((eth) => ({
-                label: eth,
-                value: eth,
-              }))
+              eth
+                .flat()
+                .sort((a, b) =>
+                  a.text > b.text ? 1 : b.text > a.text ? -1 : 0
+                )
+                .map((eth) => ({
+                  label: eth.text,
+                  value: eth.value,
+                }))
             ),
           },
           {
