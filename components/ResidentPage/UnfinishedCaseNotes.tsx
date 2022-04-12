@@ -5,7 +5,7 @@ import { generateSubmissionUrl } from '../../lib/submissions';
 import Link from 'next/link';
 import { formatDate } from '../../utils/date';
 import { useWorker } from '../../utils/api/workers';
-import {prettyWorkerName} from "../../lib/formatters";
+import { prettyWorkerName } from '../../lib/formatters';
 
 interface Props {
   socialCareId: number;

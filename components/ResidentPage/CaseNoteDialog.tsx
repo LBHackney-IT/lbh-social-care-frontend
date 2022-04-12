@@ -61,7 +61,7 @@ const PrettyValue = ({ value }: { value: string }): React.ReactElement =>
   value.toString().startsWith('https://') ? (
     <a href={value}>{value}</a>
   ) : (
-    <>{JSON.stringify(value).replace(/"/g, '')}</>
+    <>{tidyText(JSON.stringify(value))}</>
   );
 
 const HistoricCaseContent = ({ recordId }: HistoricContentProps) => {
