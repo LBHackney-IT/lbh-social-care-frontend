@@ -49,7 +49,7 @@ const UnfinishedCaseNotes = ({
   return null;
 };
 
-const Submission = ({ submission }) => {
+export const Submission = ({ submission }): React.ReactElement => {
   const { data } = useWorker({
     email: submission.createdBy.email || '',
   });
