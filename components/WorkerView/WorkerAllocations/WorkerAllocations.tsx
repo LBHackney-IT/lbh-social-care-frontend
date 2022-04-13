@@ -57,11 +57,9 @@ export const WorkerAllocations = ({
       {residentLine}
       <div className={s.rowDescription}>
         <span className={s.workerAllocation}>
-          <b>Worker allocation:</b>
+          <b>Date allocated:</b>
           <span data-testid="dateSpan" className={s.elementValue}>
-            {' '}
-            {allocation.allocatedWorker}
-            {' on '}
+            {'  '}
             {allocationDate.toLocaleDateString()}
             {' ('}
             {isToday(allocationDate)
