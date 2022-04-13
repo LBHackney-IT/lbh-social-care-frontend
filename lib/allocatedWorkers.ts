@@ -20,7 +20,7 @@ export const getAllocations = async (
 ): Promise<AllocationData> => {
   const urlParameters = {
     sort_by: sort_by ? sort_by : 'rag_rating',
-    status: showOnlyOpen ? 'open' : 'all',
+    status: showOnlyOpen ? 'open' : 'closed',
   };
 
   const { data } = await axios.get(
