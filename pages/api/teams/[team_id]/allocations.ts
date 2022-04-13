@@ -1,11 +1,9 @@
 import { StatusCodes } from 'http-status-codes';
 
+import { getAllocationsByTeam } from 'lib/allocatedWorkers';
 import { isAuthorised } from 'utils/auth';
-import { getWorker } from 'lib/workers';
-import { getAllocationsByWorker } from 'lib/allocatedWorkers';
 
 import type { NextApiRequest, NextApiResponse, NextApiHandler } from 'next';
-
 import { AxiosError } from 'axios';
 import { apiHandler } from 'lib/apiHandler';
 
@@ -23,36 +21,20 @@ const endpoint: NextApiHandler = async (
   switch (req.method) {
     case 'GET':
       try {
-        const workersData = getWorker(parseInt(req.query.id as string, 10), {
-          context_flag: user.permissionFlag,
-        });
-        const allocationsData = getAllocationsByWorker(
-          parseInt(req.query.id as string, 10),
-          req.query.sort_by as string,
-          {
-            context_flag: user.permissionFlag,
-          }
-        );
-
-        const [workers, allocations] = await Promise.all([
-          workersData,
-          allocationsData,
-        ]);
-        const data = { ...workers, ...allocations };
-
+        const data = await getAllocationsByTeam(req.query);
         res.status(StatusCodes.OK).json(data);
       } catch (error) {
-        console.log(
-          'Allocation Worker get error:',
+        console.error(
+          'Allocations get error:',
           (error as AxiosError)?.response?.data
         );
         (error as AxiosError)?.response?.status === StatusCodes.NOT_FOUND
           ? res
               .status(StatusCodes.NOT_FOUND)
-              .json({ message: 'Allocation Worker Not Found' })
+              .json({ message: 'Allocations Not Found' })
           : res
               .status(StatusCodes.INTERNAL_SERVER_ERROR)
-              .json({ message: 'Unable to get the Allocation Worker' });
+              .json({ message: 'Unable to get the allocations' });
       }
       break;
 
@@ -60,7 +42,6 @@ const endpoint: NextApiHandler = async (
       res
         .status(StatusCodes.BAD_REQUEST)
         .json({ message: 'Invalid request method' });
-      console.log(res.status);
   }
 };
 
