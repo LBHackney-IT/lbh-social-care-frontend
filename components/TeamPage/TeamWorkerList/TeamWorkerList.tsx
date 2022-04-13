@@ -43,8 +43,8 @@ const TeamMemberAllocations = ({ user }: TeamMemberProps) => {
           </thead>
           <tbody className="govuk-table__body">
             {data?.allocations.map((allocation: Allocation) => (
-              <>
-                <td key={allocation.id} className="govuk-table__cell">
+              <tr key={allocation.id} className="govuk-table__row">
+                <td className="govuk-table__cell">
                   <Link href={`/residents/${allocation.personId}/allocations`}>
                     {allocation.personName}
                   </Link>
@@ -59,7 +59,7 @@ const TeamMemberAllocations = ({ user }: TeamMemberProps) => {
                   )}
                   {' )'}
                 </td>
-              </>
+              </tr>
             ))}
           </tbody>
         </table>
