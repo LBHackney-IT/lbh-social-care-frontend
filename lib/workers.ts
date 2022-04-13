@@ -4,6 +4,7 @@ import { Worker } from 'types';
 
 const ENDPOINT_API = process.env.ENDPOINT_API;
 const AWS_KEY = process.env.AWS_KEY;
+import { getQueryString } from 'utils/urls';
 
 const headers = {
   'x-api-key': AWS_KEY,
@@ -12,9 +13,12 @@ const headers = {
 export const getWorkers = async (
   params?: Record<string, unknown>
 ): Promise<Worker[]> => {
-  const { data } = await axios.get(`${ENDPOINT_API}/workers`, {
+  const urlParameters = getQueryString({
+    ...params,
+  });
+
+  const { data } = await axios.get(`${ENDPOINT_API}/workers?${urlParameters}`, {
     headers,
-    params,
   });
   return data;
 };

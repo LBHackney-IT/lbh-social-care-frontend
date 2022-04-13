@@ -10,6 +10,7 @@ describe('CaseOpennessTag', () => {
         resident={mockedResident}
         allocations={{
           allocations: mockedAllocations,
+          totalCount: mockedAllocations.length,
         }}
       />
     );
@@ -25,6 +26,7 @@ describe('CaseOpennessTag', () => {
         }}
         allocations={{
           allocations: [],
+          totalCount: mockedAllocations.length,
         }}
       />
     );
@@ -37,6 +39,7 @@ describe('CaseOpennessTag', () => {
         resident={mockedResident}
         allocations={{
           allocations: [],
+          totalCount: mockedAllocations.length,
         }}
       />
     );

@@ -67,7 +67,7 @@ describe(`AddAllocation`, () => {
   jest
     .spyOn(allocatedWorkerAPI, 'useAllocatedWorkers')
     .mockImplementation(() => ({
-      data: { allocations: [allocationFactory.build()] },
+      data: { allocations: [allocationFactory.build()], totalCount: 1 },
       revalidate: jest.fn(),
       mutate: jest.fn(),
       isValidating: false,
