@@ -41,7 +41,7 @@ export const TeamAllocation = ({
         </span>
       )}
       <span className={s.residentName}>
-        <Link href={`/residents/${allocation.personId}`}>
+        <Link href={`/residents/${allocation.personId}/allocations`}>
           <a
             className={classNames('lbh-link lbh-link--no-visited-state')}
             style={{ textDecoration: 'none' }}
