@@ -8,7 +8,7 @@ import { getRatingCSSColour } from 'components/PriorityRating/PriorityRating';
 import { capitalize } from 'lib/formatters';
 import classNames from 'classnames';
 import Link from 'next/link';
-import { formatDistance, subDays } from 'date-fns';
+import { formatDistance, isToday } from 'date-fns';
 
 interface WorkerAllocationssListProps {
   workerId: number;
@@ -50,6 +50,8 @@ export const WorkerAllocations = ({
     </>
   );
 
+  const allocationDate = new Date(allocation.allocationStartDate);
+
   return (
     <>
       {residentLine}
@@ -60,13 +62,11 @@ export const WorkerAllocations = ({
             {' '}
             {allocation.allocatedWorker}
             {' on '}
-            {new Date(allocation.allocationStartDate).toLocaleDateString()}
+            {allocationDate.toLocaleDateString()}
             {' ('}
-            {formatDistance(
-              subDays(new Date(allocation.allocationStartDate), 0),
-              new Date(),
-              { addSuffix: true }
-            )}
+            {isToday(allocationDate)
+              ? 'Today'
+              : formatDistance(allocationDate, new Date(), { addSuffix: true })}
             {') '}
           </span>
         </span>
