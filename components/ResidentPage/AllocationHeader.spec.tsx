@@ -70,7 +70,7 @@ describe('CaseNoteDialog', () => {
       />
     );
     expect(screen.getByTestId('allocationHeader')).toHaveTextContent(
-      'Allocated to Jon Doe and 2 other'
+      'Allocated to Jon Doe and 2 others'
     );
     expect(screen.getByTestId('allocationLink')).toBeInTheDocument();
   });
@@ -124,7 +124,7 @@ describe('CaseNoteDialog', () => {
       />
     );
     expect(screen.getByTestId('allocationHeader')).toHaveTextContent(
-      'Allocated to Jon Doe (The Best Team) and 2 other'
+      'Allocated to Jon Doe (The Best Team) and 2 others'
     );
     expect(screen.getByTestId('teamLink')).toBeInTheDocument();
     expect(screen.getByTestId('allocationLink')).toBeInTheDocument();
@@ -143,7 +143,7 @@ describe('CaseNoteDialog', () => {
       />
     );
     expect(screen.getByTestId('allocationHeader')).toHaveTextContent(
-      'Allocated to The Best Team and 2 other'
+      'Allocated to The Best Team and 2 others'
     );
     expect(screen.getByTestId('teamLink')).toBeInTheDocument();
     expect(screen.getByTestId('allocationLink')).toBeInTheDocument();
