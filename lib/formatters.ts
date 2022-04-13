@@ -95,11 +95,8 @@ export const tidyText = (inputText: string): string =>
     .replace(/\\r/gm, '')
     .replace(/\\\\n/gm, '')
     .replace(/\\n/gm, '')
-    .replace(/\r\n/gm, '')
-    .replace(/\n/gm, '')
     .replace(/\\\\t/gm, '')
     .replace(/\\t/gm, '')
-    .replace(/\t/gm, '')
-    .replace(/&nbsp;/gm, '')
+    .replace(/&nbsp;/gm, ' ')
     .replace(/&amp;/gm, '&')
     .replace(/&rsquo;/gm, "'");
