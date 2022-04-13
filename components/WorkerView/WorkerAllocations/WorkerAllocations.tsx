@@ -21,6 +21,8 @@ interface WorkerAllocationsProps {
 export const WorkerAllocations = ({
   allocation,
 }: WorkerAllocationsProps): React.ReactElement => {
+  if (!allocation.ragRating) allocation.ragRating = 'none';
+
   const color = getRatingCSSColour(allocation.ragRating.toLowerCase());
   const style = { backgroundColor: color, color: 'white' };
   if (allocation.ragRating == 'medium') {

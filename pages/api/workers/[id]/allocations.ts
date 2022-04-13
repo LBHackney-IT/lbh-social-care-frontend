@@ -28,6 +28,7 @@ const endpoint: NextApiHandler = async (
         });
         const allocationsData = getAllocationsByWorker(
           parseInt(req.query.id as string, 10),
+          req.query.sort_by as string,
           {
             context_flag: user.permissionFlag,
           }

@@ -15,10 +15,16 @@ interface AllocationsParams {
 
 export const getAllocations = async (
   params: AllocationsParams,
-  showOnlyOpen = true
+  showOnlyOpen = true,
+  sort_by?: string
 ): Promise<AllocationData> => {
+  const urlParameters = {
+    sort_by: sort_by ? sort_by : 'rag_rating',
+    status: showOnlyOpen ? 'open' : 'all',
+  };
+
   const { data } = await axios.get(
-    `${ENDPOINT_API}/allocations${showOnlyOpen && '?status=open'}`,
+    `${ENDPOINT_API}/allocations?${getQueryString(urlParameters)}`,
     {
       headers: { 'x-api-key': AWS_KEY },
       params,
@@ -43,8 +49,10 @@ export const getResidentAllocation = async (
 };
 export const getAllocationsByWorker = async (
   worker_id: number,
+  sort_by?: string,
   params?: AllocationsParams
-): Promise<AllocationData> => getAllocations({ worker_id, ...params });
+): Promise<AllocationData> =>
+  getAllocations({ worker_id, ...params }, true, sort_by);
 
 export const getAllocationsByTeam = async (
   params: AllocationsParams
