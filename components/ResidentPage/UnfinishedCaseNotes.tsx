@@ -46,7 +46,11 @@ const UnfinishedCaseNotes = ({
         </Dialog>
       </>
     );
-  return null;
+  return (
+    <>
+      <p>There are no unfinished case notes for this resident</p>
+    </>
+  );
 };
 
 export const Submission = ({ submission }): React.ReactElement => {
