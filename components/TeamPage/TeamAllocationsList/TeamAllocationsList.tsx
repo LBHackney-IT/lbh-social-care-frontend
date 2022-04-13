@@ -8,7 +8,7 @@ import { getRatingCSSColour } from 'components/PriorityRating/PriorityRating';
 import { capitalize } from 'lib/formatters';
 import classNames from 'classnames';
 import Link from 'next/link';
-import { formatDistance, subDays } from 'date-fns';
+import { formatDistance, isToday } from 'date-fns';
 
 interface TeamAllocationsListProps {
   teamId: number;
@@ -41,7 +41,7 @@ export const TeamAllocation = ({
         </span>
       )}
       <span className={s.residentName}>
-        <Link href={`/residents/${allocation.personId}`}>
+        <Link href={`/residents/${allocation.personId}/allocations`}>
           <a
             className={classNames('lbh-link lbh-link--no-visited-state')}
             style={{ textDecoration: 'none' }}
@@ -54,6 +54,8 @@ export const TeamAllocation = ({
     </>
   );
 
+  const allocationDate = new Date(allocation.allocationStartDate);
+
   const elm =
     type == 'unallocated' ? (
       <>
@@ -63,7 +65,7 @@ export const TeamAllocation = ({
             <b>Added to waitlist:</b>
             <span className={s.elementValue}>
               {' '}
-              {new Date(allocation.allocationStartDate).toLocaleDateString()}
+              {allocationDate.toLocaleDateString()}
             </span>
           </span>
         </div>
@@ -78,13 +80,13 @@ export const TeamAllocation = ({
               {' '}
               {allocation.allocatedWorker}
               {' on '}
-              {new Date(allocation.allocationStartDate).toLocaleDateString()}
+              {allocationDate.toLocaleDateString()}
               {' ('}
-              {formatDistance(
-                subDays(new Date(allocation.allocationStartDate), 0),
-                new Date(),
-                { addSuffix: true }
-              )}
+              {isToday(allocationDate)
+                ? 'Today'
+                : formatDistance(allocationDate, new Date(), {
+                    addSuffix: true,
+                  })}
               {') '}
             </span>
           </span>

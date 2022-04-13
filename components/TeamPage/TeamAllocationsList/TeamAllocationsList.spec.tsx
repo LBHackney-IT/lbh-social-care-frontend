@@ -163,4 +163,29 @@ describe('TeamAllocationsList component', () => {
 
     expect(getByText(/3 days ago/i)).toBeInTheDocument();
   });
+  it('displays (Today) if the date difference is 0', async () => {
+    jest
+      .spyOn(teamWorkersAPI, 'useAllocationsByTeam')
+      .mockImplementation(() => {
+        const response = {
+          data: [
+            workerAllocationFactory.build({
+              allocations: [
+                allocationFactory.build({
+                  allocationStartDate: new Date().toString(),
+                }),
+              ],
+            }),
+          ],
+        } as unknown as SWRInfiniteResponse<AllocationData, Error>;
+
+        return response;
+      });
+
+    const { getByText } = render(
+      <TeamAllocationsList teamId={123} type="allocated" />
+    );
+
+    expect(getByText(/Today/i)).toBeInTheDocument();
+  });
 });
