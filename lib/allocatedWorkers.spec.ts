@@ -17,7 +17,7 @@ describe('allocatedWorkersAPI', () => {
       const data = await allocatedWorkersAPI.getResidentAllocatedWorkers(123);
       expect(mockedAxios.get).toHaveBeenCalled();
       expect(mockedAxios.get.mock.calls[0][0]).toEqual(
-        `${ENDPOINT_API}/allocations?status=open`
+        `${ENDPOINT_API}/allocations?sort_by=rag_rating&status=open`
       );
       expect(mockedAxios.get.mock.calls[0][1]?.headers).toEqual({
         'x-api-key': AWS_KEY,
@@ -148,13 +148,54 @@ describe('allocatedWorkersAPI', () => {
       const data = await allocatedWorkersAPI.getAllocationsByWorker(123);
       expect(mockedAxios.get).toHaveBeenCalled();
       expect(mockedAxios.get.mock.calls[0][0]).toEqual(
-        `${ENDPOINT_API}/allocations?status=open`
+        `${ENDPOINT_API}/allocations?sort_by=rag_rating&status=open`
       );
       expect(mockedAxios.get.mock.calls[0][1]?.headers).toEqual({
         'x-api-key': AWS_KEY,
       });
       expect(mockedAxios.get.mock.calls[0][1]?.params).toEqual({
         worker_id: 123,
+      });
+      expect(data).toEqual({ allocations: ['foo'] });
+    });
+    it('should send ragRating properly', async () => {
+      mockedAxios.get.mockResolvedValue({
+        data: { allocations: ['foo'] },
+      });
+      const data = await allocatedWorkersAPI.getAllocationsByWorker(
+        123,
+        'date_added'
+      );
+      expect(mockedAxios.get).toHaveBeenCalled();
+      expect(mockedAxios.get.mock.calls[0][0]).toEqual(
+        `${ENDPOINT_API}/allocations?sort_by=date_added&status=open`
+      );
+      expect(mockedAxios.get.mock.calls[0][1]?.headers).toEqual({
+        'x-api-key': AWS_KEY,
+      });
+      expect(mockedAxios.get.mock.calls[0][1]?.params).toEqual({
+        worker_id: 123,
+      });
+      expect(data).toEqual({ allocations: ['foo'] });
+    });
+  });
+  describe('getAllocationsByTeam', () => {
+    it('should work properly', async () => {
+      mockedAxios.get.mockResolvedValue({
+        data: { allocations: ['foo'] },
+      });
+      const data = await allocatedWorkersAPI.getAllocationsByTeam({
+        team_id: 123,
+        sort_by: 'rag_rating',
+        status: 'open',
+        team_allocation_status: 'unallocated',
+      });
+      expect(mockedAxios.get).toHaveBeenCalled();
+      expect(mockedAxios.get.mock.calls[0][0]).toEqual(
+        `${ENDPOINT_API}/allocations?team_id=123&sort_by=rag_rating&status=open&team_allocation_status=unallocated&showOnlyOpen=true`
+      );
+      expect(mockedAxios.get.mock.calls[0][1]?.headers).toEqual({
+        'x-api-key': AWS_KEY,
       });
       expect(data).toEqual({ allocations: ['foo'] });
     });

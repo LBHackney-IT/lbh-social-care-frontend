@@ -2,6 +2,7 @@ import axios from 'axios';
 import * as yup from 'yup';
 
 import type { Allocation, AllocationData } from 'types';
+import { getQueryString } from 'utils/urls';
 
 const ENDPOINT_API = process.env.ENDPOINT_API;
 const AWS_KEY = process.env.AWS_KEY;
@@ -14,10 +15,16 @@ interface AllocationsParams {
 
 export const getAllocations = async (
   params: AllocationsParams,
-  showOnlyOpen = true
+  showOnlyOpen = true,
+  sort_by?: string
 ): Promise<AllocationData> => {
+  const urlParameters = {
+    sort_by: sort_by ? sort_by : 'rag_rating',
+    status: showOnlyOpen ? 'open' : 'closed',
+  };
+
   const { data } = await axios.get(
-    `${ENDPOINT_API}/allocations${showOnlyOpen && '?status=open'}`,
+    `${ENDPOINT_API}/allocations?${getQueryString(urlParameters)}`,
     {
       headers: { 'x-api-key': AWS_KEY },
       params,
@@ -42,8 +49,28 @@ export const getResidentAllocation = async (
 };
 export const getAllocationsByWorker = async (
   worker_id: number,
+  sort_by?: string,
   params?: AllocationsParams
-): Promise<AllocationData> => getAllocations({ worker_id, ...params });
+): Promise<AllocationData> =>
+  getAllocations({ worker_id, ...params }, true, sort_by);
+
+export const getAllocationsByTeam = async (
+  params: AllocationsParams
+): Promise<AllocationData> => {
+  const urlParameters = getQueryString({
+    ...params,
+    showOnlyOpen: true,
+  });
+
+  const { data } = await axios.get(
+    `${ENDPOINT_API}/allocations?${urlParameters}`,
+    {
+      headers: { 'x-api-key': AWS_KEY },
+      params,
+    }
+  );
+  return data;
+};
 
 const deleteAllocationSchema = yup.object({
   id: yup.number().required().positive().integer(),
