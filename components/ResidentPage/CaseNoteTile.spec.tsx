@@ -17,7 +17,7 @@ jest.mock('utils/api/submissions');
     id: mockedCaseNote.recordId,
     formAnswers: {
       singleStep: {
-        Body: 't&nbsp;\\t\\r\\n\\r\\n&nbsp;&nbsp;&nbsp;wo',
+        Body: 't\\t\\r\\n\\r\\nwo',
       },
     },
   },
@@ -45,10 +45,6 @@ describe('CaseNoteTile', () => {
       <CaseNoteTile
         c={{
           ...mockedCaseNote,
-          // caseFormData: {
-          //   ...mockedCaseNote.caseFormData,
-          //   note: '&nbsp;\\t\\r\\n\\r\\n&nbsp;&nbsp;&nbsp;I am the \r\n\r\n\tnote',
-          // },
           formType: 'flexible-form',
         }}
       />

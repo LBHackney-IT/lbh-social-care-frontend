@@ -33,7 +33,7 @@ jest.mock('utils/api/submissions');
     id: mockedCaseNote.recordId,
     formAnswers: {
       foo: {
-        one: 't&nbsp;\\t\\r\\n\\r\\n&nbsp;&nbsp;&nbsp;wo',
+        one: 't\\t\\r\\n\\r\\nwo',
         three: '\r\n\r\n\tfour',
       },
     },
