@@ -60,13 +60,18 @@ const TeamLayout = ({ team, children }: Props): React.ReactElement => {
     <div className="govuk-breadcrumbs lbh-breadcrumbs lbh-container">
       <ol className="govuk-breadcrumbs__list">
         <li className="govuk-breadcrumbs__list-item">
-          <a className="govuk-breadcrumbs__link" href="/teams">
+          <a
+            className={`lbh-link lbh-link--no-visited-state ${s.link}`}
+            href="/teams"
+          >
             Teams
           </a>
         </li>
         <li className="govuk-breadcrumbs__list-item">{team.name}</li>
       </ol>
-      <h1 className="govuk-!-margin-top-1">{team.name}</h1>
+      <h1 className="govuk-!-margin-top-1 govuk-!-margin-bottom-7">
+        {team.name}
+      </h1>
 
       <div className="govuk-tabs lbh-tabs">
         <ul className={s.tabList}>
