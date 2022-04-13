@@ -30,9 +30,13 @@ const endpoint: NextApiHandler = async (
             .status(StatusCodes.NOT_FOUND)
             .json({ message: 'User Not Found' });
         }
-        const allocations = await getAllocationsByWorker(workerData.id, {
-          context_flag: user.permissionFlag,
-        });
+        const allocations = await getAllocationsByWorker(
+          workerData.id,
+          req.query.sort_by as string,
+          {
+            context_flag: user.permissionFlag,
+          }
+        );
         res
           .status(StatusCodes.OK)
           .json({ ...workerData, ...allocations, auth: user });
