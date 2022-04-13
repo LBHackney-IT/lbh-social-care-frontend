@@ -58,12 +58,14 @@ export const Submission = ({ submission }): React.ReactElement => {
     email: submission.createdBy.email || '',
   });
   const worker = data?.[0];
+  const link = generateSubmissionUrl(submission);
+  const linkText =
+    (worker ? prettyWorkerName(worker) : submission.createdBy.email) +
+    ' at ' +
+    formatDate(submission.createdAt);
   return (
     <li key={submission.submissionId}>
-      <Link href={generateSubmissionUrl(submission)}>
-        {worker ? prettyWorkerName(worker) : submission.createdBy.email} at
-        {formatDate(submission.createdAt)}
-      </Link>
+      <Link href={link}>{linkText}</Link>
     </li>
   );
 };

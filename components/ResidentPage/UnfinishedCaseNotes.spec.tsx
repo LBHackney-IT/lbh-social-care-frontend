@@ -27,7 +27,7 @@ jest.mock('../../utils/api/submissions');
 
 jest.mock('../../utils/api/workers');
 (useWorker as jest.Mock).mockReturnValue({
-  data: mockedWorker,
+  data: [mockedWorker],
 });
 
 describe('<UnfinishedCaseNotes/>', () => {
