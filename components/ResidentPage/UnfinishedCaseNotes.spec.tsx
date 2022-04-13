@@ -59,8 +59,19 @@ describe('<UnfinishedCaseNotes/>', () => {
     expect(screen.getAllByText('Foo Bar at 21 Jun 2021'));
   });
 
-  it('presents unfinished case notes as a valid link', () => {
+  it('presents unfinished case notes as a valid link', async () => {
     render(<UnfinishedCaseNotes socialCareId={12345} />);
+    await waitFor(() => {
+      fireEvent.click(screen.getByText('2 unfinished case notes'));
+    });
+
+    expect(
+      (screen.getAllByRole('link')[0] as HTMLAnchorElement).href
+    ).toContain('/submissions/123');
+
+    expect(
+      (screen.getAllByRole('link')[1] as HTMLAnchorElement).href
+    ).toContain('/submissions/124');
   });
 });
 
