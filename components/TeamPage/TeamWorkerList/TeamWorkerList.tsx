@@ -114,7 +114,7 @@ interface Props {
 }
 
 const TeamWorkerList = ({ users }: Props): React.ReactElement => (
-  <ul className="lbh-list">
+  <ul className="lbh-list govuk-!-margin-top-3">
     {users?.map((user) => (
       <TeamMember user={user} key={user.id} />
     ))}

@@ -25,7 +25,7 @@ describe('WorkerAllocations component', () => {
     const { queryByText } = render(<WorkerAllocations workerId={123} />);
 
     expect(queryByText('Medium')).toBeInTheDocument();
-    expect(queryByText('Worker allocation:')).toBeInTheDocument();
+    expect(queryByText('Date allocated:')).toBeInTheDocument();
     expect(queryByText('foo')).toBeInTheDocument();
   });
   it('displays the sorting element correctly', async () => {
