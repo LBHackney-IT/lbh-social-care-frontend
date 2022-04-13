@@ -55,6 +55,8 @@ describe('<UnfinishedCaseNotes/>', () => {
     await waitFor(() => {
       fireEvent.click(screen.getByText('2 unfinished case notes'));
     });
+    expect(screen.getByText('Unfinished case notes'));
+    expect(screen.getAllByText('Foo Bar at 21 Jun 2021'));
   });
 
   it('presents unfinished case notes as a valid link', () => {
