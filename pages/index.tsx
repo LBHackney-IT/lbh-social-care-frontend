@@ -16,7 +16,7 @@ const MyCasesPage = ({ email }: Props): React.ReactElement => {
     email: email,
   });
 
-  if (!workers || workers == null) {
+  if (!workers) {
     <Spinner />;
   }
 
@@ -30,8 +30,10 @@ const MyCasesPage = ({ email }: Props): React.ReactElement => {
       <DashboardWrapper>
         <>
           <h1>My work</h1>
-          {workers && workers?.length > 0 && (
+          {workers && workers?.length > 0 ? (
             <WorkerAllocations workerId={workers[0].id} />
+          ) : (
+            'Nothing to display here - The logged user is not a worker'
           )}
         </>
       </DashboardWrapper>
