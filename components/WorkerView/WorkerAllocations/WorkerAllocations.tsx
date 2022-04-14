@@ -8,6 +8,7 @@ import { getRatingCSSColour } from 'components/PriorityRating/PriorityRating';
 import { capitalize } from 'lib/formatters';
 import classNames from 'classnames';
 import Link from 'next/link';
+import Spinner from 'components/Spinner/Spinner';
 import { formatDistance, isToday } from 'date-fns';
 
 interface WorkerAllocationssListProps {
@@ -84,6 +85,10 @@ const WorkerAllocationssList = ({
       sort_by: sortBy,
     }
   );
+
+  if (!allocatedWorkerData) {
+    return <Spinner />;
+  }
 
   if (error) {
     return (
