@@ -5,13 +5,10 @@ import s from './Layout.module.scss';
 import { useAllocatedWorkers } from 'utils/api/allocatedWorkers';
 import AddFormDialog from 'components/AddFormDialog/AddFormDialog';
 import { useState } from 'react';
-import {
-  prettyAddress,
-  prettyResidentName,
-  summariseAllocations,
-} from 'lib/formatters';
+import { prettyAddress, prettyResidentName } from 'lib/formatters';
 import ActivityTimeline from './ActivityTimeline';
 import NavLink from './NavLink';
+import AllocationHeader from './AllocationHeader';
 import Tip from 'components/Tip/Tip';
 import StatusTags from './StatusTags';
 import WarningNotes from './WarningNotes';
@@ -91,7 +88,9 @@ const Layout = ({ title, resident, children }: Props): React.ReactElement => {
 
           {allocations?.allocations && (
             <p className="lbh-body-xs">
-              {summariseAllocations(allocations.allocations)}
+              {allocations.allocations.length > 0 && (
+                <AllocationHeader allocations={allocations.allocations} />
+              )}
               {resident.allocatedTeam && ` · ${resident.allocatedTeam}`}
             </p>
           )}

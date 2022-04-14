@@ -28,11 +28,11 @@ const NavLink = ({ href, children }: NavLinkProps) => {
 };
 
 const navigation: { text: string; href: string }[] = [
+  { text: 'My work', href: '/' },
   {
-    text: `Allocations`,
-    href: `/`,
+    text: `Teams`,
+    href: `/teams`,
   },
-  { text: 'My work', href: '/my-work' },
 ];
 
 interface Props {

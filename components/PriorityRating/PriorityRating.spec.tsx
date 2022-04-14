@@ -2,6 +2,7 @@ import { render, screen } from '@testing-library/react';
 import PriorityRating, {
   getRatingString,
   getRatingColour,
+  getRatingCSSColour,
 } from './PriorityRating';
 import {
   mockedAllocation,
@@ -20,12 +21,19 @@ describe('PriorityRating', () => {
     expect(screen.getByText('Edit')).toBeInTheDocument();
   });
 
-  it('properly convert ragRatings to CSS colours', () => {
+  it('properly convert ragRatings to string colours', () => {
     expect(getRatingColour('urgent')).toBe('purple');
     expect(getRatingColour('high')).toBe('red');
     expect(getRatingColour('medium')).toBe('orange');
     expect(getRatingColour('low')).toBe('green');
     expect(getRatingColour('none')).toBe('grey');
+  });
+  it('properly convert ragRatings to CSS colours', () => {
+    expect(getRatingCSSColour('urgent')).toBe('#8031A7');
+    expect(getRatingCSSColour('high')).toBe('#BE3A34');
+    expect(getRatingCSSColour('medium')).toBe('#FFBF47');
+    expect(getRatingCSSColour('low')).toBe('#00664F');
+    expect(getRatingCSSColour('none')).toBe('grey');
   });
 
   it('properly convert ragRatings to string', () => {

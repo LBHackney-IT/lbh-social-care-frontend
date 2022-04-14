@@ -17,13 +17,10 @@ describe('workers APIs', () => {
       });
       expect(mockedAxios.get).toHaveBeenCalled();
       expect(mockedAxios.get.mock.calls[0][0]).toEqual(
-        `${ENDPOINT_API}/workers`
+        `${ENDPOINT_API}/workers?foo=bar`
       );
       expect(mockedAxios.get.mock.calls[0][1]?.headers).toEqual({
         'x-api-key': AWS_KEY,
-      });
-      expect(mockedAxios.get.mock.calls[0][1]?.params).toEqual({
-        foo: 'bar',
       });
       expect(data).toEqual({ foo: 123, workers: 'bar' });
     });
@@ -37,13 +34,10 @@ describe('workers APIs', () => {
       const data = await workersAPI.getWorker(123);
       expect(mockedAxios.get).toHaveBeenCalled();
       expect(mockedAxios.get.mock.calls[0][0]).toEqual(
-        `${ENDPOINT_API}/workers`
+        `${ENDPOINT_API}/workers?id=123`
       );
       expect(mockedAxios.get.mock.calls[0][1]?.headers).toEqual({
         'x-api-key': AWS_KEY,
-      });
-      expect(mockedAxios.get.mock.calls[0][1]?.params).toEqual({
-        id: 123,
       });
       expect(data).toEqual({ allocations: ['foo'] });
     });

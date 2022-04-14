@@ -82,6 +82,11 @@ export const prettyWorkerName = (worker: Worker): string => {
   return worker.email;
 };
 
+export const capitalize = (str: string) => {
+  const lower = str.toLowerCase();
+  return str.charAt(0).toUpperCase() + lower.slice(1);
+};
+
 export const tidyText = (inputText: string): string =>
   inputText
     .replace(/"/g, '')
@@ -90,11 +95,8 @@ export const tidyText = (inputText: string): string =>
     .replace(/\\r/gm, '')
     .replace(/\\\\n/gm, '')
     .replace(/\\n/gm, '')
-    .replace(/\r\n/gm, '')
-    .replace(/\n/gm, '')
     .replace(/\\\\t/gm, '')
     .replace(/\\t/gm, '')
-    .replace(/\t/gm, '')
-    .replace(/&nbsp;/gm, '')
+    .replace(/&nbsp;/gm, ' ')
     .replace(/&amp;/gm, '&')
     .replace(/&rsquo;/gm, "'");

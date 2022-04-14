@@ -16,6 +16,7 @@ const Radios = ({
   children,
   required,
   rules,
+  defaultValue,
   isRadiosInline = false,
   ...otherProps
 }: Props): React.ReactElement => {
@@ -57,6 +58,7 @@ const Radios = ({
                 name={name}
                 type="radio"
                 value={value}
+                checked={defaultValue ? defaultValue == value : undefined}
                 ref={rules ? register?.(rules) : register}
                 aria-describedby={hint && `${name}-hint`}
                 {...otherProps}
