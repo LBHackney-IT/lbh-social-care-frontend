@@ -39,6 +39,9 @@ const TeamMemberAllocations = ({ user }: TeamMemberProps) => {
               <th scope="col" className="govuk-table__header">
                 Allocated to worker
               </th>
+              <th scope="col" className="govuk-table__header">
+                Allocated to team
+              </th>
             </tr>
           </thead>
           <tbody className="govuk-table__body">
@@ -58,6 +61,18 @@ const TeamMemberAllocations = ({ user }: TeamMemberProps) => {
                     { addSuffix: true }
                   )}
                   {' )'}
+                </td>
+                <td className="govuk-table__cell">
+                  {allocation.teamAllocationStartDate &&
+                    formatDate(allocation.teamAllocationStartDate)}
+                  {allocation.teamAllocationStartDate && ' ('}
+                  {allocation.teamAllocationStartDate &&
+                    formatDistance(
+                      subDays(new Date(allocation.teamAllocationStartDate), 0),
+                      new Date(),
+                      { addSuffix: true }
+                    )}
+                  {allocation.teamAllocationStartDate && ')'}
                 </td>
               </tr>
             ))}

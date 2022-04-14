@@ -74,6 +74,25 @@ export const TeamAllocation = ({
       <>
         {residentLine}
         <div className={s.rowDescription}>
+          {allocation.teamAllocationStartDate && (
+            <>
+              <span className={s.workerAllocation}>
+                <b>Team allocation: </b>
+                <span data-testid="dateSpan" className={s.elementValue}>
+                  {isToday(new Date(allocation.teamAllocationStartDate))
+                    ? 'Today'
+                    : formatDistance(
+                        new Date(allocation.teamAllocationStartDate),
+                        new Date(),
+                        {
+                          addSuffix: true,
+                        }
+                      )}
+                </span>
+              </span>
+              <br />
+            </>
+          )}
           <span className={s.workerAllocation}>
             <b>Worker allocation:</b>
             <span data-testid="dateSpan" className={s.elementValue}>

@@ -72,6 +72,7 @@ describe('TeamWorkerList component', () => {
           allocations: [
             allocationFactory.build({
               allocationStartDate: addDays(new Date(), -3).toString(),
+              teamAllocationStartDate: addDays(new Date(), -10).toISOString(),
             }),
           ],
         }),
@@ -92,6 +93,7 @@ describe('TeamWorkerList component', () => {
 
     fireEvent.click(screen.getByTestId(`expand_1`));
     expect(screen.queryByText(`Allocated to worker`)).toBeInTheDocument();
-    expect(screen.getByText(/3 days ago/i)).toBeInTheDocument();
+    expect(screen.queryByText(`Allocated to team`)).toBeInTheDocument();
+    expect(screen.getByText(/10 days ago/i)).toBeInTheDocument();
   });
 });

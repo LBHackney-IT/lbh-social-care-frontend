@@ -64,6 +64,39 @@ describe('TeamAllocationsList component', () => {
     expect(queryByText('Worker allocation:')).toBeInTheDocument();
     expect(queryByText('#1')).toBeInTheDocument();
     expect(queryByText('Foo Bar')).toBeInTheDocument();
+    expect(queryByText('Team allocation:')).not.toBeInTheDocument();
+  });
+  it('displays the active cases with team allocation date correctly', async () => {
+    jest
+      .spyOn(teamWorkersAPI, 'useAllocationsByTeam')
+      .mockImplementation(() => {
+        const response = {
+          data: [
+            workerAllocationFactory.build({
+              allocations: [
+                allocationFactory.build({
+                  allocationStartDate: addDays(new Date(), -3).toISOString(),
+                  teamAllocationStartDate: addDays(
+                    new Date(),
+                    -10
+                  ).toISOString(),
+                }),
+              ],
+            }),
+          ],
+        } as unknown as SWRInfiniteResponse<AllocationData, Error>;
+
+        return response;
+      });
+    const { queryByText } = render(
+      <TeamAllocationsList teamId={123} type="allocated" />
+    );
+
+    expect(queryByText('Medium')).toBeInTheDocument();
+    expect(queryByText('Worker allocation:')).toBeInTheDocument();
+    expect(queryByText('#1')).toBeInTheDocument();
+    expect(queryByText('Foo Bar')).toBeInTheDocument();
+    expect(queryByText('Team allocation:')).toBeInTheDocument();
   });
   it('displays the sorting element correctly', async () => {
     jest
@@ -148,6 +181,10 @@ describe('TeamAllocationsList component', () => {
               allocations: [
                 allocationFactory.build({
                   allocationStartDate: addDays(new Date(), -3).toString(),
+                  teamAllocationStartDate: addDays(
+                    new Date(),
+                    -10
+                  ).toISOString(),
                 }),
               ],
             }),
@@ -162,6 +199,7 @@ describe('TeamAllocationsList component', () => {
     );
 
     expect(getByText(/3 days ago/i)).toBeInTheDocument();
+    expect(getByText(/10 days ago/i)).toBeInTheDocument();
   });
   it('displays (Today) if the date difference is 0', async () => {
     jest
