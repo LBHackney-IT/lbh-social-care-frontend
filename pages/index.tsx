@@ -24,7 +24,7 @@ const MyCasesPage = ({ email }: Props): React.ReactElement => {
       <Seo title="My work" />
       <DashboardWrapper>
         <>
-          <h1 className="govuk-!-margin-bottom-8">My work</h1>
+          <h1>My work</h1>
           {worker ? (
             <WorkerAllocations workerId={worker.id} />
           ) : (
