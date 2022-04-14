@@ -4,19 +4,24 @@ import DashboardWrapper from 'components/Dashboard/DashboardWrapper';
 import { GetServerSideProps } from 'next';
 import { isAuthorised } from 'utils/auth';
 import { useWorker } from 'utils/api/workers';
+import Spinner from 'components/Spinner/Spinner';
+import ErrorMessage from 'components/ErrorMessage/ErrorMessage';
 
 interface Props {
   email: string;
 }
 
 const MyCasesPage = ({ email }: Props): React.ReactElement => {
-  const { data: workers } = useWorker({
+  const { data: workers, error } = useWorker({
     email: email,
   });
 
-  let worker;
-  if (workers && workers?.[0]) {
-    worker = workers[0];
+  if (!workers) {
+    <Spinner />;
+  }
+
+  if (error) {
+    return <ErrorMessage label="There was a problem getting the worker" />;
   }
 
   return (
@@ -24,11 +29,11 @@ const MyCasesPage = ({ email }: Props): React.ReactElement => {
       <Seo title="My work" />
       <DashboardWrapper>
         <>
-          <h1 className="govuk-!-margin-bottom-8">My work</h1>
-          {worker ? (
-            <WorkerAllocations workerId={worker.id} />
+          <h1>My work</h1>
+          {workers && workers?.length > 0 ? (
+            <WorkerAllocations workerId={workers[0].id} />
           ) : (
-            'Logged user is not a worker'
+            'Nothing to display here - The logged user is not a worker'
           )}
         </>
       </DashboardWrapper>

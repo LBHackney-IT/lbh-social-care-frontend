@@ -60,7 +60,7 @@ const TeamMemberAllocations = ({ user }: TeamMemberProps) => {
                     new Date(),
                     { addSuffix: true }
                   )}
-                  {' )'}
+                  {')'}
                 </td>
                 <td className="govuk-table__cell">
                   {allocation.teamAllocationStartDate &&
