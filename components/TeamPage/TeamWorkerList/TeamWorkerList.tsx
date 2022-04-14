@@ -57,7 +57,7 @@ const TeamMemberAllocations = ({ user }: TeamMemberProps) => {
                     new Date(),
                     { addSuffix: true }
                   )}
-                  {' )'}
+                  {')'}
                 </td>
               </tr>
             ))}
