@@ -74,9 +74,3 @@ describe('<UnfinishedCaseNotes/>', () => {
     ).toContain('/submissions/124');
   });
 });
-
-// describe('<Submission />', () => {
-//   it('renders normally', () => {
-//     render(<Submission socialCareId={})
-//   });
-// });
