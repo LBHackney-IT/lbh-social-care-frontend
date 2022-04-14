@@ -23,7 +23,7 @@ import useWorkflows from 'hooks/useWorkflows';
 import WorkflowOverview from 'components/ResidentPage/WorkflowOverview';
 import CustomPhoneNumberEditor from 'components/ResidentPage/CustomPhoneNumberEditor';
 import CustomAddressEditor from 'components/ResidentPage/CustomAddressEditor';
-import { simpleEthnicities } from 'data/ethnicities';
+import ETHNICITIES from 'data/ethnicities';
 import CustomKeyContactsEditor from 'components/ResidentPage/CustomKeyContactsEditor';
 import CustomGPDetailsEditor from 'components/ResidentPage/CustomGPDetailsEditor';
 import { useTeams } from 'utils/api/allocatedWorkers';
@@ -31,6 +31,7 @@ import { differenceInYears } from 'date-fns';
 import primarySupportReasons from 'data/primarySupportReasons';
 import { canManageCases } from 'lib/permissions';
 import { useAuth } from 'components/UserContext/UserContext';
+import { getEthnicityName } from '../../../utils/person';
 
 interface Props {
   resident: Resident;
@@ -48,6 +49,8 @@ const ResidentPage = ({ resident }: Props): React.ReactElement => {
   });
   const { user } = useAuth();
 
+  // This combines all the full ethnicity objects into one array and orders it alphabetically by its text
+  const eth = Object.values(ETHNICITIES);
   const canManage = user && canManageCases(user, resident);
 
   const cases = casesData?.[0].cases.slice(0, 3); // only the first three cases
@@ -215,16 +218,23 @@ const ResidentPage = ({ resident }: Props): React.ReactElement => {
           {
             label: 'Ethnicity',
             name: 'ethnicity',
+            beforeDisplay: (val) =>
+              getEthnicityName(val as string) || (val as string),
             options: [
               {
                 value: '',
                 label: 'Not known',
               },
             ].concat(
-              simpleEthnicities.sort().map((eth) => ({
-                label: eth,
-                value: eth,
-              }))
+              eth
+                .flat()
+                .sort((a, b) =>
+                  a.text > b.text ? 1 : b.text > a.text ? -1 : 0
+                )
+                .map((eth) => ({
+                  label: eth.text,
+                  value: eth.value,
+                }))
             ),
           },
           {
@@ -268,7 +278,7 @@ const ResidentPage = ({ resident }: Props): React.ReactElement => {
             label: 'Restricted?',
             showInSummary: true,
             beforeDisplay: (val) => (val === 'Y' ? 'Yes' : 'No'),
-            readOnly: canManage,
+            readOnly: !canManage,
             name: 'restricted',
             options: [
               {
