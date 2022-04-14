@@ -1,4 +1,12 @@
-import { render, screen, queryByRole } from '@testing-library/react';
+import {
+  render,
+  screen,
+  queryByRole,
+  fireEvent,
+  act,
+  within,
+  waitFor,
+} from '@testing-library/react';
 import { mockedResident } from 'factories/residents';
 import ResidentPage from 'pages/residents/[id]';
 import { useCases } from 'utils/api/cases';
@@ -8,6 +16,7 @@ import useWorkflows from 'hooks/useWorkflows';
 import { mockedUser } from 'factories/users';
 import { AppConfigProvider } from 'lib/appConfig';
 import { useRouter } from 'next/router';
+import { useResident } from 'utils/api/residents';
 
 jest.mock('next/router');
 (useRouter as jest.Mock).mockReturnValue({ asPath: '' });
@@ -39,7 +48,16 @@ jest.mock('utils/api/allocatedWorkers');
 jest.mock('hooks/useWorkflows');
 (useWorkflows as jest.Mock).mockReturnValue({ data: [] });
 
+jest.mock('utils/api/residents');
+(useResident as jest.Mock).mockReturnValue({
+  data: mockedResident,
+});
+
 describe('ResidentPage', () => {
+  beforeEach(() => {
+    jest.clearAllMocks();
+  });
+
   it('loads a sensible masthead with full name, meta and status tags', () => {
     render(
       <AppConfigProvider appConfig={{}}>
@@ -68,6 +86,9 @@ describe('ResidentPage', () => {
   });
 
   it("doesn't let normal users change restricted status", () => {
+    (useResident as jest.Mock).mockReturnValue({
+      data: { ...mockedResident, restricted: 'Y' },
+    });
     render(
       <AppConfigProvider appConfig={{}}>
         <ResidentPage resident={{ ...mockedResident, restricted: 'Y' }} />
@@ -80,5 +101,25 @@ describe('ResidentPage', () => {
         'button'
       )
     ).toBeNull();
+  });
+
+  it("shows the resident's ethnicity", async () => {
+    (useResident as jest.Mock).mockReturnValue({
+      data: { ...mockedResident, ethnicity: 'A.A20' },
+    });
+    render(
+      <AppConfigProvider appConfig={{}}>
+        <ResidentPage resident={{ ...mockedResident, ethnicity: 'A.A20' }} />
+      </AppConfigProvider>
+    );
+
+    await act(async () => {
+      fireEvent.click(screen.getByText('See all 23 fields'));
+    });
+
+    const personalDetails = screen.getByLabelText('Personal details');
+    await waitFor(() => {
+      expect(within(personalDetails).getByText('Albanian'));
+    });
   });
 });
