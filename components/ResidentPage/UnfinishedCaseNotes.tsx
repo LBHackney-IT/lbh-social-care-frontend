@@ -6,9 +6,14 @@ import Link from 'next/link';
 import { formatDate } from '../../utils/date';
 import { useWorker } from '../../utils/api/workers';
 import { prettyWorkerName } from '../../lib/formatters';
+import { InProgressSubmission } from '../../data/flexibleForms/forms.types';
 
 interface Props {
   socialCareId: number;
+}
+
+interface SubmissionData {
+  submission: InProgressSubmission;
 }
 
 const UnfinishedCaseNotes = ({
@@ -53,7 +58,9 @@ const UnfinishedCaseNotes = ({
   );
 };
 
-export const Submission = ({ submission }): React.ReactElement => {
+export const Submission = ({
+  submission,
+}: SubmissionData): React.ReactElement => {
   const { data } = useWorker({
     email: submission.createdBy.email || '',
   });
