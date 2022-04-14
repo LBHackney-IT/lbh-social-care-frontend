@@ -3,10 +3,25 @@ import { mockedCaseNote } from 'factories/cases';
 import CaseNoteTile from './CaseNoteTile';
 import { useWorker } from 'utils/api/workers';
 import { mockedWorker } from 'factories/workers';
+import { useSubmission } from 'utils/api/submissions';
+import { mockSubmission } from 'factories/submissions';
 
 jest.mock('utils/api/workers');
+jest.mock('utils/api/submissions');
 
 (useWorker as jest.Mock).mockReturnValue({ data: [mockedWorker] });
+
+(useSubmission as jest.Mock).mockReturnValue({
+  data: {
+    ...mockSubmission,
+    id: mockedCaseNote.recordId,
+    formAnswers: {
+      singleStep: {
+        Body: 't\\t\\r\\n\\r\\nwo',
+      },
+    },
+  },
+});
 
 describe('CaseNoteTile', () => {
   it('shows basic case note information', () => {
@@ -23,5 +38,18 @@ describe('CaseNoteTile', () => {
     expect((screen.getByRole('link') as HTMLAnchorElement).href).toContain(
       '?case_note=4'
     );
+  });
+
+  it('displays a preview of the note', () => {
+    render(
+      <CaseNoteTile
+        c={{
+          ...mockedCaseNote,
+          formType: 'flexible-form',
+        }}
+      />
+    );
+
+    expect(screen.getByText('two')).toBeVisible();
   });
 });

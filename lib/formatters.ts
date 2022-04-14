@@ -81,3 +81,22 @@ export const prettyWorkerName = (worker: Worker): string => {
     return `${worker.firstName} ${worker.lastName}`;
   return worker.email;
 };
+
+export const capitalize = (str: string) => {
+  const lower = str.toLowerCase();
+  return str.charAt(0).toUpperCase() + lower.slice(1);
+};
+
+export const tidyText = (inputText: string): string =>
+  inputText
+    .replace(/"/g, '')
+    .replace(/(<([^>]+)>)/gi, '')
+    .replace(/\\\\r/gm, '')
+    .replace(/\\r/gm, '')
+    .replace(/\\\\n/gm, '')
+    .replace(/\\n/gm, '')
+    .replace(/\\\\t/gm, '')
+    .replace(/\\t/gm, '')
+    .replace(/&nbsp;/gm, ' ')
+    .replace(/&amp;/gm, '&')
+    .replace(/&rsquo;/gm, "'");

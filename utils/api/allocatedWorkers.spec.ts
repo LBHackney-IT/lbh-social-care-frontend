@@ -5,6 +5,7 @@ import * as SWR from 'swr';
 
 jest.mock('axios');
 const mockedAxios = axios as jest.Mocked<typeof axios>;
+const mockSWRInfinite = jest.fn();
 
 jest.mock('swr');
 
@@ -15,6 +16,22 @@ describe('allocatedWorkers APIs', () => {
       allocatedWorkersAPI.useAllocatedWorkers(123);
       expect(SWR.default).toHaveBeenCalledWith(
         '/api/residents/123/allocations'
+      );
+    });
+  });
+  describe('useAllocationsByTeam', () => {
+    it('should work properly', () => {
+      jest
+        .spyOn(SWR, 'useSWRInfinite')
+        .mockImplementation(
+          (getKey: (page: number, data: Record<string, unknown>) => string) =>
+            mockSWRInfinite(getKey(0, { allocations: [] }))
+        );
+      allocatedWorkersAPI.useAllocationsByTeam(123, {
+        foo: 'bar',
+      });
+      expect(mockSWRInfinite).toHaveBeenCalledWith(
+        `/api/teams/123/allocations?foo=bar`
       );
     });
   });

@@ -14,7 +14,7 @@ const StopDialog = (): React.ReactElement | null => {
   if (isOpen)
     return (
       <Dialog
-        title="You shouldn't make edits here any more"
+        title="You shouldn't record here anymore"
         isOpen={true}
         onDismiss={() => setOpen(false)}
         showCloseButton={false}
@@ -22,12 +22,11 @@ const StopDialog = (): React.ReactElement | null => {
       >
         <>
           <p>
-            This is a child resident, so you must only use Mosaic for them from
-            now on.
+            If you are a CFS worker all of your work must be recorded on Mosaic.
           </p>
           <p className="govuk-!-margin-top-3">
-            The only exception is if you&apos;re about to turn this resident
-            into an adult.
+            If you are an ASC worker and need to record something about this
+            resident you need to first change the service context.
           </p>
 
           <button
