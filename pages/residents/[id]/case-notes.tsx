@@ -8,6 +8,7 @@ import { Case, Resident } from 'types';
 import { useCases } from 'utils/api/cases';
 import { isAuthorised } from 'utils/auth';
 import ErrorMessage from 'components/ErrorMessage/ErrorMessage';
+import UnfinishedCaseNotes from '../../../components/ResidentPage/UnfinishedCaseNotes';
 
 interface Props {
   resident: Resident;
@@ -31,6 +32,7 @@ const RelationshipsPage = ({ resident }: Props): React.ReactElement => {
   return (
     <Layout resident={resident} title="Case notes">
       <>
+        <UnfinishedCaseNotes socialCareId={resident.id} />
         {!data && !error ? (
           <CaseNoteGridSkeleton />
         ) : casesToShow ? (
