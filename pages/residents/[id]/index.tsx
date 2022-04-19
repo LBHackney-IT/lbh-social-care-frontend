@@ -33,8 +33,6 @@ import { canManageCases } from 'lib/permissions';
 import { useAuth } from 'components/UserContext/UserContext';
 import { getEthnicityName } from '../../../utils/person';
 import { useRouter } from 'next/router';
-import s from '../../../stylesheets/Section.module.scss';
-
 interface Props {
   resident: Resident;
 }
@@ -69,7 +67,7 @@ const ResidentPage = ({ resident }: Props): React.ReactElement => {
     <>
       {query?.redirectUrl && (
         <section
-          className={`lbh-announcement lbh-announcement--site ${s.redirectBanner}`}
+          className={`lbh-page-announcement lbh-page-announcement--info`}
         >
           <div className="lbh-container">
             <h3 className="lbh-announcement__title">
