@@ -57,7 +57,7 @@ const TeamLayout = ({ team, children }: Props): React.ReactElement => {
   }
 
   return (
-    <div className="govuk-breadcrumbs lbh-breadcrumbs lbh-container">
+    <div className="govuk-breadcrumbs lbh-breadcrumbs">
       <ol className="govuk-breadcrumbs__list">
         <li className="govuk-breadcrumbs__list-item">
           <a
