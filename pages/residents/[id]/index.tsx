@@ -79,7 +79,7 @@ const ResidentPage = ({ resident }: Props): React.ReactElement => {
                 </p>
                 <p>
                   <strong>
-                    <Link href={`/${encodeURI(query.redirectUrl[0])}`}>
+                    <Link href={`${encodeURI(query.redirectUrl as string)}`}>
                       Return to workflow
                     </Link>
                   </strong>
