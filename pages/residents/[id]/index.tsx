@@ -70,12 +70,14 @@ const ResidentPage = ({ resident }: Props): React.ReactElement => {
         <section className="lbh-announcement lbh-announcement--site">
           <div className="lbh-container">
             <h3 className="lbh-announcement__title">
-              Edit this person details
+              You&apos;re updating this resident as part of a workflow
             </h3>
             <div className="govuk-grid-row">
               <div className="lbh-announcement__content govuk-grid-column-two-thirds">
                 <p>
-                  When you are finished, click here to return to the workflow
+                  Please check this resident&apos;s details. If they are
+                  incorrect or incomplete you can change them before returning
+                  to the workflow.
                 </p>
                 <p>
                   <strong>
