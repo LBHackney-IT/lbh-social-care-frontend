@@ -60,7 +60,7 @@ const CaseNote = ({
     try {
       if (finished) {
         await axios.post(`/api/case-note/${submissionId}`, values);
-        router.push(`/people/${params.id}`);
+        router.push(`/residents/${params.id}/case-notes`);
       } else {
         await axios.patch(`/api/case-note/${submissionId}`, {
           values,
