@@ -27,6 +27,28 @@ describe('WorkerAllocations component', () => {
     expect(queryByText('Medium')).toBeInTheDocument();
     expect(queryByText('Date allocated:')).toBeInTheDocument();
     expect(queryByText('foo')).toBeInTheDocument();
+    expect(queryByText('Team allocation:')).not.toBeInTheDocument();
+  });
+  it('displays the active cases when theres a team allocation correctly', async () => {
+    mockedAllocation.allocationStartDate = new Date().toString();
+    mockedAllocation.teamAllocationStartDate = new Date().toString();
+
+    jest.spyOn(workerAPI, 'useAllocationsByWorker').mockImplementation(() => ({
+      data: {
+        workers: [],
+        allocations: [mockedAllocation],
+      },
+      revalidate: jest.fn(),
+      mutate: jest.fn(),
+      isValidating: false,
+    }));
+
+    const { queryByText } = render(<WorkerAllocations workerId={123} />);
+
+    expect(queryByText('Medium')).toBeInTheDocument();
+    expect(queryByText('Date allocated:')).toBeInTheDocument();
+    expect(queryByText('Team allocation:')).toBeInTheDocument();
+    expect(queryByText('foo')).toBeInTheDocument();
   });
   it('displays the sorting element correctly', async () => {
     jest.spyOn(workerAPI, 'useAllocationsByWorker').mockImplementation(() => ({
@@ -61,6 +83,10 @@ describe('WorkerAllocations component', () => {
   });
   it('displays the correct amount of days in the difference between today and allocation date', async () => {
     mockedAllocation.allocationStartDate = addDays(new Date(), -3).toString();
+    mockedAllocation.teamAllocationStartDate = addDays(
+      new Date(),
+      -10
+    ).toString();
 
     jest.spyOn(workerAPI, 'useAllocationsByWorker').mockImplementation(() => ({
       data: {
@@ -75,6 +101,7 @@ describe('WorkerAllocations component', () => {
     const { getByText } = render(<WorkerAllocations workerId={123} />);
 
     expect(getByText(/3 days ago/i)).toBeInTheDocument();
+    expect(getByText(/10 days ago/i)).toBeInTheDocument();
   });
   it('displays (Today) if the date difference is 0', async () => {
     mockedAllocation.allocationStartDate = new Date().toString();
