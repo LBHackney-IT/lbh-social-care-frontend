@@ -21,6 +21,7 @@ export interface Allocation {
   allocatedWorkerTeamId?: number;
   allocatedWorkerTeam: string;
   allocatedWorker: string;
+  teamAllocationStartDate?: string;
   allocationStartDate: string;
   allocationEndDate?: string;
   workerType: string;
