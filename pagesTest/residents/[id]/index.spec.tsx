@@ -19,7 +19,7 @@ import { useRouter } from 'next/router';
 import { useResident } from 'utils/api/residents';
 
 jest.mock('next/router');
-(useRouter as jest.Mock).mockReturnValue({ asPath: '' });
+(useRouter as jest.Mock).mockReturnValue({ asPath: '', query: {} });
 
 jest.mock('utils/api/cases');
 (useCases as jest.Mock).mockReturnValue({
@@ -121,5 +121,49 @@ describe('ResidentPage', () => {
     await waitFor(() => {
       expect(within(personalDetails).getByText('Albanian'));
     });
+  });
+
+  it('shows the redirect banner if the redirect url for a workflow is in the url', () => {
+    (useRouter as jest.Mock).mockReturnValueOnce({
+      query: { redirectUrl: 'link' },
+    });
+
+    render(
+      <AppConfigProvider appConfig={{}}>
+        <ResidentPage resident={mockedResident} />
+      </AppConfigProvider>
+    );
+
+    expect(
+      screen.getByText("You're updating this resident as part of a workflow")
+    ).toBeVisible();
+  });
+
+  it('shows the redirect banner with the correct redirect url', () => {
+    (useRouter as jest.Mock).mockReturnValueOnce({
+      query: { redirectUrl: 'link' },
+    });
+
+    render(
+      <AppConfigProvider appConfig={{}}>
+        <ResidentPage resident={mockedResident} />
+      </AppConfigProvider>
+    );
+
+    expect(
+      screen.getByText('Return to workflow').getAttribute('href')
+    ).toContain('link');
+  });
+
+  it("doesn't show the redirect banner if there is no redirect url for a workflow in the url", () => {
+    render(
+      <AppConfigProvider appConfig={{}}>
+        <ResidentPage resident={mockedResident} />
+      </AppConfigProvider>
+    );
+
+    expect(
+      screen.queryByText("You're updating this resident as part of a workflow")
+    ).toBeNull();
   });
 });
