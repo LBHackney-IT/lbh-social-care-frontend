@@ -77,8 +77,9 @@ const formConfig: FormStep[] = [
         options: [
           { value: 'F', text: 'Female' },
           { value: 'M', text: 'Male' },
-          { value: 'U', text: 'Unknown' },
-          { value: 'I', text: 'Indeterminate' },
+          { value: 'Non-binary', text: 'Non-binary' },
+          { value: 'Other', text: 'Other' },
+          { value: 'Prefer not to say', text: 'Prefer not to say' },
         ],
         rules: { required: 'Please choose an option from the dropdown' },
       },
