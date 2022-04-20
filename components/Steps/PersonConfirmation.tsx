@@ -34,7 +34,7 @@ const PersonConfirmation = ({
           wideButton
           route={`/search`}
         />
-        <Button label="View person" wideButton route={`/people/${ref}`} />
+        <Button label="View person" wideButton route={`/residents/${ref}`} />
       </div>
     </>
   );
