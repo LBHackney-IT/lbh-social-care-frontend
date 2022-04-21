@@ -11,7 +11,7 @@ describe('Adding, viewing and remove a relationship', () => {
 
   it('allows a user to add, view and remove a relationship', () => {
     cy.visitAs(
-      `/people/${Cypress.env('ADULT_RECORD_PERSON_ID')}/relationships`,
+      `/residents/${Cypress.env('ADULT_RECORD_PERSON_ID')}/relationships`,
       AuthRoles.AdultsGroup
     );
 
