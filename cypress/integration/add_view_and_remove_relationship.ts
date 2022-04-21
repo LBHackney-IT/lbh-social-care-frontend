@@ -1,4 +1,4 @@
-import { AuthRoles } from '../support/commands';
+import { AuthRoles, makeTokenForCookie } from '../support/commands';
 
 describe('Adding, viewing and remove a relationship', () => {
   beforeEach(() => {
@@ -9,15 +9,16 @@ describe('Adding, viewing and remove a relationship', () => {
     });
     //Remove all child relationships before the test
     //In case the test failed halfway though a run and the child already exists
+    cy.setCookie('hackneyToken', makeTokenForCookie(AuthRoles.AdminDevGroup));
     cy.request(
       `GET`,
-      `/api/v1/residents/${Cypress.env('ADULT_RECORD_PERSON_ID')}/relationships`
+      `/api/residents/${Cypress.env('ADULT_RECORD_PERSON_ID')}/relationships`
     ).then((response) => {
-      if (response.body.length > 0) {
+      if (response.body.personalRelationships.length > 0) {
         response.body.personalRelationships.forEach((r) => {
-          if (r.type == 'Children') {
+          if (r.type == 'child') {
             r.relationships.forEach((s) => {
-              cy.request(`DELETE`, `/api/v1/relationships/personal/${s.id}`);
+              cy.request(`DELETE`, `/api/relationships/${s.id}`);
             });
           }
         });
@@ -69,11 +70,15 @@ describe('Adding, viewing and remove a relationship', () => {
 
     // Remove added relationship of person
     cy.contains(
-      'a',
-      `Remove relationship with ${Cypress.env(
-        'CHILDREN_RECORD_FIRST_NAME'
-      )} ${Cypress.env('CHILDREN_RECORD_LAST_NAME')}`
-    ).click();
+      `${Cypress.env('CHILDREN_RECORD_FIRST_NAME')} ${Cypress.env(
+        'CHILDREN_RECORD_LAST_NAME'
+      )}`
+    )
+      .parent()
+      .scrollIntoView()
+      .within(() => {
+        cy.contains('Remove').click();
+      });
 
     cy.contains('Are you sure you want to remove this relationship?').should(
       'be.visible'
@@ -81,6 +86,6 @@ describe('Adding, viewing and remove a relationship', () => {
 
     cy.contains('button', 'Yes, remove').click();
 
-    cy.contains('No relationships found for this person').should('be.visible');
+    cy.contains('This resident has no relationships yet.').should('be.visible');
   });
 });
