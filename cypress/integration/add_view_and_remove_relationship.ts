@@ -44,7 +44,7 @@ describe('Adding, viewing and remove a relationship', () => {
     // View added relationship of person
     cy.contains('button', 'View person').click();
 
-    cy.contains('a', 'Relationships (1)').click();
+    cy.contains('a', 'Relationships').click();
 
     cy.contains('Children').should('be.visible');
     cy.contains(Cypress.env('CHILDREN_RECORD_FIRST_NAME')).should('be.visible');
