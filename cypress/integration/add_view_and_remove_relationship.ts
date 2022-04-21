@@ -15,7 +15,7 @@ describe('Adding, viewing and remove a relationship', () => {
       AuthRoles.AdultsGroup
     );
 
-    cy.contains('Add a new relationship').click();
+    cy.contains('Add a relationship').click();
 
     // Search for related person
     cy.get('input[name=first_name]').type(
