@@ -50,9 +50,7 @@ describe('Review Warning Note Confirmation', () => {
       },
     };
 
-    const { asFragment, getByText } = render(
-      <ReviewWarningNoteConfirmation {...props} />
-    );
+    render(<ReviewWarningNoteConfirmation {...props} />);
 
     fireEvent.click(screen.getByText('View person'));
 
