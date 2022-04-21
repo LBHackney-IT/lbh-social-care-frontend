@@ -42,13 +42,13 @@ describe('allocatedWorkersAPI', () => {
           ],
         },
       });
-      const data = await allocatedWorkersAPI.getResidentAllocation(123, 1);
+      const data = await allocatedWorkersAPI.getResidentAllocation(1);
       expect(data).toEqual({
         id: 1,
         allocationEndDate: null,
         caseStatus: 'Closed',
       });
-      const nodata = await allocatedWorkersAPI.getResidentAllocation(123, 3);
+      const nodata = await allocatedWorkersAPI.getResidentAllocation(3);
       expect(nodata).toEqual(undefined);
     });
   });
