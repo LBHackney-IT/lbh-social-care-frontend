@@ -5,23 +5,18 @@ import { GetServerSideProps } from 'next';
 import { isAuthorised } from 'utils/auth';
 import { useWorker } from 'utils/api/workers';
 import Spinner from 'components/Spinner/Spinner';
-import ErrorMessage from 'components/ErrorMessage/ErrorMessage';
 
 interface Props {
   email: string;
 }
 
 const MyCasesPage = ({ email }: Props): React.ReactElement => {
-  const { data: workers, error } = useWorker({
+  const { data: workers } = useWorker({
     email: email,
   });
 
   if (!workers) {
     <Spinner />;
-  }
-
-  if (error) {
-    return <ErrorMessage label="There was a problem getting the worker" />;
   }
 
   return (
@@ -33,7 +28,7 @@ const MyCasesPage = ({ email }: Props): React.ReactElement => {
           {workers && workers?.length > 0 ? (
             <WorkerAllocations workerId={workers[0].id} />
           ) : (
-            'Nothing to display here - The logged user is not a worker'
+            <p> Nothing to display here - The logged user is not a worker </p>
           )}
         </>
       </DashboardWrapper>
