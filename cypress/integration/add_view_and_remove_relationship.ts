@@ -7,6 +7,22 @@ describe('Adding, viewing and remove a relationship', () => {
     cy.intercept('POST', '/api/relationships', (req) => {
       req.body.createdBy = 'e2e.tests.adult@hackney.gov.uk';
     });
+    //Remove all child relationships before the test
+    //In case the test failed halfway though a run and the child already exists
+    cy.request(
+      `GET`,
+      `/api/v1/residents/${Cypress.env('ADULT_RECORD_PERSON_ID')}/relationships`
+    ).then((response) => {
+      if (response.body.length > 0) {
+        response.body.personalRelationships.forEach((r) => {
+          if (r.type == 'Children') {
+            r.relationships.forEach((s) => {
+              cy.request(`DELETE`, `/api/v1/relationships/personal/${s.id}`);
+            });
+          }
+        });
+      }
+    });
   });
 
   it('allows a user to add, view and remove a relationship', () => {
