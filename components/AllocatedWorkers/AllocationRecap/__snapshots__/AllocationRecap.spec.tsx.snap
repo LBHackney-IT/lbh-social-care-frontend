@@ -92,7 +92,7 @@ exports[`AllocationRecap should render properly on allocation 1`] = `
   <h2
     class="gov-weight-lighter"
   >
-    Reason for worker deallocation
+    Reason for deallocation
   </h2>
   <p
     class="govuk-body"

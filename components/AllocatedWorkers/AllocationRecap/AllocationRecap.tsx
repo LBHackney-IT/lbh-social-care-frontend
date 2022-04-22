@@ -54,7 +54,11 @@ const AllocationRecap = ({
   return (
     <>
       <h1 className="govuk-fieldset__legend--l gov-weight-lighter">
-        Worker {isDeallocationCase(caseFormData) ? 'deallocated' : 'allocated'}
+        {caseFormData.form_name
+          ? caseFormData.form_name
+          : `Worker ${
+              isDeallocationCase(caseFormData) ? 'deallocated' : 'allocated'
+            }`}
       </h1>
       <p className="govuk-body govuk-!-margin-top-6">
         <b>Person</b>:{' '}
@@ -66,7 +70,9 @@ const AllocationRecap = ({
         <h2 className="gov-weight-lighter">Allocations details</h2>
         <dl className="govuk-summary-list govuk-summary-list--no-border">
           <div className="govuk-summary-list__row">
-            <dt className="govuk-summary-list__key">Worker</dt>
+            <dt className="govuk-summary-list__key">
+              {allocation.allocatedWorker ? 'Worker' : 'Team'}
+            </dt>
             <dd className="govuk-summary-list__value">
               {allocation.allocatedWorker}, {allocation.workerType},{' '}
               {allocation.allocatedWorkerTeam}
@@ -103,7 +109,7 @@ const AllocationRecap = ({
       </div>
       {isDeallocationCase(caseFormData) && (
         <>
-          <h2 className="gov-weight-lighter">Reason for worker deallocation</h2>
+          <h2 className="gov-weight-lighter">Reason for deallocation</h2>
           <p className="govuk-body">{caseFormData.deallocation_reason}</p>
         </>
       )}
