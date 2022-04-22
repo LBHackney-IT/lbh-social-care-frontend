@@ -10,6 +10,7 @@ const AWS_KEY = process.env.AWS_KEY;
 interface AllocationsParams {
   mosaic_id?: number;
   worker_id?: number;
+  allocation_id?: number;
   [key: string]: unknown;
 }
 
@@ -20,9 +21,8 @@ export const getAllocations = async (
 ): Promise<AllocationData> => {
   const urlParameters = {
     sort_by: sort_by ? sort_by : 'rag_rating',
-    status: showOnlyOpen ? 'open' : 'closed',
+    status: showOnlyOpen ? 'open' : undefined,
   };
-
   const { data } = await axios.get(
     `${ENDPOINT_API}/allocations?${getQueryString(urlParameters)}`,
     {
@@ -39,12 +39,14 @@ export const getResidentAllocatedWorkers = (
 ): Promise<AllocationData> => getAllocations({ mosaic_id, ...params });
 
 export const getResidentAllocation = async (
-  mosaic_id: number,
   allocation_id: number,
   params?: AllocationsParams
 ): Promise<Allocation | undefined> => {
   const showOnlyOpen = false;
-  const data = await getAllocations({ mosaic_id, ...params }, showOnlyOpen);
+  const data = await getAllocations(
+    { allocation_id: allocation_id, ...params },
+    showOnlyOpen
+  );
   return data?.allocations?.find(({ id }) => id === allocation_id);
 };
 export const getAllocationsByWorker = async (

@@ -6,18 +6,26 @@ import { Case, Resident } from 'types';
 import { useCases } from 'utils/api/cases';
 import { isAuthorised } from 'utils/auth';
 import { generateInternalLink } from 'utils/urls';
+import Spinner from 'components/Spinner/Spinner';
 
 interface Props {
   resident: Resident;
 }
 
 const ActivityPage = ({ resident }: Props): React.ReactElement => {
+  let showMore = false;
+
   const { data, size, setSize } = useCases({
     mosaic_id: resident.id,
   });
 
+  if (!data) {
+    return <Spinner />;
+  }
+
   let cases: Case[] = [];
   data?.map((page) => {
+    showMore = page.nextCursor ? true : false;
     if (page.cases) cases = cases.concat(page?.cases);
   });
 
@@ -67,12 +75,15 @@ const ActivityPage = ({ resident }: Props): React.ReactElement => {
           })}
         </tbody>
       </table>
-      <button
-        onClick={() => setSize(size + 1)}
-        className="govuk-button lbh-button"
-      >
-        Load more
-      </button>
+      {showMore && (
+        <button
+          onClick={() => setSize(size + 1)}
+          style={{ marginLeft: 'auto', marginRight: 'auto', display: 'flex' }}
+          className="govuk-button lbh-button"
+        >
+          Load more
+        </button>
+      )}
     </>
   );
 };
