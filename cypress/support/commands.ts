@@ -15,6 +15,19 @@ const makeToken = ({
     Cypress.env('HACKNEY_JWT_SECRET')
   );
 
+export const makeTokenForCookie = (role: AuthRoles): string => {
+  const sub = '49516349857314';
+  const email = 'test@example.com';
+  const iss = 'Hackney';
+  const name = 'example user';
+  const iat = new Date();
+  const groups = roleConfigurations[role];
+  return sign(
+    { sub, email, iss, name, groups, iat: dateToUnix(iat) },
+    Cypress.env('HACKNEY_JWT_SECRET')
+  );
+};
+
 export enum AuthRoles {
   ChildrensGroup = 'ChildrensGroup',
   ChildrensUnrestrictedGroup = 'ChildrensUnrestrictedGroup',

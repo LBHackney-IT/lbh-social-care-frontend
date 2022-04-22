@@ -32,7 +32,7 @@ const ReviewWarningNoteConfirmation = ({
         <Button
           label="View person"
           wideButton
-          route={`/people/${formData.person.id}`}
+          route={`/residents/${formData.person.id}`}
         />
       </div>
     </>

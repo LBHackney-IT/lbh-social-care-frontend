@@ -1,10 +1,10 @@
-import { render } from '@testing-library/react';
+import Router from 'next/router';
 import PersonConfirmation from './PersonConfirmation';
+import { fireEvent, render, screen } from '@testing-library/react';
 
 jest.mock('next/router', () => ({
-  useRouter: () => ({
-    query: { ref: '123456' },
-  }),
+  push: jest.fn(),
+  useRouter: () => ({ query: { ref: '123456' } }),
 }));
 
 describe('Person Confirmation component', () => {
@@ -32,5 +32,13 @@ describe('Person Confirmation component', () => {
   it('should render properly', () => {
     const { asFragment } = render(<PersonConfirmation {...props} />);
     expect(asFragment()).toMatchSnapshot();
+  });
+
+  it('should route to the new resident view', () => {
+    render(<PersonConfirmation {...props} />);
+    const button = screen.getByText('View person');
+    fireEvent.click(button);
+
+    expect(Router.push).toHaveBeenCalledWith('/residents/123456');
   });
 });
