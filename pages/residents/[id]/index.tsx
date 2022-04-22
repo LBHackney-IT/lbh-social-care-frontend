@@ -684,7 +684,7 @@ const ResidentPage = ({ resident }: Props): React.ReactElement => {
               ],
             },
             {
-              label: "Housing officer's name",
+              label: 'Housing team / officer',
               name: 'housingOfficer',
             },
             // {
