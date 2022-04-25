@@ -30,7 +30,7 @@ jest.spyOn(allocatedWorkerAPI, 'useTeams').mockImplementation(() => ({
 }));
 
 describe('WorkersUpdate page', () => {
-  it('should diplay the form correctly', () => {
+  it('should display the form correctly', () => {
     jest.spyOn(useWorkers, 'useWorkerById').mockImplementation(() => ({
       data: userFactory.build({
         teams: [{ id: 123, name: 'A-Team' }],
@@ -55,7 +55,7 @@ describe('WorkersUpdate page', () => {
     expect(getByText('Save and finish later')).toBeInTheDocument();
     expect(getByText('Continue')).toBeInTheDocument();
   });
-  it('should diplay the team dropdown in alphabetical order', () => {
+  it('should display the team dropdown in alphabetical order', () => {
     jest.spyOn(useWorkers, 'useWorkerById').mockImplementation(() => ({
       data: userFactory.build({
         teams: [{ id: 123, name: 'A-Team' }],
