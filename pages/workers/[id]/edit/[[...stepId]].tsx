@@ -33,6 +33,9 @@ const UpdateWorker = (): React.ReactElement => {
   if (!ATeams || !CTeams || !data) {
     return <Spinner />;
   }
+  ATeams.sort((a, b) => a.name.localeCompare(b.name));
+  CTeams.sort((a, b) => a.name.localeCompare(b.name));
+
   const onFormSubmit = async ({ team, ...formData }: FormData) => {
     await updateWorker(workerId, {
       ...formData,
