@@ -21,7 +21,7 @@ const DetailConfirmation = ({ successMessage }: Props): React.ReactElement => {
           wideButton
           route={`/search`}
         />
-        <Button label="View person" wideButton route={`/people/${id}`} />
+        <Button label="View person" wideButton route={`/residents/${id}`} />
       </div>
     </>
   );
