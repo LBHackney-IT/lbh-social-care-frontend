@@ -3,10 +3,12 @@ import { mockedResident } from 'factories/residents';
 import CustomAddressEditor from './CustomAddressEditor';
 import axios from 'axios';
 import userEvent from '@testing-library/user-event';
+import { addressesAPIWrapperFactory } from 'factories/postcode';
 
 const mockClose = jest.fn();
 
 jest.mock('axios');
+const mockedAxios = axios as jest.Mocked<typeof axios>;
 
 (global.fetch as jest.Mock) = jest.fn(() => ({
   status: 200,
@@ -85,6 +87,40 @@ describe('CustomAddressEditor', () => {
     await waitFor(() => fireEvent.click(screen.getByText('Find address')));
     expect(axios.get).toBeCalledWith('/api/postcode/Town St?buildingNumber=1');
     expect(screen.getAllByLabelText('Postcode').length).toBe(2);
+  });
+
+  it('can show multiple results for a postcode search', async () => {
+    const mocked_results = addressesAPIWrapperFactory.build();
+    mockedAxios.get.mockResolvedValue({
+      data: mocked_results,
+    });
+
+    render(
+      <CustomAddressEditor
+        name="address"
+        label="Address"
+        onClose={mockClose}
+        resident={{
+          ...mockedResident,
+          address: undefined,
+        }}
+      />
+    );
+
+    userEvent.type(screen.getByLabelText('Building number or name'), '1');
+    userEvent.type(screen.getByLabelText('Postcode'), 'Town St');
+    await waitFor(() => fireEvent.click(screen.getByText('Find address')));
+    expect(axios.get).toBeCalledWith('/api/postcode/Town St?buildingNumber=1');
+
+    const addressDropDown = screen.getByTestId('address_dropdown');
+    expect(addressDropDown).not.toBeNull();
+    expect(addressDropDown.childElementCount).toBe(
+      mocked_results.address.length + 1
+    );
+
+    const expectedAddress = screen.getByText('test line1');
+    expect(expectedAddress).not.toBeNull();
+    expect(expectedAddress).toBeInTheDocument();
   });
 
   it('allows manual entry of an address', () => {

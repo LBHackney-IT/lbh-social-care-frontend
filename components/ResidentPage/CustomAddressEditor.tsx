@@ -1,12 +1,14 @@
 import axios from 'axios';
 import { KeyboardEventHandler, useRef, useState } from 'react';
-import { Resident } from 'types';
+import { Resident, AddressWrapper } from 'types';
 import { useResident } from 'utils/api/residents';
 import { DataRow } from './DataBlock';
 import s from './CustomAddressEditor.module.scss';
 import { Field, Form, Formik, FormikProps } from 'formik';
 import { residentSchema } from 'lib/validators';
 import useClickOutside from 'hooks/useClickOutside';
+import SelectField from 'components/FlexibleForms/SelectField';
+import { lookupPostcode } from 'utils/api/postcodeAPI';
 
 const Error = ({ error }: { error?: string }) =>
   error ? (
@@ -92,7 +94,7 @@ const InnerForm = ({
 
   const ref = useRef<HTMLFormElement>(null);
   const [open, setOpen] = useState<boolean>(addressExists);
-
+  const [dropdownAddresses, setDropdownAddresses] = useState<AddressWrapper>();
   useClickOutside(ref, onClose);
 
   const handleKeyup: KeyboardEventHandler = (e) => {
@@ -104,9 +106,14 @@ const InnerForm = ({
     try {
       const { numberSearch, postcodeSearch } = values;
 
+      const addressData = await lookupPostcode(postcodeSearch, 1, numberSearch);
+
       const { data } = await axios.get(
         `/api/postcode/${postcodeSearch}?buildingNumber=${numberSearch}`
       );
+      console.log(data, 'data');
+      setDropdownAddresses(addressData);
+      console.log('dropdownAddresses', dropdownAddresses);
       const result = data?.address?.[0];
       setFieldValue('address.address', result['line1']);
       setFieldValue('address.postcode', result['postcode']);
@@ -165,6 +172,18 @@ const InnerForm = ({
               touched?.address?.address ? errors.address?.address : undefined
             }
           />
+          {dropdownAddresses && (
+            <SelectField
+              name="addressDropdown"
+              label="addresses"
+              touched={touched}
+              errors={errors}
+              choices={dropdownAddresses?.address?.map((address) => ({
+                value: JSON.stringify(address),
+                label: address.address,
+              }))}
+            />
+          )}
           <Field
             name="address.address"
             id="address.address"
