@@ -7,8 +7,8 @@ import s from './CustomAddressEditor.module.scss';
 import { Field, Form, Formik, FormikProps } from 'formik';
 import { residentSchema } from 'lib/validators';
 import useClickOutside from 'hooks/useClickOutside';
-import SelectField from 'components/FlexibleForms/SelectField';
 import { lookupPostcode } from 'utils/api/postcodeAPI';
+import React from 'react';
 
 const Error = ({ error }: { error?: string }) =>
   error ? (
@@ -25,6 +25,7 @@ interface Props extends DataRow {
 interface FormValues {
   numberSearch: string;
   postcodeSearch: string;
+  addressDropdown?: string;
   address: {
     address: string;
     postcode: string;
@@ -32,10 +33,38 @@ interface FormValues {
   };
 }
 
+// interface MyFieldProps {
+//   name: string;
+// }
+
+// const MyField = (props: MyFieldProps) => {
+//   const {
+//     values: { addressDropdown },
+//     touched,
+//     setFieldValue,
+//   } = useFormikContext();
+//   const [field, meta] = useField(props);
+
+//   React.useEffect(() => {
+//     // set the value of textC, based on textA and textB
+//     if (addressDropdown && touched.addressDropdown) {
+//       setFieldValue(props.name, `Hello`);
+//     }
+//   }, [addressDropdown, touched.addressDropdown, setFieldValue, props.name]);
+
+//   return (
+//     <>
+//       <input {...props} {...field} />
+//       {!!meta.touched && !!meta.error && <div>{meta.error}</div>}
+//     </>
+//   );
+// };
+
 const CustomAddressEditor = (props: Props): React.ReactElement => {
   const { mutate } = useResident(props.resident.id);
 
   const handleSubmit = async (data: FormValues) => {
+    console.log('Handle submit', data);
     const res = await fetch(`/api/residents/${props.resident.id}`, {
       headers: {
         'Content-Type': 'application/json',
@@ -111,9 +140,8 @@ const InnerForm = ({
       const { data } = await axios.get(
         `/api/postcode/${postcodeSearch}?buildingNumber=${numberSearch}`
       );
-      console.log(data, 'data');
+      console.log('addressData', addressData);
       setDropdownAddresses(addressData);
-      console.log('dropdownAddresses', dropdownAddresses);
       const result = data?.address?.[0];
       setFieldValue('address.address', result['line1']);
       setFieldValue('address.postcode', result['postcode']);
@@ -124,7 +152,19 @@ const InnerForm = ({
     }
   };
 
-  const canSearch = values['postcodeSearch'] && values['numberSearch'];
+  const handleAddress = (data: string) => {
+    // get values from drop down
+    //parse them into an object
+    //setFieldvalue for address.address && address.postcode
+    console.log('values', data);
+    console.log('formValues parse onChange', JSON.parse(data));
+    const parsedAddress = JSON.parse(data);
+    setFieldValue('address.address', parsedAddress.address);
+    setFieldValue('address.postcode', parsedAddress.postcode);
+    setFieldValue('address.uprn', parsedAddress.uprn);
+  };
+
+  const canSearch = values['postcodeSearch'];
 
   return (
     <Form className={s.form} onKeyUp={handleKeyup} ref={ref}>
@@ -163,6 +203,40 @@ const InnerForm = ({
           </button>
         )}
       </div>
+      {dropdownAddresses && (
+        // <SelectField
+        //   name="addressDropdown"
+        //   label=""
+        //   touched={touched}
+        //   errors={errors}
+        //   // onKeyUp={handleAddress}
+        //   choices={dropdownAddresses?.address?.map((address) => ({
+        //     value: JSON.stringify(address),
+        //     label: address.address,
+        //   }))}
+        // />
+
+        <Field
+          as="select"
+          name="addressDropdown"
+          id="addressDropdown"
+          onChange={(e: { target: { value: string } }) =>
+            handleAddress(e.target.value)
+          }
+          className={`govuk-select lbh-select`}
+        >
+          {dropdownAddresses?.address?.map((address) => (
+            <option
+              value={JSON.stringify(address)}
+              key={JSON.stringify(address)}
+            >
+              {' '}
+              {address.address}
+            </option>
+          ))}
+        </Field>
+      )}
+      {/* <MyField name="address.address"></MyField> */}
 
       {open && (
         <fieldset>
@@ -172,18 +246,6 @@ const InnerForm = ({
               touched?.address?.address ? errors.address?.address : undefined
             }
           />
-          {dropdownAddresses && (
-            <SelectField
-              name="addressDropdown"
-              label="addresses"
-              touched={touched}
-              errors={errors}
-              choices={dropdownAddresses?.address?.map((address) => ({
-                value: JSON.stringify(address),
-                label: address.address,
-              }))}
-            />
-          )}
           <Field
             name="address.address"
             id="address.address"

@@ -85,7 +85,9 @@ describe('CustomAddressEditor', () => {
     userEvent.type(screen.getByLabelText('Building number or name'), '1');
     userEvent.type(screen.getByLabelText('Postcode'), 'Town St');
     await waitFor(() => fireEvent.click(screen.getByText('Find address')));
-    expect(axios.get).toBeCalledWith('/api/postcode/Town St?buildingNumber=1');
+    expect(mockedAxios.get).toBeCalledWith(
+      '/api/postcode/Town St?page=1&buildingNumber=1'
+    );
     expect(screen.getAllByLabelText('Postcode').length).toBe(2);
   });
 
@@ -110,12 +112,14 @@ describe('CustomAddressEditor', () => {
     userEvent.type(screen.getByLabelText('Building number or name'), '1');
     userEvent.type(screen.getByLabelText('Postcode'), 'Town St');
     await waitFor(() => fireEvent.click(screen.getByText('Find address')));
-    expect(axios.get).toBeCalledWith('/api/postcode/Town St?buildingNumber=1');
+    expect(mockedAxios.get).toBeCalledWith(
+      '/api/postcode/Town St?page=1&buildingNumber=1'
+    );
 
-    const addressDropDown = screen.getByTestId('address_dropdown');
+    const addressDropDown = screen.getByRole('combobox');
     expect(addressDropDown).not.toBeNull();
     expect(addressDropDown.childElementCount).toBe(
-      mocked_results.address.length + 1
+      mocked_results.address.length
     );
 
     const expectedAddress = screen.getByText('test line1');
