@@ -165,19 +165,16 @@ describe('CustomAddressEditor', () => {
       fireEvent.click(addressDropDown);
       fireEvent.change(addressDropDown, {
         target: {
-          value:
-            '{"address":"test line1 2","postcode":"test postcode 2","uprn":"test UPRN 2"}',
+          value: '{"address":"test line1 2","postcode":"A1 1AA","uprn":"1234"}',
         },
       });
     });
 
     expect(screen.getByLabelText('Address')).toHaveValue('test line1 2');
-    expect(screen.getAllByLabelText('Postcode')[1]).toHaveValue(
-      'test postcode 2'
-    );
+    expect(screen.getAllByLabelText('Postcode')[1]).toHaveValue('A1 1AA');
     expect(
       screen.getByLabelText('Unique property reference number')
-    ).toHaveValue('test UPRN 2');
+    ).toHaveValue('1234');
   });
 
   it('submits a selected address correctly', async () => {
@@ -202,34 +199,25 @@ describe('CustomAddressEditor', () => {
     );
 
     const addressDropDown = screen.getByRole('combobox');
-    expect(addressDropDown).not.toBeNull();
 
     await act(async () => {
       fireEvent.click(addressDropDown);
       fireEvent.change(addressDropDown, {
         target: {
-          value:
-            '{"address":"test line1","postcode":"test postcode","uprn":"test UPRN"}',
+          value: '{"address":"test line1 2","postcode":"A1 1AA","uprn":"1234"}',
         },
       });
     });
-    expect(screen.getByLabelText('Address')).toHaveValue('test line1');
-    expect(screen.getAllByLabelText('Postcode')[1]).toHaveValue(
-      'test postcode'
-    );
-    expect(
-      screen.getByLabelText('Unique property reference number')
-    ).toHaveValue('test UPRN');
     await waitFor(() => fireEvent.click(screen.getByText('Save')));
 
     expect(global.fetch).toBeCalledWith('/api/residents/1', {
       method: 'PATCH',
       headers: { 'Content-Type': 'application/json' },
-      payload: JSON.stringify({
+      body: JSON.stringify({
         address: {
-          address: 'test line1',
-          postcode: 'test postcode',
-          uprn: 'test UPRN',
+          address: 'test line1 2',
+          postcode: 'A1 1AA',
+          uprn: 1234,
         },
       }),
     });
