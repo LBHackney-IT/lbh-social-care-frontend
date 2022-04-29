@@ -10,6 +10,7 @@ import classNames from 'classnames';
 import Link from 'next/link';
 import Spinner from 'components/Spinner/Spinner';
 import { formatDistance, isToday } from 'date-fns';
+import { useResident } from 'utils/api/residents';
 
 interface WorkerAllocationssListProps {
   workerId: number;
@@ -23,6 +24,14 @@ export const WorkerAllocations = ({
   allocation,
 }: WorkerAllocationsProps): React.ReactElement => {
   if (!allocation.ragRating) allocation.ragRating = 'none';
+
+  const { data: person, error } = useResident(allocation.personId);
+  if (error) {
+    return <ErrorMessage />;
+  }
+  if (!person) {
+    return <Spinner />;
+  }
 
   const color = getRatingCSSColour(allocation.ragRating.toLowerCase());
   const style = { backgroundColor: color, color: 'white' };
@@ -89,6 +98,17 @@ export const WorkerAllocations = ({
             {') '}
           </span>
         </span>
+
+        {person && person.reviewDate && (
+          <span className={s.workerAllocation}>
+            <br />
+            <b>Review date:</b>
+            <span data-testid="dateSpan" className={s.elementValue}>
+              {'  '}
+              {new Date(person.reviewDate).toLocaleDateString()}
+            </span>
+          </span>
+        )}
       </div>
     </>
   );
@@ -130,6 +150,7 @@ const WorkerAllocationssList = ({
                   options={[
                     { value: 'rag_rating', text: 'Priority' },
                     { value: 'date_added', text: 'Date added to team' },
+                    { value: 'review_date', text: 'Review date' },
                   ]}
                   defaultValue={sortBy}
                   onChange={(elm) => {

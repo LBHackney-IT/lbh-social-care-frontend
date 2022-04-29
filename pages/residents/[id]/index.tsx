@@ -320,7 +320,21 @@ const ResidentPage = ({ resident }: Props): React.ReactElement => {
                 },
               ],
             },
-
+            {
+              label: 'Review date',
+              name: 'reviewDate',
+              showInSummary: true,
+              markAsRequired: false,
+              beforeDisplay: (val) =>
+                formatDate(val as string)
+                  ? `${formatDate(val as string)} (age ${differenceInYears(
+                      new Date(),
+                      new Date(val as string)
+                    )})`
+                  : '',
+              beforeEdit: (val) => (val as string)?.split('T')[0],
+              type: 'date',
+            },
             {
               name: 'religion',
               label: 'Religion',

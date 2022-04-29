@@ -5,9 +5,19 @@ import { workerAllocationFactory, allocationFactory } from 'factories/teams';
 import * as teamWorkersAPI from 'utils/api/allocatedWorkers';
 import { AllocationData } from 'types';
 import { addDays } from 'date-fns';
-
+import { residentFactory } from 'factories/residents';
+import * as residentsAPI from 'utils/api/residents';
 import { SWRInfiniteResponse } from 'swr';
+
 jest.mock('utils/api/allocatedWorkers');
+jest.spyOn(residentsAPI, 'useResident').mockImplementation(() => ({
+  data: residentFactory.build({
+    reviewDate: '2022-12-12',
+  }),
+  revalidate: jest.fn(),
+  mutate: jest.fn(),
+  isValidating: false,
+}));
 
 describe('TeamAllocationsList component', () => {
   it('displays the waiting list correctly', async () => {
@@ -124,6 +134,31 @@ describe('TeamAllocationsList component', () => {
     expect(queryByText('Priority')).toBeInTheDocument();
     expect(queryByText('Date added to team')).toBeInTheDocument();
   });
+  it('displays the review date if it exists', async () => {
+    jest
+      .spyOn(teamWorkersAPI, 'useAllocationsByTeam')
+      .mockImplementation(() => {
+        const response = {
+          data: [
+            workerAllocationFactory.build({
+              allocations: [
+                allocationFactory.build({
+                  allocationStartDate: addDays(new Date(), 3).toISOString(),
+                }),
+              ],
+            }),
+          ],
+        } as unknown as SWRInfiniteResponse<AllocationData, Error>;
+
+        return response;
+      });
+
+    const { queryByText } = render(
+      <TeamAllocationsList teamId={123} type="allocated" />
+    );
+    expect(queryByText('Review date:')).toBeInTheDocument();
+  });
+
   it('displays "No active cases for the selected team" if there are no allocated elements', async () => {
     jest
       .spyOn(teamWorkersAPI, 'useAllocationsByTeam')
