@@ -28,8 +28,8 @@ export const addressAPIFactory = Factory.define<AddressAPI>(() => ({
 }));
 
 export const addressesAPIFactory = Factory.define<AddressAPI>(() => ({
-  postcode: 'test postcode 2',
-  UPRN: 'test UPRN 2',
+  postcode: 'A1 1AA',
+  UPRN: '1234',
   town: 'test town 2',
   line1: 'test line1 2',
 }));
