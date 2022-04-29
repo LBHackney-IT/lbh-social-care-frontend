@@ -1,4 +1,10 @@
-import { fireEvent, render, screen, waitFor } from '@testing-library/react';
+import {
+  act,
+  fireEvent,
+  render,
+  screen,
+  waitFor,
+} from '@testing-library/react';
 import { mockedResident } from 'factories/residents';
 import CustomAddressEditor from './CustomAddressEditor';
 import axios from 'axios';
@@ -125,6 +131,108 @@ describe('CustomAddressEditor', () => {
     const expectedAddress = screen.getByText('test line1');
     expect(expectedAddress).not.toBeNull();
     expect(expectedAddress).toBeInTheDocument();
+  });
+
+  it('populates the address fields with a selected address', async () => {
+    const mocked_results = addressesAPIWrapperFactory.build();
+    mockedAxios.get.mockResolvedValue({
+      data: mocked_results,
+    });
+
+    render(
+      <CustomAddressEditor
+        name="address"
+        label="Address"
+        onClose={mockClose}
+        resident={{
+          ...mockedResident,
+          address: undefined,
+        }}
+      />
+    );
+
+    userEvent.type(screen.getByLabelText('Building number or name'), '1');
+    userEvent.type(screen.getByLabelText('Postcode'), 'Town St');
+    await waitFor(() => fireEvent.click(screen.getByText('Find address')));
+    expect(mockedAxios.get).toBeCalledWith(
+      '/api/postcode/Town St?page=1&buildingNumber=1'
+    );
+
+    const addressDropDown = screen.getByRole('combobox');
+    expect(addressDropDown).not.toBeNull();
+
+    await act(async () => {
+      fireEvent.click(addressDropDown);
+      fireEvent.change(addressDropDown, {
+        target: {
+          value:
+            '{"address":"test line1 2","postcode":"test postcode 2","uprn":"test UPRN 2"}',
+        },
+      });
+    });
+
+    expect(screen.getByLabelText('Address')).toHaveValue('test line1 2');
+    expect(screen.getAllByLabelText('Postcode')[1]).toHaveValue(
+      'test postcode 2'
+    );
+    expect(
+      screen.getByLabelText('Unique property reference number')
+    ).toHaveValue('test UPRN 2');
+  });
+
+  it('submits a selected address correctly', async () => {
+    const mocked_results = addressesAPIWrapperFactory.build();
+    mockedAxios.get.mockResolvedValue({
+      data: mocked_results,
+    });
+
+    render(
+      <CustomAddressEditor
+        name="address"
+        label="Address"
+        onClose={mockClose}
+        resident={mockedResident}
+      />
+    );
+    userEvent.type(screen.getByLabelText('Building number or name'), '1');
+    userEvent.type(screen.getAllByLabelText('Postcode')[0], 'Town St');
+    await waitFor(() => fireEvent.click(screen.getByText('Find address')));
+    expect(mockedAxios.get).toBeCalledWith(
+      '/api/postcode/Town St?page=1&buildingNumber=1'
+    );
+
+    const addressDropDown = screen.getByRole('combobox');
+    expect(addressDropDown).not.toBeNull();
+
+    await act(async () => {
+      fireEvent.click(addressDropDown);
+      fireEvent.change(addressDropDown, {
+        target: {
+          value:
+            '{"address":"test line1","postcode":"test postcode","uprn":"test UPRN"}',
+        },
+      });
+    });
+    expect(screen.getByLabelText('Address')).toHaveValue('test line1');
+    expect(screen.getAllByLabelText('Postcode')[1]).toHaveValue(
+      'test postcode'
+    );
+    expect(
+      screen.getByLabelText('Unique property reference number')
+    ).toHaveValue('test UPRN');
+    await waitFor(() => fireEvent.click(screen.getByText('Save')));
+
+    expect(global.fetch).toBeCalledWith('/api/residents/1', {
+      method: 'PATCH',
+      headers: { 'Content-Type': 'application/json' },
+      payload: JSON.stringify({
+        address: {
+          address: 'test line1',
+          postcode: 'test postcode',
+          uprn: 'test UPRN',
+        },
+      }),
+    });
   });
 
   it('allows manual entry of an address', () => {

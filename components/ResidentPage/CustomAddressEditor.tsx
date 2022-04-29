@@ -1,4 +1,4 @@
-import axios from 'axios';
+// import axios from 'axios';
 import { KeyboardEventHandler, useRef, useState } from 'react';
 import { Resident, AddressWrapper } from 'types';
 import { useResident } from 'utils/api/residents';
@@ -109,14 +109,14 @@ const InnerForm = ({
 
       const addressData = await lookupPostcode(postcodeSearch, 1, numberSearch);
 
-      const { data } = await axios.get(
-        `/api/postcode/${postcodeSearch}?buildingNumber=${numberSearch}`
-      );
+      // const { data } = await axios.get(
+      //   `/api/postcode/${postcodeSearch}?buildingNumber=${numberSearch}`
+      // );
       setDropdownAddresses(addressData);
-      const result = data?.address?.[0];
-      setFieldValue('address.address', result['line1']);
-      setFieldValue('address.postcode', result['postcode']);
-      setFieldValue('address.uprn', result['UPRN']);
+      // const result = data?.address?.[0];
+      // setFieldValue('address.address', result['line1']);
+      // setFieldValue('address.postcode', result['postcode']);
+      // setFieldValue('address.uprn', result['UPRN']);
       setOpen(true);
     } catch (e) {
       setOpen(true);
