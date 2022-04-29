@@ -24,7 +24,8 @@ const endpoint: NextApiHandler = async (
         const data = await getAddresses(
           req.query.postcode as string,
           req.query.page as string,
-          req.query.buildingNumber as string
+          req.query.buildingNumber as string,
+          req.query.pageSize as string
         );
         res.status(StatusCodes.OK).json(data);
       } catch (error) {

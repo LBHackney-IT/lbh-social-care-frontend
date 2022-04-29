@@ -16,12 +16,13 @@ interface Address {
 export const getAddresses = async (
   postcode: string,
   page: string,
-  buildingNumber?: string
+  buildingNumber?: string,
+  pageSize?: string
 ): Promise<{ address: Address[] }> => {
   const { data } = await axios.get(
     `${POSTCODE_LOOKUP_URL}${postcode}${
       page !== undefined ? `&page=${page}` : ''
-    }${
+    }${pageSize !== undefined ? `&page_size=${pageSize}` : ''}${
       buildingNumber !== undefined ? `&buildingNumber=${buildingNumber}` : ''
     }`,
     {
@@ -30,6 +31,8 @@ export const getAddresses = async (
       },
     }
   );
+
+  console.log('data', data);
 
   return data.data;
 };

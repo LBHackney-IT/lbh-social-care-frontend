@@ -30,7 +30,7 @@ export const lookupPostcode = async (
   building_number?: string
 ): Promise<AddressWrapper> => {
   const { data } = await axios.get(
-    `/api/postcode/${postcode}?page=${page_number}&buildingNumber=${building_number}`
+    `/api/postcode/${postcode}?page=${page_number}&pageSize=100&buildingNumber=${building_number}`
   );
   data.address = data.address.map(formatAddress);
   return data;
