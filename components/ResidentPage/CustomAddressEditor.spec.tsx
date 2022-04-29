@@ -271,6 +271,8 @@ describe('CustomAddressEditor', () => {
   });
 
   it('shows all addresses after a search even if the results are paginated', async () => {
+    new
+
     const mocked_results_page_1 = {
       ...addressesAPIWrapperFactory.build(),
       page_count: 2,
@@ -278,7 +280,7 @@ describe('CustomAddressEditor', () => {
     const mocked_results_page_2 = addressesAPI3and4WrapperFactory.build();
     mockedAxios.get
       .mockResolvedValueOnce(mocked_results_page_1)
-      .mockResolvedValueOnce(mocked_results_page_2);
+      .mockResolvedValue(mocked_results_page_2);
 
     render(
       <CustomAddressEditor

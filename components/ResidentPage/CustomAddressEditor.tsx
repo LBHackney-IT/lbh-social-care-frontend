@@ -1,6 +1,6 @@
 // import axios from 'axios';
 import { KeyboardEventHandler, useRef, useState } from 'react';
-import { Resident, AddressWrapper } from 'types';
+import { Resident, Address } from 'types';
 import { useResident } from 'utils/api/residents';
 import { DataRow } from './DataBlock';
 import s from './CustomAddressEditor.module.scss';
@@ -95,7 +95,7 @@ const InnerForm = ({
 
   const ref = useRef<HTMLFormElement>(null);
   const [open, setOpen] = useState<boolean>(addressExists);
-  const [dropdownAddresses, setDropdownAddresses] = useState<AddressWrapper>();
+  const [dropdownAddresses, setDropdownAddresses] = useState<Address[]>();
   useClickOutside(ref, onClose);
 
   const handleKeyup: KeyboardEventHandler = (e) => {
@@ -107,16 +107,21 @@ const InnerForm = ({
     try {
       const { numberSearch, postcodeSearch } = values;
 
-      const addressData = await lookupPostcode(postcodeSearch, 1, numberSearch);
+      let pageNumber = 0;
+      let isLastPage = false;
+      const addressData: Address[] = [];
+      do {
+        pageNumber++;
+        const { address, page_count } = await lookupPostcode(
+          postcodeSearch,
+          pageNumber,
+          numberSearch
+        );
+        addressData.push(...address);
+        if (page_count == pageNumber) isLastPage = true;
+      } while (!isLastPage);
 
-      // const { data } = await axios.get(
-      //   `/api/postcode/${postcodeSearch}?buildingNumber=${numberSearch}`
-      // );
       setDropdownAddresses(addressData);
-      // const result = data?.address?.[0];
-      // setFieldValue('address.address', result['line1']);
-      // setFieldValue('address.postcode', result['postcode']);
-      // setFieldValue('address.uprn', result['UPRN']);
       setOpen(true);
     } catch (e) {
       setOpen(true);
@@ -179,7 +184,7 @@ const InnerForm = ({
           }
           className={`govuk-select lbh-select`}
         >
-          {dropdownAddresses?.address?.map((address) => (
+          {dropdownAddresses?.map((address) => (
             <option
               value={JSON.stringify(address)}
               key={JSON.stringify(address)}
