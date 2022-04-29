@@ -9,7 +9,10 @@ import { mockedResident } from 'factories/residents';
 import CustomAddressEditor from './CustomAddressEditor';
 import axios from 'axios';
 import userEvent from '@testing-library/user-event';
-import { addressesAPIWrapperFactory } from 'factories/postcode';
+import {
+  addressesAPI3and4WrapperFactory,
+  addressesAPIWrapperFactory,
+} from 'factories/postcode';
 
 const mockClose = jest.fn();
 
@@ -277,5 +280,53 @@ describe('CustomAddressEditor', () => {
         },
       }),
     });
+  });
+
+  it('shows all addresses after a search even if the results are paginated', async () => {
+    const mocked_results_page_1 = {
+      ...addressesAPIWrapperFactory.build(),
+      page_count: 2,
+    };
+    const mocked_results_page_2 = addressesAPI3and4WrapperFactory.build();
+    mockedAxios.get
+      .mockResolvedValueOnce(mocked_results_page_1)
+      .mockResolvedValueOnce(mocked_results_page_2);
+
+    render(
+      <CustomAddressEditor
+        name="address"
+        label="Address"
+        onClose={mockClose}
+        resident={{
+          ...mockedResident,
+          address: undefined,
+        }}
+      />
+    );
+
+    userEvent.type(screen.getByLabelText('Building number or name'), '1');
+    userEvent.type(screen.getByLabelText('Postcode'), 'Town St');
+    await waitFor(() => fireEvent.click(screen.getByText('Find address')));
+
+    expect(mockedAxios.get).toBeCalledWith(
+      '/api/postcode/Town St?page=1&buildingNumber=1'
+    );
+
+    expect(mockedAxios.get).toBeCalledWith(
+      '/api/postcode/Town St?page=2&buildingNumber=1'
+    );
+
+    expect(mockedAxios.get).not.toBeCalledWith(
+      '/api/postcode/Town St?page=3&buildingNumber=1'
+    );
+
+    const addressDropDown = screen.getByRole('combobox');
+    expect(addressDropDown).not.toBeNull();
+
+    await act(async () => {
+      fireEvent.click(addressDropDown);
+    });
+
+    expect(addressDropDown.childElementCount).toBe(4);
   });
 });
