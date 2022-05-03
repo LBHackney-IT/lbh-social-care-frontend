@@ -40,6 +40,11 @@ const TeamLayout = ({ team, children }: Props): React.ReactElement => {
   }
 
   const allocated = [] as Allocation[];
+  const totalAllocated =
+    allocatedTeamData[0] && allocatedTeamData[0].totalCount;
+  const totalUnallocated =
+    unallocatedTeamData[0] && unallocatedTeamData[0].totalCount;
+
   for (
     let i = 0;
     allocatedTeamData !== undefined && i < allocatedTeamData.length;
@@ -85,7 +90,7 @@ const TeamLayout = ({ team, children }: Props): React.ReactElement => {
           >
             <Link href={`/teams/${team.id}`} scroll={false}>
               <a className={`lbh-link lbh-link--no-visited-state ${s.link}`}>
-                Waiting list ({unallocated?.length})
+                Waiting list {totalUnallocated && `(${totalUnallocated})`}
               </a>
             </Link>
           </li>
@@ -97,7 +102,7 @@ const TeamLayout = ({ team, children }: Props): React.ReactElement => {
           >
             <Link href={`/teams/${team.id}/active`} scroll={false}>
               <a className={`lbh-link lbh-link--no-visited-state ${s.link}`}>
-                Active cases ({allocated?.length})
+                Active cases {totalAllocated && `(${totalAllocated})`}
               </a>
             </Link>
           </li>
