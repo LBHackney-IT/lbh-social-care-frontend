@@ -45,7 +45,7 @@ const HeaderComponent = ({
               <Link href={getConfigValue('workflowsPilotUrl') as string}>
                 <a className="govuk-header__link">Workflows</a>
               </Link>
-              <Link href="/search">
+              <Link href="/teams">
                 <a className="govuk-header__link">Teams</a>
               </Link>
               <Link href="/search">

@@ -60,7 +60,7 @@ exports[`Header component should set active the correct link 1`] = `
           </a>
           <a
             class="govuk-header__link"
-            href="/search"
+            href="/teams"
           >
             Teams
           </a>
