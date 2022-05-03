@@ -40,12 +40,10 @@ const TeamLayout = ({ team, children }: Props): React.ReactElement => {
   }
 
   const allocated = [] as Allocation[];
-  const totalAllocated = allocatedTeamData[0]
-    ? allocatedTeamData[0].totalCount
-    : 0;
-  const totalUnallocated = unallocatedTeamData[0]
-    ? unallocatedTeamData[0].totalCount
-    : 0;
+  const totalAllocated =
+    allocatedTeamData[0] && allocatedTeamData[0].totalCount;
+  const totalUnallocated =
+    unallocatedTeamData[0] && unallocatedTeamData[0].totalCount;
 
   for (
     let i = 0;
