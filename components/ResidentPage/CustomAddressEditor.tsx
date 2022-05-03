@@ -1,4 +1,3 @@
-// import axios from 'axios';
 import { KeyboardEventHandler, useRef, useState } from 'react';
 import { Resident, Address } from 'types';
 import { useResident } from 'utils/api/residents';
@@ -6,7 +5,6 @@ import { DataRow } from './DataBlock';
 import s from './CustomAddressEditor.module.scss';
 import { Field, Form, Formik, FormikProps } from 'formik';
 import { residentSchema } from 'lib/validators';
-import useClickOutside from 'hooks/useClickOutside';
 import { lookupPostcode } from 'utils/api/postcodeAPI';
 import React from 'react';
 
@@ -96,7 +94,6 @@ const InnerForm = ({
   const ref = useRef<HTMLFormElement>(null);
   const [open, setOpen] = useState<boolean>(addressExists);
   const [dropdownAddresses, setDropdownAddresses] = useState<Address[]>();
-  useClickOutside(ref, onClose);
 
   const handleKeyup: KeyboardEventHandler = (e) => {
     if (e.key === 'Escape') onClose();
