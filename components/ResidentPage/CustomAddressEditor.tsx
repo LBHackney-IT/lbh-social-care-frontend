@@ -1,12 +1,12 @@
-import axios from 'axios';
 import { KeyboardEventHandler, useRef, useState } from 'react';
-import { Resident } from 'types';
+import { Resident, Address } from 'types';
 import { useResident } from 'utils/api/residents';
 import { DataRow } from './DataBlock';
 import s from './CustomAddressEditor.module.scss';
 import { Field, Form, Formik, FormikProps } from 'formik';
 import { residentSchema } from 'lib/validators';
-import useClickOutside from 'hooks/useClickOutside';
+import { lookupPostcode } from 'utils/api/postcodeAPI';
+import React from 'react';
 
 const Error = ({ error }: { error?: string }) =>
   error ? (
@@ -23,6 +23,7 @@ interface Props extends DataRow {
 interface FormValues {
   numberSearch: string;
   postcodeSearch: string;
+  addressDropdown?: string;
   address: {
     address: string;
     postcode: string;
@@ -92,8 +93,8 @@ const InnerForm = ({
 
   const ref = useRef<HTMLFormElement>(null);
   const [open, setOpen] = useState<boolean>(addressExists);
-
-  useClickOutside(ref, onClose);
+  const [dropdownAddresses, setDropdownAddresses] = useState<Address[]>();
+  const [errorMessage, setErrorMessage] = useState<string>();
 
   const handleKeyup: KeyboardEventHandler = (e) => {
     if (e.key === 'Escape') onClose();
@@ -104,20 +105,45 @@ const InnerForm = ({
     try {
       const { numberSearch, postcodeSearch } = values;
 
-      const { data } = await axios.get(
-        `/api/postcode/${postcodeSearch}?buildingNumber=${numberSearch}`
-      );
-      const result = data?.address?.[0];
-      setFieldValue('address.address', result['line1']);
-      setFieldValue('address.postcode', result['postcode']);
-      setFieldValue('address.uprn', result['UPRN']);
+      let pageNumber = 0;
+      let isLastPage = false;
+      const addressData: Address[] = [];
+      do {
+        pageNumber++;
+        try {
+          const { address, page_count } = await lookupPostcode(
+            postcodeSearch,
+            pageNumber,
+            numberSearch
+          );
+          address.length === 0
+            ? setErrorMessage('No matching addresses were found.')
+            : addressData.push(...address);
+          if (page_count == pageNumber || address.length === 0)
+            isLastPage = true;
+        } catch (e) {
+          isLastPage = true;
+          setErrorMessage(
+            'There was a problem retrieving addresses, please try again.'
+          );
+        }
+      } while (!isLastPage);
+
+      setDropdownAddresses(addressData);
       setOpen(true);
     } catch (e) {
       setOpen(true);
     }
   };
 
-  const canSearch = values['postcodeSearch'] && values['numberSearch'];
+  const handleAddress = (data: string) => {
+    const parsedAddress = JSON.parse(data);
+    setFieldValue('address.address', parsedAddress.address);
+    setFieldValue('address.postcode', parsedAddress.postcode);
+    setFieldValue('address.uprn', parsedAddress.uprn);
+  };
+
+  const canSearch = values['postcodeSearch'];
 
   return (
     <Form className={s.form} onKeyUp={handleKeyup} ref={ref}>
@@ -156,6 +182,28 @@ const InnerForm = ({
           </button>
         )}
       </div>
+      {errorMessage && <Error error={errorMessage} />}
+      {dropdownAddresses && !errorMessage && (
+        <Field
+          as="select"
+          name="addressDropdown"
+          id="addressDropdown"
+          onChange={(e: { target: { value: string } }) =>
+            handleAddress(e.target.value)
+          }
+          className={`govuk-select lbh-select`}
+        >
+          {dropdownAddresses?.map((address) => (
+            <option
+              value={JSON.stringify(address)}
+              key={JSON.stringify(address)}
+            >
+              {' '}
+              {address.address}
+            </option>
+          ))}
+        </Field>
+      )}
 
       {open && (
         <fieldset>
@@ -185,18 +233,17 @@ const InnerForm = ({
             className="govuk-input lbh-input govuk-input--width-5"
           />
 
-          <label htmlFor="address.uprn">Unique property reference number</label>
-          <p className={s.hint} id="uprn-hint">
+          <label htmlFor="address.uprn" className="govuk-visually-hidden">
+            Unique property reference number
+          </label>
+          <p className="govuk-visually-hidden" id="uprn-hint">
             Also called UPRN
           </p>
-          <Error
-            error={touched?.address?.uprn ? errors.address?.uprn : undefined}
-          />
           <Field
             name="address.uprn"
             id="address.uprn"
             aria-describedby="uprn-hint"
-            className="govuk-input lbh-input govuk-input--width-10"
+            className="govuk-visually-hidden"
           />
         </fieldset>
       )}
