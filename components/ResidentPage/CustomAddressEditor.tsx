@@ -94,6 +94,7 @@ const InnerForm = ({
   const ref = useRef<HTMLFormElement>(null);
   const [open, setOpen] = useState<boolean>(addressExists);
   const [dropdownAddresses, setDropdownAddresses] = useState<Address[]>();
+  const [errorMessage, setErrorMessage] = useState<string>();
 
   const handleKeyup: KeyboardEventHandler = (e) => {
     if (e.key === 'Escape') onClose();
@@ -109,13 +110,23 @@ const InnerForm = ({
       const addressData: Address[] = [];
       do {
         pageNumber++;
-        const { address, page_count } = await lookupPostcode(
-          postcodeSearch,
-          pageNumber,
-          numberSearch
-        );
-        addressData.push(...address);
-        if (page_count == pageNumber) isLastPage = true;
+        try {
+          const { address, page_count } = await lookupPostcode(
+            postcodeSearch,
+            pageNumber,
+            numberSearch
+          );
+          address.length === 0
+            ? setErrorMessage('No matching addresses were found.')
+            : addressData.push(...address);
+          if (page_count == pageNumber || address.length === 0)
+            isLastPage = true;
+        } catch (e) {
+          isLastPage = true;
+          setErrorMessage(
+            'There was a problem retrieving addresses, please try again.'
+          );
+        }
       } while (!isLastPage);
 
       setDropdownAddresses(addressData);
@@ -171,7 +182,8 @@ const InnerForm = ({
           </button>
         )}
       </div>
-      {dropdownAddresses && (
+      {errorMessage && <Error error={errorMessage} />}
+      {dropdownAddresses && !errorMessage && (
         <Field
           as="select"
           name="addressDropdown"

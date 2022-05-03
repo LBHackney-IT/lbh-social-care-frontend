@@ -317,4 +317,60 @@ describe('CustomAddressEditor', () => {
 
     expect(addressDropDown.childElementCount).toBe(4);
   });
+
+  it('shows an error if no addresses are found from the postcode search', async () => {
+    const mock_no_results = {
+      address: [],
+      page_count: 1,
+    };
+    mockedAxios.get.mockResolvedValue({ data: mock_no_results });
+
+    render(
+      <CustomAddressEditor
+        name="address"
+        label="Address"
+        onClose={mockClose}
+        resident={{
+          ...mockedResident,
+          address: undefined,
+        }}
+      />
+    );
+
+    userEvent.type(screen.getByLabelText('Building number or name'), '1');
+    userEvent.type(screen.getByLabelText('Postcode'), 'Town St');
+    await waitFor(() => fireEvent.click(screen.getByText('Find address')));
+
+    const expectedAddress = screen.getByText(
+      'No matching addresses were found.'
+    );
+    expect(expectedAddress).not.toBeNull();
+    expect(expectedAddress).toBeInTheDocument();
+  });
+
+  it('checks postcode api errors are handled', async () => {
+    mockedAxios.get.mockRejectedValueOnce(new Error());
+
+    render(
+      <CustomAddressEditor
+        name="address"
+        label="Address"
+        onClose={mockClose}
+        resident={{
+          ...mockedResident,
+          address: undefined,
+        }}
+      />
+    );
+
+    userEvent.type(screen.getByLabelText('Building number or name'), '1');
+    userEvent.type(screen.getByLabelText('Postcode'), 'Town St');
+    await waitFor(() => fireEvent.click(screen.getByText('Find address')));
+
+    const expectedAddress = screen.getByText(
+      'There was a problem retrieving addresses, please try again.'
+    );
+    expect(expectedAddress).not.toBeNull();
+    expect(expectedAddress).toBeInTheDocument();
+  });
 });
