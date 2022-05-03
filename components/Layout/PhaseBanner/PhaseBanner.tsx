@@ -16,11 +16,21 @@ const PhaseBanner = ({
       </strong>
       <span className="govuk-phase-banner__text">
         Need help? Check out the{' '}
-        <a className="govuk-link" href={faqLink}>
+        <a
+          className="lbh-link lbh-link--no-visited-state"
+          target="_blank"
+          rel="noreferrer noopener"
+          href={faqLink}
+        >
           FAQ
         </a>{' '}
         or the{' '}
-        <a className="govuk-link" href={handbookLink}>
+        <a
+          className="lbh-link lbh-link--no-visited-state"
+          target="_blank"
+          rel="noreferrer noopener"
+          href={handbookLink}
+        >
           handbook
         </a>
         . If you don&apos;t find the answer, contact{' '}

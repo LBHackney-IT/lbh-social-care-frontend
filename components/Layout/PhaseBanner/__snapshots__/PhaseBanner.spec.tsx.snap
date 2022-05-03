@@ -18,15 +18,19 @@ exports[`PhaseBanner should render properly 1`] = `
       >
         Need help? Check out the 
         <a
-          class="govuk-link"
+          class="lbh-link lbh-link--no-visited-state"
           href="foo"
+          rel="noreferrer noopener"
+          target="_blank"
         >
           FAQ
         </a>
          or the 
         <a
-          class="govuk-link"
+          class="lbh-link lbh-link--no-visited-state"
           href="bar"
+          rel="noreferrer noopener"
+          target="_blank"
         >
           handbook
         </a>
