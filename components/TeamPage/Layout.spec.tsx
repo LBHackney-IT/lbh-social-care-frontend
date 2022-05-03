@@ -4,7 +4,7 @@ import { render } from '@testing-library/react';
 import {
   mockedTeam,
   mockedTeamWorker,
-  workerAllocationFactory,
+  allocationDataFactory,
   allocationFactory,
 } from 'factories/teams';
 import * as teamWorkersAPI from 'utils/api/allocatedWorkers';
@@ -21,9 +21,12 @@ jest.mock('next/router', () => ({
 
 jest.spyOn(teamWorkersAPI, 'useAllocationsByTeam').mockImplementation(() => {
   const response = {
-    data: workerAllocationFactory.build({
-      allocations: [allocationFactory.build()],
-    }),
+    data: [
+      allocationDataFactory.build({
+        allocations: [allocationFactory.build()],
+        totalCount: 256,
+      }),
+    ],
   } as unknown as SWRInfiniteResponse<AllocationData, Error>;
 
   return response;
@@ -55,6 +58,23 @@ describe('TeamLayout component', () => {
       </TeamLayout>
     );
     expect(queryByText('Team members (1)')).toBeInTheDocument();
+  });
+
+  it('loads correctly the allocations count', async () => {
+    jest.spyOn(teamWorkersAPI, 'useTeamWorkers').mockImplementation(() => ({
+      data: [mockedTeamWorker],
+      revalidate: jest.fn(),
+      mutate: jest.fn(),
+      isValidating: false,
+    }));
+
+    const { queryByText } = render(
+      <TeamLayout team={mockedTeam}>
+        <></>
+      </TeamLayout>
+    );
+    expect(queryByText('Waiting list (256)')).toBeInTheDocument();
+    expect(queryByText('Active cases (256)')).toBeInTheDocument();
   });
 
   it('displays correctly children components', async () => {
