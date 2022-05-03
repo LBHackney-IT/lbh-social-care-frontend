@@ -28,9 +28,9 @@ exports[`PhaseBanner should render properly 1`] = `
           class="govuk-link"
           href="bar"
         >
-          handbook.
+          handbook
         </a>
-         If you don't find the answer, contact 
+        . If you don't find the answer, contact 
         <a
           href="mailto:social-care.support@hackney.gov.uk"
         >
