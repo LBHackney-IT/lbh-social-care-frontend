@@ -224,18 +224,17 @@ const InnerForm = ({
             className="govuk-input lbh-input govuk-input--width-5"
           />
 
-          <label htmlFor="address.uprn">Unique property reference number</label>
-          <p className={s.hint} id="uprn-hint">
+          <label htmlFor="address.uprn" className="govuk-visually-hidden">
+            Unique property reference number
+          </label>
+          <p className="govuk-visually-hidden" id="uprn-hint">
             Also called UPRN
           </p>
-          <Error
-            error={touched?.address?.uprn ? errors.address?.uprn : undefined}
-          />
           <Field
             name="address.uprn"
             id="address.uprn"
             aria-describedby="uprn-hint"
-            className="govuk-input lbh-input govuk-input--width-10"
+            className="govuk-visually-hidden"
           />
         </fieldset>
       )}
