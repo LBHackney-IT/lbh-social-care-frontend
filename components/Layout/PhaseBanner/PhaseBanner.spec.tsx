@@ -5,7 +5,7 @@ import PhaseBanner from './PhaseBanner';
 describe('PhaseBanner', () => {
   it('should render properly', async () => {
     const { asFragment } = render(
-      <PhaseBanner phase="alpha" feedbackLink="foo" />
+      <PhaseBanner phase="alpha" faqLink="foo" handbookLink="bar" />
     );
     expect(asFragment()).toMatchSnapshot();
   });
