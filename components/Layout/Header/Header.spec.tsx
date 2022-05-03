@@ -4,6 +4,7 @@ import Header from './Header';
 import { UserContext } from 'components/UserContext/UserContext';
 import { mockedUser, userFactory } from 'factories/users';
 import * as saveData from 'utils/saveData';
+import { AppConfigProvider } from 'lib/appConfig';
 
 let mockedUseRouter = { pathname: 'pathname' };
 
@@ -30,31 +31,41 @@ describe('Header component', () => {
       },
     }));
     const { getByText } = render(
-      <UserContext.Provider
-        value={{
-          user: mockedUser,
-        }}
+      <AppConfigProvider
+        appConfig={{ workflowsPilotUrl: 'http://example.com' }}
       >
-        <Header {...props} />
-      </UserContext.Provider>
+        <UserContext.Provider
+          value={{
+            user: mockedUser,
+          }}
+        >
+          <Header {...props} />
+        </UserContext.Provider>
+      </AppConfigProvider>
     );
 
     expect(getByText('Search')).toBeInTheDocument();
+    expect(getByText('Workflows')).toBeInTheDocument();
     expect(getByText('Sign out')).toBeInTheDocument();
   });
 
   it('should render service name but no header links', () => {
     const { getByText, queryByText } = render(
-      <UserContext.Provider
-        value={{
-          user: undefined,
-        }}
+      <AppConfigProvider
+        appConfig={{ workflowsPilotUrl: 'http://example.com' }}
       >
-        <Header {...props} />
-      </UserContext.Provider>
+        <UserContext.Provider
+          value={{
+            user: undefined,
+          }}
+        >
+          <Header {...props} />
+        </UserContext.Provider>
+      </AppConfigProvider>
     );
     expect(getByText('Foo')).toBeInTheDocument();
     expect(queryByText('Search')).not.toBeInTheDocument();
+    expect(queryByText('Workflows')).not.toBeInTheDocument();
     expect(queryByText('Sign out')).not.toBeInTheDocument();
   });
 
@@ -63,29 +74,37 @@ describe('Header component', () => {
       pathname: '/my-records',
     };
     const { asFragment } = render(
-      <UserContext.Provider
-        value={{
-          user: mockedUser,
-        }}
+      <AppConfigProvider
+        appConfig={{ workflowsPilotUrl: 'http://example.com' }}
       >
-        <Header {...props} />
-      </UserContext.Provider>
+        <UserContext.Provider
+          value={{
+            user: mockedUser,
+          }}
+        >
+          <Header {...props} />
+        </UserContext.Provider>
+      </AppConfigProvider>
     );
     expect(asFragment()).toMatchSnapshot();
   });
 
   it('should show the "Manage workers" navigation item for admins', () => {
     render(
-      <UserContext.Provider
-        value={{
-          user: userFactory.build({
-            hasAdminPermissions: true,
-            hasDevPermissions: false,
-          }),
-        }}
+      <AppConfigProvider
+        appConfig={{ workflowsPilotUrl: 'http://example.com' }}
       >
-        <Header {...props} />
-      </UserContext.Provider>
+        <UserContext.Provider
+          value={{
+            user: userFactory.build({
+              hasAdminPermissions: true,
+              hasDevPermissions: false,
+            }),
+          }}
+        >
+          <Header {...props} />
+        </UserContext.Provider>
+      </AppConfigProvider>
     );
 
     screen.getByText('Manage workers');
@@ -93,16 +112,20 @@ describe('Header component', () => {
 
   it('should show the "Manage workers" navigation item for developers', () => {
     render(
-      <UserContext.Provider
-        value={{
-          user: userFactory.build({
-            hasAdminPermissions: false,
-            hasDevPermissions: true,
-          }),
-        }}
+      <AppConfigProvider
+        appConfig={{ workflowsPilotUrl: 'http://example.com' }}
       >
-        <Header {...props} />
-      </UserContext.Provider>
+        <UserContext.Provider
+          value={{
+            user: userFactory.build({
+              hasAdminPermissions: false,
+              hasDevPermissions: true,
+            }),
+          }}
+        >
+          <Header {...props} />
+        </UserContext.Provider>
+      </AppConfigProvider>
     );
 
     screen.getByText('Manage workers');
@@ -110,16 +133,20 @@ describe('Header component', () => {
 
   it('should not show the "Manage workers" navigation item for regular users', () => {
     render(
-      <UserContext.Provider
-        value={{
-          user: userFactory.build({
-            hasAdminPermissions: false,
-            hasDevPermissions: false,
-          }),
-        }}
+      <AppConfigProvider
+        appConfig={{ workflowsPilotUrl: 'http://example.com' }}
       >
-        <Header {...props} />
-      </UserContext.Provider>
+        <UserContext.Provider
+          value={{
+            user: userFactory.build({
+              hasAdminPermissions: false,
+              hasDevPermissions: false,
+            }),
+          }}
+        >
+          <Header {...props} />
+        </UserContext.Provider>
+      </AppConfigProvider>
     );
 
     expect(screen.queryByText('Manage workers')).toBeNull();
