@@ -44,8 +44,10 @@ describe('Header component', () => {
       </AppConfigProvider>
     );
 
-    expect(getByText('Search')).toBeInTheDocument();
+    expect(getByText('My work')).toBeInTheDocument();
     expect(getByText('Workflows')).toBeInTheDocument();
+    expect(getByText('Teams')).toBeInTheDocument();
+    expect(getByText('Search')).toBeInTheDocument();
     expect(getByText('Sign out')).toBeInTheDocument();
   });
 
@@ -64,8 +66,10 @@ describe('Header component', () => {
       </AppConfigProvider>
     );
     expect(getByText('Foo')).toBeInTheDocument();
-    expect(queryByText('Search')).not.toBeInTheDocument();
+    expect(queryByText('My work')).not.toBeInTheDocument();
     expect(queryByText('Workflows')).not.toBeInTheDocument();
+    expect(queryByText('Teams')).not.toBeInTheDocument();
+    expect(queryByText('Search')).not.toBeInTheDocument();
     expect(queryByText('Sign out')).not.toBeInTheDocument();
   });
 
