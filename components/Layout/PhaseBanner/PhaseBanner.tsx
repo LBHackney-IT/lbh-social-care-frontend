@@ -15,7 +15,7 @@ const PhaseBanner = ({
         {phase}
       </strong>
       <span className="govuk-phase-banner__text">
-        Not sure how to do something or need help? Check out the{' '}
+        Need help? Check out the{' '}
         <a className="govuk-link" href={faqLink}>
           FAQ
         </a>{' '}
@@ -24,9 +24,7 @@ const PhaseBanner = ({
           handbook.
         </a>{' '}
         If you don&apos;t find the answer, contact{' '}
-        <a href="mailto:social-care.support@hackney.gov.uk">
-          social-care.support@hackney.gov.uk
-        </a>{' '}
+        <a href="mailto:social-care.support@hackney.gov.uk">support</a>{' '}
       </span>
     </p>
   </div>

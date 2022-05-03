@@ -16,14 +16,27 @@ exports[`PhaseBanner should render properly 1`] = `
       <span
         class="govuk-phase-banner__text"
       >
-        This is a new service – your 
+        Need help? Check out the 
         <a
           class="govuk-link"
           href="foo"
         >
-          feedback
+          FAQ
         </a>
-         will help us to improve it.
+         or the 
+        <a
+          class="govuk-link"
+          href="bar"
+        >
+          handbook.
+        </a>
+         If you don't find the answer, contact 
+        <a
+          href="mailto:social-care.support@hackney.gov.uk"
+        >
+          support
+        </a>
+         
       </span>
     </p>
   </div>
