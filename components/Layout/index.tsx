@@ -22,16 +22,21 @@ const Layout = ({
   const { user } = useAuth() as { user: User };
 
   if (noLayout) return <>{children}</>;
-
-  const feedbackLink =
-    'https://docs.google.com/forms/d/e/1FAIpQLScILbPD1ioKHzp1D3HN4_DKaxV2tpWLMu8upSSqNgSPCo85cg/viewform';
+  const faqLink =
+    'https://docs.google.com/document/d/1eM2anY9Ddot79Gl1N386ANG6ahyn4gjZr6vsoQQGLZg/edit#';
+  const handbookLink =
+    'https://docs.google.com/presentation/d/1AiTljatPK58xBk2Y7R9h9mUwDpusekv2jkuCgwMWpGk/edit#slide=id.gebf6791975_1_135';
 
   return (
     <>
       <Seo title="Social Care Admin - Hackney Council" />
       <SkipLink />
       <Header serviceName="Social Care" />
-      <PhaseBanner phase="beta" feedbackLink={feedbackLink} />
+      <PhaseBanner
+        phase="support"
+        faqLink={faqLink}
+        handbookLink={handbookLink}
+      />
       {goBackButton && <BackButton />}
 
       <div className="govuk-width-container">
