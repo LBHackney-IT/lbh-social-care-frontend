@@ -71,6 +71,8 @@ export const WorkerAllocations = ({
             <span className={s.workerAllocation}>
               <b>Team allocation: </b>
               <span data-testid="dateSpan" className={s.elementValue}>
+                {allocationDate.toLocaleDateString()}
+                {' ('}
                 {isToday(new Date(allocation.teamAllocationStartDate))
                   ? 'Today'
                   : formatDistance(
@@ -80,6 +82,7 @@ export const WorkerAllocations = ({
                         addSuffix: true,
                       }
                     )}
+                {') '}
               </span>
             </span>
             <br />
