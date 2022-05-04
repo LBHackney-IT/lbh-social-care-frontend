@@ -13,4 +13,10 @@ describe('useWorkflowIds', () => {
       expect.any(Function)
     );
   });
+  it('should handle no workflow id properly', async () => {
+    jest.spyOn(SWR, 'default');
+
+    useWorkflowIds();
+    expect(SWR.default).toHaveBeenCalledWith(null, expect.any(Function));
+  });
 });
