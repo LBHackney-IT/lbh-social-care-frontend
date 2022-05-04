@@ -5,7 +5,6 @@ import { DataRow } from './DataBlock';
 import s from './CustomPhoneNumberEditor.module.scss';
 import { Field, FieldArray, Form, Formik, FormikProps, getIn } from 'formik';
 import { residentSchema } from 'lib/validators';
-import useClickOutside from 'hooks/useClickOutside';
 
 interface Props extends DataRow {
   onClose: () => void;
@@ -78,9 +77,6 @@ const InnerForm = ({
   touched,
 }: InnerProps): React.ReactElement => {
   const ref = useRef<HTMLFormElement>(null);
-
-  useClickOutside(ref, onClose);
-
   const handleKeyup: KeyboardEventHandler = (e) => {
     if (e.key === 'Escape') onClose();
     if (e.key === 'Enter') submitForm();

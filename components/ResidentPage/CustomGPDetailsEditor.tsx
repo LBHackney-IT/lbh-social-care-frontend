@@ -5,7 +5,6 @@ import { DataRow } from './DataBlock';
 import s from './CustomAddressEditor.module.scss';
 import { Field, Form, Formik, FormikProps } from 'formik';
 import { residentSchema } from 'lib/validators';
-import useClickOutside from 'hooks/useClickOutside';
 
 const Error = ({ error }: { error?: string }) =>
   error ? (
@@ -68,9 +67,6 @@ type InnerProps = Props & FormikProps<FormValues>;
 
 const InnerForm = ({ onClose, errors, touched, submitForm }: InnerProps) => {
   const ref = useRef<HTMLFormElement>(null);
-
-  useClickOutside(ref, onClose);
-
   const handleKeyup: KeyboardEventHandler = (e) => {
     if (e.key === 'Escape') onClose();
     if (e.key === 'Enter') submitForm();
