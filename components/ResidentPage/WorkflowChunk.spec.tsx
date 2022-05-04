@@ -24,6 +24,18 @@ describe('WorkflowChunk', () => {
     expect(screen.getByText('Reassessment'));
   });
 
+  it('marks a review', () => {
+    render(
+      <WorkflowChunk
+        workflow={{
+          ...mockWorkflow,
+          type: WorkflowType.Review,
+        }}
+      />
+    );
+    expect(screen.getByText('Review'));
+  });
+
   it('marks in progress', () => {
     render(<WorkflowChunk workflow={mockWorkflow} />);
     expect(screen.getByText('In progress'));
