@@ -1,20 +1,40 @@
 interface Props {
   phase: string;
-  feedbackLink: string;
+  faqLink: string;
+  handbookLink: string;
 }
 
-const PhaseBanner = ({ phase, feedbackLink }: Props): React.ReactElement => (
+const PhaseBanner = ({
+  phase,
+  faqLink,
+  handbookLink,
+}: Props): React.ReactElement => (
   <div className="govuk-phase-banner lbh-phase-banner lbh-container">
     <p className="govuk-phase-banner__content">
       <strong className="govuk-tag govuk-phase-banner__content__tag">
         {phase}
       </strong>
       <span className="govuk-phase-banner__text">
-        This is a new service – your{' '}
-        <a className="govuk-link" href={feedbackLink}>
-          feedback
+        Need help? Check out the{' '}
+        <a
+          className="lbh-link lbh-link--no-visited-state"
+          target="_blank"
+          rel="noreferrer noopener"
+          href={faqLink}
+        >
+          FAQ
         </a>{' '}
-        will help us to improve it.
+        or the{' '}
+        <a
+          className="lbh-link lbh-link--no-visited-state"
+          target="_blank"
+          rel="noreferrer noopener"
+          href={handbookLink}
+        >
+          handbook
+        </a>
+        . If you don&apos;t find the answer, contact{' '}
+        <a href="mailto:social-care.support@hackney.gov.uk">support</a>{' '}
       </span>
     </p>
   </div>
