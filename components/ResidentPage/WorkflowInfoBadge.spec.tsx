@@ -11,7 +11,7 @@ describe('WorkflowInfoBadge', () => {
 
     render(<WorkflowInfoBadge workflowId={mockWorkflow.id} />);
 
-    const unknownLabel = screen.getByText('Unknown');
+    const unknownLabel = screen.getByText('Unknown workflow type');
     expect(unknownLabel).toBeVisible();
     expect(unknownLabel.className).toBe('govuk-tag lbh-tag lbh-tag--grey');
   });

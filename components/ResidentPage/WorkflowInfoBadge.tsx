@@ -1,3 +1,4 @@
+import Tip from 'components/Tip/Tip';
 import useWorkflowIds from 'hooks/useWorkflowIds';
 import { WorkflowType } from './types';
 import s from './WorkflowInfoBadge.module.scss';
@@ -21,12 +22,14 @@ export const WorkflowInfoBadge = ({
       )}
 
       {workflowId && error && (
-        <span
-          className="govuk-tag lbh-tag lbh-tag--grey"
-          data-testid="workflow-info"
-        >
-          Unknown
-        </span>
+        <Tip content="There is workflow data that can not be retrieved currently">
+          <span
+            className="govuk-tag lbh-tag lbh-tag--grey"
+            data-testid="workflow-info"
+          >
+            Unknown workflow type
+          </span>
+        </Tip>
       )}
     </div>
   );
