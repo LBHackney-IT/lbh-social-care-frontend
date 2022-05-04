@@ -6,10 +6,10 @@ import useWorkflowIds from '../../hooks/useWorkflowIds';
 jest.mock('../../hooks/useWorkflowIds');
 
 describe('WorkflowInfoBadge', () => {
-  it('displays an unknown text if there is no workflow information', () => {
+  it('displays an unknown text if there is a workflow id but an error from the api', () => {
     (useWorkflowIds as jest.Mock).mockReturnValue({ error: new Error() });
 
-    render(<WorkflowInfoBadge {...mockWorkflow.id} />);
+    render(<WorkflowInfoBadge workflowId={mockWorkflow.id} />);
 
     const unknownLabel = screen.getByText('Unknown');
     expect(unknownLabel).toBeVisible();
@@ -20,7 +20,14 @@ describe('WorkflowInfoBadge', () => {
     (useWorkflowIds as jest.Mock).mockReturnValue({
       data: { workflows: [mockWorkflow] },
     });
-    render(<WorkflowInfoBadge {...mockWorkflow.id} />);
+    render(<WorkflowInfoBadge workflowId={mockWorkflow.id} />);
+    const workflowLabel = screen.queryByTestId('workflow-info');
+    expect(workflowLabel).toBeNull();
+  });
+
+  it('does not display a label if the there is an error from the api and no workflowid', () => {
+    (useWorkflowIds as jest.Mock).mockReturnValue({ error: new Error() });
+    render(<WorkflowInfoBadge workflowId={undefined} />);
     const workflowLabel = screen.queryByTestId('workflow-info');
     expect(workflowLabel).toBeNull();
   });
@@ -29,7 +36,7 @@ describe('WorkflowInfoBadge', () => {
     (useWorkflowIds as jest.Mock).mockReturnValue({
       data: { workflows: [{ ...mockWorkflow, type: 'Review' }] },
     });
-    render(<WorkflowInfoBadge {...mockWorkflow.id} />);
+    render(<WorkflowInfoBadge workflowId={mockWorkflow.id} />);
     const reviewLabel = screen.getByText('Review');
     expect(reviewLabel).toBeVisible();
     expect(reviewLabel.className).toBe('govuk-tag lbh-tag');
@@ -39,7 +46,7 @@ describe('WorkflowInfoBadge', () => {
     (useWorkflowIds as jest.Mock).mockReturnValue({
       data: { workflows: [{ ...mockWorkflow, type: 'Reassessment' }] },
     });
-    render(<WorkflowInfoBadge {...mockWorkflow.id} />);
+    render(<WorkflowInfoBadge workflowId={mockWorkflow.id} />);
     const reviewLabel = screen.getByText('Reassessment');
     expect(reviewLabel).toBeVisible();
     expect(reviewLabel.className).toBe('govuk-tag lbh-tag');

@@ -2,7 +2,13 @@ import useWorkflowIds from 'hooks/useWorkflowIds';
 import { WorkflowType } from './types';
 import s from './WorkflowInfoBadge.module.scss';
 
-export const WorkflowInfoBadge = (workflowId: string): React.ReactElement => {
+interface Props {
+  workflowId?: string;
+}
+
+export const WorkflowInfoBadge = ({
+  workflowId,
+}: Props): React.ReactElement => {
   const { data, error } = useWorkflowIds(workflowId, 1);
 
   return (
@@ -14,7 +20,7 @@ export const WorkflowInfoBadge = (workflowId: string): React.ReactElement => {
         </span>
       )}
 
-      {error && (
+      {workflowId && error && (
         <span
           className="govuk-tag lbh-tag lbh-tag--grey"
           data-testid="workflow-info"
