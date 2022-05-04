@@ -622,6 +622,8 @@ export interface Resident {
     [key: string]: string;
   };
 
+  reviewDate?: string;
+
   /** @deprecated legacy stuff — avoid using these */
   ageContext?: AgeContext;
   addresses?: LegacyAddress[];

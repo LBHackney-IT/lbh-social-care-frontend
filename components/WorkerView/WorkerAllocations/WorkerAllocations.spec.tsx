@@ -5,10 +5,22 @@ import {
   mockedAllocations,
   mockedAllocation,
 } from 'factories/allocatedWorkers';
+import { residentFactory } from 'factories/residents';
+
 import { addDays } from 'date-fns';
 import * as workerAPI from 'utils/api/allocatedWorkers';
+import * as residentsAPI from 'utils/api/residents';
 
 jest.mock('utils/api/allocatedWorkers');
+
+jest.spyOn(residentsAPI, 'useResident').mockImplementation(() => ({
+  data: residentFactory.build({
+    reviewDate: '2022-12-12',
+  }),
+  revalidate: jest.fn(),
+  mutate: jest.fn(),
+  isValidating: false,
+}));
 
 describe('WorkerAllocations component', () => {
   it('displays the active cases correctly', async () => {
@@ -50,6 +62,20 @@ describe('WorkerAllocations component', () => {
     expect(queryByText('Team allocation:')).toBeInTheDocument();
     expect(queryByText('foo')).toBeInTheDocument();
   });
+  it('displays the review date if it exists', async () => {
+    jest.spyOn(workerAPI, 'useAllocationsByWorker').mockImplementation(() => ({
+      data: {
+        workers: [],
+        allocations: [mockedAllocation],
+      },
+      revalidate: jest.fn(),
+      mutate: jest.fn(),
+      isValidating: false,
+    }));
+
+    const { queryByText } = render(<WorkerAllocations workerId={123} />);
+    expect(queryByText('Review date:')).toBeInTheDocument();
+  });
   it('displays the sorting element correctly', async () => {
     jest.spyOn(workerAPI, 'useAllocationsByWorker').mockImplementation(() => ({
       data: {
@@ -66,6 +92,7 @@ describe('WorkerAllocations component', () => {
     expect(queryByText('Sort by')).toBeInTheDocument();
     expect(queryByText('Priority')).toBeInTheDocument();
     expect(queryByText('Date added to team')).toBeInTheDocument();
+    expect(queryByText('Review date')).toBeInTheDocument();
   });
   it('displays "No people are assigned to you" if there are no allocated elements', async () => {
     jest.spyOn(workerAPI, 'useAllocationsByWorker').mockImplementation(() => ({
