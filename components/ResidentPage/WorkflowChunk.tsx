@@ -20,6 +20,10 @@ export const WorkflowChunk = ({ workflow }: Props): React.ReactElement => (
       <span className="govuk-tag lbh-tag">Reassessment</span>
     )}
 
+    {workflow.type === WorkflowType.Review && (
+      <span className="govuk-tag lbh-tag">Review</span>
+    )}
+
     {!workflow.submittedAt && (
       <span className="govuk-tag lbh-tag lbh-tag--yellow">In progress</span>
     )}
