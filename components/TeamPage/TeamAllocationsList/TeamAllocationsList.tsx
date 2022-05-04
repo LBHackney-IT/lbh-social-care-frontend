@@ -9,6 +9,8 @@ import { capitalize } from 'lib/formatters';
 import classNames from 'classnames';
 import Link from 'next/link';
 import { formatDistance, isToday } from 'date-fns';
+import { useResident } from 'utils/api/residents';
+import Spinner from 'components/Spinner/Spinner';
 
 interface TeamAllocationsListProps {
   teamId: number;
@@ -24,6 +26,14 @@ export const TeamAllocation = ({
   allocation,
   type,
 }: TeamAllocationProps): React.ReactElement => {
+  const { data: person, error } = useResident(allocation.personId);
+  if (error) {
+    return <ErrorMessage />;
+  }
+  if (!person) {
+    return <Spinner />;
+  }
+
   if (!allocation.ragRating) {
     allocation.ragRating = 'none';
   }
@@ -56,6 +66,17 @@ export const TeamAllocation = ({
 
   const allocationDate = new Date(allocation.allocationStartDate);
 
+  const reviewDateBlock = person && person.reviewDate && (
+    <span className={s.workerAllocation}>
+      <br />
+      <b>Review date:</b>
+      <span data-testid="dateSpan" className={s.elementValue}>
+        {'  '}
+        {new Date(person.reviewDate).toLocaleDateString()}
+      </span>
+    </span>
+  );
+
   const elm =
     type == 'unallocated' ? (
       <>
@@ -68,6 +89,8 @@ export const TeamAllocation = ({
               {allocationDate.toLocaleDateString()}
             </span>
           </span>
+
+          {reviewDateBlock}
         </div>
       </>
     ) : (
@@ -109,6 +132,7 @@ export const TeamAllocation = ({
               {') '}
             </span>
           </span>
+          {reviewDateBlock}
         </div>
       </>
     );
@@ -162,6 +186,7 @@ const TeamAllocationsList = ({
                 options={[
                   { value: 'rag_rating', text: 'Priority' },
                   { value: 'date_added', text: 'Date added to team' },
+                  { value: 'review_date', text: 'Review date' },
                 ]}
                 defaultValue={sortBy}
                 onChange={(elm) => {

@@ -114,7 +114,7 @@ describe('ResidentPage', () => {
     );
 
     await act(async () => {
-      fireEvent.click(screen.getByText('See all 23 fields'));
+      fireEvent.click(screen.getByText('See all 24 fields'));
     });
 
     const personalDetails = screen.getByLabelText('Personal details');
