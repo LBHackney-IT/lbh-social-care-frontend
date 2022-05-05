@@ -9,7 +9,7 @@ describe('useWorkflowIds', () => {
 
     useWorkflowIds('050001');
     expect(SWR.default).toHaveBeenCalledWith(
-      `${process.env.NEXT_PUBLIC_CORE_PATHWAY_APP_URL}/api/workflows/050001?per_page=20`,
+      `${process.env.NEXT_PUBLIC_CORE_PATHWAY_APP_URL}/api/workflows/050001`,
       expect.any(Function)
     );
   });
