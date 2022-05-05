@@ -10,7 +10,7 @@ interface Props {
 export const WorkflowInfoBadge = ({
   workflowId,
 }: Props): React.ReactElement => {
-  const { data, error } = useWorkflowIds(workflowId, 1);
+  const { data, error } = useWorkflowIds(workflowId);
 
   if (!data && !error) {
     return <></>;

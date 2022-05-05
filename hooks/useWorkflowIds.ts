@@ -8,13 +8,10 @@ interface Res {
 }
 
 /** get a resident's workflows, using their social care id */
-const useWorkflowIds = (
-  workflowId?: string,
-  limit = 20
-): SWRResponse<Res, Error> => {
+const useWorkflowIds = (workflowId?: string): SWRResponse<Res, Error> => {
   return useSWR(
     workflowId
-      ? `${process.env.NEXT_PUBLIC_CORE_PATHWAY_APP_URL}/api/workflows/${workflowId}?per_page=${limit}`
+      ? `${process.env.NEXT_PUBLIC_CORE_PATHWAY_APP_URL}/api/workflows/${workflowId}`
       : null,
     (resource, options) =>
       axios
