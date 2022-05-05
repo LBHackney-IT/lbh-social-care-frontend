@@ -17,6 +17,7 @@ import Link from 'next/link';
 import { useCallback, useEffect, useState } from 'react';
 import RemoveCaseNoteDialog from './RemoveCaseNoteDialog';
 import { generateInternalLink } from 'utils/urls';
+import WorkflowInfoBadge from './WorkflowInfoBadge';
 
 interface SubmissionContentProps {
   submissionId: string;
@@ -206,6 +207,7 @@ const CaseNoteDialog = ({
         </p>
 
         <p className={`lbh-body-xs ${s.actions}`}>
+          <WorkflowInfoBadge workflowId={note?.caseFormData?.workflowId} />
           {isWorkflow ? (
             <Link
               href={`${process.env.NEXT_PUBLIC_CORE_PATHWAY_APP_URL}/workflows/${note.caseFormData.workflowId}`}
