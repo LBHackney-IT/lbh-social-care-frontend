@@ -66,23 +66,13 @@ const TeamMemberAllocations = ({ user }: TeamMemberProps) => {
                   {allocation.teamAllocationStartDate &&
                     allocation.teamAllocationStartDate !=
                       '0001-01-01T00:00:00' &&
-                    formatDate(allocation.teamAllocationStartDate)}
-                  {allocation.teamAllocationStartDate &&
-                    allocation.teamAllocationStartDate !=
-                      '0001-01-01T00:00:00' &&
-                    ' ('}
-                  {allocation.teamAllocationStartDate &&
-                    allocation.teamAllocationStartDate !=
-                      '0001-01-01T00:00:00' &&
-                    formatDistance(
+                    `${formatDate(
+                      allocation.teamAllocationStartDate
+                    )} (${formatDistance(
                       new Date(allocation.teamAllocationStartDate),
                       new Date(),
                       { addSuffix: true }
-                    )}
-                  {allocation.teamAllocationStartDate &&
-                    allocation.teamAllocationStartDate !=
-                      '0001-01-01T00:00:00' &&
-                    ')'}
+                    )})`}
                 </td>
               </tr>
             ))}
