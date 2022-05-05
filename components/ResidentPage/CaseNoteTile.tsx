@@ -12,6 +12,7 @@ import React from 'react';
 import { useWorker } from 'utils/api/workers';
 import cx from 'classnames';
 import { useSubmission } from 'utils/api/submissions';
+import WorkflowInfoBadge from './WorkflowInfoBadge';
 
 const prettyLink = (c: Case): string => {
   if (c?.caseFormData?.workflowId)
@@ -61,7 +62,7 @@ const CaseNoteTile = ({ c }: TileProps): React.ReactElement => {
         {isWorkflow && ` · Workflow`}
         {c.pinnedAt && ` · Pinned`}
       </p>
-      <h2 className="lbh-heading-h4">
+      <h2 className="lbh-heading-h4 govuk-!-margin-bottom-0">
         <Link href={prettyLink(c)} scroll={false}>
           <a className="lbh-link lbh-link--no-visited-state">
             {prettyCaseTitle(c)}
@@ -69,6 +70,7 @@ const CaseNoteTile = ({ c }: TileProps): React.ReactElement => {
         </Link>
       </h2>
 
+      <WorkflowInfoBadge workflowId={c?.caseFormData?.workflowId} />
       {c.formType === 'flexible-form' && (
         <SubmissionPreview submissionId={c.recordId} />
       )}

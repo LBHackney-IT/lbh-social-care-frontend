@@ -6,10 +6,14 @@ import { useRouter } from 'next/router';
 import { useCase, useCases, useHistoricCaseNote } from 'utils/api/cases';
 import { useSubmission } from 'utils/api/submissions';
 import { mockedHistoricCaseNote } from 'fixtures/cases.fixtures';
+import useWorkflowIds from '../../hooks/useWorkflowIds';
+import { mockWorkflow } from 'fixtures/workflows';
 
 jest.mock('next/router');
 jest.mock('utils/api/cases');
 jest.mock('utils/api/submissions');
+jest.mock('../../hooks/useWorkflowIds');
+(useWorkflowIds as jest.Mock).mockReturnValue({ error: new Error() });
 
 (useRouter as jest.Mock).mockReturnValue({
   query: {},
@@ -325,6 +329,62 @@ describe('CaseNoteDialog', () => {
         'Are you sure you want to remove this case note or record?'
       )
     );
+  });
+
+  it('does not show a workflow info badge by default', () => {
+    (useRouter as jest.Mock).mockReturnValueOnce({
+      query: {
+        case_note: mockedCaseNote.recordId,
+      },
+    });
+
+    render(
+      <CaseNoteDialog
+        totalCount={1}
+        caseNotes={[
+          {
+            ...mockedCaseNote,
+            caseFormData: {
+              ...mockedCaseNote.caseFormData,
+              form_url: 'https://example.com/foo',
+            },
+          },
+        ]}
+        socialCareId={123}
+      />
+    );
+
+    expect(screen.queryByTestId('workflow-info')).toBeNull();
+  });
+
+  it('does show a review workflow info badge if the workflow type is review', () => {
+    (useRouter as jest.Mock).mockReturnValueOnce({
+      query: {
+        case_note: mockedCaseNote.recordId,
+      },
+    });
+    (useWorkflowIds as jest.Mock).mockReturnValue({
+      data: { workflow: { ...mockWorkflow, type: 'Review' } },
+    });
+
+    render(
+      <CaseNoteDialog
+        totalCount={1}
+        caseNotes={[
+          {
+            ...mockedCaseNote,
+            caseFormData: {
+              ...mockedCaseNote.caseFormData,
+              form_url: 'https://example.com/foo',
+            },
+          },
+        ]}
+        socialCareId={123}
+      />
+    );
+
+    expect(screen.queryByTestId('workflow-info')).not.toBeNull();
+    expect(screen.getByText('Review')).toBeVisible();
   });
 
   it.skip('only shows "Printable version" on records that have a full page version to go to', () => {
