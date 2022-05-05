@@ -362,7 +362,7 @@ describe('CaseNoteDialog', () => {
       },
     });
     (useWorkflowIds as jest.Mock).mockReturnValue({
-      data: { workflows: [{ ...mockWorkflow, type: 'Review' }] },
+      data: { workflow: { ...mockWorkflow, type: 'Review' } },
     });
 
     render(

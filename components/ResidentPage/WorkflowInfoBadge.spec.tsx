@@ -18,7 +18,7 @@ describe('WorkflowInfoBadge', () => {
 
   it('does not display a label if the workflow type is assessment', () => {
     (useWorkflowIds as jest.Mock).mockReturnValue({
-      data: { workflows: [mockWorkflow] },
+      data: { workflow: mockWorkflow },
     });
     render(<WorkflowInfoBadge workflowId={mockWorkflow.id} />);
     const workflowLabel = screen.queryByTestId('workflow-info');
@@ -34,7 +34,7 @@ describe('WorkflowInfoBadge', () => {
 
   it('displays a review label if the workflow type is review', () => {
     (useWorkflowIds as jest.Mock).mockReturnValue({
-      data: { workflows: [{ ...mockWorkflow, type: 'Review' }] },
+      data: { workflow: { ...mockWorkflow, type: 'Review' } },
     });
     render(<WorkflowInfoBadge workflowId={mockWorkflow.id} />);
     const reviewLabel = screen.getByText('Review');
@@ -44,7 +44,7 @@ describe('WorkflowInfoBadge', () => {
 
   it('displays a reassessment label if the workflow type is reassessment', () => {
     (useWorkflowIds as jest.Mock).mockReturnValue({
-      data: { workflows: [{ ...mockWorkflow, type: 'Reassessment' }] },
+      data: { workflow: { ...mockWorkflow, type: 'Reassessment' } },
     });
     render(<WorkflowInfoBadge workflowId={mockWorkflow.id} />);
     const reviewLabel = screen.getByText('Reassessment');

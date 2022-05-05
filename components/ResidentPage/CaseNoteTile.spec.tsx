@@ -72,7 +72,7 @@ describe('CaseNoteTile', () => {
 
   it('does display a workflow info badge if the workflow type is review', () => {
     (useWorkflowIds as jest.Mock).mockReturnValue({
-      data: { workflows: [{ ...mockWorkflow, type: 'Review' }] },
+      data: { workflow: { ...mockWorkflow, type: 'Review' } },
     });
     render(
       <CaseNoteTile

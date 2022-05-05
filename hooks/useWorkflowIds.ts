@@ -3,8 +3,7 @@ import { Workflow } from 'components/ResidentPage/types';
 import useSWR, { SWRResponse } from 'swr';
 
 interface Res {
-  workflows: Workflow[];
-  count: number;
+  workflow: Workflow;
 }
 
 /** get a resident's workflows, using their social care id */

@@ -17,10 +17,10 @@ export const WorkflowInfoBadge = ({
   } else {
     return (
       <div className={s.badge}>
-        {(data?.workflows[0].type === WorkflowType.Review ||
-          data?.workflows[0].type === WorkflowType.Reassessment) && (
+        {(data?.workflow.type === WorkflowType.Review ||
+          data?.workflow.type === WorkflowType.Reassessment) && (
           <span className="govuk-tag lbh-tag" data-testid="workflow-info">
-            {data?.workflows[0].type}
+            {data?.workflow.type}
           </span>
         )}
 
