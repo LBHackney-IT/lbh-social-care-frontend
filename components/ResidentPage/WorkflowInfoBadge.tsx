@@ -30,7 +30,7 @@ export const WorkflowInfoBadge = ({
               className="govuk-tag lbh-tag lbh-tag--grey"
               data-testid="workflow-info"
             >
-              Unknown workflow type
+              Couldn&apos;t fetch workflow type
             </span>
           </Tip>
         )}
