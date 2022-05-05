@@ -118,7 +118,7 @@ const CaseNoteDialog = ({
   socialCareId,
   totalCount,
 }: Props): React.ReactElement | null => {
-  const { query, replace } = useRouter();
+  const { query, replace, pathname } = useRouter();
 
   const { mutate } = useCases({
     mosaic_id: socialCareId,
@@ -157,7 +157,7 @@ const CaseNoteDialog = ({
           newId = caseNotes?.[i + 1]?.recordId; // next/older note
         }
       }
-      if (newId)
+      if (newId && pathname.includes('case-notes'))
         replace(`${window.location.pathname}?case_note=${newId}`, undefined, {
           scroll: false,
         });
