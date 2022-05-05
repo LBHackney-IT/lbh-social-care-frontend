@@ -64,15 +64,25 @@ const TeamMemberAllocations = ({ user }: TeamMemberProps) => {
                 </td>
                 <td className="govuk-table__cell">
                   {allocation.teamAllocationStartDate &&
+                    allocation.teamAllocationStartDate !=
+                      '0001-01-01T00:00:00' &&
                     formatDate(allocation.teamAllocationStartDate)}
-                  {allocation.teamAllocationStartDate && ' ('}
                   {allocation.teamAllocationStartDate &&
+                    allocation.teamAllocationStartDate !=
+                      '0001-01-01T00:00:00' &&
+                    ' ('}
+                  {allocation.teamAllocationStartDate &&
+                    allocation.teamAllocationStartDate !=
+                      '0001-01-01T00:00:00' &&
                     formatDistance(
-                      subDays(new Date(allocation.teamAllocationStartDate), 0),
+                      new Date(allocation.teamAllocationStartDate),
                       new Date(),
                       { addSuffix: true }
                     )}
-                  {allocation.teamAllocationStartDate && ')'}
+                  {allocation.teamAllocationStartDate &&
+                    allocation.teamAllocationStartDate !=
+                      '0001-01-01T00:00:00' &&
+                    ')'}
                 </td>
               </tr>
             ))}
