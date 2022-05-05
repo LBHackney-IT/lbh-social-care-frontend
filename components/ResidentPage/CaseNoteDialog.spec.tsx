@@ -214,6 +214,7 @@ describe('CaseNoteDialog', () => {
   it('can be navigate to an older note by keyboard', () => {
     const mockReplace = jest.fn();
     (useRouter as jest.Mock).mockReturnValue({
+      pathname: '/case-notes',
       query: {
         case_note: 'abc',
       },
@@ -248,6 +249,7 @@ describe('CaseNoteDialog', () => {
   it('can be navigate to a newer note by keyboard', () => {
     const mockReplace = jest.fn();
     (useRouter as jest.Mock).mockReturnValue({
+      pathname: '/case-notes',
       query: {
         case_note: 'def',
       },
