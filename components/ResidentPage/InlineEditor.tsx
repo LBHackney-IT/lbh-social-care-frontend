@@ -1,5 +1,4 @@
 import { Field, Form, Formik } from 'formik';
-import useClickOutside from 'hooks/useClickOutside';
 import { residentSchema } from 'lib/validators';
 import { useRef, KeyboardEvent } from 'react';
 import { Resident } from 'types';
@@ -37,8 +36,6 @@ const InlineEditor = ({
   const schema = residentSchema.pick([name]);
 
   const { mutate } = useResident(resident.id);
-
-  useClickOutside(ref, onClose);
 
   const handleSubmit = async (data: FormValues) => {
     const res = await fetch(`/api/residents/${resident.id}`, {

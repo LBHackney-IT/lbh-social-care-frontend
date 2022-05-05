@@ -5,6 +5,7 @@ import { useAuth } from 'components/UserContext/UserContext';
 import { getUserType } from 'utils/user';
 import Logo from './Logo';
 import { canUserManageWorkers } from '../../../lib/permissions';
+import { useAppConfig } from 'lib/appConfig';
 
 const HeaderComponent = ({
   serviceName,
@@ -12,6 +13,7 @@ const HeaderComponent = ({
   serviceName: string;
 }): React.ReactElement => {
   const { user } = useAuth();
+  const { getConfigValue } = useAppConfig();
 
   return (
     <header className="lbh-header ">
@@ -32,14 +34,23 @@ const HeaderComponent = ({
 
           {user && (
             <nav className="lbh-header__links" aria-label="Navigation menu">
-              <Link href="/search">
-                <a className="govuk-header__link">Search</a>
-              </Link>
               {canUserManageWorkers(user) && (
                 <Link href="/workers">
                   <a className="govuk-header__link">Manage workers</a>
                 </Link>
               )}
+              <Link href="/">
+                <a className="govuk-header__link">My work</a>
+              </Link>
+              <Link href={getConfigValue('workflowsPilotUrl') as string}>
+                <a className="govuk-header__link">Workflows</a>
+              </Link>
+              <Link href="/teams">
+                <a className="govuk-header__link">Teams</a>
+              </Link>
+              <Link href="/search">
+                <a className="govuk-header__link">Search</a>
+              </Link>
               <Link href="/logout">
                 <a className="govuk-header__link">Sign out</a>
               </Link>

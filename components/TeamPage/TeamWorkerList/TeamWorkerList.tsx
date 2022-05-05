@@ -64,15 +64,15 @@ const TeamMemberAllocations = ({ user }: TeamMemberProps) => {
                 </td>
                 <td className="govuk-table__cell">
                   {allocation.teamAllocationStartDate &&
-                    formatDate(allocation.teamAllocationStartDate)}
-                  {allocation.teamAllocationStartDate && ' ('}
-                  {allocation.teamAllocationStartDate &&
-                    formatDistance(
-                      subDays(new Date(allocation.teamAllocationStartDate), 0),
+                    allocation.teamAllocationStartDate !=
+                      '0001-01-01T00:00:00' &&
+                    `${formatDate(
+                      allocation.teamAllocationStartDate
+                    )} (${formatDistance(
+                      new Date(allocation.teamAllocationStartDate),
                       new Date(),
                       { addSuffix: true }
-                    )}
-                  {allocation.teamAllocationStartDate && ')'}
+                    )})`}
                 </td>
               </tr>
             ))}
@@ -130,9 +130,15 @@ interface Props {
 
 const TeamWorkerList = ({ users }: Props): React.ReactElement => (
   <ul className="lbh-list govuk-!-margin-top-3">
-    {users?.map((user) => (
-      <TeamMember user={user} key={user.id} />
-    ))}
+    {users
+      ?.sort(
+        (a, b) =>
+          a.firstName.localeCompare(b.firstName) ||
+          a.lastName.localeCompare(b.lastName)
+      )
+      .map((user) => (
+        <TeamMember user={user} key={user.id} />
+      ))}
   </ul>
 );
 

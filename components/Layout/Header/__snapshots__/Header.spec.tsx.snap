@@ -42,15 +42,33 @@ exports[`Header component should set active the correct link 1`] = `
         >
           <a
             class="govuk-header__link"
-            href="/search"
-          >
-            Search
-          </a>
-          <a
-            class="govuk-header__link"
             href="/workers"
           >
             Manage workers
+          </a>
+          <a
+            class="govuk-header__link"
+            href="/"
+          >
+            My work
+          </a>
+          <a
+            class="govuk-header__link"
+            href="http://example.com"
+          >
+            Workflows
+          </a>
+          <a
+            class="govuk-header__link"
+            href="/teams"
+          >
+            Teams
+          </a>
+          <a
+            class="govuk-header__link"
+            href="/search"
+          >
+            Search
           </a>
           <a
             class="govuk-header__link"
