@@ -18,6 +18,7 @@ import { FeatureFlagProvider } from '../lib/feature-flags/feature-flags';
 import { getFeatureFlags } from 'features';
 import { useEffect } from 'react';
 import { AppConfigProvider } from 'lib/appConfig';
+import { StatusCodes } from 'http-status-codes';
 
 interface Props {
   user?: Partial<User>;
@@ -104,7 +105,7 @@ CustomApp.getInitialProps = async (
       appContext.ctx.req.url && shouldRedirect(appContext.ctx.req.url, user);
     if (redirect && appContext.ctx.res.writeHead) {
       appContext.ctx.res.setHeader('Location', redirect);
-      appContext.ctx.res.statusCode = 302;
+      appContext.ctx.res.statusCode = StatusCodes.TEMPORARY_REDIRECT;
       return { pageProps: {} };
     }
   }
