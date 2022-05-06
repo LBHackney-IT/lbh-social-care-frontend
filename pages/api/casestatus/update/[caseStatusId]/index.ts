@@ -13,10 +13,11 @@ const endpoint: NextApiHandler = async (
 ) => {
   const user = isAuthorised(req);
   if (!user) {
-    return res.status(StatusCodes.UNAUTHORIZED);
+    res.status(StatusCodes.UNAUTHORIZED);
+    return;
   }
   if (!user.isAuthorised) {
-    return res.status(StatusCodes.FORBIDDEN);
+    res.status(StatusCodes.FORBIDDEN);
   }
 
   switch (req.method) {
