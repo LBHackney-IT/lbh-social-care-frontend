@@ -103,10 +103,9 @@ CustomApp.getInitialProps = async (
     const redirect =
       appContext.ctx.req.url && shouldRedirect(appContext.ctx.req.url, user);
     if (redirect && appContext.ctx.res.writeHead) {
-      appContext.ctx.res.writeHead(302, {
-        Location: redirect,
-      });
-      appContext.ctx.res.end();
+      appContext.ctx.res.setHeader('Location', redirect);
+      appContext.ctx.res.statusCode = 302;
+      return { pageProps: {} };
     }
   }
 
