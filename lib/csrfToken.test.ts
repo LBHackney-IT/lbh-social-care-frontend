@@ -1,8 +1,11 @@
 import { CSRFValidationError, init } from './csrfToken';
-import { NextApiResponse } from 'next';
+import { NextApiRequest, NextApiResponse } from 'next';
 import { makeNextApiRequest } from './auth/test-functions';
 
-export const handler = async (res: NextApiResponse): Promise<void> => {
+export const handler = async (
+  req: NextApiRequest,
+  res: NextApiResponse
+): Promise<void> => {
   res.status(200).json({});
 };
 
