@@ -43,6 +43,7 @@ functions:
       NEXT_PUBLIC_ENV: ${opt:stage}
       AWS_KEY: ${ssm:/lbh-social-care/${self:provider.stage}/aws-key}
       ENDPOINT_API: ${ssm:/lbh-social-care/${self:provider.stage}/endpoint-case-viewer}
+      CSRF_SECRET: ${ssm:/lbh-social-care/${self:provider.stage}/csrf-secret}
       GSSO_URL: ${ssm:/lbh-social-care/${self:provider.stage}/gsso-url}
       GSSO_TOKEN_NAME: ${ssm:/lbh-social-care/${self:provider.stage}/gsso-token-name}
       HACKNEY_JWT_SECRET: ${ssm:/lbh-social-care/${self:provider.stage}/hackney-jwt}
