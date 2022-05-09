@@ -9,7 +9,7 @@ import GoogleAnalytics from 'components/GoogleAnalytics/GoogleAnalytics';
 import { AuthProvider } from 'components/UserContext/UserContext';
 import { ErrorBoundary } from 'components/ErrorBoundary/ErrorBoundary';
 import { isAuthorised, shouldRedirect } from 'utils/auth';
-
+import { tokenFromMeta } from 'lib/csrfToken';
 import type { User } from 'types';
 
 import 'stylesheets/all.scss';
@@ -62,6 +62,20 @@ const CustomApp = ({
     });
 
     setFeatures(featureSet);
+
+    axios.interceptors.request.use(
+      (request) => {
+        if (
+          request &&
+          request.method &&
+          !['GET', 'HEAD'].includes(request.method.toUpperCase())
+        ) {
+          request.headers['XSRF-TOKEN'] = tokenFromMeta();
+        }
+        return request;
+      },
+      (error) => Promise.reject(error)
+    );
   }, []);
 
   return (
