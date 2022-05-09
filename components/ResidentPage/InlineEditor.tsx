@@ -5,6 +5,7 @@ import { Resident } from 'types';
 import { useResident } from 'utils/api/residents';
 import { DataRow, SupportedData } from './DataBlock';
 import s from './InlineEditor.module.scss';
+import { csrfFetch } from 'lib/csrfToken';
 
 export interface InlineEditorOption {
   label: string;
@@ -38,7 +39,7 @@ const InlineEditor = ({
   const { mutate } = useResident(resident.id);
 
   const handleSubmit = async (data: FormValues) => {
-    const res = await fetch(`/api/residents/${resident.id}`, {
+    const res = await csrfFetch(`/api/residents/${resident.id}`, {
       headers: {
         'Content-Type': 'application/json',
       },

@@ -7,6 +7,7 @@ import { Field, Form, Formik, FormikProps } from 'formik';
 import { residentSchema } from 'lib/validators';
 import { lookupPostcode } from 'utils/api/postcodeAPI';
 import React from 'react';
+import { csrfFetch } from 'lib/csrfToken';
 
 const Error = ({ error }: { error?: string }) =>
   error ? (
@@ -35,7 +36,7 @@ const CustomAddressEditor = (props: Props): React.ReactElement => {
   const { mutate } = useResident(props.resident.id);
 
   const handleSubmit = async (data: FormValues) => {
-    const res = await fetch(`/api/residents/${props.resident.id}`, {
+    const res = await csrfFetch(`/api/residents/${props.resident.id}`, {
       headers: {
         'Content-Type': 'application/json',
       },

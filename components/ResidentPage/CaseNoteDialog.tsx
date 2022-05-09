@@ -18,6 +18,7 @@ import { useCallback, useEffect, useState } from 'react';
 import RemoveCaseNoteDialog from './RemoveCaseNoteDialog';
 import { generateInternalLink } from 'utils/urls';
 import WorkflowInfoBadge from './WorkflowInfoBadge';
+import { csrfFetch } from 'lib/csrfToken';
 
 interface SubmissionContentProps {
   submissionId: string;
@@ -177,7 +178,7 @@ const CaseNoteDialog = ({
     });
 
   const pinOrUnpin = async () => {
-    await fetch(`/api/submissions/${note.recordId}`, {
+    await csrfFetch(`/api/submissions/${note.recordId}`, {
       headers: {
         'Content-Type': 'application/json',
       },
