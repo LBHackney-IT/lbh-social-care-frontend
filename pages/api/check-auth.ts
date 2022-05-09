@@ -3,6 +3,7 @@ import { StatusCodes } from 'http-status-codes';
 import { isAuthorised } from 'utils/auth';
 
 import type { NextApiRequest, NextApiResponse, NextApiHandler } from 'next';
+import { middleware as csrfMiddleware } from 'lib/csrfToken';
 
 import { apiHandler } from 'lib/apiHandler';
 
@@ -34,4 +35,4 @@ const endpoint: NextApiHandler = async (
   }
 };
 
-export default apiHandler(endpoint);
+export default apiHandler(csrfMiddleware(endpoint));

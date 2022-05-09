@@ -3,6 +3,7 @@ import { StatusCodes } from 'http-status-codes';
 import { isAuthorised } from 'utils/auth';
 import { getWorkerByEmail } from 'lib/workers';
 import { getAllocationsByWorker } from 'lib/allocatedWorkers';
+import { middleware as csrfMiddleware } from 'lib/csrfToken';
 
 import type { NextApiRequest, NextApiResponse, NextApiHandler } from 'next';
 import { AxiosError } from 'axios';
@@ -62,4 +63,4 @@ const endpoint: NextApiHandler = async (
   }
 };
 
-export default apiHandler(endpoint);
+export default apiHandler(csrfMiddleware(endpoint));

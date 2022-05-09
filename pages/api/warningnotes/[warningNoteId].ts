@@ -2,6 +2,7 @@ import { StatusCodes } from 'http-status-codes';
 
 import { getWarningNote, updateWarningNote } from 'lib/warningNotes';
 import { isAuthorised } from 'utils/auth';
+import { middleware as csrfMiddleware } from 'lib/csrfToken';
 
 import type { NextApiRequest, NextApiResponse, NextApiHandler } from 'next';
 import { AxiosError } from 'axios';
@@ -69,4 +70,4 @@ const endpoint: NextApiHandler = async (
   }
 };
 
-export default apiHandler(endpoint);
+export default apiHandler(csrfMiddleware(endpoint));

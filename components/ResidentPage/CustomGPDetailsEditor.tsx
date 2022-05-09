@@ -5,6 +5,7 @@ import { DataRow } from './DataBlock';
 import s from './CustomAddressEditor.module.scss';
 import { Field, Form, Formik, FormikProps } from 'formik';
 import { residentSchema } from 'lib/validators';
+import { csrfFetch } from 'lib/csrfToken';
 
 const Error = ({ error }: { error?: string }) =>
   error ? (
@@ -26,7 +27,7 @@ const CustomGPDetailsEditor = (props: Props): React.ReactElement => {
   const { mutate } = useResident(props.resident.id);
 
   const handleSubmit = async (data: FormValues) => {
-    const res = await fetch(`/api/residents/${props.resident.id}`, {
+    const res = await csrfFetch(`/api/residents/${props.resident.id}`, {
       headers: {
         'Content-Type': 'application/json',
       },

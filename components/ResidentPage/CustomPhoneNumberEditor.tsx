@@ -5,6 +5,7 @@ import { DataRow } from './DataBlock';
 import s from './CustomPhoneNumberEditor.module.scss';
 import { Field, FieldArray, Form, Formik, FormikProps, getIn } from 'formik';
 import { residentSchema } from 'lib/validators';
+import { csrfFetch } from 'lib/csrfToken';
 
 interface Props extends DataRow {
   onClose: () => void;
@@ -26,7 +27,7 @@ const CustomPhoneNumberEditor = (props: Props): React.ReactElement => {
   const { mutate } = useResident(props.resident.id);
 
   const onSubmit = async (data: FormValues) => {
-    const res = await fetch(`/api/residents/${props.resident.id}`, {
+    const res = await csrfFetch(`/api/residents/${props.resident.id}`, {
       headers: {
         'Content-Type': 'application/json',
       },

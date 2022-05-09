@@ -8,24 +8,34 @@ import Document, {
 } from 'next/document';
 import { generateCSP, generateNonce } from '../utils/contentSecurity';
 import { GA_TRACKING_ID } from 'utils/gtag';
+import { token } from '../lib/csrfToken';
 
-export default class AppDocument extends Document<{ nonce?: string }> {
+export default class AppDocument extends Document<{
+  nonce?: string;
+  csrfToken: string;
+}> {
   static async getInitialProps(
     ctx: DocumentContext
-  ): Promise<DocumentInitialProps & { nonce?: string }> {
+  ): Promise<DocumentInitialProps & { nonce?: string; csrfToken: string }> {
     const res = ctx?.res;
     const nonce = generateNonce();
+    const csrfToken = token();
 
-    if (process.env.NODE_ENV === 'production' && res != null)
-      res.setHeader('Content-Security-Policy', generateCSP(nonce));
+    if (res) {
+      res.setHeader('XSRF-TOKEN', csrfToken);
 
-    return { ...(await Document.getInitialProps(ctx)), nonce };
+      if (process.env.NODE_ENV === 'production')
+        res.setHeader('Content-Security-Policy', generateCSP(nonce));
+    }
+
+    return { ...(await Document.getInitialProps(ctx)), nonce, csrfToken };
   }
 
   render(): JSX.Element {
     return (
       <Html id="root" className="govuk-template lbh-template" lang="en-gb">
         <Head nonce={this.props.nonce}>
+          <meta httpEquiv="XSRF-TOKEN" content={this.props.csrfToken} />
           <link rel="icon" href="/favicon.ico" />
           <script
             async

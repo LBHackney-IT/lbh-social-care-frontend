@@ -6,7 +6,7 @@ import { isAuthorised } from 'utils/auth';
 import type { NextApiRequest, NextApiResponse, NextApiHandler } from 'next';
 import { AxiosError } from 'axios';
 import { apiHandler } from 'lib/apiHandler';
-
+import { middleware as csrfMiddleware } from 'lib/csrfToken';
 const endpoint: NextApiHandler = async (
   req: NextApiRequest,
   res: NextApiResponse
@@ -46,5 +46,4 @@ const endpoint: NextApiHandler = async (
         .json({ message: 'Invalid request method' });
   }
 };
-
-export default apiHandler(endpoint);
+export default apiHandler(csrfMiddleware(endpoint));

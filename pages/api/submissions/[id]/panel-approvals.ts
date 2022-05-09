@@ -3,6 +3,7 @@ import StatusCodes from 'http-status-codes';
 import { panelApproveSubmission } from 'lib/submissions';
 import { isAuthorised } from 'utils/auth';
 import { apiHandler } from 'lib/apiHandler';
+import { middleware as csrfMiddleware } from 'lib/csrfToken';
 
 const handler = async (
   req: NextApiRequest,
@@ -30,4 +31,4 @@ const handler = async (
   }
 };
 
-export default apiHandler(handler);
+export default apiHandler(csrfMiddleware(handler));
