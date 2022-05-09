@@ -15,10 +15,10 @@ const endpoint: NextApiHandler = async (
       try {
         const auth = isAuthorised(req);
         !auth
-          ? res.status(StatusCodes.UNAUTHORIZED).end()
+          ? res.status(StatusCodes.UNAUTHORIZED)
           : auth.isAuthorised
           ? res.status(StatusCodes.OK).json(auth)
-          : res.status(StatusCodes.FORBIDDEN).end();
+          : res.status(StatusCodes.FORBIDDEN);
       } catch (e) {
         console.error(e);
         res

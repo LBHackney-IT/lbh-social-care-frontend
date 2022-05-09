@@ -13,10 +13,12 @@ const endpoint: NextApiHandler = async (
 ) => {
   const user = isAuthorised(req);
   if (!user) {
-    return res.status(StatusCodes.UNAUTHORIZED).end();
+    res.status(StatusCodes.UNAUTHORIZED);
+    return;
   }
   if (!user.isAuthorised) {
-    return res.status(StatusCodes.FORBIDDEN).end();
+    res.status(StatusCodes.FORBIDDEN);
+    return;
   }
   const id = parseInt(req.query.id as string, 10);
   switch (req.method) {
