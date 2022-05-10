@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useEffect } from 'react';
+import React, { useState, useCallback } from 'react';
 import { useRouter } from 'next/router';
 import { useForm } from 'react-hook-form';
 
@@ -23,7 +23,6 @@ const AddAllocatedWorker = ({
   personId,
   ageContext,
 }: Props): React.ReactElement => {
-  const [postError, setPostError] = useState<boolean | null>();
   const [postLoading, setPostLoading] = useState<boolean>();
   const { query, push, replace, pathname } = useRouter();
   const { handleSubmit, register, control, errors } = useForm({
@@ -35,7 +34,6 @@ const AddAllocatedWorker = ({
   const addWorker = useCallback(
     async ({ workerId, allocationStartDate }) => {
       setPostLoading(true);
-      setPostError(null);
       try {
         await addAllocatedWorker(personId, {
           allocatedTeamId: Number(teamId),
@@ -45,17 +43,18 @@ const AddAllocatedWorker = ({
         });
         push(`/people/${personId}`);
       } catch (e) {
-        setPostError(true);
+        console.log(e);
       }
       setPostLoading(false);
     },
     [personId, teamId, push]
   );
-  useEffect(() => {
-    setPostError(null);
-  }, [query]);
   if (errorTeams || errorWorkers) {
-    return <ErrorMessage />;
+    return (
+      <ErrorMessage
+        label={errorTeams ? errorTeams.message : errorWorkers?.message}
+      />
+    );
   }
   if (!teams) {
     return <Spinner />;
@@ -186,9 +185,6 @@ const AddAllocatedWorker = ({
             </>
           ) : (
             <p className="govuk-body">Workers not found</p>
-          )}
-          {postError && (
-            <ErrorMessage label="There was an error allocating the worker. Please retry." />
           )}
         </>
       )}

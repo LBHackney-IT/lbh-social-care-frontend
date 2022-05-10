@@ -67,7 +67,11 @@ const AddWorkerAllocation = ({
     setPostLoading(false);
   }, [allocationDate, worker, personId, push]);
   if (errorWorkers || postError) {
-    return <ErrorMessage />;
+    if (errorWorkers) {
+      return <ErrorMessage label={errorWorkers.message} />;
+    } else {
+      return <ErrorMessage label="Error during POST function" />;
+    }
   }
   if (!workers) {
     return <Spinner />;
@@ -78,7 +82,7 @@ const AddWorkerAllocation = ({
   }
 
   if (!teamId) {
-    return <ErrorMessage />;
+    return <ErrorMessage label="Error while reading the teamId" />;
   }
 
   return (

@@ -50,7 +50,7 @@ const DeallocatedWorkers = ({
     setLoading(false);
   };
   if (error) {
-    return <ErrorMessage />;
+    return <ErrorMessage label={error.message} />;
   }
   if (!allocations) {
     return <Spinner />;

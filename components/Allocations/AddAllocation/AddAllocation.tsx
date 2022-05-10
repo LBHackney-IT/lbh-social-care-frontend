@@ -73,7 +73,23 @@ const AddAllocation = ({ personId, ageContext }: Props): React.ReactElement => {
   }, [query]);
 
   if (errorTeams || errorWorkers || postError || allocationsError) {
-    return <ErrorMessage />;
+    let message;
+
+    if (errorTeams) {
+      message = errorTeams.message;
+    } else if (errorWorkers) {
+      message = errorWorkers.message;
+    } else if (allocationsError) {
+      message = allocationsError.message;
+    }
+
+    console.log(message);
+
+    if (postError) {
+      return <ErrorMessage label="Error during POST operation" />;
+    } else {
+      return <ErrorMessage label={message} />;
+    }
   }
   if (!teams || !data) {
     return <Spinner />;
