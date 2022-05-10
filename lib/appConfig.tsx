@@ -23,17 +23,17 @@ export const useAppConfig: () => {
 } = () => {
   const appConfig = useContext(AppConfigContext);
 
-  if (appConfig === undefined) {
-    throw new Error(
-      'A <AppConfigProvider /> must be provided as a parent of this component'
-    );
-  }
-
   return {
     getConfigValue: (identifier) => {
-      const configValue = appConfig[identifier];
+      const configValue = appConfig?.[identifier];
 
       if (configValue === undefined) {
+        if (appConfig === undefined) {
+          throw new Error(
+            'A <AppConfigProvider /> must be provided as a parent of this component'
+          );
+        }
+
         throw new Error(
           `A value for ${identifier} is not defined in the app config`
         );

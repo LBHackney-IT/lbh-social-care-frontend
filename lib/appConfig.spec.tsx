@@ -12,18 +12,6 @@ describe('AppConfigContext', () => {
   });
 
   describe('useAppConfig', () => {
-    it('throws an error if the hook is used outside of the provider', () => {
-      const { result } = renderHook(() => useAppConfig(), {
-        wrapper: undefined,
-      });
-
-      expect(result.error).toEqual(
-        new Error(
-          'A <AppConfigProvider /> must be provided as a parent of this component'
-        )
-      );
-    });
-
     describe('getConfigValue', () => {
       it('returns the value from the appConfig that matches the identifier given', () => {
         const wrapper: React.FC = ({ children }) => (
@@ -38,6 +26,18 @@ describe('AppConfigContext', () => {
 
         expect(result.current.getConfigValue('someIdentifier')).toEqual(
           'someValue'
+        );
+      });
+
+      it('throws an error if the hook is used outside of the provider', () => {
+        const { result } = renderHook(() => useAppConfig(), {
+          wrapper: undefined,
+        });
+
+        expect(() =>
+          result.current.getConfigValue('someNonExistentIdentifier')
+        ).toThrowError(
+          'A <AppConfigProvider /> must be provided as a parent of this component'
         );
       });
 
