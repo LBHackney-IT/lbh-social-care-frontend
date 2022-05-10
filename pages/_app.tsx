@@ -3,7 +3,7 @@ import App, { AppInitialProps, AppContext, AppProps } from 'next/app';
 import { NextComponentType } from 'next';
 import axios from 'axios';
 import { SWRConfig } from 'swr';
-
+import ErrorMessage from 'components/ErrorMessage/ErrorMessage';
 import Layout from 'components/Layout';
 import GoogleAnalytics from 'components/GoogleAnalytics/GoogleAnalytics';
 import { AuthProvider } from 'components/UserContext/UserContext';
@@ -11,7 +11,7 @@ import { ErrorBoundary } from 'components/ErrorBoundary/ErrorBoundary';
 import { isAuthorised, shouldRedirect } from 'utils/auth';
 import { tokenFromMeta } from 'lib/csrfToken';
 import type { User } from 'types';
-
+import { useRouter } from 'next/router';
 import 'stylesheets/all.scss';
 import 'stylesheets/header.scss';
 import { FeatureFlagProvider } from '../lib/feature-flags/feature-flags';
@@ -36,12 +36,16 @@ const CustomApp = ({
   pageProps,
 }: ExtendedAppProps): JSX.Element | null => {
   const [user] = useState(pageProps.user);
+  const [displayError, setDisplayError] = useState<string | null>(null);
+
   const [features, setFeatures] = useState(
     getFeatureFlags({
       environmentName: pageProps.environmentName,
       user: user,
     })
   );
+
+  const router = useRouter();
 
   const appConfig = useMemo(() => {
     return pageProps.appConfig;
@@ -76,7 +80,35 @@ const CustomApp = ({
       },
       (error) => Promise.reject(error)
     );
-  }, []);
+
+    setDisplayError(null);
+
+    axios.interceptors.response.use(
+      (response) => response,
+      (error) => {
+        // console.log(`Error intercepted: ${error.response.status}:`, error.response)
+
+        if (error.response.status) {
+          if (error.response.status == 500) {
+            setDisplayError(
+              `Internal Server Error: Unable to ${error.config.method} at URL ${error.config.url}`
+            );
+          } else if (!error.response.data.message) {
+            error.response.data = {
+              message: error.response.data,
+            };
+            console.log(
+              `Error ${error.response.status}:`,
+              error.response.data.message
+                ? error.response.data.message
+                : error.response.data
+            );
+          }
+        }
+        return Promise.reject(error.response);
+      }
+    );
+  }, [router.asPath]);
 
   return (
     <AppConfigProvider appConfig={appConfig}>
@@ -97,6 +129,7 @@ const CustomApp = ({
                 noLayout={Component.noLayout}
               >
                 <ErrorBoundary>
+                  {displayError && <ErrorMessage label={displayError} />}
                   <Component {...pageProps} />
                 </ErrorBoundary>
               </Layout>
