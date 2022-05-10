@@ -12,6 +12,7 @@ import {
 } from 'lib/mashReferral';
 import { AxiosError } from 'axios';
 import { apiHandler } from 'lib/apiHandler';
+import { handleAxiosError } from 'lib/errorHandler';
 
 const endpoint: NextApiHandler = async (
   req: NextApiRequest,
@@ -114,10 +115,7 @@ const endpoint: NextApiHandler = async (
           res.status(StatusCodes.OK).json(data);
         }
       } catch (error: unknown) {
-        const axiosError = error as AxiosError;
-        res
-          .status(axiosError.response?.status || 500)
-          .json(axiosError?.response?.data);
+        res = handleAxiosError(res, error as AxiosError, 'Mash referral');
       }
       break;
 

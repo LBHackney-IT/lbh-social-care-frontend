@@ -3,6 +3,7 @@ import { StatusCodes } from 'http-status-codes';
 import { getCases, addCase } from 'lib/cases';
 import { isAuthorised } from 'utils/auth';
 import { middleware as csrfMiddleware } from 'lib/csrfToken';
+import { handleAxiosError } from 'lib/errorHandler';
 
 import type { NextApiRequest, NextApiResponse, NextApiHandler } from 'next';
 import { AxiosError } from 'axios';
@@ -34,13 +35,7 @@ const endpoint: NextApiHandler = async (
           'Cases get error:',
           (error as AxiosError)?.response?.data
         );
-        (error as AxiosError)?.response?.status === StatusCodes.NOT_FOUND
-          ? res
-              .status(StatusCodes.NOT_FOUND)
-              .json({ message: 'Cases Not Found' })
-          : res
-              .status(StatusCodes.INTERNAL_SERVER_ERROR)
-              .json({ message: 'Unable to get the Cases' });
+        res = handleAxiosError(res, error as AxiosError, 'Cases');
       }
       break;
 
@@ -53,9 +48,7 @@ const endpoint: NextApiHandler = async (
           'Case post error:',
           (error as AxiosError)?.response?.data
         );
-        res
-          .status(StatusCodes.INTERNAL_SERVER_ERROR)
-          .json({ message: 'Unable to post case' });
+        res = handleAxiosError(res, error as AxiosError, 'Cases');
       }
       break;
 

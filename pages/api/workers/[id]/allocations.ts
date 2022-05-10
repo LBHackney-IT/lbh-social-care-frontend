@@ -4,7 +4,7 @@ import { isAuthorised } from 'utils/auth';
 import { getWorker } from 'lib/workers';
 import { getAllocationsByWorker } from 'lib/allocatedWorkers';
 import { middleware as csrfMiddleware } from 'lib/csrfToken';
-
+import { handleAxiosError } from 'lib/errorHandler';
 import type { NextApiRequest, NextApiResponse, NextApiHandler } from 'next';
 
 import { AxiosError } from 'axios';
@@ -49,13 +49,7 @@ const endpoint: NextApiHandler = async (
           'Allocation Worker get error:',
           (error as AxiosError)?.response?.data
         );
-        (error as AxiosError)?.response?.status === StatusCodes.NOT_FOUND
-          ? res
-              .status(StatusCodes.NOT_FOUND)
-              .json({ message: 'Allocation Worker Not Found' })
-          : res
-              .status(StatusCodes.INTERNAL_SERVER_ERROR)
-              .json({ message: 'Unable to get the Allocation Worker' });
+        res = handleAxiosError(res, error as AxiosError, 'Allocation Worker');
       }
       break;
 

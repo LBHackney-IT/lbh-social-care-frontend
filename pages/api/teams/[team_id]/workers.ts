@@ -7,6 +7,8 @@ import type { NextApiRequest, NextApiResponse, NextApiHandler } from 'next';
 import { AxiosError } from 'axios';
 import { apiHandler } from 'lib/apiHandler';
 import { middleware as csrfMiddleware } from 'lib/csrfToken';
+import { handleAxiosError } from 'lib/errorHandler';
+
 const endpoint: NextApiHandler = async (
   req: NextApiRequest,
   res: NextApiResponse
@@ -30,13 +32,7 @@ const endpoint: NextApiHandler = async (
           'Workers get error:',
           (error as AxiosError)?.response?.data
         );
-        (error as AxiosError)?.response?.status === StatusCodes.NOT_FOUND
-          ? res
-              .status(StatusCodes.NOT_FOUND)
-              .json({ message: 'Workers Not Found' })
-          : res
-              .status(StatusCodes.INTERNAL_SERVER_ERROR)
-              .json({ message: 'Unable to get the Workers' });
+        res = handleAxiosError(res, error as AxiosError, 'Workers');
       }
       break;
 

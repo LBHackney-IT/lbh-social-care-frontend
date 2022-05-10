@@ -8,6 +8,7 @@ import type { NextApiRequest, NextApiResponse, NextApiHandler } from 'next';
 import { AxiosError } from 'axios';
 import { resetDummyData } from 'lib/mashReferral';
 import { apiHandler } from 'lib/apiHandler';
+import { handleAxiosError } from 'lib/errorHandler';
 
 const endpoint: NextApiHandler = async (
   req: NextApiRequest,
@@ -28,10 +29,7 @@ const endpoint: NextApiHandler = async (
         await resetDummyData();
         res.status(StatusCodes.OK).json(undefined);
       } catch (error: unknown) {
-        const axiosError = error as AxiosError;
-        res
-          .status(axiosError.response?.status || 500)
-          .json(axiosError?.response?.data);
+        res = handleAxiosError(res, error as AxiosError, 'Mash referral reset');
       }
       break;
 

@@ -7,6 +7,7 @@ import { middleware as csrfMiddleware } from 'lib/csrfToken';
 import type { NextApiRequest, NextApiResponse, NextApiHandler } from 'next';
 import { AxiosError } from 'axios';
 import { apiHandler } from 'lib/apiHandler';
+import { handleAxiosError } from 'lib/errorHandler';
 
 const endpoint: NextApiHandler = async (
   req: NextApiRequest,
@@ -36,13 +37,16 @@ const endpoint: NextApiHandler = async (
           'Resident get error:',
           (error as AxiosError)?.response?.data
         );
+
+        const axiosError = error as AxiosError;
+
         (error as AxiosError)?.response?.status === StatusCodes.NOT_FOUND
           ? res
               .status(StatusCodes.NOT_FOUND)
               .json({ message: 'Resident Not Found' })
           : res
-              .status(StatusCodes.INTERNAL_SERVER_ERROR)
-              .json({ message: 'Unable to get the Resident' });
+              .status(axiosError.response?.status || 500)
+              .json(axiosError?.response?.data);
       }
       break;
 
@@ -56,10 +60,7 @@ const endpoint: NextApiHandler = async (
         res.status(StatusCodes.OK).json(data);
       } catch (error) {
         console.error('Resident patch error:', error);
-        console.error('Resident patch request:', req);
-        res
-          .status(StatusCodes.INTERNAL_SERVER_ERROR)
-          .json({ message: 'Unable to update resident' });
+        res = handleAxiosError(res, error as AxiosError, 'Resident');
       }
       break;
 

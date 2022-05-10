@@ -7,6 +7,7 @@ import { middleware as csrfMiddleware } from 'lib/csrfToken';
 import type { NextApiRequest, NextApiResponse, NextApiHandler } from 'next';
 import { AxiosError } from 'axios';
 import { apiHandler } from 'lib/apiHandler';
+import { handleAxiosError } from 'lib/errorHandler';
 
 const endpoint: NextApiHandler = async (
   req: NextApiRequest,
@@ -33,13 +34,7 @@ const endpoint: NextApiHandler = async (
           'Teams get error:',
           (error as AxiosError)?.response?.data
         );
-        (error as AxiosError)?.response?.status === StatusCodes.NOT_FOUND
-          ? res
-              .status(StatusCodes.NOT_FOUND)
-              .json({ message: 'Teams Not Found' })
-          : res
-              .status(StatusCodes.INTERNAL_SERVER_ERROR)
-              .json({ message: 'Unable to get the Teams' });
+        res = handleAxiosError(res, error as AxiosError, 'Teams');
       }
       break;
 

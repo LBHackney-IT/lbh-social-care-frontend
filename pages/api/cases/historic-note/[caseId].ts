@@ -5,6 +5,7 @@ import { isAuthorised } from 'utils/auth';
 import { middleware as csrfMiddleware } from 'lib/csrfToken';
 import type { NextApiRequest, NextApiResponse, NextApiHandler } from 'next';
 import { AxiosError } from 'axios';
+import { handleAxiosError } from 'lib/errorHandler';
 
 const endpoint: NextApiHandler = async (
   req: NextApiRequest,
@@ -37,9 +38,7 @@ const endpoint: NextApiHandler = async (
           'Historic Note get error:',
           (error as AxiosError)?.response?.data
         );
-        res
-          .status(StatusCodes.INTERNAL_SERVER_ERROR)
-          .json({ message: 'Unable to get the Historic Note' });
+        res = handleAxiosError(res, error as AxiosError, 'Historic Note');
       }
       break;
 

@@ -6,6 +6,7 @@ import { AxiosError } from 'axios';
 import { apiHandler } from 'lib/apiHandler';
 import { isAuthorised } from 'utils/auth';
 import { middleware as csrfMiddleware } from 'lib/csrfToken';
+import { handleAxiosError } from 'lib/errorHandler';
 
 const handler = async (
   req: NextApiRequest,
@@ -55,11 +56,7 @@ const handler = async (
     }
   } catch (e) {
     console.log((e as AxiosError).response?.data.errors);
-    res
-      .status(
-        (e as AxiosError).response?.status || StatusCodes.INTERNAL_SERVER_ERROR
-      )
-      .json((e as AxiosError).toJSON());
+    res = handleAxiosError(res, e as AxiosError, 'Case note');
   }
 };
 
