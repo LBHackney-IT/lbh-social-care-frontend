@@ -70,7 +70,7 @@ const DeallocateTeamWorker = ({
   }, [deallocationReason, deallocationDate, resident.id, push]);
 
   if (postError) {
-    return <ErrorMessage />;
+    return <ErrorMessage label="Error during POST operation" />;
   }
 
   return (

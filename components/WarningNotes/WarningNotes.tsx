@@ -100,7 +100,7 @@ export const WarningBox = ({ notes, personId }: Props): React.ReactElement => {
 const WarningNotes = ({ id }: { id: number }): React.ReactElement | null => {
   const { data: warningNotes, error } = useWarningNotes(id);
   if (error) {
-    return <ErrorMessage />;
+    return <ErrorMessage label={error.message} />;
   }
   if (!warningNotes || warningNotes.length === 0) {
     return null;

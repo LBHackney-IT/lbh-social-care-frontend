@@ -8,6 +8,7 @@ import { useWorker } from 'utils/api/workers';
 import { prettyWorkerName } from 'lib/formatters';
 import { formatDate } from 'utils/date';
 import s from './WarningNotes.module.scss';
+import ErrorMessage from 'components/ErrorMessage/ErrorMessage';
 
 interface WarningNoteProps {
   note: WarningNote;
@@ -52,7 +53,9 @@ interface Props {
 }
 
 const WarningNotes = ({ socialCareId }: Props): React.ReactElement | null => {
-  const { data } = useWarningNotes(socialCareId);
+  const { data, error } = useWarningNotes(socialCareId);
+
+  if (error) return <ErrorMessage label={error.message} />;
 
   if (data && data.length > 0)
     return (

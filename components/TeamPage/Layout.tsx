@@ -36,7 +36,17 @@ const TeamLayout = ({ team, children }: Props): React.ReactElement => {
   }
 
   if (error || allocatedError || unallocatedError) {
-    return <ErrorMessage />;
+    let message;
+
+    if (error) {
+      message = error.message;
+    } else if (allocatedError) {
+      message = allocatedError.message;
+    } else if (unallocatedError) {
+      message = unallocatedError.message;
+    }
+
+    return <ErrorMessage label={message} />;
   }
 
   const allocated = [] as Allocation[];

@@ -12,13 +12,16 @@ interface Props {
 }
 
 const AllocationsPage = ({ id }: Props): React.ReactElement => {
-  const { data: teamData } = useTeams({
+  const { data: teamData, error } = useTeams({
     ageContext: 'A',
   });
   const team = teamData?.teams?.find((t) => t.id === id);
 
+  if (error) {
+    return <ErrorMessage label={error.message} />;
+  }
   if (!team) {
-    return <ErrorMessage />;
+    return <ErrorMessage label={'Error while reading the Team information'} />;
   }
 
   return (

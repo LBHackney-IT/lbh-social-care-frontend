@@ -27,7 +27,7 @@ export const WorkerAllocations = ({
 
   const { data: person, error } = useResident(allocation.personId);
   if (error) {
-    return <ErrorMessage />;
+    return <ErrorMessage label={error.message} />;
   }
   if (!person) {
     return <Spinner />;
@@ -128,15 +128,11 @@ const WorkerAllocationssList = ({
       sort_by: sortBy,
     }
   );
-
+  if (error) {
+    return <ErrorMessage label={error.message} />;
+  }
   if (!allocatedWorkerData) {
     return <Spinner />;
-  }
-
-  if (error) {
-    return (
-      <ErrorMessage label="There was a problem with worker allocations." />
-    );
   }
   return (
     <>
