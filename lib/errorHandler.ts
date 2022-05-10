@@ -7,11 +7,20 @@ export const handleAxiosError = (
   error: AxiosError,
   objectName: string
 ) => {
-  error.response?.status === StatusCodes.NOT_FOUND
-    ? res
+  switch (error.response?.status) {
+    case StatusCodes.NOT_FOUND:
+      res
         .status(StatusCodes.NOT_FOUND)
-        .json({ message: `${objectName} Not Found` })
-    : res.status(error.response?.status || 500).json(error?.response?.data);
-
+        .json({ message: `${objectName} Not Found` });
+      break;
+    case StatusCodes.INTERNAL_SERVER_ERROR:
+      res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+        message: `Internal server error: Unable to get ${objectName}`,
+      });
+      break;
+    default:
+      res.status(error.response?.status || 500).json(error?.response?.data);
+      break;
+  }
   return res;
 };

@@ -88,24 +88,27 @@ const CustomApp = ({
       (error) => {
         // console.log(`Error intercepted: ${error.response.status}:`, error.response)
 
-        if (error.response.status) {
+        if (
+          error &&
+          error.response &&
+          error.response.status &&
+          error.response.data
+        ) {
           if (error.response.status == 500) {
             setDisplayError(
               `Internal Server Error: Unable to ${error.config.method} at URL ${error.config.url}`
             );
-          } else if (!error.response.data.message) {
+            error.response.data = {
+              message: `Internal Server Error: Unable to ${error.config.method} at URL ${error.config.url}`,
+            };
+          } else if (!error.response.data.message && error.response.data) {
             error.response.data = {
               message: error.response.data,
             };
-            console.log(
-              `Error ${error.response.status}:`,
-              error.response.data.message
-                ? error.response.data.message
-                : error.response.data
-            );
           }
+          return Promise.reject(error.response.data);
         }
-        return Promise.reject(error.response);
+        return Promise.reject(error);
       }
     );
   }, [router.asPath]);
