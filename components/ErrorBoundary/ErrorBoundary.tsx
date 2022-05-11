@@ -1,5 +1,6 @@
 import { withRouter, Router } from 'next/router';
 import { ReactNode, Component } from 'react';
+import { captureException } from '@sentry/nextjs';
 
 import styles from './ErrorBoundary.module.scss';
 
@@ -31,6 +32,8 @@ class ErrorBoundaryComponent extends Component<
     const { error } = this.state;
 
     if (error) {
+      captureException(error);
+
       return (
         <div
           className="govuk-error-summary optional-extra-class lbh-error-summary"

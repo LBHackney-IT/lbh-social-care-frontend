@@ -1,6 +1,10 @@
 import { render, screen } from '@testing-library/react';
 import { Router } from 'next/router';
 import { ErrorBoundary } from './ErrorBoundary';
+import { captureException } from '@sentry/nextjs';
+
+jest.mock('@sentry/nextjs');
+(captureException as jest.Mock).mockImplementation(() => 'error-reference');
 
 jest.mock('next/router', () => ({
   withRouter: (Component: React.ComponentType<{ router: Router }>) =>
@@ -42,6 +46,16 @@ describe('Error Boundary', () => {
     );
 
     expect(screen.getByText('A system error has occurred')).toBeVisible();
+  });
+
+  it('should report the error to sentry when there is an error', () => {
+    render(
+      <ErrorBoundary>
+        <Child />
+      </ErrorBoundary>
+    );
+
+    expect(captureException).toHaveBeenCalledWith(new Error());
   });
 
   it('should render the error message when one is provided', () => {
