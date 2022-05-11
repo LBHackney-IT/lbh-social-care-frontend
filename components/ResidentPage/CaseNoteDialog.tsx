@@ -60,7 +60,7 @@ const prettyKey = (key: string): string =>
   key?.replace(/_/g, ' ')?.replace(/^\w/, (char) => char.toUpperCase());
 
 const PrettyValue = ({ value }: { value: string }): React.ReactElement =>
-  value.toString().startsWith('https://') ? (
+  value?.toString().startsWith('https://') ? (
     <a href={value}>{value}</a>
   ) : (
     <>{tidyText(JSON.stringify(value))}</>
