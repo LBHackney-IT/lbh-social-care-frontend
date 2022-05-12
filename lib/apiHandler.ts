@@ -44,11 +44,11 @@ export const apiHandler =
     const user = isAuthorised(req);
 
     if (!user) {
-      res.status(StatusCodes.UNAUTHORIZED);
+      res.status(StatusCodes.UNAUTHORIZED).end();
       return;
     }
     if (!user.isAuthorised) {
-      res.status(StatusCodes.FORBIDDEN);
+      res.status(StatusCodes.FORBIDDEN).end();
       return;
     }
 
