@@ -1,10 +1,6 @@
-import type { NextApiRequest, NextApiResponse, NextApiHandler } from 'next';
-import { apiHandler } from 'lib/apiHandler';
+import { apiHandler, AuthenticatedNextApiHandler } from 'lib/apiHandler';
 
-const endpoint: NextApiHandler = async (
-  req: NextApiRequest,
-  res: NextApiResponse
-) => {
+const endpoint: AuthenticatedNextApiHandler = async () => {
   throw new Error('ErrorThrowingPage api error');
 };
 

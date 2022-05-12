@@ -1,31 +1,17 @@
 import { StatusCodes } from 'http-status-codes';
 
 import { getResident, updateResident } from 'lib/residents';
-import { isAuthorised } from 'utils/auth';
 import { middleware as csrfMiddleware } from 'lib/csrfToken';
 
-import type { NextApiRequest, NextApiResponse, NextApiHandler } from 'next';
 import { AxiosError } from 'axios';
-import { apiHandler } from 'lib/apiHandler';
+import { apiHandler, AuthenticatedNextApiHandler } from 'lib/apiHandler';
 
-const endpoint: NextApiHandler = async (
-  req: NextApiRequest,
-  res: NextApiResponse
-) => {
-  const user = isAuthorised(req);
-  if (!user) {
-    res.status(StatusCodes.UNAUTHORIZED);
-    return;
-  }
-  if (!user.isAuthorised) {
-    res.status(StatusCodes.FORBIDDEN);
-    return;
-  }
+const endpoint: AuthenticatedNextApiHandler = async (req, res) => {
   const id = parseInt(req.query.id as string, 10);
   switch (req.method) {
     case 'GET':
       try {
-        const data = await getResident(id, user);
+        const data = await getResident(id, req.user);
         data
           ? res.status(StatusCodes.OK).json(data)
           : res
@@ -51,7 +37,7 @@ const endpoint: NextApiHandler = async (
         const data = await updateResident({
           id,
           ...req.body,
-          createdBy: req.body.createdBy || user.email,
+          createdBy: req.body.createdBy || req.user.email,
         });
         res.status(StatusCodes.OK).json(data);
       } catch (error) {

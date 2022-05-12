@@ -1,16 +1,15 @@
-import { NextApiRequest, NextApiResponse } from 'next';
 import forms from 'data/flexibleForms';
 import { isAuthorised } from 'utils/auth';
 import { getSubmissionById, patchSubmissionForStep } from 'lib/submissions';
 import statusCodes from 'http-status-codes';
 import { Submission } from 'data/flexibleForms/forms.types';
 import { AxiosError } from 'axios';
-import { apiHandler } from 'lib/apiHandler';
+import { apiHandler, AuthenticatedNextApiHandler } from 'lib/apiHandler';
 import { middleware as csrfMiddleware } from 'lib/csrfToken';
 
-const handler = async (
-  req: NextApiRequest,
-  res: NextApiResponse
+const endpoint: AuthenticatedNextApiHandler = async (
+  req,
+  res
 ): Promise<void> => {
   try {
     const { id, stepId } = req.query;
@@ -53,4 +52,4 @@ const handler = async (
   }
 };
 
-export default apiHandler(csrfMiddleware(handler));
+export default apiHandler(csrfMiddleware(endpoint));

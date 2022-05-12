@@ -1,24 +1,20 @@
-import { NextApiRequest, NextApiResponse } from 'next';
 import StatusCodes from 'http-status-codes';
 import { panelApproveSubmission } from 'lib/submissions';
-import { isAuthorised } from 'utils/auth';
-import { apiHandler } from 'lib/apiHandler';
+import { apiHandler, AuthenticatedNextApiHandler } from 'lib/apiHandler';
 import { middleware as csrfMiddleware } from 'lib/csrfToken';
 
-const handler = async (
-  req: NextApiRequest,
-  res: NextApiResponse
+const handler: AuthenticatedNextApiHandler = async (
+  req,
+  res
 ): Promise<void> => {
   const { id } = req.query;
-
-  const user = isAuthorised(req);
 
   switch (req.method) {
     case 'POST':
       {
         const submission = await panelApproveSubmission(
           String(id),
-          String(user?.email)
+          String(req.user.email)
         );
         res.json(submission);
       }

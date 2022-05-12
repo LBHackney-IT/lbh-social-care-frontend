@@ -1,13 +1,12 @@
-import { NextApiRequest, NextApiResponse } from 'next';
 import StatusCodes from 'http-status-codes';
 import { startSubmission, getInProgressSubmissions } from 'lib/submissions';
 import { isAuthorised } from 'utils/auth';
-import { apiHandler } from 'lib/apiHandler';
+import { apiHandler, AuthenticatedNextApiHandler } from 'lib/apiHandler';
 import { middleware as csrfMiddleware } from 'lib/csrfToken';
 
-const handler = async (
-  req: NextApiRequest,
-  res: NextApiResponse
+const handler: AuthenticatedNextApiHandler = async (
+  req,
+  res
 ): Promise<void> => {
   const user = isAuthorised(req);
   switch (req.method) {
