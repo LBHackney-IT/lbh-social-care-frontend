@@ -1,31 +1,24 @@
-import { NextApiRequest, NextApiResponse } from 'next';
 import StatusCodes from 'http-status-codes';
 import {
   getSubmissionById,
   finishSubmission,
-  // patchResidents,
   discardSubmission,
 } from 'lib/submissions';
-import { isAuthorised } from 'utils/auth';
 import { notifyApprover } from 'lib/notify';
-import { apiHandler } from 'lib/apiHandler';
+import { apiHandler, AuthenticatedNextApiHandler } from 'lib/apiHandler';
 import axios from 'axios';
 import { middleware as csrfMiddleware } from 'lib/csrfToken';
 
-const handler = async (
-  req: NextApiRequest,
-  res: NextApiResponse
+const handler: AuthenticatedNextApiHandler = async (
+  req,
+  res
 ): Promise<void> => {
   const { id } = req.query;
 
   switch (req.method) {
     case 'POST':
       {
-        const user = isAuthorised(req);
-        const submission = await finishSubmission(
-          id as string,
-          user?.email ?? ''
-        );
+        const submission = await finishSubmission(id as string, req.user.email);
         if (req.body.approverEmail)
           await notifyApprover(
             submission,
@@ -37,13 +30,12 @@ const handler = async (
       break;
     case 'PATCH':
       {
-        const user = isAuthorised(req);
         // TODO: process pinning and unpinning here too
         const { data: submission } = await axios.patch(
           `${process.env.ENDPOINT_API}/submissions/${id}`,
           {
             ...req.body,
-            editedBy: user?.email,
+            editedBy: req.user.email,
             pinnedAt: req.body.pinnedAt || '',
           },
           {
@@ -58,8 +50,7 @@ const handler = async (
       break;
     case 'DELETE':
       {
-        const user = isAuthorised(req);
-        const status = await discardSubmission(id as string, user?.email ?? '');
+        const status = await discardSubmission(id as string, req.user.email);
 
         res.status(status).end();
       }

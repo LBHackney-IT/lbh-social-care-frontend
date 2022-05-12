@@ -5,15 +5,11 @@ import { getWorkerByEmail } from 'lib/workers';
 import { getAllocationsByWorker } from 'lib/allocatedWorkers';
 import { middleware as csrfMiddleware } from 'lib/csrfToken';
 
-import type { NextApiRequest, NextApiResponse, NextApiHandler } from 'next';
 import { AxiosError } from 'axios';
-import { apiHandler } from 'lib/apiHandler';
+import { apiHandler, AuthenticatedNextApiHandler } from 'lib/apiHandler';
 import { handleAxiosError } from 'lib/errorHandler';
 
-const endpoint: NextApiHandler = async (
-  req: NextApiRequest,
-  res: NextApiResponse
-) => {
+const endpoint: AuthenticatedNextApiHandler = async (req, res) => {
   const user = isAuthorised(req);
   if (!user) {
     res.status(StatusCodes.UNAUTHORIZED);

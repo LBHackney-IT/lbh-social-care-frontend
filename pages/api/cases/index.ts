@@ -1,33 +1,19 @@
 import { StatusCodes } from 'http-status-codes';
 
 import { getCases, addCase } from 'lib/cases';
-import { isAuthorised } from 'utils/auth';
 import { middleware as csrfMiddleware } from 'lib/csrfToken';
 import { handleAxiosError } from 'lib/errorHandler';
 
-import type { NextApiRequest, NextApiResponse, NextApiHandler } from 'next';
 import { AxiosError } from 'axios';
-import { apiHandler } from 'lib/apiHandler';
+import { apiHandler, AuthenticatedNextApiHandler } from 'lib/apiHandler';
 
-const endpoint: NextApiHandler = async (
-  req: NextApiRequest,
-  res: NextApiResponse
-) => {
-  const user = isAuthorised(req);
-  if (!user) {
-    res.status(StatusCodes.UNAUTHORIZED);
-    return;
-  }
-  if (!user.isAuthorised) {
-    res.status(StatusCodes.FORBIDDEN);
-    return;
-  }
+const endpoint: AuthenticatedNextApiHandler = async (req, res) => {
   switch (req.method) {
     case 'GET':
       try {
         const data = await getCases({
           ...req.query,
-          context_flag: user.permissionFlag,
+          context_flag: req.user.permissionFlag,
         });
         res.status(StatusCodes.OK).json(data);
       } catch (error) {

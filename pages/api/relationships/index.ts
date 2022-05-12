@@ -1,27 +1,12 @@
 import { StatusCodes } from 'http-status-codes';
 
 import { addRelationship } from 'lib/relationships';
-import { isAuthorised } from 'utils/auth';
 import { middleware as csrfMiddleware } from 'lib/csrfToken';
+import { AxiosError } from 'axios';
+import { apiHandler, AuthenticatedNextApiHandler } from 'lib/apiHandler';
 import { handleAxiosError } from 'lib/errorHandler';
 
-import type { NextApiRequest, NextApiResponse, NextApiHandler } from 'next';
-import { AxiosError } from 'axios';
-import { apiHandler } from 'lib/apiHandler';
-
-const endpoint: NextApiHandler = async (
-  req: NextApiRequest,
-  res: NextApiResponse
-) => {
-  const user = isAuthorised(req);
-  if (!user) {
-    res.status(StatusCodes.UNAUTHORIZED);
-    return;
-  }
-  if (!user.isAuthorised) {
-    res.status(StatusCodes.FORBIDDEN);
-    return;
-  }
+const endpoint: AuthenticatedNextApiHandler = async (req, res) => {
   switch (req.method) {
     case 'POST':
       try {
