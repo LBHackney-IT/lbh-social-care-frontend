@@ -19,6 +19,7 @@ import { getFeatureFlags } from 'features';
 import { useEffect } from 'react';
 import { AppConfigProvider } from 'lib/appConfig';
 import { StatusCodes } from 'http-status-codes';
+import { captureException } from '@sentry/nextjs';
 
 interface Props {
   user?: Partial<User>;
@@ -87,6 +88,7 @@ const CustomApp = ({
       (response) => response,
       (error) => {
         // console.log(`Error intercepted: ${error.response.status}:`, error.response)
+        captureException(error);
 
         if (
           error &&
@@ -111,7 +113,6 @@ const CustomApp = ({
               message: `There system encountered an error: ${error.response.data.message}`,
             };
           }
-
           return Promise.reject(error.response.data);
         }
         return Promise.reject(error);

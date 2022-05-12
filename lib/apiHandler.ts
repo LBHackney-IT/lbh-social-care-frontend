@@ -4,6 +4,7 @@ import { isAuthorised } from '../utils/auth';
 import { StatusCodes } from 'http-status-codes';
 import { AxiosError } from 'axios';
 import { User } from '../types';
+import { captureException } from '@sentry/nextjs';
 
 export type AuthenticatedNextApiHandler<T = any> = (
   req: NextApiRequest & { user: User },
@@ -15,6 +16,7 @@ export const handleAxiosError = (
   error: AxiosError,
   objectName: string
 ) => {
+  captureException(error);
   switch (error.response?.status) {
     case StatusCodes.NOT_FOUND:
       res
