@@ -5,7 +5,7 @@ import Dialog from './../Dialog/Dialog';
 import s from './GroupRecordingWidget.module.scss';
 import PersonSelect from './../PersonSelect/PersonSelect';
 import axios from 'axios';
-
+import { tokenFromMeta } from 'lib/csrfToken';
 import { useResidents as useIDSearch } from 'utils/api/residents';
 import { useResidents as useFirstNameSearch } from 'utils/api/residents';
 import { useResidents as useLastNameSearch } from 'utils/api/residents';
@@ -94,9 +94,17 @@ const GroupRecordingWidget = ({
   useEffect(() => {
     const residents = people.map((person) => mapPeopleToIds(person));
 
-    axios.patch(`/api/submissions/${submissionId}`, {
-      residents,
-    });
+    axios.patch(
+      `/api/submissions/${submissionId}`,
+      {
+        residents,
+      },
+      {
+        headers: {
+          'XSRF-TOKEN': tokenFromMeta(),
+        },
+      }
+    );
   }, [people, submissionId]);
 
   const handleAdd = (): void => {
