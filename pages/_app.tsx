@@ -106,6 +106,12 @@ const CustomApp = ({
               message: error.response.data,
             };
           }
+          if (error.response.data.message) {
+            error.response.data = {
+              message: `There system encountered an error: ${error.response.data.message}`,
+            };
+          }
+
           return Promise.reject(error.response.data);
         }
         return Promise.reject(error);
