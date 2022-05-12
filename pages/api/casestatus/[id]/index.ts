@@ -4,7 +4,11 @@ import { patchCaseStatus } from 'lib/caseStatus';
 import { middleware as csrfMiddleware } from 'lib/csrfToken';
 
 import { AxiosError } from 'axios';
-import { apiHandler, AuthenticatedNextApiHandler } from 'lib/apiHandler';
+import {
+  apiHandler,
+  AuthenticatedNextApiHandler,
+  handleAxiosError,
+} from 'lib/apiHandler';
 
 const endpoint: AuthenticatedNextApiHandler = async (req, res) => {
   switch (req.method) {
@@ -17,20 +21,7 @@ const endpoint: AuthenticatedNextApiHandler = async (req, res) => {
           'Case status PATCH error:',
           (error as AxiosError)?.response?.data
         );
-
-        (error as AxiosError)?.response?.status === StatusCodes.NOT_FOUND
-          ? res
-              .status(StatusCodes.NOT_FOUND)
-              .json({ message: 'Case Status Not Found' })
-          : res
-              .status(
-                (error as AxiosError)?.response?.status ||
-                  StatusCodes.INTERNAL_SERVER_ERROR
-              )
-              .json({
-                status: (error as AxiosError)?.response?.status,
-                message: (error as AxiosError)?.response?.data,
-              });
+        res = handleAxiosError(res, error as AxiosError, 'Case status');
       }
       break;
 

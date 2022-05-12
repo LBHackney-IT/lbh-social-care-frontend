@@ -2,7 +2,11 @@ import StatusCodes from 'http-status-codes';
 import { finishSubmission, patchSubmissionForStep } from 'lib/submissions';
 import { FormikValues } from 'formik';
 import { AxiosError } from 'axios';
-import { apiHandler, AuthenticatedNextApiHandler } from 'lib/apiHandler';
+import {
+  apiHandler,
+  AuthenticatedNextApiHandler,
+  handleAxiosError,
+} from 'lib/apiHandler';
 import { middleware as csrfMiddleware } from 'lib/csrfToken';
 
 const handler: AuthenticatedNextApiHandler = async (
@@ -51,11 +55,7 @@ const handler: AuthenticatedNextApiHandler = async (
     }
   } catch (e) {
     console.log((e as AxiosError).response?.data.errors);
-    res
-      .status(
-        (e as AxiosError).response?.status || StatusCodes.INTERNAL_SERVER_ERROR
-      )
-      .json((e as AxiosError).toJSON());
+    res = handleAxiosError(res, e as AxiosError, 'Case note');
   }
 };
 

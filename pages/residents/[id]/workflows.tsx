@@ -30,7 +30,9 @@ const WorkflowsPage = ({ resident }: Props): React.ReactElement => {
             summarise
           />
         ) : error ? (
-          <ErrorMessage />
+          <ErrorMessage
+            label={'There was a problem trying to load workflows'}
+          />
         ) : (
           <>
             <p className="lbh-body">This resident has no workflows yet. </p>

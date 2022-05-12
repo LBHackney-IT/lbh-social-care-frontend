@@ -6,7 +6,11 @@ import { getAllocationsByWorker } from 'lib/allocatedWorkers';
 import { middleware as csrfMiddleware } from 'lib/csrfToken';
 
 import { AxiosError } from 'axios';
-import { apiHandler, AuthenticatedNextApiHandler } from 'lib/apiHandler';
+import {
+  apiHandler,
+  AuthenticatedNextApiHandler,
+  handleAxiosError,
+} from 'lib/apiHandler';
 
 const endpoint: AuthenticatedNextApiHandler = async (req, res) => {
   const user = isAuthorised(req);
@@ -40,14 +44,7 @@ const endpoint: AuthenticatedNextApiHandler = async (req, res) => {
           .status(StatusCodes.OK)
           .json({ ...workerData, ...allocations, auth: user });
       } catch (error) {
-        console.log('User get error:', (error as AxiosError)?.response?.data);
-        (error as AxiosError)?.response?.status === StatusCodes.NOT_FOUND
-          ? res
-              .status(StatusCodes.NOT_FOUND)
-              .json({ message: 'User Not Found' })
-          : res
-              .status(StatusCodes.INTERNAL_SERVER_ERROR)
-              .json({ message: 'Unable to get the User' });
+        res = handleAxiosError(res, error as AxiosError, 'User');
       }
       break;
 

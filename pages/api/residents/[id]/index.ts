@@ -4,7 +4,11 @@ import { getResident, updateResident } from 'lib/residents';
 import { middleware as csrfMiddleware } from 'lib/csrfToken';
 
 import { AxiosError } from 'axios';
-import { apiHandler, AuthenticatedNextApiHandler } from 'lib/apiHandler';
+import {
+  apiHandler,
+  AuthenticatedNextApiHandler,
+  handleAxiosError,
+} from 'lib/apiHandler';
 
 const endpoint: AuthenticatedNextApiHandler = async (req, res) => {
   const id = parseInt(req.query.id as string, 10);
@@ -22,13 +26,16 @@ const endpoint: AuthenticatedNextApiHandler = async (req, res) => {
           'Resident get error:',
           (error as AxiosError)?.response?.data
         );
+
+        const axiosError = error as AxiosError;
+
         (error as AxiosError)?.response?.status === StatusCodes.NOT_FOUND
           ? res
               .status(StatusCodes.NOT_FOUND)
               .json({ message: 'Resident Not Found' })
           : res
-              .status(StatusCodes.INTERNAL_SERVER_ERROR)
-              .json({ message: 'Unable to get the Resident' });
+              .status(axiosError.response?.status || 500)
+              .json(axiosError?.response?.data);
       }
       break;
 
@@ -42,10 +49,7 @@ const endpoint: AuthenticatedNextApiHandler = async (req, res) => {
         res.status(StatusCodes.OK).json(data);
       } catch (error) {
         console.error('Resident patch error:', error);
-        console.error('Resident patch request:', req);
-        res
-          .status(StatusCodes.INTERNAL_SERVER_ERROR)
-          .json({ message: 'Unable to update resident' });
+        res = handleAxiosError(res, error as AxiosError, 'Resident');
       }
       break;
 

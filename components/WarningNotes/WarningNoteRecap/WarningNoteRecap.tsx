@@ -24,7 +24,7 @@ const WarningNoteRecap = ({
     useWarningNote(warningNoteId);
 
   if (warningNoteError) {
-    return <ErrorMessage />;
+    return <ErrorMessage label={warningNoteError.message} />;
   }
   if (!warningNote) {
     return <Spinner />;

@@ -43,13 +43,19 @@ const AllocationRecap = ({
     personId
   );
   if (recordError || allocationError) {
-    return <ErrorMessage />;
+    return (
+      <ErrorMessage
+        label={recordError ? recordError.message : allocationError?.message}
+      />
+    );
   }
   if (!allocation || !caseFormData) {
     return <Spinner />;
   }
   if (!isDeallocationCase(caseFormData) && !isAllocationCase(caseFormData)) {
-    return <ErrorMessage />;
+    return (
+      <ErrorMessage label="Case must be either of allocation or deallocation type" />
+    );
   }
   return (
     <>

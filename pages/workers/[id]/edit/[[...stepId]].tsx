@@ -28,7 +28,7 @@ const UpdateWorker = (): React.ReactElement => {
   });
   const { data, error: errorWorker } = useWorkerById(workerId);
   if (errorATeams || errorCTeams || errorWorker) {
-    return <ErrorMessage />;
+    return <ErrorMessage label="Error while loading Team data" />;
   }
   if (!ATeams || !CTeams || !data) {
     return <Spinner />;

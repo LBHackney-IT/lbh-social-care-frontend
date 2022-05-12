@@ -20,7 +20,7 @@ const AllocatedWorkers = ({ person }: Props): React.ReactElement => {
     return <Spinner />;
   }
   if (error) {
-    return <ErrorMessage />;
+    return <ErrorMessage label={error.message} />;
   }
 
   return (

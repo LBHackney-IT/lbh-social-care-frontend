@@ -43,7 +43,7 @@ const EditAllocationPriority = ({
   }, [priorityRating, push]);
 
   if (postError) {
-    return <ErrorMessage />;
+    return <ErrorMessage label="Error during POST operation" />;
   }
 
   return (

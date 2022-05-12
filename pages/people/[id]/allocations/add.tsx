@@ -18,7 +18,7 @@ const AddNewAllocationPage = (): React.ReactElement => {
   const { data: person, error } = useResident(personId);
 
   if (error) {
-    return <ErrorMessage />;
+    return <ErrorMessage label={error.message} />;
   }
 
   if (!person) {

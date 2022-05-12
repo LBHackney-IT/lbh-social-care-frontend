@@ -44,7 +44,7 @@ const UpdatePerson = (): ReactElement => {
     return ref;
   };
   if (error) {
-    return <ErrorMessage />;
+    return <ErrorMessage label={error.message} />;
   }
   if (!person) {
     return <Spinner />;

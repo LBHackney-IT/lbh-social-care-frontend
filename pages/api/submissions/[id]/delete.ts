@@ -1,7 +1,11 @@
 import StatusCodes from 'http-status-codes';
 import { deleteSubmission } from 'lib/submissions';
 import { AxiosError } from 'axios';
-import { apiHandler, AuthenticatedNextApiHandler } from 'lib/apiHandler';
+import {
+  apiHandler,
+  AuthenticatedNextApiHandler,
+  handleAxiosError,
+} from 'lib/apiHandler';
 import { middleware as csrfMiddleware } from 'lib/csrfToken';
 
 const handler: AuthenticatedNextApiHandler = async (
@@ -31,14 +35,7 @@ const handler: AuthenticatedNextApiHandler = async (
             (error as AxiosError)?.response?.data
           );
 
-          (error as AxiosError)?.response?.status === StatusCodes.NOT_FOUND
-            ? res
-                .status(StatusCodes.NOT_FOUND)
-                .json({ message: 'Case Status Not Found' })
-            : res.status((error as AxiosError)?.response?.status || 500).json({
-                status: (error as AxiosError)?.response?.status,
-                message: (error as AxiosError)?.response?.data,
-              });
+          res = handleAxiosError(res, error as AxiosError, 'Submission');
         }
       }
       break;

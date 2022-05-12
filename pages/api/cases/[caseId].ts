@@ -3,7 +3,11 @@ import { StatusCodes } from 'http-status-codes';
 import { getCase } from 'lib/cases';
 import { middleware as csrfMiddleware } from 'lib/csrfToken';
 import { AxiosError } from 'axios';
-import { apiHandler, AuthenticatedNextApiHandler } from 'lib/apiHandler';
+import {
+  apiHandler,
+  AuthenticatedNextApiHandler,
+  handleAxiosError,
+} from 'lib/apiHandler';
 
 const endpoint: AuthenticatedNextApiHandler = async (req, res) => {
   const { caseId, residentId, ...params } = req.query;
@@ -29,9 +33,7 @@ const endpoint: AuthenticatedNextApiHandler = async (req, res) => {
           'Cases get error:',
           (error as AxiosError)?.response?.data
         );
-        res
-          .status(StatusCodes.INTERNAL_SERVER_ERROR)
-          .json({ message: 'Unable to get the Cases' });
+        res = handleAxiosError(res, error as AxiosError, 'Cases');
       }
       break;
 

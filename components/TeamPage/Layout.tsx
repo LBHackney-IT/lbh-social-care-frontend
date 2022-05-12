@@ -30,13 +30,21 @@ const TeamLayout = ({ team, children }: Props): React.ReactElement => {
       team_allocation_status: 'unallocated',
       status: 'open',
     });
+  if (error || allocatedError || unallocatedError) {
+    let message;
+
+    if (error) {
+      message = error.message;
+    } else if (allocatedError) {
+      message = allocatedError.message;
+    } else if (unallocatedError) {
+      message = unallocatedError.message;
+    }
+    return <ErrorMessage label={message} />;
+  }
 
   if (!users || !allocatedTeamData || !unallocatedTeamData) {
     return <Spinner />;
-  }
-
-  if (error || allocatedError || unallocatedError) {
-    return <ErrorMessage />;
   }
 
   const allocated = [] as Allocation[];

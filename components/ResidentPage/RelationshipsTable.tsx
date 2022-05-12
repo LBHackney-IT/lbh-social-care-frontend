@@ -28,8 +28,12 @@ const RelationshipsTable = ({ relationships }: Props): React.ReactElement => {
         onFormSubmit={async () => {
           setOpen(false);
           if (relationshipToRemove) {
-            await removeRelationship(relationshipToRemove.id.toString());
-            reload();
+            try {
+              await removeRelationship(relationshipToRemove.id.toString());
+              reload();
+            } catch (error) {
+              console.log(error);
+            }
           }
         }}
       />

@@ -5,7 +5,11 @@ import { getAllocationsByWorker } from 'lib/allocatedWorkers';
 import { middleware as csrfMiddleware } from 'lib/csrfToken';
 
 import { AxiosError } from 'axios';
-import { apiHandler, AuthenticatedNextApiHandler } from 'lib/apiHandler';
+import {
+  apiHandler,
+  AuthenticatedNextApiHandler,
+  handleAxiosError,
+} from 'lib/apiHandler';
 
 const endpoint: AuthenticatedNextApiHandler = async (req, res) => {
   switch (req.method) {
@@ -34,13 +38,7 @@ const endpoint: AuthenticatedNextApiHandler = async (req, res) => {
           'Allocation Worker get error:',
           (error as AxiosError)?.response?.data
         );
-        (error as AxiosError)?.response?.status === StatusCodes.NOT_FOUND
-          ? res
-              .status(StatusCodes.NOT_FOUND)
-              .json({ message: 'Allocation Worker Not Found' })
-          : res
-              .status(StatusCodes.INTERNAL_SERVER_ERROR)
-              .json({ message: 'Unable to get the Allocation Worker' });
+        res = handleAxiosError(res, error as AxiosError, 'Allocation Worker');
       }
       break;
 

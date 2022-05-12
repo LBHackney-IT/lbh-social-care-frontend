@@ -3,7 +3,11 @@ import { StatusCodes } from 'http-status-codes';
 import { addRelationship } from 'lib/relationships';
 import { middleware as csrfMiddleware } from 'lib/csrfToken';
 import { AxiosError } from 'axios';
-import { apiHandler, AuthenticatedNextApiHandler } from 'lib/apiHandler';
+import {
+  apiHandler,
+  AuthenticatedNextApiHandler,
+  handleAxiosError,
+} from 'lib/apiHandler';
 
 const endpoint: AuthenticatedNextApiHandler = async (req, res) => {
   switch (req.method) {
@@ -13,16 +17,10 @@ const endpoint: AuthenticatedNextApiHandler = async (req, res) => {
         res.status(StatusCodes.OK).end();
       } catch (error) {
         console.error(
-          'Relationship get error:',
+          'Relationship post error:',
           (error as AxiosError)?.response?.data
         );
-        (error as AxiosError)?.response?.status === StatusCodes.NOT_FOUND
-          ? res
-              .status(StatusCodes.NOT_FOUND)
-              .json({ message: 'Relationship Not Found' })
-          : res
-              .status(StatusCodes.INTERNAL_SERVER_ERROR)
-              .json({ message: 'Unable to add the Relationship' });
+        res = handleAxiosError(res, error as AxiosError, 'Relationship');
       }
       break;
 

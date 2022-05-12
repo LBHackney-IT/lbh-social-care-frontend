@@ -23,7 +23,7 @@ const CreateNewWorker = (): React.ReactElement => {
     ageContext: 'C',
   });
   if (errorATeams || errorCTeams) {
-    return <ErrorMessage />;
+    return <ErrorMessage label="Error while loading Team data" />;
   }
   if (!ATeams || !CTeams) {
     return <Spinner />;

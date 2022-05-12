@@ -8,7 +8,11 @@ import {
   patchReferralContact,
 } from 'lib/mashReferral';
 import { AxiosError } from 'axios';
-import { apiHandler, AuthenticatedNextApiHandler } from 'lib/apiHandler';
+import {
+  apiHandler,
+  AuthenticatedNextApiHandler,
+  handleAxiosError,
+} from 'lib/apiHandler';
 
 const endpoint: AuthenticatedNextApiHandler = async (req, res) => {
   switch (req.method) {
@@ -99,10 +103,7 @@ const endpoint: AuthenticatedNextApiHandler = async (req, res) => {
           res.status(StatusCodes.OK).json(data);
         }
       } catch (error: unknown) {
-        const axiosError = error as AxiosError;
-        res
-          .status(axiosError.response?.status || 500)
-          .json(axiosError?.response?.data);
+        res = handleAxiosError(res, error as AxiosError, 'Mash referral');
       }
       break;
 

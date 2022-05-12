@@ -20,7 +20,7 @@ const DeAllocationPage = (): React.ReactElement => {
   const { data: resident, error } = useResident(personId);
 
   if (error) {
-    return <ErrorMessage />;
+    return <ErrorMessage label={error.message} />;
   }
 
   if (!resident) {

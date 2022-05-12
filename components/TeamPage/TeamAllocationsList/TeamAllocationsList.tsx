@@ -28,7 +28,7 @@ export const TeamAllocation = ({
 }: TeamAllocationProps): React.ReactElement => {
   const { data: person, error } = useResident(allocation.personId);
   if (error) {
-    return <ErrorMessage />;
+    return <ErrorMessage label={error.message} />;
   }
   if (!person) {
     return <Spinner />;
