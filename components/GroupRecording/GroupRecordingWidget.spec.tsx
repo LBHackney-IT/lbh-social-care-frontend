@@ -2,6 +2,7 @@ import GroupRecordingWidget from './GroupRecordingWidget';
 import { fireEvent, render, screen } from '@testing-library/react';
 import { mockedResident, residentFactory } from 'factories/residents';
 import { useResidents } from 'utils/api/residents';
+import * as CSRFToken from 'lib/csrfToken';
 import axios from 'axios';
 
 jest.mock('next/router', () => ({
@@ -14,7 +15,6 @@ jest.mock('next/router', () => ({
 jest.mock('utils/api/residents', () => ({
   useResidents: jest.fn(),
 }));
-
 jest.mock('axios');
 const mockedAxios = axios as jest.Mocked<typeof axios>;
 
@@ -41,6 +41,8 @@ describe('GroupRecordingWidget', () => {
       ],
     });
   });
+  const mock = jest.spyOn(CSRFToken, 'tokenFromMeta'); // spy on otherFn
+  mock.mockReturnValue('TEST_XSRF');
 
   it('should render properly', () => {
     const { asFragment } = render(
@@ -224,9 +226,13 @@ describe('GroupRecordingWidget', () => {
 
     fireEvent.click(screen.getByText('Add person'));
 
-    expect(mockedAxios.patch).toHaveBeenLastCalledWith('/api/submissions/1', {
-      residents: [mockedResident1.id, mockedResident2.id],
-    });
+    expect(mockedAxios.patch).toHaveBeenLastCalledWith(
+      '/api/submissions/1',
+      {
+        residents: [mockedResident1.id, mockedResident2.id],
+      },
+      { headers: { 'XSRF-TOKEN': 'TEST_XSRF' } }
+    );
   });
 
   it('displays the newly added resident', () => {
@@ -267,9 +273,13 @@ describe('GroupRecordingWidget', () => {
 
     fireEvent.click(screen.getAllByText('Remove')[0]);
 
-    expect(mockedAxios.patch).toHaveBeenLastCalledWith('/api/submissions/1', {
-      residents: [mockedResident2.id],
-    });
+    expect(mockedAxios.patch).toHaveBeenLastCalledWith(
+      '/api/submissions/1',
+      {
+        residents: [mockedResident2.id],
+      },
+      { headers: { 'XSRF-TOKEN': 'TEST_XSRF' } }
+    );
   });
 
   it('removes the removed resident from the group recording display', () => {
