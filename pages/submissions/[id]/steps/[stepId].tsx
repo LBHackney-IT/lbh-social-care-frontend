@@ -13,6 +13,7 @@ import { FormikValues, FormikHelpers } from 'formik';
 import { InitialValues } from 'lib/utils';
 import { AutosaveProvider, AutosaveIndicator } from 'contexts/autosaveContext';
 import GroupRecordingWidget from 'components/GroupRecording/GroupRecordingWidget';
+import { tokenFromMeta } from 'lib/csrfToken';
 
 interface Props {
   params: {
@@ -39,7 +40,12 @@ const StepPage = ({
     try {
       const { data } = await axios.patch(
         `/api/submissions/${params.id}/steps/${params.stepId}`,
-        values
+        values,
+        {
+          headers: {
+            'XSRF-TOKEN': tokenFromMeta(),
+          },
+        }
       );
       if (data.error) throw data.error;
     } catch (e) {

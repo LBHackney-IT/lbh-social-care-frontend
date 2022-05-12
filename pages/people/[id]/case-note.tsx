@@ -24,6 +24,7 @@ import {
 import { useState } from 'react';
 import { getResident } from 'lib/residents';
 import { User } from 'types';
+import { tokenFromMeta } from 'lib/csrfToken';
 
 interface Props extends Submission {
   params: {
@@ -59,14 +60,26 @@ const CaseNote = ({
   ) => {
     try {
       if (finished) {
-        await axios.post(`/api/case-note/${submissionId}`, values);
+        await axios.post(`/api/case-note/${submissionId}`, values, {
+          headers: {
+            'XSRF-TOKEN': tokenFromMeta(),
+          },
+        });
         router.push(`/residents/${params.id}/case-notes`);
       } else {
-        await axios.patch(`/api/case-note/${submissionId}`, {
-          values,
-          dateOfEventId: form.dateOfEvent?.associatedId,
-          titleId: form.title?.associatedId,
-        });
+        await axios.patch(
+          `/api/case-note/${submissionId}`,
+          {
+            values,
+            dateOfEventId: form.dateOfEvent?.associatedId,
+            titleId: form.title?.associatedId,
+          },
+          {
+            headers: {
+              'XSRF-TOKEN': tokenFromMeta(),
+            },
+          }
+        );
       }
     } catch (e) {
       setStatus((e as Error).toString());
