@@ -1,5 +1,6 @@
 import { NextApiRequest } from 'next';
 import { ParsedUrlQuery } from 'querystring';
+import { User } from '../../types';
 
 export interface MakeNextApiRequestInput {
   method?:
@@ -21,6 +22,7 @@ export interface MakeNextApiRequestInput {
   cookies?: {
     [key: string]: string;
   };
+  user?: User;
 }
 
 export const makeNextApiRequest = ({
@@ -30,14 +32,16 @@ export const makeNextApiRequest = ({
   body = null,
   headers = {},
   cookies = { [process.env.HACKNEY_AUTH_COOKIE_NAME as string]: 'test-token' },
-}: MakeNextApiRequestInput): NextApiRequest => {
+  user,
+}: MakeNextApiRequestInput): NextApiRequest & { user: User } => {
   const request = {
     method,
     url,
     query,
     headers,
     cookies,
-  } as unknown as NextApiRequest;
+    user,
+  } as unknown as NextApiRequest & { user: User };
 
   if (body) request['body'] = JSON.stringify(body);
 
