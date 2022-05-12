@@ -1,25 +1,20 @@
-import { NextApiRequest, NextApiResponse } from 'next';
 import StatusCodes from 'http-status-codes';
 import { approveSubmission, returnForEdits } from 'lib/submissions';
-import { isAuthorised } from 'utils/auth';
 import { notifyReturnedForEdits } from 'lib/notify';
-import { apiHandler } from 'lib/apiHandler';
+import { apiHandler, AuthenticatedNextApiHandler } from 'lib/apiHandler';
 import { middleware as csrfMiddleware } from 'lib/csrfToken';
 
-const handler = async (
-  req: NextApiRequest,
-  res: NextApiResponse
+const handler: AuthenticatedNextApiHandler = async (
+  req,
+  res
 ): Promise<void> => {
   const { id } = req.query;
-
-  const user = isAuthorised(req);
-
   switch (req.method) {
     case 'POST':
       {
         const submission = await approveSubmission(
           String(id),
-          String(user?.email)
+          String(req.user.email)
         );
         res.json(submission);
       }
@@ -28,13 +23,13 @@ const handler = async (
       {
         const submission = await returnForEdits(
           String(id),
-          String(user?.email),
+          String(req.user.email),
           req.body.rejectionReason
         );
         // send an email notification to the creator
         await notifyReturnedForEdits(
           submission,
-          String(user?.email),
+          String(req.user.email),
           String(req.headers.host),
           req.body.rejectionReason
         );

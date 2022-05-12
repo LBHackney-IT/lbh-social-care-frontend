@@ -1,22 +1,18 @@
-import { NextApiRequest, NextApiResponse } from 'next';
 import StatusCodes from 'http-status-codes';
 import { deleteSubmission } from 'lib/submissions';
-import { isAuthorised } from 'utils/auth';
 import { AxiosError } from 'axios';
-import { apiHandler } from 'lib/apiHandler';
+import { apiHandler, AuthenticatedNextApiHandler } from 'lib/apiHandler';
 import { middleware as csrfMiddleware } from 'lib/csrfToken';
 
-const handler = async (
-  req: NextApiRequest,
-  res: NextApiResponse
+const handler: AuthenticatedNextApiHandler = async (
+  req,
+  res
 ): Promise<void> => {
   switch (req.method) {
     case 'DELETE':
       {
-        const user = isAuthorised(req);
-
         const submissionid = req.query.id as string;
-        const deletedBy = user?.email as string;
+        const deletedBy = req.user.email as string;
         const deleteReason = req.query.deleteReason as string;
         const deleteRequestedBy = req.query.deleteRequestedBy as string;
 

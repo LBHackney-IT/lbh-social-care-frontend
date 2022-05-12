@@ -1,5 +1,6 @@
 import Tokens from 'csrf';
 import { NextApiRequest, NextApiResponse } from 'next';
+import { User } from '../types';
 
 export class CSRFValidationError extends Error {
   message = 'invalid csrf token provided';
@@ -23,9 +24,18 @@ class CSRF {
   }
 
   middleware(
-    handler: (req: NextApiRequest, res: NextApiResponse) => void
-  ): (req: NextApiRequest, res: NextApiResponse) => Promise<void> {
-    return async (req: NextApiRequest, res: NextApiResponse) => {
+    handler: (
+      req: NextApiRequest & { user: User },
+      res: NextApiResponse
+    ) => void
+  ): (
+    req: NextApiRequest & { user: User },
+    res: NextApiResponse
+  ) => Promise<void> {
+    return async (
+      req: NextApiRequest & { user: User },
+      res: NextApiResponse
+    ) => {
       if (!this.ignoredMethods.includes(req.method as string))
         try {
           this.validate(req.headers['xsrf-token']);
@@ -51,9 +61,14 @@ export const { csrfFetch, init, middleware, token, tokenFromMeta, validate } = {
   token: (): string => new CSRF().token(),
   validate: (token: string): void => new CSRF().validate(token),
   middleware: (
-    handler: (req: NextApiRequest, res: NextApiResponse) => void
-  ): ((req: NextApiRequest, res: NextApiResponse) => Promise<void>) =>
-    new CSRF().middleware(handler),
+    handler: (
+      req: NextApiRequest & { user: User },
+      res: NextApiResponse
+    ) => void
+  ): ((
+    req: NextApiRequest & { user: User },
+    res: NextApiResponse
+  ) => Promise<void>) => new CSRF().middleware(handler),
   tokenFromMeta: (): string =>
     (document.querySelector('meta[http-equiv=XSRF-TOKEN]') as HTMLMetaElement)
       ?.content,
