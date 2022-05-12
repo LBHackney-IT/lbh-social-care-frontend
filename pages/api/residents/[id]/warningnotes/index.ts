@@ -4,8 +4,11 @@ import { getWarningNotesByResident } from 'lib/warningNotes';
 import { middleware as csrfMiddleware } from 'lib/csrfToken';
 
 import { AxiosError } from 'axios';
-import { apiHandler, AuthenticatedNextApiHandler } from 'lib/apiHandler';
-import { handleAxiosError } from 'lib/errorHandler';
+import {
+  apiHandler,
+  AuthenticatedNextApiHandler,
+  handleAxiosError,
+} from 'lib/apiHandler';
 
 const endpoint: AuthenticatedNextApiHandler = async (req, res) => {
   switch (req.method) {

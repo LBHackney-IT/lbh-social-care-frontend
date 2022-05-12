@@ -3,9 +3,12 @@ import { StatusCodes } from 'http-status-codes';
 import { getWorkers } from 'lib/workers';
 
 import { AxiosError } from 'axios';
-import { apiHandler, AuthenticatedNextApiHandler } from 'lib/apiHandler';
+import {
+  apiHandler,
+  AuthenticatedNextApiHandler,
+  handleAxiosError,
+} from 'lib/apiHandler';
 import { middleware as csrfMiddleware } from 'lib/csrfToken';
-import { handleAxiosError } from 'lib/errorHandler';
 
 const endpoint: AuthenticatedNextApiHandler = async (req, res) => {
   switch (req.method) {

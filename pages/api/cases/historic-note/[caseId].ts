@@ -1,9 +1,12 @@
 import { StatusCodes } from 'http-status-codes';
-import { apiHandler, AuthenticatedNextApiHandler } from 'lib/apiHandler';
+import {
+  apiHandler,
+  AuthenticatedNextApiHandler,
+  handleAxiosError,
+} from 'lib/apiHandler';
 import { getHistoricNote } from 'lib/cases';
 import { middleware as csrfMiddleware } from 'lib/csrfToken';
 import { AxiosError } from 'axios';
-import { handleAxiosError } from 'lib/errorHandler';
 
 const endpoint: AuthenticatedNextApiHandler = async (req, res) => {
   const { caseId, ...params } = req.query;
