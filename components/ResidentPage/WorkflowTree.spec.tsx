@@ -37,7 +37,7 @@ describe('WorkflowTree', () => {
     expect(screen.getAllByText('Unassigned').length).toBe(4);
 
     expect(
-      screen.queryByText('4 workflows started over over 1 year')
+      screen.queryByText('4 workflows started over about 2 years')
     ).toBeNull();
   });
 
@@ -45,7 +45,7 @@ describe('WorkflowTree', () => {
     render(
       <WorkflowTree workflows={mockTree} resident={mockedResident} summarise />
     );
-    expect(screen.getByText('4 workflows started over over 1 year'));
+    expect(screen.getByText('4 workflows started over about 2 years'));
   });
 
   it('marks in progress work differently', () => {
