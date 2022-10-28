@@ -9,6 +9,40 @@ exports[`Layout component should render properly 1`] = `
     Skip to main content
   </a>
   HeaderMockedPhaseBanner
+  <section
+    class="lbh-announcement lbh-announcement--site lbh-announcement--site--warning"
+  >
+    <div
+      class="lbh-container"
+    >
+      <h3
+        class="lbh-announcement__title"
+      >
+        DO 
+        <span
+          class="underline"
+        >
+          NOT
+        </span>
+         RECORD HERE !
+      </h3>
+      <div
+        class="lbh-announcement__content"
+      >
+        <p>
+          All information needs to be entered onto Mosaic only.
+          <br />
+          See the 
+          <a
+            href="https://intranet.hackney.gov.uk/mosaic-for-adults-social-care"
+          >
+             Adults Social Care Mosaic Pages 
+          </a>
+           on the intranet
+        </p>
+      </div>
+    </div>
+  </section>
   <div
     class="govuk-width-container"
   >

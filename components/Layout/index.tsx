@@ -7,6 +7,7 @@ import Footer from './Footer/Footer';
 import OnboardingDialog from 'components/OnboardingDialog';
 import { User } from 'types';
 import { useAuth } from 'components/UserContext/UserContext';
+import SiteWideAnnouncement from 'components/SitewideAnnouncement/SitewideAnnouncement';
 
 export interface Props {
   children: React.ReactChild;
@@ -37,6 +38,7 @@ const Layout = ({
         faqLink={faqLink}
         handbookLink={handbookLink}
       />
+      <SiteWideAnnouncement />
       {goBackButton && <BackButton />}
 
       <div className="govuk-width-container">

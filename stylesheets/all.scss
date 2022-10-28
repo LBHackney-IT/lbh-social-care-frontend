@@ -256,3 +256,13 @@ input[type='time'] {
     }
   }
 }
+
+// site wide warning
+.lbh-announcement--site--warning {
+  border-color: lbh-colour('lbh-f03');
+  background: rgba(224, 60, 49, 0.2);
+}
+
+h3.lbh-announcement__title .underline {
+  text-decoration: underline;
+}
