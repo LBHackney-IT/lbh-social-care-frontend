@@ -25,16 +25,16 @@ export const getFeatureFlags = ({
       isActive:
         environmentName === 'development' || user?.hasDevPermissions || false,
     },
-    // FEATURE-FLAG-EXPIRES [2022-06-31]: case-notes-deletion
+    // FEATURE-FLAG-EXPIRES [3000-12-31]: case-notes-deletion
     'case-notes-deletion': {
       isActive:
         environmentName === 'development' || user?.hasDevPermissions || false,
     },
-    // FEATURE-FLAG-EXPIRES [2031-06-31]: case-status
+    // FEATURE-FLAG-EXPIRES [3000-12-31]: case-status
     'case-status': {
       isActive: false,
     },
-    // FEATURE-FLAG-EXPIRES [2022-06-31]: preview-new-resident-view
+    // FEATURE-FLAG-EXPIRES [3000-12-31]: preview-new-resident-view
     'preview-new-resident-view': {
       isActive: true,
     },
