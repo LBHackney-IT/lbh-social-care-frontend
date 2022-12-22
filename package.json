@@ -33,7 +33,7 @@
     "fuse.js": "^6.4.6",
     "govuk-frontend": "^3.11.0",
     "http-status-codes": "^2.1.4",
-    "jsonwebtoken": "^8.5.1",
+    "jsonwebtoken": "^9.0.0",
     "lbh-frontend": "^3.5.3",
     "lodash.debounce": "^4.0.8",
     "lodash.get": "^4.4.2",
