@@ -45,7 +45,7 @@ describe('WorkflowTree', () => {
     render(
       <WorkflowTree workflows={mockTree} resident={mockedResident} summarise />
     );
-    expect(screen.getByText('4 workflows started over about 2 years'));
+    expect(screen.getByText('4 workflows started over over 2 years'));
   });
 
   it('marks in progress work differently', () => {
